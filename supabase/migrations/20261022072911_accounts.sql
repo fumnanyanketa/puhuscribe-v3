@@ -123,7 +123,7 @@ as $$
 declare
   me uuid := (select auth.uid());
 begin
-  if me is null or not private.sign_in_is_live() then
+  if me is null then
     raise exception 'there is no live sign in for this token' using errcode = '28000';
   end if;
   delete from auth.users u where u.id = me;
