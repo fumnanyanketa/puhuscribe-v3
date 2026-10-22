@@ -11,7 +11,8 @@ export default tseslint.config(
     ignores: [
       'node_modules/',
       'dist/',
-      '.wrangler/',
+      'dist-review/',
+      '**/.wrangler/',
       'playwright-report/',
       'test-results/',
       'worker-configuration.d.ts',
@@ -43,7 +44,7 @@ export default tseslint.config(
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ['worker/**/*.ts'],
+    files: ['worker/**/*.ts', 'review-site/**/*.ts'],
     languageOptions: { globals: globals.serviceworker },
   },
   {
@@ -53,6 +54,7 @@ export default tseslint.config(
       'scripts/ci/**/*.ts',
       'scripts/v2-import/**/*.ts',
       'scripts/hooks/**/*.ts',
+      'scripts/review-site/**/*.ts',
       'tests/**/*.ts',
       'e2e/**/*.ts',
     ],

@@ -13,6 +13,8 @@ export default defineConfig({
       'scripts/ci/**/*.test.ts',
       'scripts/v2-import/**/*.test.ts',
       'scripts/hooks/**/*.test.ts',
+      'scripts/review-site/**/*.test.ts',
+      'review-site/**/*.test.ts',
       'tests/**/*.test.ts',
     ],
   },
