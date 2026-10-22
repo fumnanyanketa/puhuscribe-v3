@@ -105,7 +105,9 @@ create function public.record_review(
 )
 returns boolean
 language plpgsql
-security invoker
+-- SCRATCH (job 9-daily-review, statement 18): made security definer on
+-- purpose, to watch "A cannot record a review on B's card" turn red.
+security definer
 set search_path = ''
 as $$
 declare
