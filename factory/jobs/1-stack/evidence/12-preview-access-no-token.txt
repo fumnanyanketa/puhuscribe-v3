@@ -1,0 +1,11 @@
+Run without any token or cookie, 2026-10-19T18:01:29Z. Only status, and the redirect host (path and query dropped).
+https://factory-1-stack-puhuscribe-preview.fumnanya.workers.dev/ -> HTTP 302, redirect host: https://<team>.cloudflareaccess.com, app content in body: 0
+https://factory-1-stack-puhuscribe-preview.fumnanya.workers.dev/api/health -> HTTP 302, redirect host: https://<team>.cloudflareaccess.com, app content in body: 0
+https://puhuscribe-preview.fumnanya.workers.dev/ -> HTTP 302, redirect host: https://<team>.cloudflareaccess.com, app content in body: 0
+https://puhuscribe-preview.fumnanya.workers.dev/api/health -> HTTP 302, redirect host: https://<team>.cloudflareaccess.com, app content in body: 0
+https://1456f81f-puhuscribe-preview.fumnanya.workers.dev/api/health -> HTTP 302, redirect host: https://<team>.cloudflareaccess.com, app content in body: 0
+
+== Same, with a fake service token header (wrong values) to make sure Access does not let unknown tokens through
+302 https://<team>.cloudflareaccess.com
+== POST /api/health without token
+302 https://<team>.cloudflareaccess.com

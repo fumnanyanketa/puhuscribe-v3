@@ -1,0 +1,115 @@
+/* Record control (design.md, "Record control"). Values from src/styles/tokens.css. */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  /* Room for the 6 px recording ring, so nothing round the row clips it. */
+  padding: var(--space-2);
+}
+
+.record {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--record-size);
+  height: var(--record-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-button);
+  color: var(--color-button-text);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.record:hover {
+  background: var(--color-button-hover);
+}
+
+.line {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* Recording: teal fill, a square stop mark, and a teal ring round it. */
+.recording,
+.recording:hover {
+  background: var(--color-recording);
+  color: var(--color-recording-text);
+  box-shadow: 0 0 0 6px var(--color-spoken-band);
+}
+
+.stop {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: currentColor;
+}
+
+.working {
+  cursor: progress;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: fade var(--motion-pulse) var(--motion-ease) infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes fade {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.unavailable,
+.unavailable:hover {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.caption {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record {
+    transition: none;
+  }
+
+  .dots span {
+    animation: none;
+  }
+}

@@ -1,0 +1,145 @@
+# Evaluator: worktree and main-commit behaviour in a fresh scratch clone (its own .git; never the real shared hooks)
+hook currently starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/node_modules/lefthook-windows-x64/bin/lefthook.exe
+
+=== 1. add a factory-style worktree .worktrees/eval-wt (branch eval-wt-branch from factory/4-tooling) and run npm ci there
+npm ci exit 0
+shared hook now starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/.worktrees/eval-wt/node_modules/lefthook-windows-x64/bin/lefthook.exe
+
+=== 2. the worktree commit runs the worktree's own lefthook.yml (an uncommitted marker job is added to the worktree copy only)
+marker lines in the main folder lefthook.yml: 0
+warning: in the working copy of 'factory/jobs/eval-x/n.md', LF will be replaced by CRLF the next time Git touches it
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+sync hooks: ✔️(pre-commit)
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+6:04PM INF 0 commits scanned.
+6:04PM INF scanned ~5 bytes (5 bytes) in 355ms
+6:04PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+┃  eval-marker ❯ 
+EVAL-MARKER-FROM-WORKTREE-CONFIG
+  ────────────────────────────────────
+summary: (done in 1.80 seconds)
+✔️ checks (1.72 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.72 seconds)
+✔️ eval-marker (0.07 seconds)
+[eval-wt-branch ba95a49] eval throwaway: worktree
+ 1 file changed, 1 insertion(+)
+ create mode 100644 factory/jobs/eval-x/n.md
+exit 0
+
+=== 3. main folder on main (no lefthook.yml there): a manager-style factory-only commit
+(no lefthook.yml in this checkout)
+warning: in the working copy of 'factory/jobs/eval-x/n.md', LF will be replaced by CRLF the next time Git touches it
+│  No config files with names ["lefthook" ".lefthook" ".config\\lefthook"] have been found in "C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t"
+[main d8d9c02] eval throwaway: manager-style on main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 factory/jobs/eval-x/n.md
+exit 0, 1.0 s
+=== 3b. main folder on main: an app file commit (no config, so lefthook has nothing to run)
+│  No config files with names ["lefthook" ".lefthook" ".config\\lefthook"] have been found in "C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t"
+[main 347efc8] eval throwaway: app on main
+ 1 file changed, 2 insertions(+)
+exit 0
+
+=== 4. back on factory/4-tooling in the main folder: factory-only commit while the hook starts the worktree's lefthook
+warning: in the working copy of 'factory/jobs/eval-x/n.md', LF will be replaced by CRLF the next time Git touches it
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+sync hooks: ✔️(pre-commit)
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+6:04PM INF 0 commits scanned.
+6:04PM INF scanned ~5 bytes (5 bytes) in 352ms
+6:04PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+  ────────────────────────────────────
+summary: (done in 1.70 seconds)
+✔️ checks (1.70 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.70 seconds)
+[eval-throwaway-main-tree 02d22c3] eval throwaway: main tree
+ 1 file changed, 1 insertion(+)
+ create mode 100644 factory/jobs/eval-x/n.md
+exit 0
+
+=== 5. remove the worktree (as the manager does after merge); commit in the main folder before npm ci
+error: failed to delete 'C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/.worktrees/eval-wt': Filename too long
+hook still starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/.worktrees/eval-wt/node_modules/lefthook-windows-x64/bin/lefthook.exe (exists: yes)
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/api.ts 177ms (unchanged)
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+6:04PM INF 0 commits scanned.
+6:04PM INF scanned ~9 bytes (9 bytes) in 423ms
+6:04PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+┃  checks ❯ type check (tsc -b) ❯ 
+┃  checks ❯ lint (ESLint) ❯ 
+  ────────────────────────────────────
+summary: (done in 11.42 seconds)
+✔️ format (Prettier, fixes and restages) (2.60 seconds)
+✔️ checks (18.28 seconds)
+  ✔️ secrets (gitleaks, redacted) (2.16 seconds)
+  ✔️ type check (tsc -b) (7.35 seconds)
+  ✔️ lint (ESLint) (8.77 seconds)
+[eval-throwaway-main-tree 10901e9] eval throwaway: after worktree removed
+ 1 file changed, 2 insertions(+)
+exit 0; HEAD moved: yes
+
+=== 6. npm ci in the main folder, then the same commit
+npm ci exit 0; hook starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/node_modules/lefthook-windows-x64/bin/lefthook.exe
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+summary: (done in 10.84 seconds)
+✔️ format (Prettier, fixes and restages) (2.54 seconds)
+✔️ checks (17.41 seconds)
+  ✔️ secrets (gitleaks, redacted) (2.01 seconds)
+  ✔️ type check (tsc -b) (7.14 seconds)
+  ✔️ lint (ESLint) (8.25 seconds)
+exit 0; HEAD moved: yes
+C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t c1666b1 [factory/4-tooling]
+
+=== 5 (redone). Step 5 above did not test removal: 'git worktree remove' hit 'Filename too long' in this long scratch path and left the files. Redone with rm -rf.
+npm ci in worktree exit 0
+hook starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/.worktrees/eval-wt/node_modules/lefthook-windows-x64/bin/lefthook.exe
+worktree folder deleted; lefthook.exe at that path exists: no
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/api.ts 151ms (unchanged)
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+6:07PM INF 0 commits scanned.
+6:07PM INF scanned ~9 bytes (9 bytes) in 396ms
+6:07PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+┃  checks ❯ type check (tsc -b) ❯ 
+┃  checks ❯ lint (ESLint) ❯ 
+  ────────────────────────────────────
+summary: (done in 10.51 seconds)
+✔️ format (Prettier, fixes and restages) (2.32 seconds)
+✔️ checks (17.33 seconds)
+  ✔️ secrets (gitleaks, redacted) (2.03 seconds)
+  ✔️ type check (tsc -b) (7.16 seconds)
+  ✔️ lint (ESLint) (8.15 seconds)
+[eval-throwaway-main-tree 5fc4bef] eval throwaway: after worktree removed
+ 1 file changed, 2 insertions(+)
+exit 0; HEAD moved: yes
+=== 6 (redone). npm ci in the main folder, then the same commit
+npm ci exit 0; hook starts: C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t/node_modules/lefthook-windows-x64/bin/lefthook.exe
+summary: (done in 10.73 seconds)
+exit 0; HEAD moved: yes
+throwaway branches left: 0
+C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/eval-4t c1666b1 [factory/4-tooling]

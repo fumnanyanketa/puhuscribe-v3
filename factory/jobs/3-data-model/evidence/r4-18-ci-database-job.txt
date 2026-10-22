@@ -1,0 +1,44 @@
+Round 4 evidence: CI run 39418210776 (attempt 2) at a779ac0. Read only via gh.
+conclusion=success sha=a779ac02ae0282c2ecc3c1eb4f6cc21b76673e85 attempt=2
+  success Preview link (Cloudflare Worker behind Access)
+  success Secret scan (gitleaks)
+  success Unit tests (Vitest)
+  success Type check, lint, format
+  skipped Apply database changes to the test project
+  success Browser tests (Playwright, Chromium and WebKit)
+  success Dependency check (npm audit, pip-audit)
+  success Database tests (local Supabase, pgTAP)
+  success Python tests and lint (pytest, ruff)
+attempt 1 non-green:
+  failure Preview link (Cloudflare Worker behind Access)
+
+== Database job 118615836308 excerpt
+2026-10-20T11:55:14.5666682Z Applying migration 20261019183410_create_visits.sql...
+2026-10-20T11:55:14.5892535Z Applying migration 20261020090000_content_model.sql...
+2026-10-20T11:55:14.6282709Z Applying migration 20261020090100_learner_model.sql...
+2026-10-20T11:55:14.6584393Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-20T11:55:14.6663264Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-20T11:55:21.9256746Z supabase/tests/database/data_model_content.test.sql .... ok
+2026-10-20T11:55:22.0978883Z supabase/tests/database/data_model_learners.test.sql ... ok
+2026-10-20T11:55:22.1494008Z supabase/tests/database/data_model_reference.test.sql .. ok
+2026-10-20T11:55:22.3143063Z supabase/tests/database/data_model_schema.test.sql ..... ok
+2026-10-20T11:55:22.3683003Z supabase/tests/database/visits_access.test.sql ......... ok
+2026-10-20T11:55:22.3684213Z All tests successful.
+2026-10-20T11:55:22.3684932Z Files=5, Tests=413,  1 wallclock secs ( 0.06 usr  0.02 sys +  0.05 cusr  0.04 csys =  0.17 CPU)
+2026-10-20T11:55:22.3685689Z Result: PASS
+2026-10-20T11:55:22.8902385Z Loading supabase/migrations/20261020090300_load_v2_lemma_ipa.sql again
+2026-10-20T11:55:23.0160475Z psql:scripts/v2-import/fixtures/check-load-twice.sql:34: NOTICE:  Loaded the fixture sentences twice: 3 rows, fingerprint 20c532a48f9fff0844349f492e6ca4c7
+2026-10-20T11:55:24.1416495Z supabase/tests/database/data_model_content.test.sql .... ok
+2026-10-20T11:55:24.3199577Z supabase/tests/database/data_model_learners.test.sql ... ok
+2026-10-20T11:55:24.3842283Z supabase/tests/database/data_model_reference.test.sql .. ok
+2026-10-20T11:55:24.5419235Z supabase/tests/database/data_model_schema.test.sql ..... ok
+2026-10-20T11:55:24.6090555Z supabase/tests/database/visits_access.test.sql ......... ok
+2026-10-20T11:55:24.6092315Z All tests successful.
+2026-10-20T11:55:24.6120337Z Files=5, Tests=413,  1 wallclock secs ( 0.06 usr  0.01 sys +  0.06 cusr  0.04 csys =  0.17 CPU)
+2026-10-20T11:55:24.6121897Z Result: PASS
+2026-10-20T11:55:25.0895432Z ##[group]Run supabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"
+2026-10-20T11:55:25.0898046Z ^[[36;1mdiff -u src/lib/database.types.ts "$RUNNER_TEMP/database.types.ts"^[[0m
+2026-10-20T11:55:25.7613363Z Generated TypeScript is unformatted. Format it with:
+
+The types step printed no difference lines (no ---/+++ lines in the log) and succeeded.
+pgTAP count: 413 = 146 (schema) + 112 (content) + 108 (learners) + 25 (reference) + 22 (visits, unchanged).

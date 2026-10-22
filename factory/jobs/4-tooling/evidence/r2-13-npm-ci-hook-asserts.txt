@@ -1,0 +1,13 @@
+# Job 4-tooling round 2, security finding 1: npm ci regenerates the hook with assert_lefthook_installed, at 26cd98a
+$ git hash-object .claude/settings.json   # before npm ci
+7370c55628268f79f473e05e21ff98b42e48ca5d
+$ npm ci
+
+found 0 vulnerabilities
+$ git hash-object .claude/settings.json   # after npm ci (unchanged)
+7370c55628268f79f473e05e21ff98b42e48ca5d
+$ tail of .git/hooks/pre-commit (what happens when lefthook cannot be found)
+72:      echo "Can't find lefthook in PATH"
+73-      echo "ERROR: Operation is aborted due to lefthook settings."
+74-      echo "Make sure lefthook is available in your environment and re-try."
+75-      echo "To skip these checks use --no-verify git argument or set LEFTHOOK=0 env variable."

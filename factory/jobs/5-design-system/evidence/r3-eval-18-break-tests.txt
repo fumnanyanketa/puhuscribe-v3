@@ -1,0 +1,160 @@
+Evaluator break tests, job 5-design-system round 3, fresh clone of factory/5-design-system at a65a783.
+Each mutation is applied alone to a real file, the named test file runs with npx vitest run, then git checkout restores it. RED = caught. GREEN = missed.
+== repeats of round 1 ==
+
+### C Inter via the heading font token
+mutation: sed -i "s/--font-heading: 'Poppins'/--font-heading: 'Inter'/" src/styles/tokens.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### D Inter via the font shorthand
+mutation: printf '\n.x { font: 600 1rem Inter, sans-serif; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### J one-side 6 px border via border-width
+mutation: printf '\n.x { border-style: solid; border-width: 0 0 0 6px; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### H text-transform in capitals
+mutation: printf '\n.x { text-transform: UPPERCASE; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### I gradient in a .tsx inline style object
+mutation: printf '\nexport const FADE = { backgroundImage: "linear-gradient(var(--color-text), var(--color-surface))" }\n' >> src/components/Wordmark.tsx
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+== new ones ==
+
+### N1 Space Grotesk unquoted in the body font token
+mutation: sed -i "s/--font-body: 'Switzer'/--font-body: Space Grotesk/" src/styles/tokens.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N2 inter in lower case in a component
+mutation: printf '\n.x { font-family: "inter", sans-serif; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N3 Bricolage Grotesque in a new token
+mutation: sed -i "s#^  --font-body:#  --font-alt: 'Bricolage Grotesque', sans-serif;\n  --font-body:#" src/styles/tokens.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N4 border-inline-start-width 4px
+mutation: printf '\n.x { border-inline-start-width: 4px; border-style: solid; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N5 border-left-width thick
+mutation: printf '\n.x { border-left-width: thick; border-left-style: solid; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N6 right side 6 px via border-width
+mutation: printf '\n.x { border-width: 0 6px 0 0; border-style: solid; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N7 one side 0.5rem via border-left
+mutation: printf '\n.x { border-left: 0.5rem solid var(--color-text); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N8 textTransform uppercase in a .tsx style
+mutation: printf '\nexport const SHOUT = { textTransform: "uppercase" }\n' >> src/components/Wordmark.tsx
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N9 font shorthand with Inter in a .tsx style
+mutation: printf '\nexport const F = { font: "600 1rem Inter" }\n' >> src/components/Wordmark.tsx
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N10 gradient held in a custom property in a component
+mutation: printf '\n.x { --wash: radial-gradient(var(--color-text), var(--color-surface)); background-image: var(--wash); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N11 -webkit-background-clip text in a component
+mutation: printf '\n.x { -webkit-background-clip: text; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N12 backdrop-filter via -webkit- prefix
+mutation: printf '\n.x { -webkit-backdrop-filter: blur(4px); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N13 gradient written in capitals
+mutation: printf '\n.x { background-image: LINEAR-GRADIENT(var(--color-text), var(--color-surface)); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+
+### N14 font-variant-caps all-small-caps (eyebrow look)
+mutation: printf '\n.x { font-variant-caps: all-small-caps; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  43 passed (43)
+
+
+### N15 Google Fonts import in a component CSS file
+mutation: printf '\n@import url("https://fonts.googleapis.com/css2?family=Inter");\n' >> src/components/Button.module.css
+test file: tests/design-rules.test.ts
+verdict: RED
+      Tests  1 failed | 9 passed (10)
+
+
+### N16 raw hsl() colour in the sample CSS
+mutation: printf '\n.x { color: hsl(0 100%% 50%%); }\n' >> src/sample/HearItSample.module.css
+test file: tests/design-tokens.test.ts
+verdict: RED
+      Tests  1 failed | 64 passed (65)
+
+
+### N17 border-left 6px in base.css
+mutation: printf '\n:where(blockquote) { border-left: 6px solid var(--color-text); }\n' >> src/styles/base.css
+test file: tests/design-css.test.ts
+verdict: RED
+      Tests  1 failed | 42 passed (43)
+
+?? evalx/

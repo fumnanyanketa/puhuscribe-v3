@@ -1,0 +1,68 @@
+== Negative test A: a secret-looking VITE_ variable in the environment (fresh clone, nothing committed)
+
+> puhuscribe@0.0.0 check:env-names
+> node scripts/security/check-env-names.ts
+
+Secret looking variables must not start with VITE_ (Vite sends them to the browser):
+  VITE_SUPABASE_SECRET_KEY
+EXIT CODE: 1
+
+== Negative test B: VITE_ secret name in an env file (.env.production.local, deleted afterwards)
+
+> puhuscribe@0.0.0 check:env-names
+> node scripts/security/check-env-names.ts
+
+Secret looking variables must not start with VITE_ (Vite sends them to the browser):
+  VITE_API_TOKEN
+EXIT CODE: 1
+
+== Negative test C: plant a fake publishable-key-shaped string in a built browser file, then run the built file check
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (4 browser files scanned).
+EXIT CODE: 0
+
+== Negative test D: plant a secret NAME in a built browser file
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+Built browser files must not contain secrets:
+  dist\client\assets\planted.js: secret name SUPABASE_DB_URL
+EXIT CODE: 1
+
+== After cleanup
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (3 browser files scanned).
+EXIT CODE: 0
+
+== Negative test E: plant a fake sb_secret_ shaped string in a built browser file
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+Built browser files must not contain secrets:
+  dist\client\assets\planted.js: looks like a Supabase secret key
+EXIT CODE: 1
+
+== Negative test F: plant the REAL local test publishable key value (copied by script, never printed) in a built browser file
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+Built browser files must not contain secrets:
+  dist\client\assets\planted.js: contains the value of SUPABASE_PUBLISHABLE_KEY
+EXIT CODE: 1
+
+== After cleanup
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (3 browser files scanned).
+EXIT CODE: 0

@@ -1,0 +1,6 @@
+Negative run: .dev.vars with a wrong Supabase URL (https://unreachable-test.invalid) and a fake key, which Wrangler uses instead of .env.local. Proves /api/health really calls the database rather than always saying reachable.
+Using secrets defined in .dev.vars
+Using secrets defined in .dev.vars
+  ➜  Local:   http://localhost:5174/
+GET http://localhost:5174/api/health ->
+{"status":"ok","service":"puhuscribe","database":"unreachable"}  (HTTP 200, 0.173796s)

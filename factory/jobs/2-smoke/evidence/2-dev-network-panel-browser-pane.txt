@@ -1,0 +1,9 @@
+# Statement 2 under npm run dev (React strict mode on), Claude Browser pane (Chromium), network list filtered to "5199/api/"
+# Load 1 (navigate to http://localhost:5199/):
+[25520.15] POST http://localhost:5199/api/visits -> 201 Created
+# Load 2 (navigate again, a fresh load):
+[25520.15] POST http://localhost:5199/api/visits -> 201 Created
+[25520.30] POST http://localhost:5199/api/visits   (in flight when read; page then showed "Your visit is saved.")
+# Two loads, two POSTs. Page text after load 1: "Hei!" / "Your visit is saved."
+# Console: only Vite connect debug lines and React's DevTools info line. No errors or warnings.
+# (Older /api/health lines on port 5173 in the same pane came from another session's server and are not this app.)

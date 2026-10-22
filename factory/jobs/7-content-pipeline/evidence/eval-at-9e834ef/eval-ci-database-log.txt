@@ -1,0 +1,829 @@
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	﻿2026-10-21T19:01:47.0738146Z Current runner version: '2.338.0'
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0768742Z ##[group]Runner Image Provisioner
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0769940Z Hosted Compute Agent
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0770585Z Version: 20261015.610
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0771267Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0772128Z Build Date: 2026-10-14T17:06:54Z
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0772859Z Worker ID: {b759d893-6544-4925-86f5-99729fdfe813}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0773692Z Region: westus3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0774303Z Cloud: Azure
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0774920Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0776662Z ##[group]Operating System
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0777438Z Ubuntu
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0778103Z 24.04.5
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0779042Z LTS
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0779606Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0780307Z ##[group]Runner Image
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0780976Z Image: ubuntu-24.04
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0781602Z Version: 20261018.339.1
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0783012Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0784689Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0785738Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0787002Z ##[group]GITHUB_TOKEN Permissions
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0789356Z Contents: read
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0790004Z Metadata: read
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0790729Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0793097Z Secret source: Actions
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0794229Z Cache mode: write
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.0794978Z Prepare workflow directory
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.1279827Z Prepare all required actions
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.1328436Z Getting action download info
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.4828443Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.6053118Z Download action repository 'supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359' (SHA:45a513f8c64c0bc8e0e3dfe572b5c95be85f6359)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:47.8980520Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:48.0928508Z Getting action download info
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:48.2311120Z Download action repository 'actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e' (SHA:48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:48.3420185Z Download action repository 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6' (SHA:0c5077e51419868618aeaa5fe8019c62421857d6)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:48.9205310Z Complete job name: Database tests (local Supabase, pgTAP)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0249150Z ##[group]Run actions/checkout@v7
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0250469Z with:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0251228Z   persist-credentials: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0252159Z   repository: fumnanyanketa/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0256620Z   token: ***
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0257359Z   ssh-strict: true
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0258160Z   ssh-user: git
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0259279Z   clean: true
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0260042Z   sparse-checkout-cone-mode: true
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0260914Z   fetch-depth: 1
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0261650Z   fetch-tags: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0262411Z   show-progress: true
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0263169Z   lfs: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0263888Z   submodules: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0264646Z   set-safe-directory: true
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0265471Z   allow-unsafe-pr-checkout: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0266704Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0267433Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0268188Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0269589Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.0270460Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2736502Z Syncing repository: fumnanyanketa/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2740439Z ##[group]Getting Git version info
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2742304Z Working directory is '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2744910Z [command]/usr/bin/git version
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2746254Z git version 2.55.0
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2753619Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2763250Z Temporarily overriding HOME='/home/runner/work/_temp/c454fefb-cb51-474b-9ab2-95eebcdefdbe' before making global git config changes
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2766605Z Adding repository directory to the temporary git global config as a safe directory
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2808868Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2813015Z Deleting the contents of '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2815714Z ##[group]Determining repository object format
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2817958Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2820048Z ##[group]Initializing the repository
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2821779Z [command]/usr/bin/git init /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2824040Z hint: Using 'master' as the name for the initial branch. This default branch name
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2826071Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2828042Z hint: to use in all of your new repositories, which will suppress this warning,
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2830692Z hint: call:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2831771Z hint:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2832940Z hint: 	git config --global init.defaultBranch <name>
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2834346Z hint:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2835729Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2837982Z hint: 'development'. The just-created branch can be renamed via this command:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2840115Z hint:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2841234Z hint: 	git branch -m <name>
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2842497Z hint:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2843994Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2846340Z Initialized empty Git repository in /home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2854096Z [command]/usr/bin/git remote add origin https://github.com/fumnanyanketa/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2970204Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2983153Z ##[group]Disabling automatic garbage collection
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.2992398Z [command]/usr/bin/git config --local gc.auto 0
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3020627Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3022832Z ##[group]Setting up auth
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3024339Z Removing SSH command configuration
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3035772Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3121792Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3692504Z Removing HTTP extra header
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3699585Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.3751509Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4037096Z Removing includeIf entries pointing to credentials config files
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4042089Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4198868Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4438225Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4497343Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path /home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4550618Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4607752Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4657827Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4711079Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4713565Z ##[group]Fetching the repository
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:49.4720659Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa:refs/remotes/pull/17/merge
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3896883Z From https://github.com/fumnanyanketa/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3903288Z  * [new ref]         e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa -> pull/17/merge
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3908701Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3910715Z ##[group]Determining the checkout info
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3912963Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3914376Z [command]/usr/bin/git sparse-checkout disable
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.3984773Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.4035226Z ##[group]Checking out the ref
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.4039917Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/17/merge
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5765570Z Note: switching to 'refs/remotes/pull/17/merge'.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5767771Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5769469Z You are in 'detached HEAD' state. You can look around, make experimental
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5772216Z changes and commit them, and you can discard any commits you make in this
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5774910Z state without impacting any branches by switching back to a branch.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5776544Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5777806Z If you want to create a new branch to retain commits you create, you may
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5780401Z do so (now or later) by using -c with the switch command. Example:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5782105Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5782948Z   git switch -c <new-branch-name>
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5784207Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5784920Z Or undo this operation with:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5786020Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5786732Z   git switch -
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5788069Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5790019Z Turn off this advice by setting config variable advice.detachedHead to false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5792214Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5794586Z HEAD is now at e1881f9 Merge 9e834ef6cb60abfab4c050118154d991ac0dd286 into 77d39af1acc68958c324496b62ea38ed26f76dca
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5802208Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5862906Z [command]/usr/bin/git log -1 --format=%H
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5907857Z e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5922669Z ##[group]Removing auth
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5924373Z Removing SSH command configuration
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5927093Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.5979803Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6263501Z Removing HTTP extra header
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6266996Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6318740Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6593933Z Removing includeIf entries pointing to credentials config files
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6597470Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6644599Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6647915Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6651490Z includeif.gitdir:/github/workspace/.git.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6654284Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6660922Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6701036Z /home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6724747Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-af61550c\-cced\-421f\-bde7\-9396a19f1c5d\.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6783226Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6835546Z /home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6846943Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-af61550c\-cced\-421f\-bde7\-9396a19f1c5d\.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6908810Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6977428Z /github/runner_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.6986737Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-af61550c\-cced\-421f\-bde7\-9396a19f1c5d\.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7037167Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7080743Z /github/runner_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7103110Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-af61550c\-cced\-421f\-bde7\-9396a19f1c5d\.config
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7150197Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7432672Z Removing credentials config '/home/runner/work/_temp/git-credentials-af61550c-cced-421f-bde7-9396a19f1c5d.config'
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.7439214Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8005875Z ##[group]Run supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8007147Z with:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8007654Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8008170Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8009118Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8010598Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8011447Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8082041Z ##[start-action display=Resolve Bun Download URL;id=__supabase_setup-cli.bun-download]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8146573Z ##[group]Run set -eu
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8147339Z ^[[36;1mset -eu^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8147951Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8148871Z ^[[36;1mis_musl=false^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8149569Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8150213Z ^[[36;1mif [ "${RUNNER_OS}" = "Linux" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8151976Z ^[[36;1m  # setup-bun does not detect Linux musl yet, so Alpine-like containers need the musl asset explicitly.^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8153765Z ^[[36;1m  if [ -f /etc/alpine-release ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8154680Z ^[[36;1m    is_musl=true^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8155852Z ^[[36;1m  elif command -v ldd >/dev/null 2>&1 && ldd --version 2>&1 | grep -qi musl; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8157211Z ^[[36;1m    is_musl=true^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8157891Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8158585Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8159130Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8159842Z ^[[36;1mecho "is-musl=${is_musl}" >> "$GITHUB_OUTPUT"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8160807Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8161426Z ^[[36;1mif [ "${is_musl}" != "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8162302Z ^[[36;1m  exit 0^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8162887Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8163665Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8164259Z ^[[36;1mversion="$(cat .bun-version)"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8165115Z ^[[36;1mcase "$(uname -m)" in^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8165865Z ^[[36;1m  x86_64) arch="x64" ;;^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8166693Z ^[[36;1m  aarch64|arm64) arch="aarch64" ;;^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8167561Z ^[[36;1m  *)^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8168607Z ^[[36;1m    echo "Unsupported Linux musl architecture: $(uname -m)" >&2^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8169782Z ^[[36;1m    exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8170431Z ^[[36;1m    ;;^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8170992Z ^[[36;1mesac^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8171541Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8173171Z ^[[36;1mecho "url=https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-${arch}-musl.zip" >> "$GITHUB_OUTPUT"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8418763Z shell: /usr/bin/sh -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8419578Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8420137Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8420780Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8422196Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8423065Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8624922Z ##[end-action id=__supabase_setup-cli.bun-download;outcome=success;conclusion=success;duration_ms=53]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8633947Z ##[start-action display=Install Alpine Runtime Dependencies;id=__supabase_setup-cli.__run]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8698779Z ##[group]Run set -eu
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8699510Z ^[[36;1mset -eu^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8700098Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8700682Z ^[[36;1mif [ "false" != "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8701493Z ^[[36;1m  exit 0^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8702070Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8702608Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8703674Z ^[[36;1m# Alpine/musl containers need runtime packages for Bun and the npm CLI shim.^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8705592Z ^[[36;1m# actions/setup-node uses glibc Node builds, so install Alpine's Node/npm instead.^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8707103Z ^[[36;1mif command -v apk >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8708052Z ^[[36;1m  missing_packages=""^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8709123Z ^[[36;1m  prefer_apk_bin=false^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8709992Z ^[[36;1m  for package in libstdc++ libgcc; do^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8711089Z ^[[36;1m    if ! apk info -e "${package}" >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8712590Z ^[[36;1m      missing_packages="${missing_packages} ${package}"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8713787Z ^[[36;1m    fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8714369Z ^[[36;1m  done^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8714934Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8716193Z ^[[36;1m  if ! command -v node >/dev/null 2>&1 || ! node -p 'process.versions.node' >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8718785Z ^[[36;1m    if [ -x /usr/bin/node ] && PATH="/usr/bin:${PATH}" /usr/bin/node -p 'process.versions.node' >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8720518Z ^[[36;1m      prefer_apk_bin=true^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8721320Z ^[[36;1m    else^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8722120Z ^[[36;1m      missing_packages="${missing_packages} nodejs"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8723138Z ^[[36;1m    fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8723706Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8724254Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8725206Z ^[[36;1m  if ! command -v npm >/dev/null 2>&1 || ! npm --version >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8727067Z ^[[36;1m    if [ -x /usr/bin/npm ] && PATH="/usr/bin:${PATH}" /usr/bin/npm --version >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8728665Z ^[[36;1m      prefer_apk_bin=true^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8729431Z ^[[36;1m    else^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8730182Z ^[[36;1m      missing_packages="${missing_packages} npm"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8731137Z ^[[36;1m    fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8731700Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8732274Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8732919Z ^[[36;1m  if [ "${prefer_apk_bin}" = "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8733898Z ^[[36;1m    echo "/usr/bin" >> "$GITHUB_PATH"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8734757Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8735307Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8735929Z ^[[36;1m  if [ -z "${missing_packages}" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8737023Z ^[[36;1m    exit 0^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8737624Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8738176Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8738892Z ^[[36;1m  if [ "$(id -u)" != "0" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8741545Z ^[[36;1m    echo "::error::Alpine/musl containers need${missing_packages} to run Supabase CLI. Add 'apk add --no-cache${missing_packages}' before supabase/setup-cli, or run this job container as root."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8744149Z ^[[36;1m    exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8744742Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8745285Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8745944Z ^[[36;1m  apk add --no-cache ${missing_packages}^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8747204Z ^[[36;1m  if echo " ${missing_packages} " | grep -Eq ' (nodejs|npm) '; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8748557Z ^[[36;1m    echo "/usr/bin" >> "$GITHUB_PATH"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8749423Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8749980Z ^[[36;1m  exit 0^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8750559Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8751107Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8752821Z ^[[36;1mecho "::error::Linux musl containers need libstdc++, libgcc, nodejs, and npm to run Supabase CLI. Install them before supabase/setup-cli."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8754835Z ^[[36;1mexit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8817806Z shell: /usr/bin/sh -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8818828Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8819397Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8820027Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8821294Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8822151Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8925842Z ##[end-action id=__supabase_setup-cli.__run;outcome=success;conclusion=success;duration_ms=28]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8931637Z ##[start-action display=Resolve Node Runtime;id=__supabase_setup-cli.node-runtime]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8977071Z ##[group]Run set -eu
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8977755Z ^[[36;1mset -eu^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8978668Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8979235Z ^[[36;1mnode_version=""^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8979912Z ^[[36;1mnode_major=""^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8980600Z ^[[36;1mhas_npm=false^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8981223Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8981861Z ^[[36;1mif command -v node >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8983187Z ^[[36;1m  node_version="$(node -p 'process.versions.node' 2>/dev/null || true)"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8984711Z ^[[36;1m  node_major="${node_version%%.*}"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8985571Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8986104Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8986747Z ^[[36;1mif command -v npm >/dev/null 2>&1; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8987654Z ^[[36;1m  has_npm=true^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8988626Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8989199Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8989983Z ^[[36;1mif [ -n "${node_version}" ] && [ "${has_npm}" = "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8991104Z ^[[36;1m  case "${node_major}" in^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8991865Z ^[[36;1m    ''|*[!0-9]*)^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8993623Z ^[[36;1m      echo "::error::Could not determine Node.js version from '${node_version}'. Supabase CLI npm installs require Node.js 20 or newer."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8995571Z ^[[36;1m      exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.8996186Z ^[[36;1m      ;;^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9026747Z ^[[36;1m  esac^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9027703Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9028895Z ^[[36;1m  if [ "${node_major}" -lt 20 ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9033285Z ^[[36;1m    echo "::error::Supabase CLI npm installs require Node.js 20 or newer, but found Node.js ${node_version}. Set up Node.js 20+ before supabase/setup-cli, or use a runner image with Node.js 20+ and npm."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9037970Z ^[[36;1m    exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9039289Z ^[[36;1m  fi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9040227Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9041373Z ^[[36;1m  echo "setup-node=false" >> "$GITHUB_OUTPUT"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9043133Z ^[[36;1m  exit 0^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9044098Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9044933Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9045498Z ^[[36;1mif [ "false" = "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9049739Z ^[[36;1m  echo "::error::Linux musl containers need Node.js 20 or newer and npm from musl-compatible packages. Install libstdc++, libgcc, nodejs, and npm before supabase/setup-cli, or run this job container as root so the action can install them."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9052924Z ^[[36;1m  exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9053483Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9054032Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9054806Z ^[[36;1mif [ -n "${node_version}" ] || [ "${has_npm}" = "true" ]; then^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9057382Z ^[[36;1m  echo "::error::Supabase CLI npm installs need both Node.js 20+ and npm. Found Node.js '${node_version:-missing}' and npm '${has_npm}'. Configure both before supabase/setup-cli."^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9060115Z ^[[36;1m  exit 1^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9060693Z ^[[36;1mfi^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9061219Z ^[[36;1m^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9061887Z ^[[36;1mecho "setup-node=true" >> "$GITHUB_OUTPUT"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9128989Z shell: /usr/bin/sh -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9129689Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9130232Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9130845Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9132072Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:51.9132891Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1424260Z ##[end-action id=__supabase_setup-cli.node-runtime;outcome=success;conclusion=success;duration_ms=249]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1430935Z ##[start-action display=Setup Node;id=__supabase_setup-cli.__actions_setup-node]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1460413Z ##[end-action id=__supabase_setup-cli.__actions_setup-node;outcome=skipped;conclusion=skipped;duration_ms=0]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1465888Z ##[start-action display=Setup Bun;id=__supabase_setup-cli.__oven-sh_setup-bun]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1594145Z ##[group]Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1595305Z with:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1596804Z   bun-version-file: /home/runner/work/_actions/supabase/setup-cli/45a513f8c64c0bc8e0e3dfe572b5c95be85f6359/.bun-version
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1598914Z   no-cache: false
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1606632Z   token: ***
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1607186Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1607707Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1608579Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1609696Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.1610515Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.3870354Z Obtained version 1.3.10 from /home/runner/work/_actions/supabase/setup-cli/45a513f8c64c0bc8e0e3dfe572b5c95be85f6359/.bun-version
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:52.6407807Z Cache hit for: bun-Ki+pY5x+JEo+hNxyfTQYMbDXy7M=
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:53.8289779Z Received 36196348 of 36196348 (100.0%), 36.3 MBs/sec
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:53.8290814Z Cache Size: ~35 MB (36196348 B)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:53.8326448Z [command]/usr/bin/tar -xf /home/runner/work/_temp/638e16c7-e416-4fac-a50f-2aaa44674ede/cache.tzst -P -C /home/runner/work/puhuscribe-v3/puhuscribe-v3 --use-compress-program unzstd
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0479470Z Cache restored successfully
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0500926Z [command]/home/runner/.bun/bin/bun --revision
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0571229Z 1.3.10+30e609e08
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0586550Z Using a cached version of Bun: 1.3.10+30e609e08
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0724863Z ##[end-action id=__supabase_setup-cli.__oven-sh_setup-bun;outcome=success;conclusion=success;duration_ms=1925]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0727484Z ##[start-action display=Install Action Dependencies;id=__supabase_setup-cli.__run_2]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0752311Z ##[group]Run bun install --frozen-lockfile --production
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0752728Z ^[[36;1mbun install --frozen-lockfile --production^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0811994Z shell: /usr/bin/sh -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0812263Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0812474Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0812708Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0813253Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0813560Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.0969849Z bun install v1.3.10 (30e609e0)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2094782Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2095688Z + @actions/core@3.0.1
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2096204Z 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2096985Z 6 packages installed [119.00ms]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2123951Z ##[end-action id=__supabase_setup-cli.__run_2;outcome=success;conclusion=success;duration_ms=139]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2127856Z ##[start-action display=Setup Supabase CLI;id=__supabase_setup-cli.setup-cli]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2151336Z ##[group]Run bun src/main.ts
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2151675Z ^[[36;1mbun src/main.ts^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2212569Z shell: /usr/bin/sh -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2213287Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2213513Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2213900Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2214511Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2214814Z   INPUT_VERSION: 
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:01:54.2215036Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4134370Z ##[end-action id=__supabase_setup-cli.setup-cli;outcome=success;conclusion=success;duration_ms=6200]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4194332Z ##[group]Run supabase db start
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4194662Z ^[[36;1msupabase db start^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4245766Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4246054Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4246258Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4246484Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4247000Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:00.4247298Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:01.2003845Z Starting database...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:01.8556950Z 17.11.0.004: Pulling from supabase/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0423985Z d0c1d894c237: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0424738Z 2a7fe997b3bc: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0425130Z a089d1f2d97d: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0425556Z b594b09cdd92: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0426033Z ac0658ef7013: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0426460Z 61cdca7212db: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0426898Z c7702d9346eb: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0427393Z 1af9995b8d71: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0427795Z 2f8950e7369c: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0428456Z f4c8c0988961: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0428952Z b72d0b0c7819: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0429374Z 887d4dcfbb60: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0430058Z b4770aa5855a: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0430463Z f48c9b774cf3: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0430842Z 031bc7c39c03: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0431239Z 532d14cf7b90: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0431643Z d0b84d5f07f5: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0432034Z 2271b8d67cdb: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0432426Z 92c57cef4d95: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0432831Z 9bad77f51394: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0433219Z 6d07fafc16fc: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0433811Z 02b1eb22dea5: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0434261Z 95e2e129052b: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0434704Z 3bc958d77632: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0435132Z c91d81325bd0: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0444766Z 434c95230705: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0445226Z 4bc1415e9b24: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0445504Z 8d0d2729c399: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0445779Z 0b67f6a8a496: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0446268Z b594b09cdd92: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0446509Z ac0658ef7013: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0446726Z 61cdca7212db: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0446942Z d0b84d5f07f5: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0447294Z 2271b8d67cdb: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0447511Z c7702d9346eb: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0447717Z 1af9995b8d71: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0447931Z 2f8950e7369c: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0448135Z f4c8c0988961: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0448647Z b72d0b0c7819: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0448870Z 92c57cef4d95: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0449086Z 887d4dcfbb60: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0449297Z 9bad77f51394: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0449504Z 6d07fafc16fc: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0449711Z b4770aa5855a: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0449929Z f48c9b774cf3: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0450148Z 02b1eb22dea5: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0450356Z 95e2e129052b: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0450913Z 031bc7c39c03: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0451124Z 532d14cf7b90: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0451343Z 3bc958d77632: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0451554Z 8d0d2729c399: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0451763Z 0b67f6a8a496: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0451974Z 4bc1415e9b24: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0452178Z c91d81325bd0: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.0452612Z 434c95230705: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.1805660Z a089d1f2d97d: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.1806623Z a089d1f2d97d: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.2063974Z d0c1d894c237: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.2064977Z d0c1d894c237: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.2206887Z 2a7fe997b3bc: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.2211001Z 2a7fe997b3bc: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.3712292Z ac0658ef7013: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.3719518Z ac0658ef7013: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.3723304Z d0c1d894c237: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.4392291Z 61cdca7212db: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.4409910Z 61cdca7212db: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.5480749Z c7702d9346eb: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.5494350Z c7702d9346eb: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.6054091Z 1af9995b8d71: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.6055892Z 1af9995b8d71: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.7617141Z 2f8950e7369c: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.7618817Z 2f8950e7369c: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.8544567Z f4c8c0988961: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.8545228Z f4c8c0988961: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.9150841Z b72d0b0c7819: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:02.9164446Z b72d0b0c7819: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.0226668Z 887d4dcfbb60: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.0227742Z 887d4dcfbb60: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.0660170Z b4770aa5855a: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.0661177Z b4770aa5855a: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.2499951Z 031bc7c39c03: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.2500833Z 031bc7c39c03: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.2501531Z f48c9b774cf3: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.2502147Z f48c9b774cf3: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.5990683Z d0b84d5f07f5: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.5998906Z 532d14cf7b90: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.5999550Z 532d14cf7b90: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:03.6019548Z 2a7fe997b3bc: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.1063980Z 2271b8d67cdb: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.1073439Z 2271b8d67cdb: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.1076311Z 92c57cef4d95: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.1077432Z 92c57cef4d95: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.2336755Z 9bad77f51394: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.2339325Z 9bad77f51394: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.3047909Z 6d07fafc16fc: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.3060381Z 6d07fafc16fc: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.3800689Z 02b1eb22dea5: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.3801830Z 02b1eb22dea5: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.4403711Z 95e2e129052b: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.4416882Z 95e2e129052b: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.5224118Z 3bc958d77632: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.5235528Z 3bc958d77632: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.5873451Z c91d81325bd0: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.5874179Z c91d81325bd0: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.6616557Z 434c95230705: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.6627480Z 434c95230705: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.7316395Z 4bc1415e9b24: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.7320948Z 4bc1415e9b24: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.7363872Z b594b09cdd92: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.7364534Z b594b09cdd92: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.8152854Z 8d0d2729c399: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.8153728Z 8d0d2729c399: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.8645616Z 0b67f6a8a496: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:04.8646165Z 0b67f6a8a496: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:06.4523576Z a089d1f2d97d: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.5020355Z b594b09cdd92: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.5223903Z ac0658ef7013: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.5491972Z 61cdca7212db: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.5635784Z c7702d9346eb: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.5936811Z 1af9995b8d71: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6160161Z 2f8950e7369c: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6462914Z f4c8c0988961: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6575689Z b72d0b0c7819: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6683915Z 887d4dcfbb60: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6765149Z b4770aa5855a: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6891149Z f48c9b774cf3: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.6990987Z 031bc7c39c03: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7124273Z 532d14cf7b90: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7249842Z d0b84d5f07f5: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7335874Z 2271b8d67cdb: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7452602Z 92c57cef4d95: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7536616Z 9bad77f51394: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7621391Z 6d07fafc16fc: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7742947Z 02b1eb22dea5: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7824313Z 95e2e129052b: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.7914097Z 3bc958d77632: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8197926Z c91d81325bd0: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8284594Z 434c95230705: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8397556Z 4bc1415e9b24: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8486964Z 8d0d2729c399: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8590305Z 0b67f6a8a496: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8634163Z Digest: sha256:b15d862126dd2dac02da524696ccfde2dcce2ceaee0a58973b2727befe492706
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8646298Z Status: Downloaded newer image for public.ecr.aws/supabase/postgres:17.11.0.004
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:23.8678755Z public.ecr.aws/supabase/postgres:17.11.0.004
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:34.6158110Z Initialising schema...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.2819337Z v2.143.4: Pulling from supabase/realtime
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4591012Z 062e450697fa: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4592053Z aadc1df55248: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4592835Z b470f3a22f61: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4593522Z 7b69c108b62c: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4594149Z 2f8dc9fd16f0: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4594796Z e7e8db2397d8: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4595421Z 2f95f9f41a30: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4596026Z 32b7ef0c5fea: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4596721Z 115059bab117: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4597409Z 52182eb33a33: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4598088Z 57608cb49d3f: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4599117Z 4f4fb700ef54: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4599788Z 2f95f9f41a30: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4600409Z 32b7ef0c5fea: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4600997Z 115059bab117: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4601568Z 52182eb33a33: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4602135Z 57608cb49d3f: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4602733Z 4f4fb700ef54: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4603336Z 7b69c108b62c: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4603967Z 2f8dc9fd16f0: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.4605154Z e7e8db2397d8: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.7555160Z 062e450697fa: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.7559653Z 062e450697fa: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.8494523Z aadc1df55248: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.8495322Z aadc1df55248: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.8508129Z b470f3a22f61: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.8517351Z b470f3a22f61: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.9056263Z 7b69c108b62c: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:35.9063099Z 7b69c108b62c: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.0023442Z 2f8dc9fd16f0: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.0032850Z 2f8dc9fd16f0: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.0172004Z e7e8db2397d8: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.0173046Z e7e8db2397d8: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.0819184Z 2f95f9f41a30: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.1361979Z 32b7ef0c5fea: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.1366875Z 32b7ef0c5fea: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.1682190Z 115059bab117: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.1683285Z 115059bab117: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2821664Z 57608cb49d3f: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2824527Z 57608cb49d3f: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2844265Z 4f4fb700ef54: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2850346Z 4f4fb700ef54: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2970289Z 52182eb33a33: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.2979772Z 52182eb33a33: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:36.9473269Z 062e450697fa: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.1089970Z aadc1df55248: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.2475715Z b470f3a22f61: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.2635315Z 7b69c108b62c: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.2789021Z 2f8dc9fd16f0: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.3041457Z e7e8db2397d8: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.3356273Z 2f95f9f41a30: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.3443706Z 32b7ef0c5fea: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:43.3531945Z 115059bab117: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.6853914Z 52182eb33a33: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.7050137Z 57608cb49d3f: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.7171104Z 4f4fb700ef54: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.7220954Z Digest: sha256:35e99d3f1cbba5aa5585e8ac3cf70ecc54909ee4aee0626effed93c60fb41439
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.7236900Z Status: Downloaded newer image for public.ecr.aws/supabase/realtime:v2.143.4
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:44.7260155Z public.ecr.aws/supabase/realtime:v2.143.4
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.7704702Z v1.82.1: Pulling from supabase/storage-api
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9075354Z d0c1d894c237: Already exists
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9092469Z f0bff0b17bb6: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9093063Z bf5074c0b7fa: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9093359Z 76bc8d85aed0: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9093791Z 8039b21a00ac: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9094060Z 0c91f59dd719: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9094308Z 40c8d110c258: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9094558Z 53bfd3d9a134: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9094840Z 76a88d62761c: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9095093Z 2f182e3dfc47: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9095365Z 122b4cfbe03f: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9095639Z 601da60d4a18: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9095910Z e6a206e9749c: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9096169Z d5ac605a5fdb: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9096413Z 76a88d62761c: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9096650Z 2f182e3dfc47: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9096867Z 122b4cfbe03f: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9097086Z 601da60d4a18: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9097296Z e6a206e9749c: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9097508Z 8039b21a00ac: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9097720Z 0c91f59dd719: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9097935Z 40c8d110c258: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9098149Z 53bfd3d9a134: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:49.9098695Z d5ac605a5fdb: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.0414389Z 76bc8d85aed0: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.0415800Z 76bc8d85aed0: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.0516119Z bf5074c0b7fa: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.0519554Z bf5074c0b7fa: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.1989961Z 0c91f59dd719: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.2469834Z f0bff0b17bb6: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.2470922Z f0bff0b17bb6: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.3725949Z 40c8d110c258: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.3731607Z 40c8d110c258: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.4157478Z 53bfd3d9a134: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.4165784Z 53bfd3d9a134: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.5586621Z 2f182e3dfc47: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.5587965Z 2f182e3dfc47: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.6408504Z 76a88d62761c: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.6409614Z 76a88d62761c: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.6775116Z 8039b21a00ac: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.6788390Z 8039b21a00ac: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.7901475Z 601da60d4a18: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.7903054Z 601da60d4a18: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.8209734Z e6a206e9749c: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.8210541Z e6a206e9749c: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.9436443Z d5ac605a5fdb: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:50.9438149Z d5ac605a5fdb: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:51.0068537Z 122b4cfbe03f: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:51.0069555Z 122b4cfbe03f: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:53.7009674Z f0bff0b17bb6: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:53.7518923Z bf5074c0b7fa: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:53.7656519Z 76bc8d85aed0: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:57.6644831Z 8039b21a00ac: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:57.6758886Z 0c91f59dd719: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:57.7016403Z 40c8d110c258: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:57.7175372Z 53bfd3d9a134: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:58.7987407Z 76a88d62761c: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:02:58.8479183Z 2f182e3dfc47: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.0600453Z 122b4cfbe03f: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5074552Z 601da60d4a18: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5235411Z e6a206e9749c: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5382476Z d5ac605a5fdb: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5434561Z Digest: sha256:ec2ad41411eac8fc2b769b4bb00d1af32ae37eca3745c15bdb329db27d218934
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5446822Z Status: Downloaded newer image for public.ecr.aws/supabase/storage-api:v1.82.1
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:26.5456552Z public.ecr.aws/supabase/storage-api:v1.82.1
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.4320539Z v2.197.0: Pulling from supabase/gotrue
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5657883Z 55afa1ecc21d: Already exists
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5681339Z 71eb50013731: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5682064Z 74c409e3506a: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5682843Z e5d190db8191: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5683509Z f30f4fcb85f4: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5684066Z c0cb7126d877: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5688943Z f30f4fcb85f4: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.5689598Z c0cb7126d877: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.7271474Z 74c409e3506a: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.7432324Z 71eb50013731: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.7433332Z 71eb50013731: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.7780006Z 71eb50013731: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8529045Z e5d190db8191: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8530856Z e5d190db8191: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8770411Z f30f4fcb85f4: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8771030Z f30f4fcb85f4: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8953680Z c0cb7126d877: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.8955280Z c0cb7126d877: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:28.9164410Z 74c409e3506a: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2385940Z e5d190db8191: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2729106Z f30f4fcb85f4: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2834192Z c0cb7126d877: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2872179Z Digest: sha256:1736a63078f5922b198c4cbe50f80ab9a2d3b54fe8b7b6cfb2e9dc5dbbc12c6b
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2883182Z Status: Downloaded newer image for public.ecr.aws/supabase/gotrue:v2.197.0
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.2891200Z public.ecr.aws/supabase/gotrue:v2.197.0
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.8094903Z Seeding globals from roles.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.8168738Z Applying migration 20261019183410_create_visits.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.8443443Z Applying migration 20261020090000_content_model.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.8844625Z Applying migration 20261020090100_learner_model.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.9167728Z Applying migration 20261020090200_reference_tables.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.9254175Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.9473943Z │
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:29.9477611Z ▲  no files matched pattern: supabase/seed.sql
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.5967112Z ##[group]Run supabase test db
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.5967451Z ^[[36;1msupabase test db^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6018985Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6019254Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6019457Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6019683Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6020167Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:30.6020469Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:31.2279278Z Connecting to local database...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.0431187Z 3.36: Pulling from supabase/pg_prove
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.2171460Z dcccee43ad5d: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.2172635Z 06d62d0de6d7: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.2173071Z a22cb17b3b93: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.2173779Z 4f4fb700ef54: Pulling fs layer
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.2174134Z 4f4fb700ef54: Waiting
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3544027Z a22cb17b3b93: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3544912Z a22cb17b3b93: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3741583Z dcccee43ad5d: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3745177Z dcccee43ad5d: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3961361Z 06d62d0de6d7: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.3982593Z 06d62d0de6d7: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.4662833Z 4f4fb700ef54: Verifying Checksum
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.4663938Z 4f4fb700ef54: Download complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:32.5135473Z dcccee43ad5d: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.2513625Z 06d62d0de6d7: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.2833831Z a22cb17b3b93: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.2983653Z 4f4fb700ef54: Pull complete
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.3023324Z Digest: sha256:eda7c5e68719e9c8287e78c017118407b48df904a51c935f5ab6098b8c0bc6bc
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.3036457Z Status: Downloaded newer image for public.ecr.aws/supabase/pg_prove:3.36
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.3042648Z public.ecr.aws/supabase/pg_prove:3.36
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.5909003Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:16: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.6122344Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:314: NOTICE:  dialogue pgtap-publish-fixture is already published; nothing to do
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.6412772Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql ....... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.6676664Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql:13: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.7726043Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql .... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.7932632Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql:14: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.9437877Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql ... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.9670188Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql:11: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:33.9970788Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql .. ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.0222435Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql:10: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1400590Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql ..... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1645633Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql:12: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1974141Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql ......... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1979354Z All tests successful.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1980926Z Files=6, Tests=436,  1 wallclock secs ( 0.06 usr  0.01 sys +  0.06 cusr  0.05 csys =  0.18 CPU)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.1982228Z Result: PASS
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8577465Z ##[group]Run for file in supabase/migrations/*_load_v2_*.sql; do
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8578054Z ^[[36;1mfor file in supabase/migrations/*_load_v2_*.sql; do^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8578795Z ^[[36;1m  echo "Loading $file again"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8579232Z ^[[36;1m  psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8579641Z ^[[36;1mdone^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8633070Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8633346Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8633785Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8634009Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8634512Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8634809Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.8725939Z Loading supabase/migrations/20261020090300_load_v2_lemma_ipa.sql again
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9405490Z ##[group]Run shopt -s nullglob
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9406075Z ^[[36;1mshopt -s nullglob^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9406668Z ^[[36;1mfor file in supabase/migrations/*_publish_*.sql; do^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9407358Z ^[[36;1m  echo "Publishing $file again"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9408109Z ^[[36;1m  psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9409285Z ^[[36;1mdone^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9467244Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9467516Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9467717Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9467947Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9468779Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9469117Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9606785Z ##[group]Run psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f scripts/v2-import/fixtures/check-load-twice.sql
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9607654Z ^[[36;1mpsql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f scripts/v2-import/fixtures/check-load-twice.sql^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9661636Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9661906Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9662121Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9662355Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9662845Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:34.9663151Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0183306Z psql:scripts/v2-import/fixtures/check-load-twice.sql:34: NOTICE:  Loaded the fixture sentences twice: 3 rows, fingerprint 20c532a48f9fff0844349f492e6ca4c7
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0242019Z ##[group]Run supabase test db
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0242370Z ^[[36;1msupabase test db^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0293251Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0293521Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0293750Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0310185Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0310961Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.0311432Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:35.6378543Z Connecting to local database...
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.1717026Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:16: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.1946914Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:314: NOTICE:  dialogue pgtap-publish-fixture is already published; nothing to do
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.2346237Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql ....... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.2609824Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql:13: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.3690804Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql .... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.3894033Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql:14: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.5364379Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql ... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.5575778Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql:11: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.5884469Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql .. ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.6104115Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql:10: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7250344Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql ..... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7473380Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql:12: NOTICE:  extension "pgtap" already exists, skipping
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7772717Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql ......... ok
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7775707Z All tests successful.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7791937Z Files=6, Tests=436,  0 wallclock secs ( 0.06 usr  0.01 sys +  0.05 cusr  0.05 csys =  0.17 CPU)
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:36.7792927Z Result: PASS
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.3946942Z ##[group]Run supabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.3949414Z ^[[36;1msupabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.3950615Z ^[[36;1mdiff -u src/lib/database.types.ts "$RUNNER_TEMP/database.types.ts"^[[0m
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4020068Z shell: /usr/bin/bash -e {0}
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4020366Z env:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4020575Z   NODE_VERSION: 24
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4020805Z   PYTHON_VERSION: 3.12
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4021311Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:37.4021617Z ##[endgroup]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.0289393Z Connecting to 127.0.0.1 54322
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.1128867Z Generated TypeScript is unformatted. Format it with:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.1129363Z   npx oxfmt <generated-file.ts>
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.5936037Z Post job cleanup.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.5940213Z ##[start-action display=Setup Bun;id=__f5a9a96d-7b9e-4055-9cce-2f85bbdfcbd8.__oven-sh_setup-bun]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.5982104Z Post job cleanup.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.8151951Z ##[end-action id=__f5a9a96d-7b9e-4055-9cce-2f85bbdfcbd8.__oven-sh_setup-bun;outcome=success;conclusion=success;duration_ms=221]
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.8373363Z Post job cleanup.
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.9697616Z [command]/usr/bin/git version
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.9821131Z git version 2.55.0
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:38.9979779Z Temporarily overriding HOME='/home/runner/work/_temp/56cfb623-25ca-46fe-9fb0-c3e4f5f68eb6' before making global git config changes
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0024939Z Adding repository directory to the temporary git global config as a safe directory
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0049496Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0146891Z Removing SSH command configuration
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0179233Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0222801Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0786458Z Removing HTTP extra header
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0802438Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.0872294Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.1247552Z Removing includeIf entries pointing to credentials config files
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.1249087Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.1356433Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Database tests (local Supabase, pgTAP)	UNKNOWN STEP	2026-10-21T19:03:39.1889239Z Cleaning up orphan processes

@@ -1,0 +1,24 @@
+$ # Scratch worktree at main f07e435 (no lefthook.yml), branch scratch/4-tooling-main-commit, never pushed.
+$ # The shared hooks folder .git/hooks holds the pre-commit hook that npm ci in .worktrees/4-tooling installed.
+$ ls lefthook.yml
+ls: cannot access 'lefthook.yml': No such file or directory
+$ head -1 .git/hooks/pre-commit && grep -c lefthook .git/hooks/pre-commit
+#!/bin/sh
+36
+$ git add factory && time git commit -m "scratch: second factory-only commit on main tree"
+│  No config files with names ["lefthook" ".lefthook" ".config\\lefthook"] have been found in "<scratchpad>/main-commit"
+│  No config files with names ["lefthook" ".lefthook" ".config\\lefthook"] have been found in "<scratchpad>/main-commit"
+[scratch/4-tooling-main-commit facc515] scratch: second factory-only commit on main tree
+ 1 file changed, 1 insertion(+)
+exit=0
+elapsed_ms=1291
+$ git status --short (no file created by lefthook)
+$ git log --oneline -2
+facc515 scratch: second factory-only commit on main tree
+7e81844 scratch: manager-style factory-only commit on main's tree (no lefthook.yml)
+
+$ # Simulation: the same hook after .worktrees/4-tooling is removed and before main runs npm ci
+$ # (a copy of the hook with the worktree path replaced by a missing one)
+Can't find lefthook in PATH
+exit=0
+elapsed_ms=817

@@ -1,0 +1,368 @@
+<title>PuhuScribe Roadmap</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single column timeline of six stages, each stage a band with a left rail, a plain English story, a checklist, and callouts. An overview strip at the top anchors down. */
+:root{
+  --bg:#f2f5f8;
+  --surface:#ffffff;
+  --surface-2:#e8edf3;
+  --fg:#15202e;
+  --muted:#5b6b7f;
+  --line:#cfd8e3;
+  --accent:#1e4fa3;
+  --accent-soft:#dbe6f8;
+  --warm:#c96a1c;
+  --warm-soft:#fbe9d8;
+  --done:#1f7a5a;
+  --done-soft:#d8f0e6;
+  --now:#7a3fb5;
+  --now-soft:#ebe0f7;
+  --display:"Manrope",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f151d;--surface:#161e29;--surface-2:#1e2834;--fg:#e8edf3;--muted:#9aaabb;--line:#2c3947;
+    --accent:#7ea6ea;--accent-soft:#1c2f4d;--warm:#e8955a;--warm-soft:#3d2614;--done:#5fc29a;--done-soft:#15382b;--now:#b58de6;--now-soft:#2d1f40;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f151d;--surface:#161e29;--surface-2:#1e2834;--fg:#e8edf3;--muted:#9aaabb;--line:#2c3947;
+  --accent:#7ea6ea;--accent-soft:#1c2f4d;--warm:#e8955a;--warm-soft:#3d2614;--done:#5fc29a;--done-soft:#15382b;--now:#b58de6;--now-soft:#2d1f40;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15.5px;line-height:1.6;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:32px 72px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,4.5vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:16px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:62ch;font-size:16.5px}
+header.top{display:grid;gap:14px;margin-bottom:28px}
+.north{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;max-width:760px}
+.north .star{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:800}
+.north p{font-size:14.5px}
+.north b{color:var(--accent)}
+
+.overview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:28px 0 12px}
+.overview a{display:grid;gap:6px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;min-width:0}
+.overview a:hover,.overview a:focus-visible{border-color:var(--accent);outline:none}
+.overview .num{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;color:var(--accent)}
+.overview .name{font-family:var(--display);font-weight:700;font-size:13px;line-height:1.25}
+.overview .ep{font-size:11px;color:var(--muted)}
+.overview a.now{border-color:var(--now);box-shadow:inset 0 0 0 1px var(--now)}
+.overview a.now .num{color:var(--now)}
+
+.words{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;gap:12px;margin-bottom:36px}
+.words dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0;font-size:14.5px}
+.words dt{font-family:var(--display);font-weight:700;white-space:nowrap}
+.words dd{margin:0;color:var(--muted)}
+.words dd b{color:var(--fg);font-weight:600}
+
+.stage{display:grid;grid-template-columns:56px 1fr;gap:0 20px;position:relative;padding-bottom:44px}
+.stage::before{content:"";position:absolute;left:27px;top:56px;bottom:0;width:2px;background:var(--line)}
+.stage:last-of-type::before{display:none}
+.rail{display:grid;justify-items:center;align-content:start}
+.rail .badge{width:56px;height:56px;border-radius:50%;background:var(--surface);border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px}
+.stage.now .rail .badge{border-color:var(--now);color:var(--now);background:var(--now-soft)}
+.stage-head{display:grid;gap:8px;padding-top:8px;margin-bottom:16px}
+.stage-head .story{max-width:66ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;gap:18px}
+
+.steps{display:grid;gap:10px}
+.step{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0;padding-top:0}
+.tick{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:3px;color:var(--done)}
+.tick.on{background:var(--done-soft);border-color:var(--done)}
+.tick.now{border-color:var(--now);background:var(--now-soft);color:var(--now)}
+.step .what{display:grid;gap:4px;min-width:0}
+.step .title{font-weight:600}
+.step .how{font-size:14px;color:var(--muted)}
+.step .how b{color:var(--fg);font-weight:600}
+code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);padding:2px 7px;border-radius:6px;white-space:nowrap}
+
+.tag{display:inline-block;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:999px;line-height:1.6;vertical-align:middle}
+.tag.ga{background:var(--warm-soft);color:var(--warm)}
+.tag.beta{background:var(--accent-soft);color:var(--accent)}
+.tag.ai{background:var(--now-soft);color:var(--now)}
+
+.loop{display:grid;gap:16px}
+.loop-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.lbox{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:4px;min-width:0}
+.lbox .k{font-family:var(--mono);font-size:12.5px;font-weight:500}
+.lbox .t{font-family:var(--display);font-weight:700;font-size:13px}
+.lbox .v{font-size:12.5px;color:var(--muted);line-height:1.45}
+.lbox.ga{border-color:var(--warm)}
+.lbox.ai{border-color:var(--now)}
+.gate{display:grid;gap:10px;border-left:3px solid var(--accent);padding-left:14px}
+.gate .q{font-family:var(--display);font-weight:700}
+.gate .opts{display:grid;gap:8px;font-size:14px}
+.gate .opts div{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.gate .opts b{font-family:var(--display);font-weight:700;font-size:13px;color:var(--accent);white-space:nowrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:0}
+td code{white-space:normal}
+.tablewrap{overflow-x:auto}
+
+.callout{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:14px}
+.callout.warm{background:var(--warm-soft)}
+.callout b{font-weight:600}
+.staircase{display:flex;gap:6px;align-items:flex-end;margin-top:4px}
+.staircase div{flex:1;background:var(--accent-soft);border-radius:6px 6px 0 0;display:grid;align-content:end;padding:8px;font-family:var(--display);font-weight:700;font-size:12px;color:var(--accent)}
+footer{margin-top:40px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:4px}
+
+@media (max-width:760px){
+  .overview{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .two{grid-template-columns:1fr}
+  .words dl{grid-template-columns:1fr;gap:2px 0}
+  .words dd{margin-bottom:8px}
+  .stage{grid-template-columns:40px 1fr;gap:0 12px}
+  .rail .badge{width:40px;height:40px;font-size:17px}
+  .stage::before{left:19px;top:40px}
+  .panel{padding:14px}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Building PuhuScribe with Claude Code, start to finish</p>
+  <h1>PuhuScribe Roadmap</h1>
+  <p class="lede">Here is the whole journey in six stages. Every stage is recorded as it happens: the screen, the chat with the AI, your voice over it, then the result. Before any of it, a short glossary, because the kit uses a few words that sound more technical than they are.</p>
+  <div class="north">
+    <div class="star">★</div>
+    <p><b>The goal we are aiming at.</b> 50 learners finish onboarding and have their first AI conversation in Finnish without asking you for help. At least 40 percent of them come back within two weeks for another session on a different day. When that is true, it worked.</p>
+  </div>
+</header>
+
+<nav class="overview" aria-label="Stages">
+  <a href="#s0" class="now"><span class="num">0</span><span class="name">Plan, rules and tool setup</span><span class="ep">now · episodes 1 to 2</span></a>
+  <a href="#s1"><span class="num">1</span><span class="name">Tech stack, rules, data model, design system</span><span class="ep">episodes 3 to 6</span></a>
+  <a href="#s2"><span class="num">2</span><span class="name">First conversation, tutor quality, onboarding</span><span class="ep">episodes 7 to 9</span></a>
+  <a href="#s3"><span class="num">3</span><span class="name">Accounts, spaced repetition, analytics</span><span class="ep">episodes 10 to 12</span></a>
+  <a href="#s4"><span class="num">4</span><span class="name">Lessons, drills, home, profile</span><span class="ep">episodes 13 to 15</span></a>
+  <a href="#s5"><span class="num">5</span><span class="name">Security check, pilot, public launch</span><span class="ep">episodes 16 to 17</span></a>
+</nav>
+
+<section class="words">
+  <h3>Eight terms used on this page</h3>
+  <dl>
+    <dt>Skill</dt><dd>A saved set of instructions you run in Claude Code by typing a slash command, like <code>/architect</code>. Each one does one job. We installed nine from the kit and kept four of our own.</dd>
+    <dt>Scope</dt><dd>The plan. One file that lists every feature, in build order, with a checkbox for each step. The thing you look at to know what is next.</dd>
+    <dt>Spec</dt><dd>One written decision. Which database, how sign in works, what the AI tutor may and may not do. The AI builds from the spec and is not allowed to invent what the spec does not say.</dd>
+    <dt>AGENTS.md</dt><dd>The rulebook. A file at the top of the project that every AI session reads first. The stack, the commands, the house rules, the things it must never do.</dd>
+    <dt>Tracer Bullet</dt><dd>Our build style. Instead of finishing one screen at a time, you first build one very thin path that goes all the way through, from the screen to the AI to the database, and really works. Then you make it thicker, feature by feature.</dd>
+    <dt><span class="tag beta">Beta</span></dt><dd>The <b>standard checking level</b>, and our default. After a feature is built, the AI runs the real app to prove it works, then writes tests so it stays working.</dd>
+    <dt><span class="tag ga">GA</span></dt><dd>Short for General Availability, the industry term for "ready for the public". Here it means the <b>full checking level</b>. Everything Beta does, plus a second AI model reviews the code, a security sweep, a written change log, and you personally write "approved" before it counts as done. We use it for the three features that touch logins, personal data, or the AI itself.</dd>
+    <dt><span class="tag ai">AI</span></dt><dd>A feature that calls an AI model while the app runs. Normal tests cannot grade a conversation, so these also get an <b>eval</b>: a fixed set of example inputs with known good answers, scored for a pass rate.</dd>
+  </dl>
+</section>
+
+<!-- STAGE 0 -->
+<section class="stage now" id="s0">
+  <div class="rail"><div class="badge">0</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 0 · we are here · no code</p>
+      <h2>Plan, rules and tool setup</h2>
+      <p class="story">No code yet, on purpose. This stage is about making sure every file the AI will read exists before the camera is on. Think of it as writing the brief for a contractor. If the brief is vague, the contractor guesses, and you pay for the guesses later. Half of this is already done.</p>
+    </div>
+    <div class="panel">
+      <div class="steps">
+        <div class="step"><div class="tick on">✓</div><div class="what"><div class="title">Say what the app is, in one sentence</div><div class="how">Done. We also listed the eight screens and wrote the goal at the top of this page.</div></div></div>
+        <div class="step"><div class="tick on">✓</div><div class="what"><div class="title">Write the first plan</div><div class="how">Done. Ten features in order, with the heart of the app first.</div></div></div>
+        <div class="step"><div class="tick on">✓</div><div class="what"><div class="title">Install the tools</div><div class="how">Done today. The released skills kit is in, our four extras sit beside it, and the project is now tracked in git so nothing gets lost.</div></div></div>
+        <div class="step"><div class="tick now">●</div><div class="what"><div class="title">Rewrite the plan in the kit's format</div><div class="how"><b>Next.</b> Same ten features, but now with the build style (Tracer Bullet), the checking level (Beta, with GA on three features), and a checkbox for every step. I draft it, you read it, then it replaces the old plan.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">Write down our house rules</div><div class="how">The things we want every AI session to obey. You sign off on risky features. Screenshots get saved as proof. The AI asks three security questions before designing anything with personal data. The app speaks Finnish and English. We respect GDPR, the European privacy law.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">Tidy the tracker</div><div class="how">Update the little file that tracks which skills have been tested, and save this roadmap in the project.</div></div></div>
+      </div>
+      <div class="callout"><b>Why bother?</b> The video put it well. Most AI projects fail because you gave the AI a wish, not a plan. Stage 0 turns the wish into files.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 1 -->
+<section class="stage" id="s1">
+  <div class="rail"><div class="badge">1</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 1 · six steps, fixed order</p>
+      <h2>Tech stack, rules, data model, design system</h2>
+      <p class="story">Now the first code appears, but still no features. You pick the tools, create the empty app, write the rulebook from what is really there, set up the automatic checks, decide the shape of the data, and settle the look. The kit insists on this order, and for good reason: the rulebook has to describe a real project, not an empty folder.</p>
+    </div>
+    <div class="panel">
+      <div class="steps">
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.1 Choose the tools</div><div class="how">You run <code>/architect</code> and have a conversation. It recommends a boring, well documented set of tools, explains the runner up and why it lost, and writes the choice to a spec. Rule of thumb it follows: one app, not many services. A normal relational database. Nothing clever.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.2 Create the empty app</div><div class="how">You run <code>/develop</code> once to make the skeleton with the chosen tools' own setup command. Nothing extra installed yet.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.3 Write the rulebook</div><div class="how">You run <code>/audit</code>. It reads the real skeleton and writes AGENTS.md: the stack, the commands to run and test things, the conventions it can see, plus our house rules from Stage 0.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.4 Set up the safety rails</div><div class="how">A code style checker, a type checker, a test runner, and a secret scanner. Then small hooks so Claude Code runs them automatically. These cost no tokens and never get tired.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.5 Decide the shape of the data</div><div class="how">Back to <code>/architect</code>. What is a learner, a level, a session, a mistake, a review item? This is written down once so every later feature uses the same shapes. The kit never lets you skip this one.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">1.6 Settle the look</div><div class="how">You run <code>/canvas</code>, our own skill. You gather references, pick one direction in a sentence, and it generates the mascot first, then every illustration in that same style, then the empty, success and error pictures. Then <code>/develop</code> turns the direction into real colours, fonts and spacing, and checks that text is readable in light and dark before writing a line of CSS.</div></div></div>
+        
+      </div>
+      <div class="callout warm"><b>End of Stage 1:</b> an empty app that boots, with its rulebook, its data shape, and its look settled. Nothing a learner can use yet. That arrives in the very first slice of Stage 2.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE LOOP -->
+<section class="stage" id="loop">
+  <div class="rail"><div class="badge" style="border-style:dashed;font-size:18px">↻</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Repeated for each of the ten features in stages 2 to 4</p>
+      <h2>The feature routine: decide, build, prove, protect, record</h2>
+      <p class="story">From here on, every feature goes through the same routine, and the four foundation items in Stage 1 use a shorter version of it. Decide it, build it, prove it, protect it, then update the paperwork and clear the chat. Beta features stop after "protect it". GA features run the longer tail. You type each command yourself, and you are allowed to skip any step after the build. The only thing the kit really insists on is that decisions get written down.</p>
+    </div>
+    <div class="panel loop">
+      <div class="loop-row">
+        <div class="lbox"><div class="k">/architect</div><div class="t">Decide it</div><div class="v">A conversation that ends in a spec: what done looks like as numbered statements, and where every value on screen comes from.</div></div>
+        <div class="lbox"><div class="k">/develop</div><div class="t">Build it</div><div class="v">Checks the spec covers everything first (see the gate below). Then builds, step by step, and checks its own work.</div></div>
+        <div class="lbox"><div class="k">/check verify</div><div class="t">Prove it</div><div class="v">Runs the real app like a user would and ticks off each "done looks like" statement. GA: saves screenshots and waits for your "approved".</div></div>
+        <div class="lbox"><div class="k">/test</div><div class="t">Protect it</div><div class="v">Writes tests so that if a later change breaks this feature, you hear about it immediately.</div></div>
+        <div class="lbox ai"><div class="k">/check eval</div><div class="t">Grade the AI</div><div class="v">Only for AI features. Runs the example set and reports a pass rate.</div></div>
+        <div class="lbox ga"><div class="k">/check review</div><div class="t">Second opinion</div><div class="v">GA only. A different AI model reads the code and lists problems by severity.</div></div>
+        <div class="lbox ga"><div class="k">/warden</div><div class="t">Security sweep</div><div class="v">GA only. Leaked keys, weak dependencies, risky code paths.</div></div>
+        <div class="lbox ga"><div class="k">/document</div><div class="t">Write it up</div><div class="v">GA only. A plain description of what changed, written from the real changes.</div></div>
+        <div class="lbox"><div class="k">/sync</div><div class="t">Update the paperwork</div><div class="v">Ticks the plan, marks the spec accepted, adds any new rule to AGENTS.md. Then you clear the chat and start fresh.</div></div>
+      </div>
+      <div class="two">
+        <div class="gate">
+          <div class="q">The gate: how the AI is stopped from guessing</div>
+          <p style="font-size:14px">Before building, <code>/develop</code> lists every value the feature will show or calculate, and checks whether the spec says where each one comes from. If one has no source, it stops and gives you three choices.</p>
+          <div class="opts">
+            <div><b>Decide it first</b><span>Recommended. Go run <code>/architect</code>, then come back.</span></div>
+            <div><b>Nothing to decide</b><span>You judge it really is a detail. Build.</span></div>
+            <div><b>Build now, write it down</b><span>It writes your assumption to a small spec marked "Assumed" and keeps reminding you until a real decision is made. The shortcut is allowed. Forgetting it is not.</span></div>
+          </div>
+        </div>
+        <div class="gate" style="border-color:var(--warm)">
+          <div class="q">When something breaks: /debug</div>
+          <div class="opts">
+            <div><b>Sort it first</b><span>Is this a real bug, a confused chat session that needs clearing, or a bad earlier decision? Each has a different fix.</span></div>
+            <div><b>Make it happen on demand</b><span>A bug you cannot reproduce is a bug you cannot prove you fixed.</span></div>
+            <div><b>One theory at a time</b><span>Test it. Wrong? Throw it away, try the next. Never five random edits at once.</span></div>
+            <div><b>Fix the cause, not the symptom</b><span>Smallest possible fix, look for the same mistake elsewhere, then a test so it can never sneak back.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 2 -->
+<section class="stage" id="s2">
+  <div class="rail"><div class="badge">2</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 2 · slices 1 to 3</p>
+      <h2>First conversation loop, tutor quality, onboarding</h2>
+      <p class="story">The first slice is the Tracer Bullet itself: one thin path through every layer that really works. A learner signs in for real, answers three placement questions, has one short text exchange with the AI tutor, and it is all saved in the real database. Nothing is faked, it is just narrow. The next two slices thicken it: the tutor learns to hold the learner's level and correct warmly, and the front door becomes a proper onboarding. By the end of this stage a person who is not you can have their first conversation unaided. That is the first half of the goal.</p>
+    </div>
+    <div class="panel">
+      <div class="steps">
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">2.1 First conversation loop <span class="tag ga">GA</span> <span class="tag ai">AI</span></div><div class="how">Real sign in through the service chosen in the stack spec, three placement questions that set a level, at least three turns with the tutor in Finnish, and the session plus one usage event saved. The spec settles voice or text first and how the level is passed to the model. This is the first time the full feature routine runs.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">2.2 Tutor quality <span class="tag ga">GA</span> <span class="tag ai">AI</span></div><div class="how">The tutor holds the learner's level across a whole conversation, pitches its Finnish just above it, corrects warmly without breaking the flow, and refuses what the threat model says it must refuse. You build the example set, 10 to 25 sample exchanges with good answers, and the tutor has to hit the pass rate written in its spec.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">2.3 Onboarding and placement <span class="tag beta">Beta</span></div><div class="how">A welcome flow, a short intake about goals and situation, a more careful level estimate than the three questions in slice 1, and a landing on home with a suggested first session. The spec decides how the level is estimated and what gets saved.</div></div></div>
+      </div>
+      <div class="callout"><b>The payoff clip:</b> the first time someone else sits down, finishes onboarding, and talks to the tutor in Finnish without asking you anything. Every stage before this is recorded too. This is just the one the series has been building toward.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 3 -->
+<section class="stage" id="s3">
+  <div class="rail"><div class="badge">3</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 3 · slices 4, 5 and 8</p>
+      <h2>Accounts, spaced repetition, analytics</h2>
+      <p class="story">A great first conversation is not enough. The goal says 40 percent come back within two weeks. So this stage is about memory, in both senses. The app remembers the learner across sign ins, it brings yesterday's mistakes back today, and it counts every return so you can actually measure the goal instead of hoping. All three touch logins or personal data, so all three get the full GA treatment.</p>
+    </div>
+    <div class="panel">
+      <div class="steps">
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">3.1 Accounts and sign in <span class="tag ga">GA</span></div><div class="how">Sign in already works from slice 1. This slice turns it into full account care: sign out and back in with progress intact, consent text that explains what is stored and why, and account deletion that really removes the data. The three security questions get asked and answered in the spec.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">3.2 Review and memory <span class="tag beta">Beta</span></div><div class="how">Spaced repetition: showing a word again just before you would forget it. Due words and past mistakes come back on a schedule. This is the main reason a learner opens the app tomorrow.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">3.3 Counting what matters <span class="tag ga">GA</span></div><div class="how">Three numbers: finished onboarding, finished a first conversation, came back within 14 days on a different day. Once this ships, the goal at the top of this page is a query you can run.</div></div></div>
+      </div>
+      <div class="callout warm"><b>Heads up:</b> three GA features in a row means three rounds of the long tail. Second model review, security sweep, write up, and your signature each time. It is slower. It is also where most apps leak data, so it is worth it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 4 -->
+<section class="stage" id="s4">
+  <div class="rail"><div class="badge">4</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 4 · slices 6, 7, 9 and 10</p>
+      <h2>Lessons, drills, home screen, profile</h2>
+      <p class="story">So far the learner can talk and come back. Now you add the staircase underneath the talking: words first, then the rules behind them, then repetition drills, all feeding into conversation. Plus a proper home screen that says "here is your session for today" and a profile page. This stage also has a parallel job that no skill does for you: writing the actual Finnish lessons.</p>
+    </div>
+    <div class="panel">
+      <div class="staircase" aria-hidden="true"><div style="height:36px">WORDS</div><div style="height:52px">RULES</div><div style="height:68px">REPS</div><div style="height:84px;background:var(--accent);color:#fff">FLOW ✓</div></div>
+      <div class="steps">
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">4.1 Lesson player <span class="tag beta">Beta</span></div><div class="how">Two kinds of lesson. Chunk lessons for useful phrases, and grammar lessons taught our way: where the rule came from, the logic behind it, the rule itself, the exceptions, then examples. The spec decides where the lesson content lives and how it is loaded.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">4.2 Practice drills <span class="tag beta">Beta</span></div><div class="how">Short drill sets. Every mistake is saved and fed into the review schedule from Stage 3.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">4.3 Home screen <span class="tag beta">Beta</span></div><div class="how">Your progress and today's suggested session. Small enough that it may not need its own spec.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">4.4 Profile and settings <span class="tag beta">Beta</span></div><div class="how">See and change your level, your goals, your account, your interface language.</div></div></div>
+      </div>
+      <div class="callout"><b>About the content:</b> the AI can scaffold lesson templates, but the Finnish itself, the examples, the drills and the tutor's personality are yours to write and check. Plan time for it alongside this stage, and consider filming it as its own kind of episode.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 5 -->
+<section class="stage" id="s5">
+  <div class="rail"><div class="badge">5</div></div>
+  <div>
+    <div class="stage-head">
+      <p class="eyebrow">Stage 5 · release</p>
+      <h2>Security check, pilot with ten learners, public launch</h2>
+      <p class="story">Everything is built and checked. Now you prove it with strangers. First a security sweep and a readiness checklist that blocks the release if anything fails. Then about ten real newcomers for two weeks while you watch the numbers from Stage 3. Fix what breaks, re plan what you learned, and only then open it up to the fifty.</p>
+    </div>
+    <div class="panel">
+      <div class="steps">
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">5.1 Security sweep</div><div class="how"><code>/warden</code>, our own skill. Scans the code and the entire history for leaked keys, checks every library for known holes, reads the code around logins and personal data. Anything critical blocks the release.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">5.2 Readiness checklist</div><div class="how"><code>/liftoff</code>, our own skill. Does the whole journey work on a real phone, not just your laptop? What happens with no internet, slow internet, empty inputs? Is the privacy text there? Can you roll back? It blocks until every line passes.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">5.3 Pilot with about ten people</div><div class="how">Two weeks. Watch the three numbers. Bugs go to <code>/debug</code>. Surprises go to a bare <code>/scope</code>, which reads the plan back and helps you reorder.</div></div></div>
+        <div class="step"><div class="tick"></div><div class="what"><div class="title">5.4 Open it up</div><div class="how">Release to fifty, measure the goal, and start on the deferred list: language islands, and whatever the pilot taught you.</div></div></div>
+      </div>
+      <div class="callout"><b>Done means proven.</b> Fifty learners through a first conversation unaided, forty percent back within two weeks. Not "it runs on my machine".</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILES -->
+<section class="panel" style="margin-top:8px">
+  <div>
+    <p class="eyebrow">Project files</p>
+    <h3 style="margin-top:4px">The seven files that hold the project state</h3>
+    <p style="font-size:14px;color:var(--muted);max-width:66ch;margin-top:6px">Every chat with the AI eventually ends. These files do not. A fresh session reads them and picks up exactly where the last one stopped. Each file has one owner, so they never turn into a mess.</p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <tr><th>File</th><th>What it holds</th><th>Who writes it</th><th>Who keeps it current</th></tr>
+    <tr><td><code>docs/scope/scope.md</code></td><td>The plan. Every feature, in order, with the next step as the first unticked box.</td><td>/scope</td><td>/develop ticks boxes, /sync reconciles</td></tr>
+    <tr><td><code>docs/specs/</code></td><td>One decision per file. What done looks like, where every value comes from, the build steps.</td><td>/architect</td><td>/develop moves the status, /architect revises</td></tr>
+    <tr><td><code>AGENTS.md</code></td><td>The rulebook every session reads first.</td><td>/audit</td><td>/sync adds new rules</td></tr>
+    <tr><td><code>design.md</code> and the CSS</td><td>How the app looks. Images live in <code>design/assets/</code>.</td><td>/develop, images by /canvas</td><td>/develop</td></tr>
+    <tr><td><code>docs/evidence/</code></td><td>Screenshots and reports proving GA features work, with your "approved" line.</td><td>/check verify</td><td>/liftoff reads them before release</td></tr>
+    <tr><td><code>docs/reviews/</code></td><td>Second opinions, AI grading reports, security sweeps.</td><td>/check, /warden</td><td>Only ever added to</td></tr>
+    <tr><td>the tests</td><td>One test for every "done looks like" statement that a computer can check.</td><td>/test, /debug</td><td>/test</td></tr>
+  </table>
+  </div>
+</section>
+
+<footer>
+  <span>Drafted 5 October 2026 from the workflow upgrade plan and the released jsmastery-pro/skills kit. Episode numbers are a suggestion for the series outline.</span>
+  <span>Four foundations, ten feature slices, one routine repeated. Build order and details live in docs/scope/scope.md. The plan is the product until the camera turns on.</span>
+</footer>
+</div>

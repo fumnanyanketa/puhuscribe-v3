@@ -1,0 +1,44 @@
+# Evaluator: python lint error (unused import) in scripts/eval_bad.py
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+┃  checks ❯ python lint (ruff check) ❯ 
+F401 [*] `os` imported but unused
+ --> scripts\eval_bad.py:1:8
+  |
+1 | import os
+  |        ^^
+help: Remove unused import: `os`
+  |
+  - import os
+1 |
+  |
+
+Found 1 error.
+[*] 1 fixable with `--fix`.
+
+exit status 1
+┃  checks ❯ python format (ruff format --check) ❯ 
+1 file already formatted
+
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~34 bytes (34 bytes) in 285ms
+5:59PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 3.62 seconds)
+✔️ format (Prettier, fixes and restages) (1.96 seconds)
+🥊 checks (3.60 seconds)
+  ✔️ python format (ruff format --check) (1.00 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.61 seconds)
+  🥊 python lint (ruff check) (0.99 seconds)
+--- git commit exit code: 1; took 4.3 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

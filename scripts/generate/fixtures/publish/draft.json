@@ -1,0 +1,72 @@
+{
+  "about": "Made up fixture for the database and review page tests (job 7-content-pipeline). Its rows exist only inside a rolled back pgTAP transaction, and its review page only in the browser tests. Never published to learners.",
+  "format": "puhuscribe-draft-1",
+  "brief_path": "scripts/generate/fixtures/publish/draft.json",
+  "brief": {
+    "unit": {
+      "slug": "pgtap-publish-unit",
+      "position": 900101,
+      "title_en": "pgtap publish unit",
+      "can_do_en": "pgtap can do"
+    },
+    "dialogue": {
+      "slug": "pgtap-publish-fixture",
+      "position": 1,
+      "title_en": "pgtap publish fixture"
+    },
+    "situation_en": "pgtap fixture",
+    "grammar": ["olla-present", "personal-pronouns", "inessive-elative", "question-clitic"],
+    "rank_cap": 1500,
+    "extra_base_forms": [],
+    "speakers": [
+      { "name": "Aino", "role_en": "pgtap speaker one", "voice": "fi-FI-NooraNeural" },
+      { "name": "Maria", "role_en": "pgtap speaker two", "voice": "fi-FI-SelmaNeural" }
+    ],
+    "line_count": 2
+  },
+  "providers": { "ai": "fake", "voice": "fake" },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Aino",
+      "text_puhe": "Mä oon Aino.",
+      "text_kirja": "Minä olen Aino.",
+      "gloss_en": "pgtap fixture: I'm Aino.",
+      "kirja_tokens": [
+        { "surface": "Minä", "lemma": "pgtap-minä", "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular", "name": false, "form": "pgtap-form-mina" },
+        { "surface": "olen", "lemma": "pgtap-olla", "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false", "name": false, "form": "pgtap-form-olen" },
+        { "surface": "Aino", "lemma": "Aino", "form_tag": "CLASS=etunimi;SIJAMUOTO=nimento;NUMBER=singular", "name": true, "form": null }
+      ],
+      "puhe_tokens": [
+        { "surface": "Mä", "kirja": 1 },
+        { "surface": "oon", "kirja": 2 },
+        { "surface": "Aino", "kirja": 3 }
+      ]
+    },
+    {
+      "n": 2,
+      "speaker": "Maria",
+      "text_puhe": "No ootko sä täällä? <script>document.title='script ran'</script> Lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas.",
+      "text_kirja": "Oletko sinä täällä? <script>document.title='script ran'</script> Lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas.",
+      "gloss_en": "pgtap fixture: Are you here? (it's a test of <b>escaping</b> & quotes)",
+      "kirja_tokens": [
+        { "surface": "Oletko", "lemma": "pgtap-olla", "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true", "name": false, "form": "pgtap-form-oletko" },
+        { "surface": "sinä", "lemma": "pgtap-sinä", "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular", "name": false, "form": "pgtap-form-sina" },
+        { "surface": "täällä", "lemma": "pgtap-täällä", "form_tag": "CLASS=seikkasana", "name": false, "form": "pgtap-form-taalla" }
+      ],
+      "puhe_tokens": [
+        { "surface": "No", "spoken_only": true },
+        { "surface": "ootko", "kirja": 1 },
+        { "surface": "sä", "kirja": 2 },
+        { "surface": "täällä", "kirja": 3 }
+      ]
+    }
+  ],
+  "forms": [
+    { "id": "pgtap-form-mina", "lemma": "pgtap-minä", "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular", "analysis": { "BASEFORM": "minä", "CLASS": "asemosana" }, "surface_kirja": "minä", "surface_puhe": "mä", "form_name_en": "nominative singular", "why_en": "pgtap why: Minä means I." },
+    { "id": "pgtap-form-olen", "lemma": "pgtap-olla", "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false", "analysis": { "BASEFORM": "olla", "CLASS": "teonsana" }, "surface_kirja": "olen", "surface_puhe": "oon", "form_name_en": "present tense, 1st person singular", "why_en": "pgtap why: it's olla for I." },
+    { "id": "pgtap-form-oletko", "lemma": "pgtap-olla", "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true", "analysis": { "BASEFORM": "olla", "CLASS": "teonsana", "KYSYMYSLIITE": "true" }, "surface_kirja": "oletko", "surface_puhe": "ootko", "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö", "why_en": "pgtap why: a yes or no question." },
+    { "id": "pgtap-form-sina", "lemma": "pgtap-sinä", "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular", "analysis": { "BASEFORM": "sinä", "CLASS": "asemosana" }, "surface_kirja": "sinä", "surface_puhe": "sä", "form_name_en": "nominative singular", "why_en": "pgtap why: Sinä means you." },
+    { "id": "pgtap-form-taalla", "lemma": "pgtap-täällä", "form_tag": "CLASS=seikkasana", "analysis": { "BASEFORM": "täällä", "CLASS": "seikkasana" }, "surface_kirja": "täällä", "surface_puhe": "täällä", "form_name_en": "adverb", "why_en": "pgtap why: Täällä means here." }
+  ]
+}

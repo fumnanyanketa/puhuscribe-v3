@@ -1,0 +1,25 @@
+# Evaluator round 3, fresh scratch clone (own .git) at a2765ee
+core.hooksPath repo/global: '' ''
+$ npm ci
+added 349 packages, and audited 350 packages in 38s
+found 0 vulnerabilities
+exit 0
+hook: pre-commit*
+$ npx lefthook version: 2.2.2
+$ git status --short (empty = npm ci changed nothing tracked)
+$ npm run check:code
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+> puhuscribe@0.0.0 lint
+> eslint .
+> puhuscribe@0.0.0 format:check
+> prettier --check .
+All matched files use Prettier code style!
+exit 0
+$ npx vitest run
+ Test Files  21 passed (21)
+      Tests  305 passed (305)
+$ npm audit --audit-level=high
+found 0 vulnerabilities

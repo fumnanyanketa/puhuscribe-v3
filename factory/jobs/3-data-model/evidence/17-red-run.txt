@@ -1,0 +1,71 @@
+Evidence for statement 17: the red scratch run. All read only (gh run view, gh pr list, git ls-remote).
+
+== Scratch PR
+{"closedAt":"2026-10-20T09:57:04Z","headRefName":"factory/3-data-model-red","mergedAt":null,"number":9,"state":"CLOSED","title":"SCRATCH: red database check for job 3-data-model (do not merge)"}
+
+== Remote branches now (git ls-remote --heads origin): no factory/3-data-model-red
+refs/heads/dependabot/npm_and_yarn/npm-c00e685d35
+refs/heads/dependabot/pip/scripts/pip-c136704cb4
+refs/heads/factory/1-stack
+refs/heads/factory/2-smoke
+refs/heads/factory/3-data-model
+refs/heads/main
+
+== The scratch commit b6548ea added one migration:
+supabase/migrations/20261020095900_scratch_any_learner_reads_every_card.sql
+@@ -0,0 +1,8 @@
++-- SCRATCH ONLY (job 3-data-model, "Done when" 17). Never merged.
++-- A rule that lets any learner read every card, to prove the database check
++-- turns red. This branch is deleted and its pull request closed afterwards.
++create policy "any learner reads every card"
++  on public.cards
++  for select
++  to authenticated
++  using (true);
+
+== Run 39387964441 jobs
+success	Type check, lint, format
+success	Unit tests (Vitest)
+success	Python tests and lint (pytest, ruff)
+success	Secret scan (gitleaks)
+success	Dependency check (npm audit, pip-audit)
+failure	Database tests (local Supabase, pgTAP)
+skipped	Apply database changes to the test project
+skipped	Browser tests (Playwright, Chromium and WebKit)
+skipped	Preview link (Cloudflare Worker behind Access)
+
+== Database job failures (excerpt)
+2026-10-20T07:42:02.5535317Z Applying migration 20261019183410_create_visits.sql...
+2026-10-20T07:42:02.5770680Z Applying migration 20261020090000_content_model.sql...
+2026-10-20T07:42:02.6103664Z Applying migration 20261020090100_learner_model.sql...
+2026-10-20T07:42:02.6345853Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-20T07:42:02.6434100Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-20T07:42:02.6643326Z Applying migration 20261020095900_scratch_any_learner_reads_every_card.sql...
+2026-10-20T07:42:17.9460916Z # Failed test 37: "[data 8] A (guest) reads exactly their own 1 rows in cards"
+2026-10-20T07:42:17.9463660Z #         have: (3)
+2026-10-20T07:42:17.9464188Z #         want: (1)
+2026-10-20T07:42:17.9464871Z # Failed test 41: "[data 8] A (guest) cannot read B's rows in cards"
+2026-10-20T07:42:17.9466935Z # Failed test 63: "[data 8] B (email) reads exactly their own 2 rows in cards"
+2026-10-20T07:42:17.9468065Z #         have: (3)
+2026-10-20T07:42:17.9468399Z #         want: (2)
+2026-10-20T07:42:17.9468889Z # Failed test 67: "[data 8] B (email) cannot read A's rows in cards"
+2026-10-20T07:42:17.9470474Z # Failed test 85: "[data 12] as a guest, A reads their 7 rows (3 sessions, 1 card, 1 review log, 2 consents)"
+2026-10-20T07:42:17.9471310Z #         have: 9
+2026-10-20T07:42:17.9472223Z #         want: 7
+2026-10-20T07:42:17.9472650Z # Looks like you failed 5 tests of 94
+2026-10-20T07:42:18.1388167Z # Failed test 126: "[data 2] cards has exactly its three rules"
+2026-10-20T07:42:18.1391919Z # Looks like you failed 1 test of 142
+2026-10-20T07:42:18.1883409Z supabase/tests/database/data_model_learners.test.sql (Wstat: 0 Tests: 94 Failed: 5)
+2026-10-20T07:42:18.1884815Z   Failed tests:  37, 41, 63, 67, 85
+2026-10-20T07:42:18.1886356Z supabase/tests/database/data_model_schema.test.sql   (Wstat: 0 Tests: 142 Failed: 1)
+2026-10-20T07:42:18.1887626Z   Failed test:  126
+2026-10-20T07:42:18.1888779Z Files=5, Tests=371,  1 wallclock secs ( 0.06 usr  0.02 sys +  0.05 cusr  0.02 csys =  0.15 CPU)
+2026-10-20T07:42:18.1889925Z Result: FAIL
+
+== Is the red run linked in the current build.md (round 3, main at dbda281)?
+grep for 39387964441 in factory/jobs/3-data-model/build.md:
+0
+History: the link was in the round 1 build.md (commit ab7735d) and was dropped when rounds 2/3 overwrote the file:
+65:| 17 | Met | Red run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39387964441 (scratch PR #9 added a rule letting any learner read every card: tests 37, 41, 63, 67 and 85 of `data_mo
+
+Note: the red run tested round 1's code (371 tests). Rounds 2 and 3 changed the learner tests (now 108 in that file, 401 total). The assertions that went red (own card counts, cannot read the other learner's cards, the policies_are check on cards) are still present in round 3, so the same scratch rule would still turn the check red, but this was not re-run.

@@ -1,0 +1,41 @@
+Evidence for statement 8: the "cannot add a card carrying the other learner's user id" tests pass for the wrong reason.
+Source: factory/3-data-model at 2a21230. Read only; no database was run (none available on this computer).
+
+Statement 8 says pgTAP proves, for each learner table, that A "cannot add a row carrying B's user id", and the same with A and B swapped.
+
+The two card tests (supabase/tests/database/data_model_learners.test.sql):
+
+  line 444-449
+    select throws_ok(
+      $$insert into public.cards (user_id, form_id)
+        values ('...0000b1', current_setting('test.form_unmet')::bigint)$$,
+      '42501', 'new row violates row-level security policy for table "cards"',
+      '[data 8] A (guest) cannot add a card carrying B''s user id'
+    );
+
+  line 516-521: the same for B inserting a card with A's user id, also with test.form_unmet.
+
+The card insert rule (supabase/migrations/20261020090100_learner_model.sql, "learners add cards only for forms they met") is:
+
+    user_id = (select auth.uid())
+    and exists (approved form)
+    and exists (a session OF THE CURRENT LEARNER at step >= understand whose dialogue has a token for this form)
+
+test.form_unmet ("not-in-dialogue") is on no token of any dialogue (it is inserted at line 37-40 and never given a token). So the third
+condition is false for both A and B, and the insert is refused whether or not the rule compares user_id with auth.uid().
+
+Mental mutation (the same reasoning a reviewer can repeat): delete "user_id = (select auth.uid()) and" from the card insert rule.
+  - A inserts (B, form_unmet): the met-form check still fails -> 42501 "new row violates row-level security policy for table cards".
+  - The test still passes. Nothing else in the four data_model_* files inserts a card for another learner with a form the inserter met.
+  - So with that check removed, A could create cards in B's account for any form A has met, and every pgTAP test would stay green.
+
+Why the obvious test was not possible as written: the form A has met (form_met) already has a card for B, so A inserting (B, form_met)
+would be refused by the primary key (23505), not by the rule. A form that A has met and B has no card for is needed.
+
+What the database does today: correct (the user_id comparison is in the rule). What is missing: a test that would fail without it.
+The other three learner tables are isolated correctly: sessions (approved dialogue, only the user_id check can refuse),
+review_logs (B owns a card for form_met, so the foreign key passes and only the user_id check refuses), consents (only the user_id check).
+
+Suggested fix (for the builder, not done here): add a form that is on an approved line of the dialogue A reached "understand" in, that
+B has no card for, and assert A's insert of (B, that form) is refused with 42501; then the same both ways round. Optionally prove it
+with a scratch run that removes the user_id comparison from the card insert rule.

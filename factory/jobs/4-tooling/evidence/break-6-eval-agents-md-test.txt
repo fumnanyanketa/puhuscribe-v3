@@ -1,0 +1,69 @@
+=== baseline
+      Tests  33 passed (33)
+
+=== 1. rename a linked file: git mv docs/v2-imports.md docs/v2-imports-renamed.md (named in AGENTS.md and conventions.md)
+     × [tooling 6] every path written in AGENTS.md exists 145ms
+     × [tooling 6] every path written in docs/conventions.md exists 204ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every path written in AGENTS.md exists
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every path written in docs/conventions.md exists
+      Tests  2 failed | 31 passed (33)
+
+=== 2. change a path in conventions.md: src/lib/grade.ts -> src/lib/grade-gone.ts (first mention)
+     × [tooling 6] every path written in docs/conventions.md exists 146ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every path written in docs/conventions.md exists
+      Tests  1 failed | 32 passed (33)
+
+=== 3. name a missing npm script in AGENTS.md (npm run check:everything)
+     × [tooling 6] every npm script named in AGENTS.md is in package.json 14ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every npm script named in AGENTS.md is in package.json
+      Tests  1 failed | 32 passed (33)
+
+=== 4. delete Not in v3.0 item 'Mnemonics' from AGENTS.md
+     × [tooling 2] lists all 12 "Not in v3.0" items from PRD section 4.1 word for word, and no streaks 17ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md describes the real project > [tooling 2] lists all 12 "Not in v3.0" items from PRD section 4.1 word for word, and no streaks
+      Tests  1 failed | 32 passed (33)
+
+=== 5. delete principle P4 from AGENTS.md
+     × [tooling 2] keeps the five principles 31ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md describes the real project > [tooling 2] keeps the five principles
+      Tests  1 failed | 32 passed (33)
+
+=== 6. push AGENTS.md past 2,200 words (append 500 words to Build rules)
+2213 AGENTS.md
+     × [tooling 4] [tooling 6] the whole file stays under 2,200 words 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md stays short > [tooling 4] [tooling 6] the whole file stays under 2,200 words
+      Tests  1 failed | 32 passed (33)
+
+=== 7. remove one Lessons learned line (the AbortSignal one)
+     × [tooling 4] [tooling 6] keeps all 17 "Lessons learned" lines unchanged 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md stays short > [tooling 4] [tooling 6] keeps all 17 "Lessons learned" lines unchanged
+      Tests  1 failed | 32 passed (33)
+
+=== 8. reword one Lessons learned line (one word changed)
+     × [tooling 4] [tooling 6] keeps all 17 "Lessons learned" lines unchanged 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md stays short > [tooling 4] [tooling 6] keeps all 17 "Lessons learned" lines unchanged
+      Tests  1 failed | 32 passed (33)
+
+=== 9. GAP PROBE: a root file path without a slash: lefthook.yml -> lefthook-gone.yml in AGENTS.md
+1
+      Tests  33 passed (33)
+
+=== 10. GAP PROBE: rename the root file itself: git mv ruff.toml ruff-gone.toml (named in conventions.md as `ruff.toml`)
+      Tests  33 passed (33)
+
+=== 11. GAP PROBE: bold-only GA rule text deleted? remove the debug triage 'confused session' line
+     × [tooling 3] debug triage names the three kinds and what to do for each 14ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > AGENTS.md carries the project rules > [tooling 3] debug triage names the three kinds and what to do for each
+      Tests  1 failed | 32 passed (33)
+
+=== after all: tree clean?
+(empty = clean)

@@ -1,0 +1,77 @@
+PASS [chromium built-chromium] saving message shows first :: Saving your visit.
+PASS [chromium built-chromium] no Try again while saving :: 
+PASS [chromium built-chromium] one h1 "Hei!" with lang=fi :: [{"tag":"H1","text":"Hei!","lang":"fi"}]
+PASS [chromium built-chromium] title PuhuScribe :: PuhuScribe
+PASS [chromium built-chromium] one status line :: P
+PASS [chromium built-chromium] no styling :: {"sheets":0,"styleEls":0,"media":0,"icons":["data:,"],"font":"\"Times New Roman\""}
+PASS [chromium built-chromium] no stylesheet/font/image requests :: []
+PASS [chromium built-chromium] all requests same origin, none to supabase :: []
+PASS [chromium built-chromium] one POST on first load :: 1
+PASS [chromium built-chromium] console clean on load :: []
+PASS [chromium built-chromium] reload 1: posts total 2 :: 2
+PASS [chromium built-chromium] reload 2: posts total 3 :: 3
+PASS [chromium built-chromium] deep link loads app, one POST :: {"afterDeep":4}
+PASS [chromium built-chromium] back navigation :: {"afterBack":5,"status":"Your visit is saved."}
+PASS [chromium built-chromium] failure message exact :: Your visit was not saved. Check your internet connection, then try again.
+PASS [chromium built-chromium] Try again visible after failure :: 
+PASS [chromium built-chromium] keyboard Try again -> saving -> saved, one new POST :: {"posts":2,"tabReachedButton":true,"focusDuring":"status","focusAfter":"status"}
+PASS [chromium built-chromium] focus on status line after Try again :: {"focusDuring":"status","focusAfter":"status"}
+PASS [chromium built-chromium] button gone after save :: 
+PASS [chromium built-chromium] console during failure path :: ["error: Failed to load resource: net::ERR_FAILED"]
+PASS [chromium built-chromium] double click Try again sends one POST :: {"posts":2}
+PASS [chromium built-chromium] double tap Try again sends one POST :: {"posts":2}
+PASS [chromium built-chromium] Try again while still offline fails again with button :: {"posts":2}
+PASS [chromium built-chromium] 503 shows failure + Try again :: 
+PASS [chromium built-chromium] 200 HTML (e.g. a login page) is treated as not saved :: Your visit was not saved. Check your internet connection, then try again.
+PASS [chromium built-chromium] slow 4s: saving at 3s then saved :: {"mid":"Saving your visit.","ms":4465}
+PASS [chromium built-chromium] reload mid save: one POST per load (2 loads) :: {"posts":2,"status":"Your visit is saved."}
+PASS [chromium built-chromium] slow 3G-like network: saved :: {"ms":10883,"posts":1}
+   probe GET: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe PUT json: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe DELETE: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe OPTIONS preflight from other site: 204 allow=- acao=- 
+   probe POST form: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST text/plain: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST no content type: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST application/jsonx: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST JSON with chosen time (body ignored): 201 allow=- acao=- {"saved":true}
+   probe POST JSON empty body: 201 allow=- acao=- {"saved":true}
+   probe GET /api/health: 200 allow=- acao=- {"status":"ok","service":"puhuscribe","database":"reachable"}
+PASS [webkit built-webkit] saving message shows first :: Saving your visit.
+PASS [webkit built-webkit] no Try again while saving :: 
+PASS [webkit built-webkit] one h1 "Hei!" with lang=fi :: [{"tag":"H1","text":"Hei!","lang":"fi"}]
+PASS [webkit built-webkit] title PuhuScribe :: PuhuScribe
+PASS [webkit built-webkit] one status line :: P
+PASS [webkit built-webkit] no styling :: {"sheets":0,"styleEls":0,"media":0,"icons":["data:,"],"font":"-webkit-standard"}
+PASS [webkit built-webkit] no stylesheet/font/image requests :: []
+PASS [webkit built-webkit] all requests same origin, none to supabase :: []
+PASS [webkit built-webkit] one POST on first load :: 1
+PASS [webkit built-webkit] console clean on load :: []
+PASS [webkit built-webkit] reload 1: posts total 2 :: 2
+PASS [webkit built-webkit] reload 2: posts total 3 :: 3
+PASS [webkit built-webkit] deep link loads app, one POST :: {"afterDeep":4}
+PASS [webkit built-webkit] back navigation :: {"afterBack":5,"status":"Your visit is saved."}
+PASS [webkit built-webkit] failure message exact :: Your visit was not saved. Check your internet connection, then try again.
+PASS [webkit built-webkit] Try again visible after failure :: 
+PASS [webkit built-webkit] keyboard Try again -> saving -> saved, one new POST :: {"posts":2,"tabReachedButton":true,"focusDuring":"status","focusAfter":"status"}
+PASS [webkit built-webkit] focus on status line after Try again :: {"focusDuring":"status","focusAfter":"status"}
+PASS [webkit built-webkit] button gone after save :: 
+PASS [webkit built-webkit] console during failure path :: []
+PASS [webkit built-webkit] double click Try again sends one POST :: {"posts":2}
+PASS [webkit built-webkit] double tap Try again sends one POST :: {"posts":2}
+PASS [webkit built-webkit] Try again while still offline fails again with button :: {"posts":2}
+PASS [webkit built-webkit] 503 shows failure + Try again :: 
+PASS [webkit built-webkit] 200 HTML (e.g. a login page) is treated as not saved :: Your visit was not saved. Check your internet connection, then try again.
+PASS [webkit built-webkit] slow 4s: saving at 3s then saved :: {"mid":"Saving your visit.","ms":5020}
+PASS [webkit built-webkit] reload mid save: one POST per load (2 loads) :: {"posts":2,"status":"Your visit is saved."}
+   probe GET: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe PUT json: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe DELETE: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe OPTIONS preflight from other site: 204 allow=- acao=- 
+   probe POST form: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST text/plain: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST no content type: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST application/jsonx: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST JSON with chosen time (body ignored): 201 allow=- acao=- {"saved":true}
+   probe POST JSON empty body: 201 allow=- acao=- {"saved":true}
+   probe GET /api/health: 200 allow=- acao=- {"status":"ok","service":"puhuscribe","database":"reachable"}

@@ -1,0 +1,125 @@
+import { useEffect, useRef, useState } from 'react'
+import { Button } from '../components/Button.tsx'
+import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { Wordmark } from '../components/Wordmark.tsx'
+import { CanDo } from './CanDo.tsx'
+import { callApi, isRecord } from '../lib/api.ts'
+import styles from './FrontDoor.module.css'
+
+// The front door, at / (factory/jobs/8-first-session/spec.md, "Done when" 1,
+// 2, 4, 6 and 18). One front door, one loop: the learner never picks a mode.
+// Loading this page creates nothing. Only pressing Start sends POST /api/guest.
+
+export const GUEST_LINE =
+  'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.'
+export const ENDED = 'Your guest session ended on this device. Press Start to begin again.'
+export const ALL_DONE = 'You have finished every dialogue that is ready.'
+export const NOT_READY = "Today's session is not ready yet. Please come back later."
+const NOT_STARTED = 'Could not start your session. Check your internet connection, then try again.'
+const LOADING = "Loading today's session."
+
+type View =
+  | { kind: 'loading' }
+  | { kind: 'signed_out'; ended: boolean }
+  | { kind: 'start' | 'continue'; canDo?: string }
+  | { kind: 'all_done' | 'not_ready' }
+
+function viewFrom(body: unknown): View {
+  if (!isRecord(body)) return { kind: 'signed_out', ended: false }
+  const answer = body as { signedIn?: unknown; ended?: unknown; today?: unknown; canDo?: unknown }
+  if (answer.signedIn !== true) return { kind: 'signed_out', ended: answer.ended === true }
+  const canDo = typeof answer.canDo === 'string' ? answer.canDo : undefined
+  if (answer.today === 'continue' || answer.today === 'start') return { kind: answer.today, canDo }
+  if (answer.today === 'all_done' || answer.today === 'not_ready') return { kind: answer.today }
+  return { kind: 'signed_out', ended: false }
+}
+
+export function FrontDoor() {
+  const [view, setView] = useState<View>({ kind: 'loading' })
+  const [starting, setStarting] = useState(false)
+  const [problem, setProblem] = useState(false)
+  // React's strict mode runs start-up effects twice in development; the
+  // second run reuses this request.
+  const firstLook = useRef<Promise<View> | null>(null)
+
+  useEffect(() => {
+    let active = true
+    firstLook.current ??= callApi('/api/today', 'GET').then((answer) =>
+      // Without an answer the page offers Start, which finds an existing
+      // guest on this device instead of making a second one.
+      answer?.status === 200 ? viewFrom(answer.body) : { kind: 'signed_out', ended: false },
+    )
+    void firstLook.current.then((next) => {
+      if (active) setView(next)
+    })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  async function start() {
+    setStarting(true)
+    setProblem(false)
+    const answer = await callApi('/api/guest', 'POST')
+    if (answer && (answer.status === 200 || answer.status === 201)) {
+      window.location.assign('/session')
+      return
+    }
+    setStarting(false)
+    setProblem(true)
+  }
+
+  let message = ''
+  let tone: StatusTone = 'neutral'
+  if (problem) {
+    message = NOT_STARTED
+    tone = 'problem'
+  } else if (view.kind === 'signed_out' && view.ended) message = ENDED
+  else if (view.kind === 'loading') message = LOADING
+  // With nothing to start, the message takes the lead sentence's place under
+  // the heading instead of sitting alone at the bottom (design review, round 1).
+  const instead = view.kind === 'all_done' ? ALL_DONE : view.kind === 'not_ready' ? NOT_READY : null
+
+  const signedOut = view.kind === 'signed_out'
+  const canDo = view.kind === 'start' || view.kind === 'continue' ? view.canDo : undefined
+
+  return (
+    <main className={styles.page}>
+      <div className={styles.top}>
+        <Wordmark height={36} />
+      </div>
+      <div className={styles.intro}>
+        <h1 className={styles.title}>Today&apos;s session</h1>
+        {instead ? (
+          <p className={styles.message} role="status">
+            {instead}
+          </p>
+        ) : (
+          <p className={styles.lead}>
+            A session is one short Finnish dialogue that you hear line by line and then check you understand.
+          </p>
+        )}
+        {canDo && <CanDo text={canDo} className={styles.canDo} />}
+      </div>
+      <div className={styles.actions}>
+        {(signedOut || view.kind === 'start') && (
+          <Button block busy={starting} busyLabel="Starting your session." onClick={() => void start()}>
+            Start
+          </Button>
+        )}
+        {view.kind === 'continue' && (
+          <Button
+            block
+            onClick={() => {
+              window.location.assign('/session')
+            }}
+          >
+            Continue today&apos;s session
+          </Button>
+        )}
+        {signedOut && <p className={styles.guestLine}>{GUEST_LINE}</p>}
+        {!instead && <StatusLine tone={tone}>{message}</StatusLine>}
+      </div>
+    </main>
+  )
+}

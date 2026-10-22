@@ -1,0 +1,7 @@
+# Manual start of the Review site workflow from branch factory/13-review-site (gh workflow run review-site.yml --ref factory/13-review-site), 22 October 2026
+# Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732155909
+event: workflow_dispatch
+branch: factory/13-review-site
+conclusion: success
+job "Review site build, tests and deploy dry run": success
+job "Deploy the review site (main only)": skipped

@@ -1,0 +1,45 @@
+# Job 4-tooling, statement 15: each protection in scripts/hooks/stop-checks.ts broken on purpose (working tree only, never committed), then restored.
+# The fourth mutation stays green on its own: gitleaks --redact still hides the value. The fifth removes --redact as well and goes red. Both guards hold.
+
+## Mutation: Non-app folders count as app files
+   changed: if (NOT_APP_CODE.some((dir) => normal.startsWith(dir))) return false
+   result: Tests  5 failed | 19 passed (24)
+   red: [tooling 15] .claude/settings.json counts as an app file: false
+   red: [tooling 15] docs/conventions.md counts as an app file: false
+   red: [tooling 15] factory/jobs/4-tooling/build.md counts as an app file: false
+   red: [tooling 15] files under factory/, recording/, docs/ and .claude/ do not count as app files
+   red: [tooling 15] recording/log-turn.mjs counts as an app file: false
+
+## Mutation: .env* names are not filtered
+   changed: return !name.startsWith('.env')
+   result: Tests  3 failed | 21 passed (24)
+   red: [tooling 15] .env.example counts as an app file: false
+   red: [tooling 15] .env.local counts as an app file: false
+   red: [tooling 15] worker/.env counts as an app file: false
+
+## Mutation: build.md "Result: blocked:" is ignored
+   changed: if (isBlocked(readIfExists(join(root, 'factory', 'jobs', id, 'build.md')))) continue
+   result: Tests  2 failed | 22 passed (24)
+   red: [tooling 15] checks each worktree on its own: a blocked one is skipped, a broken one is named
+   red: [tooling 15] lets a builder stop when its build.md ends with "Result: blocked:"
+
+## Mutation: The report prints the finding (gitleaks still redacts it)
+   changed: problems.push(`secrets: ${file} line ${String(finding.StartLine)} (${finding.RuleID})`)
+   result: Tests  24 passed (24)
+
+## Mutation: gitleaks runs without --redact and the report prints the secret value
+   changed: '--redact',
+   result: Tests  1 failed | 23 passed (24)
+   red: [tooling 15] a made-up key in a changed file exits 2 and never prints the value
+
+## Mutation: The 40 line cap is removed
+   changed: if (body.length > room) {
+   result: Tests  2 failed | 22 passed (24)
+   red: [tooling 15] prints at most 40 lines however many problems there are
+   red: [tooling 15] the report is empty when nothing failed and never longer than 40 lines
+
+## Mutation: Committed changes are not looked at
+   changed: const start = git(worktree, ['merge-base', 'HEAD', base])?.trim() ?? 'HEAD'
+   result: Tests  1 failed | 23 passed (24)
+   red: [tooling 15] a type error already committed on the branch exits 2
+

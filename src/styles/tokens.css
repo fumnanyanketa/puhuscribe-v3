@@ -1,0 +1,240 @@
+/*
+ * PuhuScribe v3 design tokens (job 5-design-system, factory/jobs/5-design-system/spec.md).
+ * The design guide is design.md at the repository root.
+ *
+ * Every colour, font, size, space, radius, shadow and motion value the app uses
+ * lives here as a CSS custom property. Components read these names and never
+ * hold a raw colour themselves (tests/design-tokens.test.ts checks that).
+ *
+ * The look is v2's own (owner's decision, 21 October 2026, recorded in
+ * factory/jobs/5-design-system/summary.md): a white to soft lilac ground,
+ * ink text, violet for written Finnish (kirjakieli), teal for spoken Finnish
+ * (puhekieli), azure for the words that change between the two, soft white
+ * cards and black pill buttons. Values that differ from v2 were darkened only
+ * where v2's colour failed the contrast floor; each one says so.
+ *
+ * Dark mode declares the same colour names again inside
+ * @media (prefers-color-scheme: dark). Colours are hex (8 digit hex where a
+ * shadow needs transparency), because older iPhones lack light-dark() and
+ * color-mix().
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* Ground and surfaces */
+  --color-ground-top: #ffffff; /* the page background fades from this ... */
+  --color-ground-middle: #faf9fc; /* ... through this ... */
+  --color-ground-bottom: #f1f0f6; /* ... to this (v2's own three stops) */
+  --color-surface: #ffffff; /* cards, the audio player, the word card */
+  --color-track: #e3e1ec; /* step segments not yet reached, the unplayed waveform */
+  --color-card-edge: #1a16340f; /* v2's 1 px card hairline, 6 percent ink */
+  --color-control-edge: #7a7689; /* the edge of a white control, 3.9:1 on the ground */
+
+  /* Text */
+  --color-text: #1b1a20; /* v2 ink */
+  --color-text-quiet: #56525e; /* v2 ink-2, 7.6:1 on white */
+
+  /* Spoken Finnish, puhekieli (v2 teal) */
+  --color-spoken: #1f7c8e; /* dot and connector */
+  --color-spoken-text: #166270; /* label text; v2's #1F7C8E was 4.3:1 on the band, too low */
+  --color-spoken-band: #e9f2f4; /* v2's 10 percent teal wash, as a solid colour */
+  --color-spoken-band-edge: #1f7c8e38; /* v2's 22 percent teal line */
+
+  /* Written Finnish, kirjakieli (v2 violet) */
+  --color-written: #6b46c1; /* dot, connector and label text, 6.4:1 on white */
+
+  /* Changed words between the registers (v2 azure). Reserved for that only. */
+  --color-flag-text: #1f42ac; /* v2's #2F5AD6 was 4.8:1 on its wash; this reaches 7:1 */
+  --color-flag-wash: #e2e8f9; /* v2's 14 percent azure wash, as a solid colour */
+
+  /* The word being spoken right now, and a word under the finger */
+  --color-current-word: #1b1a20;
+  --color-current-word-text: #f6f4fb;
+  --color-current-line: #1f7c8e; /* ring round the line that is playing */
+  --color-word-hover: #ecebf2; /* v2's well colour */
+
+  /* Controls */
+  --color-button: #1b1a20; /* v2's black pill */
+  --color-button-hover: #2a2832;
+  --color-button-pressed: #000007;
+  --color-button-text: #f6f4fb;
+  --color-button-secondary: #ffffff; /* v2's white "light" pill */
+  --color-button-secondary-hover: #f6f5fa;
+  --color-button-secondary-pressed: #ecebf2;
+  --color-disabled: #ecebf2;
+  --color-disabled-text: #6e6a7a;
+  --color-focus: #1b1a20;
+  --color-wave-played: #1f7c8e;
+  --color-recording: #1f7c8e; /* v2 records in teal */
+  --color-recording-text: #ffffff;
+
+  /* Brand: v2's sprout mark, flat (owner's brand call, 21 October 2026).
+     A logo is exempt from the contrast floors. */
+  --color-brand: #6b4fc6;
+  --color-brand-leaf: #ffffff;
+  --color-brand-leaf-back: #d9d1f2;
+  --color-wordmark-quiet: #8b8798; /* "Scribe" in v2's ink-3 */
+
+  /* Status line. A learner's attempt is never red. */
+  --color-gentle-wash: #e7e3f2; /* v2's lavender tint, for gentle corrections */
+  --color-gentle-mark: #6b46c1;
+  --color-problem-wash: #fff3e0; /* system faults only, such as no connection */
+  --color-problem-text: #7a3d00;
+  --color-problem-edge: #a35200;
+
+  /* The page background: v2's white to lilac fade. Owner-approved exception to
+     the gradient ban (statement 18), for the page background only. */
+  --ground-fade: linear-gradient(
+    180deg,
+    var(--color-ground-top) 0%,
+    var(--color-ground-middle) 58%,
+    var(--color-ground-bottom) 100%
+  );
+
+  /* Shadows (v2 "Snow" values, written as 8 digit hex) */
+  --shadow-1: 0 2px 8px #2621460f, 0 1px 2px #2621460d;
+  --shadow-2: 0 8px 24px #26214614, 0 2px 6px #2621460d;
+  --shadow-3: 0 18px 44px #2621461f, 0 6px 14px #26214612;
+  --shadow-dock: 0 -8px 28px #2621461a, 0 -1px 3px #2621460d;
+  --shadow-button: 0 8px 22px #1b1a2047;
+
+  /* Fonts, both v2's own and self-hosted (src/styles/fonts.css).
+     Poppins for headings and Finnish lines, Switzer for body text. */
+  --font-heading: 'Poppins', system-ui, sans-serif;
+  --font-body: 'Switzer', 'Poppins', system-ui, sans-serif;
+
+  /* Text sizes in rem, so a browser text size change scales every line */
+  --text-display: 2.25rem; /* 36 px, page titles on the reference page */
+  --text-title: 1.875rem; /* 30 px, step name */
+  --text-heading: 1.1875rem; /* 19 px, card and section headings */
+  --text-line: 1.375rem; /* 22 px, a spoken Finnish line */
+  --text-word-card: 2rem; /* 32 px, the word at the top of its card */
+  --text-written: 1.0625rem; /* 17 px, the written line under it */
+  --text-body: 1rem; /* 16 px */
+  --text-small: 0.875rem; /* 14 px, labels and notes */
+
+  --leading-tight: 1.15;
+  --leading-line: 1.4;
+  --leading-body: 1.5;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-title: -0.02em;
+  --tracking-line: -0.01em;
+
+  /* A Finnish line stays readable at up to this many characters */
+  --measure-line: 34ch;
+
+  /* Spacing, v2's 4 px scale. In px on purpose: when a learner makes the
+     text larger, the text grows and the margins stay, so lines keep room. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+
+  /* Corner radii, v2's scale */
+  --radius-word: 6px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 26px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Sizes */
+  --tap-min: 44px;
+  --word-min-width: 24px;
+  --play-size: 56px;
+  --record-size: 72px;
+  --button-height: 54px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+
+  /* Motion: quiet, colour and opacity, one slide for the word card
+     (v2 rule: no bounce, no scale up). Reduced motion turns slides off. */
+  --motion-fast: 150ms;
+  --motion-sheet: 220ms;
+  --motion-ease: ease;
+  --motion-turn: 800ms; /* one turn of a busy or loading ring */
+  --motion-pulse: 1.2s; /* one fade of the working dots */
+  --motion-ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Dims the page behind the word card. Declared on ::backdrop itself, because
+   older browsers do not pass custom properties from :root to the backdrop. */
+::backdrop {
+  --color-backdrop: #1b1a2066;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ground-top: #121117;
+    --color-ground-middle: #141319;
+    --color-ground-bottom: #17161d;
+    --color-surface: #1c1b23;
+    --color-track: #34323f;
+    --color-card-edge: #ffffff14;
+    --color-control-edge: #8a8699;
+
+    --color-text: #f2f0f8;
+    --color-text-quiet: #b8b4c4;
+
+    --color-spoken: #4fb3c4;
+    --color-spoken-text: #7ccad7;
+    --color-spoken-band: #23303a;
+    --color-spoken-band-edge: #4fb3c440;
+
+    --color-written: #a78bea;
+
+    --color-flag-text: #b6c7ff;
+    --color-flag-wash: #22305a;
+
+    --color-current-word: #f2f0f8;
+    --color-current-word-text: #1b1a20;
+    --color-current-line: #4fb3c4;
+    --color-word-hover: #2a2933;
+
+    --color-button: #f2f0f8;
+    --color-button-hover: #ffffff;
+    --color-button-pressed: #d9d6e4;
+    --color-button-text: #1b1a20;
+    --color-button-secondary: #1c1b23;
+    --color-button-secondary-hover: #24232c;
+    --color-button-secondary-pressed: #2c2b35;
+    --color-disabled: #2a2933;
+    --color-disabled-text: #9a96a8;
+    --color-focus: #f2f0f8;
+    --color-wave-played: #4fb3c4;
+    --color-recording: #4fb3c4;
+    --color-recording-text: #121117;
+
+    --color-brand: #6b4fc6;
+    --color-brand-leaf: #ffffff;
+    --color-brand-leaf-back: #d9d1f2;
+    --color-wordmark-quiet: #8a8699;
+
+    --color-gentle-wash: #2a2540;
+    --color-gentle-mark: #a78bea;
+    --color-problem-wash: #2e2216;
+    --color-problem-text: #ffc58a;
+    --color-problem-edge: #d98a3a;
+
+    --shadow-1: 0 1px 2px #00000066;
+    --shadow-2: 0 1px 2px #00000066;
+    --shadow-3: 0 8px 24px #00000080;
+    --shadow-dock: 0 -1px 0 #ffffff14;
+    --shadow-button: none;
+  }
+
+  ::backdrop {
+    --color-backdrop: #000000a6;
+  }
+}

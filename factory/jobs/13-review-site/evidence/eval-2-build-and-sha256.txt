@@ -1,0 +1,60 @@
+$ npm run build:review-site
+
+> puhuscribe@0.0.0 build:review-site
+> node scripts/review-site/build.ts
+
+Review site built in dist-review/ with 3 files:
+  index.html
+  meeting-people-new-colleague/round-1.html
+  robots.txt
+exit 0
+
+$ find dist-review -type f (with sizes)
+-rw-r--r-- 1 fumna 197609 2138 Oct 22 09:25 dist-review/index.html
+-rw-r--r-- 1 fumna 197609 441511 Oct 22 09:23 dist-review/meeting-people-new-colleague/round-1.html
+-rw-r--r-- 1 fumna 197609 26 Oct 22 09:25 dist-review/robots.txt
+
+$ sha256 of built page vs committed page (git show HEAD:...)
+86642823fcfe886a26d9b833c879e77451fd0b3db3bc0b7ae831ef9a0f0dfe6e *dist-review/meeting-people-new-colleague/round-1.html
+86642823fcfe886a26d9b833c879e77451fd0b3db3bc0b7ae831ef9a0f0dfe6e *-
+cmp: identical
+
+$ ls content/drafts/meeting-people-new-colleague content/drafts/meeting-people-new-colleague/review content/reviews
+content/drafts/meeting-people-new-colleague:
+audio/
+check-report.json
+draft.json
+review/
+
+content/drafts/meeting-people-new-colleague/audio:
+1-kirja.mp3
+1-puhe.mp3
+2-kirja.mp3
+2-puhe.mp3
+3-kirja.mp3
+3-puhe.mp3
+4-kirja.mp3
+4-puhe.mp3
+5-kirja.mp3
+5-puhe.mp3
+6-kirja.mp3
+6-puhe.mp3
+
+content/drafts/meeting-people-new-colleague/review:
+round-1.html
+round-1.json
+total 5
+drwxr-xr-x 1 fumna 197609   0 Oct 22 09:23 ./
+drwxr-xr-x 1 fumna 197609   0 Oct 22 09:23 ../
+-rw-r--r-- 1 fumna 197609 558 Oct 22 09:23 README.md
+
+$ cat dist-review/robots.txt
+User-agent: *$
+Disallow: /$
+
+$ git check-ignore dist-review
+.gitignore:12:dist-review/	dist-review
+
+$ git ls-files content/drafts | grep review/
+content/drafts/meeting-people-new-colleague/review/round-1.html
+content/drafts/meeting-people-new-colleague/review/round-1.json

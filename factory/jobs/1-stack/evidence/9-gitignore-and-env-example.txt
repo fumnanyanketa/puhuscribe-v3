@@ -1,0 +1,49 @@
+== git check-ignore for each path statement 9 names (-v shows the matching .gitignore rule)
+IGNORED  .env.local   <- .gitignore:24:*.local	.env.local
+IGNORED  .dev.vars   <- .gitignore:23:.dev.vars*	.dev.vars
+IGNORED  .dev.vars.preview   <- .gitignore:23:.dev.vars*	.dev.vars.preview
+IGNORED  .wrangler/state   <- .gitignore:11:.wrangler/	.wrangler/state
+IGNORED  dist/client/index.html   <- .gitignore:9:dist/	dist/client/index.html
+IGNORED  playwright-report/index.html   <- .gitignore:14:playwright-report/	playwright-report/index.html
+IGNORED  test-results/x.png   <- .gitignore:15:test-results/	test-results/x.png
+IGNORED  .venv/bin/python   <- .gitignore:3:.venv/	.venv/bin/python
+== .env.example is NOT ignored:
+tracked (good)
+
+== .env.example has no values (every assignment line, value part)
+SUPABASE_URL  value=[              ]  purpose:# Project URL of the test project, https://<project-ref>.supabase.co
+SUPABASE_PUBLISHABLE_KEY  value=[  ]  purpose:# Test project publishable key (starts sb_publishable_). The Worker sends it; the browser never sees it
+SUPABASE_DB_URL  value=[           ]  purpose:# Test project session pooler connection string, for database tests and scripts. Contains the database password
+ANTHROPIC_API_KEY  value=[         ]  purpose:# Not used in v3 yet
+
+== Variable names the code reads vs names in .env.example
+Worker env interface:
+  SUPABASE_URL?:
+  SUPABASE_PUBLISHABLE_KEY?:
+process.env / import.meta.env reads in repo code:
+import.meta.env.MODE
+import.meta.env.VITE_SECRET_THING
+process.env.BRANCH
+process.env.CF_ACCESS_CLIENT_ID
+process.env.CF_ACCESS_CLIENT_SECRET
+process.env.CI
+process.env.PLAYWRIGHT_BASE_URL
+secrets.* used in workflows:
+secrets.CF_ACCESS_CLIENT_ID
+secrets.CF_ACCESS_CLIENT_SECRET
+secrets.CLOUDFLARE_ACCOUNT_ID
+secrets.CLOUDFLARE_API_TOKEN
+secrets.GITHUB_TOKEN
+secrets.SUPABASE_TEST_PUBLISHABLE_KEY
+secrets.SUPABASE_TEST_URL
+os.environ in python:
+scripts/generate/generate.py:248:    if args.demo or not os.getenv("ANTHROPIC_API_KEY"):
+
+== Tracked files that look like env/secret files
+.env.example
+scripts/ci/check-files-for-secrets.test.ts
+scripts/ci/check-files-for-secrets.ts
+scripts/security/check-built-secrets.test.ts
+scripts/security/check-built-secrets.ts
+scripts/security/secrets.test.ts
+scripts/security/secrets.ts

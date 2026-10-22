@@ -1,0 +1,51 @@
+﻿2026-10-19T18:55:19.3704169Z ##[group]Run supabase test db
+2026-10-19T18:55:19.3704532Z ^[[36;1msupabase test db^[[0m
+2026-10-19T18:55:19.3768542Z shell: /usr/bin/bash -e {0}
+2026-10-19T18:55:19.3768822Z env:
+2026-10-19T18:55:19.3769034Z   NODE_VERSION: 24
+2026-10-19T18:55:19.3769264Z   PYTHON_VERSION: 3.12
+2026-10-19T18:55:19.3769506Z ##[endgroup]
+2026-10-19T18:55:19.9518678Z Connecting to local database...
+2026-10-19T18:55:20.5420518Z Error response from daemon: toomanyrequests: Rate exceeded
+2026-10-19T18:55:20.5432670Z Retrying after 4s: public.ecr.aws/supabase/pg_prove:3.36
+2026-10-19T18:55:24.9182205Z 3.36: Pulling from supabase/pg_prove
+2026-10-19T18:55:25.0451698Z dcccee43ad5d: Pulling fs layer
+2026-10-19T18:55:25.0452913Z 06d62d0de6d7: Pulling fs layer
+2026-10-19T18:55:25.0456867Z a22cb17b3b93: Pulling fs layer
+2026-10-19T18:55:25.0457328Z 4f4fb700ef54: Pulling fs layer
+2026-10-19T18:55:25.0458709Z 4f4fb700ef54: Waiting
+2026-10-19T18:55:25.1363325Z a22cb17b3b93: Verifying Checksum
+2026-10-19T18:55:25.1372235Z a22cb17b3b93: Download complete
+2026-10-19T18:55:25.1609103Z dcccee43ad5d: Verifying Checksum
+2026-10-19T18:55:25.1609916Z dcccee43ad5d: Download complete
+2026-10-19T18:55:25.1763865Z 06d62d0de6d7: Verifying Checksum
+2026-10-19T18:55:25.1772830Z 06d62d0de6d7: Download complete
+2026-10-19T18:55:25.2118400Z 4f4fb700ef54: Verifying Checksum
+2026-10-19T18:55:25.2118797Z 4f4fb700ef54: Download complete
+2026-10-19T18:55:25.3058985Z dcccee43ad5d: Pull complete
+2026-10-19T18:55:26.0614885Z 06d62d0de6d7: Pull complete
+2026-10-19T18:55:26.0941140Z a22cb17b3b93: Pull complete
+2026-10-19T18:55:26.1069723Z 4f4fb700ef54: Pull complete
+2026-10-19T18:55:26.1111409Z Digest: sha256:eda7c5e68719e9c8287e78c017118407b48df904a51c935f5ab6098b8c0bc6bc
+2026-10-19T18:55:26.1123905Z Status: Downloaded newer image for public.ecr.aws/supabase/pg_prove:3.36
+2026-10-19T18:55:26.1128625Z public.ecr.aws/supabase/pg_prove:3.36
+2026-10-19T18:55:26.4000210Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql:12: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-19T18:55:26.4358994Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql .. 
+2026-10-19T18:55:26.4363643Z # Failed test 9: "[smoke 7] anon may insert into visits and do nothing else"
+2026-10-19T18:55:26.4364815Z #     Extra privileges:
+2026-10-19T18:55:26.4365449Z #         SELECT
+2026-10-19T18:55:26.4366090Z # Failed test 15: "[smoke 8] anon cannot read visits"
+2026-10-19T18:55:26.4366828Z #       caught: no exception
+2026-10-19T18:55:26.4367436Z #       wanted: 42501
+2026-10-19T18:55:26.4368551Z # Looks like you failed 2 tests of 22
+2026-10-19T18:55:26.4369203Z Failed 2/22 subtests 
+2026-10-19T18:55:26.4369774Z 
+2026-10-19T18:55:26.4370107Z Test Summary Report
+2026-10-19T18:55:26.4370638Z -------------------
+2026-10-19T18:55:26.4371729Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql (Wstat: 0 Tests: 22 Failed: 2)
+2026-10-19T18:55:26.4372920Z   Failed tests:  9, 15
+2026-10-19T18:55:26.4373756Z Files=1, Tests=22,  0 wallclock secs ( 0.02 usr  0.01 sys +  0.01 cusr  0.00 csys =  0.04 CPU)
+2026-10-19T18:55:26.4374642Z Result: FAIL
+2026-10-19T18:55:27.0631426Z error running container: exit 1
+2026-10-19T18:55:27.0632218Z Try rerunning the command with --debug to troubleshoot the error.
+2026-10-19T18:55:27.0792549Z ##[error]Process completed with exit code 1.

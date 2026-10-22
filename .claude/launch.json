@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ios-mic-test",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8123",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "spikes/ios-mic"
+      ],
+      "port": 8123
+    },
+    {
+      "name": "factory-dashboard",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "factory/dashboard/server.mjs"
+      ],
+      "port": 4321
+    }
+  ]
+}

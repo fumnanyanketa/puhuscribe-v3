@@ -1,0 +1,18 @@
+Red run (round 3): four protections removed together, then their browser tests. Broken on purpose: (1) base.css without the button token colours, (2) the play control's button given a new key per state so React replaces it, (3) the word face made 44 px tall, (4) the reference page's word cards without the 'Sample, not reviewed.' note. 2026-10-21T15:35:52Z
+    [chromium] › e2e\design-reference.spec.ts:269:3 › Finnish line and word card › [design 11] a changed word has its wash drawn at text height inside a 44 px tap area
+    [chromium] › e2e\design-reference.spec.ts:384:3 › play control › [design 9] [design 12] keyboard focus stays on the play control when it cannot play and on Try again
+    [chromium] › e2e\design-reference.spec.ts:535:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page when the visit is not saved, dark
+    [chromium] › e2e\design-reference.spec.ts:535:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page when the visit is not saved, light
+    [chromium] › e2e\design-reference.spec.ts:71:3 › the reference page › [design 16] every word card on the page is marked "Sample, not reviewed."
+    [webkit] › e2e\design-reference.spec.ts:269:3 › Finnish line and word card › [design 11] a changed word has its wash drawn at text height inside a 44 px tap area
+    [webkit] › e2e\design-reference.spec.ts:384:3 › play control › [design 9] [design 12] keyboard focus stays on the play control when it cannot play and on Try again
+    [webkit] › e2e\design-reference.spec.ts:535:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page when the visit is not saved, dark
+    [webkit] › e2e\design-reference.spec.ts:535:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page when the visit is not saved, light
+    [webkit] › e2e\design-reference.spec.ts:71:3 › the reference page › [design 16] every word card on the page is marked "Sample, not reviewed."
+  10 failed
+Why the front page tests failed without the base button colours:
+  webkit dark:     +   "color-contrast: button",
+  webkit dark:       557 |       expect(size?.height ?? 0).toBeGreaterThanOrEqual(44)
+  chromium dark:     Error: expect(received).toBeGreaterThanOrEqual(expected)
+  chromium dark:     Expected: >= 44
+Restored all four; the full suite passes again (see build.md).

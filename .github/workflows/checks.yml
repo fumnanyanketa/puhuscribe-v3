@@ -1,0 +1,618 @@
+# The automatic checks for every pull request (factory step 4), then the
+# private preview link. Each job is one check on the pull request page.
+# Specs: factory/jobs/1-stack/spec.md ("Done when" 10, 12 and 13),
+# factory/jobs/2-smoke/spec.md ("Done when" 10 and 11),
+# factory/jobs/3-data-model/spec.md ("Done when" 3, 15, 16 and 18),
+# factory/jobs/6-pr-local-db/spec.md (browser tests on a throwaway database) and
+# factory/jobs/7-content-pipeline/spec.md ("Done when" 12 and 16).
+# Secrets used: the Supabase TEST project (browser tests after merge, preview),
+# its database connection string (only the job that applies migrations to the
+# test project) and the Cloudflare token and Access service token (preview
+# only). Never live values. The pull request browser tests hold no secret.
+# Owner's rule from job 3-data-model (20 October 2026): database changes reach
+# the shared test project only after the owner approves a job, which is when it
+# is merged to main. Pull requests test every migration, and run every browser
+# test, on a throwaway local database and never change the test project.
+# Actions not made by GitHub are pinned to a full commit, with the version in a
+# comment, so a moved tag cannot change code that receives a secret.
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    # A push to main that changes only factory notes or recording files runs
+    # none of these checks (about 14 minutes each time, job 6-pr-local-db).
+    # Such a push holds no app code and no migration, so the apply job has
+    # nothing to do. GitHub requires no check on this repository (branch
+    # protection is not available on its plan). Those pushes still get a
+    # secret scan from secret-scan-notes.yml. Pull requests always run
+    # everything.
+    paths-ignore:
+      - 'factory/**'
+      - 'recording/**'
+  # Manual run. The secret scan then reads the full git history.
+  workflow_dispatch:
+
+# Pull requests: a newer push to the same pull request cancels the older run
+# (saves check minutes). Pushes to main and manual runs: each run is its own
+# group, so no run cancels another and every merge run finishes (job 4-tooling,
+# "Done when" 17). GitHub cancels a waiting run when a newer one joins the same
+# group even without cancel-in-progress, so main runs cannot share one group.
+concurrency:
+  group: checks-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  code:
+    name: Type check, lint, format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Type check (TypeScript strict)
+        run: npm run typecheck
+      - name: Lint (ESLint)
+        if: success() || failure()
+        run: npm run lint
+      - name: Format (Prettier)
+        if: success() || failure()
+        run: npm run format:check
+
+  unit:
+    name: Unit tests (Vitest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  python:
+    name: Python tests and lint (pytest, ruff)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - name: Install Voikko (Finnish morphology) from Ubuntu
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libvoikko1 voikko-fi
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: scripts/requirements*.txt
+      - run: pip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt
+      - name: Lint (ruff)
+        run: ruff check scripts
+      - name: Format (ruff)
+        if: success() || failure()
+        run: ruff format --check scripts
+      - name: Voikko gate and content pipeline tests (pytest, no API key, no network)
+        if: success() || failure()
+        # unshare --net runs pytest with networking switched off, so no test can
+        # call an AI or voice provider. The keys are removed from the environment.
+        run: |
+          sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+            python -m pytest scripts/generate --junitxml=pytest-results.xml
+      - name: All 138 Python tests ran and passed (the 9 Voikko gate tests among them)
+        # Raised from 9 by job 7-content-pipeline (138 after its round 2) ("Done when" 12). No test is
+        # removed: v2's 9 Voikko gate tests must still be in the results.
+        if: success() || failure()
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          root = ET.parse("pytest-results.xml").getroot()
+          suite = root if root.tag == "testsuite" else root.find("testsuite")
+          counts = {k: int(suite.get(k, 0)) for k in ("tests", "failures", "errors", "skipped")}
+          print(counts)
+          assert counts == {"tests": 138, "failures": 0, "errors": 0, "skipped": 0}, counts
+          v2 = {c.get("name") for c in suite.iter("testcase") if c.get("classname", "").endswith("test_voikko_gate")}
+          print(len(v2), "Voikko gate tests")
+          assert len(v2) == 9, v2
+          PY
+      - name: Content checks on every committed draft and published dialogue (no network)
+        # Statements 7 to 11 and 21 of job 7-content-pipeline, offline. A failing
+        # check on any committed Finnish content turns the pull request red.
+        if: success() || failure()
+        run: |
+          sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+            python scripts/generate/pipeline.py check-committed
+
+  database:
+    name: Database tests (local Supabase, pgTAP)
+    # A throwaway Supabase database inside the runner: Postgres only, started
+    # empty, with every migration in supabase/migrations applied in order. Then
+    # the pgTAP security tests in supabase/tests run against it. No secrets.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # The throwaway database's own fixed local address (not a secret).
+      LOCAL_DB_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      # Installs the Supabase CLI version pinned in package-lock.json, checked
+      # against the npm registry. No npm ci: branch packages are not installed.
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+      - name: Start a throwaway database and apply every migration
+        run: supabase db start
+      - name: Database security tests (pgTAP)
+        run: supabase test db
+      - name: Run every reference data load a second time
+        # The loads are upserts, so a second run must change nothing. The pgTAP
+        # tests below then prove the row counts and contents are still exact.
+        run: |
+          for file in supabase/migrations/*_load_v2_*.sql; do
+            echo "Loading $file again"
+            psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"
+          done
+      - name: Run every publish migration a second time
+        # Job 7-content-pipeline ("Done when" 16). A publish migration does nothing
+        # when its dialogue is already published; the pgTAP tests below then
+        # prove the published content is unchanged.
+        run: |
+          shopt -s nullglob
+          for file in supabase/migrations/*_publish_*.sql; do
+            echo "Publishing $file again"
+            psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"
+          done
+      - name: Load the made-up starter sentences twice, then roll back
+        # The starter sentence loader, run on made-up fixture data (the owner's
+        # corrections to v2's 104 sentences are not in yet). Proves the
+        # generated SQL runs and that a second load adds no duplicates.
+        run: psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f scripts/v2-import/fixtures/check-load-twice.sql
+      - name: Database tests again after the second load (pgTAP)
+        run: supabase test db
+      - name: The committed TypeScript types match the migrated database
+        # src/lib/database.types.ts is made by the Supabase CLI from this same
+        # database. If a migration changed and the types were not regenerated,
+        # this step fails and prints the difference.
+        run: |
+          supabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"
+          diff -u src/lib/database.types.ts "$RUNNER_TEMP/database.types.ts"
+      - name: Keep the freshly generated types when they differ
+        # So the builder can commit the CLI's exact output. The file holds only
+        # table and column names, no data and no secret.
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: database-types
+          path: ${{ runner.temp }}/database.types.ts
+          if-no-files-found: ignore
+          retention-days: 7
+
+  apply-test-db:
+    name: Apply database changes to the test project
+    # Runs only on a push to main, which happens when the owner approves a job
+    # and it is merged (owner's rule from job 3-data-model). Never on a pull
+    # request, another branch or a manual run. It also waits for the database
+    # tests to pass on the throwaway database.
+    # The test database password (SUPABASE_TEST_DB_URL) is used here and nowhere
+    # else. This job runs no npm ci and no project code, so the password is
+    # never present while branch packages run, and it is passed only to the two
+    # steps that need it. Dependabot never pushes to main and gets no secrets.
+    needs: [database]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    # Two applies never run at once, and none is dropped: a second main run's
+    # apply waits in this queue until the first one has finished.
+    concurrency:
+      group: apply-test-db
+      queue: max
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+      - name: Apply new migrations to the test project
+        # Applies only migrations the test project has not had yet; a second
+        # run on an unchanged branch applies nothing.
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
+        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes
+      - name: Database security tests against the test project (pgTAP)
+        # The same tests as above, now on the test project itself. They run in
+        # one transaction that is rolled back, so they leave no rows.
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
+        run: supabase test db --db-url "$SUPABASE_DB_URL"
+
+  browser:
+    name: Browser tests (Playwright, local Supabase)
+    # Pull requests (Dependabot included) and manual runs. A throwaway Supabase
+    # inside this runner, started empty with every migration in
+    # supabase/migrations applied, so a pull request that adds a table can test
+    # it before the owner approves it. Nothing is shared with any other run, so
+    # parallel jobs cannot disturb each other. Only Postgres and the three
+    # services the app uses start (kong, the API gateway; postgrest; gotrue,
+    # sign in); a job that needs another removes its name from -x.
+    # This job holds no secret. The local stack makes its own keys, which work
+    # only on this runner, and the database is never opened to the internet.
+    # It starts at the same time as the database check and waits for nothing.
+    # Spec: factory/jobs/6-pr-local-db/spec.md.
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # The throwaway database's own fixed local address (not a secret).
+      LOCAL_DB_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      # npm ci also installs the Supabase CLI at the version pinned in
+      # package-lock.json, the same version the database check uses.
+      - run: npm ci
+      - name: Start a throwaway Supabase and apply every migration
+        # The start output lists the local keys. Lines naming a key, secret,
+        # JWT, password or publishable key, or holding a key shaped value
+        # (sb_..., eyJ...), are left out of the log. The keys work only on
+        # this runner, but no key belongs in a log.
+        run: |
+          set -o pipefail
+          npx supabase start -x realtime,storage-api,imgproxy,mailpit,postgres-meta,studio,edge-runtime,logflare,vector,supavisor 2>&1 | { grep -viE 'key|secret|jwt|password|publishable|sb_|eyJ' || true; }
+      - name: Local Supabase settings for the local Worker
+        # Only the local API address and the local publishable key, written to
+        # .env.local on the runner (git ignores it). The script prints names
+        # only and refuses any address that is not on this runner.
+        run: npx supabase status -o env | node scripts/ci/write-test-settings.ts env .env.local --from-supabase-status
+      - name: Load the browser test seed files
+        # Every supabase/seeds/browser/*.sql in name order, stopping at the
+        # first error. Only this job loads them; they never reach a hosted
+        # database.
+        run: |
+          export LC_ALL=C
+          shopt -s nullglob
+          files=(supabase/seeds/browser/*.sql)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No browser seed files in supabase/seeds/browser/"
+          fi
+          for file in "${files[@]}"; do
+            echo "Loading $file"
+            psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"
+          done
+      - name: Build the app and its Worker
+        # VITE_DESIGN_REFERENCE=1 builds in the design pages (job
+        # 5-design-system), so the browser tests can check them. Not a secret.
+        env:
+          VITE_DESIGN_REFERENCE: '1'
+        run: npm run build
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
+      - name: Browser tests at 375 x 812 against the built app
+        run: npx playwright test
+      - name: The app made guest accounts in the throwaway database
+        # Proves the app talked to this runner's database, not another one.
+        # Job 8-first-session dropped the visits table this step used to
+        # count; the browser tests' guests (anonymous sign ins) are counted
+        # instead. Only a number is printed.
+        run: |
+          guests=$(psql "$LOCAL_DB_URL" --no-psqlrc --tuples-only --no-align -v ON_ERROR_STOP=1 -c "select count(*) from auth.users where is_anonymous")
+          echo "Guest accounts in the throwaway database: $guests"
+          if [ "$guests" -lt 1 ]; then
+            echo "The browser tests made no guest account in the throwaway database."
+            exit 1
+          fi
+      - name: Browser tests with no readable dialogue
+        # Job 8-first-session, "Done when" 6: with an empty content database
+        # the session screen says it is not ready. Every unit is set back to
+        # draft in this throwaway database (which hides every dialogue), then
+        # only the tests tagged @empty-content run. Each first proves nothing
+        # is readable. Their files go to their own folder, kept below.
+        run: |
+          psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -c "update public.units set status = 'draft' where status = 'approved'"
+          PUHUSCRIBE_EMPTY_CONTENT=1 npx playwright test --grep @empty-content --reporter=list --output=test-results-empty-content
+      - name: Keep the report, screenshots and videos
+        # The evaluator watches these. No secret was set in this job.
+        if: success() || failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+            test-results-empty-content/
+          retention-days: 14
+
+  browser-test-project:
+    name: Browser tests against the test project (after merge)
+    # Pushes to main only, once the owner-approved migrations are applied to
+    # the test project. Skipped on pull requests and manual runs, where the
+    # apply job is skipped. Tests tagged @seed need rows that exist only in the
+    # throwaway database, so they are left out here.
+    # The only browser test job that receives the test project settings.
+    needs: [database, apply-test-db]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.apply-test-db.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Fetch the Switzer font files (optional)
+        # The font files are kept out of this public repository (docs/fonts.md).
+        # A read only deploy key held in the FONTS_DEPLOY_KEY secret lets this
+        # script copy them from a private repository. With no secret it prints a
+        # notice and the build continues with the fallback fonts; the tests that
+        # need Switzer then skip themselves with a reason. Only this step sees
+        # the key, and the script never prints it.
+        env:
+          FONTS_DEPLOY_KEY: ${{ secrets.FONTS_DEPLOY_KEY }}
+        run: node scripts/ci/fetch-private-fonts.ts
+      - name: Test project settings for the local Worker
+        # Written to .env.local on the runner only (git ignores it). The build
+        # copies them to the Worker side for `vite preview`, and the secret
+        # check then proves they are in no browser file.
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: node scripts/ci/write-test-settings.ts env .env.local
+      - name: Build the app and its Worker
+        # VITE_DESIGN_REFERENCE=1 builds in the design pages (job
+        # 5-design-system), so the browser tests can check them. Not a secret.
+        env:
+          VITE_DESIGN_REFERENCE: '1'
+        run: npm run build
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
+      - name: Browser tests at 375 x 812 against the built app
+        # No trace and no HTML report: they would hold the Switzer font files
+        # this job fetched, and this repository's artifacts are public.
+        env:
+          PUHUSCRIBE_NO_TRACE: '1'
+        run: npx playwright test --grep-invert @seed
+      - name: Check the files to upload hold no secret value
+        id: upload-guard
+        if: success() || failure()
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env SUPABASE_URL --env SUPABASE_PUBLISHABLE_KEY
+          playwright-report test-results
+      - name: Keep the screenshots and videos
+        # Only pictures and videos, never a trace or an HTML report.
+        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-screenshots-and-videos-test-project
+          path: |
+            test-results/**/*.png
+            test-results/**/*.webm
+          if-no-files-found: ignore
+          retention-days: 14
+
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No pull request comments: the red check is enough, and a comment
+          # could quote the leaked line.
+          GITLEAKS_ENABLE_COMMENTS: 'false'
+
+  dependencies:
+    name: Dependency check (npm audit, pip-audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: npm audit (high and critical)
+        run: npm audit --audit-level=high
+      - uses: actions/setup-python@v7
+        if: success() || failure()
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: pip-audit
+        if: success() || failure()
+        run: |
+          pip install -r scripts/requirements-dev.txt
+          pip-audit -r scripts/requirements.txt -r scripts/requirements-pipeline.txt
+
+  preview:
+    name: Preview link (Cloudflare Worker behind Access)
+    # Only after every check above passed, and only on pull requests in this
+    # repository. Dependabot pull requests get no secrets, so they skip it.
+    # On a pull request the apply job is always skipped (owner's rule), so each
+    # result is checked by name: every other check must have succeeded, and the
+    # test project must not have been changed.
+    needs: [code, unit, python, database, apply-test-db, browser, secrets, dependencies]
+    if: >-
+      !cancelled() && github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.code.result == 'success' && needs.unit.result == 'success' &&
+      needs.python.result == 'success' && needs.database.result == 'success' &&
+      needs.apply-test-db.result == 'skipped' && needs.browser.result == 'success' &&
+      needs.secrets.result == 'success' && needs.dependencies.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      BRANCH: ${{ github.head_ref }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+          # The base branch's history too, for the migration diff below.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Fetch the Switzer font files (optional)
+        # The font files are kept out of this public repository (docs/fonts.md).
+        # A read only deploy key held in the FONTS_DEPLOY_KEY secret lets this
+        # script copy them from a private repository. With no secret it prints a
+        # notice and the build continues with the fallback fonts; the tests that
+        # need Switzer then skip themselves with a reason. Only this step sees
+        # the key, and the script never prints it.
+        env:
+          FONTS_DEPLOY_KEY: ${{ secrets.FONTS_DEPLOY_KEY }}
+        run: node scripts/ci/fetch-private-fonts.ts
+      - name: Does this pull request change the database?
+        # True when the pull request adds, changes or deletes a file under
+        # supabase/migrations/ compared with its base branch (three-dot diff).
+        # The preview uses the shared test project, which gets those changes
+        # only after the owner approves the job (job 6-pr-local-db).
+        id: database
+        run: |
+          set -o pipefail
+          changed=$(git diff --name-only --no-renames "$BASE_SHA...HEAD" | node scripts/ci/preview-plan.ts database-changed)
+          echo "Database changed in this pull request: $changed"
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+      - name: Build the app and its Worker
+        # Preview links include the design pages (job 5-design-system). They
+        # stay behind Cloudflare Access like the rest of the preview. Not a secret.
+        env:
+          VITE_DESIGN_REFERENCE: '1'
+        run: npm run build
+      - name: Make a readable alias from the branch name
+        id: alias
+        run: echo "alias=$(node scripts/ci/preview-alias.ts)" >> "$GITHUB_OUTPUT"
+      - name: Upload a preview version of puhuscribe-preview
+        id: upload
+        # A version upload does not change what the Worker's main address
+        # serves. Its secrets are the TEST project's, passed in a temporary
+        # file that is deleted straight after.
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+          ALIAS: ${{ steps.alias.outputs.alias }}
+        run: |
+          secrets_file="$RUNNER_TEMP/worker-secrets.json"
+          trap 'rm -f "$secrets_file"' EXIT
+          node scripts/ci/write-test-settings.ts json "$secrets_file"
+          npx wrangler versions upload \
+            --preview-alias "$ALIAS" \
+            --secrets-file "$secrets_file" \
+            --tag "pr-$PR_NUMBER" \
+            --message "PR #$PR_NUMBER at ${HEAD_SHA:0:7}" | tee "$RUNNER_TEMP/upload.log"
+          url=$(grep -oE "https://$ALIAS-puhuscribe-preview[.][a-z0-9-]+[.]workers[.]dev" "$RUNNER_TEMP/upload.log" | head -1)
+          if [ -z "$url" ]; then echo "No preview alias address in the upload output"; exit 1; fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
+      - name: Browser tests against the preview, with the evaluator's service token
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ steps.upload.outputs.url }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          DB_CHANGED: ${{ steps.database.outputs.changed }}
+          # No trace and no HTML report, even if the token were missing.
+          PUHUSCRIBE_NO_TRACE: '1'
+        # With a database change, screens that need it cannot work on the
+        # preview yet, so only the Cloudflare Access lock tests (@preview) run
+        # here; the full suite ran on the throwaway database. Otherwise the
+        # suite runs, without tests that need browser seed rows (@seed).
+        run: |
+          if [ "$DB_CHANGED" = true ]; then
+            npx playwright test --grep @preview
+          else
+            npx playwright test --grep-invert @seed
+          fi
+      # Playwright ran with the service token headers, so it wrote no trace, HAR
+      # or HTML report (playwright.config.ts). Only screenshots and videos are
+      # uploaded, and only after the guard finds no secret value in any file.
+      - name: Check the files to upload hold no secret value
+        id: upload-guard
+        if: success() || failure()
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env CF_ACCESS_CLIENT_ID --env CF_ACCESS_CLIENT_SECRET --env SUPABASE_PUBLISHABLE_KEY
+          playwright-report test-results
+      - name: Keep the preview screenshots and videos
+        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: preview-screenshots-and-videos
+          path: |
+            test-results/**/*.png
+            test-results/**/*.webm
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Post the preview link on the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ steps.upload.outputs.url }}
+          DB_CHANGED: ${{ steps.database.outputs.changed }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          body=$(node scripts/ci/preview-plan.ts comment)
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "$body"

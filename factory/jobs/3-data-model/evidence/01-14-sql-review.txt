@@ -1,0 +1,69 @@
+Evidence for statements 1, 2 and 4 to 14: the evaluator's read of the migrations and pgTAP tests at 2a21230.
+No database was run here (no Docker on this computer). Pass/fail comes from (a) reading each rule, (b) checking that a test would
+fail if the rule were missing, and (c) the CI run, where all 401 pgTAP tests passed twice (18-ci-database-job.txt).
+
+Files read in full:
+  supabase/migrations/20261020090000_content_model.sql      (content tables, approval checks, freeze triggers, grants, read rules)
+  supabase/migrations/20261020090100_learner_model.sql      (learner tables, step trigger, column grants, own-row rules)
+  supabase/migrations/20261020090200_reference_tables.sql   (reference tables, all revoked, RLS on with no rule)
+  supabase/migrations/20261020090300_load_v2_lemma_ipa.sql  (generated, 514 upsert rows; head and tail read, row count checked)
+  supabase/tests/database/data_model_schema.test.sql    plan 142
+  supabase/tests/database/data_model_content.test.sql   plan 104
+  supabase/tests/database/data_model_learners.test.sql  plan 108
+  supabase/tests/database/data_model_reference.test.sql plan 25
+  visits migration and visits_access.test.sql: unchanged against main (git diff --stat is empty), 22 tests.
+
+Label occurrences in the test sources (a generated row counts once here):
+  data 1: schema 22 | data 2: schema 28 | data 3: learners 3, schema 9 | data 4: content 17, schema 1 | data 5: content 22
+  data 6: content 21 | data 7: content 8, reference 11, schema 1 | data 8: learners 33 | data 9: learners 14
+  data 10: learners 15, schema 3 | data 11: learners 13, schema 5 | data 12: learners 4, schema 2 | data 13: learners 4, schema 14
+  data 14: content 8, learners 3, schema 2 | data 15: reference 5, schema 1 | data 16: reference 8, schema 1
+
+Statement by statement (would the test fail without the rule?):
+
+1  tables_are('public', 12 names) fails on any extra table; enums_are with the 6 enums; columns_are per table; keys via col_is_pk,
+   col_is_unique, fk_ok. units.title_fi is absent (dropped in round 2 by decision). Yes, it would fail.
+2  Every new table and sequence: revoke all from anon, authenticated, service_role in the migration; table_privs_are for each role on
+   each of 11 tables; column_privs_are for every learner-table column; sequence_privs_are for 6 sequences x 3 roles; RLS on for every
+   table in public; policies_are per table; every rule is "to authenticated" only. Gap (minor): table_privs_are does not see
+   column-level grants, and column privileges are checked only for authenticated on learner tables. A stray column grant to anon, or a
+   column UPDATE grant to authenticated on a content table, would not be caught; no data would leak because no rule exists for anon and
+   no UPDATE rule exists on content tables. Not a failure of the statement as written.
+4  dialogue_lines_approval_complete check; throws_ok 23514 for each of text_puhe, text_kirja, audio_puhe_key, audio_kirja_key,
+   gloss_en, approved_at, approval_ref, plus a blank text; lives_ok when all present. Yes.
+5  Read rules filter on status and every parent's status. Learner reads exactly the approved unit, 2 approved dialogues, 2 approved
+   lines, 1 approved form, 3 tokens; draft/retired rows, approved line in draft dialogue, approved dialogue in draft unit, tokens of a
+   draft line and of a line in a draft dialogue: all empty. anon: select on each content table throws 42501. Yes.
+6  freeze_approved_content compares the whole row minus status; token trigger refuses insert/update/delete/move on an approved line.
+   Tests: 6 line columns, un-approve-and-change in one step, 4 form columns, dialogue and unit title, delete, token update/insert/
+   delete/move, then dialogue -> draft, line -> draft, hidden from learner, edit works, re-approve, learner sees the new text. Yes.
+7  Learner and anon: insert/update/delete on all 5 content tables throw 42501; reference tables: select/insert/update/delete throw
+   42501 for both roles; even a temporary mistaken grant shows no reference rows (RLS with no rule). Yes.
+8  Own rows read/written for all 4 tables, other learner's rows unreadable, updates aimed at the other learner change nothing (checked
+   afterwards), deletes refused, both ways round. GAP: the two "cannot add a card carrying the other's user id" tests use a form the
+   inserter never met, so they pass even without the user_id check. See 08-card-cross-learner-test-gap.txt.
+9  Card insert rule needs an approved form and a session of this learner at >= understand whose dialogue has a token for the form
+   (lines and tokens filtered by their read rules). Tests: refused before a session, refused at hear, accepted at understand, refused
+   for an unmet form, a retired line's form, a draft form, a draft line's form, a form of a dialogue retired later. Yes.
+10 sessions columns; insert grant only (user_id, dialogue_id), so a session starts with no step; trigger refuses backward or emptied
+   step; started_at and dialogue_id cannot be changed; draft dialogue refused; review-only session allowed. Yes.
+11 consents: insert grant only (user_id, kind, granted, notice_version), no update/delete grant; created_at = clock_timestamp();
+   tests: add, read oldest first, newest is current, update 42501, delete 42501, back-dating 42501, label format. Column-name and bytea
+   catalogue checks for audio/recording/transcript. Yes.
+12 Catalogue: no policy text contains is_anonymous. Same id reads the same 9 rows with is_anonymous true and false, and keeps writing. Yes.
+13 Catalogue: every public table with user_id has a cascade FK to auth.users(id) and RLS on (a future table that forgets fails);
+   no content/reference table links to a user; exact column lists. Deleting A from auth.users empties A's rows in all 4 tables and
+   leaves B's 5 rows. Yes.
+14 Catalogue: all 7 links to units/dialogues/lines/forms are on delete restrict. Refused deletes named by constraint: form <- token,
+   line <- token, dialogue <- line, unit <- dialogue, dialogue <- session, form <- card. Draft or retired rows are used, so the refusal
+   comes from the link and not from the approved-content trigger. Retire works instead. Yes.
+
+Behaviour notes found while reading (not statement failures; listed under "odd" in evaluation.md):
+  a) Re-approval can reuse the old approval. Setting an approved row back to draft keeps approved_at and approval_ref. After an edit,
+     "update ... set status = 'approved'" alone passes the approval check with the OLD time and reference. Nothing forces a new review
+     record for changed content. Job 5 should clear both on un-approve, or the database should require it.
+  b) A form can go back to draft while approved lines still link to it. The token stays readable and points at a form the learner
+     cannot read. docs/data-model.md says so on purpose (job 6 shows such a word without a card), but the migration comment on
+     line_words_have_approved_forms says "a learner never taps a word whose card cannot be shown", which only holds at approval time.
+  c) The pgTAP files insert rows into auth.users with only an id. This works on the CI database; whether the hosted postgres role may
+     do it is unknown until the merge run (the builder lists it as open).

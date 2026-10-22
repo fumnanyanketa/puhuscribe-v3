@@ -1,0 +1,14 @@
+Evaluator evidence for 6-pr-local-db statement 15 (all checks green on PR 14).
+Source: gh pr view 14 --json headRefOid,mergeable,statusCheckRollup at 2026-10-21T19:03Z.
+
+head 7958daa6924935ad0e4549dabae93f77d2d463f2, mergeable MERGEABLE
+  Type check, lint, format | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372344
+  Unit tests (Vitest) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372855
+  Python tests and lint (pytest, ruff) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372765
+  Database tests (local Supabase, pgTAP) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372616
+  Browser tests (Playwright, local Supabase) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372762
+  Secret scan (gitleaks) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403372909
+  Dependency check (npm audit, pip-audit) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119403373422
+  Apply database changes to the test project | SKIPPED | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119404413710
+  Browser tests against the test project (after merge) | SKIPPED | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119404415412
+  Preview link (Cloudflare Worker behind Access) | SUCCESS | https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818/job/119406945655

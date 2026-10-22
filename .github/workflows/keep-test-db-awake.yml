@@ -1,0 +1,44 @@
+# Keeps the Supabase TEST project awake. The free plan pauses a project after
+# 7 days without activity; one small request a day counts as activity.
+# Spec: factory/jobs/1-stack/spec.md, "Done when" statement 15.
+# Scheduled runs only start once this file is on main. A pull request that
+# changes this file runs it once, to prove it works.
+name: Keep test database awake
+
+on:
+  schedule:
+    - cron: '17 5 * * *' # every day at 05:17 UTC
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/keep-test-db-awake.yml
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    name: One request to the Supabase test project
+    # Pull requests from forks are skipped; scheduled and manual runs have no
+    # pull request, so they pass the first half of the second condition.
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      (github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Query the test database through its API
+        # The same request as /api/health: POST /graphql/v1 runs a SQL function
+        # inside Postgres. Uses the publishable key only.
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: |
+          status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 \
+            -X POST "${SUPABASE_URL%/}/graphql/v1" \
+            -H "apikey: $SUPABASE_PUBLISHABLE_KEY" \
+            -H 'content-type: application/json' \
+            --data '{"query":"{ __typename }"}')
+          echo "Supabase test project answered HTTP $status"
+          test "$status" = 200

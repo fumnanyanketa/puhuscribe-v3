@@ -1,0 +1,67 @@
+Document and package checks on the clone of factory/5-design-system at 0f94502
+
+[1] design/brief.md: hex codes or px/rem sizes (expect none):
+  none
+[1] brief headings:
+1:# Design brief
+5:## The direction
+14:## What it draws on
+28:## Answers to the owner's calls
+
+[2] design/assets:
+README.md
+app-icon.svg
+wordmark.svg
+  approval column of README:
+Reuse approved by the owner on 21 October 2026. This flat redraw is shown on the reference page for the owner to confirm. 
+
+[6] design.md headings:
+1:# PuhuScribe design system
+11:## Type
+39:### Fonts and their licences
+46:## Colour
+98:### Contrast
+135:### The page background
+139:## Spacing, corners and motion
+147:## Components
+149:### Session frame (`SessionFrame`)
+153:### Buttons (`Button`)
+161:### Keyboard focus
+165:### Status line (`StatusLine`)
+173:### Finnish line and word card (`FinnishLine`, `WordCard`)
+179:### Play control (`PlayControl`)
+183:### Record control (`RecordControl`)
+187:### Wordmark (`Wordmark`)
+191:## Screen text
+199:## Browsers
+210:## Banned (the owner's list, as rules)
+  links design/brief.md: 1
+
+[15] index.html color-scheme meta:
+6:    <meta name="color-scheme" content="light dark" />
+
+[18] vite.config.ts cssTarget:
+13:    cssTarget: ['safari15.4'],
+
+[20] conventions rows:
+13:| `src/styles/` | The design values (`tokens.css`), the fonts and the base styles every page gets | `src/styles/tokens.css` |
+14:| `src/components/` | The screen parts: one PascalCase .tsx file with a CSS Module (.module.css) beside it | `src/components/FinnishLine.tsx` |
+16:| `design/` | The design brief, brand assets and v2's design handoff; the design guide is `design.md` at the root | `design/brief.md` |
+56:| 5-design-system | `[design N]` | `tests/design-tokens.test.ts` |
+[20] package.json changes vs main:
++    "@fontsource/poppins": "5.3.0",
++    "@axe-core/playwright": "4.14.0",
+
+[odd] fonts.css names a test file that does not exist:
+13: * and conversion; tests/design-fonts.test.ts checks their SHA-256). Licence in
+ls: cannot access 'tests/design-fonts.test.ts': No such file or directory
+
+[odd] .gitattributes has no eol rule for design/ (files check out CRLF on Windows):
+design/brief.md: eol: unspecified
+design/assets/README.md: eol: unspecified
+design.md: eol: lf
+
+[odd] literal motion values in component CSS:
+src/components/Button.module.css:122:  animation: spin 800ms linear infinite;
+src/components/PlayControl.module.css:46:  animation: turn 800ms linear infinite;
+src/components/RecordControl.module.css:67:  animation: fade 1.2s var(--motion-ease) infinite;

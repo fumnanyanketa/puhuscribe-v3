@@ -1,0 +1,37 @@
+# Round 2 break tests (job 13-review-site, 22 October 2026). Each break edits one file in the worktree, runs the named tests, then the file is restored from a copy.
+
+## BREAK: team domain shape check removed (AUD check kept)
+# in review-site/handler.ts replaced: if (!TEAM_DOMAIN.test(teamDomain) || !AUD_TAG.test(aud)) return false
+# with:     if (!AUD_TAG.test(aud)) return false
+      Tests  2 failed | 24 passed (26)
+     × [site 6] a team domain that is not a cloudflareaccess.com address is refused, so keys are never fetched elsewhere 6ms
+     × [site 6] when either setting is missing, everything gets 403 and no keys are asked for, even with a valid token 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: AUD shape check removed (team domain check kept)
+# in review-site/handler.ts replaced: if (!TEAM_DOMAIN.test(teamDomain) || !AUD_TAG.test(aud)) return false
+# with:     if (!TEAM_DOMAIN.test(teamDomain)) return false
+      Tests  2 failed | 24 passed (26)
+     × [site 6] an AUD setting that is not a 64 character tag is refused before any keys are asked for 6ms
+     × [site 6] when either setting is missing, everything gets 403 and no keys are asked for, even with a valid token 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: whole settings check removed
+# in review-site/handler.ts replaced: if (!TEAM_DOMAIN.test(teamDomain) || !AUD_TAG.test(aud)) return false
+# with:     
+      Tests  3 failed | 23 passed (26)
+     × [site 6] a team domain that is not a cloudflareaccess.com address is refused, so keys are never fetched elsewhere 9ms
+     × [site 6] an AUD setting that is not a 64 character tag is refused before any keys are asked for 4ms
+     × [site 6] when either setting is missing, everything gets 403 and no keys are asked for, even with a valid token 21ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: drafts folder symlink check removed
+# in scripts/review-site/build.ts replaced:     checkDraftFolders(root, slug)
+
+# with:     
+      Tests  3 failed | 26 passed (29)
+     × [site 3] a drafts folder that is a symlink to somewhere else 215ms
+     × [site 3] a listed dialogue folder that is a symlink to somewhere else 197ms
+     × [site 3] a listed slug with no drafts folder at all 212ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+

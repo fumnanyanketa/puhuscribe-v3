@@ -1,0 +1,197 @@
+Evaluator drive, round 3, a65a783, local vite preview of the VITE_DESIGN_REFERENCE=1 build, 375 x 812, Chromium and WebKit, light and dark.
+Note: the sections headed 'saved (201)' below did not reach the saved state (the fake answer lacked saved:true), so they repeat the not-saved check. The saved state is checked separately in r3-eval-front-saved-state.txt.
+
+
+== front page chromium light not saved (503): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(122, 118, 137)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== front page chromium light saved (201): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(122, 118, 137)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== sample chromium light
+  top bar text: Hear it, step 1 of 4  Leave session link: 1  note: 1
+  SessionFrame markup (class names with SessionFrame module): ["_frame_wkwa6_3","_topBar_wkwa6_17","_content_wkwa6_81","_actions_wkwa6_89"]
+  play order: Moi > Mä > oon > Alex > Mist > sä > oot > kotoisin
+  pause held: Alex -> Alex  status: Paused. Press Play to carry on.
+  resumed at: Mist
+  word buttons on sample: 0
+  tap targets below minimum: []
+  axe sample page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  gum: 0  foreign: []  errors: []
+
+== reference chromium light
+  word buttons (button height, face height, font px, face background): Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash, Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash
+  every word button >= 44 tall and >= 24 wide: true  every face <= 1.5x its font size: true  button backgrounds transparent: true
+  word cards: Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true | Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true
+  Enter opens, focus in card: true
+  axe word card: 0 violations []
+  after Close focus: BUTTON "oon"
+  broken file, Enter: focus now BUTTON "Try again: play a broken file"  text "Could not play." shown: true
+  Try again (play) size: {"w":99.2,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(27, 26, 32)"}
+  Try again, Enter: focus during retry BUTTON "Try again: play a broken file"  after retry BUTTON "Try again: play a broken file"
+  tones: first after press playing ; after second pressed: first ready second playing
+  recording ring and clipping ancestors: [{"ancestor":"none clips","ring":"rgb(233, 242, 244) 0px 0px 0px 6px","size":72}]
+  gum after pressing record buttons: 0
+  tap targets below minimum: []
+  axe reference page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  foreign: []  errors: []
+
+== front page chromium dark not saved (503): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(138, 134, 153)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== front page chromium dark saved (201): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(138, 134, 153)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== sample chromium dark
+  top bar text: Hear it, step 1 of 4  Leave session link: 1  note: 1
+  SessionFrame markup (class names with SessionFrame module): ["_frame_wkwa6_3","_topBar_wkwa6_17","_content_wkwa6_81","_actions_wkwa6_89"]
+  play order: Moi > Mä > oon > Alex > Mist > sä > oot > kotoisin
+  pause held: Alex -> Alex  status: Paused. Press Play to carry on.
+  resumed at: Mist
+  word buttons on sample: 0
+  tap targets below minimum: []
+  axe sample page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  gum: 0  foreign: []  errors: []
+
+== reference chromium dark
+  word buttons (button height, face height, font px, face background): Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash, Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash
+  every word button >= 44 tall and >= 24 wide: true  every face <= 1.5x its font size: true  button backgrounds transparent: true
+  word cards: Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true | Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true
+  Enter opens, focus in card: true
+  axe word card: 0 violations []
+  after Close focus: BUTTON "oon"
+  broken file, Enter: focus now BUTTON "Try again: play a broken file"  text "Could not play." shown: true
+  Try again (play) size: {"w":99.2,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(242, 240, 248)"}
+  Try again, Enter: focus during retry BUTTON "Try again: play a broken file"  after retry BUTTON "Try again: play a broken file"
+  tones: first after press playing ; after second pressed: first ready second playing
+  recording ring and clipping ancestors: [{"ancestor":"none clips","ring":"rgb(35, 48, 58) 0px 0px 0px 6px","size":72}]
+  gum after pressing record buttons: 0
+  tap targets below minimum: []
+  axe reference page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  foreign: []  errors: []
+
+== keyboard chromium light: stops 35, out of order 0, without a 2 px visible outline 0
+
+== keyboard chromium dark: stops 35, out of order 0, without a 2 px visible outline 0
+== reduce motion chromium: card transforms while opening ["none"]
+
+== front page webkit light not saved (503): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(122, 118, 137)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== front page webkit light saved (201): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(122, 118, 137)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== sample webkit light
+  top bar text: Hear it, step 1 of 4  Leave session link: 1  note: 1
+  SessionFrame markup (class names with SessionFrame module): ["_frame_wkwa6_3","_topBar_wkwa6_17","_content_wkwa6_81","_actions_wkwa6_89"]
+  play order: Moi > Mä > oon > Alex > Mist > sä > oot > kotoisin
+  pause held: Alex -> Alex  status: Paused. Press Play to carry on.
+  resumed at: Mist
+  word buttons on sample: 0
+  tap targets below minimum: []
+  axe sample page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  gum: 0  foreign: []  errors: []
+
+== reference webkit light
+  word buttons (button height, face height, font px, face background): Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash, Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash
+  every word button >= 44 tall and >= 24 wide: true  every face <= 1.5x its font size: true  button backgrounds transparent: true
+  word cards: Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true | Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true
+  Enter opens, focus in card: true
+  axe word card: 0 violations []
+  after Close focus: BUTTON "oon"
+  broken file, Enter: focus now BUTTON "Try again: play a broken file"  text "Could not play." shown: true
+  Try again (play) size: {"w":99.2,"h":44,"color":"rgb(27, 26, 32)","bg":"rgb(255, 255, 255)","border":"rgb(27, 26, 32)"}
+  Try again, Enter: focus during retry BUTTON "Try again: play a broken file"  after retry BUTTON "Try again: play a broken file"
+  tones: first after press error ; after second pressed: first error second error
+  recording ring and clipping ancestors: [{"ancestor":"none clips","ring":"rgb(233, 242, 244) 0px 0px 0px 6px","size":72}]
+  gum after pressing record buttons: 0
+  tap targets below minimum: []
+  axe reference page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  foreign: []  errors: []
+
+== front page webkit dark not saved (503): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(138, 134, 153)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== front page webkit dark saved (201): status "Your visit was not saved. Check your internet connection, then try again."
+  Try again box and colours: {"w":109.1,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(138, 134, 153)"}  at least 44 px tall: true  44 wide: true
+  axe front page: 0 violations []
+  after Enter on Try again, focus on: P "Your visit was not saved. Chec"  status: Your visit was not saved. Check your internet connection, then try again.
+  foreign requests: []  errors: []
+
+== sample webkit dark
+  top bar text: Hear it, step 1 of 4  Leave session link: 1  note: 1
+  SessionFrame markup (class names with SessionFrame module): ["_frame_wkwa6_3","_topBar_wkwa6_17","_content_wkwa6_81","_actions_wkwa6_89"]
+  play order: Moi > Mä > oon > Alex > Mist > sä > oot > kotoisin
+  pause held: Alex -> Alex  status: Paused. Press Play to carry on.
+  resumed at: Mist
+  word buttons on sample: 0
+  tap targets below minimum: []
+  axe sample page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  gum: 0  foreign: []  errors: []
+
+== reference webkit dark
+  word buttons (button height, face height, font px, face background): Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash, Mä 44/27/22/wash, oon 44/27/22/wash, Minä 44/21/17/wash, olen 44/21/17/wash
+  every word button >= 44 tall and >= 24 wide: true  every face <= 1.5x its font size: true  button backgrounds transparent: true
+  word cards: Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true | Mä: note=true fi=[Mä, minä, mä, minä] focusBack=true | oon: note=true fi=[oon, olla, oon, olen] focusBack=true | Minä: note=true fi=[Minä, minä, mä, minä] focusBack=true | olen: note=true fi=[olen, olla, oon, olen] focusBack=true
+  Enter opens, focus in card: true
+  axe word card: 0 violations []
+  after Close focus: BUTTON "oon"
+  broken file, Enter: focus now BUTTON "Try again: play a broken file"  text "Could not play." shown: true
+  Try again (play) size: {"w":99.2,"h":44,"color":"rgb(242, 240, 248)","bg":"rgb(28, 27, 35)","border":"rgb(242, 240, 248)"}
+  Try again, Enter: focus during retry BUTTON "Try again: play a broken file"  after retry BUTTON "Try again: play a broken file"
+  tones: first after press error ; after second pressed: first error second error
+  recording ring and clipping ancestors: [{"ancestor":"none clips","ring":"rgb(35, 48, 58) 0px 0px 0px 6px","size":72}]
+  gum after pressing record buttons: 0
+  tap targets below minimum: []
+  axe reference page: 0 violations []
+  375 px, text 200%: scrollWidth 375 vs 375
+  320 px, text 200%: scrollWidth 320 vs 320
+  320 px, text 100%: scrollWidth 320 vs 320
+  foreign: []  errors: []
+
+== keyboard webkit light: stops 34, out of order 0, without a 2 px visible outline 0
+
+== keyboard webkit dark: stops 34, out of order 0, without a 2 px visible outline 0
+== reduce motion webkit: card transforms while opening ["none"]

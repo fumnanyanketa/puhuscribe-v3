@@ -1,0 +1,26 @@
+# Statement 12 (database part): one load of the local app (npm run dev, Chromium 375x812) between two counts. Read-only transactions.
+## baseline A
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 299          │ 2026-10-19T19:32:50.656Z │
+└─────────┴──────────────┴──────────────────────────┘
+(wait 20 s with nothing loading, to prove the count is stable)
+## baseline B (immediately before the load)
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 299          │ 2026-10-19T19:33:11.796Z │
+└─────────┴──────────────┴──────────────────────────┘
+## one page load
+PASS [chromium 12-dev-one-load-chromium] one load, posts :: {"posts":1,"status":"Your visit is saved."}
+PASS [chromium 12-dev-one-load-chromium] console clean :: []
+## after the load
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 300          │ 2026-10-19T19:33:18.244Z │
+└─────────┴──────────────┴──────────────────────────┘

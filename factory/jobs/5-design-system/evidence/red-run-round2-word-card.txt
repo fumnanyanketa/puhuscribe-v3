@@ -1,0 +1,31 @@
+Red run 3 (round 2): focus return, the scroll lock and the reduce motion rule removed on purpose, then the word card tests. 2026-10-21T14:17:57Z
+    Error: expect(received).toBe(expected) // Object.is equality
+    Error: reduce
+    Error: expect(locator).toBeFocused() failed
+    Error: expect(received).toBe(expected) // Object.is equality
+    Error: reduce
+  5 failed
+  7 passed (30.8s)
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('region', { name: 'Finnish line and word card', exact: true }).getByRole('button', { name: 'oon', exact: true })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('region', { name: 'Finnish line and word card', exact: true }).getByRole('button', { name: 'oon', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Finnish line and word card', exact: true }).getByRole('button', { name: 'oon', exact: true })
+        13 × locator resolved to <button type="button" aria-haspopup="dialog" class="_word_y00uq_91 _changed_y00uq_112">oon</button>
+           - unexpected value "inactive"
+    test-results\design-reference-Finnish-l-a6db1-r-scrolled-while-it-is-open-webkit\test-failed-1.png
+    test-results\design-reference-motion-de-0a666-ard-appears-without-sliding-webkit\test-failed-1.png
+    test-results\design-reference-motion-de-0a666-ard-appears-without-sliding-webkit\test-failed-2.png
+  5 failed
+    [chromium] › e2e\design-reference.spec.ts:290:3 › Finnish line and word card › [design 11] a tap outside closes the card, and the page behind cannot be used or scrolled while it is open 
+    [chromium] › e2e\design-reference.spec.ts:313:3 › motion › [design 14] with reduce motion on, the word card appears without sliding 
+    [webkit] › e2e\design-reference.spec.ts:254:3 › Finnish line and word card › [design 11] a tap opens the card with every field; Close shuts it and returns focus to the word 
+    [webkit] › e2e\design-reference.spec.ts:290:3 › Finnish line and word card › [design 11] a tap outside closes the card, and the page behind cannot be used or scrolled while it is open 
+    [webkit] › e2e\design-reference.spec.ts:313:3 › motion › [design 14] with reduce motion on, the word card appears without sliding 
+  7 passed (29.8s)
+Restored all three; see build.md for what each failure proves.

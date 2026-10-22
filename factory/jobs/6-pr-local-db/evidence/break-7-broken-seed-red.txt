@@ -1,0 +1,22 @@
+# Scratch pull request A (#15), broken seed commit ce365af, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39654984608 , local browser check job 119412755248
+# Steps of the local browser check:
+#   Set up job | success
+#   Run actions/checkout@v7 | success
+#   Run actions/setup-node@v7 | success
+#   Run npm ci | success
+#   Start a throwaway Supabase and apply every migration | success
+#   Local Supabase settings for the local Worker | success
+#   Load the browser test seed files | failure
+#   Build the app and its Worker | skipped
+#   Install Chromium and WebKit | skipped
+#   Browser tests at 375 x 812 against the built app | skipped
+#   The app saved visits in the throwaway database | skipped
+#   Keep the report, screenshots and videos | success
+#   Post Run actions/setup-node@v7 | skipped
+#   Post Run actions/checkout@v7 | success
+#   Complete job | success
+# Seed step log lines (030_after_broken.sql is never loaded):
+2026-10-21T18:44:12.8426022Z Loading supabase/seeds/browser/010_scratch_prdb_a.sql
+2026-10-21T18:44:12.9115721Z Loading supabase/seeds/browser/020_broken.sql
+2026-10-21T18:44:12.9574781Z psql:supabase/seeds/browser/020_broken.sql:2: ERROR:  relation "public.no_such_table" does not exist
+2026-10-21T18:44:12.9599796Z ##[error]Process completed with exit code 3.

@@ -1,0 +1,46 @@
+# The deploy step's own script, cut from .github/workflows/review-site.yml and run with fake values; npx is a stub, so nothing deploys.
+
+### nothing set (owner setup not done)
+    ::notice title=Review site not deployed::The Cloudflare setup for the review site is not done yet (CLOUDFLARE_REVIEW_API_TOKEN CLOUDFLARE_REVIEW_ACCOUNT_ID REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD not set). Nothing was deployed.
+    exit 0; GITHUB_OUTPUT: deployed=false 
+
+### only the API token set
+    ::error title=Review site setup incomplete::Not set: CLOUDFLARE_REVIEW_ACCOUNT_ID REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD. Nothing was deployed. Set them, then start this workflow again on main.
+    exit 1; GITHUB_OUTPUT: 
+
+### secrets set, both variables empty
+    ::error title=Review site setup incomplete::Not set: REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD. Nothing was deployed. Set them, then start this workflow again on main.
+    exit 1; GITHUB_OUTPUT: 
+
+### secrets set, AUD empty
+    ::error title=Review site setup incomplete::Not set: REVIEW_ACCESS_AUD. Nothing was deployed. Set them, then start this workflow again on main.
+    exit 1; GITHUB_OUTPUT: 
+
+### secrets set, team domain empty
+    ::error title=Review site setup incomplete::Not set: REVIEW_ACCESS_TEAM_DOMAIN. Nothing was deployed. Set them, then start this workflow again on main.
+    exit 1; GITHUB_OUTPUT: 
+
+### variables set, secrets empty
+    ::error title=Review site setup incomplete::Not set: CLOUDFLARE_REVIEW_API_TOKEN CLOUDFLARE_REVIEW_ACCOUNT_ID. Nothing was deployed. Set them, then start this workflow again on main.
+    exit 1; GITHUB_OUTPUT: 
+
+### team domain not a cloudflareaccess.com address
+    ::error::REVIEW_ACCESS_TEAM_DOMAIN must be the team domain, https://<team>.cloudflareaccess.com. Nothing was deployed.
+    exit 1; GITHUB_OUTPUT: 
+
+### team domain with trailing slash
+    ::error::REVIEW_ACCESS_TEAM_DOMAIN must be the team domain, https://<team>.cloudflareaccess.com. Nothing was deployed.
+    exit 1; GITHUB_OUTPUT: 
+
+### AUD wrong shape
+    ::error::REVIEW_ACCESS_AUD must be the Access application's AUD tag (64 characters, 0-9 and a-f). Nothing was deployed.
+    exit 1; GITHUB_OUTPUT: 
+
+### AUD with a space (whitespace only)
+    ::error::REVIEW_ACCESS_AUD must be the Access application's AUD tag (64 characters, 0-9 and a-f). Nothing was deployed.
+    exit 1; GITHUB_OUTPUT: 
+
+### everything set and well formed
+    STUB npx called (nothing deployed): wrangler deploy --config review-site/wrangler.jsonc --var ACCESS_TEAM_DOMAIN:https://made-up-team.cloudflareaccess.com --var ACCESS_AUD:<aud>
+    exit 0; GITHUB_OUTPUT: deployed=true 
+

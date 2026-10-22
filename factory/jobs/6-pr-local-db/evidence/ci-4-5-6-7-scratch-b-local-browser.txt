@@ -1,0 +1,37 @@
+# Scratch pull request B (#16), run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39651508732 , local browser check job 119400741934
+# Head a558756baf91f561fff829e172fb808f4d2a832f. Extract of the job log (key lines only; the full log is on GitHub).
+# All jobs of the run:
+#   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:54Z
+#   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:55Z
+#   Type check, lint, format | success | 2026-10-21T18:18:24Z | 2026-10-21T18:19:06Z
+#   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:25:58Z
+#   Database tests (local Supabase, pgTAP) | failure | 2026-10-21T18:18:24Z | 2026-10-21T18:20:36Z
+#   Unit tests (Vitest) | failure | 2026-10-21T18:18:24Z | 2026-10-21T18:19:05Z
+#   Secret scan (gitleaks) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:35Z
+#   Apply database changes to the test project | skipped | 2026-10-21T18:20:37Z | 2026-10-21T18:20:36Z
+#   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:20:37Z | 2026-10-21T18:20:36Z
+#   Preview link (Cloudflare Worker behind Access) | skipped | 2026-10-21T18:25:59Z | 2026-10-21T18:25:58Z
+2026-10-21T18:21:02.2301541Z Applying migration 20261019183410_create_visits.sql...
+2026-10-21T18:21:02.2302067Z Applying migration 20261020090000_content_model.sql...
+2026-10-21T18:21:02.2302540Z Applying migration 20261020090100_learner_model.sql...
+2026-10-21T18:21:02.2303074Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-21T18:21:02.2303576Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-21T18:21:02.2304083Z Applying migration 20261021200100_scratch_prdb_b.sql...
+2026-10-21T18:21:02.2307030Z Started supabase local development setup.
+2026-10-21T18:21:03.9591824Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:21:04.3907773Z Wrote SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY to .env.local
+2026-10-21T18:21:04.4152952Z No browser seed files in supabase/seeds/browser/
+2026-10-21T18:21:04.7483237Z check:env-names passed (155 variable names checked).
+2026-10-21T18:21:11.2228957Z check:built-secrets passed (38 browser files scanned).
+2026-10-21T18:23:17.4738805Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:23:17.4949048Z   ✓   53 [chromium] › e2e/scratch-prdb-b.spec.ts:9:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch B’s own new table is readable through the local API @seed (2.5s)
+2026-10-21T18:23:18.7746332Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:23:18.9141189Z   ✓   54 [chromium] › e2e/scratch-prdb-b.spec.ts:20:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch A’s tables do not exist in this database @seed (1.4s)
+2026-10-21T18:25:29.1990521Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:29.2171863Z   ✓  121 [webkit] › e2e/scratch-prdb-b.spec.ts:9:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch B’s own new table is readable through the local API @seed (1.3s)
+2026-10-21T18:25:30.4323756Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:30.4706974Z   ✓  122 [webkit] › e2e/scratch-prdb-b.spec.ts:20:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch A’s tables do not exist in this database @seed (1.2s)
+2026-10-21T18:25:51.4379345Z   6 skipped
+2026-10-21T18:25:51.4380017Z   130 passed (3.7m)
+2026-10-21T18:25:51.8726379Z Rows in visits on the throwaway database: 30
+# Lines in the whole job log matching sb_publishable, sb_secret or eyJhbGci: 0

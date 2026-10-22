@@ -1,0 +1,60 @@
+Evaluator break: the content pipeline workflow also runs on every pull request
+Statement: [content 2]. Scratch copy of branch head cc90a75; nothing pushed, nothing on main.
+
+--- 1. Test before the break (expect pass) ---
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  22:59:10
+   Duration  266ms (import 43%, tests 22%, transform 20%, worker 15%, environment 1%)
+
+
+--- 2. The break ---
+edited .github\workflows\content-pipeline.yml
+ .github/workflows/content-pipeline.yml | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/.github/workflows/content-pipeline.yml b/.github/workflows/content-pipeline.yml
+index 18b5b6f..6c9782e 100644
+--- a/.github/workflows/content-pipeline.yml
++++ b/.github/workflows/content-pipeline.yml
+@@ -17,6 +17,7 @@
+ name: Content pipeline
+ 
+ on:
++  pull_request:
+   workflow_dispatch:
+     inputs:
+       task:
+
+--- 3. Test with the break (expect red) ---
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: draft (brief to review pack) or next-round (apply the reviewer's file)
+        required: true
+        type: choice
+        options: [draft, next-round]
+      target:
+        description: For draft, the brief (content/briefs/<slug>.json). For next-round, the dialogue slug.
+        required: true
+        type: string
+"
+ ❯ tests/content-pipeline-workflow.test.ts:37:20
+     35|     const on = pipeline.slice(pipeline.indexOf('\non:\n'), pipeline.in…
+     36|     expect(on).toContain('\n  workflow_dispatch:\n')
+     37|     expect(on).not.toMatch(
+       |                    ^
+     38|       /\n {2}(push|pull_request|pull_request_target|schedule|workflow_…
+     39|     )
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  22:59:12
+   Duration  287ms (import 39%, tests 29%, transform 21%, worker 11%)
+
+--- 4. Revert and test again (expect pass) ---
+      Tests  11 passed (11)
+   Start at  22:59:13
+   Duration  301ms (import 44%, transform 21%, tests 20%, worker 14%, environment 1%)
+

@@ -1,0 +1,41 @@
+# Line endings: LF for the app's files, so the checks give the same result on
+# a Windows checkout (where git may convert to CRLF) and on Linux, and so the
+# files imported from v2 stay byte for byte identical (see docs/v2-imports.md).
+# Folders outside the app (.claude, docs, factory, recording, spikes) are left
+# as they are.
+/*.ts text eol=lf
+/*.js text eol=lf
+/*.json text eol=lf
+/*.jsonc text eol=lf
+/*.html text eol=lf
+/*.md text eol=lf
+/*.toml text eol=lf
+/*.ini text eol=lf
+/.env.example text eol=lf
+/.gitignore text eol=lf
+/.gitattributes text eol=lf
+/.prettierignore text eol=lf
+/lefthook.yml text eol=lf
+/.github/** text eol=lf
+src/** text eol=lf
+worker/** text eol=lf
+scripts/** text eol=lf
+tests/** text eol=lf
+e2e/** text eol=lf
+data/** text eol=lf
+supabase/** text eol=lf
+content/** text eol=lf
+# Font files are kept byte for byte as downloaded (the ITF Free Font License
+# forbids changing them), so git must never convert them. This comes after
+# src/** so it wins. The licence text stays text, so gitleaks still reads it,
+# but git leaves its line endings alone.
+src/assets/fonts/**/*.woff2 binary
+src/assets/fonts/**/*.txt -text
+# The design guide, brief and assets check out with LF on every machine, so
+# Prettier passes on a Windows clone. v2's handoff is kept byte for byte as the
+# owner supplied it (Prettier ignores it).
+design/** text eol=lf
+design/v2-handoff/** -text
+# Audio is binary: git must never convert line endings inside an mp3, or its
+# SHA-256 would no longer match its audio key (job 7-content-pipeline).
+*.mp3 binary

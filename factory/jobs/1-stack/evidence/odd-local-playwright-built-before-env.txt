@@ -1,0 +1,91 @@
+[WebServer] Default inspector port 9229 not available, using 9231 instead
+[WebServer] 
+
+Running 16 tests using 2 workers
+
+  ok  1 [chromium] › e2e\health.spec.ts:13:1 › [2] [10] the page loads with no console errors and reaches the Worker (656ms)
+  ok  3 [chromium] › e2e\health.spec.ts:26:1 › [2] [10] /api/health answers with JSON from the Worker (49ms)
+  x   4 [chromium] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable (53ms)
+  ok  2 [webkit] › e2e\health.spec.ts:13:1 › [2] [10] the page loads with no console errors and reaches the Worker (962ms)
+  ok  5 [webkit] › e2e\health.spec.ts:26:1 › [2] [10] /api/health answers with JSON from the Worker (59ms)
+  x   6 [webkit] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable (52ms)
+  ok  7 [chromium] › e2e\health.spec.ts:38:1 › [8] /api/health sends no cross site header, even when another site asks (67ms)
+  ok  9 [webkit] › e2e\health.spec.ts:38:1 › [8] /api/health sends no cross site header, even when another site asks (115ms)
+  ok  8 [chromium] › e2e\health.spec.ts:43:1 › [8] the page calls the API on its own address (544ms)
+  ok 11 [chromium] › e2e\health.spec.ts:50:1 › [2] an unknown page still loads the app (single page app routing) (476ms)
+  -  12 [chromium] › e2e\health.spec.ts:63:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+  -  13 [chromium] › e2e\health.spec.ts:82:3 › private preview link › [12] the API is closed too without sign in
+  ok 10 [webkit] › e2e\health.spec.ts:43:1 › [8] the page calls the API on its own address (864ms)
+  ok 14 [webkit] › e2e\health.spec.ts:50:1 › [2] an unknown page still loads the app (single page app routing) (562ms)
+  -  15 [webkit] › e2e\health.spec.ts:63:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+  -  16 [webkit] › e2e\health.spec.ts:82:3 › private preview link › [12] the API is closed too without sign in
+
+
+  1) [chromium] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "database": "reachable",
+    +   "database": "not_configured",
+      }
+
+      33 | test('[13] /api/health reports the Supabase test project as reachable', async ({ request }) => {
+      34 |   const res = await request.get('/api/health')
+    > 35 |   expect(await res.json()).toMatchObject({ database: 'reachable' })
+         |                            ^
+      36 | })
+      37 |
+      38 | test('[8] /api/health sends no cross site header, even when another site asks', async ({ request }) => {
+        at C:\Users\fumna\AppData\Local\Temp\claude\C--Users-fumna-dev-puhuscribe-v3\4c61d26d-55cf-47da-8e64-ec4ef75e493b\scratchpad\clone\e2e\health.spec.ts:35:28
+
+    Error Context: test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [webkit] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "database": "reachable",
+    +   "database": "not_configured",
+      }
+
+      33 | test('[13] /api/health reports the Supabase test project as reachable', async ({ request }) => {
+      34 |   const res = await request.get('/api/health')
+    > 35 |   expect(await res.json()).toMatchObject({ database: 'reachable' })
+         |                            ^
+      36 | })
+      37 |
+      38 | test('[8] /api/health sends no cross site header, even when another site asks', async ({ request }) => {
+        at C:\Users\fumna\AppData\Local\Temp\claude\C--Users-fumna-dev-puhuscribe-v3\4c61d26d-55cf-47da-8e64-ec4ef75e493b\scratchpad\clone\e2e\health.spec.ts:35:28
+
+    Error Context: test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-webkit\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable 
+    [webkit] › e2e\health.spec.ts:33:1 › [13] /api/health reports the Supabase test project as reachable 
+  4 skipped
+  10 passed (9.2s)
+EXIT CODE: 1

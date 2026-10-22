@@ -1,0 +1,40 @@
+# Each protection broken on purpose, one at a time, on this computer
+# (2026-10-21, worktree .worktrees/6-pr-local-db at f2550ae plus the paths
+# filter change). Command after each change:
+#   npx vitest run tests/checks-workflow.test.ts
+# then the file was restored. Below: the change, then the tests that went red.
+# With every change restored, all tests pass (464 of 464 in `npx vitest run`).
+
+== browser check if line skips manual runs (event_name == 'pull_request')
+     x [prdb 1] runs on pull requests (Dependabot included) and manual runs, never on pushes to main
+== browser check waits for the database check (needs: [database])
+     x [prdb 1] starts at the same time as the database check and waits for no other job
+== gotrue added to the excluded services
+     x [prdb 1] starts a local Supabase with only Postgres, kong, postgrest and gotrue
+== realtime removed from the excluded services
+     x [prdb 1] starts a local Supabase with only Postgres, kong, postgrest and gotrue
+== a secrets.FOO value added to a step of the browser check
+     x [prdb 2] holds no secret: no secrets. reference anywhere in the job
+== supabase start output no longer filtered
+     x [prdb 2] the start output is filtered so the local keys never reach the log
+== the visits row check made to always pass (if false)
+     x [prdb 3] after the tests, psql shows at least one row in visits on the throwaway database
+== config.toml auto_expose_new_tables = true
+     x [prdb 6] config.toml sets auto_expose_new_tables = false under [api]
+== config.toml seed paths include ./seeds/browser/*.sql
+     x [prdb 7] config.toml seed paths never include them, so supabase start and db reset do not load them
+== seed loader without LC_ALL=C (name order)
+     x [prdb 7] the local browser check loads every seed file in name order after the migrations and before the tests
+== after-merge check tied to the database check instead of the apply job
+     x [smoke 11] [prdb 11] the browser tests against the test project wait for the test project to be updated
+     x [prdb 8] runs only on a push to main once the apply job succeeded
+== after-merge check runs @seed tests
+     x [prdb 8] runs the suite without the tests that need browser seed rows
+== preview runs the full suite on a database change
+     x [prdb 10] a database change runs only @preview tests on the preview, otherwise the suite without @seed
+== @preview tag removed from the lock tests in e2e/visits.spec.ts
+     x [prdb 10] the Cloudflare Access lock tests carry the @preview tag
+== preview checkout made shallow (fetch-depth: 1)
+     x [prdb 10] the checkout has the base branch, so a three-dot diff of supabase/migrations/ works
+== a path filter added to pull_request
+     x [prdb 13] pull requests and manual runs are never filtered by path

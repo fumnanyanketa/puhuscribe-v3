@@ -1,0 +1,42 @@
+Evaluator break: the Azure request stops XML escaping the line text
+Statement: [content 5]. Scratch copy of branch head cc90a75; nothing pushed, nothing on main.
+
+--- 1. Test before the break (expect pass) ---
+.                                                                        [100%]
+1 passed, 15 deselected in 0.11s
+
+--- 2. The break ---
+edited scripts\generate\providers\voice.py
+ scripts/generate/providers/voice.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/generate/providers/voice.py b/scripts/generate/providers/voice.py
+index 1181b7e..168e5f4 100644
+--- a/scripts/generate/providers/voice.py
++++ b/scripts/generate/providers/voice.py
+@@ -67,7 +67,7 @@ def ssml(text: str, voice: str) -> str:
+     quotes = {'"': "&quot;", "'": "&apos;"}
+     return (
+         "<speak version='1.0' xml:lang='fi-FI'>"
+-        f"<voice name='{escape(voice, quotes)}'>{escape(text, quotes)}</voice>"
++        f"<voice name='{escape(voice, quotes)}'>{text}</voice>"
+         "</speak>"
+     )
+ 
+
+--- 3. Test with the break (expect red) ---
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______________ test_ssml_escapes_markup_ampersands_and_quotes ________________
+    def test_ssml_escapes_markup_ampersands_and_quotes():
+        """[content 5] text is XML escaped before it goes into the request."""
+        body = voice.ssml("""<b>Tom & "Jerry" 'x'</b>""", "fi-FI-NooraNeural")
+>       assert "&lt;b&gt;Tom &amp; &quot;Jerry&quot; &apos;x&apos;&lt;/b&gt;" in body
+E       assert '&lt;b&gt;Tom &amp; &quot;Jerry&quot; &apos;x&apos;&lt;/b&gt;' in '<speak version=\'1.0\' xml:lang=\'fi-FI\'><voice name=\'fi-FI-NooraNeural\'><b>Tom & "Jerry" \'x\'</b></voice></speak>'
+scripts\generate\test_content_providers.py:171: AssertionError
+=========================== short test summary info ===========================
+FAILED scripts/generate/test_content_providers.py::test_ssml_escapes_markup_ampersands_and_quotes
+1 failed, 15 deselected in 0.22s
+
+--- 4. Revert and test again (expect pass) ---
+.                                                                        [100%]
+1 passed, 15 deselected in 0.11s

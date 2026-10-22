@@ -1,0 +1,45 @@
+# Statement 12: the preview without any sign in or service token (curl, no redirects followed)
+## count before
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 380          │ 2026-10-19T19:40:24.172Z │
+└─────────┴──────────────┴──────────────────────────┘
+### https://factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev/
+HTTP/1.1 302 Found
+Access-Control-Allow-Credentials: true
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev?kid=...&meta=...&redirect_u
+### GET https://factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev/api/health
+HTTP/1.1 302 Found
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/factory-2-smoke-puhuscribe-previe
+### POST https://factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev/api/visits (application/json, {})
+HTTP/1.1 302 Found
+Access-Control-Allow-Credentials: true
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/factory-2-smoke-puhuscribe-previe
+body contains saved:true? 0
+### OPTIONS https://factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev/api/visits
+HTTP/1.1 400 Bad Request
+### https://cd2eb3ae-puhuscribe-preview.fumnanya.workers.dev/
+HTTP/1.1 302 Found
+Access-Control-Allow-Credentials: true
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/cd2eb3ae-puhuscribe-preview.fumnanya.workers.dev?kid=...&meta=...&redirect_url=...
+### GET https://cd2eb3ae-puhuscribe-preview.fumnanya.workers.dev/api/health
+HTTP/1.1 302 Found
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/cd2eb3ae-puhuscribe-preview.fumna
+### POST https://cd2eb3ae-puhuscribe-preview.fumnanya.workers.dev/api/visits (application/json, {})
+HTTP/1.1 302 Found
+Access-Control-Allow-Credentials: true
+Location: https://<team>.cloudflareaccess.com/cdn-cgi/access/login/cd2eb3ae-puhuscribe-preview.fumna
+body contains saved:true? 0
+### OPTIONS https://cd2eb3ae-puhuscribe-preview.fumnanya.workers.dev/api/visits
+HTTP/1.1 400 Bad Request
+## count after
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 380          │ 2026-10-19T19:40:30.992Z │
+└─────────┴──────────────┴──────────────────────────┘
+chromium: landed on host <team>.cloudflareaccess.com; "Hei!" headings 0; "Your visit is saved." 0; visit posts 0
+webkit: landed on host <team>.cloudflareaccess.com; "Hei!" headings 0; "Your visit is saved." 0; visit posts 0

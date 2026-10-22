@@ -1,0 +1,81 @@
+
+ RUN  v5.0.5 <scratch>/clean
+
+ ✓ tests/review-site.test.ts > the list > [site 1] holds only dialogue slugs, under one key 4ms
+ ✓ tests/review-site.test.ts > the list > [site 1] starts with meeting-people-new-colleague (owner's call 2, A) 0ms
+ ✓ tests/review-site.test.ts > the list > [site 1] docs/content-pipeline.md says only the manager edits it, on the owner's instruction 2ms
+ ✓ tests/review-site.test.ts > the review Worker > [site 9] is its own Worker, puhuscribe-review, serving dist-review/ through review-site/worker.ts 1ms
+ ✓ tests/review-site.test.ts > the review Worker > [site 9] has no workers.dev or preview address, one custom domain route, and nothing else bound 1ms
+ ✓ tests/review-site.test.ts > the review Worker > [site 8] keeps no logs and never reads who signed in 4ms
+ ✓ tests/review-site.test.ts > the review Worker > [site 9] the app's wrangler.jsonc still names puhuscribe-preview and has no review site route 1ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] runs on pull requests and pushes to main that touch the site, and on a manual start 1ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] on a pull request it builds, runs the site tests and a deploy dry run, with no secret 1ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] deploys only from main, never on a pull request and never for Dependabot 2ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] reads the repository only, keeps no git credentials and pins actions 1ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] the deploy job has its own concurrency group that never cancels a running deploy 0ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] [site 11] secrets reach only the deploy step and the live test step 1ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 11] passes the two Access settings as plain variables and refuses to deploy when either is empty 0ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 10] while nothing is set up yet, the deploy is skipped with a notice and the job stays green 0ms
+ ✓ tests/review-site.test.ts > the review site workflow > [site 14] [site 19] the live tests run only the @review-site tests, and only clean files are uploaded 1ms
+ ✓ tests/review-site.test.ts > settings without emails > [site 11] no email address in review-site/, scripts/review-site/ or the workflow 13ms
+ ✓ tests/review-site.test.ts > settings without emails > [site 11] .env.example and docs/content-pipeline.md name both Access variables and the new secrets 2ms
+ ✓ tests/review-site.test.ts > written down > [site 20] docs/content-pipeline.md steps 5 and 6 send the reviewer the site link 1ms
+ ✓ tests/review-site.test.ts > written down > [site 20] docs/conventions.md adds the review-site/ folder and the [site N] label 1ms
+ ✓ tests/review-site.test.ts > written down > [site 20] the README running costs list the review Worker and Access seats at €0 1ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a valid token gets the file 53ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] no header gets 403 with one plain line and no file 3ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a malformed token gets 403 6ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token signed by another key gets 403 2ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token for another Access application (wrong audience) gets 403 3ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token from another team (wrong issuer) gets 403 3ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] an expired token gets 403 4ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token with no expiry gets 403 2ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] an unsigned token (alg none) gets 403 2ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] when either setting is missing, everything gets 403, even with a valid token 4ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] a team domain that is not a cloudflareaccess.com address is refused, so keys are never fetched elsewhere 2ms
+ ✓ review-site/handler.test.ts > the second lock: the Access token check > [site 6] the real key source fetches the keys from <team domain>/cdn-cgi/access/certs 4ms
+ ✓ review-site/handler.test.ts > search engines kept out, and no framing > [site 5] the index gets the shared headers and the strict policy 2ms
+ ✓ review-site/handler.test.ts > search engines kept out, and no framing > [site 5] a review page keeps its own policy; the Worker adds only frame-ancestors 'none' 2ms
+ ✓ review-site/handler.test.ts > search engines kept out, and no framing > [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too 4ms
+ ✓ review-site/handler.test.ts > read only > [site 7] POST gets 405 and touches no file 1ms
+ ✓ review-site/handler.test.ts > read only > [site 7] PUT gets 405 and touches no file 1ms
+ ✓ review-site/handler.test.ts > read only > [site 7] PATCH gets 405 and touches no file 1ms
+ ✓ review-site/handler.test.ts > read only > [site 7] DELETE gets 405 and touches no file 1ms
+ ✓ review-site/handler.test.ts > read only > [site 7] OPTIONS gets 405 and touches no file 1ms
+ ✓ review-site/handler.test.ts > read only > [site 7] HEAD is answered with the headers and no body 2ms
+ ✓ review-site/handler.test.ts > read only > [site 7] a path with no file gets 404 with no list of files 5ms
+ ✓ review-site/handler.test.ts > read only > [site 7] paths outside the site shape are refused before the assets are asked 3ms
+ ✓ review-site/handler.test.ts > read only > [site 7] the assets are asked with a plain GET, also for HEAD 2ms
+ ✓ scripts/review-site/build.test.ts > the build copies only listed pages > [site 2] writes exactly index.html, robots.txt and each listed page, byte for byte 225ms
+ ✓ scripts/review-site/build.test.ts > the build copies only listed pages > [site 2] never copies an unlisted page, draft.json, the check report, the log, audio, round files, briefs or returned reviews 200ms
+ ✓ scripts/review-site/build.test.ts > the build copies only listed pages > [site 2] replaces an older build completely, so a page removed from the list disappears 359ms
+ ✓ scripts/review-site/build.test.ts > the build copies only listed pages > [site 2] dist-review/ is ignored by git 85ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a listed slug that is not lower case words joined by hyphens 200ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a slug that tries to leave the drafts folder 184ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a slug listed twice 179ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a listed slug with no review page 196ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a listed slug with no drafts folder at all 178ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file that is a symlink 176ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file over 25 MiB 182ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file of exactly 25 MiB is accepted 314ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file named round-01.html, not round-<n>.html 206ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file named Round-2.html, not round-<n>.html 181ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file named round-1-old.html, not round-<n>.html 195ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file named draft.html, not round-<n>.html 201ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] a page file named round-0.html, not round-<n>.html 201ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 1] [site 3] a list file holding anything other than the slugs 224ms
+ ✓ scripts/review-site/build.test.ts > the build refuses bad input, writes nothing and names the cause > [site 3] an existing build is left alone when the input is bad 428ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] lists each dialogue by title and slug, with one link per round 52ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] marks returned rounds "Review received" and the newest round without a file "Waiting for your review" 51ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] only one round waits, the newest without a returned file 24ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] prints a title holding <script> as text 40ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] says what to do in plain sentences 22ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] has no script and loads nothing from the network 40ms
+ ✓ scripts/review-site/build.test.ts > the index page > [site 4] follows the banned list: no em dash, no badge, no accent border, no hairline rows 23ms
+ ✓ scripts/review-site/build.test.ts > a new round goes up by itself, only when listed > [site 12] a new round-2.html for a listed slug is in the build; a round page for an unlisted slug adds nothing 357ms
+
+ Test Files  3 passed (3)
+      Tests  72 passed (72)
+   Start at  09:24:49
+   Duration  5.15s (tests 92%, transform 4%, import 4%)
+

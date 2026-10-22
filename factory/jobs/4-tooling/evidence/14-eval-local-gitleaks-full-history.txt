@@ -1,0 +1,13 @@
+# Evaluator, fresh clone at c1666b1
+$ gitleaks version
+8.30.1
+$ gitleaks git --redact --no-banner .   (history of factory/4-tooling)
+6:09PM INF 107 commits scanned.
+6:09PM INF scanned ~4609969 bytes (4.61 MB) in 1.07s
+6:09PM INF no leaks found
+exit 0
+$ gitleaks git --redact --no-banner --log-opts="--all" .   (every fetched branch)
+6:09PM INF 107 commits scanned.
+6:09PM INF scanned ~4609969 bytes (4.61 MB) in 1.09s
+6:09PM INF no leaks found
+exit 0

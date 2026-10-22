@@ -1,0 +1,49 @@
+Evaluator break: a second pipeline file (judge.py) imports the anthropic package
+Statement: [content 3]. Scratch copy of branch head cc90a75; nothing pushed, nothing on main.
+
+--- 1. Test before the break (expect pass) ---
+.                                                                        [100%]
+1 passed, 15 deselected in 0.14s
+
+--- 2. The break ---
+ scripts/generate/judge.py | 2 ++
+ 1 file changed, 2 insertions(+)
+diff --git a/scripts/generate/judge.py b/scripts/generate/judge.py
+index 4dad354..545f3e3 100644
+--- a/scripts/generate/judge.py
++++ b/scripts/generate/judge.py
+@@ -59,3 +59,5 @@ def evaluate_golden(ai, golden: dict, thresholds: dict) -> dict:
+         "passed": caught >= need["changed_caught_min"] and accepted >= need["faithful_accepted_min"],
+         "rows": rows,
+     }
++
++import anthropic  # evaluator break
+
+--- 3. Test with the break (expect red) ---
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________ test_only_ai_py_imports_anthropic_or_calls_an_ai_address ___________
+    def test_only_ai_py_imports_anthropic_or_calls_an_ai_address():
+        """[content 3] providers/ai.py is the only new file that uses the anthropic package or an AI address."""
+        pattern = re.compile(
+            r"^\s*(import anthropic|from anthropic)|api\.anthropic\.com|anthropic\.Anthropic", re.M
+        )
+        users = sorted(
+            p.relative_to(REPO).as_posix()
+            for p in pipeline_python_files()
+            if pattern.search(p.read_text("utf-8"))
+        )
+>       assert users == ["scripts/generate/providers/ai.py"]
+E       AssertionError: assert ['scripts/gen...viders/ai.py'] == ['scripts/gen...viders/ai.py']
+E         
+E         At index 0 diff: 'scripts/generate/judge.py' != 'scripts/generate/providers/ai.py'
+E         Left contains one more item: 'scripts/generate/providers/ai.py'
+E         Use -v to get more diff
+scripts\generate\test_content_providers.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED scripts/generate/test_content_providers.py::test_only_ai_py_imports_anthropic_or_calls_an_ai_address
+1 failed, 15 deselected in 0.28s
+
+--- 4. Revert and test again (expect pass) ---
+.                                                                        [100%]
+1 passed, 15 deselected in 0.13s

@@ -1,0 +1,27 @@
+# Evaluator round 3: stop check at a2765ee, CLAUDE_PROJECT_DIR = scratch clone, worktree .worktrees/eval-sc from main with npm ci
+=== 1. no changed app files
+
+--- exit 0; 1 lines; 0.66 s; key value in output: 0; '.env' in output: 0
+
+--- exit 0; 1 lines; 0.65 s; key value in output: 0; '.env' in output: 0
+=== 2. made-up key in worker/eval-key.ts, plus key in untracked .env.local
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  secrets: worker/eval-key.ts line 1 (github-pat)
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+If a secret was found, remove it from the file and tell the owner. Never paste its value anywhere.
+--- exit 2; 6 lines; 9.84 s; key value in output: 0; '.env' in output: 0
+=== 3. typical builder change: 6 edited TypeScript files and 2 new ones, clean
+
+--- exit 0; 1 lines; 11.46 s; key value in output: 0; '.env' in output: 0
+
+--- exit 0; 1 lines; 11.28 s; key value in output: 0; '.env' in output: 0
+=== 3b. same plus one lint error
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 11.63 s; key value in output: 0; '.env' in output: 0
+worktree clean: 0 changes

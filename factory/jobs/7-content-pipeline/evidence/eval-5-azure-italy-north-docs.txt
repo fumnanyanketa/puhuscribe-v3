@@ -1,0 +1,19 @@
+Azure Speech in Italy North: what Microsoft's documentation says (read only, 21 October 2026)
+
+1. Regions page, https://learn.microsoft.com/en-us/azure/ai-services/speech-service/regions (updated 18 Oct 2026)
+   - Italy North, identifier italynorth, is listed under Europe.
+   - Text to speech tab: italynorth has "Neural text to speech" ticked (also batch synthesis and custom voice). HD voices and MAI voices are not ticked; this job uses neither.
+   - The page says Speech stores and processes data in the region of the resource (Voice Live excepted; not used here).
+
+2. Text to speech REST reference, https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech (updated 5 Jun 2026)
+   - Standard voices table lists Italy North at https://italynorth.tts.speech.microsoft.com/cognitiveservices/v1. This matches voice.py, which builds https://{region}.tts.speech.microsoft.com/cognitiveservices/v1.
+   - audio-24khz-48kbitrate-mono-mp3 is in the list of streaming output formats.
+   - Required headers: an authorization header (Ocp-Apim-Subscription-Key is listed as supported for text to speech), Content-Type application/ssml+xml, X-Microsoft-OutputFormat and User-Agent. voice.py sends all four.
+
+3. Language support, https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
+   - fi-FI voices: fi-FI-SelmaNeural, fi-FI-HarriNeural, fi-FI-NooraNeural, all standard (neural) voices. The part of the page read states no regional limit for standard voices; the last 64,000 characters of the page were not read.
+
+What this does not prove
+   - No request was sent: the Azure key is not yet a GitHub secret, and this evaluator holds no key.
+   - Whether a fi-FI voice actually answers from the owner's Italy North F0 resource, and how it sounds on spoken spellings such as "mä oon", stays unverified until the first keyed workflow run.
+   - The GitHub variables AZURE_SPEECH_REGION and AZURE_SPEECH_TIER must be set to italynorth and F0; voice.py accepts italynorth (it is in EU_REGIONS) and F0 (the only priced tier).

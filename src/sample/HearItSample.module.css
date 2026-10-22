@@ -1,0 +1,279 @@
+/* The Hear it design sample. Every value comes from src/styles/tokens.css. */
+
+/* The frame (top bar, scrolling content, action area) is SessionFrame's. */
+
+.main {
+  padding: 0;
+}
+
+.intro {
+  padding: 0 var(--space-1);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-tight);
+}
+
+.lead {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+.hint {
+  color: var(--color-text);
+}
+
+.note {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.dialogue {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One line of the dialogue: v2's register card, spoken first */
+
+.card {
+  padding: var(--space-4) var(--space-4) var(--space-4);
+  border: 1px solid var(--color-card-edge);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+  transition: box-shadow var(--motion-fast) var(--motion-ease);
+}
+
+.cardNow {
+  box-shadow:
+    0 0 0 2px var(--color-current-line),
+    var(--shadow-2);
+}
+
+.speaker {
+  margin: 0 0 var(--space-2) var(--space-1);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0;
+}
+
+.pair {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* The connector: a teal dot for spoken, a violet dot for written, joined by
+   a dotted line (v2's rail, drawn with a border instead of a gradient). */
+.rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  width: 12px;
+  padding: 1.15rem 0 0.4rem;
+}
+
+.dotSpoken,
+.dotWritten {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-spoken);
+}
+
+.dotWritten {
+  background: var(--color-written);
+}
+
+.connector {
+  flex: 1;
+  margin: var(--space-1) 0;
+  border-left: 2px dotted var(--color-track);
+}
+
+.registers {
+  flex: 1;
+  min-width: 0;
+}
+
+.spokenBand {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-band-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-spoken-band);
+}
+
+.written {
+  padding: var(--space-3) var(--space-4) 0;
+}
+
+.labelSpoken,
+.labelWritten {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-spoken-text);
+}
+
+.labelWritten {
+  color: var(--color-written);
+}
+
+.spokenLine {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-line);
+  letter-spacing: var(--tracking-line);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.writtenLine {
+  margin: 0;
+  font-size: var(--text-written);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-line);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Words. The padding is always there, so lighting a word never moves the line. */
+
+.word {
+  padding: 0.05em 0.14em;
+  margin: 0 -0.08em;
+  border-radius: var(--radius-word);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.changed {
+  color: var(--color-flag-text);
+  background: var(--color-flag-wash);
+  font-weight: var(--weight-bold);
+}
+
+.current {
+  color: var(--color-current-word-text);
+  background: var(--color-current-word);
+}
+
+/* The audio player, kept at the bottom within thumb reach */
+
+.player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.play {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--play-size);
+  height: var(--play-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-button);
+  color: var(--color-button-text);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.play svg {
+  fill: currentColor;
+}
+
+.play:hover {
+  background: var(--color-button-hover);
+}
+
+.play:active {
+  background: var(--color-button-pressed);
+}
+
+.wave {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 3px;
+  height: 2.25rem;
+  min-width: 0;
+}
+
+.bar,
+.barPlayed {
+  flex: 1;
+  min-width: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-track);
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.barPlayed {
+  background: var(--color-wave-played);
+}
+
+.status {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.primary {
+  min-height: var(--button-height);
+  width: 100%;
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-button);
+  color: var(--color-button-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.primary:hover {
+  background: var(--color-button-hover);
+}
+
+.primary:active {
+  background: var(--color-button-pressed);
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .play,
+  .bar,
+  .barPlayed,
+  .primary {
+    transition: none;
+  }
+
+  .primary:active {
+    transform: none;
+  }
+}

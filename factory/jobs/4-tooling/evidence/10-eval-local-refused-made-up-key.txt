@@ -1,0 +1,31 @@
+# Evaluator: made-up GitHub-token-shaped key (random, generated in the script, never printed) in worker/eval-key.ts
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-key.ts 48ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~68 bytes (68 bytes) in 341ms
+5:59PM WRN leaks found: 1
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.04 seconds)
+✔️ format (Prettier, fixes and restages) (2.09 seconds)
+🥊 checks (14.64 seconds)
+  ✔️ type check (tsc -b) (5.98 seconds)
+  ✔️ lint (ESLint) (6.90 seconds)
+  🥊 secrets (gitleaks, redacted): gitleaks found a secret in the staged changes. Remove it, tell the owner, and never paste its value anywhere. Then commit again. (1.76 seconds)
+--- git commit exit code: 1; took 9.7 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

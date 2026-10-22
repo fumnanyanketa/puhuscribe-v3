@@ -1,0 +1,50 @@
+Evaluator harness on a clean copy of cc90a75: the branch's own review import and publish code. Two stubs, both stated: publish.run_checks always passes (no Voikko on Windows; the GitHub Python check proves the checks) and publish.validate_brief is off (the made up fixture has 2 lines; the real check refuses it, as an earlier run showed). Script: scratchpad harness/adversarial.py.
+  
+  == Statement 14: bad reviewer files given to read_round ==
+  READ ACCEPTED  | control: complete file, every item approved
+  READ REFUSED   | wrong fingerprint on line-1 | item line-1 does not match the page the reviewer saw (its fingerprint differs)
+  READ REFUSED   | edited text: line 1 written text changed after review (file answers the old page) | item line-1 does not match the page the reviewer saw (its fingerprint differs) / item dialogue does not match the page the reviewer saw (its fingerprint differs)
+  READ REFUSED   | missing line: line-2 left out | item line-2 is missing from the review file
+  READ ACCEPTED  | wrong schema: format field wrong (read_round alone)
+  READ REFUSED   | wrong schema: items is an object, not a list | item line-1 is missing from the review file / item line-2 is missing from the review file / item audio-1-puhe is missing from the review file / item audio-1-kirja is missing from the review file / item audio-2-puhe is missing from the review file / item audio-2-kirja is missing from the review file / item pgtap-form-mina is missing from the review file / item pgtap-form-olen is missing from the review file / item pgtap-form-oletko is missing from the review file / item pgtap-form-sina is missing from the review file / item pgtap-form-taalla is missing from the review file / item dialogue is missing from the review file
+  READ REFUSED   | wrong schema: round is a string | the file is for round 1, the page was round 1
+  READ REFUSED   | empty reviewer code | the reviewer code is empty
+  READ REFUSED   | reviewer code of spaces | the reviewer code is empty
+  READ REFUSED   | reviewer code is an email | the reviewer code must be letters and digits only (such as R1), never a name or email
+  READ REFUSED   | fix with a blank corrected spoken text | item line-1 is marked fix but the corrected text is missing
+  READ REFUSED   | clip audio-1-puhe marked sounds wrong, no native recording | item audio-1-puhe is marked sounds wrong: add a native recording at content/recordings/pgtap-publish-fixture/1-puhe.mp3, then run the next round
+  READ REFUSED   | dialogue as a whole left at 'Not yet' (decision null) | the dialogue as a whole has no decision (approve or not yet)
+  READ REFUSED   | dialogue 'not-yet' while every item is approved | the dialogue as a whole is marked not yet, but no item is marked fix or sounds wrong
+  READ ACCEPTED  | dialogue 'not-yet' with a fix on line-1 (the normal 'please fix' file)
+  READ ACCEPTED  | line-1 listed twice: first as fix, then as approve
+  
+  == Statement 14: review_files() on whole files in content/reviews/<slug>/ ==
+  FILES REFUSED  | not-json.json | not-json.json cannot be read as JSON (Expecting value: line 1 column 1 (char 0))
+  FILES REFUSED  | wrong-format.json | wrong-format.json is not a PuhuScribe review file
+  FILES REFUSED  | list.json | list.json is not a PuhuScribe review file
+  FILES REFUSED  | no-round.json | no-round.json has no round number
+  FILES REFUSED  | two files for round 1 | b.json and a.json are both for round 1
+  OVERSIZED ACCEPTED | a 40 MB review file (40 MB comment) is read and accepted; there is no size limit
+  
+  == Statement 15: publish preconditions (checks stubbed to pass; everything else real) ==
+  PUBLISH REFUSED| fake draft and fake audio, fully approved, allow_fake=False (the real command) | files written: 0 | public/audio exists: False | the draft was not made by the real AI provider (fake drafts are for tests only) / line 1 puhe audio comes from the fake voice provider / line 1 kirja audio comes from the fake voice provider / line 2 puhe audio comes from the fake voice provider / line 2 kirja audio comes from the fake voice provider
+  PUBLISH REFUSED| line-2 not approved (allow_fake=True) | files written: 0 | public/audio exists: False | item line-2 is not approved by the reviewer
+  PUBLISH REFUSED| audio-2-kirja marked sounds wrong (allow_fake=True) | files written: 0 | public/audio exists: False | the latest review still has open fixes (audio-2-kirja): apply them in a next round / item audio-2-kirja is not approved by the reviewer
+  PUBLISH REFUSED| line 2 spoken text edited after approval (allow_fake=True) | files written: 0 | public/audio exists: False | item line-2 changed after the reviewer approved it / item dialogue changed after the reviewer approved it
+  PUBLISH REFUSED| audio file 1-puhe swapped after approval (allow_fake=True) | files written: 0 | public/audio exists: False | the audio file audio/1-puhe.mp3 changed after it was made
+  PUBLISH REFUSED| every item approved but the whole dialogue 'not-yet' (allow_fake=True) | files written: 0 | public/audio exists: False | item dialogue is not approved by the reviewer
+  
+  == Publish step: files the read-back step refuses ==
+  PUBLISHED      | review file with an EMPTY reviewer code (allow_fake=True) | wrote 5 files: public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3, public/audio/pgtap-publish-fixture/1-puhe-b2d0c03f532e.mp3, public/audio/pgtap-publish-fixture/2-kirja-2c272b74f077.mp3, public/audio/pgtap-publish-fixture/2-puhe-a31de0a2794e.mp3, supabase/migrations/20261021120000_publish_pgtap_publish_fixture.sql
+  PUBLISHED      | review file whose reviewer code is an EMAIL (allow_fake=True) | wrote 5 files: public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3, public/audio/pgtap-publish-fixture/1-puhe-b2d0c03f532e.mp3, public/audio/pgtap-publish-fixture/2-kirja-2c272b74f077.mp3, public/audio/pgtap-publish-fixture/2-puhe-a31de0a2794e.mp3, supabase/migrations/20261021120000_publish_pgtap_publish_fixture.sql
+  PUBLISHED      | review file that names another dialogue (allow_fake=True) | wrote 5 files: public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3, public/audio/pgtap-publish-fixture/1-puhe-b2d0c03f532e.mp3, public/audio/pgtap-publish-fixture/2-kirja-2c272b74f077.mp3, public/audio/pgtap-publish-fixture/2-puhe-a31de0a2794e.mp3, supabase/migrations/20261021120000_publish_pgtap_publish_fixture.sql
+  
+  == Publish step: fake content relabelled as real ==
+  PUBLISHED      | fake draft whose labels say anthropic/azure, fake silent MP3s unchanged (allow_fake=False) | wrote 5 files: public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3, public/audio/pgtap-publish-fixture/1-puhe-b2d0c03f532e.mp3, public/audio/pgtap-publish-fixture/2-kirja-2c272b74f077.mp3, public/audio/pgtap-publish-fixture/2-puhe-a31de0a2794e.mp3, supabase/migrations/20261021120000_publish_pgtap_publish_fixture.sql
+    published file public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3 holds the fake voice marker: True
+  
+  == Statement 17: no audio of an unapproved line reaches public/audio ==
+  PUBLISH REFUSED| line-1 unapproved (allow_fake=True) | files written: 0 | public/audio exists: False | item line-1 is not approved by the reviewer
+    public/ exists afterwards: False
+  PUBLISHED      | control: everything approved (allow_fake=True) | wrote 5 files: public/audio/pgtap-publish-fixture/1-kirja-7c7bf7ff77e8.mp3, public/audio/pgtap-publish-fixture/1-puhe-b2d0c03f532e.mp3, public/audio/pgtap-publish-fixture/2-kirja-2c272b74f077.mp3, public/audio/pgtap-publish-fixture/2-puhe-a31de0a2794e.mp3, supabase/migrations/20261021120000_publish_pgtap_publish_fixture.sql
+  PUBLISH REFUSED| same dialogue published a second time | files written: 0 | public/audio exists: True | 20261021120000_publish_pgtap_publish_fixture.sql already publishes this dialogue

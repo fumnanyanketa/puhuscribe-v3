@@ -1,0 +1,69 @@
+PASS [chromium dev-chromium] saving message shows first :: Saving your visit.
+PASS [chromium dev-chromium] no Try again while saving :: 
+PASS [chromium dev-chromium] one h1 "Hei!" with lang=fi :: [{"tag":"H1","text":"Hei!","lang":"fi"}]
+PASS [chromium dev-chromium] title PuhuScribe :: PuhuScribe
+PASS [chromium dev-chromium] one status line :: P
+PASS [chromium dev-chromium] no styling :: {"sheets":0,"styleEls":0,"media":0,"icons":["data:,"],"font":"\"Times New Roman\""}
+PASS [chromium dev-chromium] no stylesheet/font/image requests :: []
+PASS [chromium dev-chromium] all requests same origin, none to supabase :: []
+PASS [chromium dev-chromium] one POST on first load :: 1
+PASS [chromium dev-chromium] console clean on load :: []
+PASS [chromium dev-chromium] reload 1: posts total 2 :: 2
+PASS [chromium dev-chromium] reload 2: posts total 3 :: 3
+PASS [chromium dev-chromium] deep link loads app, one POST :: {"afterDeep":4}
+PASS [chromium dev-chromium] back navigation :: {"afterBack":5,"status":"Your visit is saved."}
+PASS [chromium dev-chromium] failure message exact :: Your visit was not saved. Check your internet connection, then try again.
+PASS [chromium dev-chromium] Try again visible after failure :: 
+PASS [chromium dev-chromium] keyboard Try again -> saving -> saved, one new POST :: {"posts":2,"tabReachedButton":true,"focusDuring":"status","focusAfter":"status"}
+PASS [chromium dev-chromium] focus on status line after Try again :: {"focusDuring":"status","focusAfter":"status"}
+PASS [chromium dev-chromium] button gone after save :: 
+PASS [chromium dev-chromium] console during failure path :: ["error: Failed to load resource: net::ERR_FAILED"]
+PASS [chromium dev-chromium] double click Try again sends one POST :: {"posts":2}
+PASS [chromium dev-chromium] double tap Try again sends one POST :: {"posts":2}
+PASS [chromium dev-chromium] Try again while still offline fails again with button :: {"posts":2}
+PASS [chromium dev-chromium] 503 shows failure + Try again :: 
+PASS [chromium dev-chromium] 200 HTML (e.g. a login page) is treated as not saved :: Your visit was not saved. Check your internet connection, then try again.
+PASS [chromium dev-chromium] slow 4s: saving at 3s then saved :: {"mid":"Saving your visit.","ms":5130}
+PASS [chromium dev-chromium] reload mid save: one POST per load (2 loads) :: {"posts":2,"status":"Your visit is saved."}
+DRIVE ERROR page.goto: Timeout 60000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:5199/", waiting until "load"[22m
+
+PASS [webkit dev-webkit] saving message shows first :: Saving your visit.
+PASS [webkit dev-webkit] no Try again while saving :: 
+PASS [webkit dev-webkit] one h1 "Hei!" with lang=fi :: [{"tag":"H1","text":"Hei!","lang":"fi"}]
+PASS [webkit dev-webkit] title PuhuScribe :: PuhuScribe
+PASS [webkit dev-webkit] one status line :: P
+PASS [webkit dev-webkit] no styling :: {"sheets":0,"styleEls":0,"media":0,"icons":["data:,"],"font":"-webkit-standard"}
+PASS [webkit dev-webkit] no stylesheet/font/image requests :: []
+PASS [webkit dev-webkit] all requests same origin, none to supabase :: []
+PASS [webkit dev-webkit] one POST on first load :: 1
+PASS [webkit dev-webkit] console clean on load :: []
+PASS [webkit dev-webkit] reload 1: posts total 2 :: 2
+PASS [webkit dev-webkit] reload 2: posts total 3 :: 3
+PASS [webkit dev-webkit] deep link loads app, one POST :: {"afterDeep":4}
+PASS [webkit dev-webkit] back navigation :: {"afterBack":5,"status":"Your visit is saved."}
+PASS [webkit dev-webkit] failure message exact :: Your visit was not saved. Check your internet connection, then try again.
+PASS [webkit dev-webkit] Try again visible after failure :: 
+PASS [webkit dev-webkit] keyboard Try again -> saving -> saved, one new POST :: {"posts":2,"tabReachedButton":true,"focusDuring":"status","focusAfter":"status"}
+PASS [webkit dev-webkit] focus on status line after Try again :: {"focusDuring":"status","focusAfter":"status"}
+PASS [webkit dev-webkit] button gone after save :: 
+PASS [webkit dev-webkit] console during failure path :: []
+PASS [webkit dev-webkit] double click Try again sends one POST :: {"posts":2}
+PASS [webkit dev-webkit] double tap Try again sends one POST :: {"posts":2}
+PASS [webkit dev-webkit] Try again while still offline fails again with button :: {"posts":2}
+PASS [webkit dev-webkit] 503 shows failure + Try again :: 
+PASS [webkit dev-webkit] 200 HTML (e.g. a login page) is treated as not saved :: Your visit was not saved. Check your internet connection, then try again.
+PASS [webkit dev-webkit] slow 4s: saving at 3s then saved :: {"mid":"Saving your visit.","ms":4650}
+FAIL [webkit dev-webkit] reload mid save: one POST per load (2 loads) :: {"posts":1,"status":"Your visit is saved."}
+   probe GET: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe PUT json: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe DELETE: 405 allow=POST acao=- {"error":"method_not_allowed"}
+   probe OPTIONS preflight from other site: 204 allow=- acao=- 
+   probe POST form: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST text/plain: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST no content type: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST application/jsonx: 415 allow=- acao=- {"error":"unsupported_media_type"}
+   probe POST JSON with chosen time (body ignored): 201 allow=- acao=- {"saved":true}
+   probe POST JSON empty body: 201 allow=- acao=- {"saved":true}
+   probe GET /api/health: 200 allow=- acao=- {"status":"ok","service":"puhuscribe","database":"reachable"}

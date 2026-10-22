@@ -1,0 +1,124 @@
+
+Running 78 tests using 4 workers
+
+  ok  2 [chromium] › e2e\design-sample.spec.ts:50:3 › the Hear it sample › [design 5] every request goes to the app’s own address and the fonts are built in (1.9s)
+  ok  1 [webkit] › e2e\design-sample.spec.ts:50:3 › the Hear it sample › [design 5] every request goes to the app’s own address and the fonts are built in (2.8s)
+  ok  5 [chromium] › e2e\design-sample.spec.ts:68:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Poppins and Switzer, the fonts this screen uses (1.3s)
+  ok  4 [chromium] › e2e\design-reference.spec.ts:27:3 › the reference page › [design 16] shows every colour token, every contrast pairing in both modes, and the type, spacing and radius scales (3.3s)
+  ok  7 [chromium] › e2e\design-sample.spec.ts:81:3 › the Hear it sample › [design 5] text sizes follow the browser text size (1.2s)
+  ok  6 [webkit] › e2e\design-sample.spec.ts:68:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Poppins and Switzer, the fonts this screen uses (2.2s)
+  ok  8 [chromium] › e2e\design-reference.spec.ts:45:3 › the reference page › [design 16] its Finnish is only the PRD example and the type sample, each marked "Sample, not reviewed" (1.4s)
+  ok  3 [webkit] › e2e\design-reference.spec.ts:27:3 › the reference page › [design 16] shows every colour token, every contrast pairing in both modes, and the type, spacing and radius scales (5.3s)
+  ok  9 [chromium] › e2e\design-sample.spec.ts:90:3 › the Hear it sample › [design 7] the frame names the step in words, offers "Leave session", and keeps the player in view (1.3s)
+  ok 11 [chromium] › e2e\design-reference.spec.ts:71:3 › the reference page › [design 5] fonts load from the app’s own address, and ä ö å render in Switzer and Poppins (1.7s)
+  ok 13 [chromium] › e2e\design-sample.spec.ts:105:5 › the Hear it sample › [design 7] nothing scrolls sideways at 375 px, also with text at 200 percent (1.2s)
+  ok 10 [webkit] › e2e\design-sample.spec.ts:81:3 › the Hear it sample › [design 5] text sizes follow the browser text size (2.3s)
+  ok 14 [chromium] › e2e\design-reference.spec.ts:97:3 › session frame › [design 7] names the step in words in loop order, offers "Leave session", and keeps the actions in view (1.3s)
+  ok 15 [chromium] › e2e\design-sample.spec.ts:105:5 › the Hear it sample › [design 7] nothing scrolls sideways at 320 px, also with text at 200 percent (1.3s)
+  ok 12 [webkit] › e2e\design-reference.spec.ts:45:3 › the reference page › [design 16] its Finnish is only the PRD example and the type sample, each marked "Sample, not reviewed" (3.1s)
+  ok 18 [chromium] › e2e\design-sample.spec.ts:128:3 › the Hear it sample › [design 8] every button and link has a tap area of at least 44 x 44 px (1.4s)
+  ok 17 [chromium] › e2e\design-reference.spec.ts:122:5 › session frame › [design 7] nothing on the reference page scrolls sideways at 375 px, also with text at 200 percent (1.6s)
+  ok 16 [webkit] › e2e\design-sample.spec.ts:90:3 › the Hear it sample › [design 7] the frame names the step in words, offers "Leave session", and keeps the player in view (3.1s)
+  ok 20 [chromium] › e2e\design-sample.spec.ts:141:3 › the Hear it sample › [design 9] keyboard focus on Play shows an outline at least 2 px thick (1.2s)
+  ok 21 [chromium] › e2e\design-reference.spec.ts:122:5 › session frame › [design 7] nothing on the reference page scrolls sideways at 320 px, also with text at 200 percent (1.6s)
+  ok 19 [webkit] › e2e\design-reference.spec.ts:71:3 › the reference page › [design 5] fonts load from the app’s own address, and ä ö å render in Switzer and Poppins (3.7s)
+  ok 23 [chromium] › e2e\design-sample.spec.ts:159:3 › the Hear it sample › [design 11] both lines show spoken Finnish first and the written line under it, labelled, in Finnish (1.5s)
+  ok 22 [webkit] › e2e\design-sample.spec.ts:105:5 › the Hear it sample › [design 7] nothing scrolls sideways at 375 px, also with text at 200 percent (2.9s)
+  ok 24 [chromium] › e2e\design-reference.spec.ts:145:3 › buttons and keyboard › [design 8] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide (1.8s)
+  ok 25 [webkit] › e2e\design-reference.spec.ts:97:3 › session frame › [design 7] names the step in words in loop order, offers "Leave session", and keeps the actions in view (3.5s)
+  ok 27 [webkit] › e2e\design-sample.spec.ts:105:5 › the Hear it sample › [design 7] nothing scrolls sideways at 320 px, also with text at 200 percent (3.1s)
+  ok 28 [chromium] › e2e\design-reference.spec.ts:162:3 › buttons and keyboard › [design 8] a busy button keeps its size, ignores presses and tells screen readers what is happening (4.3s)
+  ok 26 [chromium] › e2e\design-sample.spec.ts:176:3 › the Hear it sample › [design 12] Play lights each spoken word in turn, Pause holds it, and the end is announced (5.7s)
+  ok 30 [webkit] › e2e\design-sample.spec.ts:128:3 › the Hear it sample › [design 8] every button and link has a tap area of at least 44 x 44 px (3.1s)
+  ok 29 [webkit] › e2e\design-reference.spec.ts:122:5 › session frame › [design 7] nothing on the reference page scrolls sideways at 375 px, also with text at 200 percent (4.1s)
+  ok 32 [chromium] › e2e\design-sample.spec.ts:209:3 › the Hear it sample › [design 15] the page declares light and dark, and follows the phone’s setting (3.9s)
+  ok 33 [webkit] › e2e\design-sample.spec.ts:141:3 › the Hear it sample › [design 9] keyboard focus on Play shows an outline at least 2 px thick (3.1s)
+  ok 31 [chromium] › e2e\design-reference.spec.ts:179:3 › buttons and keyboard › [design 9] Tab reaches every control in reading order, and each shows a focus outline of at least 2 px (5.0s)
+  ok 34 [webkit] › e2e\design-reference.spec.ts:122:5 › session frame › [design 7] nothing on the reference page scrolls sideways at 320 px, also with text at 200 percent (3.7s)
+  ok 36 [chromium] › e2e\design-reference.spec.ts:220:3 › status line › [design 10] three styles, each one full sentence in role="status", differing in shape as well as colour (1.6s)
+  ok 35 [webkit] › e2e\design-sample.spec.ts:159:3 › the Hear it sample › [design 11] both lines show spoken Finnish first and the written line under it, labelled, in Finnish (2.3s)
+  ok 38 [chromium] › e2e\design-reference.spec.ts:244:3 › Finnish line and word card › [design 11] spoken first, written under it labelled "Written", both lang="fi", every word a button (1.4s)
+  ok 37 [webkit] › e2e\design-reference.spec.ts:145:3 › buttons and keyboard › [design 8] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide (2.6s)
+  ok 40 [chromium] › e2e\design-reference.spec.ts:254:3 › Finnish line and word card › [design 11] a tap opens the card with every field; Close shuts it and returns focus to the word (2.1s)
+  ok 42 [chromium] › e2e\design-reference.spec.ts:275:5 › Finnish line and word card › [design 11] Enter on a word opens the card, and Escape closes it back to the word (1.4s)
+  ok 43 [chromium] › e2e\design-reference.spec.ts:275:5 › Finnish line and word card › [design 11] Space on a word opens the card, and Escape closes it back to the word (1.6s)
+  ok 41 [webkit] › e2e\design-reference.spec.ts:162:3 › buttons and keyboard › [design 8] a busy button keeps its size, ignores presses and tells screen readers what is happening (5.0s)
+  ok 39 [webkit] › e2e\design-sample.spec.ts:176:3 › the Hear it sample › [design 12] Play lights each spoken word in turn, Pause holds it, and the end is announced (7.3s)
+  ok 44 [chromium] › e2e\design-reference.spec.ts:290:3 › Finnish line and word card › [design 11] a tap outside closes the card, and the page behind cannot be used or scrolled while it is open (3.1s)
+  ok 46 [webkit] › e2e\design-sample.spec.ts:209:3 › the Hear it sample › [design 15] the page declares light and dark, and follows the phone’s setting (3.0s)
+  ok 47 [chromium] › e2e\design-reference.spec.ts:313:3 › motion › [design 14] with reduce motion on, the word card appears without sliding (2.3s)
+  ok 45 [webkit] › e2e\design-reference.spec.ts:179:3 › buttons and keyboard › [design 9] Tab reaches every control in reading order, and each shows a focus outline of at least 2 px (5.1s)
+  ok 49 [webkit] › e2e\design-reference.spec.ts:220:3 › status line › [design 10] three styles, each one full sentence in role="status", differing in shape as well as colour (1.5s)
+  ok 48 [chromium] › e2e\design-reference.spec.ts:339:3 › play control › [design 12] audio never starts by itself (2.7s)
+  ok 50 [webkit] › e2e\design-reference.spec.ts:244:3 › Finnish line and word card › [design 11] spoken first, written under it labelled "Written", both lang="fi", every word a button (1.5s)
+  ok 51 [chromium] › e2e\design-reference.spec.ts:350:3 › play control › [design 12] a file that cannot play shows "Could not play." and a "Try again" action (1.1s)
+Audio check | chromium | played
+  ok 52 [webkit] › e2e\design-reference.spec.ts:254:3 › Finnish line and word card › [design 11] a tap opens the card with every field; Close shuts it and returns focus to the word (2.4s)
+  ok 53 [chromium] › e2e\design-reference.spec.ts:360:3 › play control › [design 12] Play plays the tone, the name says what it plays, and starting another stops the first (2.4s)
+  ok 55 [chromium] › e2e\design-reference.spec.ts:394:3 › record control › [design 13] each state has its own accessible name; unavailable gives its reason (988ms)
+  ok 54 [webkit] › e2e\design-reference.spec.ts:275:5 › Finnish line and word card › [design 11] Enter on a word opens the card, and Escape closes it back to the word (1.6s)
+  ok 57 [webkit] › e2e\design-reference.spec.ts:275:5 › Finnish line and word card › [design 11] Space on a word opens the card, and Escape closes it back to the word (2.0s)
+  ok 56 [chromium] › e2e\design-reference.spec.ts:411:3 › record control › [design 13] the live example moves through the states without asking for the microphone (3.2s)
+  ok 59 [chromium] › e2e\design-reference.spec.ts:431:3 › both colour modes › [design 15] the page background fades from white to lilac in light, and to its dark equivalent in dark (1.7s)
+  ok 58 [webkit] › e2e\design-reference.spec.ts:290:3 › Finnish line and word card › [design 11] a tap outside closes the card, and the page behind cannot be used or scrolled while it is open (3.7s)
+  ok 60 [chromium] › e2e\design-reference.spec.ts:453:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page, light (3.3s)
+  ok 61 [webkit] › e2e\design-reference.spec.ts:313:3 › motion › [design 14] with reduce motion on, the word card appears without sliding (3.2s)
+  ok 62 [chromium] › e2e\design-reference.spec.ts:466:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page with a word card open, light (2.7s)
+  ok 63 [webkit] › e2e\design-reference.spec.ts:339:3 › play control › [design 12] audio never starts by itself (3.0s)
+  ok 64 [chromium] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, light (1.2s)
+  ok 65 [webkit] › e2e\design-reference.spec.ts:350:3 › play control › [design 12] a file that cannot play shows "Could not play." and a "Try again" action (1.7s)
+Audio check | webkit | could not play
+  ok 66 [chromium] › e2e\design-reference.spec.ts:453:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page, dark (3.2s)
+  ok 67 [webkit] › e2e\design-reference.spec.ts:360:3 › play control › [design 12] Play plays the tone, the name says what it plays, and starting another stops the first (1.6s)
+  ok 69 [webkit] › e2e\design-reference.spec.ts:394:3 › record control › [design 13] each state has its own accessible name; unavailable gives its reason (1.6s)
+  ok 68 [chromium] › e2e\design-reference.spec.ts:466:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page with a word card open, dark (2.9s)
+  ok 71 [chromium] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark (1.2s)
+  ok 70 [webkit] › e2e\design-reference.spec.ts:411:3 › record control › [design 13] the live example moves through the states without asking for the microphone (3.8s)
+  ok 72 [webkit] › e2e\design-reference.spec.ts:431:3 › both colour modes › [design 15] the page background fades from white to lilac in light, and to its dark equivalent in dark (2.7s)
+  ok 73 [webkit] › e2e\design-reference.spec.ts:453:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page, light (4.7s)
+  ok 74 [webkit] › e2e\design-reference.spec.ts:466:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page with a word card open, light (3.2s)
+  ok 75 [webkit] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, light (1.6s)
+  ok 76 [webkit] › e2e\design-reference.spec.ts:453:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page, dark (3.3s)
+  ok 77 [webkit] › e2e\design-reference.spec.ts:466:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the reference page with a word card open, dark (3.6s)
+  x  78 [webkit] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark (1.6s)
+
+
+  1) [webkit] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "color-contrast: button",
+    + ]
+
+      493 |       expect(
+      494 |         result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
+    > 495 |       ).toEqual([])
+          |         ^
+      496 |       await context.close()
+      497 |     })
+      498 |   }
+        at C:\Users\fumna\AppData\Local\Temp\claude\C--Users-fumna-dev-puhuscribe-v3\4c61d26d-55cf-47da-8e64-ec4ef75e493b\scratchpad\evalclone\e2e\design-reference.spec.ts:495:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\design-reference-automatic-d00f9-blem-on-the-front-page-dark-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\design-reference-automatic-d00f9-blem-on-the-front-page-dark-webkit\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\design-reference-automatic-d00f9-blem-on-the-front-page-dark-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\design-reference-automatic-d00f9-blem-on-the-front-page-dark-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [webkit] › e2e\design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark 
+  77 passed (1.5m)
+EXIT=1

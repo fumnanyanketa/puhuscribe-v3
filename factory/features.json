@@ -1,0 +1,133 @@
+{
+  "about": "The MVP feature list, in build order. /factory next takes the first feature whose status is failing and that has no job yet. Only the /factory manager edits this file. A feature becomes passing only when the owner approves its job.",
+  "mvp": "scope.md items 1 to 10, decided 19 October 2026",
+  "features": [
+    {
+      "id": "stack",
+      "scope_item": 1,
+      "name": "Stack & architecture",
+      "needs_decision": true,
+      "ga": false,
+      "status": "passing",
+      "job": "1-stack",
+      "note": "Also sets up the factory's missing infrastructure: GitHub checks, the Supabase test database (EU), and Cloudflare preview links."
+    },
+    {
+      "id": "smoke",
+      "scope_item": null,
+      "name": "Factory smoke test: a Hei! page that saves one visit",
+      "needs_decision": false,
+      "ga": false,
+      "status": "passing",
+      "job": "2-smoke",
+      "note": "Proves every factory step works before real features. See the plan's 'Factory smoke test'."
+    },
+    {
+      "id": "tooling",
+      "scope_item": 2,
+      "name": "Coding standards & tooling",
+      "needs_decision": false,
+      "ga": false,
+      "status": "passing",
+      "job": "4-tooling"
+    },
+    {
+      "id": "data-model",
+      "scope_item": 3,
+      "name": "Data model",
+      "needs_decision": true,
+      "ga": false,
+      "status": "passing",
+      "job": "3-data-model",
+      "note": "Merged 20 October 2026. The 104 v2 sentences still wait for the reviewer's corrections list (statement 15)."
+    },
+    {
+      "id": "design-system",
+      "scope_item": 4,
+      "name": "Design system & UI foundation",
+      "needs_decision": true,
+      "ga": false,
+      "status": "passing",
+      "job": "5-design-system",
+      "note": "Merged 21 October 2026: v2's look improved, flat sprout icon approved."
+    },
+    {
+      "id": "content-pipeline",
+      "scope_item": 5,
+      "name": "Content pipeline & native review",
+      "needs_decision": true,
+      "ga": true,
+      "status": "passing",
+      "job": "7-content-pipeline",
+      "note": "Merged 21 October 2026. Statement 18 (the reviewer's real approval and the unit 1 publish) moves to job 12. The first real keyed run happens after the merge."
+    },
+    {
+      "id": "pr-local-db",
+      "scope_item": null,
+      "name": "Factory: pull-request browser tests against a throwaway local database",
+      "needs_decision": false,
+      "ga": false,
+      "status": "passing",
+      "job": "6-pr-local-db",
+      "note": "Decided by the owner on 20 October 2026: before job 6, so jobs that add tables can pass browser tests while database changes still reach the shared test project only after approval. Merged 21 October 2026. Option B (Docker Desktop for the evaluator) still to set up by the owner."
+    },
+    {
+      "id": "first-session",
+      "scope_item": 6,
+      "name": "First session loop (Hear it, Understand it)",
+      "needs_decision": true,
+      "ga": true,
+      "status": "passing",
+      "job": "8-first-session",
+      "note": "Merged 22 October 2026. Real content appears only after job 7 publishes a reviewer approved dialogue; the browser tests use a test fixture in a throwaway database."
+    },
+    {
+      "id": "daily-review",
+      "scope_item": 7,
+      "name": "Daily review (Keep it)",
+      "needs_decision": true,
+      "ga": false,
+      "status": "failing",
+      "job": null
+    },
+    {
+      "id": "speaking-feedback",
+      "scope_item": 8,
+      "name": "Speaking feedback & voice consent (Say it)",
+      "needs_decision": true,
+      "ga": true,
+      "status": "failing",
+      "job": null,
+      "note": "Uses Azure pronunciation assessment provisionally. Test 3 runs after the MVP and may change the provider."
+    },
+    {
+      "id": "accounts",
+      "scope_item": 9,
+      "name": "Accounts & personal data",
+      "needs_decision": true,
+      "ga": true,
+      "status": "failing",
+      "job": null
+    },
+    {
+      "id": "units-1-3",
+      "scope_item": 10,
+      "name": "Units 1 to 3 content",
+      "needs_decision": false,
+      "ga": false,
+      "status": "failing",
+      "job": null,
+      "note": "Claude drafts the Finnish. The native reviewer checks it when the MVP is ready."
+    },
+    {
+      "id": "review-site",
+      "scope_item": null,
+      "name": "Factory: private review site for the native reviewer at puhuscribe.exentrik.co",
+      "needs_decision": false,
+      "ga": false,
+      "status": "failing",
+      "job": "13-review-site",
+      "note": "Owner decision 22 October 2026: review pages only, at puhuscribe.exentrik.co (not the app's final domain), behind Cloudflare Access. The reviewer's email is the owner's to give."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+Source: gh run view 39295790830 --log. Playwright result lines only, per job.
+
+######## Browser tests (Playwright, Chromium and WebKit)
+2026-10-19T17:38:20.7462257Z check:env-names passed (153 variable names checked).
+2026-10-19T17:38:24.2524624Z check:built-secrets passed (3 browser files scanned).
+2026-10-19T17:39:20.0899380Z Running 16 tests using 1 worker
+2026-10-19T17:39:23.4587760Z   -   7 [chromium] › e2e/health.spec.ts:63:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+2026-10-19T17:39:23.4588958Z   -   8 [chromium] › e2e/health.spec.ts:82:3 › private preview link › [12] the API is closed too without sign in
+2026-10-19T17:39:34.0342249Z   -  15 [webkit] › e2e/health.spec.ts:63:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+2026-10-19T17:39:34.0344628Z   -  16 [webkit] › e2e/health.spec.ts:82:3 › private preview link › [12] the API is closed too without sign in
+2026-10-19T17:39:34.0870774Z   4 skipped
+2026-10-19T17:39:34.0872113Z   12 passed (16.9s)
+2026-10-19T17:39:35.2379211Z Uploaded bytes 393921
+2026-10-19T17:39:35.6926998Z Artifact playwright-report successfully finalized. Artifact ID 12209430264
+
+######## Preview link (Cloudflare Worker behind Access)
+2026-10-19T17:50:26.6252619Z check:env-names passed (156 variable names checked).
+2026-10-19T17:50:31.6503807Z check:built-secrets passed (3 browser files scanned).
+2026-10-19T17:50:36.1970964Z Uploaded puhuscribe-preview (2.22 sec)
+2026-10-19T17:51:27.1812651Z Running 16 tests using 1 worker
+2026-10-19T17:51:43.8332982Z   16 passed (16.9s)
+2026-10-19T17:51:44.6065067Z Uploaded bytes 200964
+2026-10-19T17:51:44.8775312Z Artifact preview-screenshots-and-videos successfully finalized. Artifact ID 12208985789
+﻿2026-10-19T17:51:44.8933750Z ##[group]Run body="Preview for ${HEAD_SHA:0:7}: $URL
+2026-10-19T17:51:44.8934562Z ^[[36;1mbody="Preview for ${HEAD_SHA:0:7}: $URL^[[0m
+2026-10-19T17:51:44.8938306Z ^[[36;1mgh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "$body"^[[0m

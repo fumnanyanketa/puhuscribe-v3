@@ -1,0 +1,38 @@
+Evaluator evidence for 6-pr-local-db statement 7 (broken seed file turns the local browser check red at the seed step).
+Source: gh run view 39654984608 (scratch A, head ce365af).
+
+   Python tests and lint (pytest, ruff) | success
+   Type check, lint, format | success
+   Unit tests (Vitest) | success
+   Secret scan (gitleaks) | success
+   Dependency check (npm audit, pip-audit) | success
+   Browser tests (Playwright, local Supabase) | failure
+   Database tests (local Supabase, pgTAP) | success
+   Apply database changes to the test project | skipped
+   Preview link (Cloudflare Worker behind Access) | skipped
+   Browser tests against the test project (after merge) | skipped
+
+== Steps of the local browser check (job 119412755248)
+   1 | Set up job | success
+   2 | Run actions/checkout@v7 | success
+   3 | Run actions/setup-node@v7 | success
+   4 | Run npm ci | success
+   5 | Start a throwaway Supabase and apply every migration | success
+   6 | Local Supabase settings for the local Worker | success
+   7 | Load the browser test seed files | failure
+   8 | Build the app and its Worker | skipped
+   9 | Install Chromium and WebKit | skipped
+   10 | Browser tests at 375 x 812 against the built app | skipped
+   11 | The app saved visits in the throwaway database | skipped
+   12 | Keep the report, screenshots and videos | success
+   23 | Post Run actions/setup-node@v7 | skipped
+   24 | Post Run actions/checkout@v7 | success
+   25 | Complete job | success
+
+== Seed step lines
+Loading supabase/seeds/browser/010_scratch_prdb_a.sql
+Loading supabase/seeds/browser/020_broken.sql
+psql:supabase/seeds/browser/020_broken.sql:2: ERROR:  relation "public.no_such_table" does not exist
+##[error]Process completed with exit code 3.
+
+030_after_broken.sql (would insert a second row) is never loaded: the loop stopped at 020_broken.sql.

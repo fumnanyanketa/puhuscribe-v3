@@ -1,0 +1,17 @@
+# Job 4-tooling, statement 14 and 18, local, at a905445
+$ npm run check:code
+
+Checking formatting...
+All matched files use Prettier code style!
+exit=0
+$ gitleaks git --redact --no-banner   # full history: all 100 non-merge commits on every local branch (git rev-list --all --no-merges --count = 100)
+4:59PM INF 100 commits scanned.
+4:59PM INF scanned ~4538423 bytes (4.54 MB) in 1.28s
+4:59PM INF no leaks found
+exit=0
+$ npm audit --audit-level=high
+found 0 vulnerabilities
+exit=0
+$ python -m ruff check scripts && python -m ruff format --check scripts
+All checks passed!
+1 file already formatted

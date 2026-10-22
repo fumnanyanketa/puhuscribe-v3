@@ -1,0 +1,13 @@
+# Run 39435071728 (PR, a905445), job "Preview link": the one failed test. Status stayed "Saving your visit." for about 10 seconds, then showed "not saved"; no answer from POST /api/visits was recorded for it (other tests log one). The same test passed in the Browser tests job of this run and in WebKit here. This job changes no app or Worker code.
+2026-10-20T14:04:03.6675994Z check:env-names passed (156 variable names checked).
+2026-10-20T14:04:09.9927177Z check:built-secrets passed (3 browser files scanned).
+2026-10-20T14:05:23.2249008Z   ✘   1 [chromium] › e2e/health.spec.ts:20:1 › [2] [10] the page loads with no console errors and reaches the Worker (12.0s)
+2026-10-20T14:06:36.9916326Z   1) [chromium] › e2e/health.spec.ts:20:1 › [2] [10] the page loads with no console errors and reaches the Worker 
+2026-10-20T14:06:36.9932717Z     Error: expect(locator).toHaveText(expected) failed
+2026-10-20T14:06:36.9936511Z     Timeout:  11000ms
+2026-10-20T14:06:36.9940266Z         20 × locator resolved to <p role="status" tabindex="-1">Saving your visit.</p>
+2026-10-20T14:06:36.9941185Z            - unexpected value "Saving your visit."
+2026-10-20T14:06:36.9942639Z         6 × locator resolved to <p role="status" tabindex="-1">Your visit was not saved. Check your internet con…</p>
+2026-10-20T14:06:36.9944276Z           - unexpected value "Your visit was not saved. Check your internet connection, then try again."
+2026-10-20T14:06:36.9969326Z   1 failed
+2026-10-20T14:06:36.9971405Z   43 passed (1.5m)

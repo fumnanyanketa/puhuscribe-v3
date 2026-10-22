@@ -1,0 +1,50 @@
+
+Running 44 tests using 4 workers
+
+  ok  3 [chromium] › e2e\health.spec.ts:15:1 › [2] [10] the page loads with no console errors and reaches the Worker (962ms)
+  ok  4 [chromium] › e2e\visits.spec.ts:35:3 › the Hei! page › [smoke 1] shows one heading "Hei!" marked as Finnish, one status line, and the tab title PuhuScribe (977ms)
+  ok  5 [chromium] › e2e\health.spec.ts:28:1 › [2] [10] /api/health answers with JSON from the Worker (196ms)
+  ok  7 [chromium] › e2e\health.spec.ts:35:1 › [13] /api/health reports the Supabase test project as reachable (152ms)
+  ok  1 [webkit] › e2e\health.spec.ts:15:1 › [2] [10] the page loads with no console errors and reaches the Worker (1.7s)
+  ok  8 [chromium] › e2e\health.spec.ts:40:1 › [8] /api/health sends no cross site header, even when another site asks (177ms)
+  ok  2 [webkit] › e2e\visits.spec.ts:35:3 › the Hei! page › [smoke 1] shows one heading "Hei!" marked as Finnish, one status line, and the tab title PuhuScribe (1.8s)
+  ok  6 [chromium] › e2e\visits.spec.ts:47:3 › the Hei! page › [smoke 1] adds no styling: no CSS file, no style, no fonts, no images, no icons (720ms)
+  ok  9 [webkit] › e2e\health.spec.ts:28:1 › [2] [10] /api/health answers with JSON from the Worker (537ms)
+  ok 10 [chromium] › e2e\health.spec.ts:45:1 › [8] the page calls the API on its own address (472ms)
+  ok 13 [webkit] › e2e\health.spec.ts:35:1 › [13] /api/health reports the Supabase test project as reachable (267ms)
+  ok 15 [webkit] › e2e\health.spec.ts:40:1 › [8] /api/health sends no cross site header, even when another site asks (129ms)
+  ok 14 [chromium] › e2e\health.spec.ts:52:1 › [2] an unknown page still loads the app (single page app routing) (533ms)
+  -  17 [chromium] › e2e\health.spec.ts:65:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+  -  18 [chromium] › e2e\health.spec.ts:84:3 › private preview link › [12] the API is closed too without sign in
+  ok 11 [webkit] › e2e\visits.spec.ts:47:3 › the Hei! page › [smoke 1] adds no styling: no CSS file, no style, no fonts, no images, no icons (1.4s)
+  ok 16 [webkit] › e2e\health.spec.ts:45:1 › [8] the page calls the API on its own address (836ms)
+  ok 20 [webkit] › e2e\health.spec.ts:52:1 › [2] an unknown page still loads the app (single page app routing) (654ms)
+  -  21 [webkit] › e2e\health.spec.ts:65:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app
+  -  22 [webkit] › e2e\health.spec.ts:84:3 › private preview link › [12] the API is closed too without sign in
+  ok 12 [chromium] › e2e\visits.spec.ts:70:3 › saving one visit › [smoke 2] [smoke 3] each load and each reload sends exactly one POST /api/visits and shows the visit saved (4.1s)
+  ok 23 [chromium] › e2e\visits.spec.ts:90:3 › saving one visit › [smoke 2] [smoke 6] every request the page makes goes to its own address, never to Supabase (1.0s)
+  ok 19 [webkit] › e2e\visits.spec.ts:70:3 › saving one visit › [smoke 2] [smoke 3] each load and each reload sends exactly one POST /api/visits and shows the visit saved (4.3s)
+  ok 25 [webkit] › e2e\visits.spec.ts:90:3 › saving one visit › [smoke 2] [smoke 6] every request the page makes goes to its own address, never to Supabase (1.2s)
+  ok 24 [chromium] › e2e\visits.spec.ts:112:3 › saving one visit › [smoke 3] the status line is announced to screen readers and shows "Saving your visit." first (2.3s)
+  ok 26 [webkit] › e2e\visits.spec.ts:112:3 › saving one visit › [smoke 3] the status line is announced to screen readers and shows "Saving your visit." first (2.6s)
+  ok 27 [chromium] › e2e\visits.spec.ts:127:3 › saving one visit › [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves (2.3s)
+  ok 29 [chromium] › e2e\visits.spec.ts:157:3 › saving one visit › [smoke 3] a 503 answer shows the failure message with "Try again" (402ms)
+  ok 28 [webkit] › e2e\visits.spec.ts:127:3 › saving one visit › [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves (2.6s)
+  ok 31 [webkit] › e2e\visits.spec.ts:157:3 › saving one visit › [smoke 3] a 503 answer shows the failure message with "Try again" (652ms)
+  ok 30 [chromium] › e2e\visits.spec.ts:170:3 › saving one visit › [smoke 3] a slow answer (4 seconds) shows "Saving your visit." first, then the result (4.7s)
+  ok 33 [chromium] › e2e\visits.spec.ts:186:3 › saving one visit › [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost (2.3s)
+  ok 32 [webkit] › e2e\visits.spec.ts:170:3 › saving one visit › [smoke 3] a slow answer (4 seconds) shows "Saving your visit." first, then the result (5.1s)
+  ok 34 [chromium] › e2e\visits.spec.ts:222:3 › older browsers › [smoke 3] the visit still saves on a browser without AbortSignal.timeout (older iOS Safari, Android WebViews) (517ms)
+  ok 36 [chromium] › e2e\visits.spec.ts:233:3 › older browsers › [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 seconds (491ms)
+  ok 37 [chromium] › e2e\visits.spec.ts:254:3 › POST /api/visits from outside the page › [smoke 4] a plain form post (no JSON content type) gets 415 (77ms)
+  ok 38 [chromium] › e2e\visits.spec.ts:260:3 › POST /api/visits from outside the page › [smoke 4] GET gets 405 with allow: POST (16ms)
+  -  39 [chromium] › e2e\visits.spec.ts:274:3 › private preview link › [smoke 12] POST /api/visits is refused without sign in and saves nothing
+  ok 35 [webkit] › e2e\visits.spec.ts:186:3 › saving one visit › [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost (2.4s)
+  ok 40 [webkit] › e2e\visits.spec.ts:222:3 › older browsers › [smoke 3] the visit still saves on a browser without AbortSignal.timeout (older iOS Safari, Android WebViews) (764ms)
+  ok 41 [webkit] › e2e\visits.spec.ts:233:3 › older browsers › [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 seconds (772ms)
+  ok 42 [webkit] › e2e\visits.spec.ts:254:3 › POST /api/visits from outside the page › [smoke 4] a plain form post (no JSON content type) gets 415 (48ms)
+  ok 43 [webkit] › e2e\visits.spec.ts:260:3 › POST /api/visits from outside the page › [smoke 4] GET gets 405 with allow: POST (17ms)
+  -  44 [webkit] › e2e\visits.spec.ts:274:3 › private preview link › [smoke 12] POST /api/visits is refused without sign in and saves nothing
+
+  6 skipped
+  38 passed (25.7s)

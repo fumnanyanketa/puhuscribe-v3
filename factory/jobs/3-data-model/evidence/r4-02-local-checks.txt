@@ -1,0 +1,33 @@
+Round 4 evidence: fresh clone of factory/3-data-model at a779ac0 into the evaluator's scratch folder, Windows, Node v24.14.1.
+Commands: npm ci; npm run build; npm run typecheck; npm run lint; npm run format:check; npm test
+
+added 347 packages, and audited 348 packages in 42s
+found 0 vulnerabilities
+npm ci exit=0
+
+== build
+
+check:built-secrets passed (3 browser files scanned).
+build exit=0
+
+== typecheck
+> tsc -b
+
+typecheck exit=0
+
+== lint
+> eslint .
+
+lint exit=0
+
+== format
+Checking formatting...
+All matched files use Prettier code style!
+format exit=0
+
+== unit tests
+ Test Files  17 passed (17)
+      Tests  214 passed (214)
+unit exit=0
+
+Round 4 changed no TypeScript (diff 2a21230..a779ac0 touches only docs/data-model.md, the content migration and three pgTAP files), so 214 unit tests is the expected count.

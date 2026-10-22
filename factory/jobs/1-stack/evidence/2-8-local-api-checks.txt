@@ -1,0 +1,59 @@
+== GET /api/health
+HTTP/1.1 200 OK
+Vary: Origin
+cache-control: no-store
+content-length: 61
+content-type: application/json
+x-content-type-options: nosniff
+Date: Mon, 19 Oct 2026 17:56:07 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+== GET /api/health with Origin: https://evil.example
+HTTP/1.1 200 OK
+content-type: application/json
+x-content-type-options: nosniff
+== OPTIONS preflight /api/health from evil origin
+HTTP/1.1 204 No Content
+Vary: Origin, Access-Control-Request-Headers
+Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+== POST /api/health
+HTTP/1.1 405 Method Not Allowed
+allow: GET, HEAD
+{"error":"method_not_allowed"}
+
+== GET /api/nope
+HTTP/1.1 404 Not Found
+content-type: application/json
+x-content-type-options: nosniff
+{"error":"not_found"}
+
+== GET /api (bare)
+HTTP/1.1 200 OK
+content-type: text/html
+
+== GET /api/health.json (static-file trap)
+HTTP/1.1 404 Not Found
+content-type: application/json
+x-content-type-options: nosniff
+{"error":"not_found"}
+
+== GET /some/deep/link (SPA fallback)
+200 text/html
+== GET / 
+HTTP/1.1 200 OK
+content-type: text/html
+== Is there a static health file anywhere in the repo or dist?
+clone/e2e/health.spec.ts
+== 5 sequential /api/health database values
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+{"status":"ok","service":"puhuscribe","database":"reachable"}
+
+== GET /api/health with Origin: http://localhost:3000 (dev only: Vite's own dev server CORS echoes localhost origins; never '*')
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000

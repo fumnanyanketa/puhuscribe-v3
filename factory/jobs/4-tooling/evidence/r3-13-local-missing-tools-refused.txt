@@ -1,0 +1,112 @@
+# Job 4-tooling round 3, statement 13 after the fix (evaluator failure 2).
+# Fresh local clone of factory/4-tooling (its own .git; the shared hooks of the real repository are not touched).
+# Throwaway branch scratch/4-tooling-r3-missing, never pushed; the clone is deleted at the end.
+$ git log --oneline -1
+ce3db17 Round 3: root file paths checked; no false secret alarm; redact pinned
+$ npm ci
+found 0 vulnerabilities
+
+=== A. gitleaks missing (WinGet Links folder removed from PATH), one .ts file staged
+(gitleaks not found on this PATH)
+$ PATH=<without WinGet> git commit -m "scratch"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/r3-ok.ts 105ms (unchanged)
+
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+gitleaks is not installed, so this commit is refused. Install it once (free) with: winget install --id Gitleaks.Gitleaks -e. Then commit again.
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 13.84 seconds)
+✔️ format (Prettier, fixes and restages) (2.50 seconds)
+🥊 checks (19.05 seconds)
+  ✔️ type check (tsc -b) (7.46 seconds)
+  ✔️ lint (ESLint) (11.30 seconds)
+  🥊 secrets (gitleaks, redacted) (0.30 seconds)
+exit=1
+HEAD: ce3db17 Round 3: root file paths checked; no false secret alarm; redact pinned
+
+=== B. ruff missing (no Python folders on PATH), one .py file staged
+(ruff, python, python3 not found on this PATH)
+$ PATH=<without Python> git commit -m "scratch"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+ruff is not installed, so this commit is refused. Install it once (free) with: python -m pip install --user -r scripts/requirements-dev.txt. Then commit again.
+┃  checks ❯ python lint (ruff check) ❯ 
+
+exit status 1
+ruff is not installed, so this commit is refused. Install it once (free) with: python -m pip install --user -r scripts/requirements-dev.txt. Then commit again.
+┃  checks ❯ python format (ruff format --check) ❯ 
+
+exit status 1
+6:31PM INF 0 commits scanned.
+6:31PM INF scanned ~37 bytes (37 bytes) in 281ms
+6:31PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 3.62 seconds)
+✔️ format (Prettier, fixes and restages) (2.12 seconds)
+🥊 checks (2.06 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.46 seconds)
+  🥊 python lint (ruff check) (0.29 seconds)
+  🥊 python format (ruff format --check) (0.31 seconds)
+exit=1
+HEAD: ce3db17 Round 3: root file paths checked; no false secret alarm; redact pinned
+
+=== C. a made-up key with gitleaks present: the advice appears only for a real finding
+$ # worker/r3-key.ts holds a made-up GitHub token shaped value
+$  git commit -m "scratch"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/r3-key.ts 50ms (unchanged)
+
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+6:31PM INF 0 commits scanned.
+6:31PM INF scanned ~70 bytes (70 bytes) in 396ms
+6:31PM WRN leaks found: 1
+gitleaks found a secret in the staged changes, so this commit is refused. Remove it, tell the owner, and never paste its value anywhere. Then commit again.
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 10.20 seconds)
+✔️ format (Prettier, fixes and restages) (2.17 seconds)
+🥊 checks (17.22 seconds)
+  ✔️ type check (tsc -b) (7.20 seconds)
+  ✔️ lint (ESLint) (7.99 seconds)
+  🥊 secrets (gitleaks, redacted) (2.04 seconds)
+exit=1
+HEAD: ce3db17 Round 3: root file paths checked; no false secret alarm; redact pinned
+Check: the made-up value does not appear in this output (grep -F).
+
+=== D. lefthook missing (node_modules removed), one factory file staged
+warning: in the working copy of 'factory/jobs/4-tooling/r3-note.md', LF will be replaced by CRLF the next time Git touches it
+$  git commit -m "scratch"
+Can't find lefthook in PATH
+ERROR: Operation is aborted due to lefthook settings.
+Make sure lefthook is available in your environment and re-try.
+To skip these checks use --no-verify git argument or set LEFTHOOK=0 env variable.
+exit=1
+HEAD: ce3db17 Round 3: root file paths checked; no false secret alarm; redact pinned

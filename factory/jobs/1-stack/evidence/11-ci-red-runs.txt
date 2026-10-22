@@ -1,0 +1,27 @@
+== Run 39278766728
+branch: scratch/1-stack-fake-key  sha: 66629b0  event: pull_request  conclusion: failure
+url: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39278766728
+  job: Unit tests (Vitest) -> success
+  job: Python tests and lint (pytest, ruff) -> cancelled
+  job: Type check, lint, format -> success
+  job: Secret scan (gitleaks) -> failure
+  job: Dependency check (npm audit, pip-audit) -> success
+  job: Browser tests (Playwright, Chromium and WebKit) -> success
+== Run 39278776200
+branch: scratch/1-stack-broken-scheduler-test  sha: c6a4225  event: pull_request  conclusion: failure
+url: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39278776200
+  job: Secret scan (gitleaks) -> success
+  job: Dependency check (npm audit, pip-audit) -> success
+  job: Python tests and lint (pytest, ruff) -> success
+  job: Unit tests (Vitest) -> failure
+  job: Browser tests (Playwright, Chromium and WebKit) -> success
+  job: Type check, lint, format -> success
+
+== Do the scratch branches still exist on GitHub?
+factory/1-stack
+main
+
+== All pull requests (any state)
+#3 CLOSED scratch/1-stack-broken-scheduler-test SCRATCH, do not merge: scratch/1-stack-broken-scheduler-test (1-stack statement 11)
+#2 CLOSED scratch/1-stack-fake-key SCRATCH, do not merge: scratch/1-stack-fake-key (1-stack statement 11)
+#1 OPEN factory/1-stack 1-stack: stack and architecture (draft, waiting on owner setup)

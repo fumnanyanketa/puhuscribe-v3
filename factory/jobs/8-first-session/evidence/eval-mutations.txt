@@ -1,0 +1,139 @@
+Evaluator, job 8-first-session. Protections broken on purpose in a scratch clone at 679d21c (never pushed, put back after each run).
+Each block: the change, then the tests that went red. M8 and M10 were first attempts: M8 is an equivalent change (the end of line check still refuses), M10 did not match the file; M8b and M10b are the real breaks.
+
+== M1 Origin check removed
+ worker/http.ts | 2 +-
+-  if (origin === null) return true
++  return true
+     × [session 5] another website (Origin header) gets 403 and nothing is made 14ms
+     × [session 5] a request from another website gets 403 and adds nothing 14ms
+     × [session 5] another website gets 403 and the step is not stored 3ms
+     × [session 5] another website gets 403 and nothing is saved 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/guest.test.ts > POST /api/guest > [session 5] another website (Origin header) gets 403 and nothing is made
+ FAIL  worker/sessions.test.ts > POST /api/sessions/today > [session 5] a request from another website gets 403 and adds nothing
+ FAIL  worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 5] another website gets 403 and the step is not stored
+ FAIL  worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 5] another website gets 403 and nothing is saved
+      Tests  4 failed | 43 passed (47)
+== M2 HttpOnly dropped from sign in cookies
+ worker/learner-auth.ts | 2 +-
+-    httpOnly: true,
++    httpOnly: false,
+     × [session 2] the sign in cookies are HttpOnly, Secure, SameSite=Lax, Path=/, no Domain, for 90 days 10ms
+     × [session 4] an expired access token is renewed with the refresh token, new cookies are set, and the request succeeds 11ms
+     × [session 4] when renewal fails because the user was deleted, the cookies are cleared and the front door says the session ended 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/guest.test.ts > POST /api/guest > [session 2] the sign in cookies are HttpOnly, Secure, SameSite=Lax, Path=/, no Domain, for 90 days
+ FAIL  worker/guest.test.ts > renewing and losing the sign in > [session 4] an expired access token is renewed with the refresh token, new cookies are set, and the request succeeds
+ FAIL  worker/guest.test.ts > renewing and losing the sign in > [session 4] when renewal fails because the user was deleted, the cookies are cleared and the front door says the session ended
+      Tests  3 failed | 14 passed (17)
+== M3 Steps may skip ahead (understand before hear)
+ worker/api.ts | 2 +-
+-    if (now !== reached - 1) return done({ error: 'step_out_of_order' }, 409)
++    
+     × [session 13] refuses understand before hear 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses understand before hear
+      Tests  1 failed | 29 passed (30)
+== M4 Browser may record say
+ src/lib/session-types.ts | 2 +-
+-export const RECORDABLE_STEPS = ['hear', 'understand'] as const
++export const RECORDABLE_STEPS = ['hear', 'understand', 'say'] as const
+     × [session 13] refuses any step beyond understand from the browser 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses any step beyond understand from the browser
+      Tests  1 failed | 29 passed (30)
+== M5 Worker logs the cookie header
+ worker/api.ts | 1 +
++  console.log("req", request.headers.get("cookie"))
+     × [session 19] holds no cookie, token, user id, IP address or header after a whole session and its faults 111ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/logs.test.ts > the Worker log > [session 19] holds no cookie, token, user id, IP address or header after a whole session and its faults
+      Tests  1 failed (1)
+== M6 Guest answer leaks the user id
+ worker/api.ts | 2 +-
+-  return withCookies(json({ guest: 'created' }, 201), context.setCookies())
++  return withCookies(json({ guest: "created", u: (await context.client.auth.getUser()).data.user?.id }, 201), context.setCookies())
+     × [session 2] [session 3] the answer body holds no token and no user id 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/guest.test.ts > POST /api/guest > [session 2] [session 3] the answer body holds no token and no user id
+      Tests  1 failed | 16 passed (17)
+== M7 Expired token not cleared on deleted user
+ worker/learner-auth.ts | 3 +--
+-    context.clearCookies()
+-    return 'ended'
++    return "ended"
+     × [session 4] a deleted user whose access token has not expired yet is also signed out 9ms
+     × [session 4] a session route answers 401 session_ended and clears the cookies 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/guest.test.ts > renewing and losing the sign in > [session 4] a deleted user whose access token has not expired yet is also signed out
+ FAIL  worker/guest.test.ts > renewing and losing the sign in > [session 4] a session route answers 401 session_ended and clears the cookies
+      Tests  2 failed | 15 passed (17)
+== M8 Half-split line accepted
+ worker/session-plan.ts | 2 +-
+-    if (at < 0) return null
++    if (at < 0) continue
+      Tests  40 passed (40)
+== M9 Invocation logs back on
+ wrangler.jsonc | 2 +-
+-      "invocation_logs": false,
++      "invocation_logs": true,
+     × [session 19] are turned off in wrangler.jsonc 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/worker-rules.test.ts > Cloudflare invocation logs > [session 19] are turned off in wrangler.jsonc
+      Tests  1 failed | 1 passed (2)
+== M10 Workflow applies seeds to a hosted database: MUTATION DID NOT APPLY
+== M11 Finish line rule picks the longest line
+ src/lib/session-rules.ts | 2 +-
+-      (best, line) => (best === null || line.spoken.length < best.spoken.length ? line : best),
++      (best, line) => (best === null || line.spoken.length > best.spoken.length ? line : best),
+     × [session 14] is the shortest line with at least two words that have forms 8ms
+     × [session 14] falls back to the shortest line with one such word, then to the shortest line 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/lib/session-rules.test.ts > the sentence you can now say (Decision 5) > [session 14] is the shortest line with at least two words that have forms
+ FAIL  src/lib/session-rules.test.ts > the sentence you can now say (Decision 5) > [session 14] falls back to the shortest line with one such word, then to the shortest line
+      Tests  2 failed | 8 passed (10)
+== M12 Question order not fixed by session id
+ src/lib/session-rules.ts | 2 +-
+-  const next = random(seed(key))
++  const next = Math.random
+     × [session 13] gives the same questions in the same order for the same session, every time 17ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] gives the same questions in the same order for the same session, every time
+      Tests  1 failed | 9 passed (10)
+== M8b Words may skip over text (gap check removed)
+ worker/session-plan.ts | 1 -
+-    if (HAS_LETTER_OR_DIGIT.test(gap)) return null
+     × [session 9] refuses a line whose words are not all found, in order 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/session-plan.test.ts > splitting a line into its words > [session 9] refuses a line whose words are not all found, in order
+      Tests  1 failed | 39 passed (40)
+== M10b Workflow applies seeds to the test project
+ .github/workflows/checks.yml | 2 +-
+-        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes
++        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes --include-seed
+     × [session 20] no workflow applies seeds to a hosted database (no --include-seed) 15ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/test-fixture.test.ts > where the fixture can go > [session 20] no workflow applies seeds to a hosted database (no --include-seed)
+      Tests  1 failed | 6 passed (7)
+== M13 Resume always restarts at Hear it
+ src/screens/session-steps.ts | 2 +-
+-  const done = reached === null ? -1 : LOOP_ORDER.indexOf(reached)
++  const done = -1
+     × [session 18] resumes at Hear it with no step, Understand it after hear, and the finish screen after understand 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/screens/session-steps.test.ts > the session steps > [session 18] resumes at Hear it with no step, Understand it after hear, and the finish screen after understand
+      Tests  1 failed | 5 passed (6)
+== M14 Test text moved into a migration
+ supabase/migrations/20261021182906_drop_visits.sql | 1 +
+     × [session 20] no migration contains test-fixture 13ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/test-fixture.test.ts > where the fixture can go > [session 20] no migration contains test-fixture
+      Tests  1 failed | 6 passed (7)
+== M15 Service role key read in the Worker
+ worker/learner-auth.ts | 1 +
++  SUPABASE_SERVICE_ROLE_KEY?: string
+     × [session 7] no Worker file reads a Supabase secret key or service role key 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/worker-rules.test.ts > no stronger key anywhere > [session 7] no Worker file reads a Supabase secret key or service role key
+      Tests  1 failed | 1 passed (2)

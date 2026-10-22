@@ -1,0 +1,187 @@
+/* Word card (design.md, "Finnish line and word card"). Values from src/styles/tokens.css. */
+
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 30rem;
+  max-height: 85vh;
+  max-height: 85dvh;
+  margin: 0 auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-3);
+  overscroll-behavior: contain;
+}
+
+.sheet[open] {
+  animation: rise var(--motion-sheet) var(--motion-ease-out);
+}
+
+/* --color-backdrop is declared on ::backdrop itself in tokens.css, because
+   older browsers do not pass custom properties to the backdrop. */
+.sheet::backdrop {
+  background: var(--color-backdrop);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.body {
+  padding: var(--space-5) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.word {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-word-card);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  overflow-wrap: anywhere;
+}
+
+/* The title takes focus when the card opens, so screen readers start there.
+   It is not a control and is not in the Tab order, so it shows no outline. */
+.word:focus,
+.word:focus-visible {
+  outline: none;
+}
+
+.close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--color-word-hover);
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+}
+
+.facts div {
+  display: grid;
+  gap: 2px;
+}
+
+.facts dt {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-quiet);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--text-body);
+}
+
+.forms {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.formSpoken,
+.formWritten {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.formSpoken {
+  border: 1px solid var(--color-spoken-band-edge);
+  background: var(--color-spoken-band);
+}
+
+.formWritten {
+  border: 1px solid var(--color-card-edge);
+}
+
+.labelSpoken,
+.labelWritten {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-spoken-text);
+}
+
+.labelWritten {
+  color: var(--color-written);
+}
+
+.formText {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-line);
+}
+
+.note {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-quiet);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Nothing slides: the card fades in. */
+  .sheet[open] {
+    animation: appear var(--motion-fast) var(--motion-ease);
+  }
+}

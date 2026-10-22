@@ -1,0 +1,41 @@
+{
+  "unit": {
+    "slug": "grocery-store",
+    "position": 3,
+    "title_en": "At the grocery store",
+    "can_do_en": "Can ask where something is and understand simple directions."
+  },
+  "dialogue": {
+    "slug": "grocery-store-asking-staff",
+    "position": 1,
+    "title_en": "Asking where something is"
+  },
+  "situation_en": "Nina is shopping in a grocery store in Helsinki. She cannot find the oat milk, so she says excuse me to Ville, who works in the store, and asks where the oat milk is. Then she asks whether they have rye bread. Ville answers both questions briefly: the oat milk is over there, and yes, they have rye bread, right here. Nina says thanks.",
+  "grammar": [
+    "olla-present",
+    "personal-pronouns",
+    "inessive-elative",
+    "question-clitic",
+    "partitive-singular",
+    "numbers-1-20",
+    "saisinko",
+    "missa-on",
+    "adessive-allative",
+    "tuolla-tassa"
+  ],
+  "rank_cap": 1500,
+  "extra_base_forms": ["moi", "kauramaito", "ruisleipä", "hylly", "kassa", "kauppa"],
+  "speakers": [
+    {
+      "name": "Ville",
+      "role_en": "a staff member stocking the shelves",
+      "voice": "fi-FI-HarriNeural"
+    },
+    {
+      "name": "Nina",
+      "role_en": "a customer looking for two things",
+      "voice": "fi-FI-SelmaNeural"
+    }
+  ],
+  "line_count": 6
+}

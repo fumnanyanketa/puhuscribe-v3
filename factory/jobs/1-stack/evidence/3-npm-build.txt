@@ -1,0 +1,36 @@
+== npm run build
+
+> puhuscribe@0.0.0 build
+> npm run check:env-names && tsc -b && vite build && npm run check:built-secrets
+
+
+> puhuscribe@0.0.0 check:env-names
+> node scripts/security/check-env-names.ts
+
+check:env-names passed (142 variable names checked).
+[36mvite v8.3.4 [32mbuilding puhuscribe_preview environment for production...[36m[39m
+transforming...
+✓ 5 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/puhuscribe_preview/.vite/manifest.json  0.15 kB │ gzip: 0.11 kB
+dist/puhuscribe_preview/wrangler.json        1.65 kB │ gzip: 0.80 kB
+dist/puhuscribe_preview/index.js             2.25 kB │ gzip: 1.01 kB │ map: 5.48 kB
+
+[32m✓ built in 59ms[39m
+[36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 15 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore               0.02 kB
+dist/client/index.html                  0.35 kB │ gzip:  0.25 kB
+dist/client/assets/index-BUeyG1lR.js  220.12 kB │ gzip: 68.88 kB
+
+[32m✓ built in 182ms[39m
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (3 browser files scanned).
+EXIT CODE: 0

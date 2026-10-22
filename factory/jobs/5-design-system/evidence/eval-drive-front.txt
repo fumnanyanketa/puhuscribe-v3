@@ -1,0 +1,37 @@
+
+=== front page / chromium light ===
+  status: Your visit was not saved. Check your internet connection, then try again.
+  resources: ["stylesheet /assets/index-CyYGieqy.css","font /assets/poppins-latin-600-normal-zEkxB9Mr.woff2","font /assets/Switzer-Regular-VGYRnayQ.woff2"]
+  foreign requests: []
+  fonts in use: {"body":"Switzer, Poppins, system-ui, sans-serif","h1":"Poppins, system-ui, sans-serif","bg":"linear-gradient(rgb(255, 255, 255) 0%, rgb(250, 249, 252) 58"}
+  Try again button colours: {"color":"rgb(0, 0, 0)","bg":"rgb(240, 240, 240)","border":"rgb(0, 0, 0)","appearance":"auto"}
+  axe front page: 0 violations, 13 passes, 1 incomplete
+  console errors/warnings: ["error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"]
+
+=== front page / chromium dark ===
+  status: Your visit was not saved. Check your internet connection, then try again.
+  resources: ["stylesheet /assets/index-CyYGieqy.css","font /assets/poppins-latin-600-normal-zEkxB9Mr.woff2","font /assets/Switzer-Regular-VGYRnayQ.woff2"]
+  foreign requests: []
+  fonts in use: {"body":"Switzer, Poppins, system-ui, sans-serif","h1":"Poppins, system-ui, sans-serif","bg":"linear-gradient(rgb(18, 17, 23) 0%, rgb(20, 19, 25) 58%, rgb"}
+  Try again button colours: {"color":"rgb(255, 255, 255)","bg":"rgb(107, 107, 107)","border":"rgb(255, 255, 255)","appearance":"auto"}
+  axe front page: 0 violations, 13 passes, 1 incomplete
+  console errors/warnings: ["error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"]
+
+=== front page / webkit light ===
+  status: Your visit was not saved. Check your internet connection, then try again.
+  resources: ["stylesheet /assets/index-CyYGieqy.css","font /assets/poppins-latin-600-normal-zEkxB9Mr.woff2","font /assets/Switzer-Regular-VGYRnayQ.woff2"]
+  foreign requests: []
+  fonts in use: {"body":"Switzer, Poppins, system-ui, sans-serif","h1":"Poppins, system-ui, sans-serif","bg":"linear-gradient(rgb(255, 255, 255) 0%, rgb(250, 249, 252) 58"}
+  Try again button colours: {"color":"rgba(0, 0, 0, 0.8)","bg":"rgb(192, 192, 192)","border":"rgb(192, 192, 192)","appearance":"auto"}
+  axe front page: 0 violations, 13 passes, 1 incomplete
+  console errors/warnings: ["error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"]
+
+=== front page / webkit dark ===
+  status: Your visit was not saved. Check your internet connection, then try again.
+  resources: ["stylesheet /assets/index-CyYGieqy.css","font /assets/Switzer-Regular-VGYRnayQ.woff2","font /assets/poppins-latin-600-normal-zEkxB9Mr.woff2"]
+  foreign requests: []
+  fonts in use: {"body":"Switzer, Poppins, system-ui, sans-serif","h1":"Poppins, system-ui, sans-serif","bg":"linear-gradient(rgb(18, 17, 23) 0%, rgb(20, 19, 25) 58%, rgb"}
+  Try again button colours: {"color":"rgb(255, 255, 255)","bg":"rgb(192, 192, 192)","border":"rgb(192, 192, 192)","appearance":"auto"}
+  axe front page: 1 violations, 12 passes, 1 incomplete
+    {"id":"color-contrast","impact":"serious","nodes":[{"target":"button","summary":"Fix any of the following: Element has insufficient color contrast of 1.81 (foreground color: #ffffff, background color: #c0c0c0, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"}]}
+  console errors/warnings: ["error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"]

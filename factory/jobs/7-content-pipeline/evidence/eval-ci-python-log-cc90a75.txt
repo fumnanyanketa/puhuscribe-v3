@@ -1,0 +1,573 @@
+﻿2026-10-21T19:54:08.5951635Z Current runner version: '2.338.0'
+2026-10-21T19:54:08.5977604Z ##[group]Runner Image Provisioner
+2026-10-21T19:54:08.5978570Z Hosted Compute Agent
+2026-10-21T19:54:08.5979171Z Version: 20261012.601
+2026-10-21T19:54:08.5979856Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-21T19:54:08.5980649Z Build Date: 2026-10-12T17:48:21Z
+2026-10-21T19:54:08.5981364Z Worker ID: {356a8cd4-11a3-4b9c-b544-f18ae5f915fd}
+2026-10-21T19:54:08.5982145Z Region: westus
+2026-10-21T19:54:08.5982694Z Cloud: Azure
+2026-10-21T19:54:08.5983271Z ##[endgroup]
+2026-10-21T19:54:08.5985000Z ##[group]Operating System
+2026-10-21T19:54:08.5985659Z Ubuntu
+2026-10-21T19:54:08.5986269Z 24.04.5
+2026-10-21T19:54:08.5986804Z LTS
+2026-10-21T19:54:08.5987319Z ##[endgroup]
+2026-10-21T19:54:08.5987984Z ##[group]Runner Image
+2026-10-21T19:54:08.5988650Z Image: ubuntu-24.04
+2026-10-21T19:54:08.5989282Z Version: 20261012.334.1
+2026-10-21T19:54:08.5990556Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-21T19:54:08.5992191Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-21T19:54:08.5993227Z ##[endgroup]
+2026-10-21T19:54:08.5994655Z ##[group]GITHUB_TOKEN Permissions
+2026-10-21T19:54:08.5996734Z Contents: read
+2026-10-21T19:54:08.5997476Z Metadata: read
+2026-10-21T19:54:08.5998052Z ##[endgroup]
+2026-10-21T19:54:08.6000093Z Secret source: Actions
+2026-10-21T19:54:08.6001151Z Cache mode: write
+2026-10-21T19:54:08.6001840Z Prepare workflow directory
+2026-10-21T19:54:08.6830536Z Prepare all required actions
+2026-10-21T19:54:08.6878152Z Getting action download info
+2026-10-21T19:54:09.0542661Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-21T19:54:09.1701329Z Download action repository 'actions/setup-python@v7' (SHA:5fda3b95a4ea91299a34e894583c3862153e4b97)
+2026-10-21T19:54:09.4066941Z Complete job name: Python tests and lint (pytest, ruff)
+2026-10-21T19:54:09.4849192Z ##[group]Run actions/checkout@v7
+2026-10-21T19:54:09.4850102Z with:
+2026-10-21T19:54:09.4850575Z   persist-credentials: false
+2026-10-21T19:54:09.4851139Z   repository: fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.4855964Z   token: ***
+2026-10-21T19:54:09.4856469Z   ssh-strict: true
+2026-10-21T19:54:09.4856924Z   ssh-user: git
+2026-10-21T19:54:09.4857365Z   clean: true
+2026-10-21T19:54:09.4857824Z   sparse-checkout-cone-mode: true
+2026-10-21T19:54:09.4858362Z   fetch-depth: 1
+2026-10-21T19:54:09.4858816Z   fetch-tags: false
+2026-10-21T19:54:09.4859274Z   show-progress: true
+2026-10-21T19:54:09.4859736Z   lfs: false
+2026-10-21T19:54:09.4860158Z   submodules: false
+2026-10-21T19:54:09.4860622Z   set-safe-directory: true
+2026-10-21T19:54:09.4861145Z   allow-unsafe-pr-checkout: false
+2026-10-21T19:54:09.4862008Z env:
+2026-10-21T19:54:09.4862433Z   NODE_VERSION: 24
+2026-10-21T19:54:09.4862894Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:09.4863358Z ##[endgroup]
+2026-10-21T19:54:09.6079549Z Syncing repository: fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.6083269Z ##[group]Getting Git version info
+2026-10-21T19:54:09.6085697Z Working directory is '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+2026-10-21T19:54:09.6121923Z [command]/usr/bin/git version
+2026-10-21T19:54:09.6325583Z git version 2.55.0
+2026-10-21T19:54:09.6331153Z ##[endgroup]
+2026-10-21T19:54:09.6375382Z Temporarily overriding HOME='/home/runner/work/_temp/298f3543-29c5-4fb6-bb54-239cddd36af7' before making global git config changes
+2026-10-21T19:54:09.6408019Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T19:54:09.6417916Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:09.6448330Z Deleting the contents of '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+2026-10-21T19:54:09.6454030Z ##[group]Determining repository object format
+2026-10-21T19:54:09.6456410Z ##[endgroup]
+2026-10-21T19:54:09.6457839Z ##[group]Initializing the repository
+2026-10-21T19:54:09.6480910Z [command]/usr/bin/git init /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:09.7982618Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-21T19:54:09.7985763Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-21T19:54:09.7988519Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-21T19:54:09.7990465Z hint: call:
+2026-10-21T19:54:09.7991981Z hint:
+2026-10-21T19:54:09.7993424Z hint: 	git config --global init.defaultBranch <name>
+2026-10-21T19:54:09.7995794Z hint:
+2026-10-21T19:54:09.7997264Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-21T19:54:09.7999798Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-21T19:54:09.8002592Z hint:
+2026-10-21T19:54:09.8004139Z hint: 	git branch -m <name>
+2026-10-21T19:54:09.8007682Z hint:
+2026-10-21T19:54:09.8008861Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-21T19:54:09.8010744Z Initialized empty Git repository in /home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/
+2026-10-21T19:54:09.8013749Z [command]/usr/bin/git remote add origin https://github.com/fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.8017100Z ##[endgroup]
+2026-10-21T19:54:09.8018419Z ##[group]Disabling automatic garbage collection
+2026-10-21T19:54:09.8019542Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-21T19:54:09.8022062Z ##[endgroup]
+2026-10-21T19:54:09.8023303Z ##[group]Setting up auth
+2026-10-21T19:54:09.8024185Z Removing SSH command configuration
+2026-10-21T19:54:09.8025831Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:54:09.8029435Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:54:09.8033348Z Removing HTTP extra header
+2026-10-21T19:54:09.8035159Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:54:09.8039595Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:54:09.8179300Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:54:09.8183574Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:54:09.8224749Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:54:09.8489850Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-21T19:54:09.8537604Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path /home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:09.8575778Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:09.8617160Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:09.8659171Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:09.8700718Z ##[endgroup]
+2026-10-21T19:54:09.8702565Z ##[group]Fetching the repository
+2026-10-21T19:54:09.8716412Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5232bf7312179c3464af6d923c526d0b93e9a91c:refs/remotes/pull/17/merge
+2026-10-21T19:54:11.7531839Z From https://github.com/fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:11.7532965Z  * [new ref]         5232bf7312179c3464af6d923c526d0b93e9a91c -> pull/17/merge
+2026-10-21T19:54:11.7541557Z ##[endgroup]
+2026-10-21T19:54:11.7542951Z ##[group]Determining the checkout info
+2026-10-21T19:54:11.7544695Z ##[endgroup]
+2026-10-21T19:54:11.7549454Z [command]/usr/bin/git sparse-checkout disable
+2026-10-21T19:54:11.7613687Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-21T19:54:11.7651444Z ##[group]Checking out the ref
+2026-10-21T19:54:11.7656637Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/17/merge
+2026-10-21T19:54:11.9177669Z Note: switching to 'refs/remotes/pull/17/merge'.
+2026-10-21T19:54:11.9195313Z 
+2026-10-21T19:54:11.9196275Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-21T19:54:11.9198222Z changes and commit them, and you can discard any commits you make in this
+2026-10-21T19:54:11.9199744Z state without impacting any branches by switching back to a branch.
+2026-10-21T19:54:11.9200781Z 
+2026-10-21T19:54:11.9201371Z If you want to create a new branch to retain commits you create, you may
+2026-10-21T19:54:11.9202463Z do so (now or later) by using -c with the switch command. Example:
+2026-10-21T19:54:11.9203188Z 
+2026-10-21T19:54:11.9203596Z   git switch -c <new-branch-name>
+2026-10-21T19:54:11.9204114Z 
+2026-10-21T19:54:11.9204816Z Or undo this operation with:
+2026-10-21T19:54:11.9205329Z 
+2026-10-21T19:54:11.9205713Z   git switch -
+2026-10-21T19:54:11.9206333Z 
+2026-10-21T19:54:11.9207006Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-21T19:54:11.9207788Z 
+2026-10-21T19:54:11.9208644Z HEAD is now at 5232bf7 Merge cc90a758a76a13816e231fc0c5cd214cea4dfe1a into 40848cd039042dbaa9c001f6bba17b12bc047807
+2026-10-21T19:54:11.9212025Z ##[endgroup]
+2026-10-21T19:54:11.9255231Z [command]/usr/bin/git log -1 --format=%H
+2026-10-21T19:54:11.9286439Z 5232bf7312179c3464af6d923c526d0b93e9a91c
+2026-10-21T19:54:11.9298353Z ##[group]Removing auth
+2026-10-21T19:54:11.9299488Z Removing SSH command configuration
+2026-10-21T19:54:11.9303714Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:54:11.9343405Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:54:11.9597507Z Removing HTTP extra header
+2026-10-21T19:54:11.9599835Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:54:11.9640611Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:54:11.9892731Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:54:11.9895876Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:54:11.9931448Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+2026-10-21T19:54:11.9933217Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+2026-10-21T19:54:11.9935374Z includeif.gitdir:/github/workspace/.git.path
+2026-10-21T19:54:11.9936647Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T19:54:11.9942764Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+2026-10-21T19:54:11.9972338Z /home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:11.9996003Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-9ed92f97\-fb0f\-48c9\-8de2\-b6d151dfb57a\.config
+2026-10-21T19:54:12.0037023Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+2026-10-21T19:54:12.0065187Z /home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:12.0083014Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-9ed92f97\-fb0f\-48c9\-8de2\-b6d151dfb57a\.config
+2026-10-21T19:54:12.0127187Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-21T19:54:12.0166337Z /github/runner_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:12.0175273Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-9ed92f97\-fb0f\-48c9\-8de2\-b6d151dfb57a\.config
+2026-10-21T19:54:12.0215785Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T19:54:12.0248671Z /github/runner_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config
+2026-10-21T19:54:12.0256816Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-9ed92f97\-fb0f\-48c9\-8de2\-b6d151dfb57a\.config
+2026-10-21T19:54:12.0299725Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:54:12.0545284Z Removing credentials config '/home/runner/work/_temp/git-credentials-9ed92f97-fb0f-48c9-8de2-b6d151dfb57a.config'
+2026-10-21T19:54:12.0560818Z ##[endgroup]
+2026-10-21T19:54:12.0855668Z ##[group]Run sudo apt-get update
+2026-10-21T19:54:12.0856149Z [36;1msudo apt-get update[0m
+2026-10-21T19:54:12.0856615Z [36;1msudo apt-get install -y --no-install-recommends libvoikko1 voikko-fi[0m
+2026-10-21T19:54:12.1216508Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:12.1217013Z env:
+2026-10-21T19:54:12.1217344Z   NODE_VERSION: 24
+2026-10-21T19:54:12.1217712Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.1218087Z ##[endgroup]
+2026-10-21T19:54:12.2698780Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-21T19:54:12.3237340Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-21T19:54:12.3556553Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-21T19:54:12.3583736Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-21T19:54:12.3708159Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-21T19:54:12.3725738Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-21T19:54:12.4723450Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+2026-10-21T19:54:12.5076618Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [630 kB]
+2026-10-21T19:54:12.5105434Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [567 kB]
+2026-10-21T19:54:12.6872989Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+2026-10-21T19:54:12.6874690Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [309 kB]
+2026-10-21T19:54:12.6922566Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+2026-10-21T19:54:12.6977790Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-21T19:54:12.7047007Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+2026-10-21T19:54:12.7105793Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+2026-10-21T19:54:12.7886119Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+2026-10-21T19:54:12.7942105Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-21T19:54:12.7966295Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-21T19:54:12.8045065Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-21T19:54:12.8487253Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+2026-10-21T19:54:12.8595735Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+2026-10-21T19:54:16.4215396Z Fetched 12.5 MB in 2s (7300 kB/s)
+2026-10-21T19:54:17.4691111Z Reading package lists...
+2026-10-21T19:54:17.5035941Z Reading package lists...
+2026-10-21T19:54:17.7494773Z Building dependency tree...
+2026-10-21T19:54:17.7503765Z Reading state information...
+2026-10-21T19:54:17.9625836Z The following additional packages will be installed:
+2026-10-21T19:54:17.9631254Z   libhfstospell11
+2026-10-21T19:54:17.9851052Z The following NEW packages will be installed:
+2026-10-21T19:54:17.9859338Z   libhfstospell11 libvoikko1 voikko-fi
+2026-10-21T19:54:18.0063638Z 0 upgraded, 3 newly installed, 0 to remove and 97 not upgraded.
+2026-10-21T19:54:18.0082934Z Need to get 1635 kB of archives.
+2026-10-21T19:54:18.0083721Z After this operation, 4439 kB of additional disk space will be used.
+2026-10-21T19:54:18.0084776Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-21T19:54:18.2370716Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libhfstospell11 amd64 0.5.4-1build3 [61.9 kB]
+2026-10-21T19:54:18.3151108Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvoikko1 amd64 4.3.2-1build1 [101 kB]
+2026-10-21T19:54:18.3923690Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 voikko-fi amd64 2.5-1build1 [1472 kB]
+2026-10-21T19:54:18.6991598Z Fetched 1635 kB in 0s (3786 kB/s)
+2026-10-21T19:54:18.7240067Z Selecting previously unselected package libhfstospell11:amd64.
+2026-10-21T19:54:18.7646436Z (Reading database ... 
+2026-10-21T19:54:18.7665779Z (Reading database ... 5%
+2026-10-21T19:54:18.7666695Z (Reading database ... 10%
+2026-10-21T19:54:18.7667941Z (Reading database ... 15%
+2026-10-21T19:54:18.7668733Z (Reading database ... 20%
+2026-10-21T19:54:18.7675316Z (Reading database ... 25%
+2026-10-21T19:54:18.7685667Z (Reading database ... 30%
+2026-10-21T19:54:18.7686432Z (Reading database ... 35%
+2026-10-21T19:54:18.7689080Z (Reading database ... 40%
+2026-10-21T19:54:18.7689592Z (Reading database ... 45%
+2026-10-21T19:54:18.7690014Z (Reading database ... 50%
+2026-10-21T19:54:18.7916900Z (Reading database ... 55%
+2026-10-21T19:54:19.2965077Z (Reading database ... 60%
+2026-10-21T19:54:19.5057523Z (Reading database ... 65%
+2026-10-21T19:54:19.6988613Z (Reading database ... 70%
+2026-10-21T19:54:19.8928924Z (Reading database ... 75%
+2026-10-21T19:54:19.9987676Z (Reading database ... 80%
+2026-10-21T19:54:20.1567433Z (Reading database ... 85%
+2026-10-21T19:54:20.2841897Z (Reading database ... 90%
+2026-10-21T19:54:20.4530014Z (Reading database ... 95%
+2026-10-21T19:54:20.4530935Z (Reading database ... 100%
+2026-10-21T19:54:20.4533210Z (Reading database ... 203540 files and directories currently installed.)
+2026-10-21T19:54:20.4575960Z Preparing to unpack .../libhfstospell11_0.5.4-1build3_amd64.deb ...
+2026-10-21T19:54:20.4616086Z Unpacking libhfstospell11:amd64 (0.5.4-1build3) ...
+2026-10-21T19:54:20.4852062Z Selecting previously unselected package libvoikko1:amd64.
+2026-10-21T19:54:20.4986560Z Preparing to unpack .../libvoikko1_4.3.2-1build1_amd64.deb ...
+2026-10-21T19:54:20.5002572Z Unpacking libvoikko1:amd64 (4.3.2-1build1) ...
+2026-10-21T19:54:20.5325647Z Selecting previously unselected package voikko-fi.
+2026-10-21T19:54:20.5458434Z Preparing to unpack .../voikko-fi_2.5-1build1_amd64.deb ...
+2026-10-21T19:54:20.5472983Z Unpacking voikko-fi (2.5-1build1) ...
+2026-10-21T19:54:20.6087849Z Setting up voikko-fi (2.5-1build1) ...
+2026-10-21T19:54:20.6118091Z Setting up libhfstospell11:amd64 (0.5.4-1build3) ...
+2026-10-21T19:54:20.6172712Z Setting up libvoikko1:amd64 (4.3.2-1build1) ...
+2026-10-21T19:54:20.6207244Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-21T19:54:21.3229775Z 
+2026-10-21T19:54:21.3231121Z Running kernel seems to be up-to-date.
+2026-10-21T19:54:21.3234015Z 
+2026-10-21T19:54:21.3234680Z No services need to be restarted.
+2026-10-21T19:54:21.3235180Z 
+2026-10-21T19:54:21.3235485Z No containers need to be restarted.
+2026-10-21T19:54:21.3235912Z 
+2026-10-21T19:54:21.3236250Z No user sessions are running outdated binaries.
+2026-10-21T19:54:21.3236747Z 
+2026-10-21T19:54:21.3237214Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-21T19:54:22.4377974Z ##[group]Run actions/setup-python@v7
+2026-10-21T19:54:22.4378271Z with:
+2026-10-21T19:54:22.4378477Z   python-version: 3.12
+2026-10-21T19:54:22.4378686Z   cache: pip
+2026-10-21T19:54:22.4378930Z   cache-dependency-path: scripts/requirements*.txt
+2026-10-21T19:54:22.4379231Z   check-latest: false
+2026-10-21T19:54:22.4381736Z   token: ***
+2026-10-21T19:54:22.4381950Z   update-environment: true
+2026-10-21T19:54:22.4382193Z   allow-prereleases: false
+2026-10-21T19:54:22.4382426Z   freethreaded: false
+2026-10-21T19:54:22.4382626Z env:
+2026-10-21T19:54:22.4382803Z   NODE_VERSION: 24
+2026-10-21T19:54:22.4383004Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:22.4383212Z ##[endgroup]
+2026-10-21T19:54:22.5633712Z ##[group]Installed versions
+2026-10-21T19:54:22.5736408Z Successfully set up CPython (3.12.15)
+2026-10-21T19:54:22.5737542Z ##[endgroup]
+2026-10-21T19:54:22.6251218Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+2026-10-21T19:54:23.0099269Z /home/runner/.cache/pip
+2026-10-21T19:54:23.3352171Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-c7268e4694320019b0dd6f8d2bca41e3aca3100a5f339666f73f51275996446d
+2026-10-21T19:54:24.6659215Z Received 0 of 86615781 (0.0%), 0.0 MBs/sec
+2026-10-21T19:54:25.6671453Z Received 82421477 of 86615781 (95.2%), 39.3 MBs/sec
+2026-10-21T19:54:25.8152166Z Received 86615781 of 86615781 (100.0%), 38.4 MBs/sec
+2026-10-21T19:54:25.8153153Z Cache Size: ~83 MB (86615781 B)
+2026-10-21T19:54:25.8200601Z [command]/usr/bin/tar -xf /home/runner/work/_temp/f506dd8f-1a81-448c-9860-5e85de0d7ab5/cache.tzst -P -C /home/runner/work/puhuscribe-v3/puhuscribe-v3 --use-compress-program unzstd
+2026-10-21T19:54:26.0118317Z Cache restored successfully
+2026-10-21T19:54:26.0165945Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-c7268e4694320019b0dd6f8d2bca41e3aca3100a5f339666f73f51275996446d
+2026-10-21T19:54:26.0328135Z ##[group]Run pip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt
+2026-10-21T19:54:26.0329029Z [36;1mpip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt[0m
+2026-10-21T19:54:26.0399710Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:26.0400009Z env:
+2026-10-21T19:54:26.0400216Z   NODE_VERSION: 24
+2026-10-21T19:54:26.0400471Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:26.0400768Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:26.0401244Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:26.0401677Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:26.0402086Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:26.0402503Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:26.0402973Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:26.0403310Z ##[endgroup]
+2026-10-21T19:54:26.9612273Z Collecting libvoikko>=4.3 (from -r scripts/requirements.txt (line 9))
+2026-10-21T19:54:26.9629453Z   Using cached libvoikko-4.3-py3-none-any.whl.metadata (876 bytes)
+2026-10-21T19:54:26.9750461Z Collecting wordfreq>=3.0 (from -r scripts/requirements.txt (line 10))
+2026-10-21T19:54:26.9763351Z   Using cached wordfreq-3.1.1-py3-none-any.whl.metadata (27 kB)
+2026-10-21T19:54:27.0124260Z Collecting anthropic>=0.40 (from -r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.0139350Z   Using cached anthropic-2.0.0-py3-none-any.whl.metadata (6.0 kB)
+2026-10-21T19:54:27.0483948Z Collecting pytest>=8.0 (from -r scripts/requirements.txt (line 12))
+2026-10-21T19:54:27.0499433Z   Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+2026-10-21T19:54:27.3949207Z Collecting ruff==0.17.1 (from -r scripts/requirements-dev.txt (line 3))
+2026-10-21T19:54:27.3965582Z   Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+2026-10-21T19:54:27.4165817Z Collecting pip-audit==2.10.1 (from -r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.4179328Z   Using cached pip_audit-2.10.1-py3-none-any.whl.metadata (28 kB)
+2026-10-21T19:54:27.4238331Z Collecting anthropic>=0.40 (from -r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.4251762Z   Using cached anthropic-1.10.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-21T19:54:27.4416203Z Collecting anyio<5,>=4.1.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.4432311Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-10-21T19:54:27.4565472Z Collecting docstring-parser<1,>=0.15 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.4579375Z   Using cached docstring_parser-0.18.0-py3-none-any.whl.metadata (3.5 kB)
+2026-10-21T19:54:27.4681366Z Collecting httpx2<3,>=2.0.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.4694751Z   Using cached httpx2-2.16.0-py3-none-any.whl.metadata (10 kB)
+2026-10-21T19:54:27.5577237Z Collecting jiter<1,>=0.4.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.5592793Z   Using cached jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-10-21T19:54:27.6577718Z Collecting pydantic<3,>=1.10.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.6592660Z   Using cached pydantic-2.14.1-py3-none-any.whl.metadata (133 kB)
+2026-10-21T19:54:27.6718482Z Collecting sniffio<2,>=1 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.6732093Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-10-21T19:54:27.6857510Z Collecting typing-extensions<5,>=4.14 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.6873556Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-21T19:54:27.6985674Z Collecting CacheControl>=0.13.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.6999035Z   Using cached cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+2026-10-21T19:54:27.7267026Z Collecting cyclonedx-python-lib<12,>=5 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.7281086Z   Using cached cyclonedx_python_lib-11.12.0-py3-none-any.whl.metadata (6.9 kB)
+2026-10-21T19:54:27.7413856Z Collecting packaging>=23.0.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.7427952Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-10-21T19:54:27.7537951Z Collecting pip-api>=0.0.28 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.7551553Z   Using cached pip_api-0.0.35-py3-none-any.whl.metadata (17 kB)
+2026-10-21T19:54:27.7675007Z Collecting pip-requirements-parser>=32.0.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.7705395Z   Using cached pip_requirements_parser-32.0.1-py3-none-any.whl.metadata (9.3 kB)
+2026-10-21T19:54:27.7975743Z Collecting requests>=2.31.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.7990322Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-10-21T19:54:27.8263775Z Collecting rich>=12.4 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.8279893Z   Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+2026-10-21T19:54:27.8548848Z Collecting tomli>=2.2.1 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.8563724Z   Using cached tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+2026-10-21T19:54:27.8665804Z Collecting tomli-w>=1.2.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.8676272Z   Using cached tomli_w-1.2.0-py3-none-any.whl.metadata (5.7 kB)
+2026-10-21T19:54:27.8842176Z Collecting platformdirs>=4.2.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.8855799Z   Using cached platformdirs-4.13.5-py3-none-any.whl.metadata (5.5 kB)
+2026-10-21T19:54:27.8971452Z Collecting idna>=2.8 (from anyio<5,>=4.1.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.8984832Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-10-21T19:54:27.9247660Z Collecting license-expression<31,>=30 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.9261365Z   Using cached license_expression-30.4.4-py3-none-any.whl.metadata (11 kB)
+2026-10-21T19:54:27.9420360Z Collecting packageurl-python<2,>=0.11 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.9435602Z   Using cached packageurl_python-0.17.6-py3-none-any.whl.metadata (5.1 kB)
+2026-10-21T19:54:27.9574980Z Collecting py-serializable<3.0.0,>=2.1.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.9588397Z   Using cached py_serializable-2.1.0-py3-none-any.whl.metadata (4.3 kB)
+2026-10-21T19:54:27.9688123Z Collecting sortedcontainers<3.0.0,>=2.4.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:27.9701702Z   Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+2026-10-21T19:54:27.9837194Z Collecting httpcore2==2.16.0 (from httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:27.9850595Z   Using cached httpcore2-2.16.0-py3-none-any.whl.metadata (27 kB)
+2026-10-21T19:54:28.0166105Z Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:28.0180005Z   Using cached truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+2026-10-21T19:54:28.0330427Z Collecting h11>=0.16 (from httpcore2==2.16.0->httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:28.0343659Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-21T19:54:28.0451792Z Collecting boolean.py>=4.0 (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:28.0465259Z   Using cached boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+2026-10-21T19:54:28.0578612Z Collecting defusedxml<0.8.0,>=0.7.1 (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:28.0591814Z   Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+2026-10-21T19:54:28.0715396Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:28.0729068Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-10-21T19:54:28.7614265Z Collecting pydantic-core==2.50.1 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:28.7629426Z   Using cached pydantic_core-2.50.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.5 kB)
+2026-10-21T19:54:28.7718074Z Collecting typing-inspection>=0.4.4 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+2026-10-21T19:54:28.7731393Z   Using cached typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+2026-10-21T19:54:28.7856292Z Collecting ftfy>=6.1 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:28.7868780Z   Using cached ftfy-6.3.1-py3-none-any.whl.metadata (7.3 kB)
+2026-10-21T19:54:28.7960503Z Collecting langcodes>=3.0 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:28.7973208Z   Using cached langcodes-3.5.1-py3-none-any.whl.metadata (30 kB)
+2026-10-21T19:54:28.8092092Z Collecting locate<2.0.0,>=1.1.1 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:28.8105288Z   Using cached locate-1.1.1-py3-none-any.whl.metadata (3.9 kB)
+2026-10-21T19:54:28.8863653Z Collecting msgpack<2.0.0,>=1.0.7 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:28.8879236Z   Using cached msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+2026-10-21T19:54:29.2528857Z Collecting regex>=2023.10.3 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:29.2541847Z   Using cached regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-10-21T19:54:29.2653976Z Collecting iniconfig>=1.0.1 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+2026-10-21T19:54:29.2666819Z   Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-10-21T19:54:29.2767929Z Collecting pluggy<2,>=1.5 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+2026-10-21T19:54:29.2780701Z   Using cached pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-10-21T19:54:29.2940965Z Collecting pygments>=2.7.2 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+2026-10-21T19:54:29.2953409Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-10-21T19:54:29.3215123Z Collecting filelock>=3.8.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.3228918Z   Using cached filelock-4.2.4-py3-none-any.whl.metadata (2.0 kB)
+2026-10-21T19:54:29.3401397Z Collecting wcwidth (from ftfy>=6.1->wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+2026-10-21T19:54:29.3415080Z   Using cached wcwidth-0.9.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (23 kB)
+2026-10-21T19:54:29.3476227Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4)) (26.2.1)
+2026-10-21T19:54:29.3681255Z Collecting pyparsing (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.3693977Z   Using cached pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+2026-10-21T19:54:29.4953658Z Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.4968974Z   Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-10-21T19:54:29.5685878Z Collecting urllib3<3,>=1.26 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.5754029Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-21T19:54:29.6164945Z Collecting certifi>=2023.5.7 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.6179054Z   Using cached certifi-2026.10.19-py3-none-any.whl.metadata (2.5 kB)
+2026-10-21T19:54:29.6314072Z Collecting markdown-it-py>=2.2.0 (from rich>=12.4->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.6327167Z   Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-21T19:54:29.6447352Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.4->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+2026-10-21T19:54:29.6459551Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+2026-10-21T19:54:29.6547038Z Using cached libvoikko-4.3-py3-none-any.whl (9.7 kB)
+2026-10-21T19:54:29.6559508Z Using cached anthropic-1.10.0-py3-none-any.whl (1.7 MB)
+2026-10-21T19:54:29.6578180Z Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+2026-10-21T19:54:29.6630041Z Using cached pip_audit-2.10.1-py3-none-any.whl (62 kB)
+2026-10-21T19:54:29.6642345Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-10-21T19:54:29.6655374Z Using cached cyclonedx_python_lib-11.12.0-py3-none-any.whl (529 kB)
+2026-10-21T19:54:29.6669830Z Using cached docstring_parser-0.18.0-py3-none-any.whl (22 kB)
+2026-10-21T19:54:29.6682015Z Using cached httpx2-2.16.0-py3-none-any.whl (97 kB)
+2026-10-21T19:54:29.6694546Z Using cached httpcore2-2.16.0-py3-none-any.whl (85 kB)
+2026-10-21T19:54:29.6707316Z Using cached jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (345 kB)
+2026-10-21T19:54:29.6720445Z Using cached license_expression-30.4.4-py3-none-any.whl (120 kB)
+2026-10-21T19:54:29.6732959Z Using cached packageurl_python-0.17.6-py3-none-any.whl (36 kB)
+2026-10-21T19:54:29.6745481Z Using cached py_serializable-2.1.0-py3-none-any.whl (23 kB)
+2026-10-21T19:54:29.6757853Z Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+2026-10-21T19:54:29.6770134Z Using cached pydantic-2.14.1-py3-none-any.whl (488 kB)
+2026-10-21T19:54:29.6784574Z Using cached pydantic_core-2.50.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+2026-10-21T19:54:29.6804933Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-10-21T19:54:29.6817577Z Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+2026-10-21T19:54:29.6830177Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-10-21T19:54:29.6842404Z Using cached wordfreq-3.1.1-py3-none-any.whl (56.8 MB)
+2026-10-21T19:54:29.7063540Z Using cached locate-1.1.1-py3-none-any.whl (5.4 kB)
+2026-10-21T19:54:29.7076104Z Using cached msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)
+2026-10-21T19:54:29.7089955Z Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+2026-10-21T19:54:29.7103369Z Using cached pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-10-21T19:54:29.7116023Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-10-21T19:54:29.7128058Z Using cached boolean_py-5.0-py3-none-any.whl (26 kB)
+2026-10-21T19:54:29.7140542Z Using cached cachecontrol-0.14.4-py3-none-any.whl (22 kB)
+2026-10-21T19:54:29.7152701Z Using cached filelock-4.2.4-py3-none-any.whl (162 kB)
+2026-10-21T19:54:29.7165750Z Using cached ftfy-6.3.1-py3-none-any.whl (44 kB)
+2026-10-21T19:54:29.7178130Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-10-21T19:54:29.7190495Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-10-21T19:54:29.7202972Z Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-10-21T19:54:29.7215441Z Using cached langcodes-3.5.1-py3-none-any.whl (183 kB)
+2026-10-21T19:54:29.7228248Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-10-21T19:54:29.7240856Z Using cached pip_api-0.0.35-py3-none-any.whl (123 kB)
+2026-10-21T19:54:29.7253604Z Using cached pip_requirements_parser-32.0.1-py3-none-any.whl (35 kB)
+2026-10-21T19:54:29.7266111Z Using cached platformdirs-4.13.5-py3-none-any.whl (32 kB)
+2026-10-21T19:54:29.7278484Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-10-21T19:54:29.7295694Z Using cached regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-10-21T19:54:29.7310741Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+2026-10-21T19:54:29.7323844Z Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-10-21T19:54:29.7336928Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-10-21T19:54:29.7349574Z Using cached certifi-2026.10.19-py3-none-any.whl (136 kB)
+2026-10-21T19:54:29.7362042Z Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+2026-10-21T19:54:29.7375403Z Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+2026-10-21T19:54:29.7388063Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-10-21T19:54:29.7400897Z Using cached tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (286 kB)
+2026-10-21T19:54:29.7413738Z Using cached tomli_w-1.2.0-py3-none-any.whl (6.7 kB)
+2026-10-21T19:54:29.7426177Z Using cached truststore-0.10.5-py3-none-any.whl (19 kB)
+2026-10-21T19:54:29.7438444Z Using cached typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+2026-10-21T19:54:29.7450687Z Using cached pyparsing-3.3.3-py3-none-any.whl (126 kB)
+2026-10-21T19:54:29.7463720Z Using cached wcwidth-0.9.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (770 kB)
+2026-10-21T19:54:30.0675460Z Installing collected packages: sortedcontainers, boolean.py, wcwidth, urllib3, typing-extensions, truststore, tomli-w, tomli, sniffio, ruff, regex, pyparsing, pygments, pluggy, platformdirs, pip-api, packaging, packageurl-python, msgpack, mdurl, locate, license-expression, libvoikko, langcodes, jiter, iniconfig, idna, h11, filelock, docstring-parser, defusedxml, charset_normalizer, certifi, annotated-types, typing-inspection, requests, pytest, pydantic-core, py-serializable, pip-requirements-parser, markdown-it-py, httpcore2, ftfy, anyio, wordfreq, rich, pydantic, httpx2, cyclonedx-python-lib, CacheControl, anthropic, pip-audit
+2026-10-21T19:54:35.0598240Z 
+2026-10-21T19:54:35.0646188Z Successfully installed CacheControl-0.14.4 annotated-types-0.8.0 anthropic-1.10.0 anyio-4.15.1 boolean.py-5.0 certifi-2026.10.19 charset_normalizer-3.5.2 cyclonedx-python-lib-11.12.0 defusedxml-0.7.1 docstring-parser-0.18.0 filelock-4.2.4 ftfy-6.3.1 h11-0.16.0 httpcore2-2.16.0 httpx2-2.16.0 idna-3.20 iniconfig-2.3.1 jiter-0.17.0 langcodes-3.5.1 libvoikko-4.3 license-expression-30.4.4 locate-1.1.1 markdown-it-py-4.2.0 mdurl-0.1.2 msgpack-1.2.3 packageurl-python-0.17.6 packaging-26.3 pip-api-0.0.35 pip-audit-2.10.1 pip-requirements-parser-32.0.1 platformdirs-4.13.5 pluggy-1.7.0 py-serializable-2.1.0 pydantic-2.14.1 pydantic-core-2.50.1 pygments-2.21.0 pyparsing-3.3.3 pytest-9.1.1 regex-2026.9.29 requests-2.34.2 rich-15.0.0 ruff-0.17.1 sniffio-1.3.1 sortedcontainers-2.4.0 tomli-2.5.0 tomli-w-1.2.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 wcwidth-0.9.3 wordfreq-3.1.1
+2026-10-21T19:54:35.2223004Z ##[group]Run ruff check scripts
+2026-10-21T19:54:35.2223317Z [36;1mruff check scripts[0m
+2026-10-21T19:54:35.2287606Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:35.2287888Z env:
+2026-10-21T19:54:35.2288107Z   NODE_VERSION: 24
+2026-10-21T19:54:35.2288363Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:35.2288686Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2289175Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:35.2289652Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2290075Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2290502Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2290920Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:35.2291276Z ##[endgroup]
+2026-10-21T19:54:35.2525015Z All checks passed!
+2026-10-21T19:54:35.2564104Z ##[group]Run ruff format --check scripts
+2026-10-21T19:54:35.2564778Z [36;1mruff format --check scripts[0m
+2026-10-21T19:54:35.2629880Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:35.2630165Z env:
+2026-10-21T19:54:35.2630380Z   NODE_VERSION: 24
+2026-10-21T19:54:35.2630615Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:35.2630937Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2631398Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:35.2631843Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2632244Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2632654Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2633248Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:35.2633592Z ##[endgroup]
+2026-10-21T19:54:35.2870604Z 27 files already formatted
+2026-10-21T19:54:35.2910244Z ##[group]Run sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+2026-10-21T19:54:35.2911012Z [36;1msudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \[0m
+2026-10-21T19:54:35.2911608Z [36;1m  python -m pytest scripts/generate --junitxml=pytest-results.xml[0m
+2026-10-21T19:54:35.2977008Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:35.2977291Z env:
+2026-10-21T19:54:35.2977513Z   NODE_VERSION: 24
+2026-10-21T19:54:35.2977756Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:35.2978088Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2978569Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:35.2979040Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2979467Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2979916Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:35.2980377Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:35.2980737Z ##[endgroup]
+2026-10-21T19:54:36.3048498Z ============================= test session starts ==============================
+2026-10-21T19:54:36.3049503Z platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+2026-10-21T19:54:36.3050494Z rootdir: /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:36.3051219Z configfile: pytest.ini
+2026-10-21T19:54:36.3051786Z plugins: platformdirs-4.13.5, anyio-4.15.1
+2026-10-21T19:54:36.3052461Z collected 138 items
+2026-10-21T19:54:36.3052822Z 
+2026-10-21T19:54:36.3319884Z scripts/generate/test_content_brief.py ......................            [ 15%]
+2026-10-21T19:54:36.8903001Z scripts/generate/test_content_checks.py ....................             [ 30%]
+2026-10-21T19:54:36.9872714Z scripts/generate/test_content_drafting.py ......                         [ 34%]
+2026-10-21T19:54:37.0168596Z scripts/generate/test_content_providers.py ................              [ 46%]
+2026-10-21T19:54:37.4295836Z scripts/generate/test_content_publish.py ................                [ 57%]
+2026-10-21T19:54:37.9057955Z scripts/generate/test_content_review.py .........................        [ 76%]
+2026-10-21T19:54:37.9286027Z scripts/generate/test_content_tags.py ........................           [ 93%]
+2026-10-21T19:54:38.0290949Z scripts/generate/test_voikko_gate.py .........                           [100%]
+2026-10-21T19:54:38.0291834Z 
+2026-10-21T19:54:38.0292808Z - generated xml file: /home/runner/work/puhuscribe-v3/puhuscribe-v3/pytest-results.xml -
+2026-10-21T19:54:38.0293995Z ============================= 138 passed in 2.01s ==============================
+2026-10-21T19:54:38.1049041Z ##[group]Run python - <<'PY'
+2026-10-21T19:54:38.1049398Z [36;1mpython - <<'PY'[0m
+2026-10-21T19:54:38.1049692Z [36;1mimport xml.etree.ElementTree as ET[0m
+2026-10-21T19:54:38.1050051Z [36;1mroot = ET.parse("pytest-results.xml").getroot()[0m
+2026-10-21T19:54:38.1050489Z [36;1msuite = root if root.tag == "testsuite" else root.find("testsuite")[0m
+2026-10-21T19:54:38.1051024Z [36;1mcounts = {k: int(suite.get(k, 0)) for k in ("tests", "failures", "errors", "skipped")}[0m
+2026-10-21T19:54:38.1051453Z [36;1mprint(counts)[0m
+2026-10-21T19:54:38.1051811Z [36;1massert counts == {"tests": 138, "failures": 0, "errors": 0, "skipped": 0}, counts[0m
+2026-10-21T19:54:38.1052433Z [36;1mv2 = {c.get("name") for c in suite.iter("testcase") if c.get("classname", "").endswith("test_voikko_gate")}[0m
+2026-10-21T19:54:38.1052939Z [36;1mprint(len(v2), "Voikko gate tests")[0m
+2026-10-21T19:54:38.1053226Z [36;1massert len(v2) == 9, v2[0m
+2026-10-21T19:54:38.1053459Z [36;1mPY[0m
+2026-10-21T19:54:38.1118097Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:38.1118363Z env:
+2026-10-21T19:54:38.1118785Z   NODE_VERSION: 24
+2026-10-21T19:54:38.1119003Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:38.1119298Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1119742Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:38.1120168Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1120546Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1120937Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1121329Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:38.1121666Z ##[endgroup]
+2026-10-21T19:54:38.1435666Z {'tests': 138, 'failures': 0, 'errors': 0, 'skipped': 0}
+2026-10-21T19:54:38.1445145Z 9 Voikko gate tests
+2026-10-21T19:54:38.1508215Z ##[group]Run sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+2026-10-21T19:54:38.1509025Z [36;1msudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \[0m
+2026-10-21T19:54:38.1509638Z [36;1m  python scripts/generate/pipeline.py check-committed[0m
+2026-10-21T19:54:38.1576663Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:38.1576951Z env:
+2026-10-21T19:54:38.1577185Z   NODE_VERSION: 24
+2026-10-21T19:54:38.1577429Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:38.1577754Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1578230Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-21T19:54:38.1578710Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1579127Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1579534Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-21T19:54:38.1579992Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-21T19:54:38.1580348Z ##[endgroup]
+2026-10-21T19:54:38.2887826Z No committed drafts yet.
+2026-10-21T19:54:38.3172961Z Post job cleanup.
+2026-10-21T19:54:38.4421125Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-c7268e4694320019b0dd6f8d2bca41e3aca3100a5f339666f73f51275996446d, not saving cache.
+2026-10-21T19:54:38.4637959Z Post job cleanup.
+2026-10-21T19:54:38.5665259Z [command]/usr/bin/git version
+2026-10-21T19:54:38.5721219Z git version 2.55.0
+2026-10-21T19:54:38.5788361Z Temporarily overriding HOME='/home/runner/work/_temp/63f3b86c-63cf-4f33-99c7-6767cc57b190' before making global git config changes
+2026-10-21T19:54:38.5790224Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T19:54:38.5791655Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:38.5858484Z Removing SSH command configuration
+2026-10-21T19:54:38.5876147Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:54:38.5906147Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:54:38.6415008Z Removing HTTP extra header
+2026-10-21T19:54:38.6416301Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:54:38.6482112Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:54:38.7235391Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:54:38.7256574Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:54:38.7307330Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:54:38.7932447Z Cleaning up orphan processes

@@ -1,0 +1,26 @@
+== gh pr checks 1
+Browser tests (Playwright, Chromium and WebKit)	pass	1m34s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213708799	
+Dependency check (npm audit, pip-audit)	pass	24s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213772176	
+One request to the Supabase test project	pass	7s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790824/job/118207830916	
+Preview link (Cloudflare Worker behind Access)	pass	1m38s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213705920	
+Python tests and lint (pytest, ruff)	pass	34s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213706980	
+Secret scan (gitleaks)	pass	9s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213751895	
+Type check, lint, format	pass	25s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213753333	
+Unit tests (Vitest)	pass	19s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830/job/118213777219	
+
+== Runs of the Checks workflow on factory/1-stack
+39295790830 factory/1-stack 0eeae15 pull_request completed success 2026-10-19T17:38:01Z
+39293664978 factory/1-stack 4002c7f pull_request completed success 2026-10-19T17:23:15Z
+39291711356 factory/1-stack 9d93069 pull_request completed failure 2026-10-19T17:09:26Z
+39279089033 factory/1-stack 1ed2b91 pull_request completed success 2026-10-19T15:34:50Z
+39278776200 scratch/1-stack-broken-scheduler-test c6a4225 pull_request completed failure 2026-10-19T15:32:24Z
+39278766728 scratch/1-stack-fake-key 66629b0 pull_request completed failure 2026-10-19T15:32:20Z
+39277691103 factory/1-stack eae3b4e pull_request completed success 2026-10-19T15:24:33Z
+url: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39295790830  sha: 0eeae15  event: pull_request  conclusion: success
+  Preview link (Cloudflare Worker behind Access): success  started 2026-10-19T17:50:10Z  completed 2026-10-19T17:51:48Z
+  Python tests and lint (pytest, ruff): success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:38:38Z
+  Browser tests (Playwright, Chromium and WebKit): success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:39:38Z
+  Secret scan (gitleaks): success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:38:13Z
+  Type check, lint, format: success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:38:29Z
+  Dependency check (npm audit, pip-audit): success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:38:28Z
+  Unit tests (Vitest): success  started 2026-10-19T17:38:04Z  completed 2026-10-19T17:38:23Z

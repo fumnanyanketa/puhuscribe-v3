@@ -1,0 +1,105 @@
+# The content pipeline (job 7-content-pipeline, "Done when" 2): a brief goes in,
+# a review pack comes out as a downloadable artifact. Manual start only, never
+# on a pull request or a push.
+#
+# Tasks:
+# - draft: brief to review pack (draft, check report, audio for both registers,
+#   the round 1 review page and the run's log lines). Needs both keys.
+# - next-round: reads the reviewer's latest file in content/reviews/<slug>/,
+#   applies the fixes and makes the next round's page. Needs the keys only when
+#   the reviewer changed a line.
+#
+# Secrets: ANTHROPIC_API_KEY and AZURE_SPEECH_KEY, passed only to the one step
+# that runs the pipeline. Variables (not secret): AZURE_SPEECH_REGION (an EU
+# region) and AZURE_SPEECH_TIER (F0 for the free tier). No npm ci runs in this
+# job, so no package code ever runs next to the keys. Every file is checked for
+# the key values before the upload.
+name: Content pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: draft (brief to review pack) or next-round (apply the reviewer's file)
+        required: true
+        type: choice
+        options: [draft, next-round]
+      target:
+        description: For draft, the brief (content/briefs/<slug>.json). For next-round, the dialogue slug.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: content-pipeline
+
+jobs:
+  pipeline:
+    name: Content pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install Voikko (Finnish morphology) from Ubuntu
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libvoikko1 voikko-fi
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -r scripts/requirements-pipeline.txt
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Check the inputs
+        # The inputs reach the shell only as environment variables, never as
+        # workflow expressions inside the script.
+        env:
+          TASK: ${{ inputs.task }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          if [ "$TASK" = draft ]; then
+            [[ "$TARGET" =~ ^content/briefs/[a-z0-9]+(-[a-z0-9]+)*\.json$ ]] || { echo "The brief must be content/briefs/<slug>.json"; exit 1; }
+            [ -f "$TARGET" ] || { echo "There is no brief at $TARGET"; exit 1; }
+          else
+            [[ "$TARGET" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || { echo "The dialogue slug must be lower case letters, digits and hyphens"; exit 1; }
+            [ -f "content/drafts/$TARGET/draft.json" ] || { echo "There is no draft at content/drafts/$TARGET"; exit 1; }
+          fi
+      - name: Run the pipeline
+        env:
+          TASK: ${{ inputs.task }}
+          TARGET: ${{ inputs.target }}
+          AI_PROVIDER: anthropic
+          VOICE_PROVIDER: azure
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: |
+          if [ "$TASK" = draft ]; then
+            python scripts/generate/pipeline.py run --brief "$TARGET" --out "$RUNNER_TEMP/review-pack"
+          else
+            python scripts/generate/pipeline.py next-round --draft "content/drafts/$TARGET" --out "$RUNNER_TEMP/review-pack"
+          fi
+      - name: Check the files to upload hold no secret value
+        id: upload-guard
+        if: success() || failure()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env ANTHROPIC_API_KEY --env AZURE_SPEECH_KEY
+          "$RUNNER_TEMP/review-pack"
+      - name: Keep the review pack
+        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: review-pack
+          path: ${{ runner.temp }}/review-pack/
+          if-no-files-found: error
+          retention-days: 30

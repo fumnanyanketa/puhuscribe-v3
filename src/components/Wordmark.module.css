@@ -1,0 +1,32 @@
+/* The wordmark's colours, from src/styles/tokens.css. */
+
+.wordmark {
+  display: block;
+}
+
+.tile {
+  fill: var(--color-brand);
+}
+
+.stem {
+  fill: none;
+  stroke: var(--color-brand-leaf);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.leaf {
+  fill: var(--color-brand-leaf);
+}
+
+.leafBack {
+  fill: var(--color-brand-leaf-back);
+}
+
+.puhu {
+  fill: var(--color-text);
+}
+
+.scribe {
+  fill: var(--color-wordmark-quiet);
+}

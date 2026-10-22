@@ -1,0 +1,149 @@
+/* The session screens (factory/jobs/8-first-session): Hear it, Understand it,
+   the finish screen and the line card. Values from src/styles/tokens.css.
+   The frame (top bar, scrolling content, action area) is SessionFrame's. */
+
+.main {
+  padding: 0;
+}
+
+.plainPage {
+  display: grid;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.intro {
+  padding: 0 var(--space-1);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-tight);
+}
+
+.lead {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+.canDo {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.help {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.hint {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+.dialogue {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One line: v2's register card, spoken first. */
+.card {
+  padding: var(--space-4);
+  border: 1px solid var(--color-card-edge);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+  transition: box-shadow var(--motion-fast) var(--motion-ease);
+}
+
+/* The line that is playing: a ring, and the word "Playing" by the speaker. */
+.cardNow {
+  box-shadow:
+    0 0 0 2px var(--color-current-line),
+    var(--shadow-2);
+}
+
+.speaker {
+  margin: 0 0 var(--space-2) var(--space-1);
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0;
+}
+
+.nowPlaying {
+  font-weight: var(--weight-medium);
+  color: var(--color-text-quiet);
+}
+
+.gloss {
+  margin: var(--space-3) 0 0 var(--space-6);
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+.lineControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-3) 0 0 var(--space-6);
+}
+
+.lineControl {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.controlLabel {
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-quiet);
+}
+
+.question {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  margin: var(--space-5) 0 0;
+}
+
+.ask {
+  margin: var(--space-2) 0 0 var(--space-1);
+  font-size: var(--text-heading);
+}
+
+.next {
+  display: grid;
+}
+
+.finishLine {
+  margin: var(--space-5) 0 0;
+}
+
+.comesBack {
+  margin: var(--space-5) var(--space-1) 0;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

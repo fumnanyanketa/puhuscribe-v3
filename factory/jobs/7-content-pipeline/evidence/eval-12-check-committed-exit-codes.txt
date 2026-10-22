@@ -1,0 +1,11 @@
+check-committed wiring on cc90a75 (run_checks stubbed; no Voikko on Windows). Script: scratchpad harness/check_committed.py
+demo: FAILS every check
+  line 1: 'blarghti' is not a Finnish word Voikko knows
+-> a committed draft that fails a check: exit code 1
+
+demo: passes every check
+-> a committed draft that passes: exit code 0
+
+other-dialogue: published, but its draft is not in content/drafts/other-dialogue/
+demo: passes every check
+-> a publish migration whose draft is not committed: exit code 1

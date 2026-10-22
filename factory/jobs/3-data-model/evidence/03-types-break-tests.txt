@@ -1,0 +1,20 @@
+Evidence for statement 3: break tests on the scheduler type match, run in a scratch clone (reverted, final git status clean).
+A: rename a cards column in the generated types. B: add an extra card_state value. Both must make npm run typecheck fail.
+
+### Break test A: rename cards.lapses -> lapse_count in the generated types (Row and Insert), then typecheck
+ src/lib/database.types.ts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+src/lib/database-types.test.ts(25,7): error TS2322: Type 'true' is not assignable to type 'false'.
+src/lib/database-types.test.ts(59,5): error TS2353: Object literal may only specify known properties, and 'lapses' does not exist in type '{ created_at?: string | undefined; difficulty?: number | undefined; due?: string | undefined; elapsed_days?: number | undefined; form_id: number; lapse_count?: number | undefined; last_review?: string | ... 1 more ... | undefined; ... 4 more ...; user_id?: string | undefined; }'.
+tsc exit=2
+### Break test B: add an extra card_state value 'suspended' to the generated enum, then typecheck
+tsc exit=0
+### Clean
+end
+### Break test B (retry): add an extra card_state value 'suspended' to the generated enum, then typecheck
+ src/lib/database.types.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+src/lib/database-types.test.ts(36,7): error TS2322: Type 'true' is not assignable to type 'false'.
+tsc exit=2
+### Clean
+end

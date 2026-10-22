@@ -1,0 +1,266 @@
+/* The design reference page. Values from src/styles/tokens.css. */
+
+.page {
+  /* A word too long for the screen (at 200 percent text) may break. */
+  overflow-wrap: anywhere;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-9);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 0 var(--space-1);
+}
+
+.title {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-display);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+.sampleNote {
+  margin: var(--space-2) 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-quiet);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-9);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--text-title);
+}
+
+.subTitle {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-heading);
+}
+
+.quiet {
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+}
+
+.small {
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+.card {
+  padding: var(--space-4);
+  border: 1px solid var(--color-card-edge);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Colour swatches */
+
+.swatches {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatch {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.chip {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1px var(--color-control-edge);
+}
+
+.swatchText {
+  display: grid;
+  min-width: 0;
+}
+
+.swatchText code {
+  overflow-wrap: anywhere;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: var(--weight-semibold);
+}
+
+.table tbody tr:nth-child(odd) {
+  background: var(--color-word-hover);
+}
+
+/* Type */
+
+.typeList {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.typeList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.typeHeading {
+  overflow-wrap: anywhere;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-tight);
+}
+
+.typeBody {
+  overflow-wrap: anywhere;
+  font-family: var(--font-body);
+}
+
+.typeSampleLetters {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+}
+
+.typeSampleWord {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Spacing and radius */
+
+.spaceList,
+.radiusList,
+.plainList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spaceList li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.spaceBar {
+  height: 16px;
+  border-radius: 2px;
+  background: var(--color-written);
+}
+
+.radiusList {
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: var(--space-4);
+}
+
+.radiusList li {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.radiusBox {
+  width: 72px;
+  height: 56px;
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-control-edge);
+}
+
+/* Components */
+
+.frameBox {
+  height: 36rem;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow:
+    inset 0 0 0 1px var(--color-control-edge),
+    var(--shadow-2);
+}
+
+.frameTitle {
+  margin: var(--space-2) 0 var(--space-4);
+  font-size: var(--text-title);
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.stateGroup {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.stateRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.state {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.state figcaption {
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+}

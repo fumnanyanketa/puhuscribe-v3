@@ -1,0 +1,61 @@
+Evaluator break: the published audio check stops comparing a file's SHA-256 with its name
+Statement: [content 17]. Scratch copy of branch head 9e834ef; nothing pushed, nothing on main.
+
+--- 1. Test before the break (expect pass) ---
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  22:47:01
+   Duration  465ms (tests 56%, transform 28%, import 12%, worker 3%)
+
+
+--- 2. The break ---
+edited scripts\ci\check-published-audio.ts
+ scripts/ci/check-published-audio.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/ci/check-published-audio.ts b/scripts/ci/check-published-audio.ts
+index 1233698..fe167e5 100644
+--- a/scripts/ci/check-published-audio.ts
++++ b/scripts/ci/check-published-audio.ts
+@@ -47,7 +47,7 @@ export function checkPublishedAudio(audioDir: string, migrationsDir: string): st
+     }
+     const digest = createHash('sha256').update(readFileSync(path)).digest('hex')
+     const named = /-([0-9a-f]{12})\.mp3$/.exec(key)?.[1]
+-    if (!named || !digest.startsWith(named))
++    if (!named)
+       problems.push(`${key} does not match its name (its SHA-256 differs)`)
+   }
+   for (const key of keys) {
+
+--- 3. Test with the break (expect red) ---
+ RUN  v5.0.5 C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/clean
+ ❯ tests/content-audio.test.ts (8 tests | 1 failed) 147ms
+   ❯ audio exists only for approved lines (6)
+     × [content 17] a file whose SHA-256 does not match its name fails 22ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/content-audio.test.ts > audio exists only for approved lines > [content 17] a file whose SHA-256 does not match its name fails
+AssertionError: expected [] to deeply equal [ Array(1) ]
+- Expected
++ Received
+- [
+-   "some-dialogue/1-puhe-a09e062efaf2.mp3 does not match its name (its SHA-256 differs)",
+- ]
++ []
+ ❯ tests/content-audio.test.ts:50:52
+     48|   it('[content 17] a file whose SHA-256 does not match its name fails'…
+     49|     const { audio, migrations } = sandbox({ [key]: 'swapped audio' }, …
+     50|     expect(checkPublishedAudio(audio, migrations)).toEqual([
+       |                                                    ^
+     51|       `${key} does not match its name (its SHA-256 differs)`,
+     52|     ])
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  22:47:03
+   Duration  617ms (tests 58%, transform 25%, import 12%, worker 4%)
+
+--- 4. Revert and test again (expect pass) ---
+      Tests  8 passed (8)
+   Start at  22:47:05
+   Duration  426ms (tests 68%, import 18%, transform 10%, worker 4%)
+

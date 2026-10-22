@@ -1,0 +1,28 @@
+# Job 4-tooling round 3, statement 6 break tests (evaluator failure 1).
+# Throwaway branch scratch/4-tooling-r3-break6 from ce3db17, never pushed, deleted after.
+
+=== baseline
+      Tests  35 passed (35)
+
+=== 1. In AGENTS.md text, `lefthook.yml` -> `lefthook-gone.yml`, committed
+summary: (done in 3.41 seconds)
+f8fb75e scratch: rename lefthook.yml in AGENTS.md text
+     × [tooling 6] every path written in AGENTS.md exists 192ms
+     × [tooling 6] the root files named today are among the paths checked 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
++   "lefthook-gone.yml",
+      Tests  2 failed | 33 passed (35)
+
+=== 2. git mv ruff.toml ruff-gone.toml, committed (AGENTS.md back as it was)
+0
+summary: (done in 3.57 seconds)
+f303c2d scratch: git mv ruff.toml ruff-gone.toml
+     × [tooling 6] every path written in docs/conventions.md exists 207ms
+     × [tooling 6] root files without a slash are checked too, and ordinary words are not 242ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
++   "ruff.toml",
++   "ruff.toml",
+      Tests  2 failed | 33 passed (35)
+
+=== after both: back to the base
+      Tests  35 passed (35)

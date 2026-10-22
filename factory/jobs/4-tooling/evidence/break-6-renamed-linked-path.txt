@@ -1,0 +1,17 @@
+# Job 4-tooling, statement 6: break test. Throwaway branch scratch/4-tooling-break-agents-md from b812e66, never pushed.
+$ git mv docs/v2-imports.md docs/v2-imported-files.md && git commit -m "scratch: rename a path AGENTS.md links"
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+summary: (done in 1.39 seconds)
+1fd78cb scratch: rename a path AGENTS.md links
+$ npx vitest run tests/agents-md.test.ts
+     × [tooling 6] every path written in AGENTS.md exists 135ms
+     × [tooling 6] every path written in docs/conventions.md exists 181ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every path written in AGENTS.md exists
+AssertionError: expected [ 'docs/v2-imports.md' ] to deeply equal []
++   "docs/v2-imports.md",
+ FAIL  tests/agents-md.test.ts > both files stay true to the repository > [tooling 6] every path written in docs/conventions.md exists
+AssertionError: expected [ 'docs/v2-imports.md', …(1) ] to deeply equal []
++   "docs/v2-imports.md",
++   "docs/v2-imports.md",
+      Tests  2 failed | 30 passed (32)

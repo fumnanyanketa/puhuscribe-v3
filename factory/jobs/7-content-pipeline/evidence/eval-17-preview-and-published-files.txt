@@ -1,0 +1,8 @@
+Preview link, no token, read only (statement 17 playback is pending: no publish migration and no public/audio file exist yet on the branch).
+GET /
+  HTTP 302 -> https://<team>.cloudflareaccess.com/...
+GET /audio/meeting-people-new-colleague/1-puhe-000000000000.mp3
+  HTTP 302 -> https://<team>.cloudflareaccess.com/...
+
+Branch cc90a75: files under public/ and publish migrations:
+  none

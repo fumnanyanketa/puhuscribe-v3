@@ -1,0 +1,8 @@
+# Job 4-tooling round 3, gap 4: the stop check's --redact flag is pinned. Working tree only, restored after.
+$ # remove the line "--redact," from gitleaksArgs() in scripts/hooks/stop-checks.ts
+0
+     × [tooling 15] gitleaks runs redacted, on the one file, with its report on stdout and no report file 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 31 passed (32)
+$ # restored
+      Tests  32 passed (32)

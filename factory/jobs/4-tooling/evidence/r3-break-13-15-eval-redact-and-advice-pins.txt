@@ -1,0 +1,25 @@
+# Evaluator round 3: is --redact pinned in the stop check? Clone at a2765ee
+=== baseline
+      Tests  45 passed (45)
+=== M1: '--redact' line removed from gitleaksArgs in stop-checks.ts
+--redact left in stop-checks.ts: 0
+     × [tooling 15] gitleaks runs redacted, on the one file, with its report on stdout and no report file 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 44 passed (45)
+=== M2: --redact removed from the commit check's gitleaks line in lefthook.yml
+0
+     × [tooling 9] the secret scan stays redacted and prints no matched line 16ms
+     × [tooling 13] lefthook.yml asks gitleaks for the finding exit code and sets no fail_text on the scan 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 43 passed (45)
+=== M3: --exit-code 3 removed from lefthook.yml (secret advice would never print)
+1
+     × [tooling 13] lefthook.yml asks gitleaks for the finding exit code and sets no fail_text on the scan 19ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 44 passed (45)
+=== M4: commit-tool.ts prints the secret advice for any gitleaks failure
+1
+     × [tooling 13] a gitleaks failure that is not a finding gets no advice 1751ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 44 passed (45)
+=== after: 0 changed files

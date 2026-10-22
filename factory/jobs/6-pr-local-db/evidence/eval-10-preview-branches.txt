@@ -1,0 +1,27 @@
+Evaluator evidence for 6-pr-local-db statement 10 (preview on pull requests with and without a database change).
+
+== PR 14 (no migration change), run 39652135818, preview job 119406945655
+Database changed in this pull request: false
+Uploaded puhuscribe-preview (2.80 sec)
+##[group]Run if [ "$DB_CHANGED" = true ]; then
+  132 passed (4.7m)
+##[group]Run body=$(node scripts/ci/preview-plan.ts comment)
+   PR 14 comment (gh pr view 14 --json comments):
+   | Preview for 7958daa: https://factory-6-pr-local-db-puhuscribe-preview.fumnanya.workers.dev
+   | 
+   | Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token.
+
+== Scratch A #15 (adds a migration), run 39653294892, preview job 119411257943
+Database changed in this pull request: true
+Uploaded puhuscribe-preview (2.30 sec)
+##[group]Run if [ "$DB_CHANGED" = true ]; then
+  6 passed (8.8s)   <- only the six @preview lock tests ran (PR 14 ran 132)
+##[group]Run body=$(node scripts/ci/preview-plan.ts comment)
+   Scratch A comment (gh api repos/.../issues/15/comments):
+   | Preview for 650d067: https://scratch-6-prdb-a-puhuscribe-preview.fumnanya.workers.dev
+   | 
+   | Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token.
+   | 
+   | This pull request changes the database. The preview uses the shared test project, which gets these changes only after you approve the job, so screens that need them do not work on this link yet. The browser tests ran on a throwaway database with the changes; their videos and screenshots are in the playwright-report download of this run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39653294892
+
+Spec wording check: the note matches the spec sentence for sentence. The spec ends with '<run link>.'; the comment ends with the bare link and no full stop (keeps the link clickable).

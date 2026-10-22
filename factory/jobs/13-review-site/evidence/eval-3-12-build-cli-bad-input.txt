@@ -1,0 +1,45 @@
+# The real build script run from the command line on a scratch copy of the repository, one bad input at a time.
+
+### slug with capitals
+    Review site not built: The listed slug "Meeting-People" is not lower case letters and digits joined by single hyphens.
+    exit 1; dist-review exists: no
+
+### slug ../secrets
+    Review site not built: The listed slug "../secrets" is not lower case letters and digits joined by single hyphens.
+    exit 1; dist-review exists: no
+
+### slug listed twice
+    Review site not built: The slug meeting-people-new-colleague is listed twice.
+    exit 1; dist-review exists: no
+
+### listed slug with no review page
+    Review site not built: The listed slug no-page has no review page in content/drafts/no-page/review/.
+    exit 1; dist-review exists: no
+
+### extra key in the list
+    Review site not built: review-site/dialogues.json must hold only {"dialogues": [ ...slugs ]}.
+    exit 1; dist-review exists: no
+
+### a page named round-01.html
+    Review site not built: content/drafts/meeting-people-new-colleague/review/round-01.html is not named round-<n>.html.
+    exit 1; dist-review exists: no
+
+### a page of 25 MiB plus one byte
+    Review site not built: content/drafts/meeting-people-new-colleague/review/round-2.html is over 25 MiB, the largest file a Worker may serve.
+    exit 1; dist-review exists: no
+
+### stale build left in place when input is bad
+    exit 1; dist-review/marker still there: old
+
+### [site 12] listed A gets round-2.html, unlisted B has a page; A round 1 has a returned file
+    Review site built in dist-review/ with 4 files:
+      index.html
+      meeting-people-new-colleague/round-1.html
+      meeting-people-new-colleague/round-2.html
+      robots.txt
+    dist-review/index.html
+    dist-review/meeting-people-new-colleague/round-1.html
+    dist-review/meeting-people-new-colleague/round-2.html
+    dist-review/robots.txt
+    <li><a href="/meeting-people-new-colleague/round-1">Round 1</a> <span class="status">Review received</span>
+    <li class="waiting"><a href="/meeting-people-new-colleague/round-2">Round 2</a> <span class="status">Waiting for your review</span>

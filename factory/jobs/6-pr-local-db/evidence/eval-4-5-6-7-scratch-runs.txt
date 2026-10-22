@@ -1,0 +1,94 @@
+Evaluator evidence for 6-pr-local-db statements 4, 5, 6 and 7 (scratch pull requests 15 and 16, both closed, never merged, branches deleted).
+Sources: gh pr list --state all; gh run view <run> --json jobs; gh run view <run> --log --job <job>; gh api .../pulls/<n>/files.
+
+== Scratch A (#15) and B (#16) first runs, every job (name, result, start, end, UTC)
+-- run 39651502908
+   scratch/6-prdb-a b47bfb8
+   Secret scan (gitleaks) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:33Z
+   Unit tests (Vitest) | failure | 2026-10-21T18:18:21Z | 2026-10-21T18:18:58Z
+   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:48Z
+   Database tests (local Supabase, pgTAP) | failure | 2026-10-21T18:18:22Z | 2026-10-21T18:20:11Z
+   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:26:09Z
+   Type check, lint, format | success | 2026-10-21T18:18:22Z | 2026-10-21T18:19:07Z
+   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:52Z
+   Apply database changes to the test project | skipped | 2026-10-21T18:20:11Z | 2026-10-21T18:20:11Z
+   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:20:12Z | 2026-10-21T18:20:11Z
+   Preview link (Cloudflare Worker behind Access) | skipped | 2026-10-21T18:26:10Z | 2026-10-21T18:26:10Z
+-- run 39651508732
+   scratch/6-prdb-b a558756
+   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:54Z
+   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:55Z
+   Type check, lint, format | success | 2026-10-21T18:18:24Z | 2026-10-21T18:19:06Z
+   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:25:58Z
+   Database tests (local Supabase, pgTAP) | failure | 2026-10-21T18:18:24Z | 2026-10-21T18:20:36Z
+   Unit tests (Vitest) | failure | 2026-10-21T18:18:24Z | 2026-10-21T18:19:05Z
+   Secret scan (gitleaks) | success | 2026-10-21T18:18:24Z | 2026-10-21T18:18:35Z
+   Apply database changes to the test project | skipped | 2026-10-21T18:20:37Z | 2026-10-21T18:20:36Z
+   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:20:37Z | 2026-10-21T18:20:36Z
+   Preview link (Cloudflare Worker behind Access) | skipped | 2026-10-21T18:25:59Z | 2026-10-21T18:25:58Z
+
+Overlap of the two local browser checks: A 18:18:22 to 18:26:09, B 18:18:24 to 18:25:58 (UTC). Both green.
+The apply job is skipped in both runs. Database and unit checks were red on these first scratch commits
+(scratch A's anon read rule broke an existing pgTAP rule; fixed only on the scratch branch in later commits).
+
+== Scratch A run 39651502908, local browser check key lines
+Applying migration 20261019183410_create_visits.sql...
+Applying migration 20261020090000_content_model.sql...
+Applying migration 20261020090100_learner_model.sql...
+Applying migration 20261020090200_reference_tables.sql...
+Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+Applying migration 20261021200000_scratch_prdb_a.sql...
+Loading supabase/seeds/browser/010_scratch_prdb_a.sql
+check:env-names passed (155 variable names checked).
+check:built-secrets passed (38 browser files scanned).
+  ✓   53 [chromium] › e2e/scratch-prdb-a.spec.ts:9:3 › scratch A: a new table on its own pull request › [prdb 4] [prdb 7] the new table is readable through the local API and holds the seeded row @seed (1.5s)
+  ✓   54 [chromium] › e2e/scratch-prdb-a.spec.ts:22:3 › scratch A: a new table on its own pull request › [prdb 6] a table whose migration grants nothing is refused by the local API @seed (1.4s)
+  ✓   55 [chromium] › e2e/scratch-prdb-a.spec.ts:35:3 › scratch A: a new table on its own pull request › [prdb 5] scratch B’s table does not exist in this database @seed (1.4s)
+  ✓  122 [webkit] › e2e/scratch-prdb-a.spec.ts:9:3 › scratch A: a new table on its own pull request › [prdb 4] [prdb 7] the new table is readable through the local API and holds the seeded row @seed (1.4s)
+  ✓  123 [webkit] › e2e/scratch-prdb-a.spec.ts:22:3 › scratch A: a new table on its own pull request › [prdb 6] a table whose migration grants nothing is refused by the local API @seed (1.3s)
+  ✓  124 [webkit] › e2e/scratch-prdb-a.spec.ts:35:3 › scratch A: a new table on its own pull request › [prdb 5] scratch B’s table does not exist in this database @seed (1.4s)
+  6 skipped
+  132 passed (4.0m)
+##[group]Run visits=$(psql "$LOCAL_DB_URL" --no-psqlrc --tuples-only --no-align -v ON_ERROR_STOP=1 -c "select count(*) from public.visits")
+Rows in visits on the throwaway database: 30
+
+== Scratch B run 39651508732, local browser check key lines
+Applying migration 20261019183410_create_visits.sql...
+Applying migration 20261020090000_content_model.sql...
+Applying migration 20261020090100_learner_model.sql...
+Applying migration 20261020090200_reference_tables.sql...
+Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+Applying migration 20261021200100_scratch_prdb_b.sql...
+No browser seed files in supabase/seeds/browser/
+check:env-names passed (155 variable names checked).
+check:built-secrets passed (38 browser files scanned).
+  ✓   53 [chromium] › e2e/scratch-prdb-b.spec.ts:9:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch B’s own new table is readable through the local API @seed (2.5s)
+  ✓   54 [chromium] › e2e/scratch-prdb-b.spec.ts:20:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch A’s tables do not exist in this database @seed (1.4s)
+  ✓  121 [webkit] › e2e/scratch-prdb-b.spec.ts:9:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch B’s own new table is readable through the local API @seed (1.3s)
+  ✓  122 [webkit] › e2e/scratch-prdb-b.spec.ts:20:3 › scratch B: parallel pull requests share nothing › [prdb 5] scratch A’s tables do not exist in this database @seed (1.2s)
+  6 skipped
+  130 passed (3.7m)
+##[group]Run visits=$(psql "$LOCAL_DB_URL" --no-psqlrc --tuples-only --no-align -v ON_ERROR_STOP=1 -c "select count(*) from public.visits")
+Rows in visits on the throwaway database: 30
+
+== Scratch A round 3 run 39653294892 (head 650d067), every job
+   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:32:10Z
+   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:38:34Z
+   Unit tests (Vitest) | success | 2026-10-21T18:31:36Z | 2026-10-21T18:32:31Z
+   Database tests (local Supabase, pgTAP) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:33:49Z
+   Type check, lint, format | success | 2026-10-21T18:31:37Z | 2026-10-21T18:32:16Z
+   Secret scan (gitleaks) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:31:49Z
+   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:31:58Z
+   Apply database changes to the test project | skipped | 2026-10-21T18:33:50Z | 2026-10-21T18:33:49Z
+   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:33:50Z | 2026-10-21T18:33:49Z
+   Preview link (Cloudflare Worker behind Access) | success | 2026-10-21T18:38:36Z | 2026-10-21T18:40:17Z
+
+== Migrations on origin/main now (scratch migrations never reached main, so no apply run could send them to the test project)
+   supabase/migrations/20261019183410_create_visits.sql
+   supabase/migrations/20261020090000_content_model.sql
+   supabase/migrations/20261020090100_learner_model.sql
+   supabase/migrations/20261020090200_reference_tables.sql
+   supabase/migrations/20261020090300_load_v2_lemma_ipa.sql
+
+Not checked directly: the test project's own table list. That needs the test database password, which only the apply job holds;
+the evaluator does not read .env files. Indirect proof above: apply skipped on every scratch run, scratch migrations absent from main.

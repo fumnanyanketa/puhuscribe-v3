@@ -1,0 +1,56 @@
+Evaluator break: [content 13] review page. Variant: nocsp. Scratch copy of 9e834ef.
+Removes both the < and > escapes AND the Content Security Policy, so the planted <script> in the fixture line can run.
+
+--- break ---
+removed the < and > escapes and the Content Security Policy meta tag
+Wrote supabase/tests/database/content_publish.test.sql
+Wrote scripts/generate/fixtures/review/round-1.html
+1 passed, 20 deselected in 0.25s
+ scripts/generate/fixtures/review/round-1.html | 3 +--
+ scripts/generate/review_page.py               | 3 ---
+ 2 files changed, 1 insertion(+), 5 deletions(-)
+
+--- e2e with the break (expect red) ---
+  1) [chromium] › e2e\review-page.spec.ts:24:3 › the review page › [content 13] opens from disk and loads nothing from the network 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-ec5d9-ds-nothing-from-the-network-chromium\test-failed-1.png
+  2) [webkit] › e2e\review-page.spec.ts:24:3 › the review page › [content 13] opens from disk and loads nothing from the network 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-ec5d9-ds-nothing-from-the-network-webkit\test-failed-1.png
+  3) [chromium] › e2e\review-page.spec.ts:31:3 › the review page › [content 13] drafted text that contains <script> is printed, never run 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\test-failed-1.png
+  4) [webkit] › e2e\review-page.spec.ts:31:3 › the review page › [content 13] drafted text that contains <script> is printed, never run 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-490fd-script-is-printed-never-run-webkit\test-failed-1.png
+  5) [chromium] › e2e\review-page.spec.ts:38:3 › the review page › [content 13] shows each line, word card and clip with its choices 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-d5a52-d-and-clip-with-its-choices-chromium\test-failed-1.png
+  6) [webkit] › e2e\review-page.spec.ts:38:3 › the review page › [content 13] shows each line, word card and clip with its choices 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-d5a52-d-and-clip-with-its-choices-webkit\test-failed-1.png
+  7) [chromium] › e2e\review-page.spec.ts:54:3 › the review page › [content 13] refuses to save until every item has a decision and the code is filled in 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-8aeb5-n-and-the-code-is-filled-in-chromium\test-failed-1.png
+  8) [webkit] › e2e\review-page.spec.ts:54:3 › the review page › [content 13] refuses to save until every item has a decision and the code is filled in 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    ..\pw-break\review-page-the-review-pag-8aeb5-n-and-the-code-is-filled-in-webkit\test-failed-1.png
+
+--- revert, e2e again ---
+  10 passed (8.7s)

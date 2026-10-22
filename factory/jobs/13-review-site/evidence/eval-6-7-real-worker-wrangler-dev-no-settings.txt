@@ -1,0 +1,29 @@
+# Real review-site/worker.ts under wrangler dev (local), no ACCESS_* settings: everything must be 403 (or 405 for writes)
+GET /                                            403
+GET /index.html                                  403
+GET /robots.txt                                  403
+GET /meeting-people-new-colleague/round-1        403
+GET /meeting-people-new-colleague/round-1.html   403
+GET /nope                                        403
+POST /                                           405
+PUT /                                            405
+DELETE /                                         405
+PATCH /                                          405
+OPTIONS /                                        405
+
+# Full response for GET /meeting-people-new-colleague/round-1 with no token
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+This site is private. Sign in through its Cloudflare Access page to open it.
+
+# With a well formed but locally signed token (settings missing, so still 403)
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8

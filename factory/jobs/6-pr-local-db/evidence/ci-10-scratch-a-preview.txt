@@ -1,0 +1,29 @@
+# Scratch pull request A (#15), round 3, head 650d067, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39653294892
+# Every check green; the apply job and the after-merge check skipped. Preview job 119411257943 extract:
+#   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:32:10Z
+#   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:38:34Z
+#   Unit tests (Vitest) | success | 2026-10-21T18:31:36Z | 2026-10-21T18:32:31Z
+#   Database tests (local Supabase, pgTAP) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:33:49Z
+#   Type check, lint, format | success | 2026-10-21T18:31:37Z | 2026-10-21T18:32:16Z
+#   Secret scan (gitleaks) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:31:49Z
+#   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:31:37Z | 2026-10-21T18:31:58Z
+#   Apply database changes to the test project | skipped | 2026-10-21T18:33:50Z | 2026-10-21T18:33:49Z
+#   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:33:50Z | 2026-10-21T18:33:49Z
+#   Preview link (Cloudflare Worker behind Access) | success | 2026-10-21T18:38:36Z | 2026-10-21T18:40:17Z
+2026-10-21T18:38:54.3273418Z Database changed in this pull request: true
+2026-10-21T18:38:54.7855073Z check:env-names passed (158 variable names checked).
+2026-10-21T18:39:02.1324566Z check:built-secrets passed (38 browser files scanned).
+2026-10-21T18:40:07.8875976Z   ✓  1 [chromium] › e2e/health.spec.ts:73:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview (1.6s)
+2026-10-21T18:40:08.2177955Z   ✓  2 [chromium] › e2e/health.spec.ts:92:3 › private preview link › [12] the API is closed too without sign in @preview (315ms)
+2026-10-21T18:40:08.6930273Z   ✓  3 [chromium] › e2e/visits.spec.ts:319:3 › private preview link › [smoke 12] POST /api/visits is refused without sign in and saves nothing @preview (450ms)
+2026-10-21T18:40:11.4096805Z   ✓  4 [webkit] › e2e/health.spec.ts:73:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview (1.7s)
+2026-10-21T18:40:12.6396762Z   ✓  5 [webkit] › e2e/health.spec.ts:92:3 › private preview link › [12] the API is closed too without sign in @preview (1.2s)
+2026-10-21T18:40:13.2157455Z   ✓  6 [webkit] › e2e/visits.spec.ts:319:3 › private preview link › [smoke 12] POST /api/visits is refused without sign in and saves nothing @preview (536ms)
+2026-10-21T18:40:13.2758321Z   6 passed (8.8s)
+
+# Pull request comment posted by the preview job:
+Preview for 650d067: https://scratch-6-prdb-a-puhuscribe-preview.fumnanya.workers.dev
+
+Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token.
+
+This pull request changes the database. The preview uses the shared test project, which gets these changes only after you approve the job, so screens that need them do not work on this link yet. The browser tests ran on a throwaway database with the changes; their videos and screenshots are in the playwright-report download of this run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39653294892

@@ -1,0 +1,58 @@
+[site 6] Token check replaced by "always allow": RED. 12 failed | 60 passed (72)
+      [site 6] no header gets 403 with one plain line and no file
+      [site 6] a malformed token gets 403
+      [site 6] a token signed by another key gets 403
+      [site 6] a token for another Access application (wrong audience) gets 403
+      [site 6] a token from another team (wrong issuer) gets 403
+      [site 6] an expired token gets 403
+[site 6] Audience check removed: RED. 1 failed | 71 passed (72)
+      [site 6] a token for another Access application (wrong audience) gets 403
+[site 6] Issuer check removed: RED. 1 failed | 71 passed (72)
+      [site 6] a token from another team (wrong issuer) gets 403
+[site 6] Expiry no longer required: RED. 1 failed | 71 passed (72)
+      [site 6] a token with no expiry gets 403
+[site 6] Algorithm list removed (exploratory: is it the only rule refusing alg none / ES256?): all tests still PASS (protection not caught)
+[site 6] Missing settings no longer refuse (team domain shape check dropped): all tests still PASS (protection not caught)
+[site 7] POST allowed through: RED. 2 failed | 70 passed (72)
+      [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too
+      [site 7] POST gets 405 and touches no file
+[site 7] Path allow list removed (any path goes to the assets): RED. 1 failed | 71 passed (72)
+      [site 7] paths outside the site shape are refused before the assets are asked
+[site 5] X-Robots-Tag dropped: RED. 3 failed | 69 passed (72)
+      [site 5] the index gets the shared headers and the strict policy
+      [site 5] a review page keeps its own policy; the Worker adds only frame-ancestors 'none'
+      [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too
+[site 5] Review pages get the strict site policy (overrides job 7 policy): RED. 1 failed | 71 passed (72)
+      [site 5] a review page keeps its own policy; the Worker adds only frame-ancestors 'none'
+[site 8] A console.log of the request added: RED. 1 failed | 71 passed (72)
+      [site 8] keeps no logs and never reads who signed in
+[site 9] workers.dev address switched on: RED. 1 failed | 71 passed (72)
+      [site 9] has no workers.dev or preview address, one custom domain route, and nothing else bound
+[site 8] Observability switched on: RED. 1 failed | 71 passed (72)
+      [site 8] keeps no logs and never reads who signed in
+[site 2] Build copies draft.json too: RED. 4 failed | 68 passed (72)
+      [site 2] writes exactly index.html, robots.txt and each listed page, byte for byte
+      [site 2] never copies an unlisted page, draft.json, the check report, the log, audio, round files, briefs or returned reviews
+      [site 2] replaces an older build completely, so a page removed from the list disappears
+      [site 12] a new round-2.html for a listed slug is in the build; a round page for an unlisted slug adds nothing
+[site 3] Symlink check removed: RED. 1 failed | 71 passed (72)
+      [site 3] a page file that is a symlink
+[site 3] Size limit check removed: RED. 1 failed | 71 passed (72)
+      [site 3] a page file over 25 MiB
+[site 3] Duplicate slug check removed: RED. 2 failed | 70 passed (72)
+      [site 3] a slug listed twice
+      [site 3] an existing build is left alone when the input is bad
+[site 4] Title no longer escaped: RED. 1 failed | 71 passed (72)
+      [site 4] prints a title holding <script> as text
+[site 10] Deploy job no longer limited to main: RED. 1 failed | 71 passed (72)
+      [site 10] deploys only from main, never on a pull request and never for Dependabot
+[site 10] Deploy concurrency may cancel a running deploy: RED. 1 failed | 71 passed (72)
+      [site 10] the deploy job has its own concurrency group that never cancels a running deploy
+[site 11] Deploy step no longer refuses an empty AUD: RED. 1 failed | 71 passed (72)
+      [site 11] passes the two Access settings as plain variables and refuses to deploy when either is empty
+[site 10] A secret given to the build job dry run: RED. 2 failed | 70 passed (72)
+      [site 10] on a pull request it builds, runs the site tests and a deploy dry run, with no secret
+      [site 10] [site 11] secrets reach only the deploy step and the live test step
+Whole settings check removed (missing settings no longer refused up front): all tests still PASS
+AUD shape check removed only: all tests still PASS
+Team domain shape check removed only (second run, to show the test that names it stays green): all tests still PASS

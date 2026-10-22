@@ -1,0 +1,14 @@
+# Run 39436405999 (PR, 3856fcf) attempt 1, job "Preview link": one WebKit test failed because the Worker answered 503 after 8082 ms (its 8 second limit for the test project). The test project was slow to save, the known open item from job 3. Every other check in the run passed. This job changes no app or Worker code.
+2026-10-20T14:13:24.2085433Z check:env-names passed (156 variable names checked).
+2026-10-20T14:13:30.9382379Z check:built-secrets passed (3 browser files scanned).
+2026-10-20T14:14:59.2346837Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-20T14:14:59.6163309Z API timing | chromium | POST /api/visits | 201 | 337 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-20T14:15:53.3691188Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-20T14:16:01.4851900Z API timing | webkit | POST /api/visits | 503 | 8082 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-20T14:16:04.7111942Z   ✘  39 [webkit] › e2e/visits.spec.ts:215:3 › saving one visit › [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost (12.0s)
+2026-10-20T14:16:10.9795998Z   1) [webkit] › e2e/visits.spec.ts:215:3 › saving one visit › [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost 
+2026-10-20T14:16:10.9798289Z     Error: expect(locator).toHaveText(expected) failed
+2026-10-20T14:16:10.9809737Z            - unexpected value "Saving your visit."
+2026-10-20T14:16:10.9813163Z           - unexpected value "Your visit was not saved. Check your internet connection, then try again."
+2026-10-20T14:16:10.9835004Z   1 failed
+2026-10-20T14:16:10.9837850Z   43 passed (1.7m)

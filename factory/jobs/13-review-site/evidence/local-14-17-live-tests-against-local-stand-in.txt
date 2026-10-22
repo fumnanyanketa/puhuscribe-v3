@@ -1,0 +1,29 @@
+# e2e/review-site.spec.ts (@review-site) run locally on 22 October 2026 against a local stand in, not the live site.
+# The stand in serves dist-review/ through the real review-site/handler.ts. A fake Access in front adds a token signed by a locally made key
+# when the request carries the service token headers (made up local values), and otherwise passes the request on with no token.
+# Expected: the first anonymous test fails here because there is no Cloudflare Access page to land on (the handler answers 403 instead);
+# the workers.dev test skips (REVIEW_WORKERS_SUBDOMAIN not set). Everything else must pass.
+
+  x   1 [chromium] › e2e\review-site.spec.ts:86:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site (356ms)
+  x   2 [webkit] › e2e\review-site.spec.ts:86:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site (573ms)
+  ok  3 [chromium] › e2e\review-site.spec.ts:108:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site (54ms)
+  ok  4 [webkit] › e2e\review-site.spec.ts:108:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site (54ms)
+  ok  5 [chromium] › e2e\review-site.spec.ts:124:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site (559ms)
+  ok  6 [webkit] › e2e\review-site.spec.ts:124:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site (810ms)
+  ok  7 [chromium] › e2e\review-site.spec.ts:135:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site (502ms)
+  ok  8 [webkit] › e2e\review-site.spec.ts:135:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site (823ms)
+  ok  9 [chromium] › e2e\review-site.spec.ts:151:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site (2.6s)
+  ok 11 [chromium] › e2e\review-site.spec.ts:179:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site (54ms)
+  ok 12 [chromium] › e2e\review-site.spec.ts:199:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site (35ms)
+  ok 13 [chromium] › e2e\review-site.spec.ts:215:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site (40ms)
+  -  14 [chromium] › e2e\review-site.spec.ts:225:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+  ok 10 [webkit] › e2e\review-site.spec.ts:151:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site (7.5s)
+  ok 15 [webkit] › e2e\review-site.spec.ts:179:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site (83ms)
+  ok 16 [webkit] › e2e\review-site.spec.ts:199:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site (43ms)
+  ok 17 [webkit] › e2e\review-site.spec.ts:215:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site (17ms)
+  -  18 [webkit] › e2e\review-site.spec.ts:225:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+    test-results\review-site-the-live-revie-6de62-n-in-page-and-sees-no-draft-chromium\test-failed-1.png
+    test-results\review-site-the-live-revie-6de62-n-in-page-and-sees-no-draft-webkit\test-failed-1.png
+  2 failed
+  2 skipped
+  14 passed (12.4s)

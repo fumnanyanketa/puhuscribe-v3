@@ -1,0 +1,77 @@
+Evidence: fresh clone of factory/3-data-model at 2a21230 into the evaluator's scratch folder, Windows, Node v24.14.1.
+Commands: npm ci; npm run build; npm run typecheck; npm run lint; npm run format:check; npm test
+
+== npm ci
+142 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+added 347 packages, and audited 348 packages in 49s
+found 0 vulnerabilities
+
+== build (last lines)
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (3 browser files scanned).
+build exit=0
+
+== typecheck (last lines)
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+
+typecheck exit=0
+
+== lint (last lines)
+> puhuscribe@0.0.0 lint
+> eslint .
+
+lint exit=0
+
+== format (last lines)
+
+Checking formatting...
+All matched files use Prettier code style!
+format exit=0
+
+== unit tests (vitest), data model files
+ Test Files  17 passed (17)
+      Tests  214 passed (214)
+unit exit=0
+ ✓ scripts/v2-import/v2-starter.test.ts > reading the starter sentences in v2 shape > [data 15] reads every row in order, numbering them from 1, skipping comment lines
+ ✓ scripts/v2-import/v2-starter.test.ts > reading the starter sentences in v2 shape > [data 15] stops on a line it does not understand, so a changed file is never half read
+ ✓ scripts/v2-import/v2-starter.test.ts > reading the starter sentences in v2 shape > [data 15] stops when the insert never ends
+ ✓ scripts/v2-import/v2-starter.test.ts > reading the starter sentences in v2 shape > [data 15] stops when there is no sentence insert at all
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] content/v2-starter/corrections.tsv is the header line only, waiting for the owner's list
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] applies each correction to the named sentence and register
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] fails when "before" differs from v2 by a trailing space
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] fails when "before" differs from v2 by a different capital letter
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] fails when "before" differs from v2 by the other register
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] fails for a sentence number that does not exist
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] fails when the same sentence and register is corrected twice
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with a missing header
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with a wrong register
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with a missing cell
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with an extra cell
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with a sentence that is not a number
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with an empty "after"
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] refuses a file with "after" equal to "before"
+ ✓ scripts/v2-import/v2-starter.test.ts > the corrections file > [data 15] reads Windows line endings the same way
+ ✓ scripts/v2-import/v2-starter.test.ts > the load SQL > [data 15] upserts the sentences keyed on (source, source_ref), so a second load adds no duplicates
+ ✓ scripts/v2-import/v2-starter.test.ts > the load SQL > [data 16] upserts the IPA keyed on the lemma, with source and licence
+ ✓ scripts/v2-import/v2-starter.test.ts > the load SQL > [data 15] [data 16] quotes apostrophes and refuses control characters
+ ✓ scripts/v2-import/v2-starter.test.ts > reading v2 pronunciation data > [data 16] reads UPDATE lines and skips comments and blank lines
+ ✓ scripts/v2-import/v2-starter.test.ts > reading v2 pronunciation data > [data 16] stops on any other line, and on a lemma seen twice
+ ✓ src/lib/database-types.test.ts > [data 3] the scheduler fits the cards and review_logs tables > [data 3] the cards and review_logs columns are the Card and ReviewLog fields plus the listed extras
+ ✓ src/lib/database-types.test.ts > [data 3] the scheduler fits the cards and review_logs tables > [data 3] a new card from createEmptyCard() fills every cards field
+ ✓ src/lib/database-types.test.ts > [data 3] the scheduler fits the cards and review_logs tables > [data 3] a card and log from FSRS.schedule() fill every cards and review_logs field
+ ✓ src/lib/database-types.test.ts > [data 3] the scheduler fits the cards and review_logs tables > [data 3] the card_state values are the scheduler's State values
+ ✓ scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the copy of v2's IPA file is byte for byte the file at the pinned v2 commit
+ ✓ scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] v2's file holds 514 distinct lemma to IPA pairs
+ ✓ scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the committed load migration is exactly what the script makes from v2
+ ✓ scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the migration loads the same 514 rows as v2, no more and no fewer
+ ✓ scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the pgTAP fingerprint is the one computed from v2's file
+ ✓ scripts/v2-import/generate.test.ts > starter sentence loader on made-up fixture data > [data 15] the committed fixture load SQL is exactly what the script makes from the fixture files
+ ✓ scripts/v2-import/generate.test.ts > starter sentence loader on made-up fixture data > [data 15] the load-twice check expects the fixture's row count and its fingerprint after corrections
+ ✓ scripts/v2-import/generate.test.ts > owner's decision of 20 October 2026 > [data 15] waiting for the owner's corrections list: no migration loads the 104 starter sentences yet
+ Test Files  3 passed (3)
+      Tests  36 passed (36)

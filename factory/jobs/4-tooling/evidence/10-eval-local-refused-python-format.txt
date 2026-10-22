@@ -1,0 +1,41 @@
+# Evaluator: python format-only problem in scripts/eval_fmt.py
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+┃  checks ❯ python format (ruff format --check) ❯ 
+unformatted: File would be reformatted
+ --> scripts\eval_fmt.py:1:7
+  |
+  - def f( a,b ):
+  -     return a+b
+1 + def f(a, b):
+2 +     return a + b
+  |
+
+1 file would be reformatted
+
+exit status 1
+┃  checks ❯ python lint (ruff check) ❯ 
+All checks passed!
+
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~29 bytes (29 bytes) in 272ms
+5:59PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 3.84 seconds)
+✔️ format (Prettier, fixes and restages) (2.13 seconds)
+🥊 checks (3.72 seconds)
+  ✔️ python lint (ruff check) (1.03 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.67 seconds)
+  🥊 python format (ruff format --check) (1.02 seconds)
+--- git commit exit code: 1; took 4.6 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

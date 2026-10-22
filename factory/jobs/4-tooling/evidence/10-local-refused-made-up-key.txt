@@ -1,0 +1,42 @@
+# Job 4-tooling, statement 10 (made-up key). Throwaway branch scratch/4-tooling-bad-commits from b2f95cc, never pushed.
+# Computer: Windows 11, Node v24.14.1, git 2.53.0.windows.2, lefthook 2.2.2, gitleaks 8.30.1, ruff 0.17.1
+
+$ # worker/bad-key.ts holds: export const githubToken = 'ghp_<36 random letters and digits, made up for this test>'
+$ git commit -m "scratch: made-up key"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/bad-key.ts 50ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:28PM INF 0 commits scanned.
+4:28PM INF scanned ~70 bytes (70 bytes) in 347ms
+4:28PM WRN leaks found: 1
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+Finding:     ...onst githubToken = 'REDACTED
+Secret:      REDACTED
+RuleID:      github-pat
+Entropy:     4.584184
+File:        worker/bad-key.ts
+Line:        1
+Fingerprint: worker/bad-key.ts:github-pat:1
+
+
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.09 seconds)
+✔️ format (Prettier, fixes and restages) (2.12 seconds)
+🥊 checks (14.63 seconds)
+  ✔️ type check (tsc -b) (5.89 seconds)
+  ✔️ lint (ESLint) (6.92 seconds)
+  🥊 secrets (gitleaks, redacted) (1.82 seconds)
+exit=1 elapsed_ms=9778
+$ git log --oneline -1   # no new commit
+b2f95cc Commit check: skip Prettier and ESLint for folders outside the app code
+Check: the made-up key's value does not appear anywhere in this output (grep -F of the value found nothing).

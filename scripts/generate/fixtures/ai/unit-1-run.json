@@ -1,0 +1,254 @@
+{
+ "about": "Fixture answers in the shape the AI returns, written by hand for the offline tests (job 7-content-pipeline). Never published: the publish step refuses drafts from the fake provider.",
+ "calls": [
+  {
+   "purpose": "draft",
+   "output": {
+    "lines": [
+     {
+      "speaker": "Aino",
+      "text_kirja": "Hei! Minä olen Aino.",
+      "text_puhe": "Moi! Mä oon Aino.",
+      "gloss_en": "Hi! I'm Aino.",
+      "puhe_links": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     {
+      "speaker": "Maria",
+      "text_kirja": "Hei! Minä olen Maria.",
+      "text_puhe": "Moi! Mä oon Maria.",
+      "gloss_en": "Hi! I'm Maria.",
+      "puhe_links": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     {
+      "speaker": "Aino",
+      "text_kirja": "Mistä sinä olet kotoisin?",
+      "text_puhe": "Mist sä oot kotoisin?",
+      "gloss_en": "Where are you from?",
+      "puhe_links": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     {
+      "speaker": "Maria",
+      "text_kirja": "Minä olen Brasiliasta.",
+      "text_puhe": "Mä oon Brasiliast.",
+      "gloss_en": "I'm from Brazil.",
+      "puhe_links": [
+       1,
+       2,
+       3
+      ]
+     },
+     {
+      "speaker": "Maria",
+      "text_kirja": "Entä sinä? Oletko sinä Helsingistä?",
+      "text_puhe": "Entä sä? Ootko sä Helsingist?",
+      "gloss_en": "And you? Are you from Helsinki?",
+      "puhe_links": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     },
+     {
+      "speaker": "Aino",
+      "text_kirja": "Olen. Minä olen Helsingistä.",
+      "text_puhe": "Oon. Mä oon Helsingist.",
+      "gloss_en": "Yes, I am. I'm from Helsinki.",
+      "puhe_links": [
+       1,
+       2,
+       3,
+       4
+      ]
+     }
+    ]
+   },
+   "input_tokens": 9000,
+   "output_tokens": 700
+  },
+  {
+   "purpose": "why",
+   "output": {
+    "words": [
+     {
+      "id": "L1.W1",
+      "reading": 1,
+      "why_en": "Hei is a friendly hello. In speech people often say moi."
+     },
+     {
+      "id": "L1.W2",
+      "reading": 1,
+      "why_en": "Minä means I. In everyday speech it is usually mä."
+     },
+     {
+      "id": "L1.W3",
+      "reading": 1,
+      "why_en": "Olen is olla (to be) with minä: minä olen means I am. Spoken: oon."
+     },
+     {
+      "id": "L1.W4",
+      "reading": 1,
+      "why_en": ""
+     },
+     {
+      "id": "L2.W1",
+      "reading": 1,
+      "why_en": "Hei is a friendly hello. In speech people often say moi."
+     },
+     {
+      "id": "L2.W2",
+      "reading": 1,
+      "why_en": "Minä means I. In everyday speech it is usually mä."
+     },
+     {
+      "id": "L2.W3",
+      "reading": 1,
+      "why_en": "Olen is olla (to be) with minä: minä olen means I am. Spoken: oon."
+     },
+     {
+      "id": "L2.W4",
+      "reading": 1,
+      "why_en": ""
+     },
+     {
+      "id": "L3.W1",
+      "reading": 1,
+      "why_en": "Mistä asks where from. The -stä ending means from."
+     },
+     {
+      "id": "L3.W2",
+      "reading": 1,
+      "why_en": "Sinä means you, one person. In speech it is usually sä."
+     },
+     {
+      "id": "L3.W3",
+      "reading": 1,
+      "why_en": "Olet is olla (to be) with sinä: sinä olet means you are. Spoken: oot."
+     },
+     {
+      "id": "L3.W4",
+      "reading": 5,
+      "why_en": "Kotoisin means coming from a place, as in where you grew up."
+     },
+     {
+      "id": "L4.W1",
+      "reading": 1,
+      "why_en": "Minä means I. In everyday speech it is usually mä."
+     },
+     {
+      "id": "L4.W2",
+      "reading": 1,
+      "why_en": "Olen is olla (to be) with minä: minä olen means I am. Spoken: oon."
+     },
+     {
+      "id": "L4.W3",
+      "reading": 1,
+      "why_en": ""
+     },
+     {
+      "id": "L5.W1",
+      "reading": 1,
+      "why_en": "Entä turns the question back: and you?"
+     },
+     {
+      "id": "L5.W2",
+      "reading": 1,
+      "why_en": "Sinä means you, one person. In speech it is usually sä."
+     },
+     {
+      "id": "L5.W3",
+      "reading": 1,
+      "why_en": "Oletko asks are you? The -ko ending makes a yes or no question."
+     },
+     {
+      "id": "L5.W4",
+      "reading": 1,
+      "why_en": "Sinä means you, one person. In speech it is usually sä."
+     },
+     {
+      "id": "L5.W5",
+      "reading": 1,
+      "why_en": ""
+     },
+     {
+      "id": "L6.W1",
+      "reading": 1,
+      "why_en": "Olen is olla (to be) with minä: minä olen means I am. Spoken: oon."
+     },
+     {
+      "id": "L6.W2",
+      "reading": 1,
+      "why_en": "Minä means I. In everyday speech it is usually mä."
+     },
+     {
+      "id": "L6.W3",
+      "reading": 1,
+      "why_en": "Olen is olla (to be) with minä: minä olen means I am. Spoken: oon."
+     },
+     {
+      "id": "L6.W4",
+      "reading": 1,
+      "why_en": ""
+     }
+    ]
+   },
+   "input_tokens": 2500,
+   "output_tokens": 900
+  },
+  {
+   "purpose": "judge",
+   "output": {
+    "verdicts": [
+     {
+      "n": 1,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     },
+     {
+      "n": 2,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     },
+     {
+      "n": 3,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     },
+     {
+      "n": 4,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     },
+     {
+      "n": 5,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     },
+     {
+      "n": 6,
+      "same_meaning": true,
+      "reason": "Same meaning; only the register differs."
+     }
+    ]
+   },
+   "input_tokens": 600,
+   "output_tokens": 300
+  }
+ ]
+}

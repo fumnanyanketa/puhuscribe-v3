@@ -1,0 +1,79 @@
+Production build, no VITE_DESIGN_REFERENCE (tail of npm run build):
+
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+
+check:built-secrets passed (32 browser files scanned).
+EXIT=0
+
+Production build (no VITE_DESIGN_REFERENCE), commit 0f94502
+Files:
+dist/client/.assetsignore
+dist/client/assets/Switzer-Bold-BemBbt9Y.woff2
+dist/client/assets/Switzer-Medium-Cv4k0_Dw.woff2
+dist/client/assets/Switzer-Regular-VGYRnayQ.woff2
+dist/client/assets/Switzer-Semibold-BE_suUwe.woff2
+dist/client/assets/index-CA88jxsq.js
+dist/client/assets/index-CyYGieqy.css
+dist/client/assets/poppins-devanagari-400-normal-CJDn6rn8.woff2
+dist/client/assets/poppins-devanagari-400-normal-CqVvlrh5.woff
+dist/client/assets/poppins-devanagari-500-normal-BIdkeU1p.woff2
+dist/client/assets/poppins-devanagari-500-normal-DMPDjHtT.woff
+dist/client/assets/poppins-devanagari-600-normal-ClASKHrr.woff
+dist/client/assets/poppins-devanagari-600-normal-STEjXBNN.woff2
+dist/client/assets/poppins-devanagari-700-normal-O-jipLrW.woff2
+dist/client/assets/poppins-devanagari-700-normal-fHs-vx92.woff
+dist/client/assets/poppins-latin-400-normal-BOb3E3N0.woff
+dist/client/assets/poppins-latin-400-normal-cpxAROuN.woff2
+dist/client/assets/poppins-latin-500-normal-C8OXljZJ.woff2
+dist/client/assets/poppins-latin-500-normal-DGXqpDMm.woff
+dist/client/assets/poppins-latin-600-normal-BJdTmd5m.woff
+dist/client/assets/poppins-latin-600-normal-zEkxB9Mr.woff2
+dist/client/assets/poppins-latin-700-normal-BVuQR_eA.woff
+dist/client/assets/poppins-latin-700-normal-Qrb0O0WB.woff2
+dist/client/assets/poppins-latin-ext-400-normal-DaBSavcJ.woff
+dist/client/assets/poppins-latin-ext-400-normal-by3JarPu.woff2
+dist/client/assets/poppins-latin-ext-500-normal-CK-6C4Hw.woff2
+dist/client/assets/poppins-latin-ext-500-normal-CgAe2rWW.woff
+dist/client/assets/poppins-latin-ext-600-normal-CAhIAdZj.woff2
+dist/client/assets/poppins-latin-ext-600-normal-Df5ffKXP.woff
+dist/client/assets/poppins-latin-ext-700-normal-DctTR6Tg.woff
+dist/client/assets/poppins-latin-ext-700-normal-cby-RkWa.woff2
+dist/client/index.html
+dist/puhuscribe_preview/.vite/manifest.json
+dist/puhuscribe_preview/index.js
+dist/puhuscribe_preview/index.js.map
+dist/puhuscribe_preview/wrangler.json
+
+"design-reference": files containing = 0 
+"sample/hear-it": files containing = 0 
+"Sample, not reviewed": files containing = 0 
+"mä oon": files containing = 0 
+"Mä": files containing = 0 
+"oon": files containing = 0 
+"minä olen": files containing = 0 
+"maahanmuuttovirasto": files containing = 0 
+"kotoutumiskoulutus": files containing = 0 
+"työttömyysturvailmoitus": files containing = 0 
+"Mist": files containing = 0 
+"kotoisin": files containing = 0 
+"Leave session": files containing = 0 
+"Hear it": files containing = 0 
+"DesignReference": files containing = 0 
+"HearItSample": files containing = 0 
+"awaiting the native reviewer": files containing = 0 
+"Personal pronoun": files containing = 0 
+"Written": files containing = 0 
+"getUserMedia": files containing = 0 
+"audio/wav": files containing = 0 
+
+Build with VITE_DESIGN_REFERENCE=1 (design chunks present):
+> npm run check:env-names && tsc -b && vite build && npm run check:built-secrets
+dist/client/assets/HearItSample-9gx5-BVv.css                       6.00 kB │ gzip:  1.58 kB
+dist/client/assets/DesignReference-C8y4UZlF.css                   17.41 kB │ gzip:  3.63 kB
+dist/client/assets/HearItSample-DfBKQx_J.js                        5.90 kB │ gzip:  2.11 kB
+dist/client/assets/DesignReference-CLhwALc5.js                    41.45 kB │ gzip: 13.02 kB
+> puhuscribe@0.0.0 check:built-secrets
+> node scripts/security/check-built-secrets.ts
+check:built-secrets passed (36 browser files scanned).
+EXIT=0

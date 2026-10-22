@@ -1,0 +1,23 @@
+
+Running 2 tests using 1 worker
+
+RESULT chromium
+index scrollWidth/innerWidth 375/375
+page title: Review: A new colleague (round 1)
+after reload: checked radios 0, code field ""
+downloads (one click, then a second tap): ["review-meeting-people-new-colleague-round-1.json format=puhuscribe-review-1 slug=meeting-people-new-colleague round=1","review-meeting-people-new-colleague-round-1.json format=puhuscribe-review-1 slug=meeting-people-new-colleague round=1"]
+page scrollWidth/innerWidth 375/375
+page meta CSP kept: default-src 'none'; script-src 'sha256-cBSkODMuEcjD/+w3CrQuLLJjJztffALC8n4U59DJdAc='; style-src 'sha256-vTxYdeiEIn0oOjakZZjLUrnHvZJr0nOQ3f5SkLBUxKI='; media-src data:; img-src data:; base-uri 'none'; form-action 'none'
+  ok 1 [chromium] › eval-pw\walk.spec.ts:8:1 › reviewer walk (4.7s)
+RESULT webkit
+index scrollWidth/innerWidth 375/375
+page title: Review: A new colleague (round 1)
+console error: Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.
+after reload: checked radios 0, code field ""
+console error: Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.
+downloads (one click, then a second tap): ["review-meeting-people-new-colleague-round-1.json format=puhuscribe-review-1 slug=meeting-people-new-colleague round=1","review-meeting-people-new-colleague-round-1.json format=puhuscribe-review-1 slug=meeting-people-new-colleague round=1"]
+page scrollWidth/innerWidth 375/375
+page meta CSP kept: default-src 'none'; script-src 'sha256-cBSkODMuEcjD/+w3CrQuLLJjJztffALC8n4U59DJdAc='; style-src 'sha256-vTxYdeiEIn0oOjakZZjLUrnHvZJr0nOQ3f5SkLBUxKI='; media-src data:; img-src data:; base-uri 'none'; form-action 'none'
+  ok 2 [webkit] › eval-pw\walk.spec.ts:8:1 › reviewer walk (11.2s)
+
+  2 passed (18.1s)

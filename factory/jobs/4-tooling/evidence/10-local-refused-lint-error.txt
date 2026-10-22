@@ -1,0 +1,43 @@
+# Job 4-tooling, statement 10 (lint error). Throwaway branch scratch/4-tooling-bad-commits from b2f95cc, never pushed.
+# Computer: Windows 11, Node v24.14.1, git 2.53.0.windows.2, lefthook 2.2.2, gitleaks 8.30.1, ruff 0.17.1
+
+$ cat src/lib/bad-lint.ts
+export function echo(value: any) {
+  return value
+}
+$ git commit -m "scratch: lint error"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+src/lib/bad-lint.ts 75ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:28PM INF 0 commits scanned.
+4:28PM INF scanned ~52 bytes (52 bytes) in 328ms
+4:28PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+C:\Users\fumna\dev\puhuscribe-v3\.worktrees\4-tooling\src\lib\bad-lint.ts
+  1:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  2:3   error  Unsafe return of a value of type `any`    @typescript-eslint/no-unsafe-return
+
+✖ 2 problems (2 errors, 0 warnings)
+
+
+exit status 1
+  ────────────────────────────────────
+summary: (done in 10.58 seconds)
+✔️ format (Prettier, fixes and restages) (2.53 seconds)
+🥊 checks (16.14 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.80 seconds)
+  ✔️ type check (tsc -b) (6.34 seconds)
+  🥊 lint (ESLint) (8.01 seconds)
+exit=1 elapsed_ms=11253
+$ git log --oneline -1   # no new commit
+b2f95cc Commit check: skip Prettier and ESLint for folders outside the app code

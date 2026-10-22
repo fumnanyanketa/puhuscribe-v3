@@ -1,0 +1,48 @@
+Evaluator evidence for 6-pr-local-db statement 13 (billed minutes).
+Computed from gh run view <run> --json jobs (startedAt, completedAt). Each job rounded up to a whole minute, as GitHub bills Linux jobs.
+The timing API (actions/runs/<id>/timing) returns billable 0 ms for every job on this account, so it was not usable.
+
+run 39652135818 (factory/6-pr-local-db 7958daa)
+  Type check, lint, format | success | 0m43s | billed 1 min
+  Database tests (local Supabase, pgTAP) | success | 1m58s | billed 2 min
+  Browser tests (Playwright, local Supabase) | success | 6m49s | billed 7 min
+  Python tests and lint (pytest, ruff) | success | 0m38s | billed 1 min
+  Unit tests (Vitest) | success | 0m43s | billed 1 min
+  Secret scan (gitleaks) | success | 0m11s | billed 1 min
+  Dependency check (npm audit, pip-audit) | success | 0m22s | billed 1 min
+  Preview link (Cloudflare Worker behind Access) | success | 6m23s | billed 7 min
+  total billed: 21 min
+
+run 39651502908 (scratch/6-prdb-a b47bfb8)
+  Secret scan (gitleaks) | success | 0m11s | billed 1 min
+  Unit tests (Vitest) | failure | 0m37s | billed 1 min
+  Dependency check (npm audit, pip-audit) | success | 0m26s | billed 1 min
+  Database tests (local Supabase, pgTAP) | failure | 1m49s | billed 2 min
+  Browser tests (Playwright, local Supabase) | success | 7m47s | billed 8 min
+  Type check, lint, format | success | 0m45s | billed 1 min
+  Python tests and lint (pytest, ruff) | success | 0m30s | billed 1 min
+  total billed: 15 min
+
+run 39651508732 (scratch/6-prdb-b a558756)
+  Dependency check (npm audit, pip-audit) | success | 0m30s | billed 1 min
+  Python tests and lint (pytest, ruff) | success | 0m31s | billed 1 min
+  Type check, lint, format | success | 0m42s | billed 1 min
+  Browser tests (Playwright, local Supabase) | success | 7m34s | billed 8 min
+  Database tests (local Supabase, pgTAP) | failure | 2m12s | billed 3 min
+  Unit tests (Vitest) | failure | 0m41s | billed 1 min
+  Secret scan (gitleaks) | success | 0m11s | billed 1 min
+  total billed: 16 min
+
+run 39653294892 (scratch/6-prdb-a 650d067)
+  Python tests and lint (pytest, ruff) | success | 0m33s | billed 1 min
+  Browser tests (Playwright, local Supabase) | success | 6m57s | billed 7 min
+  Unit tests (Vitest) | success | 0m55s | billed 1 min
+  Database tests (local Supabase, pgTAP) | success | 2m12s | billed 3 min
+  Type check, lint, format | success | 0m39s | billed 1 min
+  Secret scan (gitleaks) | success | 0m12s | billed 1 min
+  Dependency check (npm audit, pip-audit) | success | 0m21s | billed 1 min
+  Preview link (Cloudflare Worker behind Access) | success | 1m41s | billed 2 min
+  total billed: 17 min
+
+Local Supabase start on PR 14: step began 18:23:43, next step began 18:25:21 (1 min 38 s), of which about 53 s was pulling the realtime and storage-api images that the CLI uses while initialising the schema even though both services are excluded.
+PR 14 full run: 21 billed minutes, above the 20 minute line. build.md says so plainly ('This passes 20 billed minutes.').

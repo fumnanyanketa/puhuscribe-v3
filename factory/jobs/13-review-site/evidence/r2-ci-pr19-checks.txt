@@ -1,0 +1,19 @@
+# Round 2 GitHub runs on pull request #19 at b8cdf45, 22 October 2026
+## https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39736945137
+Checks: success
+job "Database tests (local Supabase, pgTAP)": success
+job "Browser tests (Playwright, local Supabase)": success
+job "Dependency check (npm audit, pip-audit)": success
+job "Unit tests (Vitest)": success
+job "Type check, lint, format": success
+job "Secret scan (gitleaks)": success
+job "Python tests and lint (pytest, ruff)": success
+job "Apply database changes to the test project": skipped
+job "Browser tests against the test project (after merge)": skipped
+job "Preview link (Cloudflare Worker behind Access)": success
+
+## https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39736945156
+Review site: success
+job "Review site build, tests and deploy dry run": success
+job "Deploy the review site (main only)": skipped
+

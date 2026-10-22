@@ -1,0 +1,21 @@
+# Evaluator, fresh clone of factory/4-tooling at c1666b1, own .git (not the shared main hooks)
+$ git config --get core.hooksPath (repo and global)
+(both empty)
+$ npm ci  -> took ~39 s, 0 vulnerabilities
+$ ls .git/hooks | grep -v sample
+pre-commit*
+$ head of .git/hooks/pre-commit
+#!/bin/sh
+
+if [ "$LEFTHOOK_VERBOSE" = "1" -o "$LEFTHOOK_VERBOSE" = "true" ]; then
+  set -x
+fi
+$ npx lefthook version
+2.2.2
+$ git status --short (npm ci changed no tracked file)
+--- CI=true check: remove the hook, run CI=true npm ci
+exit 0
+$ ls .git/hooks | grep -v sample (after CI=true npm ci)
+(nothing: no hook installed with CI=true)
+--- plain npm ci again
+pre-commit*

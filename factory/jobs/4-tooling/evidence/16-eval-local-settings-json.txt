@@ -1,0 +1,9 @@
+# Evaluator: .claude/settings.json at c1666b1 against the option B JSON copied from spec.md (owner's call 1)
+deep equal, same key order: true
+progress log Stop hook unchanged from main: true
+top-level keys: hooks | hook events: Stop,SubagentStop
+$ git diff --stat origin/main...HEAD -- .claude
+ .claude/settings.json | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+$ git status --short .claude (after npm ci, lefthook install and all hook tests in this clone)
+(empty = unchanged)

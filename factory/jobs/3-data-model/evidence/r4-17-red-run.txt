@@ -1,0 +1,70 @@
+Round 4 evidence for statement 17. Read only (gh run view, gh pr list, gh api, git ls-remote).
+
+== Scratch PRs
+{"closedAt":"2026-10-20T12:02:06Z","headRefName":"factory/3-data-model-red","number":10,"state":"CLOSED","title":"SCRATCH: red database check for job 3-data-model, round 4 (do not merge)"}
+{"closedAt":"2026-10-20T09:57:04Z","headRefName":"factory/3-data-model-red","number":9,"state":"CLOSED","title":"SCRATCH: red database check for job 3-data-model (do not merge)"}
+
+== Remote branches now: no factory/3-data-model-red
+refs/heads/dependabot/npm_and_yarn/npm-c00e685d35
+refs/heads/dependabot/pip/scripts/pip-c136704cb4
+refs/heads/factory/1-stack
+refs/heads/factory/2-smoke
+refs/heads/factory/3-data-model
+refs/heads/main
+
+== Scratch commit ab58dad: its parent is the round 4 tip, so the red run tested current code
+parent: a779ac02ae0282c2ecc3c1eb4f6cc21b76673e85
+supabase/migrations/20261020095900_scratch_any_learner_reads_every_card.sql
+@@ -0,0 +1,9 @@
++-- SCRATCH ONLY (job 3-data-model, "Done when" 17, round 4). Never merged.
++-- A rule that lets any learner read every card, to prove the database check
++-- turns red on the current code. This branch is deleted and its pull request
++-- closed afterwards.
++create policy "any learner reads every card"
++  on public.cards
++  for select
++  to authenticated
++  using (true);
+
+== Run 39418235616 jobs
+  failure Database tests (local Supabase, pgTAP)
+  success Unit tests (Vitest)
+  success Dependency check (npm audit, pip-audit)
+  success Secret scan (gitleaks)
+  success Type check, lint, format
+  success Python tests and lint (pytest, ruff)
+  skipped Apply database changes to the test project
+  skipped Preview link (Cloudflare Worker behind Access)
+  skipped Browser tests (Playwright, Chromium and WebKit)
+
+== Database job failures
+2026-10-20T11:55:34.9932740Z Applying migration 20261019183410_create_visits.sql...
+2026-10-20T11:55:35.0134442Z Applying migration 20261020090000_content_model.sql...
+2026-10-20T11:55:35.0387189Z Applying migration 20261020090100_learner_model.sql...
+2026-10-20T11:55:35.0558653Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-20T11:55:35.0610596Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-20T11:55:35.0763987Z Applying migration 20261020095900_scratch_any_learner_reads_every_card.sql...
+2026-10-20T11:55:39.2796763Z # Failed test 51: "[data 8] A (guest) reads exactly their own 1 rows in cards"
+2026-10-20T11:55:39.2797595Z #         have: (4)
+2026-10-20T11:55:39.2797772Z #         want: (1)
+2026-10-20T11:55:39.2798016Z # Failed test 55: "[data 8] A (guest) cannot read B's rows in cards"
+2026-10-20T11:55:39.2798949Z # Failed test 77: "[data 8] B (email) reads exactly their own 2 rows in cards"
+2026-10-20T11:55:39.2799526Z #         have: (4)
+2026-10-20T11:55:39.2800000Z #         want: (2)
+2026-10-20T11:55:39.2800242Z # Failed test 81: "[data 8] B (email) cannot read A's rows in cards"
+2026-10-20T11:55:39.2801070Z # Failed test 99: "[data 12] as a guest, A reads their 9 rows (3 sessions, 1 card, 1 review log, 4 consents)"
+2026-10-20T11:55:39.2801462Z #         have: 12
+2026-10-20T11:55:39.2801634Z #         want: 9
+2026-10-20T11:55:39.2801823Z # Looks like you failed 5 tests of 108
+2026-10-20T11:55:39.4030975Z # Failed test 130: "[data 2] cards has exactly its three rules"
+2026-10-20T11:55:39.4043864Z # Looks like you failed 1 test of 146
+2026-10-20T11:55:39.4436427Z supabase/tests/database/data_model_learners.test.sql (Wstat: 0 Tests: 108 Failed: 5)
+2026-10-20T11:55:39.4436935Z   Failed tests:  51, 55, 77, 81, 99
+2026-10-20T11:55:39.4437908Z supabase/tests/database/data_model_schema.test.sql   (Wstat: 0 Tests: 146 Failed: 1)
+2026-10-20T11:55:39.4438322Z   Failed test:  130
+2026-10-20T11:55:39.4439073Z Files=5, Tests=413,  0 wallclock secs ( 0.04 usr  0.01 sys +  0.03 cusr  0.03 csys =  0.11 CPU)
+2026-10-20T11:55:39.4439487Z Result: FAIL
+
+== Linked in build.md (main, round 4)?
+16:   - https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39418235616 (database job: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39418235616/job/118612407223).
+60:| 17 | Met | red run 39418235616 on the current code (above); round 1's red run 39387964441 is kept under "Earlier rounds" |

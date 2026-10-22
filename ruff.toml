@@ -1,0 +1,31 @@
+# Python lint and format rules for scripts/ (the Finnish content pipeline).
+target-version = "py312"
+line-length = 110
+src = ["scripts/generate"]
+# The commit check hands ruff the staged files by name. Without this, a file named
+# on the command line ignores the exclude lists below, so the v2 files kept
+# unchanged would be reformatted by a commit that stages them (the first commit
+# of this public copy staged every file at once).
+force-exclude = true
+extend-exclude = [".claude", ".worktrees", "docs", "factory", "recording", "spikes", "node_modules"]
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP", "PIE", "C4"]
+
+[lint.per-file-ignores]
+# Imported unchanged from v2 (docs/v2-imports.md). These style findings would
+# need edits to v2's code, so they are switched off for these files only.
+# Every correctness rule (pyflakes F, pycodestyle errors other than line length,
+# bugbear B other than B905) still applies to them.
+"scripts/generate/generate.py" = ["E501", "E731", "PIE810", "C408"]
+"scripts/generate/voikko_gate.py" = ["B905"]
+
+[format]
+# Files imported unchanged from v2 keep v2's formatting, so the "unchanged
+# against v2" check stays true.
+exclude = [
+  "scripts/generate/voikko_gate.py",
+  "scripts/generate/generate.py",
+  "scripts/generate/allowed_vocab.py",
+  "scripts/generate/test_voikko_gate.py",
+]

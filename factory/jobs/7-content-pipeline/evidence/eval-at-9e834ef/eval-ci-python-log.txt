@@ -1,0 +1,571 @@
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	﻿2026-10-21T19:01:46.7928606Z Current runner version: '2.338.0'
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7956232Z ##[group]Runner Image Provisioner
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7957259Z Hosted Compute Agent
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7957882Z Version: 20261015.610
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7958597Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7959416Z Build Date: 2026-10-14T17:06:54Z
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7960143Z Worker ID: {2f56dac5-cce7-4fe0-9b3c-3cdeb1e7c3c4}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7960960Z Region: westcentralus
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7961978Z Cloud: Azure
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7962689Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7964406Z ##[group]Operating System
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7965081Z Ubuntu
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7965753Z 24.04.5
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7966285Z LTS
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7966814Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7967514Z ##[group]Runner Image
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7968163Z Image: ubuntu-24.04
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7968807Z Version: 20261018.339.1
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7970128Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7972184Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7973228Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7974465Z ##[group]GITHUB_TOKEN Permissions
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7976424Z Contents: read
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7977168Z Metadata: read
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7977780Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7979923Z Secret source: Actions
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7981031Z Cache mode: write
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.7982228Z Prepare workflow directory
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.8437819Z Prepare all required actions
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:46.8484745Z Getting action download info
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.1370577Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.2372339Z Download action repository 'actions/setup-python@v7' (SHA:5fda3b95a4ea91299a34e894583c3862153e4b97)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.4332810Z Complete job name: Python tests and lint (pytest, ruff)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5149872Z ##[group]Run actions/checkout@v7
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5150776Z with:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5151252Z   persist-credentials: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5152051Z   repository: fumnanyanketa/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5155856Z   token: ***
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5156313Z   ssh-strict: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5156764Z   ssh-user: git
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5157198Z   clean: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5157663Z   sparse-checkout-cone-mode: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5158216Z   fetch-depth: 1
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5158680Z   fetch-tags: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5159144Z   show-progress: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5159613Z   lfs: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5160054Z   submodules: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5160566Z   set-safe-directory: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5161096Z   allow-unsafe-pr-checkout: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5162202Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5162662Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5163136Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.5163621Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6331191Z Syncing repository: fumnanyanketa/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6335065Z ##[group]Getting Git version info
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6337305Z Working directory is '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6353193Z [command]/usr/bin/git version
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6603672Z git version 2.55.0
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6611222Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6619539Z Temporarily overriding HOME='/home/runner/work/_temp/925ee01f-e34a-4697-8555-dcd83473e444' before making global git config changes
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6622151Z Adding repository directory to the temporary git global config as a safe directory
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6625430Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6764108Z Deleting the contents of '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6766935Z ##[group]Determining repository object format
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6769078Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6770622Z ##[group]Initializing the repository
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6773435Z [command]/usr/bin/git init /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6893601Z hint: Using 'master' as the name for the initial branch. This default branch name
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6896033Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6909544Z hint: to use in all of your new repositories, which will suppress this warning,
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6912309Z hint: call:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6914315Z hint:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6915751Z hint: 	git config --global init.defaultBranch <name>
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6917433Z hint:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6918832Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6921096Z hint: 'development'. The just-created branch can be renamed via this command:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6923240Z hint:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6924783Z hint: 	git branch -m <name>
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6925992Z hint:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6927682Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6931919Z Initialized empty Git repository in /home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.6936772Z [command]/usr/bin/git remote add origin https://github.com/fumnanyanketa/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7052151Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7053940Z ##[group]Disabling automatic garbage collection
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7055741Z [command]/usr/bin/git config --local gc.auto 0
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7113144Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7115253Z ##[group]Setting up auth
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7116424Z Removing SSH command configuration
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7163354Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7228179Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7905389Z Removing HTTP extra header
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7907026Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.7911813Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.8173981Z Removing includeIf entries pointing to credentials config files
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.8175995Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.8213744Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.8475071Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9352718Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path /home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9357402Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9363037Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9368249Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9373527Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9375118Z ##[group]Fetching the repository
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:47.9377317Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa:refs/remotes/pull/17/merge
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5885640Z From https://github.com/fumnanyanketa/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5889081Z  * [new ref]         e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa -> pull/17/merge
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5894998Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5896827Z ##[group]Determining the checkout info
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5898909Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5901793Z [command]/usr/bin/git sparse-checkout disable
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.5968314Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.6015315Z ##[group]Checking out the ref
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.6019707Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/17/merge
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7474392Z Note: switching to 'refs/remotes/pull/17/merge'.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7476091Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7477333Z You are in 'detached HEAD' state. You can look around, make experimental
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7480004Z changes and commit them, and you can discard any commits you make in this
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7483196Z state without impacting any branches by switching back to a branch.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7484929Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7486034Z If you want to create a new branch to retain commits you create, you may
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7488455Z do so (now or later) by using -c with the switch command. Example:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7490197Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7490977Z   git switch -c <new-branch-name>
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7492458Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7493256Z Or undo this operation with:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7494408Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7495081Z   git switch -
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7496308Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7497717Z Turn off this advice by setting config variable advice.detachedHead to false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7499858Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7501974Z HEAD is now at e1881f9 Merge 9e834ef6cb60abfab4c050118154d991ac0dd286 into 77d39af1acc68958c324496b62ea38ed26f76dca
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7508012Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7564695Z [command]/usr/bin/git log -1 --format=%H
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7606897Z e1881f9e0fd78bc2c92fc3ac53bd848ff950c7aa
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7615691Z ##[group]Removing auth
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7617310Z Removing SSH command configuration
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7621311Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7669892Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7935168Z Removing HTTP extra header
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7937309Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.7989328Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8253331Z Removing includeIf entries pointing to credentials config files
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8256506Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8295581Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8299881Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8303527Z includeif.gitdir:/github/workspace/.git.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8305834Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8312251Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8345987Z /home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8368046Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-17fcfe96\-7cb7\-4663\-81a2\-d149f8e264e3\.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8444779Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8482131Z /home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8495185Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-17fcfe96\-7cb7\-4663\-81a2\-d149f8e264e3\.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8567463Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8600318Z /github/runner_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8610401Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-17fcfe96\-7cb7\-4663\-81a2\-d149f8e264e3\.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8663243Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8704096Z /github/runner_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8718771Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-17fcfe96\-7cb7\-4663\-81a2\-d149f8e264e3\.config
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.8767123Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9030834Z Removing credentials config '/home/runner/work/_temp/git-credentials-17fcfe96-7cb7-4663-81a2-d149f8e264e3.config'
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9042601Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9374070Z ##[group]Run sudo apt-get update
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9375030Z ^[[36;1msudo apt-get update^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9376374Z ^[[36;1msudo apt-get install -y --no-install-recommends libvoikko1 voikko-fi^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9583841Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9584624Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9585126Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9585761Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:49.9586400Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.0773750Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.1173061Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.1263687Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.1413470Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.1510802Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.1708408Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.3683651Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.3874415Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [309 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.3912458Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.4092703Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.5395256Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1145 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.5442464Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.5472580Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.6333089Z Get:14 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [567 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:50.6472489Z Get:15 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [630 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:54.1650487Z Fetched 7934 kB in 1s (6960 kB/s)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.2132929Z Reading package lists...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.2535374Z Reading package lists...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.4659665Z Building dependency tree...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.4668479Z Reading state information...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6172183Z The following additional packages will be installed:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6192684Z   libhfstospell11
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6393596Z The following NEW packages will be installed:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6402978Z   libhfstospell11 libvoikko1 voikko-fi
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6607316Z 0 upgraded, 3 newly installed, 0 to remove and 52 not upgraded.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6608051Z Need to get 1635 kB of archives.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6608669Z After this operation, 4439 kB of additional disk space will be used.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.6609387Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.7294071Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libhfstospell11 amd64 0.5.4-1build3 [61.9 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.7769578Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvoikko1 amd64 4.3.2-1build1 [101 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:55.8296765Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 voikko-fi amd64 2.5-1build1 [1472 kB]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.1727055Z Fetched 1635 kB in 0s (6643 kB/s)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2002708Z Selecting previously unselected package libhfstospell11:amd64.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2256807Z (Reading database ... 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2257375Z (Reading database ... 5%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2259797Z (Reading database ... 10%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2260208Z (Reading database ... 15%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2260480Z (Reading database ... 20%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2260733Z (Reading database ... 25%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2260974Z (Reading database ... 30%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2261387Z (Reading database ... 35%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2262193Z (Reading database ... 40%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2263419Z (Reading database ... 45%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2282230Z (Reading database ... 50%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.2328831Z (Reading database ... 55%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.3537232Z (Reading database ... 60%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:56.5177389Z (Reading database ... 65%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:57.6981257Z (Reading database ... 70%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:57.9549587Z (Reading database ... 75%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.0588517Z (Reading database ... 80%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.2088871Z (Reading database ... 85%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.3116752Z (Reading database ... 90%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4292827Z (Reading database ... 95%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4293541Z (Reading database ... 100%
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4296222Z (Reading database ... 214410 files and directories currently installed.)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4330289Z Preparing to unpack .../libhfstospell11_0.5.4-1build3_amd64.deb ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4402278Z Unpacking libhfstospell11:amd64 (0.5.4-1build3) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4668754Z Selecting previously unselected package libvoikko1:amd64.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4810034Z Preparing to unpack .../libvoikko1_4.3.2-1build1_amd64.deb ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.4822228Z Unpacking libvoikko1:amd64 (4.3.2-1build1) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5074888Z Selecting previously unselected package voikko-fi.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5224266Z Preparing to unpack .../voikko-fi_2.5-1build1_amd64.deb ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5251456Z Unpacking voikko-fi (2.5-1build1) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5919764Z Setting up voikko-fi (2.5-1build1) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5951733Z Setting up libhfstospell11:amd64 (0.5.4-1build3) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5976755Z Setting up libvoikko1:amd64 (4.3.2-1build1) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:58.5999263Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3102505Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3103653Z Running kernel seems to be up-to-date.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3104238Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3104566Z No services need to be restarted.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3105010Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3105300Z No containers need to be restarted.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3105755Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3106090Z No user sessions are running outdated binaries.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3106549Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:01:59.3106973Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3460643Z ##[group]Run actions/setup-python@v7
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3461158Z with:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3461380Z   python-version: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3462058Z   cache: pip
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3462337Z   cache-dependency-path: scripts/requirements*.txt
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3462671Z   check-latest: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3465084Z   token: ***
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3465310Z   update-environment: true
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3465567Z   allow-prereleases: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3465818Z   freethreaded: false
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3466049Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3466248Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3466465Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.3466691Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.4758769Z ##[group]Installed versions
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.4852050Z Successfully set up CPython (3.12.15)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.4853236Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.5490903Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:00.9185534Z /home/runner/.cache/pip
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:01.1369052Z Cache hit for restore-key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-f60e17b8c6d933137a184a9891ca15105eaf9bea46597d44e15528fbd684b41f
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.3602028Z Received 50331648 of 84190764 (59.8%), 47.8 MBs/sec
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.5719704Z Received 84190764 of 84190764 (100.0%), 66.0 MBs/sec
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.5721415Z Cache Size: ~80 MB (84190764 B)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.5820705Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8e3b694f-7cd2-4a93-aed2-1e920db84d9a/cache.tzst -P -C /home/runner/work/puhuscribe-v3/puhuscribe-v3 --use-compress-program unzstd
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.7722866Z Cache restored successfully
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.7767323Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-f60e17b8c6d933137a184a9891ca15105eaf9bea46597d44e15528fbd684b41f
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.7997719Z ##[group]Run pip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.7998675Z ^[[36;1mpip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8053214Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8053499Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8053712Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8053959Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8054275Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8054754Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8055229Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8055652Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8056069Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8056513Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:02.8056859Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.5552807Z Collecting libvoikko>=4.3 (from -r scripts/requirements.txt (line 9))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.5572537Z   Using cached libvoikko-4.3-py3-none-any.whl.metadata (876 bytes)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.5852752Z Collecting wordfreq>=3.0 (from -r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.5860975Z   Using cached wordfreq-3.1.1-py3-none-any.whl.metadata (27 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.6612107Z Collecting anthropic>=0.40 (from -r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:03.7569338Z   Downloading anthropic-2.0.0-py3-none-any.whl.metadata (6.0 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.0541720Z Collecting pytest>=8.0 (from -r scripts/requirements.txt (line 12))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.0557154Z   Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4097758Z Collecting ruff==0.17.1 (from -r scripts/requirements-dev.txt (line 3))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4113281Z   Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4429481Z Collecting pip-audit==2.10.1 (from -r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4443670Z   Using cached pip_audit-2.10.1-py3-none-any.whl.metadata (28 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4504104Z Collecting anthropic>=0.40 (from -r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.4724148Z   Downloading anthropic-1.10.0-py3-none-any.whl.metadata (3.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5080126Z Collecting anyio<5,>=4.1.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5094169Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5363376Z Collecting docstring-parser<1,>=0.15 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5377113Z   Using cached docstring_parser-0.18.0-py3-none-any.whl.metadata (3.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5652481Z Collecting httpx2<3,>=2.0.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.5846867Z   Downloading httpx2-2.16.0-py3-none-any.whl.metadata (10 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.6926782Z Collecting jiter<1,>=0.4.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.6942125Z   Using cached jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8115897Z Collecting pydantic<3,>=1.10.0 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8131403Z   Using cached pydantic-2.14.1-py3-none-any.whl.metadata (133 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8420071Z Collecting sniffio<2,>=1 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8434293Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8833429Z Collecting typing-extensions<5,>=4.14 (from anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.8843130Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9120025Z Collecting CacheControl>=0.13.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9134116Z   Using cached cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9562926Z Collecting cyclonedx-python-lib<12,>=5 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9574442Z   Using cached cyclonedx_python_lib-11.12.0-py3-none-any.whl.metadata (6.9 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9888386Z Collecting packaging>=23.0.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:04.9902414Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0213002Z Collecting pip-api>=0.0.28 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0232574Z   Using cached pip_api-0.0.35-py3-none-any.whl.metadata (17 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0507041Z Collecting pip-requirements-parser>=32.0.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0520693Z   Using cached pip_requirements_parser-32.0.1-py3-none-any.whl.metadata (9.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0872667Z Collecting requests>=2.31.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.0886400Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.1317220Z Collecting rich>=12.4 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.1331004Z   Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.1758142Z Collecting tomli>=2.2.1 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.1772947Z   Using cached tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2028908Z Collecting tomli-w>=1.2.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2032985Z   Using cached tomli_w-1.2.0-py3-none-any.whl.metadata (5.7 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2362108Z Collecting platformdirs>=4.2.0 (from pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2375545Z   Using cached platformdirs-4.13.5-py3-none-any.whl.metadata (5.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2657732Z Collecting idna>=2.8 (from anyio<5,>=4.1.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2671321Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.2973617Z Collecting license-expression<31,>=30 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3007575Z   Using cached license_expression-30.4.4-py3-none-any.whl.metadata (11 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3328568Z Collecting packageurl-python<2,>=0.11 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3341559Z   Using cached packageurl_python-0.17.6-py3-none-any.whl.metadata (5.1 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3633579Z Collecting py-serializable<3.0.0,>=2.1.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3645982Z   Using cached py_serializable-2.1.0-py3-none-any.whl.metadata (4.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3912224Z Collecting sortedcontainers<3.0.0,>=2.4.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.3924854Z   Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.4247522Z Collecting httpcore2==2.16.0 (from httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.4437278Z   Downloading httpcore2-2.16.0-py3-none-any.whl.metadata (27 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.4983146Z Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.4996178Z   Using cached truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5253997Z Collecting h11>=0.16 (from httpcore2==2.16.0->httpx2<3,>=2.0.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5266685Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5542288Z Collecting boolean.py>=4.0 (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5555495Z   Using cached boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5822970Z Collecting defusedxml<0.8.0,>=0.7.1 (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.5835590Z   Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.6103706Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:05.6116258Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3153740Z Collecting pydantic-core==2.50.1 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3168598Z   Using cached pydantic_core-2.50.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3416820Z Collecting typing-inspection>=0.4.4 (from pydantic<3,>=1.10.0->anthropic>=0.40->-r scripts/requirements.txt (line 11))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3429433Z   Using cached typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3738065Z Collecting ftfy>=6.1 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.3751004Z   Using cached ftfy-6.3.1-py3-none-any.whl.metadata (7.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.4000707Z Collecting langcodes>=3.0 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.4013913Z   Using cached langcodes-3.5.1-py3-none-any.whl.metadata (30 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.4297665Z Collecting locate<2.0.0,>=1.1.1 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.4310853Z   Using cached locate-1.1.1-py3-none-any.whl.metadata (3.9 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.5205887Z Collecting msgpack<2.0.0,>=1.0.7 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.5222323Z   Using cached msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.8981312Z Collecting regex>=2023.10.3 (from wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.8997517Z   Using cached regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9272451Z Collecting iniconfig>=1.0.1 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9286404Z   Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9560278Z Collecting pluggy<2,>=1.5 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9574196Z   Using cached pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9885635Z Collecting pygments>=2.7.2 (from pytest>=8.0->-r scripts/requirements.txt (line 12))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:06.9899213Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.0326087Z Collecting filelock>=3.8.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.0340682Z   Using cached filelock-4.2.4-py3-none-any.whl.metadata (2.0 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.0705798Z Collecting wcwidth (from ftfy>=6.1->wordfreq>=3.0->-r scripts/requirements.txt (line 10))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.0897354Z   Downloading wcwidth-0.9.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (23 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.1002900Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4)) (26.2.1)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.1366020Z Collecting pyparsing (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.1379892Z   Using cached pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.2740089Z Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.2756432Z   Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.3127460Z Collecting urllib3<3,>=1.26 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.3141145Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.3777419Z Collecting certifi>=2023.5.7 (from requests>=2.31.0->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.3968445Z   Downloading certifi-2026.10.19-py3-none-any.whl.metadata (2.5 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4284817Z Collecting markdown-it-py>=2.2.0 (from rich>=12.4->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4298261Z   Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4583096Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.4->pip-audit==2.10.1->-r scripts/requirements-dev.txt (line 4))
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4599190Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4687340Z Using cached libvoikko-4.3-py3-none-any.whl (9.7 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.4892903Z Downloading anthropic-1.10.0-py3-none-any.whl (1.7 MB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5705430Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 33.9 MB/s  0:00:00
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5719965Z Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5772119Z Using cached pip_audit-2.10.1-py3-none-any.whl (62 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5785414Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5798985Z Using cached cyclonedx_python_lib-11.12.0-py3-none-any.whl (529 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.5814114Z Using cached docstring_parser-0.18.0-py3-none-any.whl (22 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6008140Z Downloading httpx2-2.16.0-py3-none-any.whl (97 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6232789Z Downloading httpcore2-2.16.0-py3-none-any.whl (85 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6263833Z Using cached jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (345 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6278146Z Using cached license_expression-30.4.4-py3-none-any.whl (120 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6291342Z Using cached packageurl_python-0.17.6-py3-none-any.whl (36 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6304655Z Using cached py_serializable-2.1.0-py3-none-any.whl (23 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6317593Z Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6330339Z Using cached pydantic-2.14.1-py3-none-any.whl (488 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6345460Z Using cached pydantic_core-2.50.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6366019Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6378974Z Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6391471Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6404568Z Using cached wordfreq-3.1.1-py3-none-any.whl (56.8 MB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6627896Z Using cached locate-1.1.1-py3-none-any.whl (5.4 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6642348Z Using cached msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6656964Z Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6671334Z Using cached pluggy-1.7.0-py3-none-any.whl (27 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6684681Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6697634Z Using cached boolean_py-5.0-py3-none-any.whl (26 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6710479Z Using cached cachecontrol-0.14.4-py3-none-any.whl (22 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6723900Z Using cached filelock-4.2.4-py3-none-any.whl (162 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6736905Z Using cached ftfy-6.3.1-py3-none-any.whl (44 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6749705Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6762488Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6775674Z Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6788524Z Using cached langcodes-3.5.1-py3-none-any.whl (183 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6801796Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6815140Z Using cached pip_api-0.0.35-py3-none-any.whl (123 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6828485Z Using cached pip_requirements_parser-32.0.1-py3-none-any.whl (35 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6841124Z Using cached platformdirs-4.13.5-py3-none-any.whl (32 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6854230Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6872229Z Using cached regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6887834Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6901398Z Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.6915379Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7105925Z Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7152502Z Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7162561Z Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7174578Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7188596Z Using cached tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (286 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7202107Z Using cached tomli_w-1.2.0-py3-none-any.whl (6.7 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7216835Z Using cached truststore-0.10.5-py3-none-any.whl (19 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7229967Z Using cached typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7243248Z Using cached pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7442297Z Downloading wcwidth-0.9.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (770 kB)
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:07.7510555Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.0/770.0 kB 135.9 MB/s  0:00:00
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:08.0625543Z Installing collected packages: sortedcontainers, boolean.py, wcwidth, urllib3, typing-extensions, truststore, tomli-w, tomli, sniffio, ruff, regex, pyparsing, pygments, pluggy, platformdirs, pip-api, packaging, packageurl-python, msgpack, mdurl, locate, license-expression, libvoikko, langcodes, jiter, iniconfig, idna, h11, filelock, docstring-parser, defusedxml, charset_normalizer, certifi, annotated-types, typing-inspection, requests, pytest, pydantic-core, py-serializable, pip-requirements-parser, markdown-it-py, httpcore2, ftfy, anyio, wordfreq, rich, pydantic, httpx2, cyclonedx-python-lib, CacheControl, anthropic, pip-audit
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.1230741Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.1280623Z Successfully installed CacheControl-0.14.4 annotated-types-0.8.0 anthropic-1.10.0 anyio-4.15.1 boolean.py-5.0 certifi-2026.10.19 charset_normalizer-3.5.2 cyclonedx-python-lib-11.12.0 defusedxml-0.7.1 docstring-parser-0.18.0 filelock-4.2.4 ftfy-6.3.1 h11-0.16.0 httpcore2-2.16.0 httpx2-2.16.0 idna-3.20 iniconfig-2.3.1 jiter-0.17.0 langcodes-3.5.1 libvoikko-4.3 license-expression-30.4.4 locate-1.1.1 markdown-it-py-4.2.0 mdurl-0.1.2 msgpack-1.2.3 packageurl-python-0.17.6 packaging-26.3 pip-api-0.0.35 pip-audit-2.10.1 pip-requirements-parser-32.0.1 platformdirs-4.13.5 pluggy-1.7.0 py-serializable-2.1.0 pydantic-2.14.1 pydantic-core-2.50.1 pygments-2.21.0 pyparsing-3.3.3 pytest-9.1.1 regex-2026.9.29 requests-2.34.2 rich-15.0.0 ruff-0.17.1 sniffio-1.3.1 sortedcontainers-2.4.0 tomli-2.5.0 tomli-w-1.2.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 wcwidth-0.9.3 wordfreq-3.1.1
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3071391Z ##[group]Run ruff check scripts
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3072088Z ^[[36;1mruff check scripts^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3126249Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3126529Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3126737Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3127122Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3127451Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3127929Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3128405Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3128825Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3129242Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3129672Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3130023Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3356884Z All checks passed!
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3403745Z ##[group]Run ruff format --check scripts
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3404130Z ^[[36;1mruff format --check scripts^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3455171Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3455447Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3455661Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3455917Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3456253Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3456736Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3457210Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3457621Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3458037Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3458447Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3458788Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3686356Z 27 files already formatted
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3730368Z ##[group]Run sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3731190Z ^[[36;1msudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3732203Z ^[[36;1m  python -m pytest scripts/generate --junitxml=pytest-results.xml^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3782524Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3782805Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3783023Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3783263Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3783577Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3784048Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3784526Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3784967Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3785433Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3785861Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:13.3786207Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4112102Z ============================= test session starts ==============================
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4113331Z platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4114580Z rootdir: /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4115561Z configfile: pytest.ini
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4116289Z plugins: anyio-4.15.1, platformdirs-4.13.5
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4117096Z collected 130 items
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4117578Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.4376249Z scripts/generate/test_content_brief.py ......................            [ 16%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:14.9484531Z scripts/generate/test_content_checks.py ....................             [ 32%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.0420312Z scripts/generate/test_content_drafting.py ......                         [ 36%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.0762961Z scripts/generate/test_content_providers.py ................              [ 49%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.3536862Z scripts/generate/test_content_publish.py ............                    [ 58%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.7468319Z scripts/generate/test_content_review.py .....................            [ 74%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.7683310Z scripts/generate/test_content_tags.py ........................           [ 93%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.8740098Z scripts/generate/test_voikko_gate.py .........                           [100%]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.8740891Z 
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.8741455Z - generated xml file: /home/runner/work/puhuscribe-v3/puhuscribe-v3/pytest-results.xml -
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.8742787Z ============================= 130 passed in 1.72s ==============================
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9209114Z ##[group]Run python - <<'PY'
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9209485Z ^[[36;1mpython - <<'PY'^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9209778Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9210154Z ^[[36;1mroot = ET.parse("pytest-results.xml").getroot()^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9210626Z ^[[36;1msuite = root if root.tag == "testsuite" else root.find("testsuite")^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9211195Z ^[[36;1mcounts = {k: int(suite.get(k, 0)) for k in ("tests", "failures", "errors", "skipped")}^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9212031Z ^[[36;1mprint(counts)^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9212429Z ^[[36;1massert counts == {"tests": 130, "failures": 0, "errors": 0, "skipped": 0}, counts^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9213115Z ^[[36;1mv2 = {c.get("name") for c in suite.iter("testcase") if c.get("classname", "").endswith("test_voikko_gate")}^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9213655Z ^[[36;1mprint(len(v2), "Voikko gate tests")^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9213968Z ^[[36;1massert len(v2) == 9, v2^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9214226Z ^[[36;1mPY^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9264005Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9264280Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9264489Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9264728Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9265048Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9265538Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9266000Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9266423Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9266840Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9267268Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9267853Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9554300Z {'tests': 130, 'failures': 0, 'errors': 0, 'skipped': 0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9555096Z 9 Voikko gate tests
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9626563Z ##[group]Run sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9627377Z ^[[36;1msudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9627967Z ^[[36;1m  python scripts/generate/pipeline.py check-committed^[[0m
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9678191Z shell: /usr/bin/bash -e {0}
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9678468Z env:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9678685Z   NODE_VERSION: 24
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9678923Z   PYTHON_VERSION: 3.12
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9679237Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9679701Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9680169Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9680592Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9681005Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9681729Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:15.9682143Z ##[endgroup]
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:16.0968496Z No committed drafts yet.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:16.1225419Z Post job cleanup.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:16.3383306Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/puhuscribe-v3/puhuscribe-v3 --files-from manifest.txt --use-compress-program zstdmt
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:17.9015806Z Sent 39059456 of 86615781 (45.1%), 37.2 MBs/sec
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:18.9017201Z Sent 86615781 of 86615781 (100.0%), 41.3 MBs/sec
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.3040392Z Cache saved with the key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-c7268e4694320019b0dd6f8d2bca41e3aca3100a5f339666f73f51275996446d
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.3215522Z Post job cleanup.
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4192437Z [command]/usr/bin/git version
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4272562Z git version 2.55.0
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4375858Z Temporarily overriding HOME='/home/runner/work/_temp/7f85eca7-08f2-40a0-a342-53d514002426' before making global git config changes
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4377802Z Adding repository directory to the temporary git global config as a safe directory
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4400283Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4442592Z Removing SSH command configuration
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4463058Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4484018Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4822911Z Removing HTTP extra header
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4833741Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.4885703Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.5522674Z Removing includeIf entries pointing to credentials config files
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.5562710Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.5695909Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python tests and lint (pytest, ruff)	UNKNOWN STEP	2026-10-21T19:02:19.6622605Z Cleaning up orphan processes

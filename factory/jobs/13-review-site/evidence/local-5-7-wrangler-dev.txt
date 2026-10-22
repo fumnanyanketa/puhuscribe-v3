@@ -1,0 +1,98 @@
+# wrangler dev --config review-site/wrangler.jsonc on 127.0.0.1:8799, no Access settings set (job 13-review-site, 22 October 2026)
+
+$ curl -i -X GET http://127.0.0.1:8799/
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+This site is private. Sign in through its Cloudflare Access page to open it.
+
+$ curl -i -X GET http://127.0.0.1:8799/robots.txt
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+This site is private. Sign in through its Cloudflare Access page to open it.
+
+$ curl -i -X GET http://127.0.0.1:8799/meeting-people-new-colleague/round-1
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+This site is private. Sign in through its Cloudflare Access page to open it.
+
+$ curl -i -X HEAD http://127.0.0.1:8799/
+HTTP/1.1 403 Forbidden
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+
+$ curl -i -X POST http://127.0.0.1:8799/
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 44
+Content-Type: text/plain; charset=utf-8
+Allow: GET, HEAD
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+Only GET and HEAD are allowed on this site.
+
+$ curl -i -X PUT http://127.0.0.1:8799/meeting-people-new-colleague/round-1
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 44
+Content-Type: text/plain; charset=utf-8
+Allow: GET, HEAD
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+Only GET and HEAD are allowed on this site.
+
+$ curl -i -X DELETE http://127.0.0.1:8799/
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 44
+Content-Type: text/plain; charset=utf-8
+Allow: GET, HEAD
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+Only GET and HEAD are allowed on this site.
+
+$ curl -i -X GET http://127.0.0.1:8799/content/drafts/meeting-people-new-colleague/draft.json
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+This site is private. Sign in through its Cloudflare Access page to open it.

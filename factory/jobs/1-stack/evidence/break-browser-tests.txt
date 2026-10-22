@@ -1,0 +1,20 @@
+[chromium] main path: status text = "Server: ok", console errors/warnings = []
+[chromium] after two fast reloads: "Server: ok"
+[chromium] /api/health in the browser: {"status":"ok","service":"puhuscribe","database":"reachable"}
+[chromium] after Back: "Server: ok"
+[chromium] after Forward: {"status":"ok","service":"puhuscribe","database":"reachable"}
+[chromium] slow API (4 s delay), text while waiting: "Checking the server."
+[chromium] slow API, text after it answers: "Server: ok"
+[chromium] API down: "Server: not reachable", console: ["error: Failed to load resource: net::ERR_CONNECTION_REFUSED","warning: Health check failed TypeError: Failed to fetch\n    at http://localhost:5173/src/App.tsx:15:3\n    at Object.react_stack_bottom_frame (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:14177:13)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:943:66)\n    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:6900:153)\n    at commitHookPassiveMountEffects (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:6935:55)\n    at reconnectPassiveEffects (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:8400:6)\n    at recursivelyTraverseReconnectPassiveEffects (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:8387:5)\n    at reconnectPassiveEffects (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:8412:14)\n    at doubleInvokeEffectsOnFiber (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:9698:181)\n    at runWithFiberInDEV (http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=32c9f431:943:66)"]
+[chromium] API returns 500 HTML: "Server: not reachable", console: ["error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)","warning: Health check failed SyntaxError: Unexpected token '<', \"<h1>oops</h1>\" is not valid JSON"]
+[chromium] failed requests seen during the whole run: ["GET /api/health net::ERR_ABORTED","GET /api/health net::ERR_ABORTED","GET /api/health net::ERR_ABORTED","GET /api/health net::ERR_ABORTED","GET /api/health net::ERR_ABORTED","GET /api/health net::ERR_CONNECTION_REFUSED","GET /api/health net::ERR_ABORTED"]
+[webkit] main path: status text = "Server: ok", console errors/warnings = []
+[webkit] after two fast reloads: "Server: ok"
+[webkit] /api/health in the browser: {"status":"ok","service":"puhuscribe","database":"reachable"}
+[webkit] after Back: "Server: ok"
+[webkit] after Forward: {"status":"ok","service":"puhuscribe","database":"reachable"}
+[webkit] slow API (4 s delay), text while waiting: "Checking the server."
+[webkit] slow API, text after it answers: "Server: ok"
+[webkit] API down: "Server: not reachable", console: ["warning: Health check failed TypeError: Load failed"]
+[webkit] API returns 500 HTML: "Server: not reachable", console: ["error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)","warning: Health check failed SyntaxError: The string did not match the expected pattern."]
+[webkit] failed requests seen during the whole run: ["GET /api/health Load request cancelled","GET /api/health Load request cancelled","GET /api/health Load request cancelled","GET /api/health Load request cancelled","GET /api/health Load request cancelled","GET /api/health Blocked by Web Inspector","GET /api/health Load request cancelled"]

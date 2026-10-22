@@ -1,0 +1,856 @@
+﻿2026-10-21T19:54:07.9571365Z Current runner version: '2.338.0'
+2026-10-21T19:54:07.9608518Z ##[group]Runner Image Provisioner
+2026-10-21T19:54:07.9609907Z Hosted Compute Agent
+2026-10-21T19:54:07.9611052Z Version: 20261015.610
+2026-10-21T19:54:07.9612142Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+2026-10-21T19:54:07.9613526Z Build Date: 2026-10-14T17:06:54Z
+2026-10-21T19:54:07.9614852Z Worker ID: {a7c01b9a-d6f4-46e0-b4fc-c8af63bb2c27}
+2026-10-21T19:54:07.9616180Z Region: westus2
+2026-10-21T19:54:07.9617677Z Cloud: Azure
+2026-10-21T19:54:07.9618613Z ##[endgroup]
+2026-10-21T19:54:07.9621251Z ##[group]Operating System
+2026-10-21T19:54:07.9622343Z Ubuntu
+2026-10-21T19:54:07.9623265Z 24.04.5
+2026-10-21T19:54:07.9624210Z LTS
+2026-10-21T19:54:07.9625058Z ##[endgroup]
+2026-10-21T19:54:07.9625966Z ##[group]Runner Image
+2026-10-21T19:54:07.9627371Z Image: ubuntu-24.04
+2026-10-21T19:54:07.9628430Z Version: 20261018.339.1
+2026-10-21T19:54:07.9630803Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-21T19:54:07.9633660Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+2026-10-21T19:54:07.9635574Z ##[endgroup]
+2026-10-21T19:54:07.9637949Z ##[group]GITHUB_TOKEN Permissions
+2026-10-21T19:54:07.9640841Z Contents: read
+2026-10-21T19:54:07.9641855Z Metadata: read
+2026-10-21T19:54:07.9643005Z ##[endgroup]
+2026-10-21T19:54:07.9646268Z Secret source: Actions
+2026-10-21T19:54:07.9648257Z Cache mode: write
+2026-10-21T19:54:07.9649774Z Prepare workflow directory
+2026-10-21T19:54:08.0425206Z Prepare all required actions
+2026-10-21T19:54:08.0499533Z Getting action download info
+2026-10-21T19:54:08.5224775Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-21T19:54:08.6401347Z Download action repository 'supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359' (SHA:45a513f8c64c0bc8e0e3dfe572b5c95be85f6359)
+2026-10-21T19:54:08.8245109Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-21T19:54:09.0066703Z Getting action download info
+2026-10-21T19:54:09.1686130Z Download action repository 'actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e' (SHA:48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e)
+2026-10-21T19:54:09.3163543Z Download action repository 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6' (SHA:0c5077e51419868618aeaa5fe8019c62421857d6)
+2026-10-21T19:54:09.5626951Z Complete job name: Database tests (local Supabase, pgTAP)
+2026-10-21T19:54:09.6506160Z ##[group]Run actions/checkout@v7
+2026-10-21T19:54:09.6507483Z with:
+2026-10-21T19:54:09.6508046Z   persist-credentials: false
+2026-10-21T19:54:09.6508741Z   repository: fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.6513983Z   token: ***
+2026-10-21T19:54:09.6514521Z   ssh-strict: true
+2026-10-21T19:54:09.6515059Z   ssh-user: git
+2026-10-21T19:54:09.6515609Z   clean: true
+2026-10-21T19:54:09.6516194Z   sparse-checkout-cone-mode: true
+2026-10-21T19:54:09.6517115Z   fetch-depth: 1
+2026-10-21T19:54:09.6517651Z   fetch-tags: false
+2026-10-21T19:54:09.6518193Z   show-progress: true
+2026-10-21T19:54:09.6518748Z   lfs: false
+2026-10-21T19:54:09.6519236Z   submodules: false
+2026-10-21T19:54:09.6519787Z   set-safe-directory: true
+2026-10-21T19:54:09.6520427Z   allow-unsafe-pr-checkout: false
+2026-10-21T19:54:09.6521368Z env:
+2026-10-21T19:54:09.6521865Z   NODE_VERSION: 24
+2026-10-21T19:54:09.6522404Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:09.6523482Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:09.6524169Z ##[endgroup]
+2026-10-21T19:54:09.7882806Z Syncing repository: fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.7887975Z ##[group]Getting Git version info
+2026-10-21T19:54:09.7890528Z Working directory is '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+2026-10-21T19:54:09.7894037Z [command]/usr/bin/git version
+2026-10-21T19:54:09.8068547Z git version 2.55.0
+2026-10-21T19:54:09.8095861Z ##[endgroup]
+2026-10-21T19:54:09.8114625Z Temporarily overriding HOME='/home/runner/work/_temp/0e58782c-01f6-422a-8bc7-d486cf58dcb9' before making global git config changes
+2026-10-21T19:54:09.8126021Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T19:54:09.8146125Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:09.8261229Z Deleting the contents of '/home/runner/work/puhuscribe-v3/puhuscribe-v3'
+2026-10-21T19:54:09.8264734Z ##[group]Determining repository object format
+2026-10-21T19:54:09.8278880Z ##[endgroup]
+2026-10-21T19:54:09.8282282Z ##[group]Initializing the repository
+2026-10-21T19:54:09.8286680Z [command]/usr/bin/git init /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:54:09.8354592Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-21T19:54:09.8381202Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-21T19:54:09.8392681Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-21T19:54:09.8397341Z hint: call:
+2026-10-21T19:54:09.8417963Z hint:
+2026-10-21T19:54:09.8428445Z hint: 	git config --global init.defaultBranch <name>
+2026-10-21T19:54:09.8433680Z hint:
+2026-10-21T19:54:09.8435292Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-21T19:54:09.8458305Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-21T19:54:09.8488079Z hint:
+2026-10-21T19:54:09.8502871Z hint: 	git branch -m <name>
+2026-10-21T19:54:09.8507708Z hint:
+2026-10-21T19:54:09.8509311Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-21T19:54:09.8511874Z Initialized empty Git repository in /home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/
+2026-10-21T19:54:09.8516417Z [command]/usr/bin/git remote add origin https://github.com/fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:09.8523555Z ##[endgroup]
+2026-10-21T19:54:09.8525612Z ##[group]Disabling automatic garbage collection
+2026-10-21T19:54:09.8527923Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-21T19:54:09.8531839Z ##[endgroup]
+2026-10-21T19:54:09.8534160Z ##[group]Setting up auth
+2026-10-21T19:54:09.8535465Z Removing SSH command configuration
+2026-10-21T19:54:09.8556336Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:54:09.8615391Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:54:09.9248643Z Removing HTTP extra header
+2026-10-21T19:54:09.9288840Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:54:09.9338888Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:54:09.9649395Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:54:09.9651990Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:54:09.9733068Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:54:09.9989282Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-21T19:54:10.0111640Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path /home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:10.0170076Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:10.0256651Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:10.0313105Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:10.0378407Z ##[endgroup]
+2026-10-21T19:54:10.0380234Z ##[group]Fetching the repository
+2026-10-21T19:54:10.0409821Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5232bf7312179c3464af6d923c526d0b93e9a91c:refs/remotes/pull/17/merge
+2026-10-21T19:54:11.8681494Z From https://github.com/fumnanyanketa/puhuscribe-v3
+2026-10-21T19:54:11.8694454Z  * [new ref]         5232bf7312179c3464af6d923c526d0b93e9a91c -> pull/17/merge
+2026-10-21T19:54:11.8710161Z ##[endgroup]
+2026-10-21T19:54:11.8713918Z ##[group]Determining the checkout info
+2026-10-21T19:54:11.8715176Z ##[endgroup]
+2026-10-21T19:54:11.8716059Z [command]/usr/bin/git sparse-checkout disable
+2026-10-21T19:54:11.8778110Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-21T19:54:11.8818750Z ##[group]Checking out the ref
+2026-10-21T19:54:11.8824170Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/17/merge
+2026-10-21T19:54:12.0396384Z Note: switching to 'refs/remotes/pull/17/merge'.
+2026-10-21T19:54:12.0416759Z 
+2026-10-21T19:54:12.0417775Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-21T19:54:12.0418910Z changes and commit them, and you can discard any commits you make in this
+2026-10-21T19:54:12.0420006Z state without impacting any branches by switching back to a branch.
+2026-10-21T19:54:12.0420642Z 
+2026-10-21T19:54:12.0421098Z If you want to create a new branch to retain commits you create, you may
+2026-10-21T19:54:12.0422064Z do so (now or later) by using -c with the switch command. Example:
+2026-10-21T19:54:12.0422620Z 
+2026-10-21T19:54:12.0422894Z   git switch -c <new-branch-name>
+2026-10-21T19:54:12.0423272Z 
+2026-10-21T19:54:12.0423538Z Or undo this operation with:
+2026-10-21T19:54:12.0423884Z 
+2026-10-21T19:54:12.0424107Z   git switch -
+2026-10-21T19:54:12.0424395Z 
+2026-10-21T19:54:12.0424904Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-21T19:54:12.0425702Z 
+2026-10-21T19:54:12.0426447Z HEAD is now at 5232bf7 Merge cc90a758a76a13816e231fc0c5cd214cea4dfe1a into 40848cd039042dbaa9c001f6bba17b12bc047807
+2026-10-21T19:54:12.0430140Z ##[endgroup]
+2026-10-21T19:54:12.0489595Z [command]/usr/bin/git log -1 --format=%H
+2026-10-21T19:54:12.0533427Z 5232bf7312179c3464af6d923c526d0b93e9a91c
+2026-10-21T19:54:12.0544863Z ##[group]Removing auth
+2026-10-21T19:54:12.0545964Z Removing SSH command configuration
+2026-10-21T19:54:12.0550219Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:54:12.0600056Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:54:12.0874603Z Removing HTTP extra header
+2026-10-21T19:54:12.0877567Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:54:12.0929265Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:54:12.1218353Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:54:12.1220180Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:54:12.1268724Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+2026-10-21T19:54:12.1270597Z includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+2026-10-21T19:54:12.1271991Z includeif.gitdir:/github/workspace/.git.path
+2026-10-21T19:54:12.1273745Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T19:54:12.1280172Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path
+2026-10-21T19:54:12.1320584Z /home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:12.1339204Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-427dad67\-e2b1\-4dad\-b63f\-bc437688cd67\.config
+2026-10-21T19:54:12.1396284Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path
+2026-10-21T19:54:12.1443206Z /home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:12.1454606Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/puhuscribe-v3/puhuscribe-v3/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-427dad67\-e2b1\-4dad\-b63f\-bc437688cd67\.config
+2026-10-21T19:54:12.1519236Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-21T19:54:12.1571951Z /github/runner_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:12.1580424Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-427dad67\-e2b1\-4dad\-b63f\-bc437688cd67\.config
+2026-10-21T19:54:12.1634772Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T19:54:12.1675695Z /github/runner_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config
+2026-10-21T19:54:12.1685326Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-427dad67\-e2b1\-4dad\-b63f\-bc437688cd67\.config
+2026-10-21T19:54:12.1735946Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:54:12.2010098Z Removing credentials config '/home/runner/work/_temp/git-credentials-427dad67-e2b1-4dad-b63f-bc437688cd67.config'
+2026-10-21T19:54:12.2017745Z ##[endgroup]
+2026-10-21T19:54:12.2401195Z ##[group]Run supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+2026-10-21T19:54:12.2401732Z with:
+2026-10-21T19:54:12.2401978Z env:
+2026-10-21T19:54:12.2402226Z   NODE_VERSION: 24
+2026-10-21T19:54:12.2402504Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.2403430Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:12.2403814Z ##[endgroup]
+2026-10-21T19:54:12.2483479Z ##[start-action display=Resolve Bun Download URL;id=__supabase_setup-cli.bun-download]
+2026-10-21T19:54:12.2542822Z ##[group]Run set -eu
+2026-10-21T19:54:12.2543210Z [36;1mset -eu[0m
+2026-10-21T19:54:12.2543486Z [36;1m[0m
+2026-10-21T19:54:12.2543749Z [36;1mis_musl=false[0m
+2026-10-21T19:54:12.2544060Z [36;1m[0m
+2026-10-21T19:54:12.2544342Z [36;1mif [ "${RUNNER_OS}" = "Linux" ]; then[0m
+2026-10-21T19:54:12.2544970Z [36;1m  # setup-bun does not detect Linux musl yet, so Alpine-like containers need the musl asset explicitly.[0m
+2026-10-21T19:54:12.2545637Z [36;1m  if [ -f /etc/alpine-release ]; then[0m
+2026-10-21T19:54:12.2546005Z [36;1m    is_musl=true[0m
+2026-10-21T19:54:12.2546460Z [36;1m  elif command -v ldd >/dev/null 2>&1 && ldd --version 2>&1 | grep -qi musl; then[0m
+2026-10-21T19:54:12.2547531Z [36;1m    is_musl=true[0m
+2026-10-21T19:54:12.2548036Z [36;1m  fi[0m
+2026-10-21T19:54:12.2548341Z [36;1mfi[0m
+2026-10-21T19:54:12.2548600Z [36;1m[0m
+2026-10-21T19:54:12.2548920Z [36;1mecho "is-musl=${is_musl}" >> "$GITHUB_OUTPUT"[0m
+2026-10-21T19:54:12.2549290Z [36;1m[0m
+2026-10-21T19:54:12.2549556Z [36;1mif [ "${is_musl}" != "true" ]; then[0m
+2026-10-21T19:54:12.2549888Z [36;1m  exit 0[0m
+2026-10-21T19:54:12.2550141Z [36;1mfi[0m
+2026-10-21T19:54:12.2550730Z [36;1m[0m
+2026-10-21T19:54:12.2551153Z [36;1mversion="$(cat .bun-version)"[0m
+2026-10-21T19:54:12.2551659Z [36;1mcase "$(uname -m)" in[0m
+2026-10-21T19:54:12.2551982Z [36;1m  x86_64) arch="x64" ;;[0m
+2026-10-21T19:54:12.2552325Z [36;1m  aarch64|arm64) arch="aarch64" ;;[0m
+2026-10-21T19:54:12.2552684Z [36;1m  *)[0m
+2026-10-21T19:54:12.2553056Z [36;1m    echo "Unsupported Linux musl architecture: $(uname -m)" >&2[0m
+2026-10-21T19:54:12.2553485Z [36;1m    exit 1[0m
+2026-10-21T19:54:12.2553752Z [36;1m    ;;[0m
+2026-10-21T19:54:12.2554002Z [36;1mesac[0m
+2026-10-21T19:54:12.2554253Z [36;1m[0m
+2026-10-21T19:54:12.2554839Z [36;1mecho "url=https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-${arch}-musl.zip" >> "$GITHUB_OUTPUT"[0m
+2026-10-21T19:54:12.2851832Z shell: /usr/bin/sh -e {0}
+2026-10-21T19:54:12.2852374Z env:
+2026-10-21T19:54:12.2852794Z   NODE_VERSION: 24
+2026-10-21T19:54:12.2853262Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.2854254Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:12.2854829Z ##[endgroup]
+2026-10-21T19:54:12.3038943Z ##[end-action id=__supabase_setup-cli.bun-download;outcome=success;conclusion=success;duration_ms=55]
+2026-10-21T19:54:12.3045672Z ##[start-action display=Install Alpine Runtime Dependencies;id=__supabase_setup-cli.__run]
+2026-10-21T19:54:12.3109768Z ##[group]Run set -eu
+2026-10-21T19:54:12.3110186Z [36;1mset -eu[0m
+2026-10-21T19:54:12.3110471Z [36;1m[0m
+2026-10-21T19:54:12.3110752Z [36;1mif [ "false" != "true" ]; then[0m
+2026-10-21T19:54:12.3111267Z [36;1m  exit 0[0m
+2026-10-21T19:54:12.3111632Z [36;1mfi[0m
+2026-10-21T19:54:12.3111893Z [36;1m[0m
+2026-10-21T19:54:12.3112339Z [36;1m# Alpine/musl containers need runtime packages for Bun and the npm CLI shim.[0m
+2026-10-21T19:54:12.3113096Z [36;1m# actions/setup-node uses glibc Node builds, so install Alpine's Node/npm instead.[0m
+2026-10-21T19:54:12.3113699Z [36;1mif command -v apk >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3114128Z [36;1m  missing_packages=""[0m
+2026-10-21T19:54:12.3114478Z [36;1m  prefer_apk_bin=false[0m
+2026-10-21T19:54:12.3114846Z [36;1m  for package in libstdc++ libgcc; do[0m
+2026-10-21T19:54:12.3115301Z [36;1m    if ! apk info -e "${package}" >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3116077Z [36;1m      missing_packages="${missing_packages} ${package}"[0m
+2026-10-21T19:54:12.3116506Z [36;1m    fi[0m
+2026-10-21T19:54:12.3117089Z [36;1m  done[0m
+2026-10-21T19:54:12.3117477Z [36;1m[0m
+2026-10-21T19:54:12.3117974Z [36;1m  if ! command -v node >/dev/null 2>&1 || ! node -p 'process.versions.node' >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3118823Z [36;1m    if [ -x /usr/bin/node ] && PATH="/usr/bin:${PATH}" /usr/bin/node -p 'process.versions.node' >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3119468Z [36;1m      prefer_apk_bin=true[0m
+2026-10-21T19:54:12.3119787Z [36;1m    else[0m
+2026-10-21T19:54:12.3120133Z [36;1m      missing_packages="${missing_packages} nodejs"[0m
+2026-10-21T19:54:12.3120555Z [36;1m    fi[0m
+2026-10-21T19:54:12.3120811Z [36;1m  fi[0m
+2026-10-21T19:54:12.3121058Z [36;1m[0m
+2026-10-21T19:54:12.3121447Z [36;1m  if ! command -v npm >/dev/null 2>&1 || ! npm --version >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3122116Z [36;1m    if [ -x /usr/bin/npm ] && PATH="/usr/bin:${PATH}" /usr/bin/npm --version >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3122687Z [36;1m      prefer_apk_bin=true[0m
+2026-10-21T19:54:12.3123004Z [36;1m    else[0m
+2026-10-21T19:54:12.3123320Z [36;1m      missing_packages="${missing_packages} npm"[0m
+2026-10-21T19:54:12.3123717Z [36;1m    fi[0m
+2026-10-21T19:54:12.3123970Z [36;1m  fi[0m
+2026-10-21T19:54:12.3124217Z [36;1m[0m
+2026-10-21T19:54:12.3124504Z [36;1m  if [ "${prefer_apk_bin}" = "true" ]; then[0m
+2026-10-21T19:54:12.3124887Z [36;1m    echo "/usr/bin" >> "$GITHUB_PATH"[0m
+2026-10-21T19:54:12.3125235Z [36;1m  fi[0m
+2026-10-21T19:54:12.3125480Z [36;1m[0m
+2026-10-21T19:54:12.3125766Z [36;1m  if [ -z "${missing_packages}" ]; then[0m
+2026-10-21T19:54:12.3126357Z [36;1m    exit 0[0m
+2026-10-21T19:54:12.3126642Z [36;1m  fi[0m
+2026-10-21T19:54:12.3127199Z [36;1m[0m
+2026-10-21T19:54:12.3127481Z [36;1m  if [ "$(id -u)" != "0" ]; then[0m
+2026-10-21T19:54:12.3128705Z [36;1m    echo "::error::Alpine/musl containers need${missing_packages} to run Supabase CLI. Add 'apk add --no-cache${missing_packages}' before supabase/setup-cli, or run this job container as root."[0m
+2026-10-21T19:54:12.3129623Z [36;1m    exit 1[0m
+2026-10-21T19:54:12.3129890Z [36;1m  fi[0m
+2026-10-21T19:54:12.3130141Z [36;1m[0m
+2026-10-21T19:54:12.3130430Z [36;1m  apk add --no-cache ${missing_packages}[0m
+2026-10-21T19:54:12.3130899Z [36;1m  if echo " ${missing_packages} " | grep -Eq ' (nodejs|npm) '; then[0m
+2026-10-21T19:54:12.3131500Z [36;1m    echo "/usr/bin" >> "$GITHUB_PATH"[0m
+2026-10-21T19:54:12.3131843Z [36;1m  fi[0m
+2026-10-21T19:54:12.3132094Z [36;1m  exit 0[0m
+2026-10-21T19:54:12.3132343Z [36;1mfi[0m
+2026-10-21T19:54:12.3132598Z [36;1m[0m
+2026-10-21T19:54:12.3133204Z [36;1mecho "::error::Linux musl containers need libstdc++, libgcc, nodejs, and npm to run Supabase CLI. Install them before supabase/setup-cli."[0m
+2026-10-21T19:54:12.3133870Z [36;1mexit 1[0m
+2026-10-21T19:54:12.3194927Z shell: /usr/bin/sh -e {0}
+2026-10-21T19:54:12.3195294Z env:
+2026-10-21T19:54:12.3195585Z   NODE_VERSION: 24
+2026-10-21T19:54:12.3195892Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.3196716Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:12.3197313Z ##[endgroup]
+2026-10-21T19:54:12.3291101Z ##[end-action id=__supabase_setup-cli.__run;outcome=success;conclusion=success;duration_ms=24]
+2026-10-21T19:54:12.3294472Z ##[start-action display=Resolve Node Runtime;id=__supabase_setup-cli.node-runtime]
+2026-10-21T19:54:12.3329458Z ##[group]Run set -eu
+2026-10-21T19:54:12.3329820Z [36;1mset -eu[0m
+2026-10-21T19:54:12.3330084Z [36;1m[0m
+2026-10-21T19:54:12.3330343Z [36;1mnode_version=""[0m
+2026-10-21T19:54:12.3330655Z [36;1mnode_major=""[0m
+2026-10-21T19:54:12.3330969Z [36;1mhas_npm=false[0m
+2026-10-21T19:54:12.3331251Z [36;1m[0m
+2026-10-21T19:54:12.3331547Z [36;1mif command -v node >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3332082Z [36;1m  node_version="$(node -p 'process.versions.node' 2>/dev/null || true)"[0m
+2026-10-21T19:54:12.3332805Z [36;1m  node_major="${node_version%%.*}"[0m
+2026-10-21T19:54:12.3333180Z [36;1mfi[0m
+2026-10-21T19:54:12.3333437Z [36;1m[0m
+2026-10-21T19:54:12.3333728Z [36;1mif command -v npm >/dev/null 2>&1; then[0m
+2026-10-21T19:54:12.3334102Z [36;1m  has_npm=true[0m
+2026-10-21T19:54:12.3334390Z [36;1mfi[0m
+2026-10-21T19:54:12.3334636Z [36;1m[0m
+2026-10-21T19:54:12.3334969Z [36;1mif [ -n "${node_version}" ] && [ "${has_npm}" = "true" ]; then[0m
+2026-10-21T19:54:12.3335402Z [36;1m  case "${node_major}" in[0m
+2026-10-21T19:54:12.3335723Z [36;1m    ''|*[!0-9]*)[0m
+2026-10-21T19:54:12.3336361Z [36;1m      echo "::error::Could not determine Node.js version from '${node_version}'. Supabase CLI npm installs require Node.js 20 or newer."[0m
+2026-10-21T19:54:12.3337435Z [36;1m      exit 1[0m
+2026-10-21T19:54:12.3337723Z [36;1m      ;;[0m
+2026-10-21T19:54:12.3337991Z [36;1m  esac[0m
+2026-10-21T19:54:12.3338254Z [36;1m[0m
+2026-10-21T19:54:12.3338538Z [36;1m  if [ "${node_major}" -lt 20 ]; then[0m
+2026-10-21T19:54:12.3339499Z [36;1m    echo "::error::Supabase CLI npm installs require Node.js 20 or newer, but found Node.js ${node_version}. Set up Node.js 20+ before supabase/setup-cli, or use a runner image with Node.js 20+ and npm."[0m
+2026-10-21T19:54:12.3340369Z [36;1m    exit 1[0m
+2026-10-21T19:54:12.3340634Z [36;1m  fi[0m
+2026-10-21T19:54:12.3373456Z [36;1m[0m
+2026-10-21T19:54:12.3374039Z [36;1m  echo "setup-node=false" >> "$GITHUB_OUTPUT"[0m
+2026-10-21T19:54:12.3374631Z [36;1m  exit 0[0m
+2026-10-21T19:54:12.3375019Z [36;1mfi[0m
+2026-10-21T19:54:12.3375407Z [36;1m[0m
+2026-10-21T19:54:12.3375805Z [36;1mif [ "false" = "true" ]; then[0m
+2026-10-21T19:54:12.3378581Z [36;1m  echo "::error::Linux musl containers need Node.js 20 or newer and npm from musl-compatible packages. Install libstdc++, libgcc, nodejs, and npm before supabase/setup-cli, or run this job container as root so the action can install them."[0m
+2026-10-21T19:54:12.3380322Z [36;1m  exit 1[0m
+2026-10-21T19:54:12.3380776Z [36;1mfi[0m
+2026-10-21T19:54:12.3381246Z [36;1m[0m
+2026-10-21T19:54:12.3381826Z [36;1mif [ -n "${node_version}" ] || [ "${has_npm}" = "true" ]; then[0m
+2026-10-21T19:54:12.3383474Z [36;1m  echo "::error::Supabase CLI npm installs need both Node.js 20+ and npm. Found Node.js '${node_version:-missing}' and npm '${has_npm}'. Configure both before supabase/setup-cli."[0m
+2026-10-21T19:54:12.3385000Z [36;1m  exit 1[0m
+2026-10-21T19:54:12.3385470Z [36;1mfi[0m
+2026-10-21T19:54:12.3385929Z [36;1m[0m
+2026-10-21T19:54:12.3386505Z [36;1mecho "setup-node=true" >> "$GITHUB_OUTPUT"[0m
+2026-10-21T19:54:12.3453508Z shell: /usr/bin/sh -e {0}
+2026-10-21T19:54:12.3453866Z env:
+2026-10-21T19:54:12.3454152Z   NODE_VERSION: 24
+2026-10-21T19:54:12.3454444Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.3455195Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:12.3455550Z ##[endgroup]
+2026-10-21T19:54:12.5518792Z ##[end-action id=__supabase_setup-cli.node-runtime;outcome=success;conclusion=success;duration_ms=222]
+2026-10-21T19:54:12.5522609Z ##[start-action display=Setup Node;id=__supabase_setup-cli.__actions_setup-node]
+2026-10-21T19:54:12.5549531Z ##[end-action id=__supabase_setup-cli.__actions_setup-node;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-21T19:54:12.5552596Z ##[start-action display=Setup Bun;id=__supabase_setup-cli.__oven-sh_setup-bun]
+2026-10-21T19:54:12.5640615Z ##[group]Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+2026-10-21T19:54:12.5641081Z with:
+2026-10-21T19:54:12.5641663Z   bun-version-file: /home/runner/work/_actions/supabase/setup-cli/45a513f8c64c0bc8e0e3dfe572b5c95be85f6359/.bun-version
+2026-10-21T19:54:12.5642303Z   no-cache: false
+2026-10-21T19:54:12.5645062Z   token: ***
+2026-10-21T19:54:12.5645329Z env:
+2026-10-21T19:54:12.5645580Z   NODE_VERSION: 24
+2026-10-21T19:54:12.5645855Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:12.5646322Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:12.5646656Z ##[endgroup]
+2026-10-21T19:54:12.7559808Z Obtained version 1.3.10 from /home/runner/work/_actions/supabase/setup-cli/45a513f8c64c0bc8e0e3dfe572b5c95be85f6359/.bun-version
+2026-10-21T19:54:13.0947676Z Cache hit for: bun-Ki+pY5x+JEo+hNxyfTQYMbDXy7M=
+2026-10-21T19:54:14.4178127Z Received 0 of 36196348 (0.0%), 0.0 MBs/sec
+2026-10-21T19:54:14.6663323Z Received 36196348 of 36196348 (100.0%), 27.5 MBs/sec
+2026-10-21T19:54:14.6664489Z Cache Size: ~35 MB (36196348 B)
+2026-10-21T19:54:14.6710305Z [command]/usr/bin/tar -xf /home/runner/work/_temp/fcae852f-952a-4039-bf9e-9152520351ec/cache.tzst -P -C /home/runner/work/puhuscribe-v3/puhuscribe-v3 --use-compress-program unzstd
+2026-10-21T19:54:14.9178291Z Cache restored successfully
+2026-10-21T19:54:14.9207875Z [command]/home/runner/.bun/bin/bun --revision
+2026-10-21T19:54:14.9287369Z 1.3.10+30e609e08
+2026-10-21T19:54:14.9298161Z Using a cached version of Bun: 1.3.10+30e609e08
+2026-10-21T19:54:14.9439176Z ##[end-action id=__supabase_setup-cli.__oven-sh_setup-bun;outcome=success;conclusion=success;duration_ms=2388]
+2026-10-21T19:54:14.9442315Z ##[start-action display=Install Action Dependencies;id=__supabase_setup-cli.__run_2]
+2026-10-21T19:54:14.9468287Z ##[group]Run bun install --frozen-lockfile --production
+2026-10-21T19:54:14.9468978Z [36;1mbun install --frozen-lockfile --production[0m
+2026-10-21T19:54:14.9530606Z shell: /usr/bin/sh -e {0}
+2026-10-21T19:54:14.9530964Z env:
+2026-10-21T19:54:14.9531247Z   NODE_VERSION: 24
+2026-10-21T19:54:14.9531563Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:14.9532290Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:14.9532703Z ##[endgroup]
+2026-10-21T19:54:14.9667554Z bun install v1.3.10 (30e609e0)
+2026-10-21T19:54:15.0510743Z 
+2026-10-21T19:54:15.0511935Z + @actions/core@3.0.1
+2026-10-21T19:54:15.0512505Z 
+2026-10-21T19:54:15.0512839Z 6 packages installed [88.00ms]
+2026-10-21T19:54:15.0540788Z ##[end-action id=__supabase_setup-cli.__run_2;outcome=success;conclusion=success;duration_ms=109]
+2026-10-21T19:54:15.0545281Z ##[start-action display=Setup Supabase CLI;id=__supabase_setup-cli.setup-cli]
+2026-10-21T19:54:15.0568620Z ##[group]Run bun src/main.ts
+2026-10-21T19:54:15.0568970Z [36;1mbun src/main.ts[0m
+2026-10-21T19:54:15.0629938Z shell: /usr/bin/sh -e {0}
+2026-10-21T19:54:15.0630305Z env:
+2026-10-21T19:54:15.0630606Z   NODE_VERSION: 24
+2026-10-21T19:54:15.0630922Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:15.0631566Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:15.0631981Z   INPUT_VERSION: 
+2026-10-21T19:54:15.0632296Z ##[endgroup]
+2026-10-21T19:54:22.8053528Z ##[end-action id=__supabase_setup-cli.setup-cli;outcome=success;conclusion=success;duration_ms=7750]
+2026-10-21T19:54:22.8118849Z ##[group]Run supabase db start
+2026-10-21T19:54:22.8119205Z [36;1msupabase db start[0m
+2026-10-21T19:54:22.8172326Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:54:22.8172618Z env:
+2026-10-21T19:54:22.8172840Z   NODE_VERSION: 24
+2026-10-21T19:54:22.8173084Z   PYTHON_VERSION: 3.12
+2026-10-21T19:54:22.8173644Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:54:22.8173967Z ##[endgroup]
+2026-10-21T19:54:23.5948240Z Starting database...
+2026-10-21T19:54:23.9816732Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:54:23.9821198Z Retrying after 4s: public.ecr.aws/supabase/postgres:17.11.0.004
+2026-10-21T19:54:28.2004625Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:54:28.2051909Z Retrying after 8s: public.ecr.aws/supabase/postgres:17.11.0.004
+2026-10-21T19:54:36.4989778Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:54:36.9853306Z 17.11.0.004: Pulling from supabase/postgres
+2026-10-21T19:54:37.1023693Z d0c1d894c237: Pulling fs layer
+2026-10-21T19:54:37.1024875Z 2a7fe997b3bc: Pulling fs layer
+2026-10-21T19:54:37.1025862Z a089d1f2d97d: Pulling fs layer
+2026-10-21T19:54:37.1026617Z b594b09cdd92: Pulling fs layer
+2026-10-21T19:54:37.1027625Z ac0658ef7013: Pulling fs layer
+2026-10-21T19:54:37.1028118Z 61cdca7212db: Pulling fs layer
+2026-10-21T19:54:37.1028588Z c7702d9346eb: Pulling fs layer
+2026-10-21T19:54:37.1029344Z 1af9995b8d71: Pulling fs layer
+2026-10-21T19:54:37.1030800Z 2f8950e7369c: Pulling fs layer
+2026-10-21T19:54:37.1031412Z f4c8c0988961: Pulling fs layer
+2026-10-21T19:54:37.1032265Z b72d0b0c7819: Pulling fs layer
+2026-10-21T19:54:37.1033484Z 887d4dcfbb60: Pulling fs layer
+2026-10-21T19:54:37.1034185Z b4770aa5855a: Pulling fs layer
+2026-10-21T19:54:37.1035239Z f48c9b774cf3: Pulling fs layer
+2026-10-21T19:54:37.1035944Z 031bc7c39c03: Pulling fs layer
+2026-10-21T19:54:37.1036689Z 532d14cf7b90: Pulling fs layer
+2026-10-21T19:54:37.1037814Z d0b84d5f07f5: Pulling fs layer
+2026-10-21T19:54:37.1038441Z 2271b8d67cdb: Pulling fs layer
+2026-10-21T19:54:37.1039077Z 92c57cef4d95: Pulling fs layer
+2026-10-21T19:54:37.1039873Z 9bad77f51394: Pulling fs layer
+2026-10-21T19:54:37.1040594Z 6d07fafc16fc: Pulling fs layer
+2026-10-21T19:54:37.1041405Z 02b1eb22dea5: Pulling fs layer
+2026-10-21T19:54:37.1042195Z 95e2e129052b: Pulling fs layer
+2026-10-21T19:54:37.1042912Z 3bc958d77632: Pulling fs layer
+2026-10-21T19:54:37.1043680Z c91d81325bd0: Pulling fs layer
+2026-10-21T19:54:37.1044290Z 434c95230705: Pulling fs layer
+2026-10-21T19:54:37.1045079Z 4bc1415e9b24: Pulling fs layer
+2026-10-21T19:54:37.1045766Z 8d0d2729c399: Pulling fs layer
+2026-10-21T19:54:37.1046354Z 0b67f6a8a496: Pulling fs layer
+2026-10-21T19:54:37.1047239Z b594b09cdd92: Waiting
+2026-10-21T19:54:37.1048085Z ac0658ef7013: Waiting
+2026-10-21T19:54:37.1048845Z 61cdca7212db: Waiting
+2026-10-21T19:54:37.1049770Z c7702d9346eb: Waiting
+2026-10-21T19:54:37.1050482Z 1af9995b8d71: Waiting
+2026-10-21T19:54:37.1051181Z 2f8950e7369c: Waiting
+2026-10-21T19:54:37.1052063Z f4c8c0988961: Waiting
+2026-10-21T19:54:37.1052824Z b72d0b0c7819: Waiting
+2026-10-21T19:54:37.1053685Z 887d4dcfbb60: Waiting
+2026-10-21T19:54:37.1054569Z b4770aa5855a: Waiting
+2026-10-21T19:54:37.1055387Z f48c9b774cf3: Waiting
+2026-10-21T19:54:37.1056003Z 031bc7c39c03: Waiting
+2026-10-21T19:54:37.1057114Z 532d14cf7b90: Waiting
+2026-10-21T19:54:37.1057953Z d0b84d5f07f5: Waiting
+2026-10-21T19:54:37.1058707Z 2271b8d67cdb: Waiting
+2026-10-21T19:54:37.1059457Z 92c57cef4d95: Waiting
+2026-10-21T19:54:37.1060173Z 9bad77f51394: Waiting
+2026-10-21T19:54:37.1060930Z 6d07fafc16fc: Waiting
+2026-10-21T19:54:37.1061682Z 02b1eb22dea5: Waiting
+2026-10-21T19:54:37.1062394Z 95e2e129052b: Waiting
+2026-10-21T19:54:37.1063170Z 3bc958d77632: Waiting
+2026-10-21T19:54:37.1063957Z c91d81325bd0: Waiting
+2026-10-21T19:54:37.1064748Z 434c95230705: Waiting
+2026-10-21T19:54:37.1065499Z 4bc1415e9b24: Waiting
+2026-10-21T19:54:37.1066203Z 8d0d2729c399: Waiting
+2026-10-21T19:54:37.1067165Z 0b67f6a8a496: Waiting
+2026-10-21T19:54:37.2480909Z a089d1f2d97d: Verifying Checksum
+2026-10-21T19:54:37.2481521Z a089d1f2d97d: Download complete
+2026-10-21T19:54:37.2893714Z 2a7fe997b3bc: Verifying Checksum
+2026-10-21T19:54:37.2897179Z 2a7fe997b3bc: Download complete
+2026-10-21T19:54:37.2923584Z d0c1d894c237: Verifying Checksum
+2026-10-21T19:54:37.2929705Z d0c1d894c237: Download complete
+2026-10-21T19:54:37.4530668Z d0c1d894c237: Pull complete
+2026-10-21T19:54:37.4690614Z ac0658ef7013: Download complete
+2026-10-21T19:54:37.5585282Z 61cdca7212db: Verifying Checksum
+2026-10-21T19:54:37.5585871Z 61cdca7212db: Download complete
+2026-10-21T19:54:37.6301140Z c7702d9346eb: Verifying Checksum
+2026-10-21T19:54:37.6314107Z c7702d9346eb: Download complete
+2026-10-21T19:54:37.7204610Z 1af9995b8d71: Verifying Checksum
+2026-10-21T19:54:37.7205324Z 1af9995b8d71: Download complete
+2026-10-21T19:54:37.8502119Z 2f8950e7369c: Verifying Checksum
+2026-10-21T19:54:37.8507661Z 2f8950e7369c: Download complete
+2026-10-21T19:54:37.9454504Z f4c8c0988961: Verifying Checksum
+2026-10-21T19:54:37.9455485Z f4c8c0988961: Download complete
+2026-10-21T19:54:38.0138290Z b72d0b0c7819: Verifying Checksum
+2026-10-21T19:54:38.0139292Z b72d0b0c7819: Download complete
+2026-10-21T19:54:38.1159996Z 887d4dcfbb60: Verifying Checksum
+2026-10-21T19:54:38.1173795Z 887d4dcfbb60: Download complete
+2026-10-21T19:54:38.4198483Z b4770aa5855a: Verifying Checksum
+2026-10-21T19:54:38.4199534Z b4770aa5855a: Download complete
+2026-10-21T19:54:38.4201492Z f48c9b774cf3: Verifying Checksum
+2026-10-21T19:54:38.4202767Z f48c9b774cf3: Download complete
+2026-10-21T19:54:38.9230120Z 031bc7c39c03: Verifying Checksum
+2026-10-21T19:54:38.9231033Z 031bc7c39c03: Download complete
+2026-10-21T19:54:38.9231862Z 532d14cf7b90: Download complete
+2026-10-21T19:54:39.0687295Z d0b84d5f07f5: Verifying Checksum
+2026-10-21T19:54:39.0689025Z d0b84d5f07f5: Download complete
+2026-10-21T19:54:39.0714031Z 2271b8d67cdb: Verifying Checksum
+2026-10-21T19:54:39.0715627Z 2271b8d67cdb: Download complete
+2026-10-21T19:54:39.2181320Z 2a7fe997b3bc: Pull complete
+2026-10-21T19:54:39.2186978Z 9bad77f51394: Verifying Checksum
+2026-10-21T19:54:39.2192419Z 9bad77f51394: Download complete
+2026-10-21T19:54:39.2393585Z 92c57cef4d95: Verifying Checksum
+2026-10-21T19:54:39.2395584Z 92c57cef4d95: Download complete
+2026-10-21T19:54:39.5163635Z 02b1eb22dea5: Verifying Checksum
+2026-10-21T19:54:39.5164233Z 02b1eb22dea5: Download complete
+2026-10-21T19:54:39.5180829Z 6d07fafc16fc: Verifying Checksum
+2026-10-21T19:54:39.5186643Z 6d07fafc16fc: Download complete
+2026-10-21T19:54:39.6600206Z 3bc958d77632: Verifying Checksum
+2026-10-21T19:54:39.6601338Z 3bc958d77632: Download complete
+2026-10-21T19:54:39.6616618Z 95e2e129052b: Verifying Checksum
+2026-10-21T19:54:39.6617560Z 95e2e129052b: Download complete
+2026-10-21T19:54:39.8011888Z c91d81325bd0: Verifying Checksum
+2026-10-21T19:54:39.8013629Z c91d81325bd0: Download complete
+2026-10-21T19:54:39.8088597Z 434c95230705: Verifying Checksum
+2026-10-21T19:54:39.8089599Z 434c95230705: Download complete
+2026-10-21T19:54:39.9277531Z b594b09cdd92: Verifying Checksum
+2026-10-21T19:54:39.9284650Z b594b09cdd92: Download complete
+2026-10-21T19:54:39.9460182Z 4bc1415e9b24: Verifying Checksum
+2026-10-21T19:54:39.9467459Z 4bc1415e9b24: Download complete
+2026-10-21T19:54:40.5189804Z 0b67f6a8a496: Verifying Checksum
+2026-10-21T19:54:40.5197674Z 0b67f6a8a496: Download complete
+2026-10-21T19:54:40.5198210Z 8d0d2729c399: Verifying Checksum
+2026-10-21T19:54:40.5198674Z 8d0d2729c399: Download complete
+2026-10-21T19:54:40.5363101Z a089d1f2d97d: Pull complete
+2026-10-21T19:54:57.8661626Z b594b09cdd92: Pull complete
+2026-10-21T19:54:57.8859551Z ac0658ef7013: Pull complete
+2026-10-21T19:54:57.9112732Z 61cdca7212db: Pull complete
+2026-10-21T19:54:57.9263723Z c7702d9346eb: Pull complete
+2026-10-21T19:54:57.9597481Z 1af9995b8d71: Pull complete
+2026-10-21T19:54:57.9776574Z 2f8950e7369c: Pull complete
+2026-10-21T19:54:58.0074092Z f4c8c0988961: Pull complete
+2026-10-21T19:54:58.0164669Z b72d0b0c7819: Pull complete
+2026-10-21T19:54:58.0280299Z 887d4dcfbb60: Pull complete
+2026-10-21T19:54:58.0383888Z b4770aa5855a: Pull complete
+2026-10-21T19:54:58.0474593Z f48c9b774cf3: Pull complete
+2026-10-21T19:54:58.0605458Z 031bc7c39c03: Pull complete
+2026-10-21T19:54:58.0703099Z 532d14cf7b90: Pull complete
+2026-10-21T19:54:58.0849668Z d0b84d5f07f5: Pull complete
+2026-10-21T19:54:58.0941697Z 2271b8d67cdb: Pull complete
+2026-10-21T19:54:58.1066678Z 92c57cef4d95: Pull complete
+2026-10-21T19:54:58.1163412Z 9bad77f51394: Pull complete
+2026-10-21T19:54:58.1250756Z 6d07fafc16fc: Pull complete
+2026-10-21T19:54:58.1369456Z 02b1eb22dea5: Pull complete
+2026-10-21T19:54:58.1458831Z 95e2e129052b: Pull complete
+2026-10-21T19:54:58.1564407Z 3bc958d77632: Pull complete
+2026-10-21T19:54:58.1911484Z c91d81325bd0: Pull complete
+2026-10-21T19:54:58.1970875Z 434c95230705: Pull complete
+2026-10-21T19:54:58.2068161Z 4bc1415e9b24: Pull complete
+2026-10-21T19:54:58.2169298Z 8d0d2729c399: Pull complete
+2026-10-21T19:54:58.2297865Z 0b67f6a8a496: Pull complete
+2026-10-21T19:54:58.2342438Z Digest: sha256:b15d862126dd2dac02da524696ccfde2dcce2ceaee0a58973b2727befe492706
+2026-10-21T19:54:58.2358613Z Status: Downloaded newer image for ghcr.io/supabase/postgres:17.11.0.004
+2026-10-21T19:54:58.2387630Z ghcr.io/supabase/postgres:17.11.0.004
+2026-10-21T19:55:09.0578518Z Initialising schema...
+2026-10-21T19:55:09.3625319Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:09.3653581Z Retrying after 4s: public.ecr.aws/supabase/realtime:v2.143.4
+2026-10-21T19:55:13.6469757Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:13.6499684Z Retrying after 8s: public.ecr.aws/supabase/realtime:v2.143.4
+2026-10-21T19:55:21.8713062Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:22.3235188Z v2.143.4: Pulling from supabase/realtime
+2026-10-21T19:55:22.4354798Z 062e450697fa: Pulling fs layer
+2026-10-21T19:55:22.4355452Z aadc1df55248: Pulling fs layer
+2026-10-21T19:55:22.4355892Z b470f3a22f61: Pulling fs layer
+2026-10-21T19:55:22.4356347Z 7b69c108b62c: Pulling fs layer
+2026-10-21T19:55:22.4357068Z 2f8dc9fd16f0: Pulling fs layer
+2026-10-21T19:55:22.4357578Z e7e8db2397d8: Pulling fs layer
+2026-10-21T19:55:22.4357996Z 2f95f9f41a30: Pulling fs layer
+2026-10-21T19:55:22.4358436Z 32b7ef0c5fea: Pulling fs layer
+2026-10-21T19:55:22.4358881Z 115059bab117: Pulling fs layer
+2026-10-21T19:55:22.4359298Z 52182eb33a33: Pulling fs layer
+2026-10-21T19:55:22.4359744Z 57608cb49d3f: Pulling fs layer
+2026-10-21T19:55:22.4360197Z 4f4fb700ef54: Pulling fs layer
+2026-10-21T19:55:22.4360604Z 2f95f9f41a30: Waiting
+2026-10-21T19:55:22.4361009Z 32b7ef0c5fea: Waiting
+2026-10-21T19:55:22.4361401Z 115059bab117: Waiting
+2026-10-21T19:55:22.4361799Z 52182eb33a33: Waiting
+2026-10-21T19:55:22.4362174Z 57608cb49d3f: Waiting
+2026-10-21T19:55:22.4362549Z 4f4fb700ef54: Waiting
+2026-10-21T19:55:22.4362923Z 2f8dc9fd16f0: Waiting
+2026-10-21T19:55:22.4363324Z e7e8db2397d8: Waiting
+2026-10-21T19:55:22.4363699Z 7b69c108b62c: Waiting
+2026-10-21T19:55:22.7196359Z 062e450697fa: Verifying Checksum
+2026-10-21T19:55:22.7197521Z 062e450697fa: Download complete
+2026-10-21T19:55:22.7862236Z b470f3a22f61: Verifying Checksum
+2026-10-21T19:55:22.7866133Z b470f3a22f61: Download complete
+2026-10-21T19:55:22.8619683Z 7b69c108b62c: Verifying Checksum
+2026-10-21T19:55:22.8621038Z 7b69c108b62c: Download complete
+2026-10-21T19:55:22.8970004Z aadc1df55248: Verifying Checksum
+2026-10-21T19:55:22.8971896Z aadc1df55248: Download complete
+2026-10-21T19:55:22.9416057Z 2f8dc9fd16f0: Verifying Checksum
+2026-10-21T19:55:22.9420491Z 2f8dc9fd16f0: Download complete
+2026-10-21T19:55:23.0082540Z e7e8db2397d8: Verifying Checksum
+2026-10-21T19:55:23.0083584Z e7e8db2397d8: Download complete
+2026-10-21T19:55:23.0540788Z 2f95f9f41a30: Verifying Checksum
+2026-10-21T19:55:23.0541640Z 2f95f9f41a30: Download complete
+2026-10-21T19:55:23.0618201Z 32b7ef0c5fea: Verifying Checksum
+2026-10-21T19:55:23.0632458Z 32b7ef0c5fea: Download complete
+2026-10-21T19:55:23.1398432Z 115059bab117: Verifying Checksum
+2026-10-21T19:55:23.1399954Z 115059bab117: Download complete
+2026-10-21T19:55:23.1878425Z 57608cb49d3f: Verifying Checksum
+2026-10-21T19:55:23.1880007Z 57608cb49d3f: Download complete
+2026-10-21T19:55:23.2710506Z 4f4fb700ef54: Verifying Checksum
+2026-10-21T19:55:23.2759113Z 4f4fb700ef54: Download complete
+2026-10-21T19:55:23.2809130Z 52182eb33a33: Verifying Checksum
+2026-10-21T19:55:23.2810634Z 52182eb33a33: Download complete
+2026-10-21T19:55:24.0776027Z 062e450697fa: Pull complete
+2026-10-21T19:55:30.4751775Z aadc1df55248: Pull complete
+2026-10-21T19:55:30.6112456Z b470f3a22f61: Pull complete
+2026-10-21T19:55:30.6274188Z 7b69c108b62c: Pull complete
+2026-10-21T19:55:30.6426012Z 2f8dc9fd16f0: Pull complete
+2026-10-21T19:55:30.6632643Z e7e8db2397d8: Pull complete
+2026-10-21T19:55:30.6942712Z 2f95f9f41a30: Pull complete
+2026-10-21T19:55:30.7036582Z 32b7ef0c5fea: Pull complete
+2026-10-21T19:55:30.7134151Z 115059bab117: Pull complete
+2026-10-21T19:55:32.0864242Z 52182eb33a33: Pull complete
+2026-10-21T19:55:32.1015285Z 57608cb49d3f: Pull complete
+2026-10-21T19:55:32.1138706Z 4f4fb700ef54: Pull complete
+2026-10-21T19:55:32.1178919Z Digest: sha256:35e99d3f1cbba5aa5585e8ac3cf70ecc54909ee4aee0626effed93c60fb41439
+2026-10-21T19:55:32.1190422Z Status: Downloaded newer image for ghcr.io/supabase/realtime:v2.143.4
+2026-10-21T19:55:32.1196865Z ghcr.io/supabase/realtime:v2.143.4
+2026-10-21T19:55:36.9278777Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:36.9304432Z Retrying after 4s: public.ecr.aws/supabase/storage-api:v1.82.1
+2026-10-21T19:55:41.2027915Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:41.2062951Z Retrying after 8s: public.ecr.aws/supabase/storage-api:v1.82.1
+2026-10-21T19:55:49.4736046Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:55:49.9458982Z v1.82.1: Pulling from supabase/storage-api
+2026-10-21T19:55:50.0675939Z d0c1d894c237: Already exists
+2026-10-21T19:55:50.0676663Z f0bff0b17bb6: Pulling fs layer
+2026-10-21T19:55:50.0679572Z bf5074c0b7fa: Pulling fs layer
+2026-10-21T19:55:50.0683304Z 76bc8d85aed0: Pulling fs layer
+2026-10-21T19:55:50.0683851Z 8039b21a00ac: Pulling fs layer
+2026-10-21T19:55:50.0684888Z 0c91f59dd719: Pulling fs layer
+2026-10-21T19:55:50.0685274Z 40c8d110c258: Pulling fs layer
+2026-10-21T19:55:50.0685554Z 53bfd3d9a134: Pulling fs layer
+2026-10-21T19:55:50.0686209Z 76a88d62761c: Pulling fs layer
+2026-10-21T19:55:50.0686760Z 2f182e3dfc47: Pulling fs layer
+2026-10-21T19:55:50.0687650Z 122b4cfbe03f: Pulling fs layer
+2026-10-21T19:55:50.0688168Z 601da60d4a18: Pulling fs layer
+2026-10-21T19:55:50.0688644Z e6a206e9749c: Pulling fs layer
+2026-10-21T19:55:50.0688990Z d5ac605a5fdb: Pulling fs layer
+2026-10-21T19:55:50.0689446Z 53bfd3d9a134: Waiting
+2026-10-21T19:55:50.0689854Z 76a88d62761c: Waiting
+2026-10-21T19:55:50.0690323Z 2f182e3dfc47: Waiting
+2026-10-21T19:55:50.0690822Z 122b4cfbe03f: Waiting
+2026-10-21T19:55:50.0691340Z 601da60d4a18: Waiting
+2026-10-21T19:55:50.0691827Z e6a206e9749c: Waiting
+2026-10-21T19:55:50.0692251Z d5ac605a5fdb: Waiting
+2026-10-21T19:55:50.0692712Z 8039b21a00ac: Waiting
+2026-10-21T19:55:50.0693488Z 0c91f59dd719: Waiting
+2026-10-21T19:55:50.0693917Z 40c8d110c258: Waiting
+2026-10-21T19:55:50.1980106Z 76bc8d85aed0: Verifying Checksum
+2026-10-21T19:55:50.1980719Z 76bc8d85aed0: Download complete
+2026-10-21T19:55:50.2690898Z bf5074c0b7fa: Verifying Checksum
+2026-10-21T19:55:50.2691457Z bf5074c0b7fa: Download complete
+2026-10-21T19:55:50.4374584Z 0c91f59dd719: Verifying Checksum
+2026-10-21T19:55:50.4377883Z 0c91f59dd719: Download complete
+2026-10-21T19:55:50.4423263Z f0bff0b17bb6: Verifying Checksum
+2026-10-21T19:55:50.4423829Z f0bff0b17bb6: Download complete
+2026-10-21T19:55:50.5745534Z 53bfd3d9a134: Verifying Checksum
+2026-10-21T19:55:50.5749375Z 53bfd3d9a134: Download complete
+2026-10-21T19:55:50.6087060Z 40c8d110c258: Verifying Checksum
+2026-10-21T19:55:50.6096871Z 40c8d110c258: Download complete
+2026-10-21T19:55:50.7914446Z 2f182e3dfc47: Verifying Checksum
+2026-10-21T19:55:50.7917840Z 2f182e3dfc47: Download complete
+2026-10-21T19:55:50.8029599Z 76a88d62761c: Verifying Checksum
+2026-10-21T19:55:50.8037593Z 76a88d62761c: Download complete
+2026-10-21T19:55:50.8498864Z 8039b21a00ac: Verifying Checksum
+2026-10-21T19:55:50.8502839Z 8039b21a00ac: Download complete
+2026-10-21T19:55:50.9644322Z 601da60d4a18: Verifying Checksum
+2026-10-21T19:55:50.9663708Z 601da60d4a18: Download complete
+2026-10-21T19:55:50.9864660Z e6a206e9749c: Verifying Checksum
+2026-10-21T19:55:50.9867625Z e6a206e9749c: Download complete
+2026-10-21T19:55:51.1064598Z d5ac605a5fdb: Verifying Checksum
+2026-10-21T19:55:51.1065213Z d5ac605a5fdb: Download complete
+2026-10-21T19:55:51.2988265Z 122b4cfbe03f: Verifying Checksum
+2026-10-21T19:55:51.3239690Z 122b4cfbe03f: Download complete
+2026-10-21T19:55:54.0322207Z f0bff0b17bb6: Pull complete
+2026-10-21T19:55:54.0820835Z bf5074c0b7fa: Pull complete
+2026-10-21T19:55:54.0951119Z 76bc8d85aed0: Pull complete
+2026-10-21T19:55:58.1209560Z 8039b21a00ac: Pull complete
+2026-10-21T19:55:58.1398117Z 0c91f59dd719: Pull complete
+2026-10-21T19:55:58.1623987Z 40c8d110c258: Pull complete
+2026-10-21T19:55:58.1743648Z 53bfd3d9a134: Pull complete
+2026-10-21T19:55:59.3148693Z 76a88d62761c: Pull complete
+2026-10-21T19:55:59.3635113Z 2f182e3dfc47: Pull complete
+2026-10-21T19:56:26.9710778Z 122b4cfbe03f: Pull complete
+2026-10-21T19:56:27.3777500Z 601da60d4a18: Pull complete
+2026-10-21T19:56:27.4039099Z e6a206e9749c: Pull complete
+2026-10-21T19:56:27.4154865Z d5ac605a5fdb: Pull complete
+2026-10-21T19:56:27.4197965Z Digest: sha256:ec2ad41411eac8fc2b769b4bb00d1af32ae37eca3745c15bdb329db27d218934
+2026-10-21T19:56:27.4211187Z Status: Downloaded newer image for ghcr.io/supabase/storage-api:v1.82.1
+2026-10-21T19:56:27.4222053Z ghcr.io/supabase/storage-api:v1.82.1
+2026-10-21T19:56:28.9874339Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:28.9905822Z Retrying after 4s: public.ecr.aws/supabase/gotrue:v2.197.0
+2026-10-21T19:56:33.2178505Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:33.2205164Z Retrying after 8s: public.ecr.aws/supabase/gotrue:v2.197.0
+2026-10-21T19:56:41.4834189Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:41.9275606Z v2.197.0: Pulling from supabase/gotrue
+2026-10-21T19:56:42.9604916Z 55afa1ecc21d: Already exists
+2026-10-21T19:56:42.9627687Z 71eb50013731: Pulling fs layer
+2026-10-21T19:56:42.9628547Z 74c409e3506a: Pulling fs layer
+2026-10-21T19:56:42.9630329Z e5d190db8191: Pulling fs layer
+2026-10-21T19:56:42.9630867Z f30f4fcb85f4: Pulling fs layer
+2026-10-21T19:56:42.9631389Z c0cb7126d877: Pulling fs layer
+2026-10-21T19:56:42.9631880Z f30f4fcb85f4: Waiting
+2026-10-21T19:56:42.9632362Z c0cb7126d877: Waiting
+2026-10-21T19:56:43.0873656Z 71eb50013731: Download complete
+2026-10-21T19:56:43.0965172Z 74c409e3506a: Verifying Checksum
+2026-10-21T19:56:43.0966296Z 74c409e3506a: Download complete
+2026-10-21T19:56:43.1455721Z 71eb50013731: Pull complete
+2026-10-21T19:56:43.2431775Z c0cb7126d877: Verifying Checksum
+2026-10-21T19:56:43.2432411Z c0cb7126d877: Download complete
+2026-10-21T19:56:43.2634579Z f30f4fcb85f4: Verifying Checksum
+2026-10-21T19:56:43.2636373Z f30f4fcb85f4: Download complete
+2026-10-21T19:56:43.2664453Z e5d190db8191: Verifying Checksum
+2026-10-21T19:56:43.2666688Z e5d190db8191: Download complete
+2026-10-21T19:56:43.3237587Z 74c409e3506a: Pull complete
+2026-10-21T19:56:43.6575036Z e5d190db8191: Pull complete
+2026-10-21T19:56:43.6926393Z f30f4fcb85f4: Pull complete
+2026-10-21T19:56:43.7022922Z c0cb7126d877: Pull complete
+2026-10-21T19:56:43.7065187Z Digest: sha256:1736a63078f5922b198c4cbe50f80ab9a2d3b54fe8b7b6cfb2e9dc5dbbc12c6b
+2026-10-21T19:56:43.7076175Z Status: Downloaded newer image for ghcr.io/supabase/gotrue:v2.197.0
+2026-10-21T19:56:43.7086030Z ghcr.io/supabase/gotrue:v2.197.0
+2026-10-21T19:56:44.3052310Z Seeding globals from roles.sql...
+2026-10-21T19:56:44.3110853Z Applying migration 20261019183410_create_visits.sql...
+2026-10-21T19:56:44.3390445Z Applying migration 20261020090000_content_model.sql...
+2026-10-21T19:56:44.3799177Z Applying migration 20261020090100_learner_model.sql...
+2026-10-21T19:56:44.4131749Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-21T19:56:44.4222280Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-21T19:56:44.4446462Z │
+2026-10-21T19:56:44.4448031Z ▲  no files matched pattern: supabase/seed.sql
+2026-10-21T19:56:45.0320138Z ##[group]Run supabase test db
+2026-10-21T19:56:45.0320697Z [36;1msupabase test db[0m
+2026-10-21T19:56:45.0382371Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:56:45.0382653Z env:
+2026-10-21T19:56:45.0382874Z   NODE_VERSION: 24
+2026-10-21T19:56:45.0383130Z   PYTHON_VERSION: 3.12
+2026-10-21T19:56:45.0383659Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:56:45.0383967Z ##[endgroup]
+2026-10-21T19:56:45.6668252Z Connecting to local database...
+2026-10-21T19:56:46.2583978Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:46.2621210Z Retrying after 4s: public.ecr.aws/supabase/pg_prove:3.36
+2026-10-21T19:56:50.5586208Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:50.5617905Z Retrying after 8s: public.ecr.aws/supabase/pg_prove:3.36
+2026-10-21T19:56:58.8872182Z Error response from daemon: toomanyrequests: Data limit exceeded
+2026-10-21T19:56:59.3542187Z 3.36: Pulling from supabase/pg_prove
+2026-10-21T19:56:59.4647345Z dcccee43ad5d: Pulling fs layer
+2026-10-21T19:56:59.4648188Z 06d62d0de6d7: Pulling fs layer
+2026-10-21T19:56:59.4648763Z a22cb17b3b93: Pulling fs layer
+2026-10-21T19:56:59.4649322Z 4f4fb700ef54: Pulling fs layer
+2026-10-21T19:56:59.4649828Z 4f4fb700ef54: Waiting
+2026-10-21T19:56:59.6075497Z a22cb17b3b93: Verifying Checksum
+2026-10-21T19:56:59.6076463Z a22cb17b3b93: Download complete
+2026-10-21T19:56:59.6221593Z dcccee43ad5d: Verifying Checksum
+2026-10-21T19:56:59.6226774Z dcccee43ad5d: Download complete
+2026-10-21T19:56:59.6660998Z 06d62d0de6d7: Verifying Checksum
+2026-10-21T19:56:59.6667300Z 06d62d0de6d7: Download complete
+2026-10-21T19:56:59.7520068Z 4f4fb700ef54: Verifying Checksum
+2026-10-21T19:56:59.7522034Z 4f4fb700ef54: Download complete
+2026-10-21T19:56:59.7713331Z dcccee43ad5d: Pull complete
+2026-10-21T19:57:00.4632634Z 06d62d0de6d7: Pull complete
+2026-10-21T19:57:00.5143104Z a22cb17b3b93: Pull complete
+2026-10-21T19:57:00.5258157Z 4f4fb700ef54: Pull complete
+2026-10-21T19:57:00.5306486Z Digest: sha256:eda7c5e68719e9c8287e78c017118407b48df904a51c935f5ab6098b8c0bc6bc
+2026-10-21T19:57:00.5325018Z Status: Downloaded newer image for ghcr.io/supabase/pg_prove:3.36
+2026-10-21T19:57:00.5340769Z ghcr.io/supabase/pg_prove:3.36
+2026-10-21T19:57:00.8485683Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:16: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:00.8767619Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:326: NOTICE:  dialogue pgtap-publish-fixture is already published; nothing to do
+2026-10-21T19:57:00.9076713Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql ....... ok
+2026-10-21T19:57:00.9332018Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql:13: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:01.0379631Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql .... ok
+2026-10-21T19:57:01.0610626Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql:14: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:01.2212961Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql ... ok
+2026-10-21T19:57:01.2438022Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql:11: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:01.2770998Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql .. ok
+2026-10-21T19:57:01.2986247Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql:10: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:01.4185497Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql ..... ok
+2026-10-21T19:57:01.4445818Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql:12: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:01.4779365Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql ......... ok
+2026-10-21T19:57:01.4782687Z All tests successful.
+2026-10-21T19:57:01.4783903Z Files=6, Tests=436,  1 wallclock secs ( 0.07 usr  0.02 sys +  0.07 cusr  0.05 csys =  0.21 CPU)
+2026-10-21T19:57:01.4784951Z Result: PASS
+2026-10-21T19:57:02.1276511Z ##[group]Run for file in supabase/migrations/*_load_v2_*.sql; do
+2026-10-21T19:57:02.1277745Z [36;1mfor file in supabase/migrations/*_load_v2_*.sql; do[0m
+2026-10-21T19:57:02.1278227Z [36;1m  echo "Loading $file again"[0m
+2026-10-21T19:57:02.1278685Z [36;1m  psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"[0m
+2026-10-21T19:57:02.1279134Z [36;1mdone[0m
+2026-10-21T19:57:02.1331351Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:57:02.1331682Z env:
+2026-10-21T19:57:02.1331938Z   NODE_VERSION: 24
+2026-10-21T19:57:02.1332226Z   PYTHON_VERSION: 3.12
+2026-10-21T19:57:02.1332810Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:57:02.1333199Z ##[endgroup]
+2026-10-21T19:57:02.1408421Z Loading supabase/migrations/20261020090300_load_v2_lemma_ipa.sql again
+2026-10-21T19:57:02.2898780Z ##[group]Run shopt -s nullglob
+2026-10-21T19:57:02.2899161Z [36;1mshopt -s nullglob[0m
+2026-10-21T19:57:02.2899526Z [36;1mfor file in supabase/migrations/*_publish_*.sql; do[0m
+2026-10-21T19:57:02.2899934Z [36;1m  echo "Publishing $file again"[0m
+2026-10-21T19:57:02.2900383Z [36;1m  psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f "$file"[0m
+2026-10-21T19:57:02.2900843Z [36;1mdone[0m
+2026-10-21T19:57:02.2953773Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:57:02.2954078Z env:
+2026-10-21T19:57:02.2954315Z   NODE_VERSION: 24
+2026-10-21T19:57:02.2954578Z   PYTHON_VERSION: 3.12
+2026-10-21T19:57:02.2955114Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:57:02.2955461Z ##[endgroup]
+2026-10-21T19:57:02.3070444Z ##[group]Run psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f scripts/v2-import/fixtures/check-load-twice.sql
+2026-10-21T19:57:02.3071340Z [36;1mpsql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -f scripts/v2-import/fixtures/check-load-twice.sql[0m
+2026-10-21T19:57:02.3124031Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:57:02.3124328Z env:
+2026-10-21T19:57:02.3124570Z   NODE_VERSION: 24
+2026-10-21T19:57:02.3124821Z   PYTHON_VERSION: 3.12
+2026-10-21T19:57:02.3125337Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:57:02.3125665Z ##[endgroup]
+2026-10-21T19:57:02.3657471Z psql:scripts/v2-import/fixtures/check-load-twice.sql:34: NOTICE:  Loaded the fixture sentences twice: 3 rows, fingerprint 20c532a48f9fff0844349f492e6ca4c7
+2026-10-21T19:57:02.3727634Z ##[group]Run supabase test db
+2026-10-21T19:57:02.3728021Z [36;1msupabase test db[0m
+2026-10-21T19:57:02.3790047Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:57:02.3790329Z env:
+2026-10-21T19:57:02.3790546Z   NODE_VERSION: 24
+2026-10-21T19:57:02.3790782Z   PYTHON_VERSION: 3.12
+2026-10-21T19:57:02.3791335Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:57:02.3791645Z ##[endgroup]
+2026-10-21T19:57:03.0898142Z Connecting to local database...
+2026-10-21T19:57:03.5705140Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:16: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:03.5886156Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql:326: NOTICE:  dialogue pgtap-publish-fixture is already published; nothing to do
+2026-10-21T19:57:03.6285917Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/content_publish.test.sql ....... ok
+2026-10-21T19:57:03.6519197Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql:13: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:03.7608799Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_content.test.sql .... ok
+2026-10-21T19:57:03.7843303Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql:14: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:03.9436646Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_learners.test.sql ... ok
+2026-10-21T19:57:03.9659663Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql:11: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:04.0000920Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_reference.test.sql .. ok
+2026-10-21T19:57:04.0243794Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql:10: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:04.1470772Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/data_model_schema.test.sql ..... ok
+2026-10-21T19:57:04.1719055Z psql:/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql:12: NOTICE:  extension "pgtap" already exists, skipping
+2026-10-21T19:57:04.2074678Z /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/visits_access.test.sql ......... ok
+2026-10-21T19:57:04.2097802Z All tests successful.
+2026-10-21T19:57:04.2098906Z Files=6, Tests=436,  1 wallclock secs ( 0.07 usr  0.01 sys +  0.06 cusr  0.05 csys =  0.19 CPU)
+2026-10-21T19:57:04.2099887Z Result: PASS
+2026-10-21T19:57:04.8676317Z ##[group]Run supabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"
+2026-10-21T19:57:04.8678156Z [36;1msupabase gen types --lang typescript --local --schema public > "$RUNNER_TEMP/database.types.ts"[0m
+2026-10-21T19:57:04.8679263Z [36;1mdiff -u src/lib/database.types.ts "$RUNNER_TEMP/database.types.ts"[0m
+2026-10-21T19:57:04.8758618Z shell: /usr/bin/bash -e {0}
+2026-10-21T19:57:04.8759061Z env:
+2026-10-21T19:57:04.8759417Z   NODE_VERSION: 24
+2026-10-21T19:57:04.8759814Z   PYTHON_VERSION: 3.12
+2026-10-21T19:57:04.8760628Z   LOCAL_DB_URL: ***127.0.0.1:54322/postgres
+2026-10-21T19:57:04.8761144Z ##[endgroup]
+2026-10-21T19:57:05.5198050Z Connecting to 127.0.0.1 54322
+2026-10-21T19:57:05.6081960Z Generated TypeScript is unformatted. Format it with:
+2026-10-21T19:57:05.6083721Z   npx oxfmt <generated-file.ts>
+2026-10-21T19:57:06.1212721Z Post job cleanup.
+2026-10-21T19:57:06.1216545Z ##[start-action display=Setup Bun;id=__ae4b7818-c980-4e5e-ad72-4c066ee6499c.__oven-sh_setup-bun]
+2026-10-21T19:57:06.1258807Z Post job cleanup.
+2026-10-21T19:57:06.3317756Z ##[end-action id=__ae4b7818-c980-4e5e-ad72-4c066ee6499c.__oven-sh_setup-bun;outcome=success;conclusion=success;duration_ms=209]
+2026-10-21T19:57:06.3580712Z Post job cleanup.
+2026-10-21T19:57:06.5014989Z [command]/usr/bin/git version
+2026-10-21T19:57:06.5157911Z git version 2.55.0
+2026-10-21T19:57:06.5263620Z Temporarily overriding HOME='/home/runner/work/_temp/7cfbcbdf-50fc-4958-b5b9-ed602803bb49' before making global git config changes
+2026-10-21T19:57:06.5287747Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T19:57:06.5289040Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/puhuscribe-v3/puhuscribe-v3
+2026-10-21T19:57:06.5377472Z Removing SSH command configuration
+2026-10-21T19:57:06.5400106Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T19:57:06.5422224Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T19:57:06.5861201Z Removing HTTP extra header
+2026-10-21T19:57:06.5862319Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T19:57:06.5948584Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T19:57:06.6389285Z Removing includeIf entries pointing to credentials config files
+2026-10-21T19:57:06.6407621Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T19:57:06.6498613Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T19:57:06.7114569Z Cleaning up orphan processes

@@ -1,0 +1,94 @@
+# Evaluator: missing tools, fresh scratch clone, throwaway branch never pushed
+
+=== A. gitleaks not on PATH (WinGet Links folder removed from PATH), one .ts file staged
+(gitleaks not found on this PATH)
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-ok.ts 52ms (unchanged)
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+gitleaks is not installed, so this commit is refused. Install it once (free) with: winget install --id Gitleaks.Gitleaks -e. Then commit again.
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+┃  checks ❯ lint (ESLint) ❯ 
+  ────────────────────────────────────
+summary: (done in 10.01 seconds)
+✔️ format (Prettier, fixes and restages) (2.11 seconds)
+🥊 checks (15.31 seconds)
+  ✔️ type check (tsc -b) (7.14 seconds)
+  ✔️ lint (ESLint) (7.86 seconds)
+  🥊 secrets (gitleaks, redacted): gitleaks found a secret in the staged changes. Remove it, tell the owner, and never paste its value anywhere. Then commit again. (0.31 seconds)
+--- exit 1; HEAD moved: no
+
+=== B. ruff not available (no python, no ruff on PATH), one .py file staged
+(ruff, python, python3 not found on this PATH)
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+ruff is not installed, so this commit is refused. Install it once (free) with: python -m pip install --user -r scripts/requirements-dev.txt. Then commit again.
+┃  checks ❯ python lint (ruff check) ❯ 
+exit status 1
+ruff is not installed, so this commit is refused. Install it once (free) with: python -m pip install --user -r scripts/requirements-dev.txt. Then commit again.
+┃  checks ❯ python format (ruff format --check) ❯ 
+exit status 1
+6:02PM INF 0 commits scanned.
+6:02PM INF scanned ~22 bytes (22 bytes) in 278ms
+6:02PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+  ────────────────────────────────────
+summary: (done in 3.57 seconds)
+✔️ format (Prettier, fixes and restages) (2.08 seconds)
+🥊 checks (2.07 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.45 seconds)
+  🥊 python lint (ruff check) (0.30 seconds)
+  🥊 python format (ruff format --check) (0.32 seconds)
+--- exit 1; HEAD moved: no
+
+=== C. ruff not available, but no .py staged (ruff not needed)
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-ok.ts 50ms (unchanged)
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+6:02PM INF 0 commits scanned.
+6:02PM INF scanned ~24 bytes (24 bytes) in 398ms
+6:02PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+┃  checks ❯ type check (tsc -b) ❯ 
+┃  checks ❯ lint (ESLint) ❯ 
+  ────────────────────────────────────
+summary: (done in 10.09 seconds)
+✔️ format (Prettier, fixes and restages) (2.13 seconds)
+✔️ checks (17.04 seconds)
+  ✔️ secrets (gitleaks, redacted) (2.05 seconds)
+  ✔️ type check (tsc -b) (7.08 seconds)
+  ✔️ lint (ESLint) (7.91 seconds)
+[eval-throwaway-missing 39d5279] eval throwaway
+ 1 file changed, 1 insertion(+)
+ create mode 100644 worker/eval-ok.ts
+--- exit 0; HEAD moved: yes
+
+=== D. lefthook removed from node_modules (as after the installing worktree is deleted)
+(no lefthook on PATH)
+Can't find lefthook in PATH
+ERROR: Operation is aborted due to lefthook settings.
+Make sure lefthook is available in your environment and re-try.
+To skip these checks use --no-verify git argument or set LEFTHOOK=0 env variable.
+--- exit 1; HEAD moved: no
+=== D2. same, factory-only commit
+warning: in the working copy of 'factory/jobs/eval-x/n.md', LF will be replaced by CRLF the next time Git touches it
+Can't find lefthook in PATH
+ERROR: Operation is aborted due to lefthook settings.
+Make sure lefthook is available in your environment and re-try.
+To skip these checks use --no-verify git argument or set LEFTHOOK=0 env variable.
+--- exit 1; HEAD moved: no
+(lefthook restored: 2.2.2)
+throwaway branch deleted

@@ -1,0 +1,149 @@
+Evaluator break tests, job 5-design-system round 1, fresh clone of factory/5-design-system at 0f94502.
+Each mutation is applied alone, the named test file is run with npx vitest run, then git checkout restores the clone. RED = the test caught it. GREEN = the test stayed green (a gap).
+
+### A gradient in a component CSS file
+mutation: printf '\n.x { background-image: linear-gradient(var(--color-text), var(--color-surface)); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] no CSS or component in src/ uses anything on the list 31ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 24 passed (25)
+
+### B banned font Inter in font-family
+mutation: printf '\n.x { font-family: Inter, sans-serif; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] no CSS or component in src/ uses anything on the list 28ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 24 passed (25)
+
+### C banned font Inter via the heading font token
+mutation: sed -i "s/--font-heading: 'Poppins'/--font-heading: 'Inter'/" src/styles/tokens.css
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  25 passed (25)
+
+### D banned font Inter via the font shorthand
+mutation: printf '\n.x { font: 600 1rem Inter, sans-serif; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  25 passed (25)
+
+### E raw hex colour in a component CSS file
+mutation: printf '\n.x { color: #ff0000; }\n' >> src/components/StatusLine.module.css
+test file: tests/design-tokens.test.ts
+verdict: RED
+     × [design 3] no file in src/ other than tokens.css holds a raw colour value 35ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 3] no file in src/ other than tokens.css holds a raw colour value
+      Tests  1 failed | 64 passed (65)
+
+### F raw rgb() colour in a .tsx file
+mutation: printf '\nexport const RAW = "rgb(255, 0, 0)"\n' >> src/components/Wordmark.tsx
+test file: tests/design-tokens.test.ts
+verdict: RED
+     × [design 3] no file in src/ other than tokens.css holds a raw colour value 38ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 3] no file in src/ other than tokens.css holds a raw colour value
+      Tests  1 failed | 64 passed (65)
+
+### G Switzer font file changed by one byte
+mutation: printf 'x' >> src/assets/fonts/switzer/Switzer-Regular.woff2
+test file: tests/design-rules.test.ts
+verdict: RED
+     × [design 5] the Switzer files are byte for byte as downloaded, with their licence 13ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-rules.test.ts > fonts > [design 5] the Switzer files are byte for byte as downloaded, with their licence
+      Tests  1 failed | 8 passed (9)
+
+### H text-transform written in capitals
+mutation: printf '\n.x { text-transform: UPPERCASE; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  25 passed (25)
+
+### I gradient as an inline style in a .tsx file
+mutation: printf '\nexport const FADE = { backgroundImage: "linear-gradient(var(--color-text), var(--color-surface))" }\n' >> src/components/Wordmark.tsx
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  25 passed (25)
+
+### J one-side 6 px border via border-width
+mutation: printf '\n.x { border-style: solid; border-width: 0 0 0 6px; }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: GREEN
+      Tests  25 passed (25)
+
+### K one-side 6 px border via border-left
+mutation: printf '\n.x { border-left: 6px solid var(--color-text); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] no CSS or component in src/ uses anything on the list 31ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 24 passed (25)
+
+### L quiet text colour too light (contrast)
+mutation: sed -i '0,/--color-text-quiet: #56525e/s//--color-text-quiet: #9a96a8/' src/styles/tokens.css
+test file: tests/design-tokens.test.ts
+verdict: RED (corrected by hand: the script's summary line was cut off; rerun showed 'Tests 4 failed | 61 passed (65)')
+     × [design 4] light: the written line and quieter text on a card reaches 4.5:1 6ms
+     × [design 4] light: quieter text at the top of the page reaches 4.5:1 1ms
+     × [design 4] light: quieter text in the middle of the page reaches 4.5:1 0ms
+     × [design 4] light: quieter text at the bottom of the page reaches 4.5:1 0ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 4] light: the written line and quieter text on a card reaches 4.5:1
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 4] light: quieter text at the top of the page reaches 4.5:1
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 4] light: quieter text in the middle of the page reaches 4.5:1
+
+### M getUserMedia call in a component
+mutation: printf '\nexport const ask = () => navigator.mediaDevices.getUserMedia({ audio: true })\n' >> src/components/Wordmark.tsx
+test file: tests/design-rules.test.ts
+verdict: RED
+     × [design 13] no file in src/ asks for the microphone 14ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-rules.test.ts > record control > [design 13] no file in src/ asks for the microphone
+      Tests  1 failed | 8 passed (9)
+
+### N color-mix() in a component CSS file
+mutation: printf '\n.x { color: color-mix(in srgb, var(--color-text), var(--color-surface)); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] no CSS or component in src/ uses anything on the list 29ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 24 passed (25)
+
+### O backdrop-filter in a component CSS file
+mutation: printf '\n.x { backdrop-filter: blur(4px); }\n' >> src/components/Button.module.css
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] no CSS or component in src/ uses anything on the list 29ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 24 passed (25)
+
+### P cssTarget removed from vite.config.ts
+mutation: sed -i "s/cssTarget: \['safari15.4'\],//" vite.config.ts
+test file: tests/design-css.test.ts
+verdict: RED
+     × [design 18] Vite builds CSS for Safari 15.4 7ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] Vite builds CSS for Safari 15.4
+      Tests  1 failed | 24 passed (25)
+
+### Q design pages forced into every build
+mutation: sed -i "s/const designPagesOn = .*/const designPagesOn = true/" src/main.tsx
+test file: tests/design-build.test.ts
+verdict: RED
+     × [design 16] holds none of the design pages, their code or their samples 59ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-build.test.ts > a normal build > [design 16] holds none of the design pages, their code or their samples
+      Tests  1 failed | 1 passed (2)
+?? evalx/
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-tokens.test.ts > design tokens > [design 4] design.md lists exactly the pairings this test checks
+      Tests  1 failed | 64 passed (65)
+(above: S, removed the "edge of a problem message" row from design.md; expected RED)

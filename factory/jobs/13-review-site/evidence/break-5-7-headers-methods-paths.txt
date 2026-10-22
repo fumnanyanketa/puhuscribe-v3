@@ -1,0 +1,37 @@
+# Break tests for statements 5 and 7 (job 13-review-site, 22 October 2026). Each break edits review-site/handler.ts, runs npx vitest run review-site/handler.test.ts, then restores the file.
+
+## BREAK: every method allowed
+# replaced: if (method !== 'GET' && method !== 'HEAD') {
+# with:     if (false) {
+      Tests  6 failed | 18 passed (24)
+     × [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too 14ms
+     × [site 7] DELETE gets 405 and touches no file 2ms
+     × [site 7] OPTIONS gets 405 and touches no file 2ms
+     × [site 7] PATCH gets 405 and touches no file 2ms
+     × [site 7] POST gets 405 and touches no file 5ms
+     × [site 7] PUT gets 405 and touches no file 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: every path looked up
+# replaced: return path === '/' || path === '/index.html'
+# with:     return true || path === '/index.html'
+      Tests  1 failed | 23 passed (24)
+     × [site 7] paths outside the site shape are refused before the assets are asked 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: no X-Robots-Tag
+# replaced: 'X-Robots-Tag': 'noindex, nofollow, noarchive',
+# with:     'X-Robots-Tag-Off': 'x',
+      Tests  3 failed | 21 passed (24)
+     × [site 5] a review page keeps its own policy; the Worker adds only frame-ancestors 'none' 4ms
+     × [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too 5ms
+     × [site 5] the index gets the shared headers and the strict policy 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+## BREAK: HEAD sends the body
+# replaced: return new Response(method === 'HEAD' ? null : asset.body
+# with:     return new Response(asset.body
+      Tests  1 failed | 23 passed (24)
+     × [site 7] HEAD is answered with the headers and no body 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+

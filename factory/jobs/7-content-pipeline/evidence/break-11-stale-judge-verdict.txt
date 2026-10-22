@@ -1,0 +1,5 @@
+Break test, local (recorded Voikko readings). content_checks.py ignores a stale judge fingerprint:
+ scripts/generate/content_checks.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+FAILED scripts/generate/test_content_checks.py::test_a_line_changed_after_it_was_judged_fails
+1 failed, 19 passed in 1.91s

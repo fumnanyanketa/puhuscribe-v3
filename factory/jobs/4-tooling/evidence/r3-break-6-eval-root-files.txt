@@ -1,0 +1,51 @@
+=== baseline
+      Tests  35 passed (35)
+
+=== 1. AGENTS.md text: lefthook.yml -> lefthook-gone.yml
+     × [tooling 6] every path written in AGENTS.md exists 330ms
+     × [tooling 6] the root files named today are among the paths checked 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+- Expected
++ Received
+      Tests  2 failed | 33 passed (35)
+
+=== 2. git mv ruff.toml ruff-gone.toml (named in conventions.md)
+     × [tooling 6] every path written in docs/conventions.md exists 375ms
+     × [tooling 6] root files without a slash are checked too, and ordinary words are not 248ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+- Expected
++ Received
+- Expected
++ Received
+      Tests  2 failed | 33 passed (35)
+
+=== 3. conventions.md text: .prettierignore -> .prettierignore-gone (first mention)
+     × [tooling 6] every path written in docs/conventions.md exists 381ms
+     × [tooling 6] the root files named today are among the paths checked 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+- Expected
++ Received
+      Tests  2 failed | 33 passed (35)
+
+=== 4. git mv eslint.config.js eslint.gone.js
+     × [tooling 6] every path written in docs/conventions.md exists 372ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+- Expected
++ Received
+      Tests  1 failed | 34 passed (35)
+
+=== 5. conventions.md text: a job file name that no job has (review-ux.md)
+     × [tooling 6] every path written in docs/conventions.md exists 428ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+- Expected
++ Received
+      Tests  1 failed | 34 passed (35)
+
+=== 6. FALSE POSITIVE PROBE: ordinary words and code identifiers added to conventions.md must stay green
+      Tests  35 passed (35)
+
+=== 7. FALSE POSITIVE PROBE in AGENTS.md (words section stays under 2,200 words)
+1
+      Tests  35 passed (35)
+
+=== after: tree 0 changes

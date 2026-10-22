@@ -1,0 +1,25 @@
+      32 |     await openPage(page, [])
+    > 33 |     await expect(page.getByText(PLANTED).first()).toBeVisible()
+         |                                                   ^
+      34 |     expect(await page.title()).toBe('Review: pgtap publish fixture (round 1)')
+      35 |     await expect(page.getByText("(it's a test of <b>escaping</b> & quotes)")).toBeVisible()
+      36 |   })
+        at C:\Users\fumna\dev\puhuscribe-v3\.worktrees\7-content-pipeline\e2e\review-page.spec.ts:33:51
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+    Error Context: test-results\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\error-context.md
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\trace.zip
+    Usage:
+        npx playwright show-trace test-results\review-page-the-review-pag-490fd-script-is-printed-never-run-chromium\trace.zip
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+[3/5] [chromium] › e2e\review-page.spec.ts:38:3 › the review page › [content 13] shows each line, word card and clip with its choices
+[4/5] [chromium] › e2e\review-page.spec.ts:54:3 › the review page › [content 13] refuses to save until every item has a decision and the code is filled in
+[5/5] [chromium] › e2e\review-page.spec.ts:64:3 › the review page › [content 13] "Download my review" saves every decision with each item's fingerprint
+  1 failed
+    [chromium] › e2e\review-page.spec.ts:31:3 › the review page › [content 13] drafted text that contains <script> is printed, never run 
+  4 passed (12.6s)

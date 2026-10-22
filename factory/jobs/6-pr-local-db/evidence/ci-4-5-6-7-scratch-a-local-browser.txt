@@ -1,0 +1,41 @@
+# Scratch pull request A (#15), run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39651502908 , local browser check job 119400722058
+# Head b47bfb8ae6b690b8eb755145a6e87c6c86b67a9e. Extract of the job log (key lines only; the full log is on GitHub).
+# All jobs of the run:
+#   Secret scan (gitleaks) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:33Z
+#   Unit tests (Vitest) | failure | 2026-10-21T18:18:21Z | 2026-10-21T18:18:58Z
+#   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:48Z
+#   Database tests (local Supabase, pgTAP) | failure | 2026-10-21T18:18:22Z | 2026-10-21T18:20:11Z
+#   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:26:09Z
+#   Type check, lint, format | success | 2026-10-21T18:18:22Z | 2026-10-21T18:19:07Z
+#   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:18:22Z | 2026-10-21T18:18:52Z
+#   Apply database changes to the test project | skipped | 2026-10-21T18:20:11Z | 2026-10-21T18:20:11Z
+#   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:20:12Z | 2026-10-21T18:20:11Z
+#   Preview link (Cloudflare Worker behind Access) | skipped | 2026-10-21T18:26:10Z | 2026-10-21T18:26:10Z
+2026-10-21T18:20:57.7020785Z Applying migration 20261019183410_create_visits.sql...
+2026-10-21T18:20:57.7021993Z Applying migration 20261020090000_content_model.sql...
+2026-10-21T18:20:57.7023455Z Applying migration 20261020090100_learner_model.sql...
+2026-10-21T18:20:57.7024378Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-21T18:20:57.7025513Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-21T18:20:57.7026628Z Applying migration 20261021200000_scratch_prdb_a.sql...
+2026-10-21T18:20:57.7031470Z Started supabase local development setup.
+2026-10-21T18:20:58.9576604Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:20:59.3064589Z Wrote SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY to .env.local
+2026-10-21T18:20:59.3390004Z Loading supabase/seeds/browser/010_scratch_prdb_a.sql
+2026-10-21T18:20:59.8059383Z check:env-names passed (155 variable names checked).
+2026-10-21T18:21:08.3558030Z check:built-secrets passed (38 browser files scanned).
+2026-10-21T18:23:14.6824472Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:23:14.7256385Z   ✓   53 [chromium] › e2e/scratch-prdb-a.spec.ts:9:3 › scratch A: a new table on its own pull request › [prdb 4] [prdb 7] the new table is readable through the local API and holds the seeded row @seed (1.5s)
+2026-10-21T18:23:16.0851846Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:23:16.1093753Z   ✓   54 [chromium] › e2e/scratch-prdb-a.spec.ts:22:3 › scratch A: a new table on its own pull request › [prdb 6] a table whose migration grants nothing is refused by the local API @seed (1.4s)
+2026-10-21T18:23:17.4993598Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:23:17.5256645Z   ✓   55 [chromium] › e2e/scratch-prdb-a.spec.ts:35:3 › scratch A: a new table on its own pull request › [prdb 5] scratch B’s table does not exist in this database @seed (1.4s)
+2026-10-21T18:25:39.3585708Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:39.3934542Z   ✓  122 [webkit] › e2e/scratch-prdb-a.spec.ts:9:3 › scratch A: a new table on its own pull request › [prdb 4] [prdb 7] the new table is readable through the local API and holds the seeded row @seed (1.4s)
+2026-10-21T18:25:40.7315471Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:40.7525255Z   ✓  123 [webkit] › e2e/scratch-prdb-a.spec.ts:22:3 › scratch A: a new table on its own pull request › [prdb 6] a table whose migration grants nothing is refused by the local API @seed (1.3s)
+2026-10-21T18:25:42.1425844Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:42.1732488Z   ✓  124 [webkit] › e2e/scratch-prdb-a.spec.ts:35:3 › scratch A: a new table on its own pull request › [prdb 5] scratch B’s table does not exist in this database @seed (1.4s)
+2026-10-21T18:26:03.8833305Z   6 skipped
+2026-10-21T18:26:03.8834011Z   132 passed (4.0m)
+2026-10-21T18:26:04.2201379Z Rows in visits on the throwaway database: 30
+# Lines in the whole job log matching sb_publishable, sb_secret or eyJhbGci: 0

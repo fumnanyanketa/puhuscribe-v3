@@ -1,0 +1,33 @@
+# Job 4-tooling round 2, security finding 3: the commit check's gitleaks run without --verbose.
+# Throwaway branch scratch/4-tooling-r2-key from 26cd98a, never pushed.
+$ # worker/bad-key.ts holds: export const githubToken = 'ghp_<36 random letters and digits>' // and a second made-up value on the same line
+$ git commit -m "scratch: made-up key"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/bad-key.ts 53ms (unchanged)
+
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+5:37PM INF 0 commits scanned.
+5:37PM INF scanned ~123 bytes (123 bytes) in 366ms
+5:37PM WRN leaks found: 1
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+exit status 1
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.99 seconds)
+✔️ format (Prettier, fixes and restages) (2.34 seconds)
+🥊 checks (16.13 seconds)
+  ✔️ type check (tsc -b) (6.58 seconds)
+  ✔️ lint (ESLint) (7.60 seconds)
+  🥊 secrets (gitleaks, redacted): gitleaks found a secret in the staged changes. Remove it, tell the owner, and never paste its value anywhere. Then commit again. (1.95 seconds)
+exit=1
+$ git log --oneline -1   # no new commit
+26cd98a Round 2: fail closed without lefthook, quieter secret scan, clearer rules
+Check (grep -F over this file): the made-up key (40 characters) and the second made-up value on its line were not found. The word githubToken was found only in the description line this script wrote above, not in the hook output, which shows only "leaks found: 1" and the fail text.

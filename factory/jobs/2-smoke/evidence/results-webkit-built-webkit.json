@@ -1,0 +1,176 @@
+[
+  {
+    "name": "saving message shows first",
+    "ok": true,
+    "detail": "Saving your visit."
+  },
+  {
+    "name": "no Try again while saving",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "one h1 \"Hei!\" with lang=fi",
+    "ok": true,
+    "detail": [
+      {
+        "tag": "H1",
+        "text": "Hei!",
+        "lang": "fi"
+      }
+    ]
+  },
+  {
+    "name": "title PuhuScribe",
+    "ok": true,
+    "detail": "PuhuScribe"
+  },
+  {
+    "name": "one status line",
+    "ok": true,
+    "detail": "P"
+  },
+  {
+    "name": "no styling",
+    "ok": true,
+    "detail": {
+      "sheets": 0,
+      "styleEls": 0,
+      "media": 0,
+      "icons": [
+        "data:,"
+      ],
+      "font": "-webkit-standard"
+    }
+  },
+  {
+    "name": "no stylesheet/font/image requests",
+    "ok": true,
+    "detail": []
+  },
+  {
+    "name": "all requests same origin, none to supabase",
+    "ok": true,
+    "detail": []
+  },
+  {
+    "name": "one POST on first load",
+    "ok": true,
+    "detail": 1
+  },
+  {
+    "name": "console clean on load",
+    "ok": true,
+    "detail": []
+  },
+  {
+    "name": "reload 1: posts total 2",
+    "ok": true,
+    "detail": 2
+  },
+  {
+    "name": "reload 2: posts total 3",
+    "ok": true,
+    "detail": 3
+  },
+  {
+    "name": "deep link loads app, one POST",
+    "ok": true,
+    "detail": {
+      "afterDeep": 4
+    }
+  },
+  {
+    "name": "back navigation",
+    "ok": true,
+    "detail": {
+      "afterBack": 5,
+      "status": "Your visit is saved."
+    }
+  },
+  {
+    "name": "failure message exact",
+    "ok": true,
+    "detail": "Your visit was not saved. Check your internet connection, then try again."
+  },
+  {
+    "name": "Try again visible after failure",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard Try again -> saving -> saved, one new POST",
+    "ok": true,
+    "detail": {
+      "posts": 2,
+      "tabReachedButton": true,
+      "focusDuring": "status",
+      "focusAfter": "status"
+    }
+  },
+  {
+    "name": "focus on status line after Try again",
+    "ok": true,
+    "detail": {
+      "focusDuring": "status",
+      "focusAfter": "status"
+    }
+  },
+  {
+    "name": "button gone after save",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "console during failure path",
+    "ok": true,
+    "detail": []
+  },
+  {
+    "name": "double click Try again sends one POST",
+    "ok": true,
+    "detail": {
+      "posts": 2
+    }
+  },
+  {
+    "name": "double tap Try again sends one POST",
+    "ok": true,
+    "detail": {
+      "posts": 2
+    }
+  },
+  {
+    "name": "Try again while still offline fails again with button",
+    "ok": true,
+    "detail": {
+      "posts": 2
+    }
+  },
+  {
+    "name": "503 shows failure + Try again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "200 HTML (e.g. a login page) is treated as not saved",
+    "ok": true,
+    "detail": "Your visit was not saved. Check your internet connection, then try again."
+  },
+  {
+    "name": "slow 4s: saving at 3s then saved",
+    "ok": true,
+    "detail": {
+      "mid": "Saving your visit.",
+      "ms": 5020
+    }
+  },
+  {
+    "name": "reload mid save: one POST per load (2 loads)",
+    "ok": true,
+    "detail": {
+      "posts": 2,
+      "status": "Your visit is saved."
+    }
+  }
+]

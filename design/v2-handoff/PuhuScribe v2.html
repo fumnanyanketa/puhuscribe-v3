@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PuhuScribe v2 — Brand & Screens</title>
+<script>
+  // One-time reset of the design-canvas saved pan/zoom. A stale transform from
+  // earlier editing left content panned off-screen; clear it once so everyone
+  // lands back on content. Normal persistence resumes after this.
+  try {
+    var __vpKey = 'dc-viewport:' + location.pathname;
+    if (!localStorage.getItem('puhu-vp-reset-v4')) {
+      localStorage.removeItem(__vpKey);
+      localStorage.setItem('puhu-vp-reset-v4', '1');
+    }
+  } catch (e) {}
+</script>
+<link rel="stylesheet" href="brand/tokens.css" />
+<style>
+  html, body { margin: 0; height: 100%; background: #f0eee9; }
+  .intro-panel p { margin: 0; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="brand/ps-components.jsx"></script>
+<script type="text/babel" src="brand/ps-shell.jsx"></script>
+<script type="text/babel" src="brand/ps-brandsheet.jsx"></script>
+<script type="text/babel" src="brand/ps-screens-flow.jsx"></script>
+<script type="text/babel" src="brand/ps-screens-app.jsx"></script>
+
+<script type="text/babel">
+const e = React.createElement;
+const { DesignCanvas, DCSection, DCArtboard } = window;
+const { PuhuApp, PuhuMark } = window.PS.shell;
+const { Panel, Colors, RegisterKey, Type, ButtonsPanel, CardsPanel, MotifsPanel } = window.PS.brand;
+const { OrbCluster } = window.PS;
+
+// transparent artboard so the inner Panel / phone is the visible object
+const board = { background: 'transparent', boxShadow: 'none', border: 'none', overflow: 'visible' };
+
+// A phone frame holding the live, tappable app at a given start screen.
+// theme="snow" wraps the app so the CSS-var overrides cascade to every screen.
+function Phone({ start, theme }) {
+  return e('div', { style: { width: 402, height: 874 } },
+    e(window.IOSDevice, null,
+      e('div', { className: theme === 'snow' ? 'ps-theme-snow' : '', style: { position: 'absolute', inset: 0 } },
+        e(PuhuApp, { initialScreen: start }))));
+}
+
+// Intro / read-me panel
+function Intro() {
+  return e('div', { className: 'ps-root ps-theme-snow intro-panel', style: { width: 420, background: 'var(--bg-grad)',
+    padding: 30, borderRadius: 'var(--r-xl)', boxShadow: 'var(--sh-2)' } },
+    e('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' } },
+      e(PuhuMark, { size: 24 }),
+      e('span', { className: 'ps-chip ps-chip--ink', style: { fontSize: 11 } }, 'v2 · Lake Glass')),
+    e('div', { style: { display: 'flex', justifyContent: 'center', margin: '8px 0 4px' } }, e(OrbCluster, { size: 150 })),
+    e('h1', { className: 'ps-title-1', style: { fontSize: 32, margin: '8px 0 0' } },
+      'Learn the Finnish ', e('span', { style: { color: 'var(--written)' } }, 'people'), ' speak'),
+    e('p', { className: 'ps-body-l', style: { color: 'var(--ink-2)', marginTop: 14 } },
+      'PuhuScribe teaches new residents the gap between book Finnish (kirjakieli) and street Finnish (puhekieli). Every card shows both, joined by a connector, with the words that change flagged in azure.'),
+    e('hr', { className: 'ps-rule', style: { margin: '20px 0' } }),
+    e('div', { style: { display: 'grid', gap: 14 } },
+      [['Aesthetic', 'Clean white surfaces with pastel colour-blocks and glossy 3D speech bubbles. Calm ground, confident accents.'],
+       ['Type', 'Poppins for bold geometric display; Switzer for body & UI.'],
+       ['Motion', 'Quiet. 150 ms, no bounce. Soft shadows do the lifting.'],
+       ['Note', 'Tap through any phone — screens are live. Speech bubbles are built in SVG; swap for real 3D renders any time.']].map(([k, v]) =>
+        e('div', { key: k, style: { display: 'grid', gridTemplateColumns: '78px 1fr', gap: 14, alignItems: 'start' } },
+          e('span', { className: 'ps-label', style: { color: 'var(--written)', paddingTop: 2 } }, k),
+          e('span', { className: 'ps-body', style: { color: 'var(--ink)' } }, v)))));
+}
+
+function App() {
+  return e(DesignCanvas, null,
+    e(DCSection, { id: 'brand', title: 'Brand system', subtitle: 'Tokens, type, components — the source of truth' },
+      e(DCArtboard, { id: 'intro', label: 'Overview', width: 420, height: 660, style: board }, e(Intro)),
+      e(DCArtboard, { id: 'colors', label: 'Colour tokens', width: 360, height: 600, style: board }, e(Colors)),
+      e(DCArtboard, { id: 'register', label: 'Register coding', width: 360, height: 540, style: board }, e(RegisterKey)),
+      e(DCArtboard, { id: 'type', label: 'Type scale', width: 380, height: 640, style: board }, e(Type)),
+      e(DCArtboard, { id: 'buttons', label: 'Buttons', width: 340, height: 470, style: board }, e(ButtonsPanel)),
+      e(DCArtboard, { id: 'cards', label: 'Card patterns', width: 380, height: 560, style: board }, e(CardsPanel)),
+      e(DCArtboard, { id: 'motifs', label: 'Speech bubbles', width: 360, height: 530, style: board }, e(MotifsPanel))),
+    e(DCSection, { id: 'screens', title: 'Core screens', subtitle: 'Live iPhone prototypes — tap through the flow' },
+      e(DCArtboard, { id: 'onboarding', label: '01 · Onboarding', width: 402, height: 874, style: board }, e(Phone, { start: 'onboarding', theme: 'snow' })),
+      e(DCArtboard, { id: 'dayone', label: '02 · Day One Sprint', width: 402, height: 874, style: board }, e(Phone, { start: 'dayone', theme: 'snow' })),
+      e(DCArtboard, { id: 'daily', label: '03 · Daily Session', width: 402, height: 874, style: board }, e(Phone, { start: 'daily', theme: 'snow' })),
+      e(DCArtboard, { id: 'island', label: '04 · Language Island', width: 402, height: 874, style: board }, e(Phone, { start: 'island', theme: 'snow' })),
+      e(DCArtboard, { id: 'progress', label: '05 · Progress', width: 402, height: 874, style: board }, e(Phone, { start: 'progress', theme: 'snow' }))));
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+</script>
+</body>
+</html>

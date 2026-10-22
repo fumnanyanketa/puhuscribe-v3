@@ -1,0 +1,172 @@
+# Harness: the real review-site/handler.ts in wrangler dev (workerd, real assets binding from dist-review/),
+# with a locally made key set in place of the Access certs fetch. Settings: a made up team and AUD.
+
+## Tokens on GET /meeting-people-new-colleague/round-1
+no header                                                      403
+token: valid                                                   200
+token: wrong_signature                                         403
+token: wrong_aud                                               403
+token: wrong_iss                                               403
+token: expired                                                 403
+token: no_exp                                                  403
+token: not_yet_valid                                           403
+token case `alg_es256_other_key`                                     403
+token: alg_none                                                403
+token: alg_hs256                                               403
+token: tampered_payload                                        403
+token: malformed                                               403
+token: empty_string                                            403
+valid token in a cookie only (CF_Authorization), no header     403
+valid token as Authorization: Bearer, no header                403
+header name in lower case                                      200
+
+## Paths with a valid token (status, Location if any, bytes)
+GET /                                                          200  2138
+GET /index.html                                                200  2138
+GET /robots.txt                                                200  26
+GET /meeting-people-new-colleague/round-1                      200  441511
+GET /meeting-people-new-colleague/round-1.html                 200  441511
+GET /meeting-people-new-colleague/round-1/                     404  11
+GET /meeting-people-new-colleague/round-2                      404  11
+GET /meeting-people-new-colleague/round-01                     404  11
+GET /meeting-people-new-colleague/round-0                      404  11
+GET /Meeting-people-new-colleague/round-1                      404  11
+GET /unlisted-dialogue/round-1                                 404  11
+GET /meeting-people-new-colleague/                             404  11
+GET /meeting-people-new-colleague                              404  11
+GET /meeting-people-new-colleague/round-1.json                 404  11
+GET /meeting-people-new-colleague/draft.json                   404  11
+GET /meeting-people-new-colleague/audio/1-puhe.mp3             404  11
+GET /content/drafts/meeting-people-new-colleague/draft.json    404  11
+GET /review-site/dialogues.json                                404  11
+GET /.wrangler                                                 404  11
+GET /.wrangler/                                                404  11
+GET /.git/config                                               404  11
+GET /dist-review/index.html                                    404  11
+GET //meeting-people-new-colleague/round-1                     404  11
+GET ///robots.txt                                              404  11
+GET /meeting-people-new-colleague//round-1                     404  11
+GET /../../package.json                                        404  11
+GET /meeting-people-new-colleague/../robots.txt                200  26
+GET /%2e%2e/%2e%2e/package.json                                404  11
+GET /meeting-people-new-colleague%2Fround-1                    404  11
+GET /meeting-people-new-colleague%2fround-1                    404  11
+GET /meeting-people-new-colleague/round-1%2Ehtml               404  11
+GET /meeting-people-new-colleague/round-1%00                   404  11
+GET /meeting-people-new-colleague/round-1?x=1                  200  441511
+GET /meeting-people-new-colleague/round-1;x                    404  11
+GET /index.html/                                               404  11
+GET /robots.txt/                                               404  11
+GET /favicon.ico                                               404  11
+GET /cdn-cgi/access/certs                                      404  11
+GET /cdn-cgi/local/explorer/api                                200  96867
+
+## Same odd paths without a token (all must be 403)
+GET /                                                          403
+GET /robots.txt                                                403
+GET //meeting-people-new-colleague/round-1                     403
+GET /../../package.json                                        403
+GET /.wrangler                                                 403
+GET /meeting-people-new-colleague%2Fround-1                    403
+GET /cdn-cgi/local/explorer/api                                200
+
+## Methods with a valid token
+POST /meeting-people-new-colleague/round-1                     405
+PUT /meeting-people-new-colleague/round-1                      405
+PATCH /meeting-people-new-colleague/round-1                    405
+DELETE /meeting-people-new-colleague/round-1                   405
+OPTIONS /meeting-people-new-colleague/round-1                  405
+TRACE /meeting-people-new-colleague/round-1                    405
+CONNECT /meeting-people-new-colleague/round-1                  500
+PROPFIND /meeting-people-new-colleague/round-1                 405
+POST / with a 2 MB body                                        405
+GET / straight after that POST (same server)                   200
+HEAD /meeting-people-new-colleague/round-1 (bytes)             200 0
+GET with If-None-Match (must still be full 200)                200 441511
+GET with Range: bytes=0-9                                      200 441511
+
+## Served page is byte for byte the committed file
+86642823fcfe886a26d9b833c879e77451fd0b3db3bc0b7ae831ef9a0f0dfe6e *-
+86642823fcfe886a26d9b833c879e77451fd0b3db3bc0b7ae831ef9a0f0dfe6e *-
+
+## Headers: GET / (valid token)
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Cache-Control: private, no-store
+ETag: "c16c99440f30df0895d3d6da30092c45"
+CF-Cache-Status: HIT
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: GET /robots.txt (valid token)
+HTTP/1.1 200 OK
+Content-Length: 26
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+ETag: "e250059e0a2cfe216ce72c819b24897c"
+CF-Cache-Status: HIT
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: GET /meeting-people-new-colleague/round-1 (valid token)
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Cache-Control: private, no-store
+ETag: "b79291959799d730b7014eb21474d0e3"
+CF-Cache-Status: HIT
+Content-Security-Policy: frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: GET /meeting-people-new-colleague/round-1.html (valid token)
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Cache-Control: private, no-store
+ETag: "b79291959799d730b7014eb21474d0e3"
+CF-Cache-Status: HIT
+Content-Security-Policy: frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: GET /nope (valid token)
+HTTP/1.1 404 Not Found
+Content-Length: 11
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: POST / (405)
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 44
+Content-Type: text/plain; charset=utf-8
+Allow: GET, HEAD
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Headers: GET / with expired token (403)
+HTTP/1.1 403 Forbidden
+Content-Length: 77
+Content-Type: text/plain; charset=utf-8
+Cache-Control: private, no-store
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, nofollow, noarchive
+
+## Body of 404
+Not found.

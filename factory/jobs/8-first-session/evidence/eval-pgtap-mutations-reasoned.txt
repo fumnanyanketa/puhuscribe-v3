@@ -1,0 +1,58 @@
+Evaluator, job 8-first-session. Breaking the usage_events insert rule, reasoned from the SQL.
+No Docker on this machine, so pgTAP could not run here. Each case reads
+supabase/migrations/20261021182910_first_session.sql and
+supabase/tests/database/first_session.test.sql at 679d21c.
+
+The rule (policy "learners add events for their own finished sessions"):
+  user_id = auth.uid()
+  and exists (session s: s.id = session_id, s.user_id = auth.uid(),
+              s.step_reached >= 'understand', s.ended_at is not null)
+
+State when the insert tests run (A acting): A001 understand, NOT ended; A002 hear, not ended;
+A003 no step; A004 (dialogue 2) understand, not ended; B001 understand, ended by B, B has an event.
+
+P1. Remove "user_id = auth.uid()".
+    Test "[session 17] A cannot add an event carrying B's id" inserts (user_id B, session A001).
+    A001 is not ended, so the exists part is false and the insert is still refused with the same
+    42501 message. The test stays green: it cannot see this break.
+    Real effect of the break: once A has finished a session, A could add an event that carries B's
+    id (any learner who has no event yet). This is the "forged event" case.
+    Verdict: protection present in code, NOT proven by its test.
+
+P2. Remove "s.step_reached >= 'understand'".
+    Test "A cannot add an event for a session at step hear" uses A002, which is also not ended, so
+    the ended_at part still refuses. The test stays green. No other test isolates the step part.
+    (A learner may set ended_at on their own session through the job 3 update grant, so the step
+    part is not redundant.)
+    Verdict: NOT proven in isolation (the builder's red scratch run removed all the session
+    conditions at once, which is why it went red).
+
+P3. Remove "s.ended_at is not null".
+    Test "A cannot add an event for a session at understand that has not ended" (A004) is then
+    allowed: A has no event yet, so the insert succeeds and the test goes red.
+    Verdict: proven.
+
+P4. Remove "s.user_id = auth.uid()".
+    Test "A cannot add an event carrying B's session" (B001): the sessions read rule still hides
+    B001 from A inside the policy, so the insert is still refused. Stays green, but the refusal
+    comes from a second real wall (the read rule), which is an acceptable protection. The builder
+    noted this in build.md.
+    Verdict: behaviour protected; the insert rule's own clause is a second wall.
+
+P5. Drop the unique index usage_events_one_first_session_idx.
+    "A cannot add a second first_session_completed" expects 23505 and gets success: red.
+    "the second call adds no second event": complete_session's "on conflict do nothing" has no
+    conflict to catch, so a second row appears: red.
+    Verdict: proven.
+
+P6. Remove the "s.user_id = auth.uid()" filter inside complete_session.
+    The sessions read rule hides B001 from A, so "not found" (P0002) still comes back. Stays green
+    for the right reason (the read rule).
+
+P7. Make complete_session security definer.
+    "[session 17] complete_session is security invoker" reads pg_proc.prosecdef: red.
+
+Fix suggested for P1 and P2: run those two inserts against a session that passes every other part
+of the rule. For P1, after A001 is completed, insert (user_id = a third learner C with no event,
+session A001); only "user_id = auth.uid()" can refuse it. For P2, use a session of A at step
+'hear' whose ended_at was set by the owner; only the step part can refuse it.

@@ -1,0 +1,21 @@
+# Job 4-tooling, statement 8, in the factory worktree .worktrees/4-tooling at b2f95cc
+$ git rev-parse --git-path hooks   # worktrees share the main checkout hooks folder
+C:/Users/fumna/dev/puhuscribe-v3/.git/hooks
+$ npx lefthook uninstall   # start with no hook
+$ ls .git/hooks (without samples)
+(none)
+$ npm ci
+142 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+$ ls .git/hooks (without samples)
+pre-commit*
+$ grep -c "call_lefthook run \"pre-commit\"" .git/hooks/pre-commit
+1
+$ npx lefthook version
+2.2.2
+$ npm ls lefthook
+puhuscribe@0.0.0 C:\Users\fumna\dev\puhuscribe-v3\.worktrees\4-tooling
+`-- lefthook@2.2.2
+

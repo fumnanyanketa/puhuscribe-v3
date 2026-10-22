@@ -1,0 +1,7 @@
+WebKit and Secure cookies on http://localhost (21 October 2026, Playwright 1.64 on Windows, local Node server)
+
+A page at http://localhost:4999/set answered Set-Cookie: probe=1; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600, then /check printed the Cookie header it received:
+  chromium cookie header: probe=1
+  webkit cookie header: none
+
+So WebKit drops Secure cookies on plain http://localhost. The browser tests therefore run vite preview over HTTPS with a self-signed certificate (scripts/ci/test-https-cert.ts). The Secure attribute is never dropped.

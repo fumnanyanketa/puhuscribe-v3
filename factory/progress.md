@@ -1,0 +1,204 @@
+# Factory progress log
+
+One dated line per factory event, newest at the bottom. The /factory manager appends here. This doubles as the voiceover script for the build videos.
+
+- 2026-10-19: Factory files created: AGENTS.md, features.json, board, agents, /factory skill and dashboard.
+- 2026-10-19: Recording set up: scene log in recording/scenes.md, screenshots in recording/screenshots/
+- 2026-10-19: Job 1-stack opened (Stack & architecture). Spec writer started.
+- 2026-10-19: Job 1-stack spec written (16 done-when statements, 4 owner calls). Waiting for Fumnanya to approve.
+- 2026-10-19: Fumnanya answered two owner calls on 1-stack: GitHub Free, no v2 colours. Spec approval pending.
+- 2026-10-19: Fumnanya approved the 1-stack spec. Builder started on branch factory/1-stack.
+- 2026-10-19: 1-stack build round 1 done: empty app, v2 engines copied unchanged, key protection, six GitHub checks all green. Waiting on Fumnanya for account setup.
+- 2026-10-19: Owner setup done in about 15 minutes of Fumnanya's time: Supabase test project (Ireland), one Cloudflare key; the manager did the rest by API. Builder resumed for milestones 4 and 6.
+- 2026-10-19: Dashboard made live: commits, files being edited and GitHub checks inside each job card.
+- 2026-10-19: 1-stack build finished, all checks green. Security and design reviewers started in parallel.
+- 2026-10-19: Security reviewer caught the testing agent's pass saved in test debug files on GitHub. Files deleted, pass replaced, old logins ended. Builder round 2 fixes the cause. Design review passed.
+- 2026-10-19: 1-stack round 2 built: test files can no longer hold the pass, a guard scans every upload first. All checks green. Security reviewer started round 2; preview step re-run to test the narrow Cloudflare key.
+- 2026-10-19: 1-stack security re-review passed (two should-fix ideas kept for the owner). Evaluator started.
+- 2026-10-19: 1-stack evaluator passed every statement with 41 evidence files. Waiting for Fumnanya to approve.
+- 2026-10-19: Fumnanya approved job 1-stack. Merged into main (624116d). Feature "Stack & architecture" is passing. Six lessons added to AGENTS.md.
+- 2026-10-19: Job 2-smoke opened (the Hei! smoke test). Spec writer started.
+- 2026-10-19: Job 2-smoke spec written (14 done-when statements, 2 owner calls). Waiting for Fumnanya to approve.
+- 2026-10-19: Fumnanya approved the 2-smoke spec (plain look, replays private). Builder started on branch factory/2-smoke.
+- 2026-10-19 18:33 UTC (turn): I've added the automatic progress log.
+- 2026-10-19 18:44 UTC (turn): Job 2's builder has opened its pull request, and the first preview link is up at https://factory-2-smoke-puhuscribe-preview.fumnanya.workers.dev.
+- 2026-10-19 18:56 UTC (turn): That red check is supposed to fail.
+- 2026-10-19: 2-smoke build round 1 done: Hei! page, visits table with add-only rules, 22 database security tests, 9 checks green. Reviewers started.
+- 2026-10-19 19:03 UTC (turn): Job 2's build is done and has moved to Review on the dashboard.
+- 2026-10-19 19:03 UTC (turn): The design reviewer has passed job 2.
+- 2026-10-19: 2-smoke reviews passed. Round 2 for three small fixes. A reviewer accidentally printed the test database password into its local log; rotation offered to Fumnanya.
+- 2026-10-19 19:16 UTC (turn): I've saved the password change in the job notes as an open item for later.
+- 2026-10-19: 2-smoke round 2 done (older phones, keyboard focus, pinned tools). Evaluator started.
+- 2026-10-19 19:28 UTC (turn): Job 2 is with the testing agent, and the dashboard shows it in the Evaluate column.
+- 2026-10-19: 2-smoke evaluator passed all 14 statements with 83 evidence files. Waiting for Fumnanya to approve.
+- 2026-10-19 19:46 UTC (turn): The testing agent passed job 2 on all 14 statements, with 83 pieces of proof.
+- 2026-10-19 19:49 UTC (turn): Job 2 has passed every check and is waiting for your approval to merge.
+- 2026-10-20: Fumnanya approved job 2-smoke. Merged into main (3460a78). The factory has now taken a feature through every station end to end. Five lessons added to AGENTS.md.
+- 2026-10-20: Job 3-data-model opened at Fumnanya's request, ahead of "Coding standards & tooling". Spec writer started.
+- 2026-10-20 06:13 UTC (turn): Job 2 is merged, so the board shows 2 of 11 MVP features passing.
+- 2026-10-20: Job 3-data-model spec written (20 done-when statements, 4 owner calls). The native reviewer's corrections to v2's 104 sentences were not found in v2. Waiting for Fumnanya.
+- 2026-10-20: Fumnanya approved the 3-data-model spec: find the reviewer's corrections, 104 sentences as reference only, IPA imported, guests kept 90 days, database changes applied only after approval. Builder started.
+- 2026-10-20 07:04 UTC (turn): Job 3 (the data model) is approved with your four decisions, and the builder is now working.
+- 2026-10-20 07:34 UTC (turn): This failure is on job 3's main pull request, and the builder is already fixing it.
+- 2026-10-20 07:39 UTC (turn): Job 3's database tests are still red, but the security tests themselves aren't what's failing.
+- 2026-10-20 09:49 UTC (turn): Job 3 is close to finished: - Database tests: the database security tests now pass, after the builder copied the database tool's exact output instead of its hand-written version.
+- 2026-10-20 09:53 UTC (turn): That alert is about the browser test failure I'm already dealing with.
+- 2026-10-20 09:57 UTC (turn): The re-run confirmed the first failure was a timing hiccup: that browser test passed the second time.
+- 2026-10-20 10:14 UTC (turn): The new comment is the automatic preview notice.
+- 2026-10-20 10:15 UTC (turn): Job 3 is now with the security and design reviewers, and the dashboard shows it in the Review column.
+- 2026-10-20 10:17 UTC (turn): The design reviewer has passed job 3 with nothing it calls must-fix.
+- 2026-10-20: 3-data-model round 2 fixes done. Fumnanya chose: stay on GitHub Free, give visit saves 8 seconds, and a factory job for throwaway test databases before job 6. Round 3 raises the save limit.
+- 2026-10-20 10:52 UTC (turn): Your three decisions are saved in the job notes: - GitHub lock: you stay on the free plan for now, and we look at it again before real learners arrive.
+- 2026-10-20 10:53 UTC (turn): That alert is from the round 2 run that already failed: same code, third attempt, before the 8-second change.
+- 2026-10-20 11:04 UTC (turn): The 8-second change is in, but the online preview check still failed.
+- 2026-10-20 11:13 UTC (turn): This one comes from the builder's newest version, which it pushed a few minutes ago with the longer test waits and the save timings.
+- 2026-10-20: 3-data-model round 3 green. Builder measured saves: usually 0.37 s, but about 1 in 25 hangs after the database sits idle. Evaluator and a security re-review started.
+- 2026-10-20 11:36 UTC (turn): Job 3 is now with the testing agent, and the security reviewer is checking the round 2 database changes at the same time.
+- 2026-10-20 11:38 UTC (turn): The security reviewer's second look at job 3 passed, with nothing to fix.
+- 2026-10-20 11:49 UTC (turn): Job 3 is back with the builder for round 4.
+- 2026-10-20 11:56 UTC (turn): That red check is meant to fail.
+- 2026-10-20: 3-data-model round 4 green: stronger card test, fresh red proof, approvals now cleared when content is pulled back. Evaluator re-checking.
+- 2026-10-20 12:06 UTC (turn): Job 3 is back with the testing agent for a second check, and the dashboard shows it in Evaluate.
+- 2026-10-20: 3-data-model evaluator passed on the second check. Waiting for Fumnanya to approve.
+- 2026-10-20: Fumnanya approved job 3-data-model. Merged into main (39c0a92). Five lessons added. Watching the first run of the new tables on the test database.
+- 2026-10-20 12:31 UTC (turn): I've merged job 3 into the main version, so the board shows 3 of 12 MVP features passing.
+- 2026-10-20 12:33 UTC (turn): The main version's checks are running again, and I'll report the result when they finish.
+- 2026-10-20: The new tables reached the test database for the first time and all 413 security tests passed there. Job 3 fully proven.
+- 2026-10-20 12:39 UTC (turn): The main version's checks are running again, and I'll report the result when they finish.
+- 2026-10-20: Job 4-tooling opened (Coding standards & tooling). Spec writer started.
+- 2026-10-20 12:43 UTC (turn): Job 4 has started, and the dashboard shows it in the Spec column.
+- 2026-10-20: Job 4-tooling spec written (19 done-when statements, 1 owner call). Waiting for Fumnanya.
+- 2026-10-20: Fumnanya approved the 4-tooling spec, with the stop check for the builder agent only. Builder started.
+- 2026-10-20 13:10 UTC (turn): Job 4 is approved, and its builder is working.
+- 2026-10-20 13:51 UTC (turn): Job 4's unit tests failed on GitHub, and the failure is in the new stop check for the builder agent.
+- 2026-10-20: 4-tooling build done: house rules completed, commit check in 13 seconds, stop check for the builder. Reviewers started.
+- 2026-10-20 14:24 UTC (turn): Job 4 is now with the security and design reviewers.
+- 2026-10-20 14:24 UTC (turn): The new comment on job 4's pull request is the automatic preview notice.
+- 2026-10-20 14:25 UTC (turn): The design reviewer has passed job 4.
+- 2026-10-20: 4-tooling reviews passed with seven small fixes; round 2 started.
+- 2026-10-20 14:29 UTC (turn): Both reviewers passed job 4 and suggested seven small fixes, which went back to the builder as round 2.
+- 2026-10-20: 4-tooling round 2 green on the first try. Evaluator started.
+- 2026-10-20 14:50 UTC (turn): Job 4 is with the testing agent now, and the dashboard shows it in Evaluate.
+- 2026-10-20: 4-tooling evaluator found two real gaps: root-level files not checked, and a false "secret found" message when the scanner is missing. Round 3 started.
+- 2026-10-20 15:22 UTC (turn): The testing agent failed job 4 on two statements, so it's back with the builder for round 3.
+- 2026-10-20: 4-tooling round 3 green: both evaluator findings fixed and proven. Evaluator re-checking.
+- 2026-10-20 15:47 UTC (turn): Job 4 is back with the testing agent for a second check, and the dashboard shows it in Evaluate.
+- 2026-10-20: 4-tooling evaluator passed on the second check. Waiting for Fumnanya to approve.
+- 2026-10-20: Fumnanya approved job 4-tooling. Merged into main (0a6831c). Tools reinstalled in the main folder; commits on main now run the commit check. Three lessons added.
+- 2026-10-20 18:17 UTC (turn): I've merged job 4.
+- 2026-10-20: Two runs on the main version ran together and both passed; neither was cancelled. Job 4 fully proven.
+- 2026-10-20 18:23 UTC (turn): I've merged job 4.
+- 2026-10-21: Job 5-design-system opened (Design system & UI foundation). Spec writer started researching references for Fumnanya to choose the look.
+- 2026-10-21 09:56 UTC (turn): Job 5 has started, and the dashboard is running again at http://localhost:4321, showing it in the Spec column.
+- 2026-10-21 10:12 UTC (turn): Pinterest wasn't on the list, but it is now.
+- 2026-10-21 11:06 UTC (turn): The Pinterest sign-in box is now open in the browser panel on the right side of this app.
+- 2026-10-21: 5-design-system research done: 10 references from the spec writer, checked visually by the manager, plus 3 Pinterest finds. Three directions waiting for Fumnanya to choose.
+- 2026-10-21 11:45 UTC (turn): I haven't received your message yet.
+- 2026-10-21 11:48 UTC (turn): No, none of them are built.
+- 2026-10-21: Fumnanya chose v2's own look for PuhuScribe v3, without the banned details. Builder started on one sample screen first.
+- 2026-10-21 11:55 UTC (turn): The builder is making the one sample screen now: the "Hear it" step in v2's colours and layout, with the spoken word lighting up and an audio player at the bottom.
+- 2026-10-21 12:39 UTC (turn): The online preview check failed on one new test for the sample screen.
+- 2026-10-21 12:52 UTC (turn): The new comment is the automatic preview notice.
+- 2026-10-21: 5-design-system sample screen ready (Hear it in v2's look, words light up as spoken). Waiting for Fumnanya's review.
+- 2026-10-21: Fumnanya approved the sample screen, chose Switzer for body text and v2's white-to-lilac fade. Builder is making the rest of the design system.
+- 2026-10-21 13:42 UTC (turn): You've approved the sample, and the builder is making the rest of the design system in this look.
+- 2026-10-21 14:46 UTC (turn): It's not done yet, but it's close.
+- 2026-10-21: 5-design-system round 2 green: Switzer, v2 fade, all components and a reference page. Reviewers and evaluator started together to save time.
+- 2026-10-21 14:52 UTC (turn): The rest of job 5 is built, and every automatic check passes.
+- 2026-10-21 14:55 UTC (turn): The design reviewer has passed job 5, with nothing it calls must-fix.
+- 2026-10-21 14:56 UTC (turn): The security reviewer has also passed job 5, with nothing it calls must-fix.
+- 2026-10-21: 5-design-system reviews passed with suggestions; evaluator found a contrast gap and holes in the banned-look test. Round 3 started.
+- 2026-10-21 15:19 UTC (turn): Job 5 is back with the builder for round 3.
+- 2026-10-21: 5-design-system round 3 green with all review and evaluator fixes. Evaluator re-checking.
+- 2026-10-21 16:12 UTC (turn): I've sent you three fresh screenshots of job 5 after round 3: - The "Hear it" sample while playing, in light and dark.
+- 2026-10-21: 5-design-system evaluator passed all 20 statements on the second check. Waiting for Fumnanya to approve.
+- 2026-10-21 16:29 UTC (turn): I haven't received your message yet.
+- 2026-10-21 16:32 UTC (turn): The six sections cut cleanly.
+- 2026-10-21 16:34 UTC (turn): Job 5 has taken about 6.5 hours today, from 12:55 to 19:31.
+- 2026-10-21 16:42 UTC (turn): Job 5 has taken about 6.5 hours today, from 12:55 to 19:31.
+- 2026-10-21: Fumnanya approved job 5-design-system with the flat sprout icon. Merged into main (06f62ac). Faster mode starts with the next job.
+- 2026-10-21 16:45 UTC (turn): With the faster mode alone, I estimate the MVP is about 3 to 4 working days away.
+- 2026-10-21 16:51 UTC (turn): Most of those days are the build agents working, plus GitHub's checks running after every change.
+
+- 2026-10-21T20:37 Parallel run started by the owner. Wave 1 jobs opened at stage spec: 6-pr-local-db, 7-content-pipeline, 8-first-session. Plan: factory/run-plan.md.
+- 2026-10-21 17:38 UTC (turn): The parallel run has started.
+- 2026-10-21 17:48 UTC (turn): The content pipeline spec is written, and the other two spec writers are still running.
+- 2026-10-21T20:48 6-pr-local-db spec ready, build started (owner's call on evaluator view pending, default A). 7-content-pipeline spec ready, waits on owner (3 calls).
+- 2026-10-21 17:48 UTC (turn): Job 6 is building now.
+- 2026-10-21T20:50 8-first-session spec ready, waits on owner. Audio location settled between 7 and 8 (static files, no R2).
+- 2026-10-21T21:20 Owner approved specs 7 (reviewer approval at the end of the MVP, not early) and 8, and chose Docker Desktop (option B) for job 6. Builds started for 7 and 8.
+- 2026-10-21T21:20 Wave 2 specs started: 9-daily-review, 10-speaking-feedback, 11-accounts, 12-units-1-3.
+- 2026-10-21 18:21 UTC (turn): Job 6 is building now.
+- 2026-10-21 18:21 UTC (turn): The Unit tests (Vitest) check is failing on PR 14, which is job 6's branch (the throwaway test database).
+- 2026-10-21 18:25 UTC (turn): Step 1 of 5, the Anthropic key: sign in and make a separate workspace I opened the Claude Console sign-in page in the browser pane on the right.
+- 2026-10-21 18:28 UTC (turn): Spec 12 (units 1 to 3) is written.
+- 2026-10-21T21:31 9-daily-review spec ready (no owner's calls), builds after job 8 merges. 12-units-1-3 spec ready, waits on one owner call.
+- 2026-10-21 18:31 UTC (turn): The daily review spec (job 9) is ready and has no decisions for you.
+- 2026-10-21T21:34 10-speaking-feedback spec ready, waits on owner (GA approval, 3 calls).
+- 2026-10-21 18:34 UTC (turn): The speaking feedback spec (job 10) is written.
+- 2026-10-21 18:35 UTC (turn): Step 2 of 5, the Anthropic key: create it and store it in GitHub 1.
+- 2026-10-21T21:36 11-accounts spec ready, waits on owner (GA approval, 3 calls). All wave 2 specs are in.
+- 2026-10-21 18:36 UTC (turn): All four wave 2 specs are in now.
+- 2026-10-21 18:37 UTC (turn): This is Anthropic offering a second way to log in from GitHub: it hands out short-lived passwords automatically instead of you creating one permanent key.
+- 2026-10-21 18:39 UTC (turn): The Anthropic key is set.
+- 2026-10-21 18:40 UTC (turn): PR 15 is a scratch pull request that job 6's builder opened to test the new database checks.
+- 2026-10-21T21:51 Owner approved specs 10, 11 (both with all recommendations) and 12 (one merge per unit). Job 6 builder done, checks green, now in review. Owner is creating a free Azure account (the signed in Microsoft account had no subscription).
+- 2026-10-21 18:52 UTC (turn): All three specs are approved and recorded: speaking feedback and accounts with all recommendations, and units with one merge per unit.
+- 2026-10-21 18:53 UTC (turn): The design reviewer for job 6 found no must-fix items.
+- 2026-10-21 18:55 UTC (turn): Job 6's security review passed with no must-fix or should-fix findings.
+- 2026-10-21 18:59 UTC (turn): That screenshot shows the Azure portal still has no subscription on this account.
+- 2026-10-21T22:10 6-pr-local-db: security pass, design pass (5 should-fix to todo), evaluator pass. Waits on owner approval.
+- 2026-10-21 19:11 UTC (turn): That screenshot shows the Azure portal still has no subscription on this account.
+- 2026-10-21T22:22 Azure Speech resource puhuscribe-v3-speech created by the manager in the owner's Azure for Students subscription: region Italy North (EU; the subscription's region policy refused North Europe, Sweden Central, West Europe and Germany West Central), tier Free F0. Secret AZURE_SPEECH_REGION=italynorth set. AZURE_SPEECH_KEY waits on the owner (agents never type keys). Specs 7 and 10 named North Europe, treat the region as a setting.
+- 2026-10-21 19:23 UTC (turn): Deployment is complete.
+- 2026-10-21T22:37 7-content-pipeline built, PR 17 green, now in full review (GA). Azure region and tier set as GitHub variables (not secrets). Still waiting on owner: AZURE_SPEECH_KEY.
+- 2026-10-21 19:37 UTC (turn): Job 7 (the content pipeline) is built, all GitHub checks are green, and its three checks have started.
+- 2026-10-21 19:40 UTC (turn): PR 17 (job 7's pull request) only got the bot's preview-link comment, so there's nothing to fix.
+- 2026-10-21 19:41 UTC (turn): The design review of job 7 found two must-fix problems in the page your native reviewer will use.
+- 2026-10-21T22:43 6-pr-local-db merged into main (owner approved). Feature pr-local-db passing. Waiting for the merge run on main before the next push to main.
+- 2026-10-21 19:43 UTC (turn): Job 6 is merged and pushed to main, and the merge checks are running.
+- 2026-10-21 19:43 UTC (turn): Job 7's security review passed with six should-fix findings.
+- 2026-10-21 19:44 UTC (turn): Both keys are set, so job 7 can now run its real Finnish drafting and voice step once it's merged.
+- 2026-10-21 20:05 UTC (turn): PR 18 is job 8's pull request, and its browser test check failed on the commit that merged main in.
+- 2026-10-21 20:09 UTC (turn): The tester passed job 7 at its second-round head, with nothing left to fix.
+- 2026-10-21T23:09 7-content-pipeline round 2 done, evaluator pass, waits on owner approval (GA).
+- 2026-10-21 20:10 UTC (turn): The tester passed job 7 at its second-round head, with nothing left to fix.
+- 2026-10-21T23:48 8-first-session built, PR 18 green, now in full review (GA). Owner steps pending: Supabase anonymous sign-ins and limit before merge.
+- 2026-10-21 20:48 UTC (turn): Job 8 (the first session loop) is built and green on GitHub, including its browser tests.
+- 2026-10-21 20:49 UTC (turn): PR 18 only received the bot's preview-link comment, so nothing needs fixing.
+- 2026-10-21 20:53 UTC (turn): Job 8's design review found one must-fix: punctuation next to a word can wrap onto its own line in the Finnish text.
+- 2026-10-21 20:54 UTC (turn): Job 8's security review passed with no must-fix.
+- 2026-10-21 21:05 UTC (turn): Job 8's tester found two must-fix items on top of the design review's one: 1.
+- 2026-10-22T00:20 7-content-pipeline merged into main (owner approved). Feature content-pipeline passing. Next: first real keyed run of the pipeline workflow.
+- 2026-10-21 21:21 UTC (turn): Job 7 is merged into main and pushed, and its feature is marked passing.
+- 2026-10-21 21:21 UTC (turn): PR 18 (job 8) conflicts with main again because job 7 just merged.
+- 2026-10-22T00:24 Owner setup done by the manager in the browser pane (owner signed in): puhuscribe-test project, anonymous sign-ins ON, anonymous sign-in limit 100 per hour. First keyed pipeline run (job 7, run 39678025791): Claude drafting, Voikko readings and the judge worked; Azure refused the voice call with HTTP 401, so the stored Azure key needs to be set again by the owner.
+- 2026-10-21 21:24 UTC (turn): The Supabase test project is set up: anonymous sign-ins are on, and the hourly anonymous sign-in limit is now 100.
+- 2026-10-21 21:28 UTC (turn): The new Azure key is stored.
+- 2026-10-21 21:30 UTC (turn): Azure refused the voice step again with HTTP 401, even with the new key.
+- 2026-10-22T00:43 8-first-session round 2 done and green, waits on owner approval (GA). Azure voice still refuses the key (HTTP 401); owner asked to run a one line key test.
+- 2026-10-21 21:43 UTC (turn): Azure refused the voice step again with HTTP 401, even with the new key.
+- 2026-10-22 05:07 UTC (turn): No delay on my side.
+- 2026-10-22 05:09 UTC (turn): That 401 doesn't tell us anything yet.
+- 2026-10-22 05:11 UTC (turn): Here's the command in a single block, with the key position marked.
+- 2026-10-22 05:14 UTC (turn): I can't regenerate the keys myself.
+- 2026-10-22 05:16 UTC (turn): I've already started a new run with the Key 1 you saved.
+- 2026-10-22 05:19 UTC (turn): The pipeline run succeeded.
+- 2026-10-22T08:28 Owner asked for the review page to live at puhuscribe.exentrik.co (review pages only, app domain later, maybe an Otso name). Job 13-review-site opened at spec. Cloudflare in the browser pane is not signed in yet; owner asked to sign in so the manager can check where exentrik.co lives.
+- 2026-10-22 05:28 UTC (turn): Review pages only, at puhuscribe.exentrik.co, is now a job on the board (job 13), and its spec is being written.
+- 2026-10-22T08:38 13-review-site spec ready. Access needs the domain's DNS inside the owner's Cloudflare account (a CNAME from another host cannot be locked on the free plan). Waits for the Cloudflare check and the owner.
+- 2026-10-22 05:38 UTC (turn): The spec for the review site (job 13) is written.
+- 2026-10-22T08:42 Owner approved spec 13 (review site) with case C1 (build in the Exentrik Cloudflare account) and listing the first dialogue. Build started.
+- 2026-10-22 05:42 UTC (turn): Spec 13 is approved and its builder is running.
+- 2026-10-22T09:22 13-review-site built, PR 19 green, in review. Owner setup in the Exentrik Cloudflare account still to do (7 steps) before the first deploy.
+- 2026-10-22 06:22 UTC (turn): Job 13 (the review site) is built and green on GitHub.
+- 2026-10-22 06:25 UTC (turn): Job 13's design review passed with no must-fix items and five small wording points.
+- 2026-10-22 06:25 UTC (turn): PR 19 (job 13) only got the bot's preview-link comment, so nothing needs fixing.
+- 2026-10-22 06:27 UTC (turn): Job 13's security review passed with no must-fix items.
+- 2026-10-22 06:45 UTC (turn): Job 13's tester found two must-fix items, and I sent the builder both for a second round along with the cheap smaller fixes.
+- 2026-10-22 06:53 UTC (turn): I'm not stuck.
+- 2026-10-22T10:10 13-review-site round 2 green, waits on owner approval. 8-first-session still waits on owner approval.
+- 2026-10-22 07:10 UTC (turn): I'm not stuck.
+- 2026-10-22T10:19 8-first-session merged into main (owner approved). Feature first-session passing. Wave 2 builds (9, 10, 11) starting.
+- 2026-10-22T10:20 Builders started in parallel for 9-daily-review, 10-speaking-feedback and 11-accounts.
+- 2026-10-22T10:20 Builder started for 12-units-1-3.

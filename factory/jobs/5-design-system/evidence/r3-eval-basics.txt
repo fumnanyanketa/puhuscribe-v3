@@ -1,0 +1,65 @@
+Round 3 basics on a fresh Windows clone (core.autocrlf=true) of factory/5-design-system at a65a783.
+
+Line endings as checked out:
+i/lf    w/lf    attr/text eol=lf      	design.md
+i/lf    w/lf    attr/text eol=lf      	design/assets/README.md
+i/lf    w/lf    attr/text eol=lf      	design/brief.md
+i/lf    w/crlf  attr/                 	docs/conventions.md
+i/lf    w/lf    attr/-text            	src/assets/fonts/switzer/FFL.txt
+
+npm ci:
+
+found 0 vulnerabilities
+
+npm run check:code:
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+EXIT=0
+
+Unit tests:
+ Test Files  25 passed (25)
+      Tests  425 passed (425)
+   Start at  19:13:46
+   Duration  41.25s (tests 92%, import 5%, transform 2%)
+
+EXIT=0
+
+Production build:
+check:built-secrets passed (32 browser files scanned).
+EXIT=0
+
+Production build scan at a65a783 (no VITE_DESIGN_REFERENCE)
+index-CfcNlAh9.js
+index-DQP4BlhO.css
+"design-reference": 0 files
+"sample/hear-it": 0 files
+"Sample, not reviewed": 0 files
+"Mä": 0 files
+"minä olen": 0 files
+"maahanmuuttovirasto": 0 files
+"kotoutumiskoulutus": 0 files
+"työttömyysturvailmoitus": 0 files
+"Mist": 0 files
+"kotoisin": 0 files
+"Leave session": 0 files
+"Hear it": 0 files
+"DesignReference": 0 files
+"HearItSample": 0 files
+"Personal pronoun": 0 files
+"olla": 1 files
+"Written": 0 files
+"audio/wav": 0 files
+"olla" match checked: it is inside the word "collapsed" in React code (3 hits in index js), not Finnish.
+
+VITE_DESIGN_REFERENCE=1 build, design chunks:
+dist/client/assets/HearItSample-DDhqfyJI.css                       4.63 kB │ gzip:  1.25 kB
+dist/client/assets/DesignReference-CTwO306E.css                   16.27 kB │ gzip:  3.44 kB
+dist/client/assets/HearItSample-Dj7xUpMF.js                        5.25 kB │ gzip:  1.96 kB
+dist/client/assets/DesignReference-B-0cCobg.js                    40.64 kB │ gzip: 12.82 kB
+EXIT=0
+
+Job's own design browser tests, run locally against that build:
+  88 passed (1.4m)
+EXIT=0

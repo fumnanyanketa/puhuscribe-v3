@@ -1,0 +1,16 @@
+Evaluator evidence for 6-pr-local-db statement 9 (the apply job is unchanged).
+Extracted the apply-test-db job block (from '  apply-test-db:' to '  browser:') from .github/workflows/checks.yml at 8081642 (main before the job) and at 7958daa (PR head).
+  lines: 37 and 37
+  sha256: 4d9beabb9b534c0ea89566cf2dea535073ef8e217cf7d509585f0b9a80eac400 and 4d9beabb9b534c0ea89566cf2dea535073ef8e217cf7d509585f0b9a80eac400
+  result: byte-identical
+
+git diff --stat 8081642..7958daa on supabase/tests, supabase/migrations, keep-test-db-awake.yml, src, worker:
+  (no change)
+
+pgTAP on PR 14's database check (run 39652135818, job 119403372616), both passes:
+  Files=5, Tests=413,  0 wallclock secs ( 0.03 usr  0.02 sys +  0.03 cusr  0.02 csys =  0.10 CPU)
+  Result: PASS
+  Files=5, Tests=413,  1 wallclock secs ( 0.03 usr  0.01 sys +  0.02 cusr  0.03 csys =  0.09 CPU)
+  Result: PASS
+
+The existing [data 18] test 'no other job can change a remote database' is unchanged and green (eval-local-tests.txt); breaking it on purpose (B11 in eval-break-protections.txt) turns it red.

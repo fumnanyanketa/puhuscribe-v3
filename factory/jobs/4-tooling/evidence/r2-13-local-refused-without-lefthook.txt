@@ -1,0 +1,17 @@
+# Job 4-tooling round 2, security finding 1: a commit is refused when the hook cannot find lefthook.
+# A fresh local clone (its own .git, so the shared hooks of the real repository are not touched), throwaway branch, never pushed.
+$ git clone --quiet --branch factory/4-tooling <repo> r2-clone && cd r2-clone && npm ci
+found 0 vulnerabilities
+$ git log --oneline -1
+26cd98a Round 2: fail closed without lefthook, quieter secret scan, clearer rules
+$ git switch -c scratch/4-tooling-no-lefthook
+$ rm -rf node_modules   # lefthook is now missing, as on main after a worktree is removed and before npm ci
+warning: in the working copy of 'factory/jobs/4-tooling/no-lefthook-note.md', LF will be replaced by CRLF the next time Git touches it
+$ git -c user.name=proof -c user.email= commit -m "scratch: commit with lefthook missing"
+Can't find lefthook in PATH
+ERROR: Operation is aborted due to lefthook settings.
+Make sure lefthook is available in your environment and re-try.
+To skip these checks use --no-verify git argument or set LEFTHOOK=0 env variable.
+exit=1
+$ git log --oneline -1   # no new commit
+26cd98a Round 2: fail closed without lefthook, quieter secret scan, clearer rules

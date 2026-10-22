@@ -1,0 +1,35 @@
+Round 4 evidence for statement 8: the cross-learner card tests now isolate the user id check.
+Source: factory/3-data-model at a779ac0, supabase/tests/database/data_model_learners.test.sql. Read only.
+
+What changed:
+  line 39   new approved form 'met-but-no-card'
+  line 60   a kirja token for it on 'pgtap learners line', the approved line of the main approved dialogue
+  line 95   test.form_met_no_card
+  line 450  A inserts (user_id = B, form_met_no_card)  -> expects 42501 RLS on cards
+  line 522  B inserts (user_id = A, form_met_no_card)  -> expects 42501 RLS on cards
+
+Why only the user id check can refuse them now (checked against the card insert rule in 20261020090100_learner_model.sql):
+  - form approved: yes (inserted approved, never changed).
+  - the inserter met it: A reached "understand" in the main dialogue at line 151; B did at line 371, before line 450 runs.
+    The rule looks for the INSERTER's session (s.user_id = auth.uid()), the line and dialogue and unit are approved, so the
+    lines and tokens read rules let the subquery see the token.
+  - no primary key clash: grep shows no other insert of this form anywhere in the four data_model files, so neither learner
+    owns a card for it (the round 1 problem with form_met).
+  - foreign keys: both users exist in auth.users.
+  So with "user_id = (select auth.uid()) and" removed, both inserts would succeed and both throws_ok tests would fail.
+
+The builder's mutation note (build.md round 4, point 1), read critically:
+  - Claim: removing the user id comparison turned learner tests 71 and 93 red, plus five others; restoring it made all 108 pass.
+  - The test numbers fit the file. Counting tests in order, A's card insert with B's id is test 71 and B's with A's id is 93.
+    That matches the round 4 red run, where "A reads exactly their own 1 rows in cards" is 51 and B's equivalent is 77.
+  - The five extra failures are what the file predicts once those two wrong cards exist:
+      77  B's card count;
+      "A's card unchanged" (now two rows);
+      99  A's 9 rows;
+      "before the delete, A has 10 rows";
+      "B's 5 rows untouched".
+  - Caveat: the mutation run was on PGlite in the builder's scratch folder, not on Supabase Postgres. It is not committed,
+    and CI has no run of it. PGlite has no Supabase roles or auth schema, so those must have been stubbed.
+    The note is consistent and my own reading reaches the same result, but it is not independently reproducible from the repository.
+
+Result: statement 8 now passes. The other three learner tables were already isolated (see round 1 file 08-card-cross-learner-test-gap.txt).

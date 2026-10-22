@@ -1,0 +1,37 @@
+# Evaluator: lint error only (explicit any) in worker/eval-lint.ts
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-lint.ts 53ms (unchanged)
+
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~65 bytes (65 bytes) in 332ms
+5:59PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+C:\Users\fumna\AppData\Local\Temp\claude\C--Users-fumna-dev-puhuscribe-v3\4c61d26d-55cf-47da-8e64-ec4ef75e493b\scratchpad\eval-4t\worker\eval-lint.ts
+  1:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 1 problem (1 error, 0 warnings)
+
+
+exit status 1
+  ────────────────────────────────────
+summary: (done in 9.35 seconds)
+✔️ format (Prettier, fixes and restages) (2.11 seconds)
+🥊 checks (15.15 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.77 seconds)
+  ✔️ type check (tsc -b) (6.19 seconds)
+  🥊 lint (ESLint) (7.19 seconds)
+--- git commit exit code: 1; took 10.0 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

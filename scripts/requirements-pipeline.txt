@@ -1,0 +1,6 @@
+# Python packages for the content pipeline (job 7-content-pipeline), pinned.
+# scripts/requirements.txt is a v2 file and stays unchanged; pip-audit checks both.
+#
+# System packages first (Ubuntu): apt-get install -y libvoikko1 voikko-fi
+anthropic==1.10.0   # Claude API with structured outputs (output_config), used only by providers/ai.py
+libvoikko==4.3      # Python binding for the system Voikko library (Finnish morphology)

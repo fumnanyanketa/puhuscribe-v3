@@ -1,0 +1,40 @@
+ ✓ worker/visits.test.ts > POST /api/visits saves one visit > [smoke 4] answers 201 with {"saved":true} when the database confirms the row 43ms
+ ✓ worker/visits.test.ts > POST /api/visits saves one visit > [smoke 4] is reached through the Worker entry point 2ms
+ ✓ worker/visits.test.ts > POST /api/visits saves one visit > [smoke 4] accepts a JSON content type with a charset 2ms
+ ✓ worker/visits.test.ts > POST /api/visits saves one visit > [smoke 4] is never cached 2ms
+ ✓ worker/visits.test.ts > the request the Worker sends to Supabase > [smoke 5] [smoke 6] is exactly one insert with the publishable key, three headers and an empty JSON body 4ms
+ ✓ worker/visits.test.ts > the request the Worker sends to Supabase > [smoke 5] sends nothing from the visitor: no IP address, user agent, cookies, referrer, page address or headers 1ms
+ ✓ worker/visits.test.ts > the request the Worker sends to Supabase > [smoke 4] tolerates a trailing slash on the project address 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 400 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 401 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 403 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 404 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 409 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 500 2ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 503 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase answers 200 instead of 201 (no confirmed insert) 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when the request to Supabase fails 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 when Supabase gives no answer within 3 seconds, and stops waiting 4ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 with no settings and calls nothing 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 with no project address and calls nothing 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 with no key and calls nothing 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 4] answers 503 with blank settings and calls nothing 1ms
+ ✓ worker/visits.test.ts > when the database does not confirm the row > [smoke 6] never sends the key, the project address or upstream text back 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] GET gets 405 with allow: POST and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] HEAD gets 405 with allow: POST and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] PUT gets 405 with allow: POST and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] PATCH gets 405 with allow: POST and saves nothing 0ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] DELETE gets 405 with allow: POST and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] OPTIONS gets 405 with allow: POST and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] a POST with a plain form gets 415 and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] a POST with a file upload form gets 415 and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] a POST with plain text gets 415 and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] a POST with no content type gets 415 and saves nothing 1ms
+ ✓ worker/visits.test.ts > requests that save nothing > [smoke 4] a POST with a JSON look-alike gets 415 and saves nothing 1ms
+ ✓ worker/visits.test.ts > the visitor's request body > [smoke 4] is never used, and an endless body is cut off after 16 KiB so the answer still comes 2ms
+ ✓ worker/visits.test.ts > cross site rules for /api/visits > [smoke 4] sends no Access-Control-Allow-Origin (saved) 1ms
+ ✓ worker/visits.test.ts > cross site rules for /api/visits > [smoke 4] sends no Access-Control-Allow-Origin (not saved) 1ms
+ ✓ worker/visits.test.ts > cross site rules for /api/visits > [smoke 4] sends no Access-Control-Allow-Origin (wrong method) 1ms
+ ✓ worker/visits.test.ts > cross site rules for /api/visits > [smoke 4] sends no Access-Control-Allow-Origin (wrong content type) 1ms
+ ✓ worker/visits.test.ts > cross site rules for /api/visits > [smoke 4] sends no Access-Control-Allow-Origin when settings are missing 1ms
+      Tests  39 passed (39)

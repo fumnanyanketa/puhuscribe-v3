@@ -1,0 +1,11 @@
+WebKit, committed round-1.html opened from disk (no Worker):
+(no console messages)
+webkit http://127.0.0.1:8791/plain: 0 console messages ; elements with style attribute: 0
+webkit http://127.0.0.1:8791/with-header: 0 console messages ; elements with style attribute: 0
+webkit http://127.0.0.1:8789/meeting-people-new-colleague/round-1: 0 console messages ; elements with style attribute: 0
+chromium http://127.0.0.1:8791/plain: 0 console messages ; elements with style attribute: 0
+chromium http://127.0.0.1:8791/with-header: 0 console messages ; elements with style attribute: 0
+chromium http://127.0.0.1:8789/meeting-people-new-colleague/round-1: 0 console messages ; elements with style attribute: 0
+(no console messages)
+# Test 4: does a Playwright screenshot cause the WebKit CSP message?
+[Playwright screenshot (caret hide style injection)] error: Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.

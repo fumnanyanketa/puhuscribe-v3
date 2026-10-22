@@ -1,0 +1,19 @@
+== Keep test database awake: runs
+39295790824 factory/1-stack 0eeae15 pull_request success 2026-10-19T17:38:01Z
+39293665029 factory/1-stack 4002c7f pull_request success 2026-10-19T17:23:15Z
+39291712100 factory/1-stack 9d93069 pull_request success 2026-10-19T17:09:26Z
+
+== Latest run log (key lines)
+2026-10-19T17:38:05.7948528Z ##[group]Runner Image Provisioner
+2026-10-19T17:38:05.7966582Z ##[group]Runner Image
+﻿2026-10-19T17:38:05.9812795Z ##[group]Run status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 \
+2026-10-19T17:38:05.9814840Z ^[[36;1mstatus=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 \^[[0m
+2026-10-19T17:38:05.9823088Z ^[[36;1mecho "Supabase test project answered HTTP $status"^[[0m
+2026-10-19T17:38:06.7279571Z Supabase test project answered HTTP 200
+
+== Is the workflow file on main yet? (scheduled runs only start from the default branch)
+{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}gh: Not Found (HTTP 404)
+
+== Workflows registered
+Checks	active	389565425
+Keep test database awake	active	389658803

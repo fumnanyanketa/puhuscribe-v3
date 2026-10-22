@@ -1,0 +1,50 @@
+Evidence for statements 19 and 20 (docs and costs), from the clone at 2a21230.
+
+== docs/data-model.md exists:
+10888 bytes docs/data-model.md
+
+== Every table in the migrations is named in docs/data-model.md (count of backticked mentions):
+units              1
+dialogues          1
+dialogue_lines     1
+tokens             1
+forms              1
+cards              1
+review_logs        1
+sessions           1
+consents           1
+source_sentences   2
+lemma_ipa          1
+visits             2
+
+== Sections: who can read/write, first used by, loading v2 again
+13:## Learning content
+15:| Table | What it holds | A learner can | First used by |
+39:## Learner data
+41:| Table | What it holds | A learner can | First used by |
+59:## Reference data
+61:| Table | What it holds | Who can read or write | First used by |
+68:## The `visits` table
+72:## Loading v2's data again
+105:## When database changes reach the test project
+
+== README links to it in 'Database changes':
+3:The database is defined in code in `supabase/`, made by the Supabase CLI. The CLI is pinned in `package.json`, so local runs and the GitHub check use the same version. Every table, who can read and write it, and how to load v2's data again are described in [docs/data-model.md](docs/data-model.md).
+
+== README 'Running costs' (unchanged against main):
+## Running costs
+
+| Service                                                  | Plan                               | Cost today |
+| -------------------------------------------------------- | ---------------------------------- | ---------- |
+| GitHub (private repository, Actions checks)              | Free (2,000 check minutes a month) | €0         |
+| Cloudflare Workers (app, API, preview links)             | Workers Free                       | €0         |
+| Cloudflare Zero Trust (Access sign in for preview links) | Free (up to 50 users)              | €0         |
+| Supabase (test project `puhuscribe-test`)                | Free                               | €0         |
+(no change to any cost line)
+
+== package.json / package-lock.json changed on the branch?
+(empty = no new packages or services)
+
+== Docs checked against the schema: claims match the migrations (approval rules, frozen content, whole dialogues, restrict deletes,
+   own-row rules, met-before-card rule, no learner deletes, cascade on user delete, reference closed).
+   Small omission: the doc lists what a line needs for approval but not that a form also needs form_name_en and why_en.

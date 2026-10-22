@@ -1,0 +1,25 @@
+$ gh pr view 11 --json number,state,headRefOid,headRefName,mergeable
+{"headRefName":"factory/4-tooling","headRefOid":"c1666b102e895ac082362762c482972ab04f04e4","isDraft":true,"mergeable":"MERGEABLE","number":11,"state":"OPEN"}
+
+$ gh pr checks 11
+Browser tests (Playwright, Chromium and WebKit)	pass	2m52s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118691983738	
+Preview link (Cloudflare Worker behind Access)	pass	3m22s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118693543595	
+Apply database changes to the test project	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118691986602	
+Database tests (local Supabase, pgTAP)	pass	1m54s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690939465	
+Dependency check (npm audit, pip-audit)	pass	23s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690940914	
+Python tests and lint (pytest, ruff)	pass	33s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690939496	
+Secret scan (gitleaks)	pass	7s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690940846	
+Type check, lint, format	pass	45s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690938879	
+Unit tests (Vitest)	pass	47s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39441123835/job/118690939602	
+
+$ gh run view 39441123835 (jobs)
+sha=c1666b102e895ac082362762c482972ab04f04e4 event=pull_request status=completed conclusion=success attempt=1
+success	Type check, lint, format
+success	Database tests (local Supabase, pgTAP)
+success	Python tests and lint (pytest, ruff)
+success	Unit tests (Vitest)
+success	Secret scan (gitleaks)
+success	Dependency check (npm audit, pip-audit)
+success	Browser tests (Playwright, Chromium and WebKit)
+skipped	Apply database changes to the test project
+success	Preview link (Cloudflare Worker behind Access)

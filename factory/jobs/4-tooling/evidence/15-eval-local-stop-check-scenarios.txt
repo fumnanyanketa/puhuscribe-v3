@@ -1,0 +1,137 @@
+# Evaluator: stop check (scripts/hooks/stop-checks.ts worktrees) at c1666b1, CLAUDE_PROJECT_DIR = fresh scratch clone,
+# one factory-style worktree .worktrees/eval-sc made from main with npm ci. Made-up key generated at run time, never printed.
+
+=== 1. no changed app files
+
+--- exit 0; 1 lines; 0.54 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+--- exit 0; 1 lines; 0.55 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+--- exit 0; 1 lines; 0.55 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 2. lint error (explicit any) in a new app file worker/eval-lint.ts
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 8.46 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 3. type error in an edited tracked file worker/api.ts (unstaged)
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  typecheck: worker/api.ts:167:14 TS2322
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 6.66 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 4. format error, staged, in worker/eval-format.ts
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  format: worker/eval-format.ts (npx prettier --write worker/eval-format.ts)
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 6.25 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 5. made-up key in a committed app file worker/eval-key.ts (committed on the worktree branch, --no-verify not used: this worktree's main config has no lefthook.yml)
+worktree HEAD: 1037746 eval throwaway key
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  secrets: worker/eval-key.ts line 1 (github-pat)
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+If a secret was found, remove it from the file and tell the owner. Never paste its value anywhere.
+--- exit 2; 6 lines; 6.29 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 6. made-up key in an untracked .env.local in the worktree, no other change
+
+--- exit 0; 1 lines; 0.53 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 6b. same .env.local, plus a non-ignored untracked .env.staging and worker/.env.test holding the key, plus a lint error
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 6.27 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 7. errors only under factory/, recording/, docs/ and .claude/ (not app files)
+
+--- exit 0; 1 lines; 0.53 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 8. sixty lint errors across 12 files (line cap)
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-many-1.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-1.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-1.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-1.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-1.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-10.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-10.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-10.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-10.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-10.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-11.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-11.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-11.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-11.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-11.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-12.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-12.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-12.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-12.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-12.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-2.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-2.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-2.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-2.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-2.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-3.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-3.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-3.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-3.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-3.ts:13:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-4.ts:1:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-4.ts:4:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-4.ts:7:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-4.ts:10:23 @typescript-eslint/no-explicit-any
+  lint: worker/eval-many-4.ts:13:23 @typescript-eslint/no-explicit-any
+  ...and 25 more lines
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 40 lines; 7.73 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 9. same lint error, but build.md in the main folder ends with 'Result: blocked: ...'
+
+--- exit 0; 1 lines; 0.24 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+=== 9b. build.md says 'Result: checks pass' instead
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 6.29 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+=== 9c. 'Result: blocked:' not on the last line
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 6.27 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+=== 10. typical builder change: 6 TypeScript files edited plus 2 new ones, all clean
+
+--- exit 0; 1 lines; 11.24 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+--- exit 0; 1 lines; 11.12 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+=== 10b. same change with one lint error added
+Stop check: the app files you changed have problems. Fix them, then stop again.
+.worktrees/eval-sc:
+  lint: worker/eval-lint.ts:1:33 @typescript-eslint/no-explicit-any
+For the full messages, run npm run check:code in the worktree.
+If you cannot fix them, end build.md with "Result: blocked: <one line reason>".
+--- exit 2; 5 lines; 11.50 s; made-up key value in output: 0 times; '.env' named in output: 0 times
+
+worktree status after cleanup:
+(empty = clean)

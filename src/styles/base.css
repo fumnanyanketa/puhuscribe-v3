@@ -1,0 +1,75 @@
+/*
+ * Base styles every page gets: the page background, the text colour, the
+ * fonts and the keyboard focus outline. Element selectors only, kept at the
+ * lowest weight with :where(), so the front page needs no classes and any
+ * component style wins over them (factory/jobs/5-design-system/spec.md,
+ * "Done when" 19).
+ */
+
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+/* The page background is the one place the white to lilac fade is used. */
+:where(html) {
+  min-height: 100%;
+  background-color: var(--color-ground-bottom);
+  background-image: var(--ground-fade);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 100%;
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:where(body) {
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(h1, h2, h3) {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-tight);
+}
+
+/* design.md bans italics for body text. */
+:where(em, i, cite, dfn, var, address) {
+  font-style: normal;
+}
+
+:where(main) {
+  padding: var(--space-6) var(--space-5);
+}
+
+/* A button with no component style of its own (the front page's "Try again")
+   gets explicit token colours, the white pill look and the 44 px tap size.
+   Left to the browser, dark mode gave it white text on a light grey that axe
+   measured at 1.81:1 (job 5, round 3). Component styles override all of this. */
+:where(button) {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-pill);
+  background: var(--color-button-secondary);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+:where(button:hover) {
+  background: var(--color-button-secondary-hover);
+}
+
+:where(button:active) {
+  background: var(--color-button-secondary-pressed);
+}
+
+:where(:focus-visible) {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}

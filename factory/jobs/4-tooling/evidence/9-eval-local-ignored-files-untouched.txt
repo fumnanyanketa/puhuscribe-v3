@@ -1,0 +1,37 @@
+# Evaluator: unformatted lines added to src/lib/grade.ts (v2, in .prettierignore) and factory/jobs/eval-x/notes.md
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+6:00PM INF 0 commits scanned.
+6:00PM INF scanned ~52 bytes (52 bytes) in 342ms
+6:00PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.39 seconds)
+✔️ format (Prettier, fixes and restages) (2.02 seconds)
+✔️ checks (15.06 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.75 seconds)
+  ✔️ type check (tsc -b) (5.99 seconds)
+  ✔️ lint (ESLint) (7.32 seconds)
+[eval-throwaway-bad-commits e4d1aab] eval throwaway: ignored files
+ 2 files changed, 3 insertions(+)
+ create mode 100644 factory/jobs/eval-x/notes.md
+--- git commit exit code: 0; took 10.1 s
+--- RESULT: commit made: e4d1aab
+--- made-up key value appears in this output 0 times
+
+last line of committed src/lib/grade.ts:
+export const evalIgnored   =   1
+committed factory/jobs/eval-x/notes.md:
+*  bad   markdown

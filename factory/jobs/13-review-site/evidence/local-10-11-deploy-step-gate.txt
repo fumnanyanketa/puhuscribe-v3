@@ -1,0 +1,37 @@
+# The deploy step's shell script from .github/workflows/review-site.yml, run locally with bash on 22 October 2026.
+# npx is replaced by a stub that only prints, so nothing is deployed. All values below are made up.
+
+## nothing set (the owner's setup not done yet): skipped with a notice, green
+exit code: 0
+output:
+  ::notice title=Review site not deployed::The Cloudflare setup for the review site is not done yet (CLOUDFLARE_REVIEW_API_TOKEN CLOUDFLARE_REVIEW_ACCOUNT_ID REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD not set). Nothing was deployed.
+GITHUB_OUTPUT: deployed=false
+step summary:
+  ### Review site not deployed
+  
+  The Cloudflare setup for the review site is not done yet. Not set: CLOUDFLARE_REVIEW_API_TOKEN CLOUDFLARE_REVIEW_ACCOUNT_ID REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD.
+
+## only the token set: red, names the missing settings
+exit code: 1
+output:
+  ::error title=Review site setup incomplete::Not set: CLOUDFLARE_REVIEW_ACCOUNT_ID REVIEW_ACCESS_TEAM_DOMAIN REVIEW_ACCESS_AUD. Nothing was deployed. Set them, then start this workflow again on main.
+GITHUB_OUTPUT: 
+
+## all set, team domain not a cloudflareaccess.com address: red
+exit code: 1
+output:
+  ::error::REVIEW_ACCESS_TEAM_DOMAIN must be the team domain, https://<team>.cloudflareaccess.com. Nothing was deployed.
+GITHUB_OUTPUT: 
+
+## all set, AUD not 64 hex characters: red
+exit code: 1
+output:
+  ::error::REVIEW_ACCESS_AUD must be the Access application's AUD tag (64 characters, 0-9 and a-f). Nothing was deployed.
+GITHUB_OUTPUT: 
+
+## all set and well formed: deploys (stub)
+exit code: 0
+output:
+  (stub, nothing deployed) npx wrangler deploy --config review-site/wrangler.jsonc --var ACCESS_TEAM_DOMAIN:https://made-up.cloudflareaccess.com --var ACCESS_AUD:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+GITHUB_OUTPUT: deployed=true
+

@@ -1,0 +1,361 @@
+<title>PuhuScribe Look Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Geist+Mono:wght@400;500&family=Lexend:wght@300;400;500&display=swap">
+<style>
+  /* Layout: a reading column for the explanation, then the three phones side by side (stacking on a phone), then the references in two columns. */
+  :root {
+    --bg: #f2f4f6;
+    --surface: #ffffff;
+    --surface-2: #e8ecf0;
+    --fg: #121a22;
+    --muted: #55606b;
+    --accent: #1d4ed8;
+    --recommend: #0f5c46;
+    --shadow: 0 1px 2px rgb(18 26 34 / 0.06), 0 8px 24px rgb(18 26 34 / 0.06);
+    --font-head: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Lexend", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+
+    /* Direction A: calm reader with audio */
+    --a-bg: #eef2f5; --a-ink: #14202b; --a-soft: #5b6874; --a-accent: #1f4a6e; --a-hl: #cfe0ee; --a-card: #ffffff;
+    /* Direction B: Helsinki public-service clarity */
+    --b-bg: #ffffff; --b-ink: #000000; --b-soft: #4a4a4a; --b-accent: #0000bf; --b-line: #000000; --b-hl: #ffe977;
+    /* Direction C: one flat colour for each loop step, with photos */
+    --c-step: #24539a; --c-ink: #0e1726; --c-paper: #fbfaf7; --c-soft: #4d5869; --c-hl: #ffd23f; --c-photo: #3d6db3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1418; --surface: #171e24; --surface-2: #1f272e; --fg: #e8edf1; --muted: #9aa6b1;
+      --accent: #8fb0ff; --recommend: #6fd3b0; --shadow: none; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1418; --surface: #171e24; --surface-2: #1f272e; --fg: #e8edf1; --muted: #9aa6b1;
+    --accent: #8fb0ff; --recommend: #6fd3b0; --shadow: none; color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--fg); font: 300 16px/1.6 var(--font-body); }
+  main {
+    max-width: 1180px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 48px 72px;
+    display: grid; gap: 56px;
+  }
+  h1, h2, h3 { font-family: var(--font-head); font-weight: 600; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 19px; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .intro { display: grid; gap: 16px; max-width: 68ch; }
+  .intro p { color: var(--muted); }
+  .intro strong { color: var(--fg); font-weight: 500; }
+
+  .directions { display: grid; gap: 28px; }
+  .direction-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  @media (max-width: 980px) { .direction-row { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; } }
+  .option { display: grid; gap: 18px; min-width: 0; }
+  .option-head { display: grid; gap: 4px; }
+  .option-head .tag { font: 500 14px/1.4 var(--font-body); color: var(--recommend); }
+  .facts { display: grid; gap: 10px; font-size: 15px; }
+  .facts p { color: var(--muted); }
+  .facts b { color: var(--fg); font-weight: 500; }
+
+  /* Phone frame shared by all three drawings */
+  .phone {
+    width: 100%; max-width: 340px; aspect-ratio: 9 / 18.5; margin: 0 auto;
+    border-radius: 38px; padding: 10px; background: #0b0d10; box-shadow: var(--shadow);
+  }
+  .screen { width: 100%; height: 100%; border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; }
+  .statusbar { display: flex; justify-content: space-between; padding: 12px 22px 0; font: 500 12px/1 var(--font-mono); }
+  .content { flex: 1; display: flex; flex-direction: column; padding: 18px 20px 20px; gap: 16px; min-height: 0; }
+  .step { font: 600 22px/1.15 var(--font-head); letter-spacing: -0.02em; }
+  .context { font-size: 13px; line-height: 1.4; }
+  .lines { display: grid; gap: 14px; }
+  .speaker { font: 500 12px/1 var(--font-mono); margin-bottom: 4px; }
+  .fi { font: 500 21px/1.35 var(--font-body); }
+  .written { font-size: 13px; line-height: 1.4; margin-top: 2px; }
+  .spacer { flex: 1; }
+  .player { display: flex; align-items: center; gap: 12px; }
+  .play { width: 52px; height: 52px; flex: none; border-radius: 50%; display: grid; place-items: center; }
+  .play svg { width: 20px; height: 20px; }
+  .wave { flex: 1; height: 34px; display: flex; align-items: center; gap: 3px; }
+  .wave i { flex: 1; border-radius: 2px; }
+  .next { display: block; text-align: center; font: 600 16px/1 var(--font-head); padding: 17px 0; }
+
+  /* A */
+  .a .screen { background: var(--a-bg); color: var(--a-ink); }
+  .a .context, .a .written, .a .speaker { color: var(--a-soft); }
+  .a .card { background: var(--a-card); border-radius: 20px; padding: 18px; display: grid; gap: 14px; }
+  .a mark { background: var(--a-hl); color: var(--a-ink); border-radius: 6px; padding: 0 3px; }
+  .a .play { background: var(--a-accent); color: #fff; }
+  .a .wave i { background: var(--a-accent); opacity: .35; }
+  .a .wave i.on { opacity: 1; }
+  .a .next { background: var(--a-ink); color: #fff; border-radius: 16px; }
+
+  /* B */
+  .b .screen { background: var(--b-bg); color: var(--b-ink); }
+  .b .context, .b .written, .b .speaker { color: var(--b-soft); }
+  .b .step { font-size: 26px; }
+  .b .card { border: 2px solid var(--b-line); padding: 16px; display: grid; gap: 14px; }
+  .b mark { background: var(--b-hl); color: var(--b-ink); padding: 0 2px; }
+  .b .play { background: var(--b-accent); color: #fff; border-radius: 0; width: 56px; height: 56px; }
+  .b .wave i { background: var(--b-ink); opacity: .25; }
+  .b .wave i.on { opacity: 1; }
+  .b .next { background: var(--b-accent); color: #fff; padding: 20px 0; }
+
+  /* C */
+  .c .screen { background: var(--c-paper); color: var(--c-ink); }
+  .c .top { background: var(--c-step); color: #fff; padding-bottom: 18px; }
+  .c .top .statusbar { color: #fff; }
+  .c .top .step { padding: 14px 20px 0; color: #fff; }
+  .c .top .context { padding: 4px 20px 0; color: rgb(255 255 255 / .8); }
+  .c .photo { margin: 14px 20px 0; height: 112px; border-radius: 14px; background: var(--c-photo); color: rgb(255 255 255 / .85); display: grid; place-items: center; font: 400 12px/1.4 var(--font-mono); text-align: center; padding: 0 16px; }
+  .c .written, .c .speaker { color: var(--c-soft); }
+  .c mark { background: var(--c-hl); color: var(--c-ink); border-radius: 4px; padding: 0 3px; }
+  .c .play { background: var(--c-step); color: #fff; }
+  .c .wave i { background: var(--c-step); opacity: .3; }
+  .c .wave i.on { opacity: 1; }
+  .c .next { background: var(--c-ink); color: #fff; border-radius: 999px; }
+
+  .note { font-size: 14px; color: var(--muted); max-width: 72ch; }
+
+  .refs { display: grid; gap: 24px; }
+  .ref-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 760px) { .ref-grid { grid-template-columns: 1fr; } }
+  .ref { background: var(--surface); border-radius: 16px; padding: 20px 22px; display: grid; gap: 8px; min-width: 0; box-shadow: var(--shadow); }
+  .ref h3 a { color: var(--fg); text-decoration-color: var(--accent); }
+  .ref .what { color: var(--muted); font-size: 15px; }
+  .ref .borrow, .ref .avoid { font-size: 15px; }
+  .ref .borrow b, .ref .avoid b { font-weight: 500; }
+  .ref .uses { font: 400 13px/1.4 var(--font-mono); color: var(--muted); }
+  .choose { background: var(--surface-2); border-radius: 20px; padding: 28px; display: grid; gap: 12px; max-width: 72ch; }
+  .choose p { color: var(--muted); }
+  .choose p strong { color: var(--fg); font-weight: 500; }
+  @media (prefers-reduced-motion: no-preference) {
+    .a mark, .b mark, .c mark { transition: background-color .3s ease; }
+  }
+</style>
+
+<main>
+  <section class="intro">
+    <h1>Choose the look for PuhuScribe</h1>
+    <p><strong>Nothing here is built yet.</strong> The three phone screens below are drawings made for this page, one for each possible direction. They all show the same moment, so you compare looks and not content: the "Hear it" step of unit 1, while the audio reads the first line and highlights the word being spoken.</p>
+    <p>Under the drawings are the real apps and sites each direction borrows from. Those belong to other companies. Follow the links to see them as they really are.</p>
+  </section>
+
+  <section class="directions" aria-labelledby="dir-h">
+    <h2 id="dir-h">The three directions</h2>
+    <div class="direction-row">
+
+      <article class="option a" aria-labelledby="a-h">
+        <div class="phone" role="img" aria-label="Drawing of direction A, a calm light screen with the dialogue in a white card">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>5G</span></div>
+            <div class="content">
+              <div>
+                <div class="step">Hear it</div>
+                <div class="context">Meeting someone at work</div>
+              </div>
+              <div class="card">
+                <div>
+                  <div class="speaker">Alex</div>
+                  <div class="fi">Moi! Mä <mark>oon</mark> Alex.</div>
+                  <div class="written">Hei! Minä olen Alex.</div>
+                </div>
+                <div>
+                  <div class="speaker">Sanna</div>
+                  <div class="fi">Mist sä oot kotoisin?</div>
+                  <div class="written">Mistä sinä olet kotoisin?</div>
+                </div>
+              </div>
+              <div class="spacer"></div>
+              <div class="player">
+                <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span>
+                <span class="wave" aria-hidden="true"><i class="on" style="height:40%"></i><i class="on" style="height:70%"></i><i class="on" style="height:55%"></i><i class="on" style="height:90%"></i><i class="on" style="height:45%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:50%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:25%"></i></span>
+              </div>
+              <span class="next">Next line</span>
+            </div>
+          </div>
+        </div>
+        <div class="option-head">
+          <span class="tag">Recommended</span>
+          <h3 id="a-h">A. Calm reader with audio</h3>
+        </div>
+        <div class="facts">
+          <p><b>Feel.</b> Like reading along with a podcast. A cool light background, dark ink text, one deep blue for the controls, and the spoken word lit up.</p>
+          <p><b>For learners.</b> The easiest to read on a phone on the bus, light on older phones, and calm for people already under pressure.</p>
+          <p><b>Cost and risk.</b> €0. It can look plain unless the spacing and type are done with real care.</p>
+          <p><b>Borrows from.</b> Apple Podcasts transcripts, Google's dictation app, Waking Up, Oura, Speak's lesson layout.</p>
+        </div>
+      </article>
+
+      <article class="option b" aria-labelledby="b-h">
+        <div class="phone" role="img" aria-label="Drawing of direction B, a white screen with black outlines and square blue buttons">
+          <div class="screen">
+            <div class="statusbar"><span>9:41</span><span>5G</span></div>
+            <div class="content">
+              <div>
+                <div class="step">Hear it</div>
+                <div class="context">Meeting someone at work</div>
+              </div>
+              <div class="card">
+                <div>
+                  <div class="speaker">Alex</div>
+                  <div class="fi">Moi! Mä <mark>oon</mark> Alex.</div>
+                  <div class="written">Hei! Minä olen Alex.</div>
+                </div>
+                <div>
+                  <div class="speaker">Sanna</div>
+                  <div class="fi">Mist sä oot kotoisin?</div>
+                  <div class="written">Mistä sinä olet kotoisin?</div>
+                </div>
+              </div>
+              <div class="spacer"></div>
+              <div class="player">
+                <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg></span>
+                <span class="wave" aria-hidden="true"><i class="on" style="height:40%"></i><i class="on" style="height:70%"></i><i class="on" style="height:55%"></i><i class="on" style="height:90%"></i><i class="on" style="height:45%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:50%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:25%"></i></span>
+              </div>
+              <span class="next">Next line</span>
+            </div>
+          </div>
+        </div>
+        <div class="option-head">
+          <h3 id="b-h">B. Helsinki public-service clarity</h3>
+        </div>
+        <div class="facts">
+          <p><b>Feel.</b> Crisp and official. Pure white, black outlines, square corners, a strong blue for every button, a yellow highlight.</p>
+          <p><b>For learners.</b> The most accessible and it feels local. It may also feel like the Migri and Kela forms that cause the pressure in the first place.</p>
+          <p><b>Cost and risk.</b> €0. It can read as a city service more than a product people choose.</p>
+          <p><b>Borrows from.</b> The Helsinki Design System, Lingvis.</p>
+        </div>
+      </article>
+
+      <article class="option c" aria-labelledby="c-h">
+        <div class="phone" role="img" aria-label="Drawing of direction C, a blue top panel with a photo area and the dialogue below">
+          <div class="screen">
+            <div class="top">
+              <div class="statusbar"><span>9:41</span><span>5G</span></div>
+              <div class="step">Hear it</div>
+              <div class="context">Meeting someone at work</div>
+              <div class="photo">A real photo goes here, such as two colleagues by an office coffee machine</div>
+            </div>
+            <div class="content">
+              <div class="lines">
+                <div>
+                  <div class="speaker">Alex</div>
+                  <div class="fi">Moi! Mä <mark>oon</mark> Alex.</div>
+                  <div class="written">Hei! Minä olen Alex.</div>
+                </div>
+                <div>
+                  <div class="speaker">Sanna</div>
+                  <div class="fi">Mist sä oot kotoisin?</div>
+                  <div class="written">Mistä sinä olet kotoisin?</div>
+                </div>
+              </div>
+              <div class="spacer"></div>
+              <div class="player">
+                <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></span>
+                <span class="wave" aria-hidden="true"><i class="on" style="height:40%"></i><i class="on" style="height:70%"></i><i class="on" style="height:55%"></i><i class="on" style="height:90%"></i><i class="on" style="height:45%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:50%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:25%"></i></span>
+              </div>
+              <span class="next">Next line</span>
+            </div>
+          </div>
+        </div>
+        <div class="option-head">
+          <h3 id="c-h">C. One flat colour for each loop step, with photos</h3>
+        </div>
+        <div class="facts">
+          <p><b>Feel.</b> Bold and recognisable. Each step of the loop owns a colour (blue here for Hear it), with a real photo of the situation at the top.</p>
+          <p><b>For learners.</b> Always clear which step they are on, and the situation feels real. Busier on a small screen.</p>
+          <p><b>Cost and risk.</b> Photos cost time or money, light and dark contrast is harder per colour, and Finnish text on signs in photos would need your reviewer.</p>
+          <p><b>Borrows from.</b> NYT Games, Babbel's rebrand.</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="note">All three use your fonts: Geist for headings, Lexend for the Finnish and body text, Geist Mono for small labels. The Finnish lines are from your Test 2 voice lines and still wait for your reviewer's check.</p>
+  </section>
+
+  <section class="refs" aria-labelledby="refs-h">
+    <h2 id="refs-h">The references behind them</h2>
+    <p class="note">Each link opens the real product or a write-up of it. "Used by" says which drawing above takes something from it.</p>
+    <div class="ref-grid">
+      <article class="ref">
+        <h3><a href="https://www.apple.com/newsroom/2024/03/apple-introduces-transcripts-for-apple-podcasts/" target="_blank" rel="noopener">Apple Podcasts transcripts</a></h3>
+        <p class="what">Podcast episodes shown as text that follows along with the audio.</p>
+        <p class="borrow"><b>Borrow.</b> Each word highlights as it is spoken, and tapping a word jumps the audio there. This is the model for Hear it.</p>
+        <p class="uses">Used by A, B, C</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://www.digitaltrends.com/computing/googles-new-free-dictation-app-is-the-willow-alternative-you-have-been-waiting-for/" target="_blank" rel="noopener">Google's dictation app</a></h3>
+        <p class="what">A speech-to-text app. Found on Pinterest and traced to this article.</p>
+        <p class="borrow"><b>Borrow.</b> A quiet "Listening" state, the live text in one card, two large round controls at the bottom. A model for Say it.</p>
+        <p class="avoid"><b>Avoid.</b> The faint coloured glow behind it.</p>
+        <p class="uses">Used by A</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://www.speak.com/" target="_blank" rel="noopener">Speak</a></h3>
+        <p class="what">A speaking-first language app.</p>
+        <p class="borrow"><b>Borrow.</b> The lesson layout: phrase card above, controls at the bottom, one large speak button, and a "Can't speak now" option.</p>
+        <p class="avoid"><b>Avoid.</b> Points, streaks, leagues and the mascot.</p>
+        <p class="uses">Used by A</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://www.100archive.com/projects/waking-up" target="_blank" rel="noopener">Waking Up, by Partner</a></h3>
+        <p class="what">A meditation app redesigned by the studio Partner.</p>
+        <p class="borrow"><b>Borrow.</b> An interface that steps back so the content leads.</p>
+        <p class="uses">Used by A</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://www.instrument.com/work/oura-app" target="_blank" rel="noopener">Oura app, by Instrument</a></h3>
+        <p class="what">A health app redesign by the studio Instrument.</p>
+        <p class="borrow"><b>Borrow.</b> Information at a glance first, detail one tap deeper, and colour used only to point attention.</p>
+        <p class="uses">Used by A</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://github.com/City-of-Helsinki/helsinki-design-system" target="_blank" rel="noopener">Helsinki Design System</a></h3>
+        <p class="what">The City of Helsinki's design system for its digital services.</p>
+        <p class="borrow"><b>Borrow.</b> Accessibility as the floor: large buttons, thick focus outlines, errors that never rely on colour alone.</p>
+        <p class="avoid"><b>Avoid.</b> Its paid typeface and the bar down one side of boxes.</p>
+        <p class="uses">Used by B, and its accessibility rules apply to all three</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://sprakkraft.org/lingvis-finland" target="_blank" rel="noopener">Lingvis</a></h3>
+        <p class="what">A Finnish language tool that replaced Yle Kielikoulu.</p>
+        <p class="borrow"><b>Borrow.</b> One player that reads any text aloud.</p>
+        <p class="avoid"><b>Avoid.</b> Colouring words green, yellow and red.</p>
+        <p class="uses">Used by B</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://techcrunch.com/?p=2675705" target="_blank" rel="noopener">NYT Games</a></h3>
+        <p class="what">The New York Times puzzle app, write-up on TechCrunch.</p>
+        <p class="borrow"><b>Borrow.</b> A colour identity for each part, so people always know where they are.</p>
+        <p class="avoid"><b>Avoid.</b> Its leaderboards and stats tabs.</p>
+        <p class="uses">Used by C</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://babbel.com/press/en-us/releases/babbel-unveils-a-bold-new-chapter-a-transformational-rebranding" target="_blank" rel="noopener">Babbel's 2024 rebrand</a></h3>
+        <p class="what">Babbel's new identity, made with the agency Koto.</p>
+        <p class="borrow"><b>Borrow.</b> One strong text typeface everywhere, and photos of real situations.</p>
+        <p class="uses">Used by C</p>
+      </article>
+      <article class="ref">
+        <h3><a href="https://linear.app/now/how-we-redesigned-the-linear-ui" target="_blank" rel="noopener">Linear's redesign</a></h3>
+        <p class="what">How the Linear team rebuilt their app's look.</p>
+        <p class="borrow"><b>Borrow.</b> Light and dark themes made from a base colour, an accent and a contrast level, so both themes stay consistent.</p>
+        <p class="avoid"><b>Avoid.</b> Its typeface, which is on your banned list.</p>
+        <p class="uses">How the colours are built, in any direction</p>
+      </article>
+    </div>
+    <p class="note">Also checked and left out: Senthora (<a href="https://senthora.ai" target="_blank" rel="noopener">senthora.ai</a>), whose look is a dark purple glow with gradient headline text, both on your banned list. Only its idea of words lighting up as you read aloud carries over, and Apple's transcripts show it better. Pinterest's language-app pins were mostly gamified kits and AI-made mockups.</p>
+  </section>
+
+  <section class="choose" aria-labelledby="choose-h">
+    <h2 id="choose-h">How to choose</h2>
+    <p>Tell Claude <strong>A</strong>, <strong>B</strong> or <strong>C</strong>, or describe a mix, such as A with C's colour for each step. Nothing is built until you pick. After that, one real sample screen is made for you to see on your phone before the full design system.</p>
+  </section>
+</main>

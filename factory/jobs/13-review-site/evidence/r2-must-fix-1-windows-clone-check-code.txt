@@ -1,0 +1,35 @@
+# Must fix 1, round 2 (job 13-review-site, 22 October 2026). Fresh clones on this Windows machine with core.autocrlf=true.
+
+## Before: round 1 tip 6d30b7e (no review-site rule in .gitattributes)
+$ git ls-files --eol review-site
+i/lf    w/crlf  attr/                 	review-site/dialogues.json
+i/lf    w/crlf  attr/                 	review-site/handler.test.ts
+i/lf    w/crlf  attr/                 	review-site/handler.ts
+i/lf    w/crlf  attr/                 	review-site/worker.ts
+i/lf    w/crlf  attr/                 	review-site/wrangler.jsonc
+
+## After: round 2 tip b8cdf45
+$ git -c core.autocrlf=true clone --branch factory/13-review-site <repo> clone && git ls-files --eol review-site scripts/review-site e2e/review-site*.ts tests/review-site.test.ts .github/workflows/review-site.yml
+i/lf    w/lf    attr/text eol=lf      	.github/workflows/review-site.yml
+i/lf    w/lf    attr/text eol=lf      	e2e/review-site-index.spec.ts
+i/lf    w/lf    attr/text eol=lf      	e2e/review-site.spec.ts
+i/lf    w/lf    attr/text eol=lf      	review-site/dialogues.json
+i/lf    w/lf    attr/text eol=lf      	review-site/handler.test.ts
+i/lf    w/lf    attr/text eol=lf      	review-site/handler.ts
+i/lf    w/lf    attr/text eol=lf      	review-site/worker.ts
+i/lf    w/lf    attr/text eol=lf      	review-site/wrangler.jsonc
+i/lf    w/lf    attr/text eol=lf      	scripts/review-site/build.test.ts
+i/lf    w/lf    attr/text eol=lf      	scripts/review-site/build.ts
+i/lf    w/lf    attr/text eol=lf      	tests/review-site.test.ts
+
+$ npm ci && npm run check:code
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+> puhuscribe@0.0.0 lint
+> eslint .
+> puhuscribe@0.0.0 format:check
+> prettier --check .
+All matched files use Prettier code style!
+exit code: 0

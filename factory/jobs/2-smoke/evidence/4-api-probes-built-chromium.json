@@ -1,0 +1,80 @@
+[
+  {
+    "name": "GET",
+    "status": 405,
+    "allow": "POST",
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"method_not_allowed\"}"
+  },
+  {
+    "name": "PUT json",
+    "status": 405,
+    "allow": "POST",
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"method_not_allowed\"}"
+  },
+  {
+    "name": "DELETE",
+    "status": 405,
+    "allow": "POST",
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"method_not_allowed\"}"
+  },
+  {
+    "name": "OPTIONS preflight from other site",
+    "status": 204,
+    "body": ""
+  },
+  {
+    "name": "POST form",
+    "status": 415,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"unsupported_media_type\"}"
+  },
+  {
+    "name": "POST text/plain",
+    "status": 415,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"unsupported_media_type\"}"
+  },
+  {
+    "name": "POST no content type",
+    "status": 415,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"unsupported_media_type\"}"
+  },
+  {
+    "name": "POST application/jsonx",
+    "status": 415,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"error\":\"unsupported_media_type\"}"
+  },
+  {
+    "name": "POST JSON with chosen time (body ignored)",
+    "status": 201,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"saved\":true}"
+  },
+  {
+    "name": "POST JSON empty body",
+    "status": 201,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"saved\":true}"
+  },
+  {
+    "name": "GET /api/health",
+    "status": 200,
+    "ctype": "application/json",
+    "cache": "no-store",
+    "body": "{\"status\":\"ok\",\"service\":\"puhuscribe\",\"database\":\"reachable\"}"
+  }
+]

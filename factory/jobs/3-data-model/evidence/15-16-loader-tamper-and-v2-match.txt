@@ -1,0 +1,68 @@
+Evidence for statements 15 and 16: the v2 loader, run in a scratch clone (no database). Every tamper was reverted; final git status was clean.
+No database is available on this computer (no Docker, no psql), so the SQL double-load itself is proven from the CI log (18-ci-database-job.txt).
+
+### 1. Untouched: regenerate IPA migration and fixture load, compare with committed files
+Wrote supabase/migrations/20261020090300_load_v2_lemma_ipa.sql
+Wrote scripts/v2-import/fixtures/load.fixture.sql
+(empty status above = regenerated output is byte-identical to committed)
+### 1b. Run fixture generation twice: identical output?
+e84ba6ab6ee74babc5c5c1e965f130fe1c23fc35503a8a6a4d54c472cad4c90c *scripts/v2-import/fixtures/load.fixture.sql
+e84ba6ab6ee74babc5c5c1e965f130fe1c23fc35503a8a6a4d54c472cad4c90c *scripts/v2-import/fixtures/load.fixture.sql
+### 2. Tamper: change one IPA character in the v2 copy
+ content/v2-starter/from-v2/20260607000003_word_ipa_from_kaikki.sql | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+    throw new Error(
+Error: content/v2-starter/from-v2/20260607000003_word_ipa_from_kaikki.sql is not v2's supabase/migrations/20260607000003_word_ipa_from_kaikki.sql at 9c8d0a083d6209e0135efe20f88db99ff9c867e4 (blob e54608b30d2ad80952597497bf830acfa303b662, want 96218d52597100e07b4f99ed2cc5a817bdcab06e)
+build.ts ipa exit=1
+ ❯ scripts/v2-import/generate.test.ts (8 tests | 5 failed) 37ms
+     × [data 16] the copy of v2's IPA file is byte for byte the file at the pinned v2 commit 11ms
+     × [data 16] v2's file holds 514 distinct lemma to IPA pairs 2ms
+     × [data 16] the committed load migration is exactly what the script makes from v2 3ms
+     × [data 16] the migration loads the same 514 rows as v2, no more and no fewer 3ms
+     × [data 16] the pgTAP fingerprint is the one computed from v2's file 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the copy of v2's IPA file is byte for byte the file at the pinned v2 commit
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] v2's file holds 514 distinct lemma to IPA pairs
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the committed load migration is exactly what the script makes from v2
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the migration loads the same 514 rows as v2, no more and no fewer
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the pgTAP fingerprint is the one computed from v2's file
+ Test Files  1 failed (1)
+      Tests  5 failed | 3 passed (8)
+### 3. Tamper: hand-edit one row in the committed IPA migration (copy untouched)
+     × [data 16] the committed load migration is exactly what the script makes from v2 18ms
+     × [data 16] the migration loads the same 514 rows as v2, no more and no fewer 39ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the committed load migration is exactly what the script makes from v2
+ FAIL  scripts/v2-import/generate.test.ts > v2 pronunciation data > [data 16] the migration loads the same 514 rows as v2, no more and no fewer
+      Tests  2 failed | 6 passed (8)
+### 4. Tamper: corrections 'before' text does not match the fixture exactly
+      throw new Error(
+Error: Line 2: sentence 1 puhe "before" does not match v2 exactly.
+  v2:     "Fixture spoken one."
+  before: "Fixture spoken one!"
+### 5. Tamper: fixture load SQL hand-edited
+     × [data 15] the committed fixture load SQL is exactly what the script makes from the fixture files 12ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 7 passed (8)
+### 6. Tamper: duplicate correction row
+    if (seen.has(key)) throw new Error(`Line ${String(c.line)}: sentence ${key} is corrected twice`)
+Error: Line 4: sentence 1 puhe is corrected twice
+### Final status (must be clean)
+end
+
+== Read-only check against the v2 clone C:/Users/fumna/dev/_v2-readonly at 9c8d0a0
+v2 clone: blob ids at pinned commit
+96218d52597100e07b4f99ed2cc5a817bdcab06e
+f2aad90c0e8315d8836b09f3a08d101945300f99
+IPA UPDATE lines:
+514
+copy in branch hash-object:
+96218d52597100e07b4f99ed2cc5a817bdcab06e
+rows in load migration:
+514
+
+== The branch's parser on v2's real seed file (read only, nothing written to the repo)
+parsed sentences: 104
+first: {"ref":1,"kirja":"Hyvää huomenta.","puhe":"Huomenta.","en":"Good morning.","corrected":[]}
+last ref: 104
+with the committed (header-only) corrections file, corrected rows: 0

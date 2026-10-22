@@ -1,0 +1,36 @@
+$ gh pr view 11
+head=a2765ee520470afc5e0fc4de164dc6d3c7b4ce86 state=OPEN draft=true
+$ gh run view 39449697080 (latest attempt)
+sha=a2765ee520470afc5e0fc4de164dc6d3c7b4ce86 event=pull_request conclusion=success attempt=2
+success	Database tests (local Supabase, pgTAP)
+success	Type check, lint, format
+success	Python tests and lint (pytest, ruff)
+success	Preview link (Cloudflare Worker behind Access)
+skipped	Apply database changes to the test project
+success	Browser tests (Playwright, Chromium and WebKit)
+success	Dependency check (npm audit, pip-audit)
+success	Unit tests (Vitest)
+success	Secret scan (gitleaks)
+$ gh run view 39449697080 --attempt 1
+success	Dependency check (npm audit, pip-audit)
+success	Unit tests (Vitest)
+success	Python tests and lint (pytest, ruff)
+success	Secret scan (gitleaks)
+success	Database tests (local Supabase, pgTAP)
+success	Type check, lint, format
+success	Browser tests (Playwright, Chromium and WebKit)
+skipped	Apply database changes to the test project
+failure	Preview link (Cloudflare Worker behind Access)
+$ gh pr checks 11
+Preview link (Cloudflare Worker behind Access)	pass	2m50s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724834527	
+Apply database changes to the test project	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724834917	
+Browser tests (Playwright, Chromium and WebKit)	pass	2m3s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724835858	
+Database tests (local Supabase, pgTAP)	pass	1m52s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724832042	
+Dependency check (npm audit, pip-audit)	pass	30s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724879749	
+Python tests and lint (pytest, ruff)	pass	27s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724833102	
+Secret scan (gitleaks)	pass	11s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724909315	
+Type check, lint, format	pass	32s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724832687	
+Unit tests (Vitest)	pass	43s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39449697080/job/118724880394	
+
+# Attempt 1 failure (preview job 118723074024), the failing test line only:
+2026-10-20T15:40:19.1793362Z   ✘   1 [chromium] › e2e/health.spec.ts:20:1 › [2] [10] the page loads with no console errors and reaches the Worker (11.9s)

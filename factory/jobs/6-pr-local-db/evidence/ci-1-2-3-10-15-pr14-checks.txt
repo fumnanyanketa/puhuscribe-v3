@@ -1,0 +1,55 @@
+# This job's pull request #14, head 7958daa, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39652135818
+# All jobs:
+#   Type check, lint, format | success | 2026-10-21T18:23:26Z | 2026-10-21T18:24:09Z
+#   Database tests (local Supabase, pgTAP) | success | 2026-10-21T18:23:26Z | 2026-10-21T18:25:24Z
+#   Browser tests (Playwright, local Supabase) | success | 2026-10-21T18:23:26Z | 2026-10-21T18:30:15Z
+#   Python tests and lint (pytest, ruff) | success | 2026-10-21T18:23:26Z | 2026-10-21T18:24:04Z
+#   Unit tests (Vitest) | success | 2026-10-21T18:23:26Z | 2026-10-21T18:24:09Z
+#   Secret scan (gitleaks) | success | 2026-10-21T18:23:26Z | 2026-10-21T18:23:37Z
+#   Dependency check (npm audit, pip-audit) | success | 2026-10-21T18:23:25Z | 2026-10-21T18:23:47Z
+#   Apply database changes to the test project | skipped | 2026-10-21T18:25:24Z | 2026-10-21T18:25:24Z
+#   Browser tests against the test project (after merge) | skipped | 2026-10-21T18:25:25Z | 2026-10-21T18:25:24Z
+#   Preview link (Cloudflare Worker behind Access) | success | 2026-10-21T18:30:18Z | 2026-10-21T18:36:41Z
+# Local browser check (job 119403372762), step times:
+#   Set up job | success | 2026-10-21T18:23:27Z | 2026-10-21T18:23:27Z
+#   Run actions/checkout@v7 | success | 2026-10-21T18:23:27Z | 2026-10-21T18:23:29Z
+#   Run actions/setup-node@v7 | success | 2026-10-21T18:23:29Z | 2026-10-21T18:23:33Z
+#   Run npm ci | success | 2026-10-21T18:23:33Z | 2026-10-21T18:23:43Z
+#   Start a throwaway Supabase and apply every migration | success | 2026-10-21T18:23:43Z | 2026-10-21T18:25:21Z
+#   Local Supabase settings for the local Worker | success | 2026-10-21T18:25:21Z | 2026-10-21T18:25:22Z
+#   Load the browser test seed files | success | 2026-10-21T18:25:22Z | 2026-10-21T18:25:22Z
+#   Build the app and its Worker | success | 2026-10-21T18:25:22Z | 2026-10-21T18:25:30Z
+#   Install Chromium and WebKit | success | 2026-10-21T18:25:30Z | 2026-10-21T18:26:27Z
+#   Browser tests at 375 x 812 against the built app | success | 2026-10-21T18:26:27Z | 2026-10-21T18:30:10Z
+#   The app saved visits in the throwaway database | success | 2026-10-21T18:30:10Z | 2026-10-21T18:30:10Z
+#   Keep the report, screenshots and videos | success | 2026-10-21T18:30:10Z | 2026-10-21T18:30:13Z
+#   Post Run actions/setup-node@v7 | success | 2026-10-21T18:30:13Z | 2026-10-21T18:30:14Z
+#   Post Run actions/checkout@v7 | success | 2026-10-21T18:30:14Z | 2026-10-21T18:30:14Z
+#   Complete job | success | 2026-10-21T18:30:14Z | 2026-10-21T18:30:14Z
+# Local browser check, key log lines:
+2026-10-21T18:25:20.7945627Z Applying migration 20261019183410_create_visits.sql...
+2026-10-21T18:25:20.7946112Z Applying migration 20261020090000_content_model.sql...
+2026-10-21T18:25:20.7946560Z Applying migration 20261020090100_learner_model.sql...
+2026-10-21T18:25:20.7947010Z Applying migration 20261020090200_reference_tables.sql...
+2026-10-21T18:25:20.7947466Z Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+2026-10-21T18:25:20.7960697Z Started supabase local development setup.
+2026-10-21T18:25:22.4001284Z Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+2026-10-21T18:25:22.7439714Z Wrote SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY to .env.local
+2026-10-21T18:25:22.7729598Z No browser seed files in supabase/seeds/browser/
+2026-10-21T18:25:23.1125898Z check:env-names passed (155 variable names checked).
+2026-10-21T18:25:29.9456055Z check:built-secrets passed (38 browser files scanned).
+2026-10-21T18:27:34.2185891Z   ✓   47 [chromium] › e2e/health.spec.ts:43:1 › [13] /api/health reports the Supabase test project as reachable (141ms)
+2026-10-21T18:29:46.7712258Z   ✓  113 [webkit] › e2e/health.spec.ts:43:1 › [13] /api/health reports the Supabase test project as reachable (635ms)
+2026-10-21T18:30:10.2879691Z   6 skipped
+2026-10-21T18:30:10.2907530Z   126 passed (3.7m)
+2026-10-21T18:30:10.7339582Z Rows in visits on the throwaway database: 30
+# Lines in the local browser check log matching sb_publishable, sb_secret or eyJhbGci: 0
+# Preview job (119406945655), key log lines:
+2026-10-21T18:30:40.9541067Z Database changed in this pull request: false
+2026-10-21T18:30:41.2780811Z check:env-names passed (158 variable names checked).
+2026-10-21T18:30:46.6993458Z check:built-secrets passed (38 browser files scanned).
+2026-10-21T18:36:33.9462771Z   132 passed (4.7m)
+# Pull request comment:
+Preview for 7958daa: https://factory-6-pr-local-db-puhuscribe-preview.fumnanya.workers.dev
+
+Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token.

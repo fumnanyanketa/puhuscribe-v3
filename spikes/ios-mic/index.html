@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mic test">
+<link rel="manifest" href="manifest.webmanifest">
+<title>PuhuScribe microphone test</title>
+<!-- Throwaway risk test (Test 1). Deliberately unstyled: only enough CSS to be tappable on a phone. -->
+<style>
+  body { font-family: system-ui, sans-serif; margin: 16px; line-height: 1.4; }
+  button { font-size: 18px; padding: 12px 16px; margin: 4px 4px 4px 0; }
+  li { margin: 6px 0; }
+  #log { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 13px; background: #f2f2f2; padding: 8px; }
+</style>
+</head>
+<body>
+<h1>PuhuScribe microphone test</h1>
+<p id="mode"></p>
+
+<p>
+  <button id="rec">Record</button>
+  <button id="stop" disabled>Stop</button>
+  <button id="play" disabled>Play back</button>
+</p>
+<p id="status">Ready.</p>
+<p>
+  After playing back, did you hear it clearly?
+  <button id="heardYes" disabled>Yes</button>
+  <button id="heardNo" disabled>No</button>
+</p>
+
+<h2>Checklist</h2>
+<p>Do these in order on the iPhone, then on the Android phone. Tick each one when it worked.</p>
+<ol id="checklist"></ol>
+
+<h2>Log</h2>
+<p>
+  <button id="copy">Copy log</button>
+  <button id="clear">Clear log and checklist</button>
+</p>
+<div id="log"></div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get(key, fallback) { try { const v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch { return fallback; } },
+    set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch {} },
+  };
+
+  // ---- Log (kept across app reopens, so the checklist can be tested) ----
+  let lines = store.get('micTestLog', []);
+  const render = () => { $('log').textContent = lines.join('\n'); };
+  const log = (msg) => {
+    const t = new Date().toLocaleTimeString('en-GB');
+    lines.push(`${t}  ${msg}`);
+    store.set('micTestLog', lines);
+    render();
+  };
+
+  // ---- Checklist ----
+  const steps = [
+    'Opened from the home screen icon (the line at the top says "home screen app")',
+    'Recorded and played back 10 times in a row, all clear (counter in the log)',
+    'Closed the app fully (swipe it away), reopened from the icon, recorded again',
+    'After reopening: was NOT asked for microphone permission again',
+    'Switched to another app for 10 seconds, came back, recorded again',
+    'Recorded with wired headphones or Bluetooth earbuds connected',
+  ];
+  let ticks = store.get('micTestTicks', steps.map(() => false));
+  steps.forEach((text, i) => {
+    const li = document.createElement('li');
+    const label = document.createElement('label');
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.checked = !!ticks[i];
+    box.addEventListener('change', () => {
+      ticks[i] = box.checked;
+      store.set('micTestTicks', ticks);
+      log(`Checklist ${i + 1} ${box.checked ? 'ticked' : 'unticked'}: ${text}`);
+    });
+    label.append(box, ' ', text);
+    li.append(label);
+    $('checklist').append(li);
+  });
+
+  // ---- Environment ----
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  $('mode').textContent = standalone
+    ? 'Running as: home screen app'
+    : 'Running as: normal browser tab (add this page to your home screen, then open it from the icon)';
+  const opens = store.get('micTestOpens', 0) + 1;
+  store.set('micTestOpens', opens);
+  log(`--- App opened (open number ${opens}), ${standalone ? 'home screen app' : 'browser tab'}`);
+  log(`Device: ${navigator.userAgent}`);
+  const supportsRecorder = 'MediaRecorder' in window;
+  log(`Recording supported: ${supportsRecorder ? 'yes' : 'NO'}`);
+
+  const permissionState = async () => {
+    try { return (await navigator.permissions.query({ name: 'microphone' })).state; }
+    catch { return 'unknown'; }
+  };
+  permissionState().then((s) => log(`Microphone permission at start: ${s}`));
+
+  // ---- Recording ----
+  const pickType = () => {
+    const types = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'];
+    return types.find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+  };
+
+  let stream = null, recorder = null, chunks = [], startedAt = 0, lastUrl = null, count = 0, audioCtx = null;
+
+  const peakLevel = async (blob) => {
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const buffer = await audioCtx.decodeAudioData(await blob.arrayBuffer());
+      const data = buffer.getChannelData(0);
+      let peak = 0;
+      for (let i = 0; i < data.length; i += 1) peak = Math.max(peak, Math.abs(data[i]));
+      return peak;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  $('rec').addEventListener('click', async () => {
+    if (!supportsRecorder) { log('Cannot record: this browser has no MediaRecorder.'); return; }
+    $('rec').disabled = true;
+    $('status').textContent = 'Asking for the microphone...';
+    const asked = performance.now();
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      log(`Microphone FAILED: ${e.name} ${e.message}`);
+      $('status').textContent = 'Microphone failed. See the log.';
+      $('rec').disabled = false;
+      return;
+    }
+    const waitMs = Math.round(performance.now() - asked);
+    log(`Microphone granted after ${waitMs} ms${waitMs > 700 ? ' (long wait: you were probably asked for permission)' : ''}`);
+    const track = stream.getAudioTracks()[0];
+    log(`Input: ${track.label || 'unnamed microphone'}`);
+    track.addEventListener('mute', () => log('Microphone track MUTED (interrupted)'));
+    track.addEventListener('unmute', () => log('Microphone track unmuted'));
+    track.addEventListener('ended', () => log('Microphone track ended'));
+
+    const type = pickType();
+    recorder = type ? new MediaRecorder(stream, { mimeType: type }) : new MediaRecorder(stream);
+    chunks = [];
+    recorder.addEventListener('dataavailable', (e) => { if (e.data && e.data.size) chunks.push(e.data); });
+    recorder.addEventListener('stop', async () => {
+      stream.getTracks().forEach((t) => t.stop());
+      const seconds = ((performance.now() - startedAt) / 1000).toFixed(1);
+      const blob = new Blob(chunks, { type: recorder.mimeType || type || 'audio/mp4' });
+      count += 1;
+      if (lastUrl) URL.revokeObjectURL(lastUrl);
+      lastUrl = URL.createObjectURL(blob);
+      const peak = await peakLevel(blob);
+      const level = peak === null ? 'could not measure' : `${peak.toFixed(2)}${peak < 0.02 ? ' SILENT, likely a failed recording' : ' OK'}`;
+      log(`Recording ${count} this session: ${seconds} s, ${Math.round(blob.size / 1024)} KB, ${blob.type}, loudness ${level}`);
+      $('status').textContent = `Recording ${count} saved. Tap Play back.`;
+      $('rec').disabled = false;
+      $('play').disabled = false;
+    });
+    recorder.start();
+    startedAt = performance.now();
+    $('stop').disabled = false;
+    $('status').textContent = 'Recording... say something, then tap Stop.';
+  });
+
+  $('stop').addEventListener('click', () => {
+    $('stop').disabled = true;
+    if (recorder && recorder.state !== 'inactive') recorder.stop();
+  });
+
+  $('play').addEventListener('click', () => {
+    if (!lastUrl) return;
+    const audio = new Audio(lastUrl);
+    audio.addEventListener('ended', () => {
+      log(`Playback of recording ${count} finished`);
+      $('heardYes').disabled = false;
+      $('heardNo').disabled = false;
+    });
+    audio.addEventListener('error', () => log(`Playback FAILED for recording ${count}`));
+    audio.play().catch((e) => log(`Playback FAILED: ${e.name} ${e.message}`));
+  });
+
+  const heard = (clear) => {
+    log(`You heard recording ${count}: ${clear ? 'clearly' : 'NOT clearly'}`);
+    $('heardYes').disabled = true;
+    $('heardNo').disabled = true;
+  };
+  $('heardYes').addEventListener('click', () => heard(true));
+  $('heardNo').addEventListener('click', () => heard(false));
+
+  // ---- Background, reopen and device changes ----
+  document.addEventListener('visibilitychange', () => log(`App ${document.hidden ? 'went to the background' : 'came back to the front'}`));
+  if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+    navigator.mediaDevices.addEventListener('devicechange', () => log('Audio devices changed (headphones or Bluetooth connected or removed)'));
+  }
+
+  // ---- Log controls ----
+  $('copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(lines.join('\n')); $('status').textContent = 'Log copied. Paste it into the chat.'; }
+    catch { $('status').textContent = 'Copy failed. Select the log text and copy it by hand.'; }
+  });
+  $('clear').addEventListener('click', () => {
+    if (!confirm('Clear the log and the checklist?')) return;
+    lines = []; ticks = steps.map(() => false);
+    store.set('micTestLog', lines); store.set('micTestTicks', ticks);
+    document.querySelectorAll('#checklist input').forEach((b) => { b.checked = false; });
+    render();
+  });
+
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  render();
+})();
+</script>
+</body>
+</html>

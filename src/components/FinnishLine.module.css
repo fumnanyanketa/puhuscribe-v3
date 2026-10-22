@@ -1,0 +1,151 @@
+/* Finnish line (design.md, "Finnish line and word card"). Values from src/styles/tokens.css. */
+
+.pair {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* The connector: a teal dot for spoken, a violet dot for written, joined by
+   a dotted line (v2's rail, drawn with a border instead of a gradient). */
+.rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  width: 12px;
+  padding: 1.15rem 0 0.4rem;
+}
+
+.dotSpoken,
+.dotWritten {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-spoken);
+}
+
+.dotWritten {
+  background: var(--color-written);
+}
+
+.connector {
+  flex: 1;
+  margin: var(--space-1) 0;
+  border-left: 2px dotted var(--color-track);
+}
+
+.registers {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--measure-line);
+}
+
+.spokenBand {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-band-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-spoken-band);
+}
+
+.written {
+  padding: var(--space-3) var(--space-4) 0;
+}
+
+.labelSpoken,
+.labelWritten {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-spoken-text);
+}
+
+.labelWritten {
+  color: var(--color-written);
+}
+
+.spokenLine {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-line);
+  letter-spacing: var(--tracking-line);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.writtenLine {
+  margin: 0;
+  font-size: var(--text-written);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-line);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* A word and its punctuation: never split across two lines. */
+.keep {
+  white-space: nowrap;
+}
+
+/* A word with no card (such as a name) is plain text, laid out like a word
+   button so the line keeps its rhythm. */
+.plain {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  margin: 0 -0.08em;
+}
+
+/* Each word is a button: at least 44 px tall and 24 px wide (an inline
+   target, WCAG 2.5.8). The button itself is invisible; the face inside it
+   carries the wash and the lit block at text height, so a line reads as text
+   with a few marked words, not a row of tall tiles. The face's padding is
+   always there, so lighting a word never moves the line. */
+.word {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--word-min-width);
+  min-height: var(--tap-min);
+  margin: 0 -0.08em;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-word);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.face {
+  padding: 0.04em 0.14em;
+  border-radius: var(--radius-word);
+  line-height: var(--leading-tight);
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.word:hover .face {
+  background: var(--color-word-hover);
+}
+
+.changed,
+.word:hover .changed {
+  color: var(--color-flag-text);
+  background: var(--color-flag-wash);
+  font-weight: var(--weight-bold);
+}
+
+.current,
+.word:hover .current {
+  color: var(--color-current-word-text);
+  background: var(--color-current-word);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face {
+    transition: none;
+  }
+}

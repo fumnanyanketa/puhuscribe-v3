@@ -1,0 +1,71 @@
+Round 4 evidence for statement 2 (column grants, approval_history closed) and the re-approval fix (statement 6 area).
+Source: factory/3-data-model at a779ac0. Read only; no database here. CI: 413 pgTAP tests passed twice (r4-18-ci-database-job.txt).
+
+== Statement 2: the column-grant catalogue test (data_model_schema.test.sql, new results_eq)
+- It reads pg_attribute.attacl via aclexplode for every column in public. It keeps grantees PUBLIC (oid 0), anon, authenticated
+  and service_role, and must equal a fixed list.
+- I counted the list against the migration grants. It has 40 entries:
+    cards: 11 INSERT + 9 UPDATE = 20
+    review_logs: 12 INSERT
+    consents: 4 INSERT
+    sessions: 2 INSERT + 2 UPDATE = 4
+  This equals the grant statements in 20261020090100_learner_model.sql exactly.
+- attacl holds only column-level grants. Whole-table grants stay covered by table_privs_are, so the round 1 gap is closed:
+  a stray "SELECT (slug) to anon on units" or "UPDATE (text_puhe) to authenticated on dialogue_lines" now fails the test.
+  The builder reports both as mutation runs. Not re-run here.
+- Limits, minor: it looks only at schema public and only at those four grantees. Other schemas are covered by the private
+  schema USAGE tests.
+
+== private.approval_history is closed
+- The migration revokes all from public, anon, authenticated and service_role, and enables RLS with no policy.
+- table_privs_are shows no privilege for anon, authenticated or service_role (3 new tests).
+- The existing tests show anon and authenticated have no USAGE on schema private.
+- supabase/config.toml exposes only ["public", "graphql_public"], so PostgREST cannot address private.*.
+- git grep finds no view, no security definer function, and no other function anywhere in supabase/ that reads approval_history.
+  The only code that touches it is the trigger below. Learners hold no write grant on content tables, so they can never fire it.
+  Result: a learner has no path to read it.
+
+== The trigger: private.freeze_approved_content()
+- The function is language plpgsql with "set search_path = ''".
+- It is NOT security definer, so it runs as the role doing the update: today the migration owner (postgres).
+- The existing catalogue test still enforces the empty search_path for every function in private.
+- Behaviour, read from the code:
+    approved -> approved: any change other than status is refused (as before).
+    approved -> draft or retired:
+      - any change to a column other than status, approved_at or approval_ref is refused;
+      - otherwise the old (approval_ref, approved_at) goes into approval_history;
+      - then NEW.approved_at and NEW.approval_ref are set to null.
+    draft or retired -> approved:
+      - refused if approval_history already holds this row's new approval_ref ("already used");
+      - a status-only update is refused by each table's *_approval_complete check (23514), because the trigger cleared both fields.
+- The trigger is attached to units, dialogues, dialogue_lines and forms (lines 217-223). All four have the check constraint.
+
+== Test coverage of the re-approval fix, per table (data_model_content.test.sql)
+                       cleared on withdraw   status-only refused   old reference refused   new reference works
+  dialogue_lines       yes (row_eq)          yes (23514)           yes ("already used")    yes
+  dialogues            yes (row_eq)          yes (23514)           yes                     yes
+  forms                yes (on retire)       NOT TESTED            yes (retired form)      not tested
+  units                NOT TESTED            NOT TESTED            NOT TESTED              not tested
+- The units row is all gaps. The approved unit is retired at the end of the file, but nothing then checks its fields or tries
+  to approve it again.
+- By reading, units and forms behave exactly like lines and dialogues: one shared trigger, and the same constraint shape.
+  So this is a gap in the tests, not a defect. A future per-table change, such as a separate units trigger, would go unnoticed.
+
+== Weaker than the wording
+- "Approving again needs a new time" (docs/data-model.md and build.md) is not enforced.
+  Withdrawing clears approved_at, so some time must be given, but any value is accepted, including the old one or a past date.
+  Only the reference must be new.
+- "A reference that row has never had" is an exact string match. 'review 4 ' or 'Review 4' counts as new. This is fine as a
+  guard against mistakes, not against a careless pipeline.
+- The history is keyed on (table name, row id). A draft row that nothing references can be deleted and re-inserted under a new
+  id, then approved with an old reference. This is an edge case only.
+
+== For job 5 (understated in the docs)
+- The docs say the pipeline role "needs permission to add rows" to private.approval_history. Because the trigger runs as the
+  caller, a non-owner pipeline role needs all of these:
+    - USAGE on schema private;
+    - INSERT on the table, for the withdraw step;
+    - SELECT on the table, for the "already used" check;
+    - row level security policies for both, or BYPASSRLS.
+- RLS is on with no policy. With INSERT only (no SELECT policy), the EXISTS check would silently see no rows, and an old
+  reference would be accepted again.

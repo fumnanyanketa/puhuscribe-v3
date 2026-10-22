@@ -1,0 +1,23 @@
+# Job 4-tooling, statement 8: fresh clones of factory/4-tooling (local clone of the repository, own .git folder)
+
+## A fresh checkout: npm ci installs the hook with no extra step
+$ git clone --quiet --branch factory/4-tooling <repo> fresh-clone && cd fresh-clone
+$ ls .git/hooks (without samples), before npm ci
+(none)
+$ npm ci
+
+found 0 vulnerabilities
+$ ls .git/hooks (without samples), after npm ci
+pre-commit*
+$ npx lefthook version
+2.2.2
+
+## As on GitHub (CI=true): npm ci installs no hook
+$ git clone --quiet --branch factory/4-tooling <repo> ci-clone && cd ci-clone
+$ CI=true npm ci
+
+found 0 vulnerabilities
+$ ls .git/hooks (without samples), after CI=true npm ci
+(none)
+$ npx lefthook version   # the package is installed, only the hook is not
+2.2.2

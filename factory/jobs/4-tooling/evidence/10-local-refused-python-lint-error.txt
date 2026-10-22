@@ -1,0 +1,51 @@
+# Job 4-tooling, statement 10 (Python lint error). Throwaway branch scratch/4-tooling-bad-commits from b2f95cc, never pushed.
+# Computer: Windows 11, Node v24.14.1, git 2.53.0.windows.2, lefthook 2.2.2, gitleaks 8.30.1, ruff 0.17.1
+
+$ cat scripts/bad_lint.py
+import os
+
+
+def greet() -> str:
+    return "hei"
+$ git commit -m "scratch: python lint error"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+┃  checks ❯ python format (ruff format --check) ❯ 
+1 file already formatted
+
+┃  checks ❯ python lint (ruff check) ❯ 
+F401 [*] `os` imported but unused
+ --> scripts\bad_lint.py:1:8
+  |
+1 | import os
+  |        ^^
+help: Remove unused import: `os`
+  |
+  - import os
+1 |
+  |
+
+Found 1 error.
+[*] 1 fixable with `--fix`.
+
+exit status 1
+4:28PM INF 0 commits scanned.
+4:28PM INF scanned ~49 bytes (49 bytes) in 288ms
+4:28PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 4.64 seconds)
+✔️ format (Prettier, fixes and restages) (2.36 seconds)
+🥊 checks (5.14 seconds)
+  ✔️ python format (ruff format --check) (1.45 seconds)
+  ✔️ secrets (gitleaks, redacted) (2.23 seconds)
+  🥊 python lint (ruff check) (1.46 seconds)
+exit=1 elapsed_ms=5352
+$ git log --oneline -1   # no new commit
+b2f95cc Commit check: skip Prettier and ESLint for folders outside the app code

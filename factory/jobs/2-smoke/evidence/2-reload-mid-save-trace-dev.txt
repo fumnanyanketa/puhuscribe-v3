@@ -1,0 +1,42 @@
+=== webkit route=1
+  316ms loaded 1, status=Saving your visit.
+  338ms request POST http://localhost:5199/api/visits
+  340ms route handler #1
+  639ms failed Load request cancelled
+  862ms reloaded, status=Saving your visit.
+  883ms request POST http://localhost:5199/api/visits
+  883ms route handler #2
+ 1149ms response 201
+ 1150ms finished POST
+ 1700ms status saved
+ 5706ms end
+=== chromium route=1
+  278ms request POST http://localhost:5199/api/visits
+  279ms route handler #1
+  285ms loaded 1, status=Saving your visit.
+  745ms request POST http://localhost:5199/api/visits
+  745ms route handler #2
+  767ms reloaded, status=Saving your visit.
+ 1168ms response 201
+ 1169ms finished POST
+ 1613ms status saved
+ 5626ms end
+=== webkit route=0
+  301ms loaded 1, status=Saving your visit.
+  312ms request POST http://localhost:5199/api/visits
+  615ms failed Load request cancelled
+  777ms reloaded, status=Saving your visit.
+  796ms request POST http://localhost:5199/api/visits
+  969ms response 201
+  969ms finished POST
+ 1000ms status saved
+ 5014ms end
+=== chromium route=0
+  264ms request POST http://localhost:5199/api/visits
+  271ms loaded 1, status=Saving your visit.
+  689ms request POST http://localhost:5199/api/visits
+  694ms reloaded, status=Saving your visit.
+  875ms response 201
+  875ms finished POST
+  900ms status saved
+ 4910ms end

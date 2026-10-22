@@ -1,0 +1,15 @@
+# Same check in WebKit under npm run dev
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 300          │ 2026-10-19T19:33:26.929Z │
+└─────────┴──────────────┴──────────────────────────┘
+PASS [webkit 2-dev-one-load-webkit] one load, posts :: {"posts":1,"status":"Your visit is saved."}
+PASS [webkit 2-dev-one-load-webkit] console clean :: []
+## visits row count
+┌─────────┬──────────────┬──────────────────────────┐
+│ (index) │ visits_count │ db_time                  │
+├─────────┼──────────────┼──────────────────────────┤
+│ 0       │ 301          │ 2026-10-19T19:33:33.207Z │
+└─────────┴──────────────┴──────────────────────────┘

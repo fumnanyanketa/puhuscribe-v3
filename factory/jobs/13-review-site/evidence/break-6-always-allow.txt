@@ -1,0 +1,32 @@
+# Break test for statement 6 (job 13-review-site, 22 October 2026).
+# hasValidAccessToken in review-site/handler.ts was replaced by 'always allow' (first line: return Promise.resolve(true)).
+# Then: npx vitest run review-site/handler.test.ts. The token tests must go red. The file was restored afterwards.
+
+      Tests  12 failed | 12 passed (24)
+     × [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too 3ms
+     × [site 6] a malformed token gets 403 4ms
+     × [site 6] a team domain that is not a cloudflareaccess.com address is refused, so keys are never fetched elsewhere 2ms
+     × [site 6] a token for another Access application (wrong audience) gets 403 3ms
+     × [site 6] a token from another team (wrong issuer) gets 403 3ms
+     × [site 6] a token signed by another key gets 403 4ms
+     × [site 6] a token with no expiry gets 403 2ms
+     × [site 6] an expired token gets 403 3ms
+     × [site 6] an unsigned token (alg none) gets 403 2ms
+     × [site 6] no header gets 403 with one plain line and no file 10ms
+     × [site 6] the real key source fetches the keys from <team domain>/cdn-cgi/access/certs 3ms
+     × [site 6] when either setting is missing, everything gets 403, even with a valid token 2ms
+ FAIL  review-site/handler.test.ts > search engines kept out, and no framing > [site 5] robots.txt, 403, 404, 405 and redirects carry the headers too
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a malformed token gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a team domain that is not a cloudflareaccess.com address is refused, so keys are never fetched elsewhere
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token for another Access application (wrong audience) gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token from another team (wrong issuer) gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token signed by another key gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] a token with no expiry gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] an expired token gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] an unsigned token (alg none) gets 403
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] no header gets 403 with one plain line and no file
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] the real key source fetches the keys from <team domain>/cdn-cgi/access/certs
+ FAIL  review-site/handler.test.ts > the second lock: the Access token check > [site 6] when either setting is missing, everything gets 403, even with a valid token
+ Test Files  1 failed (1)
+ ❯ review-site/handler.test.ts (24 tests | 12 failed) 218ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯

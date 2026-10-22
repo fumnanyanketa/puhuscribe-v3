@@ -1,0 +1,56 @@
+## gh run view 39732155909 --json jobs (names, conclusions, steps)
+event=workflow_dispatch branch=factory/13-review-site sha=6d30b7e7d310a2f5f138a7a112df505847207121 conclusion=success url=https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732155909
+  job: Review site build, tests and deploy dry run -> success
+    step: Set up job -> success
+    step: Run actions/checkout@v7 -> success
+    step: Run actions/setup-node@v7 -> success
+    step: Run npm ci -> success
+    step: Build the review site -> success
+    step: Review site tests (Vitest) -> success
+    step: Deploy dry run (no secret, nothing uploaded) -> success
+    step: Post Run actions/setup-node@v7 -> success
+    step: Post Run actions/checkout@v7 -> success
+    step: Complete job -> success
+  job: Deploy the review site (main only) -> skipped
+
+## gh run view 39732147030 --json jobs (names, conclusions, steps)
+event=pull_request branch=factory/13-review-site sha=6d30b7e7d310a2f5f138a7a112df505847207121 conclusion=success url=https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732147030
+  job: Review site build, tests and deploy dry run -> success
+    step: Set up job -> success
+    step: Run actions/checkout@v7 -> success
+    step: Run actions/setup-node@v7 -> success
+    step: Run npm ci -> success
+    step: Build the review site -> success
+    step: Review site tests (Vitest) -> success
+    step: Deploy dry run (no secret, nothing uploaded) -> success
+    step: Post Run actions/setup-node@v7 -> success
+    step: Post Run actions/checkout@v7 -> success
+    step: Complete job -> success
+  job: Deploy the review site (main only) -> skipped
+
+## gh pr checks 19
+Preview link (Cloudflare Worker behind Access)	pass	4m55s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119671730037	
+Apply database changes to the test project	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119670377034	
+Browser tests against the test project (after merge)	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119670378103	
+Deploy the review site (main only)	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732147030/job/119669537497	
+Browser tests (Playwright, local Supabase)	pass	7m8s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669392002	
+Database tests (local Supabase, pgTAP)	pass	3m0s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391651	
+Dependency check (npm audit, pip-audit)	pass	29s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391742	
+Python tests and lint (pytest, ruff)	pass	37s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391822	
+Review site build, tests and deploy dry run	pass	25s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732147030/job/119669391690	
+Secret scan (gitleaks)	pass	8s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391602	
+Type check, lint, format	pass	45s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391764	
+Unit tests (Vitest)	pass	50s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905/job/119669391769	
+
+## gh run view 39732146905
+Checks event=pull_request sha=6d30b7e7d310a2f5f138a7a112df505847207121 conclusion=success
+  job: Secret scan (gitleaks) -> success
+  job: Database tests (local Supabase, pgTAP) -> success
+  job: Dependency check (npm audit, pip-audit) -> success
+  job: Type check, lint, format -> success
+  job: Unit tests (Vitest) -> success
+  job: Python tests and lint (pytest, ruff) -> success
+  job: Browser tests (Playwright, local Supabase) -> success
+  job: Apply database changes to the test project -> skipped
+  job: Browser tests against the test project (after merge) -> skipped
+  job: Preview link (Cloudflare Worker behind Access) -> success

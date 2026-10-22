@@ -1,0 +1,23 @@
+# Job 4-tooling round 3, statement 15: stop check time for a typical builder change, on this computer, at ce3db17
+# CLAUDE_PROJECT_DIR = the main checkout; one factory worktree (.worktrees/4-tooling). Its app files changed since main:
+#   .gitattributes
+#   .github/workflows/checks.yml
+#   AGENTS.md
+#   README.md
+#   eslint.config.js
+#   lefthook.yml
+#   package-lock.json
+#   package.json
+#   scripts/hooks/commit-tool.test.ts
+#   scripts/hooks/commit-tool.ts
+#   scripts/hooks/stop-checks.test.ts
+#   scripts/hooks/stop-checks.ts
+#   tests/agents-md.test.ts
+#   tests/checks-workflow.test.ts
+#   tests/claude-settings.test.ts
+#   tsconfig.node.json
+#   vitest.config.ts
+# count: 17 app files
+run 1: exit=0 elapsed_ms=11025
+run 2: exit=0 elapsed_ms=11131
+run 3: exit=0 elapsed_ms=11039

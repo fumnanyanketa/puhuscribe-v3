@@ -1,0 +1,7 @@
+# Do the live tests' anonymous contexts really drop the service token headers? Scratch Playwright 1.64.1 test with fake header values in the config, against a local echo server.
+RESULT
+fixture request: true
+browser.newContext({extraHTTPHeaders: {}}): false
+playwright.request.newContext({extraHTTPHeaders: {}, maxRedirects: 0}): false
+playwright.request.newContext({maxRedirects: 0}) (no headers option): true
+  ok 1 eval-pw\headers.spec.ts:3:1 › which contexts send the config headers (385ms)

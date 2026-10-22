@@ -1,0 +1,17 @@
+
+> puhuscribe@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.5 <clone>
+
+
+ Test Files  14 passed (14)
+      Tests  165 passed (165)
+   Start at  22:29:43
+   Duration  2.76s (tests 78%, transform 14%, import 6%, worker 2%)
+
+    Isolate  14 workers spawned · ~375ms startup each (spawn + environment, per file)
+             at least ~375ms faster with isolate: false — reuses workers across files instead of one per file
+
+exit 0

@@ -1,0 +1,39 @@
+=== break A: type error in worker/api.ts (const x: number = 'a')
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+worker/api.ts(167,14): error TS2322: Type 'string' is not assignable to type 'number'.
+exit 2
+=== break B: lint error only (unused variable) in worker/api.ts
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+worker/api.ts(168,9): error TS6133: 'unused' is declared but its value is never read.
+exit 2
+=== break C: format only (double quotes, extra spaces) in worker/api.ts
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+> puhuscribe@0.0.0 lint
+> eslint .
+> puhuscribe@0.0.0 format:check
+> prettier --check .
+Checking formatting...
+[[33mwarn[39m] worker/api.ts
+[[33mwarn[39m] Code style issues found in the above file. Run Prettier with --write to fix.
+exit 1
+(restored, tree clean)
+=== break B2: lint-only error (explicit any) in worker/api.ts
+> puhuscribe@0.0.0 check:code
+> npm run typecheck && npm run lint && npm run format:check
+> puhuscribe@0.0.0 typecheck
+> tsc -b
+> puhuscribe@0.0.0 lint
+> eslint .
+  168:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+✖ 1 problem (1 error, 0 warnings)
+exit 1
+(restored)

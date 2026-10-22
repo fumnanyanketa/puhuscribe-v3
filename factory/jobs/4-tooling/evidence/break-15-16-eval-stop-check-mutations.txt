@@ -1,0 +1,36 @@
+=== baseline
+      Tests  39 passed (39)
+=== M1: factory/ counts as app code (removed from NOT_APP_CODE)
+32:const NOT_APP_CODE = ['recording/', 'docs/', '.claude/']
+     × [tooling 15] files under factory/, recording/, docs/ and .claude/ do not count as app files 3618ms
+     × [tooling 15] factory/jobs/4-tooling/build.md counts as an app file: false 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 37 passed (39)
+=== M2: .env name guard removed (isAppFile returns true for .env files)
+54:  return true || !name.startsWith('.env')
+     × [tooling 15] .env.local counts as an app file: false 11ms
+     × [tooling 15] .env.example counts as an app file: false 2ms
+     × [tooling 15] worker/.env counts as an app file: false 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 36 passed (39)
+=== M3: blocked escape ignored (isBlocked always false)
+60:  return false && lines.length > 0
+     × [tooling 15] lets a builder stop when its build.md ends with "Result: blocked:" 3592ms
+     × [tooling 15] checks each worktree on its own: a blocked one is skipped, a broken one is named 6595ms
+     × [tooling 15] only a last line starting "Result: blocked:" lets a builder stop 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 36 passed (39)
+=== M4: line cap raised to 400
+     × [tooling 15] prints at most 40 lines however many problems there are 3383ms
+     × [tooling 15] the report is empty when nothing failed and never longer than 40 lines 4ms
+     × [tooling 15] a secret finding adds the advice line, and the report still fits in 40 lines 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 36 passed (39)
+=== M5: gitleaks without --redact
+0
+      Tests  39 passed (39)
+=== M6: settings.json SubagentStop matcher changed to any agent
+     × [tooling 16] hold exactly the JSON for option B 15ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 38 passed (39)
+=== after: 0 changed files

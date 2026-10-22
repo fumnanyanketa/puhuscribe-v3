@@ -1,0 +1,43 @@
+# Evaluator: unformatted worker/eval-format.ts (double quotes, semicolon, spaces)
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+staged content before commit:
+export const evalFormat   =   "x";
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-format.ts 47ms
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~35 bytes (35 bytes) in 339ms
+5:59PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.01 seconds)
+✔️ format (Prettier, fixes and restages) (2.06 seconds)
+✔️ checks (14.62 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.74 seconds)
+  ✔️ type check (tsc -b) (5.99 seconds)
+  ✔️ lint (ESLint) (6.89 seconds)
+[eval-throwaway-bad-commits fd3680d] eval throwaway: unformatted
+ 1 file changed, 1 insertion(+)
+ create mode 100644 worker/eval-format.ts
+--- git commit exit code: 0; took 9.7 s
+--- RESULT: commit made: fd3680d
+--- made-up key value appears in this output 0 times
+
+committed content (git show HEAD:worker/eval-format.ts):
+export const evalFormat = 'x'
+working tree content:
+export const evalFormat = 'x'
+git status --short after commit:
+(empty = nothing left unstaged)

@@ -1,0 +1,15 @@
+Round 4 evidence for statement 19: docs/data-model.md at a779ac0 (diff against round 3 2a21230).
+
+-Each of these four has a status: draft, approved or retired. Approved means the native reviewer approved it; `approved_at` and `approval_ref` (a pointer to the reviewer's signed review record) must be filled in, and a line also needs both texts, the gloss and both audio keys. The database refuses an approval with a missing part. It also refuses:
++Each of these four has a status: draft, approved or retired. Approved means the native reviewer approved it; `approved_at` and `approval_ref` (a pointer to the reviewer's signed review record) must be filled in. A line also needs both texts, the gloss and both audio keys, and a form also needs its name (`form_name_en`) and its one line "why" (`why_en`). The database refuses an approval with a missing part. It also refuses:
++Setting approved content back to draft, or retiring it, withdraws the approval: `approved_at` and `approval_ref` are cleared, and the old pair is kept in `private.approval_history`, which the API cannot reach. Approving it again needs a new time and a reference that row has never had, so changed content can never carry an old review. (Job 5's pipeline role needs permission to add rows to that history.)
+-2. To fix a line: set its dialogue back to draft (learners stop seeing the whole dialogue), set the line back to draft, fix it, approve the line, then approve the dialogue again.
++2. To fix a line: set its dialogue back to draft (learners stop seeing the whole dialogue), set the line back to draft, fix it, and have the reviewer approve the line and then the dialogue again, each with a new review reference.
+
+Checks:
+- Form approval now names form_name_en and why_en: yes (line with 'a form also needs').
+- Withdraw-and-renew flow described (cleared fields, private.approval_history, new reference needed, pipeline order step 2): yes.
+- Overclaim: 'needs a new time' is not enforced; any approved_at value is accepted. Only the reference must be new.
+- Understated for job 5: the pipeline role needs USAGE on private, INSERT and SELECT on approval_history, and RLS policies (or BYPASSRLS), not only permission to add rows.
+- README link and running costs unchanged since round 3 (README not in the round 4 diff).
+(empty line above = unchanged)

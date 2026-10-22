@@ -1,0 +1,35 @@
+/**
+ * Wrangler configuration for the PuhuScribe app.
+ * One Worker serves the built app as static files and runs every /api/* route.
+ * Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
+ *
+ * This Worker is named puhuscribe-preview: it only ever holds test project
+ * secrets. The production Worker is created separately at liftoff, by the owner.
+ * Secrets never go in this file. Locally they come from .env.local; on Cloudflare
+ * they are Worker secrets.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "puhuscribe-preview",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-19",
+  // puhuscribe-preview.<subdomain>.workers.dev, plus one preview address per
+  // version alias (<alias>-puhuscribe-preview...). Cloudflare Access guards both.
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"],
+  },
+  "observability": {
+    "enabled": true,
+    // Cloudflare's own per-request logs are off: requests carry sign in
+    // cookies, and Cloudflare does not document which request details those
+    // logs keep. The Worker's own logs stay, and the Worker writes nothing
+    // personal to them (factory/jobs/8-first-session/spec.md, "Done when" 19).
+    "logs": {
+      "invocation_logs": false,
+    },
+  },
+  "upload_source_maps": true,
+}

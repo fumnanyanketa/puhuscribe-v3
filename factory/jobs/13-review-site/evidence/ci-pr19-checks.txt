@@ -1,0 +1,39 @@
+# Checks workflow on pull request #19 (factory/13-review-site at 6d30b7e), 22 October 2026
+# Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39732146905
+conclusion: success
+job "Secret scan (gitleaks)": success
+job "Database tests (local Supabase, pgTAP)": success
+job "Dependency check (npm audit, pip-audit)": success
+job "Type check, lint, format": success
+job "Unit tests (Vitest)": success
+job "Python tests and lint (pytest, ruff)": success
+job "Browser tests (Playwright, local Supabase)": success
+job "Apply database changes to the test project": skipped
+job "Browser tests against the test project (after merge)": skipped
+job "Preview link (Cloudflare Worker behind Access)": success
+
+# The index page browser tests in the job "Browser tests (Playwright, local Supabase)":
+  ✓   61 [chromium] › e2e/review-site-index.spec.ts:69:3 › the review site index page › [site 4] lists the real listed dialogue with its waiting round, at 375 px with no sideways scroll 
+  ✓   62 [chromium] › e2e/review-site-index.spec.ts:84:3 › the review site index page › [site 4] prints a title holding <script> as text, wraps long words and shows each round status 
+  ✓   63 [chromium] › e2e/review-site-index.spec.ts:99:3 › the review site index page › [site 4] each round link is a tap target at least 44 px high 
+  -   64 [chromium] › e2e/review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -   65 [chromium] › e2e/review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -   66 [chromium] › e2e/review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -   67 [chromium] › e2e/review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -   68 [chromium] › e2e/review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -   69 [chromium] › e2e/review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -   70 [chromium] › e2e/review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -   71 [chromium] › e2e/review-site.spec.ts:225:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -   72 [chromium] › e2e/review-site.spec.ts:235:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+  ✓  147 [webkit] › e2e/review-site-index.spec.ts:69:3 › the review site index page › [site 4] lists the real listed dialogue with its waiting round, at 375 px with no sideways scroll 
+  ✓  148 [webkit] › e2e/review-site-index.spec.ts:84:3 › the review site index page › [site 4] prints a title holding <script> as text, wraps long words and shows each round status 
+  ✓  149 [webkit] › e2e/review-site-index.spec.ts:99:3 › the review site index page › [site 4] each round link is a tap target at least 44 px high 
+  -  150 [webkit] › e2e/review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -  151 [webkit] › e2e/review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -  152 [webkit] › e2e/review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -  153 [webkit] › e2e/review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -  154 [webkit] › e2e/review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -  155 [webkit] › e2e/review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -  156 [webkit] › e2e/review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -  157 [webkit] › e2e/review-site.spec.ts:225:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -  158 [webkit] › e2e/review-site.spec.ts:235:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site

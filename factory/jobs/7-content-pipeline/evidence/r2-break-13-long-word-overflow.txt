@@ -1,0 +1,13 @@
+r2 break test, local: the overflow-wrap rule removed from the review page style, fixture page made again, then:
+[1/2] [chromium] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px
+[2/2] [webkit] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px
+  1) [chromium] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px 
+    Expected: <= 375
+    Received:    622
+    test-results\review-page-the-review-pag-67715-s-inside-its-card-at-375-px-chromium\test-failed-1.png
+  2) [webkit] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px 
+    Expected: <= 375
+    Received:    622
+    test-results\review-page-the-review-pag-67715-s-inside-its-card-at-375-px-webkit\test-failed-1.png
+  2 failed
+    [chromium] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px 

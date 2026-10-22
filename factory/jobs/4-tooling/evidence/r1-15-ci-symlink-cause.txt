@@ -1,0 +1,16 @@
+# Job 4-tooling round 1 fix: why 3 stop-check tests failed on GitHub (Linux) and passed on Windows.
+# On Linux the test's node_modules link is a symbolic link, which git lists as a new file even with 'node_modules/' in .gitignore.
+# Reproduced on Windows by making the tests use a real directory symbolic link instead of a junction (working tree only, restored after).
+
+100:  symlinkSync(NODE_MODULES, link, 'dir')
+## 1. Symbolic link, stop check WITHOUT the node_modules filter (the code CI ran)
+     × [tooling 15] with no changed app files it exits 0 in under 2 seconds 2349ms
+     × [tooling 15] files under factory/, recording/, docs/ and .claude/ do not count as app files 2412ms
+     × [tooling 15] never opens, lists or prints a .env* file 2230ms
+     × [tooling 15] node_modules counts as an app file: false 2ms
+     × [tooling 15] node_modules/typescript/package.json counts as an app file: false 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  5 failed | 23 passed (28)
+
+## 2. Symbolic link, stop check WITH the node_modules filter (this fix)
+      Tests  28 passed (28)

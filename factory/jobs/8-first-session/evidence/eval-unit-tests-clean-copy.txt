@@ -1,0 +1,93 @@
+Evaluator, job 8-first-session. Unit tests (Vitest) from a fresh clone of the repository at commit 679d21c, after npm ci, on Windows, 22 October 2026.
+Command: npx vitest run --reporter=verbose. Every line below carries a [session N] label; the last two lines are the whole suite.
+
+ ✓ tests/worker-rules.test.ts > no stronger key anywhere > [session 7] no Worker file reads a Supabase secret key or service role key
+ ✓ tests/worker-rules.test.ts > Cloudflare invocation logs > [session 19] are turned off in wrangler.jsonc
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] asks about the lines with the most reviewable words, up to three, in dialogue order
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] breaks ties in favour of the earlier line
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] offers the line's own meaning and up to two other meanings from the dialogue
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] gives the same questions in the same order for the same session, every time
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] works with a one or two line dialogue
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] never offers the right meaning twice when two lines share it
+ ✓ src/lib/session-rules.test.ts > the comprehension questions (Decision 4) > [session 13] counts each different form once, in both registers
+ ✓ src/lib/session-rules.test.ts > the sentence you can now say (Decision 5) > [session 14] is the shortest line with at least two words that have forms
+ ✓ src/lib/session-rules.test.ts > the sentence you can now say (Decision 5) > [session 14] gives ties to the earlier line
+ ✓ src/lib/session-rules.test.ts > the sentence you can now say (Decision 5) > [session 14] falls back to the shortest line with one such word, then to the shortest line
+ ✓ worker/session-plan.test.ts > today's dialogue > [session 6] is the lowest unit position, then the lowest dialogue position
+ ✓ worker/session-plan.test.ts > today's dialogue > [session 6] skips finished dialogues
+ ✓ worker/session-plan.test.ts > today's dialogue > [session 6] [session 18] reuses the newest unfinished session of that dialogue
+ ✓ worker/session-plan.test.ts > today's dialogue > [session 6] is all_done when every dialogue is finished, and not_ready when none is readable
+ ✓ worker/session-plan.test.ts > splitting a line into its words > [session 9] keeps punctuation with the word before it
+ ✓ worker/session-plan.test.ts > splitting a line into its words > [session 9] keeps punctuation before the first word
+ ✓ worker/session-plan.test.ts > splitting a line into its words > [session 9] refuses a line whose words are not all found, in order
+ ✓ worker/session-plan.test.ts > splitting a line into its words > [session 9] [session 12] builds both registers, with cards only for readable forms
+ ✓ worker/session-plan.test.ts > audio paths > [session 10] are /audio/<key> on the same address, with each part encoded
+ ✓ worker/session-plan.test.ts > audio paths > [session 10] refuse a key that could leave the /audio/ folder or name another address
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] makes one anonymous user with the publishable key and answers 201
+ ✓ worker/logs.test.ts > the Worker log > [session 19] holds no cookie, token, user id, IP address or header after a whole session and its faults
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] is reached through the Worker entry point
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] [session 3] the answer body holds no token and no user id
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] the sign in cookies are HttpOnly, Secure, SameSite=Lax, Path=/, no Domain, for 90 days
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] pressing Start again with the cookie makes no second account and answers 200
+ ✓ worker/guest.test.ts > POST /api/guest > [session 5] GET is refused with 405 and makes nothing
+ ✓ worker/guest.test.ts > POST /api/guest > [session 5] another website (Origin header) gets 403 and nothing is made
+ ✓ worker/guest.test.ts > POST /api/guest > [session 5] the same address in the Origin header is allowed
+ ✓ worker/guest.test.ts > POST /api/guest > [session 5] a plain form post (no JSON content type) gets 415 and nothing is made
+ ✓ worker/guest.test.ts > POST /api/guest > [session 2] answers 503 with no cookie when Supabase Auth is down
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] an expired access token is renewed with the refresh token, new cookies are set, and the request succeeds
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] when renewal fails because the user was deleted, the cookies are cleared and the front door says the session ended
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] a deleted user whose access token has not expired yet is also signed out
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] a session route answers 401 session_ended and clears the cookies
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] after the session ended, Start makes a new guest
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 4] a network fault keeps the cookies and answers 503
+ ✓ worker/guest.test.ts > renewing and losing the sign in > [session 1] [session 4] without any cookie, the front door is told the visitor is signed out, and nothing is made
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] are Hear it, then Understand it, in one list
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] the top bar reads "Hear it, step 1 of 2" and "Understand it, step 2 of 2"
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] [session 14] the finish screen follows the last step
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] a step added to the list renders between Understand it and the finish screen
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 18] resumes at Hear it with no step, Understand it after hear, and the finish screen after understand
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] SessionFrame keeps its default steps when no list is given (job 5)
+ ✓ tests/test-fixture.test.ts > the test fixture seed > [session 20] holds one unit at position 900, two approved dialogues, a draft dialogue, a draft line and a draft form
+ ✓ tests/test-fixture.test.ts > the test fixture seed > [session 20] every approval reference starts with test-fixture:not-reviewed and every audio key with test-fixture/
+ ✓ tests/test-fixture.test.ts > the test fixture seed > [session 20] its Finnish is lines 1 to 5 of the voice test sheet
+ ✓ tests/test-fixture.test.ts > where the fixture can go > [session 20] no migration contains test-fixture
+ ✓ tests/test-fixture.test.ts > where the fixture can go > [session 20] no workflow applies seeds to a hosted database (no --include-seed)
+ ✓ tests/test-fixture.test.ts > where the fixture can go > [session 20] supabase/config.toml does not load the browser seeds
+ ✓ tests/test-fixture.test.ts > the built app > [session 20] contains none of the fixture's Finnish
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] picks the first readable dialogue by unit position, then dialogue position, and adds one session
+ ✓ worker/learner-db.test.ts > reading content as the learner > [session 7] every database request carries the learner token and the publishable key, nothing stronger
+ ✓ worker/learner-db.test.ts > reading content as the learner > [session 6] [session 7] the new session row is sent with only its dialogue, never a user id
+ ✓ worker/learner-db.test.ts > reading content as the learner > [session 7] [session 12] a form the database does not return is not in the answer, and its word is plain text
+ ✓ worker/learner-db.test.ts > reading content as the learner > [session 15] the finish calls public.complete_session once with the session id, as the learner
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] [session 18] reuses the unfinished session: a second call adds no row
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] moves on to the next dialogue once a session has ended
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] says all_done when every readable dialogue is finished
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] says not_ready, with no Finnish, when nothing is readable
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] never takes a user id from the request
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] answers 401 signed_out without a sign in, and makes nothing
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 9] [session 12] sends both registers as words, a name as plain text, and a word whose form is not readable as plain text
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 10] gives each line its audio at /audio/<key> on the same address
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 9] refuses the whole session when a line cannot be split into its words
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 3] the answer holds no token and no user id
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 5] GET is refused with 405 and adds nothing
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 5] a request from another website gets 403 and adds nothing
+ ✓ worker/sessions.test.ts > GET /api/today > [session 18] says continue for an unfinished session, start otherwise, and changes nothing
+ ✓ worker/sessions.test.ts > GET /api/today > [session 5] POST is refused with 405
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 9] [session 13] records hear, then understand
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses understand before hear
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses any step beyond understand from the browser
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 18] a step already reached changes nothing
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 6] someone else's or an unknown session id answers 404
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 5] another website gets 403 and the step is not stored
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 5] a path that is not a session id answers 404
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 15] saves the end of a session at understand once
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 16] refuses a session that has not reached understand
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 15] a database fault answers 503 so the screen can offer Try again
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 5] another website gets 403 and nothing is saved
+ ✓ worker/sessions.test.ts > every answer > [session 5] no route sends Access-Control-Allow-Origin, even when another site asks
+ ✓ worker/sessions.test.ts > every answer > [session 21] unknown /api paths, and the retired /api/visits, answer 404
+ ✓ worker/sessions.test.ts > every answer > [smoke 4] [session 5] a request body is read and an endless body is cut off, so the answer still comes
+ ✓ worker/sessions.test.ts > request bodies > [session 21] an unknown path still reads the body before answering 404
+ ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [session 6] after the main run, every unit is set to draft and only the @empty-content tests run again
+ Test Files  35 passed (35)
+      Tests  510 passed (510)

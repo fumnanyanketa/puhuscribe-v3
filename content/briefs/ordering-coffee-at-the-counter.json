@@ -1,0 +1,38 @@
+{
+  "unit": {
+    "slug": "ordering-coffee",
+    "position": 2,
+    "title_en": "Ordering coffee and a pastry",
+    "can_do_en": "Can order simple items, ask the price, and say thanks."
+  },
+  "dialogue": {
+    "slug": "ordering-coffee-at-the-counter",
+    "position": 1,
+    "title_en": "At the café counter"
+  },
+  "situation_en": "Anna stands at the counter of a busy café in Helsinki. The barista, Emma, greets her. Anna politely asks for a coffee and a cinnamon bun. Emma asks whether she wants oat milk in the coffee, and Anna says yes. Emma hands them over and they both say thanks.",
+  "grammar": [
+    "olla-present",
+    "personal-pronouns",
+    "inessive-elative",
+    "question-clitic",
+    "partitive-singular",
+    "numbers-1-20",
+    "saisinko"
+  ],
+  "rank_cap": 1500,
+  "extra_base_forms": ["moi", "pulla", "korvapuusti", "kauramaito", "kahvila"],
+  "speakers": [
+    {
+      "name": "Emma",
+      "role_en": "the barista at the counter",
+      "voice": "fi-FI-SelmaNeural"
+    },
+    {
+      "name": "Anna",
+      "role_en": "a customer ordering her morning coffee",
+      "voice": "fi-FI-NooraNeural"
+    }
+  ],
+  "line_count": 6
+}

@@ -1,0 +1,8 @@
+Names in .env.local and the SHAPE of each value (values never printed):
+SUPABASE_URL: https://<20-char ref>.supabase.co
+SUPABASE_PUBLISHABLE_KEY: sb_publishable_ key
+SUPABASE_DB_URL: postgres connection string
+Database host pattern: aws-0-eu-west-1.pooler.supabase.com
+DB user is postgres.<same project ref as SUPABASE_URL>: true
+Region from the pooler host: eu-west-1
+Comparison with v2's live project: not possible from the repo (v2's public history holds no *.supabase.co project address), so 'test project, not live' rests on: publishable key only, region eu-west-1 (the owner's new Europe-region test project per summary.md), no sb_secret_, no sbp_ PAT, no JWT.

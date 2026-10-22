@@ -1,0 +1,34 @@
+# Generated or installed
+node_modules/
+dist/
+.wrangler/
+playwright-report/
+test-results/
+package-lock.json
+# Switzer files and the CSS made for them (docs/fonts.md), never committed
+src/assets/fonts/switzer/
+worker-configuration.d.ts
+# Made by the Supabase CLI; the database check compares it byte for byte
+src/lib/database.types.ts
+
+# Imported from v2 unchanged (see docs/v2-imports.md). Reformatting them would
+# break the "unchanged against v2" check.
+src/lib/fsrs/
+src/lib/grade.ts
+src/lib/grade.test.ts
+scripts/generate/
+scripts/requirements.txt
+data/
+# v2 file copies, the corrections list and SQL fixtures (see docs/data-model.md)
+content/
+
+# Not app code: factory, planning and recording material
+.claude/
+docs/
+factory/
+recording/
+spikes/
+skills-lock.json
+AGENTS.md
+# v2's design handoff, kept exactly as the owner supplied it (job 5-design-system)
+design/v2-handoff/

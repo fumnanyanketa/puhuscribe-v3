@@ -1,0 +1,24 @@
+# Evaluator: same made-up key in factory/jobs/eval-x/notes.txt (factory files skip the code checks but not gitleaks)
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~49 bytes (49 bytes) in 274ms
+5:59PM WRN leaks found: 1
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+exit status 1
+  ────────────────────────────────────
+summary: (done in 1.38 seconds)
+🥊 checks (1.38 seconds)
+  🥊 secrets (gitleaks, redacted): gitleaks found a secret in the staged changes. Remove it, tell the owner, and never paste its value anywhere. Then commit again. (1.38 seconds)
+--- git commit exit code: 1; took 2.0 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

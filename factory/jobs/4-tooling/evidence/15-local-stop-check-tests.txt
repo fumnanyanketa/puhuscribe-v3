@@ -1,0 +1,33 @@
+ ✓ scripts/hooks/commit-tool.test.ts > a missing tool fails safely and says how to fix it > [tooling 13] refuses the commit with one line naming the install command when gitleaks is missing 166ms
+ ✓ scripts/hooks/commit-tool.test.ts > a missing tool fails safely and says how to fix it > [tooling 13] refuses the commit with one line naming the install command when ruff is missing 164ms
+ ✓ scripts/hooks/commit-tool.test.ts > a missing tool fails safely and says how to fix it > [tooling 13] names the commands the README lists for the one time installs 0ms
+ ✓ scripts/hooks/commit-tool.test.ts > a missing tool fails safely and says how to fix it > [tooling 13] refuses an unknown tool name 154ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] with no changed app files it exits 0 in under 2 seconds 1075ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] files under factory/, recording/, docs/ and .claude/ do not count as app files 1137ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] a lint error in a changed file exits 2 and names the check and the file 3242ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] a type error already committed on the branch exits 2 3620ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] a format error in a new file exits 2 3255ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] a made-up key in a changed file exits 2 and never prints the value 3301ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] never opens, lists or prints a .env* file 3710ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] lets a builder stop when its build.md ends with "Result: blocked:" 3409ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] checks each worktree on its own: a blocked one is skipped, a broken one is named 3433ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] prints at most 40 lines however many problems there are 3261ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] reports a worktree with no node_modules instead of passing it 1052ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] with no main branch to compare with, it says so and exits 2 instead of passing 4048ms
+ ✓ scripts/hooks/stop-checks.test.ts > the agent stop check > [tooling 15] refuses an unknown mode 160ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] src/App.tsx counts as an app file: true 1ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] worker/api.ts counts as an app file: true 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] package.json counts as an app file: true 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] factory/jobs/4-tooling/build.md counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] recording/log-turn.mjs counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] docs/conventions.md counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] .claude/settings.json counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] .env.local counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] .env.example counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] worker/.env counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] node_modules counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] node_modules/typescript/package.json counts as an app file: false 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] src/node_modules_notes.ts counts as an app file: true 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] only a last line starting "Result: blocked:" lets a builder stop 0ms
+ ✓ scripts/hooks/stop-checks.test.ts > stop check rules > [tooling 15] the report is empty when nothing failed and never longer than 40 lines 2ms
+      Tests  32 passed (32)

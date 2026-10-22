@@ -1,0 +1,32 @@
+# Evaluator: type error in worker/eval-type.ts
+# throwaway local branch eval-throwaway-bad-commits in a fresh scratch clone, never pushed
+
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+worker/eval-type.ts 48ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+5:59PM INF 0 commits scanned.
+5:59PM INF scanned ~36 bytes (36 bytes) in 344ms
+5:59PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+worker/eval-type.ts(1,14): error TS2322: Type 'string' is not assignable to type 'number'.
+
+exit status 2
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 9.01 seconds)
+✔️ format (Prettier, fixes and restages) (2.00 seconds)
+🥊 checks (14.81 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.77 seconds)
+  ✔️ lint (ESLint) (6.96 seconds)
+  🥊 type check (tsc -b) (6.07 seconds)
+--- git commit exit code: 1; took 9.7 s
+--- RESULT: no commit made (refused)
+--- made-up key value appears in this output 0 times

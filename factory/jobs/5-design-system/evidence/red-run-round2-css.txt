@@ -1,0 +1,8 @@
+Red run 1 (round 2): a probe CSS file with an uppercase label and a second gradient. 2026-10-21T14:17:14Z
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
++   "src/components/RedRunProbe.module.css: text-transform: uppercase (eyebrows)",
++   "src/components/RedRunProbe.module.css: a gradient other than the page background fade",
++   "src/components/RedRunProbe.module.css: a border wider than 2 px on one side (border-left: 4px solid var(--color-written))",
+      Tests  1 failed | 24 passed (25)
+Restored:       Tests  25 passed (25)

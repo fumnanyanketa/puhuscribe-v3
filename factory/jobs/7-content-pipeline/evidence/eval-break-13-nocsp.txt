@@ -1,0 +1,37 @@
+Evaluator break: [content 13] review page. Variant: nocsp. Scratch copy of cc90a75; nothing pushed.
+Removes both escapes AND the Content Security Policy, so the planted <script> in the fixture line can run.
+
+--- e2e before the break ---
+  16 passed (16.5s)
+
+--- break ---
+removed the < and > escapes and the Content Security Policy meta tag
+Wrote supabase/tests/database/content_publish.test.sql
+Wrote scripts/generate/fixtures/review/round-1.html
+pytest freshness check of the regenerated fixture page:
+1 passed, 24 deselected in 0.28s
+ scripts/generate/fixtures/review/round-1.html | 3 +--
+ scripts/generate/review_page.py               | 3 ---
+ 2 files changed, 1 insertion(+), 5 deletions(-)
+
+--- e2e with the break (expect red) ---
+  1) [chromium] › e2e\review-page.spec.ts:24:3 › the review page › [content 13] opens from disk and loads nothing from the network 
+  2) [webkit] › e2e\review-page.spec.ts:24:3 › the review page › [content 13] opens from disk and loads nothing from the network 
+  3) [chromium] › e2e\review-page.spec.ts:31:3 › the review page › [content 13] drafted text that contains <script> is printed, never run 
+  4) [webkit] › e2e\review-page.spec.ts:31:3 › the review page › [content 13] drafted text that contains <script> is printed, never run 
+  5) [chromium] › e2e\review-page.spec.ts:38:3 › the review page › [content 13] shows each line, word card and clip with its choices 
+  6) [webkit] › e2e\review-page.spec.ts:38:3 › the review page › [content 13] shows each line, word card and clip with its choices 
+  7) [chromium] › e2e\review-page.spec.ts:54:3 › the review page › [content 13] refuses to save until every item has a decision and the code is filled in 
+  8) [webkit] › e2e\review-page.spec.ts:54:3 › the review page › [content 13] refuses to save until every item has a decision and the code is filled in 
+  9) [chromium] › e2e\review-page.spec.ts:64:3 › the review page › [content 13] "Download my review" saves every decision with each item's fingerprint 
+  10) [webkit] › e2e\review-page.spec.ts:64:3 › the review page › [content 13] "Download my review" saves every decision with each item's fingerprint 
+  11) [chromium] › e2e\review-page.spec.ts:110:3 › the review page › [content 13] [content 14] a reviewer who asks for a fix answers "Not yet" and can still download 
+  12) [webkit] › e2e\review-page.spec.ts:110:3 › the review page › [content 13] [content 14] a reviewer who asks for a fix answers "Not yet" and can still download 
+  13) [chromium] › e2e\review-page.spec.ts:138:3 › the review page › [content 13] each pair of choices is a named group, and Finnish is marked as Finnish 
+  14) [webkit] › e2e\review-page.spec.ts:138:3 › the review page › [content 13] each pair of choices is a named group, and Finnish is marked as Finnish 
+  15) [chromium] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px 
+  16) [webkit] › e2e\review-page.spec.ts:157:3 › the review page › [content 13] a long Finnish compound wraps inside its card at 375 px 
+  16 failed
+
+--- revert, e2e again ---
+  16 passed (15.5s)

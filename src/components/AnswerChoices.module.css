@@ -1,0 +1,98 @@
+/* Answer choice rows (factory/jobs/8-first-session). Values from src/styles/tokens.css. */
+
+.list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.choice,
+.wrong,
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--button-height);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-lg);
+  background: var(--color-button-secondary);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+  text-align: left;
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease);
+}
+
+.choice:hover {
+  background: var(--color-button-secondary-hover);
+}
+
+.choice:active {
+  background: var(--color-button-secondary-pressed);
+  transform: translateY(1px);
+}
+
+/* Tried and not right: muted, with a dashed edge, still readable. */
+.wrong {
+  border-style: dashed;
+  background: transparent;
+  color: var(--color-text-quiet);
+  box-shadow: none;
+  cursor: default;
+}
+
+/* The right choice: a heavier edge in the text colour and a tick. */
+.right {
+  border: 2px solid var(--color-text);
+  font-weight: var(--weight-semibold);
+  cursor: default;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice,
+  .wrong,
+  .right {
+    transition: none;
+  }
+
+  .choice:active {
+    transform: none;
+  }
+}

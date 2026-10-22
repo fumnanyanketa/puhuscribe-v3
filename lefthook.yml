@@ -1,0 +1,68 @@
+# The commit check: runs before every commit, on the staged files only.
+# Spec: factory/jobs/4-tooling/spec.md, "Done when" 8 to 13. The conventions
+# table "Checks and where they run" is in docs/conventions.md.
+#
+# lefthook installs this as the git pre-commit hook during `npm ci` (not on
+# GitHub, where CI=true). Prettier runs first and adds its fixes to the commit,
+# so the other checks never read a file while it is being rewritten. Then the
+# five checks run in parallel; they only check and never change a file.
+# .prettierignore and the ESLint ignores still apply to the files named here.
+# gitleaks and ruff are not npm packages: scripts/hooks/commit-tool.ts refuses
+# the commit with the install command when one is missing.
+#
+# Never skip this check (`git commit --no-verify`, `LEFTHOOK=0`). See AGENTS.md.
+# No `ai`, `remotes` or `extends` settings: they would let lefthook rewrite
+# .claude/settings.json or pull hook commands from elsewhere
+# (tests/claude-settings.test.ts refuses them).
+
+# If the git hook cannot find lefthook (for example after the worktree that
+# installed it is removed, before `npm ci` runs again), the commit is refused
+# instead of going through unchecked. Fix: run `npm ci`.
+assert_lefthook_installed: true
+
+pre-commit:
+  piped: true
+  jobs:
+    - name: format (Prettier, fixes and restages)
+      # These folders are in .prettierignore too. Leaving them out here skips
+      # starting Prettier at all, so factory and recording commits stay fast.
+      exclude: &not-app-code
+        - '.claude/**'
+        - 'docs/**'
+        - 'factory/**'
+        - 'recording/**'
+        - 'spikes/**'
+      run: npx prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+
+    - name: checks
+      group:
+        parallel: true
+        jobs:
+          - name: lint (ESLint)
+            glob: '*.{ts,tsx,js}'
+            exclude: *not-app-code
+            run: npx eslint --no-warn-ignored {staged_files}
+
+          - name: type check (tsc -b)
+            glob: '*.{ts,tsx,json,jsonc}'
+            # tsc -b checks the whole project, so a change outside the app
+            # code (such as factory/board.json) does not start it.
+            exclude: *not-app-code
+            run: npx tsc -b
+
+          - name: python lint (ruff check)
+            glob: '*.py'
+            run: node scripts/hooks/commit-tool.ts ruff check {staged_files}
+
+          - name: python format (ruff format --check)
+            glob: '*.py'
+            run: node scripts/hooks/commit-tool.ts ruff format --check {staged_files}
+
+          - name: secrets (gitleaks, redacted)
+            # No --verbose: it would print the rest of the matched line, and a
+            # second secret on it that no rule detects would reach the output.
+            # --exit-code 3 marks a real finding: commit-tool.ts then prints
+            # what to do. A missing gitleaks prints only the install line. No
+            # fail_text, since lefthook would print it for every failure.
+            run: node scripts/hooks/commit-tool.ts gitleaks git --pre-commit --staged --redact --no-banner --exit-code 3

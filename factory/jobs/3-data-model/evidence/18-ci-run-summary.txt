@@ -1,0 +1,5 @@
+{"attempt":3,"conclusion":"success","event":"pull_request","headBranch":"factory/3-data-model","headSha":"2a2123077747be8c1f673fcb85d7f9396e3d8637","jobs":[{"conclusion":"success","name":"Type check, lint, format"},{"conclusion":"success","name":"Preview link (Cloudflare Worker behind Access)"},{"conclusion":"skipped","name":"Apply database changes to the test project"},{"conclusion":"success","name":"Dependency check (npm audit, pip-audit)"},{"conclusion":"success","name":"Browser tests (Playwright, Chromium and WebKit)"},{"conclusion":"success","name":"Secret scan (gitleaks)"},{"conclusion":"success","name":"Python tests and lint (pytest, ruff)"},{"conclusion":"success","name":"Database tests (local Supabase, pgTAP)"},{"conclusion":"success","name":"Unit tests (Vitest)"}],"run":39412590921,"status":"completed"}
+attempt 1 non-green:
+  failure Browser tests (Playwright, Chromium and WebKit)
+attempt 2 non-green:
+  failure Preview link (Cloudflare Worker behind Access)

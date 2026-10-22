@@ -1,0 +1,34 @@
+
+ RUN  v5.0.5 C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad/clone
+
+ ✓ src/lib/grade.test.ts > normalizeAnswer > lowercases, trims, drops punctuation, collapses spaces — keeps ä/ö 5ms
+ ✓ src/lib/grade.test.ts > levenshtein > computes edit distance 1ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > exact match → correct / Good 1ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > ignores case, spacing and punctuation 0ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > a missing ä is a near miss → close / Hard 0ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > a single typo → close 0ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > a wrong word → wrong / Again 0ms
+ ✓ src/lib/grade.test.ts > gradeAnswer > empty answer → wrong / Again (the "I don't know" path) 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > New → Again: enters Learning, stability ≈ w[0], due in ~1 min 5ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > New → Good: enters Learning, stability ≈ w[2], due in ~10 min 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > New → Easy: graduates straight to Review, interval ≈ 15 days 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Learning → Good: graduates to Review, scheduled_days ≥ 1 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Learning → Again: stays in Learning, due in ~1 min 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Review → Good: stability grows, scheduled_days increases 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Review → Hard gives a shorter interval than Review → Good 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Review → Easy gives a longer interval than Review → Good 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Review → Again: lapses, enters Relearning, due in ~10 min 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Relearning → Good: re-graduates to Review 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Difficulty stays within [1, 10] after 20 consecutive Again reviews 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Difficulty decreases after an Easy review 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > Stability is always positive after any review sequence 1ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > forgettingCurve: R(t=S, S) ≈ 0.9 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > nextInterval: interval(S, r=0.9) = S exactly (by definition) 0ms
+ ✓ src/lib/fsrs/fsrs.test.ts > FSRS-5 scheduler > nextInterval: higher retention → longer interval 0ms
+
+ Test Files  2 passed (2)
+      Tests  24 passed (24)
+   Start at  20:54:13
+   Duration  347ms (import 36%, transform 33%, tests 19%, worker 11%, environment 1%)
+
+EXIT CODE: 0

@@ -1,0 +1,94 @@
+## current database and user
+┌─────────┬────────────┬────────────┬───────────────────────────────────────────────────────────────────────────────────────┐
+│ (index) │ db         │ role       │ version                                                                               │
+├─────────┼────────────┼────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'postgres' │ 'postgres' │ 'PostgreSQL 17.11 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 15.2.0, 64-bit' │
+└─────────┴────────────┴────────────┴───────────────────────────────────────────────────────────────────────────────────────┘
+## columns of public.visits (information_schema)
+┌─────────┬──────────────┬────────────────────────────┬─────────────┬────────────────┬─────────────┬─────────────────────┐
+│ (index) │ column_name  │ data_type                  │ is_nullable │ column_default │ is_identity │ identity_generation │
+├─────────┼──────────────┼────────────────────────────┼─────────────┼────────────────┼─────────────┼─────────────────────┤
+│ 0       │ 'id'         │ 'bigint'                   │ 'NO'        │ null           │ 'YES'       │ 'ALWAYS'            │
+│ 1       │ 'visited_at' │ 'timestamp with time zone' │ 'NO'        │ 'now()'        │ 'NO'        │ null                │
+└─────────┴──────────────┴────────────────────────────┴─────────────┴────────────────┴─────────────┴─────────────────────┘
+## table grants on public.visits (information_schema.role_table_grants)
+┌─────────┬────────────┬────────────────┐
+│ (index) │ grantee    │ privilege_type │
+├─────────┼────────────┼────────────────┤
+│ 0       │ 'anon'     │ 'INSERT'       │
+│ 1       │ 'postgres' │ 'DELETE'       │
+│ 2       │ 'postgres' │ 'INSERT'       │
+│ 3       │ 'postgres' │ 'REFERENCES'   │
+│ 4       │ 'postgres' │ 'SELECT'       │
+│ 5       │ 'postgres' │ 'TRIGGER'      │
+│ 6       │ 'postgres' │ 'TRUNCATE'     │
+│ 7       │ 'postgres' │ 'UPDATE'       │
+└─────────┴────────────┴────────────────┘
+## effective privileges per API role (has_table_privilege)
+┌─────────┬─────────────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+│ (index) │ role            │ sel   │ ins   │ upd   │ del   │ trunc │ refs  │ trig  │
+├─────────┼─────────────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ 0       │ 'anon'          │ false │ true  │ false │ false │ false │ false │ false │
+│ 1       │ 'authenticated' │ false │ false │ false │ false │ false │ false │ false │
+│ 2       │ 'service_role'  │ false │ false │ false │ false │ false │ false │ false │
+└─────────┴─────────────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+## column-level grants on public.visits
+┌─────────┬─────────┬──────────────┬────────────────┐
+│ (index) │ grantee │ column_name  │ privilege_type │
+├─────────┼─────────┼──────────────┼────────────────┤
+│ 0       │ 'anon'  │ 'id'         │ 'INSERT'       │
+│ 1       │ 'anon'  │ 'visited_at' │ 'INSERT'       │
+└─────────┴─────────┴──────────────┴────────────────┘
+## sequence privileges (visits_id_seq) per API role
+┌─────────┬─────────────────┬───────┬───────┬───────┐
+│ (index) │ role            │ usage │ sel   │ upd   │
+├─────────┼─────────────────┼───────┼───────┼───────┤
+│ 0       │ 'anon'          │ false │ false │ false │
+│ 1       │ 'authenticated' │ false │ false │ false │
+│ 2       │ 'service_role'  │ false │ false │ false │
+└─────────┴─────────────────┴───────┴───────┴───────┘
+## row level security flags (pg_class)
+┌─────────┬──────────┬────────────────┬─────────────────────┐
+│ (index) │ relname  │ relrowsecurity │ relforcerowsecurity │
+├─────────┼──────────┼────────────────┼─────────────────────┤
+│ 0       │ 'visits' │ true           │ false               │
+└─────────┴──────────┴────────────────┴─────────────────────┘
+## policies on public.visits (pg_policies)
+┌─────────┬─────────────────────────────────┬──────────────┬──────────┬──────────┬──────┬────────────────────────┐
+│ (index) │ policyname                      │ permissive   │ roles    │ cmd      │ qual │ with_check             │
+├─────────┼─────────────────────────────────┼──────────────┼──────────┼──────────┼──────┼────────────────────────┤
+│ 0       │ 'anon adds a visit stamped now' │ 'PERMISSIVE' │ '{anon}' │ 'INSERT' │ null │ '(visited_at = now())' │
+└─────────┴─────────────────────────────────┴──────────────┴──────────┴──────────┴──────┴────────────────────────┘
+## tables, views and functions in public schema
+┌─────────┬─────────┬──────────┐
+│ (index) │ kind    │ name     │
+├─────────┼─────────┼──────────┤
+│ 0       │ 'table' │ 'visits' │
+└─────────┴─────────┴──────────┘
+## triggers on public.visits
+┌─────────┐
+│ (index) │
+├─────────┤
+└─────────┘
+## installed extensions (pg_extension)
+┌─────────┬──────────────────────┬────────────┐
+│ (index) │ extname              │ extversion │
+├─────────┼──────────────────────┼────────────┤
+│ 0       │ 'pg_stat_statements' │ '1.11'     │
+│ 1       │ 'pgcrypto'           │ '1.3'      │
+│ 2       │ 'plpgsql'            │ '1.0'      │
+│ 3       │ 'supabase_vault'     │ '0.3.1'    │
+│ 4       │ 'uuid-ossp'          │ '1.1'      │
+└─────────┴──────────────────────┴────────────┘
+## migration history (supabase_migrations.schema_migrations)
+┌─────────┬──────────────────┬─────────────────┐
+│ (index) │ version          │ name            │
+├─────────┼──────────────────┼─────────────────┤
+│ 0       │ '20261019183410' │ 'create_visits' │
+└─────────┴──────────────────┴─────────────────┘
+## visits by minute, last 2 hours (only counts, no other data exists)
+┌─────────┬────────────┬──────────────────────────┬──────────────────────────┐
+│ (index) │ rows_total │ first_visit              │ last_visit               │
+├─────────┼────────────┼──────────────────────────┼──────────────────────────┤
+│ 0       │ 299        │ 2026-10-19T18:43:42.745Z │ 2026-10-19T19:23:33.974Z │
+└─────────┴────────────┴──────────────────────────┴──────────────────────────┘

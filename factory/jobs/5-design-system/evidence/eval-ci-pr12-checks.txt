@@ -1,0 +1,44 @@
+PR #12 checks, read with gh on 21 October 2026 (read only). Head 0f94502, run 39618302752.
+Browser tests (Playwright, Chromium and WebKit)	pass	4m57s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119286496788	
+Preview link (Cloudflare Worker behind Access)	pass	5m19s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119289103053	
+Apply database changes to the test project	skipping	0	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119286499507	
+Database tests (local Supabase, pgTAP)	pass	3m33s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284768177	
+Dependency check (npm audit, pip-audit)	pass	22s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284768127	
+Python tests and lint (pytest, ruff)	pass	33s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284768523	
+Secret scan (gitleaks)	pass	8s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284768272	
+Type check, lint, format	pass	48s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284767644	
+Unit tests (Vitest)	pass	48s	https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/39618302752/job/119284767876	
+
+Browser tests job, key lines:
+2026-10-21T14:40:25.9248529Z check:env-names passed (154 variable names checked).
+2026-10-21T14:40:33.0214363Z check:built-secrets passed (36 browser files scanned).
+2026-10-21T14:42:01.3778432Z Audio check | chromium | played
+2026-10-21T14:42:13.8861787Z   ✓   25 [chromium] › e2e/design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, light (936ms)
+2026-10-21T14:42:19.5421066Z   ✓   28 [chromium] › e2e/design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark (894ms)
+2026-10-21T14:42:35.6075528Z API timing | chromium | POST /api/visits | 201 | 528 ms | [smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and still no images, icons or media
+2026-10-21T14:42:36.2072791Z   ✓   49 [chromium] › e2e/visits.spec.ts:75:3 › the Hei! page › [smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and still no images, icons or media (1.
+2026-10-21T14:42:44.0684254Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves
+2026-10-21T14:42:51.9534319Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-21T14:42:53.2336117Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 seconds
+2026-10-21T14:43:39.7520175Z Audio check | webkit | played
+2026-10-21T14:43:57.1045494Z   ✓   86 [webkit] › e2e/design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, light (1.4s)
+2026-10-21T14:44:05.1518393Z   ✓   89 [webkit] › e2e/design-reference.spec.ts:484:5 › automatic accessibility check › [design 17] axe finds no WCAG A or AA problem on the front page, dark (1.4s)
+2026-10-21T14:44:29.6701137Z API timing | webkit | POST /api/visits | 201 | 235 ms | [smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and still no images, icons or media
+2026-10-21T14:44:30.3089447Z   ✓  110 [webkit] › e2e/visits.spec.ts:75:3 › the Hei! page › [smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and still no images, icons or media (1.3s
+2026-10-21T14:44:39.3748169Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves
+2026-10-21T14:44:47.8655871Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-21T14:44:51.1283958Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 seconds
+2026-10-21T14:44:52.5943097Z   6 skipped
+2026-10-21T14:44:52.5943994Z   116 passed (3.4m)
+
+Preview job: build variable and summary:
+2026-10-21T14:45:18.5677932Z   VITE_DESIGN_REFERENCE: 1
+2026-10-21T14:45:19.1634014Z check:env-names passed (157 variable names checked).
+2026-10-21T14:45:27.7193670Z check:built-secrets passed (36 browser files scanned).
+2026-10-21T14:47:53.0689626Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves
+2026-10-21T14:48:01.4608248Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-21T14:48:04.0396771Z API timing | chromium | POST /api/visits | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 seco
+2026-10-21T14:50:00.1284493Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] a blocked request shows the failure message, and "Try again" sends one new request and saves
+2026-10-21T14:50:10.2157077Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] keyboard: Tab to "Try again", press Enter, and focus moves to the status line instead of being lost
+2026-10-21T14:50:13.0500962Z API timing | webkit | POST /api/visits | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a request with no answer still ends in the failure message after 10 second
+2026-10-21T14:50:15.1309846Z   122 passed (3.7m)

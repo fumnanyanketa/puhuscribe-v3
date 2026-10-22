@@ -1,0 +1,28 @@
+Job 8-first-session: each protection broken on purpose, its unit tests run, the code put back (21 October 2026, local Vitest).
+
+worker/learner-auth.ts: [httpOnly: true] -> [httpOnly: false]: Failed Tests 3 
+ Tests 3 failed | 14 passed (17)
+worker/learner-auth.ts: [secure: true] -> [secure: false]: Failed Tests 1 
+ Tests 1 failed | 16 passed (17)
+worker/learner-auth.ts: [maxAge: remove ? 0 : GUEST_MAX_AGE_SECONDS] -> [maxAge: remove ? 0 : 400 * 24 * 60 * 60]: Failed Tests 1 
+ Tests 1 failed | 16 passed (17)
+worker/http.ts: [return origin === new URL(request.url).origin] -> [return true]: Failed Tests 4 
+ Tests 4 failed | 43 passed (47)
+worker/http.ts: [if (request.method !== 'POST') {] -> [if (false) {]: Failed Tests 2 
+ Tests 2 failed | 45 passed (47)
+worker/learner-auth.ts: [if (isAuthSessionMissingError(error) || refused) {] -> [if (false) {]: Failed Tests 4 
+ Tests 4 failed | 13 passed (17)
+worker/session-plan.ts: [a.unitPosition - b.unitPosition || a.position - b.position] -> [0]: Failed Tests 7 
+ Tests 7 failed | 33 passed (40)
+worker/api.ts: [if (now !== reached - 1) return done({ error: 'step_out_of_order' }, 409)] -> []: Failed Tests 1 
+ Tests 1 failed | 29 passed (30)
+src/lib/session-rules.ts: [.sort((a, b) => b.forms - a.forms || a.index - b.index)] -> []: Failed Tests 1 
+ Tests 1 failed | 9 passed (10)
+src/lib/session-rules.ts: [(best === null || line.spoken.length < best.spoken.length ? line : best)] -> [(best === null || line.spoken.length <= best.spoken.length ? line : best)]: Failed Tests 2 
+ Tests 2 failed | 8 passed (10)
+worker/session-plan.ts: [const form = t.formId === null ? undefined : forms.get(t.formId)] -> [const form = t.formId === null ? undefined : forms.get(t.formId) ?? { lemma: '', formName: '', why: '', spoken: '', written: '' }]: Failed Tests 2 
+ Tests 2 failed | 32 passed (34)
+worker/learner-auth.ts: [context.clearCookies() on ended] -> [removed]: × [session 4] a deleted user whose access token has not expired yet is also signed out 13ms
+ × [session 4] a session route answers 401 session_ended and clears the cookies 4ms
+ Failed Tests 2 
+ Tests 2 failed | 15 passed (17)

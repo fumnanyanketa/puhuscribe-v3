@@ -1,0 +1,66 @@
+Evaluator break tests for 6-pr-local-db. Run on 2026-10-21T19:03Z.
+How: git archive of 7958daa (.github, tests, scripts/ci, supabase, e2e, configs) extracted into the evaluator's scratch folder,
+node_modules linked from the worktree. One protection broken at a time, then
+'npx vitest run tests/checks-workflow.test.ts scripts/ci' run, then the file restored.
+Nothing was pushed, the job worktree was not edited, and no database was touched.
+
+Baseline on an unchanged copy of 7958daa: green (Tests  79 passed (79))
+
+B1 [prdb 2] Give the pull request browser job a test project secret (job-level env)
+  file: .github/workflows/checks.yml
+  result: red (Tests  2 failed | 77 passed (79))
+  failed: tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] holds no secret: no secrets. reference anywhere in the job
+  failed: tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] is the only browser test job that receives the test project settings
+
+B2 [prdb 2] Put back round 1's log filter (no 'publishable', 'sb_' or 'eyJ'), which printed the local publishable key
+  file: .github/workflows/checks.yml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] the start output is filtered so the local keys never reach the log
+
+B3 [prdb 2] Let supabase-status.ts accept any address (a hosted project URL too)
+  file: scripts/ci/supabase-status.ts
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] refuses an address that is not on the runner itself, so the check can never reach a hosted project
+
+B4 [prdb 1] Make the local browser check wait for the database check
+  file: .github/workflows/checks.yml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] starts at the same time as the database check and waits for no other job
+
+B5 [prdb 3] Let the visits step pass with zero rows
+  file: .github/workflows/checks.yml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 3] after the tests, psql shows at least one row in visits on the throwaway database
+
+B6 [prdb 6] Turn auto_expose_new_tables back to true
+  file: supabase/config.toml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > local database permissions match the test project > [prdb 6] config.toml sets auto_expose_new_tables = false under [api]
+
+B7 [prdb 7] Add the browser seed folder to config.toml seed paths
+  file: supabase/config.toml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > browser test seed data > [prdb 7] config.toml seed paths never include them, so supabase start and db reset do not load them
+
+B8 [prdb 8] Run the after-merge suite without leaving out @seed tests
+  file: .github/workflows/checks.yml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] runs the suite without the tests that need browser seed rows
+
+B9 [prdb 10] Migration detection looks at the wrong folder name
+  file: scripts/ci/preview-plan.ts
+  result: red (Tests  2 failed | 77 passed (79))
+  failed: scripts/ci/preview-plan.test.ts > changesDatabase > [prdb 10] a pull request that adds, changes or deletes a migration changes the database
+  failed: scripts/ci/preview-plan.test.ts > changesDatabase > [prdb 10] ignores empty lines and surrounding spaces from git output
+
+B10 [prdb 10] Drop the @preview tag from the lock tests in health.spec.ts
+  file: e2e/health.spec.ts
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] the Cloudflare Access lock tests carry the @preview tag
+
+B11 [prdb 9] Let the after-merge browser job push migrations to the test project
+  file: .github/workflows/checks.yml
+  result: red (Tests  1 failed | 78 passed (79))
+  failed: tests/checks-workflow.test.ts > database changes reach the test project only after owner approval > [data 18] no other job can change a remote database
+
+After restoring every file: green (Tests  79 passed (79))

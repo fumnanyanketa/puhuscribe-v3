@@ -1,0 +1,19 @@
+# Evaluator timings on this Windows computer, 2026-10-20T15:00Z, fresh scratch clone at c1666b1, throwaway branch never pushed
+# Machine: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+one TypeScript file (worker/api.ts, edited), run 1: exit 0, 11.6 s (whole git commit, wall clock)
+one TypeScript file (worker/api.ts, edited), run 2: exit 0, 11.4 s (whole git commit, wall clock)
+one TypeScript file (worker/api.ts, edited), run 3: exit 0, 11.3 s (whole git commit, wall clock)
+one TypeScript file, after deleting every tsbuildinfo (cold type check): exit 0, 11.3 s (whole git commit, wall clock)
+warning: in the working copy of 'factory/jobs/eval-x/notes.md', LF will be replaced by CRLF the next time Git touches it
+factory-only commit (factory/jobs/eval-x/notes.md), run 1: exit 0, 2.1 s (whole git commit, wall clock)
+warning: in the working copy of 'factory/jobs/eval-x/notes.md', LF will be replaced by CRLF the next time Git touches it
+factory-only commit (factory/jobs/eval-x/notes.md), run 2: exit 0, 2.1 s (whole git commit, wall clock)
+warning: in the working copy of 'factory/jobs/eval-x/notes.md', LF will be replaced by CRLF the next time Git touches it
+factory-only commit (factory/jobs/eval-x/notes.md), run 3: exit 0, 2.2 s (whole git commit, wall clock)
+warning: in the working copy of 'recording/eval-note.md', LF will be replaced by CRLF the next time Git touches it
+recording-only commit (recording/eval-note.md), run 1: exit 0, 2.1 s (whole git commit, wall clock)
+warning: in the working copy of 'recording/eval-note.md', LF will be replaced by CRLF the next time Git touches it
+recording-only commit (recording/eval-note.md), run 2: exit 0, 2.3 s (whole git commit, wall clock)
+warning: in the working copy of 'factory/jobs/eval-x/board.json', LF will be replaced by CRLF the next time Git touches it
+factory-only JSON commit (should not start tsc): exit 0, 2.3 s (whole git commit, wall clock)
+throwaway branch deleted

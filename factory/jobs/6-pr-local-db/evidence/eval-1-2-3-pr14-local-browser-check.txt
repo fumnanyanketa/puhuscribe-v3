@@ -1,0 +1,61 @@
+Evaluator evidence for 6-pr-local-db statements 1, 2 and 3.
+Source: gh run view 39652135818 --log --job 119403372762 (PR 14, head 7958daa, check 'Browser tests (Playwright, local Supabase)').
+Docker image layer lines and the shell echo of each script are left out. Lines holding a database address are left out.
+
+Run actions/checkout@v7	﻿2026-10-21T18:23:27.8741583Z ##[group]Run actions/checkout@v7
+Run actions/setup-node@v7	﻿2026-10-21T18:23:29.8993219Z ##[group]Run actions/setup-node@v7
+Run npm ci	﻿2026-10-21T18:23:33.1730610Z ##[group]Run npm ci
+Run npm ci | shell: /usr/bin/bash -e {0}
+Start a throwaway Supabase and apply every migration	﻿2026-10-21T18:23:43.0052611Z ##[group]Run set -o pipefail
+Start a throwaway Supabase and apply every migration | shell: /usr/bin/bash -e {0}
+Start a throwaway Supabase and apply every migration | Error response from daemon: toomanyrequests: Rate exceeded
+Start a throwaway Supabase and apply every migration | Retrying after 4s: public.ecr.aws/supabase/postgres:17.11.0.004
+Start a throwaway Supabase and apply every migration | v16.4: Pulling from supabase/postgrest
+Start a throwaway Supabase and apply every migration | v2.197.0: Pulling from supabase/gotrue
+Start a throwaway Supabase and apply every migration | 2.8.1: Pulling from supabase/kong
+Start a throwaway Supabase and apply every migration | 17.11.0.004: Pulling from supabase/postgres
+Start a throwaway Supabase and apply every migration | Starting database...
+Start a throwaway Supabase and apply every migration | Initialising schema...
+Start a throwaway Supabase and apply every migration | v2.143.4: Pulling from supabase/realtime
+Start a throwaway Supabase and apply every migration | v1.82.1: Pulling from supabase/storage-api
+Start a throwaway Supabase and apply every migration | Seeding globals from roles.sql...
+Start a throwaway Supabase and apply every migration | Applying migration 20261019183410_create_visits.sql...
+Start a throwaway Supabase and apply every migration | Applying migration 20261020090000_content_model.sql...
+Start a throwaway Supabase and apply every migration | Applying migration 20261020090100_learner_model.sql...
+Start a throwaway Supabase and apply every migration | Applying migration 20261020090200_reference_tables.sql...
+Start a throwaway Supabase and apply every migration | Applying migration 20261020090300_load_v2_lemma_ipa.sql...
+Start a throwaway Supabase and apply every migration | ▲  no files matched pattern: supabase/seed.sql
+Start a throwaway Supabase and apply every migration | Starting containers...
+Start a throwaway Supabase and apply every migration | Started supabase local development setup.
+Start a throwaway Supabase and apply every migration | │ Project URL │ http://127.0.0.1:54321            │
+Start a throwaway Supabase and apply every migration | │ REST        │ http://127.0.0.1:54321/rest/v1    │
+Start a throwaway Supabase and apply every migration | All services bind to 0.0.0.0 (network-accessible, not just localhost)
+Local Supabase settings for the local Worker	﻿2026-10-21T18:25:21.3402083Z ##[group]Run npx supabase status -o env | node scripts/ci/write-test-settings.ts env .env.local --from-supabase-status
+Local Supabase settings for the local Worker | shell: /usr/bin/bash -e {0}
+Local Supabase settings for the local Worker | Stopped services: [supabase_inbucket_puhuscribe supabase_realtime_puhuscribe supabase_storage_puhuscribe supabase_imgproxy_puhuscribe supabase_pg_meta_puhuscribe supabase_studio_puhuscribe supabase_edge_runtime_puhuscribe supabase_analytics_puhuscribe supabase_vector_puhuscribe supabase_pooler_puhuscribe]
+Local Supabase settings for the local Worker | Wrote SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY to .env.local
+Load the browser test seed files	﻿2026-10-21T18:25:22.7559287Z ##[group]Run export LC_ALL=C
+Load the browser test seed files | shell: /usr/bin/bash -e {0}
+Load the browser test seed files | No browser seed files in supabase/seeds/browser/
+Build the app and its Worker	﻿2026-10-21T18:25:22.7770486Z ##[group]Run npm run build
+Build the app and its Worker | shell: /usr/bin/bash -e {0}
+Build the app and its Worker | check:env-names passed (155 variable names checked).
+Build the app and its Worker | check:built-secrets passed (38 browser files scanned).
+Install Chromium and WebKit	﻿2026-10-21T18:25:30.0184189Z ##[group]Run npx playwright install --with-deps chromium webkit
+Install Chromium and WebKit | shell: /usr/bin/bash -e {0}
+Browser tests at 375 x 812 against the built app	﻿2026-10-21T18:26:27.1272375Z ##[group]Run npx playwright test
+Browser tests at 375 x 812 against the built app | shell: /usr/bin/bash -e {0}
+Browser tests at 375 x 812 against the built app |   ✓   47 [chromium] › e2e/health.spec.ts:43:1 › [13] /api/health reports the Supabase test project as reachable (141ms)
+Browser tests at 375 x 812 against the built app |   ✓  113 [webkit] › e2e/health.spec.ts:43:1 › [13] /api/health reports the Supabase test project as reachable (635ms)
+Browser tests at 375 x 812 against the built app |   6 skipped
+Browser tests at 375 x 812 against the built app |   126 passed (3.7m)
+The app saved visits in the throwaway database	﻿2026-10-21T18:30:10.6502073Z ##[group]Run visits=$(psql "$LOCAL_DB_URL" --no-psqlrc --tuples-only --no-align -v ON_ERROR_STOP=1 -c "select count(*) from public.visits")
+The app saved visits in the throwaway database | shell: /usr/bin/bash -e {0}
+The app saved visits in the throwaway database | Rows in visits on the throwaway database: 30
+Keep the report, screenshots and videos	﻿2026-10-21T18:30:10.7425302Z ##[group]Run actions/upload-artifact@v7
+Keep the report, screenshots and videos | Artifact playwright-report successfully finalized. Artifact ID 12370583483
+Keep the report, screenshots and videos | Artifact playwright-report has been successfully uploaded! Final size is 43506992 bytes. Artifact ID is 12370583483
+
+Scan of this job's whole log for key shaped values (sb_publishable_, sb_secret_, eyJ followed by 10 or more characters):
+  matching lines: 0
+Same scan on the PR 14 preview job log: 0; database job log: 0

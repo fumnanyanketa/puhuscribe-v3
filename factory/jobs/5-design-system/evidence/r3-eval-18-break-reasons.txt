@@ -1,0 +1,11 @@
+## sed -i "s/--font-heading: 'Poppins'/--font-heading: 'Inter'/" src/styles/tokens.css
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+## printf '\n.x { border-style: solid; border-width: 0 0 0 6px; }\n' >> src/components/Button.module.css
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+## printf '\nexport const FADE = { backgroundImage: "linear-gradient(var(--color-text), var(--color-surface))" }\n' >> src/components/Wordmark.tsx
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+## printf '\n.x { text-transform: UPPERCASE; }\n' >> src/components/Button.module.css
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+## printf '\n.x { font: 600 1rem Inter, sans-serif; }\n' >> src/components/Button.module.css
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+18:+   "src/styles/tokens.css: a banned font (--font-heading: 'Inter', system-ui, sans-serif)",

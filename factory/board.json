@@ -1,0 +1,649 @@
+{
+  "about": "Live status of every factory job. Only the /factory manager writes this file. The dashboard reads it.",
+  "jobs": [
+    {
+      "id": "1-stack",
+      "feature": "stack",
+      "title": "Stack & architecture",
+      "stage": "merged",
+      "round": 2,
+      "flag": "look closely",
+      "flag_reasons": [
+        "paid services",
+        "database and access rules"
+      ],
+      "waiting_on": null,
+      "updated": "2026-10-19T21:13:26+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-19T17:28:48+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-19T17:45:06+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-19T17:59:03+03:00"
+        },
+        {
+          "stage": "blocked",
+          "at": "2026-10-19T19:14:02+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-19T19:58:31+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-19T20:28:58+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-19T20:28:58+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-19T20:34:12+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-19T20:50:06+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-19T20:50:06+03:00"
+        },
+        {
+          "stage": "preview",
+          "at": "2026-10-19T20:51:57+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-19T20:51:57+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-19T21:08:45+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-19T21:13:26+03:00"
+        }
+      ]
+    },
+    {
+      "id": "2-smoke",
+      "feature": "smoke",
+      "title": "Factory smoke test: a Hei! page that saves one visit",
+      "stage": "merged",
+      "round": 2,
+      "flag": "look closely",
+      "flag_reasons": [
+        "database and access rules"
+      ],
+      "waiting_on": null,
+      "updated": "2026-10-20T09:12:22+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-19T21:14:35+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-19T21:25:22+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-19T21:30:43+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-19T22:02:49+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-19T22:02:49+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-19T22:07:00+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-19T22:25:33+03:00"
+        },
+        {
+          "stage": "preview",
+          "at": "2026-10-19T22:25:33+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-19T22:25:33+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-19T22:45:32+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-20T09:12:22+03:00"
+        }
+      ]
+    },
+    {
+      "id": "3-data-model",
+      "feature": "data-model",
+      "title": "Data model",
+      "stage": "merged",
+      "round": 4,
+      "flag": "look closely",
+      "flag_reasons": [
+        "database and access rules",
+        "learner data",
+        "Finnish learning content (v2's 104 sentences)"
+      ],
+      "waiting_on": null,
+      "updated": "2026-10-20T15:31:13+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-20T09:12:48+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-20T09:23:59+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T10:03:53+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T13:15:27+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-20T13:15:27+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T13:19:31+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T14:36:07+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-20T14:36:07+03:00"
+        },
+        {
+          "stage": "preview",
+          "at": "2026-10-20T14:36:07+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-20T14:36:07+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T14:48:51+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T15:06:11+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-20T15:06:11+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-20T15:12:09+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-20T15:31:13+03:00"
+        }
+      ]
+    },
+    {
+      "id": "4-tooling",
+      "feature": "tooling",
+      "title": "Coding standards & tooling",
+      "stage": "merged",
+      "round": 3,
+      "flag": "look closely",
+      "flag_reasons": [
+        "database apply run order",
+        "Claude Code settings change (owner call)"
+      ],
+      "waiting_on": null,
+      "updated": "2026-10-20T21:17:06+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-20T15:42:37+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-20T15:56:12+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T16:10:31+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T17:23:23+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-20T17:23:23+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T17:29:02+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T17:49:47+03:00"
+        },
+        {
+          "stage": "preview",
+          "at": "2026-10-20T17:49:47+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-20T17:49:47+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-20T18:21:47+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-20T18:46:50+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-20T18:46:50+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-20T18:59:12+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-20T21:17:06+03:00"
+        }
+      ]
+    },
+    {
+      "id": "5-design-system",
+      "feature": "design-system",
+      "title": "Design system & UI foundation",
+      "stage": "merged",
+      "round": 3,
+      "flag": "look closely",
+      "flag_reasons": [
+        "design direction is the owner's call"
+      ],
+      "waiting_on": null,
+      "updated": "2026-10-21T19:45:13+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T12:55:35+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T14:10:40+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T14:52:48+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-21T15:53:43+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T16:42:31+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-21T17:52:22+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-21T17:52:22+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-21T17:52:22+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T18:17:54+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-21T19:11:54+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-21T19:11:54+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-21T19:26:02+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-21T19:45:13+03:00"
+        }
+      ]
+    },
+    {
+      "id": "6-pr-local-db",
+      "feature": "pr-local-db",
+      "title": "Pull-request browser tests against a throwaway local database",
+      "stage": "merged",
+      "round": 1,
+      "flag": "routine",
+      "flag_reasons": [
+        "CI secrets handling and test database changes",
+        "owner's call pending: how the evaluator sees new database parts (does not block milestones 1 to 4)"
+      ],
+      "waiting_on": "",
+      "updated": "2026-10-21T22:43:17+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T20:37:45+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T20:48:36+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-21T21:51:30+03:00",
+          "note": "builder round 1 done, PR 14 checks green at 7958daa"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-21T22:10:55+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-21T22:43:17+03:00",
+          "note": "approved by owner 2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "7-content-pipeline",
+      "feature": "content-pipeline",
+      "title": "Content pipeline & native review",
+      "stage": "merged",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "Finnish learning content",
+        "paid service or higher running costs"
+      ],
+      "waiting_on": "",
+      "updated": "2026-10-22T00:20:26+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T20:37:45+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T20:48:36+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:20:00+03:00",
+          "note": "spec approved by owner 2026-10-21"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-21T22:37:18+03:00",
+          "note": "builder round 1 done, PR 17 checks green at 9e834ef"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-21T23:09:23+03:00",
+          "note": "round 2 green at cc90a75, evaluator pass"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-22T00:20:26+03:00",
+          "note": "approved by owner 2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "8-first-session",
+      "feature": "first-session",
+      "title": "First session loop (Hear it, Understand it)",
+      "stage": "merged",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "learner data",
+        "database or access rule changes"
+      ],
+      "waiting_on": "",
+      "updated": "2026-10-22T10:19:39+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T20:37:45+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T20:50:35+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:20:00+03:00",
+          "note": "spec approved by owner 2026-10-21"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-21T23:48:03+03:00",
+          "note": "builder done, PR 18 green at 679d21c"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-22T00:43:07+03:00",
+          "note": "round 2 green at 35cb006"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-22T10:19:39+03:00",
+          "note": "approved by owner 2026-10-22"
+        }
+      ]
+    },
+    {
+      "id": "9-daily-review",
+      "feature": "daily-review",
+      "title": "Daily review (Keep it)",
+      "stage": "build",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "learner data"
+      ],
+      "waiting_on": "builder",
+      "updated": "2026-10-22T10:20:05+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T21:20:30+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:31:17+03:00",
+          "note": "spec ready, no owner's calls, builds after 8-first-session merges"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-22T10:20:05+03:00",
+          "note": "job 8 merged, builder started"
+        }
+      ]
+    },
+    {
+      "id": "10-speaking-feedback",
+      "feature": "speaking-feedback",
+      "title": "Speaking feedback & voice consent (Say it)",
+      "stage": "build",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "recordings or consent",
+        "learner data",
+        "a paid service"
+      ],
+      "waiting_on": "builder",
+      "updated": "2026-10-22T10:20:05+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T21:20:30+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T21:34:08+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:51:30+03:00",
+          "note": "spec approved by owner 2026-10-21 with all recommendations"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-22T10:20:05+03:00",
+          "note": "job 8 merged, builder started"
+        }
+      ]
+    },
+    {
+      "id": "11-accounts",
+      "feature": "accounts",
+      "title": "Accounts & personal data",
+      "stage": "build",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "learner data",
+        "sign in",
+        "database or access rule changes"
+      ],
+      "waiting_on": "builder",
+      "updated": "2026-10-22T10:20:05+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T21:20:30+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T21:36:33+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:51:30+03:00",
+          "note": "spec approved by owner 2026-10-21 with all recommendations"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-22T10:20:05+03:00",
+          "note": "job 8 merged, builder started"
+        }
+      ]
+    },
+    {
+      "id": "12-units-1-3",
+      "feature": "units-1-3",
+      "title": "Units 1 to 3 content",
+      "stage": "build",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "Finnish learning content"
+      ],
+      "waiting_on": "builder",
+      "updated": "2026-10-22T10:20:47+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-21T21:20:30+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-21T21:31:17+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-21T21:51:30+03:00",
+          "note": "spec approved by owner 2026-10-21, one merge per unit"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-22T10:20:47+03:00",
+          "note": "jobs 7 and 8 merged, builder started"
+        }
+      ]
+    },
+    {
+      "id": "13-review-site",
+      "feature": "review-site",
+      "title": "Private review site for the native reviewer",
+      "stage": "your-approval",
+      "round": 1,
+      "flag": "look closely",
+      "flag_reasons": [
+        "Cloudflare Access and a public domain",
+        "unpublished Finnish content"
+      ],
+      "waiting_on": "owner approval; then the owner Cloudflare setup",
+      "updated": "2026-10-22T10:10:13+03:00",
+      "history": [
+        {
+          "stage": "spec",
+          "at": "2026-10-22T08:28:41+03:00"
+        },
+        {
+          "stage": "your-spec-ok",
+          "at": "2026-10-22T08:38:00+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-22T08:42:23+03:00",
+          "note": "spec approved by owner 2026-10-22, case C1, list first dialogue"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-22T09:22:32+03:00",
+          "note": "builder round 1 done, PR 19 green at 6d30b7e"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-22T10:10:13+03:00",
+          "note": "round 2 green at b8cdf45"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PuhuScribe Factory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Geist+Mono:wght@400;500&family=Lexend:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef0f3;
+    --surface: #ffffff;
+    --surface-2: #f6f7f9;
+    --text: #15171a;
+    --muted: #5f6670;
+    --you-bg: #e3ebfb;
+    --you-text: #1c4db8;
+    --flag: #9a5600;
+    --ok: #1f7a3f;
+    --bad: #b3261e;
+    --shadow: 0 1px 2px rgb(16 20 26 / 0.06), 0 2px 8px rgb(16 20 26 / 0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1013;
+      --surface: #181b20;
+      --surface-2: #1f232a;
+      --text: #e7e9ec;
+      --muted: #98a0aa;
+      --you-bg: #172440;
+      --you-text: #93b6ff;
+      --flag: #f0b45a;
+      --ok: #6fd18e;
+      --bad: #ff8a80;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 300 15px/1.55 "Lexend", system-ui, sans-serif;
+  }
+  h1, h2, h3 { font-family: "Geist", system-ui, sans-serif; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 18px; margin-bottom: 12px; }
+  h3 { font-size: 15px; letter-spacing: -0.01em; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; font-size: 12.5px; }
+  .muted { color: var(--muted); }
+  main { max-width: 1440px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { margin-bottom: 28px; }
+  header p { margin: 6px 0 0; color: var(--muted); }
+
+  .you { background: var(--you-bg); color: var(--you-text); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; }
+  .you h2 { color: inherit; }
+  .you ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .you li { color: var(--text); }
+  .you code { font-family: "Geist Mono", monospace; font-size: 13px; color: var(--you-text); }
+
+  .board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(160px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 40px; }
+  .col { background: var(--surface-2); border-radius: 14px; padding: 14px 12px; min-height: 180px; }
+  .col.yours { background: var(--you-bg); }
+  .col.yours > h3 { color: var(--you-text); }
+  .col > h3 { margin: 0 4px 12px; display: flex; justify-content: space-between; }
+  .card { background: var(--surface); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer; width: 100%; text-align: left; color: inherit; font: inherit; border: 0; display: block; }
+  .card:hover, .card:focus-visible { outline: 2px solid var(--you-text); outline-offset: 1px; }
+  .card h3 { margin-bottom: 4px; }
+  .card p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+  .card .flag { color: var(--flag); }
+  .pass { color: var(--ok); }
+  .fail { color: var(--bad); }
+
+  .features ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+  .features li span { color: var(--muted); }
+
+  dialog { width: min(920px, calc(100vw - 32px)); max-height: calc(100vh - 48px); border: 0; border-radius: 16px; padding: 0; background: var(--surface); color: var(--text); }
+  dialog::backdrop { background: rgb(0 0 0 / 0.45); }
+  .dlg-head { padding: 20px 24px 8px; display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .dlg-head button, .tabs button { font: inherit; cursor: pointer; border: 0; border-radius: 8px; padding: 6px 12px; background: var(--surface-2); color: var(--text); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 24px 0; }
+  .tabs button[aria-selected="true"] { background: var(--you-bg); color: var(--you-text); }
+  .doc { padding: 16px 24px 24px; white-space: pre-wrap; font-size: 14px; overflow-wrap: anywhere; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 0 24px 24px; }
+  .shots img { width: 100%; border-radius: 8px; display: block; }
+  .shots figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; overflow-wrap: anywhere; }
+  .empty { color: var(--muted); font-size: 13px; margin: 4px; }
+  .doc.live { white-space: normal; }
+  .doc.live h3 { margin: 18px 0 6px; }
+  .doc.live ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+  .doc a { color: var(--you-text); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PuhuScribe factory</h1>
+    <p id="meta">Loading…</p>
+  </header>
+  <section class="you" id="you" hidden>
+    <h2>Waiting on you</h2>
+    <ul id="you-list"></ul>
+  </section>
+  <section>
+    <h2>Jobs</h2>
+    <div class="board" id="board"></div>
+  </section>
+  <section class="features">
+    <h2>MVP features</h2>
+    <ol id="features"></ol>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <div class="dlg-head">
+    <div><h2 id="dlg-title"></h2><p class="muted mono" id="dlg-meta"></p></div>
+    <button type="button" onclick="dlg.close()">Close</button>
+  </div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="doc" id="doc"></div>
+  <div class="shots" id="shots"></div>
+</dialog>
+
+<script>
+  // Columns group the factory stages from .claude/skills/factory/SKILL.md.
+  const COLUMNS = [
+    { title: "Spec", stages: ["spec"] },
+    { title: "Your spec OK", stages: ["your-spec-ok"], yours: true },
+    { title: "Build and checks", stages: ["build", "checks"] },
+    { title: "Review", stages: ["review"] },
+    { title: "Evaluate", stages: ["preview", "evaluate"] },
+    { title: "Your approval", stages: ["your-approval"], yours: true },
+    { title: "Merged", stages: ["merged"] },
+    { title: "Blocked", stages: ["blocked"], yours: true },
+  ];
+  const FILE_ORDER = ["summary.md", "spec.md", "build.md", "review-security.md", "review-design.md", "evaluation.md"];
+  const LABELS = { live: "Live", "summary.md": "Summary", "spec.md": "Spec", "build.md": "Build notes", "review-security.md": "Security review", "review-design.md": "Design review", "evaluation.md": "Evaluation" };
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const result = (md) => { const m = (md || "").match(/Result:\s*(.+)\s*$/m); return m ? m[1].trim() : null; };
+  const resultClass = (r) => !r ? "muted" : /^pass|checks pass|ready/i.test(r) ? "pass" : "fail";
+  const time = (iso) => iso ? new Date(iso).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+  let state = { jobs: [], features: [] };
+  let openJob = null;
+
+  const ago = (iso) => {
+    const m = Math.round((Date.now() - new Date(iso)) / 60000);
+    return m < 1 ? "just now" : m < 60 ? `${m} min ago` : `${Math.round(m / 60)} h ago`;
+  };
+  function checkCounts(checks) {
+    const c = { pass: 0, fail: 0, pending: 0 };
+    for (const k of checks || []) c[k.bucket === "pass" ? "pass" : k.bucket === "fail" || k.bucket === "cancel" ? "fail" : "pending"]++;
+    return c;
+  }
+  function liveLines(job) {
+    const l = job.live;
+    if (!l) return "";
+    const lines = [];
+    const latest = [l.commits[0]?.time, job.updated].filter(Boolean).sort().pop();
+    if (latest) lines.push(`<p>Last activity ${esc(ago(latest))}</p>`);
+    if (l.commits.length) lines.push(`<p>${l.commits.length} commit${l.commits.length === 1 ? "" : "s"}. Latest: ${esc(l.commits[0].subject)}</p>`);
+    if (l.editing.length) lines.push(`<p>Editing ${l.editing.length} file${l.editing.length === 1 ? "" : "s"} now</p>`);
+    if (l.checks.length) {
+      const c = checkCounts(l.checks);
+      lines.push(`<p>Checks: <span class="pass">${c.pass} passed</span>${c.pending ? `, ${c.pending} running` : ""}${c.fail ? `, <span class="fail">${c.fail} failed</span>` : ""}</p>`);
+    }
+    return lines.join("");
+  }
+  function liveDoc(job) {
+    const l = job.live;
+    const commits = l.commits.map((c) => `<li><span class="mono">${esc(time(c.time))}</span> ${esc(c.subject)}</li>`).join("") || "<li>No commits yet</li>";
+    const editing = l.editing.map((f) => `<li class="mono">${esc(f)}</li>`).join("") || "<li>Nothing uncommitted</li>";
+    const checks = l.checks.map((k) => `<li>${esc(k.name)}: <span class="${k.bucket === "pass" ? "pass" : k.bucket === "fail" ? "fail" : "muted"}">${esc(k.bucket === "pass" ? "passed" : k.bucket === "fail" ? "failed" : k.bucket === "pending" ? "running" : k.bucket)}</span></li>`).join("") || "<li>No checks yet</li>";
+    const pr = l.pr ? `<p><a href="${esc(l.pr.url)}" target="_blank">Pull request #${esc(l.pr.number)}</a>${l.pr.isDraft ? " (draft)" : ""}</p>` : "";
+    return `${pr}<h3>GitHub checks</h3><ul>${checks}</ul><h3>Commits on the job branch</h3><ul>${commits}</ul><h3>Files being edited right now</h3><ul>${editing}</ul>`;
+  }
+
+  function card(job) {
+    let extra = liveLines(job);
+    if (job.stage === "review") {
+      const s = result(job.files["review-security.md"]), d = result(job.files["review-design.md"]);
+      extra += `<p>Security: <span class="${resultClass(s)}">${esc(s || "working")}</span></p><p>Design: <span class="${resultClass(d)}">${esc(d || "working")}</span></p>`;
+    }
+    return `<button class="card" type="button" data-id="${esc(job.id)}">
+      <h3>${esc(job.title)}</h3>
+      <p class="mono">${esc(job.id)} · round ${esc(job.round || 1)}</p>
+      ${job.flag ? `<p class="${job.flag === "look closely" ? "flag" : ""}">${esc(job.flag)}${job.flag_reasons?.length ? ": " + esc(job.flag_reasons.join(", ")) : ""}</p>` : ""}
+      ${job.waiting_on ? `<p>Waiting on ${esc(job.waiting_on)}</p>` : ""}
+      ${extra}
+      <p class="mono">${esc(time(job.updated))}</p>
+    </button>`;
+  }
+
+  function render() {
+    const { jobs, features } = state;
+    const passing = features.filter((f) => f.status === "passing").length;
+    const last = jobs.map((j) => j.updated).filter(Boolean).sort().pop();
+    document.getElementById("meta").textContent =
+      `${passing} of ${features.length} MVP features passing · ${jobs.length} job${jobs.length === 1 ? "" : "s"}` + (last ? ` · last change ${time(last)}` : "");
+
+    const yours = jobs.filter((j) => ["your-spec-ok", "your-approval", "blocked"].includes(j.stage));
+    document.getElementById("you").hidden = !yours.length;
+    document.getElementById("you-list").innerHTML = yours.map((j) => {
+      const what = j.stage === "your-spec-ok" ? `Read the spec for <b>${esc(j.title)}</b>, then type <code>/factory approve ${esc(j.id)}</code>`
+        : j.stage === "your-approval" ? `Check <b>${esc(j.title)}</b>, then type <code>/factory approve ${esc(j.id)}</code> or <code>/factory rework ${esc(j.id)} &lt;note&gt;</code>`
+        : `<b>${esc(j.title)}</b> is blocked. Open it to see why.`;
+      return `<li>${what}</li>`;
+    }).join("");
+
+    document.getElementById("board").innerHTML = COLUMNS.map((c) => {
+      const inCol = jobs.filter((j) => c.stages.includes(j.stage));
+      if (c.title === "Blocked" && !inCol.length) return "";
+      return `<div class="col${c.yours ? " yours" : ""}"><h3><span>${c.title}</span><span class="mono">${inCol.length}</span></h3>
+        ${inCol.map(card).join("") || `<p class="empty">Nothing here</p>`}</div>`;
+    }).join("");
+
+    document.getElementById("features").innerHTML = features.map((f) =>
+      `<li>${esc(f.name)} <span>· ${f.status === "passing" ? "passing" : f.job ? `in job ${esc(f.job)}` : "not started"}</span></li>`).join("");
+
+    if (openJob) showJob(openJob, true);
+  }
+
+  const dlg = document.getElementById("dlg");
+  function showJob(id, keepTab) {
+    const job = state.jobs.find((j) => j.id === id);
+    if (!job) return;
+    openJob = id;
+    const names = (job.live ? ["live"] : []).concat(FILE_ORDER.filter((n) => job.files[n]), Object.keys(job.files).filter((n) => !FILE_ORDER.includes(n)));
+    const current = keepTab && names.includes(dlg.dataset.tab) ? dlg.dataset.tab : names[0];
+    dlg.dataset.tab = current || "";
+    document.getElementById("dlg-title").textContent = job.title;
+    document.getElementById("dlg-meta").textContent = `${job.id} · ${job.stage} · round ${job.round || 1}`;
+    document.getElementById("tabs").innerHTML = names.map((n) =>
+      `<button type="button" role="tab" aria-selected="${n === current}" data-tab="${esc(n)}">${esc(LABELS[n] || n)}</button>`).join("");
+    const doc = document.getElementById("doc");
+    doc.classList.toggle("live", current === "live");
+    if (current === "live") doc.innerHTML = liveDoc(job);
+    else doc.textContent = current ? job.files[current] : "No files yet.";
+    document.getElementById("shots").innerHTML = (job.evidence || []).filter((n) => /\.(png|jpe?g)$/i.test(n)).map((n) =>
+      `<figure style="margin:0"><a href="/evidence/${esc(job.id)}/${encodeURIComponent(n)}" target="_blank"><img src="/evidence/${esc(job.id)}/${encodeURIComponent(n)}" alt="${esc(n)}" loading="lazy"></a><figcaption>${esc(n)}</figcaption></figure>`).join("");
+    if (!dlg.open) dlg.showModal();
+  }
+  document.getElementById("board").addEventListener("click", (e) => { const c = e.target.closest(".card"); if (c) showJob(c.dataset.id); });
+  document.getElementById("tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { dlg.dataset.tab = b.dataset.tab; showJob(openJob, true); } });
+  dlg.addEventListener("close", () => { openJob = null; });
+
+  async function refresh() {
+    try {
+      state = await (await fetch("/api/state", { cache: "no-store" })).json();
+      render();
+    } catch {
+      document.getElementById("meta").textContent = "Dashboard server not reachable. Run /factory dashboard.";
+    }
+  }
+  refresh();
+  setInterval(refresh, 3000);
+</script>
+</body>
+</html>

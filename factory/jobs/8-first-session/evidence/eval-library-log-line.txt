@@ -1,0 +1,22 @@
+Evaluator, job 8-first-session. A log line the Worker writes on a lost sign in.
+
+Seen while running the unit tests in a fresh clone at 679d21c
+(worker/guest.test.ts, "[session 4] when renewal fails because the user was deleted ..."),
+printed to stderr by the Supabase library, not by PuhuScribe code. Paths shortened:
+
+  stderr | worker/guest.test.ts > renewing and losing the sign in > [session 4] when renewal fails ...
+  AuthApiError: Invalid Refresh Token: Refresh Token Not Found
+      at handleError (node_modules/@supabase/auth-js/dist/main/lib/fetch.js:88:11)
+      ...
+    __isAuthError: true,
+    status: 400,
+    code: 'refresh_token_not_found'
+
+Source: node_modules/@supabase/auth-js/dist/main/GoTrueClient.js, session recovery catch block,
+"console.error(err)" (and "console.warn(err)" for network faults). In the deployed Worker this
+goes to the Worker's own logs, which stay on.
+
+It holds no cookie, token, user id, address or header, so statement 19 still holds, and
+worker/logs.test.ts covers this path (console mocked, forbidden values absent). But the code
+comments "Nothing here writes to the log" (worker/api.ts, worker/learner-auth.ts) are not quite
+true: the library writes one error line each time a guest's sign in is lost.

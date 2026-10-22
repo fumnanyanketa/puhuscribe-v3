@@ -1,0 +1,6 @@
+Break test, local (Windows, Voikko readings recorded from the GitHub runner). publish.py no longer refuses an unapproved item:
+ scripts/generate/publish.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+            (_failing_check, "check failed: line 2: the judge says"),
+FAILED scripts/generate/test_content_publish.py::test_each_missing_precondition_writes_nothing[_drop_one_approval-item line-3 is not approved by the reviewer]
+1 failed, 11 passed in 3.53s

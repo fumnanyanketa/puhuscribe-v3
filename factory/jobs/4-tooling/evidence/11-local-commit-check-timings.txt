@@ -1,0 +1,224 @@
+# Job 4-tooling, statement 11 (timings). Throwaway branch scratch/4-tooling-bad-commits from b2f95cc, never pushed.
+# Computer: Windows 11, Node v24.14.1, git 2.53.0.windows.2, lefthook 2.2.2, gitleaks 8.30.1, ruff 0.17.1
+
+## One TypeScript file changed, run 1
+$ git commit -m "scratch: one TypeScript file, run 1"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+scripts/ci/preview-alias.ts 73ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~16 bytes (16 bytes) in 427ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 11.76 seconds)
+✔️ format (Prettier, fixes and restages) (2.01 seconds)
+✔️ checks (18.30 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.87 seconds)
+  ✔️ type check (tsc -b) (6.74 seconds)
+  ✔️ lint (ESLint) (9.70 seconds)
+[scratch/4-tooling-bad-commits 4d8898e] scratch: one TypeScript file, run 1
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=12995
+## One TypeScript file changed, run 2
+$ git commit -m "scratch: one TypeScript file, run 2"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+scripts/ci/preview-alias.ts 76ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~16 bytes (16 bytes) in 331ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 10.92 seconds)
+✔️ format (Prettier, fixes and restages) (2.05 seconds)
+✔️ checks (16.64 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.75 seconds)
+  ✔️ type check (tsc -b) (6.06 seconds)
+  ✔️ lint (ESLint) (8.82 seconds)
+[scratch/4-tooling-bad-commits 7177dae] scratch: one TypeScript file, run 2
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=12135
+## One TypeScript file changed, run 3
+$ git commit -m "scratch: one TypeScript file, run 3"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+┃  format (Prettier, fixes and restages) ❯ 
+scripts/ci/preview-alias.ts 100ms (unchanged)
+
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~16 bytes (16 bytes) in 327ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+┃  checks ❯ type check (tsc -b) ❯ 
+
+┃  checks ❯ lint (ESLint) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 11.22 seconds)
+✔️ format (Prettier, fixes and restages) (2.56 seconds)
+✔️ checks (16.47 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.86 seconds)
+  ✔️ type check (tsc -b) (6.00 seconds)
+  ✔️ lint (ESLint) (8.61 seconds)
+[scratch/4-tooling-bad-commits b6de011] scratch: one TypeScript file, run 3
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=12494
+## Only factory/ files, run 1
+$ git commit -m "scratch: factory files only, run 1"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~26 bytes (26 bytes) in 265ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.41 seconds)
+✔️ checks (1.41 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.41 seconds)
+[scratch/4-tooling-bad-commits 3bb509b] scratch: factory files only, run 1
+ 2 files changed, 2 insertions(+)
+ create mode 100644 factory/jobs/4-tooling/scratch/timing.json
+ create mode 100644 factory/jobs/4-tooling/scratch/timing.md
+exit=0 elapsed_ms=2641
+## Only factory/ files, run 2
+$ git commit -m "scratch: factory files only, run 2"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~26 bytes (26 bytes) in 279ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.38 seconds)
+✔️ checks (1.38 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.38 seconds)
+[scratch/4-tooling-bad-commits 2de0114] scratch: factory files only, run 2
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+exit=0 elapsed_ms=2639
+## Only factory/ files, run 3
+$ git commit -m "scratch: factory files only, run 3"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+4:29PM INF 0 commits scanned.
+4:29PM INF scanned ~26 bytes (26 bytes) in 267ms
+4:29PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.38 seconds)
+✔️ checks (1.38 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.38 seconds)
+[scratch/4-tooling-bad-commits 01ede0b] scratch: factory files only, run 3
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+exit=0 elapsed_ms=2637
+## Only recording/ files, run 1
+$ git commit -m "scratch: recording files only, run 1"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+4:30PM INF 0 commits scanned.
+4:30PM INF scanned ~17 bytes (17 bytes) in 266ms
+4:30PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.36 seconds)
+✔️ checks (1.36 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.36 seconds)
+[scratch/4-tooling-bad-commits b24b5f2] scratch: recording files only, run 1
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=2610
+## Only recording/ files, run 2
+$ git commit -m "scratch: recording files only, run 2"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+4:30PM INF 0 commits scanned.
+4:30PM INF scanned ~17 bytes (17 bytes) in 357ms
+4:30PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.78 seconds)
+✔️ checks (1.78 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.78 seconds)
+[scratch/4-tooling-bad-commits 6267246] scratch: recording files only, run 2
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=3075
+## Only recording/ files, run 3
+$ git commit -m "scratch: recording files only, run 3"
+╭─────────────────────────────────────────╮
+│ 🥊 lefthook  v2.2.2   hook:  pre-commit │
+╰─────────────────────────────────────────╯
+│  format (Prettier, fixes and restages) (skip) no files for inspection
+│  checks ❯ type check (tsc -b) (skip) no matching staged files
+│  checks ❯ python lint (ruff check) (skip) no files for inspection
+│  checks ❯ lint (ESLint) (skip) no files for inspection
+│  checks ❯ python format (ruff format --check) (skip) no files for inspection
+4:30PM INF 0 commits scanned.
+4:30PM INF scanned ~17 bytes (17 bytes) in 275ms
+4:30PM INF no leaks found
+┃  checks ❯ secrets (gitleaks, redacted) ❯ 
+
+  ────────────────────────────────────
+summary: (done in 1.38 seconds)
+✔️ checks (1.38 seconds)
+  ✔️ secrets (gitleaks, redacted) (1.38 seconds)
+[scratch/4-tooling-bad-commits d7578b1] scratch: recording files only, run 3
+ 1 file changed, 1 insertion(+)
+exit=0 elapsed_ms=2606

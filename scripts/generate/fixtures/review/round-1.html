@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cBSkODMuEcjD/+w3CrQuLLJjJztffALC8n4U59DJdAc='; style-src 'sha256-vTxYdeiEIn0oOjakZZjLUrnHvZJr0nOQ3f5SkLBUxKI='; media-src data:; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review round 1</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #faf9fc; color: #1b1a20;
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 32px 20px 96px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; font-weight: 650; letter-spacing: -0.01em; }
+h2 { font-size: 20px; margin: 40px 0 12px; font-weight: 650; }
+h3 { font-size: 17px; margin: 0 0 12px; font-weight: 650; }
+p { margin: 0 0 12px; }
+h1, h2, h3, p, li, legend, .field span { overflow-wrap: anywhere; }
+.intro { color: #56525e; }
+fieldset { border: 0; margin: 8px 0; padding: 0; min-width: 0; }
+legend { font-size: 14px; font-weight: 600; padding: 0; margin: 0 0 2px; }
+.item { background: #ffffff; border-radius: 14px; padding: 20px; margin: 0 0 16px;
+  box-shadow: 0 1px 2px #1a16341a; }
+.register { margin: 0 0 14px; }
+.label { font-size: 14px; font-weight: 600; margin: 0 0 2px; }
+.spoken .label { color: #166270; }
+.written .label { color: #6b46c1; }
+.finnish { font-size: 20px; margin: 0 0 6px; }
+.meaning { color: #56525e; }
+.note { color: #56525e; font-size: 14px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 8px 0; }
+.choice { display: inline-flex; gap: 6px; align-items: center; }
+button { font: inherit; background: #1b1a20; color: #ffffff; border: 0; border-radius: 999px;
+  padding: 8px 18px; cursor: pointer; }
+button:hover { background: #2a2832; }
+button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #1f42ac; outline-offset: 2px; }
+textarea, input[type=text] { font: inherit; color: #1b1a20; background: #ffffff; width: 100%;
+  border: 1px solid #7a7689; border-radius: 8px; padding: 8px 10px; }
+textarea { min-height: 44px; }
+.fix { margin: 8px 0 0; }
+.fix[hidden] { display: none; }
+.field { margin: 0 0 10px; }
+.field span { display: block; font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+.status { margin: 16px 0 0; font-weight: 600; }
+.status ul { margin: 8px 0 0; padding-left: 20px; font-weight: 400; }
+.code { max-width: 200px; }
+</style>
+</head>
+<body>
+<main id="page"></main>
+<script type="application/json" id="review-data">{"format":"puhuscribe-review-1","round":1,"unit":{"slug":"pgtap-publish-unit","position":900101,"title_en":"pgtap publish unit","can_do_en":"pgtap can do"},"dialogue":{"slug":"pgtap-publish-fixture","position":1,"title_en":"pgtap publish fixture"},"lines":[{"n":1,"speaker":"Aino","role":"pgtap speaker one","text_puhe":"Mä oon Aino.","text_kirja":"Minä olen Aino.","gloss_en":"pgtap fixture: I'm Aino.","spokenOnly":[],"audio":{"puhe":{"line":1,"registerName":"spoken","source":"Synthetic voice","mp3":"SUQzAwAAAAAAQFBSSVYAAAA2AABwdWh1c2NyaWJlLWZha2Utdm9pY2UA8cwcLp7LcztvPdJ0DogGMRr3V6Qfilw8zEARGluJD0z/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","item":"audio-1-puhe"},"kirja":{"line":1,"registerName":"written","source":"Synthetic voice","mp3":"SUQzAwAAAAAAQFBSSVYAAAA2AABwdWh1c2NyaWJlLWZha2Utdm9pY2UAIS3BUTEX4CFdI7AYmoBELOuzSfEFCbynJhyFsVOWG9//82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","item":"audio-1-kirja"}},"item":"line-1"},{"n":2,"speaker":"Maria","role":"pgtap speaker two","text_puhe":"No ootko sä täällä? \u003cscript\u003edocument.title='script ran'\u003c/script\u003e Lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas.","text_kirja":"Oletko sinä täällä? \u003cscript\u003edocument.title='script ran'\u003c/script\u003e Lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas.","gloss_en":"pgtap fixture: Are you here? (it's a test of \u003cb\u003eescaping\u003c/b\u003e \u0026 quotes)","spokenOnly":["No"],"audio":{"puhe":{"line":2,"registerName":"spoken","source":"Synthetic voice","mp3":"SUQzAwAAAAAAQFBSSVYAAAA2AABwdWh1c2NyaWJlLWZha2Utdm9pY2UAbO4kKmtplPBxiBpLvH7YFJ3WpKJLaPdyblxhL9Wme+f/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","item":"audio-2-puhe"},"kirja":{"line":2,"registerName":"written","source":"Synthetic voice","mp3":"SUQzAwAAAAAAQFBSSVYAAAA2AABwdWh1c2NyaWJlLWZha2Utdm9pY2UA2gN0crtd6b1uHefIPkXIvvIquHtgz83n9uhsqNfSoPH/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/82TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","item":"audio-2-kirja"}},"item":"line-2"}],"forms":[{"item":"pgtap-form-mina","lemma":"pgtap-minä","surface_kirja":"minä","surface_puhe":"mä","form_name_en":"nominative singular","why_en":"pgtap why: Minä means I.","lines":[1]},{"item":"pgtap-form-olen","lemma":"pgtap-olla","surface_kirja":"olen","surface_puhe":"oon","form_name_en":"present tense, 1st person singular","why_en":"pgtap why: it's olla for I.","lines":[1]},{"item":"pgtap-form-oletko","lemma":"pgtap-olla","surface_kirja":"oletko","surface_puhe":"ootko","form_name_en":"present tense, 2nd person singular, with the question ending -ko/-kö","why_en":"pgtap why: a yes or no question.","lines":[2]},{"item":"pgtap-form-sina","lemma":"pgtap-sinä","surface_kirja":"sinä","surface_puhe":"sä","form_name_en":"nominative singular","why_en":"pgtap why: Sinä means you.","lines":[2]},{"item":"pgtap-form-taalla","lemma":"pgtap-täällä","surface_kirja":"täällä","surface_puhe":"täällä","form_name_en":"adverb","why_en":"pgtap why: Täällä means here.","lines":[2]}],"items":[{"id":"line-1","kind":"line","fingerprint":"caabbb2e90c758921dea52c9ecbcafcf4225375a322ed1ba265b9e2dd865ea33","label":"Line 1"},{"id":"line-2","kind":"line","fingerprint":"c57cad903735aee95858bc65759666c2d8eb8f1e40f9816bd5c5dbfb4e97dc02","label":"Line 2"},{"id":"audio-1-puhe","kind":"audio","fingerprint":"08185db110dc1e6e044d945d8d8c26e77565fa62fbdc42b7d81fe269a639568d","label":"Line 1 spoken audio"},{"id":"audio-1-kirja","kind":"audio","fingerprint":"49f5f2d69801e4bbe15834cf8246dded413b3176f99256fb114a84e53581555c","label":"Line 1 written audio"},{"id":"audio-2-puhe","kind":"audio","fingerprint":"6c16b05efe2690d23b88264f1fcc5b02635c1b10f57e5d33d8098d2d574922c0","label":"Line 2 spoken audio"},{"id":"audio-2-kirja","kind":"audio","fingerprint":"03e9ada3aa70bcb70eaee7109cc538870e498fde3b14b3a98f3c8d4ff15116c8","label":"Line 2 written audio"},{"id":"pgtap-form-mina","kind":"form","fingerprint":"c2f54c491e62df2637f1d4d4d6ac10f694b6db1af0c144c858935da7292c2866","label":"Word card minä"},{"id":"pgtap-form-olen","kind":"form","fingerprint":"49bbace8866aaba98a190bd8622ad317680d06a81dc289306f30dc449cc1673c","label":"Word card olen"},{"id":"pgtap-form-oletko","kind":"form","fingerprint":"70cbb75aab620da19a84e2b0da9a98dd239093e14b620ca9bcab986035803c9d","label":"Word card oletko"},{"id":"pgtap-form-sina","kind":"form","fingerprint":"3c61bcb77ae92312b7a8d6ff0d1e55b32f4fb2ec3b28c7e039a7101ca63dda01","label":"Word card sinä"},{"id":"pgtap-form-taalla","kind":"form","fingerprint":"79bfc1094bb2690e15095b0321fd9f687163eb1e2beed66a544681ef8e5da0a0","label":"Word card täällä"},{"id":"dialogue","kind":"dialogue","fingerprint":"2878a705ff8f6a703a54b0db8f7220cd27f29d0cd5fed4d9eeaee0fcd9bafe88","label":"The dialogue as a whole"}]}</script>
+<script>
+(function () {
+  'use strict';
+  var data = JSON.parse(document.getElementById('review-data').textContent);
+  var state = {};
+  var main = document.getElementById('page');
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  function radios(itemId, legendText, options, onChange) {
+    var group = el('fieldset');
+    group.appendChild(el('legend', null, legendText));
+    var row = el('div', 'row');
+    group.appendChild(row);
+    options.forEach(function (option) {
+      var label = el('label', 'choice');
+      var input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'choice-' + itemId;
+      input.value = option.value;
+      input.addEventListener('change', function () { onChange(option.value); });
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(option.text));
+      row.appendChild(label);
+    });
+    return group;
+  }
+
+  function field(labelText, value, onInput, multiline, lang) {
+    var wrap = el('label', 'field');
+    wrap.appendChild(el('span', null, labelText));
+    var input = document.createElement(multiline ? 'textarea' : 'input');
+    if (!multiline) input.type = 'text';
+    if (lang) input.lang = lang;
+    input.value = value || '';
+    input.addEventListener('input', function () { onInput(input.value); });
+    wrap.appendChild(input);
+    return wrap;
+  }
+
+  function comment(itemId) {
+    return field('Comment (optional)', '', function (v) { state[itemId].comment = v; }, true);
+  }
+
+  function decisionBlock(itemId, legendText, fixFields) {
+    var block = el('div');
+    var fix = el('div', 'fix');
+    fix.hidden = true;
+    block.appendChild(radios(itemId, legendText, [
+      { value: 'approve', text: 'Approve' },
+      { value: 'fix', text: 'Fix' }
+    ], function (value) {
+      state[itemId].decision = value;
+      fix.hidden = value !== 'fix';
+    }));
+    fixFields.forEach(function (f) {
+      state[itemId].fix[f.key] = f.value;
+      fix.appendChild(field(f.label, f.value, function (v) { state[itemId].fix[f.key] = v; }, true, f.lang));
+    });
+    block.appendChild(fix);
+    block.appendChild(comment(itemId));
+    return block;
+  }
+
+  function audioBlock(clip) {
+    var block = el('div', 'row');
+    var player = document.createElement('audio');
+    player.preload = 'none';
+    player.src = 'data:audio/mpeg;base64,' + clip.mp3;
+    var play = el('button', null, 'Play');
+    play.type = 'button';
+    play.setAttribute('aria-label', 'Play the ' + clip.registerName + ' audio of line ' + clip.line);
+    play.addEventListener('click', function () { player.currentTime = 0; player.play(); });
+    block.appendChild(play);
+    block.appendChild(player);
+    block.appendChild(el('span', 'note', clip.source));
+    if (clip.item) {
+      state[clip.item] = { kind: 'audio', verdict: null, comment: '' };
+      block.appendChild(radios(clip.item,
+        'Line ' + clip.line + ' ' + clip.registerName + ' audio, the sound only', [
+        { value: 'right', text: 'Sounds right' },
+        { value: 'wrong', text: 'Sounds wrong' }
+      ], function (value) { state[clip.item].verdict = value; }));
+    }
+    var wrap = el('div');
+    wrap.appendChild(block);
+    if (clip.item) wrap.appendChild(comment(clip.item));
+    return wrap;
+  }
+
+  function register(className, labelText, text, clip) {
+    var block = el('div', 'register ' + className);
+    block.appendChild(el('p', 'label', labelText));
+    var finnish = el('p', 'finnish', text);
+    finnish.lang = 'fi';
+    block.appendChild(finnish);
+    if (clip) block.appendChild(audioBlock(clip));
+    return block;
+  }
+
+  document.title = 'Review: ' + data.dialogue.title_en + ' (round ' + data.round + ')';
+  main.appendChild(el('h1', null, 'Review: ' + data.dialogue.title_en));
+  main.appendChild(el('p', 'intro', 'Unit ' + data.unit.position + ': ' + data.unit.title_en +
+    '. Can do: ' + data.unit.can_do_en));
+  main.appendChild(el('p', 'intro', 'Round ' + data.round + '. Listen to every clip and read every line ' +
+    'and word card. Approve what is right. Choose Fix and write the correct text where something is wrong. ' +
+    'When you are done, press "Download my review" and send the file back.'));
+  main.appendChild(el('p', 'intro', 'Approve and Fix are about the Finnish text and its English meaning. ' +
+    'The sound of each clip has its own choice. If something needs fixing, you can answer "Not yet" for ' +
+    'the dialogue as a whole and you will see it again after the fixes.'));
+  main.appendChild(el('p', 'intro', 'Nothing is saved until you press "Download my review". ' +
+    'Closing or refreshing this page before then loses your work.'));
+  var codeField = field('Your reviewer code (for example R1, not your name)', '',
+    function (v) { data.reviewerCode = v; }, false);
+  codeField.querySelector('input').className = 'code';
+  main.appendChild(codeField);
+
+  if (data.lines.length) main.appendChild(el('h2', null, 'Lines'));
+  data.lines.forEach(function (line) {
+    var card = el('section', 'item');
+    card.appendChild(el('h3', null, 'Line ' + line.n + ', ' + line.speaker + ' (' + line.role + ')'));
+    card.appendChild(register('spoken', 'Spoken Finnish', line.text_puhe, line.audio.puhe));
+    card.appendChild(register('written', 'Written Finnish', line.text_kirja, line.audio.kirja));
+    card.appendChild(el('p', 'meaning', 'English meaning: ' + line.gloss_en));
+    if (line.spokenOnly.length) {
+      card.appendChild(el('p', 'note',
+        'Spoken only words (no written partner): ' + line.spokenOnly.join(', ')));
+    }
+    if (line.item) {
+      state[line.item] = { kind: 'line', decision: null, fix: {}, comment: '' };
+      card.appendChild(decisionBlock(line.item,
+        'Line ' + line.n + ': is the Finnish text and its English meaning right?', [
+        { key: 'text_puhe', label: 'Corrected spoken Finnish', value: line.text_puhe, lang: 'fi' },
+        { key: 'text_kirja', label: 'Corrected written Finnish', value: line.text_kirja, lang: 'fi' },
+        { key: 'gloss_en', label: 'Corrected English meaning', value: line.gloss_en }
+      ]));
+    } else {
+      card.appendChild(el('p', 'note', 'This line was approved in an earlier round. Only its audio is new.'));
+    }
+    main.appendChild(card);
+  });
+
+  if (data.forms.length) main.appendChild(el('h2', null, 'Word cards'));
+  data.forms.forEach(function (form) {
+    var card = el('section', 'item');
+    var heading = el('h3');
+    var written = el('span', null, form.surface_kirja);
+    written.lang = 'fi';
+    var spoken = el('span', null, form.surface_puhe);
+    spoken.lang = 'fi';
+    heading.appendChild(written);
+    heading.appendChild(document.createTextNode(' (spoken: '));
+    heading.appendChild(spoken);
+    heading.appendChild(document.createTextNode(')'));
+    card.appendChild(heading);
+    var base = el('p', null, 'Base form: ');
+    var lemma = el('span', null, form.lemma);
+    lemma.lang = 'fi';
+    base.appendChild(lemma);
+    card.appendChild(base);
+    card.appendChild(el('p', null, 'Form: ' + form.form_name_en));
+    card.appendChild(el('p', null, 'Why: ' + form.why_en));
+    card.appendChild(el('p', 'note', 'In line ' + form.lines.join(', ')));
+    state[form.item] = { kind: 'form', decision: null, fix: {}, comment: '' };
+    card.appendChild(decisionBlock(form.item, 'Word card ' + form.surface_kirja + ': is it right?', [
+      { key: 'why_en', label: 'Corrected why (one line)', value: form.why_en }
+    ]));
+    main.appendChild(card);
+  });
+
+  main.appendChild(el('h2', null, 'The dialogue as a whole'));
+  var whole = el('section', 'item');
+  whole.appendChild(el('p', null,
+    'Approve the whole dialogue as a learner will see it, every line in order, ' +
+    'with the unit title and can do statement above. If you marked anything Fix or Sounds wrong, ' +
+    'answer "Not yet". You will see the dialogue again after the fixes.'));
+  state.dialogue = { kind: 'dialogue', decision: null, fix: {}, comment: '' };
+  whole.appendChild(radios('dialogue', 'The dialogue as a whole', [
+    { value: 'approve', text: 'I approve this dialogue as a whole' },
+    { value: 'not-yet', text: 'Not yet' }
+  ], function (value) { state.dialogue.decision = value; }));
+  whole.appendChild(comment('dialogue'));
+  main.appendChild(whole);
+
+  var status = el('div', 'status');
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  var download = el('button', null, 'Download my review');
+  download.type = 'button';
+  download.addEventListener('click', function () {
+    var problems = [];
+    var code = (data.reviewerCode || '').trim();
+    if (!/^[A-Za-z0-9]{1,12}$/.test(code)) {
+      problems.push('Write your reviewer code: letters and digits only, such as R1.');
+    }
+    var items = [];
+    var asksForChanges = data.items.some(function (item) {
+      var s = state[item.id];
+      return s && (s.decision === 'fix' || s.verdict === 'wrong');
+    });
+    data.items.forEach(function (item) {
+      var s = state[item.id];
+      var out = { id: item.id, kind: item.kind, fingerprint: item.fingerprint,
+        comment: (s && s.comment) || '' };
+      if (item.kind === 'audio') {
+        if (!s.verdict) problems.push(item.label + ': choose sounds right or sounds wrong.');
+        out.verdict = s.verdict;
+      } else {
+        if (!s.decision) {
+          problems.push(item.label + ': choose ' +
+            (item.kind === 'dialogue' ? 'I approve or Not yet.' : 'approve or fix.'));
+        } else if (s.decision === 'not-yet' && !asksForChanges) {
+          problems.push('The dialogue as a whole: you chose Not yet, but nothing is marked Fix or ' +
+            'Sounds wrong. Mark what needs changing, or approve the dialogue.');
+        }
+        out.decision = s.decision;
+        if (s.decision === 'fix') {
+          out.fix = s.fix;
+          Object.keys(s.fix).forEach(function (k) {
+            if (!String(s.fix[k]).trim()) problems.push(item.label + ': the corrected text is empty.');
+          });
+        }
+      }
+      items.push(out);
+    });
+    status.textContent = '';
+    if (problems.length) {
+      status.appendChild(el('p', null, 'Not saved yet. Please finish these first:'));
+      var list = el('ul');
+      problems.forEach(function (p) { list.appendChild(el('li', null, p)); });
+      status.appendChild(list);
+      return;
+    }
+    var review = { format: data.format, dialogue_slug: data.dialogue.slug, round: data.round,
+      reviewer_code: code, items: items };
+    var blob = new Blob([JSON.stringify(review, null, 2) + '\n'], { type: 'application/json' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'review-' + data.dialogue.slug + '-round-' + data.round + '.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    status.appendChild(el('p', null, 'Saved as ' + link.download + '. Send this file back.'));
+  });
+  main.appendChild(download);
+  main.appendChild(status);
+})();
+</script>
+</body>
+</html>

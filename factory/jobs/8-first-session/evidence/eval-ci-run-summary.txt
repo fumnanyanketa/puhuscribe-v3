@@ -1,0 +1,42 @@
+Evaluator, job 8-first-session. What the pull request run shows.
+Run 39671525623 (PR 18, head 679d21c), 21 October 2026. Read with gh, read only.
+
+Jobs
+- Browser tests (Playwright, local Supabase): success, 20:34:51 to 20:44:40
+- Unit tests (Vitest): success
+- Database tests (local Supabase, pgTAP): success. Log: "first_session.test.sql ... ok",
+  "data_model_schema.test.sql ... ok", "Files=5, Tests=450", "Result: PASS" (twice, before and
+  after the second load). Migration 20261021182910_first_session.sql applied.
+- Secret scan, type check/lint/format, Python, dependency check: success
+- Preview link (Cloudflare Worker behind Access): success
+- Apply to test project, browser tests against the test project: skipped (pull request, as designed)
+- Check minutes of this run (sum of job durations, skipped jobs left out): about 17.7 minutes
+
+Browser test report (playwright-report, decoded from its index.html)
+- total 170, passed 161, failed 0, flaky 0, skipped 9
+- skipped:
+  - [session 6] not ready yet (chromium, webkit): skipped in the main run by design; ran in the
+    separate empty content pass below
+  - [session 22] keyboard focus follows reading order on Hear it (webkit only): WebKit skips
+    buttons on Tab
+  - [smoke 12] [session 5] POST /api/guest refused without Access, and two [12] preview tests:
+    run only against a preview link
+- "Guest accounts in the throwaway database: 41" (the app made real anonymous users there)
+- Empty content pass: every unit set to draft, then
+  "[chromium] ... [session 6] the session screen says it is not ready yet and shows no Finnish ... passed"
+  "[webkit] ... same ... passed", "2 passed"
+- check:built-secrets passed (36 browser files scanned); check:env-names passed
+
+API calls the browser tests made (route, status, count, from the "API timing" log lines)
+- GET /api/today 200: 87
+- POST /api/guest 201: 43; failed: 2 (the held request of [smoke 3], on purpose)
+- POST /api/sessions/today 200: 52; 401: 2 (/session without a sign in, on purpose)
+- POST /api/sessions/<id>/step 200: 38
+- POST /api/sessions/<id>/complete 200: 16; failed: 6 (aborted on purpose in [session 15] and [session 18])
+- No other status appeared.
+
+What was kept from the artifacts
+- Only test-finished screenshots and two videos of the main path (pixels only), named eval-*.
+- The report's embedded data, the job logs and every other file were scanned for JWT shapes
+  (eyJ...), sb_secret_ and sb_publishable_ values and Set-Cookie values: none found outside test
+  source code snippets. No trace or HAR file was in the artifacts. Nothing else was kept.

@@ -1,0 +1,17 @@
+Evaluator note for 6-pr-local-db statement 2 (no key in logs).
+Scan for key shaped values (sb_publishable_, sb_secret_, eyJ followed by 10 or more characters) in the local browser check log of each run.
+Values are replaced with <REDACTED> here; the evaluator printed no value.
+
+  run 39649078718 job 119392320246: 1 matching line(s)
+  run 39651502908 job 119400722058: 0 matching line(s)
+  run 39651508732 job 119400741934: 0 matching line(s)
+  run 39653294892 job 119407643896: 0 matching line(s)
+  run 39654984608 job 119412755248: 0 matching line(s)
+  run 39652135818 job 119403372762: 0 matching line(s)
+
+Run 39649078718 (PR 14 round 1, head f2550ae) still holds one line:
+  │ Publishable │ sb_publishable_<REDACTED> │
+
+It is the throwaway local stack's publishable key (the runner and its database no longer exist), not a hosted project key.
+The filter was fixed in 9d4a9fc and every later run shows 0 lines. AGENTS.md says no keys in logs, so deleting that one run's log
+(gh api -X DELETE repos/fumnanyanketa/puhuscribe-v3/actions/runs/39649078718/logs) is recommended. It is the owner's or manager's call.

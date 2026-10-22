@@ -1,0 +1,67 @@
+Evaluator local test runs in .worktrees/6-pr-local-db at 7958daa (Windows, no Docker). Run on 2026-10-21T19:03Z.
+
+npx vitest run tests/checks-workflow.test.ts scripts/ci : 5 files, 79 tests, all passed.
+npm test (whole Vitest suite)                           : 27 files, 464 tests, all passed.
+
+Tests labelled [prdb N], [data 18] or [smoke 11] in that run (verbose reporter, all passed):
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] takes only the local API address and the local publishable key
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] reads lines with or without quotes, and Windows line ends
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] never passes on the secret key, the service role key or the JWT secret
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] refuses an address that is not on the runner itself, so the check can never reach a hosted project
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] when a name is missing, the error lists the names it found and no value
+   ✓ scripts/ci/supabase-status.test.ts > localSettingsFromStatus > [prdb 2] an address that is not a URL is refused without printing it
+   ✓ scripts/ci/preview-plan.test.ts > changesDatabase > [prdb 10] a pull request that adds, changes or deletes a migration changes the database
+   ✓ scripts/ci/preview-plan.test.ts > changesDatabase > [prdb 10] a pull request with no migration file does not
+   ✓ scripts/ci/preview-plan.test.ts > changesDatabase > [prdb 10] ignores empty lines and surrounding spaces from git output
+   ✓ scripts/ci/preview-plan.test.ts > previewComment > [prdb 10] without a database change the comment is the same as before this job
+   ✓ scripts/ci/preview-plan.test.ts > previewComment > [prdb 10] with a database change the comment adds the note with the run link
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] is a check named "Apply database changes to the test project"
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] runs only after the database tests passed
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] pushes migrations with the test connection string and then runs the security tests on the test project
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] runs no npm ci and no project code
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] passes the test database password only to the steps that need it
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] the test database password is used by no other job
+   ✓ tests/checks-workflow.test.ts > applying migrations to the test project > [smoke 11] is skipped for Dependabot pull requests
+   ✓ tests/checks-workflow.test.ts > database changes reach the test project only after owner approval > [data 18] the apply job runs only on a push to main, and never for Dependabot
+   ✓ tests/checks-workflow.test.ts > database changes reach the test project only after owner approval > [data 18] pushes start the workflow only on main, so another branch never reaches the apply job
+   ✓ tests/checks-workflow.test.ts > database changes reach the test project only after owner approval > [data 18] no other job can change a remote database
+   ✓ tests/checks-workflow.test.ts > database changes reach the test project only after owner approval > [data 18] the preview runs on a pull request only when every check passed and the test project was not changed
+   ✓ tests/checks-workflow.test.ts > database check for the data model > [data 18] runs the pgTAP tests before and again after the second load
+   ✓ tests/checks-workflow.test.ts > order of the checks > [smoke 11] [prdb 11] the browser tests against the test project wait for the test project to be updated
+   ✓ tests/checks-workflow.test.ts > order of the checks > [smoke 11] the preview waits for the database tests and the test project update
+   ✓ tests/checks-workflow.test.ts > third-party actions > [smoke 11] every action not made by GitHub is pinned to a full commit, with its version in a comment (.github/workflows/checks.yml)
+   ✓ tests/checks-workflow.test.ts > third-party actions > [smoke 11] every action not made by GitHub is pinned to a full commit, with its version in a comment (.github/workflows/keep-test-db-awake.yml)
+   ✓ tests/checks-workflow.test.ts > third-party actions > [smoke 11] every action not made by GitHub is pinned to a full commit, with its version in a comment (.github/workflows/secret-scan-notes.yml)
+   ✓ tests/checks-workflow.test.ts > third-party actions > [smoke 11] the gitleaks action, which receives the GitHub token, is pinned too
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] the check is named "Browser tests (Playwright, local Supabase)"
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] runs on pull requests (Dependabot included) and manual runs, never on pushes to main
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] starts at the same time as the database check and waits for no other job
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] starts a local Supabase with only Postgres, kong, postgrest and gotrue
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] applies the migrations by starting from an empty database (no remote, no link)
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] builds the app and runs the full Playwright suite after the database started
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] holds no secret: no secrets. reference anywhere in the job
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] the Worker settings come from supabase status, written by write-test-settings.ts
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] the start output is filtered so the local keys never reach the log
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 2] keeps the report, screenshots and videos as the playwright-report download
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 3] after the tests, psql shows at least one row in visits on the throwaway database
+   ✓ tests/checks-workflow.test.ts > pull request browser tests on a throwaway database > [prdb 1] opens no tunnel to the throwaway database
+   ✓ tests/checks-workflow.test.ts > local database permissions match the test project > [prdb 6] config.toml sets auto_expose_new_tables = false under [api]
+   ✓ tests/checks-workflow.test.ts > browser test seed data > [prdb 7] the local browser check loads every seed file in name order after the migrations and before the tests
+   ✓ tests/checks-workflow.test.ts > browser test seed data > [prdb 7] no other job loads them
+   ✓ tests/checks-workflow.test.ts > browser test seed data > [prdb 7] config.toml seed paths never include them, so supabase start and db reset do not load them
+   ✓ tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] is named "Browser tests against the test project (after merge)"
+   ✓ tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] runs only on a push to main once the apply job succeeded
+   ✓ tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] runs the suite without the tests that need browser seed rows
+   ✓ tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] is the only browser test job that receives the test project settings
+   ✓ tests/checks-workflow.test.ts > browser tests against the test project after merge > [prdb 8] keeps the upload guard for those two settings
+   ✓ tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] the checkout has the base branch, so a three-dot diff of supabase/migrations/ works
+   ✓ tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] a database change runs only @preview tests on the preview, otherwise the suite without @seed
+   ✓ tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] the preview is still uploaded and the link still posted either way
+   ✓ tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] the comment comes from preview-plan.ts with the run link
+   ✓ tests/checks-workflow.test.ts > preview links on pull requests that change the database > [prdb 10] the Cloudflare Access lock tests carry the @preview tag
+   ✓ tests/checks-workflow.test.ts > pushes to main that change only factory notes or recordings > [prdb 13] checks.yml ignores pushes to main that change only factory/ and recording/
+   ✓ tests/checks-workflow.test.ts > pushes to main that change only factory notes or recordings > [prdb 13] pull requests and manual runs are never filtered by path
+   ✓ tests/checks-workflow.test.ts > pushes to main that change only factory notes or recordings > [prdb 13] those pushes still get the secret scan, with the same pinned gitleaks action
+
+Not run here: the database (pgTAP) and browser (Playwright) checks. Docker is not installed on this computer,
+so local Supabase cannot start. The GitHub runs are the reference (eval-1-2-3-pr14-local-browser-check.txt, eval-9-apply-job-unchanged.txt).

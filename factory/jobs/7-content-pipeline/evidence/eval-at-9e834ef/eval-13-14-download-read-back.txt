@@ -1,0 +1,34 @@
+chromium-375: downloaded file read back and ACCEPTED; 12 items; reviewer_code=R1; line-1 decision=fix fix.text_kirja='Minä olen Aino Virtanen.' comment=''; keys in file: ['dialogue_slug', 'format', 'items', 'reviewer_code', 'round']
+webkit-375: downloaded file read back and ACCEPTED; 12 items; reviewer_code=R1; line-1 decision=fix fix.text_kirja='Minä olen Aino Virtanen.' comment=''; keys in file: ['dialogue_slug', 'format', 'items', 'reviewer_code', 'round']
+chromium-1280: downloaded file read back and ACCEPTED; 12 items; reviewer_code=R1; line-1 decision=fix fix.text_kirja='Minä olen Aino Virtanen.' comment=''; keys in file: ['dialogue_slug', 'format', 'items', 'reviewer_code', 'round']
+webkit-1280: downloaded file read back and ACCEPTED; 12 items; reviewer_code=R1; line-1 decision=fix fix.text_kirja='Minä olen Aino Virtanen.' comment=''; keys in file: ['dialogue_slug', 'format', 'items', 'reviewer_code', 'round']
+
+Downloaded file (chromium-375), first two items:
+{
+  "format": "puhuscribe-review-1",
+  "dialogue_slug": "pgtap-publish-fixture",
+  "round": 1,
+  "reviewer_code": "R1",
+  "items": [
+    {
+      "id": "line-1",
+      "kind": "line",
+      "fingerprint": "caabbb2e90c758921dea52c9ecbcafcf4225375a322ed1ba265b9e2dd865ea33",
+      "comment": "",
+      "decision": "fix",
+      "fix": {
+        "text_puhe": "Mä oon Aino.",
+        "text_kirja": "Minä olen Aino Virtanen.",
+        "gloss_en": "pgtap fixture: I'm Aino."
+      }
+    },
+    {
+      "id": "line-2",
+      "kind": "line",
+      "fingerprint": "09193691760d3b514dd6a83c381aa2d873b1249906d1e94b9cc33b17712043b8",
+      "comment": "",
+      "decision": "approve"
+    }
+  ]
+}
+Note: the comment typed into the first Comment box landed on audio-1-puhe, which is the first comment box on the page (under the line 1 spoken clip). Correct.

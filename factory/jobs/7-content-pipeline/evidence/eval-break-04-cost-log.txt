@@ -1,0 +1,55 @@
+Evaluator break: the AI module stops writing the cost log line
+Statement: [content 4]. Scratch copy of branch head cc90a75; nothing pushed, nothing on main.
+
+--- 1. Test before the break (expect pass) ---
+...                                                                      [100%]
+3 passed, 13 deselected in 0.16s
+
+--- 2. The break ---
+edited scripts\generate\providers\ai.py
+ scripts/generate/providers/ai.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/scripts/generate/providers/ai.py b/scripts/generate/providers/ai.py
+index ee8801b..0a1a86b 100644
+--- a/scripts/generate/providers/ai.py
++++ b/scripts/generate/providers/ai.py
+@@ -65,7 +65,7 @@ class _Provider:
+             raise AiError(f"unknown AI purpose '{purpose}'")
+         model = MODELS[purpose]
+         text, input_tokens, output_tokens, problem = self._call(purpose, model, system, prompt, schema)
+-        self._log(purpose, model, input_tokens, output_tokens, dialogue)
++        pass  # evaluator break
+         if problem:
+             raise AiError(problem)
+         try:
+
+--- 3. Test with the break (expect red) ---
+scripts\generate\test_content_providers.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\..\..\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py:787: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+self = WindowsPath('C:/Users/fumna/AppData/Local/Temp/pytest-of-fumna/pytest-27/test_a_call_whose_answer_canno0/calls.jsonl')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\fumna\\AppData\\Local\\Temp\\pytest-of-fumna\\pytest-27\\test_a_call_whose_answer_canno0\\calls.jsonl'
+..\..\..\..\..\..\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py:771: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED scripts/generate/test_content_providers.py::test_one_call_writes_exactly_one_log_line_with_the_tables_cost_and_no_key_or_prompt
+FAILED scripts/generate/test_content_providers.py::test_judge_calls_use_the_judge_model_and_its_price
+FAILED scripts/generate/test_content_providers.py::test_a_call_whose_answer_cannot_be_used_is_still_logged
+3 failed, 13 deselected in 0.67s
+
+--- 4. Revert and test again (expect pass) ---
+...                                                                      [100%]
+3 passed, 13 deselected in 0.18s
