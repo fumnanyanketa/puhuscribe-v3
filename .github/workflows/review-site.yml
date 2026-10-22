@@ -1,0 +1,186 @@
+# The private review site for the native reviewer (job 13-review-site, "Done
+# when" 10, 11, 14 to 17 and 19): the puhuscribe-review Worker at
+# puhuscribe.exentrik.co, behind Cloudflare Access, in the Exentrik Cloudflare
+# account (the manager's addendum to the spec, DNS case C1).
+#
+# - Pull requests that touch the site: build it, run its tests and a deploy dry
+#   run. No secret.
+# - Pushes to main that touch the site, and manual starts: the same, then the
+#   deploy job, which runs only on main and never for Dependabot.
+#
+# Secrets, all in the deploy job only:
+#   CLOUDFLARE_REVIEW_API_TOKEN, CLOUDFLARE_REVIEW_ACCOUNT_ID  the deploy step
+#   REVIEW_CF_ACCESS_CLIENT_ID, REVIEW_CF_ACCESS_CLIENT_SECRET  the live test step
+# Variables (identifiers, not secret): REVIEW_ACCESS_TEAM_DOMAIN and
+# REVIEW_ACCESS_AUD reach the Worker with --var; REVIEW_WORKERS_SUBDOMAIN is
+# read by one live test. No email address is ever written here: the two
+# people allowed in are typed into the Access policy in the dashboard.
+#
+# Until the owner's Cloudflare setup exists (none of the four deploy settings
+# set), the deploy job skips the deploy with a notice and stays green. A half
+# finished setup (some set, some missing) fails and names what is missing.
+#
+# This repository is public. A pull request, also one from a fork, runs only
+# the build job, which holds no secret and no variable. The job that holds
+# secrets never runs on a pull request.
+#
+# Actions not made by GitHub would be pinned to a full commit with the version
+# in a comment; this workflow uses only GitHub's own actions.
+name: Review site
+
+on:
+  pull_request:
+    paths:
+      - 'review-site/**'
+      - 'scripts/review-site/**'
+      - 'content/drafts/*/review/**'
+      - 'content/reviews/**'
+      - 'e2e/review-site*.spec.ts'
+      - 'tests/review-site*.test.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/review-site.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'review-site/**'
+      - 'scripts/review-site/**'
+      - 'content/drafts/*/review/**'
+      - 'content/reviews/**'
+      - '.github/workflows/review-site.yml'
+  # A redeploy by hand. The deploy job still runs only when started on main.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Pull requests: a newer push cancels the older run. Pushes and manual starts:
+# each run is its own group here; the deploy job has its own group below.
+concurrency:
+  group: review-site-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NODE_VERSION: '24'
+  WRANGLER_SEND_METRICS: 'false'
+
+jobs:
+  build:
+    name: Review site build, tests and deploy dry run
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Build the review site
+        run: npm run build:review-site
+      - name: Review site tests (Vitest)
+        run: npx vitest run scripts/review-site review-site tests/review-site.test.ts
+      - name: Deploy dry run (no secret, nothing uploaded)
+        run: npx wrangler deploy --dry-run --config review-site/wrangler.jsonc --outdir "$RUNNER_TEMP/review-worker"
+
+  deploy:
+    name: Deploy the review site (main only)
+    needs: [build]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    # Deploys never run at the same time, and a running deploy is never
+    # cancelled. A newer deploy waits for it.
+    concurrency:
+      group: review-site-deploy
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Build the review site
+        run: npm run build:review-site
+      - name: Deploy puhuscribe-review to the Exentrik account
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_REVIEW_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_REVIEW_ACCOUNT_ID }}
+          ACCESS_TEAM_DOMAIN: ${{ vars.REVIEW_ACCESS_TEAM_DOMAIN }}
+          ACCESS_AUD: ${{ vars.REVIEW_ACCESS_AUD }}
+        run: |
+          missing=()
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || missing+=(CLOUDFLARE_REVIEW_API_TOKEN)
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || missing+=(CLOUDFLARE_REVIEW_ACCOUNT_ID)
+          [ -n "$ACCESS_TEAM_DOMAIN" ] || missing+=(REVIEW_ACCESS_TEAM_DOMAIN)
+          [ -n "$ACCESS_AUD" ] || missing+=(REVIEW_ACCESS_AUD)
+          if [ ${#missing[@]} -eq 4 ]; then
+            echo "::notice title=Review site not deployed::The Cloudflare setup for the review site is not done yet (${missing[*]} not set). Nothing was deployed."
+            printf '### Review site not deployed\n\nThe Cloudflare setup for the review site is not done yet. Not set: %s.\n' "${missing[*]}" >> "$GITHUB_STEP_SUMMARY"
+            echo "deployed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error title=Review site setup incomplete::Not set: ${missing[*]}. Nothing was deployed. Set them, then start this workflow again on main."
+            exit 1
+          fi
+          if ! [[ "$ACCESS_TEAM_DOMAIN" =~ ^https://[a-z0-9]+(-[a-z0-9]+)*\.cloudflareaccess\.com$ ]]; then
+            echo "::error::REVIEW_ACCESS_TEAM_DOMAIN must be the team domain, https://<team>.cloudflareaccess.com. Nothing was deployed."
+            exit 1
+          fi
+          if ! [[ "$ACCESS_AUD" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "::error::REVIEW_ACCESS_AUD must be the Access application's AUD tag (64 characters, 0-9 and a-f). Nothing was deployed."
+            exit 1
+          fi
+          npx wrangler deploy --config review-site/wrangler.jsonc \
+            --var "ACCESS_TEAM_DOMAIN:$ACCESS_TEAM_DOMAIN" \
+            --var "ACCESS_AUD:$ACCESS_AUD"
+          echo "deployed=true" >> "$GITHUB_OUTPUT"
+      - name: Install Chromium and WebKit
+        if: steps.deploy.outputs.deployed == 'true'
+        run: npx playwright install --with-deps chromium webkit
+      # With the service token headers set, playwright.config.ts writes no
+      # trace, HAR file or HTML report. The files left are checked for the token
+      # values in this same step, so the secrets reach no other step.
+      - name: Live tests of the review site, with its Access service token
+        id: live
+        if: steps.deploy.outputs.deployed == 'true'
+        env:
+          REVIEW_SITE_URL: https://puhuscribe.exentrik.co
+          PLAYWRIGHT_BASE_URL: https://puhuscribe.exentrik.co
+          REVIEW_WORKERS_SUBDOMAIN: ${{ vars.REVIEW_WORKERS_SUBDOMAIN }}
+          # No trace or HTML report: the repository's artifacts are public.
+          PUHUSCRIBE_NO_TRACE: '1'
+          CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          if [ -z "$CF_ACCESS_CLIENT_ID" ] || [ -z "$CF_ACCESS_CLIENT_SECRET" ]; then
+            echo "::error::The review site is deployed, but REVIEW_CF_ACCESS_CLIENT_ID or REVIEW_CF_ACCESS_CLIENT_SECRET is not set, so the live tests cannot run."
+            exit 1
+          fi
+          set +e
+          npx playwright test --grep @review-site
+          tests=$?
+          node scripts/ci/check-files-for-secrets.ts \
+            --env CF_ACCESS_CLIENT_ID --env CF_ACCESS_CLIENT_SECRET \
+            test-results playwright-report
+          guard=$?
+          if [ "$guard" -eq 0 ]; then echo "clean=true" >> "$GITHUB_OUTPUT"; fi
+          if [ "$tests" -ne 0 ]; then exit "$tests"; fi
+          exit "$guard"
+      - name: Keep the live test screenshots and videos
+        if: (success() || failure()) && steps.live.outputs.clean == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: review-site-screenshots-and-videos
+          path: |
+            test-results/**/*.png
+            test-results/**/*.webm
+          if-no-files-found: ignore
+          retention-days: 14
