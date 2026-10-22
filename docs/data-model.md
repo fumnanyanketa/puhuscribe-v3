@@ -55,7 +55,7 @@ Rules that apply to all of them:
 - **Only your own rows.** Each rule compares the row's `user_id` with the user id in the token. Nobody can read, change or add rows for another learner.
 - **Nothing unmet is reviewed.** A learner can create a card for a form only after they reached at least "understand" in a session of an approved dialogue that contains that form.
 - **No deletes by learners.** Rows go only when the user is deleted.
-- **Guests keep everything.** Every table links to `auth.users(id)`. Supabase keeps the same user id when a guest adds an email (job 9 builds this), so every row stays attached. No rule looks at whether the learner is a guest.
+- **Guests keep everything.** Every table links to `auth.users(id)`. Supabase keeps the same user id when a guest adds an email (job 11-accounts builds this), so every row stays attached. No rule looks at whether the learner is a guest.
 - **Export and deletion.** Deleting a user from `auth.users` deletes all their rows in every learner table (`on delete cascade`). A catalogue test fails if a future table with a `user_id` forgets this or forgets row level security.
 - **No audio or transcript.** None of these tables stores audio, a recording or a transcript of the learner. Job 8 adds its own tables for that.
 
@@ -70,7 +70,19 @@ Added in job 8-first-session. When the finish screen opens, the Worker calls it 
 
 It runs with the learner's own rights (`security invoker`), so every rule above still applies inside it: it sees only approved content, only the learner's own session, and the card rule decides which cards may be made. Calling it again changes nothing. Only the `authenticated` role may call it.
 
-**Unused guest accounts (owner's decision of 20 October 2026, for job 9):** a guest account with no activity for 90 days is deleted, together with all its rows. Job 9 builds the clean up and states it in the privacy notice. Supabase does not delete anonymous users by itself.
+### Accounts and personal data (job 11-accounts)
+
+Three functions a learner may call, each with no argument, so nobody can name another learner. Only the `authenticated` role may call them. Migration: `supabase/migrations/20261022072911_accounts.sql`; tests: `supabase/tests/database/accounts.test.sql`.
+
+| Function | What it does | Runs as |
+| --- | --- | --- |
+| `public.my_account()` | The caller's own account: id, email, guest or not, when it was made, last sign in, when the email was confirmed. No row when the sign in is no longer live, meaning the token's `session_id` is not in `auth.sessions` (signed out, or the account deleted). The Worker learns who is signed in from this, not from Supabase Auth. | The owner (`security definer`), because learners cannot read `auth.users` |
+| `public.export_my_data()` | Every row of the caller's in every user table, each row with every column, as one JSON object under `tables`. The "Download my data" file is built from it. | The learner (`security invoker`), so each table's read rule applies |
+| `public.delete_my_account()` | Deletes the caller's own `auth.users` row; the cascades remove every user table row. Refuses, writing nothing, when the token has no user id or its sign in is not live. | The owner (`security definer`), because learners cannot delete from `auth.users` |
+
+**The export check.** A user table is any table, in any schema this project creates, with a `user_id` column or a link to `auth.users`. The pgTAP test finds them in the database catalogue (skipping Supabase's own schemas by name) and fails when `export_my_data()` does not list exactly those tables, or when an exported row misses a column. So a job that adds a user table must add it to the export and to `src/privacy/data-inventory.ts` in the same job.
+
+**The daily clean up.** `private.delete_inactive_guests()` deletes guest accounts with no learning activity for 90 days (owner's decision of 20 October 2026) and email accounts with none for 24 months (owner's decision on job 11), with all their rows. Activity is the latest of the account's creation, its sessions' start and end and its reviews. It skips anyone for whom `private.user_has_stored_files(user_id)` is true; that function answers false today and is replaced by a job that keeps a learner's files outside the database, so the clean up never leaves files behind. Supabase Cron (`pg_cron`) runs it every day at 03:17 UTC (job name `delete-inactive-accounts`). No API role can run it. Supabase does not delete anonymous users by itself.
 
 ## Reference data
 

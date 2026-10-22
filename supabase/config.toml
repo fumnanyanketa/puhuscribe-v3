@@ -203,7 +203,10 @@ password_requirements = ""
 
 [auth.rate_limit]
 # Number of emails that can be sent per hour. Requires auth.email.smtp to be enabled.
-email_sent = 2
+# PuhuScribe: one local browser test run sends about 30 code emails to Mailpit
+# (job 11-accounts), so the local limit allows twice that. Local only; the
+# hosted test project keeps its own limit.
+email_sent = 60
 # Number of SMS messages that can be sent per hour. Requires auth.sms to be enabled.
 sms_sent = 30
 # Number of anonymous sign-ins that can be made per hour per IP address. Requires enable_anonymous_sign_ins = true.
@@ -213,9 +216,14 @@ anonymous_users = 10000
 # Number of sessions that can be refreshed in a 5 minute interval per IP address.
 token_refresh = 150
 # Number of sign up and sign-in requests that can be made in a 5 minute interval per IP address (excludes anonymous users).
-sign_in_sign_ups = 30
+# PuhuScribe: every browser test reaches Supabase from the one local Worker, so
+# a run's code requests (about 40 in 5 minutes at most) share this limit
+# (job 11-accounts). Local only.
+sign_in_sign_ups = 120
 # Number of OTP / Magic link verifications that can be made in a 5 minute interval per IP address.
-token_verifications = 30
+# PuhuScribe: the same reason; a guest's code is tried as an email change and
+# then as a sign in code, so each check can count twice (job 11-accounts). Local only.
+token_verifications = 120
 # Number of Web3 logins that can be made in a 5 minute interval per IP address.
 web3 = 30
 
@@ -232,7 +240,10 @@ enable_signup = true
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
 # If enabled, users need to confirm their email address before signing in.
-enable_confirmations = false
+# PuhuScribe: on, as on the hosted project. With it off, Supabase attaches an
+# email to a guest account at once, without the code from that inbox
+# (factory/jobs/11-accounts/spec.md, "Done when" 7).
+enable_confirmations = true
 # If enabled, users will need to reauthenticate or have logged in recently to change their password.
 secure_password_change = false
 # Controls the minimum amount of time that must pass before sending another signup confirmation or password reset email.
@@ -256,6 +267,17 @@ otp_expiry = 3600
 # [auth.email.template.invite]
 # subject = "You have been invited"
 # content_path = "./supabase/templates/invite.html"
+
+# PuhuScribe: the two emails the app sends, each a 6 digit code and no link
+# (factory/jobs/11-accounts/spec.md, "Done when" 15). The hosted test project
+# gets the same text by hand (owner setup steps in the README).
+[auth.email.template.magic_link]
+subject = "Your PuhuScribe code"
+content_path = "./supabase/templates/magic-link.html"
+
+[auth.email.template.email_change]
+subject = "Your PuhuScribe code"
+content_path = "./supabase/templates/email-change.html"
 
 # Uncomment to customize notification email template
 # [auth.email.notification.password_changed]

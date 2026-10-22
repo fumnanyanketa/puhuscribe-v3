@@ -315,7 +315,8 @@ const CLI_SERVICES = [
   'vector',
   'supavisor',
 ]
-const USED_SERVICES = ['gotrue', 'kong', 'postgrest']
+// Job 11-accounts added mailpit: its browser tests read sign in codes from it.
+const USED_SERVICES = ['gotrue', 'kong', 'mailpit', 'postgrest']
 
 function stepNames(id: string): string[] {
   return [...job(id).matchAll(/^ {6}- name: (.+)$/gm)].map((m) => m[1] ?? '')
@@ -364,7 +365,7 @@ describe('pull request browser tests on a throwaway database', () => {
     expect(local()).not.toMatch(/^ {4}needs:/m)
   })
 
-  it('[prdb 1] starts a local Supabase with only Postgres, kong, postgrest and gotrue', () => {
+  it('[prdb 1] [accounts 28] starts a local Supabase with only Postgres, kong, postgrest, gotrue and mailpit', () => {
     const match = /^npx supabase start -x ([a-z,-]+)( |$)/m.exec(runText('browser'))
     expect(match?.[1]).toBeDefined()
     const excluded = (match?.[1] ?? '').split(',')
@@ -530,8 +531,8 @@ describe('browser tests against the test project after merge', () => {
     )
   })
 
-  it('[prdb 8] runs the suite without the tests that need browser seed rows', () => {
-    expect(runText('browser-test-project')).toMatch(/^npx playwright test --grep-invert @seed$/m)
+  it('[prdb 8] [accounts 28] runs the suite without the tests that need browser seed rows or the local mail catcher', () => {
+    expect(runText('browser-test-project')).toMatch(/^npx playwright test --grep-invert "@seed\|@email"$/m)
     expect(runText('browser-test-project')).not.toContain('seeds/')
   })
 
@@ -560,11 +561,11 @@ describe('preview links on pull requests that change the database', () => {
     )
   })
 
-  it('[prdb 10] a database change runs only @preview tests on the preview, otherwise the suite without @seed', () => {
+  it('[prdb 10] [accounts 28] a database change runs only @preview tests on the preview, otherwise the suite without @seed and @email', () => {
     const run = runText('preview')
     expect(run).toContain('if [ "$DB_CHANGED" = true ]; then')
     expect(run).toMatch(/^npx playwright test --grep @preview$/m)
-    expect(run).toMatch(/^npx playwright test --grep-invert @seed$/m)
+    expect(run).toMatch(/^npx playwright test --grep-invert "@seed\|@email"$/m)
     expect(run).not.toMatch(/^npx playwright test$/m)
   })
 

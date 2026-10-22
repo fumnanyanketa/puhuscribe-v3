@@ -57,9 +57,14 @@ export type TodayAnswer = ReadySession | { state: 'not_ready' } | { state: 'all_
 /** What the front door shows next, from GET /api/today. */
 export type FrontDoorState = 'start' | 'continue' | 'all_done' | 'not_ready'
 
-/** The answer of GET /api/today. */
+/**
+ * The answer of GET /api/today. When a sign in ended and it was an email
+ * account, `account: 'email'` picks the email message (job 11-accounts,
+ * "Done when" 22); guests get job 8's answer unchanged.
+ */
 export type FrontDoorAnswer =
-  { signedIn: false; ended: boolean } | { signedIn: true; today: FrontDoorState; canDo?: string }
+  | { signedIn: false; ended: boolean; account?: 'email' }
+  | { signedIn: true; today: FrontDoorState; canDo?: string }
 
 /** The steps a learner may record from the browser. Never beyond understand. */
 export const RECORDABLE_STEPS = ['hear', 'understand'] as const

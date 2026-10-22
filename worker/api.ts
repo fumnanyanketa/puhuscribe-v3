@@ -7,8 +7,10 @@
 // (factory/jobs/8-first-session/spec.md, "Done when" 19; worker/logs.test.ts).
 
 import { RECORDABLE_STEPS, type FrontDoorAnswer, type RecordableStep } from '../src/lib/session-types.ts'
+import { handleAccountApi, type AccountDeps } from './account.ts'
 import { json, readBody, refuseNonGet, refuseUnsafeWrite, withCookies } from './http.ts'
 import {
+  endedHint,
   hasAuthCookie,
   learnerContext,
   signInState,
@@ -17,12 +19,12 @@ import {
   type LearnerContext,
   type SupabaseEnv,
 } from './learner-auth.ts'
-import { DatabaseUnavailable, supabaseLearnerDb, type LearnerDb } from './learner-db.ts'
+import { AccountGone, DatabaseUnavailable, supabaseLearnerDb, type LearnerDb } from './learner-db.ts'
 import { ContentUnusable, frontDoorState, readySession, todayFor } from './session-plan.ts'
 
 export type ApiEnv = SupabaseEnv
 
-export interface ApiDeps {
+export interface ApiDeps extends AccountDeps {
   fetch: Fetch
   /** Tests pass a fake database; normally it is Supabase, as the learner. */
   learnerDb?: (context: LearnerContext) => LearnerDb
@@ -119,7 +121,7 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
   const state = await signInState(context)
   const answer = (body: FrontDoorAnswer) => withCookies(json(body), context.setCookies())
   if (state === 'none') return answer({ signedIn: false, ended: false })
-  if (state === 'ended') return answer({ signedIn: false, ended: true })
+  if (state === 'ended') return answer({ signedIn: false, ended: true, ...(await endedHint(request)) })
   if (state === 'unavailable') return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
   try {
     const pick = await todayFor(databaseFor(context, deps))
@@ -151,8 +153,21 @@ async function signedIn(
   const refused =
     state === 'unavailable'
       ? json({ error: 'not_available' }, 503)
-      : json({ error: state === 'ended' ? 'session_ended' : 'signed_out' }, 401)
+      : state === 'ended'
+        ? json({ error: 'session_ended', ...(await endedHint(request)) }, 401)
+        : json({ error: 'signed_out' }, 401)
   return { context, refused: withCookies(refused, context.setCookies()) }
+}
+
+// A write the database refused because the account no longer exists (it was
+// deleted on another device between the sign in check and the write): the
+// cookies are cleared and the answer is 401 (job 11-accounts, "Done when" 22).
+async function accountGone(request: Request, context: LearnerContext): Promise<Response> {
+  context.clearCookies()
+  return withCookies(
+    json({ error: 'session_ended', ...(await endedHint(request)) }, 401),
+    context.setCookies(),
+  )
 }
 
 // POST /api/sessions/today: today's session, made if needed (statement 6).
@@ -168,6 +183,7 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
     const session = pick.open ?? (await db.startSession(pick.dialogue.id))
     return withCookies(json(await readySession(db, pick.dialogue, session)), context.setCookies())
   } catch (error) {
+    if (error instanceof AccountGone) return accountGone(request, context)
     return withCookies(faultAnswer(error), context.setCookies())
   }
 }
@@ -246,6 +262,9 @@ export async function handleApi(
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])
+  // Accounts and personal data (job 11-accounts): worker/account.ts.
+  const account = await handleAccountApi(request, env, deps)
+  if (account) return account
   // The body is drained here too: an answer sent with the body unread broke
   // the next request on the same connection in the local Workers runtime.
   await readBody(request)

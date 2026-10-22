@@ -235,6 +235,17 @@ isOneToOne: false
           Functions: {
             "complete_session":
 { Args: { "session_id": string }; Returns: undefined
+                           },
+"delete_my_account":
+{ Args: Record<PropertyKey, never>; Returns: undefined
+                           },
+"export_my_data":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"my_account":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "created_at": string,"email": string,"email_confirmed_at": string,"id": string,"is_anonymous": boolean,"last_sign_in_at": string
+            }[]
                            }
           }
           Enums: {

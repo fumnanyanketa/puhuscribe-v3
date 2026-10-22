@@ -91,5 +91,20 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 | Cloudflare Workers (app, API, preview links)             | Workers Free                                                              | €0                                             |
 | Cloudflare Zero Trust (Access sign in for preview links) | Free (up to 50 users)                                                     | €0                                             |
 | Supabase (test project `puhuscribe-test`)                | Free                                                                      | €0                                             |
+| Supabase built in email sender (sign in code emails)     | Included in Free (reaches only the Supabase team, 2 emails an hour)       | €0                                             |
+| Supabase Cron (daily clean up of unused accounts)        | Included in Free                                                          | €0                                             |
 | Anthropic API (drafting Finnish content at build time)   | Pay per use (key not created yet)                                         | €0 so far; about $0.25 per dialogue (estimate) |
 | Azure Speech (voices for both registers at build time)   | Free allowance, 0.5 million characters a month (resource not created yet) | €0                                             |
+
+Before real learners can add an email or sign in, the owner chooses an email sender (job 11-accounts, owner's call 1, decided at launch). That will be a new service and may cost money.
+
+## Owner setup for accounts (job 11-accounts)
+
+Free, about 10 minutes, on the Supabase test project (`puhuscribe-test`), in the dashboard. Needed before job 11 merges; nothing here holds a key.
+
+1. Authentication, Emails, Templates, "Magic link": subject `Your PuhuScribe code`, body copied from `supabase/templates/magic-link.html`.
+2. Authentication, Emails, Templates, "Change email address": subject `Your PuhuScribe code`, body copied from `supabase/templates/email-change.html`.
+3. Authentication, Sign In / Providers, Email: check that "Confirm email" and "Secure email change" are on.
+4. Authentication, Audit logs (or the project's Auth settings): turn off "Write audit logs to the database", so a deleted account leaves no audit rows behind.
+
+The privacy notice also needs the owner's own input in `src/privacy/notice-settings.ts`: the name of who is responsible for learner data and the contact address for privacy requests. No agent fills these in.

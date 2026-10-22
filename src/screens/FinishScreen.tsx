@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { callApi } from '../lib/api.ts'
 import { pickFinishLine } from '../lib/session-rules.ts'
 import type { ReadySession } from '../lib/session-types.ts'
@@ -25,6 +26,9 @@ type SaveState = 'saving' | 'saved' | 'not_saved'
 
 async function save(sessionId: string): Promise<boolean> {
   const answer = await callApi(`/api/sessions/${sessionId}/complete`, 'POST')
+  // An email account deleted or signed out on another device (job 11-accounts,
+  // "Done when" 22). Guests keep job 8's own handling.
+  if (emailSignInEnded(answer)) leaveWith('signed-out-email')
   return answer?.status === 200
 }
 
