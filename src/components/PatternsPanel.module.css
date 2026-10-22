@@ -53,13 +53,19 @@
 
 .top {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-3);
 }
 
+/* With large text the Close button moves under the title instead of pushing
+   the sheet sideways (job 12 browser test at 375 px and 200 percent text). */
 .title {
+  flex: 1 1 10rem;
+  min-width: 0;
   margin: var(--space-1) 0 0;
+  overflow-wrap: break-word;
   font-size: var(--text-title);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-title);
