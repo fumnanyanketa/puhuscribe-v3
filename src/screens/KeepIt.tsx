@@ -87,6 +87,13 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     document.getElementById(typingForm)?.querySelector('input')?.focus()
   }, [at, typingForm])
 
+  // After an answer is checked, focus moves to "Next", once it is on screen.
+  // (Moving it straight after the answer came back ran before React had drawn
+  // the button, so focus was lost: the keyboard browser test caught it.)
+  useEffect(() => {
+    if (shown !== null) nextButton.current?.querySelector('button')?.focus()
+  }, [shown])
+
   async function check(answer: ReviewAnswer) {
     if (!item || checking) return
     setChecking(true)
@@ -107,11 +114,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
       setShown('already_saved')
     } else {
       setProblem(true)
-      return
     }
-    setTimeout(() => {
-      nextButton.current?.querySelector('button')?.focus()
-    }, 0)
   }
 
   async function next() {

@@ -348,7 +348,17 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(feedback.getByRole('button', { name: 'Play the written line', exact: true })).toHaveCount(1)
     await expect(feedback.getByText('Spoken', { exact: true }).first()).toBeVisible()
     await expect(feedback.getByText('Written', { exact: true }).first()).toBeVisible()
-    expect(await feedback.getByText(', the missing word').count()).toBeGreaterThanOrEqual(2)
+    // Every word of the line linked to the form is marked, in each register
+    // (a form can sit in one register only, such as "moi" against "hei").
+    const lineId = (await feedback.locator('[data-line-id]').first().getAttribute('data-line-id')) ?? ''
+    const linked = Number(
+      one(`select count(*) from public.tokens where line_id = :lid and form_id = :fid`, {
+        lid: lineId,
+        fid: formId,
+      }),
+    )
+    expect(linked).toBeGreaterThanOrEqual(1)
+    await expect(feedback.getByText(', the missing word')).toHaveCount(linked)
     await expect(feedback.locator('[lang="fi"]', { hasText: spoken }).first()).toBeVisible()
     await expect(feedback.locator('[lang="fi"]', { hasText: written }).first()).toBeVisible()
     await expect(feedback.getByText(/^You wrote/)).toBeVisible()

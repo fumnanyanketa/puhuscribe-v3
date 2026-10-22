@@ -70,6 +70,8 @@ export async function finishFirstSession(page: Page): Promise<{ userId: string; 
  * helper would wait for the finish screen.
  */
 export async function throughUnderstandIt(page: Page, userId: string): Promise<void> {
+  // The session screen loads first; Hear it's buttons are read only once it shows.
+  await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   await finishHearIt(page)
   const dialogueId = sessionsOf(userId).find((s) => !s.ended && s.dialogueId !== '')?.dialogueId ?? ''
   const lines = linesOf(dialogueId)
