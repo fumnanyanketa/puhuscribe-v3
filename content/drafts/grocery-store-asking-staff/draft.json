@@ -1,0 +1,891 @@
+{
+  "format": "puhuscribe-draft-1",
+  "brief_path": "content/briefs/grocery-store-asking-staff.json",
+  "brief": {
+    "unit": {
+      "slug": "grocery-store",
+      "position": 3,
+      "title_en": "At the grocery store",
+      "can_do_en": "Can ask where something is and understand simple directions."
+    },
+    "dialogue": {
+      "slug": "grocery-store-asking-staff",
+      "position": 1,
+      "title_en": "Asking where something is"
+    },
+    "situation_en": "Nina is shopping in a grocery store in Helsinki. She cannot find the oat milk, so she says excuse me to Ville, who works in the store, and asks where the oat milk is. Then she asks whether they have rye bread. Ville answers both questions briefly: the oat milk is over there, and yes, they have rye bread, right here. Nina says thanks.",
+    "grammar": [
+      "olla-present",
+      "personal-pronouns",
+      "inessive-elative",
+      "question-clitic",
+      "partitive-singular",
+      "numbers-1-20",
+      "saisinko",
+      "missa-on",
+      "adessive-allative",
+      "tuolla-tassa"
+    ],
+    "rank_cap": 1500,
+    "extra_base_forms": [
+      "moi",
+      "kauramaito",
+      "ruisleipä",
+      "hylly",
+      "kassa",
+      "kauppa"
+    ],
+    "speakers": [
+      {
+        "name": "Ville",
+        "role_en": "a staff member stocking the shelves",
+        "voice": "fi-FI-HarriNeural"
+      },
+      {
+        "name": "Nina",
+        "role_en": "a customer looking for two things",
+        "voice": "fi-FI-SelmaNeural"
+      }
+    ],
+    "line_count": 6
+  },
+  "providers": {
+    "ai": "anthropic",
+    "voice": "azure"
+  },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Nina",
+      "text_puhe": "Anteeks, missä on kauramaito?",
+      "text_kirja": "Anteeksi, missä on kauramaito?",
+      "gloss_en": "Excuse me, where is the oat milk?",
+      "kirja_tokens": [
+        {
+          "surface": "Anteeksi",
+          "lemma": "anteeksi",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "anteeksi",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]anteeksi[X]anteeksi",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+anteeksi(anteeksi)"
+          },
+          "form": "form-91a5cf1932b7"
+        },
+        {
+          "surface": "missä",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sine][Ny]ssä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+mikä(mikä)"
+          },
+          "form": "form-58f467b0bcb4"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "kauramaito",
+          "lemma": "kauramaito",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kauramaito",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kaura[X]kaur[Sn][Ny]a[Bh][Bc][Ln][Xp]maito[X]maito[Sn][Ny]",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp=ppppp",
+            "WORDBASES": "+kaura(kaura)+maito(maito)"
+          },
+          "form": "form-ceb16e388632"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Anteeks",
+          "kirja": 1
+        },
+        {
+          "surface": "missä",
+          "kirja": 2
+        },
+        {
+          "surface": "on",
+          "kirja": 3
+        },
+        {
+          "surface": "kauramaito",
+          "kirja": 4
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Anteeks is the spoken form of anteeksi; same question about oat milk.",
+        "fingerprint": "c9d1ebf48364f2cabacb9cfbcdcd9b488d4bc60c02927c4150e8222aa09a41f3",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c216283266eb1d5f199c0f4fc1be4e01ce116b530432e2fd809ae44c34b44181",
+          "text": "Anteeks, missä on kauramaito?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6de6ba125ba4742adf51407d9cdaa4f3d33325df4c1f4b3ac3ac19fd1d8b45e6",
+          "text": "Anteeksi, missä on kauramaito?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 2,
+      "speaker": "Ville",
+      "text_puhe": "Se on tuol.",
+      "text_kirja": "Se on tuolla.",
+      "gloss_en": "It's over there.",
+      "kirja_tokens": [
+        {
+          "surface": "Se",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-eca33913649c"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "tuolla",
+          "lemma": "tuo",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tuo",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sade][Ny]lla",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "ulkoolento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+tuo(tuo)"
+          },
+          "form": "form-d53af38ffdce"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Se",
+          "kirja": 1
+        },
+        {
+          "surface": "on",
+          "kirja": 2
+        },
+        {
+          "surface": "tuol",
+          "kirja": 3
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tuol is spoken for tuolla; both mean 'it is over there'.",
+        "fingerprint": "c5bf09fdb1706567083074dbb67f698182f5ef9e2126432fe87fce182d8a4391",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5bcf60c12478a327622df477809a44381870e6d5fc333aa10c1d8da3185ef546",
+          "text": "Se on tuol.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "c946ff3123af21f836762ba3ca843337227935707e0884c29883a56d56bfc30e",
+          "text": "Se on tuolla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    },
+    {
+      "n": 3,
+      "speaker": "Nina",
+      "text_puhe": "Kiitti. Onks teil myös kahvia?",
+      "text_kirja": "Kiitos. Onko teillä myös kahvia?",
+      "gloss_en": "Thanks. Do you also have coffee?",
+      "kirja_tokens": [
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        },
+        {
+          "surface": "Onko",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n[Fko][Ef]ko",
+            "KYSYMYSLIITE": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-5eb112d9aace"
+        },
+        {
+          "surface": "teillä",
+          "lemma": "te",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "te",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]te[X]te[Sade][Nm]illä",
+            "NUMBER": "plural",
+            "SIJAMUOTO": "ulkoolento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+te(te)"
+          },
+          "form": "form-2661e101e057"
+        },
+        {
+          "surface": "myös",
+          "lemma": "myös",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "myös",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]myös[X]myös",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+myös(myös)"
+          },
+          "form": "form-fe354724e29a"
+        },
+        {
+          "surface": "kahvia",
+          "lemma": "kahvi",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kahvi",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kahvi(kahvi)"
+          },
+          "form": "form-304ceaba3156"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kiitti",
+          "kirja": 1
+        },
+        {
+          "surface": "Onks",
+          "kirja": 2
+        },
+        {
+          "surface": "teil",
+          "kirja": 3
+        },
+        {
+          "surface": "myös",
+          "kirja": 4
+        },
+        {
+          "surface": "kahvia",
+          "kirja": 5
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and onks teil/onko teillä are register variants; same question about coffee.",
+        "fingerprint": "95009dcf63bff07680c69bdc9157cce788615237760892508156aa5b5fd29a43",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "25aeaa508ecc99306cae575aaab843fa90db8223ba4f0c3279206447251b4cbe",
+          "text": "Kiitti. Onks teil myös kahvia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "79ddd99a8ba3e74deac1f97c0b7f080f93bd5e94d60c9666ca59d428026991b4",
+          "text": "Kiitos. Onko teillä myös kahvia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 4,
+      "speaker": "Ville",
+      "text_puhe": "On, täs.",
+      "text_kirja": "On, tässä.",
+      "gloss_en": "Yes, right here.",
+      "kirja_tokens": [
+        {
+          "surface": "On",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "tässä",
+          "lemma": "tämä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tämä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+tämä(tämä)"
+          },
+          "form": "form-25ac6c76f4b0"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "On",
+          "kirja": 1
+        },
+        {
+          "surface": "täs",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "täs is spoken for tässä; both mean 'yes, here'.",
+        "fingerprint": "d2e32ca3043e45569458c5fb7cd0abd8cf67c35cd1019e89c070efaf23e2c5c4",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "26fdf0e84ee28e9c7174f5ad7a65152640ab4a1ccd12a9eb91775cbe5987cbca",
+          "text": "On, täs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "91b3b9101527a65a28c96c4ed0fdebc36fad6c14b8499e4e990194ed022b0539",
+          "text": "On, tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    },
+    {
+      "n": 5,
+      "speaker": "Nina",
+      "text_puhe": "Hyvä, kiitti!",
+      "text_kirja": "Hyvä, kiitos!",
+      "gloss_en": "Great, thanks!",
+      "kirja_tokens": [
+        {
+          "surface": "Hyvä",
+          "lemma": "hyvä",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hyvä",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+hyvä(hyvä)"
+          },
+          "form": "form-ed646e1f1923"
+        },
+        {
+          "surface": "kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hyvä",
+          "kirja": 1
+        },
+        {
+          "surface": "kiitti",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kiitti is spoken for kiitos; same meaning.",
+        "fingerprint": "c3625c6aabbc15de721e8930ffed691f29d6d29c56193741936e3525a043de03",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "aa443516797ca6f5c213b0548b21c82d5a2836fb232a7d81120ec0648ae55f68",
+          "text": "Hyvä, kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "e579c3d44f79b57fc85c22131255e8ab3e078fa06df3346356c7e85c0b237c64",
+          "text": "Hyvä, kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 6,
+      "speaker": "Ville",
+      "text_puhe": "Hei hei!",
+      "text_kirja": "Hei hei!",
+      "gloss_en": "Bye!",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        },
+        {
+          "surface": "hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hei",
+          "kirja": 1
+        },
+        {
+          "surface": "hei",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "a72630da11a777285d8508293dccfc9c2c045e37746c95ed2018bce89241b3c3",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3403362af2933ebf7e1f379ce3ea60b7eba30f99e497f0ae456b856f8a1bd9b5",
+          "text": "Hei hei!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "6426f143633f18f93a1d1e11dd33c12d1c542948c6d91b782875a8ed2af89cb1",
+          "text": "Hei hei!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-91a5cf1932b7",
+      "lemma": "anteeksi",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "anteeksi",
+      "surface_puhe": "anteeks",
+      "analysis": {
+        "BASEFORM": "anteeksi",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]anteeksi[X]anteeksi",
+        "STRUCTURE": "=pppppppp",
+        "WORDBASES": "+anteeksi(anteeksi)"
+      },
+      "form_name_en": "adverb",
+      "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
+    },
+    {
+      "id": "form-58f467b0bcb4",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "missä",
+      "surface_puhe": "missä",
+      "analysis": {
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sine][Ny]ssä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+mikä(mikä)"
+      },
+      "form_name_en": "inessive singular",
+      "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
+    },
+    {
+      "id": "form-24c73cc721d6",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "on",
+      "surface_puhe": "on",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=pp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "why_en": "Means 'is': 'where is the oat milk?'"
+    },
+    {
+      "id": "form-ceb16e388632",
+      "lemma": "kauramaito",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kauramaito",
+      "surface_puhe": "kauramaito",
+      "analysis": {
+        "BASEFORM": "kauramaito",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kaura[X]kaur[Sn][Ny]a[Bh][Bc][Ln][Xp]maito[X]maito[Sn][Ny]",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp=ppppp",
+        "WORDBASES": "+kaura(kaura)+maito(maito)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'Oat milk', in its basic nominative form: the thing being looked for."
+    },
+    {
+      "id": "form-eca33913649c",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "se",
+      "surface_puhe": "se",
+      "analysis": {
+        "BASEFORM": "se",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+se(se)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Means 'it', pointing back to the oat milk."
+    },
+    {
+      "id": "form-d53af38ffdce",
+      "lemma": "tuo",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=singular",
+      "surface_kirja": "tuolla",
+      "surface_puhe": "tuol",
+      "analysis": {
+        "BASEFORM": "tuo",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sade][Ny]lla",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "ulkoolento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+tuo(tuo)"
+      },
+      "form_name_en": "adessive singular",
+      "why_en": "Adessive of 'tuo': here it means 'over there', a place a bit away."
+    },
+    {
+      "id": "form-35b130e20e20",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitti",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Means 'thanks'. In speech people often say 'kiitti'."
+    },
+    {
+      "id": "form-5eb112d9aace",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
+      "surface_kirja": "onko",
+      "surface_puhe": "onks",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n[Fko][Ef]ko",
+        "KYSYMYSLIITE": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=pppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
+      "why_en": "'On' with the question ending -ko asks 'is there?'; 'onko teillä' means 'do you have?'"
+    },
+    {
+      "id": "form-2661e101e057",
+      "lemma": "te",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+      "surface_kirja": "teillä",
+      "surface_puhe": "teil",
+      "analysis": {
+        "BASEFORM": "te",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]te[X]te[Sade][Nm]illä",
+        "NUMBER": "plural",
+        "SIJAMUOTO": "ulkoolento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+te(te)"
+      },
+      "form_name_en": "adessive plural",
+      "why_en": "Adessive plural of 'te' (you): 'teillä' with 'onko' means 'do you (all) have'."
+    },
+    {
+      "id": "form-fe354724e29a",
+      "lemma": "myös",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "myös",
+      "surface_puhe": "myös",
+      "analysis": {
+        "BASEFORM": "myös",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]myös[X]myös",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+myös(myös)"
+      },
+      "form_name_en": "adverb",
+      "why_en": "Means 'also' or 'too': coffee as well as oat milk."
+    },
+    {
+      "id": "form-304ceaba3156",
+      "lemma": "kahvi",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "kahvia",
+      "surface_puhe": "kahvia",
+      "analysis": {
+        "BASEFORM": "kahvi",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kahvi(kahvi)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "Partitive of 'kahvi': 'some coffee', an amount, not one counted thing."
+    },
+    {
+      "id": "form-25ac6c76f4b0",
+      "lemma": "tämä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "tässä",
+      "surface_puhe": "täs",
+      "analysis": {
+        "BASEFORM": "tämä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+tämä(tämä)"
+      },
+      "form_name_en": "inessive singular",
+      "why_en": "Inessive of 'tämä': here it means 'here', like 'here you go'."
+    },
+    {
+      "id": "form-ed646e1f1923",
+      "lemma": "hyvä",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+      "surface_kirja": "hyvä",
+      "surface_puhe": "hyvä",
+      "analysis": {
+        "BASEFORM": "hyvä",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sn][Ny]ä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+hyvä(hyvä)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Means 'good!' or 'great!', showing you are happy."
+    },
+    {
+      "id": "form-0de25c00347f",
+      "lemma": "hei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "hei",
+      "surface_puhe": "hei",
+      "analysis": {
+        "BASEFORM": "hei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+hei(hei)"
+      },
+      "form_name_en": "interjection",
+      "why_en": "'Hei hei' said twice means 'bye-bye'."
+    }
+  ],
+  "rounds": 1
+}

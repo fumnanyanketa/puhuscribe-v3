@@ -18,6 +18,7 @@ import {
   type SupabaseEnv,
 } from './learner-auth.ts'
 import { DatabaseUnavailable, supabaseLearnerDb, type LearnerDb } from './learner-db.ts'
+import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
 import { ContentUnusable, frontDoorState, readySession, todayFor } from './session-plan.ts'
 
 export type ApiEnv = SupabaseEnv
@@ -26,6 +27,8 @@ export interface ApiDeps {
   fetch: Fetch
   /** Tests pass a fake database; normally it is Supabase, as the learner. */
   learnerDb?: (context: LearnerContext) => LearnerDb
+  /** Tests pass a fake for the patterns panel's reads (job 12-units-1-3). */
+  patternsDb?: (context: LearnerContext) => PatternsDb
 }
 
 const defaultDeps: ApiDeps = { fetch: (input, init) => fetch(input, init) }
@@ -230,6 +233,28 @@ async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string
   }
 }
 
+const SESSION_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+
+// GET /api/patterns?session=<id>: the "Patterns you've seen" panel
+// (factory/jobs/12-units-1-3/spec.md, "Done when" 14). Reads only, with the
+// learner's own token. A session id that is not the learner's, or not an id
+// at all, is ignored: the answer is the same as without one.
+async function patterns(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Response> {
+  const refused = await refuseNonGet(request)
+  if (refused) return refused
+  const signIn = await signedIn(request, env, deps)
+  if (signIn.refused) return signIn.refused
+  const { context } = signIn
+  const asked = new URL(request.url).searchParams.get('session')
+  const sessionId = asked !== null && SESSION_ID.test(asked) ? asked : null
+  try {
+    const db = deps.patternsDb ? deps.patternsDb(context) : supabasePatternsDb(context.client)
+    return withCookies(json(await patternsFor(db, sessionId)), context.setCookies())
+  } catch (error) {
+    return withCookies(faultAnswer(error), context.setCookies())
+  }
+}
+
 const SESSION_ROUTE =
   /^\/api\/sessions\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/(step|complete)$/
 
@@ -243,6 +268,7 @@ export async function handleApi(
   if (pathname === '/api/guest') return guest(request, env, deps)
   if (pathname === '/api/today') return frontDoor(request, env, deps)
   if (pathname === '/api/sessions/today') return sessionsToday(request, env, deps)
+  if (pathname === '/api/patterns') return patterns(request, env, deps)
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])

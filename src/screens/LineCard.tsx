@@ -3,6 +3,7 @@ import { FinnishLine } from '../components/FinnishLine.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
 import type { LineWord } from '../components/finnish.ts'
 import type { SessionLine, SessionWord } from '../lib/session-types.ts'
+import { useOpenPatterns } from './patterns-context.ts'
 import styles from './Screens.module.css'
 
 // One dialogue line in a session (factory/jobs/8-first-session/spec.md,
@@ -63,6 +64,8 @@ export function LineCard({ line, speakerAs = 'h2', showGloss = false }: LineCard
     setWrittenPlaying(isPlaying)
   }, [])
   const now = spokenPlaying || writtenPlaying
+  // Inside a session, each word card offers "Patterns you've seen" (job 12).
+  const openPatterns = useOpenPatterns()
   const Speaker = speakerAs
 
   return (
@@ -76,6 +79,7 @@ export function LineCard({ line, speakerAs = 'h2', showGloss = false }: LineCard
         written={lineWords(line.written, line)}
         cardAudioWhat={LINE_AUDIO}
         cardAudioCaption={CARD_AUDIO_CAPTION}
+        cardOnPatterns={openPatterns ?? undefined}
       />
       {showGloss && <p className={styles.gloss}>{line.gloss}</p>}
       <div className={styles.lineControls}>
