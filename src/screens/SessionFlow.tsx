@@ -1,9 +1,12 @@
 import type { ReadySession } from '../lib/session-types.ts'
 import { FinishScreen } from './FinishScreen.tsx'
+import { PatternsProvider } from './PatternsProvider.tsx'
 import type { SessionPosition, SessionStep } from './session-steps.ts'
 
 // Shows the screen for where the session stands: one step from the list,
 // each in the session frame with the list's names, or the finish screen.
+// Every word card in it can open "Patterns you've seen" (job 12-units-1-3),
+// which is not a step.
 
 interface SessionFlowProps {
   steps: readonly SessionStep[]
@@ -16,15 +19,23 @@ interface SessionFlowProps {
 export function SessionFlow({ steps, session, position, onStepDone }: SessionFlowProps) {
   const names = steps.map((step) => step.name)
   const current = position.kind === 'step' ? steps[position.index] : undefined
-  if (position.kind === 'finish' || !current) return <FinishScreen session={session} steps={names} />
+  if (position.kind === 'finish' || !current) {
+    return (
+      <PatternsProvider sessionId={session.session.id}>
+        <FinishScreen session={session} steps={names} />
+      </PatternsProvider>
+    )
+  }
   const { Screen } = current
   const index = position.index
   return (
-    <Screen
-      key={current.id}
-      session={session}
-      frame={{ step: current.name, steps: names }}
-      onDone={() => onStepDone(index)}
-    />
+    <PatternsProvider sessionId={session.session.id}>
+      <Screen
+        key={current.id}
+        session={session}
+        frame={{ step: current.name, steps: names }}
+        onDone={() => onStepDone(index)}
+      />
+    </PatternsProvider>
   )
 }

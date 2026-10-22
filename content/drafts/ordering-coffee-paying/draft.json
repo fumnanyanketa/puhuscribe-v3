@@ -1,0 +1,899 @@
+{
+  "format": "puhuscribe-draft-1",
+  "brief_path": "content/briefs/ordering-coffee-paying.json",
+  "brief": {
+    "unit": {
+      "slug": "ordering-coffee",
+      "position": 2,
+      "title_en": "Ordering coffee and a pastry",
+      "can_do_en": "Can order simple items, ask the price, and say thanks."
+    },
+    "dialogue": {
+      "slug": "ordering-coffee-paying",
+      "position": 2,
+      "title_en": "Asking the price and paying"
+    },
+    "situation_en": "In the same café, Daniel asks for a tea and a bun. He asks how much it is. The barista, Emma, says the price in whole euros, a number from 1 to 20. Daniel pays and says here you go as he hands over the money. They both say thanks, and Emma wishes him a good day.",
+    "grammar": [
+      "olla-present",
+      "personal-pronouns",
+      "inessive-elative",
+      "question-clitic",
+      "partitive-singular",
+      "numbers-1-20",
+      "saisinko"
+    ],
+    "rank_cap": 1500,
+    "extra_base_forms": [
+      "moi",
+      "pulla",
+      "tee",
+      "paljon",
+      "yksitoista",
+      "kaksitoista",
+      "kolmetoista",
+      "neljätoista",
+      "viisitoista",
+      "kuusitoista",
+      "seitsemäntoista",
+      "kahdeksantoista",
+      "yhdeksäntoista",
+      "kaksikymmentä"
+    ],
+    "speakers": [
+      {
+        "name": "Emma",
+        "role_en": "the barista at the counter",
+        "voice": "fi-FI-SelmaNeural"
+      },
+      {
+        "name": "Daniel",
+        "role_en": "a customer buying a tea and a bun",
+        "voice": "fi-FI-HarriNeural"
+      }
+    ],
+    "line_count": 6
+  },
+  "providers": {
+    "ai": "anthropic",
+    "voice": "azure"
+  },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Daniel",
+      "text_puhe": "Hei! Saisinks kahvii?",
+      "text_kirja": "Hei! Saisinko kahvia?",
+      "gloss_en": "Hi! Could I have some coffee?",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        },
+        {
+          "surface": "Saisinko",
+          "lemma": "saada",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=conditional;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "saada",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]saada[X]sa[Te][Ap][P1][Ny][Ef]isin[Fko][Ef]ko",
+            "KYSYMYSLIITE": "true",
+            "MOOD": "conditional",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "1",
+            "STRUCTURE": "=pppppppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+saada(saada)"
+          },
+          "form": "form-624bde3d668d"
+        },
+        {
+          "surface": "kahvia",
+          "lemma": "kahvi",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kahvi",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kahvi(kahvi)"
+          },
+          "form": "form-9e75d9cc20ab"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hei",
+          "kirja": 1
+        },
+        {
+          "surface": "Saisinks",
+          "kirja": 2
+        },
+        {
+          "surface": "kahvii",
+          "kirja": 3
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: saisinks/saisinko, kahvii/kahvia; same polite request for coffee.",
+        "fingerprint": "8aeda25b93b692aafd26fc048a3f39d756e5aa06d454e48a5728e170eb425877",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "eb1bea705ba0b806903e950b055000a50ccbae091cb4f90fce53b2fbf29927aa",
+          "text": "Hei! Saisinks kahvii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "09da01ebd9a239ce1c80f892b6b49ff8cf63ba2315a7e359b0576b5e1edc17e6",
+          "text": "Hei! Saisinko kahvia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    },
+    {
+      "n": 2,
+      "speaker": "Emma",
+      "text_puhe": "Kyl, tässä.",
+      "text_kirja": "Kyllä, tässä.",
+      "gloss_en": "Sure, here you are.",
+      "kirja_tokens": [
+        {
+          "surface": "Kyllä",
+          "lemma": "kyllä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kyllä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]kyllä[X]kyllä",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kyllä(kyllä)"
+          },
+          "form": "form-7621b91f3044"
+        },
+        {
+          "surface": "tässä",
+          "lemma": "tämä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tämä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+tämä(tämä)"
+          },
+          "form": "form-c1b13a0ae69c"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kyl",
+          "kirja": 1
+        },
+        {
+          "surface": "tässä",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kyl is a clipped form of kyllä; same meaning.",
+        "fingerprint": "ae527260e2676afb833ae3134532a3db814d390b33558babaa75b4b3f949c970",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "d4e3bd97f7435b8882d020bc03c0998a309bd0f873870a0b8b772e73ab4f0143",
+          "text": "Kyl, tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "18ebe83045032bd28ddade82dee261b4e0ea9252d33e276afa05d59fde495129",
+          "text": "Kyllä, tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 3,
+      "speaker": "Daniel",
+      "text_puhe": "Kiitti! Mikä on hinta?",
+      "text_kirja": "Kiitos! Mikä on hinta?",
+      "gloss_en": "Thanks! What's the price?",
+      "kirja_tokens": [
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        },
+        {
+          "surface": "Mikä",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sn][Ny]kä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+mikä(mikä)"
+          },
+          "form": "form-bfff487cc1b5"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "hinta",
+          "lemma": "hinta",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hinta",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]hinta[X]hint[Sn][Ny]a",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+hinta(hinta)"
+          },
+          "form": "form-42d126359dfc"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kiitti",
+          "kirja": 1
+        },
+        {
+          "surface": "Mikä",
+          "kirja": 2
+        },
+        {
+          "surface": "on",
+          "kirja": 3
+        },
+        {
+          "surface": "hinta",
+          "kirja": 4
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos is a register difference; same question about price.",
+        "fingerprint": "e11fcfec1e94ca3827c59854b7ffcd7dfa7b4ae8461a60d4d3f0340d63f03527",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "cfe9d0d1d804d9c0f5fd751097fb7589fc11647612e627803fb7268773c8dd4f",
+          "text": "Kiitti! Mikä on hinta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b4375165e3434a008ef2f5b6764b3a8ed53afbfdb81b4fbc6a90ad9e6710a114",
+          "text": "Kiitos! Mikä on hinta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    },
+    {
+      "n": 4,
+      "speaker": "Emma",
+      "text_puhe": "Se on neljä euroo.",
+      "text_kirja": "Se on neljä euroa.",
+      "gloss_en": "It's four euros.",
+      "kirja_tokens": [
+        {
+          "surface": "Se",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-eca33913649c"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "neljä",
+          "lemma": "neljä",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "neljä",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]neljä[X]nelj[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+neljä(neljä)"
+          },
+          "form": "form-f2a0946c62d5"
+        },
+        {
+          "surface": "euroa",
+          "lemma": "euro",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "euro",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]euro[X]euro[Sp][Ny]a",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+euro(euro)"
+          },
+          "form": "form-e0b2a20b7101"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Se",
+          "kirja": 1
+        },
+        {
+          "surface": "on",
+          "kirja": 2
+        },
+        {
+          "surface": "neljä",
+          "kirja": 3
+        },
+        {
+          "surface": "euroo",
+          "kirja": 4
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "euroo/euroa is spoken vs written partitive; same price of four euros.",
+        "fingerprint": "143ba3bc83927923c1e8cb86704b7f6d5eb5029c20201955e3ad7174f94a7054",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "5c77f6bf947eecd73d572c23b683f163c8787291ea1fb0205ca9fbf3a61fce2e",
+          "text": "Se on neljä euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "baf0258e96273dd118fcd4f87d58e583c7c0a5e22138fa0f35f1bf97376c175e",
+          "text": "Se on neljä euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 5,
+      "speaker": "Daniel",
+      "text_puhe": "Tässä, kiitti!",
+      "text_kirja": "Tässä, kiitos!",
+      "gloss_en": "Here you go, thanks!",
+      "kirja_tokens": [
+        {
+          "surface": "Tässä",
+          "lemma": "tämä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tämä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+tämä(tämä)"
+          },
+          "form": "form-c1b13a0ae69c"
+        },
+        {
+          "surface": "kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Tässä",
+          "kirja": 1
+        },
+        {
+          "surface": "kiitti",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos is only a register difference.",
+        "fingerprint": "3ec2483290a7fc7266fb6f9ad735ca32303fdc83e5271ed19f4976d86827bdb5",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "eb3985f52e825225a963428691fe982a61140de0cfd1ec30df0b349f3c55c0b5",
+          "text": "Tässä, kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "d43016255f63589370de77fbc497b58e7a1ff1d34f3ffd1f94f0536e6feeed38",
+          "text": "Tässä, kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural"
+        }
+      }
+    },
+    {
+      "n": 6,
+      "speaker": "Emma",
+      "text_puhe": "Kiitti, hyvää päivää!",
+      "text_kirja": "Kiitos, hyvää päivää!",
+      "gloss_en": "Thank you, have a good day!",
+      "kirja_tokens": [
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        },
+        {
+          "surface": "hyvää",
+          "lemma": "hyvä",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hyvä",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sp][Ny]ää",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+hyvä(hyvä)"
+          },
+          "form": "form-0c7a01723f10"
+        },
+        {
+          "surface": "päivää",
+          "lemma": "päivä",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "päivä",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]päivä[X]päiv[Sp][Ny]ää",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+päivä(päivä)"
+          },
+          "form": "form-09fea05a79c1"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kiitti",
+          "kirja": 1
+        },
+        {
+          "surface": "hyvää",
+          "kirja": 2
+        },
+        {
+          "surface": "päivää",
+          "kirja": 3
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos is only a register difference; same greeting.",
+        "fingerprint": "e07e626ea3dd32ea5b5ac8acc175bd32bf4bbe3f45d427de4579a42652ed9844",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "54f75d6d1681ef913d75fbaacb347bbbf99cf7a84fbf001f3108c282aee8e222",
+          "text": "Kiitti, hyvää päivää!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "81275e192a131f512692e11223354caeaa1222378a7b7fb9ba43df35f25b0333",
+          "text": "Kiitos, hyvää päivää!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-0de25c00347f",
+      "lemma": "hei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "hei",
+      "surface_puhe": "hei",
+      "analysis": {
+        "BASEFORM": "hei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+hei(hei)"
+      },
+      "form_name_en": "interjection",
+      "why_en": "A friendly greeting, like 'hi'. This interjection opens the conversation."
+    },
+    {
+      "id": "form-624bde3d668d",
+      "lemma": "saada",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=conditional;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
+      "surface_kirja": "saisinko",
+      "surface_puhe": "saisinks",
+      "analysis": {
+        "BASEFORM": "saada",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]saada[X]sa[Te][Ap][P1][Ny][Ef]isin[Fko][Ef]ko",
+        "KYSYMYSLIITE": "true",
+        "MOOD": "conditional",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "1",
+        "STRUCTURE": "=pppppppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+saada(saada)"
+      },
+      "form_name_en": "conditional present tense, 1st person singular, with the question ending -ko/-kö",
+      "why_en": "'Could I get?' Conditional makes it polite, 1st person singular means 'I', the question ending -ko makes it a question."
+    },
+    {
+      "id": "form-9e75d9cc20ab",
+      "lemma": "kahvi",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "kahvia",
+      "surface_puhe": "kahvii",
+      "analysis": {
+        "BASEFORM": "kahvi",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kahvi(kahvi)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "'Some coffee.' The partitive singular is used for an unspecified amount of something, like coffee you ask for."
+    },
+    {
+      "id": "form-7621b91f3044",
+      "lemma": "kyllä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "kyllä",
+      "surface_puhe": "kyl",
+      "analysis": {
+        "BASEFORM": "kyllä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]kyllä[X]kyllä",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+kyllä(kyllä)"
+      },
+      "form_name_en": "adverb",
+      "why_en": "'Yes.' This adverb answers the request positively. Spoken 'kyl' is a casual short version."
+    },
+    {
+      "id": "form-c1b13a0ae69c",
+      "lemma": "tämä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "tässä",
+      "surface_puhe": "tässä",
+      "analysis": {
+        "BASEFORM": "tämä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+tämä(tämä)"
+      },
+      "form_name_en": "inessive singular",
+      "why_en": "'Here you are.' Inessive singular of tämä 'this', literally 'in this', said when handing something over."
+    },
+    {
+      "id": "form-35b130e20e20",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitti",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'Thanks!' The basic nominative singular form, used alone to thank someone. Spoken 'kiitti' is a casual version."
+    },
+    {
+      "id": "form-bfff487cc1b5",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "mikä",
+      "surface_puhe": "mikä",
+      "analysis": {
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sn][Ny]kä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+mikä(mikä)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'What.' A question word in nominative singular, asking what the price is."
+    },
+    {
+      "id": "form-24c73cc721d6",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "on",
+      "surface_puhe": "on",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=pp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "why_en": "'Is.' Present tense, 3rd person singular of olla 'to be': what is the price."
+    },
+    {
+      "id": "form-42d126359dfc",
+      "lemma": "hinta",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "hinta",
+      "surface_puhe": "hinta",
+      "analysis": {
+        "BASEFORM": "hinta",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]hinta[X]hint[Sn][Ny]a",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+hinta(hinta)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'The price.' Nominative singular, the basic form: it is the thing being asked about."
+    },
+    {
+      "id": "form-eca33913649c",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "se",
+      "surface_puhe": "se",
+      "analysis": {
+        "BASEFORM": "se",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+se(se)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'It.' Nominative singular, referring back to the price."
+    },
+    {
+      "id": "form-f2a0946c62d5",
+      "lemma": "neljä",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "neljä",
+      "surface_puhe": "neljä",
+      "analysis": {
+        "BASEFORM": "neljä",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]neljä[X]nelj[Sn][Ny]ä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+neljä(neljä)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "'Four.' The number stays in nominative singular; the counted word after it changes form."
+    },
+    {
+      "id": "form-e0b2a20b7101",
+      "lemma": "euro",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "euroa",
+      "surface_puhe": "euroo",
+      "analysis": {
+        "BASEFORM": "euro",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]euro[X]euro[Sp][Ny]a",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+euro(euro)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "'Euros.' After a number like four, the counted word goes in the partitive singular."
+    },
+    {
+      "id": "form-0c7a01723f10",
+      "lemma": "hyvä",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
+      "surface_kirja": "hyvää",
+      "surface_puhe": "hyvää",
+      "analysis": {
+        "BASEFORM": "hyvä",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sp][Ny]ää",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+hyvä(hyvä)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "'Good.' In the phrase hyvää päivää, hyvä takes the partitive singular to match päivää."
+    },
+    {
+      "id": "form-09fea05a79c1",
+      "lemma": "päivä",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "päivää",
+      "surface_puhe": "päivää",
+      "analysis": {
+        "BASEFORM": "päivä",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]päivä[X]päiv[Sp][Ny]ää",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+päivä(päivä)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "'Day.' The set phrase hyvää päivää 'good day' uses the partitive singular; here it says goodbye politely."
+    }
+  ],
+  "rounds": 2
+}

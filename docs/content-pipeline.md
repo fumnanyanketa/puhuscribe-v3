@@ -66,7 +66,7 @@ Example: `content/briefs/meeting-people-new-colleague.json`. Every field is need
 | `speakers` | Each speaker's `name`, English `role_en` and Azure `voice` (`fi-FI-NooraNeural`, `fi-FI-HarriNeural` or `fi-FI-SelmaNeural`) |
 | `line_count` | 4 to 8 |
 
-Dictionary forms (nominative singular, the basic form of a verb, words that do not inflect) count as on every grammar list. Everything else needs an entry. Unit 1's entries are `olla-present`, `personal-pronouns`, `inessive-elative` and `question-clitic`. Later units add theirs to `GRAMMAR_CATALOGUE`.
+Dictionary forms (nominative singular, the basic form of a verb, words that do not inflect) count as on every grammar list. Everything else needs an entry. Unit 1's entries are `olla-present`, `personal-pronouns`, `inessive-elative` and `question-clitic`. Unit 2 adds `partitive-singular`, `numbers-1-20` and `saisinko`; unit 3 adds `missa-on`, `adessive-allative` and `tuolla-tassa` (job 12-units-1-3). A brief's list holds its own unit's entries and every earlier unit's. Later units add theirs to `GRAMMAR_CATALOGUE`.
 
 ## The checks
 
@@ -123,3 +123,20 @@ Every call is in `content/logs/ai-calls.jsonl` with its cost, from the dated pri
 | Azure neural voices | Free allowance of 0.5 million characters a month | Under 1,000 characters, €0 |
 
 The estimates are replaced by the measured cost after the first real run.
+
+## Units 1 to 3
+
+Job 12-units-1-3 drafted the first six dialogues, two per unit, with the real workflow. They wait, unpublished, for the native reviewer's batch at the end of the MVP; the cover note for the reviewer is `content/review-batches/mvp-batch-1.md`.
+
+| Unit | Brief | Workflow run (earlier private repository) | Logged cost |
+| --- | --- | --- | --- |
+| 1 | `content/briefs/meeting-people-new-colleague.json` (job 7's) | 39727012637 | $0.14 |
+| 1 | `content/briefs/meeting-people-language-cafe.json` | 39740774570 | $0.30 |
+| 2 | `content/briefs/ordering-coffee-at-the-counter.json` | 39741173183 | $0.20 |
+| 2 | `content/briefs/ordering-coffee-paying.json` | 39741665671 | $0.21 |
+| 3 | `content/briefs/grocery-store-asking-staff.json` | 39742255590 | $0.12 |
+| 3 | `content/briefs/grocery-store-directions.json` | not drafted yet: GitHub did not start run 39742994155 (an account billing block), and the public repository needs its pipeline secrets first | $0.00 |
+
+Cost per unit, measured from the log: unit 1 $0.43, unit 2 $0.41, unit 3 $0.12 so far. Azure voices cost €0 on the free tier. To sum the log per dialogue and per unit: `python scripts/generate/log_costs.py`.
+
+`scripts/generate/test_units_1_3.py` checks the six briefs, that each unit's grammar shows up in its two drafts, and that every draft, clip and log line is in place.
