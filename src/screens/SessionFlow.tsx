@@ -1,3 +1,4 @@
+import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession } from '../lib/session-types.ts'
 import { FinishScreen } from './FinishScreen.tsx'
 import type { SessionPosition, SessionStep } from './session-steps.ts'
@@ -11,9 +12,11 @@ interface SessionFlowProps {
   position: SessionPosition
   /** Stores the step at this index as reached, then moves on. */
   onStepDone: (index: number) => Promise<boolean>
+  /** The review items loaded with the session, for Keep it (job 9-daily-review). */
+  review?: readonly ReviewItem[]
 }
 
-export function SessionFlow({ steps, session, position, onStepDone }: SessionFlowProps) {
+export function SessionFlow({ steps, session, position, onStepDone, review }: SessionFlowProps) {
   const names = steps.map((step) => step.name)
   const current = position.kind === 'step' ? steps[position.index] : undefined
   if (position.kind === 'finish' || !current) return <FinishScreen session={session} steps={names} />
@@ -25,6 +28,7 @@ export function SessionFlow({ steps, session, position, onStepDone }: SessionFlo
       session={session}
       frame={{ step: current.name, steps: names }}
       onDone={() => onStepDone(index)}
+      review={review}
     />
   )
 }
