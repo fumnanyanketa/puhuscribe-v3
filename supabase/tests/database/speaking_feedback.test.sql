@@ -330,7 +330,7 @@ select throws_ok(
   '42501', 'new row violates row-level security policy for table "kept_recordings"',
   '[speak 16] A cannot add a recording carrying B''s id');
 select throws_ok(
-  $$insert into public.kept_recordings (line_id, slot, audio) select 910030002, 'first', decode('00', 'hex')$$,
+  $$insert into public.kept_recordings (line_id, slot, audio) select 910030001, 'latest', decode('00', 'hex')$$,
   '23514', null,
   '[speak 16] a kept recording is at least a WAV header long');
 select throws_ok(
