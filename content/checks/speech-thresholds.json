@@ -1,0 +1,24 @@
+{
+  "about": "Every number the speaking feedback rules (src/lib/speech-feedback.ts) and its two evals use. Job 10-speaking-feedback, statements 10, 11 and 22. Provisional until risk test 3 measures them on real learner clips (docs/factory-and-risk-tests-plan.md).",
+  "status": "provisional until risk test 3",
+  "rules": {
+    "maxWordErrorsForClose": 1,
+    "maxExtraWords": 1,
+    "wordOffMaxChange": 0.6,
+    "mispronunciationScore": 60
+  },
+  "goldenSet": {
+    "file": "content/checks/speaking-feedback-golden.json",
+    "minPassRate": 0.9,
+    "source": "PRD section 8, speaking feedback quality: 30 golden cases, (transcript, target) to expected feedback class, at 90 percent or more"
+  },
+  "wordErrorRate": {
+    "maxWordErrorRate": 0.25,
+    "clips": 50,
+    "source": "PRD section 8, STT accuracy on learner speech: a 50 clip non native test set, target word error rate below 25 percent"
+  },
+  "reviewerAgreement": {
+    "minAgreement": 0.85,
+    "source": "Risk test 3's bar: the feedback agrees with the native reviewer on at least 85 percent of clips"
+  }
+}
