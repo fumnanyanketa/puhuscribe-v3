@@ -1,0 +1,79 @@
+/* The review item's text field (factory/jobs/9-daily-review). Values from src/styles/tokens.css. */
+
+.form {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+/* One line for Finnish, in the size of a spoken line, with a visible edge all round. */
+.field {
+  width: 100%;
+  min-height: var(--button-height);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-line);
+}
+
+.field:disabled {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* The two letter buttons: the white pill look, 44 px both ways. */
+.letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-pill);
+  background: var(--color-button-secondary);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.letter:hover {
+  background: var(--color-button-secondary-hover);
+}
+
+.letter:active {
+  background: var(--color-button-secondary-pressed);
+}
+
+.letter:disabled {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    transition: none;
+  }
+}

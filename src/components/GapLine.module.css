@@ -1,0 +1,70 @@
+/* The prompt line of a review item (factory/jobs/9-daily-review). Values from
+   src/styles/tokens.css; the band and labels match FinnishLine.module.css. */
+
+.spokenBand {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-band-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-spoken-band);
+}
+
+.written {
+  padding: var(--space-3) var(--space-4);
+}
+
+.labelSpoken,
+.labelWritten {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-spoken-text);
+}
+
+.labelWritten {
+  color: var(--color-written);
+}
+
+.spokenLine,
+.writtenLine {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-line);
+  letter-spacing: var(--tracking-line);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.writtenLine {
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+}
+
+/* A word and its punctuation: never split across two lines. */
+.keep {
+  white-space: nowrap;
+}
+
+/* The gap: a blank about one short word wide, ruled at the text's foot. */
+.gap {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.blank {
+  display: inline-block;
+  width: 3.2em;
+  height: 1em;
+  border-bottom: 2px solid var(--color-text);
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
