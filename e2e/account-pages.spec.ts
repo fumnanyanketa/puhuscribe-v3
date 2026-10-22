@@ -48,6 +48,9 @@ async function checkFits(page: Page, label: string) {
 
 async function axe(page: Page, label: string) {
   await page.evaluate('document.fonts.ready')
+  // A colour scheme switched on an open page starts the buttons' colour
+  // transitions; axe must measure the finished colours, not a frame halfway.
+  await page.evaluate('Promise.all(document.getAnimations().map((a) => a.finished))')
   const result = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()
