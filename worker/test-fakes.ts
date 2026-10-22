@@ -6,6 +6,10 @@
 import type { RecordableStep } from '../src/lib/session-types.ts'
 import type { ApiEnv } from './api.ts'
 import type { Fetch } from './learner-auth.ts'
+import type { HeardAnswer } from '../src/lib/speech-feedback.ts'
+import type { SpeechProvider } from './providers/speech-feedback.ts'
+import type { RecordingStore } from './recording-store.ts'
+import type { AttemptRow, ConsentRow, SpeechDb, SpeechLine } from './speech-db.ts'
 import type {
   CompleteResult,
   DialogueContent,
@@ -219,7 +223,8 @@ export function fakeDb(
       }
       const row = db.sessions.find((s) => s.id === id)
       if (!row) return Promise.resolve('not_found')
-      if (row.step !== 'understand') return Promise.resolve('not_ready')
+      // Like public.complete_session: understand or later (Say it, job 10).
+      if (row.step !== 'understand' && row.step !== 'say') return Promise.resolve('not_ready')
       row.endedAt ??= new Date().toISOString()
       db.completed.push(id)
       return Promise.resolve('saved')
@@ -302,4 +307,142 @@ export function sampleDialogue(id: number, unitPosition: number, position: numbe
     unitTitle: `Unit at ${String(unitPosition)}`,
     canDo: `Can do of unit ${String(unitPosition)}.`,
   }
+}
+
+// Speaking feedback fakes (job 10-speaking-feedback) --------------------------
+
+export interface FakeAttempt extends AttemptRow {
+  at: number
+}
+
+/** A speech database in memory, with the same consent rules as the migration. */
+export interface FakeSpeechDb extends SpeechDb {
+  consentRows: (ConsentRow & { noticeVersion: string })[]
+  lines: Map<number, SpeechLine>
+  attempts: FakeAttempt[]
+  /** Every argument every method was called with, as JSON, to look for audio. */
+  calls: string[]
+  /** The clock used for new attempts. */
+  clock: () => number
+  /** Kept recordings of the fake store share this list, so withdrawal deletes them. */
+  recordings: { id: string; lineId: number; slot: 'first' | 'latest'; createdAt: string; audio: Uint8Array }[]
+}
+
+export function fakeSpeechDb(lines: SpeechLine[] = []): FakeSpeechDb {
+  const db: FakeSpeechDb = {
+    consentRows: [],
+    lines: new Map(lines.map((line) => [line.id, line])),
+    attempts: [],
+    calls: [],
+    recordings: [],
+    clock: () => Date.now(),
+    consents() {
+      db.calls.push('consents')
+      const newest = (kind: ConsentRow['kind']) => db.consentRows.filter((row) => row.kind === kind).at(-1)
+      const processing = newest('voice_processing')
+      return Promise.resolve({
+        processing: processing ? (processing.granted ? 'granted' : 'withdrawn') : 'not_asked',
+        retention: newest('voice_recording_retention')?.granted === true,
+      })
+    },
+    addConsents(rows, noticeVersion) {
+      db.calls.push(JSON.stringify(['addConsents', rows, noticeVersion]))
+      for (const row of rows) {
+        db.consentRows.push({ ...row, noticeVersion })
+        // The migration's trigger: withdrawal deletes recordings, and turning
+        // speaking feedback off clears transcripts.
+        if (!row.granted) db.recordings.length = 0
+        if (!row.granted && row.kind === 'voice_processing') {
+          for (const attempt of db.attempts) attempt.transcript = ''
+        }
+      }
+      return Promise.resolve()
+    },
+    line(id) {
+      db.calls.push(JSON.stringify(['line', id]))
+      return Promise.resolve(db.lines.get(id) ?? null)
+    },
+    spokenLines(ids) {
+      db.calls.push(JSON.stringify(['spokenLines', ids]))
+      return Promise.resolve(
+        new Map(ids.flatMap((id) => (db.lines.has(id) ? [[id, db.lines.get(id)?.spoken ?? '']] : []))),
+      )
+    },
+    attemptsSince(since) {
+      db.calls.push(JSON.stringify(['attemptsSince', since.toISOString()]))
+      return Promise.resolve(db.attempts.filter((attempt) => attempt.at >= since.getTime()).length)
+    },
+    addAttempt(attempt) {
+      db.calls.push(JSON.stringify(['addAttempt', attempt]))
+      const processing = db.consentRows.filter((row) => row.kind === 'voice_processing').at(-1)
+      if (!processing?.granted) return Promise.resolve(false)
+      db.attempts.push({ ...attempt, at: db.clock() })
+      return Promise.resolve(true)
+    },
+  }
+  return db
+}
+
+/** A kept recordings store in memory, sharing the fake database's list and consent rows. */
+export function fakeRecordingStore(db: FakeSpeechDb): RecordingStore & { kept: string[] } {
+  let next = 0
+  const store = {
+    kept: [] as string[],
+    keep(lineId: number, wavBase64: string) {
+      const retention = db.consentRows.filter((row) => row.kind === 'voice_recording_retention').at(-1)
+      if (!retention?.granted) return Promise.resolve(false)
+      store.kept.push(wavBase64)
+      const audio = Uint8Array.from(atob(wavBase64), (c) => c.charCodeAt(0))
+      const first = db.recordings.find((row) => row.lineId === lineId && row.slot === 'first')
+      const slot = first ? 'latest' : 'first'
+      const at = db.recordings.findIndex((row) => row.lineId === lineId && row.slot === slot)
+      if (at >= 0) db.recordings.splice(at, 1)
+      next += 1
+      db.recordings.push({
+        id: `00000000-0000-4000-8000-${String(next).padStart(12, '0')}`,
+        lineId,
+        slot,
+        createdAt: new Date(Date.UTC(2026, 9, 22, 10, 0, next)).toISOString(),
+        audio,
+      })
+      return Promise.resolve(true)
+    },
+    list() {
+      return Promise.resolve(
+        [...db.recordings]
+          .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+          .map(({ id, lineId, slot, createdAt }) => ({ id, lineId, slot, createdAt })),
+      )
+    },
+    read(id: string) {
+      return Promise.resolve(db.recordings.find((row) => row.id === id)?.audio ?? null)
+    },
+    remove(id: string) {
+      const at = db.recordings.findIndex((row) => row.id === id)
+      if (at >= 0) db.recordings.splice(at, 1)
+      return Promise.resolve()
+    },
+    removeAll() {
+      db.recordings.length = 0
+      return Promise.resolve()
+    },
+  }
+  return store
+}
+
+/** A speech provider that answers from a queue and counts its calls. */
+export function countingProvider(
+  answer: () => Promise<HeardAnswer> = () => Promise.resolve({ status: 'heard', heard: 'moi mä oon alex' }),
+): SpeechProvider & { calls: { bytes: number; reference: string; fixture: string | null }[] } {
+  const provider = {
+    name: 'fake' as const,
+    regionName: 'Italy',
+    calls: [] as { bytes: number; reference: string; fixture: string | null }[],
+    costUsd: (ms: number) => Math.round((ms / 3_600_000) * 1e8) / 1e8,
+    check(wav: Uint8Array, reference: string, fixture: string | null) {
+      provider.calls.push({ bytes: wav.length, reference, fixture })
+      return answer()
+    },
+  }
+  return provider
 }

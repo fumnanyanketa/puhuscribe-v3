@@ -19,13 +19,18 @@ export interface VoiceNotice {
   notNow: string
 }
 
-/** The consent screen's text. `region` is the EU country of the speech service, such as "Italy". */
-export function voiceNotice(region: string): VoiceNotice {
+/**
+ * The consent screen's text. `region` is the EU country of the speech
+ * service, such as "Italy", or null when the settings name none (the test
+ * provider).
+ */
+export function voiceNotice(region: string | null): VoiceNotice {
+  const where = region ? `in the EU, in ${region}` : 'in the EU'
   return {
     heading: 'Speaking feedback',
     paragraphs: [
       'To give you feedback, PuhuScribe records your voice only while the record button is on, for a few seconds per line.',
-      `The recording goes from this phone through PuhuScribe's server to Microsoft's speech service in the EU, in ${region}. The service turns it into text, and PuhuScribe compares that text with the line.`,
+      `The recording goes from this phone through PuhuScribe's server to Microsoft's speech service ${where}. The service turns it into text, and PuhuScribe compares that text with the line.`,
       'Microsoft does not keep your recording, and PuhuScribe deletes it as soon as your feedback is ready.',
       'PuhuScribe keeps the text the service heard and how close it was, to check that the feedback works. That text is deleted after 90 days.',
     ],

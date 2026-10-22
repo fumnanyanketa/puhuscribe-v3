@@ -9,11 +9,11 @@ import { VOICE_NOTICE_VERSION, voiceNotice } from './voice-consent.ts'
 // give the new text a new label and add its fingerprint here, keeping the old
 // ones, so every stored consents row still names the text that was shown.
 const FINGERPRINTS: Record<string, string> = {
-  'voice-2026-10.1': 'a6b703c4485d3f1f6547fca9e273379c899d4e90ab5d83527f2afc0724cd497d',
+  'voice-2026-10.1': 'a09e4ccaeaa7d74ff542be8cad2c28d250cd90489ada91b21bbc4eb670b2b440',
 }
 
 async function fingerprint(): Promise<string> {
-  const text = JSON.stringify(voiceNotice('{region}'))
+  const text = JSON.stringify([voiceNotice('{region}'), voiceNotice(null)])
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')
 }
