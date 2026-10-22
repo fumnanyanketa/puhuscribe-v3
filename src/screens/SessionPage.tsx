@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
+import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import type { ReadySession } from '../lib/session-types.ts'
 import { ALL_DONE, NOT_READY } from './FrontDoor.tsx'
@@ -42,6 +43,12 @@ function loadToday(): Promise<ApiAnswer | null> {
 }
 
 function show(answer: ApiAnswer | null, setPage: (page: Page) => void) {
+  // An email account deleted or signed out on another device (job 11-accounts,
+  // "Done when" 22). Guests keep job 8's own handling.
+  if (emailSignInEnded(answer)) {
+    leaveWith('signed-out-email')
+    return
+  }
   const next = pageFrom(answer)
   if (next === 'signed_out') {
     window.location.replace('/')
@@ -79,6 +86,10 @@ export function SessionPage() {
     const step = SESSION_STEPS.at(index)
     if (!step) return false
     const answer = await callApi(`/api/sessions/${session.session.id}/step`, 'POST', { step: step.id })
+    if (emailSignInEnded(answer)) {
+      leaveWith('signed-out-email')
+      return false
+    }
     if (answer?.status !== 200) return false
     setPage({ kind: 'ready', session, position: after(SESSION_STEPS, index) })
     return true

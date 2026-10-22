@@ -255,9 +255,10 @@ jobs:
     # inside this runner, started empty with every migration in
     # supabase/migrations applied, so a pull request that adds a table can test
     # it before the owner approves it. Nothing is shared with any other run, so
-    # parallel jobs cannot disturb each other. Only Postgres and the three
-    # services the app uses start (kong, the API gateway; postgrest; gotrue,
-    # sign in); a job that needs another removes its name from -x.
+    # parallel jobs cannot disturb each other. Only Postgres and the services
+    # the app uses start (kong, the API gateway; postgrest; gotrue, sign in;
+    # mailpit, the mail catcher that receives the sign in code emails, added by
+    # job 11-accounts); a job that needs another removes its name from -x.
     # This job holds no secret. The local stack makes its own keys, which work
     # only on this runner, and the database is never opened to the internet.
     # It starts at the same time as the database check and waits for nothing.
@@ -288,7 +289,7 @@ jobs:
         # this runner, but no key belongs in a log.
         run: |
           set -o pipefail
-          npx supabase start -x realtime,storage-api,imgproxy,mailpit,postgres-meta,studio,edge-runtime,logflare,vector,supavisor 2>&1 | { grep -viE 'key|secret|jwt|password|publishable|sb_|eyJ' || true; }
+          npx supabase start -x realtime,storage-api,imgproxy,postgres-meta,studio,edge-runtime,logflare,vector,supavisor 2>&1 | { grep -viE 'key|secret|jwt|password|publishable|sb_|eyJ' || true; }
       - name: Local Supabase settings for the local Worker
         # Only the local API address and the local publishable key, written to
         # .env.local on the runner (git ignores it). The script prints names
@@ -405,7 +406,10 @@ jobs:
         # this job fetched, and this repository's artifacts are public.
         env:
           PUHUSCRIBE_NO_TRACE: '1'
-        run: npx playwright test --grep-invert @seed
+        # @email tests read codes from the local mail catcher; the test
+        # project's built in sender reaches only the Supabase team (job
+        # 11-accounts), so they are left out here, like @seed.
+        run: npx playwright test --grep-invert "@seed|@email"
       - name: Check the files to upload hold no secret value
         id: upload-guard
         if: success() || failure()
@@ -576,12 +580,13 @@ jobs:
         # With a database change, screens that need it cannot work on the
         # preview yet, so only the Cloudflare Access lock tests (@preview) run
         # here; the full suite ran on the throwaway database. Otherwise the
-        # suite runs, without tests that need browser seed rows (@seed).
+        # suite runs, without tests that need browser seed rows (@seed) or the
+        # local mail catcher (@email, job 11-accounts).
         run: |
           if [ "$DB_CHANGED" = true ]; then
             npx playwright test --grep @preview
           else
-            npx playwright test --grep-invert @seed
+            npx playwright test --grep-invert "@seed|@email"
           fi
       # Playwright ran with the service token headers, so it wrote no trace, HAR
       # or HTML report (playwright.config.ts). Only screenshots and videos are
