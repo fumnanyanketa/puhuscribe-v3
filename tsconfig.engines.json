@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./node_modules/.tmp/engines",
+    "rootDir": "./src/lib",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.engines.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023"],
+    "types": [],
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": false,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "files": [
+    "src/lib/grade.ts",
+    "src/lib/fsrs/types.ts",
+    "src/lib/fsrs/algorithm.ts",
+    "src/lib/fsrs/scheduler.ts"
+  ]
+}

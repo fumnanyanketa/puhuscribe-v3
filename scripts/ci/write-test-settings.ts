@@ -7,11 +7,16 @@
 // --from-supabase-status, from `supabase status -o env` piped in on stdin (the
 // throwaway local Supabase in the pull request browser check, which holds no
 // secret; see scripts/ci/supabase-status.ts).
+// The Azure Speech settings (job 10-speaking-feedback) are added from the
+// environment when they are set: the preview Worker gets the key as a secret,
+// beside its EU region and price tier. Without them speaking feedback says it
+// is not available.
 // Prints only the names and the path, never a value.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { localSettingsFromStatus } from './supabase-status.ts'
 
 const NAMES = ['SUPABASE_URL', 'SUPABASE_PUBLISHABLE_KEY'] as const
+const OPTIONAL_NAMES = ['AZURE_SPEECH_KEY', 'AZURE_SPEECH_REGION', 'AZURE_SPEECH_TIER'] as const
 
 const [format, path, source, ...rest] = process.argv.slice(2)
 if (
@@ -34,6 +39,10 @@ function fromEnvironment(): Record<string, string> {
     }
     values[name] = value
   }
+  for (const name of OPTIONAL_NAMES) {
+    const value = process.env[name]?.trim()
+    if (value) values[name] = value
+  }
   return values
 }
 
@@ -55,4 +64,4 @@ const content =
         .map(([name, value]) => `${name}=${value}\n`)
         .join('')
 writeFileSync(path, content, { mode: 0o600 })
-console.log(`Wrote ${NAMES.join(', ')} to ${path}`)
+console.log(`Wrote ${Object.keys(values).join(', ')} to ${path}`)

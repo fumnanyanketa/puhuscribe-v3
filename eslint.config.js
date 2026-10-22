@@ -53,6 +53,8 @@ export default tseslint.config(
       'scripts/ci/**/*.ts',
       'scripts/v2-import/**/*.ts',
       'scripts/hooks/**/*.ts',
+      'scripts/eval/**/*.ts',
+      'scripts/speech/**/*.ts',
       'tests/**/*.ts',
       'e2e/**/*.ts',
     ],

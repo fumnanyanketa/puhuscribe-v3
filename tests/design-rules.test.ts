@@ -146,10 +146,14 @@ describe('session frame', () => {
 })
 
 describe('record control', () => {
-  it('[design 13] no file in src/ asks for the microphone', () => {
-    for (const file of files('src', /\.(tsx?|js)$/)) {
-      expect(readFileSync(file, 'utf8'), file).not.toMatch(/getUserMedia/)
-    }
+  // Job 10-speaking-feedback ("Done when" 1 and 9) adds recording, after
+  // voice consent, through one module: src/lib/recorder.ts. No other file in
+  // src/ may ask for the microphone.
+  it('[design 13] [speak 1] no file in src/ but the recorder module asks for the microphone', () => {
+    const asking = files('src', /\.(tsx?|js)$/).filter((file) =>
+      readFileSync(file, 'utf8').includes('getUserMedia'),
+    )
+    expect(asking.map((file) => file.replace(/\\/g, '/'))).toEqual(['src/lib/recorder.ts'])
   })
 })
 

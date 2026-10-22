@@ -1,0 +1,55 @@
+{
+  "about": "Built by hand from the response shape in Microsoft's documentation (https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text-short), not recorded from Azure. The manual workflow \"Speech fixtures\" (.github/workflows/speech-fixtures.yml) replaces this file with Azure's real answer for the line voiced by Azure text to speech, once the owner's key is in GitHub secrets.",
+  "source": "hand-built",
+  "reference": "Mist sä oot kotoisin?",
+  "httpStatus": 200,
+  "response": {
+    "RecognitionStatus": "Success",
+    "Offset": 400000,
+    "Duration": 15000000,
+    "NBest": [
+      {
+        "Confidence": 0.91,
+        "Lexical": "mist sä oot kotoisin",
+        "ITN": "mist sä oot kotoisin",
+        "MaskedITN": "mist sä oot kotoisin",
+        "Display": "Mist sä oot kotoisin?",
+        "AccuracyScore": 92.8,
+        "FluencyScore": 90.0,
+        "CompletenessScore": 100.0,
+        "PronScore": 92.8,
+        "Words": [
+          {
+            "Word": "mist",
+            "Offset": 500000,
+            "Duration": 3000000,
+            "AccuracyScore": 90,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "sä",
+            "Offset": 4000000,
+            "Duration": 3000000,
+            "AccuracyScore": 94,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "oot",
+            "Offset": 7500000,
+            "Duration": 3000000,
+            "AccuracyScore": 91,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "kotoisin",
+            "Offset": 11000000,
+            "Duration": 3000000,
+            "AccuracyScore": 96,
+            "ErrorType": "None"
+          }
+        ]
+      }
+    ],
+    "DisplayText": "Mist sä oot kotoisin?"
+  }
+}
