@@ -15,12 +15,14 @@ Written in job 4-tooling (`factory/jobs/4-tooling/spec.md`), from what jobs 1 to
 | `src/design-reference/` | The reference page, built only in development and preview builds | `src/design-reference/DesignReference.tsx` |
 | `design/` | The design brief, brand assets and v2's design handoff; the design guide is `design.md` at the root | `design/brief.md` |
 | `worker/` | The one Cloudflare Worker: serves the built app and every `/api/*` route | `worker/api.ts` |
+| `review-site/` | The private review site for the native reviewer: its own Worker `puhuscribe-review`, its config and the list of dialogues it shows ([docs/content-pipeline.md](content-pipeline.md#the-review-site)) | `review-site/handler.ts` |
 | `e2e/` | Playwright browser tests | `e2e/first-session.spec.ts` |
 | `tests/` | Tests about the whole repository (workflow shape, hygiene, these docs) | `tests/repo-hygiene.test.ts` |
 | `scripts/security/` | Build guards, run directly by Node 24 (no build step) | `scripts/security/check-env-names.ts` |
 | `scripts/ci/` | Helpers the GitHub checks run, also run directly by Node 24 | `scripts/ci/preview-alias.ts` |
 | `scripts/v2-import/` | Turns copied v2 files into load SQL, run directly by Node 24 | `scripts/v2-import/build.ts` |
 | `scripts/hooks/` | The agent stop check, run directly by Node 24 | `scripts/hooks/stop-checks.ts` |
+| `scripts/review-site/` | Builds the private review site into `dist-review/`, run directly by Node 24 (job 13-review-site) | `scripts/review-site/build.ts` |
 | `scripts/generate/` | The Python content pipeline: v2's imported files and the pipeline built in job 7-content-pipeline ([docs/content-pipeline.md](content-pipeline.md)) | `scripts/generate/pipeline.py` |
 | `supabase/migrations/` | Database changes, in order | `supabase/migrations/20261020090100_learner_model.sql` |
 | `supabase/tests/database/` | pgTAP database tests | `supabase/tests/database/first_session.test.sql` |
@@ -56,6 +58,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 7-content-pipeline | `[content N]` | `tests/content-audio.test.ts`; in pytest the label opens each test's docstring, as in `scripts/generate/test_content_checks.py` |
 | 8-first-session | `[session N]` | `worker/sessions.test.ts` |
 | 9-daily-review | `[review N]` | `worker/review.test.ts` |
+| 13-review-site | `[site N]` | `review-site/handler.test.ts` |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.
 
