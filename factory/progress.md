@@ -218,3 +218,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-10-26T20:35 10-speaking-feedback round 2 built: screens (consent, Say it step 3 of 3, recording and eight feedback messages, Voice settings), 21 new browser tests, golden set 30 of 30, Vitest 740, pgTAP 562, Chromium 116. Statement 21 waits on job 9's merge. Both reviewers and the evaluator started.
 - 2026-10-26T20:55 10-speaking-feedback design review: pass, 0 must-fix, 2 should-fix to todo.
 - 2026-10-26T21:05 10-speaking-feedback security review: pass, 0 must-fix, 1 should-fix (the say route's paid call limit can be beaten by parallel requests) and 3 notes, all to todo and flagged in the summary.
+- 2026-10-26T21:10 12-units-1-3 blocked: pull request 6 is red only for the missing sixth dialogue (pytest and two browser tests). Needs the repository secrets, then one pipeline run (about $0.25). summary.md written.
