@@ -49,6 +49,8 @@ How the pipeline publishes (job 7-content-pipeline). Each reviewed dialogue gets
 | `review_logs` | One row per review: the grader's rating (1 to 4, never the learner's own), typed or spoken, and the scheduler's numbers before the review. Never changed. | Add and read their own | Job 7 |
 | `usage_events` | One row per product event: who, which event (today only `first_session_completed`), which session, and when. Nothing about the device, browser or address. At most one `first_session_completed` per learner. Never changed. | Read their own; add one only for their own session that reached at least "understand" and has ended | Job 8-first-session |
 | `consents` | Voice consent history: one row per choice (voice processing, or keeping recordings), given or withdrawn, the version of the consent text shown (a short label of at most 32 letters, digits, dots, dashes or underscores, such as `2026-10.1`), and the time. The current choice is the newest row of each kind. Never changed. | Add and read their own | Job 8 |
+| `speaking_attempts` | One row per speech check (job 10-speaking-feedback): the line of a session, or a form in review, the text the speech service heard (at most 300 characters, cleared after 90 days), the feedback class (`clear`, `close`, `try_again`, `not_heard`), the provider, the audio length and the cost. No audio. | Read their own; add one only while their newest `voice_processing` consent is a grant, for a line of their own session at "understand" or later, or a form they hold a card for; clear a transcript to empty | Job 10 |
+| `kept_recordings` | Opted in recordings only (job 10): the WAV of the learner's first and latest try of a line (at most two per line, at most 330,000 bytes each), deleted after 90 days. | Read and delete their own; add one only while their newest `voice_recording_retention` consent is a grant, for a line they have an attempt on | Job 10 |
 
 Rules that apply to all of them:
 
@@ -57,7 +59,9 @@ Rules that apply to all of them:
 - **No deletes by learners.** Rows go only when the user is deleted.
 - **Guests keep everything.** Every table links to `auth.users(id)`. Supabase keeps the same user id when a guest adds an email (job 9 builds this), so every row stays attached. No rule looks at whether the learner is a guest.
 - **Export and deletion.** Deleting a user from `auth.users` deletes all their rows in every learner table (`on delete cascade`). A catalogue test fails if a future table with a `user_id` forgets this or forgets row level security.
-- **No audio or transcript.** None of these tables stores audio, a recording or a transcript of the learner. Job 8 adds its own tables for that.
+- **Audio and transcripts only where stated.** Only `speaking_attempts` holds a transcript and only `kept_recordings` holds audio (job 10-speaking-feedback).
+- **Consent effects (job 10).** A trigger on `consents` acts in the same transaction as the choice. A withdrawn `voice_recording_retention` row deletes every kept recording of that learner. A withdrawn `voice_processing` row deletes every kept recording and clears every transcript of theirs. Feedback classes and review results stay: they hold no voice.
+- **Ninety days (job 10).** `private.forget_old_voice_data()` deletes kept recordings older than 90 days and clears transcripts older than 90 days. A `pg_cron` job in the migration (`forget-old-voice-data`) runs it daily at 03:17 UTC.
 
 ### Ending a session: `public.complete_session(session_id)`
 
