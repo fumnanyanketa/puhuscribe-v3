@@ -216,3 +216,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-10-26T19:50 11-accounts: security pass (2 notes), design pass (2 should-fix to todo). 12-units-1-3: security pass (2 notes), design pass (3 notes). No must-fix anywhere. Waiting: job 11 evaluator, job 9 evaluator, GitHub checks, job 10 builder.
 - 2026-10-26T20:25 9-daily-review evaluator: pass, 21 of 21. summary.md written. Waits on owner approval. GitHub browser check re-run after a Docker download limit on the runner.
 - 2026-10-26T20:35 10-speaking-feedback round 2 built: screens (consent, Say it step 3 of 3, recording and eight feedback messages, Voice settings), 21 new browser tests, golden set 30 of 30, Vitest 740, pgTAP 562, Chromium 116. Statement 21 waits on job 9's merge. Both reviewers and the evaluator started.
+- 2026-10-26T20:55 10-speaking-feedback design review: pass, 0 must-fix, 2 should-fix to todo.

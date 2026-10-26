@@ -68,3 +68,4 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 
 ## From 10-speaking-feedback build (26 Oct 2026)
 - `.env.example` still needs a `SPEECH_FEEDBACK_PROVIDER` line (exact text in `factory/jobs/10-speaking-feedback/build.md`). The builder would not open a file matching `.env*`; the owner adds the line.
+- (10-speaking-feedback design) The "Line N of 3" counter disappears once feedback shows, so a beginner can lose their place (`SayIt.tsx`). Focus is not moved when Say it switches between the consent screen and the line view (`SayIt.tsx`).
