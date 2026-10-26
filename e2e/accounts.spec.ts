@@ -18,7 +18,6 @@ import {
   snapshotOf,
   startGuest,
   testAddress,
-  userCount,
 } from './account-helpers.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { one, sessionsOf, userIdOf } from './db.ts'
@@ -262,14 +261,16 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const before = snapshotOf(userId)
       expect(before.sessions.length).toBeGreaterThan(0)
       expect(before.cards.length).toBeGreaterThan(0)
-      const users = userCount()
       await addEmail(page, address)
       await expect(page.getByRole('status')).toHaveText(
         'Your email is added. Your progress is saved to your account.',
       )
       expect(authUser(userId)).toEqual({ exists: true, anonymous: false, email: address })
       expect(snapshotOf(userId)).toEqual(before)
-      expect(userCount()).toBe(users)
+      // The guest became the email account: exactly one user holds the address,
+      // and it is the same id. (Not a count of every user: other tests run at
+      // the same time and make guests.)
+      expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('1')
       expect(await userIdOf(page.context())).toBe(userId)
       await page.goto('/account')
       await expect(page.getByText(`You are signed in as ${address}.`, { exact: true })).toBeVisible()
