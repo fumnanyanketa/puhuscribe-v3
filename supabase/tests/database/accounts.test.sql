@@ -187,6 +187,27 @@ select s.user_id, 'first_session_completed', s.id
  where s.id in ('00000000-0000-4000-8000-0000000061a1', '00000000-0000-4000-8000-0000000061b1',
                 '00000000-0000-4000-8000-0000000061d1');
 
+-- Job 10's tables: a line, a speech check, an attempt with a transcript and a
+-- kept recording for A, B and D.
+insert into public.dialogue_lines
+  (id, dialogue_id, position, speaker, text_puhe, text_kirja, gloss_en, audio_puhe_key, audio_kirja_key)
+overriding system value
+select 901101001, d.id, 1, 'pgtap speaker', 'pgtap puhe', 'pgtap kirja', 'pgtap accounts line', 'pgtap/p.mp3', 'pgtap/k.mp3'
+  from public.dialogues d where d.slug = 'pgtap-accounts-1';
+insert into public.speech_checks (user_id)
+select u::uuid from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
+                                 '00000000-0000-4000-8000-0000000011d1']) as u;
+insert into public.speaking_attempts
+  (user_id, session_id, line_id, transcript, feedback_class, provider, audio_ms, cost_usd)
+select s.user_id, s.id, 901101001, 'pgtap heard', 'clear', 'fake', 1500, 0
+  from public.sessions s
+ where s.id in ('00000000-0000-4000-8000-0000000061a1', '00000000-0000-4000-8000-0000000061b1',
+                '00000000-0000-4000-8000-0000000061d1');
+insert into public.kept_recordings (user_id, line_id, slot, audio)
+select u::uuid, 901101001, 'first', decode(repeat('A', 136), 'base64')
+  from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
+                    '00000000-0000-4000-8000-0000000011d1']) as u;
+
 select is_empty(
   $$ select tbl from pg_temp.rows_of('00000000-0000-4000-8000-0000000011a1') where n = 0 $$,
   '[accounts 19] A has a row in every user table, so the export check below covers every table');

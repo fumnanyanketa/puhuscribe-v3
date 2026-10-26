@@ -58,7 +58,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  test('[review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 3 of 3, then the finish screen saves as in job 8', async ({
+  test('[review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 4 of 4, then the finish screen saves as in job 8', async ({
     page,
   }) => {
     const { userId } = await finishFirstSession(page)
@@ -80,13 +80,13 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     await page.getByRole('button', { name: 'Start', exact: true }).click()
     await page.waitForURL('**/session')
-    await expect(page.getByText('Hear it, step 1 of 3', { exact: true })).toBeVisible()
+    await expect(page.getByText('Hear it, step 1 of 4', { exact: true })).toBeVisible()
     await throughUnderstandIt(page, userId)
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
-    await expect(page.getByText('Keep it, step 3 of 3', { exact: true })).toBeVisible()
+    await expect(page.getByText('Keep it, step 4 of 4', { exact: true })).toBeVisible()
     await expect(page.getByText(/^Word 1 of \d+\.$/)).toBeVisible()
     const session = sessionsOf(userId).find((s) => !s.ended)
-    expect(session?.step).toBe('understand')
+    expect(session?.step).toBe('say')
 
     // One item close, one missed, the rest right. Both come back once more at the end.
     const answered = await runKeepIt(page, (_formId, retry, index) => {

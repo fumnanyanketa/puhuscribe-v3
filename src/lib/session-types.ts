@@ -84,6 +84,9 @@ export type FrontDoorAnswer =
       nextReview?: NextReview
     }
 
-/** The steps a learner may record from the browser. Never beyond understand. */
-export const RECORDABLE_STEPS = ['hear', 'understand'] as const
+/**
+ * The steps a learner may record from the browser. Never beyond say: Say it
+ * (job 10-speaking-feedback) comes after Understand it.
+ */
+export const RECORDABLE_STEPS = ['hear', 'understand', 'say'] as const
 export type RecordableStep = (typeof RECORDABLE_STEPS)[number]

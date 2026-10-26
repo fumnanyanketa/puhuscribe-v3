@@ -12,7 +12,14 @@
 
 /** How long everything is kept, for every item below. */
 export const HOW_LONG =
-  'Until you delete your account. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything at once.'
+  'Until you delete your account, except where an item below says it goes sooner. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything at once.'
+
+/** The retention of items that last as long as the account does. */
+export const WHILE_ACCOUNT =
+  'Until you delete your account (or the account is deleted for inactivity, see below).'
+
+export const CONSENT_REASON =
+  'Your consent (GDPR Article 6(1)(a)). You can withdraw it at any time in Voice settings.'
 
 export const SERVICE_REASON = 'Needed to provide the service you asked for (GDPR Article 6(1)(b)).'
 
@@ -25,6 +32,8 @@ export interface InventoryItem {
   why: string
   /** The legal reason. */
   legal: string
+  /** How long it is kept. */
+  keep: string
 }
 
 export interface TableItem extends InventoryItem {
@@ -39,12 +48,14 @@ export const ACCOUNT_ITEMS: readonly InventoryItem[] = [
     what: 'A random account id and its sign in times. No name.',
     why: 'To keep your progress on this device.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
   },
   {
     name: 'Email account',
     what: 'Your email address, used only to send you sign in codes. No newsletters.',
     why: 'So you can sign in and keep your progress on other devices.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
   },
 ]
 
@@ -56,6 +67,7 @@ export const USER_TABLES: readonly TableItem[] = [
     what: 'Which dialogue you worked on, how far you got, and when you started and finished.',
     why: 'To show you the next dialogue and bring you back where you left off.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
   },
   {
     table: 'cards',
@@ -63,6 +75,7 @@ export const USER_TABLES: readonly TableItem[] = [
     what: 'One card for each word form you met in a dialogue, with when it is due for review.',
     why: 'To bring words back for review at the right time.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
   },
   {
     table: 'review_logs',
@@ -70,13 +83,15 @@ export const USER_TABLES: readonly TableItem[] = [
     what: 'One line for each review: which word form, the result, whether you typed or spoke the answer, and when.',
     why: 'To plan your next reviews.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
   },
   {
     table: 'consents',
     name: 'Voice consent choices',
     what: 'Each choice you make about your voice, the version of the text you were shown, and the time.',
     why: 'To respect the choice you made and show which text you saw.',
-    legal: SERVICE_REASON,
+    legal: CONSENT_REASON,
+    keep: WHILE_ACCOUNT,
   },
   {
     table: 'usage_events',
@@ -84,6 +99,31 @@ export const USER_TABLES: readonly TableItem[] = [
     what: 'One "finished first session" event: which session, and when.',
     why: 'To know how many learners finish their first session.',
     legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
+  },
+  {
+    table: 'speaking_attempts',
+    name: 'Speaking feedback results',
+    what: 'One line for each time you said a line or word out loud and asked for feedback: which line or word, the text the speech service heard (the transcript), how close it was, and what the check cost. No audio.',
+    why: 'To show you feedback, and to check that the feedback works.',
+    legal: CONSENT_REASON,
+    keep: 'The transcript is deleted after 90 days. The rest of the line stays until you delete your account.',
+  },
+  {
+    table: 'speech_checks',
+    name: 'Speaking feedback counter',
+    what: 'One line with the time for each speaking feedback check you started. No content.',
+    why: 'To limit how many checks one account can start, so the service stays fair and affordable.',
+    legal: CONSENT_REASON,
+    keep: 'Deleted after one day.',
+  },
+  {
+    table: 'kept_recordings',
+    name: 'Kept recordings',
+    what: 'Only if you chose "keep my recordings": your first and latest try of each line, as a short audio file.',
+    why: 'So you can play back your own voice and hear your progress.',
+    legal: CONSENT_REASON,
+    keep: 'Deleted after 90 days, immediately when you turn the choice off, or when you delete one yourself in Voice settings.',
   },
 ]
 

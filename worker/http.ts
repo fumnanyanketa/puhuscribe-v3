@@ -77,8 +77,9 @@ export function sameOrigin(request: Request): boolean {
  */
 export async function refuseUnsafeWrite(
   request: Request,
+  cap = MAX_BODY_BYTES,
 ): Promise<{ refused: Response; body?: undefined } | { refused: null; body: string }> {
-  const body = await readBody(request)
+  const body = await readBody(request, cap)
   if (request.method !== 'POST') {
     return { refused: json({ error: 'method_not_allowed' }, 405, { allow: 'POST' }) }
   }

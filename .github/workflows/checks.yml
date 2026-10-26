@@ -91,6 +91,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - name: Speaking feedback golden set (npm run eval:speech)
+        # Job 10-speaking-feedback, "Done when" 11: prints the pass rate of the
+        # 30 golden cases and fails below the PRD's 90 percent. npm test runs
+        # the same file; this step shows the rate in the log.
+        if: success() || failure()
+        run: npm run eval:speech
 
   python:
     name: Python tests and lint (pytest, ruff)
@@ -295,6 +301,13 @@ jobs:
         # .env.local on the runner (git ignores it). The script prints names
         # only and refuses any address that is not on this runner.
         run: npx supabase status -o env | node scripts/ci/write-test-settings.ts env .env.local --from-supabase-status
+      - name: The fake speech provider for the local Worker
+        # Job 10-speaking-feedback, "Done when" 12: browser tests never reach a
+        # real speech service. The fake replays recorded answers from
+        # worker/providers/fixtures/speech/. Only this pull request job sets it;
+        # wrangler.jsonc and the deploy jobs never do
+        # (tests/speech-provider-rules.test.ts).
+        run: echo "SPEECH_FEEDBACK_PROVIDER=fake" >> .env.local
       - name: Load the browser test seed files
         # Every supabase/seeds/browser/*.sql in name order, stopping at the
         # first error. Only this job loads them; they never reach a hosted
@@ -554,6 +567,11 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+          # Speaking feedback (job 10-speaking-feedback): the Azure Speech key
+          # becomes a Worker secret, beside its EU region and price tier.
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
           ALIAS: ${{ steps.alias.outputs.alias }}
         run: |
           secrets_file="$RUNNER_TEMP/worker-secrets.json"
@@ -598,9 +616,11 @@ jobs:
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: >-
           node scripts/ci/check-files-for-secrets.ts
           --env CF_ACCESS_CLIENT_ID --env CF_ACCESS_CLIENT_SECRET --env SUPABASE_PUBLISHABLE_KEY
+          --env AZURE_SPEECH_KEY
           playwright-report test-results
       - name: Keep the preview screenshots and videos
         if: (success() || failure()) && steps.upload-guard.outcome == 'success'

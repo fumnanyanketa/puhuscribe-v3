@@ -94,3 +94,20 @@ I also cherry-picked the manager's `checks: run the browser test jobs on ubuntu-
 Pushed head: `bfbdd5c` on `factory/11-accounts`. Green browser test run: 40364572122.
 
 Result: checks pass
+
+## Round 4: merge of main after job 9
+
+**What changed (plain words).** Merged `origin/main` (job 9, daily review) into the branch. Conflicts resolved:
+- `AGENTS.md`: main's version exactly (2,199 words).
+- `docs/conventions.md`, `docs/data-model.md`: both sides kept. One phrase in job 9's guest clean up paragraph ("Job 9 builds the clean up") now says job 11 built it, because `tests/personal-data.test.ts` forbids the old wording.
+- `src/lib/database.types.ts`: regenerated with `npx supabase gen types --lang typescript --local --schema public` from a local database holding all merged migrations (own project id and ports 59xxx, config restored afterwards). Not hand merged.
+- `session-types.ts`, `FrontDoor.tsx`, `worker/api.ts`: both jobs' states, links and routes kept (review states, next review day, account links, "I already have an account", the email signed out message, review routes plus the account routes).
+- `SessionPage.tsx`: job 9's review loading kept; the email signed out check (statement 22) now covers loading today's session, every step save, Keep it's save and the review only finish.
+- Export: job 9 added no user table; the pgTAP catalogue test (statement 19) still passes, so `export_my_data()` and the data inventory cover every user table.
+- `e2e/account-helpers.ts` `frontDoorState` now also accepts job 9's empty day heading "That is all for today." (a real mismatch GitHub WebKit found; nothing weakened).
+
+**Checks (local, Chromium).** `npm ci`; `npm run check:code` pass; `npx vitest run` 770 passed, 2 skipped; `npx supabase test db` 597 tests pass; `npx playwright test --project=chromium` 134 passed, 15 skipped, including `@email` with Mailpit. WebKit not run here. Lefthook and gitleaks ran on the merge commit.
+
+**GitHub.** Merge commit `a5392d1`: run 40387519656 failed only WebKit `[accounts 12]` (the heading issue above). Fix commit `741b8ec`: run 40389094194, every check green except "Preview link", which failed (allowed by the manager's instruction).
+
+Result: checks pass

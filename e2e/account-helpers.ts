@@ -1,6 +1,6 @@
 import { expect, type Browser, type BrowserContext, type Page, type TestInfo } from '@playwright/test'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
-import { finishHearIt, finishUnderstandIt, serveTone } from './session-helpers.ts'
+import { finishHearIt, finishUnderstandIt, passSayIt, serveTone } from './session-helpers.ts'
 
 // Shared steps for the account browser tests (factory/jobs/11-accounts/spec.md).
 //
@@ -154,6 +154,7 @@ export async function finishTodaysSession(page: Page): Promise<string> {
   const lines = linesOf(open?.dialogueId ?? '')
   await finishHearIt(page)
   await finishUnderstandIt(page, (lineId) => lines.find((l) => l.id === lineId)?.gloss ?? '')
+  await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
   return userId
 }

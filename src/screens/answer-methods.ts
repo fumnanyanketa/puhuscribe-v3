@@ -1,5 +1,8 @@
 import type { ComponentType } from 'react'
-import type { AnswerKind, ReviewAnswer } from '../lib/review-types.ts'
+import type { AnswerMode } from '../lib/answer-mode.ts'
+import type { AnswerKind, TypedAnswer as TypedAnswerValue } from '../lib/review-types.ts'
+import type { Recording, RecorderProblem } from '../lib/recorder.ts'
+import { SpokenAnswer } from './SpokenAnswer.tsx'
 import { TypedAnswer } from './TypedAnswer.tsx'
 
 // How a learner can answer a review item, in one list
@@ -14,16 +17,33 @@ export interface AnswerMethodProps {
   disabled: boolean
   /** Whether "Check" can be pressed now (for typing, the field holds something). */
   onReady: (ready: boolean) => void
-  /** Sends the answer to be graded. */
-  onAnswer: (answer: ReviewAnswer) => void
+  /** Sends a typed answer to be graded. */
+  onAnswer: (answer: TypedAnswerValue) => void
+  /** A spoken answer was recorded, or recording failed. The recording is only sent, never kept. */
+  onRecorded: (result: RecordedResult) => void
 }
+
+export type RecordedResult =
+  { kind: 'recorded'; recording: Recording } | { kind: 'failed'; problem: RecorderProblem }
 
 export interface AnswerMethod {
   kind: AnswerKind
   Answer: ComponentType<AnswerMethodProps>
 }
 
-export const ANSWER_METHODS: readonly AnswerMethod[] = [{ kind: 'typed', Answer: TypedAnswer }]
+/** The one list of answer methods. */
+export const ALL_METHODS: readonly AnswerMethod[] = [
+  { kind: 'typed', Answer: TypedAnswer },
+  { kind: 'spoken', Answer: SpokenAnswer },
+]
+
+/** The methods an item shows for the answer mode its rule gave it. */
+export function methodsFor(mode: AnswerMode): readonly AnswerMethod[] {
+  return ALL_METHODS.filter((method) => method.kind === mode)
+}
+
+/** Typing, the method every item can fall back to. */
+export const ANSWER_METHODS: readonly AnswerMethod[] = methodsFor('typed')
 
 /** The id of a method's form, from the item's base id. */
 export function methodFormId(base: string, kind: string): string {

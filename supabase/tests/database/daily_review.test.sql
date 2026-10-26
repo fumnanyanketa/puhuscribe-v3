@@ -82,8 +82,9 @@ select is_empty(
 -- [review 18] Nothing else changed: the tables, enums and job 8's function stay.
 select tables_are('public',
   array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms', 'cards', 'review_logs', 'sessions',
-        'consents', 'source_sentences', 'lemma_ipa', 'usage_events'],
-  '[review 18] no table was added');
+        'consents', 'source_sentences', 'lemma_ipa', 'usage_events',
+        'speaking_attempts', 'kept_recordings', 'speech_checks'],
+  '[review 18] [speak 16] job 9 added no table; the only others are job 10''s three speaking tables');
 select enum_has_labels('public', 'review_mode', array['typed', 'spoken'],
   '[review 18] review_mode is still typed, spoken');
 select enum_has_labels('public', 'usage_event_name', array['first_session_completed'],

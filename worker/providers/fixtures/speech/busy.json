@@ -1,0 +1,11 @@
+{
+  "about": "Built by hand by the job 10-speaking-feedback builder from the response shape in Microsoft's documentation (https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text-short), not recorded from Azure. Used only by the fake speech provider in tests. The service is busy (HTTP 429), as the free tier answers a second check at the same time.",
+  "source": "hand-built",
+  "httpStatus": 429,
+  "response": {
+    "error": {
+      "code": "429",
+      "message": "Too many requests"
+    }
+  }
+}

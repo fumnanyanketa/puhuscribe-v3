@@ -97,6 +97,7 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 | Supabase Cron (daily clean up of unused accounts)                                           | Included in Free                                                          | €0                                             |
 | Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                         | €0 so far; about $0.25 per dialogue (estimate) |
 | Azure Speech (voices for both registers at build time)                                      | Free allowance, 0.5 million characters a month (resource not created yet) | €0                                             |
+| Azure Speech to text (Say it speaking feedback, job 10)                                     | Free tier F0 during the build: 5 audio hours a month, one check at a time | €0; about $1 per hour of learner audio on S0   |
 
 Before real learners can add an email or sign in, the owner chooses an email sender (job 11-accounts, owner's call 1, decided at launch). That will be a new service and may cost money.
 

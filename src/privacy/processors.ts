@@ -5,7 +5,8 @@
 // Every provider module in worker/providers/ (voice, speech feedback, AI) must
 // be named in the `modules` of one processor here: a repository test
 // (tests/personal-data.test.ts) fails otherwise, so a provider cannot ship
-// without being listed in the notice.
+// without being listed in the notice. The speech fixtures file is the test
+// stand in for the speech provider, so it is listed with it.
 
 export interface Processor {
   name: string
@@ -30,6 +31,12 @@ export const PROCESSORS: readonly Processor[] = [
     where:
       "Requests pass through Cloudflare's network, which may handle them outside the EU under its data processing terms (EU standard contractual clauses and the EU US Data Privacy Framework).",
     modules: [],
+  },
+  {
+    name: 'Microsoft (Azure Speech)',
+    role: 'Turns your voice into text for speaking feedback, only if you turned speaking feedback on. It receives a few seconds of audio per line and does not keep it.',
+    where: 'In the EU. The country is named on the speaking feedback screen.',
+    modules: ['speech-feedback.ts', 'fixtures/speech/index.ts'],
   },
 ]
 

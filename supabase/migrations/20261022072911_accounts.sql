@@ -103,7 +103,16 @@ as $$
         from public.consents t where t.user_id = (select auth.uid())), '[]'::jsonb),
     'usage_events', coalesce((
       select jsonb_agg(to_jsonb(t) order by t.created_at, t.id)
-        from public.usage_events t where t.user_id = (select auth.uid())), '[]'::jsonb)
+        from public.usage_events t where t.user_id = (select auth.uid())), '[]'::jsonb),
+    'speaking_attempts', coalesce((
+      select jsonb_agg(to_jsonb(t) order by t.created_at, t.id)
+        from public.speaking_attempts t where t.user_id = (select auth.uid())), '[]'::jsonb),
+    'speech_checks', coalesce((
+      select jsonb_agg(to_jsonb(t) order by t.created_at, t.id)
+        from public.speech_checks t where t.user_id = (select auth.uid())), '[]'::jsonb),
+    'kept_recordings', coalesce((
+      select jsonb_agg(to_jsonb(t) order by t.created_at, t.id)
+        from public.kept_recordings t where t.user_id = (select auth.uid())), '[]'::jsonb)
   ));
 $$;
 

@@ -18,11 +18,12 @@ export async function callApi(
   path: string,
   method: 'GET' | 'POST',
   body?: unknown,
+  timeoutMs = REQUEST_TIMEOUT_MS,
 ): Promise<ApiAnswer | null> {
   const controller = new AbortController()
   const timer = setTimeout(() => {
     controller.abort()
-  }, REQUEST_TIMEOUT_MS)
+  }, timeoutMs)
   try {
     const res = await fetch(path, {
       method,

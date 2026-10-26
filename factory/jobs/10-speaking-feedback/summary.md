@@ -29,3 +29,9 @@ Round 3, 26 October 2026. GA job. Flag: **look closely** (recordings and consent
 ## Approval
 
 This is a GA job: approve with your own written "approved" line, `/factory approve 10-speaking-feedback`, or send it back with `/factory rework 10-speaking-feedback <note>`.
+
+## Approval record
+
+Owner approved on 27 October 2026 (Helsinki), in chat: "Approved. Job 10 is approved. Fix the speech limit first." The speech check limit fix is being built in round 4 (with the merge of main after job 9 and statement 21); merge follows when GitHub is green.
+
+Round 4 (merge of main, statement 21, speech limit fix) green on GitHub run 40390323192; round 4 security check pass (`review-security-round-4.md`). Merged into main on 27 October 2026.

@@ -531,16 +531,16 @@
       "id": "10-speaking-feedback",
       "feature": "speaking-feedback",
       "title": "Speaking feedback & voice consent (Say it)",
-      "stage": "your-approval",
-      "round": 3,
+      "stage": "merged",
+      "round": 4,
       "flag": "look closely",
       "flag_reasons": [
         "recordings or consent",
         "learner data",
         "a paid service"
       ],
-      "waiting_on": "owner's written approval (GA)",
-      "updated": "2026-10-26T23:30:00+03:00",
+      "waiting_on": null,
+      "updated": "2026-10-27T04:20:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -595,6 +595,18 @@
         {
           "stage": "your-approval",
           "at": "2026-10-26T23:30:00+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-27T02:40:00+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-27T04:05:00+03:00"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-27T04:20:00+03:00"
         }
       ]
     },
@@ -610,8 +622,8 @@
         "sign in",
         "database or access rule changes"
       ],
-      "waiting_on": "owner's call 2: responsible name and contact for the privacy notice; then owner approval",
-      "updated": "2026-10-26T23:55:00+03:00",
+      "waiting_on": "owner: exact Exentrik email address for the privacy notice (name given); builder merging main",
+      "updated": "2026-10-27T02:40:00+03:00",
       "history": [
         {
           "stage": "spec",

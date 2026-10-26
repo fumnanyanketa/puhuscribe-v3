@@ -1,0 +1,9 @@
+# Failed test 37: "[speak 16] A cannot add an attempt without voice consent"
+# Failed test 71: "[speak 4] the feedback classes stay, because they hold no voice"
+#     Results differ beginning at row 2:
+# Failed test 72: "[speak 4] [speak 16] after withdrawing speaking feedback, A cannot add an attempt"
+Failed 3/87 subtests 
+<scratch>/sb10/supabase/tests/database/speaking_feedback.test.sql   (Wstat: 0 Tests: 87 Failed: 3)
+  Failed tests:  37, 71-72
+Files=7, Tests=562,  1 wallclock secs ( 0.12 usr  0.01 sys +  0.06 cusr  0.08 csys =  0.27 CPU)
+Result: FAIL

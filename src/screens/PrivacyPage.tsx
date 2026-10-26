@@ -56,6 +56,7 @@ function Item({ item }: { item: InventoryItem }) {
       <p className={styles.text}>{item.what}</p>
       <p className={styles.quietText}>Why: {item.why}</p>
       <p className={styles.quietText}>Legal reason: {item.legal}</p>
+      <p className={styles.quietText}>How long: {item.keep}</p>
     </li>
   )
 }
