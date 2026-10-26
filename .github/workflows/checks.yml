@@ -264,7 +264,7 @@ jobs:
     # It starts at the same time as the database check and waits for nothing.
     # Spec: factory/jobs/6-pr-local-db/spec.md.
     if: github.event_name != 'push'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
       # The throwaway database's own fixed local address (not a secret).
@@ -362,7 +362,7 @@ jobs:
     # The only browser test job that receives the test project settings.
     needs: [database, apply-test-db]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.apply-test-db.result == 'success'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -491,7 +491,7 @@ jobs:
       needs.python.result == 'success' && needs.database.result == 'success' &&
       needs.apply-test-db.result == 'skipped' && needs.browser.result == 'success' &&
       needs.secrets.result == 'success' && needs.dependencies.result == 'success'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
