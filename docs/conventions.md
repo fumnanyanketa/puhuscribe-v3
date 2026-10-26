@@ -57,6 +57,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 5-design-system | `[design N]` | `tests/design-tokens.test.ts` |
 | 7-content-pipeline | `[content N]` | `tests/content-audio.test.ts`; in pytest the label opens each test's docstring, as in `scripts/generate/test_content_checks.py` |
 | 8-first-session | `[session N]` | `worker/sessions.test.ts` |
+| 9-daily-review | `[review N]` | `worker/review.test.ts` |
 | 12-units-1-3 | `[units N]` | `worker/patterns.test.ts`; in pytest `scripts/generate/test_units_1_3.py` |
 | 13-review-site | `[site N]` | `review-site/handler.test.ts` |
 

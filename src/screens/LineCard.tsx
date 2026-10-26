@@ -18,15 +18,23 @@ export const LINE_AUDIO = { spoken: 'the spoken line', written: 'the written lin
 /** Under the word card's play controls: they play the line, not the one word (Decision 6). */
 export const CARD_AUDIO_CAPTION = 'Plays the whole line.'
 
-/** The Finnish line's words, with their cards, from the Worker's words. */
-export function lineWords(words: readonly SessionWord[], line: SessionLine): LineWord[] {
-  return words.map((word) => {
+/**
+ * The Finnish line's words, with their cards, from the Worker's words. The
+ * words at the indexes in `marked` are the answer of a review (job 9).
+ */
+export function lineWords(
+  words: readonly SessionWord[],
+  line: SessionLine,
+  marked: readonly number[] = [],
+): LineWord[] {
+  return words.map((word, index) => {
     const form = word.form
     return {
       text: word.text,
       before: word.before,
       after: word.after,
       changes: form ? form.spoken !== form.written : false,
+      ...(marked.includes(index) ? { marked: true } : {}),
       card: form
         ? {
             word: word.text,
@@ -52,9 +60,11 @@ interface LineCardProps {
   speakerAs?: 'h2' | 'p'
   /** Show the line's English meaning under it (the finish screen). */
   showGloss?: boolean
+  /** The answer words of a review, by index in each register (job 9-daily-review). */
+  marked?: { spoken: readonly number[]; written: readonly number[] }
 }
 
-export function LineCard({ line, speakerAs = 'h2', showGloss = false }: LineCardProps) {
+export function LineCard({ line, speakerAs = 'h2', showGloss = false, marked }: LineCardProps) {
   const [spokenPlaying, setSpokenPlaying] = useState(false)
   const [writtenPlaying, setWrittenPlaying] = useState(false)
   const spokenChange = useCallback((isPlaying: boolean) => {
@@ -75,8 +85,8 @@ export function LineCard({ line, speakerAs = 'h2', showGloss = false }: LineCard
         {now && <span className={styles.nowPlaying}> Playing</span>}
       </Speaker>
       <FinnishLine
-        spoken={lineWords(line.spoken, line)}
-        written={lineWords(line.written, line)}
+        spoken={lineWords(line.spoken, line, marked?.spoken)}
+        written={lineWords(line.written, line, marked?.written)}
         cardAudioWhat={LINE_AUDIO}
         cardAudioCaption={CARD_AUDIO_CAPTION}
         cardOnPatterns={openPatterns ?? undefined}

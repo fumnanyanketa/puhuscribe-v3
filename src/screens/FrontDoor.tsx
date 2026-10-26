@@ -4,11 +4,18 @@ import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { Wordmark } from '../components/Wordmark.tsx'
 import { CanDo } from './CanDo.tsx'
 import { callApi, isRecord } from '../lib/api.ts'
+import { nextReviewSentence } from '../lib/review-day.ts'
 import styles from './FrontDoor.module.css'
 
 // The front door, at / (factory/jobs/8-first-session/spec.md, "Done when" 1,
 // 2, 4, 6 and 18). One front door, one loop: the learner never picks a mode.
 // Loading this page creates nothing. Only pressing Start sends POST /api/guest.
+//
+// Job 9-daily-review ("Done when" 4 and 5) adds review to the same states,
+// never as a second choice: a session that ends with a review says so; with
+// no new dialogue, today's session is the review alone; and an empty day says
+// so plainly with the day of the next review, as worded from the database's
+// two Helsinki dates (never the device clock). No count of due words appears.
 
 export const GUEST_LINE =
   'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.'
@@ -17,20 +24,43 @@ export const ALL_DONE = 'You have finished every dialogue that is ready.'
 export const NOT_READY = "Today's session is not ready yet. Please come back later."
 const NOT_STARTED = 'Could not start your session. Check your internet connection, then try again.'
 const LOADING = "Loading today's session."
+const LEAD =
+  'A session is one short Finnish dialogue that you hear line by line and then check you understand.'
+export const ENDS_WITH_REVIEW = 'It ends with a short review of words you met before.'
+export const REVIEW_ONLY = 'A short review of words you met before. Type each missing word from memory.'
+export const EMPTY_DAY = 'That is all for today.'
 
 type View =
   | { kind: 'loading' }
   | { kind: 'signed_out'; ended: boolean }
-  | { kind: 'start' | 'continue'; canDo?: string }
-  | { kind: 'all_done' | 'not_ready' }
+  | { kind: 'start' | 'continue'; canDo?: string; review?: boolean }
+  | { kind: 'review' }
+  | { kind: 'all_done'; nextReview?: string }
+  | { kind: 'not_ready' }
+
+function nextReviewOf(value: unknown): string | undefined {
+  if (!isRecord(value) || typeof value.today !== 'string' || typeof value.day !== 'string') return undefined
+  return nextReviewSentence(value.today, value.day) ?? undefined
+}
 
 function viewFrom(body: unknown): View {
   if (!isRecord(body)) return { kind: 'signed_out', ended: false }
-  const answer = body as { signedIn?: unknown; ended?: unknown; today?: unknown; canDo?: unknown }
+  const answer = body as {
+    signedIn?: unknown
+    ended?: unknown
+    today?: unknown
+    canDo?: unknown
+    review?: unknown
+    nextReview?: unknown
+  }
   if (answer.signedIn !== true) return { kind: 'signed_out', ended: answer.ended === true }
   const canDo = typeof answer.canDo === 'string' ? answer.canDo : undefined
-  if (answer.today === 'continue' || answer.today === 'start') return { kind: answer.today, canDo }
-  if (answer.today === 'all_done' || answer.today === 'not_ready') return { kind: answer.today }
+  if (answer.today === 'continue' || answer.today === 'start') {
+    return { kind: answer.today, canDo, review: answer.review === true }
+  }
+  if (answer.today === 'review') return { kind: 'review' }
+  if (answer.today === 'all_done') return { kind: 'all_done', nextReview: nextReviewOf(answer.nextReview) }
+  if (answer.today === 'not_ready') return { kind: answer.today }
   return { kind: 'signed_out', ended: false }
 }
 
@@ -82,6 +112,10 @@ export function FrontDoor() {
 
   const signedOut = view.kind === 'signed_out'
   const canDo = view.kind === 'start' || view.kind === 'continue' ? view.canDo : undefined
+  const nextReview = view.kind === 'all_done' ? view.nextReview : undefined
+  let lead = LEAD
+  if (view.kind === 'review') lead = REVIEW_ONLY
+  else if (view.kind === 'start' && view.review) lead = `${LEAD} ${ENDS_WITH_REVIEW}`
 
   return (
     <main className={styles.page}>
@@ -89,20 +123,19 @@ export function FrontDoor() {
         <Wordmark height={36} />
       </div>
       <div className={styles.intro}>
-        <h1 className={styles.title}>Today&apos;s session</h1>
+        <h1 className={styles.title}>{nextReview ? EMPTY_DAY : <>Today&apos;s session</>}</h1>
         {instead ? (
           <p className={styles.message} role="status">
             {instead}
           </p>
         ) : (
-          <p className={styles.lead}>
-            A session is one short Finnish dialogue that you hear line by line and then check you understand.
-          </p>
+          <p className={styles.lead}>{lead}</p>
         )}
+        {nextReview && <p className={styles.message}>{nextReview}</p>}
         {canDo && <CanDo text={canDo} className={styles.canDo} />}
       </div>
       <div className={styles.actions}>
-        {(signedOut || view.kind === 'start') && (
+        {(signedOut || view.kind === 'start' || view.kind === 'review') && (
           <Button block busy={starting} busyLabel="Starting your session." onClick={() => void start()}>
             Start
           </Button>

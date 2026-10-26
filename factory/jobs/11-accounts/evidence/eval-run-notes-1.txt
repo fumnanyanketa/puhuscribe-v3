@@ -1,0 +1,46 @@
+NOTE S1 users before/after load /: 14/14; privacy links 1, account links 1, have-account 1
+NOTE S16 api calls on /privacy: 0
+NOTE S2 none: Your account There is no account on this device. Sign in with your email Privacy notice Back to the start
+NOTE S4 invalid "" gentle=1 requests=0
+NOTE S4 invalid "notanemail" gentle=1 requests=0
+NOTE S4 invalid "a@b" gentle=1 requests=0
+NOTE S4 invalid "xxxxxxxxxxxx" gentle=1 requests=0
+NOTE S4 invalid "   " gentle=1 requests=0
+NOTE S3 /api/me none: 200 {"kind":"none"}
+NOTE anon rpc my_account: 401 {"code":"42501","details":null,"hint":null,"message":"permission denied for function my_account"}
+NOTE anon rpc export_my_data: 401 {"code":"42501","details":null,"hint":null,"message":"permission denied for function export_my_data"}
+NOTE anon rpc delete_my_account: 401 {"code":"42501","details":null,"hint":null,"message":"permission denied for function delete_my_account"}
+NOTE S26 cross-origin delete: 403 acao=undefined
+NOTE S26 form-post delete: 415
+NOTE S2 guest: Your account You are using a guest account on this device. Add your email to keep your progress and use it on other devices. Add your email A guest account cannot sign back in, so add your email before you leave. Download my data Delete my account Privacy notice Back to the start
+NOTE S3 /api/me guest: {"kind":"guest"}
+NOTE S4 screen: Add your email Loading. Privacy notice Your account | type=email ac=email
+NOTE double tap Send code: mails=1
+NOTE S5 screen: Add your email Enter the 6 digit code we sent to learner-a-1793032821742-75595@example.com. The code works for one hour. 6 digit code Confirm Send a new code You can ask for a new code after one minute. Use another email address Privacy notice Your account | inputmode=numeric ac=one-time-code resendDisabled=true
+NOTE S7 after send: anon=true email=""
+NOTE S5 wrong code msg=1
+NOTE S7 after wrong: anon=true email=""
+NOTE S5 resend enabled after 61s: true
+NOTE S5 resend: new mail arrived, differs=true; disabled again=true
+NOTE S5 expired code msg=1 anon=true
+NOTE refresh on code step -> https://localhost:4211/account/email : Add your email We send a 6 digit code to this address. We use your email only to send you sign in codes. If this email already has a PuhuScribe accoun
+NOTE S6 page: Add your email Your email is added. Your progress is saved to your account. Continue
+NOTE S6 exists=true anon=false emailMatch=true rowsIdentical=true sessions=1 cards=12 events=1 users 15->15
+NOTE S2 email: Your account You are signed in as learner-a-1793032821742-75595@example.com. Sign out Download my data Delete my account Privacy notice Back to the start
+NOTE S3 /api/me email: {"kind":"email","email":"learner-a-1793032821742-75595@example.com"}
+NOTE S4 email account posts add-email: 409
+NOTE S18 name=puhuscribe-data-2026-10-26.json keys=about,exported_at,account,tables,files tables=cards,consents,sessions,review_logs,usage_events files={}
+NOTE S18 headers: application/json; charset=utf-8 | attachment; filename="puhuscribe-data-2026-10-26.json" | no-store
+NOTE S15 email-change mail: subject="Your PuhuScribe code" code6=true httpText=false httpHtml=false text=Your PuhuScribe code is ###### Enter it in the app. It works for one hour. If you did not ask for this code, you can ignore this email.
+NOTE S15 sign-in mail: subject="Your PuhuScribe code" code6=true http=false text=Your PuhuScribe code is ###### Enter it in the app. It works for one hour. If you did not ask for this code, you can ignore this email.
+NOTE S9 taken vs new code screen identical: true
+NOTE S8 page: Add your email You are signed in to your account. The guest progress from this device was deleted. Continue
+NOTE S8 guest gone: exists=false rows={"cards":0,"consents":0,"review_logs":0,"sessions":0,"usage_events":0}; B unchanged=true; device now B=true
+NOTE S9 add-email new: 200 {"sent":true} | taken(uppercased): 200 {"sent":true}
+NOTE S9 sign-in unknown: 200 {"sent":true} | known: 200 {"sent":true}
+NOTE S11 unknown: mails=0 users 19->19 text=Sign in with your email If this email has a PuhuScribe account, we sent it a 6 digit code. No code after a few minutes? Check the address, or go back and start as a guest. The code works for one hour. 6 digit code Confirm Send a new code You can ask for a new code after one minute. Use another email address Privacy notice Your account
+NOTE S9 sign-in screens unknown vs known identical: true
+NOTE S10 cookies: puhuscribe-aut httpOnly=true secure=true sameSite=Lax
+NOTE S12 front A: Today's session A session is one short Finnish dialogue that you hear line by line and then check you understand. Unit goal. Test fixture. Greet someone and say where you are from. Start Privacy notic | B: Today's session A session is one short Finnish dialogue that you hear line by line and then check you understand. Unit goal. Test fixture. Greet someone and say where you are from. Start Privacy notic
+NOTE S18 device2 export rowcounts=cards:12,consents:0,sessions:1,review_logs:0,usage_events:1 userIds=B dbRows={"cards":12,"consents":0,"review_logs":0,"sessions":1,"usage_events":1} tokenLike=false
+NOTE S14 after sign out: https://localhost:4211/?notice=signed-out Today's session A session is one short Finnish dialogue that you hear line by line and then check you understand. Start Starting creates a guest account on this device so your progress is saved. PuhuS | device1 me={"kind":"email","email":"learner-b-1793032955749-75892@example.com"} | device2 me={"kind":"none"}

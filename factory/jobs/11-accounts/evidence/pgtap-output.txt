@@ -1,0 +1,25 @@
+#         have: 5
+#         want: 0
+# Failed test 12: "[content 16] every word a learner can read links only to forms the learner can read, with a name and a why"
+#         have: 2
+#         want: 0
+# Looks like you failed 2 tests of 23
+Failed 2/23 subtests 
+psql:/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_content.test.sql:13: NOTICE:  extension "pgtap" already exists, skipping
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_content.test.sql .... ok
+psql:/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_learners.test.sql:14: NOTICE:  extension "pgtap" already exists, skipping
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_learners.test.sql ... ok
+psql:/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_reference.test.sql:11: NOTICE:  extension "pgtap" already exists, skipping
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_reference.test.sql .. ok
+psql:/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_schema.test.sql:10: NOTICE:  extension "pgtap" already exists, skipping
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/data_model_schema.test.sql ..... ok
+psql:/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/first_session.test.sql:17: NOTICE:  extension "pgtap" already exists, skipping
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/first_session.test.sql ......... ok
+
+Test Summary Report
+-------------------
+/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/sb/supabase/tests/database/content_publish.test.sql     (Wstat: 0 Tests: 23 Failed: 2)
+  Failed tests:  11-12
+Files=7, Tests=545,  1 wallclock secs ( 0.07 usr  0.02 sys +  0.07 cusr  0.05 csys =  0.21 CPU)
+Result: FAIL
+error running container: exit 1

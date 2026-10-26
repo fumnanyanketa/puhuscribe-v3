@@ -1,0 +1,45 @@
+unauth items GET: 401 {"error":"signed_out"}
+unauth answer: 401 {"error":"signed_out"}
+B reads A session items: 404 {"error":"not_found"}
+B answers in A session: 404 {"error":"not_found"}
+extra field rating: 400 {"error":"bad_request"}
+extra field userId: 400 {"error":"bad_request"}
+text 101 chars: 400 {"error":"bad_request"}
+kind spoken: 400 {"error":"bad_request"}
+missing kind: 400 {"error":"bad_request"}
+formId string: 400 {"error":"bad_request"}
+GET answer: 405 {"error":"method_not_allowed"}
+PUT answer: 405 {"error":"method_not_allowed"}
+other origin: 403 {"error":"forbidden"}
+no origin: 409 {"error":"step_out_of_order"}
+text/plain body: 415 {"error":"unsupported_media_type"}
+draft form 8: 409 {"error":"step_out_of_order"}
+form 14 B has no card (A has): 409 {"error":"step_out_of_order"}
+random session uuid: 404 {"error":"not_found"}
+B items own: 200 {"items":[{"formId":1,"speaker":"Alex","gloss":"Hi! I'm Alex.","register":"spoken","audio":"/audio/test-fixture/test-fixture-dialogue-1/1-puhe.mp3","words":[{"g
+items contain kotoisin form/draft gloss? false / formId 8 present: false
+concurrent same answer: 409 409
+repeat answer form 2 later: 409 {"error":"step_out_of_order"}
+anon front door: 200 {"signedIn":false,"ended":false}
+SID 47602a76-c2e2-41de-9dff-4602c107997e
+step hear: 200
+step understand: 200
+draft form 8: 404 {"error":"not_found"}
+form 14 (B has no card, A has one): 404 {"error":"not_found"}
+form 999 nonexistent: 404 {"error":"not_found"}
+three concurrent same answers: 409 200 409
+empty text (I dont remember): 200 {"result":"wrong","line":{"id":3,"speaker":"Alex","gloss":"Hi! I'm Alex.","spokenAudio":"/audio/test-fixture/test-fixture-dialogue-1/1-puhe.
+text exactly 100 chars: 200 {"result":"wrong","line":{"id":3,"speaker":"Alex","gloss":"Hi! I'm Alex.","spokenAudio":"/audio/test-fixture/test-fixture-dialogue-1/1-puhe.
+answer formId 4 again (retry): 200 {"result":"correct","line":{"id":3,"speaker":"Alex","gloss":"Hi! I'm Alex.","spokenAudio":"/audio/test-fixture/test-fixture-dialogue-1/1-puh
+answer formId 4 third time: 200 {"result":"correct","line":{"id":3,"speaker":"Alex","gloss":"Hi! I'm Alex.","spokenAudio":"/audio/test-fixture/test-fixture-dialogue-1/1-puh
+ is_a | form_id | rating |        review_time         
+------+---------+--------+----------------------------
+ t    |       3 |      1 | 2026-10-26 16:01:02.894+00
+ t    |       4 |      1 | 2026-10-26 16:01:05.211+00
+ f    |       2 |      3 | 2026-10-26 16:02:32.595+00
+ f    |       3 |      1 | 2026-10-26 16:02:32.705+00
+ f    |       4 |      1 | 2026-10-26 16:02:32.771+00
+ f    |       4 |      3 | 2026-10-26 16:02:32.832+00
+ f    |       4 |      3 | 2026-10-26 16:02:32.937+00
+(7 rows)
+

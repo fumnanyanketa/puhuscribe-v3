@@ -1,0 +1,37 @@
+-- grants
+kept_recordings|authenticated|SELECT,DELETE
+speaking_attempts|authenticated|SELECT
+speaking_attempts|transcript|UPDATE
+-- rls
+kept_recordings|t
+speaking_attempts|t
+-- columns kept_recordings
+id|uuid
+user_id|uuid
+line_id|bigint
+slot|text
+audio|bytea
+created_at|timestamp with time zone
+-- cron
+forget-old-voice-data|17 3 * * *|select private.forget_old_voice_data()|t
+-- forget function
+CREATE OR REPLACE FUNCTION private.forget_old_voice_data()
+ RETURNS void
+ LANGUAGE plpgsql
+ SET search_path TO ''
+AS $function$
+begin
+  delete from public.kept_recordings k where k.created_at < now() - interval '90 days';
+  update public.speaking_attempts a
+     set transcript = ''
+   where a.transcript <> '' and a.created_at < now() - interval '90 days';
+end;
+$function$
+
+-- triggers on consents
+voice_withdrawal|CREATE TRIGGER voice_withdrawal AFTER INSERT ON public.consents FOR EACH ROW WHEN ((NOT new.granted)) EXECUTE FUNCTION private.apply_voice_withdrawal()
+kept_recordings|INSERT|audio,line_id,user_id,slot
+kept_recordings|SELECT|line_id,audio,created_at,id,slot,user_id
+speaking_attempts|INSERT|form_id,cost_usd,line_id,provider,session_id,user_id,transcript,audio_ms,feedback_class
+speaking_attempts|SELECT|transcript,provider,session_id,audio_ms,form_id,user_id,id,cost_usd,feedback_class,created_at,line_id
+speaking_attempts|UPDATE|transcript
