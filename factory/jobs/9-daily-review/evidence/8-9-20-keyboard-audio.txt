@@ -1,0 +1,11 @@
+audio before any press: []
+front door tab: Continue today's session
+item tab order: A:Leave session > BUTTON:Play the spoken line > INPUT: > BUTTON:Type ä > BUTTON:Type ö > BUTTON:I don't remember > BODY:Keep it, step 3 of 3Keep  > A:Leave session > BUTTON:Play the spoken line > INPUT:
+after keyboard ä: value mä focus on field BUTTON
+after Enter: Keep it, step 3 of 3 | Keep it | Word 1 of 7. | Sanna | Spoken | Mist  | missing word |  oot kotoisin? | Where are you from? | Spoken | Type the missing word | ä | ö | Type the missing word. | Check | I don't remember
+focus now: INPUT:
+audio after press: ["/audio/test-fixture/test-fixture-dialogue-1/2-puhe.mp3"]
+
+typed s value= "s" focus= INPUT: feedback? false
+tab value= "s" focus= BUTTON:Type ä feedback? false
+enter on ä button value= "sä" focus= INPUT: feedback? false
