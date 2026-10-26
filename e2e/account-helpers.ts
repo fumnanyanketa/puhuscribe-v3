@@ -164,6 +164,11 @@ export async function startGuest(page: Page): Promise<string> {
   await page.goto('/')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
+  // Wait for the session screen to finish loading. A test that deletes the
+  // account while POST /api/sessions/today is still in flight lets that
+  // request find the account gone and clear the cookies first (statement 22),
+  // so the front door can no longer tell a guest was here (CI run 39837754783).
+  await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   return userIdOf(page.context())
 }
 
