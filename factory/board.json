@@ -527,7 +527,7 @@
       "id": "10-speaking-feedback",
       "feature": "speaking-feedback",
       "title": "Speaking feedback & voice consent (Say it)",
-      "stage": "your-approval",
+      "stage": "checks",
       "round": 3,
       "flag": "look closely",
       "flag_reasons": [
@@ -535,8 +535,8 @@
         "learner data",
         "a paid service"
       ],
-      "waiting_on": "owner's written approval (GA)",
-      "updated": "2026-10-26T22:40:00+03:00",
+      "waiting_on": "builder: one timing sensitive WebKit test (10 second auto stop) made robust; then owner approval",
+      "updated": "2026-10-26T23:10:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -583,6 +583,10 @@
         {
           "stage": "your-approval",
           "at": "2026-10-26T22:40:00+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-26T23:10:00+03:00"
         }
       ]
     },

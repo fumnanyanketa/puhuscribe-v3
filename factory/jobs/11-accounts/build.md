@@ -68,4 +68,29 @@ What I did, in plain words:
 
 Pushed head: `c9ac64f` on `factory/11-accounts`.
 
+## Round 3
+
+**What came back.** GitHub run 40359357474 on 44f5b15: 246 passed, 1 failed, WebKit only: `e2e/account-pages.spec.ts:183` "[accounts 27] axe ... light", `page.evaluate: AbortError: The operation was aborted.`
+
+**Triage: wrong earlier decision (a real bug in the test harness), not a flake.** Round 2 added `Promise.all(document.getAnimations().map((a) => a.finished))` so that axe would wait for colour transitions. But when an animation is cancelled, its `finished` promise rejects with AbortError (that is what the Web Animations spec says), and `Promise.all` passes that rejection on.
+
+**Evidence** (the run's `playwright-report` artifact, trace `0562d94...zip` from the failing WebKit test, read as data only):
+- The trace's action list is `goto /sign-in` -> `fill "x"` -> `click "Send code"` -> `expect status "Please check the email address."` -> `evaluate document.fonts.ready` -> `evaluate Promise.all(...finished)`, and that last call has the AbortError.
+- There is no navigation, reload, scheme switch or page close between the click and the failing call. The page scans before it (`/`, `/privacy`, `/account`, `/sign-in`) all completed.
+- So a transition that was still running after the click (the button's press and focus colour) was cancelled before it finished. WebKit cancels it at that moment; Chromium had already finished it. The same wait was also in `e2e/accounts.spec.ts`.
+
+**Fix** (3f0e160): a new `settleAnimations(page)` in `e2e/session-helpers.ts`, used by the `axe` helpers in both spec files. It takes the animations that are still running, waits for them with `Promise.allSettled` (a cancelled animation no longer changes the page, so it counts as settled), and checks again until none is running (at most 10 rounds). The axe assertion, its tags and every scanned page are unchanged.
+
+I also cherry-picked the manager's `checks: run the browser test jobs on ubuntu-24.04` (bfbdd5c), so the browser jobs do not hang in `playwright install`.
+
+**Commands and results**
+- `npm run check:code`: pass. `npx vitest run`: 47 files, 699 passed, 2 skipped.
+- Chromium browser tests, run from a private clone at `/tmp/claude-0/.../scratchpad/b11`. It had its own Supabase (project id `puhu11build`, ports 59321/59322/59324), its own preview port (4273) and its own browser folder. This left the worktree's `dist/` and the evaluator's stack (`puhu11eval`, 58xxx) alone. It used the browser seeds and `VITE_DESIGN_REFERENCE=1 npm run build`, then `LOCAL_DB_URL=...59322... MAILPIT_URL=http://127.0.0.1:59324 npx playwright test --project=chromium`: 124 passed, 15 skipped.
+- WebKit did not run locally: the container has no WebKit host libraries (`browserType.launch` fails). WebKit was checked on GitHub instead.
+- lefthook on commit: Prettier, gitleaks (no leaks), ESLint and tsc all pass.
+- GitHub run 40364572122 on head bfbdd5c: "Browser tests (Playwright, local Supabase)" **success, 247 passed** (Chromium and WebKit, including both `[accounts 27]` axe tests). The type check, lint, Vitest, database, Python, dependency and secret scan jobs also pass.
+- The same run's "Preview link (Cloudflare Worker behind Access)" job **fails**: `SUPABASE_URL is not set.` The repository secrets `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` and `CLOUDFLARE_ACCOUNT_ID` are empty. This is owner setup and not caused by the code; on 44f5b15 that job only showed as skipped because the browser tests failed first.
+
+Pushed head: `bfbdd5c` on `factory/11-accounts`. Green browser test run: 40364572122.
+
 Result: checks pass
