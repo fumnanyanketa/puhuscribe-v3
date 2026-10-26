@@ -9,3 +9,20 @@ audio after press: ["/audio/test-fixture/test-fixture-dialogue-1/2-puhe.mp3"]
 typed s value= "s" focus= INPUT: feedback? false
 tab value= "s" focus= BUTTON:Type ä feedback? false
 enter on ä button value= "sä" focus= INPUT: feedback? false
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.inputValue: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByLabel('Type the missing word', { exact: true })[22m
+
+    at st (/tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/pw/kb2.mjs:5:66)
+    at /tmp/claude-0/-home-user/e1206812-753f-5a67-9284-d612767cfae2/scratchpad/pw/kb2.mjs:8:76 {
+  log: [
+    "  - waiting for getByLabel('Type the missing word', { exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

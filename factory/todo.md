@@ -51,3 +51,16 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 ## From 9-daily-review reviews (26 Oct 2026)
 - (design) "Spoken" or "Written" shows twice on the review prompt, once as the band label and again beside the play control (`src/screens/ReviewItemView.tsx`). Drop one.
 - (security, note) `record_review` finds the card by form id only and is safe while it stays security invoker; an extra `user_id = auth.uid()` guard on the update would make it safe either way.
+
+## From 11-accounts reviews (26 Oct 2026)
+- (design) Privacy notice cards in `PrivacyPage.tsx` sit in a `ul` that keeps bullet markers and left padding; each card shows a stray dot and is pushed in.
+- (design) The contact link in `PrivacyPage.tsx` cannot wrap a long address and may scroll sideways at 320 px; `.inlineLink` already has `overflow-wrap: anywhere` but is unused.
+- (design, notes) The account page load failure has no retry button. The sign in code screen has no separate "enter the code" sentence.
+- (security, note) `export_my_data()` does not check that the sign in is still live, unlike the other two functions; a signed out token that has not expired can still read its own rows directly, which the read rules already allow.
+- (security, note) Each code check calls Supabase's code check twice (`worker/account.ts`); all learners share one limit from the Worker's address. Already a launch item in the 8-first-session list.
+- (security, for the owner) The clean up also deletes email accounts after 24 months without activity (owner's call 3, option B).
+
+## From 12-units-1-3 reviews (26 Oct 2026)
+- (security, note) `worker/patterns.ts` `tokens()` has no approved-status filter of its own and relies on the database rules.
+- (security, note) `supabase/seeds/browser/020_test_fixture_units_2_3.sql` inserts content marked approved; it must never be applied to a real project.
+- (security, not checked) The fake voice marker guard from the job 7 list was not found in code; the publish step was not exercised because the sixth dialogue is not drafted yet.
