@@ -2,13 +2,14 @@ import type { ComponentType } from 'react'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import type { RecordableStep, StepReached } from '../lib/session-types.ts'
 import { HearIt } from './HearIt.tsx'
+import { SayIt } from './SayIt.tsx'
 import type { StepScreenProps } from './step-screen.ts'
 import { UnderstandIt } from './UnderstandIt.tsx'
 
 // The steps of a session, in order, in one list
 // (factory/jobs/8-first-session/spec.md, "Done when" 8). The finish screen
-// always follows the last one. Say it (job 10-speaking-feedback) is added
-// here, after Understand it.
+// always follows the last one. Say it (job 10-speaking-feedback) comes
+// after Understand it.
 
 export interface SessionStep {
   /** The value stored in sessions.step_reached when the step is done. */
@@ -21,6 +22,7 @@ export interface SessionStep {
 export const SESSION_STEPS: readonly SessionStep[] = [
   { id: 'hear', name: 'Hear it', Screen: HearIt },
   { id: 'understand', name: 'Understand it', Screen: UnderstandIt },
+  { id: 'say', name: 'Say it', Screen: SayIt },
 ]
 
 /** Where a session stands: one of its steps, or the finish screen. */

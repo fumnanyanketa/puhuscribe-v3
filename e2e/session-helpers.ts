@@ -96,11 +96,15 @@ export async function finishLineId(page: Page): Promise<string> {
 /** Answers every question right, using each line's meaning from the database. */
 /**
  * After "Next" in Understand it: waits for the next question (a different
- * line) or, after the last one, for the finish screen. The last "Next" first
- * saves the step, so the old question stays on screen for a moment.
+ * line) or, after the last one, for the next step (Say it, job
+ * 10-speaking-feedback, which opens on its consent screen for a new learner).
+ * The last "Next" first saves the step, so the old question stays on screen
+ * for a moment.
  */
 export async function afterNext(page: Page, previousLineId: string): Promise<'done' | 'question'> {
-  const done = page.getByRole('heading', { level: 1, name: 'Now you can say this.' })
+  const done = page
+    .getByRole('heading', { level: 1, name: 'Say it' })
+    .or(page.getByRole('heading', { level: 1, name: 'Speaking feedback' }))
   const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
   const seen: { state: 'done' | 'question' | 'waiting' } = { state: 'waiting' }
   await expect
@@ -161,4 +165,26 @@ export async function tabTo(page: Page, target: Locator, testInfo: TestInfo): Pr
     return
   }
   throw new Error('Tab never reached the control.')
+}
+
+/**
+ * Say it for a learner who has not turned on speaking feedback (job
+ * 10-speaking-feedback, "Done when" 3): "Not now" on the consent screen, then
+ * each line out loud with "Next line", and "Continue" to the finish screen.
+ */
+export async function passSayIt(page: Page): Promise<void> {
+  const notNow = page.getByRole('button', { name: 'Not now', exact: true })
+  const next = page.getByRole('button', { name: 'Next line', exact: true })
+  const cont = page.getByRole('button', { name: 'Continue', exact: true })
+  // Waits until Say it has loaded the learner's voice choices.
+  await expect(notNow.or(next).or(cont)).toBeVisible()
+  if (await notNow.isVisible()) await notNow.click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+  for (;;) {
+    await expect(next.or(cont)).toBeVisible()
+    if (await cont.isVisible()) break
+    await next.click()
+  }
+  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
 }

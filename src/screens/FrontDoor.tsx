@@ -119,6 +119,12 @@ export function FrontDoor() {
         )}
         {signedOut && <p className={styles.guestLine}>{GUEST_LINE}</p>}
         {!instead && <StatusLine tone={tone}>{message}</StatusLine>}
+        {/* Voice settings (job 10-speaking-feedback, "Done when" 4), once signed in. */}
+        {view.kind !== 'loading' && !signedOut && (
+          <a className={styles.link} href="/voice">
+            Voice settings
+          </a>
+        )}
       </div>
     </main>
   )

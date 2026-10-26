@@ -70,8 +70,8 @@ function audioContextClass(): AudioContextClass | null {
 export function recordingSupported(): boolean {
   return (
     window.isSecureContext &&
-    'mediaDevices' in navigator &&
-    typeof navigator.mediaDevices.getUserMedia === 'function' &&
+    // mediaDevices can be missing (an insecure page, an older browser).
+    typeof (navigator.mediaDevices as MediaDevices | undefined)?.getUserMedia === 'function' &&
     typeof window.MediaRecorder === 'function' &&
     audioContextClass() !== null
   )

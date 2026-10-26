@@ -54,3 +54,14 @@
   line-height: var(--leading-body);
   color: var(--color-text-quiet);
 }
+
+/* The link to Voice settings (job 10-speaking-feedback). */
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: var(--tap-min);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
