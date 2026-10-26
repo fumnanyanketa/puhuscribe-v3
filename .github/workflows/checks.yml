@@ -124,8 +124,8 @@ jobs:
         run: |
           sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
             python -m pytest scripts/generate --junitxml=pytest-results.xml
-      - name: All 138 Python tests ran and passed (the 9 Voikko gate tests among them)
-        # Raised from 9 by job 7-content-pipeline (138 after its round 2) ("Done when" 12). No test is
+      - name: All 193 Python tests ran and passed (the 9 Voikko gate tests among them)
+        # Raised from 9 by job 7-content-pipeline (138 after its round 2) ("Done when" 12), then to 193 by job 12-units-1-3 (scripts/generate/test_units_1_3.py). No test is
         # removed: v2's 9 Voikko gate tests must still be in the results.
         if: success() || failure()
         run: |
@@ -135,7 +135,7 @@ jobs:
           suite = root if root.tag == "testsuite" else root.find("testsuite")
           counts = {k: int(suite.get(k, 0)) for k in ("tests", "failures", "errors", "skipped")}
           print(counts)
-          assert counts == {"tests": 138, "failures": 0, "errors": 0, "skipped": 0}, counts
+          assert counts == {"tests": 193, "failures": 0, "errors": 0, "skipped": 0}, counts
           v2 = {c.get("name") for c in suite.iter("testcase") if c.get("classname", "").endswith("test_voikko_gate")}
           print(len(v2), "Voikko gate tests")
           assert len(v2) == 9, v2
