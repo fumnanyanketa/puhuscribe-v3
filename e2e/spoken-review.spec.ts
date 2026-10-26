@@ -90,7 +90,8 @@ test.describe('spoken answers in review', { tag: '@seed' }, () => {
     expect(logs.find((l) => l.formId === first)).toMatchObject({ mode: 'typed', rating: 3 })
     expect(logs.find((l) => l.formId === second)).toMatchObject({ mode: 'spoken', rating: 3 })
     const card = cardOf(userId, second)
-    expect(card?.reps).toBe(2)
+    expect(card?.reps).toBe(1)
+    expect(card?.due).toBe(logs.find((l) => l.formId === second)?.due)
     expect(card?.due).toBeGreaterThan(Date.now())
     // The answer holds no transcript, and the attempt row holds a class and no session or line.
     expect(
