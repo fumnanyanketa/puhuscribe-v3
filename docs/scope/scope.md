@@ -38,7 +38,7 @@ These are not rows. They become acceptance criteria inside each spec and rules i
 | 5 | Content pipeline & native review | Foundation | done (reviewer approval of the first dialogue moves to item 10) |
 | 6 | First session loop (Hear it, Understand it) | Slice 1 | done |
 | 7 | Daily review (Keep it) | Slice 2 | done |
-| 8 | Speaking feedback & voice consent (Say it) | Slice 3 | planned |
+| 8 | Speaking feedback & voice consent (Say it) | Slice 3 | done |
 | 9 | Accounts & personal data | Slice 4 | planned |
 | 10 | Units 1 to 3 content | Slice 5 | planned |
 | 11 | Units 4 to 6 content | Slice 6 | planned |
@@ -99,7 +99,7 @@ Thicken the review strand. Forms met so far come back when they are due: the lea
 ### 8. Speaking feedback & voice consent (Say it) · needs a decision · GA
 Thicken the speaking strand. Before the first recording, the learner reads in plain words what is recorded, where it goes, and that it is deleted. They shadow each line; the audio goes to speech recognition; the transcript comes back and is compared to the line; feedback is phrase level and kind ("Close, try the double k"). Audio is discarded by default; keeping recordings is an explicit opt in with 90 day retention and deletion. Review gains spoken recall. The speech recognition vendor is chosen by eval on 50 clips of non native learner speech, not by preference.
 **Done when:** a learner gives consent, shadows every line of a dialogue and gets feedback on each, only the transcript and a feedback class are stored unless they opted in, the vendor pick meets the word error target recorded in its spec, and the feedback golden set of 30 cases passes at its recorded rate on `/check eval`.
-- [ ] Design it (spec): `/architect speaking feedback & voice consent`
+- [x] Design it (spec) and build it: factory job 10-speaking-feedback, `factory/jobs/10-speaking-feedback/spec.md`, merged 27 October 2026.
 
 ## Slice 4: Accounts & personal data
 
