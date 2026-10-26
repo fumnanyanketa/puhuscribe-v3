@@ -610,15 +610,15 @@
       "id": "13-review-site",
       "feature": "review-site",
       "title": "Private review site for the native reviewer",
-      "stage": "your-approval",
+      "stage": "merged",
       "round": 1,
       "flag": "look closely",
       "flag_reasons": [
         "Cloudflare Access and a public domain",
         "unpublished Finnish content"
       ],
-      "waiting_on": "owner approval; then the owner Cloudflare setup",
-      "updated": "2026-10-22T10:10:13+03:00",
+      "waiting_on": "owner Cloudflare setup before the first deploy",
+      "updated": "2026-10-22T22:11:51+03:00",
       "history": [
         {
           "stage": "spec",
@@ -642,6 +642,11 @@
           "stage": "your-approval",
           "at": "2026-10-22T10:10:13+03:00",
           "note": "round 2 green at b8cdf45"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-10-22T22:11:51+03:00",
+          "note": "approved by owner 2026-10-22; merged in the public repository"
         }
       ]
     }

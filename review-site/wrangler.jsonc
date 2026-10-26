@@ -1,0 +1,39 @@
+/**
+ * Wrangler configuration for the private review site (job 13-review-site).
+ * A separate Worker from the app: puhuscribe-review, in the Exentrik Cloudflare
+ * account (the manager's addendum to the spec, DNS case C1), at
+ * puhuscribe.exentrik.co behind Cloudflare Access.
+ *
+ * It serves only what `npm run build:review-site` writes to dist-review/: the
+ * index, robots.txt and the listed review pages. review-site/worker.ts runs
+ * before every file and checks the Access token.
+ *
+ * Deployed only from main by .github/workflows/review-site.yml, which passes the
+ * two plain variables ACCESS_TEAM_DOMAIN and ACCESS_AUD with --var. No secrets,
+ * and no binding other than the assets.
+ * Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "puhuscribe-review",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-19",
+  // Only the custom domain serves the site: no workers.dev address and no
+  // preview addresses.
+  "workers_dev": false,
+  "preview_urls": false,
+  // Cloudflare makes the DNS record and the certificate for this one name. No
+  // other record on exentrik.co is touched.
+  "routes": [{ "pattern": "puhuscribe.exentrik.co", "custom_domain": true }],
+  "assets": {
+    "directory": "../dist-review",
+    "binding": "ASSETS",
+    // html_handling stays at its default, so /<slug>/round-1 serves round-1.html.
+    "not_found_handling": "none",
+    "run_worker_first": true,
+  },
+  // No logs of requests or of who signed in.
+  "observability": {
+    "enabled": false,
+  },
+}
