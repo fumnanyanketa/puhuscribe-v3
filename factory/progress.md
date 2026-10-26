@@ -219,3 +219,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-10-26T20:55 10-speaking-feedback design review: pass, 0 must-fix, 2 should-fix to todo.
 - 2026-10-26T21:05 10-speaking-feedback security review: pass, 0 must-fix, 1 should-fix (the say route's paid call limit can be beaten by parallel requests) and 3 notes, all to todo and flagged in the summary.
 - 2026-10-26T21:10 12-units-1-3 blocked: pull request 6 is red only for the missing sixth dialogue (pytest and two browser tests). Needs the repository secrets, then one pipeline run (about $0.25). summary.md written.
+- 2026-10-26T21:25 10-speaking-feedback round 3: GitHub run 40356177557 red in WebKit only (14 speaking feedback tests time out on a click; Chromium green). No WebKit on this machine, so the builder works from the run's report and traces. PR 9: all green except the preview link (SUPABASE_URL secret missing); comment posted.

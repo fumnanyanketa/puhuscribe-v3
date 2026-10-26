@@ -1,0 +1,4 @@
+600KB JSON to /api/speech/say x3: 413 each
+5MB to /api/speech/say x3: 500 'TypeError: fetch failed' from vite preview's local runtime
+600KB to job 8's /api/guest x3: 413, 500, 413 (same local runtime problem on an older route)
+520000 bytes (under the 512 KiB cap) invalid JSON: 400
