@@ -47,3 +47,6 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - (security) Anyone with write access to the repository can edit `review-site.yml` on a branch and reach `CLOUDFLARE_REVIEW_API_TOKEN` in a pull request run; GitHub environment secrets and branch protection need GitHub Pro. Keep the token as narrow as possible. Add a GitHub environment limited to main if the repository ever moves to a paid plan.
 - (security) Cloudflare keeps the allowed emails in the Access policy and its sign-in records and sends the PIN email; where and for how long is unconfirmed (may be outside the EU), and removing a reviewer does not delete those records. Say so in `docs/content-pipeline.md` and tell the reviewer.
 - (evaluator) A failed build leaves an older `dist-review/` in place. The push trigger does not cover package.json, so a dependency update alone does not redeploy. Statement 17 skips when `REVIEW_WORKERS_SUBDOMAIN` is not set: set it before the first deploy and check the test shows passed, not skipped.
+
+## From 9-daily-review reviews (26 Oct 2026)
+- (design) "Spoken" or "Written" shows twice on the review prompt, once as the band label and again beside the play control (`src/screens/ReviewItemView.tsx`). Drop one.
