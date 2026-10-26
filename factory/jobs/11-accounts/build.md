@@ -111,3 +111,18 @@ Result: checks pass
 **GitHub.** Merge commit `a5392d1`: run 40387519656 failed only WebKit `[accounts 12]` (the heading issue above). Fix commit `741b8ec`: run 40389094194, every check green except "Preview link", which failed (allowed by the manager's instruction).
 
 Result: checks pass
+
+## Round 5: merge of main after job 10, export covers the voice tables
+
+**What changed (plain words).** Merged `origin/main` (job 10, speaking feedback and voice consent) into the branch (`aeb7f76`). The data export (`export_my_data()` in `20261022072911_accounts.sql`) and the data inventory (`src/privacy/data-inventory.ts`, `src/privacy/processors.ts`) now also cover job 10's user tables: the voice consent choices, `speech_checks` and `kept_recordings`. pgTAP `accounts.test.sql` and `data_model_schema.test.sql` were extended to match; the catalogue test (statement 19) fails if any user table is missing from the export, and the processors test fails if the inventory and the processor list disagree. The privacy notice's responsible name and contact were left empty on purpose.
+
+Three browser test fixes followed, none weakening an assertion:
+- `eb4575f`: `[accounts 10]` counts only its own address, and the daily review test waits for the caret before typing (`[review 9]`, ä button).
+- `bd1b502`: the daily review test reads the caret through a typed function.
+- `5113f59`: `[accounts 6]` (WebKit) counts the one address, not every user in the shared database.
+
+**Checks (local).** `npm ci`; `npm run check:code` pass; `npx vitest run` 896 passed, 2 skipped (66 files); `npx supabase test db` 698 tests pass (9 files, after `db reset`); `npx playwright test e2e/accounts.spec.ts e2e/account-pages.spec.ts --project=chromium` 29 passed including `@email` with Mailpit (own project id, ports 58xxx; `config.toml` restored afterwards). Not run here: the rest of the Chromium suite and WebKit (GitHub ran both).
+
+**GitHub.** Head `5113f59`. Run 40400873283 first hit the 30 minute job limit because "Install Chromium and WebKit" stalled for 21 minutes (cancelled, not a test failure; 220 tests had already passed). Rerun of the failed job: Browser tests green in Chromium and WebKit; every check green except "Preview link" (empty repository secrets, owner setup). Green run id: 40400873283.
+
+Result: checks pass
