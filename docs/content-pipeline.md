@@ -12,8 +12,8 @@ The pipeline is Python in `scripts/generate/` and needs Linux with Voikko, so it
 2. On GitHub, open Actions, choose "Content pipeline", "Run workflow", task `draft`, and the brief path, for example `content/briefs/meeting-people-new-colleague.json`.
 3. When it finishes, download the `review-pack` artifact from the run page. If a check still failed after three drafting rounds, the run is red, its log lists every failing word or line, and there is no review page.
 4. Commit the pack as `content/drafts/<dialogue-slug>/`: `draft.json`, `check-report.json`, `audio/`, `review/` and `run.log`. Add the lines of its `ai-calls.jsonl` to `content/logs/ai-calls.jsonl`.
-5. The owner sends `review/round-1.html` to the native reviewer (nothing is sent automatically).
-6. The reviewer's returned file goes to `content/reviews/<dialogue-slug>/round-1.json`. Only the manager adds files there, on the owner's instruction.
+5. On the owner's instruction, the manager lists the dialogue slug in `review-site/dialogues.json` (once per dialogue). When that commit and the round's page `review/round-<n>.html` reach main, the review site updates by itself (see "The review site" below). The owner then sends the native reviewer the link `https://puhuscribe.exentrik.co/<dialogue-slug>/round-<n>`. Nothing is sent automatically.
+6. The reviewer presses "Download my review" and sends the file back by the channel the owner chose. It goes to `content/reviews/<dialogue-slug>/round-<n>.json`. Only the manager adds files there, on the owner's instruction.
 7. Run the workflow again with task `next-round` and the dialogue slug. If the reviewer fixed anything, it applies the fixes, checks and voices the changed lines only, and makes `review/round-2.html` with only the changed lines, their word cards and clips (PRD section 9). Repeat from step 5. If everything was approved, the log says "Ready to publish".
 8. Publish on a computer with Voikko: `python scripts/generate/pipeline.py publish --draft content/drafts/<dialogue-slug>`. Commit the new migration and the audio. The content reaches the test database only when the owner approves the merge.
 
@@ -31,6 +31,34 @@ The GitHub check "Python tests and lint" runs `python scripts/generate/pipeline.
 | `VOICE_PROVIDER` | Set by the workflow | `azure`, or `fake` in tests |
 
 Set a secret with `gh secret set NAME` (it asks for the value, so it never shows in chat) and a variable with `gh variable set NAME`.
+
+## The review site
+
+The native reviewer reads each review page on a private website, `https://puhuscribe.exentrik.co`, instead of opening a file. Built in job 13-review-site; the decision is in [factory/jobs/13-review-site/spec.md](../factory/jobs/13-review-site/spec.md#decision).
+
+- **What it serves.** An index of the listed dialogues with each round's status ("Waiting for your review" or "Review received"), `robots.txt`, and each listed dialogue's review pages at `/<dialogue-slug>/round-<n>`, byte for byte as committed. Nothing else from `content/`: no draft, audio, round file, brief or returned review.
+- **The list.** `review-site/dialogues.json` holds only dialogue slugs, for example `{"dialogues": ["meeting-people-new-colleague"]}`. Only the manager edits `review-site/dialogues.json`, on the owner's instruction, as with `content/reviews/`.
+- **Who gets in.** Cloudflare Access with a one-time PIN sent by email. The Allow policy holds exactly the owner's chosen email and the reviewer's email, typed into the Zero Trust dashboard of the Exentrik Cloudflare account. No email address is ever written into this repository. A Service Auth policy lets the live tests in with the review site's service token.
+- **What Cloudflare keeps.** Cloudflare (the Exentrik account) holds both emails in the Access policy and in its sign-in records, and it sends the one-time PIN email. Where Cloudflare keeps these records, whether they stay in the EU and for how long are not confirmed. Tell the reviewer this before their first sign-in.
+- **The second lock.** The Worker `puhuscribe-review` (`review-site/worker.ts`, with its rules in `review-site/handler.ts`) serves a file only with a valid Access token for this application, answers only GET and HEAD, keeps no logs, and tells search engines to stay away on every response.
+- **Build and deploy.** `npm run build:review-site` writes `dist-review/`. The workflow "Review site" (`.github/workflows/review-site.yml`) builds and dry runs it on pull requests. It deploys only from main: on a push that touches the site, a review page or `content/reviews/`, or on a manual start.
+- **The reviewer's file.** The page's own "Download my review". Nothing is uploaded to the site.
+
+### Review site settings
+
+| Name | Where | What |
+| --- | --- | --- |
+| `CLOUDFLARE_REVIEW_API_TOKEN` | GitHub secret | A Cloudflare API token for the Exentrik account only, limited to editing Workers and the custom domain on exentrik.co. Only the deploy step reads it |
+| `CLOUDFLARE_REVIEW_ACCOUNT_ID` | GitHub secret | The Exentrik Cloudflare account ID. Only the deploy step reads it |
+| `REVIEW_CF_ACCESS_CLIENT_ID` | GitHub secret | Client ID of the review site's Access service token. Only the live test step reads it |
+| `REVIEW_CF_ACCESS_CLIENT_SECRET` | GitHub secret | Client secret of that service token. Only the live test step reads it |
+| `REVIEW_ACCESS_TEAM_DOMAIN` | GitHub variable | The Zero Trust team domain, `https://<team>.cloudflareaccess.com`. Reaches the Worker as `ACCESS_TEAM_DOMAIN` |
+| `REVIEW_ACCESS_AUD` | GitHub variable | The Access application's AUD tag. Reaches the Worker as `ACCESS_AUD` |
+| `REVIEW_WORKERS_SUBDOMAIN` | GitHub variable | The Exentrik account's workers.dev subdomain, read by one live test to prove that address serves nothing. Optional |
+
+Until the four deploy settings (the two `CLOUDFLARE_REVIEW_` secrets and the two `REVIEW_ACCESS_` variables) exist, the deploy job skips the deploy with a notice. With only some of them set, it fails and names the missing ones. The Worker answers 403 to everything while either Access variable is missing.
+
+When the reviewer stops reviewing, remove their email from the Allow policy and remove them from the Zero Trust users list, which frees their seat. This does not delete Cloudflare's sign-in records of their email.
 
 ## Where each file lives
 

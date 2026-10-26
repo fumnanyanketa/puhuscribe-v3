@@ -85,11 +85,13 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 
 ## Running costs
 
-| Service                                                  | Plan                                                                      | Cost today                                     |
-| -------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------- |
-| GitHub (private repository, Actions checks)              | Free (2,000 check minutes a month)                                        | €0                                             |
-| Cloudflare Workers (app, API, preview links)             | Workers Free                                                              | €0                                             |
-| Cloudflare Zero Trust (Access sign in for preview links) | Free (up to 50 users)                                                     | €0                                             |
-| Supabase (test project `puhuscribe-test`)                | Free                                                                      | €0                                             |
-| Anthropic API (drafting Finnish content at build time)   | Pay per use (key not created yet)                                         | €0 so far; about $0.25 per dialogue (estimate) |
-| Azure Speech (voices for both registers at build time)   | Free allowance, 0.5 million characters a month (resource not created yet) | €0                                             |
+| Service                                                                                     | Plan                                                                      | Cost today                                     |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------- |
+| GitHub (private repository, Actions checks)                                                 | Free (2,000 check minutes a month)                                        | €0                                             |
+| Cloudflare Workers (app, API, preview links)                                                | Workers Free                                                              | €0                                             |
+| Cloudflare Zero Trust (Access sign in for preview links)                                    | Free (up to 50 users)                                                     | €0                                             |
+| Cloudflare Workers, Exentrik account (`puhuscribe-review`, the private review site)         | Workers Free                                                              | €0                                             |
+| Cloudflare Zero Trust, Exentrik account (Access sign in for the review site, 2 of 50 seats) | Free (up to 50 users)                                                     | €0                                             |
+| Supabase (test project `puhuscribe-test`)                                                   | Free                                                                      | €0                                             |
+| Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                         | €0 so far; about $0.25 per dialogue (estimate) |
+| Azure Speech (voices for both registers at build time)                                      | Free allowance, 0.5 million characters a month (resource not created yet) | €0                                             |
