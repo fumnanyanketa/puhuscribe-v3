@@ -59,10 +59,20 @@ export async function stubMicrophone(page: Page, kind: Microphone): Promise<void
         }
       };
     }
-    devices.getUserMedia = (constraints) => {
+    // Defined, not assigned, on the object and its prototype: with a plain
+    // assignment WebKit still reached a getUserMedia that refused (run
+    // 40359756196 showed "Microphone access is off" on every recording test).
+    const fakeGetUserMedia = (constraints) => {
       window.__micCalls += 1;
       if (mode === 'denied' || !constraints || !constraints.audio) {
         return Promise.reject(new DOMException('Permission denied', 'NotAllowedError'));
+      }
+      if (typeof AudioContext.prototype.createMediaStreamDestination !== 'function') {
+        // No MediaStream in this WebKit build: a stream of one stoppable track.
+        const track = { kind: 'audio', readyState: 'live', stop() { this.readyState = 'ended'; } };
+        const stream = { getTracks: () => [track], getAudioTracks: () => [track] };
+        window.__micStreams.push(stream);
+        return Promise.resolve(stream);
       }
       const context = new AudioContext();
       const oscillator = context.createOscillator();
@@ -74,6 +84,10 @@ export async function stubMicrophone(page: Page, kind: Microphone): Promise<void
       window.__micStreams.push(out.stream);
       return Promise.resolve(out.stream);
     };
+    Object.defineProperty(devices, 'getUserMedia', { value: fakeGetUserMedia, configurable: true, writable: true });
+    if (typeof MediaDevices === 'function') {
+      Object.defineProperty(MediaDevices.prototype, 'getUserMedia', { value: fakeGetUserMedia, configurable: true, writable: true });
+    }
   })()`)
 }
 
