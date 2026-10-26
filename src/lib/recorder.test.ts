@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { RECORDING_TYPES, pickRecordingType } from './recorder.ts'
+import { RECORDING_TYPES, capToLimit, pickRecordingType } from './recorder.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/10-speaking-feedback/spec.md that each test protects.
@@ -29,5 +29,15 @@ describe('the recording format', () => {
         return true
       }),
     ).toBe('audio/mp4')
+  })
+})
+
+describe('the 10 second limit', () => {
+  it('[speak 9] a recording that ran a little past 10 seconds is cut to exactly 10 seconds', () => {
+    expect(capToLimit(new Float32Array(16_000 * 10 + 800)).length).toBe(160_000)
+  })
+  it('[speak 9] a recording within the limit is left as it is', () => {
+    const samples = new Float32Array(16_000 * 3)
+    expect(capToLimit(samples)).toBe(samples)
   })
 })

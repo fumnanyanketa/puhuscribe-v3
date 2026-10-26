@@ -77,6 +77,16 @@ export function recordingSupported(): boolean {
   )
 }
 
+/**
+ * Cuts a 16 kHz recording to the 10 second limit. The stop timer can fire a
+ * little late (WebKit on a busy machine did, in GitHub run 40364430716), and
+ * the server refuses a WAV longer than MAX_RECORDING_MS.
+ */
+export function capToLimit(samples: Float32Array): Float32Array {
+  const max = Math.floor((SPEECH_SAMPLE_RATE * MAX_RECORDING_MS) / 1000)
+  return samples.length > max ? samples.subarray(0, max) : samples
+}
+
 /** Decodes any recorded format the browser can play into 16 kHz mono 16 bit WAV. */
 export async function toSpeechWav(blob: Blob): Promise<Recording> {
   const Context = audioContextClass()
@@ -91,7 +101,7 @@ export async function toSpeechWav(blob: Blob): Promise<Recording> {
     })
     const channels: Float32Array[] = []
     for (let i = 0; i < decoded.numberOfChannels; i += 1) channels.push(decoded.getChannelData(i))
-    const samples = resample(mixToMono(channels), decoded.sampleRate, SPEECH_SAMPLE_RATE)
+    const samples = capToLimit(resample(mixToMono(channels), decoded.sampleRate, SPEECH_SAMPLE_RATE))
     return { wav: encodeWav(samples), durationMs: Math.round((samples.length / SPEECH_SAMPLE_RATE) * 1000) }
   } catch (error) {
     throw error instanceof RecorderFailed ? error : new RecorderFailed('failed')
