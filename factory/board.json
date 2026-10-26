@@ -478,14 +478,14 @@
       "id": "9-daily-review",
       "feature": "daily-review",
       "title": "Daily review (Keep it)",
-      "stage": "build",
+      "stage": "checks",
       "round": 1,
       "flag": "look closely",
       "flag_reasons": [
         "learner data"
       ],
-      "waiting_on": "builder (resumed 26 October after the pause)",
-      "updated": "2026-10-26T18:27:00+03:00",
+      "waiting_on": "GitHub checks on factory/9-daily-review",
+      "updated": "2026-10-26T19:05:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -504,6 +504,10 @@
         {
           "stage": "build",
           "at": "2026-10-26T18:27:00+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-26T19:05:00+03:00"
         }
       ]
     },
