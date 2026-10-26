@@ -321,7 +321,11 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       page,
     }, testInfo) => {
       const address = testAddress('nobody', testInfo)
-      const users = userCount()
+      // Counted by this test's own address prefix: other tests run at the same
+      // time and make guests, so a count of every user is not stable.
+      const prefix = `nobody-${testInfo.project.name}-%`
+      const ownUsers = () => one(`select count(*) from auth.users where email like :'prefix'`, { prefix })
+      const users = ownUsers()
       await page.goto('/sign-in')
       await sendCodeTo(page, address)
       await expect(
@@ -333,7 +337,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.waitForTimeout(3_000)
       expect(await mailCount(address)).toBe(0)
       expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('0')
-      expect(userCount()).toBe(users)
+      expect(ownUsers()).toBe(users)
     })
 
     test('[accounts 12] [accounts 10] [accounts 15] two devices: the second signs in and sees the same progress, and progress made there shows on the first', async ({
