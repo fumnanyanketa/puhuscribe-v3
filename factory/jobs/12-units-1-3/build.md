@@ -58,4 +58,15 @@ Branch `factory/12-units-1-3`, draft PR 6. Pushed head `ec3588b`.
 
 `npm ci`; `npx supabase start`; load `supabase/seeds/browser/*.sql` with psql; write settings with `npx supabase status -o env | node scripts/ci/write-test-settings.ts env .env.local --from-supabase-status`; `VITE_DESIGN_REFERENCE=1 npm run build`; `LOCAL_DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres npx playwright test`. The panel opens from any word card inside a session ("Patterns you've seen").
 
-Result: blocked: Python check stays red until the real pipeline run for grocery-store-directions is committed (needs the repository secrets)
+
+## Round 3: merge of main after job 9
+
+- Merged origin/main (job 9, daily review) into the branch, merge commit `50885d5`. Four conflicts. `AGENTS.md`: main's version exactly (2,199 words). `docs/conventions.md`: kept both rows (`[review N]` and `[units N]`). `src/screens/SessionFlow.tsx`: kept the Patterns panel wrapper around the screen and job 9's `review` prop. `worker/api.ts`: kept both jobs' routes and imports; my route constant was renamed `PATTERNS_SESSION_ID` because job 9 also defines `SESSION_ID`.
+- `npm run check:code` (and the lefthook hook with gitleaks, ruff) pass.
+- `npx vitest run`: 51 files, 732 passed, 2 skipped. One earlier run showed a single failure that did not repeat on two reruns (load timing, not investigated further).
+- `ruff check scripts`: pass. `python3.13 -m pytest scripts/generate`: 187 passed, 6 failed, all the missing `grocery-store-directions` draft (expected).
+- `npx supabase test db` (own project id and ports 566xx, config edits reverted): 7 files, 527 tests, pass.
+- Chromium browser tests locally (preinstalled Chromium 1243 through a reverted edit to `playwright.config.ts`): 120 passed, 15 skipped, 1 failed (`[units 7] [units 5]` for `grocery-store-directions`, no round 1 review page). WebKit not installable here.
+- GitHub run 40385656790 (Checks, head `50885d5`): type check, Vitest, gitleaks, dependency check and pgTAP pass. Failures are only the known ones: pytest (6 tests of the sixth dialogue, and the 193 count step that follows), and the Playwright `[units 7] [units 5]` review page test for `grocery-store-directions` in both Chromium and WebKit. "Preview link", "Apply database changes" and the after merge browser job were skipped because earlier jobs failed. Review site run 40385656911 started with it.
+
+Result: checks pass (apart from the known sixth dialogue)
