@@ -3,6 +3,7 @@
 // sides agree. Nothing here identifies the learner: no user id, no token.
 
 import type { Database } from './database.types.ts'
+import type { NextReview } from './review-types.ts'
 
 /** The furthest loop step a session has reached, or null before Hear it is done. */
 export type StepReached = Database['public']['Enums']['loop_step'] | null
@@ -51,15 +52,33 @@ export interface ReadySession {
   lines: SessionLine[]
 }
 
-/** The answer of POST /api/sessions/today when the learner is signed in. */
-export type TodayAnswer = ReadySession | { state: 'not_ready' } | { state: 'all_done' }
+/** A review only session: Keep it alone, when no new dialogue is ready (job 9-daily-review, "Done when" 7). */
+export interface ReviewSession {
+  state: 'review'
+  session: { id: string; step: StepReached }
+}
 
-/** What the front door shows next, from GET /api/today. */
-export type FrontDoorState = 'start' | 'continue' | 'all_done' | 'not_ready'
+/** The answer of POST /api/sessions/today when the learner is signed in. */
+export type TodayAnswer = ReadySession | ReviewSession | { state: 'not_ready' } | { state: 'all_done' }
+
+/**
+ * What the front door shows next, from GET /api/today. "review" offers a
+ * review only session (job 9-daily-review); an unfinished one is "continue".
+ */
+export type FrontDoorState = 'start' | 'continue' | 'all_done' | 'not_ready' | 'review'
 
 /** The answer of GET /api/today. */
 export type FrontDoorAnswer =
-  { signedIn: false; ended: boolean } | { signedIn: true; today: FrontDoorState; canDo?: string }
+  | { signedIn: false; ended: boolean }
+  | {
+      signedIn: true
+      today: FrontDoorState
+      canDo?: string
+      /** With "start": today's session ends with a short review (job 9-daily-review). */
+      review?: true
+      /** With "all_done", when the learner has cards: today's Helsinki date and the next review day. */
+      nextReview?: NextReview
+    }
 
 /**
  * The steps a learner may record from the browser. Never beyond say: Say it

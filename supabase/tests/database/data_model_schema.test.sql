@@ -20,7 +20,7 @@ select tables_are(
     'cards', 'review_logs', 'sessions', 'consents',
     'source_sentences', 'lemma_ipa',
     'usage_events',
-    'speaking_attempts', 'kept_recordings'
+    'speaking_attempts', 'kept_recordings', 'speech_checks'
   ],
   '[data 1] [session 17] [session 21] [speak 16] public holds exactly the content, learner, reference and usage event tables and the two speaking tables, and nothing else (visits dropped in job 8)'
 );
@@ -250,11 +250,12 @@ select results_eq(
       'speaking_attempts.transcript authenticated INSERT',
       'speaking_attempts.transcript authenticated UPDATE',
       'speaking_attempts.user_id authenticated INSERT',
+      'speech_checks.user_id authenticated INSERT',
       'usage_events.name authenticated INSERT',
       'usage_events.session_id authenticated INSERT',
       'usage_events.user_id authenticated INSERT'
     ]) as x(g) order by g collate "C"$$,
-  '[data 2] [session 17] [speak 16] the only column-level grants in public are the 57 learner write grants (40 from job 3, 3 on usage_events, 14 on the speaking tables), all to authenticated; anon, service_role and PUBLIC have none'
+  '[data 2] [session 17] [speak 16] the only column-level grants in public are the 58 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables), all to authenticated; anon, service_role and PUBLIC have none'
 );
 
 -- [data 6] The history of withdrawn content approvals is closed to every API role.

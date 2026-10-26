@@ -87,8 +87,8 @@
       "name": "Daily review (Keep it)",
       "needs_decision": true,
       "ga": false,
-      "status": "failing",
-      "job": null
+      "status": "passing",
+      "job": "9-daily-review"
     },
     {
       "id": "speaking-feedback",
@@ -97,7 +97,7 @@
       "needs_decision": true,
       "ga": true,
       "status": "failing",
-      "job": null,
+      "job": "10-speaking-feedback",
       "note": "Uses Azure pronunciation assessment provisionally. Test 3 runs after the MVP and may change the provider."
     },
     {
@@ -107,7 +107,7 @@
       "needs_decision": true,
       "ga": true,
       "status": "failing",
-      "job": null
+      "job": "11-accounts"
     },
     {
       "id": "units-1-3",
@@ -116,7 +116,7 @@
       "needs_decision": false,
       "ga": false,
       "status": "failing",
-      "job": null,
+      "job": "12-units-1-3",
       "note": "Claude drafts the Finnish. The native reviewer checks it when the MVP is ready."
     },
     {

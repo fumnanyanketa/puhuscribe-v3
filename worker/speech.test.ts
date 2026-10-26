@@ -209,7 +209,6 @@ describe('POST /api/speech/say', () => {
   it('[speak 14] refuses the 41st check in 10 minutes (429) with the kind message, and allows it again later', async () => {
     const l = await learner()
     let now = Date.UTC(2026, 9, 22, 12, 0, 0)
-    l.deps.now = () => now
     l.speech.clock = () => now
     for (let i = 0; i < 40; i += 1) {
       expect((await handleApi(sayRequest(l), ENV, l.deps)).status).toBe(200)
@@ -224,6 +223,47 @@ describe('POST /api/speech/say', () => {
     expect(l.provider.calls).toHaveLength(40)
     now += 10 * 60_000
     expect((await handleApi(sayRequest(l), ENV, l.deps)).status).toBe(200)
+  })
+
+  it('[speak 14] 60 requests sent at the same moment: at most 40 reach the speech service, the rest get 429', async () => {
+    const l = await learner()
+    // A slow provider, so every request is in flight together.
+    l.provider.check = (wav: Uint8Array, reference: string, fixture: string | null) => {
+      l.provider.calls.push({ bytes: wav.length, reference, fixture })
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ status: 'heard', heard: 'moi mä oon alex' })
+        }, 20)
+      })
+    }
+    const answers = await Promise.all(Array.from({ length: 60 }, () => handleApi(sayRequest(l), ENV, l.deps)))
+    const statuses = answers.map((a) => a.status)
+    expect(statuses.filter((status) => status === 200)).toHaveLength(40)
+    expect(statuses.filter((status) => status === 429)).toHaveLength(20)
+    expect(l.provider.calls).toHaveLength(40)
+    expect(l.speech.checks).toHaveLength(40)
+  })
+
+  it('[speak 14] a call the speech service fails still counts: 40 failures fill the window and the 41st is refused', async () => {
+    const l = await learner()
+    l.provider.check = (wav: Uint8Array, reference: string, fixture: string | null) => {
+      l.provider.calls.push({ bytes: wav.length, reference, fixture })
+      return Promise.reject(new SpeechCheckFailed('failed'))
+    }
+    for (let i = 0; i < 40; i += 1) {
+      expect((await handleApi(sayRequest(l), ENV, l.deps)).status).toBe(503)
+    }
+    expect(l.speech.attempts).toHaveLength(0)
+    expect(l.speech.checks).toHaveLength(40)
+    expect((await handleApi(sayRequest(l), ENV, l.deps)).status).toBe(429)
+    expect(l.provider.calls).toHaveLength(40)
+  })
+
+  it('[speak 14] every refusal before the check (no consent, wrong session, bad audio) takes no slot', async () => {
+    const l = await learner()
+    await handleApi(sayRequest(l, { lineId: OTHER_DIALOGUE_LINE.id }), ENV, l.deps)
+    await handleApi(sayRequest(l, { audio: 'AAAA' }), ENV, l.deps)
+    expect(l.speech.checks).toHaveLength(0)
   })
 
   it('[speak 14] [speak 5] refuses GET, form posts and other websites, as every changing route does', async () => {

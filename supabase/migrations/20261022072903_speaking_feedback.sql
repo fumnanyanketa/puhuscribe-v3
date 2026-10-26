@@ -55,6 +55,17 @@ create table public.kept_recordings (
   constraint kept_recordings_one_per_slot unique (user_id, line_id, slot)
 );
 
+-- One row per check the learner started, written before the speech service is
+-- called and never removed on failure, so the rate limit counts every call
+-- (factory/jobs/10-speaking-feedback/spec.md, "Done when" 14). No content.
+create table public.speech_checks (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
+comment on table public.speech_checks is
+  'Learner data (job 10-speaking-feedback): one row per started speech check, for the rate limit. No content; deleted after one day.';
 comment on table public.speaking_attempts is
   'Learner data (job 10-speaking-feedback): one row per speech check, with the transcript (cleared after 90 days), the feedback class and the cost. No audio.';
 comment on table public.kept_recordings is
@@ -68,6 +79,7 @@ create index speaking_attempts_session_id_idx on public.speaking_attempts (sessi
 create index speaking_attempts_line_id_idx on public.speaking_attempts (line_id);
 create index speaking_attempts_form_id_idx on public.speaking_attempts (form_id);
 create index speaking_attempts_created_at_idx on public.speaking_attempts (created_at);
+create index speech_checks_user_id_created_at_idx on public.speech_checks (user_id, created_at);
 create index kept_recordings_line_id_idx on public.kept_recordings (line_id);
 create index kept_recordings_created_at_idx on public.kept_recordings (created_at);
 
@@ -76,7 +88,7 @@ create index kept_recordings_created_at_idx on public.kept_recordings (created_a
 -- add their own rows, delete their own kept recordings, and change a
 -- transcript only to empty. The ids and times are set by the database.
 
-revoke all on table public.speaking_attempts, public.kept_recordings from anon, authenticated, service_role;
+revoke all on table public.speaking_attempts, public.kept_recordings, public.speech_checks from anon, authenticated, service_role;
 
 grant select on table public.speaking_attempts, public.kept_recordings to authenticated;
 grant insert (user_id, session_id, line_id, form_id, transcript, feedback_class, provider, audio_ms, cost_usd)
@@ -84,9 +96,32 @@ grant insert (user_id, session_id, line_id, form_id, transcript, feedback_class,
 grant update (transcript) on table public.speaking_attempts to authenticated;
 grant insert (user_id, line_id, slot, audio) on table public.kept_recordings to authenticated;
 grant delete on table public.kept_recordings to authenticated;
+grant select on table public.speech_checks to authenticated;
+grant insert (user_id) on table public.speech_checks to authenticated;
 
 alter table public.speaking_attempts enable row level security;
 alter table public.kept_recordings enable row level security;
+alter table public.speech_checks enable row level security;
+
+create policy "learners read their own speech checks"
+  on public.speech_checks
+  for select
+  to authenticated
+  using (user_id = (select auth.uid()));
+
+create policy "learners start speech checks with voice consent"
+  on public.speech_checks
+  for insert
+  to authenticated
+  with check (
+    user_id = (select auth.uid())
+    and coalesce((
+      select c.granted from public.consents c
+       where c.user_id = (select auth.uid()) and c.kind = 'voice_processing'
+       order by c.created_at desc
+       limit 1
+    ), false)
+  );
 
 create policy "learners read their own attempts"
   on public.speaking_attempts
@@ -241,6 +276,42 @@ comment on function public.keep_recording(bigint, text) is
 revoke all on function public.keep_recording(bigint, text) from public, anon, authenticated, service_role;
 grant execute on function public.keep_recording(bigint, text) to authenticated;
 
+-- Reserving a check ------------------------------------------------------------------
+-- The rate limit. Takes one slot for the learner in one step: it waits for any
+-- other reservation of the same learner (an advisory lock held to the end of
+-- the call), counts the slots taken in the window, and adds one only when the
+-- window is not full. Called before the speech service is asked, and the slot
+-- is never given back, so parallel requests cannot beat the limit and a failed
+-- call still counts. Runs with the learner's own rights.
+
+create function public.reserve_speech_check(max_checks integer, window_minutes integer)
+returns boolean
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+declare
+  me uuid := (select auth.uid());
+  used integer;
+begin
+  perform pg_advisory_xact_lock(hashtextextended(me::text, 10));
+  select count(*) into used from public.speech_checks c
+   where c.user_id = me
+     and c.created_at > now() - make_interval(mins => reserve_speech_check.window_minutes);
+  if used >= reserve_speech_check.max_checks then
+    return false;
+  end if;
+  insert into public.speech_checks (user_id) values (me);
+  return true;
+end;
+$$;
+
+comment on function public.reserve_speech_check(integer, integer) is
+  'Job 10-speaking-feedback: takes one speech check slot for the learner, or false when the window is full. Never given back.';
+
+revoke all on function public.reserve_speech_check(integer, integer) from public, anon, authenticated, service_role;
+grant execute on function public.reserve_speech_check(integer, integer) to authenticated;
+
 -- Ninety days, then gone ----------------------------------------------------------
 -- Deletes kept recordings and clears transcripts older than 90 days. Run
 -- daily by pg_cron as the database owner, never by an API role.
@@ -255,6 +326,7 @@ begin
   update public.speaking_attempts a
      set transcript = ''
    where a.transcript <> '' and a.created_at < now() - interval '90 days';
+  delete from public.speech_checks c where c.created_at < now() - interval '1 day';
 end;
 $$;
 

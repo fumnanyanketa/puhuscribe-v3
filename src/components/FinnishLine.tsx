@@ -25,6 +25,9 @@ interface FinnishLineProps {
 
 type Which = 'spoken' | 'written'
 
+/** Read after a marked word by screen readers. */
+export const MARKED_NAME = ', the missing word'
+
 function Words({
   words,
   which,
@@ -44,6 +47,14 @@ function Words({
     const face = [styles.face]
     if (word.changes) face.push(styles.changed)
     if (i === current) face.push(styles.current)
+    if (word.marked) face.push(styles.marked)
+    // The answer word after a review is underlined and also named in words,
+    // so colour or line is never the only sign.
+    const marker = word.marked ? (
+      <span className={styles.hidden} lang="en">
+        {MARKED_NAME}
+      </span>
+    ) : null
     // Each word and its punctuation sit in one span that does not wrap, so a
     // "?" or a comma never drops onto a line of its own (design review,
     // job 8 round 1). The button stays the word's one tap target.
@@ -55,6 +66,7 @@ function Words({
             {word.before}
             <span className={styles.plain} aria-current={i === current ? 'true' : undefined}>
               <span className={face.join(' ')}>{word.text}</span>
+              {marker}
             </span>
             {word.after}
           </span>
@@ -79,6 +91,7 @@ function Words({
             }}
           >
             <span className={face.join(' ')}>{word.text}</span>
+            {marker}
           </button>
           {word.after}
         </span>

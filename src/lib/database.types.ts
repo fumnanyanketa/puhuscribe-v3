@@ -219,6 +219,20 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"speech_checks": {
+                  Row: {
+                    "created_at": string,"id": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"user_id"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"tokens": {
                   Row: {
                     "form_id": number | null,"id": number,"line_id": number,"position": number,"register": Database["public"]['Enums']["finnish_register"],"surface": string
@@ -290,6 +304,22 @@ isOneToOne: false
                            },
 "keep_recording":
 { Args: { "audio_base64": string,"line_id": number }; Returns: string
+                           },
+"next_review_day":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "next_day": string,"today": string
+            }[]
+                           },
+"record_review":
+{ Args: { "p_difficulty": number,"p_due": string,"p_elapsed_days": number,"p_expected_reps": number,"p_form_id": number,"p_lapses": number,"p_last_review": string,"p_log_difficulty": number,"p_log_due": string,"p_log_elapsed_days": number,"p_log_last_elapsed_days": number,"p_log_scheduled_days": number,"p_log_stability": number,"p_log_state": Database["public"]['Enums']["card_state"],"p_mode": Database["public"]['Enums']["review_mode"],"p_rating": number,"p_reps": number,"p_review_time": string,"p_scheduled_days": number,"p_stability": number,"p_state": Database["public"]['Enums']["card_state"] }; Returns: boolean
+                           },
+"reserve_speech_check":
+{ Args: { "max_checks": number,"window_minutes": number }; Returns: boolean
+                           },
+"review_queue":
+{ Args: { "p_limit": number }; Returns: {
+              "due": string,"form_id": number,"reps": number
+            }[]
                            }
           }
           Enums: {

@@ -172,12 +172,19 @@ export async function tabTo(page: Page, target: Locator, testInfo: TestInfo): Pr
  * 10-speaking-feedback, "Done when" 3): "Not now" on the consent screen, then
  * each line out loud with "Next line", and "Continue" to the finish screen.
  */
-export async function passSayIt(page: Page): Promise<void> {
+export async function passSayIt(page: Page, after = 'Now you can say this.'): Promise<void> {
   const notNow = page.getByRole('button', { name: 'Not now', exact: true })
   const next = page.getByRole('button', { name: 'Next line', exact: true })
   const cont = page.getByRole('button', { name: 'Continue', exact: true })
   // Waits until Say it has loaded the learner's voice choices.
-  await expect(notNow.or(next).or(cont)).toBeVisible()
+  const cantSpeak = page.getByRole('button', { name: "I can't speak right now", exact: true })
+  await expect(notNow.or(next).or(cont).or(cantSpeak)).toBeVisible()
+  if (await cantSpeak.isVisible()) {
+    // Speaking feedback is already on: the quiet exit skips Say it.
+    await cantSpeak.click()
+    await expect(page.getByRole('heading', { level: 1, name: after })).toBeVisible()
+    return
+  }
   if (await notNow.isVisible()) await notNow.click()
   await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
   for (;;) {
@@ -186,5 +193,5 @@ export async function passSayIt(page: Page): Promise<void> {
     await next.click()
   }
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: after })).toBeVisible()
 }

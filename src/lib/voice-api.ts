@@ -124,3 +124,33 @@ export async function sayLine(sessionId: string, lineId: number, wav: Uint8Array
   if (answer.status === 503 && error === 'speech_not_available') return { kind: 'not_available' }
   return { kind: 'failed' }
 }
+
+export type RecallResult =
+  | { kind: 'graded'; body: unknown }
+  | { kind: 'not_heard' }
+  | { kind: 'already_saved' }
+  | { kind: 'too_many' }
+  | { kind: 'signed_out' }
+  | { kind: 'failed' }
+
+/**
+ * Sends one recording as the spoken answer of a review item
+ * (POST /api/speech/recall). The graded answer's body is checked by the caller,
+ * which knows the review feedback shape.
+ */
+export async function recallForm(sessionId: string, formId: number, wav: Uint8Array): Promise<RecallResult> {
+  const answer = await callApi(
+    '/api/speech/recall',
+    'POST',
+    { sessionId, formId, audio: toBase64(wav) },
+    SAY_TIMEOUT_MS,
+  )
+  if (!answer) return { kind: 'failed' }
+  const body = isRecord(answer.body) ? answer.body : {}
+  if (answer.status === 200 && body.status === 'graded') return { kind: 'graded', body: body.feedback }
+  if (answer.status === 200 && body.status === 'not_heard') return { kind: 'not_heard' }
+  if (answer.status === 401) return { kind: 'signed_out' }
+  if (answer.status === 429) return { kind: 'too_many' }
+  if (answer.status === 409 && body.error === 'card_changed') return { kind: 'already_saved' }
+  return { kind: 'failed' }
+}

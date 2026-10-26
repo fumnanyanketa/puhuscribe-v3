@@ -1,0 +1,24 @@
+BEGIN
+INSERT 0 6
+INSERT 0 3
+ deleted_count 
+---------------
+             3
+(1 row)
+
+              label               | still_exists | sessions_left 
+----------------------------------+--------------+---------------
+ guest 91 days                    | f            |             0
+ guest 89 days                    | t            |             0
+ guest with session 10 days ago   | t            |             1
+ email 400 days                   | t            |             0
+ email 800 days                   | f            |             0
+ guest, session ended 95 days ago | f            |             0
+(6 rows)
+
+ real_users_deleted_by_this_run_would_be_none_expected 
+-------------------------------------------------------
+                                                    14
+(1 row)
+
+ROLLBACK

@@ -12,7 +12,8 @@ import { VOICE_NOTICE_VERSION } from '../src/lib/voice-consent.ts'
 import { fromBase64, isSpeechWav, readWav } from '../src/lib/wav.ts'
 import { json, refuseNonGet, refuseUnsafeWrite, withCookies } from './http.ts'
 import type { Fetch, LearnerContext } from './learner-auth.ts'
-import { DatabaseUnavailable, type LearnerDb } from './learner-db.ts'
+import { DatabaseUnavailable, type LearnerDb, type ReviewDb } from './learner-db.ts'
+import { answer as answerReview, recallTarget } from './review.ts'
 import {
   SpeechCheckFailed,
   speechProvider,
@@ -44,8 +45,6 @@ export interface SpeechDeps {
   recordingStore?: (context: LearnerContext) => RecordingStore
   /** Tests pass a fake provider, or null for "not set up". */
   speechProvider?: SpeechProvider | null
-  /** The clock, for the rate limit. */
-  now?: () => number
 }
 
 /** What the speech routes need from the API module. */
@@ -56,6 +55,7 @@ export interface RouteKit {
     { context: LearnerContext; refused: null } | { context: LearnerContext | null; refused: Response }
   >
   learnerDb: (context: LearnerContext) => LearnerDb
+  reviewDb: (context: LearnerContext) => ReviewDb
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
@@ -319,9 +319,12 @@ export async function say(
     if (!wav || wav.length > MAX_WAV_BYTES || !isSpeechWav(info, MAX_RECORDING_MS)) {
       return done({ error: 'bad_audio' }, 400)
     }
-    const now = deps.now ? deps.now() : Date.now()
-    const recent = await db.attemptsSince(new Date(now - SPEECH_RATE_LIMIT.minutes * 60_000))
-    if (recent >= SPEECH_RATE_LIMIT.checks) return done({ error: 'too_many', message: TOO_MANY }, 429)
+    // The slot is taken before the speech service is asked, in one database
+    // step, and never given back: a failed call counts, and parallel requests
+    // cannot get past the limit.
+    if (!(await db.reserveCheck(SPEECH_RATE_LIMIT.checks, SPEECH_RATE_LIMIT.minutes))) {
+      return done({ error: 'too_many', message: TOO_MANY }, 429)
+    }
 
     let heard
     try {
@@ -334,6 +337,7 @@ export async function say(
     const saved = await db.addAttempt({
       sessionId: session.id,
       lineId: line.id,
+      formId: null,
       transcript: heard.heard,
       feedbackClass: feedback.feedbackClass,
       provider: provider.name,
@@ -352,6 +356,107 @@ export async function say(
       ? { feedbackClass: feedback.feedbackClass, hint: feedback.hint }
       : { feedbackClass: feedback.feedbackClass }
     return done(answer)
+  } catch (error) {
+    return withCookies(fault(error), context.setCookies())
+  }
+}
+
+// Spoken recall in review (statement 21) -----------------------------------------------
+
+interface RecallRequest {
+  sessionId: string
+  formId: number
+  audio: string
+}
+
+function parseRecall(body: string): RecallRequest | null {
+  const value = parseObject(body)
+  if (!value || !onlyKeys(value, ['sessionId', 'formId', 'audio'])) return null
+  const { sessionId, formId, audio } = value
+  if (typeof sessionId !== 'string' || !UUID.test(sessionId)) return null
+  if (typeof formId !== 'number' || !Number.isSafeInteger(formId) || formId < 1) return null
+  if (typeof audio !== 'string' || audio.length === 0) return null
+  return { sessionId, formId, audio }
+}
+
+/**
+ * POST /api/speech/recall with {"sessionId", "formId", "audio"} (the WAV as
+ * base64). The same checks as /api/speech/say, in the same order, before the
+ * speech service is asked; the reference is the form's spoken shape and either
+ * register is accepted. The class becomes the rating by a fixed table
+ * (src/lib/review-grade.ts) and goes through job 9's own answer path with mode
+ * spoken. A recording that was not heard grades nothing: the answer says so
+ * and the card is untouched. The answer holds no transcript.
+ */
+export async function recall(
+  request: Request,
+  env: SpeechEnv,
+  deps: SpeechDeps,
+  kit: RouteKit,
+): Promise<Response> {
+  const write = await refuseUnsafeWrite(request, MAX_SAY_BODY_BYTES)
+  if (write.refused) return write.refused
+  const asked = parseRecall(write.body)
+  if (!asked) return json({ error: 'bad_request' }, 400)
+  const { context, refused } = await kit.signedIn(request)
+  if (refused) return refused
+  const done = (body: unknown, status = 200) => withCookies(json(body, status), context.setCookies())
+  try {
+    const provider = providerFor(env, deps)
+    if (!provider) return done({ error: 'speech_not_available' }, 503)
+    const db = speechDbFor(context, deps)
+    const consents = await db.consents()
+    if (consents.processing !== 'granted') return done({ error: 'no_voice_consent' }, 403)
+    const target = await recallTarget(
+      kit.learnerDb(context),
+      kit.reviewDb(context),
+      asked.sessionId,
+      asked.formId,
+    )
+    if (target.kind === 'not_found') return done({ error: 'not_found' }, 404)
+    if (target.kind === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
+    const wav = fromBase64(asked.audio)
+    const info = wav ? readWav(wav) : null
+    if (!wav || wav.length > MAX_WAV_BYTES || !isSpeechWav(info, MAX_RECORDING_MS)) {
+      return done({ error: 'bad_audio' }, 400)
+    }
+    if (!(await db.reserveCheck(SPEECH_RATE_LIMIT.checks, SPEECH_RATE_LIMIT.minutes))) {
+      return done({ error: 'too_many', message: TOO_MANY }, 429)
+    }
+    let heard
+    try {
+      heard = await provider.check(wav, target.form.spoken, request.headers.get('x-test-speech-fixture'))
+    } catch (error) {
+      const busy = error instanceof SpeechCheckFailed && error.fault === 'busy'
+      return done({ error: busy ? 'speech_busy' : 'speech_failed' }, 503)
+    }
+    const feedback = classifySpeech(target.form, heard)
+    const saved = await db.addAttempt({
+      sessionId: null,
+      lineId: null,
+      formId: asked.formId,
+      transcript: heard.heard,
+      feedbackClass: feedback.feedbackClass,
+      provider: provider.name,
+      audioMs: info.durationMs,
+      costUsd: provider.costUsd(info.durationMs),
+    })
+    if (!saved) return done({ error: 'no_voice_consent' }, 403)
+    if (feedback.feedbackClass === 'not_heard') return done({ status: 'not_heard' })
+    const outcome = await answerReview(
+      kit.learnerDb(context),
+      kit.reviewDb(context),
+      {
+        sessionId: asked.sessionId,
+        formId: asked.formId,
+        answer: { kind: 'spoken', feedbackClass: feedback.feedbackClass },
+      },
+      new Date(),
+    )
+    if (outcome.kind === 'not_found') return done({ error: 'not_found' }, 404)
+    if (outcome.kind === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
+    if (outcome.kind === 'changed') return done({ error: 'card_changed' }, 409)
+    return done({ status: 'graded', feedback: outcome.feedback })
   } catch (error) {
     return withCookies(fault(error), context.setCookies())
   }

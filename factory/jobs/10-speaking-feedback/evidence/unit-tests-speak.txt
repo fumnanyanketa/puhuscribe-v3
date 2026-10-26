@@ -1,0 +1,125 @@
+ RUN  v5.0.5 /home/user/puhuscribe-v3/.worktrees/10-speaking-feedback
+ ✓ src/lib/wav.test.ts > the WAV writer > [speak 9] writes a 44 byte RIFF header for 16 kHz mono 16 bit PCM, then the samples 3ms
+ ✓ src/lib/wav.test.ts > the WAV writer > [speak 9] [speak 14] what it writes is exactly what the Worker accepts 8ms
+ ✓ src/lib/wav.test.ts > the WAV writer > [speak 9] base64 goes there and back unchanged, also for a full 10 seconds 1340ms
+ ✓ src/lib/wav.test.ts > the resampler > [speak 9] turns 48 kHz into 16 kHz with a third of the samples, keeping the tone 11ms
+ ✓ src/lib/wav.test.ts > the resampler > [speak 9] turns 44.1 kHz into 16 kHz, and 8 kHz up into 16 kHz 7ms
+ ✓ src/lib/wav.test.ts > the resampler > [speak 9] leaves 16 kHz alone and mixes stereo to mono by averaging 1ms
+ ✓ src/lib/wav.test.ts > the upload check > [speak 14] refuses anything that is not a RIFF WAVE file 6ms
+ ✓ src/lib/wav.test.ts > the upload check > [speak 14] refuses a format other than PCM, 16 kHz, mono, 16 bit, and anything over 10 seconds or empty 12ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] [speak 15] [speak 20] checks the line from the database and answers the class and hint only 156ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 15] a close try answers its hint with the word from the line, and still no transcript 17ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses without a sign in (401), and never calls the speech service 8ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses without current voice consent (403), never asked or withdrawn 16ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses a session that is someone else's, missing, not at understand, or finished (404) 28ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses a line that is not in the session's dialogue or not readable (404) 6ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses a body over 512 KB (413), read and capped before answering 16ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses audio that is not a 16 kHz mono 16 bit PCM WAV of at most 10 seconds (400) 80ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses reference text, a user id or any other field from the browser (400) 7ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] refuses the 41st check in 10 minutes (429) with the kind message, and allows it again later 117ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 14] [speak 5] refuses GET, form posts and other websites, as every changing route does 2ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 13] answers 503 when speech feedback is not set up, before anything else is read 2ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 12] a busy or failed service answers 503 and writes no attempt 5ms
+ ✓ worker/speech.test.ts > POST /api/speech/say > [speak 12] passes the test fixture header to the provider (only the fake reads it) 3ms
+ ✓ worker/speech.test.ts > what happens to the audio > [speak 17] without retention consent, the audio goes only to the speech provider: no log, cache or store 4ms
+ ✓ worker/speech.test.ts > what happens to the audio > [speak 17] [speak 19] with retention consent, the audio also goes to the kept recordings, and nowhere else 31ms
+ ✓ worker/speech.test.ts > what happens to the audio > [speak 24] the log holds no audio, transcript, reference text, cookie, token or user id 14ms
+ ✓ worker/speech.test.ts > voice consent > [speak 1] [speak 13] GET /api/voice says whether speaking feedback is set up, where the audio goes, and the choices 3ms
+ ✓ worker/speech.test.ts > voice consent > [speak 2] turning on adds a voice_processing grant, plus a retention grant only when the box was ticked, with the Worker's label 6ms
+ ✓ worker/speech.test.ts > voice consent > [speak 2] the browser cannot choose the version label or send anything else 2ms
+ ✓ worker/speech.test.ts > voice consent > [speak 4] turning off speaking feedback withdraws both choices, deletes recordings and clears transcripts 9ms
+ ✓ worker/speech.test.ts > voice consent > [speak 4] keeping recordings turns on and off with one press each, only while speaking feedback is on 12ms
+ ✓ worker/speech.test.ts > kept recordings > [speak 19] are listed newest first with the line's spoken text, and play only for their owner with no-store 229ms
+ ✓ worker/speech.test.ts > kept recordings > [speak 19] another learner's or a missing id answers 404, the same; no sign in answers 401 14ms
+ ✓ worker/speech.test.ts > kept recordings > [speak 19] can be deleted one by one or all at once 22ms
+ ✓ worker/speech.test.ts > the Say it step in the session > [speak 5] the Worker stores say only for the learner's own session at understand 12ms
+    at handleError (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:88:11)
+    at async _handleRequest (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:133:9)
+    at async _request (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:113:18)
+    at async /home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:4035:24
+    at async /home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/helpers.js:220:36 {
+    at handleError (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:88:11)
+    at async _handleRequest (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:133:9)
+    at async _request (/home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/fetch.js:113:18)
+    at async /home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:4035:24
+    at async /home/user/puhuscribe-v3/.worktrees/10-speaking-feedback/node_modules/@supabase/auth-js/dist/main/lib/helpers.js:220:36 {
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] calls the short audio REST API in the resource region, fi-FI, detailed, with the assessment header 41ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] builds the header with JSON.stringify, so quotes and Finnish letters in a line stay intact 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] maps the answer: Lexical, and each word with its error type and accuracy 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] also reads the scores when Azure nests them in PronunciationAssessment 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] silence and no match are "not heard"; an error status is a failed check 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] retries once on 429, then gives up as busy 8ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] answers refused for a bad key, failed for other errors, and stops waiting after 10 seconds 3ms
+ ✓ worker/providers/speech-feedback.test.ts > the azure provider > [speak 12] ignores the test fixture header 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the EU region rule > [speak 13] the provider refuses to start outside the EU list, with eastus refused 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the EU region rule > [speak 13] every region on the list is in the EU and names its country for the consent text 0ms
+ ✓ worker/providers/speech-feedback.test.ts > the EU region rule > [speak 13] the list matches the content pipeline's voice provider list 0ms
+ ✓ worker/providers/speech-feedback.test.ts > the EU region rule > [speak 13] without a key, a region or a known price tier, speech feedback is not available 0ms
+ ✓ worker/providers/speech-feedback.test.ts > the cost of a check > [speak 20] comes from a dated price table: one hour on the paid tier is $1.00, the free tier is $0 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the fake provider > [speak 12] replays the fixture the test header names, and answers with the line itself when none is named 1ms
+ ✓ worker/providers/speech-feedback.test.ts > the fake provider > [speak 23] every fixture file is listed, says where it came from, and holds no key 2ms
+ ✓ worker/providers/speech-feedback.test.ts > recording a fixture answer > [speak 23] returns Azure's raw answer for the workflow, and refuses without EU settings 1ms
+ ✓ tests/design-rules.test.ts > record control > [design 13] [speak 1] no file in src/ but the recorder module asks for the microphone 8ms
+stdout | scripts/eval/speech-golden.test.ts > the speaking feedback golden set > [speak 11] passes at the PRD rate or better
+ ✓ scripts/eval/speech-golden.test.ts > the speaking feedback golden set > [speak 11] holds 30 cases on lines 1 to 10 of the voice test sheet, marked not reviewed 8ms
+ ✓ scripts/eval/speech-golden.test.ts > the speaking feedback golden set > [speak 11] covers every kind of case the spec names 1ms
+ ✓ scripts/eval/speech-golden.test.ts > the speaking feedback golden set > [speak 11] passes at the PRD rate or better 23ms
+ ✓ scripts/eval/speech-golden.test.ts > the thresholds file > [speak 10] every number the rules use comes from content/checks/speech-thresholds.json, marked provisional 3ms
+ ✓ scripts/eval/speech-wer.test.ts > the word error harness > [speak 22] gives the exact numbers on five tone clips with recorded fake answers, with no transcript 40ms
+ ✓ scripts/eval/speech-wer.test.ts > the word error harness > [speak 22] a clip the provider cannot check is counted as failed and left out of the rates 3ms
+ ✓ scripts/eval/speech-wer.test.ts > the word error harness > [speak 22] counts word errors against the better register 1ms
+ ✓ scripts/eval/speech-wer.test.ts > the word error harness > [speak 22] refuses an incomplete manifest 3ms
+ ✓ scripts/eval/speech-wer.test.ts > the clip folder > [speak 22] may be outside the repository 2ms
+ ✓ scripts/eval/speech-wer.test.ts > the clip folder > [speak 22] may be a folder git ignores, and is refused anywhere else in the repository 26ms
+ ✓ src/lib/voice-api.test.ts > the voice answer > [speak 4] reads both choices, the region and the kept recordings 4ms
+ ✓ src/lib/voice-api.test.ts > the voice answer > [speak 4] refuses an answer it does not expect 1ms
+ ✓ src/lib/voice-api.test.ts > the say answer > [speak 7] [speak 15] reads the class and hint, nothing else 1ms
+ ✓ src/lib/voice-api.test.ts > the say answer > [speak 7] a close answer without a usable hint is not shown 1ms
+ ✓ src/lib/voice-api.test.ts > sending a recording > [speak 14] sends the session, the line and the WAV as base64 JSON, and no reference text 53ms
+ ✓ src/lib/voice-api.test.ts > sending a recording > [speak 13] [speak 14] maps each refusal to what the screen shows 3ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] the exact spoken line is clear, also with different capitals and punctuation 7ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] the written line counts as a match too (a service may write "mä oon" as "minä olen") 1ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] a mix of both registers word by word is clear when the lines have the same number of words 1ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] one extra word is still clear; more than the limit is try again 10ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] two or more words wrong is try again, with no hint 6ms
+ ✓ src/lib/speech-feedback.test.ts > the feedback classes > [speak 10] nothing heard, or an empty transcript, is not heard 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] a doubled letter missed (a long vowel or a double consonant) hints the double letter 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] a single letter doubled hints the single letter 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] ä said as a (and the other front and back vowel pairs) hints the vowel 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] one word missing hints that word, written as the approved line writes it 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] one word off hints that word from the approved line, never the heard word 1ms
+ ✓ src/lib/speech-feedback.test.ts > the hints > [speak 10] a one word line that was not said at all is try again, not close 0ms
+ ✓ src/lib/speech-feedback.test.ts > word flags from the service > [speak 10] a word flagged below the mispronunciation score turns clear into close, with the hint on that word 6ms
+ ✓ src/lib/speech-feedback.test.ts > word flags from the service > [speak 10] a flag never changes close or try again, and never names a word the learner did not say or the line does not have 8ms
+ ✓ src/lib/speech-feedback.test.ts > the thresholds > [speak 10] the rules follow the numbers they are given 3ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"clear"} reads "Yes, that was clear." in the neutral tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"close","hint":{"kind":"double","letter":"k"}} reads "Close. Try the double k." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"close","hint":{"kind":"single","letter":"k"}} reads "Close. Try a single k." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"close","hint":{"kind":"vowel","want":"ä","heard":"a"}} reads "Close. Try ä instead of a." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"close","hint":{"kind":"missing","word":"oon"}} reads "Close. Try it again with oon." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"close","hint":{"kind":"off","word":"oon"}} reads "Close. Listen to oon once more, then try again." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"try_again"} reads "Listen to the line once more, then try again." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] {"feedbackClass":"not_heard"} reads "That was too quiet to hear. Try again a little closer to the phone." in the gentle tone 0ms
+ ✓ src/lib/speech-feedback.test.ts > the status line message > [speak 7] Finnish words and letters are marked as Finnish, and no message holds a score, a count or red words 1ms
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] [speak 5] are Hear it, then Understand it, then Say it, in one list 2ms
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] [speak 5] the top bar reads "Hear it, step 1 of 3", "Understand it, step 2 of 3" and "Say it, step 3 of 3" 18ms
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] [session 14] [speak 5] the finish screen follows the last step 3ms
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 8] [speak 5] Say it renders between Understand it and the finish screen 1ms
+ ✓ src/screens/session-steps.test.ts > the session steps > [session 18] [speak 5] resumes at Hear it with no step, Understand it after hear, Say it after understand, and the finish screen after say 0ms
+ ✓ tests/speech-provider-rules.test.ts > one module calls the speech service > [speak 12] no file but the provider module names an Azure speech address 6ms
+ ✓ tests/speech-provider-rules.test.ts > one module calls the speech service > [speak 12] [speak 24] no file but the provider module reads the Azure key; the preview set up only hands it to the Worker as a secret 4ms
+ ✓ tests/speech-provider-rules.test.ts > one module calls the speech service > [speak 12] the provider module is the only one that sends the key header 2ms
+ ✓ tests/speech-provider-rules.test.ts > the fake provider never reaches a deployed Worker > [speak 12] wrangler.jsonc does not set the speech provider at all 0ms
+ ✓ tests/speech-provider-rules.test.ts > the fake provider never reaches a deployed Worker > [speak 12] no job that uploads or deploys the Worker sets the fake provider 1ms
+ ✓ tests/speech-provider-rules.test.ts > the fake provider never reaches a deployed Worker > [speak 12] the fake is switched on only in the pull request browser tests, on the runner 1ms
+ ✓ src/lib/voice-consent.test.ts > the voice consent text > [speak 2] has a version label that changes whenever the text changes 10ms
+ ✓ src/lib/voice-consent.test.ts > the voice consent text > [speak 2] the label fits the consents table (a short label, nothing else) 1ms
+ ✓ src/lib/voice-consent.test.ts > the voice consent text > [speak 1] says what is recorded, where it goes, that it is deleted, what is kept, and that both choices can change 1ms
+ ✓ src/lib/voice-consent.test.ts > the voice consent text > [speak 1] is plain English with no em dash 3ms
+ ✓ tests/speech-fixtures-workflow.test.ts > the Speech fixtures workflow > [speak 23] runs only when started by hand 2ms
+ ✓ tests/speech-fixtures-workflow.test.ts > the Speech fixtures workflow > [speak 23] voices the fixture lines with the pipeline voice module, then sends them through the speech provider 1ms
+ ✓ tests/speech-fixtures-workflow.test.ts > the Speech fixtures workflow > [speak 23] passes the key only to the steps that call Azure and to the check of the new files 1ms
+ ✓ tests/speech-fixtures-workflow.test.ts > the Speech fixtures workflow > [speak 23] checks the files for the key before it commits them, and only that step holds the GitHub token 2ms
+ ✓ src/lib/recorder.test.ts > the recording format > [speak 9] tries the formats in the fixed order 3ms
+ ✓ src/lib/recorder.test.ts > the recording format > [speak 9] picks the first format the browser accepts 1ms
+ ✓ src/lib/recorder.test.ts > the recording format > [speak 9] a browser that throws for a format it does not know moves on to the next 0ms

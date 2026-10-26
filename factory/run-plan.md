@@ -10,6 +10,7 @@ Scope items 5 to 10 built, checked and merged, with the app usable end to end: a
 
 - **Manager** (this session, Sonnet 5.5, high effort): runs the board, starts agents, merges, updates shared files, records scenes. Never writes feature code.
 - **Builders**: one `factory-builder` per job, each in its own worktree, started in the background, so several run at once.
+- **Model rule (owner decision, 26 October 2026):** the manager runs on the strongest model; every helper agent (builders, reviewers, the evaluator, the spec writer) runs on Sonnet 5.5, started with a fully scoped brief. This keeps the owner's weekly usage down. Helpers already running when the rule was made finish their current task.
 - **Reviewers and evaluator**: as in faster mode.
 - **Owner**: approves, and makes the owner's calls (design direction, brand, pricing, spending, publishing, new paid services). Nothing else.
 

@@ -16,7 +16,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(87);
+select plan(101);
 
 -- [speak 16] The tables, their permissions and their rules ------------------------
 
@@ -400,6 +400,54 @@ select is((select count(*) from public.speaking_attempts), 1::bigint,
   '[speak 16] B sees only B''s own attempt');
 reset role;
 
+-- [speak 14] The rate limit takes its slot before the speech service is asked ----
+-- Learner B gets a fresh grant, then reserves with a limit of 3 in 10 minutes.
+-- No attempt row is ever written here, which is what a failed call leaves:
+-- the slots still count, and a full window refuses.
+
+insert into public.consents (user_id, kind, granted, notice_version)
+values ('00000000-0000-4000-8000-0000000010b1', 'voice_processing', true, 'voice-2026-10.1');
+select set_config('request.jwt.claims',
+  '{"sub": "00000000-0000-4000-8000-0000000010b1", "role": "authenticated", "is_anonymous": true}', true);
+set local role authenticated;
+select is((select public.reserve_speech_check(3, 10)), true, '[speak 14] the first slot is taken');
+select is((select public.reserve_speech_check(3, 10)), true, '[speak 14] the second slot is taken');
+select is((select public.reserve_speech_check(3, 10)), true, '[speak 14] the third slot is taken');
+select is((select public.reserve_speech_check(3, 10)), false,
+  '[speak 14] a fourth call in the window is refused, though no attempt row exists for any of them (a failed call still counts)');
+select is((select count(*) from public.speech_checks), 3::bigint,
+  '[speak 14] a refused call takes no slot and a taken slot is never given back');
+select throws_ok($$insert into public.speech_checks (user_id) values ('00000000-0000-4000-8000-0000000010a1')$$,
+  '42501', null, '[speak 14] B cannot take a slot for another learner');
+select throws_ok($$delete from public.speech_checks$$, '42501', null,
+  '[speak 14] a learner cannot give a slot back');
+reset role;
+-- Slots older than the window do not count.
+update public.speech_checks set created_at = now() - interval '11 minutes'
+ where user_id = '00000000-0000-4000-8000-0000000010b1';
+set local role authenticated;
+select is((select public.reserve_speech_check(3, 10)), true, '[speak 14] slots older than the window no longer count');
+reset role;
+-- Without a current grant no slot is given.
+insert into public.consents (user_id, kind, granted, notice_version)
+values ('00000000-0000-4000-8000-0000000010b1', 'voice_processing', false, 'voice-2026-10.1');
+set local role authenticated;
+select throws_ok($$select public.reserve_speech_check(3, 10)$$, '42501', null,
+  '[speak 14] after speaking feedback is turned off, no slot is given');
+reset role;
+set local role anon;
+select throws_ok($$select public.reserve_speech_check(3, 10)$$, '42501', null,
+  '[speak 14] anon cannot reserve a slot');
+reset role;
+select table_privs_are('public', 'speech_checks', 'anon', array[]::text[],
+  '[speak 14] anon has no permission on speech_checks');
+select ok(not has_function_privilege('service_role', 'public.reserve_speech_check(integer, integer)', 'EXECUTE'),
+  '[speak 14] service_role may not call reserve_speech_check');
+select ok((select relrowsecurity from pg_class where oid = 'public.speech_checks'::regclass),
+  '[speak 14] row level security is on for speech_checks');
+select private.forget_old_voice_data();
+select is((select count(*) from public.speech_checks where created_at < now() - interval '1 day'), 0::bigint,
+  '[speak 14] the clean up leaves no slot older than a day');
 -- [speak 18] Ninety days, then gone ----------------------------------------------
 -- Written as the owner: two attempts and two recordings of B, one of each
 -- 91 days old and one 89 days old.

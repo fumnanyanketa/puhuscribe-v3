@@ -28,8 +28,10 @@ export interface SpeechLine {
 }
 
 export interface AttemptRow {
-  sessionId: string
-  lineId: number
+  /** A line of a session in Say it (session and line), or a form in spoken review (form only). */
+  sessionId: string | null
+  lineId: number | null
+  formId: number | null
   /** What the service heard, at most 300 characters; it never leaves the server. */
   transcript: string
   feedbackClass: FeedbackClass
@@ -47,8 +49,13 @@ export interface SpeechDb {
   line: (id: number) => Promise<SpeechLine | null>
   /** The spoken text of each line the learner may read, by id. */
   spokenLines: (ids: readonly number[]) => Promise<Map<number, string>>
-  /** How many checks the learner made since this time. */
-  attemptsSince: (since: Date) => Promise<number>
+  /**
+   * Takes one speech check slot for the learner, in one database step, or
+   * false when `max` slots were already taken in the last `minutes`. Called
+   * before the speech service is asked; a slot is never given back, so a
+   * failed call still counts and parallel requests cannot beat the limit.
+   */
+  reserveCheck: (max: number, minutes: number) => Promise<boolean>
   /** Adds one attempt. False when the database refused it (no consent, a line not reached). */
   addAttempt: (attempt: AttemptRow) => Promise<boolean>
 }
@@ -118,19 +125,20 @@ export function supabaseSpeechDb(client: LearnerClient): SpeechDb {
       return new Map(rows.flatMap((row) => (row.text_puhe ? [[row.id, row.text_puhe] as const] : [])))
     },
 
-    async attemptsSince(since) {
-      const { count, error } = await client
-        .from('speaking_attempts')
-        .select('id', { count: 'exact', head: true })
-        .gte('created_at', since.toISOString())
-      if (error || count === null) throw new DatabaseUnavailable()
-      return count
+    async reserveCheck(max, minutes) {
+      const { data, error } = await client.rpc('reserve_speech_check', {
+        max_checks: max,
+        window_minutes: minutes,
+      })
+      if (error || typeof data !== 'boolean') throw new DatabaseUnavailable()
+      return data
     },
 
     async addAttempt(attempt) {
       const { error } = await client.from('speaking_attempts').insert({
         session_id: attempt.sessionId,
         line_id: attempt.lineId,
+        form_id: attempt.formId,
         transcript: attempt.transcript.slice(0, 300),
         feedback_class: attempt.feedbackClass,
         provider: attempt.provider,
