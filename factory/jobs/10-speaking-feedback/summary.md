@@ -16,7 +16,7 @@ Round 3, 26 October 2026. GA job. Flag: **look closely** (recordings and consent
 - Evidence: `factory/jobs/10-speaking-feedback/evidence/`, evaluation `evaluation.md`: 22 of 23 testable statements pass, 0 fail, statement 21 deferred. Chromium at 375 x 812.
 - Security review: pass, 0 must fix, 1 should fix, 3 notes (`review-security.md`).
 - Design review: pass, 0 must fix, 2 should fix (`review-design.md`). Should-fix items are in `factory/todo.md`.
-- GitHub checks: run 40361584427 on head 2919012 green in Chromium and WebKit (the first WebKit run needed a test harness fix: Playwright's Linux WebKit lacks a recorder, so the fake microphone now stands in for it; no app code or assertion changed). "Preview link" fails until the secrets exist.
+- GitHub checks: run 40366546462 on head afc9aa7 green in Chromium and WebKit (231 passed). Two things came out of the first WebKit runs: the test's fake microphone now stands in for the recorder that Playwright's Linux WebKit lacks (test code only), and a real bug: when the 10 second stop timer fired a little late, the recording came out just over 10 seconds and the server refused it with "could not be checked". The recorder now cuts to exactly 10 seconds before sending, with two unit tests. "Preview link" fails until the secrets exist.
 - Builder notes: `build.md`, with the round 3 section and the statement 16 red run output in the evidence folder.
 
 ## Things to look at closely

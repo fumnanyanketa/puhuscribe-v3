@@ -107,4 +107,13 @@ Checks:
 - The re-run (run 40361584427, attempt 2) passed the whole "Browser tests (Playwright, local Supabase)" job, Chromium and WebKit, on head 2919012. Every other check job passed too.
 - In attempt 2, "Preview link (Cloudflare Worker behind Access)" ran for the first time on this branch, because the browser job before it passed. It failed at the worker secrets step (`exit code 1`). That job deploys a preview and needs the repository's Cloudflare secrets. This job did not change it. It is for the manager or owner to look at, and it is outside the WebKit task.
 
+
+### Round 3, follow up (runner image and the 10 second test)
+
+- Cherry-picked main's `checks: run the browser test jobs on ubuntu-24.04` as b87d463. Run 40364430716 on that head got through the install step and ran the tests: 230 passed, 1 failed. The failure was WebKit only, `e2e/speaking-feedback.spec.ts:343` [speak 6][speak 9]. The status line said "Your recording could not be checked. Check your internet connection, then try again." where the test wanted "Yes, that was clear."
+- Cause, a real bug (it would also hit a real phone): the server (`worker/speech.ts`, `isSpeechWav(info, MAX_RECORDING_MS)`) refuses any WAV longer than 10 000 ms. The 10 second stop timer in `src/lib/recorder.ts` can fire a little late on a busy device, and the client sent the whole recording uncut, so a recording that ran 10.0x seconds was refused. The test caught this; it was not weakened.
+- Fix: `capToLimit` in `src/lib/recorder.ts` cuts the 16 kHz samples to exactly 10 seconds before the WAV is built. New unit tests in `src/lib/recorder.test.ts`, both [speak 9]: a recording 800 samples over the limit comes back as exactly 160 000 samples, and a 3 second one is left as it is.
+- Local checks: `npm run check:code` passes. `npx vitest run`: 742 passed, 2 skipped. `VITE_DESIGN_REFERENCE=1 npm run build`, then Chromium `e2e/speaking-feedback.spec.ts` on my own Supabase and port 4183: 21 passed.
+- Commit afc9aa7, pushed. GitHub run 40366546462 on head afc9aa7: the "Browser tests (Playwright, local Supabase)" job passed, Chromium and WebKit (231 passed, 0 failed). Every other check job passed too, except "Preview link (Cloudflare Worker behind Access)". That job failed again at its worker secrets step, as in run 40361584427. This job did not change it.
+
 Result: checks pass
