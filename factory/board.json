@@ -578,16 +578,16 @@
       "id": "11-accounts",
       "feature": "accounts",
       "title": "Accounts & personal data",
-      "stage": "review",
-      "round": 2,
+      "stage": "build",
+      "round": 3,
       "flag": "look closely",
       "flag_reasons": [
         "learner data",
         "sign in",
         "database or access rule changes"
       ],
-      "waiting_on": "security reviewer, design reviewer and evaluator (in parallel), GitHub checks",
-      "updated": "2026-10-26T19:40:00+03:00",
+      "waiting_on": "builder (one WebKit axe test aborted on GitHub); evaluator still running on Chromium",
+      "updated": "2026-10-26T22:00:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -618,6 +618,10 @@
         {
           "stage": "review",
           "at": "2026-10-26T19:40:00+03:00"
+        },
+        {
+          "stage": "build",
+          "at": "2026-10-26T22:00:00+03:00"
         }
       ]
     },
