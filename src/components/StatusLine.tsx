@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, type ReactNode } from 'react'
 import styles from './StatusLine.module.css'
 
 // The one status line (design.md, "Status line"), announced to screen readers
@@ -16,7 +16,11 @@ export type StatusTone = 'neutral' | 'gentle' | 'problem'
 
 interface StatusLineProps {
   tone?: StatusTone
-  children: string
+  /**
+   * One full sentence. Usually plain text; speaking feedback (job
+   * 10-speaking-feedback) marks a Finnish word in it with lang="fi".
+   */
+  children: ReactNode
 }
 
 export const StatusLine = forwardRef<HTMLParagraphElement, StatusLineProps>(function StatusLine(

@@ -19,7 +19,8 @@ const scripts = (JSON.parse(read('package.json')) as { scripts: Record<string, s
 
 // Paths written down for a folder that a later job creates. Each entry says
 // which job makes it; remove it from this list once the folder exists.
-const PLANNED = new Map([['worker/providers/', 'the first job that adds a voice, speech or AI provider']])
+// worker/providers/ was planned here until job 10-speaking-feedback created it.
+const PLANNED = new Map<string, string>()
 
 // The text of one `## ` section, without its heading line.
 function section(text: string, heading: string): string {

@@ -1,0 +1,55 @@
+{
+  "about": "Built by hand by the job 10-speaking-feedback builder from the response shape in Microsoft's documentation (https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text-short), not recorded from Azure. Used only by the fake speech provider in tests. Line 1 with oon said as a different word.",
+  "source": "hand-built",
+  "reference": "Moi! Mä oon Alex.",
+  "httpStatus": 200,
+  "response": {
+    "RecognitionStatus": "Success",
+    "Offset": 400000,
+    "Duration": 15000000,
+    "NBest": [
+      {
+        "Confidence": 0.91,
+        "Lexical": "moi mä uun alex",
+        "ITN": "moi mä uun alex",
+        "MaskedITN": "moi mä uun alex",
+        "Display": "Moi, mä uun Alex.",
+        "AccuracyScore": 80.0,
+        "FluencyScore": 90.0,
+        "CompletenessScore": 100.0,
+        "PronScore": 80.0,
+        "Words": [
+          {
+            "Word": "moi",
+            "Offset": 500000,
+            "Duration": 3000000,
+            "AccuracyScore": 96,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "mä",
+            "Offset": 4000000,
+            "Duration": 3000000,
+            "AccuracyScore": 94,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "oon",
+            "Offset": 7500000,
+            "Duration": 3000000,
+            "AccuracyScore": 35,
+            "ErrorType": "Mispronunciation"
+          },
+          {
+            "Word": "alex",
+            "Offset": 11000000,
+            "Duration": 3000000,
+            "AccuracyScore": 95,
+            "ErrorType": "None"
+          }
+        ]
+      }
+    ],
+    "DisplayText": "Moi, mä uun Alex."
+  }
+}

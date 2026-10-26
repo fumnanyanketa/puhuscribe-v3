@@ -58,6 +58,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 7-content-pipeline | `[content N]` | `tests/content-audio.test.ts`; in pytest the label opens each test's docstring, as in `scripts/generate/test_content_checks.py` |
 | 8-first-session | `[session N]` | `worker/sessions.test.ts` |
 | 9-daily-review | `[review N]` | `worker/review.test.ts` |
+| 10-speaking-feedback | `[speak N]` | `worker/speech.test.ts` |
 | 13-review-site | `[site N]` | `review-site/handler.test.ts` |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.
@@ -86,6 +87,8 @@ Voice, speech feedback and AI each sit behind one module in `worker/providers/`.
 - Provider keys exist only as Worker secrets (and in `.env.local` locally). The browser never holds one.
 - The browser calls only `/api/*` on its own address. `worker/index.ts` sends those requests to `worker/api.ts`, which today is the only code that talks to an outside service (Supabase), with the key from the Worker's environment.
 - Every AI call is logged with its cost.
+
+Speech feedback (job 10-speaking-feedback). `worker/providers/speech-feedback.ts` is the only file that calls a speech service. `SPEECH_FEEDBACK_PROVIDER` picks `azure` (the default) or `fake`; the fake replays recorded answers from `worker/providers/fixtures/speech/` and is set only in the pull request browser job. The Azure provider takes `AZURE_SPEECH_KEY` (a Worker secret), `AZURE_SPEECH_REGION` (EU regions only) and `AZURE_SPEECH_TIER`. `tests/speech-provider-rules.test.ts` checks that no other file names the address or the key. Every check writes one `speaking_attempts` row with its cost. Opted in recordings go through `worker/recording-store.ts`, so they can move to another store by changing that file. Details in `docs/speaking-feedback.md`.
 
 Build time providers (job 7-content-pipeline). The content pipeline runs on a build machine, never in the Worker, so its two providers live in `scripts/generate/providers/`: `scripts/generate/providers/ai.py` is the only file that calls an AI service and `scripts/generate/providers/voice.py` the only file that calls a voice service (`scripts/generate/test_content_providers.py` checks both). `AI_PROVIDER` (`anthropic` or `fake`) and `VOICE_PROVIDER` (`azure` or `fake`) pick them. Their keys, `ANTHROPIC_API_KEY` and `AZURE_SPEECH_KEY`, exist only as GitHub secrets read by the manual workflow `.github/workflows/content-pipeline.yml`. Every call and synthesis is logged with its cost in `content/logs/` (`ai-calls.jsonl`). No pipeline database role exists: content reaches the database only through publish migrations.
 

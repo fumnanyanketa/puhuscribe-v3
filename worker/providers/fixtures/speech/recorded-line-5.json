@@ -1,0 +1,41 @@
+{
+  "about": "Built by hand from the response shape in Microsoft's documentation (https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text-short), not recorded from Azure. The manual workflow \"Speech fixtures\" (.github/workflows/speech-fixtures.yml) replaces this file with Azure's real answer for the line voiced by Azure text to speech, once the owner's key is in GitHub secrets.",
+  "source": "hand-built",
+  "reference": "Kiva tavata!",
+  "httpStatus": 200,
+  "response": {
+    "RecognitionStatus": "Success",
+    "Offset": 400000,
+    "Duration": 15000000,
+    "NBest": [
+      {
+        "Confidence": 0.91,
+        "Lexical": "kiva tavata",
+        "ITN": "kiva tavata",
+        "MaskedITN": "kiva tavata",
+        "Display": "Kiva tavata.",
+        "AccuracyScore": 96.0,
+        "FluencyScore": 90.0,
+        "CompletenessScore": 100.0,
+        "PronScore": 96.0,
+        "Words": [
+          {
+            "Word": "kiva",
+            "Offset": 500000,
+            "Duration": 3000000,
+            "AccuracyScore": 97,
+            "ErrorType": "None"
+          },
+          {
+            "Word": "tavata",
+            "Offset": 4000000,
+            "Duration": 3000000,
+            "AccuracyScore": 95,
+            "ErrorType": "None"
+          }
+        ]
+      }
+    ],
+    "DisplayText": "Kiva tavata."
+  }
+}

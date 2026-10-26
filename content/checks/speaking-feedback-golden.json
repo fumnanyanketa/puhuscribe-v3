@@ -1,0 +1,469 @@
+{
+  "about": "The 30 golden cases for the speaking feedback rules (src/lib/speech-feedback.ts). Job 10-speaking-feedback, statement 11. Each case is a target line in both registers, what the speech service heard, optional word flags, and the expected feedback class and hint. npm run eval:speech runs them.",
+  "source": "Targets are lines 1 to 10 of docs/risk-tests/test-2-voice-lines.md. That Finnish is NOT reviewed and is used here as test data only; it never reaches a learner.",
+  "reviewed": false,
+  "honestLimit": "The rules and these labels were both written in job 10, so a pass proves the rules do what the labels say. Whether the labels match a native ear is checked by the native reviewer (owner's call 3) and measured on real clips in risk test 3.",
+  "cases": [
+    {
+      "id": "01",
+      "covers": "exact",
+      "line": 1,
+      "spoken": "Moi! Mä oon Alex.",
+      "written": "Hei! Minä olen Alex.",
+      "status": "heard",
+      "heard": "moi mä oon alex",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "02",
+      "covers": "exact",
+      "line": 7,
+      "spoken": "Saisinks mä yhen pullan?",
+      "written": "Saisinko yhden pullan?",
+      "status": "heard",
+      "heard": "saisinks mä yhen pullan",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "03",
+      "covers": "punctuation and capitals only",
+      "line": 8,
+      "spoken": "Paljonks se maksaa?",
+      "written": "Paljonko se maksaa?",
+      "status": "heard",
+      "heard": "Paljonks se maksaa.",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "04",
+      "covers": "punctuation and capitals only",
+      "line": 2,
+      "spoken": "Mist sä oot kotoisin?",
+      "written": "Mistä sinä olet kotoisin?",
+      "status": "heard",
+      "heard": "MIST SÄ OOT KOTOISIN",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "05",
+      "covers": "spoken heard as written",
+      "line": 1,
+      "spoken": "Moi! Mä oon Alex.",
+      "written": "Hei! Minä olen Alex.",
+      "status": "heard",
+      "heard": "Hei. Minä olen Alex.",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "06",
+      "covers": "spoken heard as written",
+      "line": 6,
+      "spoken": "Moi! Yks kahvi, kiitti.",
+      "written": "Hei! Yksi kahvi, kiitos.",
+      "status": "heard",
+      "heard": "Hei, yksi kahvi, kiitos.",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "07",
+      "covers": "spoken heard as written",
+      "line": 9,
+      "spoken": "Onks teil kauramaitoo?",
+      "written": "Onko teillä kauramaitoa?",
+      "status": "heard",
+      "heard": "Onko teillä kauramaitoa?",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "08",
+      "covers": "doubled consonant missed (tt)",
+      "line": 6,
+      "spoken": "Moi! Yks kahvi, kiitti.",
+      "written": "Hei! Yksi kahvi, kiitos.",
+      "status": "heard",
+      "heard": "moi yks kahvi kiiti",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "t"
+        }
+      }
+    },
+    {
+      "id": "09",
+      "covers": "doubled consonant missed (ll)",
+      "line": 7,
+      "spoken": "Saisinks mä yhen pullan?",
+      "written": "Saisinko yhden pullan?",
+      "status": "heard",
+      "heard": "saisinks mä yhen pulan",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "l"
+        }
+      }
+    },
+    {
+      "id": "10",
+      "covers": "doubled consonant missed (ss), said in written Finnish",
+      "line": 3,
+      "spoken": "Mä oon Brasiliasta, mut mä asun nyt Helsingis.",
+      "written": "Minä olen Brasiliasta, mutta asun nyt Helsingissä.",
+      "status": "heard",
+      "heard": "minä olen brasiliasta mutta asun nyt helsingisä",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "s"
+        }
+      }
+    },
+    {
+      "id": "11",
+      "covers": "long vowel shortened (oon said as on)",
+      "line": 1,
+      "spoken": "Moi! Mä oon Alex.",
+      "written": "Hei! Minä olen Alex.",
+      "status": "heard",
+      "heard": "moi mä on alex",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "o"
+        }
+      }
+    },
+    {
+      "id": "12",
+      "covers": "long vowel shortened (kauramaitoo said as kauramaito)",
+      "line": 9,
+      "spoken": "Onks teil kauramaitoo?",
+      "written": "Onko teillä kauramaitoa?",
+      "status": "heard",
+      "heard": "onks teil kauramaito",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "o"
+        }
+      }
+    },
+    {
+      "id": "13",
+      "covers": "long vowel shortened (kiitti said as kitti)",
+      "line": 6,
+      "spoken": "Moi! Yks kahvi, kiitti.",
+      "written": "Hei! Yksi kahvi, kiitos.",
+      "status": "heard",
+      "heard": "moi yks kahvi kitti",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "double",
+          "letter": "i"
+        }
+      }
+    },
+    {
+      "id": "14",
+      "covers": "single letter doubled",
+      "line": 5,
+      "spoken": "Kiva tavata!",
+      "written": "Hauska tavata!",
+      "status": "heard",
+      "heard": "kiva tavvata",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "single",
+          "letter": "v"
+        }
+      }
+    },
+    {
+      "id": "15",
+      "covers": "single letter doubled",
+      "line": 8,
+      "spoken": "Paljonks se maksaa?",
+      "written": "Paljonko se maksaa?",
+      "status": "heard",
+      "heard": "paljonks se makssaa",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "single",
+          "letter": "s"
+        }
+      }
+    },
+    {
+      "id": "16",
+      "covers": "ä and a swapped",
+      "line": 1,
+      "spoken": "Moi! Mä oon Alex.",
+      "written": "Hei! Minä olen Alex.",
+      "status": "heard",
+      "heard": "moi ma oon alex",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "vowel",
+          "want": "ä",
+          "heard": "a"
+        }
+      }
+    },
+    {
+      "id": "17",
+      "covers": "ä and a swapped",
+      "line": 4,
+      "spoken": "Ootsä täält Helsingist?",
+      "written": "Oletko sinä täältä Helsingistä?",
+      "status": "heard",
+      "heard": "ootsä taält helsingist",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "vowel",
+          "want": "ä",
+          "heard": "a"
+        }
+      }
+    },
+    {
+      "id": "18",
+      "covers": "y and u swapped",
+      "line": 10,
+      "spoken": "Joo, se on tosi hyvää.",
+      "written": "Kyllä, se on todella hyvää.",
+      "status": "heard",
+      "heard": "joo se on tosi huvää",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "vowel",
+          "want": "y",
+          "heard": "u"
+        }
+      }
+    },
+    {
+      "id": "19",
+      "covers": "one word missing",
+      "line": 8,
+      "spoken": "Paljonks se maksaa?",
+      "written": "Paljonko se maksaa?",
+      "status": "heard",
+      "heard": "paljonks maksaa",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "missing",
+          "word": "se"
+        }
+      }
+    },
+    {
+      "id": "20",
+      "covers": "one word missing",
+      "line": 3,
+      "spoken": "Mä oon Brasiliasta, mut mä asun nyt Helsingis.",
+      "written": "Minä olen Brasiliasta, mutta asun nyt Helsingissä.",
+      "status": "heard",
+      "heard": "mä oon brasiliasta mut asun nyt helsingis",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "missing",
+          "word": "mä"
+        }
+      }
+    },
+    {
+      "id": "21",
+      "covers": "one extra word",
+      "line": 10,
+      "spoken": "Joo, se on tosi hyvää.",
+      "written": "Kyllä, se on todella hyvää.",
+      "status": "heard",
+      "heard": "joo se on tosi hyvää kiitos",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "22",
+      "covers": "one extra word",
+      "line": 5,
+      "spoken": "Kiva tavata!",
+      "written": "Hauska tavata!",
+      "status": "heard",
+      "heard": "kiva tavata sinut",
+      "expected": {
+        "class": "clear"
+      }
+    },
+    {
+      "id": "23",
+      "covers": "two or more words wrong",
+      "line": 8,
+      "spoken": "Paljonks se maksaa?",
+      "written": "Paljonko se maksaa?",
+      "status": "heard",
+      "heard": "paljonks kello on",
+      "expected": {
+        "class": "try_again"
+      }
+    },
+    {
+      "id": "24",
+      "covers": "two or more words wrong",
+      "line": 2,
+      "spoken": "Mist sä oot kotoisin?",
+      "written": "Mistä sinä olet kotoisin?",
+      "status": "heard",
+      "heard": "mitä sä teet",
+      "expected": {
+        "class": "try_again"
+      }
+    },
+    {
+      "id": "25",
+      "covers": "two or more words wrong",
+      "line": 7,
+      "spoken": "Saisinks mä yhen pullan?",
+      "written": "Saisinko yhden pullan?",
+      "status": "heard",
+      "heard": "saanko kahvin",
+      "expected": {
+        "class": "try_again"
+      }
+    },
+    {
+      "id": "26",
+      "covers": "nothing heard (the service heard no speech)",
+      "line": 4,
+      "spoken": "Ootsä täält Helsingist?",
+      "written": "Oletko sinä täältä Helsingistä?",
+      "status": "not_heard",
+      "heard": "",
+      "expected": {
+        "class": "not_heard"
+      }
+    },
+    {
+      "id": "27",
+      "covers": "nothing heard (an empty transcript)",
+      "line": 9,
+      "spoken": "Onks teil kauramaitoo?",
+      "written": "Onko teillä kauramaitoa?",
+      "status": "heard",
+      "heard": "",
+      "expected": {
+        "class": "not_heard"
+      }
+    },
+    {
+      "id": "28",
+      "covers": "flagged mispronunciation",
+      "line": 6,
+      "spoken": "Moi! Yks kahvi, kiitti.",
+      "written": "Hei! Yksi kahvi, kiitos.",
+      "status": "heard",
+      "heard": "moi yks kahvi kiitti",
+      "words": [
+        {
+          "word": "moi",
+          "accuracy": 96,
+          "error": "none"
+        },
+        {
+          "word": "yks",
+          "accuracy": 91,
+          "error": "none"
+        },
+        {
+          "word": "kahvi",
+          "accuracy": 89,
+          "error": "none"
+        },
+        {
+          "word": "kiitti",
+          "accuracy": 42,
+          "error": "mispronunciation"
+        }
+      ],
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "off",
+          "word": "kiitti"
+        }
+      }
+    },
+    {
+      "id": "29",
+      "covers": "flagged mispronunciation",
+      "line": 5,
+      "spoken": "Kiva tavata!",
+      "written": "Hauska tavata!",
+      "status": "heard",
+      "heard": "kiva tavata",
+      "words": [
+        {
+          "word": "kiva",
+          "accuracy": 93,
+          "error": "none"
+        },
+        {
+          "word": "tavata",
+          "accuracy": 55,
+          "error": "mispronunciation"
+        }
+      ],
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "off",
+          "word": "tavata"
+        }
+      }
+    },
+    {
+      "id": "30",
+      "covers": "one word off",
+      "line": 5,
+      "spoken": "Kiva tavata!",
+      "written": "Hauska tavata!",
+      "status": "heard",
+      "heard": "kiva tapata",
+      "expected": {
+        "class": "close",
+        "hint": {
+          "kind": "off",
+          "word": "tavata"
+        }
+      }
+    }
+  ]
+}

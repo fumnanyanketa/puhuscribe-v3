@@ -65,10 +65,17 @@ describe('audio exists only for approved lines', () => {
     const appFiles = ['src', 'worker'].flatMap((dir) =>
       readdirSync(dir, { recursive: true, encoding: 'utf8' }).map((file) => join(dir, file)),
     )
+    // Job 10-speaking-feedback ("Done when" 10): the speaking feedback rules
+    // read their numbers from content/checks/speech-thresholds.json, which
+    // holds only numbers (no Finnish, nothing waiting for review). That one
+    // import in that one file is allowed; everything else stays out.
+    const thresholds = /^src[\\/]lib[\\/]speech-feedback\.ts$/
     for (const file of appFiles.filter((f) => /\.(ts|tsx|css|html)$/.test(f))) {
-      expect(readFileSync(file, 'utf8'), file).not.toMatch(
-        /['"`](\.\.\/)+content\/|['"`]\/?content\/(briefs|drafts|reviews|recordings|logs|checks)/,
-      )
+      const text = readFileSync(file, 'utf8')
+      expect(
+        thresholds.test(file) ? text.replace("from '../../content/checks/speech-thresholds.json'", '') : text,
+        file,
+      ).not.toMatch(/['"`](\.\.\/)+content\/|['"`]\/?content\/(briefs|drafts|reviews|recordings|logs|checks)/)
     }
     // public/ holds only the published audio.
     const publicEntries = existsSync('public') ? readdirSync('public') : []
@@ -97,9 +104,17 @@ describe('the shared shape is untouched', () => {
         .map((file) => join(dir, file)),
     )
     expect(files.length).toBeGreaterThan(5)
+    // Job 10-speaking-feedback ("Done when" 12) puts the one speech to text
+    // provider in worker/providers/speech-feedback.ts. That module and its own
+    // unit test may name Azure's speech to text address and key; they still
+    // may not call an AI service or a voice (text to speech) service.
+    // tests/speech-provider-rules.test.ts proves no other file does.
+    const speechProvider = /^worker[\\/]providers[\\/]speech-feedback(\.test)?\.ts$/
     for (const file of files) {
       expect(readFileSync(file, 'utf8'), file).not.toMatch(
-        /anthropic|api\.anthropic|speech\.microsoft\.com|cognitiveservices|tts\.speech|AZURE_SPEECH|ANTHROPIC_API_KEY/i,
+        speechProvider.test(file)
+          ? /anthropic|api\.anthropic|tts\.speech|ANTHROPIC_API_KEY/i
+          : /anthropic|api\.anthropic|speech\.microsoft\.com|cognitiveservices|tts\.speech|AZURE_SPEECH|ANTHROPIC_API_KEY/i,
       )
     }
   })

@@ -12,14 +12,21 @@ export const MAX_REVIEW_RUN = 15
 export const MAX_ANSWER_LENGTH = 100
 
 /**
- * How the learner answered. Today only typing. Job 10 adds a spoken kind (a
- * transcript, graded the same way and saved with mode spoken).
+ * How the learner answered: by typing, or by saying it (job 10-speaking-feedback,
+ * "Done when" 21). A spoken answer holds the class the Worker itself worked
+ * out from the speech service's answer; the browser can never send one
+ * (POST /api/review/answer takes only the typed kind).
  */
 export interface TypedAnswer {
   kind: 'typed'
   text: string
 }
-export type ReviewAnswer = TypedAnswer
+export type SpokenClass = 'clear' | 'close' | 'try_again'
+export interface SpokenAnswer {
+  kind: 'spoken'
+  feedbackClass: SpokenClass
+}
+export type ReviewAnswer = TypedAnswer | SpokenAnswer
 export type AnswerKind = ReviewAnswer['kind']
 
 /** The grader's result. Its rating follows from it (src/lib/review-grade.ts). */

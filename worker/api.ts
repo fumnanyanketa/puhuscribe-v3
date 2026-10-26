@@ -22,6 +22,7 @@ import {
   type LearnerContext,
   type SupabaseEnv,
 } from './learner-auth.ts'
+import type { SpeechEnv } from './providers/speech-feedback.ts'
 import { DatabaseUnavailable, supabaseLearnerDb, type LearnerDb, type ReviewDb } from './learner-db.ts'
 import {
   answer as answerReview,
@@ -32,10 +33,20 @@ import {
   reviewItems,
 } from './review.ts'
 import { ContentUnusable, frontDoorState, readySession, todayFor } from './session-plan.ts'
+import {
+  deleteRecordings,
+  playRecording,
+  recall,
+  say,
+  voiceConsent,
+  voiceState,
+  type RouteKit,
+  type SpeechDeps,
+} from './speech.ts'
 
-export type ApiEnv = SupabaseEnv
+export type ApiEnv = SupabaseEnv & SpeechEnv
 
-export interface ApiDeps {
+export interface ApiDeps extends SpeechDeps {
   fetch: Fetch
   /** Tests pass a fake database; normally it is Supabase, as the learner. */
   learnerDb?: (context: LearnerContext) => LearnerDb
@@ -289,6 +300,9 @@ async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string
   }
 }
 
+const RECORDING_ROUTE =
+  /^\/api\/voice\/recordings\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/
+
 // The Keep it routes (factory/jobs/9-daily-review/spec.md, "Done when" 6 to
 // 17). Same protections as job 8's routes: a sign in, the learner's own token
 // for every read and write, the user id only from the token, 404 for a session
@@ -365,6 +379,19 @@ export async function handleApi(
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])
+  // Speaking feedback and voice settings (job 10-speaking-feedback).
+  const kit: RouteKit = {
+    signedIn: (r) => signedIn(r, env, deps),
+    learnerDb: (context) => databaseFor(context, deps),
+    reviewDb: (context) => reviewDatabaseFor(context, databaseFor(context, deps)),
+  }
+  if (pathname === '/api/voice') return voiceState(request, env, deps, kit)
+  if (pathname === '/api/voice/consent') return voiceConsent(request, env, deps, kit)
+  if (pathname === '/api/voice/recordings/delete') return deleteRecordings(request, env, deps, kit)
+  const recording = RECORDING_ROUTE.exec(pathname)
+  if (recording?.[1]) return playRecording(request, deps, kit, recording[1])
+  if (pathname === '/api/speech/say') return say(request, env, deps, kit)
+  if (pathname === '/api/speech/recall') return recall(request, env, deps, kit)
   if (match?.[1] && match[2] === 'review') return reviewItemsRoute(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'review/done') return reviewDoneRoute(request, env, deps, match[1])
   if (pathname === '/api/review/answer') return reviewAnswerRoute(request, env, deps)

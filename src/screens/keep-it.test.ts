@@ -3,7 +3,13 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession } from '../lib/session-types.ts'
-import { ANSWER_METHODS, type AnswerMethod, type AnswerMethodProps } from './answer-methods.ts'
+import {
+  ALL_METHODS,
+  ANSWER_METHODS,
+  methodsFor,
+  type AnswerMethod,
+  type AnswerMethodProps,
+} from './answer-methods.ts'
 import { KeepIt } from './KeepIt.tsx'
 import { ReviewItemView } from './ReviewItemView.tsx'
 import { SessionFlow } from './SessionFlow.tsx'
@@ -50,6 +56,7 @@ function renderItem(methods?: readonly AnswerMethod[]) {
       disabled: false,
       onReady: noop,
       onAnswer: noop,
+      onRecorded: noop,
       ...(methods ? { methods } : {}),
     }),
   )
@@ -62,8 +69,8 @@ function answerArea(markup: string): string {
 }
 
 describe('Keep it in the step list', () => {
-  it('[review 6] with words to review, Keep it comes after every step of the list, as step 3 of 3', () => {
-    expect(stepsFor(true).map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Keep it'])
+  it('[review 6] with words to review, Keep it comes after every step of the list, as step 4 of 4', () => {
+    expect(stepsFor(true).map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Say it', 'Keep it'])
     expect(stepsFor(true).at(-1)).toBe(KEEP_IT_STEP)
     expect(KEEP_IT_STEP.id).toBe('keep')
     const steps = stepsFor(true)
@@ -71,16 +78,16 @@ describe('Keep it in the step list', () => {
       createElement(SessionFlow, {
         steps,
         session,
-        position: { kind: 'step', index: 2 },
+        position: { kind: 'step', index: 3 },
         onStepDone: () => Promise.resolve(true),
         review: [item],
       }),
     )
-    expect(markup).toContain('Keep it, step 3 of 3')
-    expect(after(steps, 2)).toEqual({ kind: 'finish' })
+    expect(markup).toContain('Keep it, step 4 of 4')
+    expect(after(steps, 3)).toEqual({ kind: 'finish' })
   })
 
-  it("[review 6] without words to review, the session is exactly job 8's: step 1 of 2", () => {
+  it("[review 6] without words to review, the session is exactly job 8's list: step 1 of 3", () => {
     expect(stepsFor(false)).toBe(SESSION_STEPS)
     const markup = renderToStaticMarkup(
       createElement(SessionFlow, {
@@ -90,21 +97,21 @@ describe('Keep it in the step list', () => {
         onStepDone: () => Promise.resolve(true),
       }),
     )
-    expect(markup).toContain('Hear it, step 1 of 2')
+    expect(markup).toContain('Hear it, step 1 of 3')
   })
 
-  it('[review 6] [review 14] "Continue" after Understand it resumes at Keep it; after keep, the finish screen', () => {
-    expect(resumeAt(stepsFor(true), 'understand')).toEqual({ kind: 'step', index: 2 })
+  it('[review 6] [review 14] "Continue" after Say it resumes at Keep it; after keep, the finish screen', () => {
+    expect(resumeAt(stepsFor(true), 'say')).toEqual({ kind: 'step', index: 3 })
+    expect(resumeAt(stepsFor(false), 'say')).toEqual({ kind: 'finish' })
     expect(resumeAt(stepsFor(true), 'keep')).toEqual({ kind: 'finish' })
     expect(resumeAt(stepsFor(false), 'keep')).toEqual({ kind: 'finish' })
   })
 
-  it("[review 6] job 10's Say it, added to the list, sits before Keep it", () => {
-    // A copy of the list with a step after Understand it, as job 10 adds Say it.
-    const sayIt = { ...SESSION_STEPS[1], id: 'say' as const, name: 'Say it' as const }
-    const withSayIt = [...SESSION_STEPS, sayIt, KEEP_IT_STEP]
-    expect(withSayIt.map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Say it', 'Keep it'])
-    expect(resumeAt(withSayIt, 'say')).toEqual({ kind: 'step', index: 3 })
+  it("[review 6] job 10's Say it sits before Keep it, and Keep it follows only when there is a card to review", () => {
+    const names = stepsFor(true).map((step) => step.name)
+    expect(names.indexOf('Say it')).toBe(names.indexOf('Keep it') - 1)
+    expect(stepsFor(false).map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Say it'])
+    expect(resumeAt(stepsFor(true), 'understand')).toEqual({ kind: 'step', index: 2 })
   })
 })
 
@@ -144,15 +151,22 @@ describe('the review item', () => {
     expect(ANSWER_METHODS.map((method) => method.kind)).toEqual(['typed'])
   })
 
+  it('[speak 21] the one list holds typing and saying; an item shows only the method its rule gave it', () => {
+    expect(ALL_METHODS.map((method) => method.kind)).toEqual(['typed', 'spoken'])
+    const typed = renderItem(methodsFor('typed'))
+    expect(typed).toContain('Type the missing word')
+    expect(typed).not.toMatch(/Start recording|Record/)
+    const spoken = renderItem(methodsFor('spoken'))
+    expect(spoken).not.toContain('Type the missing word')
+    expect(spoken).toMatch(/record/i)
+  })
+
   it("[review 15] a second method added to the list renders in the item's answer area", () => {
     function SpokenProbe({ formId }: AnswerMethodProps) {
       return createElement('p', { id: formId }, 'Spoken answer probe')
     }
     // Job 10 adds a "spoken" kind; the probe borrows the typed kind's type.
-    const withProbe: readonly AnswerMethod[] = [
-      ...ANSWER_METHODS,
-      { kind: 'spoken' as 'typed', Answer: SpokenProbe },
-    ]
+    const withProbe: readonly AnswerMethod[] = [...ANSWER_METHODS, { kind: 'spoken', Answer: SpokenProbe }]
     const markup = renderItem(withProbe)
     const area = answerArea(markup)
     expect(area).toContain('Spoken answer probe')
