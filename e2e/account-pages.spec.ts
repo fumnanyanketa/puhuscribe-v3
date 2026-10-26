@@ -1,7 +1,7 @@
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { recordApiTimings } from './api-timing.ts'
-import { isGuestPost, recordRequests, scrollsSideways, tabTo } from './session-helpers.ts'
+import { isGuestPost, recordRequests, scrollsSideways, settleAnimations, tabTo } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/11-accounts/spec.md that each test protects.
@@ -50,7 +50,7 @@ async function axe(page: Page, label: string) {
   await page.evaluate('document.fonts.ready')
   // A colour scheme switched on an open page starts the buttons' colour
   // transitions; axe must measure the finished colours, not a frame halfway.
-  await page.evaluate('Promise.all(document.getAnimations().map((a) => a.finished))')
+  await settleAnimations(page)
   const result = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze()

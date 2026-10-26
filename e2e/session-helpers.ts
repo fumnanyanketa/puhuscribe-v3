@@ -162,3 +162,19 @@ export async function tabTo(page: Page, target: Locator, testInfo: TestInfo): Pr
   }
   throw new Error('Tab never reached the control.')
 }
+
+// Waits until no animation or transition is still running, so axe measures
+// the finished colours. A transition that is cancelled (a button's press or
+// focus colour ending before it completes, common in WebKit after a click)
+// rejects its `finished` promise with AbortError; a cancelled animation no
+// longer affects the page, so it counts as settled. Cancelling one can start
+// another, so this checks again until none is left.
+export async function settleAnimations(page: Page) {
+  await page.evaluate(`(async () => {
+    for (let round = 0; round < 10; round++) {
+      const running = document.getAnimations().filter((a) => a.playState !== 'finished')
+      if (running.length === 0) return
+      await Promise.allSettled(running.map((a) => a.finished))
+    }
+  })()`)
+}
