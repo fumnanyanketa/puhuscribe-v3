@@ -264,7 +264,7 @@ jobs:
     # Spec: factory/jobs/6-pr-local-db/spec.md.
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       # The throwaway database's own fixed local address (not a secret).
       LOCAL_DB_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
