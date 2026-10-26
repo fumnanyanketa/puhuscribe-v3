@@ -594,7 +594,7 @@
       "id": "11-accounts",
       "feature": "accounts",
       "title": "Accounts & personal data",
-      "stage": "build",
+      "stage": "evaluate",
       "round": 3,
       "flag": "look closely",
       "flag_reasons": [
@@ -602,8 +602,8 @@
         "sign in",
         "database or access rule changes"
       ],
-      "waiting_on": "builder (one WebKit axe test aborted on GitHub); evaluator still running on Chromium",
-      "updated": "2026-10-26T22:00:00+03:00",
+      "waiting_on": "evaluator (reviews passed, GitHub green on bfbdd5c)",
+      "updated": "2026-10-26T23:15:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -638,6 +638,14 @@
         {
           "stage": "build",
           "at": "2026-10-26T22:00:00+03:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-26T23:15:00+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-26T23:15:00+03:00"
         }
       ]
     },
