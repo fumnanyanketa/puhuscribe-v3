@@ -84,4 +84,23 @@ Not run here: WebKit (no WebKit build is installed on this machine) and the Pyth
 4. Open the app, press Start, go through Hear it and Understand it; Say it follows. Voice settings is at `/voice`.
 5. Browser tests: `LOCAL_DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres npx playwright test e2e/speaking-feedback.spec.ts`.
 
-Result: checks pass
+## Round 3 (WebKit browser tests)
+
+Triage kind: confused session (a test harness gap, not an app bug). The earlier round already flagged that WebKit's `MediaRecorder` was never checked.
+
+Cause, with evidence:
+- Run 40356177557 (head b2a6a3e): 14 WebKit tests in `e2e/speaking-feedback.spec.ts` failed. The page snapshots in the run's `playwright-report` artifact show a disabled `Recording is not available` button and "Recording is not available in this browser.", so `recordingSupported()` was false. The page is https://localhost and has AudioContext, so Playwright's Linux WebKit is missing `MediaRecorder` or `navigator.mediaDevices`. The microphone stub in `e2e/microphone.ts` returned early when `mediaDevices` was missing and never stood in for `MediaRecorder`.
+- Run 40359756196 (after the first fix): the record button was back, but every WebKit recording test showed "Microphone access is off", which only a NotAllowedError or SecurityError from getUserMedia produces. WebKit was still calling its own getUserMedia, which refuses; a plain assignment did not replace it.
+
+Fix (harness only, `e2e/microphone.ts`; no test or assertion changed, no app code changed):
+- Where the browser has no `navigator.mediaDevices` or no `MediaRecorder`, and only then, the stub adds stand-ins. The stand-in recorder turns the time it ran into a 16 kHz WAV of the same 440 Hz tone, so the app's own support check, decode and WAV path still run on it. Chromium keeps the real `MediaRecorder`.
+- The stub getUserMedia is now set with `Object.defineProperty` on the object and on `MediaDevices.prototype`. Where a WebKit build has no `createMediaStreamDestination`, it returns a stream with one track that can be stopped.
+- Also cherry-picked main's `checks: give the browser test job 30 minutes` (61521d3), as the manager asked.
+
+Commits: a8eabd6, 61521d3 (cherry-pick), 2919012. Pushed head: 2919012.
+
+Checks:
+- `npm run check:code`: pass. `npx vitest run`: 53 files, 740 passed, 2 skipped.
+- Chromium, `npx playwright test -c <scratch config, port 4183> --project=chromium e2e/speaking-feedback.spec.ts` against my own Supabase (ports 57321 to 57329): 21 passed, run after each fix.
+- WebKit could not run here: `npx playwright install webkit` fails the host requirement check.
+- GitHub run 40361584427 (head 2919012): all 21 WebKit speaking feedback tests passed. In attempt 1, one other test failed: WebKit `e2e/design-sample.spec.ts:193` [design 12]. It paused one word late (got "Alex", wanted "Mä" or "oon"). That test does not use the microphone stub, passed on WebKit in runs 40356177557 and 40359756196, and was not touched by this job. It looks like a timing flake. I re-ran the failed job: see the result line below.
