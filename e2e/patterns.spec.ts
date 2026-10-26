@@ -3,8 +3,16 @@ import { expect, test, type Locator, type Page } from '@playwright/test'
 import { recordApiTimings } from './api-timing.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import {
+  dayLater,
+  finishEveryOtherDialogue,
+  logsOf,
+  runKeepIt,
+  throughUnderstandIt,
+} from './review-helpers.ts'
+import {
   finishHearIt,
   finishUnderstandIt,
+  passSayIt,
   scrollsSideways,
   serveTone,
   startSession,
@@ -175,6 +183,7 @@ async function finishTodaysSession(page: Page): Promise<void> {
   const lines = linesOf(currentSession(userId).dialogueId)
   await finishHearIt(page)
   await finishUnderstandIt(page, (id) => lines.find((l) => l.id === id)?.gloss ?? '')
+  await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
   await page.getByRole('button', { name: 'Done' }).click()
   await page.waitForURL((url) => url.pathname === '/')
@@ -373,6 +382,97 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
   test('[units 14] without an account the route answers 401', async ({ page }) => {
     const res = await page.request.get('/api/patterns')
     expect(res.status()).toBe(401)
+  })
+
+  test('[units 16] the full loop through all three units: Hear it, Understand it, Say it, a day later Keep it with forms from every unit, and the panel lists every form met and none unmet', async ({
+    page,
+  }) => {
+    test.setTimeout(240_000)
+    const unitOf = (dialogueId: string) =>
+      one(`select u.slug from public.dialogues d join public.units u on u.id = d.unit_id where d.id = :did`, {
+        did: dialogueId,
+      })
+    const met: string[] = []
+
+    // Session 1 (unit 1), then each later day: Start, Hear it, Understand it, Say it, Keep it.
+    await startSession(page)
+    const userId = await userIdOf(page.context())
+    met.push(currentSession(userId).dialogueId)
+    await finishTodaysSession(page)
+    for (let day = 2; day <= 4; day += 1) {
+      dayLater(userId)
+      await page.reload()
+      await startNext(page)
+      const dialogueId = currentSession(userId).dialogueId
+      if (day === 4) {
+        // The panel on the last day lists every form met so far, none from the unmet draft dialogue.
+        await openPanel(page)
+        const shown = await shownGroups(page)
+        expect(shown).toEqual(expectedGroups(userId, currentSession(userId).id))
+        const keys = shown.flatMap((g) => g.forms.map((f) => `${f.lemma}|${f.written}|${f.spoken}`))
+        const formsOf = (id: string) =>
+          sql(
+            `select distinct f.lemma, f.surface_kirja, f.surface_puhe
+               from public.dialogue_lines l join public.tokens t on t.line_id = l.id
+               join public.forms f on f.id = t.form_id
+              where l.dialogue_id = :did and l.status = 'approved' and f.status = 'approved'`,
+            { did: id },
+          ).map((r) => r.join('|'))
+        for (const id of [...met, dialogueId]) for (const key of formsOf(id)) expect(keys).toContain(key)
+        const unmet = sql(
+          `select f.lemma, f.surface_kirja, f.surface_puhe from public.forms f
+            where f.status <> 'approved'
+               or not exists (select 1 from public.tokens t join public.dialogue_lines l on l.id = t.line_id
+                               where t.form_id = f.id and l.dialogue_id = any(string_to_array(:'ids', ',')::bigint[]))`,
+          { ids: [...met, dialogueId].join(',') },
+        ).map((r) => r.join('|'))
+        expect(unmet.length).toBeGreaterThan(0)
+        for (const key of unmet) expect(keys).not.toContain(key)
+        await panelOf(page).getByRole('button', { name: 'Close' }).click()
+        await page.keyboard.press('Escape')
+      }
+      met.push(dialogueId)
+      await throughUnderstandIt(page, userId)
+      await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
+      await runKeepIt(page)
+      await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+      await page.getByRole('button', { name: 'Done' }).click()
+      await page.waitForURL((url) => url.pathname === '/')
+    }
+    // The four dialogues cover units 1, 2 and 3 in order.
+    expect(met.map(unitOf)).toEqual([
+      'test-fixture-unit-1',
+      'test-fixture-unit-1',
+      'test-fixture-unit-2',
+      'test-fixture-unit-3',
+    ])
+
+    // One more day, nothing new to read: the review offers due forms from all three units.
+    finishEveryOtherDialogue(userId)
+    dayLater(userId)
+    await page.reload()
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.waitForURL('**/session')
+    const before = logsOf(userId).length
+    const answered = await runKeepIt(page)
+    expect(answered.length).toBeGreaterThan(0)
+    const unitsOfForm = (formId: string) =>
+      sql(
+        `select distinct u.slug from public.tokens t
+           join public.dialogue_lines l on l.id = t.line_id
+           join public.dialogues d on d.id = l.dialogue_id
+           join public.units u on u.id = d.unit_id
+          where t.form_id = :'fid'`,
+        { fid: formId },
+      ).map((r) => r[0])
+    const offered = new Set(answered.flatMap((a) => unitsOfForm(a.formId)))
+    for (const slug of ['test-fixture-unit-1', 'test-fixture-unit-2', 'test-fixture-unit-3']) {
+      expect(offered.has(slug), slug).toBe(true)
+    }
+    // Each typed answer was graded and logged once.
+    expect(logsOf(userId).length - before).toBe(answered.length)
+    expect(answered.every((a) => a.status === 'Yes, that is right.')).toBe(true)
   })
 
   test('[units 17] the panel fits 320 px and 200 percent text without sideways scrolling, with large enough tap areas', async ({

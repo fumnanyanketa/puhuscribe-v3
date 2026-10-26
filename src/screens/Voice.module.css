@@ -1,0 +1,123 @@
+/* Say it and Voice settings (factory/jobs/10-speaking-feedback). Values from
+   src/styles/tokens.css. The frame is SessionFrame's. */
+
+.consent {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--text-heading);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.quietText {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+}
+
+/* The box and its label: the whole row is the tap area. */
+.box {
+  display: grid;
+  grid-template-columns: var(--tap-min) minmax(0, 1fr);
+  align-items: start;
+  padding: var(--space-3);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.check {
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin: 0;
+  accent-color: var(--color-button);
+  cursor: pointer;
+}
+
+.boxLabel {
+  align-self: center;
+  padding-left: var(--space-2);
+  font-size: var(--text-body);
+  cursor: pointer;
+}
+
+.lineArea {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  margin: var(--space-5) 0 0;
+}
+
+.recordRow {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.buttons {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Voice settings */
+.page {
+  display: grid;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.section {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.recordings {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recording {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-card-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.recordingControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}

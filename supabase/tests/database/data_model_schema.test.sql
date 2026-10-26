@@ -19,16 +19,17 @@ select tables_are(
     'units', 'dialogues', 'dialogue_lines', 'tokens', 'forms',
     'cards', 'review_logs', 'sessions', 'consents',
     'source_sentences', 'lemma_ipa',
-    'usage_events'
+    'usage_events',
+    'speaking_attempts', 'kept_recordings', 'speech_checks'
   ],
-  '[data 1] [session 17] [session 21] public holds exactly the content, learner, reference and usage event tables, and nothing else (visits dropped in job 8)'
+  '[data 1] [session 17] [session 21] [speak 16] public holds exactly the content, learner, reference and usage event tables and the two speaking tables, and nothing else (visits dropped in job 8)'
 );
 
 select enums_are(
   'public',
   array['content_status', 'finnish_register', 'card_state', 'review_mode', 'loop_step', 'consent_kind',
-        'usage_event_name'],
-  '[data 1] [session 17] public has exactly the six enum types of the data model plus usage_event_name'
+        'usage_event_name', 'speech_feedback_class'],
+  '[data 1] [session 17] [speak 16] public has exactly the six enum types of the data model plus usage_event_name and speech_feedback_class'
 );
 select enum_has_labels('public', 'content_status', array['draft', 'approved', 'retired'],
   '[data 1] content_status is draft, approved, retired');
@@ -219,6 +220,10 @@ select results_eq(
       'consents.kind authenticated INSERT',
       'consents.notice_version authenticated INSERT',
       'consents.user_id authenticated INSERT',
+      'kept_recordings.audio authenticated INSERT',
+      'kept_recordings.line_id authenticated INSERT',
+      'kept_recordings.slot authenticated INSERT',
+      'kept_recordings.user_id authenticated INSERT',
       'review_logs.difficulty authenticated INSERT',
       'review_logs.due authenticated INSERT',
       'review_logs.elapsed_days authenticated INSERT',
@@ -235,11 +240,22 @@ select results_eq(
       'sessions.ended_at authenticated UPDATE',
       'sessions.step_reached authenticated UPDATE',
       'sessions.user_id authenticated INSERT',
+      'speaking_attempts.audio_ms authenticated INSERT',
+      'speaking_attempts.cost_usd authenticated INSERT',
+      'speaking_attempts.feedback_class authenticated INSERT',
+      'speaking_attempts.form_id authenticated INSERT',
+      'speaking_attempts.line_id authenticated INSERT',
+      'speaking_attempts.provider authenticated INSERT',
+      'speaking_attempts.session_id authenticated INSERT',
+      'speaking_attempts.transcript authenticated INSERT',
+      'speaking_attempts.transcript authenticated UPDATE',
+      'speaking_attempts.user_id authenticated INSERT',
+      'speech_checks.user_id authenticated INSERT',
       'usage_events.name authenticated INSERT',
       'usage_events.session_id authenticated INSERT',
       'usage_events.user_id authenticated INSERT'
     ]) as x(g) order by g collate "C"$$,
-  '[data 2] [session 17] the only column-level grants in public are the 43 learner write grants (40 from job 3, 3 on usage_events), all to authenticated; anon, service_role and PUBLIC have none'
+  '[data 2] [session 17] [speak 16] the only column-level grants in public are the 58 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables), all to authenticated; anon, service_role and PUBLIC have none'
 );
 
 -- [data 6] The history of withdrawn content approvals is closed to every API role.
@@ -345,10 +361,11 @@ select is_empty(
        and column_name ~ '(audio|recording|transcript|voice|speech)' $$,
   '[data 11] no learner table has an audio, recording, transcript or voice column'
 );
-select is_empty(
-  $$ select table_name || '.' || column_name from information_schema.columns
+select results_eq(
+  $$ select (table_name::text || '.' || column_name::text) collate "C" from information_schema.columns
      where table_schema = 'public' and data_type = 'bytea' $$,
-  '[data 11] no table in public stores raw bytes (such as audio)'
+  $$ values ('kept_recordings.audio'::text collate "C") $$,
+  '[data 11] [speak 16] the only table in public that stores raw bytes is kept_recordings (audio kept only with retention consent, job 10)'
 );
 
 -- [data 14] Content links refuse deletes of rows in use -------------------------------
@@ -361,9 +378,10 @@ select is(
     where k.contype = 'f'
       and k.confrelid in ('public.units'::regclass, 'public.dialogues'::regclass,
                           'public.dialogue_lines'::regclass, 'public.forms'::regclass)) as links),
-  array['cards.form_id r', 'dialogue_lines.dialogue_id r', 'dialogues.unit_id r', 'review_logs.form_id r',
-        'sessions.dialogue_id r', 'tokens.form_id r', 'tokens.line_id r'],
-  '[data 14] every link to a unit, dialogue, line or form is on delete restrict'
+  array['cards.form_id r', 'dialogue_lines.dialogue_id r', 'dialogues.unit_id r', 'kept_recordings.line_id r',
+        'review_logs.form_id r', 'sessions.dialogue_id r', 'speaking_attempts.form_id r',
+        'speaking_attempts.line_id r', 'tokens.form_id r', 'tokens.line_id r'],
+  '[data 14] [speak 16] every link to a unit, dialogue, line or form is on delete restrict'
 );
 
 -- Helper functions live in a schema the API does not expose ------------------------

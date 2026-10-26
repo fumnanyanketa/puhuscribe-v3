@@ -1,0 +1,90 @@
+# Speech fixtures (job 10-speaking-feedback, "Done when" 23). Manual start
+# only, never on a pull request or a push.
+#
+# Replaces the fake speech provider's three hand-built "recorded" fixtures with
+# Azure's real answers. Each fixture line is voiced by Azure text to speech (a
+# computer voice, never a human voice) through the content pipeline's voice
+# module, turned into 16 kHz mono 16 bit WAV, and sent through
+# worker/providers/speech-feedback.ts with the line as the reference. The
+# answers (no key, no header) are committed to the branch the workflow ran on,
+# with the voicing cost lines in content/logs/ai-calls.jsonl.
+#
+# Secret: AZURE_SPEECH_KEY, passed only to the two steps that call Azure and
+# the check that the new files do not hold it. Variables (not secret):
+# AZURE_SPEECH_REGION (an EU region) and AZURE_SPEECH_TIER (F0 for the free
+# tier). No npm ci runs in this job, so no package code ever runs next to the
+# key. The GitHub token reaches only the last step, which pushes the commit.
+name: Speech fixtures
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: speech-fixtures
+
+jobs:
+  record:
+    name: Record Azure's answers for the fake speech provider
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Install ffmpeg (turns the voiced MP3 into WAV)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Voice the fixture lines with Azure text to speech
+        env:
+          VOICE_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: python scripts/speech/voice_fixture_lines.py "$RUNNER_TEMP/speech-fixtures"
+      - name: Turn each clip into 16 kHz mono 16 bit WAV
+        run: |
+          shopt -s nullglob
+          for mp3 in "$RUNNER_TEMP"/speech-fixtures/*.mp3; do
+            ffmpeg -nostdin -loglevel error -y -i "$mp3" -ar 16000 -ac 1 -c:a pcm_s16le "${mp3%.mp3}.wav"
+          done
+      - name: Send each clip through the speech provider and keep Azure's answers
+        env:
+          SPEECH_FEEDBACK_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: node scripts/speech/record-fixtures.ts "$RUNNER_TEMP/speech-fixtures"
+      - name: Check the new files hold no secret value
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env AZURE_SPEECH_KEY
+          worker/providers/fixtures/speech content/logs
+      - name: Commit the fixtures to this branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # The commit is authored as the person who started the workflow, with
+          # their GitHub no-reply address.
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          git add worker/providers/fixtures/speech content/logs/ai-calls.jsonl
+          if git diff --cached --quiet; then
+            echo "Azure's answers are the same as the committed fixtures."
+            exit 0
+          fi
+          git commit -m "Speech fixtures: Azure's answers for three voiced fixture lines"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"

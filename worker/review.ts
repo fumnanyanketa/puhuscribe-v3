@@ -183,6 +183,35 @@ export async function answer(
   }
 }
 
+export type RecallOutcome =
+  { kind: 'not_found' } | { kind: 'not_ready' } | { kind: 'ready'; form: { spoken: string; written: string } }
+
+/**
+ * Everything /api/speech/recall must know before it asks the speech service
+ * (job 10-speaking-feedback, "Done when" 21): the learner's own unfinished
+ * session at a step that may hold Keep it, a card they hold for the form, and
+ * a line they met to show it in. The same conditions as answer(), so a check
+ * that is paid for can always be graded. The reference is the form's spoken
+ * shape; the written shape is also accepted.
+ */
+export async function recallTarget(
+  db: LearnerDb,
+  review: ReviewDb,
+  sessionId: string,
+  formId: number,
+): Promise<RecallOutcome> {
+  const session = await db.session(sessionId)
+  if (!session) return { kind: 'not_found' }
+  if (session.endedAt !== null || !canKeep(session)) return { kind: 'not_ready' }
+  const card = await review.card(formId)
+  if (!card) return { kind: 'not_found' }
+  const { material, met } = await prepare(db, review, [formId])
+  const picked = pickLine(formId, material, met)
+  const form = material.forms.find((f) => f.id === formId)
+  if (!picked || !form || !feedbackLine(formId, picked, material)) return { kind: 'not_found' }
+  return { kind: 'ready', form: { spoken: form.surfacePuhe, written: form.surfaceKirja } }
+}
+
 export type DoneOutcome = { kind: 'not_found' } | { kind: 'not_ready' } | { kind: 'done'; ended: boolean }
 
 /**

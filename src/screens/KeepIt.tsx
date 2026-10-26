@@ -3,9 +3,13 @@ import { Button } from '../components/Button.tsx'
 import { SessionFrame, type LoopStep } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { callApi, isRecord } from '../lib/api.ts'
+import { NOT_HEARD_LIMIT, answerModeFor } from '../lib/answer-mode.ts'
+import { recordingSupported } from '../lib/recorder.ts'
 import { afterResult, placeOf, startRun } from '../lib/review-run.ts'
-import type { ReviewAnswer, ReviewFeedback, ReviewItem, ReviewResult } from '../lib/review-types.ts'
-import { methodFormId } from './answer-methods.ts'
+import type { ReviewFeedback, ReviewItem, ReviewResult, TypedAnswer } from '../lib/review-types.ts'
+import { MIN_RECORDING_MS } from '../lib/speech-types.ts'
+import { TOO_MANY, loadVoice, recallForm } from '../lib/voice-api.ts'
+import { methodFormId, methodsFor, type RecordedResult } from './answer-methods.ts'
 import { LineCard, hasChangedWords } from './LineCard.tsx'
 import { ReviewItemView } from './ReviewItemView.tsx'
 import { CHANGED_HINT, NOT_SAVED, type StepScreenProps } from './step-screen.ts'
@@ -30,6 +34,15 @@ const RESULT_TONE: Readonly<Record<ReviewResult, StatusTone>> = {
   close: 'gentle',
   wrong: 'gentle',
 }
+/** What a spoken answer says, in the same gentle tone (job 10-speaking-feedback, "Done when" 21). */
+export const SPOKEN_INSTRUCTION = 'Say the missing word.'
+export const SPOKEN_RESULT_TEXT: Readonly<Record<ReviewResult, string>> = {
+  correct: 'Yes, that was clear.',
+  close: 'Close. Listen to the word below.',
+  wrong: 'Here is the word. It will come back soon.',
+}
+export const SPOKEN_NOT_HEARD = 'That was too quiet to hear. Try again a little closer to the phone.'
+export const SPOKEN_TO_TYPING = 'We could not hear that. Type the missing word instead.'
 const NOT_CHECKED = 'Your answer could not be checked. Check your internet connection, then try again.'
 const ALREADY_SAVED = 'This word was already saved. Press Next to go on.'
 const NOTHING_NOW = 'There are no words to review right now.'
@@ -38,6 +51,7 @@ const ONE_MORE_TRY = 'One more try at this word.'
 interface Shown {
   feedback: ReviewFeedback
   typed: string
+  spoken: boolean
 }
 
 function isFeedback(body: unknown): body is ReviewFeedback {
@@ -68,6 +82,12 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   const [shown, setShown] = useState<Shown | 'already_saved' | null>(null)
   const [saving, setSaving] = useState(false)
   const [failed, setFailed] = useState(false)
+  // Spoken answers: whether speaking feedback is on, which items fell back to
+  // typing, and a note to show for a recording that did not work.
+  const [speakingOn, setSpeakingOn] = useState(false)
+  const [switched, setSwitched] = useState<readonly number[]>([])
+  const [note, setNote] = useState<string | null>(null)
+  const notHeard = useRef(new Map<number, number>())
   const formBase = useId()
   const heading = useRef<HTMLHeadingElement>(null)
   const nextButton = useRef<HTMLDivElement>(null)
@@ -76,6 +96,28 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   const turn = run.at(at)
   const item = turn ? items[turn.item] : undefined
   const typingForm = methodFormId(formBase, 'typed')
+  const mode = turn
+    ? answerModeFor({
+        position: turn.item,
+        speakingOn,
+        recordingWorks: speakingOn && recordingSupported(),
+        switchedToTyping: switched.includes(turn.item),
+      })
+    : 'typed'
+
+  // Whether speaking feedback is on is asked once, when there is a second item
+  // that could be spoken. Until it is known, every item is typed.
+  useEffect(() => {
+    if (items.length < 2) return
+    let active = true
+    void loadVoice().then((load) => {
+      if (active && load.kind === 'ok')
+        setSpeakingOn(load.voice.available && load.voice.processing === 'granted')
+    })
+    return () => {
+      active = false
+    }
+  }, [items.length])
 
   // A new item puts the cursor in its field, except when the screen first
   // opens (the learner first sees the line and its meaning).
@@ -85,7 +127,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
       return
     }
     document.getElementById(typingForm)?.querySelector('input')?.focus()
-  }, [at, typingForm])
+  }, [at, typingForm, switched.length])
 
   // After an answer is checked, focus moves to "Next", once it is on screen.
   // (Moving it straight after the answer came back ran before React had drawn
@@ -94,10 +136,11 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     if (shown !== null) nextButton.current?.querySelector('button')?.focus()
   }, [shown])
 
-  async function check(answer: ReviewAnswer) {
+  async function check(answer: TypedAnswer) {
     if (!item || checking) return
     setChecking(true)
     setProblem(false)
+    setNote(null)
     const reply = await callApi('/api/review/answer', 'POST', {
       sessionId,
       formId: item.formId,
@@ -107,7 +150,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     setChecking(false)
     if (reply?.status === 200 && isFeedback(reply.body)) {
       const feedback = reply.body
-      setShown({ feedback, typed: answer.text })
+      setShown({ feedback, typed: answer.text, spoken: false })
       setRun(afterResult(run, at, feedback.result))
     } else if (reply?.status === 409 && isRecord(reply.body) && reply.body.error === 'card_changed') {
       // Saved already, from another tab: the first result stands.
@@ -117,11 +160,52 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     }
   }
 
+  function switchToTyping(message: string) {
+    if (turn) setSwitched([...switched, turn.item])
+    setNote(message)
+  }
+
+  // A recording of the learner saying the word. The Worker checks it, grades it
+  // by the fixed class table and saves it through the same path as typing.
+  async function checkSpoken(result: RecordedResult) {
+    if (!item || !turn || checking) return
+    setProblem(false)
+    setNote(null)
+    if (result.kind === 'failed') {
+      switchToTyping(SPOKEN_TO_TYPING)
+      return
+    }
+    const heardTooLittle = (): void => {
+      const count = (notHeard.current.get(turn.item) ?? 0) + 1
+      notHeard.current.set(turn.item, count)
+      if (count >= NOT_HEARD_LIMIT) switchToTyping(SPOKEN_TO_TYPING)
+      else setNote(SPOKEN_NOT_HEARD)
+    }
+    if (result.recording.durationMs < MIN_RECORDING_MS) {
+      heardTooLittle()
+      return
+    }
+    setChecking(true)
+    const reply = await recallForm(sessionId, item.formId, result.recording.wav)
+    setChecking(false)
+    if (reply.kind === 'signed_out') {
+      window.location.replace('/')
+    } else if (reply.kind === 'graded' && isFeedback(reply.body)) {
+      const feedback = reply.body
+      setShown({ feedback, typed: '', spoken: true })
+      setRun(afterResult(run, at, feedback.result))
+    } else if (reply.kind === 'not_heard') heardTooLittle()
+    else if (reply.kind === 'already_saved') setShown('already_saved')
+    else if (reply.kind === 'too_many') switchToTyping(TOO_MANY)
+    else switchToTyping(SPOKEN_TO_TYPING)
+  }
+
   async function next() {
     if (at + 1 < run.length) {
       setAt(at + 1)
       setShown(null)
       setReady(false)
+      setNote(null)
       return
     }
     setSaving(true)
@@ -133,7 +217,8 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     }
   }
 
-  let message = INSTRUCTION
+  const spokenItem = mode === 'spoken'
+  let message = spokenItem ? SPOKEN_INSTRUCTION : INSTRUCTION
   let tone: StatusTone = 'neutral'
   if (failed) {
     message = NOT_SAVED
@@ -143,8 +228,11 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     tone = 'problem'
   } else if (shown === 'already_saved') message = ALREADY_SAVED
   else if (shown) {
-    message = RESULT_TEXT[shown.feedback.result]
+    message = (shown.spoken ? SPOKEN_RESULT_TEXT : RESULT_TEXT)[shown.feedback.result]
     tone = RESULT_TONE[shown.feedback.result]
+  } else if (note) {
+    message = note
+    tone = 'gentle'
   } else if (!item) message = NOTHING_NOW
 
   const answering = item !== undefined && shown === null
@@ -153,16 +241,18 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
       <StatusLine tone={tone}>{message}</StatusLine>
       {answering ? (
         <>
-          <Button
-            block
-            type="submit"
-            form={typingForm}
-            disabled={!ready && !checking}
-            busy={checking}
-            busyLabel="Checking your answer."
-          >
-            Check
-          </Button>
+          {!spokenItem && (
+            <Button
+              block
+              type="submit"
+              form={typingForm}
+              disabled={!ready && !checking}
+              busy={checking}
+              busyLabel="Checking your answer."
+            >
+              Check
+            </Button>
+          )}
           <Button
             variant="quiet"
             disabled={checking}
@@ -203,8 +293,10 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
             item={item}
             formBase={formBase}
             disabled={checking}
+            methods={methodsFor(mode)}
             onReady={setReady}
             onAnswer={(answer) => void check(answer)}
+            onRecorded={(result) => void checkSpoken(result)}
           />
         )}
         {item && shown !== null && shown !== 'already_saved' && (

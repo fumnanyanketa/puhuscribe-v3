@@ -54,6 +54,8 @@ export default tseslint.config(
       'scripts/ci/**/*.ts',
       'scripts/v2-import/**/*.ts',
       'scripts/hooks/**/*.ts',
+      'scripts/eval/**/*.ts',
+      'scripts/speech/**/*.ts',
       'scripts/review-site/**/*.ts',
       'tests/**/*.ts',
       'e2e/**/*.ts',

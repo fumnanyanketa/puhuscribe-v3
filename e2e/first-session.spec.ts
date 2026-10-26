@@ -17,6 +17,7 @@ import {
   answerChoices,
   finishHearIt,
   finishUnderstandIt,
+  passSayIt,
   isGuestPost,
   questionLineId,
   finishLineId,
@@ -36,6 +37,11 @@ import {
 // tagged @seed, so it never runs against the shared test project. Expected
 // content is read from the database, so these also pass when job 7's real
 // dialogue comes first. Audio requests are answered with a generated tone.
+//
+// Job 10-speaking-feedback ("Done when" 5) put Say it between Understand it
+// and the finish screen. The tests that name the step count or the resume
+// point, or walk to the finish screen, were updated for the new list with
+// their labels kept; each changed line is listed in that job's build.md.
 
 function firstOf(lines: DbLine[]): DbLine {
   const line = lines[0]
@@ -135,6 +141,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await finishHearIt(page)
     seen.push(await storage())
     await finishUnderstandIt(page, glossOf)
+    await passSayIt(page)
     await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
     seen.push(await storage())
     await page.waitForLoadState('networkidle')
@@ -178,7 +185,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
   }) => {
     const { userId, lines } = await startAndLoad(page)
     const shown = page.locator('ol > li')
-    await expect(page.getByText('Hear it, step 1 of 2', { exact: true })).toBeVisible()
+    await expect(page.getByText('Hear it, step 1 of 3', { exact: true })).toBeVisible()
     // The unit's goal is labelled (design review, round 1).
     await expect(page.getByText(/^Unit goal\. \S/)).toBeVisible()
     for (let i = 0; i < lines.length; i += 1) {
@@ -200,7 +207,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     }
     expect(sessionsOf(userId)[0]?.step).toBe('')
     await page.getByRole('button', { name: 'Continue' }).click()
-    await expect(page.getByText('Understand it, step 2 of 2', { exact: true })).toBeVisible()
+    await expect(page.getByText('Understand it, step 2 of 3', { exact: true })).toBeVisible()
     expect(sessionsOf(userId)[0]?.step).toBe('hear')
   })
 
@@ -369,7 +376,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
     // The rest of the questions, then the step is stored.
     await page.getByRole('button', { name: 'Next', exact: true }).click()
-    const done = page.getByRole('heading', { level: 1, name: 'Now you can say this.' })
+    const done = page.getByRole('heading', { level: 1, name: 'Speaking feedback' })
     if ((await afterNext(page, before.line)) === 'question') await finishUnderstandIt(page, glossOf)
     await expect(done).toBeVisible()
     expect(sessionsOf(userId)[0]?.step).toBe('understand')
@@ -389,6 +396,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     const { userId, dialogueId, lines, glossOf } = await startAndLoad(page)
     await finishHearIt(page)
     await finishUnderstandIt(page, glossOf)
+    await passSayIt(page)
     await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
     await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
     await expect(
@@ -403,7 +411,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await expect(page.getByText(/streak|badge|score|points|congratulations/i)).toHaveCount(0)
 
     const [row] = sessionsOf(userId)
-    expect(row?.step).toBe('understand')
+    expect(row?.step).toBe('say')
     expect(row?.ended).toBe(true)
     expect(sessionsOf(userId)).toHaveLength(1)
     const forms = approvedFormsOf(dialogueId)
@@ -489,6 +497,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     })
     await finishHearIt(page)
     await finishUnderstandIt(page, glossOf)
+    await passSayIt(page)
     const status = page.getByRole('status')
     await expect(status).toHaveText(
       'Your progress was not saved. Check your internet connection, then try again.',
@@ -510,6 +519,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.route('**/api/sessions/*/complete', (route) => route.abort('failed'))
     await finishHearIt(page)
     await finishUnderstandIt(page, glossOf)
+    await passSayIt(page)
     const status = page.getByRole('status')
     await expect(status).toHaveText(
       'Your progress was not saved. Check your internet connection, then try again.',
@@ -539,10 +549,14 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.route('**/api/sessions/*/complete', (route) => route.abort('failed'))
     await finishUnderstandIt(page, glossOf)
     await leave()
+    await expect(page.getByRole('heading', { level: 1, name: 'Speaking feedback' })).toBeVisible()
+    expect(sessionsOf(userId)[0]?.step).toBe('understand')
+    await passSayIt(page)
+    await leave()
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
     const rows = sessionsOf(userId)
     expect(rows).toHaveLength(1)
-    expect(rows[0]?.step).toBe('understand')
+    expect(rows[0]?.step).toBe('say')
     expect(rows[0]?.ended).toBe(false)
   })
 
@@ -627,6 +641,9 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await finishHearIt(page)
     await check('Understand it')
     await finishUnderstandIt(page, glossOf)
+    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+    await check('Say it, consent')
+    await passSayIt(page)
     await check('Finish')
   })
 
@@ -658,6 +675,17 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await page.keyboard.press('Enter')
       if ((await afterNext(page, lineId)) === 'done') break
       await expect(page.getByRole('heading', { level: 2, name: 'What does this mean?' })).toBeFocused()
+    }
+    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+    await tabTo(page, page.getByRole('button', { name: 'Not now', exact: true }), testInfo)
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+    for (;;) {
+      const cont = page.getByRole('button', { name: 'Continue', exact: true })
+      const last = await cont.isVisible()
+      await tabTo(page, last ? cont : page.getByRole('button', { name: 'Next line', exact: true }), testInfo)
+      await page.keyboard.press('Enter')
+      if (last) break
     }
     await tabTo(page, page.getByRole('button', { name: 'Done' }), testInfo)
     await page.keyboard.press('Enter')
@@ -723,6 +751,9 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await scan('Understand it, after the right answer')
       await page.getByRole('button', { name: 'Next', exact: true }).click()
       if ((await afterNext(page, firstLine)) === 'question') await finishUnderstandIt(page, glossOf)
+      await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+      await scan('Say it, consent')
+      await passSayIt(page)
       await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
       await scan('finish')
       await page.goto('/')

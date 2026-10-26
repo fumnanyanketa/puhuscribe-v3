@@ -2,6 +2,7 @@ import type { ComponentType } from 'react'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import type { StepReached } from '../lib/session-types.ts'
 import { HearIt } from './HearIt.tsx'
+import { SayIt } from './SayIt.tsx'
 import { KeepItStep } from './KeepIt.tsx'
 import type { StepScreenProps } from './step-screen.ts'
 import { UnderstandIt } from './UnderstandIt.tsx'
@@ -24,6 +25,7 @@ export interface SessionStep {
 export const SESSION_STEPS: readonly SessionStep[] = [
   { id: 'hear', name: 'Hear it', Screen: HearIt },
   { id: 'understand', name: 'Understand it', Screen: UnderstandIt },
+  { id: 'say', name: 'Say it', Screen: SayIt },
 ]
 
 /**

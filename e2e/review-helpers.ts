@@ -6,6 +6,7 @@ import {
   answerChoices,
   finishHearIt,
   finishUnderstandIt,
+  passSayIt,
   questionLineId,
   startSession,
 } from './session-helpers.ts'
@@ -58,6 +59,7 @@ export async function finishFirstSession(page: Page): Promise<{ userId: string; 
   const lines = linesOf(dialogueId)
   await finishHearIt(page)
   await finishUnderstandIt(page, (lineId) => lines.find((line) => line.id === lineId)?.gloss ?? '')
+  await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
   await page.getByRole('button', { name: 'Done' }).click()
   await page.waitForURL((url) => url.pathname === '/')
@@ -75,8 +77,10 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
   await finishHearIt(page)
   const dialogueId = sessionsOf(userId).find((s) => !s.ended && s.dialogueId !== '')?.dialogueId ?? ''
   const lines = linesOf(dialogueId)
-  const keepIt = page.getByRole('heading', { level: 1, name: 'Keep it' })
-  const done = page.getByRole('heading', { level: 1, name: 'Now you can say this.' })
+  // Say it (job 10) follows Understand it; its consent screen or its own heading ends the loop.
+  const sayIt = page
+    .getByRole('heading', { level: 1, name: 'Say it' })
+    .or(page.getByRole('heading', { level: 1, name: 'Speaking feedback' }))
   for (;;) {
     const lineId = await questionLineId(page)
     const gloss = lines.find((line) => line.id === lineId)?.gloss ?? ''
@@ -86,7 +90,7 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
     await expect
       .poll(
         async () => {
-          if ((await keepIt.isVisible()) || (await done.isVisible())) seen.state = 'left'
+          if (await sayIt.isVisible()) seen.state = 'left'
           else {
             const now = await questionLineId(page)
             if (now !== '' && now !== lineId) seen.state = 'question'
@@ -96,7 +100,10 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
         { timeout: 10_000 },
       )
       .not.toBe('waiting')
-    if (seen.state === 'left') return
+    if (seen.state === 'left') {
+      await passSayIt(page, 'Keep it')
+      return
+    }
   }
 }
 

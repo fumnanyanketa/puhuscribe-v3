@@ -30,8 +30,16 @@
     "scripts/ci",
     "scripts/v2-import",
     "scripts/hooks",
+    "scripts/eval",
+    "scripts/speech",
+    "vitest.eval.config.ts",
     "scripts/review-site",
     "tests",
     "e2e"
-  ]
+  ],
+  /* The speaking feedback evals (scripts/eval/) and the fixture recorder
+     (scripts/speech/), job 10-speaking-feedback, use the feedback rules,
+     which use v2's grader: like the Worker, they type check against the v2
+     engines project's declarations (tsconfig.engines.json). */
+  "references": [{ "path": "./tsconfig.engines.json" }]
 }

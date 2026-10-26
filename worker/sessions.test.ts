@@ -244,9 +244,12 @@ describe('POST /api/sessions/<id>/step', () => {
     expect(db.sessions[0]?.step).toBeNull()
   })
 
-  it('[session 13] refuses any step beyond understand from the browser', async () => {
+  // Job 10-speaking-feedback ("Done when" 5) adds Say it after Understand it,
+  // so say is now a step the browser may record (in order, tested in
+  // worker/speech.test.ts); everything beyond it is still refused.
+  it('[session 13] refuses any step beyond say from the browser', async () => {
     const { db, cookie, deps, id } = await readySession()
-    for (const value of ['say', 'keep', 'use', null, 7, 'HEAR']) {
+    for (const value of ['keep', 'use', null, 7, 'HEAR']) {
       const res = await handleApi(step(id, cookie, value), ENV, deps)
       expect(res.status, String(value)).toBe(400)
     }

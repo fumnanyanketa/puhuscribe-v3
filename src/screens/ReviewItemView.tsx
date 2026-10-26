@@ -1,7 +1,7 @@
 import { GapLine } from '../components/GapLine.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
-import type { ReviewAnswer, ReviewItem } from '../lib/review-types.ts'
-import { ANSWER_METHODS, methodFormId, type AnswerMethod } from './answer-methods.ts'
+import type { ReviewItem, TypedAnswer } from '../lib/review-types.ts'
+import { ANSWER_METHODS, methodFormId, type AnswerMethod, type RecordedResult } from './answer-methods.ts'
 import { LINE_AUDIO } from './LineCard.tsx'
 import styles from './Screens.module.css'
 
@@ -18,7 +18,9 @@ interface ReviewItemViewProps {
   formBase: string
   disabled: boolean
   onReady: (ready: boolean) => void
-  onAnswer: (answer: ReviewAnswer) => void
+  onAnswer: (answer: TypedAnswer) => void
+  /** A spoken answer was recorded (or recording failed). */
+  onRecorded?: (result: RecordedResult) => void
   /** The answer methods; the one list in answer-methods.ts unless a test gives another. */
   methods?: readonly AnswerMethod[]
 }
@@ -29,6 +31,7 @@ export function ReviewItemView({
   disabled,
   onReady,
   onAnswer,
+  onRecorded = () => undefined,
   methods = ANSWER_METHODS,
 }: ReviewItemViewProps) {
   const what = item.register === 'spoken' ? LINE_AUDIO.spoken : LINE_AUDIO.written
@@ -53,6 +56,7 @@ export function ReviewItemView({
             disabled={disabled}
             onReady={onReady}
             onAnswer={onAnswer}
+            onRecorded={onRecorded}
           />
         ))}
       </div>

@@ -93,6 +93,26 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"kept_recordings": {
+                  Row: {
+                    "audio": string,"created_at": string,"id": string,"line_id": number,"slot": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "audio": string,"created_at"?: string,"id"?: string,"line_id": number,"slot": string,"user_id"?: string
+                  }
+                  Update: {
+                    "audio"?: string,"created_at"?: string,"id"?: string,"line_id"?: number,"slot"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "kept_recordings_line_id_fkey"
+      columns: ["line_id"]
+isOneToOne: false
+      referencedRelation: "dialogue_lines"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"lemma_ipa": {
                   Row: {
                     "ipa": string,"lemma": string,"licence": string,"source": string
@@ -167,6 +187,52 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"speaking_attempts": {
+                  Row: {
+                    "audio_ms": number,"cost_usd": number,"created_at": string,"feedback_class": Database["public"]['Enums']["speech_feedback_class"],"form_id": number | null,"id": string,"line_id": number | null,"provider": string,"session_id": string | null,"transcript": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "audio_ms": number,"cost_usd": number,"created_at"?: string,"feedback_class": Database["public"]['Enums']["speech_feedback_class"],"form_id"?: number | null,"id"?: string,"line_id"?: number | null,"provider": string,"session_id"?: string | null,"transcript"?: string,"user_id"?: string
+                  }
+                  Update: {
+                    "audio_ms"?: number,"cost_usd"?: number,"created_at"?: string,"feedback_class"?: Database["public"]['Enums']["speech_feedback_class"],"form_id"?: number | null,"id"?: string,"line_id"?: number | null,"provider"?: string,"session_id"?: string | null,"transcript"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "speaking_attempts_form_id_fkey"
+      columns: ["form_id"]
+isOneToOne: false
+      referencedRelation: "forms"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "speaking_attempts_line_id_fkey"
+      columns: ["line_id"]
+isOneToOne: false
+      referencedRelation: "dialogue_lines"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "speaking_attempts_session_id_fkey"
+      columns: ["session_id"]
+isOneToOne: false
+      referencedRelation: "sessions"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"speech_checks": {
+                  Row: {
+                    "created_at": string,"id": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"user_id"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"tokens": {
                   Row: {
                     "form_id": number | null,"id": number,"line_id": number,"position": number,"register": Database["public"]['Enums']["finnish_register"],"surface": string
@@ -236,6 +302,9 @@ isOneToOne: false
             "complete_session":
 { Args: { "session_id": string }; Returns: undefined
                            },
+"keep_recording":
+{ Args: { "audio_base64": string,"line_id": number }; Returns: string
+                           },
 "next_review_day":
 { Args: Record<PropertyKey, never>; Returns: {
               "next_day": string,"today": string
@@ -244,6 +313,9 @@ isOneToOne: false
 "record_review":
 { Args: { "p_difficulty": number,"p_due": string,"p_elapsed_days": number,"p_expected_reps": number,"p_form_id": number,"p_lapses": number,"p_last_review": string,"p_log_difficulty": number,"p_log_due": string,"p_log_elapsed_days": number,"p_log_last_elapsed_days": number,"p_log_scheduled_days": number,"p_log_stability": number,"p_log_state": Database["public"]['Enums']["card_state"],"p_mode": Database["public"]['Enums']["review_mode"],"p_rating": number,"p_reps": number,"p_review_time": string,"p_scheduled_days": number,"p_stability": number,"p_state": Database["public"]['Enums']["card_state"] }; Returns: boolean
                            },
+"reserve_speech_check":
+{ Args: { "max_checks": number,"window_minutes": number }; Returns: boolean
+                           },
 "review_queue":
 { Args: { "p_limit": number }; Returns: {
               "due": string,"form_id": number,"reps": number
@@ -251,7 +323,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "card_state": "new"|"learning"|"review"|"relearning","consent_kind": "voice_processing"|"voice_recording_retention","content_status": "draft"|"approved"|"retired","finnish_register": "puhe"|"kirja","loop_step": "hear"|"understand"|"say"|"keep"|"use","review_mode": "typed"|"spoken","usage_event_name": "first_session_completed"
+            "card_state": "new"|"learning"|"review"|"relearning","consent_kind": "voice_processing"|"voice_recording_retention","content_status": "draft"|"approved"|"retired","finnish_register": "puhe"|"kirja","loop_step": "hear"|"understand"|"say"|"keep"|"use","review_mode": "typed"|"spoken","speech_feedback_class": "clear"|"close"|"try_again"|"not_heard","usage_event_name": "first_session_completed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -367,7 +439,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "card_state": ["new", "learning", "review", "relearning"],"consent_kind": ["voice_processing", "voice_recording_retention"],"content_status": ["draft", "approved", "retired"],"finnish_register": ["puhe", "kirja"],"loop_step": ["hear", "understand", "say", "keep", "use"],"review_mode": ["typed", "spoken"],"usage_event_name": ["first_session_completed"]
+            "card_state": ["new", "learning", "review", "relearning"],"consent_kind": ["voice_processing", "voice_recording_retention"],"content_status": ["draft", "approved", "retired"],"finnish_register": ["puhe", "kirja"],"loop_step": ["hear", "understand", "say", "keep", "use"],"review_mode": ["typed", "spoken"],"speech_feedback_class": ["clear", "close", "try_again", "not_heard"],"usage_event_name": ["first_session_completed"]
           }
         }
 } as const

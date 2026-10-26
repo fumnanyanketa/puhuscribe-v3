@@ -62,3 +62,16 @@ describe('gradeReview', () => {
     expect(RATING_FOR).toEqual({ correct: Rating.Good, close: Rating.Hard, wrong: Rating.Again })
   })
 })
+
+describe('gradeReview, spoken answers', () => {
+  const spoken = (feedbackClass: 'clear' | 'close' | 'try_again') => ({
+    kind: 'spoken' as const,
+    feedbackClass,
+  })
+
+  it('[speak 21] clear is Good, close is Hard, try again is Again, by one fixed table', () => {
+    expect(gradeReview(spoken('clear'), minä)).toEqual({ result: 'correct', rating: Rating.Good })
+    expect(gradeReview(spoken('close'), minä)).toEqual({ result: 'close', rating: Rating.Hard })
+    expect(gradeReview(spoken('try_again'), minä)).toEqual({ result: 'wrong', rating: Rating.Again })
+  })
+})

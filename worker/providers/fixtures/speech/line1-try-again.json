@@ -1,0 +1,76 @@
+{
+  "about": "Built by hand by the job 10-speaking-feedback builder from the response shape in Microsoft's documentation (https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text-short), not recorded from Azure. Used only by the fake speech provider in tests. Something else than line 1.",
+  "source": "hand-built",
+  "reference": "Moi! Mä oon Alex.",
+  "httpStatus": 200,
+  "response": {
+    "RecognitionStatus": "Success",
+    "Offset": 400000,
+    "Duration": 15000000,
+    "NBest": [
+      {
+        "Confidence": 0.91,
+        "Lexical": "kuka sinä olet",
+        "ITN": "kuka sinä olet",
+        "MaskedITN": "kuka sinä olet",
+        "Display": "Kuka sinä olet?",
+        "AccuracyScore": 0.0,
+        "FluencyScore": 90.0,
+        "CompletenessScore": 100.0,
+        "PronScore": 0.0,
+        "Words": [
+          {
+            "Word": "moi",
+            "Offset": 500000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Omission"
+          },
+          {
+            "Word": "mä",
+            "Offset": 4000000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Omission"
+          },
+          {
+            "Word": "oon",
+            "Offset": 7500000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Omission"
+          },
+          {
+            "Word": "alex",
+            "Offset": 11000000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Omission"
+          },
+          {
+            "Word": "kuka",
+            "Offset": 14500000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Insertion"
+          },
+          {
+            "Word": "sinä",
+            "Offset": 18000000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Insertion"
+          },
+          {
+            "Word": "olet",
+            "Offset": 21500000,
+            "Duration": 3000000,
+            "AccuracyScore": 0,
+            "ErrorType": "Insertion"
+          }
+        ]
+      }
+    ],
+    "DisplayText": "Kuka sinä olet?"
+  }
+}

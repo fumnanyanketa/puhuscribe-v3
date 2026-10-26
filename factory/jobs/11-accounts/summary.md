@@ -34,3 +34,7 @@ Also still yours: the owner setup steps on the Supabase test project listed in t
 ## Approval
 
 After owner's call 2 is answered and built in, this GA job needs your own written "approved" line: `/factory approve 11-accounts`, or `/factory rework 11-accounts <note>`.
+
+## Owner's call 2 (27 October 2026)
+
+Name to print: Fumnanya Nketa. Contact address: the owner's Exentrik address, exact spelling still to be given by the owner (never chosen by an agent).
