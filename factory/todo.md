@@ -50,3 +50,4 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 
 ## From 9-daily-review reviews (26 Oct 2026)
 - (design) "Spoken" or "Written" shows twice on the review prompt, once as the band label and again beside the play control (`src/screens/ReviewItemView.tsx`). Drop one.
+- (security, note) `record_review` finds the card by form id only and is safe while it stays security invoker; an extra `user_id = auth.uid()` guard on the update would make it safe either way.
