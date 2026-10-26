@@ -104,3 +104,7 @@ Checks:
 - Chromium, `npx playwright test -c <scratch config, port 4183> --project=chromium e2e/speaking-feedback.spec.ts` against my own Supabase (ports 57321 to 57329): 21 passed, run after each fix.
 - WebKit could not run here: `npx playwright install webkit` fails the host requirement check.
 - GitHub run 40361584427 (head 2919012): all 21 WebKit speaking feedback tests passed. In attempt 1, one other test failed: WebKit `e2e/design-sample.spec.ts:193` [design 12]. It paused one word late (got "Alex", wanted "Mä" or "oon"). That test does not use the microphone stub, passed on WebKit in runs 40356177557 and 40359756196, and was not touched by this job. It looks like a timing flake. I re-ran the failed job: see the result line below.
+- The re-run (run 40361584427, attempt 2) passed the whole "Browser tests (Playwright, local Supabase)" job, Chromium and WebKit, on head 2919012. Every other check job passed too.
+- In attempt 2, "Preview link (Cloudflare Worker behind Access)" ran for the first time on this branch, because the browser job before it passed. It failed at the worker secrets step (`exit code 1`). That job deploys a preview and needs the repository's Cloudflare secrets. This job did not change it. It is for the manager or owner to look at, and it is outside the WebKit task.
+
+Result: checks pass
