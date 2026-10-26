@@ -3,16 +3,24 @@
 // @supabase/ssr, and records every request, plus a fake learner database.
 // Nothing here is used by the app.
 
+import type { NextReview } from '../src/lib/review-types.ts'
 import type { RecordableStep } from '../src/lib/session-types.ts'
 import type { ApiEnv } from './api.ts'
 import type { Fetch } from './learner-auth.ts'
 import type {
+  CardRow,
   CompleteResult,
   DialogueContent,
+  FormRow,
   LearnerDb,
+  QueueCard,
   ReadableDialogue,
+  RecordReviewArgs,
+  ReviewDb,
   SessionRow,
+  TokenRow,
 } from './learner-db.ts'
+import type { ReviewLineRow } from './review-plan.ts'
 
 export const PROJECT = 'https://fake-ref.supabase.co'
 export const PUBLISHABLE = 'sb_publishable_fake_value_for_tests'
@@ -170,12 +178,23 @@ export function get(path: string, cookie?: string) {
 }
 
 /** A learner database in memory, standing in for Supabase as the learner. */
-export interface FakeDb extends LearnerDb {
+export interface FakeDb extends LearnerDb, ReviewDb {
   dialogues: ReadableDialogue[]
   sessions: SessionRow[]
   content: Map<number, DialogueContent>
   completed: string[]
   failNext: boolean
+  // The Keep it step (job 9-daily-review). Empty unless a test fills them.
+  /** What public.review_queue returns, in order. */
+  queue: QueueCard[]
+  /** The learner's cards. */
+  cards: CardRow[]
+  /** What public.next_review_day gives. */
+  next: NextReview | null
+  /** Every public.record_review call that saved. */
+  recorded: RecordReviewArgs[]
+  /** Every finishKeep call, as [session id, end time]. */
+  kept: [string, string | null][]
 }
 
 export function fakeDb(
@@ -189,6 +208,11 @@ export function fakeDb(
     content,
     completed: [],
     failNext: false,
+    queue: [],
+    cards: [],
+    next: null,
+    recorded: [],
+    kept: [],
     readableDialogues: () => Promise.resolve([...db.dialogues]),
     mySessions: () => Promise.resolve(db.sessions.map((s) => ({ ...s }))),
     startSession: (dialogueId) => {
@@ -219,13 +243,99 @@ export function fakeDb(
       }
       const row = db.sessions.find((s) => s.id === id)
       if (!row) return Promise.resolve('not_found')
-      if (row.step !== 'understand') return Promise.resolve('not_ready')
+      // As public.complete_session: at least Understand it (Keep it comes later, job 9).
+      if (row.dialogueId === null || row.step === null || row.step === 'hear')
+        return Promise.resolve('not_ready')
       row.endedAt ??= new Date().toISOString()
       db.completed.push(id)
       return Promise.resolve('saved')
     },
+    reviewQueue: (limit) => Promise.resolve(db.queue.slice(0, Math.max(0, Math.min(limit, 15)))),
+    nextReviewDay: () => Promise.resolve(db.next),
+    // As the database does it: the approved lines of the given dialogues that
+    // link to the forms, every word of those lines, and their readable forms.
+    reviewMaterial: (formIds, dialogueIds) => {
+      const lines: ReviewLineRow[] = []
+      const tokens: TokenRow[] = []
+      const forms = new Map<number, FormRow>()
+      for (const [dialogueId, content] of db.content) {
+        if (!dialogueIds.includes(dialogueId)) continue
+        for (const line of content.lines) {
+          const own = content.tokens.filter((t) => t.lineId === line.id)
+          if (!own.some((t) => t.formId !== null && formIds.includes(t.formId))) continue
+          lines.push({ ...line, dialogueId })
+          tokens.push(...own)
+          for (const t of own) {
+            const form = content.forms.find((f) => f.id === t.formId)
+            if (form) forms.set(form.id, form)
+          }
+        }
+      }
+      return Promise.resolve({ lines, tokens, forms: [...forms.values()] })
+    },
+    card: (formId) => {
+      const row = db.cards.find((c) => c.formId === formId)
+      return Promise.resolve(row ? { ...row } : null)
+    },
+    recordReview: (args) => {
+      if (db.failNext) {
+        db.failNext = false
+        return Promise.reject(new Error('down'))
+      }
+      const row = db.cards.find((c) => c.formId === args.p_form_id && c.reps === args.p_expected_reps)
+      if (!row) return Promise.resolve(false)
+      Object.assign(row, {
+        due: args.p_due,
+        stability: args.p_stability,
+        difficulty: args.p_difficulty,
+        elapsedDays: args.p_elapsed_days,
+        scheduledDays: args.p_scheduled_days,
+        reps: args.p_reps,
+        lapses: args.p_lapses,
+        state: args.p_state,
+        lastReview: args.p_last_review,
+      })
+      db.recorded.push(args)
+      return Promise.resolve(true)
+    },
+    startReviewSession: () => {
+      started += 1
+      const row: SessionRow = {
+        id: `00000000-0000-4000-8000-${String(started).padStart(12, '0')}`,
+        dialogueId: null,
+        step: null,
+        startedAt: new Date(Date.UTC(2026, 9, 21, 12, 0, started)).toISOString(),
+        endedAt: null,
+      }
+      db.sessions.push(row)
+      return Promise.resolve({ ...row })
+    },
+    finishKeep: (id, endedAt) => {
+      const row = db.sessions.find((s) => s.id === id && s.endedAt === null)
+      if (!row) return Promise.resolve(false)
+      row.step = 'keep'
+      if (endedAt !== null) row.endedAt = endedAt
+      db.kept.push([id, endedAt])
+      return Promise.resolve(true)
+    },
   }
   return db
+}
+
+/** A new card with the database's default values (createEmptyCard), for a form. */
+export function newCard(formId: number, due = '2026-10-21T09:00:00+00:00'): CardRow {
+  return {
+    formId,
+    due,
+    stability: 0,
+    difficulty: 0,
+    elapsedDays: 0,
+    scheduledDays: 0,
+    reps: 0,
+    lapses: 0,
+    state: 'new',
+    lastReview: null,
+  }
 }
 
 /** One small readable dialogue: two lines, a name with no form, one changed word. */

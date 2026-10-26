@@ -70,6 +70,20 @@ Added in job 8-first-session. When the finish screen opens, the Worker calls it 
 
 It runs with the learner's own rights (`security invoker`), so every rule above still applies inside it: it sees only approved content, only the learner's own session, and the card rule decides which cards may be made. Calling it again changes nothing. Only the `authenticated` role may call it.
 
+### The daily review: `review_queue`, `next_review_day` and `record_review`
+
+Added in job 9-daily-review (Keep it). Three functions, no new table or column. Each runs with the learner's own rights (`security invoker`), with an empty search path, and only the `authenticated` role may call it, so every rule above still applies inside them.
+
+**When a card is reviewable.** One rule decides it: the card's form is readable by the learner (approved), its `due` time has passed, and the Helsinki calendar day it was last touched (`last_review`, or `created_at` if it was never reviewed) is before today's Helsinki day. So a word met today first comes back tomorrow, and a word reviewed today does not come back again today, even when the scheduler gives it a due time minutes later. "Today" is worked out in Postgres in the `Europe/Helsinki` time zone, never from the learner's device.
+
+- `public.review_queue(p_limit)` returns the learner's reviewable cards (form id, `reps`, `due`), oldest `due` first, then lowest form id, at most the smaller of `p_limit` and 15.
+- `public.next_review_day()` returns one row: today's Helsinki date, and the earliest Helsinki day on which one of the learner's cards becomes reviewable by the same rule (never before today), or no day when the learner has no card with a readable form. The front door words these two dates.
+- `public.record_review(...)` saves one review in one transaction: it updates the card to the values the Worker's scheduler worked out and adds one `review_logs` row with the grader's rating and the answer mode. It does so only while the card's `reps` still equals the value the Worker read; otherwise it writes nothing and returns false. The card is found by its form through the cards rules alone, so the rules decide whose card it can be (a pgTAP test proves it, and goes red if the function is made `security definer`). A log row that fails its checks undoes the card update too.
+
+The typed answer itself is never stored anywhere. Review logs are learner data: a dated record of what each learner remembered and missed. They are deleted with the learner (`on delete cascade`) and must be part of the learner's data export (job 11).
+
+**Unused guest accounts (owner's decision of 20 October 2026, for job 9):** a guest account with no activity for 90 days is deleted, together with all its rows. Job 11-accounts built the clean up (see "The daily clean up" below) and states it in the privacy notice. Supabase does not delete anonymous users by itself.
+
 ### Accounts and personal data (job 11-accounts)
 
 Three functions a learner may call, each with no argument, so nobody can name another learner. Only the `authenticated` role may call them. Migration: `supabase/migrations/20261022072911_accounts.sql`; tests: `supabase/tests/database/accounts.test.sql`.

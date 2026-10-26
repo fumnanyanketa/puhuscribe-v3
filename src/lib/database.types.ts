@@ -246,6 +246,19 @@ isOneToOne: false
 { Args: Record<PropertyKey, never>; Returns: {
               "created_at": string,"email": string,"email_confirmed_at": string,"id": string,"is_anonymous": boolean,"last_sign_in_at": string
             }[]
+                           },
+"next_review_day":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "next_day": string,"today": string
+            }[]
+                           },
+"record_review":
+{ Args: { "p_difficulty": number,"p_due": string,"p_elapsed_days": number,"p_expected_reps": number,"p_form_id": number,"p_lapses": number,"p_last_review": string,"p_log_difficulty": number,"p_log_due": string,"p_log_elapsed_days": number,"p_log_last_elapsed_days": number,"p_log_scheduled_days": number,"p_log_stability": number,"p_log_state": Database["public"]['Enums']["card_state"],"p_mode": Database["public"]['Enums']["review_mode"],"p_rating": number,"p_reps": number,"p_review_time": string,"p_scheduled_days": number,"p_stability": number,"p_state": Database["public"]['Enums']["card_state"] }; Returns: boolean
+                           },
+"review_queue":
+{ Args: { "p_limit": number }; Returns: {
+              "due": string,"form_id": number,"reps": number
+            }[]
                            }
           }
           Enums: {

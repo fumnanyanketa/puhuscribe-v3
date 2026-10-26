@@ -1,0 +1,33 @@
+consent with chosen version: 400 {"error":"bad_request"}
+A no consent: 403 {"error":"no_voice_consent"}
+signed out: 401 {"error":"signed_out"}
+other origin: 403 {"error":"forbidden"}
+form content type: 415 {"error":"unsupported_media_type"}
+GET: 405 {"error":"method_not_allowed"}
+reference text injected: 400 {"error":"bad_request"}
+bad wav (8k): 400 {"error":"bad_audio"}
+stereo: 400 {"error":"bad_audio"}
+11 s: 400 {"error":"bad_audio"}
+not wav: 400 {"error":"bad_audio"}
+oversized 600KB: 413 {"error":"body_too_large"}
+oversized 5MB: 500 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>TypeError: fetch failed<br> &nbsp; &nbsp;at Object.proce
+line not in dialogue: 404 {"error":"not_found"}
+random session: 404 {"error":"not_found"}
+B posts to A session: 404 {"error":"not_found"}
+A posts B line in A session: 200 {"feedbackClass":"clear"}
+A posts to B session: 404 {"error":"not_found"}
+attempt rows added by refused calls: 1
+valid: 200 {"feedbackClass":"clear"}
+B step say on A session: 404 {"error":"not_found"}
+429 body: {"error":"too_many","message":"You have recorded a lot in the last few minutes. Take a short break, then try again."}
+first 429 at call 39 (one valid call before); attempts by A in 10 min: 40
+B own session at understand (B is fine): 200 {"feedbackClass":"clear"}
+B withdraw api: 200 {"available":true,"region":null,"processing":"withdrawn","retention":false,"recordings":[]}
+B after withdraw: 403 {"error":"no_voice_consent"}

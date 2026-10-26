@@ -1,0 +1,15 @@
+-- read only: rows left for the deleted email account and deleted guest (6eff3cde-bec8-4b39-b864-a772df980978,95a15c00-0397-426c-b28b-1e267c729f2b)
+BEGIN
+         tbl         | count 
+---------------------+-------
+ auth.users          |     0
+ auth.sessions       |     0
+ auth.identities     |     0
+ public.sessions     |     0
+ public.cards        |     0
+ public.review_logs  |     0
+ public.consents     |     0
+ public.usage_events |     0
+(8 rows)
+
+COMMIT

@@ -1,0 +1,9 @@
+                 oid                 | prosecdef |      proconfig       |      array      
+-------------------------------------+-----------+----------------------+-----------------
+ export_my_data()                    | f         | {"search_path=\"\""} | {authenticated}
+ delete_my_account()                 | t         | {"search_path=\"\""} | {authenticated}
+ my_account()                        | t         | {"search_path=\"\""} | {authenticated}
+ private.user_has_stored_files(uuid) | f         | {"search_path=\"\""} | {}
+ private.delete_inactive_guests()    | f         | {"search_path=\"\""} | {}
+(5 rows)
+

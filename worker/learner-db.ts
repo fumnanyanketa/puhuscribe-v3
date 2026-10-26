@@ -1,5 +1,8 @@
+import type { Database } from '../src/lib/database.types.ts'
+import type { NextReview } from '../src/lib/review-types.ts'
 import type { RecordableStep, StepReached } from '../src/lib/session-types.ts'
 import type { LearnerClient } from './learner-auth.ts'
+import type { ReviewLineRow, ReviewMaterial } from './review-plan.ts'
 
 // Every database read and write of the first session loop, made with the
 // learner's own token (factory/jobs/8-first-session/spec.md, "Done when" 6, 7
@@ -83,6 +86,30 @@ export interface DialogueContent {
 
 export type CompleteResult = 'saved' | 'not_found' | 'not_ready'
 
+/** One reviewable card from public.review_queue (job 9-daily-review). */
+export interface QueueCard {
+  formId: number
+  reps: number
+  due: string
+}
+
+/** The learner's own card for a form, as the scheduler needs it. Times are text. */
+export interface CardRow {
+  formId: number
+  due: string
+  stability: number
+  difficulty: number
+  elapsedDays: number
+  scheduledDays: number
+  reps: number
+  lapses: number
+  state: Database['public']['Enums']['card_state']
+  lastReview: string | null
+}
+
+/** The arguments of public.record_review. */
+export type RecordReviewArgs = Database['public']['Functions']['record_review']['Args']
+
 export interface LearnerDb {
   /** Every dialogue the learner can read, with its unit. */
   readableDialogues: () => Promise<ReadableDialogue[]>
@@ -98,6 +125,34 @@ export interface LearnerDb {
   setStep: (id: string, step: RecordableStep) => Promise<boolean>
   /** public.complete_session, once, as the learner. */
   completeSession: (id: string) => Promise<CompleteResult>
+}
+
+/**
+ * The reads and writes of the Keep it step (factory/jobs/9-daily-review/spec.md),
+ * made with the learner's own token like every LearnerDb call. Kept apart from
+ * LearnerDb so job 8's routes and their tests stay as they were.
+ */
+export interface ReviewDb {
+  /** public.review_queue: the learner's reviewable cards, oldest due first, at most 15. */
+  reviewQueue: (limit: number) => Promise<QueueCard[]>
+  /** public.next_review_day: today's Helsinki date and the next review day, or null when there is none. */
+  nextReviewDay: () => Promise<NextReview | null>
+  /**
+   * The approved lines of the given dialogues whose words link to any of the
+   * forms, every word of those lines, and the readable forms those words link to.
+   */
+  reviewMaterial: (formIds: readonly number[], dialogueIds: readonly number[]) => Promise<ReviewMaterial>
+  /** The learner's own card for a form, or null. */
+  card: (formId: number) => Promise<CardRow | null>
+  /** public.record_review, once, as the learner. False when the card changed since it was read. */
+  recordReview: (args: RecordReviewArgs) => Promise<boolean>
+  /** Adds one review only session (no dialogue), owned by the token's user. */
+  startReviewSession: () => Promise<SessionRow>
+  /**
+   * Stores step_reached = 'keep' on an unfinished session, and its end time
+   * when one is given. False when there is no such unfinished session.
+   */
+  finishKeep: (id: string, endedAt: string | null) => Promise<boolean>
 }
 
 const SESSION_COLUMNS = 'id, dialogue_id, step_reached, started_at, ended_at'
@@ -125,7 +180,7 @@ function must<T>(result: { data: T | null; error: unknown }): T {
   return result.data
 }
 
-export function supabaseLearnerDb(client: LearnerClient): LearnerDb {
+export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb {
   return {
     async readableDialogues() {
       const units = must(await client.from('units').select('id, position, title_en, can_do_en'))
@@ -251,6 +306,138 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb {
       if (error.code === 'P0002') return 'not_found'
       if (error.code === '22023') return 'not_ready'
       throw new DatabaseUnavailable()
+    },
+
+    async reviewQueue(limit) {
+      const rows = must(await client.rpc('review_queue', { p_limit: limit }))
+      return rows.map((row) => ({ formId: row.form_id, reps: row.reps, due: row.due }))
+    },
+
+    async nextReviewDay() {
+      const rows = must(await client.rpc('next_review_day'))
+      const row = rows[0]
+      if (!row?.today || !row.next_day) return null
+      return { today: row.today, day: row.next_day }
+    },
+
+    async reviewMaterial(formIds, dialogueIds) {
+      const empty: ReviewMaterial = { lines: [], tokens: [], forms: [] }
+      if (formIds.length === 0 || dialogueIds.length === 0) return empty
+      const linking = must(
+        await client
+          .from('tokens')
+          .select('line_id')
+          .in('form_id', [...formIds]),
+      )
+      const candidateIds = [...new Set(linking.map((token) => token.line_id))]
+      if (candidateIds.length === 0) return empty
+      const lines = must(
+        await client
+          .from('dialogue_lines')
+          .select(
+            'id, dialogue_id, position, speaker, text_puhe, text_kirja, gloss_en, audio_puhe_key, audio_kirja_key',
+          )
+          .in('id', candidateIds)
+          .in('dialogue_id', [...dialogueIds]),
+      )
+      if (lines.length === 0) return empty
+      const tokens = must(
+        await client
+          .from('tokens')
+          .select('line_id, register, position, surface, form_id')
+          .in(
+            'line_id',
+            lines.map((line) => line.id),
+          ),
+      )
+      const linked = [...new Set(tokens.flatMap((token) => (token.form_id === null ? [] : [token.form_id])))]
+      const forms =
+        linked.length === 0
+          ? []
+          : must(
+              await client
+                .from('forms')
+                .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
+                .in('id', linked),
+            )
+      return {
+        // An approved line always has both texts, its meaning and both audio keys.
+        lines: lines.map((line): ReviewLineRow => ({
+          id: line.id,
+          dialogueId: line.dialogue_id,
+          position: line.position,
+          speaker: line.speaker,
+          textPuhe: line.text_puhe ?? '',
+          textKirja: line.text_kirja ?? '',
+          gloss: line.gloss_en ?? '',
+          audioPuheKey: line.audio_puhe_key ?? '',
+          audioKirjaKey: line.audio_kirja_key ?? '',
+        })),
+        tokens: tokens.map((token) => ({
+          lineId: token.line_id,
+          register: token.register,
+          position: token.position,
+          surface: token.surface,
+          formId: token.form_id,
+        })),
+        forms: forms.map((form) => ({
+          id: form.id,
+          lemma: form.lemma,
+          formName: form.form_name_en ?? '',
+          why: form.why_en ?? '',
+          surfacePuhe: form.surface_puhe,
+          surfaceKirja: form.surface_kirja,
+        })),
+      }
+    },
+
+    async card(formId) {
+      const result = await client
+        .from('cards')
+        .select(
+          'form_id, due, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, state, last_review',
+        )
+        .eq('form_id', formId)
+        .maybeSingle()
+      if (result.error) throw new DatabaseUnavailable()
+      const row = result.data
+      if (!row) return null
+      return {
+        formId: row.form_id,
+        due: row.due,
+        stability: row.stability,
+        difficulty: row.difficulty,
+        elapsedDays: row.elapsed_days,
+        scheduledDays: row.scheduled_days,
+        reps: row.reps,
+        lapses: row.lapses,
+        state: row.state,
+        lastReview: row.last_review,
+      }
+    },
+
+    async recordReview(args) {
+      const { data, error } = await client.rpc('record_review', args)
+      if (error || typeof data !== 'boolean') throw new DatabaseUnavailable()
+      return data
+    },
+
+    async startReviewSession() {
+      return toSession(
+        must(await client.from('sessions').insert({ dialogue_id: null }).select(SESSION_COLUMNS).single()),
+      )
+    },
+
+    async finishKeep(id, endedAt) {
+      const updated = must(
+        await client
+          .from('sessions')
+          .update(endedAt === null ? { step_reached: 'keep' } : { step_reached: 'keep', ended_at: endedAt })
+          .eq('id', id)
+          .is('ended_at', null)
+          .select('id'),
+      )
+      return updated.length === 1
     },
   }
 }

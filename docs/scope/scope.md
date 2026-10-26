@@ -37,7 +37,7 @@ These are not rows. They become acceptance criteria inside each spec and rules i
 | 4 | Design system & UI foundation | Foundation | done |
 | 5 | Content pipeline & native review | Foundation | done (reviewer approval of the first dialogue moves to item 10) |
 | 6 | First session loop (Hear it, Understand it) | Slice 1 | done |
-| 7 | Daily review (Keep it) | Slice 2 | planned |
+| 7 | Daily review (Keep it) | Slice 2 | done |
 | 8 | Speaking feedback & voice consent (Say it) | Slice 3 | planned |
 | 9 | Accounts & personal data | Slice 4 | planned |
 | 10 | Units 1 to 3 content | Slice 5 | planned |
@@ -92,7 +92,7 @@ The walking skeleton and the first real slice, merged. A visitor starts as a gue
 ### 7. Daily review (Keep it) · needs a decision
 Thicken the review strand. Forms met so far come back when they are due: the learner hears or sees a prompt, types the Finnish, and it is graded automatically and rescheduled. No self rating. Spoken recall arrives with slice 3.
 **Done when:** a learner who finished the first session sees due forms in a review the next day, every typed answer is graded, and each form is rescheduled from the result.
-- [ ] Design it (spec): `/architect daily review`
+- [x] Design it (spec) and build it: factory job 9-daily-review, `factory/jobs/9-daily-review/spec.md`, merged 27 October 2026.
 
 ## Slice 3: Speaking feedback
 

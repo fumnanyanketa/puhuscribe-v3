@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 /home/user/puhuscribe-v3/.worktrees/9-daily-review
+
+
+ Test Files  48 passed (48)
+      Tests  704 passed | 2 skipped (706)
+   Start at  15:55:02
+   Duration  20.92s (tests 91%, import 7%, transform 2%, worker 1%)
+
+    Isolate  48 workers spawned · ~238ms startup each (spawn + environment, per file)
+             at least ~3.56s faster with isolate: false — reuses workers across files instead of one per file
+

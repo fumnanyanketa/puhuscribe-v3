@@ -6,8 +6,13 @@
 // cookie, token, user id, address or header is ever logged
 // (factory/jobs/8-first-session/spec.md, "Done when" 19; worker/logs.test.ts).
 
-import { RECORDABLE_STEPS, type FrontDoorAnswer, type RecordableStep } from '../src/lib/session-types.ts'
 import { handleAccountApi, type AccountDeps } from './account.ts'
+import {
+  RECORDABLE_STEPS,
+  type FrontDoorAnswer,
+  type RecordableStep,
+  type ReviewSession,
+} from '../src/lib/session-types.ts'
 import { json, readBody, refuseNonGet, refuseUnsafeWrite, withCookies } from './http.ts'
 import {
   endedHint,
@@ -19,7 +24,21 @@ import {
   type LearnerContext,
   type SupabaseEnv,
 } from './learner-auth.ts'
-import { AccountGone, DatabaseUnavailable, supabaseLearnerDb, type LearnerDb } from './learner-db.ts'
+import {
+  AccountGone,
+  DatabaseUnavailable,
+  supabaseLearnerDb,
+  type LearnerDb,
+  type ReviewDb,
+} from './learner-db.ts'
+import {
+  answer as answerReview,
+  finishKeep,
+  itemsFor,
+  openReviewSession,
+  parseAnswer,
+  reviewItems,
+} from './review.ts'
 import { ContentUnusable, frontDoorState, readySession, todayFor } from './session-plan.ts'
 
 export type ApiEnv = SupabaseEnv
@@ -77,6 +96,24 @@ function databaseFor(context: LearnerContext, deps: ApiDeps): LearnerDb {
   return deps.learnerDb ? deps.learnerDb(context) : supabaseLearnerDb(context.client)
 }
 
+function isReviewDb(db: LearnerDb | (LearnerDb & ReviewDb)): db is LearnerDb & ReviewDb {
+  return 'reviewQueue' in db
+}
+
+// The Keep it step's database (job 9-daily-review): the same Supabase client,
+// as the learner. Unit tests pass one fake for both (worker/test-fakes.ts); a
+// job 8 test whose fake has no review calls gets the real client, which those
+// tests never reach.
+function reviewDatabaseFor(context: LearnerContext, db: LearnerDb): ReviewDb {
+  return isReviewDb(db) ? db : supabaseLearnerDb(context.client)
+}
+
+/** Both databases of a signed in request: job 8's, then the review one. */
+function databasesFor(context: LearnerContext, deps: ApiDeps): [LearnerDb, ReviewDb] {
+  const db = databaseFor(context, deps)
+  return [db, reviewDatabaseFor(context, db)]
+}
+
 // Turns a fault while reading or writing into an answer. This code logs nothing.
 function faultAnswer(error: unknown): Response {
   if (error instanceof ContentUnusable) return json({ error: 'content_unusable' }, 500)
@@ -124,13 +161,32 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
   if (state === 'ended') return answer({ signedIn: false, ended: true, ...(await endedHint(request)) })
   if (state === 'unavailable') return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
   try {
-    const pick = await todayFor(databaseFor(context, deps))
+    const [db, reviewDb] = databasesFor(context, deps)
+    const pick = await todayFor(db)
     const today = frontDoorState(pick)
-    return answer(
-      pick.kind === 'dialogue'
-        ? { signedIn: true, today, canDo: pick.dialogue.canDo }
-        : { signedIn: true, today },
-    )
+    if (pick.kind === 'dialogue') {
+      // Job 9-daily-review, "Done when" 4: a new session that will end with Keep it says so.
+      const review = today === 'start' && (await reviewItems(db, reviewDb)).length > 0
+      return answer({
+        signedIn: true,
+        today,
+        canDo: pick.dialogue.canDo,
+        ...(review ? { review: true } : {}),
+      })
+    }
+    if (pick.kind === 'all_done') {
+      // No new dialogue: a review only session when something is reviewable,
+      // otherwise the day of the next review (statements 4 and 5).
+      if ((await reviewItems(db, reviewDb)).length > 0) {
+        return answer({
+          signedIn: true,
+          today: openReviewSession(await db.mySessions()) ? 'continue' : 'review',
+        })
+      }
+      const nextReview = await reviewDb.nextReviewDay()
+      return answer({ signedIn: true, today, ...(nextReview ? { nextReview } : {}) })
+    }
+    return answer({ signedIn: true, today })
   } catch (error) {
     return withCookies(faultAnswer(error), context.setCookies())
   }
@@ -177,9 +233,18 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
   const { context, refused } = await signedIn(request, env, deps)
   if (refused) return refused
   try {
-    const db = databaseFor(context, deps)
+    const [db, reviewDb] = databasesFor(context, deps)
     const pick = await todayFor(db)
+    if (pick.kind === 'all_done' && (await reviewItems(db, reviewDb)).length > 0) {
+      // Job 9-daily-review, "Done when" 7: Keep it alone, in the learner's
+      // unfinished review only session or a new one.
+      const open = openReviewSession(await db.mySessions()) ?? (await reviewDb.startReviewSession())
+      const body: ReviewSession = { state: 'review', session: { id: open.id, step: open.step } }
+      return withCookies(json(body), context.setCookies())
+    }
     if (pick.kind !== 'dialogue') return withCookies(json({ state: pick.kind }), context.setCookies())
+    // A dialogue session is answered exactly as in job 8. Whether it ends with
+    // Keep it is asked next, through GET /api/sessions/<id>/review.
     const session = pick.open ?? (await db.startSession(pick.dialogue.id))
     return withCookies(json(await readySession(db, pick.dialogue, session)), context.setCookies())
   } catch (error) {
@@ -246,8 +311,68 @@ async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string
   }
 }
 
-const SESSION_ROUTE =
-  /^\/api\/sessions\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/(step|complete)$/
+// The Keep it routes (factory/jobs/9-daily-review/spec.md, "Done when" 6 to
+// 17). Same protections as job 8's routes: a sign in, the learner's own token
+// for every read and write, the user id only from the token, 404 for a session
+// that is not the learner's, and POST with JSON from this site only for any
+// change.
+
+// GET /api/sessions/<id>/review: the items of the run. Changes nothing.
+async function reviewItemsRoute(request: Request, env: ApiEnv, deps: ApiDeps, id: string): Promise<Response> {
+  const refusedMethod = await refuseNonGet(request)
+  if (refusedMethod) return refusedMethod
+  const { context, refused } = await signedIn(request, env, deps)
+  if (refused) return refused
+  const done = (body: unknown, status = 200) => withCookies(json(body, status), context.setCookies())
+  try {
+    const outcome = await itemsFor(...databasesFor(context, deps), id)
+    if (outcome.kind === 'not_found') return done({ error: 'not_found' }, 404)
+    if (outcome.kind === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
+    return done(outcome.answer)
+  } catch (error) {
+    return withCookies(faultAnswer(error), context.setCookies())
+  }
+}
+
+// POST /api/review/answer with {"sessionId", "formId", "text", "kind": "typed"}.
+async function reviewAnswerRoute(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Response> {
+  const write = await refuseUnsafeWrite(request)
+  if (write.refused) return write.refused
+  const parsed = parseAnswer(write.body)
+  if (!parsed) return json({ error: 'bad_request' }, 400)
+  const { context, refused } = await signedIn(request, env, deps)
+  if (refused) return refused
+  const done = (body: unknown, status = 200) => withCookies(json(body, status), context.setCookies())
+  try {
+    const outcome = await answerReview(...databasesFor(context, deps), parsed, new Date())
+    if (outcome.kind === 'not_found') return done({ error: 'not_found' }, 404)
+    if (outcome.kind === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
+    if (outcome.kind === 'changed') return done({ error: 'card_changed' }, 409)
+    return done(outcome.feedback)
+  } catch (error) {
+    return withCookies(faultAnswer(error), context.setCookies())
+  }
+}
+
+// POST /api/sessions/<id>/review/done: Keep it is finished.
+async function reviewDoneRoute(request: Request, env: ApiEnv, deps: ApiDeps, id: string): Promise<Response> {
+  const write = await refuseUnsafeWrite(request)
+  if (write.refused) return write.refused
+  const { context, refused } = await signedIn(request, env, deps)
+  if (refused) return refused
+  const done = (body: unknown, status = 200) => withCookies(json(body, status), context.setCookies())
+  try {
+    const outcome = await finishKeep(...databasesFor(context, deps), id, new Date())
+    if (outcome.kind === 'not_found') return done({ error: 'not_found' }, 404)
+    if (outcome.kind === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
+    return done({ step: 'keep', ended: outcome.ended })
+  } catch (error) {
+    return withCookies(faultAnswer(error), context.setCookies())
+  }
+}
+
+const SESSION_ID = '([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'
+const SESSION_ROUTE = new RegExp(`^/api/sessions/${SESSION_ID}/(step|complete|review|review/done)$`)
 
 export async function handleApi(
   request: Request,
@@ -262,6 +387,9 @@ export async function handleApi(
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])
+  if (match?.[1] && match[2] === 'review') return reviewItemsRoute(request, env, deps, match[1])
+  if (match?.[1] && match[2] === 'review/done') return reviewDoneRoute(request, env, deps, match[1])
+  if (pathname === '/api/review/answer') return reviewAnswerRoute(request, env, deps)
   // Accounts and personal data (job 11-accounts): worker/account.ts.
   const account = await handleAccountApi(request, env, deps)
   if (account) return account

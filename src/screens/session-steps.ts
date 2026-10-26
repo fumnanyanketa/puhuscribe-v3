@@ -1,18 +1,21 @@
 import type { ComponentType } from 'react'
 import type { LoopStep } from '../components/SessionFrame.tsx'
-import type { RecordableStep, StepReached } from '../lib/session-types.ts'
+import type { StepReached } from '../lib/session-types.ts'
 import { HearIt } from './HearIt.tsx'
+import { KeepItStep } from './KeepIt.tsx'
 import type { StepScreenProps } from './step-screen.ts'
 import { UnderstandIt } from './UnderstandIt.tsx'
 
 // The steps of a session, in order, in one list
 // (factory/jobs/8-first-session/spec.md, "Done when" 8). The finish screen
 // always follows the last one. Say it (job 10-speaking-feedback) is added
-// here, after Understand it.
+// here, after Understand it. Keep it (job 9-daily-review) comes after every
+// step of this list, and only in a session that has words to review
+// (stepsFor below).
 
 export interface SessionStep {
   /** The value stored in sessions.step_reached when the step is done. */
-  id: RecordableStep
+  id: NonNullable<StepReached>
   /** The step's name in the top bar. */
   name: LoopStep
   Screen: ComponentType<StepScreenProps>
@@ -22,6 +25,22 @@ export const SESSION_STEPS: readonly SessionStep[] = [
   { id: 'hear', name: 'Hear it', Screen: HearIt },
   { id: 'understand', name: 'Understand it', Screen: UnderstandIt },
 ]
+
+/**
+ * Keep it, the review (factory/jobs/9-daily-review/spec.md, "Done when" 6).
+ * Its end is stored by POST /api/sessions/<id>/review/done, never by the step
+ * route, which accepts no step beyond Understand it from the browser.
+ */
+export const KEEP_IT_STEP: SessionStep = { id: 'keep', name: 'Keep it', Screen: KeepItStep }
+
+/**
+ * The steps of one session: the list above, then Keep it when the learner had
+ * a word to review as the session screen loaded. Without one, the session is
+ * exactly the list above.
+ */
+export function stepsFor(review: boolean): readonly SessionStep[] {
+  return review ? [...SESSION_STEPS, KEEP_IT_STEP] : SESSION_STEPS
+}
 
 /** Where a session stands: one of its steps, or the finish screen. */
 export type SessionPosition = { kind: 'step'; index: number } | { kind: 'finish' }

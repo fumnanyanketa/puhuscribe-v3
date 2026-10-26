@@ -1,0 +1,12 @@
+-- search of all public and auth data for typed answers that are not Finnish content (kiitos, Helsingissa, xx, extra, oooooooooo)
+1
+-- functions added by the migration, their settings
+     proname     | security_definer |      proconfig       | anon_exec | auth_exec | public_exec 
+-----------------+------------------+----------------------+-----------+-----------+-------------
+ next_review_day | f                | {"search_path=\"\""} | f         | t         | f
+ record_review   | f                | {"search_path=\"\""} | f         | t         | f
+ review_queue    | f                | {"search_path=\"\""} | f         | t         | f
+(3 rows)
+
+-- the single match is lemma_ipa reference data (kiitos IPA from Wiktionary), not a typed answer
+TYPES_IDENTICAL
