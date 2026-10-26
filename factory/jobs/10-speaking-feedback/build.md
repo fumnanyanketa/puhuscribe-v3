@@ -138,7 +138,9 @@ Commands and results:
 - `npm ci`, `npm run check:code`: pass. `npx vitest run`: 61 files, 830 passed, 2 skipped.
 - pgTAP, `npx supabase test db` from a scratch copy of `supabase/` with its own project id and ports 574xx: 8 files, all successful (a first run caught job 9's table list test, fixed above).
 - Local Chromium browser tests were NOT run here. The auto mode classifier refused writing `.env.local` (the local settings step), so the browser tests ran only on GitHub. WebKit also runs only there.
-- GitHub: run 40386754367 (head 3b60e94): every job green except the browser job, where only my new test `spoken-review.spec.ts` failed (255 passed): I had assumed a new card has 2 reps after its first review, it has 1. Test fixed in 39ba342. Run for that head: see the line below.
+- GitHub: run 40386754367 (head 3b60e94): every job green except the browser job, where only my new test `spoken-review.spec.ts` failed (255 passed): I had assumed a new card has 2 reps after its first review, it has 1. Test fixed in 39ba342; its second assumption (the log's due date equals the card's new one) was also wrong, since the log holds the date before the review, fixed in 2e876ca.
+- Green run: 40390323192 (head 2e876ca): Type check, lint, format; Unit tests; Python; Dependency check; Secret scan; Database tests (pgTAP); Browser tests (Chromium and WebKit) all pass. Only "Preview link (Cloudflare Worker behind Access)" fails (owner secrets), as before. Final pushed head: 2e876ca.
 
 No new npm package. Honest limits: the spoken review texts ("Yes, that was clear.", "Close. Listen to the word below.") are mine and go to the native reviewer with the rest of the Finnish-adjacent wording; WebKit's `MediaRecorder` stand-in applies to the spoken review test too.
 
+Result: checks pass

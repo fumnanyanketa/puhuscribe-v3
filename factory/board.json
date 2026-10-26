@@ -531,7 +531,7 @@
       "id": "10-speaking-feedback",
       "feature": "speaking-feedback",
       "title": "Speaking feedback & voice consent (Say it)",
-      "stage": "build",
+      "stage": "review",
       "round": 4,
       "flag": "look closely",
       "flag_reasons": [
@@ -539,8 +539,8 @@
         "learner data",
         "a paid service"
       ],
-      "waiting_on": "builder: merge of main, statement 21, speech limit fix (owner approved, fix first)",
-      "updated": "2026-10-27T02:40:00+03:00",
+      "waiting_on": "short security check of round 4 (new table and route), then merge (owner approved)",
+      "updated": "2026-10-27T04:05:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -599,6 +599,10 @@
         {
           "stage": "build",
           "at": "2026-10-27T02:40:00+03:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-27T04:05:00+03:00"
         }
       ]
     },
