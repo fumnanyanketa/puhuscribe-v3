@@ -16,7 +16,7 @@ Round 2, 26 October 2026. Flag: **look closely** (learner data).
 - Evidence: `factory/jobs/9-daily-review/evidence/`, evaluation `factory/jobs/9-daily-review/evaluation.md`: 21 of 21 statements pass, 0 failures, Chromium at 375 x 812, two test learners, axe clean in light and dark.
 - Security review: pass, 0 must fix, 0 should fix, 2 notes (`review-security.md`).
 - Design review: pass, 0 must fix, 1 should fix sent to `factory/todo.md` (`review-design.md`).
-- GitHub checks on head 667da4d: all green except the browser tests, which died before any test ran (the runner hit a Docker image download limit) and are being re-run; the previous head d901807 passed the same browser tests. "Preview link" is skipped until the secrets exist.
+- GitHub checks on head d1d73ce (run 40364402722): all green, browser tests in Chromium and WebKit included. "Preview link" fails until the repository secrets exist.
 - Builder notes: `build.md`. Statement 18's red scratch run is linked there.
 
 ## Things to look at closely
