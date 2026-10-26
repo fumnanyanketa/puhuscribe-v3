@@ -28,3 +28,7 @@ Round 2, 26 October 2026. Flag: **look closely** (learner data).
 ## Approval
 
 Approve with `/factory approve 9-daily-review`, or send it back with `/factory rework 9-daily-review <note>`.
+
+## Approval record
+
+Owner approved on 26 October 2026 (UTC evening), in chat: "Okay, let's approve the things I can approve." Merged into main on 27 October 2026 (Helsinki).
