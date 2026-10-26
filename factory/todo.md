@@ -64,3 +64,4 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - (security, note) `worker/patterns.ts` `tokens()` has no approved-status filter of its own and relies on the database rules.
 - (security, note) `supabase/seeds/browser/020_test_fixture_units_2_3.sql` inserts content marked approved; it must never be applied to a real project.
 - (security, not checked) The fake voice marker guard from the job 7 list was not found in code; the publish step was not exercised because the sixth dialogue is not drafted yet.
+- (9-daily-review evaluator) The answer route grades any owned card, even one already reviewed today; only the screen enforces once a day plus one retry. "Check the spelling below" sits under the word it points to. Some tappable words are narrower than 44 px.

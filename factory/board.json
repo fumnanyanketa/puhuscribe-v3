@@ -478,14 +478,14 @@
       "id": "9-daily-review",
       "feature": "daily-review",
       "title": "Daily review (Keep it)",
-      "stage": "review",
+      "stage": "your-approval",
       "round": 1,
       "flag": "look closely",
       "flag_reasons": [
         "learner data"
       ],
-      "waiting_on": "security reviewer, design reviewer and evaluator (in parallel), GitHub checks",
-      "updated": "2026-10-26T19:12:00+03:00",
+      "waiting_on": "owner approval (browser check re-run on GitHub in progress)",
+      "updated": "2026-10-26T20:25:00+03:00",
       "history": [
         {
           "stage": "spec",
@@ -512,6 +512,14 @@
         {
           "stage": "review",
           "at": "2026-10-26T19:12:00+03:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-10-26T20:25:00+03:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-10-26T20:25:00+03:00"
         }
       ]
     },
