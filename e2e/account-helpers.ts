@@ -228,7 +228,10 @@ export async function secondDevice(
 /** What the front door offers: its status line and its main buttons. */
 export async function frontDoorState(page: Page): Promise<string> {
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+  // Job 9 headed an empty day with "That is all for today." instead.
+  await expect(
+    page.getByRole('heading', { level: 1, name: /^(Today's session|That is all for today\.)$/ }),
+  ).toBeVisible()
   await expect(page.getByRole('status').filter({ hasText: "Loading today's session." })).toHaveCount(0)
   const buttons = await page.getByRole('button').allInnerTexts()
   const message = (await page.locator('[role=status]').allInnerTexts()).join(' ')
