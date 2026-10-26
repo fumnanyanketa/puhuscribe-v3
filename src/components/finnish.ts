@@ -30,6 +30,8 @@ export interface LineWord {
   after?: string
   /** True for the words that change between spoken and written Finnish. */
   changes?: boolean
+  /** True for the answer word after a review (job 9-daily-review): underlined, and named so in words. */
+  marked?: boolean
   /** The word's card. A word without one (such as a name) is plain text, not a button. */
   card?: WordCardData
 }
