@@ -14,6 +14,8 @@ export default defineConfig({
       'scripts/v2-import/**/*.test.ts',
       'scripts/hooks/**/*.test.ts',
       'scripts/eval/**/*.test.ts',
+      'scripts/review-site/**/*.test.ts',
+      'review-site/**/*.test.ts',
       'tests/**/*.test.ts',
     ],
   },

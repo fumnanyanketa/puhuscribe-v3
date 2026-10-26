@@ -1,6 +1,15 @@
-# Build notes: 13-review-site (round 2)
+# Build notes: 13-review-site (carried over to the public repository)
 
-Builder, 22 October 2026. Branch `factory/13-review-site`, round 2 tip `b8cdf45`, draft pull request https://github.com/fumnanyanketa/puhuscribe-v3/pull/19 (the factory merges; not from GitHub). Spec label `[site N]`. Built for DNS case C1 from the manager's addendum: the Worker and its Access lock live in the Exentrik Cloudflare account. Nothing was deployed and nothing in any Cloudflare account was touched.
+Builder, 22 October 2026. Public repository `fumnanyanketa/puhuscribe-v3`, branch `factory/13-review-site`, commit `20c34e1` on top of the public main, draft pull request https://github.com/fumnanyanketa/puhuscribe-v3/pull/8 (the factory merges; not from GitHub). Spec label `[site N]`. Built for DNS case C1 from the manager's addendum: the Worker and its Access lock live in the Exentrik Cloudflare account. Nothing was deployed and nothing in any Cloudflare account was touched.
+
+## Carry over to the public repository
+
+The owner approved the job in the private repository, which is now archived (`puhuscribe-v3-archive`). Its commits, pull request #19 and run numbers below belong to that archive. In the public repository the job is one commit, `20c34e1`, made from the saved patch of the old branch against the old main.
+- **How it was applied.** `git apply --3way --index` applied all 24 files without a conflict. Recording files and binary evidence were excluded. The direct apply wrote CRLF into the working copy on this Windows machine, so the files were rewritten from the index, and every job file now checks out LF. The lock file was regenerated with `npm install --package-lock-only`. The only change against the public main is the `jose` entry.
+- **Public repository protections kept, and extended to this workflow.** `review-site.yml` runs only its build job on a pull request, and that job holds no secret or variable, so pull requests from forks get nothing. A new test, "[site 10] [public 1] ... every job that runs on a pull request (forks included) holds no secret", fails if a job holding a secret could run on a pull request. The live test step now also sets `PUHUSCRIBE_NO_TRACE: '1'` (tested), so no trace or HTML report is written into a public artifact. It already uploads only `.png` and `.webm` files after the secret check. `checks.yml`, the Switzer font guard and `THIRD-PARTY-NOTICES.md` are untouched.
+- **Nothing private in the commit.** No email address, key, token, account id or Access team name appears in the diff (checked with an email pattern and a 32 hex pattern), and no binary file. The index screenshots are outside the repository: `C:\Users\fumna\dev\puhuscribe-v3-evidence\13-review-site\local-4-index-375-chromium.png` and `local-4-index-375-webkit.png`.
+- **Local checks at `20c34e1`.** `npm ci` and `npm run check:code` pass. `npm test`: 632 passed and 2 skipped. One test failed, the known gitleaks timeout in `scripts/hooks/commit-tool.test.ts` ("[tooling 9] a made-up key is refused"). Run alone, all 13 tests in that file pass, and the file is unchanged from main. The review site browser tests: 6 passed, 18 live tests skipped. The lefthook commit check passed.
+- **GitHub at `20c34e1`.** See the last line of this file and the manager's report.
 
 ## Round 2: what changed
 
@@ -33,7 +42,7 @@ The valid token test asserts the spy was called with the team domain. Scratch ru
 
 - **The list.** `review-site/dialogues.json` is `{"dialogues": ["meeting-people-new-colleague"]}` (owner's call 2, A).
 - **The build.** `npm run build:review-site` (`scripts/review-site/build.ts`, run by Node 24) writes `dist-review/` with the index, `robots.txt` and each listed dialogue's `round-<n>.html`, byte for byte. Every input is checked first. On bad input it names the cause, writes nothing and removes any older `dist-review/`. Bad input means a bad or repeated slug, a missing or symlinked drafts or dialogue folder, a slug with no review page, a symlinked page, a page over 25 MiB or a badly named page.
-- **The index page.** Each dialogue's English title and slug, and one link per round with "Review received" or "Waiting for your review". Two plain sentences say what to do. It has no script and loads nothing from the network. Screenshots from round 1: `evidence/local-4-index-375-chromium.png`, `evidence/local-4-index-375-webkit.png`. The visible page is unchanged in round 2.
+- **The index page.** Each dialogue's English title and slug, and one link per round with "Review received" or "Waiting for your review". Two plain sentences say what to do. It has no script and loads nothing from the network. Screenshots (kept outside the public repository): `local-4-index-375-chromium.png` and `local-4-index-375-webkit.png` in `C:\Users\fumna\dev\puhuscribe-v3-evidence\13-review-site\`.
 - **The Worker** `puhuscribe-review` (`review-site/worker.ts` entry, rules in `review-site/handler.ts`):
   - Answers only GET and HEAD.
   - Serves a file only with a valid Access token for this application: keys from `<team domain>/cdn-cgi/access/certs`, RS256 only, with issuer, audience and expiry checked. The settings' shapes are checked before any key is asked for.
