@@ -1,4 +1,3 @@
-import { StatusLine } from '../components/StatusLine.tsx'
 import { Wordmark } from '../components/Wordmark.tsx'
 import { ACCOUNT_ITEMS, HOW_LONG, USER_TABLES, type InventoryItem } from '../privacy/data-inventory.ts'
 import { NOTICE_UPDATED, RESPONSIBLE, type Responsible } from '../privacy/notice-settings.ts'
@@ -10,11 +9,9 @@ import styles from './Account.module.css'
 // Every fact comes from the spec's "Privacy notice facts" table; "What we
 // keep" is rendered from src/privacy/data-inventory.ts and the processors
 // from src/privacy/processors.ts. The responsible name and contact come from
-// src/privacy/notice-settings.ts, which only the owner fills in.
+// src/privacy/notice-settings.ts, which holds the owner's answer.
 
 export const COMPLAINT_URL = 'https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman'
-export const MISSING_RESPONSIBLE =
-  'The name and contact address of the person responsible are not filled in yet. PuhuScribe is not open to learners until they are.'
 
 export const RIGHTS = [
   'See your data and download it as one file ("Download my data" on your account page).',
@@ -61,7 +58,7 @@ function Item({ item }: { item: InventoryItem }) {
   )
 }
 
-export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible | null }) {
+export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible }) {
   const [who, what, howLong, where, cookies, rights, age, updated] = SECTION_HEADINGS
   return (
     <main className={styles.page}>
@@ -81,36 +78,28 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
           <h2 id="privacy-who" className={styles.heading}>
             {who}
           </h2>
-          {responsible ? (
-            <>
-              <p className={styles.text}>
-                {responsible.responsibleName} is responsible for your data in PuhuScribe.
-              </p>
-              <p className={styles.text}>Send questions and privacy requests to:</p>
-              <ul className={styles.links}>
-                <li>
-                  <a className={styles.link} href={contactHref(responsible.contact)}>
-                    {responsible.contact}
-                  </a>
-                </li>
-              </ul>
-            </>
-          ) : (
-            <StatusLine tone="problem">{MISSING_RESPONSIBLE}</StatusLine>
-          )}
+          <p className={styles.text}>
+            {responsible.responsibleName} is responsible for your data in PuhuScribe.
+          </p>
+          <p className={styles.text}>Send questions and privacy requests to:</p>
+          <p className={styles.text}>
+            <a className={styles.inlineLink} href={contactHref(responsible.contact)}>
+              {responsible.contact}
+            </a>
+          </p>
         </section>
 
         <section className={styles.section} aria-labelledby="privacy-what">
           <h2 id="privacy-what" className={styles.heading}>
             {what}
           </h2>
-          <ul className={styles.list} data-inventory="account">
+          <ul className={styles.cards} data-inventory="account">
             {ACCOUNT_ITEMS.map((item) => (
               <Item key={item.name} item={item} />
             ))}
           </ul>
           <p className={styles.text}>Your learning progress:</p>
-          <ul className={styles.list} data-inventory="tables">
+          <ul className={styles.cards} data-inventory="tables">
             {USER_TABLES.map((item) => (
               <Item key={item.table} item={item} />
             ))}
@@ -128,7 +117,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
           <h2 id="privacy-where" className={styles.heading}>
             {where}
           </h2>
-          <ul className={styles.list}>
+          <ul className={styles.cards}>
             {PROCESSORS.map((processor) => (
               <li key={processor.name} className={styles.item}>
                 <h3 className={styles.itemName}>{processor.name}</h3>

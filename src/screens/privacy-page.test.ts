@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { ACCOUNT_ITEMS, HOW_LONG, USER_TABLES } from '../privacy/data-inventory.ts'
 import { RESPONSIBLE } from '../privacy/notice-settings.ts'
 import { PROCESSORS } from '../privacy/processors.ts'
-import { COMPLAINT_URL, MISSING_RESPONSIBLE, PrivacyPage, RIGHTS, SECTION_HEADINGS } from './PrivacyPage.tsx'
+import { COMPLAINT_URL, PrivacyPage, RIGHTS, SECTION_HEADINGS } from './PrivacyPage.tsx'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/11-accounts/spec.md that each test protects.
@@ -43,13 +43,12 @@ describe('the privacy notice', () => {
   it('[accounts 16] names who is responsible and how to reach them, from the settings file', () => {
     expect(page).toContain('Probe Business Oy (1234567-8) is responsible for your data in PuhuScribe.')
     expect(html).toContain('href="mailto:privacy@probe.example"')
-    expect(page).not.toContain(MISSING_RESPONSIBLE)
   })
 
-  it('[accounts 16] says in the problem style when the owner has not filled them in yet', () => {
-    const empty = renderToStaticMarkup(createElement(PrivacyPage, { responsible: null }))
-    expect(text(empty)).toContain(MISSING_RESPONSIBLE)
-    expect(empty).toContain('data-tone="problem"')
+  it('[accounts 16] shows the name and a mailto link taken from the settings file', () => {
+    const live = renderToStaticMarkup(createElement(PrivacyPage))
+    expect(text(live)).toContain(`${RESPONSIBLE.responsibleName} is responsible for your data in PuhuScribe.`)
+    expect(live).toContain(`href="mailto:${RESPONSIBLE.contact}"`)
   })
 
   it('[accounts 16] [accounts 17] lists what is kept, why and the legal reason, from the inventory', () => {
@@ -104,14 +103,7 @@ describe('the privacy notice', () => {
     )
   })
 
-  it('[accounts 16] owner input: the responsible name and contact are filled in, or the notice says they are missing', () => {
-    // OWNER INPUT (owner's call 2). While RESPONSIBLE is null the notice shows
-    // MISSING_RESPONSIBLE, and build.md lists it as waiting for the owner.
-    if (RESPONSIBLE) {
-      expect(RESPONSIBLE.responsibleName.trim().length).toBeGreaterThan(1)
-      expect(RESPONSIBLE.contact).toMatch(/^([^\s@]+@[^\s@]+\.[^\s@]+|https:\/\/\S+)$/)
-    } else {
-      expect(text(renderToStaticMarkup(createElement(PrivacyPage)))).toContain(MISSING_RESPONSIBLE)
-    }
+  it('[accounts 16] the contact address looks like an email address', () => {
+    expect(RESPONSIBLE.contact).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
   })
 })

@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { RESPONSIBLE } from '../src/privacy/notice-settings.ts'
 import { USER_TABLE_NAMES } from '../src/privacy/data-inventory.ts'
 import { PROCESSORS } from '../src/privacy/processors.ts'
 import { FILE_STORE_MODULES, FILE_STORES } from '../worker/personal-data/file-stores.ts'
@@ -190,5 +191,15 @@ describe('records', () => {
     ]) {
       expect(readme).toContain(step)
     }
+  })
+})
+
+describe('the privacy notice contact', () => {
+  it('[accounts 16] the contact address is written only in src/privacy/notice-settings.ts', () => {
+    const hits = filesUnder('src', /\.(ts|tsx|css|html)$/)
+      .concat(filesUnder('worker', /\.ts$/), filesUnder('e2e', /\.ts$/))
+      .filter((path) => path !== 'src/privacy/notice-settings.ts')
+      .filter((path) => readFileSync(path, 'utf8').includes(RESPONSIBLE.contact))
+    expect(hits).toEqual([])
   })
 })

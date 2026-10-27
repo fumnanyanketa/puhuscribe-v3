@@ -103,6 +103,21 @@ test('[accounts 16] the privacy notice loads without an account, makes no /api c
   expect(await page.evaluate<string>('document.cookie')).toBe('')
 })
 
+test('[accounts 16] the privacy notice names who is responsible, with a mailto link that fits at 320 px', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 640 })
+  await page.goto('/privacy')
+  await expect(page.getByText(/ is responsible for your data in PuhuScribe\./)).toBeVisible()
+  const contact = page.locator('a[href^="mailto:"]')
+  await expect(contact).toHaveCount(1)
+  const address = ((await contact.getAttribute('href')) ?? '').replace('mailto:', '')
+  await expect(contact).toHaveText(address)
+  const box = await contact.boundingBox()
+  expect((box?.x ?? 999) + (box?.width ?? 999)).toBeLessThanOrEqual(320)
+  expect(await page.evaluate<boolean>('document.documentElement.scrollWidth <= 320')).toBe(true)
+})
+
 test('[accounts 16] the privacy notice is linked from the front door, the account page and the email screen', async ({
   page,
 }) => {
