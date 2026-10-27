@@ -126,3 +126,21 @@ Three browser test fixes followed, none weakening an assertion:
 **GitHub.** Head `5113f59`. Run 40400873283 first hit the 30 minute job limit because "Install Chromium and WebKit" stalled for 21 minutes (cancelled, not a test failure; 220 tests had already passed). Rerun of the failed job: Browser tests green in Chromium and WebKit; every check green except "Preview link" (empty repository secrets, owner setup). Green run id: 40400873283.
 
 Result: checks pass
+
+## Round 6: owner's call 2
+
+**Change (commit 8d47193).** Owner's call 2 answered on 27 October 2026: responsible party "Fumnanya Nketa", contact "exentrik.co@gmail.com". Both live only in `src/privacy/notice-settings.ts` (`RESPONSIBLE` is no longer nullable). The "not filled in yet" state and `MISSING_RESPONSIBLE` are removed (spec: no placeholders). `PrivacyPage.tsx` shows the name and a `mailto:` link that uses `.inlineLink` (wraps with `overflow-wrap: anywhere`, 44 px tall). The notice cards (`What we keep`, processors) sit in a new `.cards` class: no bullets, no left padding. The email screen and account page still link to `/privacy` (`[accounts 16]` browser test).
+
+**Tests.** `src/screens/privacy-page.test.ts` `[accounts 16]`: name and mailto come from `RESPONSIBLE`; address shape. `tests/personal-data.test.ts` `[accounts 16]`: the address is written nowhere in src, worker or e2e except the settings file. `e2e/account-pages.spec.ts` `[accounts 16]`: name shown, one mailto link, fits 320 px. The old "missing" test was replaced because that state no longer exists.
+
+**Commands.** `npm ci`; `npm run check:code` pass; `npx vitest run` 897 passed, 2 skipped; `npx playwright test e2e/account-pages.spec.ts --project=chromium` 12 passed (own Supabase project id `puhu11r6`, ports 563xx because other stacks held 57xxx and 58xxx; `config.toml` restored and stack stopped). lefthook (format, lint, type check, gitleaks) passed on commit.
+
+**GitHub.** Green run id: 40552152516 on 8d47193: every check green except "Preview link" (empty repository secrets, owner setup).
+
+Result: checks pass
+
+## Round 6: owner's call 2 (written by the manager; the builder's session ended before its notes)
+
+Commit `8d47193` on `factory/11-accounts`: `src/privacy/notice-settings.ts` now holds the responsible party "Fumnanya Nketa" and the contact "exentrik.co@gmail.com" (the owner said the address may change later; it stays in this one setting). `PrivacyPage.tsx` renders them with a wrapping `mailto:` link, and the notice cards no longer show list markers (`Account.module.css`). Tests: `src/screens/privacy-page.test.ts` checks the values come from the setting; `e2e/account-pages.spec.ts` gains a check of the rendered name and link. GitHub run 40552152516 on head 8d47193: every check green except "Preview link" (repository secrets).
+
+Result: checks pass

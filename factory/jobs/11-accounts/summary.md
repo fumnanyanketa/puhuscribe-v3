@@ -1,6 +1,6 @@
 # Summary: 11-accounts (Accounts and personal data)
 
-Round 3, 26 October 2026. GA job. Flag: **look closely** (learner data, sign in, database and access rules). Stage: **blocked on one owner's call**, then your written approval.
+Round 3, 26 October 2026. GA job. Flag: **look closely** (learner data, sign in, database and access rules). Stage: **your approval**. Owner's call 2 is answered and built in.
 
 ## What you need to do
 
@@ -37,4 +37,4 @@ After owner's call 2 is answered and built in, this GA job needs your own writte
 
 ## Owner's call 2 (27 October 2026)
 
-Name to print: Fumnanya Nketa. Contact address: the owner's Exentrik address, exact spelling still to be given by the owner (never chosen by an agent).
+Name to print: Fumnanya Nketa. Contact address: exentrik.co@gmail.com (owner, 27 October; may change later, kept in one setting). Built in round 6, commit 8d47193, GitHub green on run 40552152516. Statement 16 is now complete, so every statement passes.
