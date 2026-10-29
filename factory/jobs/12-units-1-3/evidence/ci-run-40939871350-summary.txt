@@ -1,0 +1,28 @@
+Checks run 40939871350, head a55be3c
+Unit tests (Vitest) | success
+Browser tests (Playwright, local Supabase) | success
+Database tests (local Supabase, pgTAP) | success
+Python tests and lint (pytest, ruff) | success
+Secret scan (gitleaks) | success
+Type check, lint, format | success
+Dependency check (npm audit, pip-audit) | success
+Apply database changes to the test project | skipped
+Browser tests against the test project (after merge) | skipped
+Preview link (Cloudflare Worker behind Access) | failure
+
+  31 skipped
+  351 passed (12.1m)
+pytest 193 passed, 0 failed, 0 errors, 0 skipped; 9 Voikko gate tests; check-committed step passed
+Set up job | success
+Run actions/checkout@v7 | success
+Install Voikko (Finnish morphology) from Ubuntu | success
+Run actions/setup-python@v7 | success
+Run pip install -r scripts/requirements.txt -r scripts/requirements-dev.txt -r scripts/requirements-pipeline.txt | success
+Lint (ruff) | success
+Format (ruff) | success
+Voikko gate and content pipeline tests (pytest, no API key, no network) | success
+All 193 Python tests ran and passed (the 9 Voikko gate tests among them) | success
+Content checks on every committed draft and published dialogue (no network) | success
+Post Run actions/setup-python@v7 | success
+Post Run actions/checkout@v7 | success
+Complete job | success

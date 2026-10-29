@@ -4,7 +4,7 @@ Branch `factory/12-units-1-3`, draft PR 6. Pushed head `ec3588b`.
 
 ## Earlier rounds (short)
 
-- Round 1 (earlier builder, private repository, no notes written). Wrote the six briefs, the coverage pytest (`scripts/generate/test_units_1_3.py`), the cost summer (`scripts/generate/log_costs.py`), the Patterns you've seen panel (`worker/patterns.ts`, `src/components/PatternsPanel.tsx`, the optional `WordCard` prop), the second fixture, browser tests, the cover note and the docs sections. Five of the six dialogues were drafted by real workflow runs and committed. The sixth (`grocery-store-directions`) was never drafted: GitHub did not start run 39742994155 (an account billing block). The work moved to the public repository in commit `0f75545`.
+- Round 1 (earlier builder, private repository, no notes written). Wrote the six briefs, the coverage pytest (`scripts/generate/test_units_1_3.py`), the cost summer (`scripts/generate/log_costs.py`), the Patterns you've seen panel (`worker/patterns.ts`, `src/components/PatternsPanel.tsx`, the optional `WordCard` prop), the second fixture, browser tests, the cover note and the docs sections. Five of the six dialogues were drafted by real workflow runs and committed. The sixth (`grocery-store-directions`) was not drafted in that round: GitHub did not start run 39742994155 (an account billing block). It was drafted later, see "Round 5". The work moved to the public repository in commit `0f75545`.
 
 ## This round (resume)
 
@@ -43,16 +43,13 @@ Branch `factory/12-units-1-3`, draft PR 6. Pushed head `ec3588b`.
 - `npx playwright test --project=chromium` against the built app and a local Supabase with both seed files: 110 passed, 15 skipped, 1 failed (`[units 7] [units 5]` for `grocery-store-directions`: no round 1 review page). WebKit is not installed here, so WebKit runs only on GitHub. Locally I used the preinstalled Chromium 1243 and separate ports through uncommitted edits, now reverted.
 - Commit hook (lefthook with gitleaks and ruff) ran on every commit.
 
-## AI cost from the log
+## AI cost from the log (superseded by Round 5)
 
-`python scripts/generate/log_costs.py`: unit 1 $0.43, unit 2 $0.41, unit 3 $0.12, total $0.96. Well under the $5 stop line.
+At the end of round 2 the log showed unit 3 at $0.12 and a total of $0.96. The true figures are in Round 5.
 
-## What waits
+## What waited at the end of round 2 (superseded by Round 5)
 
-- **Real pipeline run for `content/briefs/grocery-store-directions.json`** (statements 2 to 7 for unit 3). Once the Anthropic and Azure secrets are set on the public repository, the manager triggers the "Content pipeline" workflow from main for that one brief, and commits its draft, check report, review page, audio and run log into `content/drafts/grocery-store-directions/` plus its lines in `content/logs/ai-calls.jsonl`, then adds the run id to `docs/content-pipeline.md`. Expected extra cost about $0.25. After that the Python check and the `[units 7]` browser test should go green.
-- Statement 8: evaluator on the preview (the preview link needs its secrets).
-- Statement 16: jobs 9 and 10.
-- Statement 19: the native reviewer.
+The real pipeline run for the sixth brief was the open item. Round 5 closes it. Still open: statement 8 (evaluator on the preview), statement 16 (now covered in round 4) and statement 19 (the native reviewer).
 
 ## How to run it locally
 
@@ -86,4 +83,17 @@ Checks (local, own Supabase id `puhu12r4`, ports 566xx, a separate preview port;
 
 GitHub run 40395147531 (head 9b603e3): type check, Vitest, gitleaks, dependency check and pgTAP pass. Failures: pytest (the 6 sixth dialogue failures and the 193 count step), and Playwright `[units 7] [units 5]` in Chromium and WebKit (289 passed, 2 failed, 31 skipped). "Preview link", "Apply database changes" and the after merge browser job were skipped because earlier jobs failed. Review site run 40395147546 passes.
 
-Result: checks pass (apart from the known sixth dialogue)
+## Round 5: the sixth dialogue and the records
+
+Records only. No code or content changed in this round. The evaluator (`factory/jobs/12-units-1-3/evaluation.md`) found no defect; statements 3, 6 and 18 failed only because these notes and the docs were out of date.
+
+- The sixth dialogue, `grocery-store-directions`, was drafted on 29 October 2026 in the public repository, in two workflow runs.
+  - [Run 40937712893](https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/40937712893), head 0acaa49. The draft passed the pipeline, but the unit 3 grammar test failed: the to-the-place form of adessive-allative, part 2, was in no written word. That pack was not committed.
+  - [Run 40938246825](https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/40938246825), head 8006d5a. The brief was changed to ask for the to-form. This pack is the committed one, in commit 2869c04. Commit a55be3c then force-added the git-ignored `run.log`.
+- The five earlier runs came from the old private repository and cannot be opened from the public one.
+- True cost from `python scripts/generate/log_costs.py`: unit 1 $0.43, unit 2 $0.41, unit 3 $0.40, total $1.25. Well under the $5 stop line. The sixth dialogue's $0.29 includes both runs. These figures replace the $0.12 and $0.96 above.
+- `docs/content-pipeline.md`, section "Units 1 to 3", now lists all six dialogues with these costs.
+- Statements 3, 6 and 18 now describe the repository as it is. All six dialogues are drafted, so the "waits on the real run" and "5 of 6" entries in the table above are out of date for statements 3 to 7. Statement 16 is covered by round 4. Statement 19 still waits for the native reviewer.
+- Checks were not rerun in this round, since no code changed.
+
+Result: checks pass
