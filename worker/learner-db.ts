@@ -19,6 +19,20 @@ export class DatabaseUnavailable extends Error {
   }
 }
 
+/**
+ * The database refused a new row because the learner's account no longer
+ * exists (deleted on another device after the sign in was checked): a foreign
+ * key to auth.users failed (job 11-accounts, "Done when" 22).
+ */
+export class AccountGone extends Error {
+  constructor() {
+    super('The account no longer exists.')
+    this.name = 'AccountGone'
+  }
+}
+
+const FOREIGN_KEY_VIOLATION = '23503'
+
 export interface ReadableDialogue {
   id: number
   position: number
@@ -193,11 +207,17 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb {
     },
 
     async startSession(dialogueId) {
-      return toSession(
-        must(
-          await client.from('sessions').insert({ dialogue_id: dialogueId }).select(SESSION_COLUMNS).single(),
-        ),
-      )
+      const result = await client
+        .from('sessions')
+        .insert({ dialogue_id: dialogueId })
+        .select(SESSION_COLUMNS)
+        .single()
+      // The only user link of a new session is its user_id; the dialogue was
+      // just read as approved, so a broken link here means the user is gone.
+      if (result.error?.code === FOREIGN_KEY_VIOLATION && result.error.details.includes('user_id')) {
+        throw new AccountGone()
+      }
+      return toSession(must(result))
     },
 
     async dialogueContent(dialogueId) {

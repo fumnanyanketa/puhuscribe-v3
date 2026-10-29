@@ -270,6 +270,11 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await page.getByRole('button', { name: 'Type ä' }).click()
     await expect(field).toHaveValue('aäb')
     await expect(field).toBeFocused()
+    // The caret goes back after the inserted letter a moment later; typing
+    // before that put the x at the end on a slow runner.
+    await expect
+      .poll(() => field.evaluate((el) => (el as unknown as { selectionStart: number }).selectionStart))
+      .toBe(2)
     await page.keyboard.type('x')
     await expect(field).toHaveValue('aäxb')
     await page.getByRole('button', { name: 'Type ö' }).click()

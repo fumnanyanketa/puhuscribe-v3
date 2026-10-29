@@ -59,6 +59,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 8-first-session | `[session N]` | `worker/sessions.test.ts` |
 | 9-daily-review | `[review N]` | `worker/review.test.ts` |
 | 10-speaking-feedback | `[speak N]` | `worker/speech.test.ts` |
+| 11-accounts | `[accounts N]` | `worker/account.test.ts` |
 | 13-review-site | `[site N]` | `review-site/handler.test.ts` |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.
@@ -79,6 +80,8 @@ Example: `supabase/migrations/20261020090100_learner_model.sql` with its tests i
 - `supabase/config.toml` sets `auto_expose_new_tables = false`, so a local database gives a new table no API access unless its migration grants it, as on the test project.
 - Browser test seed files live in `supabase/seeds/browser/`, named with a number first so their order is clear. Only the pull request check "Browser tests (Playwright, local Supabase)" loads them, into its throwaway database. They never reach a hosted database. A Playwright test that needs their rows carries the tag `@seed`.
 - A test that runs against the test project never depends on its row counts or on rows another run wrote.
+- A new user table (any table with a `user_id` column or a link to `auth.users`) goes into `public.export_my_data()` and `src/privacy/data-inventory.ts` in the same job. The pgTAP test in `supabase/tests/database/accounts.test.sql` compares the export with the database catalogue, and a browser test compares the downloaded file with the inventory, so a forgotten table fails both (job 11-accounts).
+- A Playwright test that reads sign in codes from the local mail catcher (Mailpit) carries the tag `@email`. Like `@seed`, it runs only in the pull request check, never against the test project or a preview link.
 
 ## Provider modules
 
