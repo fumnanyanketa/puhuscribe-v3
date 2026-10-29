@@ -38,3 +38,7 @@ After owner's call 2 is answered and built in, this GA job needs your own writte
 ## Owner's call 2 (27 October 2026)
 
 Name to print: Fumnanya Nketa. Contact address: exentrik.co@gmail.com (owner, 27 October; may change later, kept in one setting). Built in round 6, commit 8d47193, GitHub green on run 40552152516. Statement 16 is now complete, so every statement passes.
+
+## Owner approval
+
+Fumnanya approved: "approved 11-accounts, 29 October 2026. Merge it, then resume the builders." Merged into main on 29 October 2026 as `a90e326`. Lesson added to AGENTS.md. The "Preview link" check stays red on this pull request only because the Cloudflare preview secrets are not on the public repository yet.

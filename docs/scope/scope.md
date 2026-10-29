@@ -106,7 +106,7 @@ Thicken the speaking strand. Before the first recording, the learner reads in pl
 ### 9. Accounts & personal data · needs a decision · GA
 Thicken sign in into full account care. A guest turns into an email account without losing progress, signs in on another device with progress synced, reads a privacy notice, exports their data, and deletes their account.
 **Done when:** a guest can add an email and keep every session and review card, sign in on a second device and see the same progress, download their data, and delete their account with all personal data and recordings removed.
-- [ ] Design it (spec): `/architect accounts & personal data`
+- [x] Design it (spec) and build it: factory job 11-accounts, `factory/jobs/11-accounts/spec.md`, merged 29 October 2026.
 
 ## Slice 5: Units 1 to 3
 
