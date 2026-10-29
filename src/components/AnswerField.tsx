@@ -1,4 +1,5 @@
 import { useId, useRef, type SyntheticEvent } from 'react'
+import { restoreCaretAfterLetter } from './answer-field-caret.ts'
 import styles from './AnswerField.module.css'
 
 // The text field of a review item (factory/jobs/9-daily-review/spec.md, "Done
@@ -57,11 +58,7 @@ export function AnswerField({
       return
     }
     onChange(next)
-    const cursor = start + letter.length
-    setTimeout(() => {
-      input.focus()
-      input.setSelectionRange(cursor, cursor)
-    }, 0)
+    restoreCaretAfterLetter(input, next, start + letter.length)
   }
 
   return (

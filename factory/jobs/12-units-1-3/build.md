@@ -97,3 +97,10 @@ Records only. No code or content changed in this round. The evaluator (`factory/
 - Checks were not rerun in this round, since no code changed.
 
 Result: checks pass
+
+
+## Round 6: the ä and ö buttons and fast typing
+
+- Bug (job 9 code, `AnswerField`): the "Type ä" and "Type ö" buttons moved the caret back after the letter in a timeout, even when the learner had typed more by then, so fast typing after a tap scrambled the word ("täält" became "täätl"; GitHub run 40943103560, `[units 16]`).
+- Red proof: the new test `[review 9]` in `src/components/answer-field-caret.test.ts` failed against the old logic with "expected 2 to be 3" (the caret jumped back to 2 after the learner typed "l").
+- Fix: the timeout still focuses the field but only sets the caret if the field still holds the text the button made. Both tests pass; `npm run check:code` passes; `scripts/hooks/commit-tool.test.ts` passes alone and times out only under load in the full run.
