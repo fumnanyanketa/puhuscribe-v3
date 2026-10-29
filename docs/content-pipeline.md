@@ -150,7 +150,7 @@ Every call is in `content/logs/ai-calls.jsonl` with its cost, from the dated pri
 | Total | | About $0.25 per dialogue (estimate, the same figure as the README) |
 | Azure neural voices | Free allowance of 0.5 million characters a month | Under 1,000 characters, €0 |
 
-The estimates are replaced by the measured cost after the first real run.
+Measured on 29 October 2026, GitHub run 40938246825 for `grocery-store-directions`: $0.16 for 15 logged calls, Azure inside the free allowance. An earlier run the same day (40937712893) missed one grammar form, so its pack was not committed.
 
 ## Units 1 to 3
 
