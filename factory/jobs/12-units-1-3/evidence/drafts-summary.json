@@ -1,0 +1,442 @@
+{
+ "grocery-store-asking-staff": {
+  "unit": 3,
+  "unit_title": "At the grocery store",
+  "can_do": "Can ask where something is and understand simple directions.",
+  "dialogue_pos": 1,
+  "title": "Asking where something is",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Ville": "fi-FI-HarriNeural",
+   "Nina": "fi-FI-SelmaNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic",
+   "partitive-singular",
+   "numbers-1-20",
+   "saisinko",
+   "missa-on",
+   "adessive-allative",
+   "tuolla-tassa"
+  ],
+  "extra": 6,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 11520,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [],
+  "forms": 14,
+  "rounds": 1,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ },
+ "grocery-store-directions": {
+  "unit": 3,
+  "unit_title": "At the grocery store",
+  "can_do": "Can ask where something is and understand simple directions.",
+  "dialogue_pos": 2,
+  "title": "Following simple directions",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Laura": "fi-FI-SelmaNeural",
+   "Omar": "fi-FI-HarriNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic",
+   "partitive-singular",
+   "numbers-1-20",
+   "saisinko",
+   "missa-on",
+   "adessive-allative",
+   "tuolla-tassa"
+  ],
+  "extra": 4,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 12384,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [],
+  "forms": 15,
+  "rounds": 2,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ },
+ "meeting-people-language-cafe": {
+  "unit": 1,
+  "unit_title": "Meeting someone at work",
+  "can_do": "Can introduce yourself, say where you are from, and ask the same.",
+  "dialogue_pos": 2,
+  "title": "At a language café",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Leo": "fi-FI-HarriNeural",
+   "Sara": "fi-FI-NooraNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic"
+  ],
+  "extra": 2,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 23472,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [
+   "line 5: No"
+  ],
+  "forms": 16,
+  "rounds": 2,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ },
+ "meeting-people-new-colleague": {
+  "unit": 1,
+  "unit_title": "Meeting someone at work",
+  "can_do": "Can introduce yourself, say where you are from, and ask the same.",
+  "dialogue_pos": 1,
+  "title": "A new colleague",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Aino": "fi-FI-NooraNeural",
+   "Maria": "fi-FI-SelmaNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic"
+  ],
+  "extra": 2,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 19440,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [],
+  "forms": 17,
+  "rounds": 1,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ },
+ "ordering-coffee-at-the-counter": {
+  "unit": 2,
+  "unit_title": "Ordering coffee and a pastry",
+  "can_do": "Can order simple items, ask the price, and say thanks.",
+  "dialogue_pos": 1,
+  "title": "At the café counter",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Emma": "fi-FI-SelmaNeural",
+   "Anna": "fi-FI-NooraNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic",
+   "partitive-singular",
+   "numbers-1-20",
+   "saisinko"
+  ],
+  "extra": 5,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 11520,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [],
+  "forms": 13,
+  "rounds": 2,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ },
+ "ordering-coffee-paying": {
+  "unit": 2,
+  "unit_title": "Ordering coffee and a pastry",
+  "can_do": "Can order simple items, ask the price, and say thanks.",
+  "dialogue_pos": 2,
+  "title": "Asking the price and paying",
+  "lines": 6,
+  "line_count_field": 6,
+  "speakers": {
+   "Emma": "fi-FI-SelmaNeural",
+   "Daniel": "fi-FI-HarriNeural"
+  },
+  "distinct_voices": 2,
+  "grammar": [
+   "olla-present",
+   "personal-pronouns",
+   "inessive-elative",
+   "question-clitic",
+   "partitive-singular",
+   "numbers-1-20",
+   "saisinko"
+  ],
+  "extra": 14,
+  "audio_files": 12,
+  "audio_all_present": true,
+  "min_audio_bytes": 12672,
+  "checks": {
+   "shape": [
+    true,
+    1.0,
+    1.0
+   ],
+   "word_validity": [
+    true,
+    1.0,
+    1.0
+   ],
+   "token_order": [
+    true,
+    1.0,
+    1.0
+   ],
+   "spoken_links": [
+    true,
+    1.0,
+    1.0
+   ],
+   "level_fit": [
+    true,
+    1.0,
+    1.0
+   ],
+   "grammar_cards": [
+    true,
+    1.0,
+    1.0
+   ],
+   "register_faithfulness": [
+    true,
+    1.0,
+    0.98
+   ]
+  },
+  "ok": true,
+  "spoken_only": [],
+  "forms": 14,
+  "rounds": 2,
+  "judge_all_faithful": true,
+  "providers": {
+   "ai": "anthropic",
+   "voice": "azure"
+  }
+ }
+}

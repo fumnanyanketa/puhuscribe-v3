@@ -21,6 +21,8 @@ interface FinnishLineProps {
   cardAudioWhat?: { spoken: string; written: string }
   /** Passed to each word card: one plain line under its play controls. */
   cardAudioCaption?: string
+  /** Passed to each word card: opens "Patterns you've seen" (session screens only). */
+  cardOnPatterns?: (formName: string, button: HTMLButtonElement) => void
 }
 
 type Which = 'spoken' | 'written'
@@ -107,6 +109,7 @@ export function FinnishLine({
   cardNote,
   cardAudioWhat,
   cardAudioCaption,
+  cardOnPatterns,
 }: FinnishLineProps) {
   const [open, setOpen] = useState<{ which: Which; index: number } | null>(null)
   const buttons = useRef(new Map<string, HTMLButtonElement>())
@@ -160,6 +163,7 @@ export function FinnishLine({
         note={cardNote}
         audioWhat={cardAudioWhat}
         audioCaption={cardAudioCaption}
+        onPatterns={cardOnPatterns}
       />
     </div>
   )

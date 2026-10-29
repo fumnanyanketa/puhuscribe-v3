@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, type MouseEvent, type SyntheticEvent } from 'react'
+import { Button } from './Button.tsx'
 import { PlayControl } from './PlayControl.tsx'
 import type { WordCardData } from './finnish.ts'
 import styles from './WordCard.module.css'
@@ -23,11 +24,25 @@ interface WordCardProps {
   audioWhat?: { spoken: string; written: string }
   /** One plain line under the play controls, such as "Plays the whole line." */
   audioCaption?: string
+  /**
+   * Session screens only (job 12-units-1-3, "Done when" 9): shows the text
+   * button "Patterns you've seen" under the facts. Told the card's form name
+   * and the button, so the panel can open at that form's group and give focus
+   * back to the button when it closes. Without it the card is unchanged.
+   */
+  onPatterns?: (formName: string, button: HTMLButtonElement) => void
 }
 
 const FORM_AUDIO = { spoken: 'the spoken form', written: 'the written form' }
 
-export function WordCard({ data, onClose, note, audioWhat = FORM_AUDIO, audioCaption }: WordCardProps) {
+export function WordCard({
+  data,
+  onClose,
+  note,
+  audioWhat = FORM_AUDIO,
+  audioCaption,
+  onPatterns,
+}: WordCardProps) {
   const dialog = useRef<HTMLDialogElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const open = data !== null
@@ -96,6 +111,18 @@ export function WordCard({ data, onClose, note, audioWhat = FORM_AUDIO, audioCap
               <dd>{data.why}</dd>
             </div>
           </dl>
+          {onPatterns && (
+            <Button
+              variant="quiet"
+              className={styles.patterns}
+              aria-haspopup="dialog"
+              onClick={(event) => {
+                onPatterns(data.formName, event.currentTarget)
+              }}
+            >
+              Patterns you&apos;ve seen
+            </Button>
+          )}
           <div className={styles.forms}>
             <div className={styles.formSpoken}>
               <div>

@@ -1,0 +1,901 @@
+{
+  "format": "puhuscribe-draft-1",
+  "brief_path": "content/briefs/ordering-coffee-at-the-counter.json",
+  "brief": {
+    "unit": {
+      "slug": "ordering-coffee",
+      "position": 2,
+      "title_en": "Ordering coffee and a pastry",
+      "can_do_en": "Can order simple items, ask the price, and say thanks."
+    },
+    "dialogue": {
+      "slug": "ordering-coffee-at-the-counter",
+      "position": 1,
+      "title_en": "At the café counter"
+    },
+    "situation_en": "Anna stands at the counter of a busy café in Helsinki. The barista, Emma, greets her. Anna politely asks for a coffee and a cinnamon bun. Emma asks whether she wants oat milk in the coffee, and Anna says yes. Emma hands them over and they both say thanks.",
+    "grammar": [
+      "olla-present",
+      "personal-pronouns",
+      "inessive-elative",
+      "question-clitic",
+      "partitive-singular",
+      "numbers-1-20",
+      "saisinko"
+    ],
+    "rank_cap": 1500,
+    "extra_base_forms": [
+      "moi",
+      "pulla",
+      "korvapuusti",
+      "kauramaito",
+      "kahvila"
+    ],
+    "speakers": [
+      {
+        "name": "Emma",
+        "role_en": "the barista at the counter",
+        "voice": "fi-FI-SelmaNeural"
+      },
+      {
+        "name": "Anna",
+        "role_en": "a customer ordering her morning coffee",
+        "voice": "fi-FI-NooraNeural"
+      }
+    ],
+    "line_count": 6
+  },
+  "providers": {
+    "ai": "anthropic",
+    "voice": "azure"
+  },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Emma",
+      "text_puhe": "Hei! Tervetuloa!",
+      "text_kirja": "Hei! Tervetuloa!",
+      "gloss_en": "Hi! Welcome!",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        },
+        {
+          "surface": "Tervetuloa",
+          "lemma": "tervetuloa",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tervetuloa",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]terve=tuloa[X]terve[Bm]tuloa",
+            "STRUCTURE": "=ppppp=ppppp",
+            "WORDBASES": "+tervetuloa(terve=tuloa)"
+          },
+          "form": "form-d987aaa526bc"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hei",
+          "kirja": 1
+        },
+        {
+          "surface": "Tervetuloa",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "17886962d9feb9b8c6bff9defd8731b0b74fb88a58a6ad4ba3808a072c4a0b32",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "6310f0fce7788ca6d7d298eca047144cbd9d30e30e63ae410ee00365407baf34",
+          "text": "Hei! Tervetuloa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b960054a002601a5e7617d4ba838e1d81c371b95c4cc577ce6a4775bd7e87a29",
+          "text": "Hei! Tervetuloa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 2,
+      "speaker": "Anna",
+      "text_puhe": "Hei! Yks kahvi ja yks korvapuusti, kiitos.",
+      "text_kirja": "Hei! Yksi kahvi ja yksi korvapuusti, kiitos.",
+      "gloss_en": "Hi! One coffee and one cinnamon bun, please.",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        },
+        {
+          "surface": "Yksi",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+yksi(yksi)"
+          },
+          "form": "form-77de6561f822"
+        },
+        {
+          "surface": "kahvi",
+          "lemma": "kahvi",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kahvi",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kahvi(kahvi)"
+          },
+          "form": "form-b1abf7d409f9"
+        },
+        {
+          "surface": "ja",
+          "lemma": "ja",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ja",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+ja(ja)"
+          },
+          "form": "form-938eb8c80d8d"
+        },
+        {
+          "surface": "yksi",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+yksi(yksi)"
+          },
+          "form": "form-77de6561f822"
+        },
+        {
+          "surface": "korvapuusti",
+          "lemma": "korvapuusti",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "korvapuusti",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]korva=puusti[X]korva[Bm]puust[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp=pppppp",
+            "WORDBASES": "+korvapuusti(korva=puusti)"
+          },
+          "form": "form-de395b49ae06"
+        },
+        {
+          "surface": "kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-c5b0481eae2b"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hei",
+          "kirja": 1
+        },
+        {
+          "surface": "Yks",
+          "kirja": 2
+        },
+        {
+          "surface": "kahvi",
+          "kirja": 3
+        },
+        {
+          "surface": "ja",
+          "kirja": 4
+        },
+        {
+          "surface": "yks",
+          "kirja": 5
+        },
+        {
+          "surface": "korvapuusti",
+          "kirja": 6
+        },
+        {
+          "surface": "kiitos",
+          "kirja": 7
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "yks/yksi is only a register difference; same items and quantities.",
+        "fingerprint": "66f6c051ff172057c2da79660d4b30619f9791f5bf3420f73c4e70da48441284",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2bc520aa337390d7eca0a6ffb5ee80b5ac280b3ca77256c69e88c1037bd31ba5",
+          "text": "Hei! Yks kahvi ja yks korvapuusti, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a791b0d49f924dd466c509eb40fb3be3f51829946ead0ed273667e05882a8f73",
+          "text": "Hei! Yksi kahvi ja yksi korvapuusti, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        }
+      }
+    },
+    {
+      "n": 3,
+      "speaker": "Emma",
+      "text_puhe": "Entä kauramaitoo?",
+      "text_kirja": "Entä kauramaitoa?",
+      "gloss_en": "And some oat milk?",
+      "kirja_tokens": [
+        {
+          "surface": "Entä",
+          "lemma": "entä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "entä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]entä[X]entä",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+entä(entä)"
+          },
+          "form": "form-99966cae578b"
+        },
+        {
+          "surface": "kauramaitoa",
+          "lemma": "kauramaito",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kauramaito",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kaura[X]kaur[Sn][Ny]a[Bh][Bc][Ln][Xp]maito[X]maito[Sp][Ny]a",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppp=pppppp",
+            "WORDBASES": "+kaura(kaura)+maito(maito)"
+          },
+          "form": "form-03653e465ba5"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Entä",
+          "kirja": 1
+        },
+        {
+          "surface": "kauramaitoo",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kauramaitoo/kauramaitoa is a spoken vs written form of the partitive; same question about oat milk.",
+        "fingerprint": "2931632e336fcfb11f59d15c789bc68eee5c37e4a3dd4143720344bb6615f6d6",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "09028b547439be3cf1f15c573ef0f51399eadd9d2e42444433828d3cbfe0cddb",
+          "text": "Entä kauramaitoo?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "85af95a7b40c15a3a8d1f7ad01c8e83afcd04592904c7eca9735cc5982ccea9c",
+          "text": "Entä kauramaitoa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 4,
+      "speaker": "Anna",
+      "text_puhe": "Joo, kiitos.",
+      "text_kirja": "Kyllä, kiitos.",
+      "gloss_en": "Yes, please.",
+      "kirja_tokens": [
+        {
+          "surface": "Kyllä",
+          "lemma": "kyllä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kyllä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]kyllä[X]kyllä",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kyllä(kyllä)"
+          },
+          "form": "form-fbf4cf6cbcf9"
+        },
+        {
+          "surface": "kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-c5b0481eae2b"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Joo",
+          "kirja": 1
+        },
+        {
+          "surface": "kiitos",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; same thanks.",
+        "fingerprint": "a536a22822e556cf0ca22ce28a45a8910459aeb4232a1f9c7d8ef4736696c59c",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e7c70a4fc054dc0e02b24d8e6c74fc5d5c7d0878b169778d4095ce852994b08e",
+          "text": "Joo, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "7fa89d65f8b5eb6e2d0be2e0f4524ef12694a9bae80598b3fed993455720d279",
+          "text": "Kyllä, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        }
+      }
+    },
+    {
+      "n": 5,
+      "speaker": "Emma",
+      "text_puhe": "Täs on kahvi ja korvapuusti. Kiitti!",
+      "text_kirja": "Tässä on kahvi ja korvapuusti. Kiitos!",
+      "gloss_en": "Here's the coffee and the cinnamon bun. Thank you!",
+      "kirja_tokens": [
+        {
+          "surface": "Tässä",
+          "lemma": "tämä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tämä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+tämä(tämä)"
+          },
+          "form": "form-25ac6c76f4b0"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "kahvi",
+          "lemma": "kahvi",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kahvi",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kahvi(kahvi)"
+          },
+          "form": "form-b1abf7d409f9"
+        },
+        {
+          "surface": "ja",
+          "lemma": "ja",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ja",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+ja(ja)"
+          },
+          "form": "form-938eb8c80d8d"
+        },
+        {
+          "surface": "korvapuusti",
+          "lemma": "korvapuusti",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "korvapuusti",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]korva=puusti[X]korva[Bm]puust[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp=pppppp",
+            "WORDBASES": "+korvapuusti(korva=puusti)"
+          },
+          "form": "form-de395b49ae06"
+        },
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Täs",
+          "kirja": 1
+        },
+        {
+          "surface": "on",
+          "kirja": 2
+        },
+        {
+          "surface": "kahvi",
+          "kirja": 3
+        },
+        {
+          "surface": "ja",
+          "kirja": 4
+        },
+        {
+          "surface": "korvapuusti",
+          "kirja": 5
+        },
+        {
+          "surface": "Kiitti",
+          "kirja": 6
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Täs/tässä and kiitti/kiitos are register variants; same items and meaning.",
+        "fingerprint": "16609e18f5f24f61a94a8d8a89046a55d40a73a15e7d9c68e3ce86a0a91be337",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "ba2fb5b2befe0ca96626780974dceabba99ce45f94b37f6cc5ec88a236734cfc",
+          "text": "Täs on kahvi ja korvapuusti. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "b1b62f22de167efa9258169c2c8e4d00ac6cc3466cb410b9b41e3ac40352c293",
+          "text": "Tässä on kahvi ja korvapuusti. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural"
+        }
+      }
+    },
+    {
+      "n": 6,
+      "speaker": "Anna",
+      "text_puhe": "Kiitti, hei!",
+      "text_kirja": "Kiitos, hei!",
+      "gloss_en": "Thanks, bye!",
+      "kirja_tokens": [
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        },
+        {
+          "surface": "hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-0de25c00347f"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kiitti",
+          "kirja": 1
+        },
+        {
+          "surface": "hei",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos is a register difference; same goodbye and thanks.",
+        "fingerprint": "96c79ca60ec70e3cf26e202fe5d2be4f3afb9a8177cf4bb2530d36d8185bb172",
+        "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "af45f7e6e709762193313f7240892272ca6bc7c7728aaf8bc9895ab6b6aa2a60",
+          "text": "Kiitti, hei!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "045dd9758feb6f4b988bf0fcada401812bfd1ba1b0f77060985bbef652b4bd41",
+          "text": "Kiitos, hei!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural"
+        }
+      }
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-0de25c00347f",
+      "lemma": "hei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "hei",
+      "surface_puhe": "hei",
+      "analysis": {
+        "BASEFORM": "hei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+hei(hei)"
+      },
+      "form_name_en": "interjection",
+      "why_en": "A friendly greeting meaning hi or hello, said when someone comes in."
+    },
+    {
+      "id": "form-d987aaa526bc",
+      "lemma": "tervetuloa",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "tervetuloa",
+      "surface_puhe": "tervetuloa",
+      "analysis": {
+        "BASEFORM": "tervetuloa",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]terve=tuloa[X]terve[Bm]tuloa",
+        "STRUCTURE": "=ppppp=ppppp",
+        "WORDBASES": "+tervetuloa(terve=tuloa)"
+      },
+      "form_name_en": "interjection",
+      "why_en": "Welcome: the usual word said to a customer arriving."
+    },
+    {
+      "id": "form-77de6561f822",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "yksi",
+      "surface_puhe": "yks",
+      "analysis": {
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+yksi(yksi)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "One: counts the coffee being ordered. In speech it is often shortened to yks."
+    },
+    {
+      "id": "form-b1abf7d409f9",
+      "lemma": "kahvi",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kahvi",
+      "surface_puhe": "kahvi",
+      "analysis": {
+        "BASEFORM": "kahvi",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sn][Ny]i",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+kahvi(kahvi)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Coffee, in the nominative: the thing ordered, named plainly after yksi."
+    },
+    {
+      "id": "form-938eb8c80d8d",
+      "lemma": "ja",
+      "form_tag": "CLASS=sidesana",
+      "surface_kirja": "ja",
+      "surface_puhe": "ja",
+      "analysis": {
+        "BASEFORM": "ja",
+        "CLASS": "sidesana",
+        "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+ja(ja)"
+      },
+      "form_name_en": "conjunction",
+      "why_en": "And: joins the coffee and the bun in the order."
+    },
+    {
+      "id": "form-de395b49ae06",
+      "lemma": "korvapuusti",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "korvapuusti",
+      "surface_puhe": "korvapuusti",
+      "analysis": {
+        "BASEFORM": "korvapuusti",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]korva=puusti[X]korva[Bm]puust[Sn][Ny]i",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp=pppppp",
+        "WORDBASES": "+korvapuusti(korva=puusti)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "A Finnish cinnamon bun, in the nominative after yksi: the second thing ordered."
+    },
+    {
+      "id": "form-c5b0481eae2b",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitos",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Thanks or please: added at the end to make the order polite."
+    },
+    {
+      "id": "form-99966cae578b",
+      "lemma": "entä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "entä",
+      "surface_puhe": "entä",
+      "analysis": {
+        "BASEFORM": "entä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]entä[X]entä",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+entä(entä)"
+      },
+      "form_name_en": "adverb",
+      "why_en": "What about: the server asks about one more thing."
+    },
+    {
+      "id": "form-03653e465ba5",
+      "lemma": "kauramaito",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "kauramaitoa",
+      "surface_puhe": "kauramaitoo",
+      "analysis": {
+        "BASEFORM": "kauramaito",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kaura[X]kaur[Sn][Ny]a[Bh][Bc][Ln][Xp]maito[X]maito[Sp][Ny]a",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppp=pppppp",
+        "WORDBASES": "+kaura(kaura)+maito(maito)"
+      },
+      "form_name_en": "partitive singular",
+      "why_en": "Oat milk in the partitive: asking about some oat milk, an amount not counted. Spoken as kauramaitoo."
+    },
+    {
+      "id": "form-fbf4cf6cbcf9",
+      "lemma": "kyllä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "kyllä",
+      "surface_puhe": "joo",
+      "analysis": {
+        "BASEFORM": "kyllä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]kyllä[X]kyllä",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+kyllä(kyllä)"
+      },
+      "form_name_en": "adverb",
+      "why_en": "Yes. In everyday speech people often say joo instead."
+    },
+    {
+      "id": "form-25ac6c76f4b0",
+      "lemma": "tämä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "tässä",
+      "surface_puhe": "täs",
+      "analysis": {
+        "BASEFORM": "tämä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]tämä[X]tä[Sine][Ny]ssä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+tämä(tämä)"
+      },
+      "form_name_en": "inessive singular",
+      "why_en": "Here: in the inessive, literally 'in this'; said when handing something over. Spoken as täs."
+    },
+    {
+      "id": "form-24c73cc721d6",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "on",
+      "surface_puhe": "on",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=pp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "why_en": "Is: in the present tense, 'tässä on' means 'here is' when giving something."
+    },
+    {
+      "id": "form-35b130e20e20",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitti",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
+    }
+  ],
+  "rounds": 2
+}
