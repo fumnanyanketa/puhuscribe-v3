@@ -1,5 +1,12 @@
-import { createServerClient, parseCookieHeader, serializeCookieHeader } from '@supabase/ssr'
+import {
+  combineChunks,
+  createServerClient,
+  parseCookieHeader,
+  serializeCookieHeader,
+  stringFromBase64URL,
+} from '@supabase/ssr'
 import { isAuthApiError, isAuthSessionMissingError } from '@supabase/supabase-js'
+import type { EndedHint } from '../src/lib/account-types.ts'
 import type { Database } from '../src/lib/database.types.ts'
 
 // The learner's sign in (factory/jobs/8-first-session/spec.md, Decision 1).
@@ -36,10 +43,26 @@ export interface LearnerContext {
   clearCookies: () => void
   /** The Set-Cookie values for the answer, one per cookie name. */
   setCookies: () => string[]
+  /**
+   * Replaces this device's sign in with another context's: every sign in
+   * cookie the request carried is cleared, then the other context's cookies
+   * are set (job 11-accounts, after a code signs the device in).
+   */
+  adopt: (other: LearnerContext) => void
+  /** The cookies this context will set, by name (used by adopt). */
+  outgoing: () => ReadonlyMap<string, string>
 }
 
 function isAuthCookie(name: string): boolean {
   return name === AUTH_COOKIE || name.startsWith(`${AUTH_COOKIE}.`) || name.startsWith(`${AUTH_COOKIE}-`)
+}
+
+// auth-js keeps a "code verifier" for links that come back to the app (PKCE).
+// This app never uses such links: every email holds a code the learner types
+// (factory/jobs/11-accounts/spec.md, Decision 1). So that value is never
+// written to a cookie (job 11-accounts).
+function isCodeVerifier(name: string): boolean {
+  return name.endsWith('-code-verifier')
 }
 
 function cookieValue(name: string, value: string, remove: boolean): string {
@@ -98,6 +121,7 @@ export function learnerContext(
     () => authCookies,
     (cookies) => {
       for (const { name, value, options } of cookies) {
+        if (isCodeVerifier(name)) continue
         const remove = options.maxAge === 0 || value === ''
         outgoing.set(name, cookieValue(name, value, remove))
       }
@@ -105,13 +129,54 @@ export function learnerContext(
     fetchImpl,
   )
 
+  const clearCookies = () => {
+    for (const { name } of authCookies) outgoing.set(name, cookieValue(name, '', true))
+  }
   return {
     client,
     hadAuthCookie: authCookies.length > 0,
-    clearCookies: () => {
-      for (const { name } of authCookies) outgoing.set(name, cookieValue(name, '', true))
-    },
+    clearCookies,
     setCookies: () => [...outgoing.values()],
+    adopt: (other) => {
+      clearCookies()
+      for (const [name, value] of other.outgoing()) outgoing.set(name, value)
+    },
+    outgoing: () => outgoing,
+  }
+}
+
+/**
+ * A context with no sign in, for asking Supabase to send or check a code
+ * without touching this device's own sign in (job 11-accounts).
+ */
+export function blankContext(
+  request: Request,
+  settings: { url: string; key: string },
+  fetchImpl: Fetch,
+): LearnerContext {
+  return learnerContext(new Request(new URL(request.url).origin), settings, fetchImpl)
+}
+
+/**
+ * Whether the sign in this request carried belonged to an email account. Read
+ * from the stored session in the cookie without checking it, ONLY to pick the
+ * message after the account was found gone (factory/jobs/11-accounts/spec.md,
+ * "Done when" 22). Never use it for anything else. Guests, and anything that
+ * cannot be read, give job 8's answer unchanged (an empty object).
+ */
+export async function endedHint(request: Request): Promise<EndedHint> {
+  try {
+    const cookies = parseCookieHeader(request.headers.get('cookie') ?? '')
+    const stored = await combineChunks(AUTH_COOKIE, (name) => cookies.find((c) => c.name === name)?.value)
+    if (!stored) return {}
+    const json = stored.startsWith('base64-') ? stringFromBase64URL(stored.slice('base64-'.length)) : stored
+    const session = JSON.parse(json) as { access_token?: unknown }
+    if (typeof session.access_token !== 'string') return {}
+    const payload = session.access_token.split('.')[1] ?? ''
+    const claims = JSON.parse(stringFromBase64URL(payload)) as { is_anonymous?: unknown }
+    return claims.is_anonymous === false ? { account: 'email' } : {}
+  } catch {
+    return {}
   }
 }
 

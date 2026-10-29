@@ -111,3 +111,36 @@ Result: checks pass
 **GitHub.** Merge commit `a5392d1`: run 40387519656 failed only WebKit `[accounts 12]` (the heading issue above). Fix commit `741b8ec`: run 40389094194, every check green except "Preview link", which failed (allowed by the manager's instruction).
 
 Result: checks pass
+
+## Round 5: merge of main after job 10, export covers the voice tables
+
+**What changed (plain words).** Merged `origin/main` (job 10, speaking feedback and voice consent) into the branch (`aeb7f76`). The data export (`export_my_data()` in `20261022072911_accounts.sql`) and the data inventory (`src/privacy/data-inventory.ts`, `src/privacy/processors.ts`) now also cover job 10's user tables: the voice consent choices, `speech_checks` and `kept_recordings`. pgTAP `accounts.test.sql` and `data_model_schema.test.sql` were extended to match; the catalogue test (statement 19) fails if any user table is missing from the export, and the processors test fails if the inventory and the processor list disagree. The privacy notice's responsible name and contact were left empty on purpose.
+
+Three browser test fixes followed, none weakening an assertion:
+- `eb4575f`: `[accounts 10]` counts only its own address, and the daily review test waits for the caret before typing (`[review 9]`, ä button).
+- `bd1b502`: the daily review test reads the caret through a typed function.
+- `5113f59`: `[accounts 6]` (WebKit) counts the one address, not every user in the shared database.
+
+**Checks (local).** `npm ci`; `npm run check:code` pass; `npx vitest run` 896 passed, 2 skipped (66 files); `npx supabase test db` 698 tests pass (9 files, after `db reset`); `npx playwright test e2e/accounts.spec.ts e2e/account-pages.spec.ts --project=chromium` 29 passed including `@email` with Mailpit (own project id, ports 58xxx; `config.toml` restored afterwards). Not run here: the rest of the Chromium suite and WebKit (GitHub ran both).
+
+**GitHub.** Head `5113f59`. Run 40400873283 first hit the 30 minute job limit because "Install Chromium and WebKit" stalled for 21 minutes (cancelled, not a test failure; 220 tests had already passed). Rerun of the failed job: Browser tests green in Chromium and WebKit; every check green except "Preview link" (empty repository secrets, owner setup). Green run id: 40400873283.
+
+Result: checks pass
+
+## Round 6: owner's call 2
+
+**Change (commit 8d47193).** Owner's call 2 answered on 27 October 2026: responsible party "Fumnanya Nketa", contact "exentrik.co@gmail.com". Both live only in `src/privacy/notice-settings.ts` (`RESPONSIBLE` is no longer nullable). The "not filled in yet" state and `MISSING_RESPONSIBLE` are removed (spec: no placeholders). `PrivacyPage.tsx` shows the name and a `mailto:` link that uses `.inlineLink` (wraps with `overflow-wrap: anywhere`, 44 px tall). The notice cards (`What we keep`, processors) sit in a new `.cards` class: no bullets, no left padding. The email screen and account page still link to `/privacy` (`[accounts 16]` browser test).
+
+**Tests.** `src/screens/privacy-page.test.ts` `[accounts 16]`: name and mailto come from `RESPONSIBLE`; address shape. `tests/personal-data.test.ts` `[accounts 16]`: the address is written nowhere in src, worker or e2e except the settings file. `e2e/account-pages.spec.ts` `[accounts 16]`: name shown, one mailto link, fits 320 px. The old "missing" test was replaced because that state no longer exists.
+
+**Commands.** `npm ci`; `npm run check:code` pass; `npx vitest run` 897 passed, 2 skipped; `npx playwright test e2e/account-pages.spec.ts --project=chromium` 12 passed (own Supabase project id `puhu11r6`, ports 563xx because other stacks held 57xxx and 58xxx; `config.toml` restored and stack stopped). lefthook (format, lint, type check, gitleaks) passed on commit.
+
+**GitHub.** Green run id: 40552152516 on 8d47193: every check green except "Preview link" (empty repository secrets, owner setup).
+
+Result: checks pass
+
+## Round 6: owner's call 2 (written by the manager; the builder's session ended before its notes)
+
+Commit `8d47193` on `factory/11-accounts`: `src/privacy/notice-settings.ts` now holds the responsible party "Fumnanya Nketa" and the contact "exentrik.co@gmail.com" (the owner said the address may change later; it stays in this one setting). `PrivacyPage.tsx` renders them with a wrapping `mailto:` link, and the notice cards no longer show list markers (`Account.module.css`). Tests: `src/screens/privacy-page.test.ts` checks the values come from the setting; `e2e/account-pages.spec.ts` gains a check of the rendered name and link. GitHub run 40552152516 on head 8d47193: every check green except "Preview link" (repository secrets).
+
+Result: checks pass

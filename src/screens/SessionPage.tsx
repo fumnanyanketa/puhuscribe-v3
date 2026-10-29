@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
+import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession, ReviewSession } from '../lib/session-types.ts'
@@ -75,11 +76,20 @@ async function pageFrom(answer: ApiAnswer | null): Promise<Page | 'signed_out'> 
   return { kind: 'ready', session, steps, review, position: resumeAt(steps, session.session.step) }
 }
 
-function loadToday(): Promise<Page | 'signed_out'> {
-  return callApi('/api/sessions/today', 'POST').then(pageFrom)
+/** An email account deleted or signed out on another device is told so (job 11-accounts, "Done when" 22). */
+type Loaded = Page | 'signed_out' | 'signed_out_email'
+
+function loadToday(): Promise<Loaded> {
+  return callApi('/api/sessions/today', 'POST').then((answer): Loaded | Promise<Loaded> =>
+    emailSignInEnded(answer) ? 'signed_out_email' : pageFrom(answer),
+  )
 }
 
-function show(next: Page | 'signed_out', setPage: (page: Page) => void) {
+function show(next: Loaded, setPage: (page: Page) => void) {
+  if (next === 'signed_out_email') {
+    leaveWith('signed-out-email')
+    return
+  }
   if (next === 'signed_out') {
     window.location.replace('/')
     return
@@ -93,6 +103,11 @@ async function saveStep(sessionId: string, step: SessionStep): Promise<boolean> 
     step.id === 'keep'
       ? await callApi(`/api/sessions/${sessionId}/review/done`, 'POST')
       : await callApi(`/api/sessions/${sessionId}/step`, 'POST', { step: step.id })
+  if (emailSignInEnded(answer)) {
+    // An email account deleted or signed out elsewhere (job 11-accounts, "Done when" 22).
+    leaveWith('signed-out-email')
+    return false
+  }
   return answer?.status === 200
 }
 
@@ -100,7 +115,7 @@ export function SessionPage() {
   const [page, setPage] = useState<Page>({ kind: 'loading' })
   const status = useRef<HTMLParagraphElement>(null)
   // One request per page load, also under React's strict mode.
-  const firstLoad = useRef<Promise<Page | 'signed_out'> | null>(null)
+  const firstLoad = useRef<Promise<Loaded> | null>(null)
 
   useEffect(() => {
     let active = true
@@ -148,6 +163,10 @@ export function SessionPage() {
         frame={{ step: 'Keep it', steps: REVIEW_ONLY_STEPS }}
         onDone={async () => {
           const answer = await callApi(`/api/sessions/${page.sessionId}/review/done`, 'POST')
+          if (emailSignInEnded(answer)) {
+            leaveWith('signed-out-email')
+            return false
+          }
           if (answer?.status !== 200) return false
           setPage({ ...page, finished: true })
           return true

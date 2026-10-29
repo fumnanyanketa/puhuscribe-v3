@@ -6,7 +6,7 @@
 //   and refuse a request whose Origin header names another site
 //   (factory/jobs/8-first-session/spec.md, "Done when" 5).
 
-const API_HEADERS: HeadersInit = {
+export const API_HEADERS: HeadersInit = {
   'cache-control': 'no-store',
   'x-content-type-options': 'nosniff',
 }

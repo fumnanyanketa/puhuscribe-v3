@@ -69,4 +69,21 @@ Branch `factory/12-units-1-3`, draft PR 6. Pushed head `ec3588b`.
 - Chromium browser tests locally (preinstalled Chromium 1243 through a reverted edit to `playwright.config.ts`): 120 passed, 15 skipped, 1 failed (`[units 7] [units 5]` for `grocery-store-directions`, no round 1 review page). WebKit not installable here.
 - GitHub run 40385656790 (Checks, head `50885d5`): type check, Vitest, gitleaks, dependency check and pgTAP pass. Failures are only the known ones: pytest (6 tests of the sixth dialogue, and the 193 count step that follows), and the Playwright `[units 7] [units 5]` review page test for `grocery-store-directions` in both Chromium and WebKit. "Preview link", "Apply database changes" and the after merge browser job were skipped because earlier jobs failed. Review site run 40385656911 started with it.
 
+
+## Round 4: merge of main after job 10, statement 16
+
+What changed:
+- Merged `origin/main` (job 10 speaking feedback) into `factory/12-units-1-3`. Conflicts in `docs/conventions.md` (both label rows kept) and `worker/api.ts` (the `/api/patterns` route and job 10's recording routes both kept). Merge commit 9b603e3.
+- `src/screens/session-steps.ts` already lists Hear it, Understand it, Say it, then Keep it, and `SessionFlow` still wraps every step in the Patterns provider, so the panel entry stays on word cards.
+- `e2e/patterns.spec.ts`: the `finishTodaysSession` helper now goes through Say it (`passSayIt`), because Say it sits before the finish screen now. New test `[units 16]`: a guest does the four dialogues of the three fixture units in order (unit 1 has two), each day after the first ends with Keep it; the panel on the last day lists every met form and none from drafts, retired or unmet forms; a final review only day offers due forms from all three units, each typed answer is graded and logged. Written after the merge, run green in Chromium.
+
+Checks (local, own Supabase id `puhu12r4`, ports 566xx, a separate preview port; config edits reverted):
+- `npm run check:code`: pass. `npx vitest run`: 858 passed, 2 skipped.
+- `npx supabase test db` on a freshly reset database: 8 files, 628 tests, pass.
+- `npx playwright test --project=chromium` with the fake speech provider: 145 passed, 15 skipped, 1 failed (`[units 7] [units 5]` for `grocery-store-directions`, known).
+- `python3 -m pytest`: 187 passed, 6 failed (five for `grocery-store-directions`, plus the unit 3 grammar test that depends on it), and the 193 count step that follows.
+- Local note: the fake speech provider (`SPEECH_FEEDBACK_PROVIDER=fake`) must be in `.env.local`, as CI does, or `passSayIt` hits a strict mode error.
+
+GitHub run 40395147531 (head 9b603e3): type check, Vitest, gitleaks, dependency check and pgTAP pass. Failures: pytest (the 6 sixth dialogue failures and the 193 count step), and Playwright `[units 7] [units 5]` in Chromium and WebKit (289 passed, 2 failed, 31 skipped). "Preview link", "Apply database changes" and the after merge browser job were skipped because earlier jobs failed. Review site run 40395147546 passes.
+
 Result: checks pass (apart from the known sixth dialogue)

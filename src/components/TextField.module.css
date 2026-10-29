@@ -1,0 +1,51 @@
+/* Text field (factory/jobs/11-accounts, "Done when" 27): v2's input style, a
+   white card field with its label above (design/v2-handoff/app-screens/
+   screens-onboarding.jsx, "Input" and "FieldLabel"). Values from
+   src/styles/tokens.css. */
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+/* 16 px text, so iPhone Safari does not zoom in when the field gets focus. */
+.input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--button-height);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-control-edge);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-body);
+}
+
+.input:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+.input::placeholder {
+  color: var(--color-text-quiet);
+}

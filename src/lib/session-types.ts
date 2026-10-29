@@ -67,9 +67,13 @@ export type TodayAnswer = ReadySession | ReviewSession | { state: 'not_ready' } 
  */
 export type FrontDoorState = 'start' | 'continue' | 'all_done' | 'not_ready' | 'review'
 
-/** The answer of GET /api/today. */
+/**
+ * The answer of GET /api/today. When a sign in ended and it was an email
+ * account, `account: 'email'` picks the email message (job 11-accounts,
+ * "Done when" 22); guests get job 8's answer unchanged.
+ */
 export type FrontDoorAnswer =
-  | { signedIn: false; ended: boolean }
+  | { signedIn: false; ended: boolean; account?: 'email' }
   | {
       signedIn: true
       today: FrontDoorState
