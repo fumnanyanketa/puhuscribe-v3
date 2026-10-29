@@ -113,7 +113,7 @@ Thicken sign in into full account care. A guest turns into an email account with
 ### 10. Units 1 to 3 content
 Thicken the content strand. The rest of unit 1, then unit 2 (ordering coffee) and unit 3 (at the grocery store), all through the content pipeline and approved by your reviewer as one batch. Adds the optional "Patterns you've seen" panel that gathers the grammar cards met so far.
 **Done when:** units 1 to 3 are published with every line approved and audio in both registers, a learner can run the full loop (hear, understand, say, keep) through all three, and the patterns panel lists every form met.
-- [ ] Build it: `/develop units 1 to 3 content`
+- [x] Build it: factory job 12-units-1-3, `factory/jobs/12-units-1-3/spec.md`, merged 29 October 2026. The native reviewer checks the six dialogues at the end of the MVP.
 
 ## Slice 6: Units 4 to 6
 

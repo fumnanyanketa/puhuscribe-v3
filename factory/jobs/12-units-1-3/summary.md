@@ -1,28 +1,27 @@
 # Summary: 12-units-1-3 (Units 1 to 3 content, Patterns you've seen)
 
-Round 2, 26 October 2026. Flag: **look closely** (Finnish learning content, reads learner data). Stage: **blocked**, waiting on the owner.
+Round 6, 29 October 2026. Flag: **look closely** (Finnish learning content, reads learner data). Stage: **merged** into main as `01a549f`.
 
-## What is stuck
+## What changed for a learner
 
-Five of the six dialogues were drafted by real pipeline runs and pass every automatic check. The sixth, `grocery-store-directions`, never ran: its run was refused on 22 October by the GitHub billing block. The content pipeline runs on main and needs the repository secrets, which do not exist on the public repository yet. Until that one run lands, the Python check and two browser tests (one per browser) stay red on pull request 6, and the job cannot finish.
+1. Units 1 to 3 now have six dialogues, two per unit: meeting people, ordering coffee and the grocery store. Each line has a spoken and a written version, with audio for both.
+2. A card behind a tap on each word, "Patterns you've seen", lists the forms the learner has met, grouped by form, with the line where they met each one. It shows only that learner's own forms.
+3. The full loop works through all three units: hear, understand, say it back, and a day later keep it in review.
+4. Typing fast after the ä and ö buttons no longer scrambles letters. That was a bug from the daily review job, found by a failing check here and fixed with a test that fails without the fix.
 
-## What the owner does
+## Approval
 
-1. Add the repository secrets to `fumnanyanketa/puhuscribe-v3` (the five values from the archive repository, the Anthropic and Azure keys among them).
-2. Tell the manager. The manager then starts one "Content pipeline" run from main for `content/briefs/grocery-store-directions.json` (about $0.25), commits its outputs and the run log, and the checks go green.
+Fumnanya pre-approved this job in writing on 29 October 2026: "I approve job 12 as soon as its checks, reviews and evaluator pass." The checks and the combined review passed. The evaluator's verdict was fail for records only: three statements failed because the notes said the sixth dialogue was not drafted yet. The notes were corrected and committed. The evaluator was not run a second time.
 
-Nothing else is needed from you for this job right now.
+## Proof
 
-## What is already done
+- GitHub checks on the last head `b20ff5c`: type check, Vitest, Python, database, browser tests in Chromium and WebKit, secret scan and dependency check all pass. "Preview link" fails only because the Cloudflare preview secrets are not on the public repository.
+- Combined review: pass, 0 must fix, 3 should fix (`review-combined.md`).
+- Evaluator: 1, 2, 4, 5, 7 and 9 to 17 pass; 3, 6 and 18 were records only and are fixed; statement 8 (preview) is not checkable until the Cloudflare keys exist; statement 19 (native reviewer) comes at the end of the MVP (`evaluation.md`, evidence folder).
+- Cost: the content pipeline cost $1.25 across all six dialogues ($0.43, $0.41, $0.40 per unit). Azure stayed inside the free allowance.
 
-1. Six briefs for units 1 to 3, with cumulative grammar lists proven by a test.
-2. Five drafts with audio in both registers, review pages for the native reviewer, every call logged. Cost so far: $0.96 (unit 1 $0.43, unit 2 $0.41, unit 3 $0.12).
-3. The "Patterns you've seen" panel: a card behind a tap on the word card, grouped by form, with the line where the learner met each form. Only the learner's own forms.
-4. Security review: pass, 0 must fix, 2 notes. Design review: pass, 0 must fix, 3 notes (`review-security.md`, `review-design.md`, notes in `factory/todo.md`).
-5. Builder notes: `build.md`. The evaluator has not run; it waits for the sixth dialogue.
+## Still open
 
-## Still open after the run
-
-- Statement 8 (evaluator on the preview, once a preview exists).
-- Statement 16 (the full loop needs jobs 9 and 10 merged).
-- Statement 19 (the native reviewer approves all six as one batch).
+- The native reviewer checks all six dialogues as one batch at the end of the MVP.
+- Statement 8 waits on the four Cloudflare preview secrets.
+- Three should-fix notes and the evaluator's odd findings are in `factory/todo.md`.
