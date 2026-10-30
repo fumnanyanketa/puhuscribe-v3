@@ -37,3 +37,10 @@ Flag: look closely. It stores new data about learners (feedback, crash reports, 
 ## Your approval
 
 GA job, so it needs your own written "approved" line with the date before it merges.
+
+Owner approval, given in chat on 30 October 2026 through the approval questions:
+- Job 14: "Approved (Recommended)".
+- Visit totals: "Keep with no limit (Recommended)". The wording "for as long as the service runs" stays.
+- Privacy wording: "Approve the wording (Recommended)".
+
+Result: approved, 30 October 2026.
