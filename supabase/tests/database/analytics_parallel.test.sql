@@ -63,7 +63,7 @@ begin
   perform dblink_exec('analytics_a', 'set local role anon');
   perform dblink_exec('analytics_b', 'begin');
   perform dblink_exec('analytics_b', 'set local role anon');
-  perform dblink_exec('analytics_a', $q$select public.count_visit('QZ')$q$);
+  perform * from dblink('analytics_a', $q$select public.count_visit('QZ')::text$q$) as t(x text);
   perform dblink_send_query('analytics_b', $q$select public.count_visit('QZ')$q$);
   perform pg_sleep(0.5);
   return next is(dblink_is_busy('analytics_b'), 1,
@@ -85,10 +85,10 @@ begin
   v_claims := json_build_object('sub', v_learner, 'role', 'authenticated')::text;
   perform dblink_exec('analytics_a', 'begin');
   perform dblink_exec('analytics_a', 'set local role authenticated');
-  perform dblink_exec('analytics_a', format($q$select set_config('request.jwt.claims', %L, true)$q$, v_claims));
+  perform * from dblink('analytics_a', format($q$select set_config('request.jwt.claims', %L, true)$q$, v_claims)) as t(x text);
   perform dblink_exec('analytics_b', 'begin');
   perform dblink_exec('analytics_b', 'set local role authenticated');
-  perform dblink_exec('analytics_b', format($q$select set_config('request.jwt.claims', %L, true)$q$, v_claims));
+  perform * from dblink('analytics_b', format($q$select set_config('request.jwt.claims', %L, true)$q$, v_claims)) as t(x text);
   perform dblink_exec('analytics_a', $q$insert into public.feedback (screen, message) values ('account', 'fifth, from A')$q$);
   perform dblink_send_query('analytics_b',
     $q$insert into public.feedback (screen, message) values ('account', 'fifth, from B')$q$);
