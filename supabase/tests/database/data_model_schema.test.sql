@@ -20,9 +20,10 @@ select tables_are(
     'cards', 'review_logs', 'sessions', 'consents',
     'source_sentences', 'lemma_ipa',
     'usage_events',
-    'speaking_attempts', 'kept_recordings', 'speech_checks'
+    'speaking_attempts', 'kept_recordings', 'speech_checks',
+    'feedback'
   ],
-  '[data 1] [session 17] [session 21] [speak 16] public holds exactly the content, learner, reference and usage event tables and the two speaking tables, and nothing else (visits dropped in job 8)'
+  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] public holds exactly the content, learner, reference and usage event tables, the speaking tables and feedback, and nothing else (visits dropped in job 8)'
 );
 
 select enums_are(
@@ -220,6 +221,9 @@ select results_eq(
       'consents.kind authenticated INSERT',
       'consents.notice_version authenticated INSERT',
       'consents.user_id authenticated INSERT',
+      'feedback.message authenticated INSERT',
+      'feedback.screen authenticated INSERT',
+      'feedback.user_id authenticated INSERT',
       'kept_recordings.audio authenticated INSERT',
       'kept_recordings.line_id authenticated INSERT',
       'kept_recordings.slot authenticated INSERT',
@@ -255,7 +259,7 @@ select results_eq(
       'usage_events.session_id authenticated INSERT',
       'usage_events.user_id authenticated INSERT'
     ]) as x(g) order by g collate "C"$$,
-  '[data 2] [session 17] [speak 16] the only column-level grants in public are the 58 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables), all to authenticated; anon, service_role and PUBLIC have none'
+  '[data 2] [session 17] [speak 16] [analytics 21] the only column-level grants in public are the 61 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables, 3 on feedback), all to authenticated; anon, service_role and PUBLIC have none'
 );
 
 -- [data 6] The history of withdrawn content approvals is closed to every API role.

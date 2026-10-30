@@ -173,6 +173,14 @@ jobs:
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
       - name: Start a throwaway database and apply every migration
         run: supabase db start
+      - name: Let the parallel database tests open a second connection
+        # supabase/tests/database/analytics_parallel.test.sql (job 14-analytics)
+        # opens more connections to this throwaway database with dblink, to
+        # prove that two requests at the same moment cannot beat a limit. A
+        # second connection needs the database password: this database's fixed
+        # local one, already in LOCAL_DB_URL above, not a secret. Without this
+        # setting (the test project after a merge) those tests are skipped.
+        run: psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -c "alter role postgres set puhuscribe.parallel_test_password = 'postgres'"
       - name: Database security tests (pgTAP)
         run: supabase test db
       - name: Run every reference data load a second time
