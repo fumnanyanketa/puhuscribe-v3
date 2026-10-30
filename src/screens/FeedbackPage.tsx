@@ -71,6 +71,8 @@ export function FeedbackPage() {
   const length = feedbackLength(message.trim())
 
   async function send() {
+    // A second tap or Enter while sending would store the message twice.
+    if (sending) return
     if (length === 0) {
       setStatus({ text: EMPTY, tone: 'gentle' })
       field.current?.focus()
