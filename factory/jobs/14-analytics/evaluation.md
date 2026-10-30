@@ -95,3 +95,41 @@ Two pictures to look at:
 - `evidence/eval-29-privacy-notice-not-linked.png`: the new privacy notice lines on the visit count and crash reports.
 
 Result: fail
+
+## Round 3 re-check
+
+Re-checked 30 October 2026 on head `f85e230`, with fresh context. I read `build.md` only after my own checks.
+
+### What changed in round 3
+
+`git diff 5df704c..f85e230` outside `factory/` touches three files only. `src/screens/FeedbackPage.tsx` gains two lines: a comment and `if (sending) return` at the top of `send()`. `e2e/analytics-journey.spec.ts` gives the speech attempt a known cost and checks the total grows by it. `e2e/analytics-feedback.spec.ts` gains one new test. No other app, Worker, database or test file changed. `f85e230` differs from `0fd1065` only in `factory/` files, so green run 41062289293 on `0fd1065` tests the code as it is now.
+
+### How it was checked
+
+- **The three GitHub runs.** I read each log myself with `gh run view --log` (`eval-r3-ci-runs-read.txt`). I confirmed each run's commit with `gh run view` and each red branch's change with `git diff`.
+- **My own browser check of statement 19.** I ran the real feedback page from the local dev server at 375 x 812 in Chromium and WebKit. Only the `/api` answers were stood in for, with the feedback answer held 2 seconds. Taps were real mouse input at the Send button (`eval-r3-19-double-send-browser.txt`).
+
+### Results
+
+| # | Result | Evidence | What I saw |
+|---|---|---|---|
+| 12 | pass | `eval-r3-ci-runs-read.txt` | The attempt's cost is now set to 0.01234567, read back, and the total must grow by exactly that. Green on `0fd1065`. With the cost sum broken, the journey fails at the cost line (expected more than 0, got 0) after checks 1 to 6 passed. |
+| 19 | pass | `eval-r3-19-double-send-browser.txt`, `eval-r3-19-second-tap-while-sending.png`, `eval-r3-19-sent-once.png`, `eval-r3-19-limit-line-webkit.png`, `eval-r3-ci-runs-read.txt` | A second tap, a second Enter, and three fast taps plus a double click each sent one request in both browsers. Without the fix, the new test failed in both browsers with three identical requests. |
+
+**Statement 12 in detail.** The test can now fail for the right reason. Red run 41062406257 changed only `v_cost := v_cost + v_part` to `v_cost := v_cost + 0 * v_part` in `owner_dashboard()`. The only browser failure was the journey, at line 220, the new `toBeGreaterThan`. pgTAP cost tests 103, 104, 117 and 118 also went red, as they should. The exact `toBeCloseTo(before + cost, 8)` line also catches a partial break, such as one cost table being left out. The count check (one speaking attempt) is kept, just moved above the update.
+
+**Statement 19 in detail.** Red run 41062162179 ran the round 3 tests on `f422e45`, before the fix. Only the new test failed, in Chromium and WebKit, at `expect(posts)`, with the same body posted three times. In green run 41062289293 it passed in both browsers. The guard also does not block a proper retry. In my checks, after a failed send (500), the message stayed in the box and a new tap sent it. After the 5 a day answer (429), the gentle line showed and a later tap sent again. An empty message still sent nothing and showed "Please write your message first." No console errors.
+
+### Earlier statements
+
+No earlier statement is weakened. The journey test's assertions only grew stricter; nothing was removed. The feedback spec only gained a test. The one app line returns early only while a send is in progress. The green run has 388 browser tests passed (386 in round 2, plus the new test in two browsers), the same 31 skipped, no failure and no flaky test. pgTAP 903 passed on both loads, and Vitest 1,052 passed with 6 skipped. Every other analytics browser test passed in both browsers. Statements 1 to 11, 13 to 18 and 20 to 32 stay pass as in round 2. Statement 33 still waits for go live (owner's call 2). That is not a failure.
+
+### Odd but not failures (round 3)
+
+- **The guard reads React state.** `if (sending) return` relies on React showing the busy state before the next tap arrives. React does that between two separate taps or key presses, and my fast taps (no wait) sent one request. Only two submits fired by a script in the same instant could pass it. A learner cannot do that.
+- **The journey sets the cost by hand.** The fake speech provider always records 0, so the test writes a known cost on the attempt the speech check created. This proves the owner page counts a recorded cost. It cannot prove the fake provider records a cost, because the fake provider's cost is 0 on purpose.
+- **Old scratch branches remain on GitHub.** Both round 3 scratch branches are gone. Four earlier 14-analytics scratch branches (`scratch/14-analytics-r2-red-omit` and three `scratch/14-analytics-red-9-*`) are still there. This is tidying only.
+
+Both must fixes are fixed, and each new test was shown red without its fix.
+
+Result: pass
