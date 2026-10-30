@@ -7,6 +7,7 @@ import {
   parseStack,
   withoutValues,
 } from './crash-clean.ts'
+import { OWNER_HOST_ATTRIBUTE, OWNER_HOST_MARK } from './owner-host.ts'
 
 // The browser's crash reports (factory/jobs/14-analytics/spec.md, "Done when"
 // 24 and 25). Errors are caught by listeners for "error" and
@@ -15,7 +16,9 @@ import {
 // a cleaned message, the app's own stack frames and the page path with ids
 // replaced. Anything the learner typed into a field on the page is removed
 // from the message. At most 5 reports per page load, each distinct error once,
-// sent to /api/crash without cookies. The Worker cleans everything again.
+// sent to /api/crash without cookies, except on the owner host, where
+// Cloudflare Access needs its own cookie (src/lib/owner-host.ts). The Worker
+// cleans everything again.
 
 export const MAX_REPORTS_PER_LOAD = 5
 
@@ -41,12 +44,21 @@ function supportsKeepalive(): boolean {
   }
 }
 
+/** True only on a page the owner host served (worker/owner.ts marks it). */
+function onOwnerHost(): boolean {
+  if (typeof document === 'undefined') return false
+  return document.documentElement.getAttribute(OWNER_HOST_ATTRIBUTE) === OWNER_HOST_MARK
+}
+
 function send(body: string): void {
   const init: RequestInit = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body,
-    credentials: 'omit',
+    // The app host sends no cookies at all. The owner host must send Cloudflare
+    // Access's cookie, or Access stops the report before it reaches the Worker;
+    // the Worker still never reads a cookie on /api/crash.
+    credentials: onOwnerHost() ? 'same-origin' : 'omit',
   }
   // keepalive lets a report finish when the page is closing. Older browsers
   // without it send a plain request.

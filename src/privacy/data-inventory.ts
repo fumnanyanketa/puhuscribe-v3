@@ -10,9 +10,13 @@
 //
 // Every sentence here comes from the "Privacy notice facts" table of the spec.
 
-/** How long everything is kept, for every item below. */
+/**
+ * How long everything is kept. Data linked to an account goes with it; the
+ * visit count and crash reports are not linked to any account (job
+ * 14-analytics, round 2), so account deletion leaves them.
+ */
 export const HOW_LONG =
-  'Until you delete your account, except where an item below says it goes sooner. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything at once.'
+  'Data linked to your account is kept until you delete your account, unless its entry above says it goes sooner. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything linked to it at once. The visit count and crash reports are not linked to any account, so deleting your account does not change them. Crash reports are deleted after 30 days. The visit count is kept as daily totals with no personal data for as long as the service runs.'
 
 /** The retention of items that last as long as the account does. */
 export const WHILE_ACCOUNT =
@@ -59,8 +63,8 @@ export const ACCOUNT_ITEMS: readonly InventoryItem[] = [
   },
 ]
 
-/** Every user table, in the order the download lists them. */
-export const USER_TABLES: readonly TableItem[] = [
+/** The learner's own tables: learning and what the learner sends us. */
+export const LEARNER_TABLES: readonly TableItem[] = [
   {
     table: 'sessions',
     name: 'Sessions',
@@ -133,15 +137,26 @@ export const USER_TABLES: readonly TableItem[] = [
     legal: SERVICE_REASON,
     keep: 'Stored with your account and deleted with it, including when an unused account is deleted automatically.',
   },
+]
+
+/**
+ * Tables that hold a row only for the app's owner. The download lists them for
+ * every account (empty for a learner); the notice shows them under their own
+ * lead in, since no learner asked for them.
+ */
+export const OWNER_TABLES: readonly TableItem[] = [
   {
     table: 'private.owners',
     name: 'Owner page access',
-    what: "Only for the app's owner: that the account may open the private owner page, and since when. Empty for every learner.",
+    what: 'That the account may open the private owner page, and since when. Empty for every learner.',
     why: "So that only the owner can open the page with the app's overall numbers.",
-    legal: SERVICE_REASON,
-    keep: WHILE_ACCOUNT,
+    legal: 'Our legitimate interest in keeping the owner page private (GDPR Article 6(1)(f)).',
+    keep: 'Until the account is taken off the owner list or deleted.',
   },
 ]
+
+/** Every user table, in the order the download lists them. */
+export const USER_TABLES: readonly TableItem[] = [...LEARNER_TABLES, ...OWNER_TABLES]
 
 /**
  * What PuhuScribe keeps that is not linked to any account
@@ -150,18 +165,26 @@ export const USER_TABLES: readonly TableItem[] = [
 export const NOT_LINKED_ITEMS: readonly InventoryItem[] = [
   {
     name: 'Visit count',
-    what: 'When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address, which we do not keep. We store no cookie, identifier or browser details for this.',
+    // Cloudflare delivers the page, so it handles the address; only
+    // PuhuScribe's own database can be said not to keep it (worker/visits.ts
+    // passes on the country alone).
+    what: "When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address. Cloudflare, which runs the app, sees that address because it delivers the page to you. PuhuScribe's database does not keep it. We store no cookie, identifier or browser details for this.",
     why: 'To know how many people use the app and from where.',
     legal:
       'Our legitimate interest in knowing how many people use the app and from where (GDPR Article 6(1)(f)).',
-    keep: 'Kept as daily totals.',
+    // No deletion is set for the tallies (supabase/migrations/20261030101645_analytics.sql).
+    keep: 'Kept as daily totals with no personal data for as long as the service runs, whether or not you delete your account.',
   },
   {
     name: 'Crash reports',
-    what: 'When the app breaks, it records the error, the file and line, the screen, the app version and a short browser label such as "Safari 17, iOS". Not linked to your account, and nothing you typed or said is included.',
+    // Exactly what the cleaning does: src/lib/crash-reporter.ts removes what is
+    // typed into a field on the page; src/lib/crash-clean.ts (in the browser
+    // and again in worker/crash.ts) removes the shapes listed and replaces ids
+    // in the path.
+    what: 'When the app breaks, it records the error, the file and line, the screen, the app version and a short browser label such as "Safari 17, iOS". A report is not linked to your account. Before your browser sends a report, it removes from the error message any text typed into a box on the screen. Before a report is saved, we also remove anything shaped like an email address, an id, a sign in token or a long number, and replace ids in the screen address.',
     why: 'To find and fix what broke.',
     legal: 'Our legitimate interest in keeping the app working (GDPR Article 6(1)(f)).',
-    keep: 'Deleted after 30 days.',
+    keep: 'Deleted after 30 days, whether or not you delete your account.',
   },
 ]
 

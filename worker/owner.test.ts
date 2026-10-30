@@ -1,6 +1,7 @@
 import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT, type CryptoKey, type JWK } from 'jose'
 import { beforeAll, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { accessKeys } from '../review-site/handler.ts'
+import { OWNER_HOST_ATTRIBUTE, OWNER_HOST_MARK } from '../src/lib/owner-host.ts'
 import { handleApi } from './api.ts'
 import { handleRequest, type WorkerEnv } from './index.ts'
 import { ACCESS_REFUSED, ownerHostname, ownerKeySource, type OwnerDeps } from './owner.ts'
@@ -24,7 +25,11 @@ const OWNER_HOST = 'owner.puhuscribe.example'
 const OWNER = `https://${OWNER_HOST}`
 const TEAM = 'https://made-up-team.cloudflareaccess.com'
 const AUD = 'b'.repeat(64)
-const PAGE_HTML = '<!doctype html><title>PuhuScribe</title><div id="root"></div>'
+const PAGE_HTML =
+  '<!doctype html>\n<html lang="en">\n  <head><title>PuhuScribe</title></head>\n  <body><div id="root"></div></body>\n</html>\n'
+// The same page as the owner host serves it: marked, so the crash reporter
+// sends Cloudflare Access's cookie (src/lib/crash-reporter.ts).
+const MARKED_HTML = PAGE_HTML.replace('<html lang="en">', '<html data-puhuscribe-host="owner" lang="en">')
 
 let privateKey: CryptoKey
 let otherKey: CryptoKey
@@ -133,8 +138,48 @@ describe('the owner host answers only its own routes', () => {
     for (const path of ['/owner', '/sign-in']) {
       const res = await handleRequest(await ownerRequest(path), env, deps)
       expect(res.status, path).toBe(200)
-      expect(await res.text()).toBe(PAGE_HTML)
+      expect(await res.text()).toBe(MARKED_HTML)
     }
+  })
+
+  // Round 2 (security note 1): the page needs to know it is on the owner host,
+  // so its crash reports carry the Access cookie there and nowhere else.
+  it('[analytics 27] marks the owner host page as the owner host, with no stale length or ETag', async () => {
+    assetsFetch.mockImplementation(() =>
+      Promise.resolve(
+        new Response(PAGE_HTML, {
+          status: 200,
+          headers: {
+            'content-type': 'text/html; charset=utf-8',
+            'content-length': String(new TextEncoder().encode(PAGE_HTML).length),
+            etag: '"abc"',
+          },
+        }),
+      ),
+    )
+    for (const path of ['/owner', '/sign-in']) {
+      const res = await handleRequest(await ownerRequest(path), env, deps)
+      expect(res.status, path).toBe(200)
+      const body = await res.text()
+      expect(body, path).toContain(`<html ${OWNER_HOST_ATTRIBUTE}="${OWNER_HOST_MARK}" lang="en">`)
+      expect(res.headers.get('content-length'), path).toBeNull()
+      expect(res.headers.get('etag'), path).toBeNull()
+      expect(res.headers.get('content-type'), path).toBe('text/html; charset=utf-8')
+      expectPrivate(res)
+    }
+  })
+
+  it('[analytics 27] leaves an answer that is not a page untouched', async () => {
+    assetsFetch.mockImplementation(() => Promise.resolve(new Response(null, { status: 304 })))
+    const res = await handleRequest(await ownerRequest('/owner'), env, deps)
+    expect(res.status).toBe(304)
+    expect(await res.text()).toBe('')
+  })
+
+  it('[analytics 4] [analytics 27] the app host serves /owner byte for byte, without the owner host mark', async () => {
+    const res = await handleRequest(new Request(`${ORIGIN}/owner`), env, deps)
+    expect(res.status).toBe(200)
+    expect(await res.text()).toBe(PAGE_HTML)
   })
 
   it('[analytics 13] sends every other page route to /owner', async () => {

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { OWNER_HOST_ATTRIBUTE, OWNER_HOST_MARK } from './owner-host.ts'
 
 // Labels [analytics N] are the "Done when" statement numbers from
 // factory/jobs/14-analytics/spec.md that each test protects.
@@ -12,7 +13,12 @@ interface Sent {
 let sent: Sent[] = []
 let listeners: Record<string, (event: unknown) => void> = {}
 
-async function freshReporter(keepalive: boolean) {
+/**
+ * A reporter with fresh state. `hostMark` is what the page's <html> element
+ * holds in its owner host attribute: worker/owner.ts sets "owner" on every page
+ * the owner host serves, and the app host never sets it (null).
+ */
+async function freshReporter(keepalive: boolean, hostMark: string | null = null) {
   vi.resetModules()
   sent = []
   listeners = {}
@@ -24,6 +30,9 @@ async function freshReporter(keepalive: boolean) {
   })
   vi.stubGlobal('document', {
     querySelectorAll: () => [{ value: 'kahvilassa', type: 'text' }],
+    documentElement: {
+      getAttribute: (name: string) => (name === OWNER_HOST_ATTRIBUTE ? hostMark : null),
+    },
   })
   vi.stubGlobal('HTMLInputElement', vi.fn())
   vi.stubGlobal(
@@ -72,6 +81,27 @@ describe('the browser crash reporter', () => {
       frames: [{ file: '/assets/index-AbC.js', line: 1, column: 10, fn: 'onClick' }],
       path: '/api/sessions/:id/step',
     })
+  })
+
+  // Round 2 (security note 1). On the live owner host Cloudflare Access lets a
+  // request through only with its own cookie, so a report sent without cookies
+  // would be stopped there. The owner host sends same origin cookies; the app
+  // host never sends any.
+  it('[analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies so Cloudflare Access lets it through', async () => {
+    const { reportError } = await freshReporter(true, OWNER_HOST_MARK)
+    reportError(errorWith('A test error from the owner page.', 4))
+    expect(sent).toHaveLength(1)
+    expect(sent[0]?.url).toBe('/api/crash')
+    expect(sent[0]?.init.credentials).toBe('same-origin')
+  })
+
+  it('[analytics 25] [analytics 30] on the app host, or with any other mark, sends no cookies', async () => {
+    for (const mark of [null, '', 'app', 'OWNER', 'owner ']) {
+      const { reportError } = await freshReporter(true, mark)
+      reportError(errorWith('x', 2))
+      expect(sent, String(mark)).toHaveLength(1)
+      expect(sent[0]?.init.credentials, String(mark)).toBe('omit')
+    }
   })
 
   it('[analytics 24] falls back to a plain fetch where keepalive is missing', async () => {

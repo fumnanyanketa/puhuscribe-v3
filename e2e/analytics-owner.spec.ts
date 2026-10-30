@@ -181,6 +181,41 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     await context.close()
   })
 
+  // Round 2 (security note 1). Live, Cloudflare Access stops every owner host
+  // request that does not carry its CF_Authorization cookie, /api/crash
+  // included. The other tests here add the Access token header to every
+  // request, so they would pass even if the crash report left the cookie out.
+  // This one checks the cookie itself goes with the report.
+  test('[analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs', async ({
+    browser,
+    baseURL,
+  }, testInfo) => {
+    const context = await ownerBrowser(browser, testInfo, baseURL)
+    const page = await context.newPage()
+    await page.goto('/owner')
+    await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
+    await expect(page.locator('html')).toHaveAttribute('data-puhuscribe-host', 'owner')
+    // What Access sets in the browser after its login. Locally the Worker
+    // still checks the token header; this cookie only shows what is sent.
+    await page.evaluate(
+      `document.cookie = 'CF_Authorization=made-up-access-cookie; path=/; secure; samesite=lax'`,
+    )
+    const name = `OwnerHostCookieCheck${testInfo.project.name === 'webkit' ? 'Webkit' : 'Chromium'}`
+    const request = page.waitForRequest((req) => req.url().endsWith('/api/crash'))
+    const response = page.waitForResponse((res) => res.url().endsWith('/api/crash'))
+    await page.evaluate((errorName) => {
+      const error = new Error('An owner host cookie check.')
+      error.name = errorName
+      setTimeout(() => {
+        throw error
+      }, 0)
+    }, name)
+    const headers = await (await request).allHeaders()
+    expect(headers.cookie ?? '').toContain('CF_Authorization=made-up-access-cookie')
+    expect((await response).status()).toBe(204)
+    await context.close()
+  })
+
   test('[analytics 27] an error thrown on the learner front door shows up on the owner page', async ({
     browser,
     baseURL,

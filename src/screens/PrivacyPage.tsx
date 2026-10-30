@@ -2,8 +2,9 @@ import { Wordmark } from '../components/Wordmark.tsx'
 import {
   ACCOUNT_ITEMS,
   HOW_LONG,
+  LEARNER_TABLES,
   NOT_LINKED_ITEMS,
-  USER_TABLES,
+  OWNER_TABLES,
   type InventoryItem,
 } from '../privacy/data-inventory.ts'
 import { NOTICE_UPDATED, RESPONSIBLE, type Responsible } from '../privacy/notice-settings.ts'
@@ -22,11 +23,15 @@ export const COMPLAINT_URL = 'https://tietosuoja.fi/en/notification-to-the-data-
 export const RIGHTS = [
   'See your data and download it as one file ("Download my data" on your account page).',
   'Have your data corrected.',
-  'Have your data deleted ("Delete my account" on your account page deletes everything at once).',
+  'Have your data deleted ("Delete my account" on your account page deletes everything linked to your account at once).',
   'Restrict how your data is used.',
   'Object to how your data is used.',
   'Withdraw a consent you gave, at any time.',
 ]
+
+/** What a request about the visit count or crash reports gets (job 14-analytics, round 2). */
+export const NOT_LINKED_RIGHTS =
+  'The visit count and crash reports cannot be linked to you. If you ask to see or delete your part of them, we cannot find it, and we will tell you so. Crash reports are deleted after 30 days in any case.'
 
 export const SECTION_HEADINGS = [
   'Who is responsible',
@@ -104,9 +109,15 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               <Item key={item.name} item={item} />
             ))}
           </ul>
-          <p className={styles.text}>Your learning progress:</p>
+          <p className={styles.text}>Your learning and what you send us:</p>
           <ul className={styles.cards} data-inventory="tables">
-            {USER_TABLES.map((item) => (
+            {LEARNER_TABLES.map((item) => (
+              <Item key={item.table} item={item} />
+            ))}
+          </ul>
+          <p className={styles.text}>Only for the app&apos;s owner:</p>
+          <ul className={styles.cards} data-inventory="owner">
+            {OWNER_TABLES.map((item) => (
               <Item key={item.table} item={item} />
             ))}
           </ul>
@@ -164,6 +175,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               </li>
             ))}
           </ul>
+          <p className={styles.text}>{NOT_LINKED_RIGHTS}</p>
           <p className={styles.text}>
             For anything you cannot do in the app, write to the contact address above. Requests are answered
             within one month.

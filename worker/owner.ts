@@ -1,5 +1,6 @@
 import { createLocalJWKSet, type JSONWebKeySet, type JWTVerifyGetKey } from 'jose'
 import { accessKeys, hasValidAccessToken, type KeySource } from '../review-site/handler.ts'
+import { OWNER_HOST_ATTRIBUTE, OWNER_HOST_MARK } from '../src/lib/owner-host.ts'
 import { handleApi, type ApiDeps, type ApiEnv } from './api.ts'
 import { json, readBody, refuseNonGet, withCookies } from './http.ts'
 import {
@@ -30,7 +31,9 @@ import { isPageRoute } from './page-routes.ts'
 // On the owner host only /owner, /sign-in and a few /api routes are
 // answered; other pages go to /owner and other /api routes get 404. Every
 // answer is kept out of search engines, caches and frames, and sends no
-// Referer. Visits to this host are never counted.
+// Referer. Visits to this host are never counted. Its pages are marked as the
+// owner host's (src/lib/owner-host.ts), so their crash reports carry the
+// Access cookie that lets them through.
 
 export interface OwnerEnv {
   OWNER_HOSTNAME?: string
@@ -112,6 +115,29 @@ export function privately(response: Response, csp: string): Response {
   headers.set('Content-Security-Policy', csp)
   headers.delete('Access-Control-Allow-Origin')
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
+}
+
+const HTML_TAG = /<html(?=[\s>])/i
+
+/**
+ * The built page with its <html> element marked as served by the owner host
+ * (src/lib/owner-host.ts), so the page's crash reports carry Cloudflare
+ * Access's cookie. Only a 200 HTML answer is changed; the app host never
+ * calls this, so its pages stay byte for byte ("Done when" 4).
+ */
+async function markedAsOwnerHost(page: Response): Promise<Response> {
+  const type = page.headers.get('content-type') ?? ''
+  if (page.status !== 200 || !type.toLowerCase().startsWith('text/html')) return page
+  const html = await page.text()
+  const headers = new Headers(page.headers)
+  // The body changes, so its length and ETag no longer describe it.
+  headers.delete('content-length')
+  headers.delete('etag')
+  return new Response(html.replace(HTML_TAG, `<html ${OWNER_HOST_ATTRIBUTE}="${OWNER_HOST_MARK}"`), {
+    status: page.status,
+    statusText: page.statusText,
+    headers,
+  })
 }
 
 export const ACCESS_REFUSED = 'This page is private. Sign in through its Cloudflare Access page to open it.'
@@ -202,7 +228,7 @@ export async function handleOwnerRequest(
     return privately(json({ error: 'not_found' }, 404), OWNER_API_CSP)
   }
   if (pathname === '/owner' || pathname === '/sign-in') {
-    return privately(await assets(env).fetch(request), OWNER_PAGE_CSP)
+    return privately(await markedAsOwnerHost(await assets(env).fetch(request)), OWNER_PAGE_CSP)
   }
   await readBody(request)
   if (isPageRoute(pathname)) {

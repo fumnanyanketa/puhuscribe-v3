@@ -225,4 +225,25 @@ test.describe('a crash on a screen with a typed answer', { tag: '@seed' }, () =>
     expect(stored).toContain('Could not grade \\"[typed]\\" on this screen')
     expect(stored).toContain('"path": "/session"')
   })
+
+  // Round 2 (security note 1): only the owner host sends cookies with a crash
+  // report. On the app host a signed in learner's report goes without them.
+  test('[analytics 25] [analytics 30] on the app host, a signed in learner sends a crash report with no cookie', async ({
+    page,
+  }, testInfo) => {
+    await startGuest(page)
+    expect((await page.context().cookies()).length).toBeGreaterThan(0)
+    await expect(page.locator('html')).not.toHaveAttribute('data-puhuscribe-host')
+    const name = `AppHostCookieCheck${testInfo.project.name === 'webkit' ? 'Webkit' : 'Chromium'}`
+    const request = page.waitForRequest((req) => req.url().endsWith('/api/crash'))
+    const response = page.waitForResponse((res) => res.url().endsWith('/api/crash'))
+    await page.evaluate(`(() => {
+      const error = new Error('An app host cookie check.')
+      error.name = ${JSON.stringify(name)}
+      setTimeout(() => { throw error }, 0)
+    })()`)
+    const headers = await (await request).allHeaders()
+    expect(headers.cookie).toBeUndefined()
+    expect((await response).status()).toBe(204)
+  })
 })

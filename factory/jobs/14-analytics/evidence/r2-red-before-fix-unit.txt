@@ -1,0 +1,23 @@
+     × [analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies so Cloudflare Access lets it through 17ms
+     × [analytics 29] says what the visit count keeps, why, the legal reason and how long 57ms
+     × [analytics 29] says the internet address is not kept by PuhuScribe, without claiming nobody sees it 4ms
+     × [analytics 29] says what a crash report holds, that it is not linked to the account, and 30 days 21ms
+     × [analytics 29] [analytics 25] says what is removed from a crash report, and claims no more 1ms
+     × [analytics 29] "How long we keep it" says account deletion leaves the visit count and crash reports, and how long each is kept 3ms
+     × [analytics 29] the rights say deletion covers what is linked to the account, and what happens with a request about visits or crashes 1ms
+     × [analytics 29] [analytics 16] shows "Owner page access" under its own lead in, with legitimate interest as its legal reason 2ms
+     × [analytics 13] serves /owner and /sign-in from the built page 58ms
+     × [analytics 27] marks the owner host page as the owner host, with no stale length or ETag 11ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] serves /owner and /sign-in from the built page
+ FAIL  worker/owner.test.ts > the owner host answers only its own routes > [analytics 27] marks the owner host page as the owner host, with no stale length or ETag
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says what the visit count keeps, why, the legal reason and how long
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says the internet address is not kept by PuhuScribe, without claiming nobody sees it
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says what a crash report holds, that it is not linked to the account, and 30 days
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] [analytics 25] says what is removed from a crash report, and claims no more
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] "How long we keep it" says account deletion leaves the visit count and crash reports, and how long each is kept
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] the rights say deletion covers what is linked to the account, and what happens with a request about visits or crashes
+ FAIL  src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] [analytics 16] shows "Owner page access" under its own lead in, with legitimate interest as its legal reason
+ FAIL  src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies so Cloudflare Access lets it through
+ Test Files  3 failed (3)
+      Tests  10 failed | 42 passed (52)
