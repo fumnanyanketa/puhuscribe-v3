@@ -81,3 +81,8 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - (12-units-1-3 evaluator, 29 Oct) Brief `ordering-coffee-paying.json` says tea and a bun, but the dialogue has coffee only. Its extra word list has 14 words and only "neljä" is used. The statement 16 test checks the panel at the start of day 4, not after the final review only day. Statement 7 is proven in Chromium and WebKit only.
 - (manager, 29 Oct) The four Cloudflare preview secrets (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CF_ACCESS_CLIENT_ID, CF_ACCESS_CLIENT_SECRET) are not on the public repo, so every "Preview link" check is red and statement 8 of job 12 is not checkable. The script `copy-cloudflare-to-github.ps1` is in the manager's scratchpad.
 - (manager, 29 Oct) Rotate the Anthropic and Azure keys: both showed in the owner's terminal and the manager read them. Use `Read-Host -AsSecureString` for any key prompt from now on.
+
+## From the review site move (30 October 2026)
+- GO LIVE BLOCKER: the Cloudflare Access app "puhuscribe" still lists the old destination puhuscribe.exentrik.co next to puhuscribe-review.exentrik.co. Remove it before the live app takes puhuscribe.exentrik.co, or the public app would sit behind the review login. Needs a Cloudflare dashboard sign in (Chrome was signed out). (13-review-site, manager)
+- Add the Finnish reviewer's email to the Access Allow policy "Owner and reviewer" when the owner gives it. (13-review-site, manager)
+- The Access service token and the review deploy API token expire on 30 October 2027. (13-review-site, manager)
