@@ -22,7 +22,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(195);
+select plan(196);
 
 -- A clean slate inside this transaction -----------------------------------------------
 
@@ -127,6 +127,8 @@ select results_eq($$ select country, visits from private.visit_tallies $$, $$ va
   '[analytics 6] the refused calls wrote nothing');
 
 set local role anon;
+select lives_ok($$ select public.count_visit('T1') $$,
+  '[analytics 2] [analytics 6] T1, Cloudflare''s code for the Tor network, is stored as T1');
 select throws_ok($$ select * from private.visit_tallies $$, '42501', null, '[analytics 6] anon cannot read the tallies');
 reset role;
 select set_config('request.jwt.claims',

@@ -24,7 +24,8 @@ create extension if not exists pg_cron with schema pg_catalog;
 
 create table private.visit_tallies (
   day date not null,
-  country text not null check (country ~ '^[A-Z]{2}$'),
+  -- Two capital letters, or T1, Cloudflare's code for the Tor network.
+  country text not null check (country ~ '^([A-Z]{2}|T1)$'),
   visits bigint not null default 0 check (visits >= 0),
   primary key (day, country)
 );
@@ -45,8 +46,8 @@ security definer
 set search_path = ''
 as $$
 begin
-  if p_country is null or p_country !~ '^[A-Z]{2}$' then
-    raise exception 'a country is two capital letters' using errcode = '22023';
+  if p_country is null or p_country !~ '^([A-Z]{2}|T1)$' then
+    raise exception 'a country is two capital letters (or T1, the Tor network)' using errcode = '22023';
   end if;
   insert into private.visit_tallies as t (day, country, visits)
   values ((now() at time zone 'Europe/Helsinki')::date, p_country, 1)
@@ -55,7 +56,7 @@ end;
 $$;
 
 comment on function public.count_visit(text) is
-  'Job 14-analytics: adds one visit for a two letter country on today''s Helsinki day. Called by the Worker as anon.';
+  'Job 14-analytics: adds one visit for a two letter country (or T1, the Tor network) on today''s Helsinki day. Called by the Worker as anon.';
 
 revoke all on function public.count_visit(text) from public, anon, authenticated, service_role;
 grant execute on function public.count_visit(text) to anon;
