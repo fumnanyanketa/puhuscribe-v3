@@ -86,3 +86,14 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - Done 30 October 2026: the old destination puhuscribe.exentrik.co was removed from the Cloudflare Access app, so the learner app can take that address at go live. (13-review-site, manager)
 - Add the Finnish reviewer's email to the Access Allow policy "Owner and reviewer" when the owner gives it. (13-review-site, manager)
 - The Access service token and the review deploy API token expire on 30 October 2027. (13-review-site, manager)
+
+## From job 14-analytics review (30 October 2026)
+- (14-analytics design review) The crash screen has only Reload, with no "Back to the start", and focus is lost when it appears. Add the link and move focus to the status line.
+- (14-analytics design review) An account that is not the owner sees "This account cannot open the owner page." with no Sign out, so the person cannot try another email. Add a Sign out button.
+- (14-analytics design review) After feedback is sent, focus is lost and the "Thank you" line may not be announced by screen readers. Focus the status line.
+- (14-analytics design review) Owner page sentences: the day 7 return explanation is hard to read, the cost goal does not say "per learner", and empty states read "0 of 0 learners" and "none per active learner". Also "1 minutes" when the median is 1.
+- (14-analytics design review) The no account feedback page links "Go to the front door"; the rest of the app says "Back to the start".
+- (14-analytics design review notes) Some list keys could collide; scrolling table boxes are not keyboard focusable; a pasted message over 1,000 characters is cut silently; the owner host sign in screen uses learner wording.
+- (14-analytics security note) Anyone with the Supabase address and publishable key could call `count_visit` directly and inflate visits for any country. Accepted by the spec; capped at 677 rows a day, nothing personal.
+- (14-analytics security note) Worker crash messages remove emails, ids and tokens but nothing checks for learner typed text. No Worker code puts learner text into an error today; add a test if that ever changes.
+- (14-analytics security note) The owner could use a separate account for the owner page, so the owner page token never sits in the app host cookie.
