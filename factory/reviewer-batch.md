@@ -13,7 +13,7 @@
 
 ## How the pages reach the reviewer
 
-- Today only the first dialogue is listed in `review-site/dialogues.json`. The private review site at puhuscribe.exentrik.co is built but not deployed, because the Cloudflare setup in the Exentrik account is not done.
+- Today only the first dialogue is listed in `review-site/dialogues.json`. The private review site at puhuscribe-review.exentrik.co is built but not deployed, because the Cloudflare setup in the Exentrik account is not done.
 - Until then the pages can be sent as files. Nothing is published until a reviewer approval is back, a new round is made if lines change, and the publish step runs.
 
 ## Also waiting for the reviewer

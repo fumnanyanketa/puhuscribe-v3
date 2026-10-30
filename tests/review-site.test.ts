@@ -109,7 +109,7 @@ describe('the review Worker', () => {
   it('[site 9] has no workers.dev or preview address, one custom domain route, and nothing else bound', () => {
     expect(config.workers_dev).toBe(false)
     expect(config.preview_urls).toBe(false)
-    expect(config.routes).toEqual([{ pattern: 'puhuscribe.exentrik.co', custom_domain: true }])
+    expect(config.routes).toEqual([{ pattern: 'puhuscribe-review.exentrik.co', custom_domain: true }])
     expect(Object.keys(config).sort()).toEqual(
       [
         '$schema',
@@ -319,7 +319,7 @@ describe('the review site workflow', () => {
   it('[site 14] [site 19] the live tests run only the @review-site tests, and only clean files are uploaded', () => {
     const all = steps(job('deploy'))
     const live = all.find((s) => s.includes('id: live')) ?? ''
-    expect(live).toContain('REVIEW_SITE_URL: https://puhuscribe.exentrik.co')
+    expect(live).toContain('REVIEW_SITE_URL: https://puhuscribe-review.exentrik.co')
     expect(live).toContain('CF_ACCESS_CLIENT_ID: ${{ secrets.REVIEW_CF_ACCESS_CLIENT_ID }}')
     expect(live).toContain('CF_ACCESS_CLIENT_SECRET: ${{ secrets.REVIEW_CF_ACCESS_CLIENT_SECRET }}')
     expect(live).toContain('REVIEW_WORKERS_SUBDOMAIN: ${{ vars.REVIEW_WORKERS_SUBDOMAIN }}')
@@ -398,7 +398,7 @@ describe('settings without emails', () => {
 describe('written down', () => {
   it('[site 20] docs/content-pipeline.md steps 5 and 6 send the reviewer the site link', () => {
     const docs = read('docs/content-pipeline.md')
-    expect(docs).toContain('https://puhuscribe.exentrik.co/<dialogue-slug>/round-<n>')
+    expect(docs).toContain('https://puhuscribe-review.exentrik.co/<dialogue-slug>/round-<n>')
     expect(docs).toMatch(/\n5\. .*review-site\/dialogues\.json/)
     expect(docs).toMatch(/\n6\. .*content\/reviews\/<dialogue-slug>\/round-<n>\.json/)
   })

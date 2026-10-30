@@ -1,6 +1,6 @@
 # The private review site for the native reviewer (job 13-review-site, "Done
 # when" 10, 11, 14 to 17 and 19): the puhuscribe-review Worker at
-# puhuscribe.exentrik.co, behind Cloudflare Access, in the Exentrik Cloudflare
+# puhuscribe-review.exentrik.co, behind Cloudflare Access, in the Exentrik Cloudflare
 # account (the manager's addendum to the spec, DNS case C1).
 #
 # - Pull requests that touch the site: build it, run its tests and a deploy dry
@@ -152,8 +152,8 @@ jobs:
         id: live
         if: steps.deploy.outputs.deployed == 'true'
         env:
-          REVIEW_SITE_URL: https://puhuscribe.exentrik.co
-          PLAYWRIGHT_BASE_URL: https://puhuscribe.exentrik.co
+          REVIEW_SITE_URL: https://puhuscribe-review.exentrik.co
+          PLAYWRIGHT_BASE_URL: https://puhuscribe-review.exentrik.co
           REVIEW_WORKERS_SUBDOMAIN: ${{ vars.REVIEW_WORKERS_SUBDOMAIN }}
           # No trace or HTML report: the repository's artifacts are public.
           PUHUSCRIBE_NO_TRACE: '1'
