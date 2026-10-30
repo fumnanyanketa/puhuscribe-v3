@@ -18,9 +18,29 @@
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
+    "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"],
+    // Every /api/* route, and the app's page routes so the Worker can count an
+    // arrival (factory/jobs/14-analytics/spec.md, "Done when" 3). Exactly the
+    // list in worker/page-routes.ts (tests/analytics-rules.test.ts). Files are
+    // never listed: they are served without running the Worker.
+    "run_worker_first": [
+      "/api/*",
+      "/",
+      "/session",
+      "/voice",
+      "/account",
+      "/account/*",
+      "/sign-in",
+      "/privacy",
+      "/feedback",
+      "/owner",
+    ],
   },
+  // The owner page (job 14-analytics) needs OWNER_HOSTNAME,
+  // OWNER_ACCESS_TEAM_DOMAIN and OWNER_ACCESS_AUD. They are set on the
+  // production Worker at go live, never here: without them no hostname is
+  // treated as the owner page's.
   "observability": {
     "enabled": true,
     // Cloudflare's own per-request logs are off: requests carry sign in

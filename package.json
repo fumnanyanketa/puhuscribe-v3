@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run check:env-names && tsc -b && vite build && npm run check:built-secrets",
+    "build": "npm run check:env-names && tsc -b && vite build && npm run check:built-secrets && npm run check:built-files",
     "build:review-site": "node scripts/review-site/build.ts",
     "preview": "vite preview",
     "typecheck": "tsc -b",
@@ -21,6 +21,7 @@
     "test:browser": "playwright test",
     "check:env-names": "node scripts/security/check-env-names.ts",
     "check:built-secrets": "node scripts/security/check-built-secrets.ts",
+    "check:built-files": "node scripts/security/check-built-files.ts",
     "cf-typegen": "wrangler types",
     "eval:speech": "vitest run scripts/eval/speech-golden.test.ts --silent=false --reporter=verbose",
     "eval:speech-wer": "node scripts/eval/speech-wer-cli.ts"

@@ -7,6 +7,8 @@
 // (factory/jobs/8-first-session/spec.md, "Done when" 19; worker/logs.test.ts).
 
 import { handleAccountApi, type AccountDeps } from './account.ts'
+import { crashRoute } from './crash.ts'
+import { feedbackRoute, supabaseFeedbackDb, type FeedbackDb } from './feedback.ts'
 import {
   RECORDABLE_STEPS,
   type FrontDoorAnswer,
@@ -61,6 +63,8 @@ export interface ApiDeps extends AccountDeps, SpeechDeps {
   learnerDb?: (context: LearnerContext) => LearnerDb
   /** Tests pass a fake for the patterns panel's reads (job 12-units-1-3). */
   patternsDb?: (context: LearnerContext) => PatternsDb
+  /** Tests pass a fake for feedback (job 14-analytics); normally Supabase, as the learner. */
+  feedbackDb?: (context: LearnerContext) => FeedbackDb
 }
 
 const defaultDeps: ApiDeps = { fetch: (input, init) => fetch(input, init) }
@@ -443,6 +447,15 @@ export async function handleApi(
   if (match?.[1] && match[2] === 'review') return reviewItemsRoute(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'review/done') return reviewDoneRoute(request, env, deps, match[1])
   if (pathname === '/api/review/answer') return reviewAnswerRoute(request, env, deps)
+  // Feedback and crash reports (job 14-analytics): worker/feedback.ts and worker/crash.ts.
+  if (pathname === '/api/feedback') {
+    return feedbackRoute(request, {
+      signedIn: (r) => signedIn(r, env, deps),
+      feedbackDb: (context) =>
+        deps.feedbackDb ? deps.feedbackDb(context) : supabaseFeedbackDb(context.client),
+    })
+  }
+  if (pathname === '/api/crash') return crashRoute(request, env, deps)
   // Accounts and personal data (job 11-accounts): worker/account.ts.
   const account = await handleAccountApi(request, env, deps)
   if (account) return account
