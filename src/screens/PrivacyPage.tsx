@@ -1,5 +1,11 @@
 import { Wordmark } from '../components/Wordmark.tsx'
-import { ACCOUNT_ITEMS, HOW_LONG, USER_TABLES, type InventoryItem } from '../privacy/data-inventory.ts'
+import {
+  ACCOUNT_ITEMS,
+  HOW_LONG,
+  NOT_LINKED_ITEMS,
+  USER_TABLES,
+  type InventoryItem,
+} from '../privacy/data-inventory.ts'
 import { NOTICE_UPDATED, RESPONSIBLE, type Responsible } from '../privacy/notice-settings.ts'
 import { PROCESSORS, PROVIDER_LOGS } from '../privacy/processors.ts'
 import styles from './Account.module.css'
@@ -102,6 +108,13 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
           <ul className={styles.cards} data-inventory="tables">
             {USER_TABLES.map((item) => (
               <Item key={item.table} item={item} />
+            ))}
+          </ul>
+          {/* Job 14-analytics: kept without any link to your account. */}
+          <p className={styles.text}>Not linked to your account:</p>
+          <ul className={styles.cards} data-inventory="not-linked">
+            {NOT_LINKED_ITEMS.map((item) => (
+              <Item key={item.name} item={item} />
             ))}
           </ul>
         </section>

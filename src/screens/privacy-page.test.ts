@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import { ACCOUNT_ITEMS, HOW_LONG, USER_TABLES } from '../privacy/data-inventory.ts'
+import { ACCOUNT_ITEMS, HOW_LONG, NOT_LINKED_ITEMS, USER_TABLES } from '../privacy/data-inventory.ts'
 import { RESPONSIBLE } from '../privacy/notice-settings.ts'
 import { PROCESSORS } from '../privacy/processors.ts'
 import { COMPLAINT_URL, PrivacyPage, RIGHTS, SECTION_HEADINGS } from './PrivacyPage.tsx'
@@ -105,5 +105,52 @@ describe('the privacy notice', () => {
 
   it('[accounts 16] the contact address looks like an email address', () => {
     expect(RESPONSIBLE.contact).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+  })
+})
+
+// Labels [analytics N] are the "Done when" statement numbers from
+// factory/jobs/14-analytics/spec.md.
+describe('the privacy notice, job 14-analytics', () => {
+  const html = renderToStaticMarkup(createElement(PrivacyPage, { responsible: filled }))
+  const page = text(html)
+
+  it('[analytics 29] says what the visit count keeps, why, the legal reason and how long', () => {
+    expect(page).toContain('Visit count')
+    expect(page).toContain(
+      'When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address, which we do not keep. We store no cookie, identifier or browser details for this.',
+    )
+    expect(page).toContain(
+      'Legal reason: Our legitimate interest in knowing how many people use the app and from where (GDPR Article 6(1)(f)).',
+    )
+    expect(page).toContain('How long: Kept as daily totals.')
+  })
+
+  it('[analytics 29] [analytics 23] says what feedback keeps and that it goes with the account', () => {
+    expect(page).toContain('Feedback you send')
+    expect(page).toContain('The message you send, which screen you sent it from, and when.')
+    expect(page).toContain(
+      'How long: Stored with your account and deleted with it, including when an unused account is deleted automatically.',
+    )
+    expect(page).toContain(
+      'Legal reason: Needed to provide the service you asked for (GDPR Article 6(1)(b)).',
+    )
+  })
+
+  it('[analytics 29] says what a crash report holds, that it is not linked to the account, and 30 days', () => {
+    expect(page).toContain('Crash reports')
+    expect(page).toContain(
+      'When the app breaks, it records the error, the file and line, the screen, the app version and a short browser label such as "Safari 17, iOS". Not linked to your account, and nothing you typed or said is included.',
+    )
+    expect(page).toContain(
+      'Legal reason: Our legitimate interest in keeping the app working (GDPR Article 6(1)(f)).',
+    )
+    expect(page).toContain('How long: Deleted after 30 days.')
+    expect(html).toContain('data-inventory="not-linked"')
+  })
+
+  it('[analytics 29] adds no new processor: crash reports stay in the Supabase database in the EU', () => {
+    expect(PROCESSORS.map((p) => p.name)).toEqual(['Supabase', 'Cloudflare', 'Microsoft (Azure Speech)'])
+    expect(PROCESSORS.find((p) => p.name === 'Supabase')?.modules).toContain('crash-reports.ts')
+    expect(NOT_LINKED_ITEMS.map((item) => item.name)).toEqual(['Visit count', 'Crash reports'])
   })
 })

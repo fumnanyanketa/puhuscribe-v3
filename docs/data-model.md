@@ -103,6 +103,46 @@ Three functions a learner may call, each with no argument, so nobody can name an
 
 **The daily clean up.** `private.delete_inactive_guests()` deletes guest accounts with no learning activity for 90 days (owner's decision of 20 October 2026) and email accounts with none for 24 months (owner's decision on job 11), with all their rows. Activity is the latest of the account's creation, its sessions' start and end and its reviews. It skips anyone for whom `private.user_has_stored_files(user_id)` is true; that function answers false today and is replaced by a job that keeps a learner's files outside the database, so the clean up never leaves files behind. Supabase Cron (`pg_cron`) runs it every day at 03:17 UTC (job name `delete-inactive-accounts`). No API role can run it. Supabase does not delete anonymous users by itself.
 
+## Analytics, feedback and crash reports (job 14-analytics)
+
+Migration: `supabase/migrations/20261030101645_analytics.sql`; tests: `supabase/tests/database/analytics.test.sql` and, from two database connections at once, `supabase/tests/database/analytics_parallel.test.sql`. Spec: `factory/jobs/14-analytics/spec.md`.
+
+| Table | What it holds | Who can read or write |
+| --- | --- | --- |
+| `private.visit_tallies` | One number per Helsinki day and country: `day`, `country` (two capital letters; `XX` when Cloudflare has no country, `T1` for the Tor network) and `visits`. Nothing else: no address, time of day, user agent or user. | No API role. Only `public.count_visit()` adds to it |
+| `public.feedback` | A learner's message (1 to 1,000 characters), the screen it came from (`front_door`, `account` or `finish`), when, and whose. Deleted with the account, also by the daily clean up of unused accounts. At most 5 per learner per Helsinki day, checked by a trigger that takes a lock per learner. | A learner adds their own (`user_id`, `screen`, `message` only) and reads their own. Nobody changes or deletes through the API. The owner reads it only through `owner_dashboard()` |
+| `private.owners` | Which accounts may open the owner page: `user_id` (deleted with the account) and `added_at`. Created empty; the owner adds themselves with one SQL line (README, "Owner page setup"). | No API role. A learner sees their own row only in their data download, through `public.my_owner_rows()` |
+| `private.crash_reports` | An error's source (browser or Worker), group, name, cleaned message, up to 10 stack frames of the app's own files, the page path with ids replaced by `:id`, the app version and a coarse browser label. No column for a user, address, user agent or cookie. Deleted after 30 days. | No API role. Only `public.report_crash()` adds to it |
+
+| Function | What it does | Who may call it |
+| --- | --- | --- |
+| `public.count_visit(p_country)` | Adds one visit for the country on today's Helsinki day, as the database clock says. Refuses anything that is not two capital letters (or `T1`). Two calls at the same moment both count. | `anon` only (the Worker, with the publishable key) |
+| `public.report_crash(p_source, p_name, p_message, p_frames, p_path, p_app_version, p_browser)` | Checks every field's length and shape again, works out the group from the source, the error name and the first frame, and stores the report, or drops it past 300 an hour in total or 30 an hour per group (counted under a lock). Returns whether it stored it. | `anon` only (the Worker, through `worker/providers/crash-reports.ts`) |
+| `public.owner_dashboard()` | Every owner page number as one JSON object (below). Returns nothing unless the caller is on `private.owners` and the token's sign in is still live. Writes nothing. | `authenticated` (the owner's own sign in) |
+| `public.my_owner_rows()` | The caller's own row of `private.owners`, as a list; empty for every learner. `public.export_my_data()` lists it as `private.owners`, because the private schema stays closed to the API roles. | `authenticated` |
+| `private.forget_old_crash_reports()` | Deletes crash reports older than 30 days. Supabase Cron runs it daily at 03:17 UTC (job name `forget-old-crash-reports`). | No API role |
+
+`public.export_my_data()` now also lists `feedback` and `private.owners`.
+
+### The owner page numbers
+
+All of them come from `public.owner_dashboard()`. A **Helsinki day** is a calendar day in `Europe/Helsinki`, worked out in Postgres. **The window** is the 30 Helsinki days ending today. A **learner** is any account (guest or email) not on the owner list; accounts on the owner list are left out of every learner number.
+
+| Key | Definition |
+| --- | --- |
+| `visits_by_day` | For each of the window's 30 days, newest first: all visits, and the visits from Finland (`FI`). |
+| `visits_by_country` | Each country's visits over the window, largest first. |
+| `active_learners` | Learners with at least one session started in the window. This is the tester count. |
+| `day7_retention` | Among learners whose first ever session started on a day D with D + 7 between the window's first day and yesterday (the cohort), how many started a session on day D + 7 (retained). Given as `retained`, `cohort` and a whole `percent` (none when the cohort is empty). The first session comes from `sessions.started_at`, which the database sets; the `first_session_completed` event is not used, because a learner can claim it. |
+| `median_session_minutes` | The median of end minus start over sessions started in the window that have an end and lasted at most 2 hours, in minutes to one decimal (none when there are none), with the number used and the number left out (no end, or longer). |
+| `speak_back` | Among active learners, how many made at least one speaking attempt in the window: `count`, `base` (the active learners) and a whole `percent` (none when there are no active learners). |
+| `ai_cost_usd` | The sum of every `cost_usd` recorded by learners in the window, in US dollars as recorded, and that sum per active learner (none when there are none). Every table with a `cost_usd` column is found in the catalogue, so a later table (the tutor's) is counted with no change; each such table needs `user_id` and `created_at`. Today that is `speaking_attempts`. |
+| `feedback` | The newest 50 messages: when, the screen, whether the account is a guest or email account, and the text. No user id or email. |
+| `crashes` | The newest 20 crash groups of the last 30 days: name, the latest message, path, browser label, app version and frames, how many times it was seen and when first and last. |
+| `computed_at` | When the numbers were worked out. |
+
+No number counts words learned, forms learned, streaks or screens per session (PRD, "Not in v3.0": no Owner Insights dashboard beyond these).
+
 ## Reference data
 
 | Table | What it holds | Who can read or write | First used by |

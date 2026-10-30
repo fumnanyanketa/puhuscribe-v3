@@ -188,6 +188,14 @@ export function FrontDoor() {
               Your account
             </a>
           </li>
+          {/* Job 14-analytics, "Done when" 19: once this device has an account. */}
+          {view.kind !== 'loading' && !signedOut && (
+            <li>
+              <a className={styles.link} href="/feedback?from=front_door">
+                Send feedback
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </main>

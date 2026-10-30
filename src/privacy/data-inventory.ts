@@ -125,6 +125,44 @@ export const USER_TABLES: readonly TableItem[] = [
     legal: CONSENT_REASON,
     keep: 'Deleted after 90 days, immediately when you turn the choice off, or when you delete one yourself in Voice settings.',
   },
+  {
+    table: 'feedback',
+    name: 'Feedback you send',
+    what: 'The message you send, which screen you sent it from, and when.',
+    why: 'So we can read what worked for you, what did not and what broke.',
+    legal: SERVICE_REASON,
+    keep: 'Stored with your account and deleted with it, including when an unused account is deleted automatically.',
+  },
+  {
+    table: 'private.owners',
+    name: 'Owner page access',
+    what: "Only for the app's owner: that the account may open the private owner page, and since when. Empty for every learner.",
+    why: "So that only the owner can open the page with the app's overall numbers.",
+    legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
+  },
+]
+
+/**
+ * What PuhuScribe keeps that is not linked to any account
+ * (factory/jobs/14-analytics/spec.md, "Privacy notice facts").
+ */
+export const NOT_LINKED_ITEMS: readonly InventoryItem[] = [
+  {
+    name: 'Visit count',
+    what: 'When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address, which we do not keep. We store no cookie, identifier or browser details for this.',
+    why: 'To know how many people use the app and from where.',
+    legal:
+      'Our legitimate interest in knowing how many people use the app and from where (GDPR Article 6(1)(f)).',
+    keep: 'Kept as daily totals.',
+  },
+  {
+    name: 'Crash reports',
+    what: 'When the app breaks, it records the error, the file and line, the screen, the app version and a short browser label such as "Safari 17, iOS". Not linked to your account, and nothing you typed or said is included.',
+    why: 'To find and fix what broke.',
+    legal: 'Our legitimate interest in keeping the app working (GDPR Article 6(1)(f)).',
+    keep: 'Deleted after 30 days.',
+  },
 ]
 
 /** The table names, for checks. */

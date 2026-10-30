@@ -101,6 +101,10 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
           </div>
         )}
         <p className={styles.comesBack}>{COMES_BACK}</p>
+        {/* Job 14-analytics, "Done when" 19: a quiet link, never a step of the loop. */}
+        <a className={styles.feedbackLink} href="/feedback?from=finish">
+          Send feedback
+        </a>
       </main>
     </SessionFrame>
   )

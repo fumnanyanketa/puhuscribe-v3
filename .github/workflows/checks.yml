@@ -324,6 +324,12 @@ jobs:
         # wrangler.jsonc and the deploy jobs never do
         # (tests/speech-provider-rules.test.ts).
         run: echo "SPEECH_FEEDBACK_PROVIDER=fake" >> .env.local
+      - name: A local owner page for the local Worker
+        # Job 14-analytics: the owner page answers on 127.0.0.1 (the app stays
+        # on localhost), and its Access token check uses a key made here for
+        # this run only (scripts/ci/test-owner-access.ts). worker/owner.ts
+        # trusts that key only while the owner host is this computer. No secret.
+        run: node scripts/ci/test-owner-access.ts >> .env.local
       - name: Load the browser test seed files
         # Every supabase/seeds/browser/*.sql in name order, stopping at the
         # first error. Only this job loads them; they never reach a hosted

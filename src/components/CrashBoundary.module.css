@@ -1,0 +1,15 @@
+/* The error boundary's screen (job 14-analytics): the problem status line and
+   a Reload button, at the page width of the account pages. Values from
+   src/styles/tokens.css. */
+
+.page {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-5);
+}
