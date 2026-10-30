@@ -8,17 +8,17 @@
 // Writes a new RSA key pair to .wrangler/test-owner-access/ (git ignores
 // .wrangler/): the private key, which e2e/owner-helpers.ts signs test tokens
 // with, and the made-up team domain and AUD tag. Prints the four Worker
-// variables for .env.local: the owner host is 127.0.0.1 (the app host stays
-// localhost), and the Worker checks tokens against the printed public key set.
+// variables for .env.local: the owner host is 127.0.0.1 or [::1] (the app host
+// stays localhost), and the Worker checks tokens against the printed public key set.
 // worker/owner.ts trusts that key set only while OWNER_HOSTNAME is this
 // computer, so it can never open a live owner page. Nothing printed is secret.
 import { randomBytes } from 'node:crypto'
+import { lookup } from 'node:dns/promises'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { exportJWK, generateKeyPair } from 'jose'
 
 export const TEST_OWNER_DIR = join('.wrangler', 'test-owner-access')
-export const TEST_OWNER_HOST = '127.0.0.1'
 export const TEST_TEAM_DOMAIN = 'https://puhuscribe-test.cloudflareaccess.com'
 
 const { publicKey, privateKey } = await generateKeyPair('RS256', { extractable: true })
@@ -26,6 +26,12 @@ const kid = randomBytes(8).toString('hex')
 const publicJwk = { ...(await exportJWK(publicKey)), kid, alg: 'RS256', use: 'sig' }
 const privateJwk = { ...(await exportJWK(privateKey)), kid, alg: 'RS256' }
 const aud = randomBytes(32).toString('hex')
+
+// The test server listens where "localhost" points first (vite preview's
+// default), which is ::1 on some computers and 127.0.0.1 on others. The owner
+// host is the other name for that same address, so it reaches the same server.
+const first = await lookup('localhost')
+const TEST_OWNER_HOST = first.family === 6 ? '[::1]' : '127.0.0.1'
 
 mkdirSync(TEST_OWNER_DIR, { recursive: true })
 writeFileSync(

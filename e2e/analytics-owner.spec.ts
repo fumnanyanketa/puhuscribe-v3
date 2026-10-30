@@ -15,7 +15,7 @@ import { scrollsSideways, settleAnimations, tabTo } from './session-helpers.ts'
 // Labels [analytics N] are the "Done when" statement numbers from
 // factory/jobs/14-analytics/spec.md that each test protects.
 //
-// The owner page on its own host. Locally the owner host is 127.0.0.1 (the
+// The owner page on its own host. Locally the owner host is 127.0.0.1 or [::1] (the
 // app stays on localhost), with a Cloudflare Access token made by this run's
 // local key (e2e/owner-helpers.ts). The owner account is a real email account
 // made through the app with its code from Mailpit (@email), then put on the

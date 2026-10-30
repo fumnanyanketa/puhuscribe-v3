@@ -7,7 +7,7 @@ import { sql } from './db.ts'
 
 // Shared steps for the owner page browser tests (factory/jobs/14-analytics).
 //
-// The local Worker treats 127.0.0.1 as the owner host and checks Access
+// The local Worker treats 127.0.0.1 (or [::1]) as the owner host and checks Access
 // tokens against a key made for this run by scripts/ci/test-owner-access.ts
 // (the pull request browser job runs it before the build). The app itself
 // stays on localhost, so the two hosts keep separate cookies, as the live
