@@ -1,0 +1,76 @@
+GitHub run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41051962634 (manual run of Checks on factory/14-analytics, head 3bca563)
+
+Database tests (local Supabase, pgTAP): success
+Secret scan (gitleaks): success
+Browser tests (Playwright, local Supabase): success
+Dependency check (npm audit, pip-audit): success
+Type check, lint, format: success
+Python tests and lint (pytest, ruff): success
+Unit tests (Vitest): success
+Apply database changes to the test project: skipped
+Browser tests against the test project (after merge): skipped
+Preview link (Cloudflare Worker behind Access): skipped
+
+Unit tests (Vitest):
+ Test Files  78 passed (78)
+Unit tests (Vitest):
+Complete job name: Unit tests (Vitest)
+ Test Files  78 passed (78)
+      Tests  1042 passed | 6 skipped (1048)
+   Duration  16.47s (tests 83%, import 8%, transform 7%, worker 1%)
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Duration  124ms (tests 49%, import 26%, transform 17%, worker 7%)
+
+Database tests (pgTAP) and the parallel step:
+/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics.test.sql ............. 
+/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics_parallel.test.sql .... ok
+Files=11, Tests=903,  2 wallclock secs ( 0.10 usr  0.02 sys +  0.11 cusr  0.09 csys =  0.32 CPU)
+Result: PASS
+ok 1 - [analytics 6] the second visit waits while the first one is still open
+ok 2 - [analytics 6] two calls from two connections at once make a count of 2
+ok 3 - [analytics 22] the second message waits for the first one's lock on the learner
+ok 4 - [analytics 22] once the first message is saved, the second one is refused as the 6th of the day
+ok 5 - [analytics 22] parallel requests cannot beat the limit: the learner has exactly 5 messages
+ok 6 - [analytics 26] the 300th report of the hour is stored
+ok 7 - [analytics 26] the second report waits while the first one is being counted
+ok 8 - [analytics 26] once the first is stored, the second is dropped as the 301st
+ok 9 - [analytics 26] parallel reports cannot beat the cap: the hour holds exactly 300
+/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics.test.sql ............. 
+/home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics_parallel.test.sql .... ok
+Files=11, Tests=903,  2 wallclock secs ( 0.11 usr  0.02 sys +  0.11 cusr  0.09 csys =  0.33 CPU)
+Result: PASS
+
+Browser tests (Playwright, Chromium and WebKit, then the journey project), every analytics test:
+  ✓   22 [chromium] › e2e/analytics-feedback.spec.ts:37:3 › feedback › [analytics 19] without an account the page says to start first, links to the front door, and the front door shows no feedback link @seed (292ms)
+  ✓   23 [chromium] › e2e/analytics-feedback.spec.ts:50:3 › feedback › [analytics 19] [analytics 21] a quiet link on the front door and the account page opens the form, and a message is stored with its screen @seed (1.3s)
+  ✓   25 [chromium] › e2e/analytics-feedback.spec.ts:82:3 › feedback › [analytics 19] the finish screen has the quiet link, and the loop gains no step @seed (2.1s)
+  ✓   26 [chromium] › e2e/analytics-feedback.spec.ts:97:3 › feedback › [analytics 22] an empty message is not sent, and the 6th message of the day gets the gentle line @seed (1.1s)
+  ✓   27 [chromium] › e2e/analytics-feedback.spec.ts:119:3 › feedback › [analytics 31] the feedback page fits 320 px and 200 percent text, has 44 px controls and a visible label, wraps a 40 letter word, and works by keyboard @seed (1.0s)
+  ✓   28 [chromium] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, light @seed (2.5s)
+  ✓   30 [chromium] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, dark @seed (2.2s)
+  ✓   32 [chromium] › e2e/analytics-feedback.spec.ts:172:3 › no outside request › [analytics 7] a guest from the front door through the session, the feedback page and the account page never leaves the app address @seed (2.6s)
+  ✓   34 [chromium] › e2e/analytics-feedback.spec.ts:195:3 › a crash on a screen with a typed answer › [analytics 25] the stored report does not contain the answer the learner typed @seed (2.6s)
+  ✓   36 [chromium] › e2e/analytics-owner.spec.ts:40:3 › the owner page › [analytics 14] without the Access token, the owner host answers 403 with one plain line and no number @seed @email (68ms)
+  ✓   37 [chromium] › e2e/analytics-owner.spec.ts:55:3 › the owner page › [analytics 13] [analytics 15] [analytics 17] [analytics 18] an account not on the list sees the refusal; on the list, the owner sees every section @seed @email (1.9s)
+  ✓   38 [chromium] › e2e/analytics-owner.spec.ts:110:3 › the owner page › [analytics 20] feedback shows as plain text with its date, screen and account kind, runs nothing, links nothing, and wraps a 40 letter word @seed @email (2.0s)
+  ✓   40 [chromium] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (1.8s)
+  ✓   41 [chromium] › e2e/analytics-owner.spec.ts:184:3 › the owner page › [analytics 27] an error thrown on the learner front door shows up on the owner page @seed @email (1.6s)
+  ✓   42 [chromium] › e2e/analytics-owner.spec.ts:216:3 › the owner page › [analytics 31] the owner page fits 320 px and 200 percent text, has 44 px controls, works by keyboard, and axe finds nothing in light or dark @seed @email (5.0s)
+  ✓  232 [webkit] › e2e/analytics-feedback.spec.ts:37:3 › feedback › [analytics 19] without an account the page says to start first, links to the front door, and the front door shows no feedback link @seed (925ms)
+  ✓  233 [webkit] › e2e/analytics-feedback.spec.ts:50:3 › feedback › [analytics 19] [analytics 21] a quiet link on the front door and the account page opens the form, and a message is stored with its screen @seed (2.2s)
+  ✓  234 [webkit] › e2e/analytics-feedback.spec.ts:82:3 › feedback › [analytics 19] the finish screen has the quiet link, and the loop gains no step @seed (4.7s)
+  ✓  236 [webkit] › e2e/analytics-feedback.spec.ts:97:3 › feedback › [analytics 22] an empty message is not sent, and the 6th message of the day gets the gentle line @seed (1.9s)
+  ✓  237 [webkit] › e2e/analytics-feedback.spec.ts:119:3 › feedback › [analytics 31] the feedback page fits 320 px and 200 percent text, has 44 px controls and a visible label, wraps a 40 letter word, and works by keyboard @seed (1.6s)
+  ✓  238 [webkit] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, light @seed (3.3s)
+  ✓  240 [webkit] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, dark @seed (2.9s)
+  ✓  241 [webkit] › e2e/analytics-feedback.spec.ts:172:3 › no outside request › [analytics 7] a guest from the front door through the session, the feedback page and the account page never leaves the app address @seed (4.7s)
+  ✓  242 [webkit] › e2e/analytics-feedback.spec.ts:195:3 › a crash on a screen with a typed answer › [analytics 25] the stored report does not contain the answer the learner typed @seed (5.2s)
+  ✓  244 [webkit] › e2e/analytics-owner.spec.ts:40:3 › the owner page › [analytics 14] without the Access token, the owner host answers 403 with one plain line and no number @seed @email (114ms)
+  ✓  245 [webkit] › e2e/analytics-owner.spec.ts:55:3 › the owner page › [analytics 13] [analytics 15] [analytics 17] [analytics 18] an account not on the list sees the refusal; on the list, the owner sees every section @seed @email (2.8s)
+  ✓  246 [webkit] › e2e/analytics-owner.spec.ts:110:3 › the owner page › [analytics 20] feedback shows as plain text with its date, screen and account kind, runs nothing, links nothing, and wraps a 40 letter word @seed @email (3.5s)
+  ✓  249 [webkit] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (3.7s)
+  ✓  251 [webkit] › e2e/analytics-owner.spec.ts:184:3 › the owner page › [analytics 27] an error thrown on the learner front door shows up on the owner page @seed @email (3.8s)
+  ✓  252 [webkit] › e2e/analytics-owner.spec.ts:216:3 › the owner page › [analytics 31] the owner page fits 320 px and 200 percent text, has 44 px controls, works by keyboard, and axe finds nothing in light or dark @seed @email (8.6s)
+  ✓  413 [journey] › e2e/analytics-journey.spec.ts:85:1 › [analytics 12] a test learner journey moves each owner page number, each checked on its own @seed @email (4.7s)
+  31 skipped
