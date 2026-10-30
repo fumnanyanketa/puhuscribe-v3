@@ -94,7 +94,7 @@ async function get(path: string, init: RequestInit & { jwt?: string } = {}, envi
   const headers = new Headers(init.headers)
   if (init.jwt) headers.set('Cf-Access-Jwt-Assertion', init.jwt)
   return handleReviewRequest(
-    new Request(`https://puhuscribe.exentrik.co${path}`, { ...init, headers }),
+    new Request(`https://puhuscribe-review.exentrik.co${path}`, { ...init, headers }),
     environment,
     keys,
   )
@@ -210,7 +210,7 @@ describe('the second lock: the Access token check', () => {
       fetched.push(String(input instanceof Request ? input.url : input))
       return Promise.resolve(Response.json({ keys: [jwk] }))
     })
-    const request = new Request('https://puhuscribe.exentrik.co/', {
+    const request = new Request('https://puhuscribe-review.exentrik.co/', {
       headers: { 'Cf-Access-Jwt-Assertion': await token() },
     })
     expect(await hasValidAccessToken(request, env, accessKeys)).toBe(true)

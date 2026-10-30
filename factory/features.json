@@ -123,12 +123,12 @@
     {
       "id": "review-site",
       "scope_item": null,
-      "name": "Factory: private review site for the native reviewer at puhuscribe.exentrik.co",
+      "name": "Factory: private review site for the native reviewer at puhuscribe-review.exentrik.co",
       "needs_decision": false,
       "ga": false,
       "status": "failing",
       "job": "13-review-site",
-      "note": "Owner decision 22 October 2026: review pages only, at puhuscribe.exentrik.co (not the app's final domain), behind Cloudflare Access. The reviewer's email is the owner's to give. Merged 22 October 2026 into the public repository. Stays failing until the first deploy and the live checks pass after the owner's Cloudflare setup in the Exentrik account."
+      "note": "Owner decision 22 October 2026: review pages only, behind Cloudflare Access. Moved on 30 October 2026 from puhuscribe.exentrik.co to puhuscribe-review.exentrik.co, because the live learner app takes puhuscribe.exentrik.co. The reviewer's email is the owner's to give. Merged 22 October 2026 into the public repository. Stays failing until the first deploy and the live checks pass after the owner's Cloudflare setup in the Exentrik account."
     }
   ]
 }

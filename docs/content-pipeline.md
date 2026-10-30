@@ -12,7 +12,7 @@ The pipeline is Python in `scripts/generate/` and needs Linux with Voikko, so it
 2. On GitHub, open Actions, choose "Content pipeline", "Run workflow", task `draft`, and the brief path, for example `content/briefs/meeting-people-new-colleague.json`.
 3. When it finishes, download the `review-pack` artifact from the run page. If a check still failed after three drafting rounds, the run is red, its log lists every failing word or line, and there is no review page.
 4. Commit the pack as `content/drafts/<dialogue-slug>/`: `draft.json`, `check-report.json`, `audio/`, `review/` and `run.log`. Add the lines of its `ai-calls.jsonl` to `content/logs/ai-calls.jsonl`.
-5. On the owner's instruction, the manager lists the dialogue slug in `review-site/dialogues.json` (once per dialogue). When that commit and the round's page `review/round-<n>.html` reach main, the review site updates by itself (see "The review site" below). The owner then sends the native reviewer the link `https://puhuscribe.exentrik.co/<dialogue-slug>/round-<n>`. Nothing is sent automatically.
+5. On the owner's instruction, the manager lists the dialogue slug in `review-site/dialogues.json` (once per dialogue). When that commit and the round's page `review/round-<n>.html` reach main, the review site updates by itself (see "The review site" below). The owner then sends the native reviewer the link `https://puhuscribe-review.exentrik.co/<dialogue-slug>/round-<n>`. Nothing is sent automatically.
 6. The reviewer presses "Download my review" and sends the file back by the channel the owner chose. It goes to `content/reviews/<dialogue-slug>/round-<n>.json`. Only the manager adds files there, on the owner's instruction.
 7. Run the workflow again with task `next-round` and the dialogue slug. If the reviewer fixed anything, it applies the fixes, checks and voices the changed lines only, and makes `review/round-2.html` with only the changed lines, their word cards and clips (PRD section 9). Repeat from step 5. If everything was approved, the log says "Ready to publish".
 8. Publish on a computer with Voikko: `python scripts/generate/pipeline.py publish --draft content/drafts/<dialogue-slug>`. Commit the new migration and the audio. The content reaches the test database only when the owner approves the merge.
@@ -34,7 +34,7 @@ Set a secret with `gh secret set NAME` (it asks for the value, so it never shows
 
 ## The review site
 
-The native reviewer reads each review page on a private website, `https://puhuscribe.exentrik.co`, instead of opening a file. Built in job 13-review-site; the decision is in [factory/jobs/13-review-site/spec.md](../factory/jobs/13-review-site/spec.md#decision).
+The native reviewer reads each review page on a private website, `https://puhuscribe-review.exentrik.co`, instead of opening a file. Built in job 13-review-site; the decision is in [factory/jobs/13-review-site/spec.md](../factory/jobs/13-review-site/spec.md#decision).
 
 - **What it serves.** An index of the listed dialogues with each round's status ("Waiting for your review" or "Review received"), `robots.txt`, and each listed dialogue's review pages at `/<dialogue-slug>/round-<n>`, byte for byte as committed. Nothing else from `content/`: no draft, audio, round file, brief or returned review.
 - **The list.** `review-site/dialogues.json` holds only dialogue slugs, for example `{"dialogues": ["meeting-people-new-colleague"]}`. Only the manager edits `review-site/dialogues.json`, on the owner's instruction, as with `content/reviews/`.

@@ -2,7 +2,7 @@
  * Wrangler configuration for the private review site (job 13-review-site).
  * A separate Worker from the app: puhuscribe-review, in the Exentrik Cloudflare
  * account (the manager's addendum to the spec, DNS case C1), at
- * puhuscribe.exentrik.co behind Cloudflare Access.
+ * puhuscribe-review.exentrik.co behind Cloudflare Access.
  *
  * It serves only what `npm run build:review-site` writes to dist-review/: the
  * index, robots.txt and the listed review pages. review-site/worker.ts runs
@@ -24,7 +24,7 @@
   "preview_urls": false,
   // Cloudflare makes the DNS record and the certificate for this one name. No
   // other record on exentrik.co is touched.
-  "routes": [{ "pattern": "puhuscribe.exentrik.co", "custom_domain": true }],
+  "routes": [{ "pattern": "puhuscribe-review.exentrik.co", "custom_domain": true }],
   "assets": {
     "directory": "../dist-review",
     "binding": "ASSETS",
