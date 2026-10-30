@@ -1,92 +1,80 @@
 # Build notes: 14-analytics
 
-Round 1, 30 October 2026. Branch `factory/14-analytics`. Owner's calls as approved on 30 October 2026: call 1 = A (crash reports in our own EU Supabase database), call 2 = A (going live is a separate job). The owner page hostname `puhuscribe-owner.exentrik.co` was confirmed by the owner during the build (manager's message); it is named only in the README and `.env.example`, never in code or config (`OWNER_HOSTNAME` stays a setting).
+## Round 2, 30 October 2026
 
-## What I built, in plain words
+Rework from the round 1 reviews (`security-review.md`: pass with four notes; `design-review.md`: changes needed). Both reviews are now committed on the branch. The manager asked for exactly five fixes; everything else in the reviews is on `factory/todo.md` and was not touched.
 
-- **Visit count.** The Worker now runs first for the app's page routes (`/`, `/session`, `/voice`, `/account`, `/account/*`, `/sign-in`, `/privacy`, `/feedback`, `/owner`), answers them with the built page byte for byte, and after answering adds one to a per day, per country tally when the request is an arrival (statement 1's rules). Only the country goes to the database. Files never run the Worker.
-- **Owner page** at `/owner` on its own hostname. The Worker checks the Cloudflare Access token on every owner host request (job 13's check, reused from `review-site/handler.ts`), answers only `/owner`, `/sign-in` and seven `/api` routes, sends other pages to `/owner`, and makes every answer private. The owner signs in with their PuhuScribe email account; the database function `owner_dashboard()` answers only for an account on the owner list with a live sign in. The page shows the learner numbers with their goals, two real tables of visits, the newest 50 feedback messages as plain text, the newest 20 crash groups, a "Send a test error" button and when the numbers were worked out.
-- **Feedback.** `/feedback` with a quiet "Send feedback" link on the account page, the finish screen and the front door (only once the device has an account). 1 to 1,000 characters, at most 5 a Helsinki day, enforced in the database under a lock per learner. Stored with the account, exported and deleted with it.
-- **Crash reports.** Browser listeners and an error boundary ("Something went wrong on this screen." with Reload) catch errors; at most 5 reports per page load, each once, by `fetch` with `keepalive` (plain `fetch` where it is missing), without cookies. Anything typed into a field on the page is removed from the message. The Worker cleans every field again, adds the app version (the build's commit) and a coarse browser label, and sends it through `worker/providers/crash-reports.ts`, the only file that calls `report_crash`. Unexpected Worker exceptions answer 500 `server_error` and are reported too. The database checks every field again, caps reports at 300 an hour and 30 per group, and deletes them after 30 days.
-- **Records.** Privacy notice (visit count, feedback, crash reports; date moved to 30 October 2026), data inventory, data model, conventions, README owner page setup with the owner list SQL line (a placeholder the owner types), regenerated database types.
+### What changed, in plain words
 
-## Deviations from the spec's wording (all keep its intent; the reviewers may want to check)
+1. **"How long we keep it" and "Your rights" now tell the truth about the two items that are not linked to an account** (design must fix 1, and note 16). The notice used to say everything is kept until the account is deleted and that deleting the account deletes everything at once. It now says that deleting the account deletes everything linked to it, that the visit count and crash reports are not linked to any account so deleting the account does not change them, that crash reports are deleted after 30 days, and that the visit count is kept as daily totals with no personal data for as long as the service runs. The rights section adds one line: the visit count and crash reports cannot be linked to a person, so a request to see or delete "your part" cannot be met, and the person is told so.
+2. **The crash report line says what is removed** (design should fix 2). "Nothing you typed or said is included" promised more than the code can prove. It now says the browser removes any text typed into a box on the screen from the error message before sending, and that before saving we also remove anything shaped like an email address, an id, a sign in token or a long number, and replace ids in the screen address. That matches `src/lib/crash-reporter.ts` (typed values), `src/lib/crash-clean.ts` (the shapes and the path), run in the browser and again in `worker/crash.ts`.
+3. **The visit count line no longer says "which we do not keep" about the internet address** (design should fix 4). It now says Cloudflare, which runs the app, sees the address because it delivers the page, and PuhuScribe's database does not keep it.
+4. **"Owner page access" has its own lead in, "Only for the app's owner:", and the legal reason "Our legitimate interest in keeping the owner page private (GDPR Article 6(1)(f))"** (design should fix 3). Its "how long" is now "Until the account is taken off the owner list or deleted", which is what the README's two SQL lines and the cascade do. The download still lists `private.owners` for every account, in the same place (the list is `LEARNER_TABLES` then `OWNER_TABLES`). The same finding asked to rename the learner lead in "Your learning progress:" to "Your learning and what you send us:", since feedback is not progress; I did that too because it is part of the same finding and is not on `todo.md`. The owner can undo it with one line.
+5. **Crash reports from the owner host now get through Cloudflare Access** (security note 1). Live, Access lets an owner host request through only when the browser sends Access's `CF_Authorization` cookie, and the crash reporter sent every report with `credentials: 'omit'`. Now the Worker marks every page the owner host serves (`/owner` and `/sign-in`) with `data-puhuscribe-host="owner"` on its `<html>` element (`worker/owner.ts`, shared names in `src/lib/owner-host.ts`), and the crash reporter sends `same-origin` cookies only when that mark is there. The app host never adds the mark and keeps `omit`, and its pages stay byte for byte what `env.ASSETS.fetch` returned (statement 4). The Worker still never reads a cookie on `/api/crash`. On the owner host, `same-origin` also sends the owner's own PuhuScribe sign in cookie with a report; the Worker ignores it, as before.
 
-1. **`T1` is stored.** Statement 2 says T1 (Tor) is stored as T1, but statements 5 and 6 say "two capital letters", which T1 is not. The tally's check and `count_visit` accept two capital letters or exactly `T1`; `F1` and the rest are still refused (pgTAP covers both).
-2. **The owner row in the download goes through a function.** Statement 16 says a learner can read their own `private.owners` row. Job 3's test `[data 2] a learner cannot use the private schema` forbids giving learners the private schema, so instead `public.my_owner_rows()` (security definer) returns only the caller's own row, and `export_my_data()` lists it as `private.owners`. Learners still cannot read the table itself (pgTAP).
-3. **`/voice` is a run_worker_first route.** The spec's list omits it, but statement 3's own repository test requires every route of `src/App.tsx`, and `/voice` is one.
-4. **Parallel tests run in their own CI step.** `ALTER ROLE ... SET` of a custom setting is refused on Supabase, so the two connection tests (`analytics_parallel.test.sql`) get the local database password through `PGOPTIONS` in a new step of the database check, which fails unless all 9 pass and none is skipped. Inside `supabase test db` (and on the test project after a merge) the same file skips its 9 tests and says why.
-5. **The journey test runs alone.** It reads totals every other test also moves, so it is its own Playwright project, `journey`, which runs after the `chromium` and `webkit` projects. The learner's country is set with the local runtime's `MF-CF-Blob` header (Miniflare's way to set `request.cf`); the live Worker never sees it.
-6. **The owner host in browser tests is `127.0.0.1` or `[::1]`**, whichever `localhost` points to on that computer (the test server listens only there). `scripts/ci/test-owner-access.ts` makes a fresh key per run; the Worker trusts that key only while `OWNER_HOSTNAME` is this computer.
-7. **Seed data in two earlier pgTAP files.** `accounts.test.sql` (job 11) seeds a feedback row and an owner row for its learners A, B and D, so its rule "A has a row in every user table" still holds; its assertions are unchanged. `data_model_schema.test.sql` and `daily_review.test.sql` list the new `feedback` table and its three column grants. No test was removed or weakened.
+Why the mark comes from the Worker: the browser cannot tell the two hosts apart on its own. The owner hostname is a Worker setting that never goes into the built files, the Access cookie is hidden from scripts, and a rule based on the page path would also send cookies from `/owner` and `/sign-in` on the app host. Only a 200 HTML answer is changed; its stale `Content-Length` and `ETag` are dropped.
 
-## Done when, and the tests that cover each
+### For the owner to approve
 
-| # | Tests |
+- **How long the visit totals are kept.** Neither the spec nor the migration sets a limit (no deletion job for `private.visit_tallies`). The notice now says: "Kept as daily totals with no personal data for as long as the service runs, whether or not you delete your account." If you want a limit (for example 25 months), that is a small migration and one sentence; tell the manager.
+- **All round 2 notice wording** (the five points above), with the date kept at 30 October 2026. The wording differs from the spec's "Privacy notice facts" table for the visit count and crash reports, on purpose: the reviewers found the table's lines false or too strong.
+
+### Done when, and the tests for round 2
+
+| # | Tests (new or changed in round 2) |
 |---|---|
-| 1 | `worker/visits.test.ts` (27 request cases, robot list) |
-| 2 | `worker/visits.test.ts` (country rules; the call carries only the country), pgTAP T1 |
-| 3 | `tests/analytics-rules.test.ts` (wrangler list = `worker/page-routes.ts`, App routes, built files), `scripts/security/check-built-files.ts` after every build, `worker/visits.test.ts` |
-| 4 | `worker/visits.test.ts` (byte for byte, failing, throwing and hanging database, no log line) |
-| 5 | `supabase/tests/database/analytics.test.sql` (exact columns from the catalogue, privileges) |
-| 6 | `analytics.test.sql`, `analytics_parallel.test.sql` (two connections at once) |
-| 7 | `e2e/analytics-feedback.spec.ts` (whole walk, no outside request), `tests/analytics-rules.test.ts` (index.html and built pages), `worker/owner.test.ts` (owner host never counts) |
-| 8 | `analytics.test.sql` (hand worked numbers, empty data) |
-| 9 | `analytics.test.sql` (one failing case per condition); red scratch runs below |
-| 10 | `analytics.test.sql` (catalogue list of cost tables, total, a cost table added later is counted) |
-| 11 | `analytics.test.sql` (exact keys, no id or email, no @), `tests/analytics-rules.test.ts` (no anti metric words) |
-| 12 | `e2e/analytics-journey.spec.ts` |
-| 13 | `worker/owner.test.ts`, `e2e/analytics-owner.spec.ts` |
-| 14 | `worker/owner.test.ts` (six refusals, valid token, local keys only on this computer); red run below; `e2e/analytics-owner.spec.ts` |
-| 15 | `worker/owner.test.ts`, `e2e/analytics-owner.spec.ts` |
-| 16 | `analytics.test.sql`, `accounts.test.sql`, README line checked by `tests/analytics-rules.test.ts` |
-| 17 | `src/lib/owner-numbers.test.ts`, `e2e/analytics-owner.spec.ts` |
-| 18 | `worker/owner.test.ts`, `e2e/analytics-owner.spec.ts` |
-| 19 | `e2e/analytics-feedback.spec.ts`, `worker/feedback.test.ts` |
-| 20 | `e2e/analytics-owner.spec.ts` (script and onerror text, no links, 40 letter word at 375 px), `analytics.test.sql` |
-| 21 | `analytics.test.sql`, `data_model_schema.test.sql` |
-| 22 | `worker/feedback.test.ts`, `analytics.test.sql`, `analytics_parallel.test.sql`, `e2e/analytics-feedback.spec.ts` |
-| 23 | `analytics.test.sql`, `accounts.test.sql`, `tests/personal-data.test.ts`, `src/screens/privacy-page.test.ts` |
-| 24 | `src/lib/crash-reporter.test.ts`, `worker/crash.test.ts` |
-| 25 | `src/lib/crash-clean.test.ts`, `worker/crash.test.ts`, `src/lib/crash-reporter.test.ts`, `e2e/analytics-feedback.spec.ts` (typed answer in review) |
-| 26 | `analytics.test.sql`, `analytics_parallel.test.sql` |
-| 27 | `e2e/analytics-owner.spec.ts` (both browsers, test button and front door error), `worker/crash.test.ts`, `analytics.test.sql` |
-| 28 | `tests/analytics-rules.test.ts`, `tests/personal-data.test.ts` (provider listed under Supabase) |
-| 29 | `src/screens/privacy-page.test.ts` |
-| 30 | `worker/feedback.test.ts`, `worker/crash.test.ts`, `tests/analytics-rules.test.ts` (no supabase.co in the browser code) |
-| 31 | `e2e/analytics-feedback.spec.ts`, `e2e/analytics-owner.spec.ts` (320 px, 200 percent, 44 px, keyboard, axe light and dark) |
-| 32 | `tests/analytics-rules.test.ts`, the database check's type comparison |
-| 33 | Not built here: proven only after go live (owner's call 2). The manager keeps the feature failing until then. |
+| 29 | `src/screens/privacy-page.test.ts`: visit count line (address kept by Cloudflare, not by PuhuScribe's database); crash line says what is removed and no longer "nothing you typed or said"; "How long we keep it" (account deletion leaves visits and crashes, 30 days, totals with no personal data); rights (deletion covers what is linked to the account, the not linked line); "Owner page access" under its own lead in with legitimate interest (also labelled 16, 25) |
+| 27, 24 | `src/lib/crash-reporter.test.ts`: on the owner host the report is sent with `same-origin` cookies; `worker/owner.test.ts`: the owner host marks `/owner` and `/sign-in` and drops the stale length and ETag, leaves a 304 untouched; `e2e/analytics-owner.spec.ts`: on the owner host the page carries the mark and the `/api/crash` request carries the `CF_Authorization` cookie (Chromium and WebKit) |
+| 25, 30 | `src/lib/crash-reporter.test.ts`: on the app host, and with any other mark value, no cookies; `e2e/analytics-feedback.spec.ts`: a signed in guest on the app host sends a crash report with no `Cookie` header, and the page has no mark |
+| 4, 27 | `worker/owner.test.ts`: the app host serves `/owner` byte for byte, with no mark |
+| 13 | `worker/owner.test.ts` "serves /owner and /sign-in from the built page" now expects the marked page. Its test page gained a real `<html lang="en">` element; before, it had none, so the old assertion could not have seen a change to that element. |
 
-## Checks and results
+The changed assertions in `privacy-page.test.ts` replace the old notice text with the new text and add checks that the false sentences are gone. No test was deleted or weakened.
 
-No local Docker on this Windows machine, so the database and browser checks ran only on GitHub, as manual runs of the Checks workflow on this branch (`gh workflow run checks.yml --ref factory/14-analytics`). No pull request was opened. The preview job runs only for pull requests, so it was skipped.
+### Checks and results
 
-**Green run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41051962634** (head `3bca563`). Every job passed: type check, lint and format; Vitest (78 files, 1,042 passed, 6 skipped for missing private fonts); pgTAP (11 files, 903 tests, then the 9 parallel tests in their own step, all `ok`); Python; dependency check; secret scan; browser tests in Chromium and WebKit (382 passed, 31 skipped as before, including the journey project). Summary with every analytics test line: `factory/jobs/14-analytics/evidence/ci-r1-41051962634-checks.txt`.
+Local, this machine (Node 24):
+- `npx vitest run src/screens/privacy-page.test.ts src/lib/crash-reporter.test.ts worker/owner.test.ts` before the fix: 10 failed, 42 passed (`evidence/r2-red-before-fix-unit.txt`).
+- `npm run check:code`: pass. `npx vitest run`: 78 files, 1,056 passed, 2 skipped. `VITE_DESIGN_REFERENCE=1 npm run build`: pass, including `check:built-secrets` (32 files) and `check:built-files`; the built `index.html` has no owner host mark. Lefthook with gitleaks ran on every commit, never skipped.
 
-Local, this machine (Node 24): `npm run check:code` pass; `npx vitest run` 1,042 passed, 2 skipped; `VITE_DESIGN_REFERENCE=1 npm run build` pass, including `check:built-secrets` and the new `check:built-files` (32 files, none runs the Worker or loads another site); lefthook with gitleaks on every commit, never skipped.
+Break runs (each protection removed on purpose, then put back):
+- Crash reporter sends `omit` everywhere (the round 1 code): only "[analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies" failed. `evidence/r2-break-crash-credentials-always-omit.txt`.
+- Crash reporter sends `same-origin` everywhere: only the two app host tests failed ("sends one report ... and no cookies" and "on the app host, or with any other mark, sends no cookies"). `evidence/r2-break-crash-credentials-always-same-origin.txt`.
+- Worker stops marking owner host pages: only "serves /owner and /sign-in from the built page" and "marks the owner host page as the owner host" failed. `evidence/r2-break-owner-host-mark-removed.txt`.
+- The notice tests: the red run before the fix shows each one failing on the old text.
+- Browser test, on GitHub, crash reporter sends `omit` on the owner host too: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41057028194, branch `scratch/14-analytics-r2-red-omit`. Only three tests failed: the unit owner host test, and "[analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs" in Chromium and in WebKit, each because the request's cookie header was empty. Round 1's "Send a test error" test still passed under this break, which shows why the new test was needed. `evidence/r2-break-ci-owner-host-crash-without-cookie.txt`.
 
-**Red runs (each protection broken on purpose, then put back):**
-- Statement 9, condition 1 (owner list check removed): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41045973075, branch `scratch/14-analytics-red-9-list`. Only test 89 "[analytics 9] a learner not on the owner list gets nothing" failed. `evidence/break-9-ci-owner-list-check-removed.txt`.
-- Statement 9, condition 2 (live sign in check removed): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41045994845, branch `scratch/14-analytics-red-9-live`. Only test 90 "[analytics 9] an owner whose sign in was ended gets nothing" failed. `evidence/break-9-ci-live-sign-in-check-removed.txt`.
-- Statement 9, condition 3 (anon given EXECUTE): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41046434519, branch `scratch/14-analytics-red-9-anon`. Only test 88 "[analytics 9] anon cannot run owner_dashboard" failed. `evidence/break-9-ci-anon-allowed-to-run.txt`. (An earlier run on that branch, 41046007587, ran before the change was committed and proves nothing; it was cancelled.)
-- Statement 14 (the Access token check replaced by "always allow"): local Vitest, 7 of 23 owner tests failed, all six refusal tests and the local key test. `evidence/break-14-local-access-check-always-allow.txt`. A local run, not a GitHub link: the check is a unit test.
+GitHub (`gh workflow run checks.yml --ref factory/14-analytics`):
 
-**Runs that failed on the way, and why (debug triage):**
-- 41041065767, 41041996329, 41042719634, 41043424596: database job iterations. Real bugs in my first drafts: `ALTER ROLE ... SET` refused for a custom setting (moved to `PGOPTIONS`); `T1` refused by the country check (spec conflict, see deviation 1); `dblink_exec` cannot run a `select` (now `dblink()`); then the types check, until the CLI's generated `database.types.ts` was committed from the run's artifact.
-- 41045853880: every owner page browser test refused to connect. Real bug in the test setup: the test server listens only where `localhost` points (`::1` on the runner), not on 127.0.0.1. Fixed in `scripts/ci/test-owner-access.ts`.
-- 41047697385: three owner test failures. (a) `Access-Control-Allow-Origin` came from `vite preview`'s own CORS default, not the Worker (Vitest shows the Worker never sends it); the local preview server now sends no CORS headers, like production. (b) The sign in screen redirects a signed in owner, so its axe check now uses a fresh browser. (c) In WebKit the test's request context got 401 from the dashboard although the page itself was signed in (likely its cookie lookup for `[::1]`); that check now reads the database instead. No assertion was dropped.
-- 41049667239: only the journey failed: after a speech check Say it moves to the next line by itself, so the test now leaves by "I can't speak right now".
+**Green run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41056806046** (head `dd81f18`). Every job passed: type check, lint and format; Vitest (78 files, 1,052 passed, 6 skipped for the missing private fonts, as before); pgTAP (11 files, 903 tests, then the 9 parallel tests in their own step); Python; dependency check; secret scan; browser tests in Chromium and WebKit (386 passed, 31 skipped as before, journey project included). Both new browser tests ran and passed in both browsers. Summary with every analytics test line: `evidence/ci-r2-41056806046-checks.txt`. No pull request was opened, so the preview job was skipped.
 
-## Unfinished or uncertain
+### Unfinished or uncertain (round 2)
 
-- **Statement 33** is proven only after go live (owner's call 2). Not attempted.
-- **Owner input still needed at go live:** which email address goes into the Access policy and the owner list (the README tells the owner to type it; no agent picked one), and the 15 minute setup in README "Owner page setup".
-- **For the owner to approve:** the new privacy notice wording (visit count, feedback, crash reports, and an "Owner page access" line for the owner list, which the download now lists). The notice date is now 30 October 2026.
-- **Could not verify here:** how Cloudflare in production matches `/account` without a wildcard (both `/account` and `/account/*` are listed); `env.ASSETS.fetch` does apply the single page fallback (every page route loaded in the browser tests through it). How real phones set `Sec-Fetch-Site` on reload and home screen launch is for the go live check.
-- **Scratch branches** `scratch/14-analytics-red-9-list`, `-live` and `-anon` are still on GitHub; the manager may delete them.
-- `scripts/hooks/commit-tool.test.ts` once timed out in a full local Vitest run on this machine (passes alone and on GitHub); unrelated to this job.
-- The browser tests that need the owner host skip with a reason on preview links and after merge (no local key there), like other `@seed` and `@email` tests.
+- Statement 33 and the go live setup are unchanged from round 1 (below).
+- Not verifiable before go live: that Cloudflare Access sends `CF_Authorization` with a same origin `fetch` carrying `keepalive`. Browsers send same origin cookies with such requests, and the browser test shows the cookie on the request, but the live gate is checked only at go live (README "Owner page setup" step 5).
+- Scratch branch `scratch/14-analytics-r2-red-omit` is on GitHub with round 1's `scratch/14-analytics-red-9-*` branches; the manager may delete them. Run 41056895393 on it was started before its commit existed (lint refused my first try) and was cancelled; it proves nothing.
+
+## Round 1, 30 October 2026 (short)
+
+Owner's calls as approved on 30 October 2026: call 1 = A (crash reports in our own EU Supabase database), call 2 = A (going live is a separate job). The owner page hostname `puhuscribe-owner.exentrik.co` was confirmed by the owner during the build; it is named only in the README and `.env.example`, never in code or config (`OWNER_HOSTNAME` stays a setting).
+
+**Built:** the Worker counts arrivals per Helsinki day and country after answering the page byte for byte; the owner page at `/owner` on its own hostname behind Cloudflare Access, the owner's own PuhuScribe sign in and the owner list in `owner_dashboard()`; `/feedback` with three quiet links, 1 to 1,000 characters, 5 a Helsinki day; browser and Worker crash reports, cleaned twice, capped at 300 an hour and 30 per group, deleted after 30 days; records (privacy notice, inventory, data model, conventions, README owner page setup, regenerated types).
+
+**Deviations from the spec's wording** (all keep its intent): 1. `T1` is stored. 2. The owner row reaches the download through `public.my_owner_rows()`, since learners may not use the private schema. 3. `/voice` is a run_worker_first route. 4. The parallel database tests run in their own CI step with `PGOPTIONS`. 5. The journey test is its own Playwright project, with the country set by Miniflare's `MF-CF-Blob` header. 6. The local owner host is `127.0.0.1` or `[::1]`, with a fresh key per run trusted only on this computer. 7. Seed rows and list entries added to `accounts.test.sql`, `data_model_schema.test.sql` and `daily_review.test.sql`; no assertion changed.
+
+**Done when, round 1 tests:** 1 to 4 `worker/visits.test.ts`, `tests/analytics-rules.test.ts`; 5, 6, 8 to 11, 16, 21 to 23, 26 `supabase/tests/database/analytics.test.sql` and `analytics_parallel.test.sql`; 7 `e2e/analytics-feedback.spec.ts`, `worker/owner.test.ts`; 12 `e2e/analytics-journey.spec.ts`; 13 to 15, 18 `worker/owner.test.ts`, `e2e/analytics-owner.spec.ts`; 17 `src/lib/owner-numbers.test.ts`; 19, 20, 22 `e2e/analytics-feedback.spec.ts`, `worker/feedback.test.ts`; 23 `accounts.test.sql`, `tests/personal-data.test.ts`, `src/screens/privacy-page.test.ts`; 24, 25, 27 `src/lib/crash-reporter.test.ts`, `src/lib/crash-clean.test.ts`, `worker/crash.test.ts`, the e2e crash tests; 28, 30, 32 `tests/analytics-rules.test.ts`; 29 `src/screens/privacy-page.test.ts`; 31 the e2e 320 px, 200 percent, 44 px, keyboard and axe tests; 33 only after go live.
+
+**Green run:** https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41051962634 (head `3bca563`): every job passed (Vitest 1,042 passed; pgTAP 903 plus 9 parallel; browser 382 passed, 31 skipped). Summary: `evidence/ci-r1-41051962634-checks.txt`.
+
+**Red runs:**
+- Statement 9, owner list check removed: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41045973075, only test 89 failed. `evidence/break-9-ci-owner-list-check-removed.txt`.
+- Statement 9, live sign in check removed: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41045994845, only test 90 failed. `evidence/break-9-ci-live-sign-in-check-removed.txt`.
+- Statement 9, anon given EXECUTE: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41046434519, only test 88 failed. `evidence/break-9-ci-anon-allowed-to-run.txt`. (Run 41046007587 ran before the change was committed and was cancelled.)
+- Statement 14, Access check replaced by "always allow": local Vitest, 7 of 23 owner tests failed. `evidence/break-14-local-access-check-always-allow.txt`.
+
+**Runs that failed on the way:** 41041065767, 41041996329, 41042719634, 41043424596 (database drafts: custom setting, T1, dblink, types); 41045853880 (test server on `::1`, fixed in `scripts/ci/test-owner-access.ts`); 41047697385 (CORS from `vite preview`, axe on a redirecting sign in screen, WebKit request context cookie lookup); 41049667239 (journey left Say it by the quiet exit).
+
+**Still open from round 1:** statement 33 after go live; the owner's email in the Access policy and the owner list at go live (no agent picks it); unverified until live: Cloudflare's `/account` match and how real phones set `Sec-Fetch-Site`; scratch branches `scratch/14-analytics-red-9-list`, `-live`, `-anon`; `scripts/hooks/commit-tool.test.ts` once timed out locally (unrelated); owner host browser tests skip on preview links and after merge.
 
 ## How to run it locally
 
@@ -94,7 +82,7 @@ Local, this machine (Node 24): `npm run check:code` pass; `npx vitest run` 1,042
 2. `echo SPEECH_FEEDBACK_PROVIDER=fake >> .env.local` and `node scripts/ci/test-owner-access.ts >> .env.local` (the owner host settings for this computer).
 3. Load `supabase/seeds/browser/*.sql`, then `VITE_DESIGN_REFERENCE=1 npm run build`.
 4. `LOCAL_DB_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres npx playwright test`.
-5. By hand: open `https://localhost:4173/`, press Start, then "Send feedback". The owner page is at `https://127.0.0.1:4173/owner` or `https://[::1]:4173/owner` (whichever the key script printed) and needs the `Cf-Access-Jwt-Assertion` header, so it is easiest through the browser tests. Add your account to `private.owners` with the README's SQL line.
+5. By hand: open `https://localhost:4173/`, press Start, then "Send feedback". The owner page is at `https://127.0.0.1:4173/owner` or `https://[::1]:4173/owner` (whichever the key script printed) and needs the `Cf-Access-Jwt-Assertion` header, so it is easiest through the browser tests. Add your account to `private.owners` with the README's SQL line. The privacy notice is at `/privacy`.
 6. Parallel database tests: `PGOPTIONS='-c puhuscribe.parallel_test_password=postgres' psql "$LOCAL_DB_URL" -f supabase/tests/database/analytics_parallel.test.sql`.
 
 Pushed head: see the last commit on `factory/14-analytics`.
