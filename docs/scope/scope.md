@@ -44,7 +44,7 @@ These are not rows. They become acceptance criteria inside each spec and rules i
 | 11 | Units 4 to 6 content | Slice 6 | planned |
 | 12 | Tutor step (Use it) | Slice 7 | planned |
 | 13 | Onboarding | Slice 8 | planned |
-| 14 | Analytics, feedback & crash reporting | Slice 9 | planned |
+| 14 | Analytics, feedback & crash reporting | Slice 9 | done |
 | 15 | Landing page & waitlist | Slice 10 | planned |
 | 16 | Installable app & phone performance | Slice 11 | planned |
 
@@ -141,7 +141,7 @@ Thicken the front door. A short welcome that explains the loop and both register
 ### 14. Analytics, feedback & crash reporting · needs a decision · GA
 Count the north star, privacy respecting. Day 7 retention, median session length, and the share of active learners using speak back, plus AI cost per active learner, an in app feedback form, and crash reporting. The anti metrics (words learned, streak length, screens per session) are never tracked as goals.
 **Done when:** the north star numbers and AI cost per active learner are visible on a dashboard you can open without a database query, a test learner's journey moves each number, feedback arrives where you can read it, and a forced error shows up in crash reports.
-- [ ] Design it (spec): `/architect analytics, feedback & crash reporting`
+- [x] Design it (spec) and build it: factory job 14-analytics, `factory/jobs/14-analytics/spec.md`, merged 30 October 2026. PuhuScribe also counts its own visitors by country and day. The live owner page check waits for go live.
 
 ## Slice 10: Landing page & waitlist
 
