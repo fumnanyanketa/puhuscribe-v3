@@ -142,6 +142,19 @@
   color: var(--color-text);
 }
 
+/* The quiet "Send feedback" link on the finish screen (job 14-analytics), a
+   44 px tap area like the front door's links. */
+.feedbackLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  margin: var(--space-3) var(--space-1) 0;
+  color: var(--color-text);
+  font-size: var(--text-small);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 /* Keep it (factory/jobs/9-daily-review): one review item, its answer area,
    and the notes under the whole line after answering. */
 .reviewItem {

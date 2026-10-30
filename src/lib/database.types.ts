@@ -79,6 +79,20 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"feedback": {
+                  Row: {
+                    "created_at": string,"id": string,"message": string,"screen": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"message": string,"screen": string,"user_id"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"message"?: string,"screen"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"forms": {
                   Row: {
                     "analysis": Json | null,"approval_ref": string | null,"approved_at": string | null,"form_name_en": string | null,"form_tag": string,"id": number,"lemma": string,"status": Database["public"]['Enums']["content_status"],"surface_kirja": string,"surface_puhe": string,"why_en": string | null
@@ -302,6 +316,9 @@ isOneToOne: false
             "complete_session":
 { Args: { "session_id": string }; Returns: undefined
                            },
+"count_visit":
+{ Args: { "p_country": string }; Returns: undefined
+                           },
 "delete_my_account":
 { Args: Record<PropertyKey, never>; Returns: undefined
                            },
@@ -316,13 +333,22 @@ isOneToOne: false
               "created_at": string,"email": string,"email_confirmed_at": string,"id": string,"is_anonymous": boolean,"last_sign_in_at": string
             }[]
                            },
+"my_owner_rows":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "next_review_day":
 { Args: Record<PropertyKey, never>; Returns: {
               "next_day": string,"today": string
             }[]
                            },
+"owner_dashboard":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "record_review":
 { Args: { "p_difficulty": number,"p_due": string,"p_elapsed_days": number,"p_expected_reps": number,"p_form_id": number,"p_lapses": number,"p_last_review": string,"p_log_difficulty": number,"p_log_due": string,"p_log_elapsed_days": number,"p_log_last_elapsed_days": number,"p_log_scheduled_days": number,"p_log_stability": number,"p_log_state": Database["public"]['Enums']["card_state"],"p_mode": Database["public"]['Enums']["review_mode"],"p_rating": number,"p_reps": number,"p_review_time": string,"p_scheduled_days": number,"p_stability": number,"p_state": Database["public"]['Enums']["card_state"] }; Returns: boolean
+                           },
+"report_crash":
+{ Args: { "p_app_version": string,"p_browser": string,"p_frames": Json,"p_message": string,"p_name": string,"p_path": string,"p_source": string }; Returns: boolean
                            },
 "reserve_speech_check":
 { Args: { "max_checks": number,"window_minutes": number }; Returns: boolean

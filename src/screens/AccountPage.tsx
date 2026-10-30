@@ -144,6 +144,13 @@ export function AccountPage() {
       <ul className={styles.links}>
         {signedIn && (
           <li>
+            <a className={styles.link} href="/feedback?from=account">
+              Send feedback
+            </a>
+          </li>
+        )}
+        {signedIn && (
+          <li>
             <a className={styles.link} href="/account/delete">
               Delete my account
             </a>

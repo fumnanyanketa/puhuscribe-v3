@@ -208,6 +208,16 @@ select u::uuid, 901101001, 'first', decode(repeat('A', 136), 'base64')
   from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
                     '00000000-0000-4000-8000-0000000011d1']) as u;
 
+-- Job 14's tables: a feedback message and an owner list row for A, B and D.
+insert into public.feedback (user_id, screen, message)
+select u::uuid, 'account', 'pgtap accounts feedback'
+  from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
+                    '00000000-0000-4000-8000-0000000011d1']) as u;
+insert into private.owners (user_id)
+select u::uuid
+  from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
+                    '00000000-0000-4000-8000-0000000011d1']) as u;
+
 select is_empty(
   $$ select tbl from pg_temp.rows_of('00000000-0000-4000-8000-0000000011a1') where n = 0 $$,
   '[accounts 19] A has a row in every user table, so the export check below covers every table');

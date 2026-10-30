@@ -21,6 +21,7 @@ const PORT = 4173
 // drops Secure cookies on plain http://localhost (job 8-first-session).
 const LOCAL = `https://localhost:${String(PORT)}`
 const phone = { viewport: { width: 375, height: 812 }, isMobile: false, hasTouch: true }
+const JOURNEY = /analytics-journey\.spec\.ts$/
 
 const accessId = process.env.CF_ACCESS_CLIENT_ID
 const accessSecret = process.env.CF_ACCESS_CLIENT_SECRET
@@ -52,8 +53,17 @@ export default defineConfig({
     trace: keepsNoDebugFiles ? 'off' : 'retain-on-failure',
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'], ...phone } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'], ...phone } },
+    { name: 'chromium', testIgnore: JOURNEY, use: { ...devices['Desktop Chrome'], ...phone } },
+    { name: 'webkit', testIgnore: JOURNEY, use: { ...devices['Desktop Safari'], ...phone } },
+    // Job 14-analytics, "Done when" 12: the owner page journey reads totals
+    // that every other test also moves (visits, learners, sessions), so it
+    // runs alone, after both browsers have finished.
+    {
+      name: 'journey',
+      testMatch: JOURNEY,
+      dependencies: ['chromium', 'webkit'],
+      use: { ...devices['Desktop Chrome'], ...phone },
+    },
   ],
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined

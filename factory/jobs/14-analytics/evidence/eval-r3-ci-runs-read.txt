@@ -1,0 +1,50 @@
+Evaluator round 3: the three GitHub runs, read with `gh run view <id> --log` on 30 October 2026.
+Lines are copied from the logs (timestamps and job prefixes cut). No trace, HAR file or video was downloaded.
+
+== Green run 41062289293, branch factory/14-analytics, head 0fd1065 (f85e230 adds only factory files) ==
+Every job: success (Vitest, pgTAP, browser, type check, Python, dependency check, gitleaks).
+  ✓   26 [chromium] e2e/analytics-feedback.spec.ts:99:3 [analytics 19] a second tap and an Enter on Send while the message is sending store it once (3.5s)
+  ✓  235 [webkit]   e2e/analytics-feedback.spec.ts:99:3 [analytics 19] a second tap and an Enter on Send while the message is sending store it once (4.2s)
+  ✓  419 [journey]  e2e/analytics-journey.spec.ts:88:1 [analytics 12] a test learner journey moves each owner page number, each checked on its own (5.3s)
+  Every other analytics browser test line: ✓ in Chromium and WebKit.
+  31 skipped
+  388 passed (12.4m)      <- round 2 run 41056806046 had 386 passed and 31 skipped; +2 is the new test in two browsers
+  No "failed", no "flaky".
+  pgTAP: Files=11, Tests=903, Result: PASS (and again after the second load: PASS)
+  Vitest: 1052 passed | 6 skipped (1058)
+
+== Red run 41062162179, branch scratch/14-analytics-r3-red-double, head f422e45 (round 3 tests, no fix) ==
+Jobs: only "Browser tests" failed; Vitest, pgTAP and the rest passed.
+  ✘   26 [chromium] e2e/analytics-feedback.spec.ts:99:3 [analytics 19] a second tap and an Enter on Send while the message is sending store it once
+  ✘  236 [webkit]   same test
+  Error: expect(received).toEqual(expected) at analytics-feedback.spec.ts:129 (expect(posts).toEqual([...one body...]))
+      Array [
+        "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+    +   "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+    +   "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+      ]
+  (same three identical POSTs in WebKit)
+  2 failed, 31 skipped, 1 did not run (the journey project, which runs after the others), 385 passed
+  The other four [analytics 19] tests passed in both browsers.
+
+== Red run 41062406257, branch scratch/14-analytics-r3-red-cost, head c7e2568 ==
+c7e2568 = 0fd1065 plus one line in supabase/migrations/20261030101645_analytics.sql (checked with git diff):
+  -    v_cost := v_cost + v_part;
+  +    v_cost := v_cost + 0 * v_part; -- BREAK on purpose (round 3 red run): costs are ignored
+Browser tests:
+  ✘  419 [journey] e2e/analytics-journey.spec.ts:88:1 [analytics 12] a test learner journey moves each owner page number, each checked on its own
+  Error: expect(received).toBeGreaterThan(expected)
+    Expected: > 0
+    Received:   0
+    > 220 |     expect(after.ai_cost_usd.total).toBeGreaterThan(before.ai_cost_usd.total)
+  The failing line is check 7 (cost); checks 1 to 6 come before it in the test and passed.
+  1 failed, 31 skipped, 387 passed
+pgTAP (the statement 10 catalogue test and the statement 8 numbers, as expected):
+  Failed test 103: "[analytics 8] [analytics 10] cost: $0.005 in total"   have 0.00000000 want 0.005
+  Failed test 104: "[analytics 8] cost: $0.001 per active learner"        have 0.00000000 want 0.001
+  Failed test 117: "[analytics 10] the total equals every learner cost row in the window, in every cost table"  have 0.00000000 want 0.00500000
+  Failed test 118: "[analytics 10] a cost table added later is counted without changing owner_dashboard"        have 0.00000000 want 0.015
+  Failed 4/196 subtests, Result: FAIL
+
+== Scratch branches ==
+git ls-remote shows neither round 3 scratch branch on GitHub any more (deleted, as build.md says).

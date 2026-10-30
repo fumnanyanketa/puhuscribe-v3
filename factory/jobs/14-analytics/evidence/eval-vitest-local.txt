@@ -1,0 +1,146 @@
+Evaluator, local Vitest of the job's test files, 30 October 2026, worktree head 5df704c (Windows, Node 24).
+Full local run: 78 files, 1054 passed, 2 skipped, 2 failed; the 2 failures are timeouts in scripts/hooks/commit-tool.test.ts ([tooling 9], [tooling 13], gitleaks on this machine), not this job; both pass on GitHub. Type check (tsc -b): exit 0.
+
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 24] [analytics 25] sends one report by fetch with keepalive and no cookies, holding only the allow list 113ms
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies so Cloudflare Access lets it through 4ms
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 25] [analytics 30] on the app host, or with any other mark, sends no cookies 10ms
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 24] falls back to a plain fetch where keepalive is missing 2ms
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 24] sends each distinct error once and at most 5 per page load 7ms
+ ✓ src/lib/crash-reporter.test.ts > the browser crash reporter > [analytics 24] catches errors and unhandled rejections through its listeners 2ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] wrangler.jsonc names the ASSETS binding and lists exactly /api/* and the page routes 5ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] every page of src/App.tsx, and the front door at /, is a run_worker_first route 3ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] every listed page route is a page of src/App.tsx 1ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] no built file matches a pattern, and the check finds one that would 5ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] [analytics 7] every build runs the built files check 1ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 7] index.html loads nothing from another site 2ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 7] the check catches a script, a style and a pixel from another site 0ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 30] the browser code never calls a supabase.co address 36ms
+ ✓ tests/analytics-rules.test.ts > no anti metric > [analytics 11] the owner page and owner_dashboard() never mention words learned, forms learned, streaks or screens per session 19ms
+ ✓ tests/analytics-rules.test.ts > one module for crash reports > [analytics 28] no file but worker/providers/crash-reports.ts calls report_crash 354ms
+ ✓ tests/analytics-rules.test.ts > the parallel database tests > [analytics 6] [analytics 22] [analytics 26] run in the database check and must all pass, none skipped 1ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 13] [analytics 14] .env.example names the owner page settings with no value 1ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 13] no live owner hostname is written into code or config 52ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 32] the conventions, data model and README record the job 2ms
+ ✓ worker/logs.test.ts > the Worker log > [session 19] holds no cookie, token, user id, IP address or header after a whole session and its faults 142ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] stores a good report with the app version and a coarse browser label, and answers 204 59ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] stores a message with the learner own token and answers 201 121ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] takes each of the three screens 30ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] answers 400 to an empty, blank or too long message, or an unknown screen, and stores nothing 31ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] takes a message of exactly 1,000 characters 5ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] answers 429 with the gentle line when the day 5 messages are used 6ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] reads and caps the body at 8 KB before answering 9ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 30] accepts only POST with JSON from this site 5ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 19] [analytics 22] without an account, answers 401 and stores nothing 11ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a typed address or bookmark of / (Sec-Fetch-Site none): counted 56ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a reload of / (Sec-Fetch-Site none): counted 2ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a link from another site: counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a link from a sister site: counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a move from / to /session inside the app: not counted 7ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] an old browser with no Sec-Fetch-* headers arriving from a search engine: counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] an old browser with no Sec-Fetch-* headers and no Referer: counted 2ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] an old browser moving inside the app (Referer from this address): not counted 2ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] HEAD of /: not counted 2ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] POST to /: not counted 5ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] /api/today: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a file, /assets/index.js: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a path that is not a page, /about: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] every page route counts: /account/email: counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] no text/html in Accept: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] no Accept header: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] Sec-Fetch-Dest iframe: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] Sec-Fetch-Dest empty (a script fetch): not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a prefetch (Sec-Purpose): not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a prerender (Sec-Purpose): not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a prefetch (Purpose): not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] no User-Agent: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a link preview robot: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] Slack link preview: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] curl: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] a headless browser: not counted 1ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] an unknown Sec-Fetch-Site value: not counted 1ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 22] a database fault answers 503 14ms
+ ✓ worker/feedback.test.ts > POST /api/feedback > [analytics 30] writes no feedback text, user id or token to the log 10ms
+ ✓ worker/visits.test.ts > what counts as one visit > [analytics 1] the robot list holds the spec list exactly, and each entry is caught ignoring case 5ms
+ ✓ worker/visits.test.ts > the country > [analytics 2] is request.cf.country when it is two capital letters 1ms
+ ✓ worker/visits.test.ts > the country > [analytics 2] a missing value, or anything else, is stored as XX; XX and T1 stay as they are 1ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 2] [analytics 4] adds one for the country, and the call carries only the country 10ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 2] a page with no country data is counted as XX 5ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 1] [analytics 3] a move inside the app, a file and an API call are not counted 4ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 3] answers a page route with the built page from env.ASSETS 3ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 4] the page answer is exactly what env.ASSETS returned: no added header or cookie 4ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 4] a failing database changes nothing in the page and writes no log line 4ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 4] a database fetch that throws is dropped silently 2ms
+ ✓ worker/visits.test.ts > the Worker counts an arrival after answering the page > [analytics 4] a database that hangs does not hold the page back: the count runs after the answer 2ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] refuses any field outside the allow list, and a source other than browser 50ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] stores no email, token, id or query string: the message and path are cleaned 8ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] keeps only frames of the app own bundle files, at most 10 3ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] [analytics 30] never reads or renews the sign in cookies, and sets none 31ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 25] [analytics 30] reads the body, caps it at 8 KB, and accepts only POST with JSON from this site 3ms
+ ✓ worker/crash.test.ts > POST /api/crash takes only the allow list > [analytics 28] the provider never throws: a fault or a dropped report is just false 4ms
+ ✓ worker/crash.test.ts > an exception inside the Worker > [analytics 24] [analytics 27] a route that throws answers 500 server_error and the report reaches the database fake 7ms
+ ✓ worker/crash.test.ts > an exception inside the Worker > [analytics 24] a handled answer such as 503 not_available is not a crash 13ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] day 7 retention is "x percent (a of b learners)" 4ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] the median session is "m minutes, from n finished sessions" 1ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] speak back is "x percent (a of b)" 1ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] the cost is "$t in total, $p per active learner", in US dollars as recorded 2ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] countries have English names, XX is "Unknown" and T1 "Tor network", else the code 7ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] a day is written short, as the Helsinki date it is 11ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] the page checks the answer has every number before it draws 1ms
+ ✓ src/lib/owner-numbers.test.ts > the owner page numbers > [analytics 17] the page loads with no number drawn, and offers no chart, filter, date picker or export 18ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] has every section, each as a heading 5ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] names who is responsible and how to reach them, from the settings file 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] shows the name and a mailto link taken from the settings file 10ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] [accounts 17] lists what is kept, why and the legal reason, from the inventory 2ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] [accounts 24] [accounts 25] says how long, with the 90 day and 24 month rules 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] [accounts 17] says where data is and who processes it, from the processors list 1ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] says only the sign in cookies are used 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] lists the rights, the one month answer time and the complaint to the Ombudsman 1ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] says it is for adults 18 and over, and when it was last updated 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] keeps the writing rules: no em or en dash, no hype words 1ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice > [accounts 16] the contact address looks like an email address 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says what the visit count keeps, why, the legal reason and how long 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says the internet address is not kept by PuhuScribe, without claiming nobody sees it 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] [analytics 23] says what feedback keeps and that it goes with the account 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] says what a crash report holds, that it is not linked to the account, and 30 days 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] [analytics 25] says what is removed from a crash report, and claims no more 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] "How long we keep it" says account deletion leaves the visit count and crash reports, and how long each is kept 0ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] the rights say deletion covers what is linked to the account, and what happens with a request about visits or crashes 1ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] [analytics 16] shows "Owner page access" under its own lead in, with legitimate interest as its legal reason 1ms
+ ✓ src/screens/privacy-page.test.ts > the privacy notice, job 14-analytics > [analytics 29] adds no new processor: crash reports stay in the Supabase database in the EU 0ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] serves /owner and /sign-in from the built page 57ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 27] marks the owner host page as the owner host, with no stale length or ETag 8ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 27] leaves an answer that is not a page untouched 3ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 4] [analytics 27] the app host serves /owner byte for byte, without the owner host mark 1ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] sends every other page route to /owner 19ms
+ ✓ src/lib/crash-clean.test.ts > cleanText > [analytics 25] removes email addresses, ids, tokens, digit runs of 6 or more and query strings 3ms
+ ✓ src/lib/crash-clean.test.ts > cleanText > [analytics 25] folds line breaks and control characters, and cuts at 300 characters 1ms
+ ✓ src/lib/crash-clean.test.ts > cleanText > [analytics 25] withoutValues replaces what the learner typed, wherever it appears 0ms
+ ✓ src/lib/crash-clean.test.ts > cleanName and cleanPath > [analytics 25] keeps an error name only with a safe shape 0ms
+ ✓ src/lib/crash-clean.test.ts > cleanName and cleanPath > [analytics 25] replaces every id in the path with :id and drops the query and fragment 1ms
+ ✓ src/lib/crash-clean.test.ts > stack frames > [analytics 25] reads Chrome and Safari stacks 1ms
+ ✓ src/lib/crash-clean.test.ts > stack frames > [analytics 25] keeps only the app own bundle files, at most 10, with safe function names 1ms
+ ✓ src/lib/crash-clean.test.ts > stack frames > [analytics 25] a Worker frame keeps only its bundle file name, never a package 0ms
+ ✓ src/lib/crash-clean.test.ts > browserLabel > [analytics 25] gives a coarse browser and system label and nothing else from the user agent 1ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] answers 404 to every /api route that is not on its list 15ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] answers the listed /api routes: health, me, sign in, sign out and crash 14ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] on the app host, /api/owner/* gets 404 1ms
+ ✓ worker/owner.test.ts > the owner host answers only its own routes > [analytics 13] with any of the three settings missing, no host is the owner host 2ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] no header gets 403 with one plain line, for pages and /api alike 2ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a malformed token gets 403 with one plain line, for pages and /api alike 2ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong signature gets 403 with one plain line, for pages and /api alike 9ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong audience gets 403 with one plain line, for pages and /api alike 7ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong issuer gets 403 with one plain line, for pages and /api alike 6ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] an expired token gets 403 with one plain line, for pages and /api alike 7ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a valid token goes on 2ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] normally uses the team keys from Cloudflare, never the local test keys 0ms
+ ✓ worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] the local test keys are used only when the owner host is this computer 3ms
+ ✓ worker/owner.test.ts > lock three: the owner signs in with their own account > [analytics 15] without a sign in, the dashboard answers 401 2ms
+ ✓ worker/owner.test.ts > lock three: the owner signs in with their own account > [analytics 15] an account not on the owner list gets 403 not_owner and no number 16ms
+ ✓ worker/owner.test.ts > lock three: the owner signs in with their own account > [analytics 15] the owner gets the numbers, asked of owner_dashboard() with the owner own token and the publishable key 5ms
+ ✓ worker/owner.test.ts > lock three: the owner signs in with their own account > [analytics 15] a database fault answers 503 5ms
+ ✓ worker/owner.test.ts > owner host answers are private > [analytics 18] every kind of answer carries the private headers 10ms
+ ✓ worker/owner.test.ts > owner host answers are private > [analytics 18] the dashboard accepts only GET 6ms
+ ✓ worker/owner.test.ts > owner host answers are private > [analytics 18] the dashboard refuses another origin, the app host included, by Origin or Sec-Fetch-Site 9ms
+ ✓ worker/owner.test.ts > the owner host is not counted > [analytics 7] requests to the owner host never call count_visit, even when served 6ms
+ Test Files  10 passed (10)
+      Tests  141 passed (141)

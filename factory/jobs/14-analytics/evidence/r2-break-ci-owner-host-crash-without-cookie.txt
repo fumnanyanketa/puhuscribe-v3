@@ -1,0 +1,33 @@
+Checks run 41057028194 on scratch/14-analytics-r2-red-omit (head 1fc989a, from dd81f18), 30 October 2026
+https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41057028194
+Break: src/lib/crash-reporter.ts sends credentials 'omit' on the owner host too (onOwnerHost() ? 'omit' : 'omit'), as in round 1.
+
+Result: failure
+Python tests and lint (pytest, ruff): success
+Dependency check (npm audit, pip-audit): success
+Browser tests (Playwright, local Supabase): failure
+Type check, lint, format: success
+Unit tests (Vitest): failure
+Secret scan (gitleaks): success
+Database tests (local Supabase, pgTAP): success
+Apply database changes to the test project: skipped
+Browser tests against the test project (after merge): skipped
+Preview link (Cloudflare Worker behind Access): skipped
+
+Failed tests (nothing else failed):
+      Tests  1 failed | 1051 passed | 6 skipped (1058)
+     × [analytics 27] [analytics 24] on the owner host, sends the report with same origin cookies so Cloudflare Access lets it through 13ms
+  2 failed
+  31 skipped
+  ✘   42 [chromium] › e2e/analytics-owner.spec.ts:189:3 › the owner page › [analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs @seed @email (228ms)
+  ✘  250 [webkit] › e2e/analytics-owner.spec.ts:189:3 › the owner page › [analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs @seed @email (888ms)
+
+Why (both browsers):
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected substring: "CF_Authorization=made-up-access-cookie"
+    Received string:    ""
+
+Still passing under the break, which is why the new test was needed:
+  ✓   41 [chromium] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (2.5s)
+  ✓  249 [webkit] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (4.0s)

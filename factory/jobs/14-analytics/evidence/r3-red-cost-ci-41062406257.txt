@@ -1,0 +1,32 @@
+Round 3 red run for statement 12: the journey's cost check, with owner_dashboard() made to ignore every cost.
+
+Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41062406257
+Branch: scratch/14-analytics-r3-red-cost, head c7e2568 = the round 3 code (0fd1065) plus one changed line in
+supabase/migrations/20261030101645_analytics.sql:
+
+-    v_cost := v_cost + v_part;
++    v_cost := v_cost + 0 * v_part; -- BREAK on purpose (round 3 red run): costs are ignored
+
+Jobs: Browser tests (Playwright, local Supabase) failed; Database tests (pgTAP) failed. Type check, lint, format; Vitest; Python; dependency check; secret scan all passed.
+
+Browser summary: 1 failed, 31 skipped, 387 passed (10.4m). The only browser failure, copied from the log:
+
+  1) [journey] > e2e/analytics-journey.spec.ts:88:1 > [analytics 12] a test learner journey moves each owner page number, each checked on its own @seed @email
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      219 |     // 7. Cost: the speech check's recorded cost is added, exactly.
+    > 220 |     expect(after.ai_cost_usd.total).toBeGreaterThan(before.ai_cost_usd.total)
+
+Numbers 1 to 6 of the journey passed before this line, so the test failed on the cost and nothing else.
+
+pgTAP failures in the same run (the database tests of statements 8 and 10, expected under this break):
+# Failed test 103: "[analytics 8] [analytics 10] cost: $0.005 in total"
+# Failed test 104: "[analytics 8] cost: $0.001 per active learner"
+# Failed test 117: "[analytics 10] the total equals every learner cost row in the window, in every cost table"
+# Failed test 118: "[analytics 10] a cost table added later is counted without changing owner_dashboard"
+
+Reading: with the journey's attempt now costing 0.01234567 USD, a dashboard that ignores costs turns the journey test red. Before round 3 the fake provider's cost of 0 let it pass.

@@ -1,0 +1,6 @@
+Break: worker/owner.ts serves /owner and /sign-in on the owner host without the owner host mark (the round 1 code).
+     × [analytics 13] serves /owner and /sign-in from the built page 64ms
+     × [analytics 27] marks the owner host page as the owner host, with no stale length or ETag 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  1 failed (1)
+      Tests  2 failed | 24 passed (26)

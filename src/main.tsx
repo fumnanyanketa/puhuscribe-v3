@@ -1,6 +1,8 @@
 import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './App.tsx'
+import { CrashBoundary } from './components/CrashBoundary.tsx'
+import { installCrashReporter } from './lib/crash-reporter.ts'
 import './styles/tokens.css'
 import './styles/fonts.css'
 import './styles/base.css'
@@ -10,6 +12,9 @@ import './styles/base.css'
 // generated switzer.css and imports it. When they were not, the glob finds
 // nothing and the body text uses the fallback fonts.
 import.meta.glob('./assets/fonts/switzer/switzer.css', { eager: true })
+
+// Errors nobody caught are reported without anything that identifies the learner (job 14-analytics).
+installCrashReporter()
 
 const root = document.getElementById('root')
 if (!root) throw new Error('The page is missing its #root element.')
@@ -31,6 +36,8 @@ if (DesignReference && path === '/design-reference') page = <DesignReference />
 
 createRoot(root).render(
   <StrictMode>
-    <Suspense fallback={null}>{page}</Suspense>
+    <CrashBoundary>
+      <Suspense fallback={null}>{page}</Suspense>
+    </CrashBoundary>
   </StrictMode>,
 )

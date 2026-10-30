@@ -1,0 +1,22 @@
+Round 3 green run on the job branch.
+
+Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41062289293
+Branch: factory/14-analytics, head 0fd106591a419ed25b3e960a2f75051590a6e7d4 (round 3 tests and fix).
+Started with: gh workflow run checks.yml --ref factory/14-analytics
+
+Jobs:
+Type check, lint, format: success
+Unit tests (Vitest): success (78 files, 1052 passed, 6 skipped for the missing private fonts, as before)
+Database tests (local Supabase, pgTAP): success (11 files, 903 tests, Result: PASS; the 9 parallel tests ok)
+Python tests and lint (pytest, ruff): success
+Dependency check (npm audit, pip-audit): success
+Secret scan (gitleaks): success
+Browser tests (Playwright, local Supabase): success (388 passed, 31 skipped, as before; empty content run 2 passed)
+Apply database changes to the test project: skipped (not main)
+Browser tests against the test project (after merge): skipped (not main)
+Preview link (Cloudflare Worker behind Access): skipped (no pull request)
+
+The two round 3 tests, from the log:
+  ok   26 [chromium] > e2e/analytics-feedback.spec.ts:99:3 > feedback > [analytics 19] a second tap and an Enter on Send while the message is sending store it once @seed (3.5s)
+  ok  235 [webkit] > e2e/analytics-feedback.spec.ts:99:3 > feedback > [analytics 19] a second tap and an Enter on Send while the message is sending store it once @seed (4.2s)
+  ok  419 [journey] > e2e/analytics-journey.spec.ts:88:1 > [analytics 12] a test learner journey moves each owner page number, each checked on its own @seed @email (5.3s)

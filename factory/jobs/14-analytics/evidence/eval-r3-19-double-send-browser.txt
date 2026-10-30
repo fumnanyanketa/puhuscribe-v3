@@ -1,0 +1,19 @@
+﻿Evaluator round 3 check, 30 October 2026, worktree head f85e230 (app code as 0fd1065).
+Local Vite dev server, real feedback page at 375 x 812 in Chromium and WebKit (local Playwright 1.64.1).
+Only /api answers were stood in for: /api/me says guest, /api/feedback answers after 2 s (a slow phone connection). Taps are real mouse input at the Send button's centre.
+Counts the POST /api/feedback requests the page sends. Before the fix the same tap and Enter cases sent 2 (eval-19-double-send.txt).
+
+chromium A tap, wait 400 ms, tap again: busy before second tap 1; POST /api/feedback sent 1
+chromium A console errors: 0
+chromium B Enter, wait 400 ms, Enter again: POST /api/feedback sent 1
+chromium C three fast taps and a double click: POST /api/feedback sent 1
+chromium D failure then retry: problem line shown, message kept "Round 3: retry after a failure.", POST /api/feedback sent 2, then sent
+chromium E 429: gentle line shown; a tap after it sent again: POST /api/feedback sent 2
+chromium F empty message: gentle line shown, POST /api/feedback sent 0
+webkit A tap, wait 400 ms, tap again: busy before second tap 1; POST /api/feedback sent 1
+webkit A console errors: 0
+webkit B Enter, wait 400 ms, Enter again: POST /api/feedback sent 1
+webkit C three fast taps and a double click: POST /api/feedback sent 1
+webkit D failure then retry: problem line shown, message kept "Round 3: retry after a failure.", POST /api/feedback sent 2, then sent
+webkit E 429: gentle line shown; a tap after it sent again: POST /api/feedback sent 2
+webkit F empty message: gentle line shown, POST /api/feedback sent 0

@@ -1,0 +1,120 @@
+/* The owner page (job 14-analytics, "Done when" 17, 20 and 31). The account
+   pages' layout with room for two small tables. No charts, tiles or badges:
+   each number is a line of text with its goal and one sentence under it.
+   Values from src/styles/tokens.css. */
+
+.page {
+  max-width: 40rem;
+}
+
+.numbers {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.number {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.numberTitle {
+  margin: 0;
+  font-size: var(--text-body);
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.goal {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+/* A real table of days and countries. It scrolls inside its own box if a
+   very large text size makes it wider than the phone, so the page never
+   scrolls sideways. */
+.tableBox {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+.caption {
+  padding-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table td {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.table thead th {
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-quiet);
+}
+
+.table thead th:not(:first-child) {
+  text-align: right;
+}
+
+.table tbody tr:nth-child(odd) {
+  background: var(--color-word-hover);
+}
+
+.table tbody th {
+  font-weight: var(--weight-regular);
+}
+
+/* Learner text and error text: plain text, kept as typed, and long words
+   (Finnish compounds) wrap inside the box. */
+.message {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.crashName {
+  margin: 0;
+  font-size: var(--text-body);
+  overflow-wrap: anywhere;
+}
+
+.frames {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-6);
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}

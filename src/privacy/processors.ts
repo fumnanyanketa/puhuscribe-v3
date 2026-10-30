@@ -23,7 +23,8 @@ export const PROCESSORS: readonly Processor[] = [
     name: 'Supabase',
     role: 'Keeps the database and handles sign in. Until PuhuScribe chooses its own email sender, Supabase also sends the sign in code emails.',
     where: 'In the EU (Ireland).',
-    modules: [],
+    // Crash reports go to PuhuScribe's own database (job 14-analytics).
+    modules: ['crash-reports.ts'],
   },
   {
     name: 'Cloudflare',

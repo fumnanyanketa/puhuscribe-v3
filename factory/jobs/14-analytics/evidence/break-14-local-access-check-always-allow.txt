@@ -1,0 +1,77 @@
+
+ RUN  v5.0.5 C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/14-analytics
+
+ ❯ worker/owner.test.ts (23 tests | 7 failed) 347ms
+   ❯ lock two: the Worker checks the Access token on every request (9)
+     × [analytics 14] no header gets 403 with one plain line, for pages and /api alike 12ms
+     × [analytics 14] a malformed token gets 403 with one plain line, for pages and /api alike 1ms
+     × [analytics 14] a wrong signature gets 403 with one plain line, for pages and /api alike 4ms
+     × [analytics 14] a wrong audience gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] a wrong issuer gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] an expired token gets 403 with one plain line, for pages and /api alike 4ms
+     × [analytics 14] the local test keys are used only when the owner host is this computer 4ms
+node.exe : 
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] no header 
+gets 403 with one plain line, for pages and /api alike
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a 
+malformed token gets 403 with one plain line, for pages and /api alike
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong 
+signature gets 403 with one plain line, for pages and /api alike
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong 
+audience gets 403 with one plain line, for pages and /api alike
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] a wrong 
+issuer gets 403 with one plain line, for pages and /api alike
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] an 
+expired token gets 403 with one plain line, for pages and /api alike
+AssertionError: /owner: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ worker/owner.test.ts:252:34
+    250|       for (const path of ['/owner', '/api/owner/dashboard', '/api/me',…
+    251|         const res = await handleRequest(await ownerRequest(path, { jwt…
+    252|         expect(res.status, path).toBe(403)
+       |                                  ^
+    253|         expect(res.headers.get('content-type')).toBe('text/plain; char…
+    254|         expect(await res.text()).toBe(`${ACCESS_REFUSED}\n`)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  worker/owner.test.ts > lock two: the Worker checks the Access token on every request > [analytics 14] the local 
+test keys are used only when the owner host is this computer
+AssertionError: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ worker/owner.test.ts:288:27
+    286|       { fetch: supabase.fetch },
+    287|     )
+    288|     expect(broken.status).toBe(403)
+       |                           ^
+    289|   })
+    290| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 16 passed (23)
+   Start at  13:08:27
+   Duration  1.19s (tests 36%, transform 32%, import 31%, worker 1%)
+

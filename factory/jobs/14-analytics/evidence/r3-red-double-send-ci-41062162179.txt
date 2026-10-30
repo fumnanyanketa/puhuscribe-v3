@@ -1,0 +1,30 @@
+Round 3 red run for statement 19: the new double send test, without the fix.
+
+Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41062162179
+Branch: scratch/14-analytics-r3-red-double, head f422e45 (the round 3 tests; FeedbackPage.tsx without the "if (sending) return" guard).
+
+Jobs: Browser tests (Playwright, local Supabase) failed. Type check, lint, format; Vitest; pgTAP; Python; dependency check; secret scan all passed.
+Browser summary: 2 failed, 31 skipped, 385 passed (10.5m).
+
+The only two failures, copied from the log:
+
+  1) [chromium] > e2e/analytics-feedback.spec.ts:99:3 > feedback > [analytics 19] a second tap and an Enter on Send while the message is sending store it once @seed
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 0
+    + Received  + 2
+
+      Array [
+        "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+    +   "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+    +   "{\"screen\":\"account\",\"message\":\"Sent once on a slow connection.\"}",
+      ]
+
+    > 129 |     expect(posts).toEqual([JSON.stringify({ screen: 'account', message: 'Sent once on a slow connection.' })])
+
+  2) [webkit] > e2e/analytics-feedback.spec.ts:99:3 > feedback > [analytics 19] a second tap and an Enter on Send while the message is sending store it once @seed
+
+    Same error: three POST /api/feedback requests (the tap, the second tap, the Enter) where one is expected.
+
+Reading: without the guard, the second tap and the Enter each send the message again, in both browsers. Nothing else went red.

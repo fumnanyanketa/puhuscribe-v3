@@ -85,21 +85,39 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 
 ## Running costs
 
-| Service                                                                                     | Plan                                                                      | Cost today                                     |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------- |
-| GitHub (private repository, Actions checks)                                                 | Free (2,000 check minutes a month)                                        | €0                                             |
-| Cloudflare Workers (app, API, preview links)                                                | Workers Free                                                              | €0                                             |
-| Cloudflare Zero Trust (Access sign in for preview links)                                    | Free (up to 50 users)                                                     | €0                                             |
-| Cloudflare Workers, Exentrik account (`puhuscribe-review`, the private review site)         | Workers Free                                                              | €0                                             |
-| Cloudflare Zero Trust, Exentrik account (Access sign in for the review site, 2 of 50 seats) | Free (up to 50 users)                                                     | €0                                             |
-| Supabase (test project `puhuscribe-test`)                                                   | Free                                                                      | €0                                             |
-| Supabase built in email sender (sign in code emails)                                        | Included in Free (reaches only the Supabase team, 2 emails an hour)       | €0                                             |
-| Supabase Cron (daily clean up of unused accounts)                                           | Included in Free                                                          | €0                                             |
-| Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                         | €0 so far; about $0.25 per dialogue (estimate) |
-| Azure Speech (voices for both registers at build time)                                      | Free allowance, 0.5 million characters a month (resource not created yet) | €0                                             |
-| Azure Speech to text (Say it speaking feedback, job 10)                                     | Free tier F0 during the build: 5 audio hours a month, one check at a time | €0; about $1 per hour of learner audio on S0   |
+| Service                                                                                     | Plan                                                                                                   | Cost today                                     |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| GitHub (private repository, Actions checks)                                                 | Free (2,000 check minutes a month)                                                                     | €0                                             |
+| Cloudflare Workers (app, API, preview links)                                                | Workers Free                                                                                           | €0                                             |
+| Cloudflare Zero Trust (Access sign in for preview links)                                    | Free (up to 50 users)                                                                                  | €0                                             |
+| Cloudflare Workers, Exentrik account (`puhuscribe-review`, the private review site)         | Workers Free                                                                                           | €0                                             |
+| Cloudflare Zero Trust, Exentrik account (Access sign in for the review site, 2 of 50 seats) | Free (up to 50 users)                                                                                  | €0                                             |
+| Supabase (test project `puhuscribe-test`)                                                   | Free                                                                                                   | €0                                             |
+| Supabase built in email sender (sign in code emails)                                        | Included in Free (reaches only the Supabase team, 2 emails an hour)                                    | €0                                             |
+| Supabase Cron (daily clean up of unused accounts)                                           | Included in Free                                                                                       | €0                                             |
+| Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                                                      | €0 so far; about $0.25 per dialogue (estimate) |
+| Azure Speech (voices for both registers at build time)                                      | Free allowance, 0.5 million characters a month (resource not created yet)                              | €0                                             |
+| Azure Speech to text (Say it speaking feedback, job 10)                                     | Free tier F0 during the build: 5 audio hours a month, one check at a time                              | €0; about $1 per hour of learner audio on S0   |
+| Visit count, feedback and crash reports (job 14-analytics, in the Supabase database above)  | Included in Free; page loads now run the Worker and count toward Workers Free's 100,000 requests a day | €0                                             |
 
 Before real learners can add an email or sign in, the owner chooses an email sender (job 11-accounts, owner's call 1, decided at launch). That will be a new service and may cost money.
+
+## Owner page setup (job 14-analytics)
+
+The owner page shows the launch numbers, the visit count, the newest feedback and recent crashes. It lives at its own address, `https://puhuscribe-owner.exentrik.co` (confirmed by the owner on 30 October 2026), served by the same Worker as the app. Free, about 15 minutes, done by the owner at go live (a separate job, owner's call 2). Nothing here holds a key.
+
+1. In the Exentrik Cloudflare account, Zero Trust, Access, Applications: add a self hosted application for `puhuscribe-owner.exentrik.co` covering the whole hostname, with the One-time PIN login and one Allow policy holding the owner's own email address (typed there, never in a file). Add the evaluator's service token policy if the evaluator should reach it. Copy the application's AUD tag.
+2. On the production Worker, set three plain variables: `OWNER_HOSTNAME` = `puhuscribe-owner.exentrik.co`, `OWNER_ACCESS_TEAM_DOMAIN` = the team domain (`https://<team>.cloudflareaccess.com`) and `OWNER_ACCESS_AUD` = the AUD tag. Attach the hostname to the Worker. Without all three, no hostname is treated as the owner page's. Never set `OWNER_ACCESS_LOCAL_JWKS` there: it is for the browser tests on this computer only.
+3. Make sure your own PuhuScribe email account exists (start a session, then "Add your email" on the account page).
+4. Put that account on the owner list. In the Supabase dashboard of the live project, SQL editor, run this one line, typing your own address in place of the words in angle brackets:
+
+   ```sql
+   insert into private.owners (user_id) select id from auth.users where email = '<your email address>';
+   ```
+
+   The email address never goes in a file. To take an account off the list later: `delete from private.owners where user_id = (select id from auth.users where email = '<the address>');`
+
+5. Open `https://puhuscribe-owner.exentrik.co/owner`, pass the Cloudflare login, then sign in with your PuhuScribe email code. "Send a test error" under Crashes checks that crash reports arrive.
 
 ## Owner setup for accounts (job 11-accounts)
 

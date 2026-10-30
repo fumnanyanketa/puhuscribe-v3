@@ -1,0 +1,13 @@
+Evaluator check, 30 October 2026: a second tap or Enter on Send while the first message is still sending.
+Local dev server, /api/me and /api/feedback stood in for, the feedback answer delayed 2 s (a slow phone connection). Counts the POST /api/feedback requests the page sends.
+
+chromium tap, wait 400 ms, tap again: button busy before second tap: 1
+chromium tap, wait 400 ms, tap again: POST /api/feedback requests sent: 2
+chromium tap, wait 400 ms, tap again: bodies: {"screen":"finish","message":"One message, sent once (tap, wait 400 ms, tap again)."} | {"screen":"finish","message":"One message, sent once (tap, wait 400 ms, tap again)."}
+chromium Enter, wait 400 ms, Enter again: POST /api/feedback requests sent: 2
+chromium Enter, wait 400 ms, Enter again: bodies: {"screen":"finish","message":"One message, sent once (Enter, wait 400 ms, Enter again)."} | {"screen":"finish","message":"One message, sent once (Enter, wait 400 ms, Enter again)."}
+webkit tap, wait 400 ms, tap again: button busy before second tap: 1
+webkit tap, wait 400 ms, tap again: POST /api/feedback requests sent: 2
+webkit tap, wait 400 ms, tap again: bodies: {"screen":"finish","message":"One message, sent once (tap, wait 400 ms, tap again)."} | {"screen":"finish","message":"One message, sent once (tap, wait 400 ms, tap again)."}
+webkit Enter, wait 400 ms, Enter again: POST /api/feedback requests sent: 2
+webkit Enter, wait 400 ms, Enter again: bodies: {"screen":"finish","message":"One message, sent once (Enter, wait 400 ms, Enter again)."} | {"screen":"finish","message":"One message, sent once (Enter, wait 400 ms, Enter again)."}
