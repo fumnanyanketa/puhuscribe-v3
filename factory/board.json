@@ -782,15 +782,15 @@
       "id": "14-analytics",
       "feature": "analytics",
       "title": "Analytics, visitor count by country, feedback and crash reporting",
-      "stage": "build",
+      "stage": "review",
       "round": 2,
       "flag": "look closely",
       "flag_reasons": [
         "learner data, recordings or consent",
         "database and access rules"
       ],
-      "waiting_on": "builder",
-      "updated": "2026-10-30T14:25:00+02:00",
+      "waiting_on": "design re-check and evaluator",
+      "updated": "2026-10-30T15:01:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -815,6 +815,14 @@
         {
           "stage": "build",
           "at": "2026-10-30T14:25:00+02:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-10-30T15:00:00+02:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-10-30T15:01:00+02:00"
         }
       ]
     }
