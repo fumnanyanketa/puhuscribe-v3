@@ -129,6 +129,16 @@
       "status": "failing",
       "job": "13-review-site",
       "note": "Owner decision 22 October 2026: review pages only, at puhuscribe.exentrik.co (not the app's final domain), behind Cloudflare Access. The reviewer's email is the owner's to give. Merged 22 October 2026 into the public repository. Stays failing until the first deploy and the live checks pass after the owner's Cloudflare setup in the Exentrik account."
+    },
+    {
+      "id": "analytics",
+      "scope_item": 14,
+      "name": "Analytics, feedback and crash reporting, with PuhuScribe counting its own visitors by country",
+      "needs_decision": true,
+      "ga": true,
+      "status": "failing",
+      "job": "14-analytics",
+      "note": "Owner decision 30 October 2026: the live app is at puhuscribe.exentrik.co; PuhuScribe counts its own visitors by country and day (Finland included) in its own EU database, with no third-party counter; Cloudflare Web Analytics switched off for exentrik.co."
     }
   ]
 }
