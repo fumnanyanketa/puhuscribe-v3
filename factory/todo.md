@@ -83,6 +83,6 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - (manager, 29 Oct) Rotate the Anthropic and Azure keys: both showed in the owner's terminal and the manager read them. Use `Read-Host -AsSecureString` for any key prompt from now on.
 
 ## From the review site move (30 October 2026)
-- GO LIVE BLOCKER: the Cloudflare Access app "puhuscribe" still lists the old destination puhuscribe.exentrik.co next to puhuscribe-review.exentrik.co. Remove it before the live app takes puhuscribe.exentrik.co, or the public app would sit behind the review login. Needs a Cloudflare dashboard sign in (Chrome was signed out). (13-review-site, manager)
+- Done 30 October 2026: the old destination puhuscribe.exentrik.co was removed from the Cloudflare Access app, so the learner app can take that address at go live. (13-review-site, manager)
 - Add the Finnish reviewer's email to the Access Allow policy "Owner and reviewer" when the owner gives it. (13-review-site, manager)
 - The Access service token and the review deploy API token expire on 30 October 2027. (13-review-site, manager)
