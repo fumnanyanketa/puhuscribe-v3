@@ -1,0 +1,95 @@
+Evaluator's own read of GitHub run 41056806046 (head dd81f18, conclusion success), 30 October 2026
+https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41056806046
+Head 5df704c differs from dd81f18 only in factory/jobs/14-analytics/build.md and two evidence files (git diff --stat).
+
+Every analytics browser test line from the log (passed unless marked):
+  ✓   22 [chromium] › e2e/analytics-feedback.spec.ts:37:3 › feedback › [analytics 19] without an account the page says to start first, links to the front door, and the front door shows no feedback link @seed (311ms)
+  ✓   23 [chromium] › e2e/analytics-feedback.spec.ts:50:3 › feedback › [analytics 19] [analytics 21] a quiet link on the front door and the account page opens the form, and a message is stored with its screen @seed (1.4s)
+  ✓   25 [chromium] › e2e/analytics-feedback.spec.ts:82:3 › feedback › [analytics 19] the finish screen has the quiet link, and the loop gains no step @seed (2.2s)
+  ✓   26 [chromium] › e2e/analytics-feedback.spec.ts:97:3 › feedback › [analytics 22] an empty message is not sent, and the 6th message of the day gets the gentle line @seed (1.3s)
+  ✓   27 [chromium] › e2e/analytics-feedback.spec.ts:119:3 › feedback › [analytics 31] the feedback page fits 320 px and 200 percent text, has 44 px controls and a visible label, wraps a 40 letter word, and works by keyboard @seed (1.2s)
+  ✓   28 [chromium] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, light @seed (2.5s)
+  ✓   30 [chromium] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, dark @seed (2.9s)
+  ✓   33 [chromium] › e2e/analytics-feedback.spec.ts:172:3 › no outside request › [analytics 7] a guest from the front door through the session, the feedback page and the account page never leaves the app address @seed (2.8s)
+  ✓   34 [chromium] › e2e/analytics-feedback.spec.ts:195:3 › a crash on a screen with a typed answer › [analytics 25] the stored report does not contain the answer the learner typed @seed (2.7s)
+  ✓   36 [chromium] › e2e/analytics-feedback.spec.ts:231:3 › a crash on a screen with a typed answer › [analytics 25] [analytics 30] on the app host, a signed in learner sends a crash report with no cookie @seed (565ms)
+  ✓   37 [chromium] › e2e/analytics-owner.spec.ts:40:3 › the owner page › [analytics 14] without the Access token, the owner host answers 403 with one plain line and no number @seed @email (71ms)
+  ✓   38 [chromium] › e2e/analytics-owner.spec.ts:55:3 › the owner page › [analytics 13] [analytics 15] [analytics 17] [analytics 18] an account not on the list sees the refusal; on the list, the owner sees every section @seed @email (2.2s)
+  ✓   40 [chromium] › e2e/analytics-owner.spec.ts:110:3 › the owner page › [analytics 20] feedback shows as plain text with its date, screen and account kind, runs nothing, links nothing, and wraps a 40 letter word @seed @email (2.1s)
+  ✓   41 [chromium] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (1.7s)
+  ✓   42 [chromium] › e2e/analytics-owner.spec.ts:189:3 › the owner page › [analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs @seed @email (219ms)
+  ✓   43 [chromium] › e2e/analytics-owner.spec.ts:219:3 › the owner page › [analytics 27] an error thrown on the learner front door shows up on the owner page @seed @email (1.9s)
+  ✓   44 [chromium] › e2e/analytics-owner.spec.ts:251:3 › the owner page › [analytics 31] the owner page fits 320 px and 200 percent text, has 44 px controls, works by keyboard, and axe finds nothing in light or dark @seed @email (5.2s)
+  ✓  232 [webkit] › e2e/analytics-feedback.spec.ts:37:3 › feedback › [analytics 19] without an account the page says to start first, links to the front door, and the front door shows no feedback link @seed (1.0s)
+  ✓  234 [webkit] › e2e/analytics-feedback.spec.ts:50:3 › feedback › [analytics 19] [analytics 21] a quiet link on the front door and the account page opens the form, and a message is stored with its screen @seed (2.7s)
+  ✓  235 [webkit] › e2e/analytics-feedback.spec.ts:82:3 › feedback › [analytics 19] the finish screen has the quiet link, and the loop gains no step @seed (5.7s)
+  ✓  237 [webkit] › e2e/analytics-feedback.spec.ts:97:3 › feedback › [analytics 22] an empty message is not sent, and the 6th message of the day gets the gentle line @seed (1.8s)
+  ✓  239 [webkit] › e2e/analytics-feedback.spec.ts:119:3 › feedback › [analytics 31] the feedback page fits 320 px and 200 percent text, has 44 px controls and a visible label, wraps a 40 letter word, and works by keyboard @seed (2.1s)
+  ✓  240 [webkit] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, light @seed (3.3s)
+  ✓  242 [webkit] › e2e/analytics-feedback.spec.ts:153:5 › feedback › [analytics 31] axe finds no WCAG A or AA problem on the feedback page, dark @seed (3.6s)
+  ✓  243 [webkit] › e2e/analytics-feedback.spec.ts:172:3 › no outside request › [analytics 7] a guest from the front door through the session, the feedback page and the account page never leaves the app address @seed (4.5s)
+  ✓  244 [webkit] › e2e/analytics-feedback.spec.ts:195:3 › a crash on a screen with a typed answer › [analytics 25] the stored report does not contain the answer the learner typed @seed (5.6s)
+  ✓  245 [webkit] › e2e/analytics-feedback.spec.ts:231:3 › a crash on a screen with a typed answer › [analytics 25] [analytics 30] on the app host, a signed in learner sends a crash report with no cookie @seed (1.4s)
+  ✓  247 [webkit] › e2e/analytics-owner.spec.ts:40:3 › the owner page › [analytics 14] without the Access token, the owner host answers 403 with one plain line and no number @seed @email (122ms)
+  ✓  248 [webkit] › e2e/analytics-owner.spec.ts:55:3 › the owner page › [analytics 13] [analytics 15] [analytics 17] [analytics 18] an account not on the list sees the refusal; on the list, the owner sees every section @seed @email (3.0s)
+  ✓  249 [webkit] › e2e/analytics-owner.spec.ts:110:3 › the owner page › [analytics 20] feedback shows as plain text with its date, screen and account kind, runs nothing, links nothing, and wraps a 40 letter word @seed @email (3.6s)
+  ✓  253 [webkit] › e2e/analytics-owner.spec.ts:151:3 › the owner page › [analytics 27] "Send a test error" throws a real error, and after a reload the crash list shows it with its details @seed @email (3.7s)
+  ✓  254 [webkit] › e2e/analytics-owner.spec.ts:189:3 › the owner page › [analytics 27] on the owner host, a crash report carries the cookie Cloudflare Access needs @seed @email (789ms)
+  ✓  255 [webkit] › e2e/analytics-owner.spec.ts:219:3 › the owner page › [analytics 27] an error thrown on the learner front door shows up on the owner page @seed @email (3.6s)
+  ✓  256 [webkit] › e2e/analytics-owner.spec.ts:251:3 › the owner page › [analytics 31] the owner page fits 320 px and 200 percent text, has 44 px controls, works by keyboard, and axe finds nothing in light or dark @seed @email (9.1s)
+  ✓  417 [journey] › e2e/analytics-journey.spec.ts:85:1 › [analytics 12] a test learner journey moves each owner page number, each checked on its own @seed @email (5.1s)
+
+Every skipped browser test in the run (none is an analytics test):
+  -   54 [chromium] › e2e/design-reference.spec.ts:103:3 › the reference page › [design 5] ä ö å render in Switzer, and the body text uses it
+  -   93 [chromium] › e2e/design-sample.spec.ts:82:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Switzer, and the body text uses it
+  -  127 [chromium] › e2e/front-door.spec.ts:189:3 › private preview link › [smoke 12] [session 5] POST /api/guest is refused without the Access sign in and makes nothing @preview
+  -  135 [chromium] › e2e/health.spec.ts:75:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview
+  -  136 [chromium] › e2e/health.spec.ts:94:3 › private preview link › [12] the API is closed too without sign in @preview
+  -  154 [chromium] › e2e/first-session.spec.ts:777:3 › with no readable dialogue › [session 6] the session screen says it is not ready yet and shows no Finnish @seed @empty-content
+  -  166 [chromium] › e2e/review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -  167 [chromium] › e2e/review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -  168 [chromium] › e2e/review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -  169 [chromium] › e2e/review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -  170 [chromium] › e2e/review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -  171 [chromium] › e2e/review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -  172 [chromium] › e2e/review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -  173 [chromium] › e2e/review-site.spec.ts:230:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -  174 [chromium] › e2e/review-site.spec.ts:240:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+  -  262 [webkit] › e2e/design-reference.spec.ts:103:3 › the reference page › [design 5] ä ö å render in Switzer, and the body text uses it
+  -  301 [webkit] › e2e/design-sample.spec.ts:82:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Switzer, and the body text uses it
+  -  332 [webkit] › e2e/front-door.spec.ts:189:3 › private preview link › [smoke 12] [session 5] POST /api/guest is refused without the Access sign in and makes nothing @preview
+  -  340 [webkit] › e2e/health.spec.ts:75:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview
+  -  341 [webkit] › e2e/health.spec.ts:94:3 › private preview link › [12] the API is closed too without sign in @preview
+  -  359 [webkit] › e2e/first-session.spec.ts:695:3 › the first session › [session 22] keyboard focus follows reading order on Hear it @seed
+  -  362 [webkit] › e2e/first-session.spec.ts:777:3 › with no readable dialogue › [session 6] the session screen says it is not ready yet and shows no Finnish @seed @empty-content
+  -  376 [webkit] › e2e/review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -  377 [webkit] › e2e/review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -  378 [webkit] › e2e/review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -  379 [webkit] › e2e/review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -  380 [webkit] › e2e/review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -  381 [webkit] › e2e/review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -  382 [webkit] › e2e/review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -  383 [webkit] › e2e/review-site.spec.ts:230:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -  384 [webkit] › e2e/review-site.spec.ts:240:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+
+  31 skipped
+  386 passed (11.0m)
+
+pgTAP lines for the analytics files:
+      2 /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics.test.sql ............. 
+      2 /home/runner/work/puhuscribe-v3/puhuscribe-v3/supabase/tests/database/analytics_parallel.test.sql .... ok
+      1 ok 1 - [analytics 6] the second visit waits while the first one is still open
+      1 ok 2 - [analytics 6] two calls from two connections at once make a count of 2
+      1 ok 3 - [analytics 22] the second message waits for the first one's lock on the learner
+      1 ok 4 - [analytics 22] once the first message is saved, the second one is refused as the 6th of the day
+      1 ok 5 - [analytics 22] parallel requests cannot beat the limit: the learner has exactly 5 messages
+      1 ok 6 - [analytics 26] the 300th report of the hour is stored
+      1 ok 7 - [analytics 26] the second report waits while the first one is being counted
+      1 ok 8 - [analytics 26] once the first is stored, the second is dropped as the 301st
+      1 ok 9 - [analytics 26] parallel reports cannot beat the cap: the hour holds exactly 300
+
+Statement 9 break runs, read by the evaluator with gh run view --log (each: only its own test failed):
+41045973075 scratch/14-analytics-red-9-list 35ee689 (owner list check removed): Failed test 89 '[analytics 9] a learner not on the owner list gets nothing'; Failed 1/196
+41045994845 scratch/14-analytics-red-9-live 3f7f4c5 (live sign in check removed): Failed test 90 '[analytics 9] an owner whose sign in was ended gets nothing'; Failed 1/196
+41046434519 scratch/14-analytics-red-9-anon 86d494f (anon granted execute): Failed test 88 '[analytics 9] anon cannot run owner_dashboard'; Failed 1/196
+Each commit's diff was read with gh api and changes only that one condition in supabase/migrations/20261030101645_analytics.sql.

@@ -59,3 +59,39 @@ No accent bars, eyebrows, pills or badges, glow, gradient text, emoji or icons, 
 No mode picker, word list, streak or grammar lesson. Feedback is a quiet link outside the loop. Learner side wording is gentle. The owner page shows nothing back to learners.
 
 Result: changes needed
+
+## Round 2, 30 October 2026
+
+Scope: only the four items asked for (must fix 1, should fix 2, 3 and 4), against `git diff 5715f92..5df704c`. The other round 1 findings are on `factory/todo.md` and were not checked.
+
+### Is each item fixed
+
+1. **Must fix 1, "How long we keep it" and the rights line: fixed.** `HOW_LONG` now says data linked to the account goes with the account, that the visit count and crash reports are not linked so account deletion does not change them, that crash reports go after 30 days, and that the visit count is kept as daily totals. I checked each claim against the code: `private.crash_reports` has a 30 day delete (migration line 334), the visit tallies have no deletion job and no user column, and feedback and the owner row cascade on account deletion. The rights list now says "deletes everything linked to your account at once", and `NOT_LINKED_RIGHTS` adds one honest sentence after the list ("we cannot find it, and we will tell you so"). That also closes round 1 note 16.
+2. **Should fix 2, crash report line: fixed.** "Nothing you typed or said" is gone. The new text says what is done and matches `crash-reporter.ts` (text typed into `input` and `textarea` fields is removed from the message) and `crash-clean.ts` (email shapes, ids, token shapes of 32 or more characters, digit runs of 6 or more, ids in the path), run in the browser and again in the Worker.
+3. **Should fix 3, "Owner page access": fixed.** It has its own lead in, "Only for the app's owner:", a plain legal reason (legitimate interest in keeping the owner page private), and a "how long" that matches the README's delete statement and the cascade. The learner lead in is now "Your learning and what you send us:". The download keeps the same table order.
+4. **Should fix 4, visit count and the internet address: fixed.** It now says Cloudflare, which runs the app, sees the address because it delivers the page, and PuhuScribe's database does not keep it. `worker/visits.ts` passes on the country only, so this is true.
+
+### Does the new wording claim only what the code does
+
+Yes, with one small point (note A below). No sentence promises more than I could find in the code.
+
+### Writing rules
+
+No em dashes, no hyphens used as punctuation, no colon reveals (the only colons are the existing lead ins that introduce a list), no "not X, but Y", no hype words. The one list of four ("an email address, an id, a sign in token or a long number") is a factual list of what is removed, not a rhetorical group of three. Words are plain. The `HOW_LONG` paragraph is six sentences, which is long but reads in order and each sentence says one thing.
+
+### Notes
+
+- **A. "any text typed into a box on the screen" is slightly wide.** `typedValues()` only reads `input` and `textarea` fields that are on the page when the error happens, and `withoutValues` skips values shorter than 2 characters. A one letter entry, or text in anything that is not a field, is not removed by this step (the shape cleaning still applies). Suggested wording if the owner wants it exact: "any text typed into a field on the screen". Not blocking.
+- **B. Rights line says the data "cannot be linked to you".** True for the account (no user column). Because the cleaning is best effort, a report could in rare cases carry a stray piece of personal text in its message. The sentence is still fair, since the owner could not tell whose it is, but it is a firm claim.
+
+### For the owner to look at when approving the wording
+
+1. `HOW_LONG`: "The visit count is kept as daily totals with no personal data for as long as the service runs." This is a decision to keep the totals with no limit. The builder offers a limit (for example 25 months) as a small migration if wanted.
+2. `NOT_LINKED_RIGHTS`: "If you ask to see or delete your part of them, we cannot find it, and we will tell you so." This is a promise about how requests are answered.
+3. Crash reports "what": the list of what is removed, and note A above.
+4. Visit count "what": names Cloudflare as seeing the address. Check that the Cloudflare entry in the same notice agrees.
+5. The learner lead in rename ("Your learning and what you send us:") was not on the manager's list; it is one line and easy to undo.
+
+Round 2 result: all four items fixed, no new must fix or should fix found.
+
+Result: pass

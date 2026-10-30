@@ -32,6 +32,9 @@ import { finishHearIt, finishUnderstandIt, serveTone, startSession } from './ses
 // local runtime only; the live Worker gets request.cf from Cloudflare).
 // Sessions are moved back in time in the throwaway database only (@seed).
 
+/** The known cost given to the journey's one speaking attempt, in US dollars. */
+const ATTEMPT_COST_USD = '0.01234567'
+
 /** Helsinki noon, some days ago, plus some minutes, as SQL. */
 function noon(daysAgo: number, minutes = 0): string {
   return `((((now() at time zone 'Europe/Helsinki')::date - ${String(daysAgo)})::timestamp + interval '12 hours' + interval '${String(minutes)} minutes') at time zone 'Europe/Helsinki')`
@@ -116,16 +119,24 @@ test(
     const lines = linesOf(session?.dialogueId ?? '')
     await finishHearIt(learner)
     await finishUnderstandIt(learner, (lineId) => lines.find((line) => line.id === lineId)?.gloss ?? '')
-    // One speech check with the fake provider: its cost is recorded.
+    // One speech check with the fake provider. The fake provider records a
+    // cost of 0, and "before + 0" could not show that the cost is counted, so
+    // the attempt's cost is set to a known amount in the throwaway database
+    // (round 3, evaluator failure 1).
     await sayOneLineAloud(learner)
+    expect(
+      Number(one(`select count(*) from public.speaking_attempts where user_id = :'uid'`, { uid: learnerId })),
+    ).toBe(1)
+    sql(`update public.speaking_attempts set cost_usd = :'cost' where user_id = :'uid'`, {
+      cost: ATTEMPT_COST_USD,
+      uid: learnerId,
+    })
     const cost = Number(
       one(`select coalesce(sum(cost_usd), 0) from public.speaking_attempts where user_id = :'uid'`, {
         uid: learnerId,
       }),
     )
-    expect(
-      Number(one(`select count(*) from public.speaking_attempts where user_id = :'uid'`, { uid: learnerId })),
-    ).toBe(1)
+    expect(cost).toBe(Number(ATTEMPT_COST_USD))
 
     // Feedback from the finish screen.
     const message = `Journey feedback ${String(Date.now())}`
@@ -205,7 +216,8 @@ test(
     expect(after.speak_back.base).toBe(before.speak_back.base + 1)
     await expect(owner.getByText(speakBackText(after.speak_back), { exact: true })).toBeVisible()
 
-    // 7. Cost: the speech check's recorded cost is added.
+    // 7. Cost: the speech check's recorded cost is added, exactly.
+    expect(after.ai_cost_usd.total).toBeGreaterThan(before.ai_cost_usd.total)
     expect(after.ai_cost_usd.total).toBeCloseTo(before.ai_cost_usd.total + cost, 8)
     await expect(owner.getByText(costText(after.ai_cost_usd), { exact: true })).toBeVisible()
 

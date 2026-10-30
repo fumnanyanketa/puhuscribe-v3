@@ -94,6 +94,42 @@ test.describe('feedback', { tag: '@seed' }, () => {
     expect(feedbackOf(userId)).toEqual([{ screen: 'finish', message: 'Hear it was fun.' }])
   })
 
+  // Round 3 (evaluator failure 2): on a slow connection, a second tap or an
+  // Enter on Send while the message is sending must not store it twice.
+  test('[analytics 19] a second tap and an Enter on Send while the message is sending store it once', async ({
+    page,
+  }) => {
+    const userId = await startGuest(page)
+    await page.goto('/feedback?from=account')
+    const isFeedbackPost = (request: Request) =>
+      request.method() === 'POST' && new URL(request.url()).pathname === '/api/feedback'
+    const posts: (string | null)[] = []
+    let answered = 0
+    page.on('request', (request) => {
+      if (isFeedbackPost(request)) posts.push(request.postData())
+    })
+    page.on('response', (response) => {
+      if (isFeedbackPost(response.request())) answered += 1
+    })
+    // A slow phone connection: the answer takes 2 seconds.
+    await page.route('**/api/feedback', async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 2_000))
+      await route.continue()
+    })
+    await page.getByLabel('Your message').fill('Sent once on a slow connection.')
+    const send = page.locator('form button[type="submit"]')
+    await send.click()
+    await expect(send).toHaveAttribute('aria-busy', 'true')
+    // The busy button refuses Playwright's normal click, so tap it as a finger would.
+    await send.click({ force: true })
+    await send.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('status')).toHaveText('Thank you. Your message is sent.')
+    await expect.poll(() => answered, { timeout: 10_000 }).toBe(posts.length)
+    expect(posts).toEqual([JSON.stringify({ screen: 'account', message: 'Sent once on a slow connection.' })])
+    expect(feedbackOf(userId)).toEqual([{ screen: 'account', message: 'Sent once on a slow connection.' }])
+  })
+
   test('[analytics 22] an empty message is not sent, and the 6th message of the day gets the gentle line', async ({
     page,
   }) => {

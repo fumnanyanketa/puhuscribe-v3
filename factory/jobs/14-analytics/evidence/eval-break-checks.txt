@@ -1,0 +1,82 @@
+Evaluator break checks, 30 October 2026. A throwaway copy of the code (git archive of head 5df704c, outside the repository); one protection changed at a time, its tests run with Vitest, then put back.
+
+=== BREAK: statement 14, the Worker's Access token check always allows
+205c205
+<   const tokenOk = await hasValidAccessToken(
+---
+>   const tokenOk = true || await hasValidAccessToken(
+     × [analytics 14] no header gets 403 with one plain line, for pages and /api alike 10ms
+     × [analytics 14] a malformed token gets 403 with one plain line, for pages and /api alike 1ms
+     × [analytics 14] a wrong signature gets 403 with one plain line, for pages and /api alike 3ms
+     × [analytics 14] a wrong audience gets 403 with one plain line, for pages and /api alike 3ms
+     × [analytics 14] a wrong issuer gets 403 with one plain line, for pages and /api alike 3ms
+     × [analytics 14] an expired token gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] the local test keys are used only when the owner host is this computer 3ms
+ Test Files  1 failed (1)
+      Tests  7 failed | 19 passed (26)
+
+=== BREAK: statement 1, every Sec-Fetch-Site value counts as an arrival
+47c47
+<   if (site !== null) return ARRIVALS.has(site.trim().toLowerCase())
+---
+>   if (site !== null) return true
+     × [analytics 1] a move from / to /session inside the app: not counted 10ms
+     × [analytics 1] an unknown Sec-Fetch-Site value: not counted 1ms
+     × [analytics 1] [analytics 3] a move inside the app, a file and an API call are not counted 5ms
+ Test Files  1 failed (1)
+      Tests  3 failed | 35 passed (38)
+
+=== BREAK: statement 25, the Worker stops cleaning the browser report message
+69c69
+<     message: cleanText(message),
+---
+>     message,
+     × [analytics 25] stores no email, token, id or query string: the message and path are cleaned 12ms
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+
+=== BREAK: statements 1 and 4, the Worker counts every page answer
+62c62
+<   if (page.status < 400 && countsAsVisit(request)) {
+---
+>   if (page.status < 400) {
+     × [analytics 1] [analytics 3] a move inside the app, a file and an API call are not counted 11ms
+ Test Files  1 failed (1)
+      Tests  1 failed | 37 passed (38)
+
+=== BREAK: statement 18, the dashboard's other origin refusal removed
+163c163
+<   if ((origin !== null && origin !== new URL(request.url).origin) || OTHER_SITES.has(site)) {
+---
+>   if (false) {
+     × [analytics 18] the dashboard refuses another origin, the app host included, by Origin or Sec-Fetch-Site 12ms
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 passed (26)
+
+=== BREAK: statements 7 and 13, owner host requests handled as the app host
+50c50
+<   if (owner !== null && url.hostname === owner) return handleOwnerRequest(request, env, deps)
+---
+>   if (false) return handleOwnerRequest(request, env, deps)
+     × [analytics 13] serves /owner and /sign-in from the built page 45ms
+     × [analytics 27] marks the owner host page as the owner host, with no stale length or ETag 7ms
+     × [analytics 13] sends every other page route to /owner 3ms
+     × [analytics 13] answers 404 to every /api route that is not on its list 4ms
+     × [analytics 14] no header gets 403 with one plain line, for pages and /api alike 1ms
+     × [analytics 14] a malformed token gets 403 with one plain line, for pages and /api alike 1ms
+     × [analytics 14] a wrong signature gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] a wrong audience gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] a wrong issuer gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] an expired token gets 403 with one plain line, for pages and /api alike 2ms
+     × [analytics 14] the local test keys are used only when the owner host is this computer 4ms
+     × [analytics 15] without a sign in, the dashboard answers 401 2ms
+     × [analytics 15] an account not on the owner list gets 403 not_owner and no number 14ms
+     × [analytics 15] the owner gets the numbers, asked of owner_dashboard() with the owner own token and the publishable key 4ms
+     × [analytics 15] a database fault answers 503 6ms
+     × [analytics 18] every kind of answer carries the private headers 10ms
+     × [analytics 18] the dashboard accepts only GET 3ms
+     × [analytics 18] the dashboard refuses another origin, the app host included, by Origin or Sec-Fetch-Site 3ms
+     × [analytics 7] requests to the owner host never call count_visit, even when served 9ms
+ Test Files  1 failed (1)
+      Tests  19 failed | 7 passed (26)
+
