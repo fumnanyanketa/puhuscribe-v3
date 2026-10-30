@@ -8,11 +8,13 @@
 -- and makes its call; B makes the same call while A is still open, and the
 -- test checks B is waiting; then A commits and B's answer is checked.
 --
--- A second connection needs the database password. Only the throwaway
--- database of the GitHub check "Database tests (local Supabase, pgTAP)" gives
--- it, as the role setting puhuscribe.parallel_test_password (its fixed local
--- password, not a secret; .github/workflows/checks.yml). Anywhere else, such
--- as the test project after a merge, the nine tests are skipped and say why.
+-- A second connection needs the database password. Only the step "Parallel
+-- database tests" of the GitHub check "Database tests (local Supabase,
+-- pgTAP)" gives it, as the session setting puhuscribe.parallel_test_password
+-- (the throwaway database's fixed local password, not a secret;
+-- .github/workflows/checks.yml). That step fails unless all nine pass. Run
+-- anywhere else (supabase test db, the test project after a merge), the nine
+-- tests are skipped and say why.
 --
 -- Rows written through the extra connections are committed, so every one is
 -- deleted again at the end, and anything left by an earlier failed run is
@@ -40,7 +42,7 @@ declare
 begin
   if coalesce(v_password, '') = '' then
     return next skip(
-      'a second connection needs the local database password, given only to the throwaway database of the pull request check',
+      'a second connection needs the local database password, given only in the step "Parallel database tests" of the database check',
       9);
     return;
   end if;

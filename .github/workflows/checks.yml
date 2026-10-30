@@ -173,16 +173,24 @@ jobs:
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
       - name: Start a throwaway database and apply every migration
         run: supabase db start
-      - name: Let the parallel database tests open a second connection
+      - name: Database security tests (pgTAP)
+        run: supabase test db
+      - name: Parallel database tests, from two connections at once (pgTAP with dblink)
         # supabase/tests/database/analytics_parallel.test.sql (job 14-analytics)
         # opens more connections to this throwaway database with dblink, to
         # prove that two requests at the same moment cannot beat a limit. A
         # second connection needs the database password: this database's fixed
-        # local one, already in LOCAL_DB_URL above, not a secret. Without this
-        # setting (the test project after a merge) those tests are skipped.
-        run: psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -c "alter role postgres set puhuscribe.parallel_test_password = 'postgres'"
-      - name: Database security tests (pgTAP)
-        run: supabase test db
+        # local one, already in LOCAL_DB_URL above, not a secret, given to this
+        # one session only. Everywhere else (supabase test db above, the test
+        # project after a merge) the file skips its tests. Here all 9 must
+        # pass and none may be skipped.
+        run: |
+          set -o pipefail
+          out=$(PGOPTIONS='-c puhuscribe.parallel_test_password=postgres' psql "$LOCAL_DB_URL" --no-psqlrc --tuples-only --no-align -v ON_ERROR_STOP=1 -f supabase/tests/database/analytics_parallel.test.sql)
+          echo "$out"
+          echo "$out" | grep -qx '1\.\.9'
+          test "$(echo "$out" | grep -c '^ok ')" -eq 9
+          if echo "$out" | grep -qE '^not ok|# SKIP|# Looks like'; then exit 1; fi
       - name: Run every reference data load a second time
         # The loads are upserts, so a second run must change nothing. The pgTAP
         # tests below then prove the row counts and contents are still exact.
