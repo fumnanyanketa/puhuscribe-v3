@@ -4,8 +4,8 @@ import { one, sql } from './db.ts'
 import {
   addToOwnerList,
   appBrowser,
-  dashboard,
   openOwnerPage,
+  ownerBrowser,
   ownerAccount,
   ownerHostMissing,
   ownerOrigin,
@@ -207,7 +207,9 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     await expect(crash).toBeVisible()
     await expect(crash).toContainText('A test error on the front door.')
     await expect(crash).toContainText('Path /.')
-    expect((await dashboard(page)).crashes.some((c) => c.name === name && c.path === '/')).toBe(true)
+    expect(
+      one(`select count(*) from private.crash_reports where error_name = :'name' and path = '/'`, { name }),
+    ).toBe('1')
     await context.close()
   })
 
@@ -245,8 +247,16 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
       await openOwnerPage(page)
       await axe(page, `/owner ${scheme}`)
     }
-    await page.goto('/sign-in')
-    await axe(page, '/sign-in on the owner host')
     await context.close()
+    // The sign in screen on the owner host, as the owner sees it before signing in.
+    const fresh = await ownerBrowser(browser, testInfo, baseURL)
+    const signIn = await fresh.newPage()
+    for (const scheme of ['light', 'dark'] as const) {
+      await signIn.emulateMedia({ colorScheme: scheme })
+      await signIn.goto('/sign-in')
+      await expect(signIn.getByLabel('Email address')).toBeVisible()
+      await axe(signIn, `/sign-in on the owner host ${scheme}`)
+    }
+    await fresh.close()
   })
 })

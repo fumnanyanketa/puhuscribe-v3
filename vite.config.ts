@@ -41,5 +41,7 @@ export default defineConfig({
     // "Browsers"). CSS is built so that Safari 15.4 understands it.
     cssTarget: ['safari15.4'],
   },
-  preview: { https: testHttps },
+  // No CORS headers from the local preview server: the live Worker sends none,
+  // and the owner page tests check that no answer allows another origin.
+  preview: { https: testHttps, cors: false },
 })
