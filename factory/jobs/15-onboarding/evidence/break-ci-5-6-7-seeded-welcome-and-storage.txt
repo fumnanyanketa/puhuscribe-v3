@@ -1,0 +1,56 @@
+Break run on GitHub (the @seed and @email tests cannot run on this computer, which has no Docker).
+Branch scratch/15-onboarding-red-seeded (never merged), commit on top of factory/15-onboarding.
+Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41245097012
+Result: failure, as intended (16m30s).
+
+What was broken, in src/screens/FrontDoor.tsx:
+1. The rule for who sees the welcome became 'every loaded view' (const newVisitor = view.kind !== 'loading'), so guests, email accounts, ended guests and notice messages all got the welcome.
+2. Start wrote sessionStorage.setItem('started', '1') just before opening /session.
+
+Jobs: 
+Secret scan (gitleaks) | success
+Database tests (local Supabase, pgTAP) | success
+Python tests and lint (pytest, ruff) | success
+Type check, lint, format | success
+Dependency check (npm audit, pip-audit) | success
+Browser tests (Playwright, local Supabase) | failure
+Unit tests (Vitest) | failure
+Browser tests against the test project (after merge) | skipped
+Apply database changes to the test project | skipped
+Preview link (Cloudflare Worker behind Access) | skipped
+
+Browser job: 433 passed, 31 skipped, and these went red (Chromium and WebKit alike):
+✘  190 [chromium] › a returning learner and the fixture › [onboarding 5] a guest who pressed Start and came back by Leave session sees no welcome @seed (6.0s)
+✘  199 [chromium] › a returning learner and the fixture › [onboarding 5] a guest whose account was deleted in the database sees the "ended" message and no welcome @seed (6.3s)
+✘  217 [chromium] › a returning learner and the fixture › [onboarding 6] a guest whose answer is delayed 2 seconds never sees the welcome @seed (9.6s)
+✘  223 [chromium] › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with its play controls within 10 seco
+✘  221 [chromium] › a returning learner and the fixture › with an email account › [onboarding 5] an email account (the fixture's, as in job 11) sees no welcome, and after signing out sees the message an
+✘  227 [chromium] › speaking feedback › [speak 8] "Play my recording" plays from memory; nothing goes to any browser store, and the recording goes with the line @seed (3.3s)
+✘   49 [chromium] › the daily review › [review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 4 of 4, then the finish screen saves as in job 8 @seed (2.1s)
+✘  169 [chromium] › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "continue") no welcome (5.6s)
+✘  164 [chromium] › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "start") no welcome (5.6s)
+✘  161 [chromium] › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome (5.7s)
+✘  157 [chromium] › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome (5.7s)
+✘  154 [chromium] › who sees the welcome › [onboarding 5] the notice "deleted" shows its message and no welcome (5.7s)
+✘  147 [chromium] › who sees the welcome › [onboarding 5] the notice "signed-out" shows its message and no welcome (5.6s)
+✘  152 [chromium] › who sees the welcome › [onboarding 5] the notice "signed-out-email" shows its message and no welcome (5.7s)
+✘  170 [chromium] › who sees the welcome › [onboarding 6] (a guest, answer delayed 2 seconds) the welcome is never in the page while the answer is awaited, nor after it (7.9s)
+✘  435 [webkit] › a returning learner and the fixture › [onboarding 5] a guest who pressed Start and came back by Leave session sees no welcome @seed (7.0s)
+✘  436 [webkit] › a returning learner and the fixture › [onboarding 5] a guest whose account was deleted in the database sees the "ended" message and no welcome @seed (6.9s)
+✘  437 [webkit] › a returning learner and the fixture › [onboarding 6] a guest whose answer is delayed 2 seconds never sees the welcome @seed (9.2s)
+✘  443 [webkit] › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with its play controls within 10 second
+✘  439 [webkit] › a returning learner and the fixture › with an email account › [onboarding 5] an email account (the fixture's, as in job 11) sees no welcome, and after signing out sees the message and 
+✘  481 [webkit] › speaking feedback › [speak 8] "Play my recording" plays from memory; nothing goes to any browser store, and the recording goes with the line @seed (4.1s)
+✘  296 [webkit] › the daily review › [review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 4 of 4, then the finish screen saves as in job 8 @seed (4.5s)
+✘  410 [webkit] › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "continue") no welcome (6.1s)
+✘  407 [webkit] › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "start") no welcome (6.1s)
+✘  405 [webkit] › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome (6.0s)
+✘  402 [webkit] › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome (6.1s)
+✘  400 [webkit] › who sees the welcome › [onboarding 5] the notice "deleted" shows its message and no welcome (6.0s)
+✘  393 [webkit] › who sees the welcome › [onboarding 5] the notice "signed-out" shows its message and no welcome (6.0s)
+✘  395 [webkit] › who sees the welcome › [onboarding 5] the notice "signed-out-email" shows its message and no welcome (6.0s)
+✘  413 [webkit] › who sees the welcome › [onboarding 6] (a guest, answer delayed 2 seconds) the welcome is never in the page while the answer is awaited, nor after it (8.5s)
+
+Reading it: every onboarding test for statements 5 and 6 that watches who sees the welcome went red, including the four @seed ones with real accounts and the @email one, and the test for statements 7 and 8 went red on the storage write.
+Two earlier tests went red too, and neither is an onboarding test. Job 9's [review 4] ... failed because the front door text of a signed in learner held the word "review" (from the welcome) where that test expects none. Job 10's [speak 8] asserts that nothing is written to any browser store, so the sessionStorage write made it fail. Neither was changed or weakened; with the real rule both stay green (run 41243855040).
+The Vitest job went red on tests/onboarding-rules.test.ts (the rule for who sees the welcome).

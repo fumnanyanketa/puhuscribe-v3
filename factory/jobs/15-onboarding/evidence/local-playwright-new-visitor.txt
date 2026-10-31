@@ -1,0 +1,43 @@
+  -    8 [chromium] › e2e\design-sample.spec.ts:82:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Switzer, and the body text uses it
+API timing | chromium | POST /api/guest | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a Start that gets no answer ends in the problem message after 10 seconds
+  -   31 [chromium] › e2e\front-door.spec.ts:189:3 › private preview link › [smoke 12] [session 5] POST /api/guest is refused without the Access sign in and makes nothing @preview
+  -   35 [chromium] › e2e\design-reference.spec.ts:103:3 › the reference page › [design 5] ä ö å render in Switzer, and the body text uses it
+  -   47 [chromium] › e2e\health.spec.ts:75:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview
+  -   48 [chromium] › e2e\health.spec.ts:94:3 › private preview link › [12] the API is closed too without sign in @preview
+  -   80 [chromium] › e2e\review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -   81 [chromium] › e2e\review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -   82 [chromium] › e2e\review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -   83 [chromium] › e2e\review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -   84 [chromium] › e2e\review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -   85 [chromium] › e2e\review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -   86 [chromium] › e2e\review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -   87 [chromium] › e2e\review-site.spec.ts:230:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -   88 [chromium] › e2e\review-site.spec.ts:240:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+API timing | chromium | GET /api/today | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+API timing | chromium | POST /api/guest | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+  -  141 [webkit] › e2e\design-reference.spec.ts:103:3 › the reference page › [design 5] ä ö å render in Switzer, and the body text uses it
+  -  144 [webkit] › e2e\design-sample.spec.ts:82:3 › the Hear it sample › [design 5] ä, ö, å, Ä, Ö and Å render in Switzer, and the body text uses it
+  -  186 [webkit] › e2e\health.spec.ts:75:3 › private preview link › [12] a visitor without sign in gets the Cloudflare Access sign in, not the app @preview
+  -  187 [webkit] › e2e\health.spec.ts:94:3 › private preview link › [12] the API is closed too without sign in @preview
+API timing | webkit | POST /api/guest | failed | -1 ms | [smoke 3] without AbortSignal.timeout, a Start that gets no answer ends in the problem message after 10 seconds
+  -  206 [webkit] › e2e\front-door.spec.ts:189:3 › private preview link › [smoke 12] [session 5] POST /api/guest is refused without the Access sign in and makes nothing @preview
+  -  211 [webkit] › e2e\review-site.spec.ts:90:3 › the live review site › [site 14] an anonymous visitor lands on the Access sign in page and sees no draft @review-site
+  -  212 [webkit] › e2e\review-site.spec.ts:115:3 › the live review site › [site 14] anonymous requests with redirects off get 302, 401 or 403 and no draft text @review-site
+  -  213 [webkit] › e2e\review-site.spec.ts:131:3 › the live review site › [site 15] with the service token the index lists every listed dialogue @review-site
+  -  214 [webkit] › e2e\review-site.spec.ts:142:3 › the live review site › [site 15] each listed page opens with its own title and requests nothing from elsewhere @review-site
+  -  215 [webkit] › e2e\review-site.spec.ts:160:3 › the live review site › [site 15] a generic fill downloads a review file with the right format, slug and round @review-site
+  -  216 [webkit] › e2e\review-site.spec.ts:189:3 › the live review site › [site 5] [site 15] the headers are present on the index, a page, robots.txt, 404 and 405 @review-site
+  -  217 [webkit] › e2e\review-site.spec.ts:209:3 › the live review site › [site 15] drafts, audio, round files, the list and unlisted pages get 404 @review-site
+  -  218 [webkit] › e2e\review-site.spec.ts:230:3 › the live review site › [site 16] every listed page is served byte for byte as committed @review-site
+  -  219 [webkit] › e2e\review-site.spec.ts:240:3 › the live review site › [site 17] the workers.dev address serves no review content @review-site
+API timing | webkit | GET /api/today | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+API timing | webkit | POST /api/guest | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+    - Expected  - 1
+    -   "database": "reachable",
+    test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-chromium\test-failed-1.png
+    - Expected  - 1
+    -   "database": "reachable",
+    test-results\health--13-api-health-repo-17d0b-e-test-project-as-reachable-webkit\test-failed-1.png
+  2 failed
+  28 skipped
+  240 passed (2.6m)

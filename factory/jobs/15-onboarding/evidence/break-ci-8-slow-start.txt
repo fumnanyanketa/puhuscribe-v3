@@ -1,0 +1,21 @@
+Break run on GitHub for statement 8 (the 10 second guard from the press of Start to the first line).
+Branch scratch/15-onboarding-red-slow (never merged). Two commits on top of factory/15-onboarding:
+1. src/screens/FrontDoor.tsx: after the guest account is made, Start waits 10.5 seconds before opening /session.
+2. .github/workflows/checks.yml: the browser job runs only e2e/onboarding.spec.ts. This was needed because a 10.5 second wait in every session start made the full suite run past the browser job's 30 minute limit; the first attempt (run 41245142051) was cancelled at 30m19s before it reached the test, and is not evidence of anything.
+
+Run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247541802
+Result: failure, as intended.
+
+Browser job: 74 passed, 2 failed. The two failures, and only these, are the test for statements 7 and 8 in Chromium and in WebKit:
+✘  72 [chromium] › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with its play controls within 10 seconds, and nothing is stored befo
+✘  75 [webkit] › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with its play controls within 10 seconds, and nothing is stored before
+
+Measured Start to first line:
+Speed | onboarding 8 | Start to first line | 10.96 s
+Speed | onboarding 8 | Start to first line | 10.88 s
+807 |     console.log(`Speed | onboarding 8 | Start to first line | ${seconds.toFixed(2)} s`)
+807 |     console.log(`Speed | onboarding 8 | Start to first line | ${seconds.toFixed(2)} s`)
+Failure message: expect(seconds).toBeLessThan(10), received 10.956 (Chromium).
+The same test passed in the green run with 0.37 s (Chromium) and 0.56 s (WebKit).
+
+The Vitest job also went red on this branch, on tests/checks-workflow.test.ts ([prdb 1] and [prdb 7]), because of the workflow edit in commit 2. That is the scratch branch's own change, not a problem on factory/15-onboarding.

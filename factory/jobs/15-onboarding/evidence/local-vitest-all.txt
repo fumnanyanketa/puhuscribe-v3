@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/15-onboarding
+
+
+ Test Files  80 passed (80)
+      Tests  1091 passed | 2 skipped (1093)
+   Start at  23:31:06
+   Duration  50.10s (tests 86%, import 11%, transform 2%, worker 1%)
+
+    Isolate  80 workers spawned · ~442ms startup each (spawn + environment, per file)
+             at least ~4.61s faster with isolate: false — reuses workers across files instead of one per file
+
