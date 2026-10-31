@@ -139,6 +139,46 @@
       "status": "passing",
       "job": "14-analytics",
       "note": "Owner decision 30 October 2026: the live app is at puhuscribe.exentrik.co; PuhuScribe counts its own visitors by country and day (Finland included) in its own EU database, with no third-party counter; Cloudflare Web Analytics switched off for exentrik.co. Merged 30 October 2026 with the owner's written approval; visit totals kept with no limit (owner's choice). Statement 33 is proven at go live."
+    },
+    {
+      "id": "onboarding",
+      "scope_item": 13,
+      "name": "Onboarding: a short welcome on the front door",
+      "needs_decision": true,
+      "ga": false,
+      "status": "failing",
+      "job": "15-onboarding",
+      "note": "Owner approved the spec with all recommended answers, 31 October 2026."
+    },
+    {
+      "id": "tutor-step",
+      "scope_item": 12,
+      "name": "Tutor step (Use it) with Otso",
+      "needs_decision": true,
+      "ga": true,
+      "status": "failing",
+      "job": "16-tutor-step",
+      "note": "Owner chose to hold until units 4 to 6 exist, 31 October 2026."
+    },
+    {
+      "id": "landing-page",
+      "scope_item": 15,
+      "name": "Landing page at the main address, app moved to /learn",
+      "needs_decision": true,
+      "ga": true,
+      "status": "failing",
+      "job": "17-landing-page",
+      "note": "Owner decisions 31 October 2026: landing page at /, app under /learn, no waitlist, no price, v2 hero with real screens, purple. Waits for the hero file and Exentrik details, and for 15-onboarding to merge."
+    },
+    {
+      "id": "save-progress",
+      "scope_item": null,
+      "name": "Ask a guest to save their progress after the first session",
+      "needs_decision": true,
+      "ga": false,
+      "status": "failing",
+      "job": "18-save-progress",
+      "note": "Owner idea, 31 October 2026: after the first finished session, once more at the third; shorter wording; white button."
     }
   ]
 }

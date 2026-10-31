@@ -265,3 +265,13 @@ Recorded here word for word, with the date, as you give them.
   - Exentrik: "C: Exentrik as owner (Recommended)". The owner gives the legal name and business ID.
   - The owner's own idea, recorded as a new job: after a guest's first finished session, the app asks them once to add their email to keep their progress. The owner chose "After 1st session".
   - Consequence: the job 17 spec goes back to the spec writer to be rewritten on these answers. A new job, 18-save-progress, gets its own spec.
+- 31 October 2026, job 17, after seeing the v3 app and its design reference. Owner's answers:
+  - Hero phone: "Real screens, same layout (Recommended)".
+  - Main button: "Start your first session (Recommended)".
+  - Top bar and beta tag: "Trim as recommended (Recommended)".
+  - Colour: "Purple, as in my hero (Recommended)". Purple buttons and a purple "street", as on v2's landing page. Labels in normal case, with no uppercase.
+  - Still to come from the owner: the hero picture as a file, and Exentrik's legal name and business ID. The privacy page address follows the spec's recommendation (/learn/privacy) unless the owner says otherwise.
+- 31 October 2026, job 18-save-progress. Owner's answers:
+  - Reminder: "Once more, at 3rd session (Recommended)".
+  - Words: "Shorter". The note reads "Add your email to save your progress."
+  - Button: "White button", chosen after seeing both options side by side.
