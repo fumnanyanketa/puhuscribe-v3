@@ -3,6 +3,7 @@ import { Button } from '../components/Button.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { Wordmark } from '../components/Wordmark.tsx'
 import { CanDo } from './CanDo.tsx'
+import { Welcome } from './Welcome.tsx'
 import { SIGNED_OUT_EMAIL, noticeFrom } from '../lib/account-notice.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { nextReviewSentence } from '../lib/review-day.ts'
@@ -21,6 +22,12 @@ import styles from './FrontDoor.module.css'
 // no new dialogue, today's session is the review alone; and an empty day says
 // so plainly with the day of the next review, as worded from the database's
 // two Helsinki dates (never the device clock). No count of due words appears.
+//
+// Job 15-onboarding ("Done when" 1, 5 and 6) adds the welcome between the lead
+// sentence and Start, for a new visitor only: the answer of GET /api/today
+// says nobody is signed in, it is not the ended state of a guest or an email
+// account, and the address carries no ?notice= message. Until that answer is
+// in, nothing of it is on the page. Nothing is stored to remember it was seen.
 
 export const GUEST_LINE =
   'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.'
@@ -120,6 +127,7 @@ export function FrontDoor() {
   const instead = view.kind === 'all_done' ? ALL_DONE : view.kind === 'not_ready' ? NOT_READY : null
 
   const signedOut = view.kind === 'signed_out'
+  const newVisitor = view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
   const canDo = view.kind === 'start' || view.kind === 'continue' ? view.canDo : undefined
   const nextReview = view.kind === 'all_done' ? view.nextReview : undefined
   let lead = LEAD
@@ -142,6 +150,7 @@ export function FrontDoor() {
         )}
         {nextReview && <p className={styles.message}>{nextReview}</p>}
         {canDo && <CanDo text={canDo} className={styles.canDo} />}
+        {newVisitor && <Welcome className={styles.welcome} />}
       </div>
       <div className={styles.actions}>
         {(signedOut || view.kind === 'start' || view.kind === 'review') && (

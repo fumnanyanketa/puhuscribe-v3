@@ -184,6 +184,18 @@ The first time a screen shows changed words, one plain line explains them: "Blue
 
 On session screens the word card's two play controls play the whole line in each register, because audio exists per line only (job 8, Decision 6). Their names say "Play the spoken line" and "Play the written line", and one plain caption under them says "Plays the whole line." (the `audioCaption` prop). A word and the punctuation after it never wrap apart: each sits in one span that does not break, with the button still the word's only tap target.
 
+### Welcome block (`Welcome`)
+
+The short welcome on the front door for a new visitor (job 15-onboarding). It sits between the lead sentence and Start and holds only text: a heading, the sentences, and two bands. No button, link, input or picture, no Finnish and no emoji, so there is nothing to tap inside it and Start is the way on. It is a `section` named by its `h2`, "Welcome to PuhuScribe", under the page's one `h1`.
+
+- **Words.** All of them live in `src/screens/welcome-copy.ts`, as exported constants, held to at most 80 words and the writing rules by `src/screens/welcome-copy.test.ts`. The owner edits them there at approval.
+- **The two bands** repeat the Spoken and Written look of the Finnish line, so the learner meets the same colours a few seconds later in Hear it. The Spoken band is `--color-spoken-band` with a 1 px `--color-spoken-band-edge` edge, its label in `--color-spoken-text`. The Written part has no wash and its label is `--color-written`. Each label is text ("Spoken", "Written"), so colour is never the only sign. The sentences are `--color-text`.
+- **Azure is not used.** Azure marks only the words that change between the two forms, and the welcome has none (`--color-flag-text` and `--color-flag-wash` stay out).
+- **No motion.** Nothing in it animates or transitions, so reduced motion changes nothing.
+- **When it shows.** Only when the front door's answer from `/api/today` says nobody is signed in, it is not the "ended" message and the address has no `?notice=` message. Nothing is stored to remember it was seen. Until that answer is in, the block is not on the page.
+- **Fit.** At 375 x 812 the whole Start button and the whole guest line stay on the first screen. If a change ever stops that, tighten the spacing first, then drop the third paragraph, and never the guest line.
+- **On the reference page** (`/design-reference`) the block is under "Welcome block", and follows the phone's light or dark setting like every other part.
+
 ### Answer choices (`AnswerChoices`)
 
 The rows of the comprehension check in Understand it (job 8-first-session). One full width row per English meaning, in the white pill look with a visible edge, at least 54 px tall, text left aligned and allowed to wrap. Three states, which differ in shape and words as well as colour:

@@ -1,0 +1,44 @@
+/* The welcome block on the front door (factory/jobs/15-onboarding, design.md
+   "Welcome block"). Values from src/styles/tokens.css. The bands repeat the
+   Spoken and Written look of FinnishLine. No animation, no picture. */
+
+.welcome {
+  display: grid;
+  gap: var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--text-heading);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+}
+
+.spoken {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-spoken-band-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-spoken-band);
+}
+
+.written {
+  padding: 0 var(--space-4);
+}
+
+.labelSpoken,
+.labelWritten {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-spoken-text);
+}
+
+.labelWritten {
+  color: var(--color-written);
+}

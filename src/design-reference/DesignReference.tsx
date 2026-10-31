@@ -7,6 +7,7 @@ import { RecordControl, type RecordState } from '../components/RecordControl.tsx
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
 import { Wordmark } from '../components/Wordmark.tsx'
+import { Welcome } from '../screens/Welcome.tsx'
 import { contrast } from '../lib/contrast.ts'
 import { CONTRAST_PAIRS } from '../styles/contrast-pairs.ts'
 import { asMap, colourTokens } from '../styles/token-values.ts'
@@ -385,6 +386,17 @@ export default function DesignReference() {
         <SampleNote />
         <div className={styles.card}>
           <FinnishLine cardNote="Sample, not reviewed." spoken={SPOKEN_EXAMPLE} written={WRITTEN_EXAMPLE} />
+        </div>
+      </Section>
+
+      <Section id="welcome" title="Welcome block">
+        <p className={styles.lead}>
+          The text a new visitor reads on the front door, above Start. It holds only text, so nothing in it
+          can be tapped. Its words are in src/screens/welcome-copy.ts. Switch your phone between light and
+          dark to see both.
+        </p>
+        <div className={styles.card}>
+          <Welcome />
         </div>
       </Section>
 
