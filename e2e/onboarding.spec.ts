@@ -444,7 +444,9 @@ test.describe('nothing new is stored or sent', () => {
   }) => {
     const requests = recordRequests(page)
     await openAsNewVisitor(page)
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
+    // A request the welcome made would start as soon as it appears, so a short wait is enough.
+    await page.waitForTimeout(1_000)
     const origin = new URL(page.url()).origin
     expect(requests.length).toBeGreaterThan(0)
     const api: string[] = []
