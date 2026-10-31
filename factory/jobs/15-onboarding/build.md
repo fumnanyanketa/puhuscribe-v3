@@ -68,6 +68,8 @@ On GitHub, `gh workflow run checks.yml --ref factory/15-onboarding`:
 
 - Run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41243855040: **success**, all jobs. Browser tests against the local Supabase: 464 passed, 31 skipped, 0 failed, Chromium and WebKit, including every `@seed` and `@email` onboarding test. Unit tests, pgTAP, pytest, secret scan, dependency check, type check, lint and format all green. The jobs that need the test project or preview keys were skipped by design. `evidence/ci-r1-41243855040-checks.txt`.
 
+- Run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247997929 on the final tip (the same code, plus these notes and the evidence): the first attempt failed on one existing test, job 5's `[design 12] Play lights each spoken word in turn, Pause holds it, and the end is announced` in WebKit (it expected the held word to be "Mä" or "oon" and read "Alex", a timing slip on the design sample page, which this job does not touch; the same test passed in the first run above). I re-ran the failed job without changing anything and the run is **success**. I did not edit that test. It is worth the evaluator's attention as a possible flaky test of job 5.
+
 No pull request was opened.
 
 ## Breaking each protection on purpose
