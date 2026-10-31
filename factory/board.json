@@ -854,12 +854,12 @@
       "id": "15-onboarding",
       "feature": "onboarding",
       "title": "Onboarding: a short welcome on the front door",
-      "stage": "build",
+      "stage": "evaluate",
       "round": 1,
       "flag": "routine",
       "flag_reasons": [],
-      "waiting_on": "builder",
-      "updated": "2026-10-31T22:36:00+02:00",
+      "waiting_on": "combined review and evaluator",
+      "updated": "2026-11-01T00:57:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -872,6 +872,18 @@
         {
           "stage": "build",
           "at": "2026-10-31T22:36:00+02:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-11-01T00:57:00+02:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-11-01T00:57:00+02:00"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-11-01T00:57:00+02:00"
         }
       ]
     },

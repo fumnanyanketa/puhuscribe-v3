@@ -274,3 +274,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-10-31T23:47 Owner saw the v3 app and design reference locally, then chose the job 17 hero (real screens in the same layout, Start your first session, trimmed bar, purple) and the job 18 details (reminder at the third session, shorter wording, white button). 18-save-progress build started. 17 waits for the hero file, Exentrik details and the 15 merge.
 - 2026-11-01T00:53 18-save-progress built, full checks green (run 41248527014). Security and design reviewers started.
 - 2026-11-01T00:57 18-save-progress security and design reviews both pass with notes only. Evaluator started.
+- 2026-11-01T00:57 15-onboarding built, full checks green (runs 41243855040 and 41247997929, one WebKit retry on job 5's [design 12]). Combined review and evaluator started. Hallway test is the owner's.
