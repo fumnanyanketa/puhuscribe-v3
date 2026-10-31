@@ -33,6 +33,8 @@ import {
   supabaseLearnerDb,
   type LearnerDb,
   type ReviewDb,
+  type SaveNote,
+  type SaveNoteDb,
 } from './learner-db.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
 import {
@@ -124,6 +126,13 @@ function isReviewDb(db: LearnerDb | (LearnerDb & ReviewDb)): db is LearnerDb & R
 // tests never reach.
 function reviewDatabaseFor(context: LearnerContext, db: LearnerDb): ReviewDb {
   return isReviewDb(db) ? db : supabaseLearnerDb(context.client)
+}
+
+// The note's database (job 18-save-progress): the same idea. A job 8 test whose
+// fake has no note call gets the real client, which asks the (fake) Supabase
+// and, getting no answer, leaves the plain {"saved":true}.
+function noteDatabaseFor(context: LearnerContext, db: LearnerDb): SaveNoteDb {
+  return 'saveProgressNote' in db ? (db as LearnerDb & SaveNoteDb) : supabaseLearnerDb(context.client)
 }
 
 /** Both databases of a signed in request: job 8's, then the review one. */
@@ -312,7 +321,9 @@ async function recordStep(request: Request, env: ApiEnv, deps: ApiDeps, id: stri
 }
 
 // POST /api/sessions/<id>/complete: the finish screen saves everything at
-// once through public.complete_session (statement 15).
+// once through public.complete_session (statement 15). The answer is
+// {"saved":true}, plus "saveNote" ("first" or "reminder") when the finish
+// screen should ask a guest to add an email (job 18-save-progress).
 async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string): Promise<Response> {
   const write = await refuseUnsafeWrite(request)
   if (write.refused) return write.refused
@@ -320,10 +331,20 @@ async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string
   if (refused) return refused
   const done = (body: unknown, status = 200) => withCookies(json(body, status), context.setCookies())
   try {
-    const result = await databaseFor(context, deps).completeSession(id)
+    const db = databaseFor(context, deps)
+    const result = await db.completeSession(id)
     if (result === 'not_found') return done({ error: 'not_found' }, 404)
     if (result === 'not_ready') return done({ error: 'step_out_of_order' }, 409)
-    return done({ saved: true })
+    // Job 18-save-progress, "Done when" 3: only after the session is saved, ask
+    // whether the finish screen's note is due. A failure here can never break
+    // saving, and nothing is logged.
+    let saveNote: SaveNote = 'none'
+    try {
+      saveNote = await noteDatabaseFor(context, db).saveProgressNote(id)
+    } catch {
+      // The plain answer below: the note is optional, saving is not.
+    }
+    return done(saveNote === 'none' ? { saved: true } : { saved: true, saveNote })
   } catch (error) {
     return withCookies(faultAnswer(error), context.setCookies())
   }

@@ -21,6 +21,8 @@ import type {
   ReadableDialogue,
   RecordReviewArgs,
   ReviewDb,
+  SaveNote,
+  SaveNoteDb,
   SessionRow,
   TokenRow,
 } from './learner-db.ts'
@@ -182,12 +184,19 @@ export function get(path: string, cookie?: string) {
 }
 
 /** A learner database in memory, standing in for Supabase as the learner. */
-export interface FakeDb extends LearnerDb, ReviewDb {
+export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb {
   dialogues: ReadableDialogue[]
   sessions: SessionRow[]
   content: Map<number, DialogueContent>
   completed: string[]
   failNext: boolean
+  // The save progress note (job 18-save-progress). It answers 'none' unless a test sets it.
+  /** What public.save_progress_note says. */
+  note: SaveNote
+  /** Makes the next save_progress_note call throw. */
+  noteFails: boolean
+  /** Every session id save_progress_note was asked about. */
+  noteAsked: string[]
   // The Keep it step (job 9-daily-review). Empty unless a test fills them.
   /** What public.review_queue returns, in order. */
   queue: QueueCard[]
@@ -212,6 +221,9 @@ export function fakeDb(
     content,
     completed: [],
     failNext: false,
+    note: 'none',
+    noteFails: false,
+    noteAsked: [],
     queue: [],
     cards: [],
     next: null,
@@ -253,6 +265,11 @@ export function fakeDb(
       row.endedAt ??= new Date().toISOString()
       db.completed.push(id)
       return Promise.resolve('saved')
+    },
+    saveProgressNote: (id) => {
+      db.noteAsked.push(id)
+      if (db.noteFails) return Promise.reject(new Error('down'))
+      return Promise.resolve(db.note)
     },
     reviewQueue: (limit) => Promise.resolve(db.queue.slice(0, Math.max(0, Math.min(limit, 15)))),
     nextReviewDay: () => Promise.resolve(db.next),

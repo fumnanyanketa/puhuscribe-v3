@@ -357,6 +357,9 @@ isOneToOne: false
 { Args: { "p_limit": number }; Returns: {
               "due": string,"form_id": number,"reps": number
             }[]
+                           },
+"save_progress_note":
+{ Args: { "p_session_id": string }; Returns: string
                            }
           }
           Enums: {
