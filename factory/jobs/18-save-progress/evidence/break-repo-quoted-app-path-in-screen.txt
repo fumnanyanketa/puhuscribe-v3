@@ -1,0 +1,21 @@
+Break: repo-quoted-app-path-in-screen
+Statement: [save-progress 17]
+File changed (restored afterwards): src/screens/SaveNote.tsx
+What was broken: the screen names the add email address itself instead of using the one constant
+
+Replaced:
+            window.location.assign(ADD_EMAIL_PATH)
+With:
+            window.location.assign('/account/email')
+
+Command: npx vitest run tests/save-progress-rules.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  2 failed | 6 passed (8)
+Tests that went red:
+FAIL  tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] no file this job adds or changes holds a quoted app path, except the constant
+FAIL  tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] the constant is in save-note-copy.ts, and the screen uses it
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  8 passed (8)

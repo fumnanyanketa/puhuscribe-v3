@@ -1,0 +1,34 @@
+Break: worker-note-asked-before-save
+Statement: [save-progress 3]
+File changed (restored afterwards): worker/api.ts
+What was broken: the note is asked for before complete_session has saved
+
+Replaced:
+    const db = databaseFor(context, deps)
+    const result = await db.completeSession(id)
+With:
+    const db = databaseFor(context, deps)
+    let early: SaveNote = 'none'
+    try {
+      early = await noteDatabaseFor(context, db).saveProgressNote(id)
+    } catch {
+      // swallowed
+    }
+    const result = await db.completeSession(id)
+
+Command: npx vitest run worker/save-progress.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  7 failed | 11 passed (18)
+Tests that went red:
+FAIL  worker/save-progress.test.ts > finishing the same first session twice > [save-progress 7] answers with the note both times, because the first answer may never have reached the screen
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] a database function that throws gives the plain answer with status 200, and the session is still saved
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] asks the database only after complete_session succeeded, never before or without it
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] does not ask when the session has not reached Understand it
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] does not ask when the session is not found, not ready or the save failed
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] stays {"saved":true} when the database says the note is not due
+FAIL  worker/save-progress.test.ts > the real database module > [save-progress 3] asks public.save_progress_note once, after complete_session, with the learner token and only the session id
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  18 passed (18)

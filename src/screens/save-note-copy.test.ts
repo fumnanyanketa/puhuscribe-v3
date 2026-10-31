@@ -51,7 +51,7 @@ describe('the words of the note', () => {
     expect(wordsOfTheNote()).toContain('Not now')
   })
 
-  it('[save-progress 9] are the owner’s words of 31 October 2026', () => {
+  it('[save-progress 9] are the words the owner chose on 31 October 2026', () => {
     expect(copy.SAVE_NOTE_SENTENCE).toBe('Add your email to save your progress.')
     expect(copy.SAVE_NOTE_REGION).toBe('Keep your progress')
     expect(copy.SAVE_NOTE_CLOSED).toBe('No problem. You can add your email later from Your account.')

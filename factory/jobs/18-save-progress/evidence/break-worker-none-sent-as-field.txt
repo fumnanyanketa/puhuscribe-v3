@@ -1,0 +1,23 @@
+Break: worker-none-sent-as-field
+Statement: [save-progress 3]
+File changed (restored afterwards): worker/api.ts
+What was broken: the answer always carries saveNote, also "none"
+
+Replaced:
+    return done(saveNote === 'none' ? { saved: true } : { saved: true, saveNote })
+With:
+    return done({ saved: true, saveNote })
+
+Command: npx vitest run worker/save-progress.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  4 failed | 14 passed (18)
+Tests that went red:
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] a database function that throws gives the plain answer with status 200, and the session is still saved
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] stays {"saved":true} when the database says the note is not due
+FAIL  worker/save-progress.test.ts > the real database module > [save-progress 3] a database error from the function gives the plain answer with status 200
+FAIL  worker/save-progress.test.ts > the real database module > [save-progress 3] an answer of none, or any word the Worker does not know, gives the plain answer
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  18 passed (18)

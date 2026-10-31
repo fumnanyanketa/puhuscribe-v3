@@ -1,0 +1,21 @@
+Break: copy-has-a-dash
+Statement: [save-progress 9]
+File changed (restored afterwards): src/screens/save-note-copy.ts
+What was broken: an em dash in the sentence
+
+Replaced:
+export const SAVE_NOTE_SENTENCE = 'Add your email to save your progress.'
+With:
+export const SAVE_NOTE_SENTENCE = 'Add your email \u2014 save your progress.'
+
+Command: npx vitest run src/screens/save-note-copy.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  2 failed | 6 passed (8)
+Tests that went red:
+FAIL  src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] are the words the owner chose on 31 October 2026
+FAIL  src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] follow the writing rules
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  8 passed (8)

@@ -1,0 +1,20 @@
+Break: screen-note-after-failed-save
+Statement: [save-progress 2]
+File changed (restored afterwards): src/screens/save-note.ts
+What was broken: the check of the answer no longer looks at the status, so a failed save could carry a note
+
+Replaced:
+  if (answer?.status !== 200 || !isRecord(answer.body)) return false
+With:
+  if (!isRecord(answer?.body)) return false
+
+Command: npx vitest run src/screens/save-note-copy.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  1 failed | 7 passed (8)
+Tests that went red:
+FAIL  src/screens/save-note-copy.test.ts > the answer to the complete request > [save-progress 2] never carries a note when the save failed, was refused or the network failed
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  8 passed (8)
