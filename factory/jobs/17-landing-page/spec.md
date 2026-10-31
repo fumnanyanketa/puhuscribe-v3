@@ -1,417 +1,407 @@
-# Job 17-landing-page: Landing page and waitlist
+# Job 17-landing-page: Landing page and the move of the app to /learn
 
-Scope item 15. Treated as GA (public page, personal data). Needs a decision. Date: 30 October 2026. Builds on main as merged, including 14-analytics (merged 30 October 2026) and 11-accounts. Written the same day as `15-onboarding` and `16-tutor-step`; the contract notes below keep the three apart. Test label: `[landing N]`.
+Scope item 15. Treated as GA (public page, and a change to every address of the app). Needs a decision. Round 2, 31 October 2026, written on the owner's answers of that day (the end of `factory/specs-waiting.md`) and on the owner's hero design (the v2 landing page). Builds on main as merged, including 14-analytics and 11-accounts, and after 15-onboarding is merged. Test label: `[landing N]`.
 
 ## Summary for the owner
 
-1. A public page explains PuhuScribe in plain English and has a waitlist form. I recommend it lives at `puhuscribe.exentrik.co/about` (owner's call 1). Its words are real HTML, so Google and chat apps can read them, and it has a social card (the picture shown when the link is shared).
-2. A visitor types an email, ticks one unticked box to agree, and may tick a second box ("I might want a paid plan"). We send one email with a Confirm button. The address counts only after the button is pressed. Anyone can leave with a link in the email or by writing to you. The page never says whether an address is already on the list.
-3. You see the list on your private owner page, in a new "Waitlist" section: the counts and the confirmed addresses. There is no export and nothing else is collected about the visitor.
-4. The page and the database cost €0. The confirmation email needs a sender: €0 on some free plans, or $5 a month on Cloudflare's (owner's call 2). Nothing goes public in this job. Publishing waits for the go live job (owner's call 7).
-5. Seven calls are yours: where the page lives, the email sender, what "founding member" promises, bot protection, the look (with real references), whether Exentrik appears, and when it goes public. I recommend an option for each and decide none.
+1. The public page lives at the main address, `puhuscribe.exentrik.co/`. The whole learner app moves under `/learn`. Today's front door becomes `/learn`, `/account` becomes `/learn/account`, and so on. `/api/*` stays where it is. Old addresses forward to the new ones, so no bookmark breaks.
+2. The page starts from your v2 hero. Its main button, "Start your first session", opens `/learn` with no sign up. The page has no form, no waitlist, no email, no price and no script. It sets no cookie and asks no outside address for anything.
+3. Real screens carry the look. A script makes every picture from the running app at phone size, so they can be remade. A picture may show only Finnish the native reviewer approved. Until units 1 to 3 are approved, the pictures show screens with no Finnish lines.
+4. Exentrik appears once, in the small "who is responsible" line. The line needs its legal name and business ID (Y-tunnus) from you. Nothing is built that costs money. No database change, no new service.
+5. Four calls stay with you, and the spec carries a recommendation for each: which parts of the v2 hero stay (fake numbers, button wording, the beta tag, "Research"), what the pictures show before approval, the colour of the button and of "street", and the address of the privacy page. Section 2 of the calls points out where the v2 hero meets your banned list, with no recommendation. I also need the hero picture as a file.
 
 ## Owner's calls
 
-**1. Where the page lives.** This changes a public address, so it is yours.
+The spec's "Done when" statements are written for the recommended option of each call. If you pick differently, the statements named under that call change, and the manager sends them back to me.
 
-- **A. At the main address, `puhuscribe.exentrik.co`, with the app's front door moving to `puhuscribe.exentrik.co/today`.** Best for search and for people who type the name. It touches every link to the front door, the sign out and delete redirects, the home screen icon (the installable app job) and the first run welcome (`15-onboarding`), which both expect the front door at `/`. A returning learner who types the bare address gets one extra tap. Cheapest to do before those two jobs are built, but it makes this job depend on them.
-- **B. At its own path, `puhuscribe.exentrik.co/about` (recommended).** Nothing in the app moves. Links, QR codes and shares point to `/about`. Search engines are told to list `/about` and not the app's front door (statement 24). A person who types the bare address still reaches the front door and the first run welcome, as `15-onboarding` promises. Moving to A later is a routing change plus the link updates.
-- **C. One address, two faces.** `/` shows the page to people with no sign in cookie and the app to people with one. Returning learners get no extra tap. It breaks `15-onboarding`'s promise that a first time visitor reaches a dialogue within a minute, makes the same address show two pages, and doubles the test cases.
-- Recommendation: **B**. The word `/about` is my placeholder; you can pick another word.
+### 1. What stays of the v2 hero, and what changes
 
-**2. The confirmation email and who sends it.** Sending email for real is a new service holding visitors' addresses.
+Your hero is the starting point and some parts will go. Everything the page says must be true of the running v3 app (statement 5), and the v3 app has none of the items below.
 
-- **A. Double opt in, sender chosen together with job 11's call 1 at go live (recommended).** The visitor confirms by pressing a button in one email. Needs a sender and a few DNS records on a domain you own, before the page goes public. The same sender can also send job 11's sign in codes. Prices, as I could verify on 30 October: Cloudflare Email Service sends from the Worker, but sending to any address needs the Workers Paid plan, $5 a month, which includes 3,000 emails a month and then $0.35 per 1,000 (Cloudflare docs); whether it is available on your account is unconfirmed because sources disagree on its beta status. Resend: free plan of 3,000 emails a month and 100 a day, Pro $20 a month for 50,000 (its price page); where it stores account and email data was not confirmed (job 11 found the United States). Brevo and Scaleway pages could not be read today; job 11 noted Scaleway at 300 emails included then €0.25 per 1,000 on 21 October. At the PRD's fair target of 150 sign ups, every option stays inside its free or included amount.
-- **B. Single opt in, no email at all.** €0 and no new service. Anyone can type someone else's address, and you could not later show that its owner agreed. Your first announcement would be the first email those people ever get, which is the case Finnish rules treat as unsolicited marketing (KKV, Sources). Not recommended.
-- Recommendation: **A**. The code sits behind one module (`worker/providers/waitlist-email.ts`), so changing sender changes that module only.
+**What is in the v2 hero and what v3 has** (read from `_v2-readonly/public/landing/phone.js` and `landing-app.js`).
 
-**3. What "founding member" promises.** The fair is over, so the PRD line "Waitlist sign-ups at the fair get founding-member pricing" needs a new meaning. Nothing is sold yet (payments are v3.1), and the PRD's €9.99 a month and €69 a year are a hypothesis "to test at the fair". I found no fair results in the files I read.
+| In the hero | In the v3 app today |
+|---|---|
+| "Mastered 847 of 1200, Conversational foundations", the ring and "+34 this week" | Nothing like it. A 1,200 phrase target is close to the vocabulary bank with a word target, which is on the PRD's "Not in v3.0" list |
+| "Register balance", Kirjakieli understood 78 percent, Puhekieli spoken 52 percent | No such measure |
+| The month calendar strip and "Kesäkuu 2026" | No calendar, and no daily streak (the scope bans streaks) |
+| The "This month +21%" bar chart and "Total growth on spoken Finnish" | No progress chart. Job 14's numbers are the owner's, not the learner's |
+| The "Kuuntele · Listen" card, "Tap what you hear, then build the phrase" and the chips "Mä oon nyt" | The listening step is play and read, not build a phrase. The Finnish is not approved |
+| The phone's first screen (v2 "Päivän sessio") with a flame counter and the buttons "Vielä" and "Osaan" | Review has no self rating (principle P2), and there is no flame |
+| "Now in beta" and "No app store needed, add it to your home screen" | Depends on what you decide in 1c |
+| Nav "Research" and "Features" | There is no research section to back the first, and the second is the progress panels |
+| Button "Become a tester" | The app has no tester sign up. The page's button is "Start your first session" |
 
-- **A. Say nothing about price.** The page says people on the list hear about the paid plans first. No promise, no legal exposure, less reason to join.
-- **B. Promise a founding member price in words, without numbers (recommended).** For example: "People on the waitlist get a founding member price when the paid plans start. It will be lower than the public price. We tell you the exact price and how long it lasts before you pay anything." You must define, in one sentence, who qualifies and until when (my suggestion: everyone who has confirmed their address before the paid plans go on sale, with the closing date announced before it happens). You must be ready to honour it.
-- **C. Show the planned prices and the discount in numbers.** Most concrete and the strongest push to join. A number shown to consumers must include VAT, and I could not check the Finnish section for that. If you later set a different public price, a fixed founding price may need to change, so a percentage is safer than a euro figure.
-- Rules from EU consumer law either way (not legal advice): saying a product is available only for a short time when it is not, to force a quick decision, is banned in all circumstances (Unfair Commercial Practices Directive, Annex I point 7). Quoting a price you have no reasonable grounds to supply at is banned too (point 5). So no countdown, no "only N places left" counter, and no deadline that is not real. Lingoda's page is a good model for how to write a real offer: dates, who it covers and what it cannot be combined with, in its FAQ.
-- Recommendation: **B**, with a percentage or a euro figure added only when you set the real price. I do not pick the discount.
+**1a. The fake numbers and progress panels (847 of 1200, +21%, calendar, register balance, the month chart).**
+- **A. Remove all of them and show real screens in their place (recommended).** The page says only what the app does. Nothing in the first picture can be caught out by a visitor who opens the app.
+- **B. Keep them as a picture of what is planned, with a label "Planned".** Still shows features the app lacks. Consumer law bans misleading a person about what a product contains (the EU's Unfair Commercial Practices Directive, which I read only at Annex I in round 1), and a number such as 847 reads as a real learner's result. It would also put a progress dashboard on show that the PRD defers.
+- **C. Build a progress screen first.** Moves the page weeks later and is outside this job and outside the v3.0 scope.
 
-**4. Bot protection on the form.** The risk is junk addresses and someone using the form to fill a stranger's inbox.
+**1b. "Become a tester" against "Start your first session, no sign up".**
+- **A. "Start your first session" on the nav button, the hero and the closing band, all opening `/learn` (recommended).** Matches your answer. "Tester" suggests a sign up that no longer exists.
+- **B. Keep "Become a tester" as the words and open `/learn`.** A visitor expects a form and gets the app. Fewer people press it.
+- **C. "Try it now" in the nav and "Start your first session" in the hero.** Two names for one action. Harmless, slightly less clear.
 
-- **A. Our own protections only (recommended for this job).** A hidden trap field and a minimum fill time (statement 9), and caps in the database: at most 3 confirmation emails per address and 60 an hour for the whole page. No new service, no outside script, €0. A patient attacker using many addresses can use up the 60 an hour, and real visitors then wait for their email (the owner page shows the backlog).
-- **B. A plus Cloudflare's Workers rate limiter per visitor address.** Stops one address hammering the form. The limit is approximate and counted per Cloudflare location. The docs do not say which plans include it or its cost, so the builder confirms before using it. The visitor's address is a counter key in Cloudflare's memory only; we store nothing.
-- **C. Cloudflare Turnstile on the form.** Free plan: 20 widgets and unlimited challenges (Cloudflare docs). Best bot blocking, but the page would load a script from a Cloudflare challenge address and run checks in the visitor's browser. That breaks "no outside scripts" for this page and needs a line in the privacy notice. Job 8's launch decision (todo) must choose the same thing for guest sign in, so decide both together.
-- Recommendation: **A** now. Decide C once, with job 8's launch decision, before go live.
+**1c. The "Now in beta" tag and the home screen note.**
+- **A. Remove both (recommended until the installable app job is merged).** The home screen note is true only once scope item 16 (installable app) ships, and I could not check that it will. A beta tag is a status you may or may not want to promise.
+- **B. Keep one plain sentence, "PuhuScribe is in beta. Tell us what to fix on the feedback page.", and the home screen note only after item 16 is merged.** True today: the app has a feedback page (job 14). Sets honest expectations, since only the first units exist. Both go in the claims table (statement 5).
+- **C. Keep the tag and note as drawn.** The tag is a pill label (call 2) and the note is false until item 16 is done.
+- If you pick B, the sentence is plain text, not a pill.
 
-**5. The look of the page, the Finnish on it, and the social card.** The locked design system already decides colours, type, buttons and the wordmark (`design.md`). You approved v2's look on 21 October. What is open is what carries the page.
+**1d. "Research" in the nav, and the section behind it.** v2's Research section names three principles but cites no source, and its text points at the Day One Sprint and Language Island, both on the "Not in v3.0" list.
+- **A. Remove the nav item and the section (recommended).** The nav becomes "How it works", "Two Finnishes", "Questions" and the main button. "Features" goes too, because v2's Features section is the progress panels.
+- **B. Replace it with a short plain part, "Why this works", that names the five principles in your own words and cites nothing it cannot back.** One more section to keep true.
+- **C. Write a real research section with named studies.** The strongest page, but it is new content with sources I would have to check, and you approve each claim. A later job.
 
-- **5a. What carries the page.**
-  - **A. Type and the register card only (recommended).** Calm single column on the lilac fade, black pill buttons, plain headings. Fast, consistent with the app, nothing to commission.
-  - **B. Add real app screens.** Shows the product, but a screen shows Finnish lines that the reviewer has not approved yet, and phone mockups are a landing page cliché that cost weight on older phones.
-  - **C. Add photographs of everyday Helsinki scenes.** Warm and tied to the situations, but costs money or time, weighs more on older phones (`design.md` brief), and an AI picture risks wrong Finnish on signs.
-- **5b. Finnish on the page.** All of it goes to the native reviewer.
-  - **A. English only, apart from two glossary words, puhekieli and kirjakieli (recommended until unit 1 is approved).** Lowest risk. The two words still go to the reviewer with the page.
-  - **B. One spoken and written pair from an approved dialogue line.** Shows the product's main idea at a glance. Possible only after the reviewer approves unit 1; a test then checks the pair word for word against the published line (statement 5).
-- **5c. The social card picture.**
-  - **A. The wordmark and the page's one line on the lilac ground, made by a script from the real tokens (recommended).** €0, always in step with the design.
-  - **B. The card with the register pair.** Needs approved Finnish.
-  - **C. A designer's or photographed picture.** Costs money and weeks, and you approve each version.
-- Real references, all opened on 30 October 2026 unless marked:
+**1e. What the phone and the two floating cards show before the reviewer approves any Finnish.** Units 1 to 3 are drafted and wait for the native reviewer.
+- **A. The phone shows the new visitor's front door with the welcome of job 15 (the Spoken and Written bands, no Finnish). One card is a crop of the same bands, the other a crop of the voice settings choice (recommended).** Real screens, no Finnish, nothing to retake later except two pictures when the first dialogue is approved.
+- **B. Hold the hero until the first dialogue is approved.** The page cannot go public before then anyway (the reviewer must approve before go live), so this costs nothing if approval comes first. If approval is late, the page is late.
+- **C. Show the v2 Finnish (such as "Mä oon nyt") from the start.** Refused by the rule "nothing unapproved is served" and by statement 7. Possible only after the reviewer approves that exact line.
+- Recommendation: **A**, and swap to an approved dialogue as soon as one exists (statement 9 says how).
 
-| Reference | Borrow | Leave out |
+### 2. Where the v2 hero meets your banned list (pointed out only)
+
+You asked me to point these out and not decide. The spec's baseline follows your list and the locked design system until you say otherwise. If you choose to keep any item below, `design.md` and the design tests (`tests/design-css.test.ts`, `tests/design-rules.test.ts`) must record it as your exception, because they refuse these today. I will not weaken a test without your written choice.
+
+| Element in the hero or in v2's page | Your banned list or `design.md` | What the baseline does |
 |---|---|---|
-| Memrise, https://www.memrise.com/ | One sentence promise about real speech ("Understand native speakers. Sound more like them."); a short FAQ that answers "speaking in week one" and cost; a "Now you say it" closing prompt | Press logo strip, video led layout, the "+145 more" language picker |
-| Speak, https://www.speak.com/ | No prices on the page, price only in the FAQ; the same call to action at the top and the bottom | Award badges, "15M+ downloads", the three method cards (Learn, Practice, Apply) |
-| Babbel, https://www.babbel.com/ | A plain statement of the method; saying what is free (first lesson) | The promo countdown banner (the false urgency the directive bans), the "92% improved" claim, stock lifestyle photos |
-| Busuu, https://www.busuu.com/ | "Speak a language in 10 minutes a day" style short time promise, only if it is true for us | "120 million learners", awards we do not have, the business section |
-| Lingoda, https://www.lingoda.com/en/ | How a real offer is written: dates, who it covers, what it cannot be combined with, all in the FAQ | The sale banner, the "Hurry now!" urgency |
-| Pimsleur, https://www.pimsleur.com/ | Naming the method in plain steps and saying what you do in each | "Scientifically proven" claims, the all caps banner; its page says "up to 4 users" in one place and "up to 3" in another, which is the kind of slip our claims table (below) prevents |
-| Senthora, https://senthora.ai (listed on Awwwards) | A short privacy and beginner FAQ | What this page must avoid: numbered steps, six feature cards, a streak, uppercase labels |
-| Halden app site, https://recent.design/i/1u0n947-halden-app-website (Godly's feed, listed as minimal, light, consumer) | The calm light single column mood | Scroll animation and the phone mockup (I could read only its listing, not the site) |
+| Small uppercase labels "KUUNTELE · LISTEN", "MASTERED", "REGISTER BALANCE", the day names "MON TUE", and v2's section labels ("The core idea", "Why it works", "How it works", "In the app", "For new arrivals in Finland") | Eyebrows. `design.md` refuses `text-transform: uppercase` by test | No small labels above headings. A card names itself in normal sentence case |
+| Pill tags: "Now in beta", the "No app store needed" pill, the word chips "Mä oon nyt", "Last month", the badges "Arki · daily" | Pills and badges | Plain text. Chips only if they are the app's own word chips in a real screen |
+| Big numbers: 847, "of 1200", "+21%" at 40 px, 78%, 52% | Big number tiles | None. The page holds no statistics |
+| Also in v2's page, not in the hero picture. Frosted glass nav (`backdrop-filter`), glowing button shadows, the aurora gradient and grid behind the hero, blurred colour orbs, gradient progress bars | Glow and gloss. `design.md` allows one gradient, the page fade | Solid nav, flat buttons, the page fade only |
+| Also in v2's page. The cards "01 Day One Sprint, 02 Daily Sessions, 03 Language Island" with icon squares, and the three identical research cards | Fake numbering, identical card grids, icon sprinkles. Day One Sprint and Language Island are on "Not in v3.0" | The loop is told in plain sentences |
+| Also in v2's page. Google Fonts and Fontshare preconnects, React loaded from files and the page drawn in the browser | `design.md`: fonts from our own address. Scope: no outside requests | Own fonts, plain HTML, no script |
 
-  For waitlist forms, a vendor's blog (LaunchList, not the pages themselves, which I did not open) describes Notion's early page as a logo, one sentence and an email field. I borrow the one sentence and one field idea, and leave out the queue position and referral loops (Robinhood, Dropbox in the same article), which are pressure tactics.
-- Recommendation: **5a A, 5b A now and B after the reviewer approves unit 1, 5c A.** Before any screen is built you see one overview page (Build plan, step 1) and approve the look there.
-- What you already have: v2's landing page, https://puhuscribe-v2.vercel.app/landing. Its page is drawn by script and I could read only its title, "Speak Finnish the way Finland speaks". That line is a strong alternative to my headline; you choose at the overview. The v2 handoff in `design/v2-handoff/` is already the source of the tokens and the wordmark. Its Finnish onboarding lines are not approved and are not reused.
+Whether an element inside a picture counts is yours to say. A real app screen shows only what the app draws, so it has none of the items above.
 
-**6. Whether Exentrik appears, and who is named as responsible.** The PRD gives the studio and the product different names so a spin out is clean, and the brand notes say products never carry "Exentrik". Separately, the law needs the page to name who is responsible for the addresses. Today job 11's setting names you personally.
+### 3. The colour of the main button and of "street"
 
-- **A. No Exentrik on the page. The responsible line names you, as the privacy notice does today.** Nothing changes. Your personal name is public on a page people find through search.
-- **B. A visible "A product by Exentrik" line.** Builds trust with the studio's audience, but it is the branding the notes rule out and it complicates a spin out.
-- **C. Exentrik appears only in the responsible line, as the company that owns the product (recommended if the company, not you, is responsible).** A legal disclosure, not branding. It means changing job 11's one setting file (`src/privacy/notice-settings.ts`), with the company name and business ID from you. I could not verify whether Exentrik is registered as a company or a trading name.
-- Recommendation: **C**, if the company holds the product. Either way I added no link to the YouTube channel (it is yours, not Exentrik's); tell me if you want one.
+Your hero draws the main button purple and "street" in purple. In the locked design system the primary button is the black pill, and violet (`--color-written`) means written Finnish. "Street" means spoken Finnish, whose colour is teal (`--color-spoken`).
+- **A. Follow the picture, purple button and purple "street".** Closest to what you showed. The page then has a purple primary that the app does not have, and violet appears on the word that stands for spoken Finnish, which teaches the opposite colour code.
+- **B. Black pill button and "street" in the spoken teal, "kirjakieli" in violet and "puhekieli" in teal as v2 already does in the lead (recommended).** The page and the app agree, so the first screen a visitor meets after pressing the button looks like the page they left. The page loses the one strong purple accent.
+- **C. Black pill button and "street" in purple.** Keeps your purple accent and the app's button. The colour clash on "street" stays.
+- If A, `design.md` gains a landing page button entry and a test exception. Under B and C no design test changes.
 
-**7. When the page goes public.**
+### 4. The address of the privacy page
 
-- **A. Page and app together at go live (recommended).** The page's main button is "Start your first session". The waitlist is for new units and paid plans.
-- **B. Page first, waitlist only, app later.** Collects addresses sooner. The page and the consent wording must say "email me when PuhuScribe opens", which promises an opening you do not control, and the page needs a second state with its own tests (statement 6).
-- Recommendation: **A**. Either way, this job only ships the page tested locally and on previews. The go live job publishes it.
+You said the whole app moves and listed the privacy page link.
+- **A. `/learn/privacy` (recommended).** Follows your rule. The landing footer links to it. One page, one rule.
+- **B. Keep `/privacy` at the top level.** Reads like a public legal page, as on most sites. It becomes a second exception to "everything under /learn", with its own rule for counting and for the owner host.
 
-**Owner inputs (not choices).** The manager asks for each; I pick none.
-- The word in the page address (my placeholder is `/about`).
-- The sending name and sending address on a domain you own for the confirmation email (`<sending address on the owner's domain>`), the reply address (`<owner's contact email>`) and the DNS records at go live.
-- Confirm the contact printed on the page. It is the one already in the privacy notice setting; the manager asks whether it is right for waitlist requests.
-- Your own address for the live check (statement 31).
-- Founding member terms and figures, if you pick 3B or 3C.
-- How long a confirmed address is kept. My default is 24 months after joining, the same as job 11's email accounts. Tell me if you want it shorter.
-- Whether you hold fair sign ups elsewhere (paper, a spreadsheet, a form). They cannot be added to this list unless you can show each person agreed to this wording. Importing them is out of this job.
-- About 20 minutes at go live for the sender, the waitlist key and one SQL line (steps in the README, written by the builder).
+### Owner inputs (not choices)
+
+The manager asks for each. I pick none, and the builder invents none.
+- **The hero picture as a file.** The manager places it in `factory/jobs/17-landing-page/hero-picture.*` and gives the builder the path. It is the layout target of the overview page. Its content is not copied (statement 7 and call 1).
+- **Exentrik's legal name and business ID (Y-tunnus).** In the spec they are `<Exentrik legal name>` and `<Exentrik business ID, Y-tunnus>`. I could not check whether Exentrik is a registered company or a trading name. Asked at spec approval, as the lesson from 11-accounts says.
+- **The contact printed in the responsible line.** The one in the privacy notice setting today. The manager asks whether it is still right (an address of yours, never chosen by me).
+- Whether you want the title and description lines changed (my proposal is under "The page text").
+- Time at go live: attach the main address and check statement 28. No keys or DNS are new in this job.
 
 ## What it is
 
-A public page that explains what PuhuScribe is and lets a visitor join a waitlist for new units and the paid plans. Joining takes an email address and a yes. A confirmation email proves the address belongs to the visitor, and the visitor can leave at any time. The owner reads the list on the private owner page. The page has search metadata and a social card.
+A public page that explains in plain English what PuhuScribe is and sends people into the app with one button, "Start your first session". It takes nothing from the visitor. Its pictures are real screens of the running app, remade by a script. The learner app moves to `/learn` so the page can have the main address.
 
-It serves P5 (it explains both registers) and P4 (it says the learner says it back) indirectly, and the five principles in its text are claims the product already keeps (claims table below). It adds nothing from the PRD's "Not in v3.0" list: no streaks, no rank titles, no confetti, no sentence bank, no Owner Insights dashboard beyond a list the scope asks for.
+It serves P5 (the page explains both forms and shows them), P4 (it says the learner says it back) and P2 (it says review needs no rating) as claims the app already keeps (claims table). It adds nothing from the PRD's "Not in v3.0" list.
 
 ## Done when
 
-Terms used below.
-- **The page**: `/about`. **The confirm page**: `/about/confirm`. **The leave page**: `/about/leave`. (Names confirmed in the owner inputs.)
-- **Pending address**: on the list, not yet confirmed. **Confirmed address**: the visitor pressed Confirm.
-- **The fake sender**: the test stand in for the email module. It records each message so tests can read it. It is chosen only when the Worker runs locally.
-- **Phone size**, **browser test** and **the fixture**: as in jobs 8, 11 and 14 (Playwright at 375 x 812 in Chromium and WebKit, against the built app and a throwaway local Supabase). Test addresses use the reserved domain `example.com`.
-- **Owner host** and **app host**: as in job 14.
+Terms.
+- **The page**: `/`. **The app**: `/learn` and everything under it. **The shell**: the built `index.html`, which draws every app page.
+- **The landing file**: the built HTML file of the page (`landing.html`, see Decision 2).
+- **Phone size**, **browser test** and **the fixture**: as in jobs 8, 11, 14 and 15 (Playwright at 375 x 812 in Chromium and WebKit, against the built app and a throwaway local Supabase). **Owner host** and **app host**: as in job 14.
+- **Approved Finnish**: a line in a dialogue that went through the automatic checks and the native reviewer and was published (the published content committed by the content jobs 12 and 13). Until one exists the approved set is empty. The builder confirms where the published lines are read from.
 - Tags: **[security]**, **[personal data]** and **[Finnish content]** mark statements the reviewers and the evaluator check closely.
 
 ### The page
 
-1. **The page is real HTML at its own address.** `GET /about` answers 200 with the finished page in the HTML itself: with scripts switched off, the heading, every section heading and the form labels are present (browser test with JavaScript disabled). `/about/confirm` and `/about/leave` answer 200 the same way. None of the three redirects. `/about/` either redirects to `/about` or serves the same page; the builder records which and a test pins it. `/about` is in `PAGE_ROUTES` and `run_worker_first`, the Worker answers it with `env.ASSETS.fetch(request)` unchanged (job 14, statement 4), and `tests/analytics-rules.test.ts` stays green without being edited. The confirm and leave pages are not Worker first, so they are never counted. On the owner host, `/about` redirects to `/owner`.
-2. **One arrival counts as one visit, and nothing else about the visitor is read.** A Vitest table test shows `GET /about` with browser headers calls `count_visit` once with the country alone, and the confirm and leave pages call it never. A browser test follows a visitor through join, confirm and leave and fails if the page sets a cookie, writes local or session storage, or makes any request to another origin. Each page carries a `Content-Security-Policy` meta tag that allows only its own origin (`default-src 'none'` plus `script-src`, `style-src`, `font-src`, `img-src`, `connect-src` and `form-action` set to the page's own origin, and `base-uri 'none'`), and the browser test fails on any violation. If Vite's output cannot meet that without `'unsafe-inline'`, the builder stops and says so; the policy is not loosened. The page's script never sets `credentials: 'omit'` on a request (a unit test reads the call), because Cloudflare Access blocks such fetches on previews. **[personal data] [security]**
-3. **The text is the proposed text, and it keeps the writing rules.** The page holds the sections and wording of "The page text" below, as changed by the owner at the overview. A repository test reads the built HTML and fails on: more or fewer than one `h1`; a skipped heading level; a missing `lang="en"` on the document; a word from the hype list in `AGENTS.md`; an em dash or a spaced hyphen used as punctuation; and any price, discount figure, sign up count, date or countdown unless it is written in `src/landing/offer.ts` (the one file for founding member figures, empty unless owner's call 3 is C).
-4. **Every claim is true.** The evaluator walks the claims table below against the running app and records each row's proof in `build.md`. A row that fails changes the page text, not the table. Nothing is claimed that is not in the table. At go live the row about the reviewer is checked again.
-5. **Finnish on the page is limited and traceable.** Every string inside a `lang="fi"` element is either `puhekieli` or `kirjakieli`, or (only if owner's call 5b is B) a pair found word for word in a published, approved dialogue line (Vitest searches the publish migrations). A repository test fails on the letters ä, ö or å in the page text outside `lang="fi"` elements. The two glossary words go to the native reviewer with the page text, and the page does not go public before the reviewer answers (go live dependency). **[Finnish content]**
-6. **Only if owner's call 7 is B: two states.** One constant, `APP_IS_OPEN` in `src/landing/site.ts`. When false, the main button is "Join the waitlist", the "Start your first session" button and the free answer in the FAQ are replaced, and the consent text says "when PuhuScribe opens" (wording in the overview). A browser test covers both states. With call 7 A the constant is true and the false state does not exist.
+1. **The page is real HTML at `/`.** `GET /` answers 200 with the finished page in the HTML itself. With scripts switched off, every heading, paragraph, link and picture description is present (browser test). `/` is in `PAGE_ROUTES` and `run_worker_first`. The Worker answers it with the landing file's bytes unchanged and counts the arrival (statement 16). The landing file has no second address: `/landing`, `/landing.html` and `/index.html` redirect to `/` or answer 404, and a test pins which. No built file is served at `/` itself (`tests/analytics-rules.test.ts` keeps its built files check green).
+2. **The page takes and keeps nothing, and runs no code.** The built landing file has no `script` element, no `form`, no `input`, no `textarea`, no `button` that submits, and no `iframe`. A browser test follows a visitor from the page to `/learn` and fails if the page sets a cookie, writes local or session storage, or requests any other origin, or any `/api/` address. A `Content-Security-Policy` meta tag allows only its own origin: `default-src 'none'`, `style-src`, `font-src` and `img-src` set to `'self'`, `script-src 'none'`, `connect-src 'none'`, `form-action 'none'`, `base-uri 'none'`. The browser test fails on any violation. If Vite's output cannot meet it without `'unsafe-inline'`, the builder stops and says so. The policy is not loosened. **[personal data] [security]**
+3. **The words follow the writing rules and say nothing about money.** A repository test reads the built HTML and fails on: more or fewer than one `h1`; a skipped heading level; a missing `lang="en"`; a hype word from `AGENTS.md`; an em dash or a hyphen used as punctuation; any of the words price, pricing, paid, free, plan, plans, subscription, founding, waitlist, discount, premium, the signs € and $, a number with a currency, a countdown, a date, a count of learners; and a `text-transform: uppercase` rule in its CSS. It also fails if "Exentrik" appears anywhere except the responsible line (statement 23) and fails on "tester" and "beta" unless the owner's call 1 allows them.
+4. **The main button.** The link "Start your first session" has `href="/learn"`, and sits in the nav, in the hero and in the closing part. A browser test presses each and lands on the front door (the welcome shows for a new visitor, job 15). No sign up screen sits between. Pressing it creates no account: the landing page makes no request at all, and the front door creates an account only when Start is pressed (job 8's `[session 1]`).
+5. **Every claim is true.** The evaluator walks the claims table below against the running app and records each row's proof in `build.md`. A row that fails changes the page text, not the table. Nothing is claimed that is not in the table. The rows marked "at go live" are checked again then.
+6. **Finnish in the text is limited and traceable.** Every string inside a `lang="fi"` element in the landing file is `puhekieli` or `kirjakieli`, or a line found word for word in the approved set. A repository test fails on the letters ä, ö or å in the page text outside `lang="fi"` elements. The two glossary words go to the native reviewer with the page text, and the page does not go public before the reviewer answers (go live dependency). **[Finnish content]**
 
-### Joining the waitlist
+### The pictures
 
-7. **The form.** One text field labelled "Email address" (`type="email"`, `autocomplete="email"`, `inputmode="email"`, `maxlength="254"`), a required box and an optional box with the wording below, a trap field (statement 9) and a "Join the waitlist" button. Both boxes are unticked on a fresh load and after the browser's back and forward buttons (`autocomplete="off"` on the form; browser test reads `checked`). An empty or badly shaped address gets "Please check the email address." and no request. An unticked required box gets "Please tick the box to join the waitlist." and no request. Pressing the button while a request is running does nothing: two quick taps send one request, and the button reads "Joining the waitlist." and tells screen readers so. **[personal data]**
-8. **One answer for every case.** `POST /api/waitlist` (JSON, same origin, body read and capped at 2 KB before answering) answers 202 with the same body for: a new address, a pending address, a confirmed address, an address over its cap, the whole page over its cap, a filled trap field, and a form sent too fast. Vitest with a database fake compares status and body byte for byte across all seven. The page shows the same text for all of them (below). Bad input gets 400 for a shape or a missing required box, which cannot reveal membership. The email is sent after the answer (`ctx.waitUntil`), so a slow or failing sender changes nothing the visitor sees (Vitest with a sender that hangs and one that fails). **[security] [personal data]**
-9. **A trap and a clock.** The form has one hidden field a person never fills (off screen, `tabindex="-1"`, `autocomplete="off"`, hidden from assistive technology) and the script sends how many milliseconds passed since the form appeared. A filled trap, or less than 3,000 ms, or a missing value (a direct post that skipped the page) gets the same 202 answer and stores nothing. A person who fills the form normally is never refused, and axe finds no violation from the trap field. Vitest and a browser test.
-10. **The confirmation email.** After a join that the database marks "send" (statement 14), the Worker sends one plain text email through `worker/providers/waitlist-email.ts` to that address only. Subject: "Confirm your email for the PuhuScribe waitlist". It holds the confirm link and the leave link (statement 11 and 12), a line saying the confirm link works for 48 hours, "If you did not ask for this, ignore this email. We delete the address within 7 days.", and the responsible name and contact from the privacy notice setting. It has no tracking pixel, no click tracking option in the request, no attachment, nothing the visitor typed other than the address, and no link to another site. Header values are checked for line breaks. The module is the only file that knows where email goes; a repository test fails if another file sends email. **[security] [personal data]**
-11. **Confirming is a button, not a link that acts.** The email's link opens `https://<host>/about/confirm#t=<token>`. The token sits after the `#`, so it never reaches a server log or a `Referer`. Opening the page changes nothing (browser test: after a load with a valid token, the row is still pending). The page shows "Confirm your email", one line "Press the button to join the PuhuScribe waitlist." and a "Confirm" button. Pressing it sends `POST /api/waitlist/confirm` with the token. Success: "Thank you. You are on the waitlist." A wrong, used or expired token, or no token: "This link has expired or was already used. Go back to the waitlist to get a new one." with a link to `/about#join`. The script removes the token from the address bar after reading it. **[security]**
-12. **Leaving is the same pattern.** `/about/leave#t=<token>` shows "Leave the waitlist", the line "Press the button and we delete your email address from the list." and a "Leave the waitlist" button, which sends `POST /api/waitlist/leave`. Success: "You are off the waitlist. We deleted your email address." A token that no longer matches: "This link does not work any more. If you were already removed, there is nothing more to do. Otherwise write to the contact in the privacy notice." The leave token works for pending and confirmed rows. Browser test checks the row is gone. **[personal data]**
-13. **No account, no cookie.** The three `/api/waitlist*` routes never read, set or renew sign in cookies, so a visitor who is also a learner is treated like any visitor, and joining does not touch the learner's account. A learner's email and a waitlist address are never copied into each other (pgTAP, statement 17, and a Vitest check that the routes do not call the learner client). **[personal data]**
+7. **The pictures show approved Finnish only.** No picture on the page, and not the social card, shows a Finnish line that is not in the approved set. Until units 1 to 3 are approved, the pictures show screens with no Finnish line, or none at all. Once an approved dialogue exists, the page may use its first dialogue. Two tests protect this. First, the script that makes the pictures reads every element with `lang="fi"` on the screen it captures and refuses to write the picture if any text in it is outside the approved set. Second, a repository test reads `src/landing/shots.json` (statement 8), which lists the Finnish text visible in each picture, and fails on any entry not in the approved set. With an empty approved set it fails on any entry at all. The owner's hero picture is a layout target only, and its Finnish and numbers are not copied. **[Finnish content]**
+8. **The script makes the pictures from the running app, and a person cannot hand edit one.** `npm run landing:shots` starts the built app with the throwaway local database and the fixture, opens it at 375 x 812 (device scale 2, light mode, English), drives it like a learner (Start, then the screens named in the manifest), captures each screen or part of a screen, composes the hero and writes the files under `public/shots/` with a WebP file and a PNG fallback for each, plus `src/landing/shots.json`. The manifest lists for each picture: the file, the app address it was taken from, the size, the visible text lines, the Finnish text (empty until approval), the SHA-256 of the files and the alt text. A repository test recomputes every hash and fails if a file was edited or is missing from the manifest. The script refuses to run without the real fonts (`docs/fonts.md`), so no picture shows fallback type. A second test runs the script twice into temporary folders and fails if any picture differs by more than 0.1 percent of its pixels. It skips with a reason when the fonts or the local stack are absent, as the tests that need Switzer already do. The README says how to remake the pictures.
+9. **The hero is real screens.** Beside the headline sits one composed picture, made by the script. It holds a phone showing one real screen and two tilted cards, which are crops of real elements from other screens. The tilt is in the picture, so the page needs no script or JavaScript scaling. Until an approved dialogue exists, the phone shows the new visitor's front door with job 15's welcome and the cards show the Spoken and Written bands and the speaking feedback choice, if owner's call 1e is A. The script takes its screen list from `shots.json`'s source, one file of settings in `scripts/landing/`, so swapping to the approved first dialogue changes that file and nothing else. The picture holds no number, calendar, chart, progress ring, streak or self rating (a test reads the manifest's visible text, and the evaluator looks at each picture).
+10. **The pictures are safe and light.** The manifest's visible text holds no email address, no identifier shaped like a UUID or a long number, no `localhost`, no `supabase` and no key shape (repository test). Each picture has `width` and `height` in the HTML, and a description (alt text) of 20 to 150 characters that says what the screen shows. The hero's WebP is at most 150 KB, each other WebP at most 80 KB, and each PNG fallback at most 300 KB. Pictures below the first screen are `loading="lazy"`. These limits are my proposal, and the builder records the real sizes. A picture's text is not the only copy of anything the page claims: every claim is also in the page's own text.
 
-### The list and the database
+### The move to /learn
 
-14. **The list table holds an address, two choices and the proof.** `private.waitlist` has exactly these columns: `id uuid`, `email text` (unique, stored in lower case, 3 to 254 characters, one `@`), `paid_interest boolean`, `status text` (`pending` or `confirmed`), `consent_version text`, `consented_at timestamptz` (the database clock), `confirmed_at timestamptz`, `confirm_token_hash bytea`, `confirm_expires_at timestamptz`, `leave_token_hash bytea`, `emails_sent smallint` and `last_email_at timestamptz`. No API role can read or write it. A pgTAP test checks the exact column list from the catalogue, so a later column (an address, a user agent, a referrer, a source, a user id) turns it red. Tokens are stored only as SHA-256 hashes. **[personal data] [security]**
-15. **One narrow door adds to the list, and only the Worker may use it.** `public.join_waitlist(p_key text, p_email text, p_paid boolean, p_version text, p_confirm_hash bytea, p_leave_hash bytea)` returns text. It is `security definer`, `search_path = ''`, execute revoked from `public`, `authenticated` and `service_role` and granted to `anon` (the Worker calls it with the publishable key). It compares the SHA-256 of `p_key` with the hash in `private.waitlist_key`. With a wrong key, or no key row, it writes nothing and returns `refused`. With a right key it validates the shapes again (a direct caller skips the Worker), then:
-    - a new address is stored as pending and the function returns `send`;
-    - a pending address gets its choices and tokens replaced and returns `send`, but at most 3 sends in all and at least 10 minutes apart, otherwise `wait`;
-    - a confirmed address changes nothing, not even `paid_interest`, and returns `wait`;
-    - when 60 sends were made in the last hour, it stores or leaves the row and returns `wait`, and the cap is counted under a lock so parallel calls cannot beat it.
-    The Worker sends the email only on `send`. The result is useful only to a holder of the key, so a direct caller learns nothing about any address. pgTAP proves each branch, that `anon` cannot read the table, that two connections joining the same address make one row, that two parallel calls at the cap send at most the cap, and that a stranger's call cannot flip a confirmed address's choice. **[security] [personal data]**
-16. **Confirm and leave act only on a matching token.** `public.confirm_waitlist(p_token text)` and `public.leave_waitlist(p_token text)` (same hardening, `anon` only) hash the token and match the stored hash. Confirm needs a pending row whose token has not expired (48 hours), sets `confirmed`, `confirmed_at` and clears the confirm hash, so the token works once. Leave deletes the row. Both return the same short word for a wrong token whatever the cause. pgTAP covers a right token, a wrong one, an expired one, a used one and a token from another row. **[security]**
-17. **Not tied to an account.** `private.waitlist` has no `user_id` and no foreign key to `auth.users` (pgTAP catalogue check), so job 11's catalogue, export and delete tests pass unchanged, and deleting a learner's account neither deletes nor shows any waitlist row. The privacy notice says so (statement 26). **[personal data]**
-18. **Old rows delete themselves.** A daily `pg_cron` job deletes pending rows older than 7 days and confirmed rows more than 24 months after `consented_at` (or the figure the owner gives). pgTAP with backdated rows: pending at 6 and 8 days, confirmed at 23 and 25 months. The schedule exists in `cron.job`. No API role can run the job. **[personal data]**
-19. **The key is set up by the owner and kept out of files.** The migration creates `private.waitlist_key` empty, so every join is `refused` until a key is set (fails closed; pgTAP). `scripts/waitlist-key.ts` makes a random 32 byte key and prints it for the owner to give to `wrangler secret put WAITLIST_KEY` (a hidden prompt), and prints the one SQL line that stores only its SHA-256 for the owner to run in the Supabase SQL editor. A repository test fails if a key value is in any file. The README gives the steps. The Worker logs no key, address, token or consent value (unit test watching `console`). **[security]**
-20. **Every protection is proven by breaking it.** On a scratch branch, remove each of these in turn and watch only its own test go red: the key check, the required shape checks, the pending send limit, the 10 minute gap, the hourly cap, the confirmed row guard, the token expiry, the retention job. Run links are in `build.md`. A test that can pass because another rule also refuses the same call does not count.
+11. **The new addresses.** Every page of the app answers 200 with the shell at its new address, and the page it draws is the page it drew before. The map:
 
-### The owner sees the list
+| Before | After |
+|---|---|
+| `/` front door | `/learn` |
+| `/session` | `/learn/session` |
+| `/voice` | `/learn/voice` |
+| `/account` | `/learn/account` |
+| `/account/email` | `/learn/account/email` |
+| `/account/delete` | `/learn/account/delete` |
+| `/sign-in` | `/learn/sign-in` |
+| `/privacy` | `/learn/privacy` (call 4 A) |
+| `/feedback` | `/learn/feedback` |
+| `/owner` | `/learn/owner` |
 
-21. **One function for the owner, and a route for it.** `public.owner_waitlist()`: `security definer`, `search_path = ''`, no arguments, execute for `authenticated` only. It returns nothing unless `auth.uid()` has a row in `private.owners` and the token's `session_id` is still in `auth.sessions` (job 14's rule, with its own failing test for each condition). It returns `confirmed`, `confirmed_with_paid_interest`, `pending` and `computed_at`, and the newest 200 confirmed rows (`email`, `joined` date, `paid_interest`). `GET /api/owner/waitlist` calls it with the owner's token on the owner host only. Job 14's route list test for the owner host is extended by this one route and no other, never weakened. `owner_dashboard()` is not changed, so job 14's "no email in its text" test stays green. **[security] [personal data]**
-22. **A "Waitlist" section on the owner page.** Below "Crashes", `/owner` shows "Waitlist": the three counts, each with one plain sentence ("Confirmed. People who pressed Confirm.", "Confirmed, and might want a paid plan.", "Waiting for confirmation. Joined but not yet confirmed, deleted after 7 days."), then a real table of the newest 200 confirmed addresses with the date and a yes or no for the paid plan. Addresses are plain text and wrap at 375 px (a 254 character address in the test). There is no export, no delete button, no search and no chart. The browser test seeds 3 confirmed (2 with paid interest) and 2 pending, so every count is different and a swapped count turns it red. The pending addresses are never listed. **[personal data]**
+    `/api/*` is unchanged, and the cookies of job 8 and job 11 keep their names and scope (they cover the whole host, so a learner stays signed in across the move). A browser test visits each new address in both browsers and checks the page's own heading.
+12. **Old addresses forward.** The shell, loaded at any of the ten old addresses (with or without a trailing slash, with its query kept, such as `?notice=signed-out` and `?from=account`), replaces the address with the new one and shows that page. A table test lists all ten, plus `/account/anything` as a deep link. The forwarding map is fixed in code. No part of the target comes from the visitor, so `//evil.example`, `/\evil.example`, `/learn/../x` and a full web address in the path never forward anywhere outside this site: they go to `/`. The two design pages that exist only in development and in design builds (`/sample/hear-it`, `/design-reference`) are left alone. **[security]**
+13. **One file holds the addresses, and no link is missed.** `src/lib/app-paths.ts` names every app address once. Every link, redirect and `window.location` call in `src` and `worker`, and every address in the browser tests, takes its address from it. A repository test fails on a quoted old address (`'/session'`, `'/account'`, `href="/privacy"`, `assign('/')` and the like) in any file except that one and the forwarding table, and on any link or redirect to `/` in the app that is not `paths.landing`. The places I found today are `FrontDoor`, `AccountPage`, `EmailFlow`, `DeletePage`, `FeedbackPage`, `FinishScreen`, `KeepIt`, `ReviewFinish`, `SessionPage`, `SayIt`, `VoiceSettings`, `PrivacyPage`, `OwnerPage`, `SessionFrame`'s leave link and `src/lib/account-notice.ts`'s `/?notice=` redirect. The builder searches for more. The sign out, account delete and notice redirects end at `/learn` and `/learn?notice=...`. A browser test for each (sign out, delete, a guest whose account ended) fails if it ends on `/`.
+14. **The Worker's page list follows.** `worker/page-routes.ts` lists `/`, `/learn`, and the nine addresses under `/learn` (the account pages as `/learn/account` and `/learn/account/*`). `wrangler.jsonc`'s `run_worker_first` lists exactly `/api/*` and those. `tests/analytics-rules.test.ts` keeps all its checks, with these edits only: the front door is now `/learn` and `/` is the landing page (so the check "every page of `src/App.tsx`, and the front door, is a route" reads `/learn`, and the check "every listed route is a page of the app" skips `/` as the landing page), and the sample paths in the built files check use the new addresses. After the edit it still fails when a route is missing from either list, and a repository test proves that by removing one on purpose. `build.md` lists each edited line and why. Nothing is deleted or weakened. The built files check also fails if a built file sits at `/learn` or under it.
+15. **Unknown addresses.** Under `/learn`, an address the app does not know shows the front door, as today (job 8). Outside `/learn`, an address that is not a page of the site, a file or `/api` and reaches the shell is sent to `/` by the shell, so no learner screen ever shows at a stray address. A browser test covers `/nonsense`, `/learn/nonsense` and a path with a long Finnish compound word.
+16. **One arrival is still one visit, and the page counts too.** Job 14's counting stays as it is, with the page route list changed. A Vitest table test, with browser headers: `GET /` typed or from another site calls `count_visit` once, with the country alone. `GET /learn` sent by a click on the page's button (`Sec-Fetch-Site: same-origin`) calls it never, so a visitor who reads the page and starts the app counts once. `GET /learn` typed, or from the home screen or a bookmark (`Sec-Fetch-Site: none`), counts once. Robot agents, prefetches, files, `/robots.txt` and `/sitemap.xml` never count. Nothing else about the visitor is read, and no new field is stored. The owner page's sentence under "Visits" (job 14, statement 17) changes from "arrival at the app" to "arrival at the page or the app", with its test updated and not weakened. **[personal data]**
+17. **The owner host.** On the owner host (job 14), `/learn/owner` and `/learn/sign-in` are answered as `/owner` and `/sign-in` are now, with the same Access check, the same private headers and the same marked page. Every other page address, `/` included, answers 302 to `/learn/owner`. The old `/owner` and `/sign-in` also answer 302 to the new ones, so the owner's own bookmark works. The landing page is never served on the owner host. `/api/owner/dashboard` and the other owner host API routes are unchanged. `worker/owner.test.ts` follows the new addresses with the same assertions. Job 14's route list test is not weakened. **[security]**
+18. **Only GET and HEAD reach the page.** Job 8's protections apply to the one route this job adds. `POST`, `PUT`, `PATCH` and `DELETE` to `/` answer 405 with `Allow: GET, HEAD`, the body is read and capped at 2 KB before answering, and no answer sends `Access-Control-Allow-Origin`. This job adds no `/api` route and no database function (Vitest). **[security]**
+19. **The earlier tests follow, and job 15 lands on `/learn`.** Every browser test and unit test that opens the front door takes its address from `paths.frontDoor` (`/learn`), through one helper in `e2e/`. The expected count is about 32 `goto('/')` in 11 files today, and `build.md` lists every test changed and the reason. No test is deleted or weakened, and the number of assertions never goes down. Job 15's welcome code does not move: it lives in the front door screen and is drawn at `/learn`. Job 15's tests are changed by the address only: statement 1 ("`/` shows ...") is read as `/learn`, and its hallway test sheet opens `/learn`. Job 15 must be merged before this job's build starts (Dependencies).
 
 ### Search and sharing
 
-23. **The head of the page.** The built `about.html` has: `<title>` of at most 60 characters, proposed as "PuhuScribe | Learn the Finnish people actually speak"; one meta description of 70 to 160 characters (proposal below); `<link rel="canonical">` with the absolute live address, taken from the one constant `SITE_ORIGIN` in `src/landing/site.ts`; `<meta name="robots" content="index, follow">`; `lang="en"`; the viewport and `color-scheme` tags as in `index.html`; an SVG favicon made from `design/assets/app-icon.svg`; Open Graph tags `og:title`, `og:description`, `og:type` (`website`), `og:url` (the canonical address), `og:image` (absolute), `og:image:width` 1200, `og:image:height` 630, `og:image:alt` and `og:site_name`; and Twitter tags `twitter:card` (`summary_large_image`), `twitter:title`, `twitter:description`, `twitter:image` and `twitter:image:alt`. No `twitter:site` (no account is named). A repository test parses the built HTML and checks each tag, each length and that every URL is absolute and starts with `SITE_ORIGIN`.
-24. **Search engines see the page and not the app's front door.** `index.html` (the app's shell, used by every app page) gains `<meta name="robots" content="noindex, follow">` so search results show `/about`; the confirm and leave pages carry `noindex, nofollow`. `/robots.txt` allows everything except `/api/` and names the sitemap; it does not block app pages, because a blocked page cannot show its `noindex`. `/sitemap.xml` lists the one address `SITE_ORIGIN/about`. Tests read the three built files and fetch them from the local server. Only with owner's call 1 A does `index.html` stay indexable.
-25. **The social card.** `/social-card.png` is a 1200 x 630 PNG of at most 300 KB (Facebook's recommended size is at least 1200 x 630 at about 1.91 to 1, and its limit is 8 MB; I could not read X's limits), made by `scripts/build-social-card.ts` from an HTML template that uses only token colours and Poppins, and committed. It shows the wordmark and one line of at least 64 px text, with 7:1 contrast between text and ground computed from the tokens. It shows no Finnish unless owner's call 5c is B. A test reads the PNG header for the size and the file size, fetches it from the local server (200, `image/png`) and checks `og:image` points at it. Real chat previews cannot be checked before the live address exists (statement 31).
+20. **The head of the page.** The landing file has: `<title>` of at most 60 characters; one meta description of 70 to 160 characters; `<link rel="canonical">` with the absolute live address `SITE_ORIGIN/`, from the one constant `SITE_ORIGIN` in `src/landing/site.ts`; `<meta name="robots" content="index, follow">`; `lang="en"`; the viewport and `color-scheme` tags; an SVG favicon made from `design/assets/app-icon.svg`; Open Graph tags `og:title`, `og:description`, `og:type` (`website`), `og:url`, `og:image` (absolute), `og:image:width` 1200, `og:image:height` 630, `og:image:alt` and `og:site_name`; and Twitter tags `twitter:card` (`summary_large_image`), `twitter:title`, `twitter:description`, `twitter:image` and `twitter:image:alt`. No `twitter:site`. A repository test parses the built HTML and checks each tag, each length and that every URL is absolute and starts with `SITE_ORIGIN`. Proposed text is under "The page text".
+21. **Search engines see the page and not the app.** The shell (`index.html`) gains `<meta name="robots" content="noindex, follow">`, so every app address stays out of search results, the front door included. `/robots.txt` allows everything except `/api/` and names the sitemap. It does not block app pages, because a blocked page cannot show its `noindex`. `/sitemap.xml` lists the one address `SITE_ORIGIN/`. Tests read the three built files and fetch them from the local server.
+22. **The social card.** `/social-card.png` is a 1200 x 630 PNG of at most 300 KB, made by `scripts/landing/build-social-card.ts` from an HTML template that uses only token colours and Poppins. It follows statement 7: no Finnish line outside the approved set, and with an empty set no Finnish at all. It may hold the wordmark, the page's one line at 64 px or more with 7:1 contrast computed from the tokens, and the hero's phone (a crop of the same real capture). It is listed in the manifest like the other pictures. A test reads the PNG header for the size and the file size, fetches it from the local server (200, `image/png`) and checks `og:image` points at it. Real chat previews cannot be checked before the live address exists (statement 28).
 
-### Privacy and shared rules
+### Responsible line and privacy
 
-26. **The privacy notice says it plainly.** `/privacy` gains a "Waitlist" part written from the table below, and `src/privacy/data-inventory.ts` gains a `NOT_LINKED_ITEMS` entry for it, with its keeping time and how to leave (the 14-analytics lesson). `src/privacy/processors.ts` names the email sender (the new module in `worker/providers/` must be listed, or job 11's test fails). The page's consent text and footer link to `/privacy`. The footer shows the responsible name and contact read from `src/privacy/notice-settings.ts` at build time; no address is typed into the page. `PrivacyPage` tests check the new part. **[personal data]**
-27. **Job 8's protections cover every new route.** The three new routes accept only `POST` with JSON (405 otherwise) and answer 403 to another site's `Origin`. No answer sends `Access-Control-Allow-Origin`. The routes exist on the app host only (the owner host answers 404 for `/api/waitlist*`). No Supabase secret key or service role key is used. The browser never holds a token for the database or calls a `supabase.co` address. Vitest. **[security]**
-28. **Phone, keyboard, accessibility.** For `/about`, `/about/confirm`, `/about/leave` and the owner section, at phone size in both browsers: nothing scrolls sideways at 320 px or with text at 200 percent; every control is at least 44 x 44 (the FAQ summaries and both boxes included); each field has a visible label; everything works by keyboard alone, in reading order, with the focus outline of `design.md`; `@axe-core/playwright` finds no WCAG 2.0 to 2.2 A or AA violation in light or dark mode; every button and the form controls have explicit token colours (the job 5 lesson); a 40 letter word in the status text and in the responsible line wraps (`overflow-wrap: anywhere`). The status line is announced, and focus moves to it after a join, a confirm and a leave.
-29. **Light on an older phone.** The page uses no React and no framework: the HTML, one CSS file built from the tokens and one script of at most 10 KB compressed. On a first visit with an empty cache, the bytes sent (HTML, CSS, script, fonts, favicon) are at most 150 KB compressed. In Chromium with a 4 times CPU slowdown and Lighthouse's mobile network settings (as I remember them: 1.6 Mbps down, 150 ms round trip; the builder records the exact numbers used), the largest paint comes within 2.5 seconds, the median of 5 runs (web.dev calls 2.5 seconds or less good). Fonts are served from the app's own address; without the private Switzer files the page falls back to Poppins and the system font and the tests that need Switzer skip with a reason (`docs/fonts.md`).
-30. **Records and what stays green.** `docs/data-model.md` describes the table, the four functions, the key and the cleanup. `docs/conventions.md` adds the `[landing N]` row. The README lists the owner setup, the sender steps, the costs and the key script, and states running costs. `src/lib/database.types.ts` is the Supabase CLI's output. The owner page's sentence under "Visits" (job 14, statement 17) changes from "arrival at the app" to "arrival at the app or the public page", with its test updated and not weakened. Every earlier test stays green; `build.md` lists any test changed and why.
+23. **Exentrik appears only in the responsible line.** The footer has the line "PuhuScribe is a product of `<Exentrik legal name>`, business ID `<Exentrik business ID, Y-tunnus>`. Responsible for your data: `<name from the privacy notice setting>`. Contact: `<contact from the privacy notice setting>`." The name and business ID are two new fields in `src/privacy/notice-settings.ts`, the one file the privacy notice already reads, so the page and `/learn/privacy` can never disagree. Nothing is typed into the page. The word "Exentrik" is absent from the title, head, headings, nav, pictures and social card (statement 3). A format test checks the business ID is seven digits, a hyphen and one digit. While either field is empty, a build for the live address (`VITE_PUBLIC_RELEASE=1`, which the go live job sets) fails with a plain message, and every other build leaves the company part out of the line. The values are the owner's. A builder never invents them. **[personal data]**
+24. **The privacy notice stays true.** The page collects nothing new, so the notice gains no new part. Its existing visit count line (job 14's `NOT_LINKED_ITEMS` entry in `src/privacy/data-inventory.ts`) says "page or app" instead of "app", and its keeping time is unchanged. `/learn/privacy` shows the company line from statement 23. The page's footer links to it with the address from `app-paths.ts`. `PrivacyPage` and data inventory tests are updated and not weakened. Job 11's tests for processors and export stay green because no provider, table or data is added. **[personal data]**
 
-### Proven after go live (owner's call 7)
+### Phone, keyboard, accessibility and weight
 
-31. **Live check.** Once the live app exists, the owner opens `https://puhuscribe.exentrik.co/about` on a phone, joins with their own address, receives the email, confirms, and sees the address on the owner page. They open the leave link from the same email and see the row go. They share the page link in a chat app and in a social post draft and see the card. Evidence screenshots hide every address. The manager keeps the feature `failing` until this passes, as with jobs 13 and 14.
+25. **Phone, keyboard and accessibility.** For `/` at phone size in both browsers: nothing scrolls sideways at 320 px or with text at 200 percent; every link and summary is at least 44 x 44; everything works by keyboard alone in reading order with the focus outline of `design.md`; the nav links are hidden below 760 px and the main button stays; `@axe-core/playwright` finds no WCAG 2.0 to 2.2 A or AA violation in light or dark mode; every button and link styled as a button has explicit token colours (job 5's lesson); a 40 letter word in the responsible line wraps (`overflow-wrap: anywhere`); smooth scroll to "See how it works" applies only when the phone does not ask for reduced motion; every picture has its description. The page follows the phone's light and dark setting like the app, and its pictures are the light mode captures in both (the builder records how the dark mode page frames them, and the design review checks it).
+26. **Light on an older phone.** The page uses no framework and no script: the HTML, one CSS file built from the tokens, the fonts and the pictures. With an empty cache, the HTML, CSS, fonts and favicon are at most 100 KB compressed, and with the hero picture the first screen is at most 300 KB compressed (my proposal; the builder records the real numbers). The pictures carry `width` and `height`, so the layout does not jump (cumulative layout shift of at most 0.1, which web.dev calls good, as I recall). In Chromium with a 4 times CPU slowdown and Lighthouse's mobile network settings (as I remember them 1.6 Mbps down and 150 ms round trip; the builder records the exact numbers), the largest paint comes within 2.5 seconds, the median of 5 runs. Fonts are served from the app's own address. Without the private Switzer files the page falls back to Poppins and the system font, and the tests that need Switzer skip with a reason (`docs/fonts.md`).
+27. **Records and what stays green.** `docs/conventions.md` adds the `[landing N]` row. `design.md` gains a short "Landing page" entry and the shot rule. The README lists how to remake the pictures, the address map, the Exentrik fields and states running costs (€0). `docs/data-model.md` does not change (no database change in this job, and a repository test shows `git diff --stat main...HEAD -- supabase` prints nothing). The existing banned look tests cover the page CSS (the builder extends the glob if it misses it and says so). Every earlier test stays green, and `build.md` lists every test changed and why.
+
+### Proven after go live
+
+28. **Live check.** Once the live app exists, the owner opens `https://puhuscribe.exentrik.co/` on a phone, reads the page, presses "Start your first session", reaches the front door and starts a session. They open an old address such as `/account` and see it forward to `/learn/account`. They share the page link in a chat app and in a social post draft and see the card. They open the owner host and see `/learn/owner` after Access. Evidence screenshots hide every address. The manager keeps the feature `failing` until this passes, as with jobs 13 and 14.
 
 ## The page text (proposal)
 
-English only. The owner changes any of it at the overview. Every sentence follows the writing rules. Words in square brackets are settings, not text.
+English only. The owner changes any of it at the overview. Every sentence follows the writing rules. The words in angle brackets are settings, not text. This is the baseline for the recommended answers of call 1.
 
-**Header.** The wordmark. No menu.
+**Nav.** The wordmark. Links "How it works", "Two Finnishes", "Questions". Button "Start your first session". Under 760 px only the wordmark and the button show.
 
-**Top.**
-- Heading: "Learn the Finnish people actually speak"
-- Lead: "PuhuScribe teaches spoken Finnish from your first sentence. You hear a short dialogue, check that you understood it, say it back, and meet the words again when it is time to review them."
-- Main button: "Start your first session" (goes to `/`). A quiet link under it: "Join the waitlist" (goes to `#join`).
+**Hero, left.**
+- Headline (the owner's own): "Understand the books. Speak the street." Colour of "street" under call 3.
+- Lead (the owner's own): "Every phrase comes taught twice, in the textbook <span lang="fi">kirjakieli</span> and the spoken <span lang="fi">puhekieli</span>. So you are never lost between what you studied and what you actually hear."
+- Buttons: "Start your first session" (to `/learn`) and "See how it works" (to `#two-finnishes`).
+- One line under the buttons: "No sign up needed. PuhuScribe is for adults, 18 and over." (The age line also keeps job 15's call 3 in view.)
+- With call 1c B: the sentence "PuhuScribe is in beta. Tell us what to fix on the feedback page." as plain text, and the home screen sentence only after scope item 16 is merged.
 
-**Spoken Finnish and written Finnish, side by side.** "Most Finnish courses teach the language of books. Adults in Helsinki talk differently. Every line in PuhuScribe comes in both forms, spoken Finnish (<span lang="fi">puhekieli</span>) and written Finnish (<span lang="fi">kirjakieli</span>), and both have audio. We start with how people talk." If owner's call 5b is B, the approved pair sits here as a spoken band and a written line, labelled "Spoken" and "Written".
+**Hero, right.** The composed picture of statement 9.
 
-**One short dialogue at a time.** "Each session is one short dialogue from a real situation, such as meeting someone new or ordering a coffee. You hear it line by line. Tap any word to see its basic form and why it looks the way it does. Then you say the lines back." Next paragraph: "If you allow it, PuhuScribe listens to you say a line and tells you how close you were, in a gentle way. Your recording is not kept unless you ask us to keep it."
+**Two Finnishes** (`id="two-finnishes"`). "Books teach one Finnish. The street speaks another." (v2's own heading.) "Most Finnish courses teach the language of books. Adults in Helsinki talk differently. Every line in PuhuScribe comes in both forms, written Finnish (<span lang="fi">kirjakieli</span>) and spoken Finnish (<span lang="fi">puhekieli</span>), and both have audio. We start with how people talk." Beside it, one picture: the Spoken and Written bands (no Finnish) until an approved line exists. Then the approved pair, in a crop of the real Hear it screen, with the words that change marked as the app marks them.
 
-**Words come back when it is time.** "Words you met in a dialogue come back for a short review. The app decides when. You type the word from memory, and there is nothing to rate. There are no streaks and no points."
+**How a session works** (`id="how-it-works"`). Four short paragraphs with plain headings, in the order the app runs them, no numbers and no icons. "Hear it. You listen to a short dialogue from a real situation, such as meeting someone new or ordering a coffee, line by line. Understand it. Tap any word to see its basic form and why it looks the way it does. Say it. You say the lines back. If you allow it, PuhuScribe listens and tells you how close you were, in a gentle way. Your recording is not kept unless you ask us to keep it. Keep it. Words you met come back for a short review when it is time. The app decides when. You type the word from memory and there is nothing to rate. There are no streaks and no points."
 
 **Who it is for.** "PuhuScribe is for adults who have moved to Finland and want to speak Finnish with the people around them. It starts from zero, with no placement test, and works toward A1, the first level on the European scale for language skills."
 
-**Join the waitlist** (`id="join"`). "The lessons are free. We are also planning paid plans with longer conversation practice and deeper feedback on how you sound. They are not on sale yet. Join the waitlist and we will email you about new units and about the paid plans." Then the founding member line, only as owner's call 3 decides:
-- 3B: "People on the waitlist get a founding member price when the paid plans start. It will be lower than the public price. We tell you the exact price and how long it lasts before you pay anything. Everyone who has confirmed their address before [closing rule] is a founding member."
-- 3C: "Planned price: [figure] a month or [figure] a year. Founding members pay [discount] for [period]. The paid plans are not on sale yet, so these figures can still change, and we confirm the final terms in writing before you pay."
-
-Form text. Label: "Email address". Required box: "Email me about new units and the paid plans. I can leave the list at any time." (with 3B or 3C: "Email me about new units and the paid plans, including the founding member offer. I can leave the list at any time.") Optional box: "I might want a paid plan." Under the button: "We use your email only for this. See how we handle it in the privacy notice." and "PuhuScribe is for adults, 18 and over." Button: "Join the waitlist".
-
-Status lines.
-- Done, the same for every case: "Thank you. If this address is new to the list, a message is on its way. Press the button in it to confirm. No message after a few minutes? Check your spam folder."
-- Could not send (network or 503), in the problem style: "We could not add you just now. Check your internet connection, then try again."
-- Only with call 4 B: "Too many tries. Please wait a minute, then try again."
-
 **Questions.** Four questions in native `details` elements, with spacing and no divider lines.
-- "Is PuhuScribe really free?" "Yes. The lessons you see in the app are free. Paid plans are planned for later and are not on sale."
+- "Do I need an account to start?" "No. Press Start and you begin as a guest. You can add an email address later from the account page."
 - "Do I have to record my voice?" "No. Speaking feedback is your choice. A screen explains what is recorded before you turn it on, and your voice stays in the EU. It is not kept unless you ask us to keep it."
 - "What if I already know some Finnish?" "Everyone starts at the beginning, so you can move through the first dialogues quickly."
-- "What does the waitlist do?" "We email you about new units and the paid plans, and nothing else. You confirm your address first, and you can leave at any time."
+- "What happens to my data?" "We keep the minimum. You can download everything or delete your account from the account page. The privacy notice explains each item."
 
-**Footer.** "PuhuScribe is for adults, 18 and over." A "Privacy notice" link. "Responsible for your data: [name from the privacy notice]. Contact: [contact from the privacy notice]." A line naming Exentrik only as owner's call 6 decides.
+**Closing part.** Heading "Try the first session." One sentence, "It takes a few minutes and needs no account.", and the button "Start your first session". The time claim is only used if the evaluator measures it (claims table).
 
-**Head text (proposal).** Title: "PuhuScribe | Learn the Finnish people actually speak". Description: "Learn spoken Finnish from your first sentence. Short dialogues in spoken and written Finnish, with a chance to say each line back and get feedback." Social description: "Short dialogues in spoken and written Finnish, and a chance to say each line back." Card picture text: "Learn the Finnish people actually speak". Card alt text: "PuhuScribe wordmark and the line Learn the Finnish people actually speak."
+**Footer.** The wordmark. "PuhuScribe is for adults, 18 and over." A "Privacy notice" link (to `/learn/privacy`). The responsible line of statement 23.
 
-**The confirmation email.** Subject as in statement 10. Body: "You asked to join the PuhuScribe waitlist. To finish, open this link and press Confirm. It works for 48 hours. [confirm link] If you did not ask for this, ignore this email. We delete the address within 7 days. You can leave the list at any time with this link. [leave link] PuhuScribe is run by [responsible name]. Contact: [contact]." Sent from `<sending address on the owner's domain>`, name "PuhuScribe", reply to `<owner's contact email>`.
+**Head text (proposal).** Title: "PuhuScribe | Learn the Finnish people actually speak". Description: "Learn spoken Finnish from your first sentence. Short dialogues in spoken and written Finnish, with a chance to say each line back and get feedback." Social description: "Short dialogues in spoken and written Finnish, and a chance to say each line back." Card line: "Understand the books. Speak the street." Card alt text: "PuhuScribe wordmark and the line Understand the books. Speak the street."
 
 ## Claims table
 
-Each claim on the page and what makes it true. The evaluator checks every row at the end of the build and again at go live.
+Each claim on the page and what makes it true. The evaluator checks every row at the end of the build and again at go live where marked.
 
 | Claim on the page | What makes it true | Checked against |
 |---|---|---|
-| Teaches spoken Finnish from the first sentence | Spoken Finnish is shown first in every dialogue | Job 8's screens |
-| You hear a dialogue, check you understood it, say it back, and meet the words again in review | Hear it, Understand it, Say it and Keep it are built (jobs 8 to 10 and 9). Use it (the tutor) is not mentioned | The running app |
-| Both forms have audio | Every approved line has both audio files | Published content; the reviewer has approved it before anything is served |
-| Tap any word to see its basic form and why | The word card | Job 8 |
-| Speaking feedback is optional; the recording is not kept unless asked; the voice stays in the EU | Job 10's consent screen and defaults; Azure EU | The voice settings screen at go live |
-| Review is scheduled by the app, typed, nothing to rate, no streaks or points | Job 9 | The running app |
+| Every phrase comes taught twice, in written and spoken Finnish, and both have audio | Every approved line has both forms and both audio files | Published content (go live: after the reviewer's approval) |
+| Teaches spoken Finnish from the start, and spoken comes first | Spoken is shown first in every dialogue | Job 8's screens |
+| You hear a dialogue, tap a word to see its basic form, say the lines back, and the words return for review | Hear it, Understand it, Say it and Keep it are built (jobs 8 to 10). Use it (the tutor) is not mentioned | The running app |
+| Speaking feedback is optional, the recording is not kept unless asked, the voice stays in the EU | Job 10's consent screen and defaults, Azure EU | The voice settings screen (go live) |
+| Review is scheduled by the app, typed, nothing to rate, no streaks or points | Job 9, and the scope | The running app |
 | Starts from zero with no placement test, works toward A1 | PRD section 4.1 | PRD |
-| The lessons are free | The PRD says the loop is never gated. This is also a promise | Owner confirms at approval |
-| Paid plans are planned and not on sale | Payments are v3.1 | Scope, "Deferred" |
-| For adults, 18 and over | PRD section 10 | Job 8's front door line |
-| The first situations include meeting someone and ordering a coffee | Units 1 and 2 | Published at go live |
+| No sign up needed, you begin as a guest | Job 8's guest start | The running app |
+| You can add an email address later, download your data, or delete your account | Job 11's account pages | The running app |
+| For adults, 18 and over | PRD section 10 | Job 15's and job 8's front door line |
+| The first situations include meeting someone and ordering a coffee | Units 1 and 2 | Published content (go live) |
+| The first session takes a few minutes (only if kept) | Measured on the fixture and the first unit | The evaluator times it |
+| The pictures show the app | The script captures the running app | Statement 8 |
+| In beta, feedback page (only with call 1c B) | The feedback page exists (job 14) | The running app |
+| Add it to your home screen (only with call 1c B and item 16 merged) | Scope item 16 | The running app, go live |
 
-The page does not say how many units exist, does not name the tutor and gives no learner numbers. Units 1 to 3 are drafted and wait for the reviewer's batch, and units 4 to 6 and the tutor step are not built.
-
-## Privacy notice facts
-
-The builder writes the notice text from these facts only. The owner approves the wording at final approval.
-
-| Topic | Fact for the notice | Source |
-|---|---|---|
-| Waitlist | Your email address; whether you ticked "I might want a paid plan"; the time you joined; which version of the wording you saw; whether you confirmed and when; and two random codes kept in a form that cannot be turned back into the codes, so the links in our email work. Nothing else: no name, no address of your device, no browser details, no cookie. | This job |
-| Why | To email you about new units and the paid plans, including any founding member offer, once you confirm. We use it for nothing else and send no newsletter. | This job |
-| Legal reason | Your consent (GDPR Article 6(1)(a)). You can withdraw it at any time, as easily as you gave it. | GDPR Art. 7 |
-| Not linked to an account | The waitlist is separate from learner accounts. Deleting your account does not change it, and joining it does not create an account. | This job |
-| How long | A pending address is deleted after 7 days. A confirmed address is kept until you leave or 24 months after you joined, whichever is first (the owner may change this). | This job; owner input |
-| How to leave or have it deleted | Every email we send has a link that removes you at once. You can also write to the contact in this notice. We answer within one month. | This job; job 11 |
-| Who sends the email | The sender the owner chooses (name and location added when chosen). It receives your address and our message. | Owner's call 2 |
-| Where the list is | Supabase, EU (Ireland), as for accounts | Job 11 |
-| Visit count | Opening the page adds one to the daily country count, as for the app (job 14's entry applies). Cloudflare, which delivers the page, sees your internet address as with any page. | Job 14 |
-| Cookies | The page sets none and stores nothing on your device. | This job |
-| Under 18 | The page is for adults. | PRD section 10 |
+The page does not say how many units exist, does not name the tutor, gives no learner numbers and says nothing about price, paid plans or founding members. Units 1 to 3 are drafted and wait for the reviewer. Units 4 to 6 and the tutor step are not built.
 
 ## Threat model (GA)
 
 **What is the worst a malicious person could do here?**
-- Find out whether a named person is on the list. That matters: the audience is people who recently moved to Finland, and a list of them is sensitive context. Every answer to the visitor is the same (statement 8), the database result is useful only to the Worker's key holder (statement 15), and the table cannot be read by any API role (statement 14).
-- Fill the list with other people's addresses and flood an inbox with our email. Each address can receive at most 3 emails and one every 10 minutes, the page sends at most 60 an hour, a confirmed address gets none, and the email holds no text the visitor typed (statements 10, 15). A patient attacker can still use up the 60 an hour and delay real confirmations; accepted and shown on the owner page. Owner's call 4 covers stronger options.
-- Use us as a spam relay. There is no free text field, the recipient is the typed address only, and the message is fixed (statement 10).
-- Read or scrape the list. Only the owner function returns addresses, behind job 14's three locks (statements 21, 22). The key guard stops direct callers from the public database address.
-- Confirm or remove someone else's entry. Needs a 256 bit token from that person's inbox. Pages that act need a button press, so a mail scanner that opens links changes nothing (statements 11, 12).
-- Cross site tricks. JSON only, `Origin` check, no cookies involved, no `Access-Control-Allow-Origin` (statement 27). Text from the visitor appears only as plain text on the owner page (statement 22).
-- Use up the Workers Free limit of 100,000 requests a day with page loads. Possible for any public page; the same limit as job 14's note. Past it, Cloudflare stops the Worker (error 1027) unless it is set to fail open (unverified).
-- Fake the consent. The boxes are unticked and the database refuses a join without the version label; but a bot can tick boxes. The confirmation step is the proof that a human with that inbox agreed.
+- Use the new forwarding to send a learner to a bad site. The forwarding map is fixed in code, nothing in the target comes from the visitor, and every odd path goes to `/` (statement 12).
+- Break sign in, sign out or account deletion through the move, so a learner cannot leave or erase their data. Every redirect takes its address from one file, a repository test fails on a missed link, and each of the three endings has its own browser test (statements 11, 13).
+- Reach the owner page by a new address that skips the Access lock. The owner host answers only its two page addresses and redirects the rest, and the Access check runs before anything (statement 17).
+- Make the page claim something false, such as a feature the app lacks, which is misleading marketing. The claims table, the banned word test and the picture rules cover it (statements 3, 5, 7, 9).
+- Show unapproved Finnish in a picture that a search engine and chat apps copy and cache. The script refuses to write such a picture and a repository test checks the manifest (statement 7).
+- Show a real person's data in a screenshot. Pictures come only from the throwaway local database and the fixture, and the manifest text is scanned for emails, ids and keys (statement 10).
+- Use up the Workers Free limit of 100,000 requests a day with page loads. Possible for any public page, the same limit as job 14's note. Past it, Cloudflare stops the Worker unless set to fail open (unverified).
+- Plant a script on the page. The page has no script, and its policy allows none (statement 2).
 
 **What data are we storing that we must protect?**
-- Email addresses of people interested in learning Finnish, with consent proof and a paid plan interest flag.
-- Token hashes and the key hash, which let the links and the Worker's door work.
-- Nothing about the device, place or time of day of a visit beyond job 14's country tally.
+- Nothing new. The page and the move add no table, no function, no key and no provider.
+- The visit tally holds a day and a country (job 14). It now also counts arrivals at the page.
+- The committed pictures and the manifest hold only fixture screens and approved text.
+- The responsible line holds a company name, its business ID and a contact. The business ID is public. Neither is secret.
 
 **What must the system refuse even if asked nicely?**
-- Showing or hinting that an address is, or is not, on the list, to anyone but the owner.
-- Storing an address without the required box, or with a box pre ticked.
-- Sending any email other than the confirmation (a later job sends announcements, only to confirmed addresses, each with a leave link).
-- Storing a device address, user agent, referrer, source or cookie with a signup.
-- Using the list for a newsletter or anything beyond what the notice says without a new, separate yes.
-- Showing the list to anyone but the owner, or exporting it.
-- Using a Supabase secret key or service role key, or putting the Worker key in a file or log.
-- Showing a price, a deadline or a scarcity claim that is not real.
+- Collecting anything on the page: a form, a cookie, local storage, a script, a pixel or an outside request.
+- Showing a Finnish line that is not approved, in the page, a picture or the card.
+- Stating a price, a paid plan, a founding member offer, a deadline or a number of learners.
+- Forwarding to an address the visitor names, and serving the page on the owner host.
+- Letting a person hand edit a picture, or a build for the live address with the company fields empty.
+- Weakening a design or analytics test to make the move pass.
 
 ## Decision
 
 | # | Choice | Pick | Runner up | Why the runner up lost |
 |---|---|---|---|---|
-| 1 | Where the page lives | `/about` on the app address (owner's call 1, recommended) | The main address with the app moving to `/today` | It moves the front door that `15-onboarding` and the installable app job both build on, in the same weeks |
-| 2 | How the page is built | Plain HTML files (`about.html`, `about/confirm.html`, `about/leave.html`) built by Vite as extra entries, with the tokens CSS and one small script | A React page in the app, with the Worker rewriting its head tags | Chat apps and some search engines read the HTML the server sends. A React page sends an empty shell, so the card and the text would be missing until a script runs. Rewriting the head in the Worker adds code that must stay in step with the page, and the page would carry the app's bundle. A separate site tool (Astro, for example) lost for adding a second build system for three pages. Cost: the page cannot reuse the React `Button`, so its CSS repeats the button look from tokens, and the existing design tests must cover that CSS file (the builder checks, and extends them without weakening) |
-| 3 | File names under Cloudflare's asset rules | `about.html` for `/about` (Cloudflare's default serves `/about` from `about.html` without a redirect) | `about/index.html` | By Cloudflare's docs the default would then redirect `/about` to `/about/`, which splits the address Google sees |
-| 4 | How the database knows a join came from the Worker | A random key held as a Worker secret, with only its SHA-256 stored in the database | Leave the function open to `anon`, as job 14's `count_visit` is | The Worker needs a result to decide whether to send email, and an open function would give that same result to anyone with the public database key. They could test any address. They could also fill the table directly. A Supabase secret key was also ruled out (jobs 1, 2, 8, 11) |
-| 5 | How an address is confirmed | A link to a page with a Confirm button, token in the `#` part of the address | A link that confirms when opened; or a 6 digit code typed on the page | A link that acts can be used up by mail scanners (Supabase's email page, in job 11's sources). A code makes a phone user leave the mail app, find the page again and type it; for a casual waitlist that loses sign ups. The `#` part never reaches a server log or `Referer`; a `?` query would |
-| 6 | The leave token | Computed by the Worker as an HMAC of the address with the key, stored only as a hash | A random token stored in plain text | A later announcement must re-create the leave link without the database holding a usable secret. Storing it plain would let a database leak remove everyone |
-| 7 | Consent shape | One required box with a narrow purpose, one optional preference box, nothing pre ticked, no newsletter box | One box covering "updates and offers"; or the "existing customer" exception | Bundled consent is the pattern Article 7(2) warns about. The exception needs a purchase, and nobody has bought anything (KKV page) |
-| 8 | How the owner sees the list | A "Waitlist" section on the owner page, behind job 14's three locks | Opening the table in Supabase's dashboard; or a weekly email of new sign ups | The dashboard needs your database login each time and shows every table, so one slip touches learner data. A digest needs the email sender and puts addresses in an inbox |
-| 9 | Counting landing visits | Into job 14's one tally (the route is Worker first, so it counts) | A separate tally with a page column | Job 14 locked the table's columns by test. Cost: landing and app visits are one number, so joins per visit is approximate |
-| 10 | The social card file | A PNG made by a script and committed | An image made on request by the Worker | A Worker would need an image library and spend its 10 ms of CPU on every share. One page needs one file |
-| 11 | Email provider | Not chosen here; one module, `worker/providers/waitlist-email.ts`, with a fake for tests (owner's call 2) | Choosing now | Real prices, regions and a sending domain are yours to pick, shared with job 11's open call |
-| 12 | Retention | Pending 7 days, confirmed 24 months (owner input) | Until the owner deletes | GDPR's storage limit idea; reuses job 11's 24 months |
+| 1 | Where the page lives | `/` for the page and `/learn` for the app (the owner's answer of 31 October, like Duolingo) | The page at `/about` with the app at `/` (round 1) | The owner chose the main address. Search engines and people typing the name reach the page, and the app gets its own path. Duolingo and Busuu, which the owner named, both put the public page at the root and the app elsewhere (see the references, with what I could not confirm) |
+| 2 | How the page is served at `/` | The page is a built file `landing.html`. The Worker answers `/` by asking Cloudflare's static files for it, and `index.html` stays the shell of the app | The page is the root `index.html` and the shell moves to another file | Cloudflare's docs say that a request matching no file gets the root `/index.html` with a 200 (single page application mode, read 31 October 2026). Every deep link under `/learn` would then show the landing page unless the Worker rewrote each one. Keeping the shell as `index.html` leaves all app deep links as they work now and puts one rewrite in one place, `/`. Cost: the Worker changes its "unchanged request" rule for `/` only, and the file's own address needs a redirect (statement 1) |
+| 3 | How the page is built | Plain HTML and one CSS file built from the tokens, no script | v2's way: React loaded from files and the page drawn in the browser | v2's page is drawn by script, so a crawler or chat app that does not run script sees an empty shell and the card would be missing. It loads Google Fonts and Fontshare, which breaks the no outside request rule. A site tool such as Astro adds a second build system for one page. Cost: no React `Button`, so the CSS repeats the button look from tokens, and the design tests must cover that file |
+| 4 | The hero picture | One picture composed by the script from real captures | The owner's v2 mock-up image as supplied; a hand made screenshot | The mock-up carries numbers and Finnish the app lacks or has not approved. A hand made file cannot be remade, and a picture that is not made by the script cannot be checked against the approved set |
+| 5 | Picture format | WebP with a PNG fallback, in `picture` elements | PNG only, or AVIF | PNG alone makes the hero heavy for a slow phone. AVIF is newer, and learners use older phones (a lesson in `AGENTS.md`). The builder checks browser support tables and records them, as I did not verify the versions |
+| 6 | Old addresses | The shell forwards the ten old addresses from a fixed map | Worker 301 redirects for each old address; or no forwarding | A Worker redirect needs the ten old paths in `run_worker_first`, so each would be a page route to count and test. No forwarding breaks the owner's and the testers' bookmarks and the home screen icons already made. The forward costs a few lines in the shell and no new route |
+| 7 | Counting | Job 14's counter unchanged, with the new route list | A separate tally for the page | Job 14 locked the table's columns by test. Cost: page and app visits are one number, and a click from the page to the app counts once because it is same origin |
+| 8 | How the pictures are made | Playwright, already in the stack, driving the real app | A screenshot service or a design tool export | A service sends the app's screens to a third party and costs money. A design tool export is hand made and drifts from the app |
+| 9 | Retire the waitlist | Nothing built: no form, table, email, sender or owner section | A "keep me posted" form | The owner dropped it on 31 October. A later job 18, save progress, covers keeping progress, and is not part of this job |
 
-New npm packages: none expected. New database extension: none (`pg_cron` is already on from job 11, and SHA-256 is built into Postgres).
+New npm packages: none expected (Playwright, Sharp-like image conversion may be needed for WebP; the builder uses a package already in the lockfile or Playwright's own capture formats and records any new package for the owner). New database objects: none.
 
 **Notes for the builder.**
-1. Cloudflare's docs describe `html_handling` for `about.html` and `about/index.html` but not both in one build. Use only `about.html`, and test status 200 with no redirect for the three addresses (`redirect: 'manual'`). Record in `build.md` how `run_worker_first` `/about` behaves with the default setting.
-2. Confirm that the Cloudflare Vite plugin builds extra HTML entries (`build.rollupOptions.input`) and that the files land in `dist/` unchanged. Record it.
-3. The Workers rate limit binding needs Wrangler 4.36.0 or later, if owner's call 4 is B.
-4. Postgres grants `EXECUTE` on new functions to `public` by default. Revoke it in writing for each of the four new functions.
-5. The consent version label: store the SHA-256 of the two consent sentences next to each label in a test file, and fail if the text changes under an old label.
-6. Link origin in the email comes from a Worker variable, `WAITLIST_LINK_ORIGIN` (live: `https://puhuscribe.exentrik.co`), never from the request's own Host. Other new Worker settings: `WAITLIST_KEY` (secret), the sender's settings (named when the provider is chosen), and `WAITLIST_EMAIL_PROVIDER=fake` locally only. The fake must be impossible to select on a live host (repository test).
-7. Coordinate the migration timestamp with any open job through the manager.
+1. Cloudflare's `html_handling` default serves `/landing` from `landing.html`. Test that `/landing`, `/landing.html` and `/index.html` never become a second public copy (statement 1), and record how `run_worker_first` `/` behaves with the default setting.
+2. Confirm the Cloudflare Vite plugin builds an extra HTML entry (`build.rollupOptions.input`) and that the file lands in `dist/client` unchanged. Record it.
+3. `supabase/config.toml` holds `site_url` and redirect addresses for the local test stack only. Job 11 signs in with typed codes, so no email holds an app link. The builder checks both and records that no auth email or setting points at an old address.
+4. Keep the Worker's rewrite for `/` to one function with its own test, and keep `/learn/*` requests going to `env.ASSETS.fetch(request)` unchanged, so job 14's byte for byte test stays as it is for app pages.
+5. The shell's forwarding runs before the app draws, so the old page never flashes.
 
 ## Contract notes for other jobs
 
-1. **Onboarding (`15-onboarding`)**: this job does not change `/` or the front door. The page's main button goes to `/`. If the welcome wants a link back to the page, it uses `/about`. With owner's call 1 A, the welcome moves to `/today` and the manager sequences the two jobs.
-2. **Tutor step (`16-tutor-step`)**: the page names no tutor feature. If the tutor ships before the page goes public, the owner may add one sentence, which goes through the claims table.
-3. **Installable app (scope item 16)**: its service worker must leave `/about`, `/about/confirm` and `/about/leave` to the network, or arrivals are not counted and updates to the page are hidden. The manifest's `start_url` is `/`. It uses `design/assets/app-icon.svg` for icons; this job adds only the SVG favicon.
-4. **Analytics (14)**: the landing page is counted by the existing tally, and the owner page's sentence under "Visits" is updated (statement 30).
-5. **Accounts (11)**: the email sender chosen for job 11's call 1 serves this job too. The notice's responsible name and contact (`notice-settings.ts`) are reused, never retyped.
-6. **A later announcement job** (not in v3.0 scope): sends only to confirmed addresses, each message carrying the leave link, with the sender and key from this job.
-7. **Go live**: attach `puhuscribe.exentrik.co`; set `WAITLIST_KEY`, `WAITLIST_LINK_ORIGIN` and the sender's settings on the production Worker; run the key SQL line on the live project; add the sender's DNS records; switch off `workers_dev` on the production Worker, so the page has one public address and no duplicate on a `workers.dev` address; check statement 31; submit the sitemap to search engines if the owner wishes.
+1. **Onboarding (15)**: build 15 first, on today's `/`. Job 17 then moves its welcome with the front door to `/learn` and changes only its test addresses and its hallway sheet's link (statement 19). If 15 is still open when 17 starts, the manager has 15 merge first. The welcome has no link to the landing page.
+2. **Tutor step (16)**: held. The page names no tutor feature. If it ships before the page goes public, the owner may add one sentence, which goes through the claims table.
+3. **Save progress (18, new)**: builds on `/learn`, after this job. It uses `paths` from `src/lib/app-paths.ts` for every address it adds and the landing page makes no mention of it until it is built.
+4. **Installable app (scope item 16)**: its manifest `start_url` is `/learn`, and its service worker leaves `/` (the page), `/robots.txt` and `/sitemap.xml` to the network, or arrivals are not counted. Its icons use `design/assets/app-icon.svg`. This job adds only the SVG favicon.
+5. **Analytics (14)**: counting is reused, the page route list changes, the owner page sentence changes (statements 14, 16, 17).
+6. **Accounts (11)**: `notice-settings.ts` gains two fields (statement 23). The privacy notice moves with the app (call 4).
+7. **Go live**: attach `puhuscribe.exentrik.co`, set `VITE_PUBLIC_RELEASE=1` for the live build, switch off `workers_dev` on the production Worker so the page has one public address, check statement 28 and submit the sitemap to search engines if the owner wishes.
 
-## Banned looks, and how this page avoids each
+## Banned looks, and how the baseline avoids each
 
-| Easy drift on a landing page | How this page avoids it |
+| Easy drift on a landing page | How the baseline avoids it |
 |---|---|
-| Three feature cards in a row, identical card grids | The sections are headings with a paragraph each, in one column. The only box is the form |
-| Numbered steps (01, 02, 03) | The loop is told in one sentence. No numbering |
-| Stat tiles and big numbers | No numbers on the page unless the owner gives real founding figures |
-| Gradient hero, purple to blue, glow, glass, gradient text | The hero is text on the page's own lilac fade, the one gradient `design.md` allows |
-| Eyebrow labels | Headings only. No small uppercase labels |
-| Hairline rows | The FAQ uses spacing and bold questions, with no dividers |
+| Three feature cards in a row, identical card grids | Sections are headings with paragraphs in one column. The hero's cards are pictures of real screens, two, different sizes |
+| Numbered steps (01, 02, 03) | The four steps are plain headings in the order the app runs them. No numbers or icons |
+| Stat tiles and big numbers | No numbers on the page |
+| Gradient hero, purple to blue, glow, glass, gradient text | The page's own ground fade only (the one gradient `design.md` allows). Solid nav. No glow |
+| Eyebrow labels | Headings only |
+| Hairline rows | The questions use spacing and bold text, no dividers |
 | Accent borders, pills everywhere | The only pills are the buttons. No coloured edge on a box |
 | Icons and emoji sprinkled in | No icons outside controls, no emoji |
-| Cream with serif and terracotta, near black with neon | The locked palette. Violet and teal appear only if the register pair is shown, as in the app |
+| Cream with serif and terracotta, near black with neon | The locked palette |
 | Inter, Space Grotesk, Bricolage Grotesque | Poppins and Switzer, as `design.md` |
-| Fake urgency and social proof | No countdown, no "N joined", no testimonials, no press logos |
+| Fake urgency and social proof | No countdown, no learner count, no testimonials, no press logos, no tester count |
 
-The existing banned look tests (`tests/design-css.test.ts`, `tests/design-tokens.test.ts`) must cover the new CSS. If a glob misses it, the builder extends the glob and says so in `build.md`.
+The existing banned look tests (`tests/design-css.test.ts`, `tests/design-tokens.test.ts`, `tests/design-rules.test.ts`) must cover the new CSS. If a glob misses it, the builder extends the glob and says so in `build.md`.
 
 ## Out of scope
 
-- Going live: the production Worker, hostnames, DNS, the live database and the key on the live project (owner's call 7).
-- Sending announcements, newsletters or any email other than the confirmation. A later job.
-- Payments, prices pages, checkout and any paid tier. The page promises none of it beyond what owner's call 3 allows.
-- Referral loops, queue positions, counters, countdowns, testimonials, press logos, a blog, video, audio on the page, a chat widget.
-- Tracking of any kind beyond job 14's country tally: no sources, no campaign tags, no A/B tests, no outside counter, no pixel, no cookie banner (nothing is set).
-- Turnstile, unless owner's call 4 is C, and job 8's launch decision.
-- Importing fair sign ups.
-- A Finnish version of the page, a language toggle (on the PRD's "Not in v3.0" list for the app, and not wanted here), JSON-LD structured data, Search Console setup.
-- A QR code maker. The owner can make a QR code of the page address with any tool.
-- Changes to `/`, the front door, onboarding or the tutor step.
-- From the "Not in v3.0" list: no Day One Sprint front door, no vocabulary bank, no four modes, no grammar lessons, no sentence bank page, no standalone tutor, no rank titles, confetti or milestones, no mnemonics, no YKI, no store builds, no Owner Insights beyond the list the scope asks for. No streaks.
+- A waitlist or any form, any email sent by the page, an email sender, a waitlist table or function, any owner page section for sign ups, bot protection for a form. (Dropped by the owner on 31 October.)
+- Price, paid plans, founding members, offers and checkout. The page says nothing about them.
+- Going live: the production Worker, hostnames, DNS and the live database. The go live job publishes the page together with the app.
+- Job 18, save progress, and any prompt asking a guest for an email.
+- Progress screens, calendars, charts, rings, streaks, a word bank with a target, the Day One Sprint and Language Island.
+- A research section with studies (call 1d C), a blog, video, audio on the page, a chat widget, testimonials, press logos, counters, referral loops.
+- Tracking of any kind beyond job 14's country tally. No campaign tags, no A/B tests, no outside counter, no pixel, no cookie banner (nothing is set).
+- A Finnish version of the page, a language toggle (on the "Not in v3.0" list for the app), structured data and Search Console setup.
+- Changes to what the app screens do. The move changes their addresses only.
+- From the "Not in v3.0" list: no Day One Sprint front door, no vocabulary bank, no four modes, no grammar lessons, no sentence bank page, no standalone tutor, no rank titles, confetti or milestones, no bilingual toggle, no mnemonics, no YKI, no store builds, no Owner Insights beyond job 14's minimal page. No streaks.
+- Editing v2's files. The read only copy is looked at and never changed.
 
 ## Build plan
 
-1. **The look overview, before any screen.** One plain page, `factory/jobs/17-landing-page/overview/landing-look.html`, made with the real tokens and not shipped. It names each picture: 1 the top of the page at 375 px with my headline and v2's; 2 the "spoken and written" section with and without the approved pair; 3 the form in each state (empty, error, joining, done, problem); 4 the confirm and leave pages; 5 the social card at 1200 x 630 and how it would look small in a chat; 6 the owner page's Waitlist section; 7 the proposed email. It says how the pieces fit. The manager shows it to you with calls 1 to 7. Nothing else is built until you answer.
-2. **Database.** One migration: `private.waitlist`, `private.waitlist_key`, the four functions, the cleanup job, grants and revokes written out. pgTAP, the scratch red runs, regenerated types, `scripts/waitlist-key.ts`. Covers 14 to 21 (database part) and 17, 18, 19, 20.
-3. **Worker.** The three routes, the email module and its fake, the caps and trap checks, the owner route, quiet logs, `PAGE_ROUTES` and `wrangler.jsonc`, `robots.txt` and `sitemap.xml`. Vitest with fakes. Covers 1, 2, 8 to 13, 21, 24, 27.
-4. **Pages and owner section.** The three HTML pages with CSS and script, head tags, the social card script and file, the privacy notice and processors updates, the `index.html` noindex, the owner page section and the updated visits sentence. Covers 3, 5, 7, 22, 23, 25, 26, 28, 29, 30.
-5. **Browser tests and records.** Journeys in both browsers (join, confirm, leave, the same answer for a repeat, no outside request, no cookie), accessibility, performance, the owner section with known values, docs and README. Covers 1, 2, 6, 7, 11, 12, 22, 28 to 30.
+1. **The look overview, before any picture.** One plain page, `factory/jobs/17-landing-page/overview/landing-look.html`, made with the real tokens and not shipped. It names each picture: 1 the owner's hero picture beside the baseline hero at 375 px and at desktop width; 2 the table of every hero part, kept or removed, as the owner's calls decide; 3 "Two Finnishes", "How a session works" and "Questions"; 4 the two or three screens the script will capture, with their Finnish status; 5 the social card at 1200 x 630 and small in a chat; 6 the address map, old and new. It says how the pieces fit. The manager shows it with calls 1 to 4. The look work waits for the answers. Step 2 does not depend on the look and can start earlier.
+2. **The move.** `src/lib/app-paths.ts`, `App.tsx`, every link and redirect, the shell's forwarding, `page-routes.ts`, `wrangler.jsonc`, the owner host rules, the `/` route in the Worker, the edited tests and the helper in `e2e/`. Covers 11 to 19.
+3. **Pictures.** `scripts/landing/` with the capture, the hero composition, the social card and the checks, the manifest and its tests. Covers 7 to 10 and 22.
+4. **The page.** The landing file, its CSS, head tags, `robots.txt`, `sitemap.xml`, the shell's `noindex`, the footer and the `notice-settings.ts` fields, the privacy notice update. Covers 1 to 6, 20, 21, 23, 24.
+5. **Browser tests and records.** Journeys in both browsers (page, button, `/learn`, forwarding, owner host), accessibility, weight, docs, README and the live check sheet. Covers 1 to 6, 11 to 13, 16, 25 to 27.
 
 **Dependencies.**
-- Job 14 merged (done 30 October 2026) and job 11 merged.
-- The email sender and its DNS records, chosen under owner's call 2, before the page goes public. Until then the tests use the fake sender, and no real email is sent from any test.
-- Preview links still wait for the Cloudflare preview keys (todo, 29 October). Until then the evaluator runs the page locally. Previews sit behind Cloudflare Access, so the form works there, but real email and real social card checks wait for the live address.
-- The live app address and live database (go live job), for statement 31.
-- The native reviewer's answer on the two glossary words (and the pair, if 5b is B) before the page is public.
-- The font key (`FONTS_DEPLOY_KEY`) for Switzer, or the tests that need it skip with a reason.
+- Job 15 merged (in build now) and job 14 and job 11 merged.
+- The owner's answers to calls 1 to 4, the hero picture file, and Exentrik's legal name and business ID (the build may start step 2 without them and cannot finish without them).
+- The native reviewer's answer on the two glossary words, and on any Finnish line the pictures use, before the page is public.
+- Scope item 16 merged, only if call 1c keeps the home screen sentence.
+- The font key (`FONTS_DEPLOY_KEY`) for Switzer. The pictures are made with the real fonts, so the person remaking them needs it.
+- Preview links still wait for the Cloudflare preview keys. Until then the evaluator runs the page locally. Real chat previews and the live checks wait for the live address.
 
 ## Risks and flags
 
-- **Look closely: learner data and consent.** A new list of addresses of people moving to Finland, with consent proof and a paid plan flag. Statements 7 to 20 and the threat model are the protection. The notice must be right before go live.
-- **Look closely: database and access rules.** Three functions callable by `anon` (one of them key guarded) and one `security definer` function that reads addresses for the owner. The pgTAP tests and the scratch red runs (statement 20) are the main protection.
-- **Look closely: a new processor and possibly a paid service.** The email sender receives every confirmed address. It is named in the notice and chosen by you (owner's call 2). Cost depends on the pick: €0 on free plans, or $5 a month for Cloudflare's Workers Paid.
-- **Look closely: Finnish content.** Two glossary words on the page, and an approved pair if you choose 5b B. They go to the native reviewer. Nothing unapproved is served.
-- **Legal reading.** The consent design follows the Finnish consumer authority's page (consent needed for email marketing, no pre ticked boxes) and GDPR Articles 7 and 21. The founding member wording follows the EU's rules on false offers. This is not legal advice. Before going public, a privacy and marketing professional should read the page, the notice and the offer, as jobs 11 and 14 already suggested.
-- **Promises.** "The lessons are free" and any founding member offer are promises you must keep. Do not publish a deadline or a limit you will not enforce.
-- **The controller's name.** The notice names you personally today. If the company owns the product, owner's call 6 C is the fix.
-- **Running costs.** Page, database and cleanup €0. Page loads and the form count toward Workers Free's 100,000 requests a day. A sender: €0 on free plans within their limits (Resend free: 3,000 a month and 100 a day), or $5 a month plus $0.35 per 1,000 above 3,000 on Cloudflare. At the PRD's 150 sign ups, mail volume is tiny.
-- **Visits are mixed.** Landing and app visits share one number on the owner page (Decision 9).
-- **Owner page grows.** The owner page now shows addresses. It stays behind three locks and has no export, consistent with job 14's rule. The PRD's limit on an Owner Insights dashboard is respected: a list and three counts, no charts or funnels.
-- **Fair sign ups.** If they exist elsewhere, they stay outside this list until their consent is shown.
+- **Look closely: every address of the app changes.** Sign in, sign out, delete, guest start and the owner host all pass through the move. Statements 11 to 17 and the three ending tests are the protection. A missed link would drop a learner on the page instead of the app.
+- **Look closely: Finnish content.** The two glossary words, and any Finnish a picture shows. The approved set is empty today, so the baseline pictures show none. They go to the native reviewer.
+- **Look closely: learner data and consent.** The page takes nothing, and the pictures use only the fixture. The evaluator checks that no real address or id sits in any picture or text.
+- **Look closely: database access rules.** None touched. Statement 27 proves it.
+- **Paid services and running costs.** None. Page, pictures and move cost €0. Page loads count toward Workers Free's 100,000 requests a day. Static file requests may not count, as I recall from Cloudflare's pricing page, and I did not re-read it today.
+- **Promises.** The page makes only the claims in the table. If the owner adds "beta" or the home screen sentence, those are promises too.
+- **The owner's design is changed by the facts.** The v2 hero shows features the app lacks. The overview shows what remains, and the owner decides. The baseline follows the owner's banned list and `design.md` until told otherwise (section 2 of the calls).
+- **Company details.** The legal name and business ID are the owner's. A live build fails without them. I could not verify whether Exentrik is registered.
+- **Coordination with 15.** 15 is built on `/` now. The move changes only its test addresses. If 15's tests land after this job starts, they must use `paths.frontDoor`.
+- **Visits are mixed.** Page and app arrivals are one number on the owner page (Decision 7).
 - **GA.** The job is done only when `summary.md` records the owner's own written "approved" line with the date.
 
 ## Could not verify
 
-- **v2's landing page.** It is drawn by script and I could read only its title. Duolingo's page, the same. The builder opens v2's page in a browser for the overview.
-- **Award galleries.** Awwwards' education and language lists gave names only (no language app among them). Land-book returned 403. Godly redirected to recent.design, which gave titles only. SiteInspire gave names and dates. So the references above are real brand pages I opened, plus one Awwwards listed tutor and one Godly feed entry. The waitlist examples come from a vendor's blog, not the pages.
-- **Email prices.** Brevo's price page could not be read and Scaleway's returned 403 today. Resend's price figures are from its page; where its data is stored was not confirmed. Cloudflare Email Service: the docs say Workers Paid is needed for any recipient and give $0.35 per 1,000 after 3,000; they do not say whether it is in beta, and a search found one source saying April 2026 beta and another saying July 2026 private beta. Whether it can also act as SMTP for Supabase (job 11) was not checked.
-- **Workers rate limit binding.** Plans and cost are not stated in its docs. **Turnstile.** I read its plans page only; whether it stores anything on the device, and what the notice would need to say, was not checked.
-- **Finnish law text.** The English text of section 200 of Act 917/2014 (electronic direct marketing) could not be read (the Finlex file would not open as text, and the Finnish page was cut off). I rely on the consumer authority's page and on a summary naming Chapter 24, sections 200 to 202. I did not open the ePrivacy Directive's Article 13. Whether a founding price must be shown with VAT, and the Consumer Protection Act's section numbers, were not checked. The Data Protection Ombudsman's site returned an error (as in job 11).
-- **EU directive text.** I read Annex I points 5, 7 and 20 on the legislation.gov.uk copy of the adopted directive, not on EUR-Lex.
-- **Social card limits.** X's pages returned errors, so its image limits are unverified. Facebook's page gave 1200 x 630, 1.91 to 1, 8 MB.
-- **Cloudflare asset behaviour.** The `html_handling` table is from the docs; the exact interaction with `run_worker_first` `/about`, and whether the Vite plugin builds extra HTML entries, are for the builder to confirm.
-- **Lighthouse numbers** in statement 29 are from memory; the builder records the real settings.
-- **Fair results.** Whether the PRD's price hypothesis was tested, and how fair sign ups were collected, are not in the files I read.
-- **Provider tracking.** Whether every sender lets open and click tracking be switched off per message or per domain was not checked.
-- **Workers Free over the limit.** Whether it fails open or closed was not verified (same as job 14).
+- **The address references.** I could not confirm Duolingo's `/learn` or Busuu's `/dashboard` by fetching. Duolingo's page returned only its name. Busuu's `/dashboard` returned its public page, titled "Learn languages: Spanish, French, German and start for free", with no redirect shown. The two addresses are the owner's observation.
+- **The live v2 landing page.** I read its code in the read only copy (`_v2-readonly/public/landing/`) and not the live site. The owner's description of the hero (a tilted pair of cards, the "Now in beta" tag) matches that code.
+- **The owner's hero picture.** I have not seen the file. I worked from the owner's description and the code.
+- **Award galleries.** Awwwards' education list gave names only. Land-book returned 403. Godly redirected to recent.design with titles only. SiteInspire gave names and dates. The references below are real brand pages opened in round 1.
+- **Exentrik's status.** Whether it is a registered company or a trading name, its legal name and its business ID.
+- **The business ID's check digit.** I did not check the registry's rule, so the test checks the shape only.
+- **Where approved lines are read from.** No publish migration exists today. The builder confirms the place the content jobs commit them to.
+- **Browser support for WebP on the oldest phones the app targets, Lighthouse settings and the layout shift threshold.** From memory. The builder records the real figures.
+- **Workers Free over the limit**, whether it fails open or closed, and **static file billing.** Not verified.
+- **Whether scope item 16 will ship the home screen install** the hero note promises.
+
+## References
+
+Real pages, opened on 30 October 2026 unless marked. The table keeps the eight round 1 references, with borrowings changed for a page with no form and no price, and adds the two address references and v2's own page.
+
+| Reference | Borrow | Leave out |
+|---|---|---|
+| PuhuScribe v2 landing, the owner's own page. Code read from `_v2-readonly/public/landing/` on 31 October 2026. Live: https://puhuscribe-v2.vercel.app/landing (title only) | The headline, the lead, the split of the nav, the phone with two flanking cards, the "Two Finnishes" explainer with the register card, the Questions order | Everything in call 1 and the table of call 2 |
+| Duolingo, https://www.duolingo.com/ (address reference, owner's example; app path unconfirmed by me) | The public page at the root and the app on its own path, the single clear button to start | Its sign up wall, mascot and streak language |
+| Busuu, https://www.busuu.com/ (address reference, owner's example `/dashboard`, unconfirmed by me) | The public page at the root and the app at `/dashboard`. Also a short time promise, only if it is true for us | "120 million learners", awards we do not have, the business section |
+| Memrise, https://www.memrise.com/ | One sentence promise about real speech ("Understand native speakers. Sound more like them."); a short FAQ that answers "speaking in week one"; a "Now you say it" closing prompt | Press logo strip, video led layout, the language picker, the cost answer (the page says nothing about price) |
+| Speak, https://www.speak.com/ | The same call to action at the top and the bottom | Award badges, "15M+ downloads", the three method cards, its prices |
+| Babbel, https://www.babbel.com/ | A plain statement of the method | The promo countdown banner (false urgency, banned by the EU directive's Annex I point 7), the "92% improved" claim, stock lifestyle photos |
+| Lingoda, https://www.lingoda.com/en/ | Nothing now, since the page makes no offer. Kept for when offers return | The sale banner, "Hurry now!" |
+| Pimsleur, https://www.pimsleur.com/ | Naming the method in plain steps and saying what you do in each | "Scientifically proven" claims, the all caps banner. Its page says "up to 4 users" in one place and "up to 3" in another, the kind of slip our claims table prevents |
+| Senthora, https://senthora.ai (listed on Awwwards) | A short privacy and beginner FAQ | Numbered steps, six feature cards, a streak, uppercase labels |
+| Halden app site, https://recent.design/i/1u0n947-halden-app-website (Godly's feed, listed as minimal, light, consumer) | The calm light single column mood | Scroll animation and the phone mockup (I read only its listing, not the site) |
 
 ## Sources
 
-- PRD sections 0, 2, 3, 4.1, 6, 10, 11, 13 and 14: `C:/Users/fumna/dev/exentrik-os/products/puhuscribe/PUHUSCRIBE_V3_PRD.md`
-- Project: `AGENTS.md`, `docs/scope/scope.md` item 15 and "Deferred", `docs/factory-and-risk-tests-plan.md` decisions 8 and 9, `factory/todo.md` (job 8 launch decision), `factory/jobs/14-analytics/spec.md` (contract note 2, owner's call 2), `factory/jobs/11-accounts/spec.md`, `factory/jobs/12-units-1-3/spec.md` (content waits for the reviewer), `factory/jobs/13-review-site/spec.md`, `design.md`, `design/brief.md`, `design/assets/README.md`, `design/v2-handoff/README.md`, `src/App.tsx`, `src/main.tsx`, `src/screens/FrontDoor.tsx`, `src/screens/OwnerPage.tsx`, `src/privacy/`, `worker/index.ts`, `worker/http.ts`, `worker/feedback.ts`, `worker/page-routes.ts`, `wrangler.jsonc`, `index.html`, `vite.config.ts`
-- Brand notes (read only): `C:/Users/fumna/dev/exentrik-os/context/brand-voice.md`, `context/exentrik.md`, `brand/README.md`
-- Finnish consumer authority, inappropriate direct marketing (consent, pre ticked boxes, the customer exception): https://www.kkv.fi/en/consumer-affairs/marketing-sales-and-indicating-prices/direct-marketing/inappropriate-direct-marketing/
-- Finnish Act on Electronic Communications Services 917/2014, English translation (text not read): https://www.finlex.fi/en/legislation/translations/2014/eng/917
-- GDPR Article 7 (conditions for consent): https://gdpr-info.eu/art-7-gdpr/
-- GDPR Article 21 (right to object to direct marketing): https://gdpr-info.eu/art-21-gdpr/
-- Unfair Commercial Practices Directive, Annex I (points 5, 7, 20), legislation.gov.uk copy: https://www.legislation.gov.uk/eudr/2005/29/annex/I/adopted
-- Cloudflare Email Service pricing: https://developers.cloudflare.com/email-service/platform/pricing/
-- Cloudflare Workers pricing (Paid $5 a month, Free 100,000 requests a day): https://developers.cloudflare.com/workers/platform/pricing/
-- Cloudflare Turnstile plans: https://developers.cloudflare.com/turnstile/plans/
-- Cloudflare Workers Rate Limiting binding: https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/
-- Cloudflare static assets `html_handling`: https://developers.cloudflare.com/workers/static-assets/routing/advanced/html-handling/
-- Resend pricing: https://resend.com/pricing.md
+- PRD sections 0, 2, 3, 4.1, 6, 10, 11, 13 and 14: `C:/Users/fumna/dev/exentrik-os/products/puhuscribe/PUHUSCRIBE_V3_PRD.md` (read in round 1)
+- Project: `AGENTS.md`, `design.md`, `docs/scope/scope.md` item 15 and item 16, `factory/specs-waiting.md` (the owner's answers of 31 October 2026), `factory/progress.md`, `factory/jobs/14-analytics/spec.md`, `factory/jobs/15-onboarding/spec.md`, `factory/jobs/11-accounts/spec.md`, `worker/page-routes.ts`, `worker/index.ts`, `worker/owner.ts`, `worker/visits.ts`, `wrangler.jsonc`, `src/App.tsx`, `src/main.tsx`, `src/screens/*.tsx` (the link and redirect search), `src/lib/account-notice.ts`, `src/lib/crash-clean.ts`, `tests/analytics-rules.test.ts`, `scripts/security/check-built-files.ts`, `supabase/config.toml`, `supabase/migrations/`, `supabase/tests/database/analytics.test.sql`
+- The owner's v2 landing page, read only copy: `C:/Users/fumna/dev/_v2-readonly/public/landing/index.html`, `landing-app.js`, `phone.js`
+- Cloudflare, static assets single page application behaviour (a request matching no file gets the root `/index.html`; `run_worker_first` keeps that behaviour), read 31 October 2026: https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/
+- Cloudflare static assets `html_handling` (round 1): https://developers.cloudflare.com/workers/static-assets/routing/advanced/html-handling/
+- Cloudflare Workers pricing (Free 100,000 requests a day): https://developers.cloudflare.com/workers/platform/pricing/
+- Unfair Commercial Practices Directive, Annex I, legislation.gov.uk copy: https://www.legislation.gov.uk/eudr/2005/29/annex/I/adopted
 - Open Graph protocol: https://ogp.me/
 - Facebook sharing image guidance: https://developers.facebook.com/docs/sharing/webmasters/images/
 - Google, snippets and meta descriptions: https://developers.google.com/search/docs/appearance/snippet
 - Google, canonical URLs and `noindex` versus robots.txt: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
 - web.dev, Largest Contentful Paint thresholds: https://web.dev/articles/lcp
+- Address references fetched 31 October 2026 (titles only): https://www.duolingo.com/learn, https://www.busuu.com/dashboard
 - References opened on 30 October 2026: https://www.memrise.com/, https://www.speak.com/, https://www.babbel.com/, https://www.busuu.com/, https://www.lingoda.com/en/, https://www.pimsleur.com/, https://senthora.ai, https://recent.design/i/1u0n947-halden-app-website, https://www.awwwards.com/websites/education/, https://www.siteinspire.com/websites/categories/education
-- Waitlist examples (vendor blog, pages not opened): https://getlaunchlist.com/blog/waitlist-landing-page-examples-that-convert
-- v2's landing page (title only): https://puhuscribe-v2.vercel.app/landing
+
+## Changes from round 1
+
+Removed with the waitlist: owner's calls 2 (email sender), 3 (founding member), 4 (bot protection) and 7 (when public, now fixed as "with the app at go live"); the statements on the form, the one answer for every case, the trap and clock, the confirmation email, confirm and leave pages, no account, the list table, `join_waitlist`, confirm and leave functions, not tied to an account, retention, the key, breaking each protection, the owner function, the owner page section and the privacy notice's waitlist part; the threat model answers on the list, fake consent, mail relay and scraping; the waitlist privacy facts table, the email provider decision, the key and link origin notes and the sender and key contract notes. Changed: the page address (call 1 of round 1, now decided), the look (now the owner's v2 hero with real screens), Exentrik (now only the responsible line). Kept: search metadata, the social card, no cookie and no outside request, going public with the app, the three threat model questions, the references.
 
 Result: ready for owner approval
