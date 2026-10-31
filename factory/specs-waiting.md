@@ -253,4 +253,6 @@ Full spec: `factory/jobs/17-landing-page/spec.md`. Public, so treated as GA. You
 
 Recorded here word for word, with the date, as you give them.
 
-_None yet._
+- 31 October 2026, job 15: "Approve, all recommended (Recommended)". Calls 1 A, 2 A, 3 A, 4 A (hallway test before final approval, pass bar as proposed), 5 A.
+- 31 October 2026, job 16: "Hold until units 4-6 (Recommended)". Nothing approved yet; the AI provider, costs and the other calls are decided when units 4 to 6 exist.
+- 31 October 2026, job 17: "Go through each choice (Recommended)". The calls are being asked one by one.
