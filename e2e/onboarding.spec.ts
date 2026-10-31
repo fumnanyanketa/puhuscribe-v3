@@ -11,6 +11,7 @@ import {
   WELCOME_WRITTEN,
   WELCOME_WRITTEN_LABEL,
 } from '../src/screens/welcome-copy.ts'
+import { contrast } from '../src/lib/contrast.ts'
 import { asMap, colourTokens } from '../src/styles/token-values.ts'
 import { addEmail, startGuest, testAddress } from './account-helpers.ts'
 import { recordApiTimings } from './api-timing.ts'
@@ -111,6 +112,21 @@ async function onElement<T>(target: Locator, expression: string): Promise<T> {
       el.removeAttribute('data-test-probe')
     })
   }
+}
+
+/** A token's colour as #rrggbb (6 digit tokens only). */
+function hexOf(scheme: (typeof SCHEMES)[number], name: string): string {
+  const value = asMap(TOKENS[scheme]).get(name)
+  if (!value || !/^#[0-9a-f]{6}$/.test(value))
+    throw new Error(`No opaque colour token ${name} in ${scheme} mode.`)
+  return value
+}
+
+/** A computed colour, rgb(r, g, b), as #rrggbb. */
+function hexFromRgb(colour: string): string {
+  const parts = /^rgba?\((\d+), (\d+), (\d+)/.exec(colour)
+  if (!parts) throw new Error(`Not an opaque colour: ${colour}`)
+  return `#${[parts[1], parts[2], parts[3]].map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`
 }
 
 async function style(target: Locator, property: string): Promise<string> {
@@ -558,6 +574,38 @@ test.describe('phone, keyboard and look', () => {
     }) => {
       await openAsNewVisitor(page, scheme)
       await axe(page, `front door, ${scheme}`)
+    })
+
+    test(`[onboarding 10] every piece of text in the welcome keeps at least 4.5 to 1 against what is behind it, ${scheme}`, async ({
+      page,
+    }) => {
+      // axe cannot judge text that sits straight on the page's fade (it reports
+      // those as "needs review"), so the real colours are measured here: the
+      // text colour against the nearest solid colour behind it, or against the
+      // page's three ground colours (the worst of them counts).
+      await openAsNewVisitor(page, scheme)
+      await settleAnimations(page)
+      const ground = ['--color-ground-top', '--color-ground-middle', '--color-ground-bottom'].map((name) =>
+        hexOf(scheme, name),
+      )
+      const items = await onElement<{ text: string; color: string; behind: string | null }[]>(
+        welcomeOf(page),
+        `(region) => [...region.querySelectorAll('h2, p')].map((node) => {
+          let behind = null
+          for (let n = node; n && n !== region.parentElement; n = n.parentElement) {
+            const background = getComputedStyle(n).backgroundColor
+            if (background !== 'rgba(0, 0, 0, 0)') { behind = background; break }
+          }
+          return { text: node.textContent, color: getComputedStyle(node).color, behind }
+        })`,
+      )
+      expect(items.length).toBe(WELCOME_LINES.length)
+      for (const { text, color, behind } of items) {
+        const behindColours = behind === null ? ground : [hexFromRgb(behind)]
+        for (const back of behindColours) {
+          expect(contrast(hexFromRgb(color), back), `${text} ${color} on ${back}`).toBeGreaterThanOrEqual(4.5)
+        }
+      }
     })
 
     test(`[onboarding 10] every button on the page has explicit token colours, ${scheme}`, async ({

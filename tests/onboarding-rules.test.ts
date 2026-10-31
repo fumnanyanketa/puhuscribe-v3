@@ -11,7 +11,8 @@ import { describe, expect, it } from 'vitest'
 //
 // Each rule has a "catches" test that feeds it something that breaks it.
 
-const read = (path: string) => readFileSync(path, 'utf8')
+// Read with LF endings, so a Windows checkout (git may give CRLF) gives the same result.
+const read = (path: string) => readFileSync(path, 'utf8').replaceAll('\r\n', '\n')
 const withoutComments = (text: string) => text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '')
 
 // The welcome's copy file ---------------------------------------------------------------
@@ -153,7 +154,7 @@ const BASE = baseBranch()
 // GitHub this test cannot run; build.md records the run on this computer. After
 // the merge the branch is main, and the diff is empty by itself.
 const itWithBase = it.skipIf(BASE === null)
-const WHEN_NO_BASE = '(skipped while the checkout has no main branch to compare with)'
+const WHEN_NO_BASE = BASE === null ? '(skipped while the checkout has no main branch to compare with)' : ''
 
 describe('what the branch changed', () => {
   itWithBase(
