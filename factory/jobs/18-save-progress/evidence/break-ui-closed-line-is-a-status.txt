@@ -1,0 +1,11 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41248547803 (branch scratch/18-save-progress-red-2, deleted after the run; job "closed-line-is-a-status")
+Statements: see the labels of the tests below
+What was broken: The line after Not now given role="status".
+Command: npx playwright test e2e/save-progress.spec.ts (Chromium and WebKit at 375 x 812, 16 tests each, against the built app and a throwaway Supabase with Mailpit)
+
+playwright exit code: 1
+=== Tests that went red in variant closed-line-is-a-status ===
+  1) [chromium] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  2) [webkit] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  2 failed
+  30 passed (1.7m)

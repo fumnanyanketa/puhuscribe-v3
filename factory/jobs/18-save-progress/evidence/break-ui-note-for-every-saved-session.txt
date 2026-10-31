@@ -1,0 +1,17 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41249115436 (branch scratch/18-save-progress-red-2, deleted after the run; job "note-for-every-saved-session")
+Statements: see the labels of the tests below
+What was broken: The note shown after every saved session, whatever the answer says (the 'answer carried a note' condition removed).
+Command: npx playwright test e2e/save-progress.spec.ts (Chromium and WebKit at 375 x 812, 16 tests each, against the built app and a throwaway Supabase with Mailpit)
+
+playwright exit code: 1
+=== Tests that went red in variant note-for-every-saved-session ===
+  1) [chromium] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  2) [chromium] › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  3) [chromium] › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  4) [chromium] › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  5) [webkit] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  6) [webkit] › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  7) [webkit] › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  8) [webkit] › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  8 failed
+  24 passed (2.1m)

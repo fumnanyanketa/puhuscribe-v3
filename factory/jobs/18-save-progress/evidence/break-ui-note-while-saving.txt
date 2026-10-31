@@ -1,0 +1,23 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41249115436 (branch scratch/18-save-progress-red-2, deleted after the run; job "note-while-saving")
+Statements: see the labels of the tests below
+What was broken: The note always shown, also while the save is running and after a failed save.
+Command: npx playwright test e2e/save-progress.spec.ts (Chromium and WebKit at 375 x 812, 16 tests each, against the built app and a throwaway Supabase with Mailpit)
+
+playwright exit code: 1
+=== Tests that went red in variant note-while-saving ===
+  1) [chromium] › [save-progress 2] with the answer delayed by 2 seconds the finish screen says it is saving and shows no note, then shows the note @seed 
+  10) [webkit] › [save-progress 6] a guest whose account was deleted during the session sees job 8's own message and no note @seed 
+  11) [webkit] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  12) [webkit] › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  13) [webkit] › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  14) [webkit] › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  2) [chromium] › [save-progress 2] when the save cannot reach the Worker the screen says so, shows Try again and no note, and the note comes after Try again works @seed 
+  3) [chromium] › [save-progress 6] a guest whose account was deleted during the session sees job 8's own message and no note @seed 
+  4) [chromium] › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  5) [chromium] › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  6) [chromium] › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  7) [chromium] › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  8) [webkit] › [save-progress 2] with the answer delayed by 2 seconds the finish screen says it is saving and shows no note, then shows the note @seed 
+  9) [webkit] › [save-progress 2] when the save cannot reach the Worker the screen says so, shows Try again and no note, and the note comes after Try again works @seed 
+  14 failed
+  18 passed (2.4m)
