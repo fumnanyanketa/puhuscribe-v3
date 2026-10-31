@@ -1,0 +1,13 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247408043 (branch scratch/18-save-progress-red-1, deleted after the run; job "no-guest-check")
+Statement: [save-progress 4] and [save-progress 8]
+What was broken: The is_anonymous check removed.
+Command: supabase db start, then supabase test db (all 12 pgTAP files; only save_progress.test.sql can be affected)
+
+pgtap exit code: 1
+=== Tests of save_progress.test.sql that went red in variant no-guest-check ===
+# Failed test 19: "[save-progress 4] [save-progress 5] a token with is_anonymous false on an otherwise valid first session returns none (only the guest condition refuses it)"
+# Failed test 20: "[save-progress 8] a token with is_anonymous false returns none on the third session too"
+# Failed test 21: "[save-progress 4] a token with no is_anonymous claim counts as not a guest"
+  Failed tests:  19-21
+=== Other files that failed ===
+Failed 3/33 subtests 

@@ -1,0 +1,5 @@
+$ git diff --stat main...HEAD -- package.json package-lock.json wrangler.jsonc src/privacy worker/providers worker/personal-data
+(nothing printed above: none of these files changed)
+
+$ git diff --stat main...HEAD -- worker/page-routes.ts tests/analytics-rules.test.ts README.md
+(nothing printed above: no route list, no analytics rule test and no README change)

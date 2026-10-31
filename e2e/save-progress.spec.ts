@@ -26,6 +26,7 @@ import {
   SAVED,
   SAVING,
   axe,
+  axeIn,
   copy,
   emailScreenSentences,
   expectNoNote,
@@ -140,7 +141,8 @@ async function buttonColours(page: Page) {
         secondary: resolve('--color-button-secondary', 'background'),
         text: resolve('--color-text', 'color'),
       },
-      primaryCount: [...document.querySelectorAll('button')].filter((b) => bg(b) === primary).length,
+      // Buttons with words: the round play controls and the word buttons have none of their own.
+      primaryCount: [...document.querySelectorAll('button')].filter((b) => b.textContent.trim() !== '' && bg(b) === primary).length,
     }
   })()`)
 }
@@ -513,7 +515,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       await expect(reference.getByRole('button', { name: copy.SAVE_NOTE_ADD, exact: true })).toBeVisible()
       await expect(reference.getByRole('button', { name: copy.SAVE_NOTE_LATER, exact: true })).toBeVisible()
       await reference.scrollIntoViewIfNeeded()
-      await axe(page, `design reference, ${scheme}`)
+      await axeIn(page, `design reference, ${scheme}`, 'section[aria-labelledby="save-note"]')
     }
   })
 

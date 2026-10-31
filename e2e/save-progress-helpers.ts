@@ -165,6 +165,23 @@ export async function axe(page: Page, label: string): Promise<void> {
   ).toEqual([])
 }
 
+/**
+ * Axe on one part of a page that has endless animations (the reference page's loading rings), so
+ * the colours cannot be waited for with settleAnimations. A short wait lets the colour change of a
+ * switched scheme finish instead.
+ */
+export async function axeIn(page: Page, label: string, include: string): Promise<void> {
+  await page.evaluate('document.fonts.ready')
+  await page.waitForTimeout(600)
+  const result = await new AxeBuilder({ page })
+    .include(include)
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze()
+  expect(
+    result.violations.map((v) => `${label} ${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
+  ).toEqual([])
+}
+
 /** The whole note is on screen and clear of the bottom action area (statement 14). */
 export async function expectNoteFullyVisible(page: Page, label: string): Promise<void> {
   const note = noteOf(page)

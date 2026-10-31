@@ -1,0 +1,15 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247408043 (branch scratch/18-save-progress-red-1, deleted after the run; job "reminder-at-two")
+Statement: [save-progress 4] and [save-progress 8]
+What was broken: The reminder given at the second finished session instead of the third.
+Command: supabase db start, then supabase test db (all 12 pgTAP files; only save_progress.test.sql can be affected)
+
+pgtap exit code: 1
+=== Tests of save_progress.test.sql that went red in variant reminder-at-two ===
+# Failed test 12: "[save-progress 4] [save-progress 7] the caller's second finished session returns none (only the first session condition refuses it)"
+# Failed test 18: "[save-progress 8] a guest's third finished dialogue session returns reminder, with the review only session not counted"
+# Failed test 28: "[save-progress 4] F's second finished session returns none"
+# Failed test 29: "[save-progress 8] with two sessions ended at the same moment, the larger session id is the third"
+# Failed test 30: "[save-progress 8] and the smaller session id is the second"
+  Failed tests:  12, 18, 28-30
+=== Other files that failed ===
+Failed 5/33 subtests 
