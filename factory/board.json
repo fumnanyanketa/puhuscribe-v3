@@ -937,14 +937,14 @@
       "id": "18-save-progress",
       "feature": "save-progress",
       "title": "Ask a guest to save their progress after the first session",
-      "stage": "build",
+      "stage": "review",
       "round": 1,
       "flag": "look closely",
       "flag_reasons": [
         "learner data, recordings or consent"
       ],
-      "waiting_on": "builder",
-      "updated": "2026-10-31T23:47:00+02:00",
+      "waiting_on": "security and design reviewers",
+      "updated": "2026-11-01T00:53:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -957,6 +957,14 @@
         {
           "stage": "build",
           "at": "2026-10-31T23:47:00+02:00"
+        },
+        {
+          "stage": "checks",
+          "at": "2026-11-01T00:53:00+02:00"
+        },
+        {
+          "stage": "review",
+          "at": "2026-11-01T00:53:00+02:00"
         }
       ]
     }
