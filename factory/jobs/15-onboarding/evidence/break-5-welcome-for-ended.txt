@@ -1,0 +1,51 @@
+Break: 5-welcome-for-ended
+Statement(s): 5
+What was broken: The "ended" test is dropped from the new visitor rule (a guest or email account that ended sees the welcome).
+
+Diff of the break:
+ src/screens/FrontDoor.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..594b7a4 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -130 +130 @@ export function FrontDoor() {
+-  const newVisitor = view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
++  const newVisitor = view.kind === 'signed_out' && noticeFrom(window.location.search) === null
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:346:3 › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-who-sees-the-we-6ab01--8-s-message-and-no-welcome-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:356:3 › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-who-sees-the-we-3b71c-essage-shows-and-no-welcome-chromium\test-failed-1.png
+  2 failed
+  6 passed (24.5s)
+
+Vitest:
+     × [onboarding 5] [onboarding 6] the welcome shows only for a new visitor, from the answer of /api/today 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 5] [onboarding 6] the welcome shows only for a new visitor, from the answer of /api/today
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt

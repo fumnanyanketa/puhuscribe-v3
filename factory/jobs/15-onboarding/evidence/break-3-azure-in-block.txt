@@ -1,0 +1,47 @@
+Break: 3-azure-in-block
+Statement(s): 3
+What was broken: The Spoken band wash is replaced with the azure wash.
+
+Diff of the break:
+ src/screens/Welcome.module.css | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/Welcome.module.css b/src/screens/Welcome.module.css
+index c558cd3..e380b98 100644
+--- a/src/screens/Welcome.module.css
++++ b/src/screens/Welcome.module.css
+@@ -27 +27 @@
+-  background: var(--color-spoken-band);
++  background: var(--color-flag-wash);
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:223:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, light 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: "rgb(233, 242, 244)"
+    Received: "rgb(226, 232, 249)"
+    test-results\onboarding-the-welcome-for-70fde-n-the-Hear-it-colours-light-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:223:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, dark 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: "rgb(35, 48, 58)"
+    Received: "rgb(34, 48, 90)"
+    test-results\onboarding-the-welcome-for-5cf57-in-the-Hear-it-colours-dark-chromium\test-failed-1.png
+  2 failed
+
+Vitest:
+     × [onboarding 3] the two bands use the spoken and written tokens and the sentences the text token 7ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome styles > [onboarding 3] the two bands use the spoken and written tokens and the sentences the text token
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt

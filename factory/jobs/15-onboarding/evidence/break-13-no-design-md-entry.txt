@@ -1,0 +1,49 @@
+Break: 13-no-design-md-entry
+Statement(s): 13
+What was broken: The "Welcome block" entry is renamed in design.md.
+
+Diff of the break:
+ design.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/design.md b/design.md
+index 6cc8d21..1c9dd5e 100644
+--- a/design.md
++++ b/design.md
+@@ -187 +187 @@ On session screens the word card's two play controls play the whole line in each
+-### Welcome block (`Welcome`)
++### Opening block (`Welcome`)
+
+Vitest:
+     × [onboarding 13] design.md has a "Welcome block" entry that names the tokens and the rules 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the records > [onboarding 13] design.md has a "Welcome block" entry that names the tokens and the rules
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-10-low-contrast-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-10-reduced-motion-changes-page.txt
+?? factory/jobs/15-onboarding/evidence/break-10-transition-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-11-accent-border.txt
+?? factory/jobs/15-onboarding/evidence/break-11-emoji-in-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-11-uppercase-labels.txt
+?? factory/jobs/15-onboarding/evidence/break-13-reference-page-without-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

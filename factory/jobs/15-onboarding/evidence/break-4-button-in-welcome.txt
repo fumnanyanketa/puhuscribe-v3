@@ -1,0 +1,42 @@
+Break: 4-button-in-welcome
+Statement(s): 4
+What was broken: A "Skip" button is added inside the welcome.
+
+Diff of the break:
+ src/screens/Welcome.tsx | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.tsx b/src/screens/Welcome.tsx
+index 4534f8d..72877eb 100644
+--- a/src/screens/Welcome.tsx
++++ b/src/screens/Welcome.tsx
+@@ -40,0 +41 @@ export function Welcome({ className }: { className?: string }) {
++      <button type="button">Skip</button>
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:265:3 › the welcome for a new visitor › [onboarding 4] the welcome holds no button, link, input, select, text area or tap target, no Finnish and no question 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-the-welcome-for-f9356--no-Finnish-and-no-question-chromium\test-failed-1.png
+  1 failed
+
+Vitest:
+     × [onboarding 4] the component has no button, link, input, select, text area or picture, and no lang="fi" 10ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 4] the component has no button, link, input, select, text area or picture, and no lang="fi"
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt

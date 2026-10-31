@@ -1,0 +1,27 @@
+Break: 1-line-between-start-and-guest-line
+Statement(s): 1
+What was broken: A sentence is put between Start and the guest line.
+
+Diff of the break:
+ src/screens/FrontDoor.tsx | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..36c28dc 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -170,0 +171 @@ export function FrontDoor() {
++        {signedOut && <p className={styles.guestLine}>One tap.</p>}
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:150:3 › the welcome for a new visitor › [onboarding 1] the front door shows, in order, the wordmark, the heading, the lead sentence, the welcome, Start, the guest line, "I already have an account" and the links 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: true
+    Received: false
+    test-results\onboarding-the-welcome-for-03646-ve-an-account-and-the-links-chromium\test-failed-1.png
+  1 failed
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt

@@ -1,0 +1,49 @@
+Break: 10-heading-is-h3
+Statement(s): 10
+What was broken: The welcome heading is an h3 instead of an h2.
+
+Diff of the break:
+ src/screens/Welcome.tsx | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+diff --git a/src/screens/Welcome.tsx b/src/screens/Welcome.tsx
+index 4534f8d..ada891a 100644
+--- a/src/screens/Welcome.tsx
++++ b/src/screens/Welcome.tsx
+@@ -27 +27 @@ export function Welcome({ className }: { className?: string }) {
+-      <h2 id="welcome-heading" className={styles.heading}>
++      <h3 id="welcome-heading" className={styles.heading}>
+@@ -29 +29 @@ export function Welcome({ className }: { className?: string }) {
+-      </h2>
++      </h3>
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:532:3 › phone, keyboard and look › [onboarding 10] the page has one h1, then the welcome h2, and the first Tab stop is Start 
+    Error: expect(received).toEqual(expected) // deep equality
+    - Expected  - 1
+    + Received  + 1
+    test-results\onboarding-phone-keyboard--d65e1-the-first-Tab-stop-is-Start-chromium\test-failed-1.png
+  1 failed
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

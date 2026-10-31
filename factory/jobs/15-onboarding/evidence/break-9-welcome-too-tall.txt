@@ -1,0 +1,50 @@
+Break: 9-welcome-too-tall
+Statement(s): 9
+What was broken: The welcome gets 150 px of extra space below, pushing Start and the guest line off the first screen.
+
+Diff of the break:
+ src/screens/Welcome.module.css | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.module.css b/src/screens/Welcome.module.css
+index c558cd3..41038df 100644
+--- a/src/screens/Welcome.module.css
++++ b/src/screens/Welcome.module.css
+@@ -8,0 +9 @@
++  padding-bottom: 150px;
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:473:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, light 
+    Error: bottom of Start
+    Expected: <= 812
+    Received:    859.234375
+    test-results\onboarding-fit-on-the-firs-697b1-e-on-the-first-screen-light-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:473:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, dark 
+    Error: bottom of Start
+    Expected: <= 812
+    Received:    859.234375
+    test-results\onboarding-fit-on-the-firs-df1e7-re-on-the-first-screen-dark-chromium\test-failed-1.png
+  2 failed
+  1 passed (10.4s)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt

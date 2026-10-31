@@ -1,0 +1,28 @@
+Break: 4-finnish-letter-in-copy-file
+Statement(s): 4
+What was broken: A comment with the letter ä is added to the copy file (the words themselves stay English).
+
+Diff of the break:
+ src/screens/welcome-copy.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/welcome-copy.ts b/src/screens/welcome-copy.ts
+index 4bd33a4..258a2b5 100644
+--- a/src/screens/welcome-copy.ts
++++ b/src/screens/welcome-copy.ts
+@@ -7 +7 @@
+-// There is no Finnish in the welcome (owner's call 5, option A). The labels
++// Tervetuloa, kävijä. There is no Finnish in the welcome (owner's call 5, option A). The labels
+
+Vitest:
+     × [onboarding 4] the copy file has no ä, ö or å, in its words or its comments (no Finnish, owner call 5 A) 11ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 4] the copy file has no ä, ö or å, in its words or its comments (no Finnish, owner call 5 A)
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt

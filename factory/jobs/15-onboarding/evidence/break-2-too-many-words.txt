@@ -1,0 +1,28 @@
+Break: 2-too-many-words
+Statement(s): 2
+What was broken: Ten words are added to the copy, taking it past 80 words (no banned word, no punctuation problem).
+
+Diff of the break:
+ src/screens/welcome-copy.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/welcome-copy.ts b/src/screens/welcome-copy.ts
+index 4bd33a4..74673a6 100644
+--- a/src/screens/welcome-copy.ts
++++ b/src/screens/welcome-copy.ts
+@@ -23 +23 @@ export const WELCOME_WRITTEN = 'How Finnish is written in books and on forms.'
+-export const WELCOME_ORDER = 'Spoken comes first. The written form sits under it.'
++export const WELCOME_ORDER = 'Spoken comes first. The written form sits under it. Each word you see has a card with more detail inside.'
+
+Vitest:
+     × [onboarding 2] hold exactly the approved draft 11ms
+     × [onboarding 2] come to at most 80 words, counting the heading and the band labels 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] hold exactly the approved draft
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] come to at most 80 words, counting the heading and the band labels
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt

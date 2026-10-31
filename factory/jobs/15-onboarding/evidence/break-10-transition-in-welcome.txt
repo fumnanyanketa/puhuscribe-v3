@@ -1,0 +1,53 @@
+Break: 10-transition-in-welcome
+Statement(s): 10
+What was broken: The sentences get a colour transition.
+
+Diff of the break:
+ src/screens/Welcome.module.css | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.module.css b/src/screens/Welcome.module.css
+index c558cd3..523c7ce 100644
+--- a/src/screens/Welcome.module.css
++++ b/src/screens/Welcome.module.css
+@@ -20,0 +21 @@
++  transition: color var(--motion-fast) var(--motion-ease);
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:588:3 › phone, keyboard and look › [onboarding 10] the welcome has no animation or transition, and with reduced motion the page is unchanged 
+    Error: expect(received).toEqual(expected) // deep equality
+    - Expected  - 1
+    + Received  + 7
+    test-results\onboarding-phone-keyboard--7ae71-otion-the-page-is-unchanged-chromium\test-failed-1.png
+  1 failed
+
+Vitest:
+     × [onboarding 11] use tokens only: no hex or function colour, no gradient, picture, animation, transition or uppercase 7ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome styles > [onboarding 11] use tokens only: no hex or function colour, no gradient, picture, animation, transition or uppercase
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

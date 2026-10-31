@@ -1,0 +1,29 @@
+Break: 2-banned-word-in-copy
+Statement(s): 2
+What was broken: The word "quiz" is added to the last sentence of the copy file.
+
+Diff of the break:
+ src/screens/welcome-copy.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/welcome-copy.ts b/src/screens/welcome-copy.ts
+index 4bd33a4..0c19cc4 100644
+--- a/src/screens/welcome-copy.ts
++++ b/src/screens/welcome-copy.ts
+@@ -23 +23 @@ export const WELCOME_WRITTEN = 'How Finnish is written in books and on forms.'
+-export const WELCOME_ORDER = 'Spoken comes first. The written form sits under it.'
++export const WELCOME_ORDER = 'Spoken comes first. The written form sits under it. Take a quiz.'
+
+Vitest:
+     × [onboarding 2] hold exactly the approved draft 13ms
+     × [onboarding 2] come to at most 80 words, counting the heading and the band labels 4ms
+     × [onboarding 2] name no hype word and none of the banned product words 14ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] hold exactly the approved draft
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] come to at most 80 words, counting the heading and the band labels
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] name no hype word and none of the banned product words
+ Test Files  1 failed (1)
+      Tests  3 failed | 7 passed (10)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt

@@ -1,0 +1,44 @@
+Break: 6-welcome-while-loading
+Statement(s): 6
+What was broken: The welcome also shows while the answer of /api/today is awaited.
+
+Diff of the break:
+ src/screens/FrontDoor.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..f1817e6 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -130 +130 @@ export function FrontDoor() {
+-  const newVisitor = view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
++  const newVisitor = view.kind === 'loading' || view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+API timing | chromium | GET /api/today | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+API timing | chromium | POST /api/guest | failed | -1 ms | [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words
+  1) [chromium] › e2e\onboarding.spec.ts:380:3 › who sees the welcome › [onboarding 6] (a guest, answer delayed 2 seconds) the welcome is never in the page while the answer is awaited, nor after it 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: false
+    Received: true
+    test-results\onboarding-who-sees-the-we-25a87-wer-is-awaited-nor-after-it-chromium\test-failed-1.png
+  1 failed
+  1 passed (12.8s)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt

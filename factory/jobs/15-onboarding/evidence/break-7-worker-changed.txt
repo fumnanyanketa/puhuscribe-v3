@@ -1,0 +1,56 @@
+Break: 7-worker-changed
+Statement(s): 7
+What was broken: A comment is added to worker/api.ts and committed, so the branch differs from main in a path the spec forbids.
+
+Diff of the break:
+ worker/api.ts | 2 ++
+ 1 file changed, 2 insertions(+)
+diff --git a/worker/api.ts b/worker/api.ts
+index 49366e2..8de9018 100644
+--- a/worker/api.ts
++++ b/worker/api.ts
+@@ -466,0 +467,2 @@ export async function handleApi(
++
++// break run
+
+Vitest:
+     × [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing  51ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing 
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-button-colour-not-a-token.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-10-low-contrast-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-10-reduced-motion-changes-page.txt
+?? factory/jobs/15-onboarding/evidence/break-10-transition-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-11-accent-border.txt
+?? factory/jobs/15-onboarding/evidence/break-11-emoji-in-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-11-uppercase-labels.txt
+?? factory/jobs/15-onboarding/evidence/break-12-marked-passed.txt
+?? factory/jobs/15-onboarding/evidence/break-12-no-words-for-participants.txt
+?? factory/jobs/15-onboarding/evidence/break-12-row-filled-in-by-builder.txt
+?? factory/jobs/15-onboarding/evidence/break-13-no-conventions-row.txt
+?? factory/jobs/15-onboarding/evidence/break-13-no-design-md-entry.txt
+?? factory/jobs/15-onboarding/evidence/break-13-reference-page-without-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-7-worker-changed.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

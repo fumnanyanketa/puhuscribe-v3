@@ -1,0 +1,36 @@
+Break: 1-welcome-after-start
+Statement(s): 1
+What was broken: The welcome is moved below Start and the links (after the actions block).
+
+Diff of the break:
+ src/screens/FrontDoor.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..a4b1747 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -153 +152,0 @@ export function FrontDoor() {
+-        {newVisitor && <Welcome className={styles.welcome} />}
+@@ -209,0 +209 @@ export function FrontDoor() {
++      {newVisitor && <Welcome className={styles.welcome} />}
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:150:3 › the welcome for a new visitor › [onboarding 1] the front door shows, in order, the wordmark, the heading, the lead sentence, the welcome, Start, the guest line, "I already have an account" and the links 
+    Error: Start
+    Expected: > 554.390625
+    Received:   249.390625
+    test-results\onboarding-the-welcome-for-03646-ve-an-account-and-the-links-chromium\test-failed-1.png
+  1 failed
+
+Vitest:
+     × [onboarding 1] the welcome sits in the intro, after the lead sentence and before the actions (Start) 7ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 1] the welcome sits in the intro, after the lead sentence and before the actions (Start)
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: (clean)

@@ -1,0 +1,29 @@
+Break: 2-hidden-extra-text
+Statement(s): 2
+What was broken: Hidden text is added inside the welcome region (not shown, so only the text content check can see it).
+
+Diff of the break:
+ src/screens/Welcome.tsx | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.tsx b/src/screens/Welcome.tsx
+index 4534f8d..9ca4e7a 100644
+--- a/src/screens/Welcome.tsx
++++ b/src/screens/Welcome.tsx
+@@ -40,0 +41 @@ export function Welcome({ className }: { className?: string }) {
++      <p hidden>Extra words nobody sees.</p>
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:206:3 › the welcome for a new visitor › [onboarding 2] the welcome shows exactly the words of welcome-copy.ts and no other text 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: "Welcome to PuhuScribeYou tap any word to see what it is, and you say the lines back. The words you met come back for review on later days.Every line comes in two forms, and you can hear both.SpokenHow people in Finland talk day to day, in shops and at work.WrittenHow Finnish is written in books and on forms.Spoken comes first. The written form sits under it."
+    Received: "Welcome to PuhuScribeYou tap any word to see what it is, and you say the lines back. The words you met come back for review on later days.Every line comes in two forms, and you can hear both.SpokenHow people in Finland talk day to day, in shops and at work.WrittenHow Finnish is written in books and on forms.Spoken comes first. The written form sits under it.Extra words nobody sees."
+    test-results\onboarding-the-welcome-for-c3419-e-copy-ts-and-no-other-text-chromium\test-failed-1.png
+  1 failed
+  1 passed (9.7s)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt

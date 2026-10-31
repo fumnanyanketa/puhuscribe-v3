@@ -1,0 +1,58 @@
+Break: 11-uppercase-labels
+Statement(s): 11
+What was broken: The Spoken and Written labels are set in uppercase.
+
+Diff of the break:
+ src/screens/Welcome.module.css | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.module.css b/src/screens/Welcome.module.css
+index c558cd3..b8527e8 100644
+--- a/src/screens/Welcome.module.css
++++ b/src/screens/Welcome.module.css
+@@ -39,0 +40 @@
++  text-transform: uppercase;
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:283:3 › the welcome for a new visitor › [onboarding 11] the block has no picture, icon, emoji, uppercase label, carousel, accent border, table style row or gradient 
+    Error: expect(received).toEqual(expected) // deep equality
+    - Expected  - 1
+    + Received  + 4
+    test-results\onboarding-the-welcome-for-da626-table-style-row-or-gradient-chromium\test-failed-1.png
+  1 failed
+
+Vitest:
+     × [design 18] no CSS or component in src/ uses anything on the list 47ms
+     × [onboarding 11] use tokens only: no hex or function colour, no gradient, picture, animation, transition or uppercase 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+ FAIL  tests/onboarding-rules.test.ts > the welcome styles > [onboarding 11] use tokens only: no hex or function colour, no gradient, picture, animation, transition or uppercase
+ Test Files  2 failed (2)
+      Tests  2 failed | 66 passed (68)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-10-low-contrast-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-10-reduced-motion-changes-page.txt
+?? factory/jobs/15-onboarding/evidence/break-10-transition-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

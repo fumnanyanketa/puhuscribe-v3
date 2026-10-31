@@ -1,0 +1,54 @@
+Break: 7-local-storage-flag
+Statement(s): 7
+What was broken: The welcome writes a "seen" flag to local storage.
+
+Diff of the break:
+ src/screens/Welcome.tsx | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/src/screens/Welcome.tsx b/src/screens/Welcome.tsx
+index 4534f8d..7ac7775 100644
+--- a/src/screens/Welcome.tsx
++++ b/src/screens/Welcome.tsx
+@@ -21,0 +22 @@ export function Welcome({ className }: { className?: string }) {
++  localStorage.setItem('welcome-seen', '1')
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:425:3 › nothing new is stored or sent › [onboarding 7] before Start the page sends only its files and GET /api/today, to its own address, and stores nothing 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: 0
+    Received: 1
+    test-results\onboarding-nothing-new-is--4e384--address-and-stores-nothing-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:456:3 › nothing new is stored or sent › [onboarding 7] [onboarding 2] the welcome shows at the same address as before, and a reload changes nothing stored 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: 0
+    Received: 1
+    test-results\onboarding-nothing-new-is--a0af8-load-changes-nothing-stored-chromium\test-failed-1.png
+  2 failed
+
+Vitest:
+     × [onboarding 7] the component and its copy touch no storage and make no request 9ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 7] the component and its copy touch no storage and make no request
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt

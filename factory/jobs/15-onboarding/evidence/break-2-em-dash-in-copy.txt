@@ -1,0 +1,31 @@
+Break: 2-em-dash-in-copy
+Statement(s): 2
+What was broken: An em dash is put into a sentence of the copy file.
+
+Diff of the break:
+ src/screens/welcome-copy.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/welcome-copy.ts b/src/screens/welcome-copy.ts
+index 4bd33a4..1344142 100644
+--- a/src/screens/welcome-copy.ts
++++ b/src/screens/welcome-copy.ts
+@@ -15 +15 @@ export const WELCOME_SESSION =
+-export const WELCOME_TWO_FORMS = 'Every line comes in two forms, and you can hear both.'
++export const WELCOME_TWO_FORMS = 'Every line comes in two forms — and you can hear both.'
+
+Vitest:
+     × [onboarding 2] hold exactly the approved draft 11ms
+     × [onboarding 2] come to at most 80 words, counting the heading and the band labels 2ms
+     × [onboarding 2] have no em dash, no hyphen used as punctuation and no colon in the sentences 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] hold exactly the approved draft
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] come to at most 80 words, counting the heading and the band labels
+ FAIL  src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] have no em dash, no hyphen used as punctuation and no colon in the sentences
+ Test Files  1 failed (1)
+      Tests  3 failed | 7 passed (10)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt

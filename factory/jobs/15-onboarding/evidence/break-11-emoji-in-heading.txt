@@ -1,0 +1,52 @@
+Break: 11-emoji-in-heading
+Statement(s): 11
+What was broken: A smiling face is added to the welcome heading.
+
+Diff of the break:
+ src/screens/Welcome.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/Welcome.tsx b/src/screens/Welcome.tsx
+index 4534f8d..41fcd07 100644
+--- a/src/screens/Welcome.tsx
++++ b/src/screens/Welcome.tsx
+@@ -28 +28 @@ export function Welcome({ className }: { className?: string }) {
+-        {WELCOME_HEADING}
++        {WELCOME_HEADING} 🙂
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:283:3 › the welcome for a new visitor › [onboarding 11] the block has no picture, icon, emoji, uppercase label, carousel, accent border, table style row or gradient 
+    Error: expect(locator).toBeVisible() failed
+    Expected: visible
+    Error: element(s) not found
+    test-results\onboarding-the-welcome-for-da626-table-style-row-or-gradient-chromium\test-failed-1.png
+  1 failed
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-10-low-contrast-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-10-reduced-motion-changes-page.txt
+?? factory/jobs/15-onboarding/evidence/break-10-transition-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-11-accent-border.txt
+?? factory/jobs/15-onboarding/evidence/break-11-uppercase-labels.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt

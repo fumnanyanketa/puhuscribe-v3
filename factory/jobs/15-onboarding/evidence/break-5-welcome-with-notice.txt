@@ -1,0 +1,57 @@
+Break: 5-welcome-with-notice
+Statement(s): 5
+What was broken: The notice test is dropped from the new visitor rule (a notice message and the welcome show together).
+
+Diff of the break:
+ src/screens/FrontDoor.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..7700737 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -130 +130 @@ export function FrontDoor() {
+-  const newVisitor = view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
++  const newVisitor = view.kind === 'signed_out' && !view.ended
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:333:5 › who sees the welcome › [onboarding 5] the notice "signed-out" shows its message and no welcome 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-who-sees-the-we-70025--its-message-and-no-welcome-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:333:5 › who sees the welcome › [onboarding 5] the notice "signed-out-email" shows its message and no welcome 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-who-sees-the-we-ef86b--its-message-and-no-welcome-chromium\test-failed-1.png
+  3) [chromium] › e2e\onboarding.spec.ts:333:5 › who sees the welcome › [onboarding 5] the notice "deleted" shows its message and no welcome 
+    Error: expect(locator).toHaveCount(expected) failed
+    Expected: 0
+    Received: 1
+    test-results\onboarding-who-sees-the-we-86d07--its-message-and-no-welcome-chromium\test-failed-1.png
+  3 failed
+  5 passed (30.4s)
+
+Vitest:
+     × [onboarding 5] [onboarding 6] the welcome shows only for a new visitor, from the answer of /api/today 8ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > the welcome source > [onboarding 5] [onboarding 6] the welcome shows only for a new visitor, from the answer of /api/today
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt

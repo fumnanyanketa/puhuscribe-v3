@@ -1,0 +1,64 @@
+Break: 10-button-colour-not-a-token
+Statement(s): 10
+What was broken: The primary button (Start) text colour is set to a colour that is no token.
+
+Diff of the break:
+ src/components/Button.module.css | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/src/components/Button.module.css b/src/components/Button.module.css
+index ba53f5d..08256b1 100644
+--- a/src/components/Button.module.css
++++ b/src/components/Button.module.css
+@@ -27 +27 @@
+-  color: var(--color-button-text);
++  color: #123456;
+
+Build:
+> node scripts/security/check-built-files.ts
+
+check:built-files: 32 files checked, none runs the Worker or loads another site.
+Browser tests (Chromium, matching tests only):
+  1) [chromium] › e2e\onboarding.spec.ts:611:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, light 
+    Error: Start text rgb(18, 52, 86)
+    Expected: true
+    Received: false
+    test-results\onboarding-phone-keyboard--19be8-xplicit-token-colours-light-chromium\test-failed-1.png
+  2) [chromium] › e2e\onboarding.spec.ts:611:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, dark 
+    Error: Start text rgb(18, 52, 86)
+    Expected: true
+    Received: false
+    test-results\onboarding-phone-keyboard--0b43b-explicit-token-colours-dark-chromium\test-failed-1.png
+  2 failed
+
+Restored: ?? factory/jobs/15-onboarding/evidence/break-1-line-between-start-and-guest-line.txt
+?? factory/jobs/15-onboarding/evidence/break-1-welcome-after-start.txt
+?? factory/jobs/15-onboarding/evidence/break-10-heading-is-h3.txt
+?? factory/jobs/15-onboarding/evidence/break-10-low-contrast-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-10-reduced-motion-changes-page.txt
+?? factory/jobs/15-onboarding/evidence/break-10-transition-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-11-accent-border.txt
+?? factory/jobs/15-onboarding/evidence/break-11-emoji-in-heading.txt
+?? factory/jobs/15-onboarding/evidence/break-11-uppercase-labels.txt
+?? factory/jobs/15-onboarding/evidence/break-12-marked-passed.txt
+?? factory/jobs/15-onboarding/evidence/break-12-row-filled-in-by-builder.txt
+?? factory/jobs/15-onboarding/evidence/break-13-no-conventions-row.txt
+?? factory/jobs/15-onboarding/evidence/break-13-no-design-md-entry.txt
+?? factory/jobs/15-onboarding/evidence/break-13-reference-page-without-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-2-banned-word-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-em-dash-in-copy.txt
+?? factory/jobs/15-onboarding/evidence/break-2-hidden-extra-text.txt
+?? factory/jobs/15-onboarding/evidence/break-2-too-many-words.txt
+?? factory/jobs/15-onboarding/evidence/break-3-azure-in-block.txt
+?? factory/jobs/15-onboarding/evidence/break-3-written-label-wrong-colour.txt
+?? factory/jobs/15-onboarding/evidence/break-4-button-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-4-finnish-letter-in-copy-file.txt
+?? factory/jobs/15-onboarding/evidence/break-4-lang-fi-in-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-ended.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-for-signed-in.txt
+?? factory/jobs/15-onboarding/evidence/break-5-welcome-with-notice.txt
+?? factory/jobs/15-onboarding/evidence/break-6-failed-request-hides-welcome.txt
+?? factory/jobs/15-onboarding/evidence/break-6-welcome-while-loading.txt
+?? factory/jobs/15-onboarding/evidence/break-7-extra-request.txt
+?? factory/jobs/15-onboarding/evidence/break-7-local-storage-flag.txt
+?? factory/jobs/15-onboarding/evidence/break-7-worker-changed.txt
+?? factory/jobs/15-onboarding/evidence/break-9-welcome-too-tall.txt
