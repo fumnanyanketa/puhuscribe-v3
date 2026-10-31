@@ -256,3 +256,12 @@ Recorded here word for word, with the date, as you give them.
 - 31 October 2026, job 15: "Approve, all recommended (Recommended)". Calls 1 A, 2 A, 3 A, 4 A (hallway test before final approval, pass bar as proposed), 5 A.
 - 31 October 2026, job 16: "Hold until units 4-6 (Recommended)". Nothing approved yet; the AI provider, costs and the other calls are decided when units 4 to 6 exist.
 - 31 October 2026, job 17: "Go through each choice (Recommended)". The calls are being asked one by one.
+- 31 October 2026, job 17, asked one by one. Owner's answers:
+  - Robots: "A: Our own (Recommended)".
+  - Founding member price on the page: "A: Don't mention it".
+  - Addresses, after seeing what Duolingo, Busuu, Memrise and Babbel do: "Yes, like Duolingo (Recommended)". The landing page goes at puhuscribe.exentrik.co and the learner app moves to puhuscribe.exentrik.co/learn.
+  - Waitlist, after asking what it was for: "Drop it for now (Recommended)". No waitlist, no confirmation email and no waitlist table in job 17.
+  - Look: "Real app screenshots".
+  - Exentrik: "C: Exentrik as owner (Recommended)". The owner gives the legal name and business ID.
+  - The owner's own idea, recorded as a new job: after a guest's first finished session, the app asks them once to add their email to keep their progress. The owner chose "After 1st session".
+  - Consequence: the job 17 spec goes back to the spec writer to be rewritten on these answers. A new job, 18-save-progress, gets its own spec.
