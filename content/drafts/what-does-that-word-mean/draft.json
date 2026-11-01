@@ -646,7 +646,13 @@
           "surface": "viistoista",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only spoken forms differ (varttii/varttia, viistoista/viisitoista); both say a quarter past ten, i.e. 10:15.",
+        "fingerprint": "30fbfbecc0a996570cf9b1020678ad19706fb029a7bdd27cb6e41d57731ed118",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -865,7 +871,13 @@
           "surface": "viestin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, mä/minä, sulle/sinulle are register differences; 'laitan viestin' (send a message, colloquial) and 'lähetän viestin' mean the same.",
+        "fingerprint": "5d048fdf76a6409ab41a59930b0d400a31ce42936c035a1cc31ddafede120afb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,

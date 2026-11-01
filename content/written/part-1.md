@@ -206,4 +206,4 @@ Maria asks her neighbour Leena about the weather.
 | 5 | Maria | Joo, mun sateenvarjo meni rikki! | Kyllä, minun sateenvarjoni meni rikki! | Yes, my umbrella broke! |
 | 6 | Leena | Voi ei! Mä voin lainata sulle mun vanhan sateenvarjon. | Voi ei! Minä voin lainata sinulle minun vanhan sateenvarjoni. | Oh no! I can lend you my old one. |
 | 7 | Maria | Kiitti, tosi kiva! | Kiitos, todella kiva! | Thanks, that's really kind! |
-| 8 | Leena | Ei mitään. Nähään huomenna! | Ei kestä. Nähdään huomenna! | You're welcome. See you tomorrow! |
+| 8 | Leena | Ei kestä. Nähään huomenna! | Ei kestä. Nähdään huomenna! | You're welcome. See you tomorrow! |

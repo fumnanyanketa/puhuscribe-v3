@@ -11,6 +11,7 @@ import copy
 import hashlib
 import json
 import re
+import shutil
 from pathlib import Path
 
 import pytest
@@ -447,15 +448,25 @@ def test_a1_road_15_on_with_every_verdict_passes_and_on_with_a_missing_verdict_f
     assert not report["ok"] and report["register_judge"] == "FAILED"
 
 
-def test_a1_road_15_check_committed_prints_register_judge_not_run(capsys, voikko):
-    """[a1-road 15] check-committed says 'register judge: not run' for a written draft with the judge off."""
-    code = cmd_check_committed(None, gate=voikko)
+def test_a1_road_15_check_committed_prints_register_judge_not_run(capsys, voikko, tmp_path):
+    """[a1-road 15] check-committed says 'register judge: not run' for a written draft with the judge off,
+    and the committed road passes it."""
+    folder = tmp_path / "content" / "drafts" / "at-the-market"
+    folder.mkdir(parents=True)
+    draft = copy.deepcopy(committed_road_drafts()["at-the-market"])
+    draft["providers"]["judge"] = "off"
+    for line in draft["lines"]:
+        line.pop("judge", None)
+    (folder / "draft.json").write_text(json.dumps(draft, ensure_ascii=False), encoding="utf-8")
+    (tmp_path / "supabase" / "migrations").mkdir(parents=True)
+    (tmp_path / "content" / "road").mkdir(parents=True)
+    shutil.copyfile(ROAD / "allowed-extras.json", tmp_path / "content" / "road" / "allowed-extras.json")
+    assert cmd_check_committed(None, gate=voikko, repo=tmp_path) == 0
     out = capsys.readouterr().out
-    assert code == 0, out
-    off = [d for d in committed_road_drafts().values() if d["providers"].get("judge") == "off"]
-    if off:
-        assert "register judge: not run" in out
     assert "at-the-market: passes every check" in out
+    assert "register judge: not run" in out
+    assert cmd_check_committed(None, gate=voikko) == 0
+    assert "at-the-market: passes every check" in capsys.readouterr().out
 
 
 # [a1-road 16] [a1-road 17] Word cards and the six earlier drafts --------------------------------

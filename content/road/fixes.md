@@ -1761,3 +1761,10 @@ pass (job 20-a1-road, statement 14).
   Before: Ihan hyvin. Vähän väsyttää.
   After: Ihan okei. Vähän väsyttää.
   Reason: The register judge said the two versions differ in meaning: ihan ok against ihan hyvin. Written now says okei, the word ok stands for.
+
+## Round 5, repairs after the register judge ran again
+
+- Dialogue 6.3, line 8, spoken text.
+  Before: Ei mitään. Nähään huomenna!
+  After: Ei kestä. Nähään huomenna!
+  Reason: The register judge said the two versions differ in meaning: Ei mitään against Ei kestä. The spoken line now says Ei kestä too.
