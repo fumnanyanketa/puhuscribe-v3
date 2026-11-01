@@ -171,7 +171,7 @@ end
 $publish$;
 $migration$, '[a1-road 24] the dialogue is published, with its first references');
 
-select lives_ok($fix$
+select lives_ok($fixrun$
 -- Fix round 2 of the dialogue pgtap-publish-fixture. Made by scripts/generate/pipeline.py
 -- road-next-round from scripts/generate/fixtures/publish/draft.json. Do not edit by hand. Job 20-a1-road, "Done when" 24.
 -- One transaction: the dialogue is a draft while its lines change, so a learner never reads a
@@ -231,9 +231,9 @@ begin
   where id = v_dialogue_id;
 end
 $fix$;
-$fix$, '[a1-road 24] the fix migration runs');
+$fixrun$, '[a1-road 24] the fix migration runs');
 
-select lives_ok($fix$
+select lives_ok($fixrun$
 -- Fix round 2 of the dialogue pgtap-publish-fixture. Made by scripts/generate/pipeline.py
 -- road-next-round from scripts/generate/fixtures/publish/draft.json. Do not edit by hand. Job 20-a1-road, "Done when" 24.
 -- One transaction: the dialogue is a draft while its lines change, so a learner never reads a
@@ -293,7 +293,7 @@ begin
   where id = v_dialogue_id;
 end
 $fix$;
-$fix$, '[a1-road 24] running the fix migration a second time does nothing and does not fail');
+$fixrun$, '[a1-road 24] running the fix migration a second time does nothing and does not fail');
 
 select set_config('request.jwt.claims',
   '{"sub": "00000000-0000-4000-8000-0000000024a1", "role": "authenticated", "is_anonymous": true}', true);

@@ -98,11 +98,11 @@ insert into auth.users (id) values ('00000000-0000-4000-8000-0000000024a1');
 select lives_ok($migration$
 {publish}$migration$, '[a1-road 24] the dialogue is published, with its first references');
 
-select lives_ok($fix$
-{fix}$fix$, '[a1-road 24] the fix migration runs');
+select lives_ok($fixrun$
+{fix}$fixrun$, '[a1-road 24] the fix migration runs');
 
-select lives_ok($fix$
-{fix}$fix$, '[a1-road 24] running the fix migration a second time does nothing and does not fail');
+select lives_ok($fixrun$
+{fix}$fixrun$, '[a1-road 24] running the fix migration a second time does nothing and does not fail');
 
 {reader}
 select is((select l.text_puhe from public.dialogue_lines l join public.dialogues d on d.id = l.dialogue_id
