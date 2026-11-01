@@ -292,3 +292,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T09:27 Owner: draft 4 looks premium, wants a second accent colour like the reference's green and orange. Draft 5 published with three pairs.
 - 2026-11-01T09:32 Owner: mint and peach is the clear favourite; keep lake blue and coral as the second option. Draft 6: the whole lesson in both.
 - 2026-11-01T09:59 Owner chose mint and peach ("Let's just go with the mint and peach"); text sizes to come down in fine-tuning. docs/lessons-v3.md gathers every v3.0 lesson: 6 units, 6 drafted dialogues for units 1 to 3 awaiting the native reviewer, units 4 to 6 not written.
+- 2026-11-01T10:06 Owner asked for the lesson structure and whether it reaches A1, and to see the journey unlock. Draft 7 (journey screens) published. Research: comfortable A1 is about 800 to 1,000 words; v3.0 as planned has about 180.

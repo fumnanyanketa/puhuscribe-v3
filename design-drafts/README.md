@@ -23,6 +23,7 @@ None of the five was found showing a prominent "words learned" number with a sta
 - `draft-4.html`: Welcome, Today (with the journey) and Hear it in the soft milky look of the owner's gym app reference (`reference-soft-gym-app.jpg`, shared 1 November 2026), in lake blue and birch-forest green only; the owner dropped lavender. Published at https://claude.ai/artifact/VLsnPKZAw9NToeTjm1wgJj
 - `draft-5.html`: draft 4 with a second, warm accent, as the owner asked ("we need a second accent color", like the reference's green and orange). Mint and peach (from the reference), lake blue and coral, forest green and orange. The first colour is for everything tappable; the warm one marks the words that change, the review count and the goal. Published at https://claude.ai/artifact/JLGD2YpyeCYubY6dmazhX5
 - `draft-6.html`: one whole lesson (Hear it, word card, Understand it, Say it, Say it feedback, Keep it, Session finished) in the owner's two shortlisted pairs: mint and peach (the owner's leading choice) and lake blue and coral. Published at https://claude.ai/artifact/M1YGkx7zRfj7YXDJzW5qL6
+- `draft-7-journey.html`: the journey in mint and peach (the owner's final palette, 1 November 2026) with smaller text: the route of stops, inside a stop, a locked stop, and the unlock moment. Stop and lesson names here are examples.
 
 ## Glass and journey references (1 November 2026)
 
@@ -32,3 +33,11 @@ None of the five was found showing a prominent "words learned" number with a sta
 - Duolingo's path (2022, still current): one route, tap a locked stop to see why. https://blog.duolingo.com/new-duolingo-home-screen-design
 - Transit apps (Citymapper, Transit): a dot per stop on a line that fills behind you, and a "stops left" count.
 - No verified source gave palette colours; the three palettes in draft 3 are our own starting points.
+
+## How much content A1 needs (research, 1 November 2026)
+
+- Milton and Alexiou 2009: English A1 under 1,500 lemmas, French A1 about 1,160, Greek (heavily inflected, the closest analogue to Finnish) about 1,490. https://www.enl.auth.gr/gala/14th/Papers/English%20papers/Milton&Alexiou.pdf
+- LanguageCert: about 95 guided learning hours for A1. https://www.languagecert.org/Guided-Learning-Hours
+- Duolingo Finnish (third-party tracker, July 2025): 35 units, about 1,100 words, ending around A1. https://duolingodata.com/dat/fifen35v2.html
+- No Finnish source gives an official A1 word count; integration training targets B1.1 in about a year. https://www.oph.fi/fi/tilastot-ja-julkaisut/julkaisut/kotoutumiskoulutuksen-opetussuunnitelman-perusteet-2022
+- Working conclusion (judgment, not a published figure): about 800 to 1,000 core words for a comfortable A1 in Finnish. The PRD's v3.0 target was about 180.

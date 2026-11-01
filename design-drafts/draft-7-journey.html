@@ -1,0 +1,663 @@
+<title>PuhuScribe journey screens</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+/>
+<style>
+  /* Layout: the journey's four moments side by side in mint and peach, with one line under each saying what it shows. */
+  :root {
+    --page: #f1f2f3;
+    --page-ink: #1b1d20;
+    --page-quiet: #5b5f66;
+    --frame: #1b1d20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --a: #23917a;
+    --a-deep: #1a6f5d;
+    --a-mid: #74bba9;
+    --a-soft: #d6efe7;
+    --wash1: #cbede1;
+    --wash2: #fbe2d1;
+    --b: #ee8763;
+    --b-deep: #b8532f;
+    --b-soft: #fde4d8;
+    --ink: #1b2a26;
+    --quiet: #637570;
+    --lock: #a9b5b1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #111315;
+      --page-ink: #eceef0;
+      --page-quiet: #a3a8ae;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #111315;
+    --page-ink: #eceef0;
+    --page-quiet: #a3a8ae;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2.5rem;
+  }
+  h1 {
+    font: 600 clamp(1.8rem, 5vw, 2.4rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  header {
+    display: grid;
+    gap: 0.8rem;
+  }
+  header p {
+    color: var(--page-quiet);
+    margin: 0;
+    max-width: 66ch;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 1.75rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    width: 300px;
+    max-width: 100%;
+  }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--page-quiet);
+  }
+  figcaption b {
+    color: var(--page-ink);
+    font-weight: 600;
+    display: block;
+    font-size: 0.95rem;
+  }
+
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--font);
+    background: linear-gradient(160deg, var(--wash1) 0%, #f7f8f6 50%, var(--wash2) 100%);
+  }
+  .status {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .milk {
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.88);
+    border-radius: 20px;
+    box-shadow: 0 8px 26px rgba(40, 60, 60, 0.06);
+  }
+  .pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--a);
+    color: #fff;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 999px;
+    padding: 5px 5px 5px 18px;
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+  }
+  .pill i {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+  }
+  .pill i::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+  }
+  .pill i::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 9.5px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+
+  /* Journey map */
+  .head {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    top: 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  .head b {
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+  }
+  .head span {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .meter {
+    font-size: 10.5px;
+    color: var(--quiet);
+    text-align: right;
+  }
+  .meter b {
+    font-size: 13px;
+    color: var(--a-deep);
+  }
+  .map {
+    position: absolute;
+    inset: 0;
+  }
+  .node {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+  }
+  .node.done {
+    background: var(--a);
+    box-shadow: 0 6px 16px rgba(20, 90, 70, 0.22);
+  }
+  .node.done::after {
+    content: '';
+    width: 14px;
+    height: 7px;
+    border-left: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    transform: rotate(-45deg) translate(1px, -2px);
+  }
+  .node.cur {
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border: 3px solid var(--a);
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.7),
+      0 0 0 9px var(--a-soft),
+      0 10px 22px rgba(20, 90, 70, 0.18);
+  }
+  .node.cur::after {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--a);
+  }
+  .node.lock {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1.5px solid #dfe5e3;
+  }
+  .node.lock::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--lock);
+    top: 17px;
+  }
+  .node.lock::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 2px solid var(--lock);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    top: 10px;
+  }
+  .node.goal {
+    width: 44px;
+    height: 44px;
+    background: var(--b-soft);
+    border: 2px solid var(--b);
+  }
+  .node.goal::after {
+    content: 'A1';
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .tag {
+    position: absolute;
+    font-size: 11.5px;
+    line-height: 1.3;
+    width: 112px;
+  }
+  .tag b {
+    font-weight: 500;
+    display: block;
+  }
+  .tag span {
+    color: var(--quiet);
+    font-size: 10px;
+  }
+  .tag.l {
+    text-align: right;
+  }
+  .tag.muted b {
+    color: var(--quiet);
+    font-weight: 400;
+  }
+  .curcard {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    padding: 12px;
+    display: grid;
+    gap: 10px;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.86);
+  }
+  .curcard .t {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .curcard b {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .curcard span {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .curcard .pill {
+    color: #fff;
+    font-size: 13px;
+  }
+  .dots {
+    display: flex;
+    gap: 5px;
+  }
+  .dots i {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--a-soft);
+  }
+  .dots i.f {
+    background: var(--a);
+  }
+
+  /* Stop sheet */
+  .dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(25, 45, 40, 0.3);
+  }
+  .sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fdfefd;
+    border-radius: 28px 28px 0 0;
+    padding: 12px 18px 18px;
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 -12px 40px rgba(20, 40, 40, 0.14);
+  }
+  .grab {
+    width: 38px;
+    height: 5px;
+    border-radius: 4px;
+    background: #d8dcdc;
+    justify-self: center;
+  }
+  .sheet h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .sheet .cando {
+    font-size: 11.5px;
+    color: var(--quiet);
+    margin: 2px 0 0;
+  }
+  .lessons {
+    display: grid;
+    gap: 8px;
+  }
+  .lesson {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: #f4f7f6;
+    font-size: 12.5px;
+  }
+  .lesson small {
+    display: block;
+    font-size: 10px;
+    color: var(--quiet);
+  }
+  .mini {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .lesson.done .mini {
+    background: var(--a);
+    color: #fff;
+  }
+  .lesson.cur {
+    background: var(--a-soft);
+  }
+  .lesson.cur .mini {
+    background: #fff;
+    color: var(--a-deep);
+    border: 2px solid var(--a);
+  }
+  .lesson.lock {
+    color: var(--quiet);
+  }
+  .lesson.lock .mini {
+    background: #fff;
+    color: var(--lock);
+    border: 1.5px solid #dfe5e3;
+  }
+  .lesson .r {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .lesson.cur .r {
+    color: var(--a-deep);
+    font-weight: 500;
+  }
+  .earned {
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: var(--b-soft);
+    font-size: 11.5px;
+    color: var(--b-deep);
+  }
+
+  /* Unlock moment */
+  .center {
+    position: absolute;
+    inset: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 22px 18px;
+    gap: 14px;
+    text-align: center;
+  }
+  .halo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  .halo::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .open {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--a);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 24px rgba(20, 90, 70, 0.25);
+  }
+  .open::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 33px;
+    width: 20px;
+    height: 15px;
+    border-radius: 4px;
+    background: #fff;
+  }
+  .open::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    width: 10px;
+    height: 12px;
+    border: 3px solid #fff;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    transform: rotate(-20deg);
+    transform-origin: left bottom;
+  }
+  .small {
+    font-size: 11.5px;
+    color: var(--quiet);
+    margin: 0;
+  }
+  .big {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .big b {
+    color: var(--a-deep);
+    font-weight: 600;
+  }
+  .card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    display: grid;
+    gap: 4px;
+    text-align: left;
+    font-size: 12px;
+  }
+  .card small {
+    font-size: 10px;
+    color: var(--quiet);
+  }
+  .card.warm {
+    background: var(--b-soft);
+    border-color: rgba(255, 255, 255, 0.9);
+    color: var(--b-deep);
+  }
+  .grow {
+    flex: 1;
+  }
+  .stretch {
+    width: 100%;
+  }
+  @media (max-width: 700px) {
+    .row {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe journey screens</h1>
+    <p>
+      The journey in mint and peach, with smaller text. Each stop is one unit, a real situation. Finished
+      stops are filled, the stop you are on is ringed, and later stops stay locked until you finish the one
+      before. The finish line is level A1. Finishing a stop shows an unlock moment, so you feel the progress.
+    </p>
+  </header>
+  <div class="row" id="row"></div>
+</div>
+
+<script>
+  const shell = (inner) =>
+    `<div class="phone"><div class="s"><div class="status"><span>9:41</span><i></i><span>5G</span></div>${inner}</div></div>`
+  // Stop positions on the winding route, in screen pixels (x, y) inside a 280 x 620 screen.
+  const pts = [
+    [78, 452],
+    [196, 398],
+    [84, 342],
+    [194, 288],
+    [84, 234],
+    [194, 180],
+    [128, 120],
+  ]
+  const pathD = (from, to) => {
+    let d = `M ${pts[from][0]} ${pts[from][1]}`
+    for (let i = from + 1; i <= to; i++) {
+      const [x0, y0] = pts[i - 1],
+        [x1, y1] = pts[i]
+      const my = (y0 + y1) / 2
+      d += ` C ${x0} ${my}, ${x1} ${my}, ${x1} ${y1}`
+    }
+    return d
+  }
+  const stops = [
+    ['done', 'Meeting people', 'I can say who I am'],
+    ['done', 'At the café', 'I can order coffee'],
+    ['cur', 'At the grocery store', 'Lesson 2 of 4'],
+    ['lock', 'Small talk', ''],
+    ['lock', 'Asking for help', ''],
+    ['lock', 'Making a plan', ''],
+    ['goal', 'Everyday Finnish', 'Level A1'],
+  ]
+  const tagAt = (i, [state, name, sub]) => {
+    const [x, y] = pts[i]
+    const left = x > 140
+    const style = left ? `right:${280 - x + 30}px;top:${y - 14}px` : `left:${x + 30}px;top:${y - 14}px`
+    return `<div class="tag ${left ? 'l' : ''} ${state === 'lock' ? 'muted' : ''}" style="${style}"><b>${name}</b>${sub ? `<span>${sub}</span>` : ''}</div>`
+  }
+  const map = (overlay = '') =>
+    shell(`
+  <div class="head"><div><b>Your journey</b><span>to everyday Finnish</span></div><div class="meter"><b>2 of 6</b><br>stops done</div></div>
+  <svg class="map" viewBox="0 0 280 620" aria-hidden="true">
+    <path d="${pathD(0, 6)}" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" opacity=".7"/>
+    <path d="${pathD(2, 6)}" fill="none" stroke="#c5d3cf" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+    <path d="${pathD(0, 2)}" fill="none" stroke="#23917a" stroke-width="5" stroke-linecap="round"/>
+  </svg>
+  ${stops.map((s, i) => `<span class="node ${s[0]}" style="left:${pts[i][0]}px;top:${pts[i][1]}px"></span>${tagAt(i, s)}`).join('')}
+  ${overlay}`)
+
+  const curcard = `<div class="milk curcard"><div class="t"><b>At the grocery store</b><span>Lesson 2 of 4</span></div>
+  <div class="dots"><i class="f"></i><i></i><i></i><i></i></div><span class="pill">Continue<i></i></span></div>`
+
+  const sheet = `<div class="dim"></div><div class="sheet"><span class="grab"></span>
+  <div><h3>At the grocery store</h3><p class="cando">When you finish: I can ask where something is and follow simple directions.</p></div>
+  <div class="lessons">
+    <div class="lesson done"><span class="mini">1</span><div>Where is the milk?<small>Done</small></div><span class="r">Again</span></div>
+    <div class="lesson cur"><span class="mini">2</span><div>Asking the staff<small>About 8 minutes</small></div><span class="r">Start</span></div>
+    <div class="lesson lock"><span class="mini">3</span><div>At the checkout</div><span class="r"></span></div>
+    <div class="lesson lock"><span class="mini">4</span><div>Review of the stop</div><span class="r"></span></div>
+  </div></div>`
+
+  const lockedSheet = `<div class="dim"></div><div class="sheet"><span class="grab"></span>
+  <div><h3>Small talk</h3><p class="cando">When you finish: I can talk about the weather and my weekend.</p></div>
+  <div class="earned">Locked. Finish At the grocery store to open this stop.</div>
+  <div class="lessons">
+    <div class="lesson lock"><span class="mini">1</span><div>What a cold day</div><span class="r"></span></div>
+    <div class="lesson lock"><span class="mini">2</span><div>How was your weekend?</div><span class="r"></span></div>
+  </div></div>`
+
+  const unlock = shell(`<div class="center">
+  <p class="small">Stop finished</p>
+  <div class="halo"><span class="open"></span></div>
+  <p class="big">You opened <b>Small talk</b></p>
+  <div class="milk card warm"><small>You earned</small>I can ask where something is and follow simple directions.</div>
+  <div class="milk card"><small>This stop</small>4 lessons, 38 new words, 24 lines said aloud</div>
+  <div class="grow"></div>
+  <span class="pill stretch">See my journey<i></i></span>
+</div>`)
+
+  const screens = [
+    [
+      'The journey',
+      "Home of the app. Finished stops filled, the current stop ringed, locked stops quiet with a lock, A1 at the top. The card at the bottom continues today's lesson.",
+      map(curcard),
+    ],
+    [
+      'Inside a stop',
+      'Tap a stop to see its lessons and the "I can" sentence you earn at the end.',
+      map(sheet),
+    ],
+    ['A locked stop', 'Tap a locked stop to see what opens it and what is inside.', map(lockedSheet)],
+    [
+      'The unlock moment',
+      'After the last lesson of a stop. What you earned, what you did, and the next stop opening. Calm, no confetti.',
+      unlock,
+    ],
+  ]
+  document.getElementById('row').innerHTML = screens
+    .map(([n, c, html]) => `<figure>${html}<figcaption><b>${n}</b>${c}</figcaption></figure>`)
+    .join('')
+</script>
