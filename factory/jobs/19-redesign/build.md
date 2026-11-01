@@ -1,6 +1,6 @@
 # Build notes: 19-redesign, round 2
 
-Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree (`.worktrees/19-redesign/factory/jobs/19-redesign/build.md`), not in the main checkout. Round 2 answers `review-design.md` and `review-security.md` (both committed with this work). The tested commit is `__COMMIT__`.
+Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree (`.worktrees/19-redesign/factory/jobs/19-redesign/build.md`), not in the main checkout. Round 2 answers `review-design.md` and `review-security.md` (both committed with this work). The tested commit is `48ff3c8`.
 
 ## Round 2: what changed, item by item
 
@@ -40,7 +40,7 @@ Also from the notes:
 
 - `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except `tooling 9` (gitleaks timing under load, see round 1's open points), which passes alone and on GitHub. The format check warns only about `design-drafts/` line endings on this Windows copy.
 - The three mock based browser files (`redesign-road`, `redesign-lesson`, `redesign-pages`) pass in Chromium against the running app (118 tests).
-- Full run on GitHub: __RUN2__
+- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41343076151, tested commit `48ff3c8`: success. The browser job (Chromium and WebKit, local database) passed all its tests; the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check all passed. Earlier runs of this round (41339029937, 41341363435) each found one thing to fix (the download tests wanted the status line, the start test counted from the viewport instead of the page, and the line spacing test needed the text rows in WebKit); each was fixed in the next commit.
 - No scratch branch of this job is left on origin.
 
 ## Round 2: unfinished or uncertain
@@ -49,7 +49,7 @@ Also from the notes:
 - Two word buttons on neighbouring rows overlap by about 9 px, so a tap on the overlap goes to the lower row's word. That is the cost of tight lines with 44 px targets, as the review suggested.
 - WebKit screenshots of the three Say it recording states are missing, as in round 1 (the local WebKit cannot record).
 
-Result: __FINAL__
+Result: checks pass
 
 ---
 

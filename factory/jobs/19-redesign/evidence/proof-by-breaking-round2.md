@@ -23,8 +23,8 @@ test-results\redesign-pages-every-page--56522-cape-at-375-x-812-text-100--chromi
 - Result: RED, the test failed as it should
 
 ```
-❯ tests/redesign-rules.test.ts (9 tests | 1 failed | 8 skipped) 18ms
-× [redesign 6] the "Delete my account" link uses a colour whose pair on the peach end of the wash is in the contrast list at 4.5 to 1 14ms
+❯ tests/redesign-rules.test.ts (9 tests | 1 failed | 8 skipped) 11ms
+× [redesign 6] the "Delete my account" link uses a colour whose pair on the peach end of the wash is in the contrast list at 4.5 to 1 8ms
 Test Files  1 failed (1)
 Tests  1 failed | 8 skipped (9)
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
@@ -55,7 +55,7 @@ test-results\redesign-road-the-home-scr-93314-and-is-not-drawn-on-day-one-chromi
 ```
 Error: expect(received).toBeLessThan(expected)
 Expected: < 1.6
-Received:   1.894736842105263
+Received:   1.8379934210526316
 test-results\redesign-lesson-Hear-it-an-18101-ord-is-still-a-44-px-target-chromium\test-failed-1.png
 1 failed
 ```
@@ -197,7 +197,7 @@ test-results\redesign-lesson-the-finish-5abe5-he-new-words-not-a-hard-cut-chromi
 
 ```
 ❯ tests/redesign-rules.test.ts (9 tests | 1 failed | 8 skipped) 11ms
-× [redesign 4] [redesign 41] the crash screen starts its words below the landscape, like every page 10ms
+× [redesign 4] [redesign 41] the crash screen starts its words below the landscape, like every page 9ms
 Test Files  1 failed (1)
 Tests  1 failed | 8 skipped (9)
 ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
