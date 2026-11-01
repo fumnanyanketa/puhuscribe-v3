@@ -29,7 +29,7 @@ Maria and her colleague Aino.
 |---|---|---|---|---|
 | 1 | Aino | Palsu alkaa varttii yli kymmenen. | Palaveri alkaa varttia yli kymmenen. | The meeting starts at quarter past ten. |
 | 2 | Maria | Anteeks, mitä toi sana tarkottaa? | Anteeksi, mitä tuo sana tarkoittaa? | Sorry, what does that word mean? |
-| 3 | Aino | Palsu on palaveri, eli kokous. | Palaveri tarkoittaa kokousta. | It means a meeting. |
+| 3 | Aino | Palsu tarkottaa kokousta. | Palaveri tarkoittaa kokousta. | It means a meeting. |
 | 4 | Maria | Aa, okei. Ja milloin se alkaa? | Ai, selvä. Ja milloin se alkaa? | Ah, OK. And when does it start? |
 | 5 | Aino | Varttii yli kymmenen. Eli kymmenen viistoista. | Varttia yli kymmenen. Eli kymmenen viisitoista. | Quarter past ten. So ten fifteen. |
 | 6 | Maria | Voitsä kirjottaa sen? | Voitko sinä kirjoittaa sen? | Could you write it down? |
@@ -42,10 +42,10 @@ Maria asks Tuomas in the city centre.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Maria | Anteeks, voitsä auttaa? Mä oon eksyksissä. | Anteeksi, voitko auttaa? Minä olen eksyksissä. | Excuse me, can you help? I'm lost. |
+| 1 | Maria | Anteeks, voitsä auttaa? Mä oon eksyksissä. | Anteeksi, voitko sinä auttaa? Minä olen eksyksissä. | Excuse me, can you help? I'm lost. |
 | 2 | Tuomas | Totta kai. Mihin sä oot menossa? | Totta kai. Mihin sinä olet menossa? | Of course. Where are you going? |
 | 3 | Maria | Rautatieasemalle. Mä en löydä sitä. | Rautatieasemalle. Minä en löydä sitä. | To the railway station. I can't find it. |
-| 4 | Tuomas | Se on tos lähellä. Näätsä ton ison kellotornin? | Se on tuossa lähellä. Näetkö tuon ison kellotornin? | It's close by. Do you see that big clock tower? |
+| 4 | Tuomas | Se on tos lähellä. Näätsä ton ison kellotornin? | Se on tuossa lähellä. Näetkö sinä tuon ison kellotornin? | It's close by. Do you see that big clock tower? |
 | 5 | Maria | En nää. Missä? | En näe. Missä? | I don't see it. Where? |
 | 6 | Tuomas | Tuolla vasemmalla. Asema on just sen alla. | Tuolla vasemmalla. Asema on juuri sen alla. | Over there on the left. The station is right below it. |
 | 7 | Maria | Ai, nyt mä nään! Kiitti! | Ai, nyt minä näen! Kiitos! | Oh, now I see it! Thanks! |
@@ -116,7 +116,7 @@ Maria asks Riikka at a bus stop.
 | 4 | Riikka | Mihin sä oot menossa? | Mihin sinä olet menossa? | Where are you going? |
 | 5 | Maria | Kurssille. Se alkaa yheksältä. | Kurssille. Se alkaa yhdeksältä. | To my course. It starts at nine. |
 | 6 | Riikka | No, bussi tulee kahen minuutin päästä. | No, bussi tulee kahden minuutin päästä. | Well, the bus comes in two minutes. |
-| 7 | Maria | Hyvä! Sit mä oon perillä varttii yli. | Hyvä! Sitten olen perillä varttia yli. | Good! Then I'll be there at quarter past. |
+| 7 | Maria | Hyvä! Sit mä oon perillä varttii yli. | Hyvä! Sitten minä olen perillä varttia yli. | Good! Then I'll be there at quarter past. |
 | 8 | Riikka | Ei se haittaa. Onnee matkaan! | Ei se haittaa. Onnea matkaan! | That's fine. Good luck! |
 
 ### 9.2 Booking a haircut
@@ -125,11 +125,11 @@ Maria calls Kaisa's hair salon.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Kaisa | Kampaamo Kaisa, moi! | Kampaamo Kaisa, hyvää päivää! | Kaisa's hair salon, hello! |
-| 2 | Maria | Moi! Mä haluisin varata ajan hiustenleikkuuseen. | Hei! Haluaisin varata ajan hiustenleikkuuseen. | Hi! I'd like to book a haircut. |
+| 1 | Kaisa | Kampaamo Kaisa, moi! | Kampaamo Kaisa, hei! | Kaisa's hair salon, hello! |
+| 2 | Maria | Moi! Mä haluisin varata ajan hiustenleikkuuseen. | Hei! Minä haluaisin varata ajan hiustenleikkuuseen. | Hi! I'd like to book a haircut. |
 | 3 | Kaisa | Okei. Sopiiks torstai? | Selvä. Sopiiko torstai? | OK. Does Thursday suit you? |
 | 4 | Maria | Mihin aikaan? | Mihin aikaan? | What time? |
-| 5 | Kaisa | Kolmelta tai sit viideltä. | Kolmelta tai viideltä. | At three or at five. |
+| 5 | Kaisa | Kolmelta tai sit viideltä. | Kolmelta tai sitten viideltä. | At three or at five. |
 | 6 | Maria | Viideltä ois parempi. | Viideltä olisi parempi. | Five would be better. |
 | 7 | Kaisa | Selvä. Mikä sun nimi on? | Selvä. Mikä sinun nimesi on? | Fine. What's your name? |
 | 8 | Maria | Maria Santos. Kiitti, nähään torstaina! | Maria Santos. Kiitos, nähdään torstaina! | Maria Santos. Thanks, see you on Thursday! |
@@ -140,7 +140,7 @@ Maria's manager Hanna asks about the week.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Hanna | Maria, voitsä tulla huomenna aamulla? | Maria, voitko tulla huomenna aamulla? | Maria, can you come in tomorrow morning? |
+| 1 | Hanna | Maria, voitsä tulla huomenna aamulla? | Maria, voitko sinä tulla huomenna aamulla? | Maria, can you come in tomorrow morning? |
 | 2 | Maria | Aamulla? Mihin aikaan? | Aamulla? Mihin aikaan? | In the morning? What time? |
 | 3 | Hanna | Seittemältä. Vuoro loppuu kolmelta. | Seitsemältä. Vuoro loppuu kolmelta. | At seven. The shift ends at three. |
 | 4 | Maria | Se on aikasin, mut okei. | Se on aikaisin, mutta selvä. | That's early, but OK. |
@@ -159,7 +159,7 @@ Maria and Laura, the pharmacist.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Laura | Moi, miten mä voin auttaa? | Hei, miten voin auttaa? | Hi, how can I help? |
+| 1 | Laura | Moi, miten mä voin auttaa? | Hei, miten minä voin auttaa? | Hi, how can I help? |
 | 2 | Maria | Mul on päänsärkyy. Onks teil jotain siihen? | Minulla on päänsärkyä. Onko teillä jotain siihen? | I have a headache. Do you have something for it? |
 | 3 | Laura | On. Tää on hyvä särkylääke. | On. Tämä on hyvä särkylääke. | Yes. This is a good painkiller. |
 | 4 | Maria | Kuinka monta mä voin ottaa? | Kuinka monta minä voin ottaa? | How many can I take? |
@@ -245,7 +245,7 @@ Maria speaks politely to Jukka, her upstairs neighbour.
 | 5 | Maria | Ei se mitään. Mä meen nukkuu kymmeneltä. | Ei se mitään. Minä menen nukkumaan kymmeneltä. | It's OK. I go to sleep at ten. |
 | 6 | Jukka | Selvä. Mä laitan musiikin hiljemmalle. | Selvä. Minä laitan musiikin hiljemmalle. | Of course. I'll turn the music down. |
 | 7 | Maria | Kiitti paljon! | Kiitos paljon! | Thanks a lot! |
-| 8 | Jukka | Kiitti et sä sanoit. | Kiitos, että sanoit. | Thanks for telling me. |
+| 8 | Jukka | Kiitti et sä sanoit. | Kiitos, että sinä sanoit. | Thanks for telling me. |
 
 ## Stop 12. Shopping for clothes
 
@@ -257,11 +257,11 @@ Maria and Emma, a shop assistant.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Emma | Moi! Voinks mä auttaa? | Hei! Voinko auttaa? | Hi! Can I help? |
+| 1 | Emma | Moi! Voinks mä auttaa? | Hei! Voinko minä auttaa? | Hi! Can I help? |
 | 2 | Maria | Joo. Onks tää takki isompana? | Kyllä. Onko tämä takki isompana? | Yes. Do you have this coat in a bigger size? |
 | 3 | Emma | Mikä koko sä tarviit? | Minkä koon sinä tarvitset? | What size do you need? |
 | 4 | Maria | M-koon. Tää on liian pieni. | M-koon. Tämä on liian pieni. | Size M. This one is too small. |
-| 5 | Emma | Tässä. Haluuksä kokeilla? | Tässä. Haluatko kokeilla? | Here. Do you want to try it on? |
+| 5 | Emma | Tässä. Haluuksä kokeilla? | Tässä. Haluatko sinä kokeilla? | Here. Do you want to try it on? |
 | 6 | Maria | Joo. Missä on sovituskopit? | Kyllä. Missä ovat sovituskopit? | Yes. Where are the fitting rooms? |
 | 7 | Emma | Tuolla takana. | Tuolla takana. | Over there at the back. |
 | 8 | Maria | Tää on täydellinen! Mä otan sen. | Tämä on täydellinen! Minä otan sen. | This is perfect! I'll take it. |
@@ -278,7 +278,7 @@ Maria shops with her friend Aino.
 | 4 | Aino | Totta. Onks se alessa? | Totta. Onko se alennuksessa? | True. Is it on sale? |
 | 5 | Maria | Joo, kakskyt prosenttii alennusta. | Kyllä, kaksikymmentä prosenttia alennusta. | Yes, twenty percent off. |
 | 6 | Aino | Ota sit molemmat! | Ota sitten molemmat! | Then take both! |
-| 7 | Maria | Haha, ei mul oo niin paljon rahaa. | Haha, minulla ei ole niin paljon rahaa. | Haha, I don't have that much money. |
+| 7 | Maria | Haha, mul ei oo niin paljon rahaa. | Haha, minulla ei ole niin paljon rahaa. | Haha, I don't have that much money. |
 | 8 | Aino | No, ota sininen. | No, ota sininen. | Well, take the blue one. |
 
 ### 12.3 Warm winter shoes
