@@ -1,0 +1,134 @@
+# The A1 road (job 20-a1-road, "Done when" 19): the written dialogues are imported and checked, the
+# voices read them, the review pages are made. Manual start only, never on a pull request or a push.
+#
+# Tasks:
+# - import: reads the markdown, runs Voikko and the free checks on every dialogue and uploads the drafts,
+#   the check report, the word notes still missing and the files they are written in. No key is used and
+#   no AI call is made.
+# - analyse: counts the words above each candidate frequency rank cap and the forms outside the grammar
+#   list, to choose a part's rank cap and record its extras. No key.
+# - count-characters: the exact number of characters the voices must read for the part. No key.
+# - voice: the Azure voice reads both versions of every line of the part (input part 1 to 6), inside the
+#   free allowance, at most 20 requests a minute. Only this step holds the Azure key.
+# - judge: the register judge on the lines of the part (or the road), after its golden set. Only this
+#   step holds the Anthropic key. Used only when the owner turned the judge on.
+# - review-pages: round 1 review pages for the part's dialogues. No key.
+#
+# Voiced clips and changed drafts go up as an artifact; the manager commits them once, under
+# content/drafts/<slug>/audio/. They reach public/audio/ only when a part is published.
+#
+# No npm ci runs in this job, so no package code ever runs next to a key. Every file is checked for the
+# key values before the upload. Actions are the ones the content pipeline workflow uses.
+name: A1 road
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: What to do
+        required: true
+        type: choice
+        options: [import, analyse, count-characters, voice, judge, review-pages]
+      part:
+        description: The part, 1 to 6, or all (only count-characters and judge accept all)
+        required: true
+        type: choice
+        default: '1'
+        options: ['1', '2', '3', '4', '5', '6', all]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: a1-road
+
+jobs:
+  road:
+    name: A1 road
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install Voikko (Finnish morphology) from Ubuntu
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libvoikko1 voikko-fi
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -r scripts/requirements-pipeline.txt
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Check the inputs
+        # The inputs reach the shell only as environment variables.
+        env:
+          TASK: ${{ inputs.task }}
+          PART: ${{ inputs.part }}
+        run: |
+          if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ]; then
+            echo "The task $TASK needs one part, 1 to 6"; exit 1
+          fi
+      - name: Import, analyse, count or make review pages (no key)
+        if: inputs.task == 'import' || inputs.task == 'analyse' || inputs.task == 'count-characters' || inputs.task == 'review-pages'
+        env:
+          TASK: ${{ inputs.task }}
+          PART: ${{ inputs.part }}
+        run: |
+          part_args=()
+          if [ "$PART" != all ]; then part_args=(--part "$PART"); fi
+          case "$TASK" in
+            import) python scripts/generate/road_import.py import --out "$RUNNER_TEMP/road-out" "${part_args[@]}" ;;
+            analyse) python scripts/generate/road_import.py analyse --out "$RUNNER_TEMP/road-out" ;;
+            count-characters) python scripts/generate/road_import.py count-characters "${part_args[@]}" ;;
+            review-pages) python scripts/generate/pipeline.py review-pages --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
+          esac
+      - name: Voice the part (the Azure key is here and nowhere else)
+        if: inputs.task == 'voice'
+        env:
+          PART: ${{ inputs.part }}
+          VOICE_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: python scripts/generate/road_import.py voice --part "$PART"
+      - name: Run the register judge (the Anthropic key is here and nowhere else)
+        if: inputs.task == 'judge'
+        env:
+          PART: ${{ inputs.part }}
+          AI_PROVIDER: anthropic
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          part_args=()
+          if [ "$PART" != all ]; then part_args=(--part "$PART"); fi
+          python scripts/generate/road_import.py judge "${part_args[@]}"
+      - name: Gather what the run changed
+        if: success() || failure()
+        env:
+          TASK: ${{ inputs.task }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/road-out"
+          if [ "$TASK" = voice ] || [ "$TASK" = judge ]; then
+            cp -r content/drafts "$RUNNER_TEMP/road-out/drafts"
+            cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+      - name: Check the files to upload hold no secret value
+        id: upload-guard
+        if: success() || failure()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env ANTHROPIC_API_KEY --env AZURE_SPEECH_KEY
+          "$RUNNER_TEMP/road-out"
+      - name: Keep the result
+        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: road-${{ inputs.task }}-${{ inputs.part }}
+          path: ${{ runner.temp }}/road-out/
+          if-no-files-found: ignore
+          retention-days: 30
