@@ -403,6 +403,11 @@ isOneToOne: false
               "can_do_en": string,"dialogues_done": number,"dialogues_ready": number,"dialogues_total": number,"lessons_done": number,"lessons_total": number,"live": boolean,"part_number": number,"part_title_en": string,"review_forms_reviewed": number,"review_forms_total": number,"stop_number": number,"stop_slug": string,"title_en": string
             }[]
                            },
+"road_for_visitors":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "can_do_en": string,"dialogues_done": number,"dialogues_ready": number,"dialogues_total": number,"lessons_done": number,"lessons_total": number,"live": boolean,"part_number": number,"part_title_en": string,"review_forms_reviewed": number,"review_forms_total": number,"stop_number": number,"stop_slug": string,"title_en": string
+            }[]
+                           },
 "save_progress_note":
 { Args: { "p_session_id": string }; Returns: string
                            },

@@ -17,6 +17,7 @@ import {
 } from '../src/lib/session-types.ts'
 import { json, readBody, refuseNonGet, refuseUnsafeWrite, withCookies } from './http.ts'
 import {
+  blankContext,
   endedHint,
   hasAuthCookie,
   learnerContext,
@@ -37,7 +38,7 @@ import {
   type SaveNoteDb,
 } from './learner-db.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
-import { roadFor, supabaseRoadDb, type RoadDb } from './road.ts'
+import { roadFor, supabaseRoadDb, supabaseVisitorRoadDb, visitorRoadFor, type RoadDb } from './road.ts'
 import {
   answer as answerReview,
   finishKeep,
@@ -70,6 +71,8 @@ export interface ApiDeps extends AccountDeps, SpeechDeps {
   feedbackDb?: (context: LearnerContext) => FeedbackDb
   /** Tests pass a fake for the road (job 20-a1-road); normally Supabase, as the learner. */
   roadDb?: (context: LearnerContext) => RoadDb
+  /** Tests pass a fake for the visitors' road (statement 29); normally Supabase, with no sign in. */
+  roadVisitorDb?: () => RoadDb
 }
 
 const defaultDeps: ApiDeps = { fetch: (input, init) => fetch(input, init) }
@@ -375,21 +378,43 @@ async function patterns(request: Request, env: ApiEnv, deps: ApiDeps): Promise<R
   }
 }
 
-// GET /api/road: the road screen's data (factory/jobs/20-a1-road/spec.md, "Done when" 7). One
-// row per stop with the learner's own lesson progress, read through public.road() with the
-// learner's own token and the publishable key. It needs an account (401 without one), changes
-// nothing and answers the function's 14 columns and nothing else. A fault is a 503 with no detail.
+// GET /api/road: the road screen's data (factory/jobs/20-a1-road/spec.md, "Done when" 7 and 29).
+// One row per stop. A signed in learner gets their own lesson progress, read through public.road()
+// with their own token and the publishable key. A visitor with no sign in, or an expired or invalid
+// one, gets the same 14 columns with no progress, from public.road_for_visitors() (no user, anon
+// may call only that function): no account is made, no cookie is set, nothing is written and no
+// Auth call is made. A learner is never answered with a visitor's rows or the other way round, and a
+// visitor is never answered with any progress. It changes nothing. A fault is a 503 with no detail.
 async function road(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Response> {
   const refused = await refuseNonGet(request)
   if (refused) return refused
-  const signIn = await signedIn(request, env, deps)
-  if (signIn.refused) return signIn.refused
-  const { context } = signIn
+  if (hasAuthCookie(request)) {
+    const signIn = await signedIn(request, env, deps)
+    if (!signIn.refused) {
+      const { context } = signIn
+      try {
+        const db = deps.roadDb ? deps.roadDb(context) : supabaseRoadDb(context.client)
+        return withCookies(json(await roadFor(db)), context.setCookies())
+      } catch (error) {
+        return withCookies(faultAnswer(error), context.setCookies())
+      }
+    }
+    // A fault stays a fault. A signed out or ended sign in is a visitor, and the answer then
+    // carries none of the cookie changes the check made.
+    if (signIn.refused.status === 503) return signIn.refused
+  }
   try {
-    const db = deps.roadDb ? deps.roadDb(context) : supabaseRoadDb(context.client)
-    return withCookies(json(await roadFor(db)), context.setCookies())
+    let db: RoadDb
+    if (deps.roadVisitorDb) {
+      db = deps.roadVisitorDb()
+    } else {
+      const settings = supabaseSettings(env)
+      if (!settings) return NOT_CONFIGURED()
+      db = supabaseVisitorRoadDb(blankContext(request, settings, deps.fetch).client)
+    }
+    return json(await visitorRoadFor(db))
   } catch (error) {
-    return withCookies(faultAnswer(error), context.setCookies())
+    return faultAnswer(error)
   }
 }
 

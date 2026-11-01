@@ -23,7 +23,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(103);
+select plan(123);
 
 -- [a1-road 1] The two tables, their rows and their limits --------------------------------
 
@@ -521,10 +521,72 @@ set local role service_role;
 select throws_ok($$select * from public.road()$$, '42501', null, '[a1-road 5] service_role cannot call road()');
 reset role;
 
+-- [a1-road 29] public.road_for_visitors(): the road with no progress, for a visitor with no account -------
+
+select has_function('public', 'road_for_visitors', array[]::text[], '[a1-road 29] public.road_for_visitors() exists');
+select ok((select prosecdef from pg_proc where oid = 'public.road_for_visitors()'::regprocedure),
+  '[a1-road 29] road_for_visitors() is security definer, because the road tables are closed to anon');
+select is((select provolatile::text from pg_proc where oid = 'public.road_for_visitors()'::regprocedure), 's',
+  '[a1-road 29] road_for_visitors() is stable, so Postgres refuses any write inside it');
+select ok((select proconfig @> array['search_path=""'] from pg_proc where oid = 'public.road_for_visitors()'::regprocedure),
+  '[a1-road 29] road_for_visitors() runs with an empty search_path');
+select is(pg_get_function_result('public.road_for_visitors()'::regprocedure),
+  pg_get_function_result('public.road()'::regprocedure),
+  '[a1-road 29] road_for_visitors() returns exactly the 14 columns of road()');
+select ok(has_function_privilege('anon', 'public.road_for_visitors()', 'EXECUTE'),
+  '[a1-road 29] anon may call road_for_visitors()');
+select ok(not has_function_privilege('authenticated', 'public.road_for_visitors()', 'EXECUTE'),
+  '[a1-road 29] a learner does not call road_for_visitors(), they call road()');
+select ok(not has_function_privilege('service_role', 'public.road_for_visitors()', 'EXECUTE'),
+  '[a1-road 29] service_role may not call road_for_visitors()');
+select is_empty(
+  $$ select 1 from pg_proc p cross join lateral aclexplode(p.proacl) x
+      where p.oid = 'public.road_for_visitors()'::regprocedure and x.grantee = 0 $$,
+  '[a1-road 29] PUBLIC may not call road_for_visitors()');
+select cmp_ok((select count(*) from public.sessions
+                where user_id::text like '00000000-0000-4000-8000-0000000020%' and ended_at is not null),
+  '>', 0::bigint, '[a1-road 29] the test learners do have finished sessions, so zero progress below is a real answer');
+
+select set_config('request.jwt.claims',
+  '{"sub": "00000000-0000-4000-8000-0000000020b1", "role": "authenticated", "is_anonymous": true}', true);
+set local role anon;
+select is((select count(*) from public.road_for_visitors()), 40::bigint,
+  '[a1-road 29] anon gets the 36 stops and the 4 test stops, in one row each, even with a learner''s claims in the request');
+select row_eq(
+  $$select dialogues_total, dialogues_ready, dialogues_done, review_forms_total, review_forms_reviewed,
+           lessons_total, lessons_done, live from public.road_for_visitors() where stop_number = 9001$$,
+  row(3, 3, 0, 5, 0, 4, 0, true),
+  '[a1-road 29] stop 9001: 3 ready, 5 new forms, live, and no progress although learner B has finished all of it');
+select row_eq(
+  $$select dialogues_total, dialogues_ready, dialogues_done, review_forms_total, review_forms_reviewed,
+           lessons_total, lessons_done, live from public.road_for_visitors() where stop_number = 9002$$,
+  row(3, 2, 0, 2, 0, 4, 0, false),
+  '[a1-road 29] stop 9002: a draft dialogue and its form are not counted, and there is no progress');
+select row_eq(
+  $$select dialogues_total, dialogues_ready, dialogues_done, review_forms_total, review_forms_reviewed,
+           lessons_total, lessons_done, live from public.road_for_visitors() where stop_number = 9003$$,
+  row(3, 0, 0, 0, 0, 4, 0, false),
+  '[a1-road 29] stop 9003: an approved dialogue in an unapproved unit is not counted');
+select is_empty(
+  $$select 1 from public.road_for_visitors()
+     where dialogues_done <> 0 or review_forms_reviewed <> 0 or lessons_done <> 0$$,
+  '[a1-road 29] no stop has any progress for a visitor');
+select throws_ok($$select * from public.road_stops$$, '42501', null,
+  '[a1-road 29] anon still cannot read road_stops');
+select throws_ok($$select * from public.sessions$$, '42501', null,
+  '[a1-road 29] anon still cannot read sessions');
+select throws_ok($$select * from public.review_logs$$, '42501', null,
+  '[a1-road 29] anon still cannot read review_logs');
+select throws_ok($$select * from public.units$$, '42501', null,
+  '[a1-road 29] anon still cannot read units');
+select throws_ok($$select * from public.road()$$, '42501', null,
+  '[a1-road 29] anon still cannot call road(), so it never sees a learner''s progress');
+reset role;
+
 -- [a1-road 5] road() writes nothing ---------------------------------------------------------
 
 select is((select count(*) from public.sessions where user_id::text like '00000000-0000-4000-8000-0000000020%'),
-  12::bigint, '[a1-road 5] after all the calls the 12 test sessions are unchanged');
+  12::bigint, '[a1-road 5] [a1-road 29] after all the calls the 12 test sessions are unchanged');
 
 select * from finish();
 

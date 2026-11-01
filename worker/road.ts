@@ -2,7 +2,11 @@ import type { LearnerClient } from './learner-auth.ts'
 import { DatabaseUnavailable } from './learner-db.ts'
 
 // GET /api/road: one row per stop of the A1 road with the learner's own lesson progress
-// (factory/jobs/20-a1-road/spec.md, "Done when" 5 and 7).
+// (factory/jobs/20-a1-road/spec.md, "Done when" 5, 7 and 29).
+//
+// A visitor with no sign in (or an expired or invalid one) gets the same rows with no progress,
+// from public.road_for_visitors(), which takes no user (statement 29). The Worker also sets the
+// three progress columns to 0 itself, so no database answer can ever carry progress to a visitor.
 //
 // The row is read with the learner's own token through public.road(), which runs with the
 // learner's own rights (security invoker): only approved content is counted, and only the
@@ -84,6 +88,25 @@ export function roadStop(row: unknown): RoadStop {
 
 export async function roadFor(db: RoadDb): Promise<RoadAnswer> {
   return { stops: (await db.road()).map(roadStop) }
+}
+
+/** The same rows for a visitor: the three progress columns are always 0, whatever the database says. */
+export function visitorStop(row: unknown): RoadStop {
+  return { ...roadStop(row), dialogues_done: 0, review_forms_reviewed: 0, lessons_done: 0 }
+}
+
+export async function visitorRoadFor(db: RoadDb): Promise<RoadAnswer> {
+  return { stops: (await db.road()).map(visitorStop) }
+}
+
+export function supabaseVisitorRoadDb(client: LearnerClient): RoadDb {
+  return {
+    async road() {
+      const { data, error } = await client.rpc('road_for_visitors')
+      if (error) throw new DatabaseUnavailable()
+      return data
+    },
+  }
 }
 
 export function supabaseRoadDb(client: LearnerClient): RoadDb {

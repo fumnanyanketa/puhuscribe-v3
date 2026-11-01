@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { handleApi, type ApiDeps } from './api.ts'
 import { DatabaseUnavailable } from './learner-db.ts'
-import { roadStop, type RoadDb, type RoadStop } from './road.ts'
+import { roadStop, visitorStop, type RoadDb, type RoadStop } from './road.ts'
 import { ENV, PUBLISHABLE, cookieHeader, fakeSupabase, get, post } from './test-fakes.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -62,17 +62,119 @@ async function account(): Promise<{ cookie: string; fetch: ApiDeps['fetch'] }> {
 }
 
 describe('GET /api/road', () => {
-  it('[a1-road 7] answers 401 without an account and asks no database', async () => {
+  it('[a1-road 29] with no sign in it answers 200 with the 14 columns and no progress, and asks the learner database nothing', async () => {
     const calls: string[] = []
     const supabase = fakeSupabase()
+    const progress = [row(1, { dialogues_done: 3, review_forms_reviewed: 5, lessons_done: 4 }), row(2)]
     const res = await handleApi(get('/api/road'), ENV, {
       fetch: supabase.fetch,
       roadDb: () => fakeDb([row(1)], calls),
+      roadVisitorDb: () => fakeDb(progress),
     })
-    expect(res.status).toBe(401)
-    expect(await res.json()).toEqual({ error: 'signed_out' })
+    expect(res.status).toBe(200)
+    const body = await res.json<{ stops: RoadStop[] }>()
+    expect(body.stops.map((s) => s.stop_number)).toEqual([1, 2])
+    for (const stop of body.stops) {
+      expect(Object.keys(stop).sort()).toEqual(COLUMNS)
+      expect([stop.dialogues_done, stop.review_forms_reviewed, stop.lessons_done]).toEqual([0, 0, 0])
+    }
+    expect(body.stops[0]).toMatchObject({ dialogues_ready: 3, review_forms_total: 5, live: true })
     expect(calls).toEqual([])
+    expect(res.headers.get('set-cookie')).toBeNull()
+    expect(res.headers.get('cache-control')).toMatch(/no-store|no-cache|private/)
     expect(supabase.requests).toEqual([])
+  })
+
+  it('[a1-road 29] reads public.road_for_visitors() with the publishable key and nothing else: no Auth call, no write, no cookie', async () => {
+    const supabase = fakeSupabase()
+    supabase.rest = () =>
+      new Response(JSON.stringify([row(1, { dialogues_done: 2 })]), {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      })
+    const res = await handleApi(get('/api/road'), ENV, { fetch: supabase.fetch })
+    expect(res.status).toBe(200)
+    const body = await res.json<{ stops: RoadStop[] }>()
+    expect(body.stops[0]?.dialogues_done).toBe(0)
+    expect(supabase.requests).toHaveLength(1)
+    const call = supabase.requests[0]
+    expect(call?.url.pathname).toBe('/rest/v1/rpc/road_for_visitors')
+    expect(call?.headers.get('apikey')).toBe(PUBLISHABLE)
+    expect(call?.headers.get('authorization')).toBe(`Bearer ${PUBLISHABLE}`)
+    expect(supabase.requests.some((r) => r.url.pathname.startsWith('/auth/'))).toBe(false)
+    expect(supabase.issued).toEqual([])
+    expect(supabase.userIds).toEqual([])
+    expect(res.headers.get('set-cookie')).toBeNull()
+  })
+
+  it('[a1-road 29] an invalid or an ended sign in is a visitor: 200, no progress, no cookie change, the learner database is not asked', async () => {
+    const supabase = fakeSupabase()
+    const created = await handleApi(post('/api/guest'), ENV, { fetch: supabase.fetch })
+    const cookie = cookieHeader(created)
+    supabase.users.clear()
+    for (const header of ['puhuscribe-auth=not-a-session', cookie]) {
+      const calls: string[] = []
+      const res = await handleApi(get('/api/road', header), ENV, {
+        fetch: supabase.fetch,
+        roadDb: () => fakeDb([row(1)], calls),
+        roadVisitorDb: () => fakeDb([row(1, { dialogues_done: 1 })]),
+      })
+      expect(res.status).toBe(200)
+      const body = await res.json<{ stops: RoadStop[] }>()
+      expect(body.stops[0]?.dialogues_done).toBe(0)
+      expect(res.headers.get('set-cookie')).toBeNull()
+      expect(calls).toEqual([])
+    }
+  })
+
+  it('[a1-road 29] a signed in learner still gets their own progress and never the visitor rows', async () => {
+    const { cookie, fetch } = await account()
+    const visitorCalls: string[] = []
+    const res = await handleApi(get('/api/road', cookie), ENV, {
+      fetch,
+      roadDb: () => fakeDb([row(1)]),
+      roadVisitorDb: () => fakeDb([row(1)], visitorCalls),
+    })
+    const body = await res.json<{ stops: RoadStop[] }>()
+    expect(body.stops[0]).toMatchObject({ dialogues_done: 2, lessons_done: 2 })
+    expect(visitorCalls).toEqual([])
+  })
+
+  it('[a1-road 29] a fault stays a 503 with no detail, for a visitor, for a learner and when sign in is down', async () => {
+    const boom = new Error('connection to db.internal:5432 refused, password=hunter2')
+    for (const failure of [new DatabaseUnavailable(), boom]) {
+      const res = await handleApi(get('/api/road'), ENV, {
+        fetch: fakeSupabase().fetch,
+        roadVisitorDb: () => fakeDb(failure),
+      })
+      expect(res.status).toBe(503)
+      const text = await res.text()
+      expect(JSON.parse(text)).toEqual({ error: 'not_available' })
+      expect(text).not.toMatch(/hunter2|5432|internal/)
+    }
+    const supabase = fakeSupabase()
+    const created = await handleApi(post('/api/guest'), ENV, { fetch: supabase.fetch })
+    supabase.down = true
+    const down = await handleApi(get('/api/road', cookieHeader(created)), ENV, {
+      fetch: supabase.fetch,
+      roadVisitorDb: () => fakeDb([row(1)]),
+    })
+    expect(down.status).toBe(503)
+    expect(await down.json()).toEqual({ error: 'not_available' })
+    const missing = await handleApi(get('/api/road'), {}, { fetch: fakeSupabase().fetch })
+    expect(missing.status).toBe(503)
+  })
+
+  it('[a1-road 29] a row of the wrong shape is a fault for a visitor too, and progress is zeroed', () => {
+    expect(() => visitorStop(row(1, { live: 'yes' }))).toThrow(DatabaseUnavailable)
+    expect(
+      visitorStop(row(1, { dialogues_done: 9, review_forms_reviewed: 9, lessons_done: 9 })),
+    ).toMatchObject({
+      dialogues_done: 0,
+      review_forms_reviewed: 0,
+      lessons_done: 0,
+      dialogues_ready: 3,
+    })
   })
 
   it('[a1-road 7] changes nothing: a POST is refused and asks no database', async () => {
