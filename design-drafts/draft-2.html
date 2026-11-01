@@ -1,0 +1,808 @@
+<title>PuhuScribe screen draft</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+/>
+<style>
+  /* Layout: one row per screen, the version without a mascot on the left and the version with Otso on the right, each a phone at real size, with one line under it naming what was borrowed. */
+  :root {
+    --page: #f3f2f7;
+    --page-ink: #1b1a20;
+    --page-quiet: #5a5666;
+    --page-line: #dedbe8;
+    --frame: #1b1a20;
+    /* The app inside the phones is always light, so these never change with the page theme. */
+    --s-bg: #f7f6fb;
+    --s-card: #ffffff;
+    --s-ink: #1b1a20;
+    --s-quiet: #625e6e;
+    --s-track: #e6e3ef;
+    --s-violet: #6b46c1;
+    --s-violet-deep: #4e3196;
+    --s-violet-soft: #efeafb;
+    --s-teal: #1f7c8e;
+    --s-teal-text: #166270;
+    --s-teal-band: #e6f1f4;
+    --s-sun: #f4b63f;
+    --s-sun-soft: #fdf1d8;
+    --s-edge: #e4e1ee;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #121117;
+      --page-ink: #eeecf4;
+      --page-quiet: #a7a3b5;
+      --page-line: #2e2c37;
+      --frame: #000000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #121117;
+    --page-ink: #eeecf4;
+    --page-quiet: #a7a3b5;
+    --page-line: #2e2c37;
+    --frame: #000000;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    gap: 4rem;
+  }
+  header {
+    display: grid;
+    gap: 0.75rem;
+  }
+  h1 {
+    font: 700 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  h2 {
+    font: 600 1.45rem/1.2 var(--font);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  header p,
+  .screen > p {
+    color: var(--page-quiet);
+    margin: 0;
+    max-width: 62ch;
+  }
+  .screen {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 3rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+  }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--page-quiet);
+    font-weight: 500;
+  }
+  .decide {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .decide ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 70ch;
+  }
+
+  /* The phone */
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+    flex: none;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    background: var(--s-bg);
+    color: var(--s-ink);
+    font-family: var(--font);
+    display: flex;
+    flex-direction: column;
+  }
+  .status {
+    height: 34px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 6px 18px 18px;
+    gap: 14px;
+    min-height: 0;
+  }
+  .grow {
+    flex: 1;
+  }
+
+  .btn {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 16px;
+    padding: 14px;
+    background: var(--s-violet);
+    color: #fff;
+    box-shadow: 0 4px 0 var(--s-violet-deep);
+  }
+  .btn.white {
+    background: var(--s-card);
+    color: var(--s-ink);
+    box-shadow: 0 3px 0 var(--s-edge);
+    border: 2px solid var(--s-edge);
+    padding: 12px;
+  }
+  .link {
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--s-violet);
+  }
+  .small {
+    font-size: 11px;
+    color: var(--s-quiet);
+    text-align: center;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .x {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    position: relative;
+  }
+  .x::before,
+  .x::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    width: 2.5px;
+    height: 18px;
+    background: var(--s-quiet);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+  .x::after {
+    transform: rotate(-45deg);
+  }
+  .bar {
+    flex: 1;
+    height: 12px;
+    border-radius: 8px;
+    background: var(--s-track);
+    overflow: hidden;
+  }
+  .bar b {
+    display: block;
+    height: 100%;
+    background: var(--s-teal);
+    border-radius: 8px;
+  }
+
+  /* The line card the owner likes, kept and made bigger */
+  .line {
+    background: var(--s-card);
+    border-radius: 22px;
+    padding: 14px 14px 16px;
+    display: grid;
+    gap: 10px;
+    box-shadow: 0 2px 0 var(--s-edge);
+  }
+  .who {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .spoken {
+    background: var(--s-teal-band);
+    border-radius: 16px;
+    padding: 10px 12px;
+    display: grid;
+    gap: 2px;
+  }
+  .spoken small {
+    color: var(--s-teal-text);
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .spoken span {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .written {
+    padding: 0 12px;
+    display: grid;
+    gap: 2px;
+  }
+  .written small {
+    color: var(--s-violet);
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .written span {
+    font-size: 16px;
+    color: var(--s-quiet);
+  }
+  .plays {
+    display: flex;
+    gap: 10px;
+    padding: 0 4px;
+  }
+  .play {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .play i {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--s-ink);
+    position: relative;
+  }
+  .play i::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 10px;
+    border-left: 11px solid #fff;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+  }
+  .play.teal i {
+    background: var(--s-teal);
+  }
+  .play.violet i {
+    background: var(--s-violet);
+  }
+  .hl {
+    color: var(--s-teal);
+  }
+  .hlw {
+    color: var(--s-violet);
+  }
+  /* The line card as it is in the app today, which the owner wants kept: dots joined by a dotted line, and the changing words marked in blue. */
+  .s .hl,
+  .s .hlw {
+    color: #1f42ac;
+    background: #e2e8f9;
+    border-radius: 6px;
+    padding: 0 3px;
+  }
+  .spoken {
+    border: 1px solid #1f7c8e38;
+  }
+  .pair2 {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 8px;
+  }
+  .rail .d {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+  }
+  .rail .t {
+    background: var(--s-teal);
+  }
+  .rail .v {
+    background: var(--s-violet);
+  }
+  .rail .l {
+    flex: 1;
+    border-left: 2px dotted #c9c5d6;
+    margin: 4px 0;
+  }
+  .rows {
+    display: grid;
+    gap: 8px;
+  }
+  .play.teal i,
+  .play.violet i {
+    background: var(--s-ink);
+  }
+
+  .tip {
+    background: var(--s-ink);
+    color: #fff;
+    border-radius: 18px;
+    padding: 12px 14px;
+    font-size: 13px;
+    display: grid;
+    gap: 8px;
+  }
+  .tip b {
+    color: #9fd6e1;
+    font-weight: 600;
+  }
+  .tip em {
+    color: #c7b4f3;
+    font-style: normal;
+    font-weight: 600;
+  }
+  .tip .ok {
+    justify-self: end;
+    font-weight: 600;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .bubble {
+    background: var(--s-card);
+    border: 2px solid var(--s-edge);
+    border-radius: 16px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .choice {
+    background: var(--s-card);
+    border: 2px solid var(--s-edge);
+    border-radius: 16px;
+    padding: 13px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 3px 0 var(--s-edge);
+  }
+  .choice.on {
+    border-color: var(--s-violet);
+    background: var(--s-violet-soft);
+    box-shadow: 0 3px 0 var(--s-violet);
+    color: var(--s-violet-deep);
+  }
+
+  .hero {
+    background: var(--s-violet);
+    color: #fff;
+    border-radius: 0 0 32px 32px;
+    padding: 6px 18px 22px;
+    display: grid;
+    gap: 14px;
+  }
+  .today {
+    background: var(--s-card);
+    border-radius: 24px;
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 2px 0 var(--s-edge);
+  }
+  .steps {
+    display: flex;
+    gap: 5px;
+  }
+  .steps i {
+    flex: 1;
+    height: 6px;
+    border-radius: 4px;
+    background: var(--s-track);
+  }
+  .count {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .count b {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .row2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--s-card);
+    border-radius: 18px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 0 var(--s-edge);
+    font-size: 13px;
+  }
+  .row2 .dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: var(--s-sun-soft);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    color: #8a5a00;
+    font-size: 13px;
+    flex: none;
+  }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .mark {
+    width: 28px;
+    height: 28px;
+  }
+  .save {
+    background: var(--s-violet-soft);
+    border-radius: 18px;
+    padding: 12px 14px;
+    display: grid;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .save .btn.white {
+    padding: 9px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+  .gain {
+    display: flex;
+    gap: 10px;
+  }
+  .gain div {
+    flex: 1;
+    background: var(--s-card);
+    border-radius: 16px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 0 var(--s-edge);
+    display: grid;
+  }
+  .gain b {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .gain span {
+    font-size: 11px;
+    color: var(--s-quiet);
+  }
+  .big {
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .mid {
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.25;
+    margin: 0;
+  }
+  .center {
+    text-align: center;
+    justify-items: center;
+  }
+  .say {
+    background: var(--s-card);
+    border-radius: 22px;
+    padding: 18px 16px;
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    text-align: center;
+    box-shadow: 0 2px 0 var(--s-edge);
+  }
+  .say .phrase {
+    font-weight: 700;
+    font-size: 24px;
+  }
+  @media (max-width: 700px) {
+    .pair {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe screen draft</h1>
+    <p>
+      Draft 2 of the five key screens. No mascot, as you chose, and the spoken and written card back in its
+      app style: the two dots joined by a dotted line, the changing words marked in blue, black play buttons.
+      One short line of text per screen. Pictures are the size of a real phone.
+    </p>
+  </header>
+  <div id="screens"></div>
+  <section class="decide">
+    <h2>Your choices after this draft</h2>
+    <ol>
+      <li>
+        What gives the screens warmth now that there is no mascot. For example photos of everyday life in
+        Finland, simple illustrations, or bold type and colour only.
+      </li>
+      <li>Whether the buttons stay purple, as here, or go back to black.</li>
+      <li>
+        The words learned count is parked. It stays in the picture as a placeholder until you come back to it.
+      </li>
+    </ol>
+  </section>
+</div>
+
+<script>
+  const otso = (pose, size = 110) => {
+    const arms = {
+      wave: '<path d="M30 92 q-16 -10 -14 -30" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="16" cy="60" r="9" fill="#7b4f33"/><path d="M90 96 q10 8 8 18" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/>',
+      cheer:
+        '<path d="M30 92 q-14 -14 -12 -36" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="18" cy="54" r="9" fill="#7b4f33"/><path d="M90 92 q14 -14 12 -36" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="102" cy="54" r="9" fill="#7b4f33"/>',
+      think:
+        '<path d="M30 96 q-8 8 -6 18" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><path d="M88 98 q2 -14 -14 -20" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="72" cy="78" r="8" fill="#7b4f33"/>',
+      rest: '<path d="M30 96 q-8 8 -6 18" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/><path d="M90 96 q8 8 6 18" stroke="#7b4f33" stroke-width="13" stroke-linecap="round" fill="none"/>',
+    }[pose]
+    const happy = pose === 'cheer'
+    return `<svg width="${size}" height="${size}" viewBox="0 0 120 130" role="img" aria-label="Otso the bear">
+    <ellipse cx="60" cy="108" rx="34" ry="24" fill="#8a5a3c"/>
+    <ellipse cx="60" cy="112" rx="20" ry="14" fill="#e9cfae"/>
+    <path d="M44 88 h32 l-4 10 h-24 z" fill="#6b46c1"/>
+    ${arms}
+    <circle cx="30" cy="22" r="13" fill="#8a5a3c"/><circle cx="30" cy="22" r="6.5" fill="#d9a77f"/>
+    <circle cx="90" cy="22" r="13" fill="#8a5a3c"/><circle cx="90" cy="22" r="6.5" fill="#d9a77f"/>
+    <circle cx="60" cy="50" r="38" fill="#8a5a3c"/>
+    <ellipse cx="60" cy="64" rx="18" ry="13" fill="#e9cfae"/>
+    <ellipse cx="60" cy="57" rx="6.5" ry="4.5" fill="#2b1a10"/>
+    ${
+      happy
+        ? '<path d="M38 44 q6 -7 12 0" stroke="#2b1a10" stroke-width="3.5" stroke-linecap="round" fill="none"/><path d="M70 44 q6 -7 12 0" stroke="#2b1a10" stroke-width="3.5" stroke-linecap="round" fill="none"/>'
+        : '<circle cx="44" cy="44" r="5" fill="#2b1a10"/><circle cx="76" cy="44" r="5" fill="#2b1a10"/><circle cx="45.5" cy="42.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="42.5" r="1.6" fill="#fff"/>'
+    }
+    <path d="M54 68 q6 5 12 0" stroke="#2b1a10" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <circle cx="36" cy="58" r="5" fill="#e98b8b" opacity=".55"/><circle cx="84" cy="58" r="5" fill="#e98b8b" opacity=".55"/>
+  </svg>`
+  }
+  const sprout = (size, bg = '#6b4fc6') =>
+    `<svg class="mark" width="${size}" height="${size}" viewBox="8 8 84 84" aria-hidden="true" style="width:${size}px;height:${size}px"><rect x="8" y="8" width="84" height="84" rx="26" fill="${bg}"/><path d="M50 78 L50 50" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M50 62 C 50 45 37 39 23 41 C 25 58 40 65 50 62 Z" fill="#fff"/><path d="M50 55 C 50 41 63 36 77 38 C 75 53 60 59 50 55 Z" fill="#d9d1f2"/></svg>`
+  const phone = (inner, dark) =>
+    `<div class="phone"><div class="s">${dark ? '<div style="background:var(--s-violet);color:#fff">' : ''}<div class="status"><span>9:41</span><i></i><span>5G</span></div>${dark ? '</div>' : ''}${inner}</div></div>`
+  const lineCard = (who, spoken, written, english, big, bare) =>
+    `<div class="line">${bare ? '' : `<div class="who">${who}</div>`}<div class="pair2"><div class="rail"><i class="d t"></i><i class="l"></i><i class="d v"></i></div><div class="rows"><div class="spoken"><small>Spoken</small><span ${big ? 'style="font-size:24px"' : ''}>${spoken}</span></div><div class="written"><small>Written</small><span>${written}</span></div></div></div>${english ? `<div style="padding:0 12px 0 32px;font-size:13px">${english}</div>` : ''}${bare ? '' : '<div class="plays" style="padding-left:24px"><span class="play teal"><i></i>Spoken</span><span class="play violet"><i></i>Written</span></div>'}</div>`
+
+  const screens = [
+    {
+      title: 'Welcome',
+      note: 'The first screen anyone sees. One line, the product itself as the picture, one button.',
+      borrowed: [
+        'Speak: one big phrase as the hero',
+        'Elingo: Get started plus I already have an account, pinned to the bottom',
+      ],
+      plain: phone(
+        `<div class="hero" style="padding-top:22px;gap:18px">
+        ${sprout(44, '#ffffff22')}
+        <p class="big" style="color:#fff;font-size:28px">Speak the Finnish people really use.</p>
+        <div style="color:var(--s-ink)">${lineCard('', '<span class="hl">Mä oon</span> Alex.', '<span class="hlw">Minä olen</span> Alex.', '', false, true)}</div>
+      </div>
+      <div class="body"><div class="grow"></div>
+        <span class="btn">Start learning</span>
+        <span class="link">I already have an account</span>
+        <span class="small">For adults, 18 and over</span>
+      </div>`,
+        true,
+      ),
+      otso: phone(`<div class="body" style="padding-top:10px">
+        <div class="grow"></div>
+        <div style="display:grid;justify-items:center;gap:10px">
+          <span class="bubble">Moi! Mä oon Otso.</span>
+          ${otso('wave', 150)}
+        </div>
+        <p class="big" style="text-align:center">Speak the Finnish people really use.</p>
+        <div class="grow"></div>
+        <span class="btn">Start learning</span>
+        <span class="link">I already have an account</span>
+        <span class="small">For adults, 18 and over</span>
+      </div>`),
+    },
+    {
+      title: 'Today',
+      note: "The home screen. Today's dialogue, the words learned count, and the review waiting.",
+      borrowed: [
+        'Babbel: Hi Jamie greeting over a learning plan card',
+        'LingoLink: one bold colour block per idea',
+        'Duolingo: one clear next step',
+      ],
+      plain: phone(
+        `<div class="hero">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">Huomenta, Alex</span><span class="avatar">A</span></div>
+        <div class="count"><b>42</b><span>words learned</span></div>
+      </div>
+      <div class="body">
+        <div class="today">
+          <div style="display:grid;gap:2px"><p class="mid">A new colleague</p><span style="font-size:12px;color:var(--s-quiet)">Unit 1, dialogue 2</span></div>
+          <div class="steps"><i></i><i></i><i></i><i></i></div>
+          <span style="font-size:12px;color:var(--s-quiet)">Hear it, Understand it, Say it, Keep it. About 8 minutes.</span>
+          <span class="btn">Start</span>
+        </div>
+        <div class="row2"><span class="dot">8</span><span>words to review today</span></div>
+      </div>`,
+        true,
+      ),
+      otso: phone(
+        `<div class="hero">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">Huomenta, Alex</span><span class="avatar">A</span></div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between">
+          <div class="count"><b>42</b><span>words learned</span></div>
+          <div style="margin-bottom:-26px">${otso('rest', 76)}</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="today">
+          <div style="display:grid;gap:2px"><p class="mid">A new colleague</p><span style="font-size:12px;color:var(--s-quiet)">Unit 1, dialogue 2</span></div>
+          <div class="steps"><i></i><i></i><i></i><i></i></div>
+          <span style="font-size:12px;color:var(--s-quiet)">Hear it, Understand it, Say it, Keep it. About 8 minutes.</span>
+          <span class="btn">Start</span>
+        </div>
+        <div class="row2"><span class="dot">8</span><span>words to review today</span></div>
+      </div>`,
+        true,
+      ),
+    },
+    {
+      title: 'Hear it, first time',
+      note: 'Your line card, bigger, with the one-time tip that explains spoken and written where the learner first sees them.',
+      borrowed: [
+        'Duolingo and Elingo: thick progress bar across the top',
+        'Speak: large type for the phrase',
+        'Yatre: tip laid over the screen',
+      ],
+      plain: phone(`<div class="body">
+        <div class="top"><span class="x"></span><span class="bar"><b style="width:18%"></b></span></div>
+        ${lineCard('Alex', 'Moi! <span class="hl">Mä oon</span> Alex.', 'Hei! <span class="hlw">Minä olen</span> Alex.', "Hi! I'm Alex.", true)}
+        <div class="grow"></div>
+        <div class="tip"><span><b>Spoken</b> is how people talk. <em>Written</em> is how it looks in books and on signs.</span><span class="ok">Got it</span></div>
+        <span class="btn">Next line</span>
+      </div>`),
+      otso: phone(`<div class="body">
+        <div class="top"><span class="x"></span><span class="bar"><b style="width:18%"></b></span></div>
+        ${lineCard('Alex', 'Moi! <span class="hl">Mä oon</span> Alex.', 'Hei! <span class="hlw">Minä olen</span> Alex.', "Hi! I'm Alex.", true)}
+        <div class="grow"></div>
+        <div style="display:flex;align-items:flex-end;gap:6px">
+          ${otso('rest', 70)}
+          <span class="bubble" style="flex:1"><b style="color:var(--s-teal)">Spoken</b> is how people talk. <b style="color:var(--s-violet)">Written</b> is how it looks in books.</span>
+        </div>
+        <span class="btn">Next line</span>
+      </div>`),
+    },
+    {
+      title: 'Understand it',
+      note: 'One question, the line to hear again, three big answers to tap.',
+      borrowed: [
+        'Duolingo and memolingo: big tappable answer cards with a chunky edge',
+        'Elingo: one question per screen, button pinned to the bottom',
+      ],
+      plain: phone(`<div class="body">
+        <div class="top"><span class="x"></span><span class="bar"><b style="width:46%"></b></span></div>
+        <p class="mid">What does Sanna ask?</p>
+        <div class="say"><span class="play teal"><i></i></span><span class="phrase"><span class="hl">Mist sä oot</span> kotoisin?</span></div>
+        <span class="choice">Where do you live?</span>
+        <span class="choice on">Where are you from?</span>
+        <span class="choice">How are you?</span>
+        <div class="grow"></div>
+        <span class="btn">Check</span>
+      </div>`),
+      otso: phone(`<div class="body">
+        <div class="top"><span class="x"></span><span class="bar"><b style="width:46%"></b></span></div>
+        <div style="display:flex;align-items:center;gap:8px">${otso('think', 64)}<span class="bubble" style="flex:1">What does Sanna ask?</span></div>
+        <div class="say"><span class="play teal"><i></i></span><span class="phrase"><span class="hl">Mist sä oot</span> kotoisin?</span></div>
+        <span class="choice">Where do you live?</span>
+        <span class="choice on">Where are you from?</span>
+        <span class="choice">How are you?</span>
+        <div class="grow"></div>
+        <span class="btn">Check</span>
+      </div>`),
+    },
+    {
+      title: 'Session finished',
+      note: 'A calm celebration, what was gained, and the save note for guests. No confetti or streaks.',
+      borrowed: [
+        'Play Language and Elingo: big picture with one line',
+        'Play Language: two small result boxes',
+        'AgriPlant: success message as its own block',
+      ],
+      plain: phone(`<div class="body" style="padding-top:8px;gap:11px">
+        <div style="display:grid;justify-items:center;gap:8px;text-align:center">
+          ${sprout(58)}
+          <p class="big" style="font-size:23px">Now you can say this.</p>
+        </div>
+        <div class="say" style="padding:10px 14px;gap:4px"><span class="phrase" style="font-size:19px"><span class="hl">Mist sä oot</span> kotoisin?</span><span style="font-size:12px;color:var(--s-quiet)">Where are you from?</span></div>
+        <div class="gain"><div><b>+6</b><span>new words</span></div><div><b>48</b><span>words learned</span></div></div>
+        <div class="grow"></div>
+        <div class="save"><span>Add your email to save your progress.</span><span class="btn white">Add your email</span></div>
+        <span class="btn">Done</span>
+      </div>`),
+      otso: phone(`<div class="body" style="padding-top:2px;gap:11px">
+        <div style="display:grid;justify-items:center;gap:2px;text-align:center">
+          ${otso('cheer', 84)}
+          <p class="big" style="font-size:23px">Now you can say this.</p>
+        </div>
+        <div class="say" style="padding:10px 14px;gap:4px"><span class="phrase" style="font-size:19px"><span class="hl">Mist sä oot</span> kotoisin?</span><span style="font-size:12px;color:var(--s-quiet)">Where are you from?</span></div>
+        <div class="gain"><div><b>+6</b><span>new words</span></div><div><b>48</b><span>words learned</span></div></div>
+        <div class="grow"></div>
+        <div class="save"><span>Add your email to save your progress.</span><span class="btn white">Add your email</span></div>
+        <span class="btn">Done</span>
+      </div>`),
+    },
+  ]
+
+  document.getElementById('screens').outerHTML = screens
+    .map(
+      (s) => `
+  <section class="screen">
+    <h2>${s.title}</h2>
+    <p>${s.note}</p>
+    <div class="pair">
+      <figure>${s.plain}</figure>
+    </div>
+    <p style="font-size:0.85rem">Borrowed from ${s.borrowed.join('. ')}.</p>
+  </section>`,
+    )
+    .join('')
+</script>

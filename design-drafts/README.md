@@ -3,6 +3,7 @@
 The owner paused all building on 1 November 2026 to design every v1 screen first. Each draft here is a static page of phone mockups. Nothing in this folder is app code.
 
 - `draft-1.html`: the five key screens (Welcome, Today, Hear it first time, Understand it, Session finished), each without a mascot and with Otso. Published for the owner at https://claude.ai/artifact/MbnYNYRvnvscQ2tZdBrYD4
+- `draft-2.html`: the same five screens after the owner's notes: no mascot ("it doesn't work for me at all"), and the line card kept in its app style (dots joined by a dotted line, changing words marked in blue, black play buttons). The words learned count is parked by the owner. Same link, version 2.
 
 ## References
 
