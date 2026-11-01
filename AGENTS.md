@@ -49,7 +49,7 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
 - **Nothing unmet is reviewed.** A form enters review only after the learner met it in a dialogue.
 - **Grammar is a card behind a tap.** Corrections are gentle and never shaming.
 - **AI at the edges.** AI drafts and explains. It never publishes unchecked content and never decides scheduling or grading. Every AI call is logged with its cost.
-- **Nothing unchecked is served.** Every Finnish line a learner sees passed the automatic checks and the owner's approval. The native reviewer checks every line after launch, and their fixes replace the live lines (owner's change, 1 November 2026). Tutor replies are shown, never stored as learnable content.
+- **Nothing unchecked is served.** Every Finnish line passed the automatic checks and owner approval; native review follows launch. Tutor replies are shown, never stored as learnable content.
 - **Spoken Finnish means standard spoken Finnish as a Helsinki adult speaks it in 2026.** No dialects.
 
 ## Privacy rules
