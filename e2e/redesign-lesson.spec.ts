@@ -155,9 +155,18 @@ test.describe('Hear it and its line card', () => {
     const rows = await page.evaluate<{ pitch: number; size: number; rows: number; short: number }>(`(() => {
       const line = document.querySelector('[data-line-id] p[lang="fi"]')
       const size = parseFloat(getComputedStyle(line).fontSize)
-      const range = document.createRange()
-      range.selectNodeContents(line)
-      const tops = [...new Set([...range.getClientRects()].filter((r) => r.width > 2).map((r) => Math.round(r.top / 4)))].sort((a, b) => a - b).map((t) => t * 4)
+      // The tops of the text itself, one per row (words in one row are within a pixel or two of each other).
+      const found = []
+      const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (!node.textContent.trim()) continue
+        const range = document.createRange()
+        range.selectNodeContents(node)
+        for (const box of range.getClientRects()) if (box.width > 2) found.push(box.top)
+      }
+      found.sort((a, b) => a - b)
+      const tops = []
+      for (const top of found) if (tops.length === 0 || top - tops[tops.length - 1] > size * 0.5) tops.push(top)
       const buttons = [...line.querySelectorAll('button')].map((b) => b.getBoundingClientRect().height)
       return { pitch: tops.length > 1 ? (tops[tops.length - 1] - tops[0]) / (tops.length - 1) : 0, size, rows: tops.length, short: buttons.filter((h) => h < 43.5).length }
     })()`)
