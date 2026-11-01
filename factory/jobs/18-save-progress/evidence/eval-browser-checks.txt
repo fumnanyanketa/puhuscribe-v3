@@ -1,0 +1,152 @@
+Evaluator browser checks, job 18-save-progress. /api/* answered by a stand-in (no database on this machine); the pages are the real app run by Vite. Phone size 375 x 812 unless stated.
+
+PASS [chromium-light] 1: exactly one complete request (dev strict mode included)
+PASS [chromium-light] 1,9: note text is exactly the sentence and the two labels: "Add your email to save your progress. Add your email Not now"
+PASS [chromium-light] 15: one h1, no heading or lang in note
+PASS [chromium-light] 12: one status element on the page; nothing live/dialog/inert/autofocus in or around the note (whole page has: DIALOG[,];DIALOG[,])
+PASS [chromium-light] 1: note after line card and before Send feedback
+PASS [chromium-light] 14: buttons >= 44x44 [["Add your email",172,54],["Not now",90,44]]
+PASS [chromium-light] 12: focus did not move into the note (active=BODY)
+PASS [chromium-light] 13: no local/session storage
+[chromium-light] 14 info: note bottom 631 of viewport 812; page scrolls=false; inner scroller=true; Done top 742
+PASS [chromium-light] 13: no request named for the note: POST /api/sessions/today, GET /api/sessions/00000000-0000-4000-8000-000000000001/review, POST /api/sessions/00000000-0000-4000-8000-000000000001/complete
+PASS [chromium-light] 15: tab order Leave session > Play the spoken line > Play the written line > Add your email > Not now > Send feedback > Done > Session finishedNow you can sa > Leave session > Play the spoken line
+[chromium-light] 15: focus ring on last tab stop: solid 3px
+PASS [chromium-light] 15: axe on finish screen with note: none
+PASS [chromium-light] 14: at 320 px and 200% text no sideways scroll: {"sw":320,"cw":320,"noteR":300,"btn":[[280,74],[157,44]]}
+PASS [chromium-light] 11: closed line focused, tabindex -1, not status/alert: {"focus":true,"tab":"-1","role":null,"live":null,"inStatus":false,"statuses":1,"ls":0,"ss":0}
+PASS [chromium-light] 11: "Not now" (double click) sent no request
+PASS [chromium-light] 11,13: nothing stored on the phone
+PASS [chromium-light] 11: note gone
+PASS [chromium-light] 15: axe after Not now: none
+PASS [chromium-light] 12: Done reached the front door in one tap
+PASS [chromium-light] 2b: no note while saving
+PASS [chromium-light] 2b: note appears after the answer
+PASS [chromium-light] 2c: not saved message, Try again, no note
+PASS [chromium-light] 2c: after Try again the note appears
+PASS [chromium-light] 3,6: answer "saveNote none" shows no note; status line: "Your progress is saved."
+PASS [chromium-light] 3,6: answer "unknown word" shows no note; status line: "Your progress is saved."
+PASS [chromium-light] 3,6: answer "not saved flag with note" shows no note; status line: "Your progress is saved."
+PASS [chromium-light] 3,6: answer "status 500 with note" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [chromium-light] 3,6: answer "status 401" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [chromium-light] 3,6: answer "plain saved (function failed)" shows no note; status line: "Your progress is saved."
+PASS [chromium-light] 3,6: answer "note as object" shows no note; status line: "Your progress is saved."
+PASS [chromium-light] 10: Add your email (Space) opens /account/email
+PASS [chromium-light] 7b: after Back no note (screen shows h1 "Now you can say this.")
+PASS [chromium-light] 7b: a pageshow with persisted=true (bfcache restore) removes the note; status still: "Your progress is saved."
+PASS [chromium-light] 8: note shown for finished sessions 1..4 -> [1,0,1,0] (stand-in follows the database rule; the front end shows exactly what the answer says)
+PASS [chromium-light] 5: email account, no note
+PASS [chromium-light] 16: design reference shows the note
+PASS [chromium-light] console errors other than stand-in 404s/aborts: none
+PASS [chromium-dark] 1: exactly one complete request (dev strict mode included)
+PASS [chromium-dark] 1,9: note text is exactly the sentence and the two labels: "Add your email to save your progress. Add your email Not now"
+PASS [chromium-dark] 15: one h1, no heading or lang in note
+PASS [chromium-dark] 12: one status element on the page; nothing live/dialog/inert/autofocus in or around the note (whole page has: DIALOG[,];DIALOG[,])
+PASS [chromium-dark] 1: note after line card and before Send feedback
+PASS [chromium-dark] 14: buttons >= 44x44 [["Add your email",172,54],["Not now",90,44]]
+PASS [chromium-dark] 12: focus did not move into the note (active=BODY)
+PASS [chromium-dark] 13: no local/session storage
+[chromium-dark] 14 info: note bottom 631 of viewport 812; page scrolls=false; inner scroller=true; Done top 742
+PASS [chromium-dark] 13: no request named for the note: POST /api/sessions/today, GET /api/sessions/00000000-0000-4000-8000-000000000001/review, POST /api/sessions/00000000-0000-4000-8000-000000000001/complete
+PASS [chromium-dark] 15: tab order Leave session > Play the spoken line > Play the written line > Add your email > Not now > Send feedback > Done > Session finishedNow you can sa > Leave session > Play the spoken line
+[chromium-dark] 15: focus ring on last tab stop: solid 3px
+PASS [chromium-dark] 15: axe on finish screen with note: none
+PASS [chromium-dark] 14: at 320 px and 200% text no sideways scroll: {"sw":320,"cw":320,"noteR":300,"btn":[[280,74],[157,44]]}
+PASS [chromium-dark] 11: closed line focused, tabindex -1, not status/alert: {"focus":true,"tab":"-1","role":null,"live":null,"inStatus":false,"statuses":1,"ls":0,"ss":0}
+PASS [chromium-dark] 11: "Not now" (double click) sent no request
+PASS [chromium-dark] 11,13: nothing stored on the phone
+PASS [chromium-dark] 11: note gone
+PASS [chromium-dark] 15: axe after Not now: none
+PASS [chromium-dark] 12: Done reached the front door in one tap
+PASS [chromium-dark] 2b: no note while saving
+PASS [chromium-dark] 2b: note appears after the answer
+PASS [chromium-dark] 2c: not saved message, Try again, no note
+PASS [chromium-dark] 2c: after Try again the note appears
+PASS [chromium-dark] 3,6: answer "saveNote none" shows no note; status line: "Your progress is saved."
+PASS [chromium-dark] 3,6: answer "unknown word" shows no note; status line: "Your progress is saved."
+PASS [chromium-dark] 3,6: answer "not saved flag with note" shows no note; status line: "Your progress is saved."
+PASS [chromium-dark] 3,6: answer "status 500 with note" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [chromium-dark] 3,6: answer "status 401" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [chromium-dark] 3,6: answer "plain saved (function failed)" shows no note; status line: "Your progress is saved."
+PASS [chromium-dark] 3,6: answer "note as object" shows no note; status line: "Your progress is saved."
+PASS [chromium-dark] 10: Add your email (Space) opens /account/email
+PASS [chromium-dark] 7b: after Back no note (screen shows h1 "Now you can say this.")
+PASS [chromium-dark] 7b: a pageshow with persisted=true (bfcache restore) removes the note; status still: "Your progress is saved."
+PASS [chromium-dark] 8: note shown for finished sessions 1..4 -> [1,0,1,0] (stand-in follows the database rule; the front end shows exactly what the answer says)
+PASS [chromium-dark] 5: email account, no note
+PASS [chromium-dark] 16: design reference shows the note
+PASS [chromium-dark] console errors other than stand-in 404s/aborts: none
+PASS [webkit-light] 1: exactly one complete request (dev strict mode included)
+PASS [webkit-light] 1,9: note text is exactly the sentence and the two labels: "Add your email to save your progress. Add your email Not now"
+PASS [webkit-light] 15: one h1, no heading or lang in note
+PASS [webkit-light] 12: one status element on the page; nothing live/dialog/inert/autofocus in or around the note (whole page has: DIALOG[,];DIALOG[,])
+PASS [webkit-light] 1: note after line card and before Send feedback
+PASS [webkit-light] 14: buttons >= 44x44 [["Add your email",172,54],["Not now",90,44]]
+PASS [webkit-light] 12: focus did not move into the note (active=BODY)
+PASS [webkit-light] 13: no local/session storage
+[webkit-light] 14 info: note bottom 631 of viewport 812; page scrolls=false; inner scroller=true; Done top 742
+PASS [webkit-light] 13: no request named for the note: POST /api/sessions/today, GET /api/sessions/00000000-0000-4000-8000-000000000001/review, POST /api/sessions/00000000-0000-4000-8000-000000000001/complete
+PASS [webkit-light] 15: axe on finish screen with note: none
+PASS [webkit-light] 14: at 320 px and 200% text no sideways scroll: {"sw":320,"cw":320,"noteR":300,"btn":[[280,74],[157,44]]}
+PASS [webkit-light] 11: closed line focused, tabindex -1, not status/alert: {"focus":true,"tab":"-1","role":null,"live":null,"inStatus":false,"statuses":1,"ls":0,"ss":0}
+PASS [webkit-light] 11: "Not now" (double click) sent no request
+PASS [webkit-light] 11,13: nothing stored on the phone
+PASS [webkit-light] 11: note gone
+PASS [webkit-light] 15: axe after Not now: none
+PASS [webkit-light] 12: Done reached the front door in one tap
+PASS [webkit-light] 2b: no note while saving
+PASS [webkit-light] 2b: note appears after the answer
+PASS [webkit-light] 2c: not saved message, Try again, no note
+PASS [webkit-light] 2c: after Try again the note appears
+PASS [webkit-light] 3,6: answer "saveNote none" shows no note; status line: "Your progress is saved."
+PASS [webkit-light] 3,6: answer "unknown word" shows no note; status line: "Your progress is saved."
+PASS [webkit-light] 3,6: answer "not saved flag with note" shows no note; status line: "Your progress is saved."
+PASS [webkit-light] 3,6: answer "status 500 with note" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [webkit-light] 3,6: answer "status 401" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [webkit-light] 3,6: answer "plain saved (function failed)" shows no note; status line: "Your progress is saved."
+PASS [webkit-light] 3,6: answer "note as object" shows no note; status line: "Your progress is saved."
+PASS [webkit-light] 10: Add your email (Space) opens /account/email
+PASS [webkit-light] 7b: after Back no note (screen shows h1 "Now you can say this.")
+PASS [webkit-light] 7b: a pageshow with persisted=true (bfcache restore) removes the note; status still: "Your progress is saved."
+PASS [webkit-light] 8: note shown for finished sessions 1..4 -> [1,0,1,0] (stand-in follows the database rule; the front end shows exactly what the answer says)
+PASS [webkit-light] 5: email account, no note
+PASS [webkit-light] 16: design reference shows the note
+PASS [webkit-light] console errors other than stand-in 404s/aborts: none
+PASS [webkit-dark] 1: exactly one complete request (dev strict mode included)
+PASS [webkit-dark] 1,9: note text is exactly the sentence and the two labels: "Add your email to save your progress. Add your email Not now"
+PASS [webkit-dark] 15: one h1, no heading or lang in note
+PASS [webkit-dark] 12: one status element on the page; nothing live/dialog/inert/autofocus in or around the note (whole page has: DIALOG[,];DIALOG[,])
+PASS [webkit-dark] 1: note after line card and before Send feedback
+PASS [webkit-dark] 14: buttons >= 44x44 [["Add your email",172,54],["Not now",90,44]]
+PASS [webkit-dark] 12: focus did not move into the note (active=BODY)
+PASS [webkit-dark] 13: no local/session storage
+[webkit-dark] 14 info: note bottom 631 of viewport 812; page scrolls=false; inner scroller=true; Done top 742
+PASS [webkit-dark] 13: no request named for the note: POST /api/sessions/today, GET /api/sessions/00000000-0000-4000-8000-000000000001/review, POST /api/sessions/00000000-0000-4000-8000-000000000001/complete
+PASS [webkit-dark] 15: axe on finish screen with note: none
+PASS [webkit-dark] 14: at 320 px and 200% text no sideways scroll: {"sw":320,"cw":320,"noteR":300,"btn":[[280,74],[157,44]]}
+PASS [webkit-dark] 11: closed line focused, tabindex -1, not status/alert: {"focus":true,"tab":"-1","role":null,"live":null,"inStatus":false,"statuses":1,"ls":0,"ss":0}
+PASS [webkit-dark] 11: "Not now" (double click) sent no request
+PASS [webkit-dark] 11,13: nothing stored on the phone
+PASS [webkit-dark] 11: note gone
+PASS [webkit-dark] 15: axe after Not now: none
+PASS [webkit-dark] 12: Done reached the front door in one tap
+PASS [webkit-dark] 2b: no note while saving
+PASS [webkit-dark] 2b: note appears after the answer
+PASS [webkit-dark] 2c: not saved message, Try again, no note
+PASS [webkit-dark] 2c: after Try again the note appears
+PASS [webkit-dark] 3,6: answer "saveNote none" shows no note; status line: "Your progress is saved."
+PASS [webkit-dark] 3,6: answer "unknown word" shows no note; status line: "Your progress is saved."
+PASS [webkit-dark] 3,6: answer "not saved flag with note" shows no note; status line: "Your progress is saved."
+PASS [webkit-dark] 3,6: answer "status 500 with note" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [webkit-dark] 3,6: answer "status 401" shows no note; status line: "Your progress was not saved. Check your internet connection, then try again."
+PASS [webkit-dark] 3,6: answer "plain saved (function failed)" shows no note; status line: "Your progress is saved."
+PASS [webkit-dark] 3,6: answer "note as object" shows no note; status line: "Your progress is saved."
+PASS [webkit-dark] 10: Add your email (Space) opens /account/email
+PASS [webkit-dark] 7b: after Back no note (screen shows h1 "Now you can say this.")
+PASS [webkit-dark] 7b: a pageshow with persisted=true (bfcache restore) removes the note; status still: "Your progress is saved."
+PASS [webkit-dark] 8: note shown for finished sessions 1..4 -> [1,0,1,0] (stand-in follows the database rule; the front end shows exactly what the answer says)
+PASS [webkit-dark] 5: email account, no note
+PASS [webkit-dark] 16: design reference shows the note
+PASS [webkit-dark] console errors other than stand-in 404s/aborts: none
+
+Failures: 0

@@ -1,0 +1,11 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247408043 (branch scratch/18-save-progress-red-1, deleted after the run; job "definer-only")
+Statement: [save-progress 4] and [save-progress 8]
+What was broken: The function made security definer, with its explicit owner checks kept.
+Command: supabase db start, then supabase test db (all 12 pgTAP files; only save_progress.test.sql can be affected)
+
+pgtap exit code: 1
+=== Tests of save_progress.test.sql that went red in variant definer-only ===
+# Failed test 3: "[save-progress 4] it is security invoker, so the learner's own read rules apply"
+  Failed test:  3
+=== Other files that failed ===
+Failed 1/33 subtests 

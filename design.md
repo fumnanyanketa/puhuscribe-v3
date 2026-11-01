@@ -218,6 +218,17 @@ A round button that plays and pauses one audio file. States: ready (a play trian
 
 Look only in this job; recording, voice consent and feedback come in job 8, and nothing here asks for the microphone. A 72 px round button. States, each with its own accessible name: ready ("Record yourself saying the line"), recording (teal, a square stop mark, elapsed time as 0:03 in tabular numbers, "Stop recording, 3 seconds recorded"), working ("Working on your recording", three fading dots) and unavailable (grey, disabled, with a one line reason). The spec named Geist Mono for the time; the owner's choice of v2's fonts replaced it with tabular numbers in Switzer.
 
+### Save progress note (`SaveNote`)
+
+One short note near the end of the finish screen (job 18-save-progress), shown to a guest after their first finished session and once more after their third. It sits in the page after the line card and "The words you met will come back in your review.", and before "Send feedback". It is a plain block, not a card, a dialog or a banner: no fill, no edge, no icon, no label above it, no animation. It is a `section` named "Keep your progress" for screen readers, and adds no heading.
+
+- **Words.** One sentence in `--color-text`, at body size. All the words are in `src/screens/save-note-copy.ts` and follow the writing rules (no pressure, no loss warning, no number).
+- **Buttons.** "Add your email" is the secondary button (white pill with an edge) and "Not now" is the quiet one, side by side, wrapping under each other on a narrow phone. "Done" stays the only primary (black) button on the screen, so finishing stays the main action. No new button style.
+- **The status line above it.** For a guest the finish screen's one status line says "Your progress is saved on this device." (the owner's choice of 1 November 2026), so the note's offer to add an email reads as the next step and not as a contradiction. A learner with an email keeps "Your progress is saved." The line is `role="status"` as before, in the neutral style.
+- **After "Not now".** The note is replaced by one plain line ("No problem. You can add your email later from Your account.") in the same text style. Focus moves to that line (`tabindex="-1"`), so a keyboard or screen reader user is not left on a button that has gone. Neither the note nor the line is a status or an alert: the finish screen keeps its one `role="status"` line.
+- **Never blocks.** Nothing on the page is disabled, covered or moved to make room: "Done", "Leave session", "Send feedback" and the line's play controls work as before. Focus does not move when the note appears.
+- **Look and reference.** Tokens only, in its own file `src/screens/SaveNote.module.css`. `/design-reference` shows the live note under "Save progress note", in light and dark.
+
 ### Wordmark (`Wordmark`)
 
 v2's sprout mark and "PuhuScribe" in Poppins Bold, flat with no gloss. Sources and licence in `design/assets/README.md`.

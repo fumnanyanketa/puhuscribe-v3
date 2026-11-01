@@ -86,6 +86,13 @@ export interface DialogueContent {
 
 export type CompleteResult = 'saved' | 'not_found' | 'not_ready'
 
+/**
+ * What public.save_progress_note says about a finished session (job
+ * 18-save-progress): the finish screen's note asking a guest to add an email is
+ * due for the first finished session, or as one reminder, or not at all.
+ */
+export type SaveNote = 'first' | 'reminder' | 'none'
+
 /** One reviewable card from public.review_queue (job 9-daily-review). */
 export interface QueueCard {
   formId: number
@@ -125,6 +132,16 @@ export interface LearnerDb {
   setStep: (id: string, step: RecordableStep) => Promise<boolean>
   /** public.complete_session, once, as the learner. */
   completeSession: (id: string) => Promise<CompleteResult>
+}
+
+/**
+ * The finish screen's note (job 18-save-progress), made with the learner's own
+ * token like every LearnerDb call. Kept apart from LearnerDb, as ReviewDb is, so
+ * job 8's routes and their tests stay as they were.
+ */
+export interface SaveNoteDb {
+  /** public.save_progress_note: reads only, as the learner. Asked after completeSession saved. */
+  saveProgressNote: (id: string) => Promise<SaveNote>
 }
 
 /**
@@ -180,7 +197,7 @@ function must<T>(result: { data: T | null; error: unknown }): T {
   return result.data
 }
 
-export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb {
+export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb & SaveNoteDb {
   return {
     async readableDialogues() {
       const units = must(await client.from('units').select('id, position, title_en, can_do_en'))
@@ -306,6 +323,12 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb {
       if (error.code === 'P0002') return 'not_found'
       if (error.code === '22023') return 'not_ready'
       throw new DatabaseUnavailable()
+    },
+
+    async saveProgressNote(id) {
+      const { data, error } = await client.rpc('save_progress_note', { p_session_id: id })
+      if (error) throw new DatabaseUnavailable()
+      return data === 'first' || data === 'reminder' ? data : 'none'
     },
 
     async reviewQueue(limit) {

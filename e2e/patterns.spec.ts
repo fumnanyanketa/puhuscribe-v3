@@ -184,7 +184,7 @@ async function finishTodaysSession(page: Page): Promise<void> {
   await finishHearIt(page)
   await finishUnderstandIt(page, (id) => lines.find((l) => l.id === id)?.gloss ?? '')
   await passSayIt(page)
-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
   await page.getByRole('button', { name: 'Done' }).click()
   await page.waitForURL((url) => url.pathname === '/')
 }
@@ -436,7 +436,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
       await runKeepIt(page)
       await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-      await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
       await page.getByRole('button', { name: 'Done' }).click()
       await page.waitForURL((url) => url.pathname === '/')
     }

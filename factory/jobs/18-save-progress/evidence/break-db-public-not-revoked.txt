@@ -1,0 +1,14 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247408043 (branch scratch/18-save-progress-red-1, deleted after the run; job "public-not-revoked")
+Statement: [save-progress 4] and [save-progress 8]
+What was broken: 'public' left out of the revoke, so Postgres' default execute right for everyone stays.
+Command: supabase db start, then supabase test db (all 12 pgTAP files; only save_progress.test.sql can be affected)
+
+pgtap exit code: 1
+=== Tests of save_progress.test.sql that went red in variant public-not-revoked ===
+# Failed test 7: "[save-progress 4] anon may not call it"
+# Failed test 8: "[save-progress 4] service_role may not call it"
+# Failed test 9: "[save-progress 4] PUBLIC may not call it"
+# Failed test 10: "[save-progress 4] anon cannot call save_progress_note"
+  Failed tests:  7-10
+=== Other files that failed ===
+Failed 4/33 subtests 

@@ -1,0 +1,32 @@
+/* The note on the finish screen that asks a guest to add an email (job
+   18-save-progress, design.md "Save progress note"). A plain block in the
+   page: no card, no edge, no fill. Values from src/styles/tokens.css. */
+
+.note {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-5) var(--space-1) 0;
+}
+
+.sentence,
+.closed {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+/* The line that replaces the note after "Not now". It takes focus (tabindex
+   -1), so a keyboard or screen reader user is not left on a button that has
+   gone; it is not an alert and not a status. */
+.closed {
+  margin: var(--space-5) var(--space-1) 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}

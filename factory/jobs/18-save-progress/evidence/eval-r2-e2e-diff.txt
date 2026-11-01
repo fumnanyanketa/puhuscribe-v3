@@ -1,0 +1,36 @@
+Round 2 re-check, test files diff (e6953e4..059c712), assertion lines only
+-/** Starts and finishes today's session (job 8's flow), and returns the user id. */
+-export async function finishTodaysSession(page: Page): Promise<string> {
++/**
++ * Starts and finishes today's session (job 8's flow), and returns the user id.
++ * The finish screen's line depends on the account (job 18-save-progress, round 2):
++ * a guest is told the progress is saved on this device, an account with an email
++ * keeps the plain line.
++ */
++export async function finishTodaysSession(page: Page, account: 'guest' | 'email' = 'guest'): Promise<string> {
+-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++  await expect(page.getByRole('status')).toHaveText(
++    account === 'guest' ? 'Your progress is saved on this device.' : 'Your progress is saved.',
++  )
+-      await finishTodaysSession(pageB)
++      await finishTodaysSession(pageB, 'email')
+-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-    await expect(status).toHaveText('Your progress is saved.')
++    await expect(status).toHaveText('Your progress is saved on this device.')
+-    await expect(status).toHaveText('Your progress is saved.')
++    await expect(status).toHaveText('Your progress is saved on this device.')
+-      await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-      await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
++  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')

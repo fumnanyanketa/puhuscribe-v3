@@ -1,0 +1,25 @@
+Break: worker-note-failure-not-swallowed
+Statement: [save-progress 3]
+File changed (restored afterwards): worker/api.ts
+What was broken: a failure of the note function is no longer swallowed, so it breaks saving
+
+Replaced:
+    try {
+      saveNote = await noteDatabaseFor(context, db).saveProgressNote(id)
+    } catch {
+      // The plain answer below: the note is optional, saving is not.
+    }
+With:
+    saveNote = await noteDatabaseFor(context, db).saveProgressNote(id)
+
+Command: npx vitest run worker/save-progress.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  2 failed | 16 passed (18)
+Tests that went red:
+FAIL  worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] a database function that throws gives the plain answer with status 200, and the session is still saved
+FAIL  worker/save-progress.test.ts > the real database module > [save-progress 3] a database error from the function gives the plain answer with status 200
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  18 passed (18)

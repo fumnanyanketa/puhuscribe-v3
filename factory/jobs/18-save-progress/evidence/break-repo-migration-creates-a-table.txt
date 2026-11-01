@@ -1,0 +1,22 @@
+Break: repo-migration-creates-a-table
+Statement: [save-progress 13]
+File changed (restored afterwards): supabase/migrations/20261031234601_save_progress_note.sql
+What was broken: the migration creates a table that remembers the note
+
+Replaced:
+create function public.save_progress_note(p_session_id uuid)
+With:
+create table public.save_note_seen (user_id uuid primary key);
+
+create function public.save_progress_note(p_session_id uuid)
+
+Command: npx vitest run tests/save-progress-rules.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  1 failed | 7 passed (8)
+Tests that went red:
+FAIL  tests/save-progress-rules.test.ts > the migration stores nothing new > [save-progress 13] it does not create or change a table or a type
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  8 passed (8)

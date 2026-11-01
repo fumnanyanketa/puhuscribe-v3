@@ -75,6 +75,10 @@ Added in job 8-first-session. When the finish screen opens, the Worker calls it 
 
 It runs with the learner's own rights (`security invoker`), so every rule above still applies inside it: it sees only approved content, only the learner's own session, and the card rule decides which cards may be made. Calling it again changes nothing. Only the `authenticated` role may call it.
 
+### The save progress note: `public.save_progress_note(p_session_id)`
+
+Added in job 18-save-progress. The finish screen asks a guest, once, to add an email. After `complete_session` has succeeded, the Worker asks this function whether the note is due and passes the answer on in the same reply. It returns `'first'` when the session is a guest's first finished session (the session on the learner's `first_session_completed` event, with a dialogue and an end time), `'reminder'` when it is a guest's third finished dialogue session (counted by `ended_at`, the session id as tie breaker, review only sessions not counted), and `'none'` in every other case, including a token that does not say it belongs to a guest. It reads only the learner's own sessions, their event and the `is_anonymous` claim in their own token, and it writes nothing: it is `stable`, so Postgres refuses any write inside it, and nothing is stored about whether the note was shown or dismissed. It takes no learner id, runs with the learner's own rights (`security invoker`) with an empty search path, and only the `authenticated` role may call it. Migration: `supabase/migrations/20261031234601_save_progress_note.sql`; tests: `supabase/tests/database/save_progress.test.sql`.
+
 ### The daily review: `review_queue`, `next_review_day` and `record_review`
 
 Added in job 9-daily-review (Keep it). Three functions, no new table or column. Each runs with the learner's own rights (`security invoker`), with an empty search path, and only the `authenticated` role may call it, so every rule above still applies inside them.

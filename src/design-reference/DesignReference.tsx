@@ -9,6 +9,7 @@ import { StatusLine } from '../components/StatusLine.tsx'
 import { Wordmark } from '../components/Wordmark.tsx'
 import { contrast } from '../lib/contrast.ts'
 import { CONTRAST_PAIRS } from '../styles/contrast-pairs.ts'
+import { SaveNote } from '../screens/SaveNote.tsx'
 import { asMap, colourTokens } from '../styles/token-values.ts'
 import tokensCss from '../styles/tokens.css?raw'
 import {
@@ -351,6 +352,16 @@ export default function DesignReference() {
           <StatusLine tone="neutral">Saving your answer.</StatusLine>
           <StatusLine tone="gentle">Close. Try the double k.</StatusLine>
           <StatusLine tone="problem">No connection. Check your internet, then try again.</StatusLine>
+        </div>
+      </Section>
+
+      <Section id="save-note" title="Save progress note">
+        <p className={styles.lead}>
+          The note on the finish screen that asks a guest to add an email. It is live: the first button opens
+          the add email screen, and the second one closes the note.
+        </p>
+        <div className={styles.card}>
+          <SaveNote />
         </div>
       </Section>
 

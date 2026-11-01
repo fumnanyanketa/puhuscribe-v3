@@ -107,7 +107,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // The finish screen as in job 8.
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
     await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     const row = sessionsOf(userId).find((s) => s.id === session?.id)
     expect(row?.step).toBe('keep')
     expect(row?.ended).toBe(true)

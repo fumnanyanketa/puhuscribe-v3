@@ -1,0 +1,24 @@
+Break: worker-logs-the-failure
+Statement: [save-progress 3]
+File changed (restored afterwards): worker/api.ts
+What was broken: the failure of the note function is written to the log
+
+Replaced:
+    } catch {
+      // The plain answer below: the note is optional, saving is not.
+    }
+With:
+    } catch (error) {
+      console.error('note failed', error)
+    }
+
+Command: npx vitest run worker/save-progress.test.ts
+Result with the break:
+Test Files  1 failed (1)
+Tests  1 failed | 17 passed (18)
+Tests that went red:
+FAIL  worker/save-progress.test.ts > the real database module > [save-progress 3] nothing is written to the log
+
+Result after restoring the file:
+Test Files  1 passed (1)
+Tests  18 passed (18)

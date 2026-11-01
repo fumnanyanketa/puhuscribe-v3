@@ -1,0 +1,14 @@
+GitHub Checks run 41248527014 (workflow_dispatch on factory/18-save-progress, commit c5a6610; the commit after it only adds files under factory/jobs/18-save-progress/evidence/)
+https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41248527014
+Result: success
+  Type check, lint, format: success
+  Secret scan (gitleaks): success
+  Database tests (local Supabase, pgTAP): success
+  Unit tests (Vitest): success
+  Dependency check (npm audit, pip-audit): success
+  Browser tests (Playwright, local Supabase): success
+  Python tests and lint (pytest, ruff): success
+  Apply database changes to the test project: skipped
+  Browser tests against the test project (after merge): skipped
+  Preview link (Cloudflare Worker behind Access): skipped
+Browser tests: 420 passed, 31 skipped (the skips are the Switzer font, preview link and review site tests that already skip on this job), 0 failed. All 32 save progress tests passed (16 in each browser).

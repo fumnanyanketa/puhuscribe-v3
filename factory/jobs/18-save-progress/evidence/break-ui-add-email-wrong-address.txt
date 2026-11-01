@@ -1,0 +1,13 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41248547803 (branch scratch/18-save-progress-red-2, deleted after the run; job "add-email-wrong-address")
+Statements: see the labels of the tests below
+What was broken: The add email address changed to the account page.
+Command: npx playwright test e2e/save-progress.spec.ts (Chromium and WebKit at 375 x 812, 16 tests each, against the built app and a throwaway Supabase with Mailpit)
+
+playwright exit code: 1
+=== Tests that went red in variant add-email-wrong-address ===
+  1) [chromium] › [save-progress 7] [save-progress 10] [save-progress 12] [save-progress 15] "Add your email" opens the add email screen by keyboard, with its two sentences, and Back shows no note @seed 
+  2) [chromium] › with email › [save-progress 10] from the note a guest adds their email with a code from Mailpit and keeps the same account @seed @email 
+  3) [webkit] › [save-progress 7] [save-progress 10] [save-progress 12] [save-progress 15] "Add your email" opens the add email screen by keyboard, with its two sentences, and Back shows no note @seed 
+  4) [webkit] › with email › [save-progress 10] from the note a guest adds their email with a code from Mailpit and keeps the same account @seed @email 
+  4 failed
+  28 passed (1.4m)

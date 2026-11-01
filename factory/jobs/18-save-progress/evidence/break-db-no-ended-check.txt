@@ -1,0 +1,11 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41247408043 (branch scratch/18-save-progress-red-1, deleted after the run; job "no-ended-check")
+Statement: [save-progress 4] and [save-progress 8]
+What was broken: The 'session has ended' condition removed from the 'first' test.
+Command: supabase db start, then supabase test db (all 12 pgTAP files; only save_progress.test.sql can be affected)
+
+pgtap exit code: 1
+=== Tests of save_progress.test.sql that went red in variant no-ended-check ===
+# Failed test 25: "[save-progress 4] a session that has not ended returns none, even when the caller's event names it (only the ended condition refuses it)"
+  Failed test:  25
+=== Other files that failed ===
+Failed 1/33 subtests 

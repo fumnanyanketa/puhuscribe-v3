@@ -74,7 +74,7 @@ async function sayOneLineAloud(page: Page): Promise<void> {
   // One check is enough; the quiet exit skips the other lines (job 10, "Done when" 6).
   await page.getByRole('button', { name: "I can't speak right now", exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
 }
 
 function today(d: Dashboard) {

@@ -1,0 +1,52 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41278173670 (branch scratch/18-save-progress-red-3, deleted after the run; job "guest-sees-old-line")
+Statement: [save-progress 19] (round 2, the owner's change of 1 November 2026)
+What was broken: A guest shown the old line 'Your progress is saved.'
+Command: npx playwright test e2e/save-progress.spec.ts e2e/first-session.spec.ts (Chromium and WebKit at 375 x 812)
+
+playwright exit code: 1
+=== Tests that went red in variant guest-sees-old-line ===
+  1) [chromium] first-session › [session 3] [session 7] every request stays on the page address, the browser holds no token, and no draft content appears @seed 
+  10) [chromium] save-progress › [save-progress 2] with the answer delayed by 2 seconds the finish screen says it is saving and shows no note, then shows the note @seed 
+  11) [chromium] save-progress › [save-progress 2] when the save cannot reach the Worker the screen says so, shows Try again and no note, and the note comes after Try again works @seed 
+  12) [chromium] save-progress › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  13) [chromium] save-progress › [save-progress 7] [save-progress 10] [save-progress 12] [save-progress 15] "Add your email" opens the add email screen by keyboard, with its two sentences, and Back shows no note @seed 
+  14) [chromium] save-progress › [save-progress 12] with the note showing, the play controls, Send feedback and Leave session still work @seed 
+  15) [chromium] save-progress › [save-progress 14] the whole note is visible without scrolling in light and dark, nothing scrolls sideways at 320 px and at 200 percent text, and both buttons are 44 x 44 @seed 
+  16) [chromium] save-progress › [save-progress 15] [save-progress 16] the Tab order, the focus outline, axe in light and dark with the note and again after "Not now", and reduced motion @seed 
+  17) [chromium] save-progress › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  18) [chromium] save-progress › with email › [save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line @seed @email 
+  19) [chromium] save-progress › with email › [save-progress 10] from the note a guest adds their email with a code from Mailpit and keeps the same account @seed @email 
+  2) [chromium] first-session › [session 14] [session 15] [session 16] the finish screen gives one sentence, and the end is saved once with cards and one event @seed 
+  20) [chromium] save-progress › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  21) [webkit] first-session › [session 3] [session 7] every request stays on the page address, the browser holds no token, and no draft content appears @seed 
+  22) [webkit] first-session › [session 14] [session 15] [session 16] the finish screen gives one sentence, and the end is saved once with cards and one event @seed 
+  23) [webkit] first-session › [smoke 3] [session 15] keyboard: Try again on the finish screen moves focus to the status line, which then says it is saved @seed 
+  24) [webkit] first-session › [session 15] when saving fails the screen says so in the problem style, and Try again saves @seed 
+  25) [webkit] first-session › [session 22] axe finds no WCAG A or AA problem on any screen, light @seed 
+  26) [webkit] first-session › [session 22] axe finds no WCAG A or AA problem on any screen, dark @seed 
+  27) [webkit] save-progress › [save-progress 1] [save-progress 3] [save-progress 9] [save-progress 12] [save-progress 16] a guest sees the note after the first finished session: in place, with exactly its words, as a plain block, and Done still works in one
+  28) [webkit] save-progress › [save-progress 2] the note is on none of the front door, Hear it, Understand it and Say it @seed 
+  29) [webkit] save-progress › [save-progress 2] the note is not on Keep it @seed 
+  3) [chromium] first-session › [smoke 3] [session 15] keyboard: Try again on the finish screen moves focus to the status line, which then says it is saved @seed 
+  30) [webkit] save-progress › [save-progress 2] with the answer delayed by 2 seconds the finish screen says it is saving and shows no note, then shows the note @seed 
+  31) [webkit] save-progress › [save-progress 2] when the save cannot reach the Worker the screen says so, shows Try again and no note, and the note comes after Try again works @seed 
+  32) [webkit] save-progress › [save-progress 7] [save-progress 11] [save-progress 13] [save-progress 15] "Not now" sends nothing and stores nothing, the line moves focus, and the note does not come back @seed 
+  33) [webkit] save-progress › [save-progress 7] [save-progress 10] [save-progress 12] [save-progress 15] "Add your email" opens the add email screen by keyboard, with its two sentences, and Back shows no note @seed 
+  34) [webkit] save-progress › [save-progress 12] with the note showing, the play controls, Send feedback and Leave session still work @seed 
+  35) [webkit] save-progress › [save-progress 14] the whole note is visible without scrolling in light and dark, nothing scrolls sideways at 320 px and at 200 percent text, and both buttons are 44 x 44 @seed 
+  36) [webkit] save-progress › [save-progress 15] [save-progress 16] the Tab order, the focus outline, axe in light and dark with the note and again after "Not now", and reduced motion @seed 
+  37) [webkit] save-progress › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  38) [webkit] save-progress › with email › [save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line @seed @email 
+  39) [webkit] save-progress › with email › [save-progress 10] from the note a guest adds their email with a code from Mailpit and keeps the same account @seed @email 
+  4) [chromium] first-session › [session 15] when saving fails the screen says so in the problem style, and Try again saves @seed 
+  40) [webkit] save-progress › with email › [save-progress 8] one reminder at the third finished session, with the same words, and none after it @seed @email 
+  5) [chromium] first-session › [session 22] axe finds no WCAG A or AA problem on any screen, light @seed 
+  6) [chromium] first-session › [session 22] axe finds no WCAG A or AA problem on any screen, dark @seed 
+  7) [chromium] save-progress › [save-progress 1] [save-progress 3] [save-progress 9] [save-progress 12] [save-progress 16] a guest sees the note after the first finished session: in place, with exactly its words, as a plain block, and Done still works in on
+  8) [chromium] save-progress › [save-progress 2] the note is on none of the front door, Hear it, Understand it and Say it @seed 
+  9) [chromium] save-progress › [save-progress 2] the note is not on Keep it @seed 
+  40 failed
+  3 skipped
+  41 passed (3.8m)
+
+Reading this result: every browser test that waits for a guest's finish screen asserts the guest line (they all read it through the same helper or the same literal), so they all go red together: the same protection, not forty separate faults. The tests that assert the plain line for an email account stay green (the "an account that added its email before its first finished session" test is not in the list). A dedicated test cannot be the only red one without making the other tests accept either line, which would weaken them, so I did not do that. The mirror break (the guest line shown to an email account) turns red only the three tests that assert the plain line: see break-ui-email-sees-guest-line-r2.txt.

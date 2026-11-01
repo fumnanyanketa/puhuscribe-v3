@@ -8,6 +8,9 @@ import { pickFinishLine } from '../lib/session-rules.ts'
 import type { ReadySession } from '../lib/session-types.ts'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import { LineCard } from './LineCard.tsx'
+import { accountKindOf, carriesSaveNote } from './save-note.ts'
+import { SAVED_ON_THIS_DEVICE } from './save-note-copy.ts'
+import { SaveNote } from './SaveNote.tsx'
 import { NOT_SAVED } from './step-screen.ts'
 import styles from './Screens.module.css'
 
@@ -24,12 +27,24 @@ const SAVED = 'Your progress is saved.'
 
 type SaveState = 'saving' | 'saved' | 'not_saved'
 
-async function save(sessionId: string): Promise<boolean> {
+/** Saving's result: whether it worked, and whether the answer asks for the note (job 18-save-progress). */
+interface SaveResult {
+  saved: boolean
+  note: boolean
+  /** A guest is told the progress is saved on this device (owner's choice, 1 November 2026). */
+  guest: boolean
+}
+
+async function save(sessionId: string): Promise<SaveResult> {
   const answer = await callApi(`/api/sessions/${sessionId}/complete`, 'POST')
   // An email account deleted or signed out on another device (job 11-accounts,
   // "Done when" 22). Guests keep job 8's own handling.
   if (emailSignInEnded(answer)) leaveWith('signed-out-email')
-  return answer?.status === 200
+  const saved = answer?.status === 200
+  // Only after a save: which kind of account this is, from the same route the
+  // account page uses. Without a clear answer the plain line is shown.
+  const guest = saved && accountKindOf(await callApi('/api/me', 'GET')) === 'guest'
+  return { saved, note: carriesSaveNote(answer), guest }
 }
 
 interface FinishScreenProps {
@@ -40,31 +55,56 @@ interface FinishScreenProps {
 export function FinishScreen({ session, steps }: FinishScreenProps) {
   const line = pickFinishLine(session.lines)
   const [state, setState] = useState<SaveState>('saving')
+  // Job 18-save-progress, "Done when" 1 and 2: the note follows a saved answer
+  // that asks for it, and never shows while saving or after a failed save.
+  const [note, setNote] = useState(false)
+  const [guest, setGuest] = useState(false)
   const status = useRef<HTMLParagraphElement>(null)
   // Saved once per screen: React's strict mode runs effects twice in
   // development, and the second run reuses this request.
-  const firstSave = useRef<Promise<boolean> | null>(null)
+  const firstSave = useRef<Promise<SaveResult> | null>(null)
 
   useEffect(() => {
     let active = true
     firstSave.current ??= save(session.session.id)
-    void firstSave.current.then((saved) => {
-      if (active) setState(saved ? 'saved' : 'not_saved')
+    void firstSave.current.then((result) => {
+      if (!active) return
+      setState(result.saved ? 'saved' : 'not_saved')
+      setNote(result.saved && result.note)
+      setGuest(result.saved && result.guest)
     })
     return () => {
       active = false
     }
   }, [session.session.id])
 
+  // Job 18-save-progress, "Done when" 7: the note belongs to the moment the
+  // session was saved. A browser that brings this screen back from its back
+  // forward cache (Back from the add email screen) must not show it again.
+  useEffect(() => {
+    const onShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setNote(false)
+    }
+    window.addEventListener('pageshow', onShow)
+    return () => {
+      window.removeEventListener('pageshow', onShow)
+    }
+  }, [])
+
   function tryAgain() {
     status.current?.focus()
     setState('saving')
-    void save(session.session.id).then((saved) => {
-      setState(saved ? 'saved' : 'not_saved')
+    setNote(false)
+    setGuest(false)
+    void save(session.session.id).then((result) => {
+      setState(result.saved ? 'saved' : 'not_saved')
+      setNote(result.saved && result.note)
+      setGuest(result.saved && result.guest)
     })
   }
 
-  const message = state === 'saving' ? SAVING : state === 'saved' ? SAVED : NOT_SAVED
+  const savedLine = guest ? SAVED_ON_THIS_DEVICE : SAVED
+  const message = state === 'saving' ? SAVING : state === 'saved' ? savedLine : NOT_SAVED
   const tone: StatusTone = state === 'not_saved' ? 'problem' : 'neutral'
   const lastStep = steps[steps.length - 1] ?? 'Hear it'
 
@@ -101,6 +141,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
           </div>
         )}
         <p className={styles.comesBack}>{COMES_BACK}</p>
+        {state === 'saved' && note && <SaveNote />}
         {/* Job 14-analytics, "Done when" 19: a quiet link, never a step of the loop. */}
         <a className={styles.feedbackLink} href="/feedback?from=finish">
           Send feedback
