@@ -348,8 +348,9 @@ def test_a1_road_10_en_voi_is_the_negative_form_of_voida(ctx):
 
 
 def test_a1_road_10_the_third_person_voi_row_is_used_only_by_the_verb_line():
-    """[a1-road 10] No "Voi ei!" or other cry uses the verb row form-fc6219c3121b: its only line is
-    "Lääkäri voi nähdä sinut" (booking-a-visit 7). Every cry has the interjection row."""
+    """[a1-road 10] No "Voi ei!" or other cry uses the verb row form-fc6219c3121b: its two lines are the
+    verb ones, "Lääkäri voi nähdä sinut" (booking-a-visit 7) and "Milloin hän voi tulla?"
+    (a-broken-washing-machine 6). Every cry has the interjection row."""
     places = []
     cries = 0
     for slug, draft in committed().items():
@@ -363,5 +364,5 @@ def test_a1_road_10_the_third_person_voi_row_is_used_only_by_the_verb_line():
                     places.append((slug, line["n"], position))
                 elif token["form_tag"] == "CLASS=huudahdussana":
                     cries += 1
-    assert places == [("booking-a-visit", 7, 3)]
+    assert sorted(places) == [("a-broken-washing-machine", 6, 4), ("booking-a-visit", 7, 3)]
     assert cries == 12
