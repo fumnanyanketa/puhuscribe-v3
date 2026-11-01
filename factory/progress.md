@@ -314,3 +314,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T13:05 Owner wording for the privacy notice: PuhuScribe is part of the product family of Exentrik, a product studio in Finland.
 - 2026-11-01T13:06 Owner removed "Exentrik looks after your data." from the privacy notice draft. Note for the build: the full notice behind it must still name Exentrik as responsible for the data (GDPR).
 - 2026-11-01T13:06 Owner approved all v1 screens ("Approved"): design-drafts/v1-screens.html and design-drafts/road-journey.html. Building can restart from them.
+- 2026-11-01T13:12 18-save-progress merged (owner approved). 15-onboarding closed as superseded by the redesign ("Close it (Recommended)"), never merged; its branch and notes stay.

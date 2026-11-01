@@ -854,12 +854,12 @@
       "id": "15-onboarding",
       "feature": "onboarding",
       "title": "Onboarding: a short welcome on the front door",
-      "stage": "your-approval",
+      "stage": "blocked",
       "round": 2,
       "flag": "routine",
       "flag_reasons": [],
-      "waiting_on": "paused: owner redesigning every screen first (1 November 2026)",
-      "updated": "2026-11-01T08:53:00+02:00",
+      "waiting_on": "closed: superseded by the redesign (owner, 1 November 2026); never merged",
+      "updated": "2026-11-01T13:12:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -898,6 +898,11 @@
         {
           "stage": "your-approval",
           "at": "2026-11-01T07:57:00+02:00"
+        },
+        {
+          "stage": "blocked",
+          "at": "2026-11-01T13:12:00+02:00",
+          "note": "superseded by the approved redesign: the first open is now the road animation"
         }
       ]
     },
@@ -963,14 +968,14 @@
       "id": "18-save-progress",
       "feature": "save-progress",
       "title": "Ask a guest to save their progress after the first session",
-      "stage": "your-approval",
+      "stage": "merged",
       "round": 2,
       "flag": "look closely",
       "flag_reasons": [
         "learner data, recordings or consent"
       ],
-      "waiting_on": "paused: owner redesigning every screen first (1 November 2026)",
-      "updated": "2026-11-01T08:53:00+02:00",
+      "waiting_on": null,
+      "updated": "2026-11-01T13:12:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -1013,6 +1018,10 @@
           "stage": "your-approval",
           "at": "2026-11-01T08:25:00+02:00",
           "note": "round 2 checks green and re-check passes"
+        },
+        {
+          "stage": "merged",
+          "at": "2026-11-01T13:12:00+02:00"
         }
       ]
     }
