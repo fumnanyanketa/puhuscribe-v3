@@ -14,8 +14,9 @@ python scripts/generate/road_import.py analyse [--out <folder>]
 python scripts/generate/road_import.py count-characters [--part N]
     Prints the exact number of characters the voices must read for a part or for the road.
 
-python scripts/generate/road_import.py voice --part N
-    Reads both versions of every line of the part with the Azure voice, inside the free allowance.
+python scripts/generate/road_import.py voice --part N [--only <slug>]
+    Reads both versions of every line of the part (or of one dialogue) with the Azure voice, inside the
+    free allowance.
 
 python scripts/generate/road_import.py judge [--part N]
     Runs the register judge on the lines, after the golden set. Needs the Anthropic key.
@@ -806,6 +807,8 @@ def cmd_voice(args, voice=None) -> int:
     from providers import voice as voice_module
 
     drafts = committed_road_drafts(args.part)
+    if getattr(args, "only", None):
+        drafts = {slug: d for slug, d in drafts.items() if slug == args.only}
     voice = voice or voice_module.get_provider()
     need = characters_to_voice(drafts)
     voice_module.refuse_over_allowance(voice.log_path, need)
@@ -890,6 +893,7 @@ def main(argv: list[str]) -> int:
     cnt.add_argument("--part", type=int)
     vo = sub.add_parser("voice")
     vo.add_argument("--part", type=int, required=True)
+    vo.add_argument("--only", help="voice only this dialogue slug (a sample)")
     ju = sub.add_parser("judge")
     ju.add_argument("--part", type=int)
     args = parser.parse_args(argv)

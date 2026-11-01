@@ -35,6 +35,11 @@ on:
         type: choice
         default: '1'
         options: ['1', '2', '3', '4', '5', '6', all]
+      only:
+        description: Only for voice, optional. One dialogue slug, to voice a sample
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -67,7 +72,11 @@ jobs:
         env:
           TASK: ${{ inputs.task }}
           PART: ${{ inputs.part }}
+          ONLY: ${{ inputs.only }}
         run: |
+          if [ -n "$ONLY" ] && ! [[ "$ONLY" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "The dialogue slug must be lower case letters, digits and hyphens"; exit 1
+          fi
           if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ]; then
             echo "The task $TASK needs one part, 1 to 6"; exit 1
           fi
@@ -89,11 +98,15 @@ jobs:
         if: inputs.task == 'voice'
         env:
           PART: ${{ inputs.part }}
+          ONLY: ${{ inputs.only }}
           VOICE_PROVIDER: azure
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
-        run: python scripts/generate/road_import.py voice --part "$PART"
+        run: |
+          only_args=()
+          if [ -n "$ONLY" ]; then only_args=(--only "$ONLY"); fi
+          python scripts/generate/road_import.py voice --part "$PART" "${only_args[@]}"
       - name: Run the register judge (the Anthropic key is here and nowhere else)
         if: inputs.task == 'judge'
         env:
