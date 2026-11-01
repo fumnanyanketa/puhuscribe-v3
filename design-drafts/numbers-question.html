@@ -1,4 +1,4 @@
-<title>PuhuScribe numbers question</title>
+<title>PuhuScribe lesson end options</title>
 <meta name="claude:viewport-fit-sides" content="cover" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -889,6 +889,23 @@
     margin: 0;
     font-size: 10.5px;
     line-height: 1.5;
+    color: var(--quiet);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chips span {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--a-soft);
+    color: var(--a-deep);
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+  .chips span:last-child {
+    background: #f1f4f3;
     color: var(--quiet);
   }
   .lhead {
@@ -1799,9 +1816,10 @@
 
 <div class="wrap">
   <header>
-    <h1>Numbers on screen, or not</h1>
+    <h1>The end of a lesson</h1>
     <p>
-      Two places in the drawings show numbers. On the left of each pair, with numbers. On the right, without.
+      Three ways to show what a lesson gave you. A shows nothing extra. B puts the numbers in one quiet line.
+      C shows the new words themselves, so the number means something.
     </p>
   </header>
   <div id="out"></div>
@@ -1962,23 +1980,12 @@
 
   const sections = [
     {
-      h: 'End of a lesson',
-      p: 'The same screen with and without the two numbers.',
+      h: 'End of a lesson, three ways',
+      p: 'What you gained in this lesson.',
       screens: [
         [
-          'With numbers',
-          'New words and lines said aloud in this lesson.',
-          ph(`${vista()}<div class="body over" style="padding-top:10px">
-      <span class="done-orb"></span><p class="big">Now you can say this.</p>
-      <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
-      <div class="gain"><div class="milk"><b class="warm">+11</b><span>new words</span></div><div class="milk"><b>8</b><span>lines said aloud</span></div></div>
-      <div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
-      <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
-        ],
-        [
-          'Without numbers',
-          'Only what you can now say.',
+          'A. No numbers',
+          'Only the line you can now say.',
           ph(`${vista()}<div class="body over" style="padding-top:10px">
       <span class="done-orb"></span><p class="big">Now you can say this.</p>
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
@@ -1987,37 +1994,27 @@
       <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
       <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
-      ],
-    },
-    {
-      h: 'A review waiting on the road',
-      p: 'The bottom card with and without the count and the time.',
-      screens: [
         [
-          'With numbers',
-          'How many words come back, and roughly how long it takes.',
-          ph(
-            road(
-              ['cur', 'later', 'later', 'later', 'later'],
-              0,
-              0.27,
-              `<div class="card"><div class="t"><div><b>Review</b><small>About 4 minutes</small></div><span class="badge warm">14</span></div>
-       <span class="pill">Start review<i></i></span></div>`,
-            ),
-          ),
+          'B. One quiet line',
+          'The two numbers as a short sentence under the line.',
+          ph(`${vista()}<div class="body over" style="padding-top:10px">
+      <span class="done-orb"></span><p class="big">Now you can say this.</p>
+      <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
+      <p class="hint" style="font-size:10.5px">11 new words · 8 lines said out loud</p>
+      <div class="grow"></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
         [
-          'Without numbers',
-          'Just that a review is waiting.',
-          ph(
-            road(
-              ['cur', 'later', 'later', 'later', 'later'],
-              0,
-              0.27,
-              `<div class="card"><div class="t"><div><b>Review</b><small>Words you met before</small></div><span class="badge warm">↺</span></div>
-       <span class="pill">Start review<i></i></span></div>`,
-            ),
-          ),
+          'C. The new words themselves',
+          'The words you met, tap one to hear it. The count sits in the heading.',
+          ph(`${vista()}<div class="body over" style="padding-top:10px">
+      <span class="done-orb"></span><p class="big">Now you can say this.</p>
+      <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px"><span style="font-size:10.5px;color:var(--quiet)">11 new words</span><div class="chips"><span>voinks</span><span>maksaa</span><span>kortilla</span><span>käteisellä</span><span>kuitti</span><span>+6</span></div></div>
+      <div class="grow"></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
       ],
     },
