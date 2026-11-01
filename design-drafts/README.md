@@ -20,6 +20,7 @@ Real shipped apps, checked on their App Store pages on 1 November 2026:
 None of the five was found showing a prominent "words learned" number with a stated definition, so PuhuScribe's count is our own design.
 
 - `draft-3.html`: the Today screen as a journey of the six units as real-life situations (PRD changed by the owner, 1 November 2026), in three one-colour palettes (lavender, lake blue, birch-forest green), each soft with no glass and with glass only on the top and bottom bars. Published at https://claude.ai/artifact/BpN2PPPXC8tRtf5mA5YxkR
+- `draft-4.html`: Welcome, Today (with the journey) and Hear it in the soft milky look of the owner's gym app reference (`reference-soft-gym-app.jpg`, shared 1 November 2026), in lake blue and birch-forest green only; the owner dropped lavender. Published at https://claude.ai/artifact/VLsnPKZAw9NToeTjm1wgJj
 
 ## Glass and journey references (1 November 2026)
 
