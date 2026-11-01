@@ -21,11 +21,56 @@ import copy
 from content_checks import run_checks
 from fingerprints import line_fingerprint
 from grammar import form_name
-from road_data import FIXED_WHY, meaning_problems
+from road_data import (
+    FIXED_WHY,
+    ReadingOverride,
+    load_overrides,
+    load_position_overrides,
+    manual_analysis,
+    meaning_problems,
+)
 from road_extras import register_road_extras
 from road_mapping import SpokenForms, analysis_text, map_line, tokenize
 
 PENDING_WHY = FIXED_WHY["dictionary-same"]
+
+
+class ManualReadingGate:
+    """Voikko's gate, plus the readings the road's override files write by hand (source "manual").
+    The unchanged job 7 check asks the gate for a word's readings and accepts a form only if it is one
+    of them. A manual reading is a reading Voikko does not offer, so it is added here for the spelling
+    it was written for, and for nothing else. Everything else passes straight through to the gate."""
+
+    def __init__(self, gate, manual: dict[str, list[dict]]):
+        self._gate = gate
+        self._manual = manual
+
+    def __getattr__(self, name):
+        return getattr(self._gate, name)
+
+    def _analyze_best(self, token: str) -> list[dict]:
+        found = list(self._gate._analyze_best(token))
+        found.extend(dict(reading) for reading in self._manual.get(token.lower(), []))
+        return found
+
+
+def manual_readings(*override_sets: list[ReadingOverride]) -> dict[str, list[dict]]:
+    """Lower case spelling to the manual readings written for it, as Voikko style analysis dicts."""
+    found: dict[str, list[dict]] = {}
+    for overrides in override_sets:
+        for item in overrides:
+            if item.source == "manual":
+                found.setdefault(item.word.lower(), []).append(manual_analysis(item.lemma, item.form_tag))
+    return found
+
+
+def road_manual_readings() -> dict[str, list[dict]]:
+    """The manual readings in content/road/ (both override files)."""
+    spelling = [
+        ReadingOverride(o.lemma, o.form_tag, o.source, o.reason, word=word)
+        for word, o in load_overrides().items()
+    ]
+    return manual_readings(spelling, list(load_position_overrides().values()))
 
 
 def is_written(draft: dict) -> bool:
@@ -73,13 +118,19 @@ def pending_forms(draft: dict) -> list[str]:
 
 
 def check_draft(
-    draft: dict, gate, ranks: dict[str, int], thresholds: dict, forms: SpokenForms | None = None
+    draft: dict,
+    gate,
+    ranks: dict[str, int],
+    thresholds: dict,
+    forms: SpokenForms | None = None,
+    manual: dict[str, list[dict]] | None = None,
 ) -> dict:
     """The report of job 7's checks for any draft, with the road's differences for a written one."""
     if not is_written(draft):
         return run_checks(draft, gate, ranks, thresholds)
     register_road_extras()
     forms = forms or SpokenForms.load()
+    gate = ManualReadingGate(gate, road_manual_readings() if manual is None else manual)
     report = run_checks(analysis_view(draft), gate, ranks, thresholds)
     checks = report["checks"]
 

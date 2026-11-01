@@ -39,7 +39,15 @@ from fingerprints import form_id
 from grammar import UnknownTagValue, form_name, is_base_form, on_grammar_list, parse_tag
 from review_page import write_round
 from road_checks import check_draft, judged_line, line_judge_fingerprint, pending_forms
-from road_data import FIXED_WHY, RoadData, RoadDataError, load_road_data, note_problems
+from road_data import (
+    FIXED_WHY,
+    ReadingOverride,
+    RoadData,
+    RoadDataError,
+    load_road_data,
+    manual_analysis,
+    note_problems,
+)
 from road_extras import register_road_extras
 from road_mapping import SpokenForms, map_line, tokenize
 from road_markdown import token_spans
@@ -173,19 +181,48 @@ def _capital_mid_sentence(text: str, index: int) -> bool:
     return before != "" and before[-1] not in ".!?"
 
 
+def find_override(ctx: Context, brief: dict, line_number: int, position: int, surface: str):
+    """The override for this word: one for its position in its line, else one for its spelling."""
+    key = (brief["dialogue"]["slug"], line_number, position)
+    return ctx.data.position_overrides.get(key) or ctx.data.overrides.get(surface.lower())
+
+
+def apply_override(override: ReadingOverride, surface: str, options: list[dict]) -> dict:
+    """The reading an override names. A "voikko" row must be one of Voikko's readings of the word. A
+    "manual" row must not be: when Voikko offers the reading, the row has to say so, so that the list
+    of manual readings stays a list of what Voikko really lacks."""
+    where = f"'{surface}' (override on file line {override.file_line})"
+    pair = (override.lemma, override.form_tag)
+    for option in options:
+        if (option["lemma"], option["form_tag"]) == pair:
+            if override.source == "manual":
+                raise RoadDataError(f"{where}: Voikko offers {pair}, so the reading is voikko, not manual")
+            return option
+    if override.source == "voikko":
+        raise RoadDataError(f"{where}: Voikko has no reading {pair}")
+    return {
+        "lemma": override.lemma,
+        "form_tag": override.form_tag,
+        "name": False,
+        "reading": manual_analysis(override.lemma, override.form_tag),
+    }
+
+
 def choose_reading(
-    surface: str, options: list[dict], brief: dict, ctx: Context, mid_sentence_capital: bool
+    surface: str,
+    options: list[dict],
+    brief: dict,
+    ctx: Context,
+    mid_sentence_capital: bool,
+    override: ReadingOverride | None = None,
 ) -> dict | None:
     """One of Voikko's own readings, by fixed rules (no AI): an override, then names for a capital in
-    the middle of a sentence, then a reading that fits the stop's level, then the more common word."""
+    the middle of a sentence, then a reading that fits the stop's level, then the more common word.
+    An override with source "manual" gives a reading Voikko does not offer."""
+    if override:
+        return apply_override(override, surface, options)
     if not options:
         return None
-    override = ctx.data.overrides.get(surface.lower())
-    if override:
-        for option in options:
-            if (option["lemma"], option["form_tag"]) == override:
-                return option
-        raise RoadDataError(f"reading-overrides.tsv: '{surface}' has no Voikko reading {override}")
     names = [o for o in options if o["name"]]
     others = [o for o in options if not o["name"]]
     pool = names if (mid_sentence_capital and names) or not others else others
@@ -228,6 +265,7 @@ def add_readings(lines: list[dict], brief: dict, ctx: Context) -> None:
                 brief,
                 ctx,
                 _capital_mid_sentence(line["text_kirja"], index),
+                find_override(ctx, brief, line["n"], index + 1, surface),
             )
             if chosen is None:
                 continue
@@ -483,6 +521,39 @@ def notes_tables(drafts: dict[str, dict], ctx: Context) -> tuple[str, str, str]:
     return glossary, notes, needed_text
 
 
+def manual_readings_table(drafts: dict[str, dict], ctx: Context) -> str:
+    """content/road/manual-readings.tsv: every word whose reading Voikko does not offer, so a person
+    wrote it in one of the two override files, with its place, its form name and the reason."""
+    head = (
+        "# Words whose reading Voikko does not offer, so it was written by hand in\n"
+        "# reading-overrides.tsv or reading-overrides-by-position.tsv (job 20-a1-road, round 2).\n"
+        "# Made by scripts/generate/road_import.py; do not edit by hand. Columns: dialogue, line, word\n"
+        "# position, written word, dictionary form, form tag, form name, reason.\n"
+    )
+    rows = []
+    for slug in stop_order(drafts):
+        draft = drafts[slug]
+        if draft["brief"].get("source") != "written":
+            continue
+        for line in draft["lines"]:
+            for position, token in enumerate(line["kirja_tokens"], start=1):
+                override = find_override(ctx, draft["brief"], line["n"], position, token["surface"])
+                if override and override.source == "manual":
+                    rows.append(
+                        [
+                            slug,
+                            str(line["n"]),
+                            str(position),
+                            token["surface"],
+                            override.lemma,
+                            override.form_tag,
+                            form_name(override.form_tag),
+                            override.reason,
+                        ]
+                    )
+    return head + "".join("\t".join(row) + "\n" for row in rows)
+
+
 def lemma_consistency(drafts: dict[str, dict]) -> list[str]:
     """One dictionary form has one meaning, and one form id carries the same texts in every draft that
     has it. The six earlier drafts keep the why lines they were committed with (statement 17), and they
@@ -532,6 +603,32 @@ def note_file_problems(ctx: Context, drafts: dict[str, dict]) -> list[str]:
         problems += [
             f"word-notes.tsv, line {note['line']}: {p}" for p in note_problems(note, form["form_name_en"])
         ]
+    return problems
+
+
+def override_problems(drafts: dict[str, dict], ctx: Context) -> list[str]:
+    """Stale rows in the two reading override files: a position that is no word of any written dialogue,
+    a word that differs from the one written at that position, a spelling that no dialogue uses."""
+    places: dict[tuple[str, int, int], str] = {}
+    spellings: set[str] = set()
+    for slug, draft in drafts.items():
+        if draft["brief"].get("source") != "written":
+            continue
+        for line in draft["lines"]:
+            for position, token in enumerate(line["kirja_tokens"], start=1):
+                places[(slug, line["n"], position)] = token["surface"]
+                spellings.add(token["surface"].lower())
+    problems = []
+    for key, override in ctx.data.position_overrides.items():
+        surface = places.get(key)
+        where = f"reading-overrides-by-position.tsv, line {override.file_line}"
+        if surface is None:
+            problems.append(f"{where}: {key} is not a word of any dialogue")
+        elif surface.lower() != override.word.lower():
+            problems.append(f"{where}: the word at {key} is '{surface}', not '{override.word}'")
+    for word, override in ctx.data.overrides.items():
+        if word not in spellings:
+            problems.append(f"reading-overrides.tsv, line {override.file_line}: '{word}' is in no dialogue")
     return problems
 
 
@@ -665,11 +762,16 @@ def cmd_import(args, ctx: Context | None = None, out_dir: Path | None = None) ->
     (out / "road" / "glossary.tsv").write_text(glossary, encoding="utf-8", newline="\n")
     (out / "road" / "word-notes.tsv").write_text(notes, encoding="utf-8", newline="\n")
     (out / "road" / "needed-notes.tsv").write_text(needed, encoding="utf-8", newline="\n")
+    (out / "road" / "manual-readings.tsv").write_text(
+        manual_readings_table(drafts, ctx), encoding="utf-8", newline="\n"
+    )
     if getattr(args, "part", None) is None:
         (out / "road" / "road-report.md").write_text(
             report_text(drafts, reports, ctx), encoding="utf-8", newline="\n"
         )
     problems = failures_text(reports, drafts) + lemma_consistency(drafts) + note_file_problems(ctx, drafts)
+    if getattr(args, "part", None) is None:
+        problems += override_problems(drafts, ctx)
     lines = [f"Drafts: {len(drafts)}", f"Failures: {len(problems)}"] + problems
     (out / "import.log").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print("\n".join(lines[:2]))
