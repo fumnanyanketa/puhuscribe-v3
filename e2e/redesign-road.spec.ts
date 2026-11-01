@@ -422,6 +422,80 @@ test.describe('small phones and large text', () => {
     })
   }
 
+  // Round 3 (design review A and B): on a short phone and at 200 percent text the signs never pile up,
+  // none touches the top bar, the sign of the current stop and the next one stay, and the card stops at a
+  // share of the screen with its inside scrolling.
+  for (const [name, mocks] of STATES) {
+    for (const [width, height, text] of [
+      [375, 667, '100%'],
+      [320, 640, '200%'],
+    ] as const) {
+      test(`[redesign 20] [redesign 13] ${name} at ${String(width)} x ${String(height)}, text ${text}: no two signs touch, none touches the top bar, the card scrolls inside`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height })
+        await openRoad(page, mocks)
+        if (name === 'day one')
+          await page
+            .getByRole('button', { name: 'Skip' })
+            .click({ timeout: 1500 })
+            .catch(() => undefined)
+        await page.addStyleTag({ content: `html { font-size: ${text} !important; }` })
+        await page.waitForTimeout(700)
+        const look = await page.evaluate<{
+          boards: { left: number; top: number; right: number; bottom: number }[]
+          bar: { left: number; top: number; right: number; bottom: number }[]
+          states: string[]
+          card: { height: number; scrolls: boolean; client: number }
+          viewport: number
+          topVisible: boolean[]
+        }>(`(() => {
+          const rect = (el) => { const r = el.getBoundingClientRect(); return { left: r.left, top: r.top, right: r.right, bottom: r.bottom } }
+          const items = [...document.querySelectorAll('ol[aria-label="Stops on your road"] > li')]
+          const bar = [document.querySelector('[role="progressbar"]'), document.querySelector('a[aria-label="Your account"]')]
+          const wrapper = document.querySelector('section[aria-label="Today"]').parentElement
+          const covered = bar.map((el) => {
+            const r = el.getBoundingClientRect()
+            const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+            return Boolean(hit && (el === hit || el.contains(hit)))
+          })
+          return {
+            boards: items.map((li) => rect(li.firstElementChild.querySelector('[aria-hidden="true"]'))),
+            bar: bar.map(rect),
+            states: items.map((li) => li.getAttribute('data-state')),
+            card: { height: wrapper.getBoundingClientRect().height, scrolls: wrapper.scrollHeight > wrapper.clientHeight, client: wrapper.clientHeight },
+            viewport: window.innerHeight,
+            topVisible: covered,
+          }
+        })()`)
+        const touching = (a: { left: number; top: number; right: number; bottom: number }, b: typeof a) =>
+          a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom
+        expect(look.boards.length).toBeGreaterThanOrEqual(2)
+        expect(look.states.some((state) => state === 'current' || state === 'done')).toBe(true)
+        for (const [index, board] of look.boards.entries()) {
+          for (const other of look.boards.slice(index + 1)) expect(touching(board, other)).toBe(false)
+          for (const box of look.bar) expect(touching(board, box)).toBe(false)
+        }
+        // Every board is whole on the screen: none is cut by an edge.
+        for (const board of look.boards) {
+          expect(board.left).toBeGreaterThanOrEqual(0)
+          expect(board.right).toBeLessThanOrEqual(width)
+        }
+        // The bar and the account button are on screen and not covered by anything.
+        expect(look.topVisible).toEqual([true, true])
+        expect(look.card.height).toBeLessThanOrEqual(look.viewport * 0.43)
+        // What does not fit is reached by scrolling inside the card: the button is reachable.
+        const card = page.getByRole('region', { name: 'Today' })
+        const button = card.getByRole('button').first()
+        if (await button.count()) {
+          await button.scrollIntoViewIfNeeded()
+          await expect(button).toBeInViewport()
+        }
+        await card.scrollIntoViewIfNeeded()
+      })
+    }
+  }
+
   test('[redesign 20] [redesign 46] at 320 px wide with text at 200 percent nothing scrolls sideways, and the card shows the full stop name', async ({
     page,
   }) => {

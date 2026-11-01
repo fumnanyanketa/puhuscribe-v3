@@ -11,6 +11,7 @@ import {
   progressSegments,
   roadFinished,
   signWindow,
+  fitSigns,
   travelled,
 } from './road-state.ts'
 
@@ -126,5 +127,28 @@ describe('the account button letter', () => {
     expect(accountLetter('email', 'ähti@example.fi')).toBe('Ä')
     expect(accountLetter('email', '')).toBe('G')
     expect(accountLetter('email', '<script>')).toBe('G')
+  })
+})
+
+describe('fewer signs when the room is short', () => {
+  const five = ['a', 'b', 'c', 'd', 'e']
+
+  it('[redesign 20] keeps all five when there is room', () => {
+    expect(fitSigns(five, 2, 5)).toEqual({ signs: five, markerAt: 2 })
+  })
+
+  it('[redesign 20] always keeps the sign of the marker and the one after it, even with a count of one', () => {
+    expect(fitSigns(five, 2, 1)).toEqual({ signs: ['c', 'd'], markerAt: 0 })
+    expect(fitSigns(five, 0, 2)).toEqual({ signs: ['a', 'b'], markerAt: 0 })
+  })
+
+  it('[redesign 20] adds the sign before the marker first, then the one after the next, and keeps the order', () => {
+    expect(fitSigns(five, 2, 3)).toEqual({ signs: ['b', 'c', 'd'], markerAt: 1 })
+    expect(fitSigns(five, 2, 4)).toEqual({ signs: ['b', 'c', 'd', 'e'], markerAt: 1 })
+  })
+
+  it('[redesign 20] stays inside the list at the end of the road', () => {
+    expect(fitSigns(five, 4, 3)).toEqual({ signs: ['c', 'd', 'e'], markerAt: 2 })
+    expect(fitSigns(['a'], 0, 3)).toEqual({ signs: ['a'], markerAt: 0 })
   })
 })

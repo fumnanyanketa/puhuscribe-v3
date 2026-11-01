@@ -50,6 +50,27 @@ const STATE_WORDS: Record<SignState, string> = {
 }
 
 /**
+ * Fewer signs when the room above the card is short (round 3, design review): the sign the "you" marker
+ * stands at and the one after it are always kept, then one more on alternate sides of them, the one
+ * before first, until `count` are left. The order and the markers state of each sign stay as they were.
+ */
+export function fitSigns<T>(
+  signs: readonly T[],
+  markerAt: number,
+  count: number,
+): { signs: T[]; markerAt: number } {
+  const wanted = Math.max(Math.min(2, signs.length), Math.min(count, signs.length))
+  const kept = new Set<number>([markerAt])
+  if (markerAt + 1 < signs.length) kept.add(markerAt + 1)
+  for (let step = 1; kept.size < wanted && step < signs.length; step++) {
+    if (markerAt - step >= 0 && kept.size < wanted) kept.add(markerAt - step)
+    if (markerAt + 1 + step < signs.length && kept.size < wanted) kept.add(markerAt + 1 + step)
+  }
+  const order = [...kept].sort((a, b) => a - b)
+  return { signs: order.map((index) => signs[index]), markerAt: order.indexOf(markerAt) }
+}
+
+/**
  * Five signs at a time: the marker's stop, up to two before it, and the rest
  * after it, shifted so five always show (at the start the current stop is
  * first). `count` is five unless the road has fewer stops.

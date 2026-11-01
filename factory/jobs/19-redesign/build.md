@@ -1,57 +1,44 @@
-# Build notes: 19-redesign, round 2
+# Build notes: 19-redesign, round 3
 
-Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree (`.worktrees/19-redesign/factory/jobs/19-redesign/build.md`), not in the main checkout. Round 2 answers `review-design.md` and `review-security.md` (both committed with this work). The tested commit is `48ff3c8`.
+Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 3 answers the two small items left in "Round 2 re-check" of `review-design.md` (A and B) and its note C. Both review files are committed with this work. The tested commit is `__COMMIT__`.
 
-## Round 2: what changed, item by item
+## Round 3: what changed
 
-| # | Item | What I did | Protected by |
-| --- | --- | --- | --- |
-| 1 | Content on the hills (design, must fix) | The `PageFrame` header is at least `--page-content-top` (168 px, a new token) tall, so the first text starts at 168 px or lower on every page. The crash screen got the same padding. | `e2e/redesign-pages.spec.ts` `[redesign 4]`: for every page, at 375 x 812, 375 x 667 and 320 px wide with text at 200 percent, the first text of the content is at least 160 px down and lower than the lowest tree, flag or sun of the band. `tests/redesign-rules.test.ts` for the crash screen. |
-| 2 | "Delete my account" contrast (must fix) | New token `--color-danger-ink` (#8c3b1a, 6.1 to 1 on the peach end of the wash). Two new pairs in `contrast-pairs.ts` (on the peach end and on the middle of the wash). The colour tables in `design.md` are regenerated. | `tests/design-tokens.test.ts` (each pair) and `tests/redesign-rules.test.ts` `[redesign 6]`: the link's colour token must have its pair on the peach end of the wash at 4.5 to 1 in the list. That is the test that would have caught the old colour. |
-| 3 | Mint travelled road (must fix) | The road picture draws the mint from the foot of the road up to the "you" marker's own position, with mint edges, and draws nothing on day one. It no longer takes a share of 36 stops. | `e2e/redesign-road.spec.ts` `[redesign 12]`: at stop 3 the mint ends within 12 px of the marker, reaches the foot of the picture and is over 200 px long; on day one there is none. |
-| 4 | Finnish line leading (should) | Each word keeps its 44 px button, but a negative block margin makes it take one line of text, so the hit areas of two rows overlap by a few pixels and the rows are about 1.4 apart. Names without a card are plain inline text. | `e2e/redesign-lesson.spec.ts`: row pitch between 1.2 and 1.6 times the font size while every word button is 44 px tall. The earlier 44 px target tests stay green. |
-| 5 | Peach ring (should) | Changed words get the drawn 1 px ring in `--color-peach`, inside. The darker text colour stays. | `e2e/redesign-lesson.spec.ts` `[redesign 2]`: ring on changed words in both lines and none on other words. |
-| 6 | Understand it, one card (should) | The wrapper of the spoken only line card adds no panel; the line's own box is the milky card. | `e2e/redesign-lesson.spec.ts` `[redesign 28]`: the outer element has no fill or shadow and exactly one panel sits inside. |
-| 7 | Download ready (should) | "Your file is ready." is the title (the page's `h1`, ink, semibold, centred under the orb), the quiet line is under it, and "Download" is at the bottom. The status line still says "Your file is ready." for screen readers and is not drawn twice, so job 11's download tests stay as they were. The extra "Back to your account" link is removed. No spec statement needs it (statement 37 lists the title, one line and "Download"); the back arrow, named "Back to your account", is the way back. | `e2e/redesign-pages.spec.ts` `[redesign 37]`: title, centred, one link with that name and no button, and the status line still saying it. |
-| 8 | Privacy headings (should) | Ink instead of mint. | `e2e/redesign-pages.spec.ts` `[redesign 39]`: the five headings are ink. |
-| 9 | Keep sentence (security) | The "Keep my recordings" switch's help text is the `keepBox` sentence from `voiceNotice()`, with "On." or "Off." in front so the state is in words. The privacy page voice section shows the same sentence before "You can change both choices at any time in Voice settings." | `e2e/redesign-pages.spec.ts` `[redesign 36]` (the switch description in both states) and `[redesign 29] [redesign 39]` (privacy page). `src/screens/protected-copy.test.ts` still freezes the text and the version label. |
-| 10 | Country (security) | The privacy page makes one read of `GET /api/voice` and passes the real region to `voiceNotice()`, so a signed in learner reads "in the EU, in Italy" (or whichever country the Worker names). A visitor gets a 401 and reads "in the EU". The consent sheet is unchanged: title, "How it works" and two buttons. The processors list no longer says the country is on the speaking screen. | `e2e/redesign-pages.spec.ts` (with a region, and with a 401) and `e2e/account-pages.spec.ts` `[accounts 16]`. |
+| Item | What I did | Protected by |
+| --- | --- | --- |
+| A. Signs pile up on short phones and at 200% text | The road shows fewer signs while any two boards, or a board and the top bar, would touch. The sign of the current stop and the next one are always kept (`fitSigns` in `road-state.ts`), then one more on alternate sides. The gap between signs grows with the tallest board (`signGap`, so two tall boards never touch). A board that would run past an edge of the screen is nudged back inside. A hidden 1 rem box tells the screen when the text size changes, because a capped card does not change size. The boards may be wider (58 percent of the screen). The check waits for the opening animation, whose scaling would give wrong sizes. | `e2e/redesign-road.spec.ts` `[redesign 20] [redesign 13]`: in all five card states, at 375 x 667 and at 320 x 640 with text at 200 percent, at least two signs show, one of them done or current, no two boards touch, none touches the progress bar or the account button, every board is whole on the screen. `src/lib/road-state.test.ts` for `fitSigns`. |
+| B. Card fills the screen at 320 px, 200% text | The card's wrapper stops at 42 percent of the screen height and its inside scrolls (`overflow-y: auto`), so the road, the bar and the account button stay in view. | The same test: the card's height is at most 43 percent of the screen, the bar and the account button are on screen and not covered (`elementFromPoint`), and the card's button is reached by scrolling inside the card. |
+| C. Said twice | Keep it shows "Type the missing word" once, as the field's title (where the drawing has it); its status line is now for screen readers only. The crash screen shows "Something went wrong" once, as the title; the problem sentence (existing copy) stays in the page for screen readers, in the problem style. `StatusLine`'s hidden style now wins over a tone's padding and edge and keeps its sentence in a 1 px box. | `e2e/redesign-lesson.spec.ts` `[redesign 31]` and `e2e/design-reference.spec.ts` `[redesign 41]` count the visible copies (one) and check the status line still holds the sentence. |
 
-Also from the notes:
+Records: `design.md` has a bullet for the signs and the card cap and one for "said once". Screenshots retaken: every road screen (both browsers, all three sizes), Keep it and the crash screen. `evidence/02-road-day-one-*`, `03-road-continue-*`, `04`, `05` and `06` at 375 x 667 and 320 x 640 with text at 200 percent show the result.
 
-- **Unreached progress pieces** (road top, lesson bar, lesson pieces on the card) are hollow with a 1 px `--color-control-edge` edge, 3 to 1 on the mint, middle and peach ends of the wash (new pair on the peach end). Test: `e2e/redesign-road.spec.ts` `[redesign 14] [redesign 6]`.
-- **Done dock on the finish screen** is a milky bar with the dock shadow instead of a hard cut (`SessionFrame` `finished`). Test: `e2e/redesign-lesson.spec.ts` `[redesign 33]`.
-- **Road curve:** the bend is 48 against the drawing's 34 (`BEND` in `landscape-geometry.ts`), because the phone shows the picture larger and the card hides the lowest part. The S now reads like the drawing (see `evidence/03-road-continue-app-*.png`).
-- **Keep it counter** ("Word 1 of 1.") now starts below the hills (it sat on them).
-- **Evidence:** every screenshot was taken again. New: Keep it (prompt, right, close), "Something went wrong" (taken from its box on the reference page, because a render error cannot be made on purpose in the app), and twelve key screens at 375 x 667 and at 320 px wide with text at 200 percent, in both browsers (`*-375x667-*.png`, `*-320x640-text-200-*.png`). The three Say it recording states are still Chromium only.
-- **Records:** `design.md` (page content start, ring, tight rows, one card, ready screen, delete link, travelled road, hollow pieces) with its regenerated colour and contrast tables, and `src/privacy/processors.ts`.
+## Round 3: earlier tests changed
 
-## Round 2: earlier tests I changed, and why
+None. The new tests are added; no earlier check was changed or loosened this round.
 
-- `e2e/redesign-pages.spec.ts` `[redesign 37]`: the title is "Your file is ready." instead of "Download my data", and the extra link is gone (item 7). `e2e/accounts.spec.ts` is not changed for this.
-- `e2e/account-pages.spec.ts` `[accounts 16]`: the privacy page now makes exactly one `/api` call, `GET /api/voice`, for the country (item 10), where it made none. A visitor's call is a 401 before any database read. The test still checks that every request stays on the page's own address and that the cookie is empty. I changed this on purpose. It is the one place where I loosened a check, so the reviewer should look at it. `[redesign 39]` has the same single call.
-- `tests/redesign-rules.test.ts` and `e2e/redesign-evidence.spec.ts` have new tests and shots only.
+## Round 3: proof by breaking each new protection
 
-## Round 2: proof by breaking each new protection
+`evidence/proof-by-breaking-round3.md`: 7 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone: all five signs shown whatever the room, no gap for tall boards, no height cap on the card, the next sign left out of the fit (unit test), the text size probe dropped, Keep it saying its instruction twice, and the crash screen saying its sentence twice. Nothing from a break was committed.
 
-`evidence/proof-by-breaking-round2.md`: 14 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone. They are: the header losing its height (text back on the hills), the delete link back on the failing colour, the mint road as a share of 36 stops, the words of a line spaced by their 44 px again, the ring removed, a card inside a card on Understand it, a back button on the ready screen, mint privacy headings, the Keep switch without the consent sentence, the privacy page with no country, the privacy page without the Keep sentence, a progress piece without its edge, the finish dock without its fill, and the crash screen on the hills. Nothing from a break was committed.
+## Round 3: check results
 
-## Round 2: check results
-
-- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except `tooling 9` (gitleaks timing under load, see round 1's open points), which passes alone and on GitHub. The format check warns only about `design-drafts/` line endings on this Windows copy.
-- The three mock based browser files (`redesign-road`, `redesign-lesson`, `redesign-pages`) pass in Chromium against the running app (118 tests).
-- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41343076151, tested commit `48ff3c8`: success. The browser job (Chromium and WebKit, local database) passed all its tests; the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check all passed. Earlier runs of this round (41339029937, 41341363435) each found one thing to fix (the download tests wanted the status line, the start test counted from the viewport instead of the page, and the line spacing test needed the text rows in WebKit); each was fixed in the next commit.
+- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except one `commit-tool` timing test that fails under load on this machine and passes alone and on GitHub (round 1's open points).
+- The mock based browser files and the reference page (161 tests) pass in Chromium against the running app.
+- Full run on GitHub: __RUN3__
 - No scratch branch of this job is left on origin.
 
-## Round 2: unfinished or uncertain
+## Round 3: unfinished or uncertain
 
-- The country only shows for someone with an account (a visitor reads "in the EU"). The Worker is the only place that knows it. If the owner wants it for everyone, the Worker needs a small public route, which is not in this job.
-- Two word buttons on neighbouring rows overlap by about 9 px, so a tap on the overlap goes to the lower row's word. That is the cost of tight lines with 44 px targets, as the review suggested.
-- WebKit screenshots of the three Say it recording states are missing, as in round 1 (the local WebKit cannot record).
+- At 320 px with text at 200 percent the two remaining signs are big (their names are 26 px) and the current sign can partly cover the A1 label of the sun. They never touch each other, the bar or an edge. That is the price of keeping text at 200 percent.
+- When the opening animation ends, a short phone may drop signs once (the check waits for the animation so its sizes are right).
 
-Result: checks pass
+Result: __FINAL__
 
 ---
+
+# Round 2 (kept short)
+
+Round 2 answered the first design and security reviews. Commit `48ff3c8`, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41343076151, all checks passed. Page content starts at least 168 px from the top (`--page-content-top`); the delete link has its own token `--color-danger-ink` with contrast pairs on the wash; the mint road runs from the foot of the road to the marker; Finnish rows are about 1.4 apart with 44 px hit areas that overlap; changed words have the thin peach ring; Understand it is one card; the download ready screen has the title "Your file is ready."; privacy headings are ink; the Keep switch and the privacy page show the `keepBox` sentence; the privacy page names the speech service's country through one read of `GET /api/voice` (the one check loosened: `[accounts 16]` now allows exactly that call); unreached progress pieces are hollow with a 3 to 1 edge; the finish dock is a milky bar; the road's bend is 48 against the drawn 34. Proof by breaking: `evidence/proof-by-breaking-round2.md` (14 breaks). The full round 2 notes are in git history at `921739a`.
 
 # Round 1 (kept short)
 

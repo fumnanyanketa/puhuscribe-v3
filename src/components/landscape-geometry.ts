@@ -142,14 +142,20 @@ export interface SignSpot {
   side: -1 | 1
 }
 
-export function signSpots(count: number, lowest: number, firstSide: -1 | 1 = 1): SignSpot[] {
+export function signSpots(
+  count: number,
+  lowest: number,
+  firstSide: -1 | 1 = 1,
+  /** The least height between two signs' feet, in scene units, so tall boards (large text) never touch. */
+  minGap = 0,
+): SignSpot[] {
   const bottom = Math.min(Math.max(lowest, HORIZON + 24), 560)
   // Far signs stand just below the sun when there is room, and higher when there is not.
   const top = Math.min(HORIZON + 46, bottom - 56)
   const spots: SignSpot[] = []
   for (let i = 0; i < count; i++) {
     const share = count === 1 ? 0 : i / (count - 1)
-    const y = bottom - (bottom - top) * Math.pow(share, 0.9)
+    const y = bottom - Math.max((bottom - top) * Math.pow(share, 0.9), minGap * i)
     const t = tAtY(y)
     const side = (i % 2 === 0 ? firstSide : -firstSide) as -1 | 1
     const scale = 1 - share * 0.06

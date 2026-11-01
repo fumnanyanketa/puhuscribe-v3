@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { RoadBackdrop, RoadWay } from '../components/Landscape.tsx'
 import { HORIZON, SCENE_HEIGHT, SCENE_WIDTH, signSpots, xAt, yAt } from '../components/landscape-geometry.ts'
 import type { SampleLine } from '../lib/road-types.ts'
@@ -19,6 +20,10 @@ interface RoadPictureProps {
   markerAt: number
   /** How far up the road the learner has travelled, 0 to 1. */
   travelledTo: number
+  /** The least height between two signs, in scene units (tall boards at large text). */
+  signGap?: number
+  /** Sideways nudges in px by stop number, so no board runs past the edge of the screen. */
+  shifts?: Readonly<Record<number, number>>
   /** The lowest scene height a sign may stand at, so the card never covers one. */
   lowest: number
   evening?: boolean
@@ -58,12 +63,14 @@ export function RoadPicture({
   signs,
   markerAt,
   travelledTo,
+  signGap = 0,
+  shifts = {},
   lowest,
   evening = false,
   intro = false,
   sampleLine,
 }: RoadPictureProps) {
-  const spots = signSpots(signs.length, lowest)
+  const spots = signSpots(signs.length, lowest, 1, signGap)
   const marker = spots.at(markerAt)
   return (
     <div
@@ -98,7 +105,13 @@ export function RoadPicture({
             <li
               key={sign.stop.number}
               className={`${styles.sign} ${styles[sign.state]}`}
-              style={{ left: percentX(spot.x), top: percentY(spot.y) }}
+              style={
+                {
+                  left: percentX(spot.x),
+                  top: percentY(spot.y),
+                  '--shift': `${String(shifts[sign.stop.number] ?? 0)}px`,
+                } as CSSProperties
+              }
               data-state={sign.state}
               data-stop={sign.stop.number}
             >

@@ -239,7 +239,10 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   const answering = item !== undefined && shown === null
   const actions = (
     <>
-      <StatusLine tone={tone}>{message}</StatusLine>
+      {/* The instruction is the field's own title, drawn once; the status line carries it for screen readers only. */}
+      <StatusLine tone={tone} visuallyHidden={message === INSTRUCTION}>
+        {message}
+      </StatusLine>
       {answering ? (
         <>
           {!spokenItem && (

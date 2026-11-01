@@ -39,3 +39,28 @@ No must fix findings.
 - Statement 44 was tested against the test mocks. The real `GET /api/road` and its visitor form arrive with job 20, so the "same origin only" and "401 for visitors" checks need a re-run after that merge.
 
 Result: pass
+
+## Round 2 re-check (branch tip 921739a)
+
+### Finding 1 (keepBox text): fixed
+
+- `src/screens/VoiceSettings.tsx` now builds the Keep switch help text from `voiceNotice(state.region).keepBox`, with "On." or "Off." in front. The 90 day sentence is read before the press. `src/screens/PrivacyPage.tsx` shows `notice.keepBox` in the voice section. `e2e/redesign-pages.spec.ts` checks both the off and on text. The text the consent record is stamped with is now on screen.
+- Note, not a defect: the help text reads "Off. Keep my recordings so I can hear my progress. We keep ...", which repeats the switch name. It is accurate and accessible. The design reviewer may want a smoother wording, but that is not a security matter.
+
+### Finding 2 (country, and consent sheet): fixed for signed-in learners, sheet left as the owner chose
+
+- `PrivacyPage.tsx` makes one `GET /api/voice` and uses only `region` from the answer. The route needs a sign in (`worker/api.ts:502`, `worker/speech.ts:119-128`, `kit.signedIn` refuses first), so a visitor gets a 401, no database call, nothing created, and reads "in the EU". The answer is the caller's own data, the request sends nothing, and nothing is stored (the page reads no cookie and writes none). The effect guard stops a second request under React strict mode. A learner who opens "How it works" from the consent sheet is signed in (a guest cookie), so they see the country.
+- The sheet itself still shows only the title and link. That is the owner's decision and I do not raise it again.
+
+### The two loosenings
+
+1. `[accounts 16]` in `e2e/account-pages.spec.ts:106-115`: acceptable. The test went from "no /api call" to "the list of /api calls is exactly `GET /api/voice`", plus an assertion that a visitor sees "service in the EU." and that `document.cookie` is empty. It is still an equality check, so a second call, a POST or another route turns it red. It is not weakened beyond what the change needs. Keep the exact list assertion.
+2. `src/privacy/processors.ts` text: acceptable and true. "In the EU. The voice section at the top of this notice names the country when you have an account." matches the behaviour. The old sentence ("named on the speaking feedback screen") was no longer true. No claim in it is stronger than the code. `NOTICE_UPDATED` already carries the 1 November 2026 date.
+
+### Should the notice name the country for visitors too?
+
+Not required, and I recommend against a hard coded constant. GDPR Article 13 asks for the recipient (Microsoft Azure Speech is named) and for any transfer outside the EU (there is none, and "in the EU" says so). Naming the member state is good practice, not a legal duty. Visitors also cannot give voice consent, because only a signed in learner can turn speaking feedback on, so the people who need the country can see it. A constant would be a second place that holds the region. If the Worker's region setting changes and the constant does not, the notice would state something false about where voices go, which is worse than saying "in the EU". If the owner wants it for everyone later, add a public read of the region from the same setting that picks the provider (`worker/providers/speech-feedback.ts:209`), or a test that ties a constant to that map. Leave it for a later job.
+
+Round 2 result: pass. Nothing remains that must be fixed.
+
+Result: pass

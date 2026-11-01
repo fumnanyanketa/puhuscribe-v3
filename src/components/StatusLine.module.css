@@ -10,15 +10,6 @@
   color: var(--color-text);
 }
 
-.hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
 .neutral {
   color: var(--color-text-quiet);
 }
@@ -54,4 +45,24 @@
   height: 12px;
   margin-top: 0.35em;
   background: var(--color-problem-edge);
+}
+
+/* Last, so it wins over a tone's padding and edge: a line for screen readers only takes no room. */
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The sentence inside keeps the same 1 px box, so its own width never reaches past the screen. */
+.hidden > span {
+  display: block;
+  width: 1px;
+  white-space: normal;
 }

@@ -36,3 +36,37 @@ Overall: the look matches the approved drawings well. Palette, Poppins, milky pa
 16. **Evidence gaps.** No screenshots at 320 px wide with 200 percent text or at 375 x 667, so statements 20 and 46 rest on tests only. Keep it, Use it, and "Something went wrong" have no screenshots (build.md says so). The three Say it recording states are Chromium only. I could not check the animation visually, only its code and test descriptions.
 
 Result: changes needed
+
+## Round 2 re-check
+
+Checked at branch tip 921739a against the new code (`git diff 44e9d3e..HEAD`) and the retaken screenshots, including the new 375 x 667 and 320 px 200 percent shots, Keep it and the crash screen. Contrast numbers are my own calculation. I did not run the app.
+
+### Round 1 items
+
+1. **Content on the landscape: fixed.** `PageFrame.module.css` now gives the header a minimum height of `--page-content-top` (168 px) and the body starts under it. In 17, 18, 19, 20, 23 and 24 the first line now starts below the hills and trees, and the 320 px 200 percent privacy shot shows the same. Keep it's "Word 1 of 1." (screenshot 26) still touches the lowest edge of the hill, but it is above the 4.5 floor there (about 4.6), so I only note it.
+2. **Delete my account contrast: fixed.** `--color-danger-ink` #8c3b1a is 6.1 to 1 on the peach end of the wash and 7.2 on the middle, and both pairs are now in `contrast-pairs.ts`. The colour stays warm and close to the delete pill, so the look holds. Accepted.
+3. **Mint travelled road: fixed.** Screenshots 03 and 04 now show a clear mint centre line and edges from the foot of the road to the "you" marker, as drawn. Accepted. At 375 x 667 it is still visible between the marker and the card.
+4. **Line spacing: fixed.** The 44 px target is now a hit area only (negative block margin, line pitch near 1.4). In 07, 09, 11, 13 and 26 the two rows of a line read as one tight line, as drawn, and plain words (names) no longer reserve height. Accepted. The hit areas of two rows overlap by a few pixels, which is the standard way to keep 44 px targets on tight text and still meets WCAG 2.5.8 (24 px minimum).
+5. **Changed word ring: fixed.** The thin peach ring is back (`box-shadow: inset 0 0 0 1px var(--color-peach)`). It is 2.65 to 1 on the wash, which is fine for a decoration because the bold weight and the wash carry the meaning, and the text keeps its 7 to 1. The word now reads as peach again. Accepted.
+6. **Understand it card in card: fixed.** Screenshot 09 now shows one milky card with the line and the play button, as drawn.
+7. **Download ready: fixed.** "Your file is ready" is now the `h1` in title style, centred under the orb, with "Download" at the bottom, and the extra link is gone. The status line stays for screen readers only.
+8. **Privacy headings: fixed.** They are ink, semibold.
+9 to 12 (notes). The empty progress pieces now have a mint edge (3.6 to 1 on both ends of the wash); the road top and lesson bars read clearly as hollow pieces. The finish screen's Done dock is now a milky bar with a soft shadow, so the new words panel fades under it instead of being cut. The road bend is raised from 34 to 48. The voice settings filler line is still visible; it is old and I leave it as a note.
+
+### The builder's choices
+
+- **Content starts at 168 px:** good. It clears the ridge (about 148 px) and leaves a breathing space, and the first layer of every page now looks like the drawings.
+- **`--color-danger-ink` #8c3b1a:** good. One extra token for one use, tested in two places.
+- **Mint road from the foot of the road to the marker:** good. It is the right reading of "the stretch travelled", and a test now covers it.
+- **Overlapping 44 px targets at 1.4 leading:** good, see item 4.
+- **Road bend 48 instead of the drawn 34:** acceptable. The S now reads as clearly as in the drawing, which was the point. The drawing's picture is smaller on a real phone and the card hides the lowest part of the road, so a larger bend at the same scale is a fair match. It does depart from the owner's drawn number, so mention it to the owner in the summary.
+
+### What remains
+
+A. **Signs pile up on short phones and at 200 percent text (should fix).** `src/road/RoadPicture.tsx` and `signSpots` (`lowest` is measured from the card). In `02-road-day-one-375x667-webkit.png` and `03-road-continue-375x667-webkit.png`, sign 5 sits on top of sign 4, so "Numbers, prices and paying" is cut at "prices", and the next signs touch each other and the "you" marker. In `03-road-continue-320x640-text-200-webkit.png` the signs are a stack of overlapping boxes, with names unreadable and the top signs sitting beside and over the progress bar and the account button. The current sign, the marker and the card are fine (spec statement 20 is met), but a learner on an iPhone SE sees a jumble. Fix: when the room above the card is small, show fewer signs (the current one, the one before and the one after) or stop the signs from overlapping by spacing them from the measured room, and keep the top bar clear of signs.
+B. **At 320 px with 200 percent text the card fills the screen (should fix).** `02-road-day-one-320x640-text-200-*.png`. The day one card reaches the top of the screen, covers the road, the progress bar and the account button, and `.screen` is `overflow: hidden`, so a longer stop name or guest line would be cut with no way to scroll. Fix: cap the card's height (about 70 percent of the screen) and let its inside scroll, or let the page scroll at large text.
+C. **Repeated lines (note).** Keep it shows "Type the missing word" as a heading and again as the hint above "Check". The crash screen shows "Something went wrong" as the title and "Something went wrong on this screen." in the block below. Say it once each, to match "minimal text". The crash words are existing copy, so only the Keep it hint is an easy change.
+
+The 375 x 667 and 320 px shots of every other screen (accounts, privacy, feedback, voice settings, Keep it, finish) show no sideways scroll, no clipped text and reachable actions.
+
+Result: changes needed (A and B only; both are small and nothing in round 1 remains open)

@@ -27,7 +27,10 @@ export function CrashScreen({ embedded = false }: { embedded?: boolean }) {
           !
         </span>
         <Title className={styles.title}>Something went wrong</Title>
-        <StatusLine tone="problem">{SOMETHING_WENT_WRONG}</StatusLine>
+        {/* The title says it to the eye, once; this line says it to a screen reader, in the problem style. */}
+        <StatusLine tone="problem" visuallyHidden>
+          {SOMETHING_WENT_WRONG}
+        </StatusLine>
         <Button
           block
           onClick={() => {

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { PATHS } from '../lib/app-paths.ts'
 import { accountKindOf } from './save-note.ts'
 import { noticeFrom } from '../lib/account-notice.ts'
-import { accountLetter } from '../lib/road-state.ts'
+import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { loadRoad } from '../lib/road-data.ts'
 import type { RoadView } from '../lib/road-types.ts'
@@ -35,6 +35,8 @@ async function loadHome(): Promise<Home> {
 /** The card's room at the bottom, in px, until it is measured. */
 const CARD_ESTIMATE = 230
 
+const MOST_SIGNS = 5
+
 export function RoadScreen() {
   const [home, setHome] = useState<Home>({ kind: 'loading' })
   const [playing, setPlaying] = useState(false)
@@ -42,12 +44,22 @@ export function RoadScreen() {
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
   const [lowest, setLowest] = useState(400)
+  // How many signs show. Five when there is room; fewer when the room above the card is short.
+  const [signCount, setSignCount] = useState(MOST_SIGNS)
+  // The least height between two signs' feet, in scene units, from the tallest board (large text makes boards tall).
+  const [signGap, setSignGap] = useState(0)
+  // Counts the times the room was measured, so the signs are checked again after every one.
+  const [measured, setMeasured] = useState(0)
+  // Sideways nudges (px) by stop number for boards that would run past an edge.
+  const [shifts, setShifts] = useState<Record<number, number>>({})
   // Skip asks for focus on Start; it is given once the card is no longer hidden by the animation.
   const focusAfterSkip = useRef(false)
   const first = useRef<Promise<Home> | null>(null)
   const startRef = useRef<HTMLButtonElement>(null)
   const cardBox = useRef<HTMLDivElement>(null)
   const picture = useRef<HTMLDivElement>(null)
+  const topBox = useRef<HTMLDivElement>(null)
+  const textProbe = useRef<HTMLSpanElement>(null)
 
   // One load per page load, also under React's strict mode.
   useEffect(() => {
@@ -111,6 +123,10 @@ export function RoadScreen() {
     // The box starts above the screen's top (offsetTop is negative).
     const room = window.innerHeight - cardHeight - 24 - box.offsetTop
     setLowest(Math.max(260, room / unit))
+    // The room changed (a turn, a text size, a taller card): try all the signs again.
+    setSignCount(MOST_SIGNS)
+    setShifts({})
+    setMeasured((count) => count + 1)
   }, [])
 
   useLayoutEffect(() => {
@@ -119,11 +135,62 @@ export function RoadScreen() {
     window.addEventListener('resize', measure)
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
     if (cardBox.current) observer?.observe(cardBox.current)
+    // A box of 1rem: it changes size when the learner's text size does, which the capped card may not.
+    if (textProbe.current) observer?.observe(textProbe.current)
     return () => {
       window.removeEventListener('resize', measure)
       observer?.disconnect()
     }
   }, [home, measure])
+
+  // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
+  // sign of the "you" marker and the next one are always kept. It waits for the opening animation,
+  // whose scaling would make the boxes look smaller than they end up.
+  useLayoutEffect(() => {
+    if (home.kind !== 'ready' || playing) return
+    const boards = [...(picture.current?.querySelectorAll('ol > li') ?? [])].map((item) => {
+      const board = item.firstElementChild?.querySelector('[aria-hidden="true"]')
+      return board?.getBoundingClientRect()
+    })
+    const bar = topBox.current?.getBoundingClientRect()
+    const unit = (picture.current?.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0
+    // The tallest board with its pole and a little air, so two signs never touch.
+    const tallest = Math.max(0, ...boards.map((box) => box?.height ?? 0))
+    const wanted = unit > 0 ? Math.ceil((tallest + 22) / (unit / 280)) : 0
+    if (wanted > signGap + 1 || wanted < signGap - 12) {
+      setSignGap(wanted)
+      return
+    }
+    // A board that runs past the edge of the screen is nudged back inside it, 8 px from the edge.
+    const items = [...(picture.current?.querySelectorAll('ol > li') ?? [])]
+    const next = { ...shifts }
+    const moved: number[] = []
+    items.forEach((item, index) => {
+      const box = boards[index]
+      const number = Number(item.getAttribute('data-stop'))
+      if (!box) return
+      const room = window.innerWidth - 8
+      const delta = box.right > room ? room - box.right : box.left < 8 ? 8 - box.left : 0
+      if (Math.abs(delta) >= 1) {
+        next[number] = (next[number] ?? 0) + delta
+        moved.push(number)
+      }
+    })
+    if (moved.length > 0) {
+      setShifts(next)
+      return
+    }
+    const gap = 4
+    const touching = (a: DOMRect, b: DOMRect) =>
+      a.left < b.right + gap && b.left < a.right + gap && a.top < b.bottom + gap && b.top < a.bottom + gap
+    const crowded = boards.some(
+      (box, index) =>
+        box !== undefined &&
+        (box.top < (bar?.bottom ?? 0) + gap ||
+          boards.slice(index + 1).some((other) => other !== undefined && touching(box, other))),
+    )
+    if (crowded && signCount > 2) setSignCount(signCount - 1)
+  }, [home, playing, signCount, signGap, lowest, measured, shifts])
 
   async function start() {
     setStarting(true)
@@ -147,6 +214,7 @@ export function RoadScreen() {
 
   const view = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
   const sampleLine = playing ? view.firstStop?.sampleLine : undefined
+  const shown = fitSigns(view.signs, view.markerAt, signCount)
 
   return (
     <main
@@ -155,6 +223,7 @@ export function RoadScreen() {
       data-intro={playing ? 'on' : undefined}
     >
       <h1 className={styles.hidden}>Your road to A1</h1>
+      <span className={styles.probe} ref={textProbe} aria-hidden="true" />
       {playing && (
         <button type="button" className={styles.skip} onClick={skip}>
           Skip
@@ -163,17 +232,19 @@ export function RoadScreen() {
       <div className={styles.world}>
         <div className={styles.pictureBox} ref={picture}>
           <RoadPicture
-            signs={view.signs}
-            markerAt={view.markerAt}
+            signs={shown.signs}
+            markerAt={shown.markerAt}
             travelledTo={view.travelledTo}
             lowest={lowest}
+            signGap={signGap}
+            shifts={shifts}
             evening={view.evening}
             intro={playing}
             sampleLine={sampleLine}
           />
         </div>
       </div>
-      <div className={styles.top}>
+      <div className={styles.top} ref={topBox}>
         <RoadTop pieces={view.pieces} letter={signedIn ? letter : null} />
       </div>
       <div

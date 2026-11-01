@@ -496,6 +496,22 @@ test.describe('record control', () => {
   })
 })
 
+test.describe('the crash screen', () => {
+  test('[redesign 41] says "Something went wrong" once to the eye, with the sentence kept for screen readers', async ({
+    page,
+  }) => {
+    await openReference(page)
+    const box = page.locator('[data-crash-screen]')
+    await box.scrollIntoViewIfNeeded()
+    const seen = await page.evaluate<number>(`[...document.querySelectorAll('[data-crash-screen] *')]
+      .filter((el) => el.children.length === 0 && el.textContent.trim().startsWith('Something went wrong'))
+      .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 2 && r.height > 2 })
+      .length`)
+    expect(seen).toBe(1)
+    await expect(box.getByRole('status')).toHaveText('Something went wrong on this screen.')
+  })
+})
+
 test.describe('the page wash', () => {
   test('[redesign 3] the page background is the mint to off white to peach wash, declared once', async ({
     page,

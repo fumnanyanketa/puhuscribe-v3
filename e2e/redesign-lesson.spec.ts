@@ -483,6 +483,20 @@ test.describe('the finished lesson', () => {
     await expect(page.getByRole('link', { name: 'Send feedback' })).toBeVisible()
   })
 
+  test('[redesign 31] Keep it says "Type the missing word" once to the eye, and the status line carries it for screen readers', async ({
+    page,
+  }) => {
+    await open(page, { step: 'say', review: true })
+    await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeAttached()
+    await expect(page.getByLabel('Type the missing word', { exact: true })).toBeVisible()
+    const seen = await page.evaluate<number>(`[...document.querySelectorAll('body *')]
+      .filter((el) => el.children.length === 0 && el.textContent.trim().startsWith('Type the missing word'))
+      .filter((el) => { const box = el.getBoundingClientRect(); return box.width > 2 && box.height > 2 })
+      .length`)
+    expect(seen).toBe(1)
+    await expect(page.getByRole('status')).toHaveText('Type the missing word.')
+  })
+
   test('[redesign 33] the Done dock is a milky bar with a soft edge over the new words, not a hard cut', async ({
     page,
   }) => {
