@@ -51,3 +51,10 @@ None of the five was found showing a prominent "words learned" number with a sta
 - Strava Flyover (2023): show the whole route first, then move in on the dot. https://techcrunch.com/2023/11/15/strava-launches-flyover-an-aerial-3d-video-recap-of-every-outdoor-activity-you-do/
 - Apple's Motion guidance: brief, never blocking, a crossfade when Reduce Motion is on. https://developer.apple.com/design/human-interface-guidelines/motion
 - Accessibility rule WCAG 2.2.2: moving content that starts by itself and runs over 5 seconds needs a way to stop it, so keep it shorter and offer Skip.
+
+## Word card references (1 November 2026)
+
+- Pattern across LingQ, Readlang, Kindle and Clozemaster (text sources, screenshots not reachable): a short card with the meaning first, audio beside the word, the sentence kept visible, and grammar behind one more tap.
+- No app was found that labels a base form well for beginners; plain words ("Dictionary form: tuo, that") replace terms such as lemma or nominative.
+- Wiktionary: spoken noi is the plural of toi; written nuo is the plural of tuo. https://en.wiktionary.org/wiki/noi
+- `written-colour.html`: the new word card in three colours for written Finnish (slate blue, plum, graphite).
