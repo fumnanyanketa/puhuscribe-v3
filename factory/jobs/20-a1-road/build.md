@@ -12,16 +12,13 @@ Branch `factory/20-a1-road` (pushed, no pull request, not merged). Round 5 start
 - **Retry-After.** A wait that Azure asks for is cut to 60 seconds at most (`MAX_RETRY_WAIT_SECONDS` in `scripts/generate/providers/voice.py`), the same as the back off.
 - **Import (part all).** `analyse` gave the same caps as before (2000, 2000, 2000, 2500, 2500, 1500). The import changed two words, the two above, and nothing else. The importer dropped the manager's row for the old hitaammin form (form-ba63b5995fe7, no longer used).
 
-## New empty rows for the manager
+## The two word note rows
 
-Two forms have no text yet, so two drafts say `"notes": "pending"` (106 of 108 are `"complete"`). The list is `content/road/needed-notes.tsv`:
+The import of round 5 left two forms without text (hitaammin as hidas and en voi as voida). The manager wrote both in 79f6eea. A final import (part `all`, run 41341183266) then gave 108 of 108 drafts with `"notes": "complete"`, 0 failures, no changed word and an empty `content/road/needed-notes.tsv`.
 
-| Form id | Written, spoken | Dictionary form | Form name | Needs | Line |
-|---|---|---|---|---|---|
-| form-3c09073a2190 | hitaammin, hitaammin | hidas | comparative, adverb | meaning and why | `sorry-i-didnt-understand` 4: Voitko sinä puhua vähän hitaammin? |
-| form-1328b4909965 | voi, voi | voida | present tense, negative form | meaning and why | `is-there-milk-in-it` 3: Minä en voi syödä maitotuotteita. |
+## Question from the manager: did the broken-guard test call Azure?
 
-The lemma `hidas` already has its meaning in `glossary.tsv`. No other lemma and no other form is missing. After these two rows are written, rerun `import` (part `all`) so the two drafts say `"complete"`.
+No. It used a fake and spent nothing. When I broke the voice log guard on purpose on this computer, the test gave `cmd_voice` a stand-in object (`types.SimpleNamespace`) as the voice provider, so no Azure provider was built, no key or region was read, and no network call was made (the Azure provider is only made by `voice_module.get_provider()`, which `cmd_voice` skips when a provider is passed). The stand-in wrote no log line either. So 0 characters were sent, and nothing needs adding to `content/logs/ai-calls.jsonl`: it is byte for byte what it was (`git diff 0315f11 HEAD -- content/logs` and the same for every `content/drafts/*/audio` folder are empty). What the broken guard did write was fake or empty audio files and `draft.json` edits into this working folder only; I restored them with `git checkout` before any commit, and none reached the branch. On GitHub the guard was never broken (the only break there was the fingerprint). The free tier is therefore untouched by this: the month's logged voice use stays at the sample's 507 characters of the 500,000 allowance (the log's own total this month), and the 450,000 stop line is unchanged.
 
 ## Which tests protect it
 
@@ -156,4 +153,4 @@ Round 1 (commit 9fbb60b, all GitHub checks green on run 41321561654): the road i
 
 Round 1 departures that still stand: the six earlier drafts keep their old unit block; `noi` has the lemma `nuo`; glued `Ootsä` is one word in the text and two in the tokens; `present-tense` is a catalogue entry at stop 1; the six earlier drafts disagree on the why line of 25 shared forms; `judge` and `voice` take `--part`; the road's seed numbers are zero until a part is approved. Round 1 run links: import 41321298577, analyse 41317041041, judge 41318417132, 41319745436 and 41320245477, voice sample 41317587713, count-characters 41317789817.
 
-Result: checks pass, with two word note rows for the manager still empty (form-3c09073a2190 and form-1328b4909965, listed above), so two drafts say pending until they are written and the import is run again
+Result: checks pass

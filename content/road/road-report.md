@@ -18,7 +18,7 @@ unless it ran.
 | grammar_cards | 7360 | 1.0000 |
 
 Register judge: n/a in 6 drafts, passed in 102 drafts.
-Forms waiting for word notes: 2 (see needed-notes.tsv).
+Forms waiting for word notes: 0 (see needed-notes.tsv).
 
 ## Stop 1. Meeting people
 
