@@ -738,6 +738,33 @@
     background: var(--b-soft);
     box-shadow: 0 0 0 2px var(--b);
   }
+  .group {
+    padding: 6px 0;
+    display: grid;
+  }
+  .row2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    font-size: 11.5px;
+    color: var(--ink);
+  }
+  .row2 .chev {
+    width: 6px;
+    height: 6px;
+    border-top: 1.6px solid var(--quiet);
+    border-right: 1.6px solid var(--quiet);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+  .del {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--b-deep);
+    padding: 8px;
+  }
   .lhead {
     display: flex;
     justify-content: space-between;
@@ -2008,16 +2035,16 @@
           ph(`${vista()}<div class="body over">${backBar('Your account')}
       <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">Guest</b><div class="small">Saved on this device only</div></div></div>
       <span class="pill">Add your email<i></i></span>
-      <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div></div>
-      <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my account</div></div>`),
+      <div class="milk group"><div class="row2">Voice settings<span class="chev"></span></div><div class="row2">Download my data<span class="chev"></span></div><div class="row2">Privacy notice<span class="chev"></span></div></div><div class="milk group"><div class="row2">Send feedback<span class="chev"></span></div></div>
+      <div class="grow"></div><span class="del">Delete my account</span></div>`),
         ],
         [
           'Your account, signed in',
           '',
           ph(`${vista()}<div class="body over">${backBar('Your account')}
       <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">alex@example.com</b><div class="small">Progress on all your devices</div></div></div>
-      <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div><div class="milk item">Sign out<span class="chev"></span></div></div>
-      <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my account</div></div>`),
+      <div class="milk group"><div class="row2">Voice settings<span class="chev"></span></div><div class="row2">Download my data<span class="chev"></span></div><div class="row2">Privacy notice<span class="chev"></span></div></div><div class="milk group"><div class="row2">Send feedback<span class="chev"></span></div><div class="row2">Sign out<span class="chev"></span></div></div>
+      <div class="grow"></div><span class="del">Delete my account</span></div>`),
         ],
         [
           'Add your email',

@@ -308,3 +308,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T12:39 Owner: spoken and written dots too alike; word card wording unclear. Word card redesigned from research (meaning first, audio by the word, People say / Books write tiles, Dictionary form in plain words, Why does it change behind a tap). Three written colours to choose from.
 - 2026-11-01T12:45 Owner chose slate blue for written Finnish ("A. Slate blue"). Applied to every screen with the new word card; design.md rules updated.
 - 2026-11-01T12:48 Owner: speaking consent sheet drops "Your voice is checked, then deleted."; "How it works" carries the details.
+- 2026-11-01T12:50 Owner: account rows looked scattered. Now two quiet panels with no lines between rows, and Delete my account as a plain text link.
