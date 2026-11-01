@@ -70,3 +70,29 @@ C. **Repeated lines (note).** Keep it shows "Type the missing word" as a heading
 The 375 x 667 and 320 px shots of every other screen (accounts, privacy, feedback, voice settings, Keep it, finish) show no sideways scroll, no clipped text and reachable actions.
 
 Result: changes needed (A and B only; both are small and nothing in round 1 remains open)
+
+## Round 3 re-check
+
+Checked at branch tip 77ab27a against `git diff 921739a..77ab27a` and the retaken screenshots (`02-road-day-one-*`, `03-road-continue-*` at 375 x 667 and 320 x 640 with text at 200 percent, `26-keep-it-*`, `29-something-went-wrong-*`). I did not run the app or the database. The tests the builder added for these items passed on GitHub (run 41348915446, commit 0347ae4), which I take from `build.md`.
+
+### A. Signs on short phones: fixed
+
+At 375 x 667 the road now shows four signs on day one and three on the continue screen, with no board on top of another and none on the progress bar, the account button or the "you" marker (`02-road-day-one-375x667-webkit.png`, `03-road-continue-375x667-webkit.png`). "Numbers, prices and paying" is whole again. At 320 px with 200 percent text two signs stay (the current stop and the next), both whole, with the top bar clear. The rule (keep the current and next sign, drop others, grow the gap with the tallest board, nudge a board back inside the screen) is sound and is recorded in `design.md`.
+
+### B. Card at 320 px with 200 percent text: fixed
+
+The card now stops at 42 percent of the screen height and scrolls inside. In `02-road-day-one-320x640-text-200-webkit.png` the road, both signs, the progress bar and the account button are all visible above it, and the Start button shows about 47 px of its height at the card's lower edge, so a learner sees there is more and can tap it or scroll. Accepted.
+
+### C. Said twice: fixed
+
+Keep it shows "Type the missing word" once, as the field's title, and the status line keeps the sentence for screen readers only (`26-keep-it-375x667-webkit.png`). The crash screen shows "Something went wrong" once, with the problem sentence kept for screen readers (`29-something-went-wrong-app-webkit.png`). The hidden style in `StatusLine.module.css` now sits last so a tone's padding and edge cannot leave a gap. No new wording, no banned style, no new colour.
+
+### New problems in the changed files
+
+None that block. Notes only.
+
+1. **Note: flag labels clipped by signs.** On the tall phone (`02-road-day-one-app-webkit.png`) and at 375 x 667 (`02-road-day-one-375x667-webkit.png`) a sign covers most of the real "A2" label, so it reads "2" or a clipped letter. At 320 px with 200 percent text the current sign covers most of the "A1" on the sun (`03-road-continue-320x640-text-200-webkit.png`, which the builder already lists). These are scenery labels, not controls, so I do not block on them. If it is cheap, keep signs from standing on the A2 flag.
+2. **Note: Keep it at 200 percent text.** In `26-keep-it-320x640-text-200-webkit.png` the focused answer field sits half behind the Check bar. The page scrolls and the field is reachable, as in round 2, so I only note it.
+3. **Note: the card's scroll has no visible hint** other than the cut Start button. That is enough at this size.
+
+Result: pass
