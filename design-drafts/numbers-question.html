@@ -1818,8 +1818,9 @@
   <header>
     <h1>The end of a lesson</h1>
     <p>
-      Three ways to show what a lesson gave you. A shows nothing extra. B puts the numbers in one quiet line.
-      C shows the new words themselves, so the number means something.
+      Three ways to show what a lesson gave you, for a guest. A shows nothing extra. B puts the numbers in one
+      quiet line. C shows the new words themselves, so the number means something. The fourth phone is C for
+      someone who already has an account: no note, because their progress is already saved.
     </p>
   </header>
   <div id="out"></div>
@@ -1991,7 +1992,7 @@
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
       
       <div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Create an account to save your progress.</span><span class="plain">Create account</span></div>
       <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
         [
@@ -2002,7 +2003,7 @@
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
       <p class="hint" style="font-size:10.5px">11 new words · 8 lines said out loud</p>
       <div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Create an account to save your progress.</span><span class="plain">Create account</span></div>
       <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
         [
@@ -2013,8 +2014,19 @@
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
       <div class="milk" style="padding:11px 13px;display:grid;gap:8px"><span style="font-size:10.5px;color:var(--quiet)">11 new words</span><div class="chips"><span>voinks</span><span>maksaa</span><span>kortilla</span><span>käteisellä</span><span>kuitti</span><span>+6</span></div></div>
       <div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Create an account to save your progress.</span><span class="plain">Create account</span></div>
       <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
+        ],
+        [
+          'C, signed in',
+          'Someone with an account sees no note. Their progress is already saved.',
+          ph(`${vista()}<div class="body over" style="padding-top:10px">
+      <span class="done-orb"></span><p class="big">Now you can say this.</p>
+      <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px"><span style="font-size:10.5px;color:var(--quiet)">11 new words</span><div class="chips"><span>voinks</span><span>maksaa</span><span>kortilla</span><span>käteisellä</span><span>kuitti</span><span>+6</span></div></div>
+      <div class="grow"></div>
+      
+      <span class="pill">Done<i></i></span><span class="hint">Saved to your account.</span></div>`),
         ],
       ],
     },
