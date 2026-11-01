@@ -36,17 +36,17 @@
       "extras-stop-5",
       "extras-stop-6"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "aurinkoinen",
       "kovin",
       "lainata",
       "oho",
-      "paljon",
+      "pakkanen",
+      "rikki",
       "sataa",
       "sateenvarjo",
       "suomenlinna",
-      "todella",
       "tuulinen",
       "voi"
     ],
@@ -68,7 +68,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -644,18 +644,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "olin",
@@ -800,18 +800,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "olin",
@@ -1085,9 +1085,9 @@
         "MANUAL": "true"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "really",
+      "lemma_meaning_en": "really",
+      "why_en": "Books write todella. In speech people use tosi, 'really', instead."
     },
     {
       "id": "form-3d569cac2c52",
@@ -1159,9 +1159,9 @@
         "MANUAL": "true"
       },
       "form_name_en": "adverb, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "how much",
+      "lemma_meaning_en": "a lot, much",
+      "why_en": "paljon with the question ending -ko asks 'how much?'. Speech uses -ks: paljonks."
     },
     {
       "id": "form-38f9f5649640",
@@ -1425,15 +1425,15 @@
       "why_en": "Viikonloppu with -na for 'at, on' a time: viikonloppuna."
     },
     {
-      "id": "form-2f3bea3d9937",
+      "id": "form-728ddce13587",
       "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
         "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
@@ -1442,7 +1442,7 @@
       "form_name_en": "nominative singular",
       "meaning_en": "I",
       "lemma_meaning_en": "I, me",
-      "why_en": "Speech shortens minä to mä. Books write minä."
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-958a4ddbf13e",
@@ -1481,9 +1481,9 @@
         "SIJAMUOTO": "olento"
       },
       "form_name_en": "essive singular",
-      "meaning_en": "",
+      "meaning_en": "at home",
       "lemma_meaning_en": "home",
-      "why_en": ""
+      "why_en": "Koti with -na means 'at home': kotona. The t of koti changes and an o is added. You hear it every day."
     },
     {
       "id": "form-938eb8c80d8d",

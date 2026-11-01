@@ -34,14 +34,13 @@
       "extras-stop-4",
       "extras-stop-5"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "ab-lippu",
       "automaatti",
       "laituri",
       "noin",
       "oodi",
-      "paljon",
       "pysäkki",
       "raitiovaunu",
       "viisitoista"
@@ -64,7 +63,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -107,18 +106,18 @@
         {
           "surface": "minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "voin",
@@ -311,18 +310,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "menen",
@@ -765,18 +764,18 @@
         {
           "surface": "minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "pääsen",
@@ -963,15 +962,15 @@
       "why_en": "Mikä with -stä for 'from': mistä. Mistä voin ostaa means where can I buy."
     },
     {
-      "id": "form-2f3bea3d9937",
+      "id": "form-728ddce13587",
       "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
         "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
@@ -980,7 +979,7 @@
       "form_name_en": "nominative singular",
       "meaning_en": "I",
       "lemma_meaning_en": "I, me",
-      "why_en": "Speech shortens minä to mä. Books write minä."
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-1932b7fb8d7b",
@@ -1281,9 +1280,9 @@
         "MANUAL": "true"
       },
       "form_name_en": "adverb, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "how much",
+      "lemma_meaning_en": "a lot, much",
+      "why_en": "paljon with the question ending -ko asks 'how much?'. Speech uses -ks: paljonks."
     },
     {
       "id": "form-eca33913649c",
@@ -1324,9 +1323,9 @@
         "WORDBASES": "+maksaa(maksaa)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
+      "meaning_en": "costs",
       "lemma_meaning_en": "to cost, to pay",
-      "why_en": ""
+      "why_en": "maksaa, to cost or pay. With se, 'it', the verb ends in a long vowel: maksaa."
     },
     {
       "id": "form-008b8a3eae32",

@@ -39,15 +39,16 @@
       "extras-stop-6",
       "extras-stop-7"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "eksyksissä",
       "eli",
+      "juuri",
       "kassi",
       "kellotorni",
       "muovipussi",
       "palaveri",
-      "paljon",
+      "pussi",
       "rautatieasema",
       "vartti",
       "viisitoista"
@@ -70,7 +71,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -284,18 +285,18 @@
         {
           "surface": "minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "en",
@@ -986,18 +987,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "opettelen",
@@ -1247,15 +1248,15 @@
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
-      "id": "form-2f3bea3d9937",
+      "id": "form-728ddce13587",
       "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
         "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
@@ -1264,7 +1265,7 @@
       "form_name_en": "nominative singular",
       "meaning_en": "I",
       "lemma_meaning_en": "I, me",
-      "why_en": "Speech shortens minä to mä. Books write minä."
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-e12332115711",
@@ -1303,9 +1304,9 @@
         "SIJAMUOTO": "nimento"
       },
       "form_name_en": "past active participle, nominative singular",
-      "meaning_en": "",
+      "meaning_en": "understood (I didn't understand)",
       "lemma_meaning_en": "to understand",
-      "why_en": ""
+      "why_en": "After en, 'I don't', a past action uses this form: en ymmärtänyt. Speech drops the last t: ymmärtäny."
     },
     {
       "id": "form-fa979256af55",

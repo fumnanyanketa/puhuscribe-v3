@@ -32,7 +32,7 @@
       "extras-stop-3",
       "extras-stop-4"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "bonuskortti",
       "kahdeksankymmentä",
@@ -41,10 +41,10 @@
       "kuitti",
       "kuusikymmentä",
       "käteinen",
+      "litra",
       "mansikka",
       "neljäkymmentä",
       "näkemiin",
-      "paljon",
       "päivänjatko",
       "rasia",
       "takaisin",
@@ -68,7 +68,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -542,18 +542,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "maksan",
@@ -1028,9 +1028,9 @@
         "TENSE": "present_simple"
       },
       "form_name_en": "present tense, negative form",
-      "meaning_en": "",
+      "meaning_en": "is not, do not have",
       "lemma_meaning_en": "to be, to have",
-      "why_en": ""
+      "why_en": "After ei the verb drops its ending: olla becomes ole. Speech shortens ole to oo."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1184,8 +1184,8 @@
         "MANUAL": "true"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a lot, much",
+      "lemma_meaning_en": "a lot, much",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1247,15 +1247,15 @@
       "why_en": "After a number the noun takes the partitive: neljäkymmentä senttiä. Speech turns -iä into -ii."
     },
     {
-      "id": "form-2f3bea3d9937",
+      "id": "form-728ddce13587",
       "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
         "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
@@ -1264,7 +1264,7 @@
       "form_name_en": "nominative singular",
       "meaning_en": "I",
       "lemma_meaning_en": "I, me",
-      "why_en": "Speech shortens minä to mä. Books write minä."
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-af34c4dec83d",
@@ -1421,9 +1421,9 @@
         "MANUAL": "true"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "back",
+      "lemma_meaning_en": "back",
+      "why_en": "Speech shortens takaisin to takas. Books write takaisin."
     },
     {
       "id": "form-1572e0ae2eaa",

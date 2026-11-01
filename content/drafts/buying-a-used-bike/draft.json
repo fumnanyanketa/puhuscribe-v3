@@ -32,7 +32,7 @@
       "extras-stop-3",
       "extras-stop-4"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "bonuskortti",
       "kahdeksankymmentä",
@@ -41,10 +41,10 @@
       "kuitti",
       "kuusikymmentä",
       "käteinen",
+      "litra",
       "mansikka",
       "neljäkymmentä",
       "näkemiin",
-      "paljon",
       "päivänjatko",
       "rasia",
       "takaisin",
@@ -68,7 +68,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -847,18 +847,18 @@
         {
           "surface": "Minä",
           "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
             "WORDBASES": "+minä(minä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "maksan",
@@ -1214,9 +1214,9 @@
         "WORDBASES": "+maksaa(maksaa)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
+      "meaning_en": "costs",
       "lemma_meaning_en": "to cost, to pay",
-      "why_en": ""
+      "why_en": "maksaa, to cost or pay. With se, 'it', the verb ends in a long vowel: maksaa."
     },
     {
       "id": "form-e44ddd84c5ae",
@@ -1500,15 +1500,15 @@
       "why_en": "The passive form means 'let's' here. Sopia becomes sovitaan."
     },
     {
-      "id": "form-2f3bea3d9937",
+      "id": "form-728ddce13587",
       "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
         "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
@@ -1517,7 +1517,7 @@
       "form_name_en": "nominative singular",
       "meaning_en": "I",
       "lemma_meaning_en": "I, me",
-      "why_en": "Speech shortens minä to mä. Books write minä."
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-af34c4dec83d",
