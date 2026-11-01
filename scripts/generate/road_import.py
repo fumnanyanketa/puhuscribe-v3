@@ -385,46 +385,34 @@ def build_draft(dialogue: RoadDialogue, ctx: Context, previous: dict | None = No
 # The earlier six drafts ---------------------------------------------------------------------
 
 
-def update_earlier_draft(
-    draft: dict, ctx: Context, road_ids: frozenset[str] | set[str] = frozenset()
-) -> dict:
+def has_road_texts(form: dict, ctx: Context) -> bool:
+    """True when the road files hold the texts of this form: it has a row in word-notes.tsv, or it is a plain
+    dictionary form whose lemma has a row in glossary.tsv (its why is the fixed line)."""
+    note = ctx.data.notes.get(form["id"])
+    if note:
+        return bool(note.get("why_en"))
+    return is_plain_dictionary_form(form) and bool(ctx.data.glossary.get(form["lemma"]))
+
+
+def update_earlier_draft(draft: dict, ctx: Context) -> dict:
     """Statement 17, as amended: the lines, tokens and audio stay as committed. The forms gain their two
-    meanings from the road files. A form the road also has, or that two earlier drafts have (its id is in
-    road_ids), takes the road files' three texts, so one form id carries the same texts in every draft;
-    the why lines of the other forms stay as committed. The unit block stays as committed too: the six
-    earlier briefs and their tests (job 12-units-1-3) hold the old name and sentence byte for byte, so the
-    road's name and I can sentence reach the database through public.road_stops, which the publish
-    migration reads."""
+    meanings from the road files, and every form the road files hold (a row in word-notes.tsv, or a plain
+    dictionary form of a lemma in glossary.tsv) takes the road files' why too, whether the road uses it or
+    only an earlier draft does. So one form id carries the same texts in every draft, and the manager's
+    corrections reach every learner. A form the road files do not hold keeps its why as committed. The
+    unit block stays as committed too: the six earlier briefs and their tests (job 12-units-1-3) hold the
+    old name and sentence byte for byte, so the road's name and I can sentence reach the database through
+    public.road_stops, which the publish migration reads."""
     updated = copy.deepcopy(draft)
     for form in updated["forms"]:
         texts = form_texts(form, ctx)
         form["meaning_en"] = texts["meaning_en"]
         form["lemma_meaning_en"] = texts["lemma_meaning_en"]
-        if form["id"] in road_ids and texts["why_en"]:
+        if has_road_texts(form, ctx):
             form["why_en"] = texts["why_en"]
     missing = pending_forms(updated)
     updated["notes"] = {"status": "pending" if missing else "complete"}
     return updated
-
-
-def road_form_ids(ctx: Context, built: dict[str, dict]) -> set[str]:
-    """The form ids whose texts come from the road files in the six earlier drafts: every form id of a
-    written road draft (the ones just built and, for a part not built in this run, the committed ones)
-    and every form id that two of the earlier drafts have, so that one form id carries the same texts in
-    every draft."""
-    ids = {f["id"] for d in built.values() if d["brief"].get("source") == "written" for f in d["forms"]}
-    for stop in ctx.road.stops.values():
-        for dialogue in stop.dialogues:
-            if dialogue.slug in built:
-                continue
-            path = ctx.repo / "content" / "drafts" / dialogue.slug / "draft.json"
-            if path.is_file():
-                ids |= {f["id"] for f in json.loads(path.read_text(encoding="utf-8"))["forms"]}
-    seen: dict[str, int] = defaultdict(int)
-    for draft in ctx.earlier.values():
-        for fid in {f["id"] for f in draft["forms"]}:
-            seen[fid] += 1
-    return ids | {fid for fid, count in seen.items() if count > 1}
 
 
 # Everything --------------------------------------------------------------------------------
@@ -445,12 +433,11 @@ def build_all(ctx: Context, part: int | None = None) -> dict[str, dict]:
             path = ctx.repo / "content" / "drafts" / dialogue.slug / "draft.json"
             previous = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
             drafts[dialogue.slug] = build_draft(dialogue, ctx, previous)
-    shared = road_form_ids(ctx, drafts)
     for stop in ctx.road.stops.values():
         if part is not None and stop.part != part:
             continue
         for slug in ctx.data.stops[stop.number].earlier_dialogues:
-            drafts[slug] = update_earlier_draft(ctx.earlier[slug], ctx, shared)
+            drafts[slug] = update_earlier_draft(ctx.earlier[slug], ctx)
     return drafts
 
 

@@ -8,6 +8,7 @@ Python check installs it and fails on any skip). No test calls the network or an
 from __future__ import annotations
 
 import copy
+import functools
 import hashlib
 import json
 import re
@@ -37,11 +38,11 @@ FINNISH_VOICES = {"fi-FI-NooraNeural", "fi-FI-HarriNeural", "fi-FI-SelmaNeural"}
 # also have, and the name of every form it does (the road's texts win for those, statement 17 as amended).
 EARLIER = {
     "meeting-people-new-colleague": "ee9b2e4add4389646f87deb2d5491c4f3b9287abe7278a18b536b583e4630b6b",
-    "meeting-people-language-cafe": "186b22d375744d87dfc83a26ce49d5145463e67bb9d8e6b7f06421b6d628cfc6",
+    "meeting-people-language-cafe": "4a7f643ea3b8ee401c9a83bbf597fc51e58066b54b1fd028c31363d26b20caa9",
     "ordering-coffee-at-the-counter": "fc182996371b680ee7d28836f9fffab5e17c6a5bb6ad51a2885ba8190e3f8694",
-    "ordering-coffee-paying": "6cd6175e304e2adfc6fe26481934637d4546b9d3f897c3864d3e61f75ffa3e52",
-    "grocery-store-asking-staff": "97a03304597a2762c7e8f84639843b0621e523272608f1993847181354f0914a",
-    "grocery-store-directions": "8b8a62fb2c7b97c178c605724b10c4d31b1777f0f058f1a934a3a1bc1ead7684",
+    "ordering-coffee-paying": "36471e46db7d829cbc55ca4ff55bf52a7bdf30c5e08e149a146a7336c11be107",
+    "grocery-store-asking-staff": "2316d39625d51d9f5b309f2ede0c387179422a5d70ee53a43a0549cd23923d84",
+    "grocery-store-directions": "26f0bc9f1b4264e16ef57d35d9e706cbf47ded4174ef081bff089073f4fc9b41",
 }
 # The six earlier briefs, byte for byte as on main (their tests in test_units_1_3.py need that).
 EARLIER_BRIEF_SHA256 = {
@@ -550,29 +551,32 @@ def test_a1_road_16_a_form_id_is_the_same_form_in_every_draft(committed):
             assert form["id"] == form_id(form)
 
 
-def _road_form_ids(committed: dict[str, dict]) -> set[str]:
-    """The form ids whose texts the road files decide in the earlier drafts: the road's own and the ones
-    that two earlier drafts have."""
-    ids = {f["id"] for d in committed.values() if d["brief"].get("source") == "written" for f in d["forms"]}
-    count: dict[str, int] = {}
-    for slug in EARLIER:
-        for fid in {f["id"] for f in committed[slug]["forms"]}:
-            count[fid] = count.get(fid, 0) + 1
-    return ids | {fid for fid, n in count.items() if n > 1}
+@functools.lru_cache(maxsize=1)
+def _road_data():
+    return load_road_data()
+
+
+def _has_road_texts(form: dict) -> bool:
+    """True when the road files hold this form's texts: a row in word-notes.tsv, or a plain dictionary form
+    of a lemma in glossary.tsv. The earlier drafts take those texts (statement 17, amended)."""
+    data = _road_data()
+    note = data.notes.get(form["id"])
+    if note:
+        return bool(note.get("why_en"))
+    return ri.is_plain_dictionary_form(form) and bool(data.glossary.get(form["lemma"]))
 
 
 def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_clips_and_other_why_lines(committed):
     """[a1-road 17] lines, tokens, providers and clips are the ones committed on main, and so are the why
-    lines of the forms the road does not also have. (The forms the road shares take the road's texts.)"""
-    shared = _road_form_ids(committed)
+    lines of the forms the road files do not hold. (The other forms take the road files' texts.)"""
     for slug, sha in EARLIER.items():
         draft = committed[slug]
         payload = {
             "lines": draft["lines"],
             "why": [
-                [f["id"], f["why_en"], f["form_name_en"]] for f in draft["forms"] if f["id"] not in shared
+                [f["id"], f["why_en"], f["form_name_en"]] for f in draft["forms"] if not _has_road_texts(f)
             ],
-            "names": [[f["id"], f["form_name_en"]] for f in draft["forms"] if f["id"] in shared],
+            "names": [[f["id"], f["form_name_en"]] for f in draft["forms"] if _has_road_texts(f)],
             "providers": draft["providers"],
         }
         digest = hashlib.sha256(
@@ -601,12 +605,20 @@ def test_a1_road_17_a_form_the_road_and_an_earlier_draft_share_has_the_same_text
     for fid, keys in seen.items():
         for key, values in keys.items():
             assert len(values) == 1, (fid, key, values)
-    # an earlier draft's shared form carries the road files' why, not an AI text of its own
-    notes = load_road_data().notes
+    # a form the road files hold carries their why in every earlier draft, also one only an earlier draft uses
+    # (for example form-d53af38ffdce, tuolla, which the manager corrected after the design review)
+    data = load_road_data()
     for slug in EARLIER:
         for form in committed[slug]["forms"]:
-            if form["id"] in shared and form["id"] in notes:
-                assert form["why_en"] == notes[form["id"]]["why_en"], (slug, form["id"])
+            if form["id"] in data.notes and data.notes[form["id"]].get("why_en"):
+                assert form["why_en"] == data.notes[form["id"]]["why_en"], (slug, form["id"])
+                assert form["meaning_en"] == data.notes[form["id"]]["meaning_en"], (slug, form["id"])
+            elif _has_road_texts(form):
+                assert form["why_en"] == FIXED_WHY["dictionary-same"], (slug, form["id"])
+    tuolla = next(
+        f for f in committed["grocery-store-asking-staff"]["forms"] if f["id"] == "form-d53af38ffdce"
+    )
+    assert tuolla["why_en"] == data.notes["form-d53af38ffdce"]["why_en"]
 
 
 def test_a1_road_17_they_gain_both_meaning_fields_and_keep_their_unit_block(committed):
