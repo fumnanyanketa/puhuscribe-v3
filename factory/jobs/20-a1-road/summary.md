@@ -36,3 +36,7 @@ Flag: look closely. It adds database tables and a public read for visitors, and 
 2. The manager voices the road part by part on Azure's free tier.
 3. For each part, you listen to five dialogues and write one approval line in your own words. That part then goes live.
 4. After the last part, the evaluator walks one dialogue per part in the app and you write the final approved line here.
+
+## Owner approval
+
+- 1 November 2026: the owner approved merging the job 20 code ("Approve, merge (Recommended)"). This approves the machinery only. No part is live. Statements 21, 22 and 28 stay open until each part is voiced and the owner approves it in their own words.
