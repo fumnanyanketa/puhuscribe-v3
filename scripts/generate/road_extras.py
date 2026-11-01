@@ -1,10 +1,11 @@
 """Forms the road records as allowed outside a stop's grammar list (job 20-a1-road, statement 13).
 
-content/road/allowed-extras.json lists, for a stop, the forms (a dictionary form and a form tag without
-its add-on endings) that the stop's lines use before the curriculum teaches them, each with a reason in
-plain English. register_road_extras() adds one grammar entry, "extras-stop-<n>", for each stop that has
-some, so the existing level check licenses exactly those forms and no others. Nothing is skipped: the
-report prints how many extras each part allowed.
+content/road/allowed-extras.json lists, for a stop, the forms (a dictionary form and its form tag) that
+the stop's lines use before the curriculum teaches them, each with a reason in plain English.
+register_road_extras() adds one grammar entry, "extras-stop-<n>", for each stop that has some, so the
+existing level check licenses exactly those forms. The entry also licenses the add-on endings (question,
+-kin, possessive) that appear on the stop's recorded forms, and no other. Nothing is skipped: the report
+prints how many extras each part allowed.
 """
 
 from __future__ import annotations
@@ -33,14 +34,20 @@ def register_road_extras(path: Path = EXTRAS_PATH) -> list[str]:
     doc = json.loads(path.read_text(encoding="utf-8"))
     added = []
     for stop, raw in sorted(doc.get("stops", {}).items(), key=lambda item: int(item[0])):
-        forms = {(item["lemma"].lower(), item["tag"]) for item in raw.get("forms", [])}
-        if not forms:
+        recorded = raw.get("forms", [])
+        if not recorded:
             continue
+        cores = {(item["lemma"].lower(), core_tag(item["tag"])) for item in recorded}
+        add_ons: dict[str, set[str]] = {}
+        for item in recorded:
+            for key, value in parse_tag(item["tag"]).items():
+                if key in ADD_ON_KEYS:
+                    add_ons.setdefault(key, set()).add(value)
         entry = f"extras-stop-{int(stop)}"
         GRAMMAR_CATALOGUE[entry] = {
             "en": f"forms recorded as allowed in stop {int(stop)} (content/road/allowed-extras.json)",
-            "core": lambda lemma, a, forms=forms: (lemma.lower(), form_tag(a)) in forms,
-            "add_ons": {},
+            "core": lambda lemma, a, cores=cores: (lemma.lower(), form_tag(a)) in cores,
+            "add_ons": add_ons,
         }
         added.append(entry)
     return added

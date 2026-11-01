@@ -37,6 +37,7 @@ import {
   type SaveNoteDb,
 } from './learner-db.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
+import { roadFor, supabaseRoadDb, type RoadDb } from './road.ts'
 import {
   answer as answerReview,
   finishKeep,
@@ -67,6 +68,8 @@ export interface ApiDeps extends AccountDeps, SpeechDeps {
   patternsDb?: (context: LearnerContext) => PatternsDb
   /** Tests pass a fake for feedback (job 14-analytics); normally Supabase, as the learner. */
   feedbackDb?: (context: LearnerContext) => FeedbackDb
+  /** Tests pass a fake for the road (job 20-a1-road); normally Supabase, as the learner. */
+  roadDb?: (context: LearnerContext) => RoadDb
 }
 
 const defaultDeps: ApiDeps = { fetch: (input, init) => fetch(input, init) }
@@ -372,6 +375,24 @@ async function patterns(request: Request, env: ApiEnv, deps: ApiDeps): Promise<R
   }
 }
 
+// GET /api/road: the road screen's data (factory/jobs/20-a1-road/spec.md, "Done when" 7). One
+// row per stop with the learner's own lesson progress, read through public.road() with the
+// learner's own token and the publishable key. It needs an account (401 without one), changes
+// nothing and answers the function's 14 columns and nothing else. A fault is a 503 with no detail.
+async function road(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Response> {
+  const refused = await refuseNonGet(request)
+  if (refused) return refused
+  const signIn = await signedIn(request, env, deps)
+  if (signIn.refused) return signIn.refused
+  const { context } = signIn
+  try {
+    const db = deps.roadDb ? deps.roadDb(context) : supabaseRoadDb(context.client)
+    return withCookies(json(await roadFor(db)), context.setCookies())
+  } catch (error) {
+    return withCookies(faultAnswer(error), context.setCookies())
+  }
+}
+
 const RECORDING_ROUTE =
   /^\/api\/voice\/recordings\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/
 
@@ -449,6 +470,7 @@ export async function handleApi(
   if (pathname === '/api/today') return frontDoor(request, env, deps)
   if (pathname === '/api/sessions/today') return sessionsToday(request, env, deps)
   if (pathname === '/api/patterns') return patterns(request, env, deps)
+  if (pathname === '/api/road') return road(request, env, deps)
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])

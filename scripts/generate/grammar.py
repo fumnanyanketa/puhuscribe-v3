@@ -373,6 +373,17 @@ GRAMMAR_CATALOGUE: dict[str, dict] = {
     # The A1 road (job 20-a1-road, "Done when" 13): one entry for each item of the curriculum's
     # grammar column (docs/curriculum-a1.md) the catalogue lacked, each a test on Voikko's own
     # attributes. A stop's list is its own entries plus every earlier stop's (content/road/stops.json).
+    "present-tense": {
+        "en": "everyday verbs in the present tense (asun, puhun, tulen, teet, maksaa), every person",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "teonsana"
+            and a.get("MOOD") == "indicative"
+            and a.get("TENSE") == "present_simple"
+            and a.get("PERSON") in ("1", "2", "3")
+            and a.get("NEGATIVE") in ("false", "both")
+        ),
+        "add_ons": {"KYSYMYSLIITE": {"true"}},
+    },
     "numbers-to-100": {
         "en": "the numbers 1 to 100 in any ending (kaksikymmentäkolme, viisikymmentä, sata)",
         "core": lambda lemma, a: (
