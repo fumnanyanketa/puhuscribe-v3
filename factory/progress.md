@@ -281,3 +281,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T07:32 Owner approved 18-save-progress: guests see "Your progress is saved on this device.", note stays below. Round 2 makes that change; merge after checks.
 - 2026-11-01T07:32 15-onboarding evaluation: rework. Statement 7's main...HEAD test would fail every later job that touches worker/, supabase/ or package.json. Round 2 started. Statement 12 is the owner's hallway test.
 - 2026-11-01T07:54 15-onboarding round 2: statement 7 check now runs only on its own branch, full checks green (run 41277646584). Evaluator re-check started.
+- 2026-11-01T07:57 15-onboarding round 2 re-check passes. Summary written; waiting for the owner.
