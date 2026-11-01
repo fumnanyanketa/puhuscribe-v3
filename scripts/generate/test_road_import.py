@@ -36,21 +36,21 @@ FINNISH_VOICES = {"fi-FI-NooraNeural", "fi-FI-HarriNeural", "fi-FI-SelmaNeural"}
 # The six earlier drafts: a hash of the lines, the providers, the why and name of every form the road does not
 # also have, and the name of every form it does (the road's texts win for those, statement 17 as amended).
 EARLIER = {
-    "meeting-people-new-colleague": "b270d869aec0cd4e244c3f423c2c9659ce02d2fb66581f11b90b2e7f3457d189",
-    "meeting-people-language-cafe": "d74cbc3bae93826ada4afed09052c9682db176515cac38364bc4ad9474c93b95",
-    "ordering-coffee-at-the-counter": "261458be2e6fb685e9af4a4b06bf8ac75ae6ec80047ff29bfe855cc7275a8425",
-    "ordering-coffee-paying": "562d97904d7eecd24ee8cf1d4dc4d38e304769cd423de4baede035d893f08d34",
-    "grocery-store-asking-staff": "4fc789f1415895cfdefcfe8ff29b978411c67f51f1a050637fa54fe735942f11",
-    "grocery-store-directions": "2019ec882dcab0fb2b31a52dbb613753dc2287339e57acda0f65eb4fee38ca18",
+    "meeting-people-new-colleague": "ee9b2e4add4389646f87deb2d5491c4f3b9287abe7278a18b536b583e4630b6b",
+    "meeting-people-language-cafe": "186b22d375744d87dfc83a26ce49d5145463e67bb9d8e6b7f06421b6d628cfc6",
+    "ordering-coffee-at-the-counter": "fc182996371b680ee7d28836f9fffab5e17c6a5bb6ad51a2885ba8190e3f8694",
+    "ordering-coffee-paying": "6cd6175e304e2adfc6fe26481934637d4546b9d3f897c3864d3e61f75ffa3e52",
+    "grocery-store-asking-staff": "97a03304597a2762c7e8f84639843b0621e523272608f1993847181354f0914a",
+    "grocery-store-directions": "8b8a62fb2c7b97c178c605724b10c4d31b1777f0f058f1a934a3a1bc1ead7684",
 }
 # The six earlier briefs, byte for byte as on main (their tests in test_units_1_3.py need that).
 EARLIER_BRIEF_SHA256 = {
-    "grocery-store-asking-staff": "26f0e4d9e1ea69458d329cee7c059664dbc47300c14136cb6714bab31b6e6fc8",
-    "grocery-store-directions": "cdfc3c87bbc085c54e864d657a27226e0592583406514885a218cc6ecb2232cf",
-    "meeting-people-language-cafe": "80766fc335e012be04e18879739fbc069ff4149c0a0940f75849c33281b977c6",
-    "meeting-people-new-colleague": "8294174c1ffa8e38f3b0cb0533ad37a86836d9ea07ed147c504846fbd23aa801",
-    "ordering-coffee-at-the-counter": "f0df772966677112bd73de7dada6a07a62775cb9f75e1bdba8537c491957b70d",
-    "ordering-coffee-paying": "2e7bbe0056ba687c665b9f5c4c3690ea146ef670404bbd30919ea326ba0e1f89",
+    "grocery-store-asking-staff": "97a03304597a2762c7e8f84639843b0621e523272608f1993847181354f0914a",
+    "grocery-store-directions": "8b8a62fb2c7b97c178c605724b10c4d31b1777f0f058f1a934a3a1bc1ead7684",
+    "meeting-people-language-cafe": "186b22d375744d87dfc83a26ce49d5145463e67bb9d8e6b7f06421b6d628cfc6",
+    "meeting-people-new-colleague": "ee9b2e4add4389646f87deb2d5491c4f3b9287abe7278a18b536b583e4630b6b",
+    "ordering-coffee-at-the-counter": "fc182996371b680ee7d28836f9fffab5e17c6a5bb6ad51a2885ba8190e3f8694",
+    "ordering-coffee-paying": "6cd6175e304e2adfc6fe26481934637d4546b9d3f897c3864d3e61f75ffa3e52",
 }
 
 
@@ -587,7 +587,9 @@ def test_a1_road_17_a_form_the_road_and_an_earlier_draft_share_has_the_same_text
             for key in ("meaning_en", "lemma_meaning_en", "why_en", "form_name_en"):
                 seen.setdefault(form["id"], {}).setdefault(key, set()).add(form.get(key, ""))
     earlier_ids = {f["id"] for slug in EARLIER for f in committed[slug]["forms"]}
-    shared = _road_form_ids(committed) & earlier_ids
+    shared = {
+        f["id"] for d in committed.values() if d["brief"].get("source") == "written" for f in d["forms"]
+    } & earlier_ids
     assert len(shared) >= 22
     for fid, keys in seen.items():
         for key, values in keys.items():

@@ -389,11 +389,12 @@ def update_earlier_draft(
     draft: dict, ctx: Context, road_ids: frozenset[str] | set[str] = frozenset()
 ) -> dict:
     """Statement 17, as amended: the lines, tokens and audio stay as committed. The forms gain their two
-    meanings from the road files. A form the road also has (its id is in road_ids) takes the road's three
-    texts, so one form id carries the same texts in every draft; the why lines of the other forms stay as
-    committed. The unit block stays as committed too: the six earlier briefs and their tests (job
-    12-units-1-3) hold the old name and sentence byte for byte, so the road's name and I can sentence
-    reach the database through public.road_stops, which the publish migration reads."""
+    meanings from the road files. A form the road also has, or that two earlier drafts have (its id is in
+    road_ids), takes the road files' three texts, so one form id carries the same texts in every draft;
+    the why lines of the other forms stay as committed. The unit block stays as committed too: the six
+    earlier briefs and their tests (job 12-units-1-3) hold the old name and sentence byte for byte, so the
+    road's name and I can sentence reach the database through public.road_stops, which the publish
+    migration reads."""
     updated = copy.deepcopy(draft)
     for form in updated["forms"]:
         texts = form_texts(form, ctx)
@@ -407,8 +408,10 @@ def update_earlier_draft(
 
 
 def road_form_ids(ctx: Context, built: dict[str, dict]) -> set[str]:
-    """The form ids of every written road draft: the ones just built and, for a part not built in this
-    run, the ones committed."""
+    """The form ids whose texts come from the road files in the six earlier drafts: every form id of a
+    written road draft (the ones just built and, for a part not built in this run, the committed ones)
+    and every form id that two of the earlier drafts have, so that one form id carries the same texts in
+    every draft."""
     ids = {f["id"] for d in built.values() if d["brief"].get("source") == "written" for f in d["forms"]}
     for stop in ctx.road.stops.values():
         for dialogue in stop.dialogues:
@@ -417,7 +420,11 @@ def road_form_ids(ctx: Context, built: dict[str, dict]) -> set[str]:
             path = ctx.repo / "content" / "drafts" / dialogue.slug / "draft.json"
             if path.is_file():
                 ids |= {f["id"] for f in json.loads(path.read_text(encoding="utf-8"))["forms"]}
-    return ids
+    seen: dict[str, int] = defaultdict(int)
+    for draft in ctx.earlier.values():
+        for fid in {f["id"] for f in draft["forms"]}:
+            seen[fid] += 1
+    return ids | {fid for fid, count in seen.items() if count > 1}
 
 
 # Everything --------------------------------------------------------------------------------
