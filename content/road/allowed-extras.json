@@ -3,12 +3,7 @@
   "note": "Base forms and forms the A1 road allows outside a stop's level, each with its reason (job 20-a1-road, statement 13). A base form is above the part's frequency rank cap or not in the list. A form is recorded at the first stop that uses it and is allowed in every later stop. Written by the first analysis run.",
   "stops": {
     "1": {
-      "base_forms": [
-        {
-          "lemma": "kotoisin",
-          "reason": "The word has frequency rank 2342, above this part's cap of 2000, but the dialogue needs it."
-        }
-      ],
+      "base_forms": [],
       "forms": [
         {
           "lemma": "englanti",
@@ -35,11 +30,19 @@
     "2": {
       "base_forms": [
         {
+          "lemma": "ilman",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "kauramaito",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "korvapuusti",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
@@ -48,16 +51,6 @@
           "lemma": "maito",
           "tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=singular",
           "reason": "Used before the curriculum teaches this form (adessive singular). The word maidolla is the natural way to say the line."
-        },
-        {
-          "lemma": "ilma",
-          "tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
-          "reason": "Used before the curriculum teaches this form (genitive singular). The word ilman is the natural way to say the line."
-        },
-        {
-          "lemma": "paljo",
-          "tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
-          "reason": "Used before the curriculum teaches this form (genitive singular, with the question ending -ko/-kö). The word paljonko is the natural way to say the line."
         }
       ]
     },
@@ -65,15 +58,11 @@
       "base_forms": [
         {
           "lemma": "hylly",
-          "reason": "The word has frequency rank 3154, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3154, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kananmuna",
-          "reason": "The word has frequency rank 3798, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "kassa",
-          "reason": "The word has frequency rank 2326, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3798, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kauramaito",
@@ -81,6 +70,10 @@
         },
         {
           "lemma": "maitohylly",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
@@ -116,14 +109,9 @@
           "reason": "Used before the curriculum teaches this form (illative singular). The word suoraan is the natural way to say the line."
         },
         {
-          "lemma": "paljo",
-          "tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
-          "reason": "Used before the curriculum teaches this form (genitive singular). The word paljon is the natural way to say the line."
-        },
-        {
           "lemma": "kestää",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word kestä is the natural way to say the line."
+          "tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
+          "reason": "Used before the curriculum teaches this form (present tense, negative form). The word kestä is the natural way to say the line."
         }
       ]
     },
@@ -143,11 +131,11 @@
         },
         {
           "lemma": "kolmekymmentä",
-          "reason": "The word has frequency rank 5379, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5379, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kuitti",
-          "reason": "The word has frequency rank 4031, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4031, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kuusikymmentä",
@@ -155,23 +143,23 @@
         },
         {
           "lemma": "käteinen",
-          "reason": "The word has frequency rank 2585, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "litra",
-          "reason": "The word has frequency rank 2260, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2585, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "mansikka",
-          "reason": "The word has frequency rank 4165, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4165, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "neljäkymmentä",
-          "reason": "The word has frequency rank 8444, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8444, above this part's cap of 2500, but the dialogue needs it."
         },
         {
-          "lemma": "näkemä",
-          "reason": "The word has frequency rank 5641, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "näkemiin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "päivänjatko",
@@ -179,7 +167,11 @@
         },
         {
           "lemma": "rasia",
-          "reason": "The word has frequency rank 6172, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6172, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "takaisin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "yhdeksänkymmentä",
@@ -203,19 +195,9 @@
           "reason": "Used before the curriculum teaches this form (genitive singular). The word litran is the natural way to say the line."
         },
         {
-          "lemma": "näkemä",
-          "tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=plural;PARTICIPLE=agent",
-          "reason": "Used before the curriculum teaches this form (agent participle, illative plural). The word näkemiin is the natural way to say the line."
-        },
-        {
           "lemma": "olla",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word ole is the natural way to say the line."
-        },
-        {
-          "lemma": "taata",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=conditional;TENSE=present_simple;NEGATIVE=false",
-          "reason": "Used before the curriculum teaches this form (conditional present tense, 1st person singular). The word takaisin is the natural way to say the line."
+          "tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
+          "reason": "Used before the curriculum teaches this form (present tense, negative form). The word ole is the natural way to say the line."
         },
         {
           "lemma": "sinä",
@@ -242,27 +224,35 @@
         },
         {
           "lemma": "automaatti",
-          "reason": "The word has frequency rank 4218, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4218, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "laituri",
-          "reason": "The word has frequency rank 3232, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3232, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "noin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "oodi",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "pysäkki",
-          "reason": "The word has frequency rank 4337, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4337, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "raitiovaunu",
-          "reason": "The word has frequency rank 7344, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7344, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "viisitoista",
-          "reason": "The word has frequency rank 5069, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5069, above this part's cap of 2500, but the dialogue needs it."
         }
       ],
       "forms": [
@@ -270,11 +260,6 @@
           "lemma": "ne",
           "tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=plural",
           "reason": "Used before the curriculum teaches this form (genitive plural). The word niiden is the natural way to say the line."
-        },
-        {
-          "lemma": "noki",
-          "tag": "CLASS=nimisana;SIJAMUOTO=keinonto;NUMBER=plural",
-          "reason": "Used before the curriculum teaches this form (instructive plural). The word noin is the natural way to say the line."
         },
         {
           "lemma": "lippu",
@@ -307,34 +292,46 @@
       "base_forms": [
         {
           "lemma": "Suomenlinna",
-          "reason": "The word has frequency rank 7817, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7817, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "aurinkoinen",
-          "reason": "The word has frequency rank 3729, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3729, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "kovin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "lainata",
-          "reason": "The word has frequency rank 2531, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2531, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "oho",
-          "reason": "The word has frequency rank 3754, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3754, above this part's cap of 2500, but the dialogue needs it."
         },
         {
-          "lemma": "pakkanen",
-          "reason": "The word has frequency rank 2332, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "rikki",
-          "reason": "The word has frequency rank 2139, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "sataa",
-          "reason": "The word has frequency rank 5495, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5495, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "sateenvarjo",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "tuulinen",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "voi",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
@@ -345,7 +342,7 @@
           "reason": "Used before the curriculum teaches this form (essive singular). The word viikonloppuna is the natural way to say the line."
         },
         {
-          "lemma": "koto",
+          "lemma": "koti",
           "tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
           "reason": "Used before the curriculum teaches this form (essive singular). The word kotona is the natural way to say the line."
         },
@@ -363,11 +360,6 @@
           "lemma": "ihminen",
           "tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=plural",
           "reason": "Used before the curriculum teaches this form (partitive plural). The word ihmisiä is the natural way to say the line."
-        },
-        {
-          "lemma": "kova",
-          "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=superlative",
-          "reason": "Used before the curriculum teaches this form (superlative, nominative singular). The word kovin is the natural way to say the line."
         },
         {
           "lemma": "onni",
@@ -403,8 +395,12 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "eli",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "kassi",
-          "reason": "The word has frequency rank 5072, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5072, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kellotorni",
@@ -412,31 +408,27 @@
         },
         {
           "lemma": "muovipussi",
-          "reason": "The word has frequency rank 8507, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8507, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "palaveri",
-          "reason": "The word has frequency rank 7035, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7035, above this part's cap of 2500, but the dialogue needs it."
         },
         {
-          "lemma": "pussi",
-          "reason": "The word has frequency rank 2387, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "rautatieasema",
-          "reason": "The word has frequency rank 4129, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4129, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "vartti",
-          "reason": "The word has frequency rank 3366, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3366, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "viisitoista",
-          "reason": "The word has frequency rank 5069, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "ymmärtänyt",
-          "reason": "The word has frequency rank 2283, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5069, above this part's cap of 2500, but the dialogue needs it."
         }
       ],
       "forms": [
@@ -446,7 +438,7 @@
           "reason": "Used before the curriculum teaches this form (genitive singular). The word muovipussin is the natural way to say the line."
         },
         {
-          "lemma": "ymmärtänyt",
+          "lemma": "ymmärtää",
           "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active",
           "reason": "Used before the curriculum teaches this form (past active participle, nominative singular). The word ymmärtänyt is the natural way to say the line."
         },
@@ -466,9 +458,14 @@
           "reason": "Used before the curriculum teaches this form (genitive singular). The word sen is the natural way to say the line."
         },
         {
-          "lemma": "löytää",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word löydä is the natural way to say the line."
+          "lemma": "viesti",
+          "tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+          "reason": "Used before the curriculum teaches this form (genitive singular). The word viestin is the natural way to say the line."
+        },
+        {
+          "lemma": "tuo",
+          "tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+          "reason": "Used before the curriculum teaches this form (genitive singular). The word tuon is the natural way to say the line."
         },
         {
           "lemma": "iso",
@@ -479,11 +476,6 @@
           "lemma": "kellotorni",
           "tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
           "reason": "Used before the curriculum teaches this form (genitive singular). The word kellotornin is the natural way to say the line."
-        },
-        {
-          "lemma": "nähdä",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word näe is the natural way to say the line."
         }
       ]
     },
@@ -494,20 +486,16 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "kahvila",
-          "reason": "The word has frequency rank 2234, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "kipeä",
-          "reason": "The word has frequency rank 2406, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
           "lemma": "lounaspaikka",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "vartti",
-          "reason": "The word has frequency rank 3366, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3366, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
@@ -522,14 +510,14 @@
           "reason": "Used before the curriculum teaches this form (genitive singular). The word kahvilan is the natural way to say the line."
         },
         {
-          "lemma": "sovittu",
+          "lemma": "sopia",
           "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_passive",
           "reason": "Used before the curriculum teaches this form (past passive participle, nominative singular). The word sovittu is the natural way to say the line."
         },
         {
           "lemma": "päästä",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=true;FOCUS=kaan",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular, negative form, with -kaan/-kään). The word pääsekään is the natural way to say the line."
+          "tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true;FOCUS=kaan",
+          "reason": "Used before the curriculum teaches this form (present tense, negative form, with -kaan/-kään). The word pääsekään is the natural way to say the line."
         },
         {
           "lemma": "lapsi",
@@ -562,7 +550,7 @@
       "base_forms": [
         {
           "lemma": "aikaisin",
-          "reason": "The word has frequency rank 2917, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2917, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "hiustenleikkuu",
@@ -577,12 +565,16 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "nimetä",
-          "reason": "The word has frequency rank 2705, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "vartti",
-          "reason": "The word has frequency rank 3366, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3366, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
@@ -592,9 +584,19 @@
           "reason": "Used before the curriculum teaches this form (genitive singular). The word minuutin is the natural way to say the line."
         },
         {
+          "lemma": "aika",
+          "tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+          "reason": "Used before the curriculum teaches this form (genitive singular). The word ajan is the natural way to say the line."
+        },
+        {
           "lemma": "hyvä",
           "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=comparative",
           "reason": "Used before the curriculum teaches this form (comparative, nominative singular). The word parempi is the natural way to say the line."
+        },
+        {
+          "lemma": "nimi",
+          "tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
+          "reason": "Used before the curriculum teaches this form (nominative singular, with the possessive ending for your). The word nimesi is the natural way to say the line."
         }
       ]
     },
@@ -602,7 +604,11 @@
       "base_forms": [
         {
           "lemma": "flunssa",
-          "reason": "The word has frequency rank 3621, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3621, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "ilman",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "kelakortti",
@@ -610,27 +616,27 @@
         },
         {
           "lemma": "kuume",
-          "reason": "The word has frequency rank 3671, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3671, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "levätä",
-          "reason": "The word has frequency rank 2842, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "nenä",
-          "reason": "The word has frequency rank 2125, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2842, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "nenäsumute",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "pikainen",
-          "reason": "The word has frequency rank 2930, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2930, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "päänsärky",
-          "reason": "The word has frequency rank 4732, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4732, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "särkylääke",
@@ -638,15 +644,19 @@
         },
         {
           "lemma": "tabletti",
-          "reason": "The word has frequency rank 3032, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3032, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "tukko",
-          "reason": "The word has frequency rank 5659, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5659, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "yskä",
-          "reason": "The word has frequency rank 8172, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8172, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "yskänlääke",
@@ -680,27 +690,31 @@
       "base_forms": [
         {
           "lemma": "alapuoli",
-          "reason": "The word has frequency rank 3290, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3290, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "hissi",
-          "reason": "The word has frequency rank 3641, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3641, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "isännöitsijä",
-          "reason": "The word has frequency rank 6607, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6607, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kellari",
-          "reason": "The word has frequency rank 3346, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3346, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "mones",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "parveke",
-          "reason": "The word has frequency rank 3496, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3496, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "pesutupa",
@@ -708,7 +722,7 @@
         },
         {
           "lemma": "porras",
-          "reason": "The word has frequency rank 3015, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 3015, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "saunavuoro",
@@ -719,12 +733,16 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "yksiö",
-          "reason": "The word has frequency rank 6772, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6772, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "ylin",
-          "reason": "The word has frequency rank 2811, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2811, above this part's cap of 2500, but the dialogue needs it."
         }
       ],
       "forms": [
@@ -759,7 +777,7 @@
           "reason": "Used before the curriculum teaches this form (adessive singular, with the possessive ending for your (plural)). The word alapuolellanne is the natural way to say the line."
         },
         {
-          "lemma": "tiennyt",
+          "lemma": "tietää",
           "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active",
           "reason": "Used before the curriculum teaches this form (past active participle, nominative singular). The word tiennyt is the natural way to say the line."
         },
@@ -774,11 +792,11 @@
       "base_forms": [
         {
           "lemma": "alennus",
-          "reason": "The word has frequency rank 2596, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 2596, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kaksikymmentä",
-          "reason": "The word has frequency rank 4251, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4251, above this part's cap of 2500, but the dialogue needs it."
         },
         {
           "lemma": "kengännumero",
@@ -790,10 +808,18 @@
         },
         {
           "lemma": "käytännöllinen",
-          "reason": "The word has frequency rank 4653, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4653, above this part's cap of 2500, but the dialogue needs it."
+        },
+        {
+          "lemma": "liian",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "m-koko",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
@@ -802,6 +828,10 @@
         },
         {
           "lemma": "talvikenkä",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "todella",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
@@ -883,16 +913,12 @@
           "reason": "The word has frequency rank 4810, above this part's cap of 2000, but the dialogue needs it."
         },
         {
-          "lemma": "omakannas",
+          "lemma": "omakanta",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "sairauslomatodistus",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
-        },
-        {
-          "lemma": "sattunut",
-          "reason": "The word has frequency rank 2817, above this part's cap of 2000, but the dialogue needs it."
         },
         {
           "lemma": "särkeä",
@@ -915,6 +941,11 @@
           "reason": "Used before the curriculum teaches this form (partitive singular, with the possessive ending for my). The word selkääni is the natural way to say the line."
         },
         {
+          "lemma": "näyttää",
+          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word näytä is the natural way to say the line."
+        },
+        {
           "lemma": "kävellä",
           "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word kävele is the natural way to say the line."
@@ -928,12 +959,8 @@
           "reason": "The word has frequency rank 6607, above this part's cap of 2000, but the dialogue needs it."
         },
         {
-          "lemma": "kuulema",
-          "reason": "The word has frequency rank 5206, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "lähetä",
-          "reason": "The word has frequency rank 2345, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "kuulemiin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "palaveri",
@@ -941,6 +968,14 @@
         },
         {
           "lemma": "saunavuoro",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "takaisin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "voi",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
@@ -951,9 +986,19 @@
           "reason": "Used before the curriculum teaches this form (nominative singular, with the possessive ending for your). The word numerosi is the natural way to say the line."
         },
         {
+          "lemma": "lähettää",
+          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word lähetä is the natural way to say the line."
+        },
+        {
           "lemma": "numero",
           "tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
           "reason": "Used before the curriculum teaches this form (nominative singular, with the possessive ending for my). The word numeroni is the natural way to say the line."
+        },
+        {
+          "lemma": "olla",
+          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word ole is the natural way to say the line."
         }
       ]
     },
@@ -972,12 +1017,12 @@
           "reason": "The word has frequency rank 5159, above this part's cap of 2000, but the dialogue needs it."
         },
         {
-          "lemma": "oleskelulupa",
-          "reason": "The word has frequency rank 6610, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "mukana",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "olka",
-          "reason": "The word has frequency rank 6952, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "oleskelulupa",
+          "reason": "The word has frequency rank 6610, above this part's cap of 2000, but the dialogue needs it."
         },
         {
           "lemma": "omakela",
@@ -996,25 +1041,38 @@
           "reason": "The word has frequency rank 2831, above this part's cap of 2000, but the dialogue needs it."
         },
         {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "vuokrasopimus",
           "reason": "The word has frequency rank 6700, above this part's cap of 2000, but the dialogue needs it."
+        },
+        {
+          "lemma": "vuokrata",
+          "reason": "The word has frequency rank 2159, above this part's cap of 2000, but the dialogue needs it."
         }
       ],
       "forms": [
+        {
+          "lemma": "olla",
+          "tag": "CLASS=teonsana;NUMBER=plural;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=false",
+          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person plural). The word olkaa is the natural way to say the line."
+        },
         {
           "lemma": "täyttää",
           "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word täytä is the natural way to say the line."
         },
         {
-          "lemma": "ymmärtää",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word ymmärrä is the natural way to say the line."
-        },
-        {
           "lemma": "tulo",
           "tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
           "reason": "Used before the curriculum teaches this form (nominative singular, with the possessive ending for your). The word tulosi is the natural way to say the line."
+        },
+        {
+          "lemma": "helppo",
+          "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=superlative",
+          "reason": "Used before the curriculum teaches this form (superlative, nominative singular). The word helpoin is the natural way to say the line."
         },
         {
           "lemma": "pankkikortti",
@@ -1046,8 +1104,16 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "noin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "painava",
           "reason": "The word has frequency rank 3395, above this part's cap of 2000, but the dialogue needs it."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "seurantakoodi",
@@ -1090,6 +1156,10 @@
           "reason": "The word has frequency rank 5706, above this part's cap of 2000, but the dialogue needs it."
         },
         {
+          "lemma": "erikseen",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "kaksitoista",
           "reason": "The word has frequency rank 4212, above this part's cap of 2000, but the dialogue needs it."
         },
@@ -1098,8 +1168,8 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "kannus",
-          "reason": "The word has frequency rank 6332, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "kannu",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "kasviskeitto",
@@ -1139,16 +1209,15 @@
           "lemma": "maitotuote",
           "tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=plural",
           "reason": "Used before the curriculum teaches this form (partitive plural). The word maitotuotteita is the natural way to say the line."
-        },
-        {
-          "lemma": "erä",
-          "tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural;POSSESSIVE=3",
-          "reason": "Used before the curriculum teaches this form (translative plural, with the possessive ending for his, her or their). The word erikseen is the natural way to say the line."
         }
       ]
     },
     "18": {
       "base_forms": [
+        {
+          "lemma": "ilmata",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
         {
           "lemma": "lappu",
           "reason": "The word has frequency rank 3144, above this part's cap of 2000, but the dialogue needs it."
@@ -1164,6 +1233,10 @@
         {
           "lemma": "olohuone",
           "reason": "The word has frequency rank 3748, above this part's cap of 2000, but the dialogue needs it."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "patteri",
@@ -1182,6 +1255,14 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "yleisavain",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
@@ -1192,21 +1273,17 @@
       ],
       "forms": [
         {
-          "lemma": "tarvita",
+          "lemma": "laittaa",
           "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word tarvitse is the natural way to say the line."
+          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word laita is the natural way to say the line."
         }
       ]
     },
     "19": {
       "base_forms": [
         {
-          "lemma": "asiakaspalvelu",
-          "reason": "The word has frequency rank 3192, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
           "lemma": "aula",
-          "reason": "The word has frequency rank 4409, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4409, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "avainkortti",
@@ -1219,10 +1296,6 @@
         {
           "lemma": "jännittynyt",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
-        },
-        {
-          "lemma": "jääkaappi",
-          "reason": "The word has frequency rank 2486, above this part's cap of 2000, but the dialogue needs it."
         },
         {
           "lemma": "kahvihuone",
@@ -1238,11 +1311,7 @@
         },
         {
           "lemma": "kaksitoista",
-          "reason": "The word has frequency rank 4212, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "käytävä",
-          "reason": "The word has frequency rank 2361, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4212, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "mikroaaltouuni",
@@ -1250,15 +1319,11 @@
         },
         {
           "lemma": "perjantaisin",
-          "reason": "The word has frequency rank 8078, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8078, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "työpiste",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
-        },
-        {
-          "lemma": "työpäivä",
-          "reason": "The word has frequency rank 2560, above this part's cap of 2000, but the dialogue needs it."
         }
       ],
       "forms": [
@@ -1277,12 +1342,16 @@
     "20": {
       "base_forms": [
         {
-          "lemma": "isoäiti",
-          "reason": "The word has frequency rank 3623, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "söpö",
-          "reason": "The word has frequency rank 2133, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "vanhempi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "yhdeksänkymmentä",
@@ -1294,11 +1363,6 @@
           "lemma": "lapsi",
           "tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=plural",
           "reason": "Used before the curriculum teaches this form (partitive plural). The word lapsia is the natural way to say the line."
-        },
-        {
-          "lemma": "vanha",
-          "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s;COMPARISON=comparative",
-          "reason": "Used before the curriculum teaches this form (comparative, nominative singular, with the possessive ending for my). The word vanhempani is the natural way to say the line."
         },
         {
           "lemma": "he",
@@ -1315,84 +1379,69 @@
     "21": {
       "base_forms": [
         {
-          "lemma": "kuume",
-          "reason": "The word has frequency rank 3671, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "leikkiä",
-          "reason": "The word has frequency rank 2427, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "matematiikka",
-          "reason": "The word has frequency rank 2476, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "myöhemmin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "nuha",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "näkemä",
-          "reason": "The word has frequency rank 5641, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "näkemiin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "pikainen",
-          "reason": "The word has frequency rank 2930, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "portugali",
-          "reason": "The word has frequency rank 2985, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "päiväkoti",
-          "reason": "The word has frequency rank 2005, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "päiväuni",
-          "reason": "The word has frequency rank 8574, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8574, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "rikkaus",
-          "reason": "The word has frequency rank 5687, above this part's cap of 2000, but the dialogue needs it."
-        }
-      ],
-      "forms": [
-        {
-          "lemma": "myöhä",
-          "tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=comparative",
-          "reason": "Used before the curriculum teaches this form (comparative, instructive plural). The word myöhemmin is the natural way to say the line."
+          "reason": "The word has frequency rank 5687, above this part's cap of 4000, but the dialogue needs it."
         },
         {
-          "lemma": "tulla",
-          "tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
-          "reason": "Used before the curriculum teaches this form (imperative present tense, 2nd person singular). The word tule is the natural way to say the line."
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
-      ]
+      ],
+      "forms": []
     },
     "22": {
       "base_forms": [
         {
           "lemma": "kuntosali",
-          "reason": "The word has frequency rank 4647, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4647, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kuoro",
-          "reason": "The word has frequency rank 4194, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4194, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "sulkapallo",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "tiistainen",
-          "reason": "The word has frequency rank 8497, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "tietysti",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "uida",
-          "reason": "The word has frequency rank 2150, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "tiistaisin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "uimahalli",
-          "reason": "The word has frequency rank 4204, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4204, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "usein",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "vapaa-aika",
@@ -1416,63 +1465,59 @@
       "base_forms": [
         {
           "lemma": "brasilialainen",
-          "reason": "The word has frequency rank 6102, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6102, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "ilman",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "kaksikymmentä",
-          "reason": "The word has frequency rank 4251, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4251, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kattila",
-          "reason": "The word has frequency rank 4167, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4167, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "keittää",
+          "reason": "The word has frequency rank 4097, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kerma",
-          "reason": "The word has frequency rank 4613, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4613, above this part's cap of 4000, but the dialogue needs it."
         },
         {
-          "lemma": "kuori",
-          "reason": "The word has frequency rank 2432, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "litra",
-          "reason": "The word has frequency rank 2260, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "lohi",
-          "reason": "The word has frequency rank 3844, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "kuoria",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "lohikeitto",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "palo",
-          "reason": "The word has frequency rank 3506, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "maistaa",
+          "reason": "The word has frequency rank 4263, above this part's cap of 4000, but the dialogue needs it."
         },
         {
-          "lemma": "peruna",
-          "reason": "The word has frequency rank 3925, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "pala",
+          "reason": "The word has frequency rank 5279, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "porkkana",
-          "reason": "The word has frequency rank 6529, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "sipuli",
-          "reason": "The word has frequency rank 3643, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "suola",
-          "reason": "The word has frequency rank 2132, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6529, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "tilli",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "tuoksua",
-          "reason": "The word has frequency rank 2337, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": []
@@ -1481,27 +1526,39 @@
       "base_forms": [
         {
           "lemma": "hermostunut",
-          "reason": "The word has frequency rank 8166, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8166, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "ilman",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "kaakao",
-          "reason": "The word has frequency rank 7421, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7421, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "koti-ikävä",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "kävely",
-          "reason": "The word has frequency rank 2795, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "luona",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "läpäistä",
-          "reason": "The word has frequency rank 5594, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5594, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "väsyttää",
-          "reason": "The word has frequency rank 4634, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4634, above this part's cap of 4000, but the dialogue needs it."
         }
       ],
       "forms": []
@@ -1514,7 +1571,7 @@
         },
         {
           "lemma": "juotava",
-          "reason": "The word has frequency rank 7244, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7244, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kahdeksankymmentä",
@@ -1530,93 +1587,99 @@
         },
         {
           "lemma": "leipoa",
-          "reason": "The word has frequency rank 4625, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4625, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "löyly",
-          "reason": "The word has frequency rank 9303, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 9303, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "noin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paras",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "pulla",
-          "reason": "The word has frequency rank 4358, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4358, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "pyyhe",
-          "reason": "The word has frequency rank 4619, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4619, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "saunavuoro",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "uida",
-          "reason": "The word has frequency rank 2150, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
         {
-          "lemma": "mikä",
-          "tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular;FOCUS=kin",
-          "reason": "Used before the curriculum teaches this form (essive singular, with -kin (also)). The word minäkin is the natural way to say the line."
+          "lemma": "minä",
+          "tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular;FOCUS=kin",
+          "reason": "Used before the curriculum teaches this form (nominative singular, with -kin (also)). The word minäkin is the natural way to say the line."
         }
       ]
     },
     "26": {
       "base_forms": [
         {
-          "lemma": "jouluaatto",
-          "reason": "The word has frequency rank 8025, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "eli",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "joulupukki",
-          "reason": "The word has frequency rank 3885, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "etukäteen",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "jouluaatto",
+          "reason": "The word has frequency rank 8025, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "juhannus",
-          "reason": "The word has frequency rank 4749, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4749, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kahdeskymmenesneljäs",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "kiltti",
-          "reason": "The word has frequency rank 2876, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
           "lemma": "kinkku",
-          "reason": "The word has frequency rank 4991, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4991, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kokko",
-          "reason": "The word has frequency rank 5832, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5832, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kolmekymmentä",
-          "reason": "The word has frequency rank 5379, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "laatikko",
-          "reason": "The word has frequency rank 2095, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "pyöreä",
-          "reason": "The word has frequency rank 3270, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5379, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "saunoa",
-          "reason": "The word has frequency rank 9076, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "syntymäpäivä",
-          "reason": "The word has frequency rank 2914, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 9076, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "ylihuomenna",
-          "reason": "The word has frequency rank 8516, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 8516, above this part's cap of 4000, but the dialogue needs it."
         }
       ],
-      "forms": []
+      "forms": [
+        {
+          "lemma": "tärkeä",
+          "tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=superlative",
+          "reason": "Used before the curriculum teaches this form (superlative, nominative singular). The word tärkein is the natural way to say the line."
+        }
+      ]
     },
     "27": {
       "base_forms": [
@@ -1625,8 +1688,8 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "kynttilä",
-          "reason": "The word has frequency rank 3778, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "kuin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "käsine",
@@ -1637,20 +1700,32 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
+          "lemma": "ollenkaan",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "pidetä",
-          "reason": "The word has frequency rank 9370, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 9370, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "pipo",
-          "reason": "The word has frequency rank 5547, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5547, above this part's cap of 4000, but the dialogue needs it."
         },
         {
-          "lemma": "sula",
-          "reason": "The word has frequency rank 3341, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "sataa",
+          "reason": "The word has frequency rank 5495, above this part's cap of 4000, but the dialogue needs it."
         },
         {
-          "lemma": "sytyttää",
-          "reason": "The word has frequency rank 3726, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "sulaa",
+          "reason": "The word has frequency rank 5574, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "tietysti",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "ulkoilla",
@@ -1658,25 +1733,10 @@
         },
         {
           "lemma": "valoisa",
-          "reason": "The word has frequency rank 4570, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "värikäs",
-          "reason": "The word has frequency rank 3436, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4570, above this part's cap of 4000, but the dialogue needs it."
         }
       ],
-      "forms": [
-        {
-          "lemma": "kuu",
-          "tag": "CLASS=nimisana;SIJAMUOTO=keinonto;NUMBER=plural",
-          "reason": "Used before the curriculum teaches this form (instructive plural). The word kuin is the natural way to say the line."
-        },
-        {
-          "lemma": "olla",
-          "tag": "CLASS=teonsana;MOOD=E-infinitive;FOCUS=kaan",
-          "reason": "Used before the curriculum teaches this form (E-infinitive, with -kaan/-kään). The word ollenkaan is the natural way to say the line."
-        }
-      ]
+      "forms": []
     },
     "28": {
       "base_forms": [
@@ -1690,23 +1750,15 @@
         },
         {
           "lemma": "automaatti",
-          "reason": "The word has frequency rank 4218, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4218, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "henkilökortti",
-          "reason": "The word has frequency rank 9732, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "hylly",
-          "reason": "The word has frequency rank 3154, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "ilmoittautua",
-          "reason": "The word has frequency rank 2489, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 9732, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kaksitoista",
-          "reason": "The word has frequency rank 4212, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4212, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "kielikahvila",
@@ -1715,10 +1767,6 @@
         {
           "lemma": "kirjastokortti",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
-        },
-        {
-          "lemma": "lainata",
-          "reason": "The word has frequency rank 2531, above this part's cap of 2000, but the dialogue needs it."
         },
         {
           "lemma": "oleskelulupakortti",
@@ -1733,12 +1781,12 @@
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "suomenkielinen",
-          "reason": "The word has frequency rank 2430, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "uusia",
+          "reason": "The word has frequency rank 4196, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "viisikymmentä",
-          "reason": "The word has frequency rank 7572, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7572, above this part's cap of 4000, but the dialogue needs it."
         }
       ],
       "forms": []
@@ -1746,44 +1794,28 @@
     "29": {
       "base_forms": [
         {
-          "lemma": "eväs",
-          "reason": "The word has frequency rank 3916, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
           "lemma": "jokamiehenoikeus",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "mustikka",
-          "reason": "The word has frequency rank 5932, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 5932, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "myrkyllinen",
-          "reason": "The word has frequency rank 4356, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "poimia",
-          "reason": "The word has frequency rank 3244, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "sieni",
-          "reason": "The word has frequency rank 2478, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 4356, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "soutuvene",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "termospullo",
+          "lemma": "takaisin",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
-          "lemma": "uida",
-          "reason": "The word has frequency rank 2150, above this part's cap of 2000, but the dialogue needs it."
-        },
-        {
-          "lemma": "varovainen",
-          "reason": "The word has frequency rank 2834, above this part's cap of 2000, but the dialogue needs it."
+          "lemma": "termospullo",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
@@ -1798,15 +1830,23 @@
       "base_forms": [
         {
           "lemma": "brasilialainen",
-          "reason": "The word has frequency rank 6102, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6102, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "jälkiruoka",
-          "reason": "The word has frequency rank 6087, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 6087, above this part's cap of 4000, but the dialogue needs it."
+        },
+        {
+          "lemma": "luona",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "paljon",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "raitiovaunu",
-          "reason": "The word has frequency rank 7344, above this part's cap of 2000, but the dialogue needs it."
+          "reason": "The word has frequency rank 7344, above this part's cap of 4000, but the dialogue needs it."
         },
         {
           "lemma": "sisä",
@@ -1823,6 +1863,10 @@
         {
           "lemma": "syntymäpäiväsankari",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": []
@@ -1830,8 +1874,8 @@
     "31": {
       "base_forms": [
         {
-          "lemma": "asunut",
-          "reason": "The word has frequency rank 2282, above this part's cap of 1500, but the dialogue needs it."
+          "lemma": "juuri",
+          "reason": "The word has frequency rank 2462, above this part's cap of 1500, but the dialogue needs it."
         },
         {
           "lemma": "kartta",
@@ -1840,6 +1884,10 @@
         {
           "lemma": "kauppatori",
           "reason": "The word has frequency rank 7078, above this part's cap of 1500, but the dialogue needs it."
+        },
+        {
+          "lemma": "perillä",
+          "reason": "The word has frequency rank 1787, above this part's cap of 1500, but the dialogue needs it."
         },
         {
           "lemma": "puisto",
@@ -1854,8 +1902,16 @@
           "reason": "The word has frequency rank 3070, above this part's cap of 1500, but the dialogue needs it."
         },
         {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "tori",
           "reason": "The word has frequency rank 1861, above this part's cap of 1500, but the dialogue needs it."
+        },
+        {
+          "lemma": "varmaan",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
@@ -1901,8 +1957,20 @@
           "reason": "The word has frequency rank 2108, above this part's cap of 1500, but the dialogue needs it."
         },
         {
+          "lemma": "oikein",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "ollenkaan",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
           "lemma": "pesukone",
           "reason": "The word has frequency rank 7006, above this part's cap of 1500, but the dialogue needs it."
+        },
+        {
+          "lemma": "takaisin",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
           "lemma": "takuu",
@@ -1911,6 +1979,10 @@
         {
           "lemma": "varasto",
           "reason": "The word has frequency rank 2035, above this part's cap of 1500, but the dialogue needs it."
+        },
+        {
+          "lemma": "voi",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": []
@@ -1939,6 +2011,10 @@
         },
         {
           "lemma": "talvitakki",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "todella",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
@@ -1990,7 +2066,7 @@
           "reason": "The word has frequency rank 2476, above this part's cap of 1500, but the dialogue needs it."
         },
         {
-          "lemma": "neuloma",
+          "lemma": "neulominen",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
@@ -2035,8 +2111,8 @@
           "reason": "The word has frequency rank 3192, above this part's cap of 1500, but the dialogue needs it."
         },
         {
-          "lemma": "asunut",
-          "reason": "The word has frequency rank 2282, above this part's cap of 1500, but the dialogue needs it."
+          "lemma": "juuri",
+          "reason": "The word has frequency rank 2462, above this part's cap of 1500, but the dialogue needs it."
         },
         {
           "lemma": "kaakao",
@@ -2048,6 +2124,10 @@
         },
         {
           "lemma": "kodikas",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
+        },
+        {
+          "lemma": "kuin",
           "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         },
         {
@@ -2065,6 +2145,10 @@
         {
           "lemma": "päiväkoti",
           "reason": "The word has frequency rank 2005, above this part's cap of 1500, but the dialogue needs it."
+        },
+        {
+          "lemma": "todella",
+          "reason": "The word is not in the word frequency list, but the dialogue needs it (a compound word, a loan word or a name of a thing)."
         }
       ],
       "forms": [
