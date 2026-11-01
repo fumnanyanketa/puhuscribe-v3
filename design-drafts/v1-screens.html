@@ -428,6 +428,143 @@
     font-size: 11.5px;
     color: var(--quiet);
   }
+  .lit {
+    position: relative;
+    z-index: 12;
+  }
+  .spot {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 132px;
+    height: 206px;
+    border-radius: 20px;
+    z-index: 11;
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.7),
+      0 0 0 999px rgba(18, 36, 31, 0.58);
+    pointer-events: none;
+  }
+  .coach {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 362px;
+    z-index: 12;
+    display: grid;
+    gap: 11px;
+    color: #fff;
+  }
+  .cl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+  .cd {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #7fe0c3;
+    box-shadow: 0 0 0 4px rgba(127, 224, 195, 0.22);
+    flex: none;
+    margin: 0 4px;
+  }
+  .cd.w {
+    background: #b9e3d6;
+    box-shadow: 0 0 0 4px rgba(185, 227, 214, 0.18);
+  }
+  .cr {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 2px solid #f3a07f;
+    box-shadow: 0 0 0 4px rgba(243, 160, 127, 0.22);
+    flex: none;
+  }
+  .gotit {
+    justify-self: start;
+    margin-top: 8px;
+    padding: 9px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--a-deep);
+    font-weight: 600;
+    font-size: 11.5px;
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.4);
+  }
+  .mk.tapme {
+    box-shadow:
+      0 0 0 2px var(--b),
+      0 0 0 7px rgba(243, 160, 127, 0.25);
+  }
+  .wc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .wc-word {
+    display: block;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--b-deep);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .wc-mean {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 3px;
+  }
+  .wc-x {
+    margin-top: 2px;
+  }
+  .wc-from {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-self: start;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: #f2f5f4;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .wc-from span:first-child {
+    color: var(--quiet);
+    font-weight: 400;
+  }
+  .wc-sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--a-mid);
+  }
+  .wc-why {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--b-soft);
+    color: var(--b-deep);
+    font-size: 10.5px;
+    line-height: 1.45;
+  }
+  .wc-why i {
+    width: 3px;
+    align-self: stretch;
+    border-radius: 3px;
+    background: transparent;
+  }
+  .wc-why b {
+    font-weight: 600;
+  }
   .lhead {
     display: flex;
     justify-content: space-between;
@@ -1506,20 +1643,26 @@
       screens: [
         [
           'Hear it, first time',
-          'One line of the dialogue. The tip shows once.',
+          'Shown once, the first time a learner opens a lesson. The card stays lit, everything else dims, and three short lines explain it.',
           ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}
-      ${lineCard({ en: 'How much are those strawberries?' })}
-      <div class="grow"></div>
-      <div class="milk" style="padding:10px 12px;font-size:10.5px;display:flex;gap:10px;align-items:center"><span style="flex:1">Top: how it's said. Below: how it's written. Tap a word to learn it.</span><span style="color:var(--a-deep);font-weight:600">Got it</span></div>
-      <span class="pill">Next line<i></i></span></div>`),
+      <div class="lit">${lineCard({ s: 'Paljonks <span class="mk tapme">noi</span> mansikat maksaa?', en: 'How much are those strawberries?' })}</div>
+      <div class="grow"></div><span class="pill">Next line<i></i></span></div>
+      <div class="spot"></div>
+      <div class="coach">
+        <div class="cl"><i class="cd"></i><span>How people say it</span></div>
+        <div class="cl"><i class="cd w"></i><span>How it's written</span></div>
+        <div class="cl"><i class="cr"></i><span>Tap any word to learn it</span></div>
+        <span class="gotit">Got it</span>
+      </div>`),
         ],
         [
           'Word card',
-          'Tap a word. The sheet slides up over the lesson.',
-          ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}<div style="height:4px"></div>${lineCard({ s: 'Paljonks <span class="mk on">noi</span> mansikat maksaa?' })}</div>
+          'Every word can be tapped. Peach words are the ones that change between spoken and written.',
+          ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}${lineCard({ s: 'Paljonks <span class="mk on">noi</span> mansikat maksaa?' })}</div>
       <div class="dim"></div><div class="sheet"><span class="grab"></span>
-      <div class="word"><b>noi</b><span class="small">Close</span></div>
-      <dl class="facts"><dt>Means</dt><dd>those</dd><dt>Base form</dt><dd>tuo, that</dd><dt>Why</dt><dd>Spoken Finnish says noi for nuo.</dd></dl>
+      <div class="wc-head"><div><b class="wc-word">noi</b><span class="wc-mean">those</span></div><span class="round milk x wc-x"></span></div>
+      <div class="wc-from"><span>from</span> tuo <span class="wc-sep"></span> that</div>
+      <div class="wc-why"><i></i><span>In everyday speech, <b>nuo</b> becomes <b>noi</b>.</span></div>
       <div class="formrow"><div><small>Spoken</small><span>noi</span></div><span class="play"><i></i></span></div>
       <div class="formrow w"><div><small>Written</small><span>nuo</span></div><span class="play w"><i></i></span></div></div>`),
         ],
