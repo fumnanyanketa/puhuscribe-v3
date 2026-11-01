@@ -1,0 +1,466 @@
+"""Publishing the A1 road under the owner's approval (job 20-a1-road, statements 20 and 21).
+
+Spec: factory/jobs/20-a1-road/spec.md. Labels [a1-road N]. The tests publish a copy of one committed draft
+(its clips were made by the real voice) into a temporary repository. They use the real Voikko and are
+skipped where it is not installed; the GitHub Python check installs it and fails on any skip.
+"""
+
+from __future__ import annotations
+
+import copy
+import json
+import shutil
+from pathlib import Path
+
+import pytest
+
+from publish import PublishRefused, road_form_lines
+from road_publish import (
+    FIRST_PUBLISH_TIMESTAMP,
+    approval_path,
+    form_conflicts,
+    is_last_dialogue,
+    make_approval,
+    migration_name,
+    publish_road,
+    publish_timestamp,
+    road_fingerprint,
+)
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+SLUG = "meeting-people-new-colleague"
+OWNER_LINE = "I approve part 1 of the A1 road as it stands today. (test fixture, not the owner's words)"
+
+
+def _complete(draft: dict) -> dict:
+    """The draft with both meanings on every form, as it will be once the notes are written."""
+    done = copy.deepcopy(draft)
+    for form in done["forms"]:
+        form["meaning_en"] = form["meaning_en"] or "meaning"
+        form["lemma_meaning_en"] = form["lemma_meaning_en"] or "dictionary meaning"
+    return done
+
+
+@pytest.fixture
+def repo(tmp_path):
+    """A temporary repository with the draft, the road settings and an empty migrations folder."""
+    shutil.copytree(REPO / "content" / "drafts" / SLUG, tmp_path / "content" / "drafts" / SLUG)
+    shutil.copytree(REPO / "content" / "road", tmp_path / "content" / "road")
+    (tmp_path / "supabase" / "migrations").mkdir(parents=True)
+    (tmp_path / "supabase" / "migrations" / "20261101120100_load_road_stops.sql").write_text("-- main\n")
+    return tmp_path
+
+
+@pytest.fixture
+def draft(repo):
+    return _complete(
+        json.loads((repo / "content" / "drafts" / SLUG / "draft.json").read_text(encoding="utf-8"))
+    )
+
+
+def approve(repo: Path, draft: dict, **changes) -> None:
+    approval = make_approval(1, {SLUG: draft}, OWNER_LINE, "2026-11-02")
+    approval.update(changes)
+    path = approval_path(1, repo)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(approval, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def run(repo, draft, voikko, ranks, thresholds, others=None, last=True):
+    return publish_road(
+        draft,
+        repo / "content" / "drafts" / SLUG,
+        voikko,
+        ranks,
+        thresholds,
+        {SLUG: draft, **(others or {})},
+        last,
+        repo,
+    )
+
+
+def nothing_written(repo: Path) -> bool:
+    migrations = [p.name for p in (repo / "supabase" / "migrations").glob("*_publish_*.sql")]
+    return not migrations and not (repo / "public").exists()
+
+
+def test_a1_road_20_an_approved_dialogue_is_published_with_references_into_the_approval_file(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] the migration and the clips are written, and every reference is file#slug/item."""
+    approve(repo, draft)
+    migration, clips = run(repo, draft, voikko, ranks, thresholds)
+    assert migration.name == f"{publish_timestamp(1, 1)}_publish_{SLUG.replace('-', '_')}.sql"
+    sql = migration.read_text(encoding="utf-8")
+    assert f"'content/approvals/part-1.json#{SLUG}/line-1'" in sql
+    assert f"'content/approvals/part-1.json#{SLUG}/dialogue'" in sql
+    assert f"'content/approvals/part-1.json#{SLUG}/{draft['forms'][0]['id']}'" in sql
+    assert "content/reviews/" not in sql
+    assert len(clips) == len(draft["lines"]) * 2
+    assert all(c.is_file() and c.name.endswith(".mp3") for c in clips)
+
+
+def test_a1_road_20_a_changed_line_voids_the_approval_of_its_dialogue(repo, draft, voikko, ranks, thresholds):
+    """[a1-road 20] the fingerprint covers every line's three texts and every form's texts."""
+    approve(repo, draft)
+    for edit in (
+        lambda d: d["lines"][2].__setitem__("text_puhe", d["lines"][2]["text_puhe"] + "!"),
+        lambda d: d["lines"][0].__setitem__("text_kirja", d["lines"][0]["text_kirja"] + "."),
+        lambda d: d["lines"][1].__setitem__("gloss_en", d["lines"][1]["gloss_en"] + " (new)"),
+        lambda d: d["forms"][0].__setitem__("why_en", d["forms"][0]["why_en"] + " Changed."),
+        lambda d: d["forms"][0].__setitem__("meaning_en", "another meaning"),
+    ):
+        changed = copy.deepcopy(draft)
+        edit(changed)
+        assert road_fingerprint(changed) != road_fingerprint(draft)
+        with pytest.raises(PublishRefused) as refused:
+            run(repo, changed, voikko, ranks, thresholds)
+        assert any("changed after the owner approved" in r for r in refused.value.reasons)
+        assert nothing_written(repo)
+
+
+def _binding_edits(draft: dict) -> dict:
+    """One edit for each thing the approval also binds: clips, speakers, word links."""
+    other_form = next(
+        f["id"] for f in draft["forms"] if f["id"] != draft["lines"][0]["kirja_tokens"][0]["form"]
+    )
+    return {
+        "the puhe clip's hash": lambda d: d["lines"][0]["audio"]["puhe"].__setitem__("sha256", "a" * 64),
+        "the kirja clip's hash": lambda d: d["lines"][3]["audio"]["kirja"].__setitem__("sha256", "b" * 64),
+        "a speaker": lambda d: d["lines"][1].__setitem__("speaker", d["lines"][1]["speaker"] + " X"),
+        "a written word's form": lambda d: d["lines"][0]["kirja_tokens"][0].__setitem__("form", other_form),
+        "a spoken word's link": lambda d: d["lines"][0]["puhe_tokens"][0].__setitem__("kirja", 99),
+    }
+
+
+def test_a1_road_20_the_fingerprint_covers_each_clip_speaker_and_word_link(draft):
+    """[a1-road 20] each of the five edits alone changes the fingerprint, and a copy does not
+    (round 5, security review: the approval binds the audio, the speakers and the word links)."""
+    base = road_fingerprint(draft)
+    assert road_fingerprint(copy.deepcopy(draft)) == base
+    for name, edit in _binding_edits(draft).items():
+        changed = copy.deepcopy(draft)
+        edit(changed)
+        assert road_fingerprint(changed) != base, name
+
+
+def test_a1_road_20_a_changed_clip_speaker_or_word_link_voids_the_approval(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] after the owner approved, changing a clip's hash, a speaker or a word link makes
+    publishing refuse, naming the changed fingerprint, and writes nothing."""
+    approve(repo, draft)
+    for name, edit in _binding_edits(draft).items():
+        changed = copy.deepcopy(draft)
+        edit(changed)
+        with pytest.raises(PublishRefused) as refused:
+            run(repo, changed, voikko, ranks, thresholds)
+        assert any("changed after the owner approved" in r for r in refused.value.reasons), name
+        assert nothing_written(repo), name
+
+
+def _other_why(draft: dict) -> dict:
+    """The first form of the draft with another why, as an earlier migration might have inserted it."""
+    return {**draft["forms"][0], "why_en": draft["forms"][0]["why_en"] + " (another text)"}
+
+
+def test_a1_road_17_the_form_sql_refuses_other_texts_and_no_longer_skips_them(draft):
+    """[a1-road 17] the lines every road migration holds insert a missing form and refuse an existing one
+    with other texts, naming the form and both texts; the old `on conflict do nothing` is gone."""
+    sql = "\n".join(road_form_lines(draft["forms"][0], "ref"))
+    assert "on conflict" not in sql
+    assert (
+        "already exists with different texts. Existing: name %, why %, meaning %, dictionary meaning %."
+        in sql
+    )
+    assert "is not distinct from" in sql and "exists but is not approved" in sql
+
+
+def test_a1_road_17_an_earlier_migration_with_other_texts_for_a_form_is_found(draft, tmp_path):
+    """[a1-road 17] form_conflicts reads the form inserts of the migrations in the repository and names the
+    form and both sets of texts; the same texts, another form and an older insert without the new
+    columns are not conflicts."""
+    migrations = tmp_path / "migrations"
+    migrations.mkdir()
+    assert form_conflicts(draft, migrations) == []
+    other = _other_why(draft)
+    (migrations / "20261101130000_forms_seed.sql").write_text(
+        "\n".join(road_form_lines(other, "r")), encoding="utf-8"
+    )
+    reasons = form_conflicts(draft, migrations)
+    assert len(reasons) == 1
+    form = draft["forms"][0]
+    assert form["surface_kirja"] in reasons[0] and "20261101130000_forms_seed.sql" in reasons[0]
+    assert repr(form["why_en"]) in reasons[0] and repr(other["why_en"]) in reasons[0]
+    (migrations / "20261101130000_forms_seed.sql").write_text(
+        "\n".join(road_form_lines(form, "r")), encoding="utf-8"
+    )
+    assert form_conflicts(draft, migrations) == []
+    old_insert = (
+        "insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,"
+        " form_name_en, why_en)"
+        f" values ('{form['lemma']}', '{form['form_tag']}', '{{}}'::jsonb, '{form['surface_kirja']}',"
+        f" '{form['surface_puhe']}', '{form['form_name_en']}', '{form['why_en']}') on conflict do nothing;"
+    )
+    (migrations / "20261101130000_forms_seed.sql").write_text(old_insert, encoding="utf-8")
+    assert len(form_conflicts(draft, migrations)) == 1  # the old insert held no meanings, the draft has them
+
+
+def test_a1_road_17_publish_refuses_a_form_an_earlier_migration_inserted_with_other_texts(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 17] with an approved draft and an earlier migration that holds one of its forms with another
+    why, publishing is refused, names the form and both texts, and writes no migration and no clip."""
+    approve(repo, draft)
+    other = _other_why(draft)
+    seed = repo / "supabase" / "migrations" / "20261101130000_forms_seed.sql"
+    seed.write_text("\n".join(road_form_lines(other, "r")), encoding="utf-8")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    text = " ".join(refused.value.reasons)
+    assert "was already inserted by 20261101130000_forms_seed.sql" in text
+    assert draft["forms"][0]["why_en"] in text and other["why_en"] in text
+    assert nothing_written(repo)
+    seed.unlink()
+    migration, _ = run(repo, draft, voikko, ranks, thresholds)  # control: without the conflict it publishes
+    assert migration.is_file()
+
+
+def test_a1_road_17_the_form_insert_pgtap_matches_its_generator():
+    """[a1-road 17] a1_road_forms.test.sql is made by road_forms_pgtap.py from the same lines (7 checks)."""
+    from road_forms_pgtap import PLAN, TEST_FILE, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text()
+    assert f"select plan({PLAN});" in TEST_FILE.read_text(encoding="utf-8") and PLAN == 7
+
+
+def test_a1_road_20_it_refuses_without_the_file_with_a_wrong_file_and_when_the_dialogue_is_not_listed(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] each way the approval file can be wrong is refused, naming the reason, writing nothing."""
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("no owner approval file content/approvals/part-1.json" in r for r in refused.value.reasons)
+    path = approval_path(1, repo)
+    path.parent.mkdir(parents=True)
+    path.write_text('{"format": "something-else"}', encoding="utf-8")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("not an owner approval file" in r for r in refused.value.reasons)
+    approve(repo, draft)
+    approval = json.loads(path.read_text(encoding="utf-8"))
+    approval["dialogues"] = {"another-dialogue": "0" * 64}
+    path.write_text(json.dumps(approval), encoding="utf-8")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("is not listed" in r for r in refused.value.reasons)
+    approval = json.loads(path.read_text(encoding="utf-8"))
+    approval["approved_line"] = ""
+    approval["dialogues"] = {SLUG: road_fingerprint(draft)}
+    path.write_text(json.dumps(approval), encoding="utf-8")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("own approval line" in r for r in refused.value.reasons)
+    assert nothing_written(repo)
+
+
+def test_a1_road_20_it_refuses_a_failing_check_missing_notes_and_a_wrong_judge_state(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] a failing check, a form without its texts and a judge state the owner did not approve."""
+    broken = copy.deepcopy(draft)
+    broken["lines"][0]["kirja_tokens"][0]["surface"] = "Xyzzy"
+    approve(repo, broken)
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, broken, voikko, ranks, thresholds)
+    assert any(r.startswith("check failed:") for r in refused.value.reasons)
+
+    pending = copy.deepcopy(draft)
+    pending["forms"][0]["meaning_en"] = ""
+    approve(repo, pending)
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, pending, voikko, ranks, thresholds)
+    assert any("still miss a meaning or a why line" in r for r in refused.value.reasons)
+
+    approve(repo, draft, judge="off")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("register judge" in r for r in refused.value.reasons)
+    assert nothing_written(repo)
+
+
+def test_a1_road_20_it_refuses_missing_audio_fake_audio_and_a_failing_dialogue_in_the_part(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] a clip that is gone or fake, or another dialogue of the part that fails, stops it."""
+    approve(repo, draft)
+    clip = repo / "content" / "drafts" / SLUG / draft["lines"][0]["audio"]["puhe"]["file"]
+    saved = clip.read_bytes()
+    clip.unlink()
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("is missing" in r for r in refused.value.reasons)
+    clip.write_bytes(saved)
+
+    fake = copy.deepcopy(draft)
+    fake["lines"][0]["audio"]["puhe"]["provider"] = "fake"
+    approve(repo, fake)
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, fake, voikko, ranks, thresholds)
+    assert any("fake voice" in r for r in refused.value.reasons)
+
+    approve(repo, draft)
+    other = copy.deepcopy(draft)
+    other["brief"]["dialogue"] = {
+        **draft["brief"]["dialogue"],
+        "slug": "another-failing-dialogue",
+        "position": 2,
+    }
+    other["lines"][0]["kirja_tokens"][0]["surface"] = "Xyzzy"
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds, others={"another-failing-dialogue": other})
+    assert any("part 1 has a failing dialogue: another-failing-dialogue" in r for r in refused.value.reasons)
+    assert nothing_written(repo)
+
+
+def test_a1_road_20_a_dialogue_is_published_once(repo, draft, voikko, ranks, thresholds):
+    """[a1-road 20] a second publish of the same dialogue is refused, naming the migration."""
+    approve(repo, draft)
+    run(repo, draft, voikko, ranks, thresholds)
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    assert any("already publishes this dialogue" in r for r in refused.value.reasons)
+
+
+def test_a1_road_21_the_stop_is_approved_only_in_the_migration_of_its_last_dialogue(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 21] the unit row is made from road_stops; only the last dialogue approves the unit."""
+    approve(repo, draft)
+    first, _ = run(repo, draft, voikko, ranks, thresholds, last=False)
+    sql = first.read_text(encoding="utf-8")
+    assert "from public.road_stops s" in sql and "stop_number" in sql
+    assert "update public.units set status = 'approved'" not in sql
+    assert "already published; nothing to do" in sql  # a second run changes nothing
+    first.unlink()
+    shutil.rmtree(repo / "public")
+    last, _ = run(repo, draft, voikko, ranks, thresholds, last=True)
+    sql = last.read_text(encoding="utf-8")
+    assert "update public.units set status = 'approved'" in sql
+    assert f"#{SLUG}/dialogue'" in sql
+
+
+def test_a1_road_21_the_migrations_are_ordered_by_stop_and_dialogue_and_later_than_main(draft):
+    """[a1-road 21] explicit timestamps, a minute apart, in stop and dialogue order, after main."""
+    names = [publish_timestamp(stop, position) for stop in range(1, 37) for position in (1, 2, 3)]
+    assert names == sorted(names) and len(set(names)) == 108
+    assert FIRST_PUBLISH_TIMESTAMP.strftime("%Y%m%d%H%M%S") == names[0]
+    latest_on_main = max(
+        p.name.split("_", 1)[0]
+        for p in (REPO / "supabase" / "migrations").glob("*.sql")
+        if "_publish_" not in p.name
+    )
+    assert names[0] > latest_on_main
+    assert migration_name(draft).startswith(publish_timestamp(1, 1))
+
+
+def test_a1_road_21_every_committed_road_migration_is_named_as_the_publisher_names_it():
+    """[a1-road 21] each committed publish migration of a road draft equals the publisher's output, and the
+    total size is reported (the stop line is 25 MB)."""
+    from road_import import committed_road_drafts
+
+    drafts = committed_road_drafts(None)
+    migrations = sorted((REPO / "supabase" / "migrations").glob("*_publish_*.sql"))
+    total = sum(p.stat().st_size for p in migrations)
+    assert total <= 25 * 1024 * 1024
+    audio = REPO / "public" / "audio"
+    audio_total = sum(f.stat().st_size for f in audio.rglob("*") if f.is_file()) if audio.is_dir() else 0
+    assert audio_total + total <= 100 * 1024 * 1024
+    for migration in migrations:
+        slug = migration.name.split("_publish_", 1)[1][:-4].replace("_", "-")
+        if slug in drafts:
+            assert migration.name == migration_name(drafts[slug])
+            part = (drafts[slug]["brief"]["unit"]["position"] - 1) // 6
+            same_part = {s: d for s, d in drafts.items() if (d["brief"]["unit"]["position"] - 1) // 6 == part}
+            assert is_last_dialogue(drafts[slug], same_part) in (True, False)
+
+
+def test_a1_road_22_the_published_road_test_matches_the_approvals():
+    """[a1-road 22] a_1_road_published.test.sql is made from the approval files and the drafts: its numbers
+    are zero with no part approved and change when one is, and it counts 9 checks."""
+    from road_pgtap import TEST_FILE, expected, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text(expected())
+    text = TEST_FILE.read_text(encoding="utf-8")
+    assert "select plan(9);" in text
+    changed = pgtap_text({"stops": 6, "dialogues": 18, "lines": 144, "live": 6})
+    assert changed != text and "reads 6 approved road units" in changed
+
+
+def test_a1_road_24_a_reviewer_fix_is_written_into_the_exact_markdown_cell(tmp_path):
+    """[a1-road 24] an accepted fix replaces only its cell and is logged with before, after and the reason."""
+    from road_fix import changed_lines, fix_sql, write_fixes_to_markdown
+    from road_markdown import log_fix as _log_fix  # noqa: F401  (the fix goes through it)
+
+    written = tmp_path / "written"
+    shutil.copytree(REPO / "content" / "written", written)
+    fixes = tmp_path / "fixes.md"
+    shutil.copyfile(REPO / "content" / "road" / "fixes.md", fixes)
+    draft = {"brief": {"unit": {"position": 4}, "dialogue": {"position": 1, "slug": "at-the-market"}}}
+    before = (written / "part-1.md").read_text(encoding="utf-8")
+    entries = {
+        "line-3": {
+            "decision": "fix",
+            "fix": {
+                "text_puhe": "Litra on viis euroo!",
+                "text_kirja": "Litra on viisi euroa.",
+                "gloss_en": "A litre is five euros.",
+            },
+        },
+        "line-4": {"decision": "approve"},
+    }
+    changed = write_fixes_to_markdown(draft, entries, "round 1", written, fixes)
+    after = (written / "part-1.md").read_text(encoding="utf-8")
+    assert changed == {3}
+    assert before != after and after.count("Litra on viis euroo!") == 1
+    assert [a for a, b in zip(before.splitlines(), after.splitlines(), strict=True) if a != b] == [
+        next(line for line in before.splitlines() if line.startswith("| 3 | Pekka | Litra on viis euroo."))
+    ]
+    log = fixes.read_text(encoding="utf-8")
+    assert "## Reviewer round 1" in log and "Dialogue 4.1, line 3, spoken text." in log
+    assert "Before: Litra on viis euroo." in log and "After: Litra on viis euroo!" in log
+    old = {"lines": [{"n": 3, "text_puhe": "a", "text_kirja": "b", "gloss_en": "c"}]}
+    assert changed_lines(
+        old, {"lines": [{"n": 3, "text_puhe": "a", "text_kirja": "b", "gloss_en": "d"}]}
+    ) == {3}
+    assert fix_sql.__doc__
+
+
+def test_a1_road_24_the_fix_migration_pgtap_matches_its_generator():
+    """[a1-road 24] a1_road_fix.test.sql is made by road_fix_pgtap.py and counts 11 checks."""
+    from road_fix_pgtap import TEST_FILE, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text()
+    assert "select plan(11);" in TEST_FILE.read_text(encoding="utf-8")
+
+
+def test_a1_road_25_review_pages_show_both_meanings_next_to_the_name_and_why():
+    """[a1-road 25] the page's word card shows the dictionary form meaning and the meaning in context, and the
+    form fingerprint holds them."""
+    from fingerprints import form_fingerprint
+
+    page = (REPO / "scripts" / "generate" / "review_page.py").read_text(encoding="utf-8")
+    assert "Base form means: " in page and "Means here: " in page
+    form = {
+        "lemma": "tuo",
+        "form_tag": "t",
+        "surface_kirja": "nuo",
+        "surface_puhe": "noi",
+        "form_name_en": "nominative plural",
+        "why_en": "Spoken Finnish says noi.",
+        "meaning_en": "those",
+        "lemma_meaning_en": "that",
+    }
+    assert form_fingerprint(form) != form_fingerprint({**form, "meaning_en": "these"})
+    assert form_fingerprint(form) != form_fingerprint({**form, "lemma_meaning_en": "this"})

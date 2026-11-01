@@ -145,10 +145,10 @@ select u.id, d.slug, d.position, 'pgtap dialogue'
  where u.slug = 'pgtap-speak-unit';
 
 insert into public.forms
-  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
+  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
 overriding system value
 select f.id, 'pgtap-speak', f.tag, 'pgtap-k-' || f.tag, 'pgtap-p-' || f.tag, 'pgtap form', 'pgtap why',
-       'approved', now(), 'pgtap review'
+       'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from (values (910030011, 'held'), (910030012, 'not-held')) as f(id, tag);
 
 insert into public.dialogue_lines

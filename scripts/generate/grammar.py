@@ -240,6 +240,35 @@ NUMBERS_1_TO_20 = frozenset(
         "kaksikymmentä",
     }
 )
+_UNITS = ("yksi", "kaksi", "kolme", "neljä", "viisi", "kuusi", "seitsemän", "kahdeksan", "yhdeksän")
+_TENS = tuple(f"{u}kymmentä" for u in _UNITS[1:]) + ("kymmenen",)
+NUMBERS_1_TO_100 = frozenset(
+    {
+        *_UNITS,
+        "kymmenen",
+        "sata",
+        *(f"{u}toista" for u in _UNITS),
+        *_TENS,
+        *(f"{t}{u}" for t in _TENS if t != "kymmenen" for u in _UNITS),
+        # Voikko may give the first part of a compound in its stem form.
+        *(f"{u}kymmentä{v}" for u in _UNITS[1:] for v in _UNITS),
+    }
+)
+ORDINAL_BASES = ("ensimmäinen", "toinen", "kolmas", "neljäs", "viides", "kuudes", "seitsemäs", "kahdeksas")
+ORDINAL_ENDS = ("kolmas", "neljäs", "viides", "kuudes", "seitsemäs", "kahdeksas", "yhdeksäs", "kymmenes")
+
+
+class _Ordinals:
+    """Membership test: an ordinal base form, such as kolmas or kahdeskymmenesneljäs."""
+
+    def __contains__(self, lemma: object) -> bool:
+        if not isinstance(lemma, str):
+            return False
+        key = lemma.lower()
+        return key in ORDINAL_BASES or key.endswith(ORDINAL_ENDS) or key.endswith("yhdeksäs")
+
+
+ORDINALS = _Ordinals()
 ADD_ON_KEYS = ("KYSYMYSLIITE", "FOCUS", "POSSESSIVE")
 
 
@@ -339,6 +368,127 @@ GRAMMAR_CATALOGUE: dict[str, dict] = {
             (lemma == "tuo" and a.get("SIJAMUOTO") == "ulkoolento")
             or (lemma == "tämä" and a.get("SIJAMUOTO") == "sisaolento")
         ),
+        "add_ons": {},
+    },
+    # The A1 road (job 20-a1-road, "Done when" 13): one entry for each item of the curriculum's
+    # grammar column (docs/curriculum-a1.md) the catalogue lacked, each a test on Voikko's own
+    # attributes. A stop's list is its own entries plus every earlier stop's (content/road/stops.json).
+    "present-tense": {
+        "en": "everyday verbs in the present tense (asun, puhun, tulen, teet, maksaa), every person",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "teonsana"
+            and a.get("MOOD") == "indicative"
+            and a.get("TENSE") == "present_simple"
+            and a.get("PERSON") in ("1", "2", "3")
+            and a.get("NEGATIVE") in ("false", "both")
+        ),
+        "add_ons": {"KYSYMYSLIITE": {"true"}},
+    },
+    "numbers-to-100": {
+        "en": "the numbers 1 to 100 in any ending (kaksikymmentäkolme, viisikymmentä, sata)",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "lukusana"
+            and lemma in NUMBERS_1_TO_100
+            and a.get("NUMBER", "singular") == "singular"
+        ),
+        "add_ons": {},
+    },
+    "illative": {
+        "en": "the endings for into and to a place: -an, -en, -in, -seen, -hin (saunaan, kotiin, mihin)",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "sisatulento",
+        "add_ons": {},
+    },
+    "ablative": {
+        "en": "the endings -lta/-ltä (from, at a time): kymmeneltä, kassalta, häneltä",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "ulkoeronto",
+        "add_ons": {},
+    },
+    "essive": {
+        "en": "the ending -na/-nä for a day or a role (perjantaina, opettajana)",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "olento",
+        "add_ons": {},
+    },
+    "translative": {
+        "en": "the ending -ksi for becoming or a language (suomeksi, ruoaksi)",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "tulento",
+        "add_ons": {},
+    },
+    "genitive": {
+        "en": "the genitive: whose something is (minun, Leenan, kahden) and the object ending -n",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") in ("omanto", "kohdanto"),
+        "add_ons": {},
+    },
+    "plural-nominative": {
+        "en": "the plural: more than one (lapset, vanhemmat, ne, nämä)",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "nimento" and a.get("NUMBER") == "plural",
+        "add_ons": {},
+    },
+    "partitive-plural": {
+        "en": "the plural partitive: some of many (munia, omenoita, kirjoja)",
+        "core": lambda lemma, a: a.get("SIJAMUOTO") == "osanto" and a.get("NUMBER") == "plural",
+        "add_ons": {},
+    },
+    "past-and-perfect": {
+        "en": "the past tense of olla and of common verbs (oli, asuin, teit, olen asunut)",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "teonsana"
+            and (
+                (a.get("MOOD") == "indicative" and a.get("TENSE") == "past_imperfective")
+                or a.get("PARTICIPLE") == "past_active"
+            )
+        ),
+        "add_ons": {},
+    },
+    "conditional": {
+        "en": "the polite conditional: voisitko, haluaisin, ottaisin",
+        "core": lambda lemma, a: a.get("CLASS") == "teonsana" and a.get("MOOD") == "conditional",
+        "add_ons": {"KYSYMYSLIITE": {"true"}},
+    },
+    "negative-verb": {
+        "en": "saying no with the negative verb: en, et, ei, emme, ette, eivät and the verb after it",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "kieltosana" or (a.get("CLASS") == "teonsana" and a.get("NEGATIVE") == "true")
+        ),
+        "add_ons": {},
+    },
+    "passive-present": {
+        "en": "the passive for we in speech and writing: mennään, syödään, nähdään, sovitaan",
+        "core": lambda lemma, a: (
+            a.get("CLASS") == "teonsana" and a.get("PERSON") == "4" and a.get("TENSE") == "present_simple"
+        ),
+        "add_ons": {"KYSYMYSLIITE": {"true"}},
+    },
+    "imperative": {
+        "en": "the imperative: asking or telling someone to do something (mene, tule, ota, katso)",
+        "core": lambda lemma, a: a.get("CLASS") == "teonsana" and a.get("MOOD") == "imperative",
+        "add_ons": {},
+    },
+    "comparison": {
+        "en": "comparing: -mpi and -in (isompi, pimeämpi, paras)",
+        "core": lambda lemma, a: a.get("COMPARISON") in ("comparative", "superlative"),
+        "add_ons": {},
+    },
+    "possessive-endings": {
+        "en": "possessive endings: my, your, our, their on a word (nimeni, äitisi, lapsemme)",
+        "core": None,
+        "add_ons": {"POSSESSIVE": {"1s", "2s", "1p", "2p", "3"}},
+    },
+    "ordinal-numbers": {
+        "en": "the ordinal numbers: first, second, third (ensimmäinen, kolmas, kahdeskymmenesneljäs)",
+        "core": lambda lemma, a: a.get("CLASS") == "lukusana" and lemma in ORDINALS,
+        "add_ons": {},
+    },
+    "adjective-agreement": {
+        "en": "adjectives with the same ending as their noun (isommassa koossa, uuden kortin)",
+        "core": lambda lemma, a: (
+            a.get("CLASS") in ("laatusana", "nimisana_laatusana")
+            and a.get("COMPARISON", "positive") == "positive"
+        ),
+        "add_ons": {},
+    },
+    "ma-infinitive": {
+        "en": "to go and do: the verb ending -maan/-mään (nukkumaan, hakemaan, katsomaan)",
+        "core": lambda lemma, a: a.get("MOOD") == "MA-infinitive",
         "add_ons": {},
     },
 }

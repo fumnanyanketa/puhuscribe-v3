@@ -58,6 +58,14 @@ class _Provider:
 
     def __init__(self, log_path: Path | str | None = None) -> None:
         self.log_path = Path(log_path) if log_path else DEFAULT_LOG
+        self.run_cost = 0.0  # what this provider's calls cost in this run (job 20-a1-road)
+
+    def guard_run_cost(self, limit_usd: float) -> None:
+        """Stop a run that has reached its limit. A run that would pass the limit must not go on."""
+        if self.run_cost >= limit_usd:
+            raise AiError(
+                f"this run has cost ${self.run_cost:.2f}, which is at the limit of ${limit_usd:.2f}"
+            )
 
     def complete_json(self, *, purpose: str, dialogue: str, system: str, prompt: str, schema: dict) -> dict:
         """Ask for JSON that follows `schema`. Logs the call with its cost, then returns the JSON."""
@@ -77,6 +85,7 @@ class _Provider:
         return data
 
     def _log(self, purpose: str, model: str, input_tokens: int, output_tokens: int, dialogue: str) -> None:
+        self.run_cost += cost_usd(model, input_tokens, output_tokens)
         line = {
             "time": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "provider": self.name,

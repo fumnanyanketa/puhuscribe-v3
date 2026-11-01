@@ -1,0 +1,1576 @@
+{
+  "format": "puhuscribe-draft-1",
+  "brief_path": "content/written/part-3.md",
+  "brief": {
+    "unit": {
+      "slug": "housing-and-repairs",
+      "position": 18,
+      "title_en": "Housing and repairs",
+      "can_do_en": "report that something is broken."
+    },
+    "dialogue": {
+      "slug": "a-cold-radiator",
+      "position": 3,
+      "title_en": "A cold radiator"
+    },
+    "situation_en": "Maria tells Raimo the bedroom is cold.",
+    "grammar": [
+      "present-tense",
+      "olla-present",
+      "personal-pronouns",
+      "inessive-elative",
+      "question-clitic",
+      "partitive-singular",
+      "numbers-1-20",
+      "saisinko",
+      "missa-on",
+      "adessive-allative",
+      "tuolla-tassa",
+      "numbers-to-100",
+      "illative",
+      "past-and-perfect",
+      "negative-verb",
+      "conditional",
+      "passive-present",
+      "essive",
+      "ablative",
+      "ordinal-numbers",
+      "adjective-agreement",
+      "genitive",
+      "possessive-endings",
+      "extras-stop-1",
+      "extras-stop-2",
+      "extras-stop-3",
+      "extras-stop-4",
+      "extras-stop-5",
+      "extras-stop-6",
+      "extras-stop-7",
+      "extras-stop-8",
+      "extras-stop-9",
+      "extras-stop-10",
+      "extras-stop-11",
+      "extras-stop-12",
+      "extras-stop-13",
+      "extras-stop-14",
+      "extras-stop-15",
+      "extras-stop-16",
+      "extras-stop-17",
+      "extras-stop-18"
+    ],
+    "rank_cap": 2000,
+    "extra_base_forms": [
+      "ilmata",
+      "lappu",
+      "lätäkkö",
+      "makuuhuone",
+      "olohuone",
+      "patteri",
+      "suihku",
+      "tippua",
+      "tiskiallas",
+      "voi",
+      "yleisavain",
+      "ämpäri"
+    ],
+    "speakers": [
+      {
+        "name": "Maria",
+        "voice": "fi-FI-SelmaNeural"
+      },
+      {
+        "name": "Raimo",
+        "voice": "fi-FI-HarriNeural"
+      }
+    ],
+    "line_count": 8,
+    "source": "written"
+  },
+  "providers": {
+    "ai": "written",
+    "judge": "on"
+  },
+  "notes": {
+    "status": "complete"
+  },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Maria",
+      "text_puhe": "Moi! Mun makkarin patteri on kylmä.",
+      "text_kirja": "Hei! Minun makuuhuoneeni patteri on kylmä.",
+      "gloss_en": "Hi! The radiator in my bedroom is cold.",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-124d5d19fe78"
+        },
+        {
+          "surface": "Minun",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "minä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sg][Ny]un",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "omanto",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+minä(minä)"
+          },
+          "form": "form-ae1caa07874f"
+        },
+        {
+          "surface": "makuuhuoneeni",
+          "lemma": "makuuhuone",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "makuuhuone",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]makuu[X]makuu[Sn][Ny][Bh][Bc][Ln][Xp]huone[X]huone[Sn][Ny]e[O1y]ni",
+            "NUMBER": "singular",
+            "POSSESSIVE": "1s",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp=pppppppp",
+            "WORDBASES": "+makuu(makuu)+huone(huone)"
+          },
+          "form": "form-04193cf330aa"
+        },
+        {
+          "surface": "patteri",
+          "lemma": "patteri",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "patteri",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]patteri[X]patter[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppppp",
+            "WORDBASES": "+patteri(patteri)"
+          },
+          "form": "form-74b31a30c00f"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "kylmä",
+          "lemma": "kylmä",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kylmä",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]kylmä[X]kylm[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kylmä(kylmä)"
+          },
+          "form": "form-3d569cac2c52"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Moi",
+          "kirja": 1
+        },
+        {
+          "surface": "Mun",
+          "kirja": 2
+        },
+        {
+          "surface": "makkarin",
+          "kirja": 3
+        },
+        {
+          "surface": "patteri",
+          "kirja": 4
+        },
+        {
+          "surface": "on",
+          "kirja": 5
+        },
+        {
+          "surface": "kylmä",
+          "kirja": 6
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Makkari is colloquial for makuuhuone (bedroom); mun/minun, moi/hei are register differences. Same meaning.",
+        "fingerprint": "8443d5b9954b4a9d80a37166fdbf4b234cac09552e5a80f64b6f8d28432c642e",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 2,
+      "speaker": "Raimo",
+      "text_puhe": "Entä olkkaris?",
+      "text_kirja": "Entä olohuoneessa?",
+      "gloss_en": "And in the living room?",
+      "kirja_tokens": [
+        {
+          "surface": "Entä",
+          "lemma": "entä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "entä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]entä[X]entä",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+entä(entä)"
+          },
+          "form": "form-99966cae578b"
+        },
+        {
+          "surface": "olohuoneessa",
+          "lemma": "olohuone",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olohuone",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]olo[X]olo[Sn][Ny][Bh][Bc][Ln][Xp]huone[X]huonee[Sine][Ny]ssa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppp=ppppppppp",
+            "WORDBASES": "+olo(olo)+huone(huone)"
+          },
+          "form": "form-57b3d40069d0"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Entä",
+          "kirja": 1
+        },
+        {
+          "surface": "olkkaris",
+          "kirja": 2
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Olkkari is colloquial for olohuone (living room); the spoken form is just a short nominative form, same meaning.",
+        "fingerprint": "64e4184543a892487e2fbad8d81652d33d404847ef8337dca0db6dbf13a86bc5",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 3,
+      "speaker": "Maria",
+      "text_puhe": "Siel se on lämmin.",
+      "text_kirja": "Siellä se on lämmin.",
+      "gloss_en": "It's warm there.",
+      "kirja_tokens": [
+        {
+          "surface": "Siellä",
+          "lemma": "siellä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "siellä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]siellä[X]siellä",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+siellä(siellä)"
+          },
+          "form": "form-0fd3b38079dc"
+        },
+        {
+          "surface": "se",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-eca33913649c"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "lämmin",
+          "lemma": "lämmin",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "lämmin",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]lämmin[X]läm[Sn][Ny]min",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+lämmin(lämmin)"
+          },
+          "form": "form-a50c5d3a242a"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Siel",
+          "kirja": 1
+        },
+        {
+          "surface": "se",
+          "kirja": 2
+        },
+        {
+          "surface": "on",
+          "kirja": 3
+        },
+        {
+          "surface": "lämmin",
+          "kirja": 4
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Siel is a dropped-ending form of siellä; same meaning.",
+        "fingerprint": "064380c734d77f9af7757f2a30ae6e56f5b7623f1c438d39664d3f3b0e23b42a",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 4,
+      "speaker": "Raimo",
+      "text_puhe": "Sit patteris on ilmaa. Mä tuun ja ilmaan sen.",
+      "text_kirja": "Sitten patterissa on ilmaa. Minä tulen ja ilmaan sen.",
+      "gloss_en": "Then there's air in the radiator. I'll come and bleed it.",
+      "kirja_tokens": [
+        {
+          "surface": "Sitten",
+          "lemma": "sitten",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "sitten",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]sitten[X]sitten",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+sitten(sitten)"
+          },
+          "form": "form-ad4c189b50dd"
+        },
+        {
+          "surface": "patterissa",
+          "lemma": "patteri",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "patteri",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]patteri[X]patteri[Sine][Ny]ssa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=pppppppppp",
+            "WORDBASES": "+patteri(patteri)"
+          },
+          "form": "form-c32307f62411"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "ilmaa",
+          "lemma": "ilma",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ilma",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sp][Ny]aa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+ilma(ilma)"
+          },
+          "form": "form-bb3909b352f5"
+        },
+        {
+          "surface": "Minä",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "minä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+minä(minä)"
+          },
+          "form": "form-728ddce13587"
+        },
+        {
+          "surface": "tulen",
+          "lemma": "tulla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tulla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tulla[X]tule[Tt][Ap][P1][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "1",
+            "STRUCTURE": "=ppppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+tulla(tulla)"
+          },
+          "form": "form-e0ecd37fd00f"
+        },
+        {
+          "surface": "ja",
+          "lemma": "ja",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ja",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+ja(ja)"
+          },
+          "form": "form-938eb8c80d8d"
+        },
+        {
+          "surface": "ilmaan",
+          "lemma": "ilmata",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ilmata",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]ilmata[X]ilmaa[Tt][Ap][P1][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "1",
+            "STRUCTURE": "=pppppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+ilmata(ilmata)"
+          },
+          "form": "form-d70e1ab6c0a0"
+        },
+        {
+          "surface": "sen",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sg][Ny]en",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "omanto",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-1bca14269daf"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Sit",
+          "kirja": 1
+        },
+        {
+          "surface": "patteris",
+          "kirja": 2
+        },
+        {
+          "surface": "on",
+          "kirja": 3
+        },
+        {
+          "surface": "ilmaa",
+          "kirja": 4
+        },
+        {
+          "surface": "Mä",
+          "kirja": 5
+        },
+        {
+          "surface": "tuun",
+          "kirja": 6
+        },
+        {
+          "surface": "ja",
+          "kirja": 7
+        },
+        {
+          "surface": "ilmaan",
+          "kirja": 8
+        },
+        {
+          "surface": "sen",
+          "kirja": 9
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sit/sitten, patteris/patterissa, mä tuun/minä tulen are register variants; same content.",
+        "fingerprint": "83c04fd93b6021c9d40265d297eefa92c57b23c546ffdecfa5dbfb1214e3b623",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 5,
+      "speaker": "Maria",
+      "text_puhe": "Kauanks se kestää?",
+      "text_kirja": "Kauanko se kestää?",
+      "gloss_en": "How long does it take?",
+      "kirja_tokens": [
+        {
+          "surface": "Kauanko",
+          "lemma": "kauan",
+          "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kauan",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]kauan[X]kauan[Fko][Ef]ko",
+            "KYSYMYSLIITE": "true",
+            "STRUCTURE": "=ppppppp",
+            "WORDBASES": "+kauan(kauan)"
+          },
+          "form": "form-15e58dd7ae2d"
+        },
+        {
+          "surface": "se",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-eca33913649c"
+        },
+        {
+          "surface": "kestää",
+          "lemma": "kestää",
+          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kestää",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]kestää[X]kestä[Tn1][Eb]ä",
+            "MOOD": "A-infinitive",
+            "NEGATIVE": "both",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kestää(kestää)"
+          },
+          "form": "form-e74c90156d1c"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kauanks",
+          "kirja": 1
+        },
+        {
+          "surface": "se",
+          "kirja": 2
+        },
+        {
+          "surface": "kestää",
+          "kirja": 3
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kauanks is colloquial kauanko; same question.",
+        "fingerprint": "916e8ec989cd0532f9a6cb6aa6211aa961c2f7629035f5a144656d3163c128c6",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 6,
+      "speaker": "Raimo",
+      "text_puhe": "Vaan viis minuuttii.",
+      "text_kirja": "Vain viisi minuuttia.",
+      "gloss_en": "Only five minutes.",
+      "kirja_tokens": [
+        {
+          "surface": "Vain",
+          "lemma": "vain",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "vain",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]vain[X]vain",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+vain(vain)"
+          },
+          "form": "form-ab6bb2b103e4"
+        },
+        {
+          "surface": "viisi",
+          "lemma": "viisi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "viisi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]viisi[X]vii[Sn][Ny]si",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+viisi(viisi)"
+          },
+          "form": "form-56e27afb5a19"
+        },
+        {
+          "surface": "minuuttia",
+          "lemma": "minuutti",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "minuutti",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]minuutti[X]minuutt[Sp][Ny]ia",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppppppp",
+            "WORDBASES": "+minuutti(minuutti)"
+          },
+          "form": "form-2ba98cc25249"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Vaan",
+          "kirja": 1
+        },
+        {
+          "surface": "viis",
+          "kirja": 2
+        },
+        {
+          "surface": "minuuttii",
+          "kirja": 3
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Vaan/vain, viis/viisi, minuuttii/minuuttia; same meaning, five minutes.",
+        "fingerprint": "7f4100d5b77ce54f1f43129ea16fdb0b079e66918306a38893f8c0c002b1069e",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 7,
+      "speaker": "Maria",
+      "text_puhe": "Hyvä! Huonees on tosi kylmä.",
+      "text_kirja": "Hyvä! Huoneessa on todella kylmä.",
+      "gloss_en": "Good! It's really cold in the room.",
+      "kirja_tokens": [
+        {
+          "surface": "Hyvä",
+          "lemma": "hyvä",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hyvä",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+hyvä(hyvä)"
+          },
+          "form": "form-ed646e1f1923"
+        },
+        {
+          "surface": "Huoneessa",
+          "lemma": "huone",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "huone",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]huone[X]huonee[Sine][Ny]ssa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
+            "STRUCTURE": "=ppppppppp",
+            "WORDBASES": "+huone(huone)"
+          },
+          "form": "form-a5623edee8b5"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "todella",
+          "lemma": "todella",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "todella",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
+          },
+          "form": "form-26f45640039d"
+        },
+        {
+          "surface": "kylmä",
+          "lemma": "kylmä",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kylmä",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]kylmä[X]kylm[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kylmä(kylmä)"
+          },
+          "form": "form-3d569cac2c52"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Hyvä",
+          "kirja": 1
+        },
+        {
+          "surface": "Huonees",
+          "kirja": 2
+        },
+        {
+          "surface": "on",
+          "kirja": 3
+        },
+        {
+          "surface": "tosi",
+          "kirja": 4
+        },
+        {
+          "surface": "kylmä",
+          "kirja": 5
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Huonees/huoneessa and tosi/todella are register differences; same meaning.",
+        "fingerprint": "a9938d43497227e6de93ac12929d7f741ace2d997ab58899eb21845e4cae5587",
+        "model": "claude-sonnet-5-5"
+      }
+    },
+    {
+      "n": 8,
+      "speaker": "Raimo",
+      "text_puhe": "Kohta on lämmin. Mä tuun heti.",
+      "text_kirja": "Pian on lämmin. Minä tulen heti.",
+      "gloss_en": "It'll be warm soon. I'm coming right away.",
+      "kirja_tokens": [
+        {
+          "surface": "Pian",
+          "lemma": "pian",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "pian",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]pian[X]pian",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+pian(pian)"
+          },
+          "form": "form-ffa51b0abfb5"
+        },
+        {
+          "surface": "on",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=pp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-24c73cc721d6"
+        },
+        {
+          "surface": "lämmin",
+          "lemma": "lämmin",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "lämmin",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]lämmin[X]läm[Sn][Ny]min",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+lämmin(lämmin)"
+          },
+          "form": "form-a50c5d3a242a"
+        },
+        {
+          "surface": "Minä",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "minä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+minä(minä)"
+          },
+          "form": "form-728ddce13587"
+        },
+        {
+          "surface": "tulen",
+          "lemma": "tulla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tulla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tulla[X]tule[Tt][Ap][P1][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "1",
+            "STRUCTURE": "=ppppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+tulla(tulla)"
+          },
+          "form": "form-e0ecd37fd00f"
+        },
+        {
+          "surface": "heti",
+          "lemma": "heti",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "heti",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]heti[X]heti",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+heti(heti)"
+          },
+          "form": "form-78a5f0b146da"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kohta",
+          "kirja": 1
+        },
+        {
+          "surface": "on",
+          "kirja": 2
+        },
+        {
+          "surface": "lämmin",
+          "kirja": 3
+        },
+        {
+          "surface": "Mä",
+          "kirja": 4
+        },
+        {
+          "surface": "tuun",
+          "kirja": 5
+        },
+        {
+          "surface": "heti",
+          "kirja": 6
+        }
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kohta and pian both mean soon; mä tuun/minä tulen heti is the same. Same meaning.",
+        "fingerprint": "e7378f5ca2b1301052f62463dfcf79b156ea09117aaab02e7ee6bd2f3e2c46a3",
+        "model": "claude-sonnet-5-5"
+      }
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-124d5d19fe78",
+      "lemma": "hei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "hei",
+      "surface_puhe": "moi",
+      "analysis": {
+        "BASEFORM": "hei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+hei(hei)"
+      },
+      "form_name_en": "interjection",
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
+    },
+    {
+      "id": "form-ae1caa07874f",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+      "surface_kirja": "minun",
+      "surface_puhe": "mun",
+      "analysis": {
+        "BASEFORM": "minä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sg][Ny]un",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "omanto",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+minä(minä)"
+      },
+      "form_name_en": "genitive singular",
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
+    },
+    {
+      "id": "form-04193cf330aa",
+      "lemma": "makuuhuone",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "surface_kirja": "makuuhuoneeni",
+      "surface_puhe": "makkarin",
+      "analysis": {
+        "BASEFORM": "makuuhuone",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]makuu[X]makuu[Sn][Ny][Bh][Bc][Ln][Xp]huone[X]huone[Sn][Ny]e[O1y]ni",
+        "NUMBER": "singular",
+        "POSSESSIVE": "1s",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp=pppppppp",
+        "WORDBASES": "+makuu(makuu)+huone(huone)"
+      },
+      "form_name_en": "nominative singular, with the possessive ending for my",
+      "meaning_en": "my bedroom's",
+      "lemma_meaning_en": "bedroom",
+      "why_en": "Adds -ni for 'my': makuuhuone becomes makuuhuoneeni. Speech uses the short word makkari: mun makkarin."
+    },
+    {
+      "id": "form-74b31a30c00f",
+      "lemma": "patteri",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "patteri",
+      "surface_puhe": "patteri",
+      "analysis": {
+        "BASEFORM": "patteri",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]patteri[X]patter[Sn][Ny]i",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppppp",
+        "WORDBASES": "+patteri(patteri)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "radiator",
+      "lemma_meaning_en": "radiator",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-24c73cc721d6",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "on",
+      "surface_puhe": "on",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tt][Ap][P3][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=pp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
+      "why_en": "The form of olla, to be, for he, she or it. People say it the same way."
+    },
+    {
+      "id": "form-3d569cac2c52",
+      "lemma": "kylmä",
+      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+      "surface_kirja": "kylmä",
+      "surface_puhe": "kylmä",
+      "analysis": {
+        "BASEFORM": "kylmä",
+        "CLASS": "nimisana_laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Lnl][Xp]kylmä[X]kylm[Sn][Ny]ä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+kylmä(kylmä)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "cold",
+      "lemma_meaning_en": "cold",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-99966cae578b",
+      "lemma": "entä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "entä",
+      "surface_puhe": "entä",
+      "analysis": {
+        "BASEFORM": "entä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]entä[X]entä",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+entä(entä)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-57b3d40069d0",
+      "lemma": "olohuone",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "olohuoneessa",
+      "surface_puhe": "olkkaris",
+      "analysis": {
+        "BASEFORM": "olohuone",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]olo[X]olo[Sn][Ny][Bh][Bc][Ln][Xp]huone[X]huonee[Sine][Ny]ssa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppp=ppppppppp",
+        "WORDBASES": "+olo(olo)+huone(huone)"
+      },
+      "form_name_en": "inessive singular",
+      "meaning_en": "in the living room",
+      "lemma_meaning_en": "living room",
+      "why_en": "Adds -ssa for 'in': olohuone becomes olohuoneessa. Speech uses the short word olkkari: olkkaris."
+    },
+    {
+      "id": "form-0fd3b38079dc",
+      "lemma": "siellä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "siellä",
+      "surface_puhe": "siel",
+      "analysis": {
+        "BASEFORM": "siellä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]siellä[X]siellä",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+siellä(siellä)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "there",
+      "lemma_meaning_en": "there",
+      "why_en": "Siellä means there. Speech shortens -llä to -l: Siellä becomes Siel."
+    },
+    {
+      "id": "form-eca33913649c",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "se",
+      "surface_puhe": "se",
+      "analysis": {
+        "BASEFORM": "se",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+se(se)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-a50c5d3a242a",
+      "lemma": "lämmin",
+      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+      "surface_kirja": "lämmin",
+      "surface_puhe": "lämmin",
+      "analysis": {
+        "BASEFORM": "lämmin",
+        "CLASS": "nimisana_laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Lnl][Xp]lämmin[X]läm[Sn][Ny]min",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+lämmin(lämmin)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "warm",
+      "lemma_meaning_en": "warm",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-ad4c189b50dd",
+      "lemma": "sitten",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "sitten",
+      "surface_puhe": "sit",
+      "analysis": {
+        "BASEFORM": "sitten",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]sitten[X]sitten",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+sitten(sitten)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
+      "why_en": "Speech shortens sitten to sit. Books write sitten."
+    },
+    {
+      "id": "form-c32307f62411",
+      "lemma": "patteri",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "patterissa",
+      "surface_puhe": "patteris",
+      "analysis": {
+        "BASEFORM": "patteri",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]patteri[X]patteri[Sine][Ny]ssa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=pppppppppp",
+        "WORDBASES": "+patteri(patteri)"
+      },
+      "form_name_en": "inessive singular",
+      "meaning_en": "in the radiator",
+      "lemma_meaning_en": "radiator",
+      "why_en": "Adds -ssa for 'in': patteri becomes patterissa. Speech shortens -ssa to -s: patterissa becomes patteris."
+    },
+    {
+      "id": "form-bb3909b352f5",
+      "lemma": "ilma",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "ilmaa",
+      "surface_puhe": "ilmaa",
+      "analysis": {
+        "BASEFORM": "ilma",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sp][Ny]aa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+ilma(ilma)"
+      },
+      "form_name_en": "partitive singular",
+      "meaning_en": "air",
+      "lemma_meaning_en": "air, weather",
+      "why_en": "Adds -a for an amount of something: ilma becomes ilmaa, 'some air'."
+    },
+    {
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "minä",
+      "surface_puhe": "mä",
+      "analysis": {
+        "BASEFORM": "minä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+minä(minä)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Speech shortens minä to mä. Books write minä."
+    },
+    {
+      "id": "form-e0ecd37fd00f",
+      "lemma": "tulla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "tulen",
+      "surface_puhe": "tuun",
+      "analysis": {
+        "BASEFORM": "tulla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tulla[X]tule[Tt][Ap][P1][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "1",
+        "STRUCTURE": "=ppppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+tulla(tulla)"
+      },
+      "form_name_en": "present tense, 1st person singular",
+      "meaning_en": "I come",
+      "lemma_meaning_en": "to come",
+      "why_en": "Adds -en for 'I': tulla becomes tulen. Speech says tuun."
+    },
+    {
+      "id": "form-938eb8c80d8d",
+      "lemma": "ja",
+      "form_tag": "CLASS=sidesana",
+      "surface_kirja": "ja",
+      "surface_puhe": "ja",
+      "analysis": {
+        "BASEFORM": "ja",
+        "CLASS": "sidesana",
+        "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+ja(ja)"
+      },
+      "form_name_en": "conjunction",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-d70e1ab6c0a0",
+      "lemma": "ilmata",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "ilmaan",
+      "surface_puhe": "ilmaan",
+      "analysis": {
+        "BASEFORM": "ilmata",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]ilmata[X]ilmaa[Tt][Ap][P1][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "1",
+        "STRUCTURE": "=pppppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+ilmata(ilmata)"
+      },
+      "form_name_en": "present tense, 1st person singular",
+      "meaning_en": "I bleed (the radiator)",
+      "lemma_meaning_en": "to let air out, to bleed (a radiator)",
+      "why_en": "Ilmata, to let air out. With minä the verb ends in -n: ilmaan."
+    },
+    {
+      "id": "form-1bca14269daf",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+      "surface_kirja": "sen",
+      "surface_puhe": "sen",
+      "analysis": {
+        "BASEFORM": "se",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Sg][Ny]en",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "omanto",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+se(se)"
+      },
+      "form_name_en": "genitive singular",
+      "meaning_en": "it",
+      "lemma_meaning_en": "it, that",
+      "why_en": "Se with -n when the whole thing is the object: kirjoittaa sen."
+    },
+    {
+      "id": "form-15e58dd7ae2d",
+      "lemma": "kauan",
+      "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
+      "surface_kirja": "kauanko",
+      "surface_puhe": "kauanks",
+      "analysis": {
+        "BASEFORM": "kauan",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]kauan[X]kauan[Fko][Ef]ko",
+        "KYSYMYSLIITE": "true",
+        "STRUCTURE": "=ppppppp",
+        "WORDBASES": "+kauan(kauan)"
+      },
+      "form_name_en": "adverb, with the question ending -ko/-kö",
+      "meaning_en": "how long",
+      "lemma_meaning_en": "long (time)",
+      "why_en": "Kauan, long, with -ko to ask. Speech says -ks: kauanks."
+    },
+    {
+      "id": "form-e74c90156d1c",
+      "lemma": "kestää",
+      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "surface_kirja": "kestää",
+      "surface_puhe": "kestää",
+      "analysis": {
+        "BASEFORM": "kestää",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]kestää[X]kestä[Tn1][Eb]ä",
+        "MOOD": "A-infinitive",
+        "NEGATIVE": "both",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kestää(kestää)"
+      },
+      "form_name_en": "basic form (A-infinitive)",
+      "meaning_en": "to last, to take (time)",
+      "lemma_meaning_en": "to last, to take (time)",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-ab6bb2b103e4",
+      "lemma": "vain",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "vain",
+      "surface_puhe": "vaan",
+      "analysis": {
+        "BASEFORM": "vain",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]vain[X]vain",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+vain(vain)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "only",
+      "lemma_meaning_en": "only, just",
+      "why_en": "Speech says vaan. Books write vain."
+    },
+    {
+      "id": "form-56e27afb5a19",
+      "lemma": "viisi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "viisi",
+      "surface_puhe": "viis",
+      "analysis": {
+        "BASEFORM": "viisi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]viisi[X]vii[Sn][Ny]si",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+viisi(viisi)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "five",
+      "lemma_meaning_en": "five",
+      "why_en": "Speech drops the final i: viisi becomes viis."
+    },
+    {
+      "id": "form-2ba98cc25249",
+      "lemma": "minuutti",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "minuuttia",
+      "surface_puhe": "minuuttii",
+      "analysis": {
+        "BASEFORM": "minuutti",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]minuutti[X]minuutt[Sp][Ny]ia",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppppppp",
+        "WORDBASES": "+minuutti(minuutti)"
+      },
+      "form_name_en": "partitive singular",
+      "meaning_en": "minutes",
+      "lemma_meaning_en": "minute",
+      "why_en": "After a number the noun takes the partitive: kymmenen minuuttia. Speech turns -ia into -ii."
+    },
+    {
+      "id": "form-ed646e1f1923",
+      "lemma": "hyvä",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
+      "surface_kirja": "hyvä",
+      "surface_puhe": "hyvä",
+      "analysis": {
+        "BASEFORM": "hyvä",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sn][Ny]ä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+hyvä(hyvä)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-a5623edee8b5",
+      "lemma": "huone",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
+      "surface_kirja": "huoneessa",
+      "surface_puhe": "huonees",
+      "analysis": {
+        "BASEFORM": "huone",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]huone[X]huonee[Sine][Ny]ssa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
+        "STRUCTURE": "=ppppppppp",
+        "WORDBASES": "+huone(huone)"
+      },
+      "form_name_en": "inessive singular",
+      "meaning_en": "in the room",
+      "lemma_meaning_en": "room",
+      "why_en": "Adds -ssa for 'in', with an extra e: huone becomes huoneessa. Speech shortens -ssa to -s: huoneessa becomes huonees."
+    },
+    {
+      "id": "form-26f45640039d",
+      "lemma": "todella",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "todella",
+      "surface_puhe": "tosi",
+      "analysis": {
+        "BASEFORM": "todella",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "really",
+      "lemma_meaning_en": "really",
+      "why_en": "Books write todella. In speech people use tosi, 'really', instead."
+    },
+    {
+      "id": "form-ffa51b0abfb5",
+      "lemma": "pian",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "pian",
+      "surface_puhe": "kohta",
+      "analysis": {
+        "BASEFORM": "pian",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]pian[X]pian",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+pian(pian)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "soon",
+      "lemma_meaning_en": "soon",
+      "why_en": "Speech often says kohta 'in a moment' instead of pian."
+    },
+    {
+      "id": "form-78a5f0b146da",
+      "lemma": "heti",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "heti",
+      "surface_puhe": "heti",
+      "analysis": {
+        "BASEFORM": "heti",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]heti[X]heti",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+heti(heti)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "right away",
+      "lemma_meaning_en": "right away",
+      "why_en": "This is the dictionary form. People say it the same way."
+    }
+  ]
+}

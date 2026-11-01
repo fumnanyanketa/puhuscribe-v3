@@ -107,7 +107,7 @@ Maria meets Juha, who is selling his bike online.
 | 4 | Juha | No, se on melkein uus. | No, se on melkein uusi. | Well, it's almost new. |
 | 5 | Maria | Käyks kaheksankyt euroo? | Käykö kahdeksankymmentä euroa? | Would eighty euros be OK? |
 | 6 | Juha | Yheksänkyt, niin se on sun. | Yhdeksänkymmentä, niin se on sinun. | Ninety, and it's yours. |
-| 7 | Maria | Okei, sovitaan yheksänkyt. Mä maksan MobilePaylla. | Selvä, sovitaan yhdeksänkymmentä. Minä maksan MobilePaylla. | OK, let's say ninety. I'll pay with MobilePay. |
+| 7 | Maria | Okei, sovitaan yheksänkyt. Mä maksan puhelimel. | Selvä, sovitaan yhdeksänkymmentä. Minä maksan puhelimella. | OK, let's say ninety. I'll pay with my phone. |
 | 8 | Juha | Hyvä. Tässä on avaimet. | Hyvä. Tässä ovat avaimet. | Good. Here are the keys. |
 
 ## Stop 5. Getting around by bus and tram
@@ -121,7 +121,7 @@ Maria asks Elina at a tram stop.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Maria | Anteeks, mikä ratikka menee keskustaan? | Anteeksi, mikä raitiovaunu menee keskustaan? | Excuse me, which tram goes to the centre? |
-| 2 | Elina | Kolmonen tai seiska. | Linja kolme tai linja seitsemän. | Number three or seven. |
+| 2 | Elina | Linja kolme tai linja seiska. | Linja kolme tai linja seitsemän. | Number three or seven. |
 | 3 | Maria | Missä niitten pysäkki on? | Missä niiden pysäkki on? | Where's their stop? |
 | 4 | Elina | Täs. Tää on oikee pysäkki. | Tässä. Tämä on oikea pysäkki. | Here. This is the right stop. |
 | 5 | Maria | Kauanks matka kestää? | Kauanko matka kestää? | How long does the trip take? |
@@ -136,7 +136,7 @@ Maria asks Timo at the bus station.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Maria | Anteeks, mistä mä voin ostaa lipun? | Anteeksi, mistä minä voin ostaa lipun? | Excuse me, where can I buy a ticket? |
-| 2 | Timo | Tosta automaatista tai HSL-sovelluksesta. | Tuosta automaatista tai HSL-sovelluksesta. | From that machine or the HSL app. |
+| 2 | Timo | Tosta automaatista tai sovelluksest. | Tuosta automaatista tai sovelluksesta. | From that machine or the app. |
 | 3 | Maria | Mä meen Espooseen. Mikä lippu mun pitää ostaa? | Minä menen Espooseen. Mikä lippu minun pitää ostaa? | I'm going to Espoo. Which ticket do I need to buy? |
 | 4 | Timo | AB-lippu riittää. | AB-lippu riittää. | An AB ticket is enough. |
 | 5 | Maria | Paljonks se maksaa? | Paljonko se maksaa? | How much does it cost? |
@@ -199,11 +199,11 @@ Maria asks her neighbour Leena about the weather.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Maria | Moi Leena! Tiiätsä, sataaks huomenna? | Hei Leena! Tiedätkö, sataako huomenna? | Hi Leena! Do you know if it's going to rain tomorrow? |
+| 1 | Maria | Moi Leena! Tiiätsä, sataaks huomenna? | Hei Leena! Tiedätkö sinä, sataako huomenna? | Hi Leena! Do you know if it's going to rain tomorrow? |
 | 2 | Leena | Ei pitäs. Huomenna on aurinkoista. | Ei pitäisi. Huomenna on aurinkoista. | It shouldn't. Tomorrow will be sunny. |
 | 3 | Maria | Hyvä! Mä haluun mennä rannalle. | Hyvä! Minä haluan mennä rannalle. | Good! I want to go to the beach. |
 | 4 | Leena | Hyvä idea. Tänään oli tosi tuulista. | Hyvä idea. Tänään oli todella tuulista. | Good idea. It was really windy today. |
 | 5 | Maria | Joo, mun sateenvarjo meni rikki! | Kyllä, minun sateenvarjoni meni rikki! | Yes, my umbrella broke! |
-| 6 | Leena | Voi ei! Mä voin lainata sulle mun vanhan. | Voi ei! Voin lainata sinulle vanhan sateenvarjoni. | Oh no! I can lend you my old one. |
-| 7 | Maria | Kiitti, tosi kiva! | Kiitos, todella ystävällistä! | Thanks, that's really kind! |
-| 8 | Leena | Ei mitään. Nähään huomenna! | Ei kestä. Nähdään huomenna! | You're welcome. See you tomorrow! |
+| 6 | Leena | Voi ei! Mä voin lainata sulle mun vanhan sateenvarjon. | Voi ei! Minä voin lainata sinulle minun vanhan sateenvarjoni. | Oh no! I can lend you my old one. |
+| 7 | Maria | Kiitti, tosi kiva! | Kiitos, todella kiva! | Thanks, that's really kind! |
+| 8 | Leena | Ei kestä. Nähään huomenna! | Ei kestä. Nähdään huomenna! | You're welcome. See you tomorrow! |

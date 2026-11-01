@@ -152,7 +152,8 @@ def unit_drafts(unit: int) -> list[dict]:
     found = []
     for path in sorted(DRAFTS.glob("*/draft.json")):
         draft = json.loads(path.read_text(encoding="utf-8"))
-        if draft["brief"]["unit"]["position"] == unit:
+        # Job 20-a1-road adds 102 hand written drafts to the same folder: this test is about the six.
+        if draft["brief"]["unit"]["position"] == unit and path.parent.name in DIALOGUES.values():
             found.append(draft)
     return found
 

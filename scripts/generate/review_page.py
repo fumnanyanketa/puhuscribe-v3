@@ -232,7 +232,9 @@ SCRIPT = r"""
     lemma.lang = 'fi';
     base.appendChild(lemma);
     card.appendChild(base);
+    if (form.lemma_meaning_en) card.appendChild(el('p', null, 'Base form means: ' + form.lemma_meaning_en));
     card.appendChild(el('p', null, 'Form: ' + form.form_name_en));
+    if (form.meaning_en) card.appendChild(el('p', null, 'Means here: ' + form.meaning_en));
     card.appendChild(el('p', null, 'Why: ' + form.why_en));
     card.appendChild(el('p', 'note', 'In line ' + form.lines.join(', ')));
     state[form.item] = { kind: 'form', decision: null, fix: {}, comment: '' };
@@ -407,6 +409,8 @@ def page_data(draft: dict, draft_dir: Path, round_number: int, pending: dict[str
                 "surface_puhe": form["surface_puhe"],
                 "form_name_en": form["form_name_en"],
                 "why_en": form["why_en"],
+                "meaning_en": form.get("meaning_en", ""),
+                "lemma_meaning_en": form.get("lemma_meaning_en", ""),
                 "lines": form_lines.get(form["id"], []),
             }
         )

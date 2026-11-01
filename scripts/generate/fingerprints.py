@@ -55,8 +55,15 @@ def form_id(form: dict) -> str:
 
 
 def form_fingerprint(form: dict) -> str:
+    """The form as the reviewer sees it. Job 20-a1-road: the two meanings are part of it."""
     return fingerprint(
-        {**form_identity(form), "form_name_en": form["form_name_en"], "why_en": form["why_en"]}
+        {
+            **form_identity(form),
+            "form_name_en": form["form_name_en"],
+            "why_en": form["why_en"],
+            "meaning_en": form.get("meaning_en", ""),
+            "lemma_meaning_en": form.get("lemma_meaning_en", ""),
+        }
     )
 
 

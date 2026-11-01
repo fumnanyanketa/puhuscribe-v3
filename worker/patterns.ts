@@ -7,6 +7,7 @@ import {
   type ReadableDialogue,
   type SessionRow,
 } from './learner-db.ts'
+import { readAll, readAllIn } from './paging.ts'
 import { audioPath } from './session-plan.ts'
 
 // The "Patterns you've seen" panel's data, GET /api/patterns
@@ -223,10 +224,7 @@ export async function patternsFor(db: PatternsDb, currentSessionId: string | nul
   return buildPatterns({ dialogues, sessions, currentSessionId, cardFormIds, lines, tokens, forms })
 }
 
-function must<T>(result: { data: T | null; error: unknown }): T {
-  if (result.error || result.data === null) throw new DatabaseUnavailable()
-  return result.data
-}
+const unavailable = (): Error => new DatabaseUnavailable()
 
 export function supabasePatternsDb(client: LearnerClient): PatternsDb {
   const learner = supabaseLearnerDb(client)
@@ -234,17 +232,28 @@ export function supabasePatternsDb(client: LearnerClient): PatternsDb {
     readableDialogues: learner.readableDialogues,
     mySessions: learner.mySessions,
 
+    // Every read below is paged: a learner who met all 108 dialogues has about 1,500 cards, 864 lines
+    // and 6,000 linked words, more than the API's row cap of 1,000 (worker/paging.ts).
     async cardFormIds() {
-      return must(await client.from('cards').select('form_id')).map((row) => row.form_id)
+      const rows = await readAll(
+        (from, to) => client.from('cards').select('form_id').order('form_id').range(from, to),
+        unavailable,
+      )
+      return rows.map((row) => row.form_id)
     },
 
     async lines(dialogueIds) {
-      const rows = must(
-        await client
-          .from('dialogue_lines')
-          .select('id, dialogue_id, position, text_puhe, text_kirja, audio_puhe_key, audio_kirja_key')
-          .in('dialogue_id', [...dialogueIds])
-          .eq('status', 'approved'),
+      const rows = await readAllIn(
+        dialogueIds,
+        (chunk) => (from, to) =>
+          client
+            .from('dialogue_lines')
+            .select('id, dialogue_id, position, text_puhe, text_kirja, audio_puhe_key, audio_kirja_key')
+            .in('dialogue_id', chunk)
+            .eq('status', 'approved')
+            .order('id')
+            .range(from, to),
+        unavailable,
       )
       // An approved line always has both texts and both audio keys.
       return rows.map((line) => ({
@@ -259,23 +268,35 @@ export function supabasePatternsDb(client: LearnerClient): PatternsDb {
     },
 
     async tokens(lineIds) {
-      const rows = must(
-        await client
-          .from('tokens')
-          .select('line_id, form_id')
-          .in('line_id', [...lineIds])
-          .not('form_id', 'is', null),
+      const rows = await readAllIn(
+        lineIds,
+        (chunk) => (from, to) =>
+          client
+            .from('tokens')
+            .select('line_id, form_id')
+            .in('line_id', chunk)
+            .not('form_id', 'is', null)
+            .order('id')
+            .range(from, to),
+        unavailable,
       )
-      return rows.map((row) => ({ lineId: row.line_id, formId: row.form_id }))
+      return rows.flatMap((row) =>
+        row.form_id === null ? [] : [{ lineId: row.line_id, formId: row.form_id }],
+      )
     },
 
     async forms(formIds) {
-      const rows = must(
-        await client
-          .from('forms')
-          .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
-          .in('id', [...formIds])
-          .eq('status', 'approved'),
+      const rows = await readAllIn(
+        formIds,
+        (chunk) => (from, to) =>
+          client
+            .from('forms')
+            .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
+            .in('id', chunk)
+            .eq('status', 'approved')
+            .order('id')
+            .range(from, to),
+        unavailable,
       )
       return rows.map((form) => ({
         id: form.id,

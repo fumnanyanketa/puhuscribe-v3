@@ -77,11 +77,108 @@ def audio_key(slug: str, line: int, register: str, sha256: str) -> str:
     return f"{slug}/{line}-{register}-{sha256[:12]}.mp3"
 
 
-def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str], source: str) -> str:
-    """The publish migration. refs maps item ids (and "unit") to approval references."""
+def road_form_lines(form: dict, ref: str) -> list[str]:
+    """The PL/pgSQL lines that put one form of a road dialogue in. A form that does not exist is inserted.
+    A form that exists must be approved and carry exactly these texts (name, why, meaning, dictionary form
+    meaning), otherwise the migration refuses, naming the form and both sets of texts. The first
+    dialogue's text is never kept while a later dialogue's differing text is silently dropped
+    (statement 17, amended)."""
+    identity = (
+        f"lemma = {sql_text(form['lemma'])} and form_tag = {sql_text(form['form_tag'])} "
+        f"and surface_kirja = {sql_text(form['surface_kirja'])} "
+        f"and surface_puhe = {sql_text(form['surface_puhe'])}"
+    )
+    analysis = sql_text(_json(form.get("analysis", {})))
+    new_texts = (
+        f"{sql_text(form['form_name_en'])}, {sql_text(form['why_en'])}, "
+        f"{sql_text(form.get('meaning_en'))}, {sql_text(form.get('lemma_meaning_en'))}"
+    )
+    same_texts = f"(form_name_en, why_en, meaning_en, lemma_meaning_en) is not distinct from ({new_texts})"
+    message = (
+        "form % (%) already exists with different texts. Existing: name %, why %, meaning %, "
+        "dictionary meaning %. New: name %, why %, meaning %, dictionary meaning %"
+    )
+    return [
+        f"  if not exists (select 1 from public.forms where {identity}) then",
+        "    insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,",
+        "      form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)",
+        f"    values ({sql_text(form['lemma'])}, {sql_text(form['form_tag'])}, {analysis}::jsonb,",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['surface_puhe'])},",
+        f"      {new_texts}, 'approved', now(), {sql_text(ref)});",
+        "  end if;",
+        f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
+        "    raise exception 'form % (%) exists but is not approved',",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
+        "  end if;",
+        f"  if not exists (select 1 from public.forms where {identity} and {same_texts}) then",
+        f"    raise exception {sql_text(message)},",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])},",
+        *[
+            f"      (select {column} from public.forms where {identity}),"
+            for column in ("form_name_en", "why_en", "meaning_en", "lemma_meaning_en")
+        ],
+        f"      {new_texts};",
+        "  end if;",
+    ]
+
+
+def build_sql(
+    draft: dict,
+    refs: dict[str, str],
+    keys: dict[tuple[int, str], str],
+    source: str,
+    road: dict | None = None,
+) -> str:
+    """The publish migration. refs maps item ids (and "unit") to approval references.
+
+    `road` (job 20-a1-road) is {"stop": <number>, "last": <True for the stop's last dialogue>}. The
+    unit row is then made from public.road_stops, and the unit is approved only inside the migration
+    of the stop's last dialogue, so a learner never sees a stop with a dialogue missing."""
     brief = draft["brief"]
     unit, dialogue = brief["unit"], brief["dialogue"]
     slug = dialogue["slug"]
+    if road is None:
+        unit_lines = [
+            "  insert into public.units (slug, position, title_en, can_do_en)",
+            f"  values ({sql_text(unit['slug'])}, {int(unit['position'])}, {sql_text(unit['title_en'])}, "
+            f"{sql_text(unit['can_do_en'])})",
+            "  on conflict (slug) do nothing;",
+            "  select id, status into strict v_unit_id, v_status from public.units",
+            f"  where slug = {sql_text(unit['slug'])} and position = {int(unit['position'])}",
+            f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+        ]
+        unit_approve_lines = [
+            "  -- 4. The unit, unless an earlier dialogue already published it.",
+            "  if v_status = 'draft' then",
+            "    update public.units set status = 'approved', approved_at = now(),",
+            f"      approval_ref = {sql_text(refs['unit'])}",
+            "    where id = v_unit_id;",
+            "  end if;",
+        ]
+    else:
+        number = int(road["stop"])
+        unit_lines = [
+            "  insert into public.units (slug, position, title_en, can_do_en, stop_number)",
+            "  select s.slug, s.number, s.name_en, s.can_do_en, s.number from public.road_stops s",
+            f"  where s.number = {number}",
+            "  on conflict (slug) do nothing;",
+            "  select id, status into strict v_unit_id, v_status from public.units",
+            f"  where slug = {sql_text(unit['slug'])} and position = {number} and stop_number = {number};",
+        ]
+        if road["last"]:
+            unit_approve_lines = [
+                "  -- 4. The stop, now that this is its last dialogue.",
+                "  if v_status = 'draft' then",
+                "    update public.units set status = 'approved', approved_at = now(),",
+                f"      approval_ref = {sql_text(refs['unit'])}",
+                "    where id = v_unit_id;",
+                "  end if;",
+            ]
+        else:
+            unit_approve_lines = [
+                "  -- 4. The stop stays a draft until its last dialogue is published, so a learner",
+                "  -- never sees a stop with a dialogue missing.",
+            ]
     out = [
         f"-- Publishes the dialogue {slug} (unit {unit['slug']}). Made by",
         f"-- scripts/generate/pipeline.py publish from {source}. Do not edit by hand:",
@@ -103,13 +200,7 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
         "  end if;",
         "",
         "  -- The unit, as a draft until the end.",
-        "  insert into public.units (slug, position, title_en, can_do_en)",
-        f"  values ({sql_text(unit['slug'])}, {int(unit['position'])}, {sql_text(unit['title_en'])}, "
-        f"{sql_text(unit['can_do_en'])})",
-        "  on conflict (slug) do nothing;",
-        "  select id, status into strict v_unit_id, v_status from public.units",
-        f"  where slug = {sql_text(unit['slug'])} and position = {int(unit['position'])}",
-        f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+        *unit_lines,
         "  if v_status = 'retired' then",
         f"    raise exception 'unit % is retired', {sql_text(unit['slug'])};",
         "  end if;",
@@ -136,19 +227,26 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
             f"and surface_puhe = {sql_text(form['surface_puhe'])}"
         )
         analysis = sql_text(_json(form.get("analysis", {})))
-        out += [
+        columns = [
             "  insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,",
-            "    form_name_en, why_en, status, approved_at, approval_ref)",
+            "    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)",
             f"  values ({sql_text(form['lemma'])}, {sql_text(form['form_tag'])}, {analysis}::jsonb,",
             f"    {sql_text(form['surface_kirja'])}, {sql_text(form['surface_puhe'])},",
             f"    {sql_text(form['form_name_en'])},",
-            f"    {sql_text(form['why_en'])}, 'approved', now(), {sql_text(refs[form['id']])})",
-            "  on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;",
-            f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
-            "    raise exception 'form % (%) exists but is not approved',",
-            f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
-            "  end if;",
+            f"    {sql_text(form['why_en'])}, {sql_text(form.get('meaning_en'))},",
+            f"    {sql_text(form.get('lemma_meaning_en'))}, 'approved', now(), {sql_text(refs[form['id']])})",
         ]
+        if road is None:
+            out += [
+                *columns,
+                "  on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;",
+                f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
+                "    raise exception 'form % (%) exists but is not approved',",
+                f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
+                "  end if;",
+            ]
+            continue
+        out += road_form_lines(form, refs[form["id"]])
     out += ["", "  -- 2. Lines with their words, each approved after its words are in."]
     for line in draft["lines"]:
         n = line["n"]
@@ -196,12 +294,7 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
         f"    approval_ref = {sql_text(refs[DIALOGUE_ITEM])}",
         "  where id = v_dialogue_id;",
         "",
-        "  -- 4. The unit, unless an earlier dialogue already published it.",
-        "  if v_status = 'draft' then",
-        "    update public.units set status = 'approved', approved_at = now(),",
-        f"      approval_ref = {sql_text(refs['unit'])}",
-        "    where id = v_unit_id;",
-        "  end if;",
+        *unit_approve_lines,
         "end",
         "$publish$;",
         "",

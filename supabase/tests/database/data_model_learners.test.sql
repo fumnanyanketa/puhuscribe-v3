@@ -34,8 +34,8 @@ select u.id, d.slug, d.position, 'pgtap dialogue'
   cross join public.units u
  where u.slug = 'pgtap-learners-unit';
 
-insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
-select 'pgtap-learners', tag, 'pgtap-k-' || tag, 'pgtap-p-' || tag, 'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
+select 'pgtap-learners', tag, 'pgtap-k-' || tag, 'pgtap-p-' || tag, 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from unnest(array['in-dialogue', 'met-but-no-card', 'not-in-dialogue', 'only-on-a-card', 'set-to-draft-later',
                     'only-on-a-retired-line', 'only-on-a-draft-line', 'only-in-a-dialogue-retired-later']) as tag;
 

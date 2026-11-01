@@ -82,6 +82,12 @@ def validate_brief(data: object) -> dict:
         "position": _int(dialogue, "position", "dialogue", 1),
         "title_en": _text(dialogue, "title_en", "dialogue"),
     }
+    # Job 20-a1-road: "source" says who wrote the dialogue. "ai" (the default) is the pipeline's
+    # own drafting; "written" is Claude's hand written road content, where a speaker needs no
+    # English role and the situation is the scene sentence of the markdown.
+    source = data.get("source", "ai")
+    if source not in ("ai", "written"):
+        raise BriefError("brief: 'source' must be 'ai' or 'written'")
     situation = _text(data, "situation_en", "brief")
 
     if "grammar" not in data:
@@ -115,20 +121,17 @@ def validate_brief(data: object) -> dict:
         voice = _text(speaker, "voice", where)
         if voice not in FINNISH_VOICES:
             raise BriefError(f"{where}: voice '{voice}' is not one of {', '.join(sorted(FINNISH_VOICES))}")
-        checked_speakers.append(
-            {
-                "name": _text(speaker, "name", where),
-                "role_en": _text(speaker, "role_en", where),
-                "voice": voice,
-            }
-        )
+        checked = {"name": _text(speaker, "name", where), "voice": voice}
+        if source != "written" or "role_en" in speaker:
+            checked["role_en"] = _text(speaker, "role_en", where)
+        checked_speakers.append(checked)
     names = [s["name"] for s in checked_speakers]
     if len(set(names)) != len(names):
         raise BriefError("brief: two speakers have the same name")
 
     line_count = _int(data, "line_count", "brief", MIN_LINES, MAX_LINES)
 
-    return {
+    checked_brief = {
         "unit": checked_unit,
         "dialogue": checked_dialogue,
         "situation_en": situation,
@@ -138,6 +141,9 @@ def validate_brief(data: object) -> dict:
         "speakers": checked_speakers,
         "line_count": line_count,
     }
+    if "source" in data:
+        checked_brief["source"] = source
+    return checked_brief
 
 
 def load_brief(path: Path | str) -> dict:

@@ -52,6 +52,8 @@ def make_audio(
                 voice_name = voices[line["speaker"]]
                 data = voice.synthesize(text=text, voice=voice_name, dialogue=slug)
                 entry = {"source": "synthetic", "provider": voice.name, "voice": voice_name}
+                if hasattr(voice, "request_hash"):
+                    entry["request_sha256"] = voice.request_hash(text, voice_name)
             target = audio_dir / f"{line['n']}-{register}.mp3"
             target.write_bytes(data)
             audio[register] = {

@@ -83,8 +83,8 @@ select is_empty(
 select tables_are('public',
   array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms', 'cards', 'review_logs', 'sessions',
         'consents', 'source_sentences', 'lemma_ipa', 'usage_events',
-        'speaking_attempts', 'kept_recordings', 'speech_checks', 'feedback'],
-  '[review 18] [speak 16] [analytics 21] job 9 added no table; the only others are job 10''s three speaking tables and job 14''s feedback');
+        'speaking_attempts', 'kept_recordings', 'speech_checks', 'feedback', 'road_parts', 'road_stops'],
+  '[review 18] [speak 16] [analytics 21] [a1-road 1] job 9 added no table; the only others are job 10''s three speaking tables, job 14''s feedback and job 20''s two road tables');
 select enum_has_labels('public', 'review_mode', array['typed', 'spoken'],
   '[review 18] review_mode is still typed, spoken');
 select enum_has_labels('public', 'usage_event_name', array['first_session_completed'],
@@ -96,10 +96,10 @@ select has_function('public', 'complete_session', array['uuid'], '[review 18] co
 -- is needed here.
 
 insert into public.forms
-  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
+  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
 overriding system value
 select 9000900 + n, 'pgtap-daily-review', 'case-' || n, 'pgtap-k-' || n, 'pgtap-p-' || n,
-       'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+       'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from generate_series(1, 12) as n;
 
 insert into auth.users (id) values
@@ -182,10 +182,10 @@ reset role;
 
 -- [review 1] At most 15, whatever the limit asked for.
 insert into public.forms
-  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
+  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
 overriding system value
 select 9000920 + n, 'pgtap-daily-review', 'many-' || n, 'pgtap-k-many', 'pgtap-p-many',
-       'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+       'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from generate_series(1, 20) as n;
 insert into public.cards (user_id, form_id, due, created_at)
 select '00000000-0000-4000-8000-0000000009c1', 9000920 + n, pg_temp.helsinki_noon(-1), pg_temp.helsinki_noon(-1)

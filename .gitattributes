@@ -26,6 +26,10 @@ e2e/** text eol=lf
 data/** text eol=lf
 supabase/** text eol=lf
 content/** text eol=lf
+# The A1 road's own files (job 20-a1-road): the word tables, the settings and the owner's approval files
+# are compared byte for byte by tests and by a fingerprint, so git never converts their line endings.
+content/road/** text eol=lf
+content/approvals/** text eol=lf
 # Font files are kept byte for byte as downloaded (the ITF Free Font License
 # forbids changing them), so git must never convert them. This comes after
 # src/** so it wins. The licence text stays text, so gitleaks still reads it,

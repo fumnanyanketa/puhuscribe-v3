@@ -65,55 +65,60 @@ begin
 
   -- 1. Forms, approved. An existing form must already be approved.
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-minä', 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular', '{"BASEFORM":"minä","CLASS":"asemosana"}'::jsonb,
     'minä', 'mä',
     'nominative singular',
-    'pgtap why: Minä means I.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-mina')
+    'pgtap why: Minä means I.', 'I',
+    'I', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-mina')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-minä' and form_tag = 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular' and surface_kirja = 'minä' and surface_puhe = 'mä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'minä', 'pgtap-minä';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-olla', 'CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false', '{"BASEFORM":"olla","CLASS":"teonsana"}'::jsonb,
     'olen', 'oon',
     'present tense, 1st person singular',
-    'pgtap why: it''s olla for I.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-olen')
+    'pgtap why: it''s olla for I.', 'I am',
+    'to be', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-olen')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-olla' and form_tag = 'CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false' and surface_kirja = 'olen' and surface_puhe = 'oon' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'olen', 'pgtap-olla';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-olla', 'CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true', '{"BASEFORM":"olla","CLASS":"teonsana","KYSYMYSLIITE":"true"}'::jsonb,
     'oletko', 'ootko',
     'present tense, 2nd person singular, with the question ending -ko/-kö',
-    'pgtap why: a yes or no question.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-oletko')
+    'pgtap why: a yes or no question.', 'are you',
+    'to be', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-oletko')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-olla' and form_tag = 'CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true' and surface_kirja = 'oletko' and surface_puhe = 'ootko' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'oletko', 'pgtap-olla';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-sinä', 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular', '{"BASEFORM":"sinä","CLASS":"asemosana"}'::jsonb,
     'sinä', 'sä',
     'nominative singular',
-    'pgtap why: Sinä means you.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-sina')
+    'pgtap why: Sinä means you.', 'you',
+    'you', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-sina')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-sinä' and form_tag = 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular' and surface_kirja = 'sinä' and surface_puhe = 'sä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'sinä', 'pgtap-sinä';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-täällä', 'CLASS=seikkasana', '{"BASEFORM":"täällä","CLASS":"seikkasana"}'::jsonb,
     'täällä', 'täällä',
     'adverb',
-    'pgtap why: Täällä means here.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-taalla')
+    'pgtap why: Täällä means here.', 'here',
+    'here', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-taalla')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-täällä' and form_tag = 'CLASS=seikkasana' and surface_kirja = 'täällä' and surface_puhe = 'täällä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
@@ -218,55 +223,60 @@ begin
 
   -- 1. Forms, approved. An existing form must already be approved.
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-minä', 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular', '{"BASEFORM":"minä","CLASS":"asemosana"}'::jsonb,
     'minä', 'mä',
     'nominative singular',
-    'pgtap why: Minä means I.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-mina')
+    'pgtap why: Minä means I.', 'I',
+    'I', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-mina')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-minä' and form_tag = 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular' and surface_kirja = 'minä' and surface_puhe = 'mä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'minä', 'pgtap-minä';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-olla', 'CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false', '{"BASEFORM":"olla","CLASS":"teonsana"}'::jsonb,
     'olen', 'oon',
     'present tense, 1st person singular',
-    'pgtap why: it''s olla for I.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-olen')
+    'pgtap why: it''s olla for I.', 'I am',
+    'to be', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-olen')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-olla' and form_tag = 'CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false' and surface_kirja = 'olen' and surface_puhe = 'oon' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'olen', 'pgtap-olla';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-olla', 'CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true', '{"BASEFORM":"olla","CLASS":"teonsana","KYSYMYSLIITE":"true"}'::jsonb,
     'oletko', 'ootko',
     'present tense, 2nd person singular, with the question ending -ko/-kö',
-    'pgtap why: a yes or no question.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-oletko')
+    'pgtap why: a yes or no question.', 'are you',
+    'to be', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-oletko')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-olla' and form_tag = 'CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true' and surface_kirja = 'oletko' and surface_puhe = 'ootko' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'oletko', 'pgtap-olla';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-sinä', 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular', '{"BASEFORM":"sinä","CLASS":"asemosana"}'::jsonb,
     'sinä', 'sä',
     'nominative singular',
-    'pgtap why: Sinä means you.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-sina')
+    'pgtap why: Sinä means you.', 'you',
+    'you', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-sina')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-sinä' and form_tag = 'CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular' and surface_kirja = 'sinä' and surface_puhe = 'sä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',
       'sinä', 'pgtap-sinä';
   end if;
   insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,
-    form_name_en, why_en, status, approved_at, approval_ref)
+    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
   values ('pgtap-täällä', 'CLASS=seikkasana', '{"BASEFORM":"täällä","CLASS":"seikkasana"}'::jsonb,
     'täällä', 'täällä',
     'adverb',
-    'pgtap why: Täällä means here.', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-taalla')
+    'pgtap why: Täällä means here.', 'here',
+    'here', 'approved', now(), 'content/reviews/pgtap-publish-fixture/round-1.json#pgtap-form-taalla')
   on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;
   if not exists (select 1 from public.forms where lemma = 'pgtap-täällä' and form_tag = 'CLASS=seikkasana' and surface_kirja = 'täällä' and surface_puhe = 'täällä' and status = 'approved') then
     raise exception 'form % (%) exists but is not approved',

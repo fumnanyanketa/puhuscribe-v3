@@ -95,14 +95,14 @@ isOneToOne: false
                   ]
                 },"forms": {
                   Row: {
-                    "analysis": Json | null,"approval_ref": string | null,"approved_at": string | null,"form_name_en": string | null,"form_tag": string,"id": number,"lemma": string,"status": Database["public"]['Enums']["content_status"],"surface_kirja": string,"surface_puhe": string,"why_en": string | null
+                    "analysis": Json | null,"approval_ref": string | null,"approved_at": string | null,"form_name_en": string | null,"form_tag": string,"id": number,"lemma": string,"lemma_meaning_en": string | null,"meaning_en": string | null,"status": Database["public"]['Enums']["content_status"],"surface_kirja": string,"surface_puhe": string,"why_en": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "analysis"?: Json | null,"approval_ref"?: string | null,"approved_at"?: string | null,"form_name_en"?: string | null,"form_tag": string,"id"?: never,"lemma": string,"status"?: Database["public"]['Enums']["content_status"],"surface_kirja": string,"surface_puhe": string,"why_en"?: string | null
+                    "analysis"?: Json | null,"approval_ref"?: string | null,"approved_at"?: string | null,"form_name_en"?: string | null,"form_tag": string,"id"?: never,"lemma": string,"lemma_meaning_en"?: string | null,"meaning_en"?: string | null,"status"?: Database["public"]['Enums']["content_status"],"surface_kirja": string,"surface_puhe": string,"why_en"?: string | null
                   }
                   Update: {
-                    "analysis"?: Json | null,"approval_ref"?: string | null,"approved_at"?: string | null,"form_name_en"?: string | null,"form_tag"?: string,"id"?: never,"lemma"?: string,"status"?: Database["public"]['Enums']["content_status"],"surface_kirja"?: string,"surface_puhe"?: string,"why_en"?: string | null
+                    "analysis"?: Json | null,"approval_ref"?: string | null,"approved_at"?: string | null,"form_name_en"?: string | null,"form_tag"?: string,"id"?: never,"lemma"?: string,"lemma_meaning_en"?: string | null,"meaning_en"?: string | null,"status"?: Database["public"]['Enums']["content_status"],"surface_kirja"?: string,"surface_puhe"?: string,"why_en"?: string | null
                   }
                   Relationships: [
                     
@@ -165,6 +165,40 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "cards"
       referencedColumns: ["user_id","form_id"]
+    }
+                  ]
+                },"road_parts": {
+                  Row: {
+                    "number": number,"title_en": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "number": number,"title_en": string
+                  }
+                  Update: {
+                    "number"?: number,"title_en"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"road_stops": {
+                  Row: {
+                    "can_do_en": string,"name_en": string,"number": number,"part_number": number,"planned_dialogues": number,"slug": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "can_do_en": string,"name_en": string,"number": number,"part_number": number,"planned_dialogues"?: number,"slug": string
+                  }
+                  Update: {
+                    "can_do_en"?: string,"name_en"?: string,"number"?: number,"part_number"?: number,"planned_dialogues"?: number,"slug"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "road_stops_part_number_fkey"
+      columns: ["part_number"]
+isOneToOne: false
+      referencedRelation: "road_parts"
+      referencedColumns: ["number"]
     }
                   ]
                 },"sessions": {
@@ -275,17 +309,23 @@ isOneToOne: false
                   ]
                 },"units": {
                   Row: {
-                    "approval_ref": string | null,"approved_at": string | null,"can_do_en": string,"id": number,"position": number,"slug": string,"status": Database["public"]['Enums']["content_status"],"title_en": string
+                    "approval_ref": string | null,"approved_at": string | null,"can_do_en": string,"id": number,"position": number,"slug": string,"status": Database["public"]['Enums']["content_status"],"stop_number": number | null,"title_en": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "approval_ref"?: string | null,"approved_at"?: string | null,"can_do_en": string,"id"?: never,"position": number,"slug": string,"status"?: Database["public"]['Enums']["content_status"],"title_en": string
+                    "approval_ref"?: string | null,"approved_at"?: string | null,"can_do_en": string,"id"?: never,"position": number,"slug": string,"status"?: Database["public"]['Enums']["content_status"],"stop_number"?: number | null,"title_en": string
                   }
                   Update: {
-                    "approval_ref"?: string | null,"approved_at"?: string | null,"can_do_en"?: string,"id"?: never,"position"?: number,"slug"?: string,"status"?: Database["public"]['Enums']["content_status"],"title_en"?: string
+                    "approval_ref"?: string | null,"approved_at"?: string | null,"can_do_en"?: string,"id"?: never,"position"?: number,"slug"?: string,"status"?: Database["public"]['Enums']["content_status"],"stop_number"?: number | null,"title_en"?: string
                   }
                   Relationships: [
-                    
+                    {
+      foreignKeyName: "units_stop_number_fkey"
+      columns: ["stop_number"]
+isOneToOne: true
+      referencedRelation: "road_stops"
+      referencedColumns: ["number"]
+    }
                   ]
                 },"usage_events": {
                   Row: {
@@ -358,8 +398,23 @@ isOneToOne: false
               "due": string,"form_id": number,"reps": number
             }[]
                            },
+"road":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "can_do_en": string,"dialogues_done": number,"dialogues_ready": number,"dialogues_total": number,"lessons_done": number,"lessons_total": number,"live": boolean,"part_number": number,"part_title_en": string,"review_forms_reviewed": number,"review_forms_total": number,"stop_number": number,"stop_slug": string,"title_en": string
+            }[]
+                           },
+"road_for_visitors":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "can_do_en": string,"dialogues_done": number,"dialogues_ready": number,"dialogues_total": number,"lessons_done": number,"lessons_total": number,"live": boolean,"part_number": number,"part_title_en": string,"review_forms_reviewed": number,"review_forms_total": number,"stop_number": number,"stop_slug": string,"title_en": string
+            }[]
+                           },
 "save_progress_note":
 { Args: { "p_session_id": string }; Returns: string
+                           },
+"stop_review_forms":
+{ Args: { "p_stop_number": number }; Returns: {
+              "form_id": number
+            }[]
                            }
           }
           Enums: {
