@@ -854,12 +854,12 @@
       "id": "15-onboarding",
       "feature": "onboarding",
       "title": "Onboarding: a short welcome on the front door",
-      "stage": "build",
+      "stage": "evaluate",
       "round": 2,
       "flag": "routine",
       "flag_reasons": [],
-      "waiting_on": "builder: statement 7 test",
-      "updated": "2026-11-01T07:32:00+02:00",
+      "waiting_on": "evaluator re-check of statement 7",
+      "updated": "2026-11-01T07:54:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -889,6 +889,11 @@
           "stage": "build",
           "at": "2026-11-01T07:32:00+02:00",
           "note": "round 2, evaluator: statement 7 test breaks later jobs"
+        },
+        {
+          "stage": "evaluate",
+          "at": "2026-11-01T07:54:00+02:00",
+          "note": "round 2 re-check of statement 7"
         }
       ]
     },
