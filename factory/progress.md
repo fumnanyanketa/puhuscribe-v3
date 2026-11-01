@@ -311,3 +311,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T12:50 Owner: account rows looked scattered. Now two quiet panels with no lines between rows, and Delete my account as a plain text link.
 - 2026-11-01T12:52 Owner still disliked the account screen and the privacy pills. Account is now a profile (avatar, Your journey panel, one settings panel with states, sign out and delete as small text); privacy notice is a short readable page with a two-line summary and plain sections.
 - 2026-11-01T12:56 Owner: the bare "Exentrik, Finland" line confused. Privacy notice now has a plain section, Who runs PuhuScribe; the footer keeps only the date.
+- 2026-11-01T13:05 Owner wording for the privacy notice: PuhuScribe is part of the product family of Exentrik, a product studio in Finland.
