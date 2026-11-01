@@ -316,3 +316,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T13:06 Owner approved all v1 screens ("Approved"): design-drafts/v1-screens.html and design-drafts/road-journey.html. Building can restart from them.
 - 2026-11-01T13:12 18-save-progress merged (owner approved). 15-onboarding closed as superseded by the redesign ("Close it (Recommended)"), never merged; its branch and notes stay.
 - 2026-11-01T13:43 Owner: run both next jobs at once ("Both at once (Recommended)"). Spec writers started for 19-redesign and 20-a1-road.
+- 2026-11-01T13:51 Merge run 41303106243 green: job 18's database function is on the test project and the after-merge browser tests pass.
