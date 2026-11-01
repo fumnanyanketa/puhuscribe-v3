@@ -272,3 +272,29 @@ def test_a1_road_15_a_judge_run_that_has_reached_its_limit_stops(tmp_path):
     ai.run_cost = 2.0
     with pytest.raises(AiError, match="limit"):
         ai.guard_run_cost(2.0)
+
+
+def test_a1_road_26_log_costs_sums_the_road_by_part(tmp_path):
+    """[a1-road 26] voice characters and cost are summed per part of the road, from the drafts' stops."""
+    from log_costs import road_costs
+
+    drafts = tmp_path / "drafts"
+    for slug, stop in (("a-one", 2), ("a-two", 8), ("not-the-road", 99)):
+        (drafts / slug).mkdir(parents=True)
+        brief = {"unit": {"position": stop}, "dialogue": {"slug": slug}}
+        (drafts / slug / "draft.json").write_text(json.dumps({"brief": brief}), encoding="utf-8")
+    log = tmp_path / "ai-calls.jsonl"
+    _log(
+        log,
+        [
+            {"dialogue": "a-one", "characters": 100, "cost_usd": 0.0},
+            {"dialogue": "a-one", "characters": 50, "cost_usd": 0.0},
+            {"dialogue": "a-two", "characters": 10, "cost_usd": 0.0},
+            {"dialogue": "a-two", "input_tokens": 5, "cost_usd": 0.005},
+            {"dialogue": "not-the-road", "characters": 999, "cost_usd": 0.0},
+        ],
+    )
+    assert road_costs(log, drafts) == {
+        1: {"characters": 150, "calls": 2, "usd": 0.0},
+        2: {"characters": 10, "calls": 2, "usd": 0.01},
+    }

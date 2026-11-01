@@ -268,3 +268,15 @@ def test_a1_road_21_every_committed_road_migration_is_named_as_the_publisher_nam
             part = (drafts[slug]["brief"]["unit"]["position"] - 1) // 6
             same_part = {s: d for s, d in drafts.items() if (d["brief"]["unit"]["position"] - 1) // 6 == part}
             assert is_last_dialogue(drafts[slug], same_part) in (True, False)
+
+
+def test_a1_road_22_the_published_road_test_matches_the_approvals():
+    """[a1-road 22] a_1_road_published.test.sql is made from the approval files and the drafts: its numbers
+    are zero with no part approved and change when one is, and it counts 9 checks."""
+    from road_pgtap import TEST_FILE, expected, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text(expected())
+    text = TEST_FILE.read_text(encoding="utf-8")
+    assert "select plan(9);" in text
+    changed = pgtap_text({"stops": 6, "dialogues": 18, "lines": 144, "live": 6})
+    assert changed != text and "reads 6 approved road units" in changed
