@@ -1,0 +1,89 @@
+===== d1 41320564222
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+  Database tests (local Supabase, pgTAP) failure
+     # Failed test 46: "[a1-road 4] a learner may only read road_stops"
+     # Failed test 68: "[data 2] a learner may only read road_stops (whole table permission)"
+  Unit tests (Vitest) success
+===== d2 41320586554
+  Unit tests (Vitest) success
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+  Database tests (local Supabase, pgTAP) failure
+     # Failed test 50: "[a1-road 4] road_stops has exactly one rule"
+     # Failed test 55: "[a1-road 4] a learner reads every road stop"
+     # Failed test 72: "[a1-road 5] road() always returns all 36 stops"
+     # Failed test 73: "[a1-road 5] road() returns the 36 stops and the 4 test stops, in one row each"
+     # Failed test 74: "[a1-road 5] road() is in stop order"
+     # Failed test 75: "[a1-road 5] a row carries the stop, its I can sentence and its part"
+     # Failed test 76: "[a1-road 5] A, stop 9001: 3 ready, 2 done (one dialogue finished twice counts once, an open session does not), 3 of 5 new forms reviewed, live"
+     # Failed test 77: "[a1-road 5] A, stop 9002: a draft dialogue and its form are not counted, f0 is a new form of an earlier stop, so not live"
+     # Failed test 78: "[a1-road 5] stop 9003: an approved dialogue in an unapproved unit is not counted"
+     # Failed test 79: "[a1-road 5] a stop with no unit has all counts at zero"
+     # Failed test 92: "[a1-road 5] B, stop 9001: only B's own sessions and logs count, and the review lesson is done once every new form is reviewed"
+     # Failed test 93: "[a1-road 5] B, stop 9002: two logs for one form count that form once"
+     # Failed test 96: "[a1-road 5] C, stop 9001: an open session is not a done dialogue, and one log counts one form"
+     # Failed test 98: "[a1-road 5] D, stop 9002: a finished session on an unapproved dialogue is not a done dialogue"
+     # Failed test 99: "[a1-road 5] D, stop 9001: a learner with no sessions and no logs has zero progress"
+     # Failed test 6: "[a1-road 22] road() shows all 36 stops"
+     # Failed test 9: "[a1-road 22] a stop with only a draft unit is not live"
+===== d3 41320611098
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+  Database tests (local Supabase, pgTAP) failure
+     # Failed test 64: "[a1-road 5] road() is security invoker, so the learner's own read rules apply"
+     # Failed test 77: "[a1-road 5] A, stop 9002: a draft dialogue and its form are not counted, f0 is a new form of an earlier stop, so not live"
+     # Failed test 78: "[a1-road 5] stop 9003: an approved dialogue in an unapproved unit is not counted"
+     # Failed test 93: "[a1-road 5] B, stop 9002: two logs for one form count that form once"
+     # Failed test 98: "[a1-road 5] D, stop 9002: a finished session on an unapproved dialogue is not a done dialogue"
+  Unit tests (Vitest) success
+===== d4 41320637314
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+  Unit tests (Vitest) success
+  Database tests (local Supabase, pgTAP) failure
+     # Failed test 27: "[a1-road 3] a form cannot be approved without its dictionary form's meaning"
+     # Failed test 29: "[a1-road 3] a form cannot be approved with a blank dictionary form meaning"
+===== d6 41320662791
+  Database tests (local Supabase, pgTAP) failure
+     # Failed test 23: "[a1-road 2] a unit's stop number must equal its position"
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+  Unit tests (Vitest) success
+===== p1 41320690696
+  Unit tests (Vitest) success
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+     FAILED scripts/generate/test_road_publish.py::test_a1_road_20_a_changed_line_voids_the_approval_of_its_dialogue
+  Database tests (local Supabase, pgTAP) failure
+===== p2 41320719126
+  Unit tests (Vitest) success
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+     FAILED scripts/generate/test_road_voice.py::test_a1_road_18_the_throttle_sends_at_most_20_requests_in_any_60_seconds
+     FAILED scripts/generate/test_road_voice.py::test_a1_road_18_a_part_of_272_clips_takes_about_15_minutes
+     FAILED scripts/generate/test_road_voice.py::test_a1_road_18_the_throttle_also_holds_inside_the_provider
+  Database tests (local Supabase, pgTAP) failure
+===== p3 41320746506
+  Python tests and lint (pytest, ruff) failure
+     FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+     FAILED scripts/generate/test_road_import.py::test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word
+     FAILED scripts/generate/test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+     FAILED scripts/generate/test_road_import.py::test_a1_road_15_with_the_judge_off_the_report_says_not_run
+     FAILED scripts/generate/test_road_import.py::test_a1_road_15_check_committed_prints_register_judge_not_run
+  Database tests (local Supabase, pgTAP) failure
+  Unit tests (Vitest) success
