@@ -1,0 +1,16 @@
+Scratch run: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41277777545 (branch scratch/18-save-progress-red-3, deleted after the run; job "email-sees-guest-line")
+Statement: [save-progress 19] (round 2, the owner's change of 1 November 2026)
+What was broken: An account with an email shown the guest line 'Your progress is saved on this device.'
+Command: npx playwright test e2e/save-progress.spec.ts e2e/first-session.spec.ts (Chromium and WebKit at 375 x 812)
+
+playwright exit code: 1
+=== Tests that went red in variant email-sees-guest-line ===
+  1) [chromium] save-progress › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  2) [chromium] save-progress › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  3) [chromium] save-progress › with email › [save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line @seed @email 
+  4) [webkit] save-progress › with email › [save-progress 5] [save-progress 12] an account that added its email before its first finished session sees no note, and the answer has no saveNote @seed @email 
+  5) [webkit] save-progress › with email › [save-progress 5] a guest sees the note on the first session, adds an email, and sees no note on the second @seed @email 
+  6) [webkit] save-progress › with email › [save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line @seed @email 
+  6 failed
+  3 skipped
+  75 passed (2.7m)

@@ -142,8 +142,13 @@ export function userCount(): number {
 
 // The app ------------------------------------------------------------------------------
 
-/** Starts and finishes today's session (job 8's flow), and returns the user id. */
-export async function finishTodaysSession(page: Page): Promise<string> {
+/**
+ * Starts and finishes today's session (job 8's flow), and returns the user id.
+ * The finish screen's line depends on the account (job 18-save-progress, round 2):
+ * a guest is told the progress is saved on this device, an account with an email
+ * keeps the plain line.
+ */
+export async function finishTodaysSession(page: Page, account: 'guest' | 'email' = 'guest'): Promise<string> {
   await serveTone(page)
   await page.goto('/')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
@@ -155,7 +160,9 @@ export async function finishTodaysSession(page: Page): Promise<string> {
   await finishHearIt(page)
   await finishUnderstandIt(page, (lineId) => lines.find((l) => l.id === lineId)?.gloss ?? '')
   await passSayIt(page)
-  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+  await expect(page.getByRole('status')).toHaveText(
+    account === 'guest' ? 'Your progress is saved on this device.' : 'Your progress is saved.',
+  )
   return userId
 }
 

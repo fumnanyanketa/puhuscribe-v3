@@ -387,7 +387,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(fileB.cards?.map((c) => c.form_id)).toEqual(fileA.cards?.map((c) => c.form_id))
 
       const endedBefore = sessionsOf(userId).filter((s) => s.ended).length
-      await finishTodaysSession(pageB)
+      await finishTodaysSession(pageB, 'email')
       expect(sessionsOf(userId).filter((s) => s.ended).length).toBe(endedBefore + 1)
       expect(await frontDoorState(page)).toBe(await frontDoorState(pageB))
       await deviceB.close()
