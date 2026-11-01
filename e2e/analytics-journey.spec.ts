@@ -66,13 +66,17 @@ async function sayOneLineAloud(page: Page): Promise<void> {
   // The consent is a sheet over Say it since job 19-redesign (statement 29).
   await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
   await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
+  await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
   await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
   const record = page.getByRole('button', { name: 'Record yourself saying the line' })
   await record.click()
   await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
   await page.waitForTimeout(1_200)
   await page.getByRole('button', { name: /^Stop recording/ }).click()
-  await expect(record).toBeVisible({ timeout: 20_000 })
+  // A clear result shows its card with "Try again" in place of the record button (job 19-redesign).
+  await expect(record.or(page.getByRole('button', { name: 'Try again' })).first()).toBeVisible({
+    timeout: 20_000,
+  })
   // One check is enough; the quiet exit skips the other lines (job 10, "Done when" 6).
   await page.getByRole('button', { name: "I can't speak right now", exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
