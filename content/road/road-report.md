@@ -258,7 +258,7 @@ Extras recorded: 6 base forms: isännöitsijä, kuulemiin, palaveri, saunavuoro,
 Forms in the stop: 85.
 Spoken only words: none.
 Pairs accepted by the table: avataan for avaamme, haluun for haluan, ilmanen for ilmainen, joo for kyllä, kaa for kanssa, kiitti for kiitos, kirjotat for kirjoitat, kuussataa for kuusisataa, moi for hei, mul for minulla, mun for minun, mä for minä, nimi for nimesi, okei for selvä, ole for olkaa, osote for osoite, osotteen for osoitteen, sul for sinulla, sun for sinun, sä for sinä, tarviin for tarvitsen, tarviit for tarvitset, tili for tilin, tulot for tulosi, tän for tämän, tää for tämä, vuokran for vuokrasi.
-Extras recorded: 11 base forms: asumistuki, kuusisataa, lomake, mukana, oleskelulupa, omakela, pankkikortti, pankkitili, passi, voi, vuokrasopimus, 5 forms.
+Extras recorded: 12 base forms: asumistuki, kuusisataa, lomake, mukana, oleskelulupa, omakela, pankkikortti, pankkitili, passi, voi, vuokrasopimus, vuokrata, 5 forms.
 
 ## Stop 16. Collecting a parcel
 
@@ -322,7 +322,7 @@ Extras recorded: 12 base forms: ilmata, lappu, lätäkkö, makuuhuone, olohuone,
 Forms in the stop: 87.
 Spoken only words: none.
 Pairs accepted by the table: eka for ensimmäinen, joo for kyllä, kaa for kanssasi, kaheksalta for kahdeksalta, kahelta for kahdelta, kakstoist for kaksitoista, kiitti for kiitos, mikro for mikroaaltouuni, millon for milloin, moi for hei, mun for minun, mä for minä, ne for he, on for ovat, oon for olen, sun for sinun, sä for sinä, tehä for tehdä, tehään for teemme, tuun for tulen, täs for tässä, tää for tämä.
-Extras recorded: 15 base forms: asiakaspalvelu, aula, avainkortti, etätyö, jännittynyt, jääkaappi, kahvihuone, kahvinkeitin, kahvitauko, kaksitoista, käytävä, mikroaaltouuni, perjantaisin, työpiste, työpäivä, 2 forms.
+Extras recorded: 13 base forms: asiakaspalvelu, aula, avainkortti, etätyö, jännittynyt, kahvihuone, kahvinkeitin, kahvitauko, kaksitoista, mikroaaltouuni, perjantaisin, työpiste, työpäivä, 2 forms.
 
 ## Stop 20. Talking about family
 
@@ -338,7 +338,7 @@ Extras recorded: 15 base forms: asiakaspalvelu, aula, avainkortti, etätyö, jä
 Forms in the stop: 76.
 Spoken only words: none.
 Pairs accepted by the table: asuu for asuvat, haluu for haluaa, joo for kyllä, kaheksan for kahdeksan, kans for myös, kato for katso, lapset for lapseni, mies for mieheni, mul for minulla, mummo for isoäitini, mun for minun, ne for he, niitten for heidän, niitä for heitä, nimi for nimensä, nähä for nähdä, näyttää for näyttävät, nää for nämä, on for ovat, se for hän, sen for hänen, sit for sitten, soitetaan for soitamme, sul for sinulla, sun for sinun, toi for tuo, tosi for todella, tuleeks for tulevatko, tää for tämä, vanhemmat for vanhempani, veli for veljeni, yheksänkyt for yhdeksänkymmentä.
-Extras recorded: 4 base forms: isoäiti, söpö, vanhempi, yhdeksänkymmentä, 3 forms.
+Extras recorded: 3 base forms: isoäiti, vanhempi, yhdeksänkymmentä, 3 forms.
 
 ## Stop 21. School and daycare
 
@@ -354,7 +354,7 @@ Extras recorded: 4 base forms: isoäiti, söpö, vanhempi, yhdeksänkymmentä, 3
 Forms in the stop: 78.
 Spoken only words: none.
 Pairs accepted by the table: hakee for hakemaan, ilmotan for ilmoitan, joo for kyllä, kaa for kanssa, kiitti for kiitos, kipee for sairas, matikas for matematiikassa, moi for hei, moikka for näkemiin, mä for minä, nopeesti for nopeasti, ollaan for olemme, pikasta for pikaista, puhutaan for puhumme, se for hän, sen for hänet, sil for hänellä, sä for sinä, tosi for todella, tuu for tule.
-Extras recorded: 11 base forms: kuume, leikkiä, matematiikka, nuha, näkemiin, pikainen, portugali, päiväkoti, päiväuni, rikkaus, voi, 0 forms.
+Extras recorded: 8 base forms: kuume, nuha, näkemiin, pikainen, portugali, päiväuni, rikkaus, voi, 0 forms.
 
 ## Stop 22. Free time and hobbies
 
@@ -370,7 +370,7 @@ Extras recorded: 11 base forms: kuume, leikkiä, matematiikka, nuha, näkemiin, 
 Forms in the stop: 85.
 Spoken only words: none.
 Pairs accepted by the table: aa for ai, haluuk for haluatko, haluun for haluan, harjottelette for harjoittelette, ihan for aivan, joo for kyllä, kans for myös, katoit for katsoitko, lauletaan for laulamme, millon for milloin, mun for minun, mä for minä, ne for he, okei for selvä, oot for olet, pelaa for pelata, salilla for kuntosalilla, seittemältä for seitsemältä, sä for sinä, tehä for tehdä, tuun for tulen, tykkään for pidän, tykänny for pitänyt, voittiks for voittivatko.
-Extras recorded: 7 base forms: kuntosali, kuoro, sulkapallo, tiistaisin, uida, uimahalli, vapaa-aika, 2 forms.
+Extras recorded: 6 base forms: kuntosali, kuoro, sulkapallo, tiistaisin, uimahalli, vapaa-aika, 2 forms.
 
 ## Stop 23. Cooking at home
 
@@ -386,7 +386,7 @@ Extras recorded: 7 base forms: kuntosali, kuoro, sulkapallo, tiistaisin, uida, u
 Forms in the stop: 83.
 Spoken only words: none.
 Pairs accepted by the table: eka for ensin, haluuk for haluatko, joo for kyllä, kakskyt for kaksikymmentä, kiitti for kiitos, kirjota for kirjoita, mä for minä, okei for selvä, oo for ole, ruuaks for ruoaksi, sit for sitten, sä for sinä, tarvitaan for tarvitsemme, tehään for teemme, tosi for todella, tuun for tulen, tää for tämä, vikana for viimeisenä.
-Extras recorded: 18 base forms: brasilialainen, ilman, kaksikymmentä, kattila, keittää, kerma, kuoria, litra, lohi, lohikeitto, maistaa, pala, peruna, porkkana, sipuli, suola, tilli, tuoksua, 0 forms.
+Extras recorded: 15 base forms: brasilialainen, ilman, kaksikymmentä, kattila, keittää, kerma, kuoria, lohi, lohikeitto, maistaa, pala, peruna, porkkana, sipuli, tilli, 0 forms.
 
 ## Stop 24. How you feel
 
@@ -418,7 +418,7 @@ Extras recorded: 9 base forms: hermostunut, ilman, kaakao, koti-ikävä, kävely
 Forms in the stop: 89.
 Spoken only words: none.
 Pairs accepted by the table: ikinä for koskaan, joo for kyllä, juo for juovat, kaheksankyt for kahdeksankymmentä, kohta for pian, mielellään for mielelläni, mun for minun, mä for minä, mäkin for minäkin, okei for selvä, oo for ole, santsia for lisää, sit for sitten, sä for sinä, tos for tuossa, tosi for todella, tuuk for tuletko, tuun for tulen, tykkäätte for pidätte, vaan for vain.
-Extras recorded: 13 base forms: alalaude, juotava, kahdeksankymmentä, kahvitauko, korvapuusti, leipoa, löyly, noin, paras, pulla, pyyhe, saunavuoro, uida, 1 forms.
+Extras recorded: 12 base forms: alalaude, juotava, kahdeksankymmentä, kahvitauko, korvapuusti, leipoa, löyly, noin, paras, pulla, pyyhe, saunavuoro, 1 forms.
 
 ## Stop 26. Holidays
 
@@ -434,7 +434,7 @@ Extras recorded: 13 base forms: alalaude, juotava, kahdeksankymmentä, kahvitauk
 Forms in the stop: 94.
 Spoken only words: none.
 Pairs accepted by the table: joo for kyllä, just for juuri, kahen for kahden, kakskytneljäs for kahdeskymmenesneljäs, kiitti for kiitos, kolkyt for kolmekymmentä, lapset for lapseni, menee for menevät, mielellään for mielelläni, millon for milloin, mun for minun, mä for minä, ne for he, oikeesti for oikeasti, polttaa for polttavat, pyöreet for pyöreät, saunoo for saunovat, se for hän, sun for sinun, synttärit for syntymäpäiväsi, syödään for syömme, sä for sinä, tekee for tekevät, tiiä for tiedä, tuu for tule, tykkää for tykkäävät.
-Extras recorded: 16 base forms: eli, etukäteen, jouluaatto, joulupukki, juhannus, juuri, kahdeskymmenesneljäs, kiltti, kinkku, kokko, kolmekymmentä, laatikko, pyöreä, saunoa, syntymäpäivä, ylihuomenna, 1 forms.
+Extras recorded: 14 base forms: eli, etukäteen, jouluaatto, joulupukki, juhannus, kahdeskymmenesneljäs, kiltti, kinkku, kokko, kolmekymmentä, pyöreä, saunoa, syntymäpäivä, ylihuomenna, 1 forms.
 
 ## Stop 27. Seasons and the dark winter
 
@@ -466,7 +466,7 @@ Extras recorded: 14 base forms: d-vitamiini, kuin, kynttilä, käsine, lempivuod
 Forms in the stop: 95.
 Spoken only words: none.
 Pairs accepted by the table: haluisin for haluaisin, ilmanen for ilmainen, ilmasii for ilmaisia, ilmottautuu for ilmoittautua, kaa for kanssa, kakstoist for kaksitoista, millon for milloin, moi for hei, mul for minulla, mä for minä, netissä for verkossa, okei for selvä, on for ovat, osote for osoitteesi, sul for sinulla, sun for sinun, sä for sinä, tarvii for tarvitse, tehään for tehdään, tiiät for tiedätkö, tost for tuosta, tuu for tule, vaan for vain, vapaaehtosten for vapaaehtoisten, viiskyt for viisikymmentä.
-Extras recorded: 17 base forms: Fleminginkatu, PIN-koodi, automaatti, henkilökortti, hylly, ilmoittautua, kaksitoista, keksiä, kielikahvila, kirjastokortti, lainata, oleskelulupakortti, oodi, selkokirja, suomenkielinen, uusia, viisikymmentä, 0 forms.
+Extras recorded: 14 base forms: Fleminginkatu, PIN-koodi, automaatti, henkilökortti, hylly, kaksitoista, kielikahvila, kirjastokortti, lainata, oleskelulupakortti, oodi, selkokirja, uusia, viisikymmentä, 0 forms.
 
 ## Stop 29. Out in nature
 
@@ -482,7 +482,7 @@ Extras recorded: 17 base forms: Fleminginkatu, PIN-koodi, automaatti, henkilöko
 Forms in the stop: 83.
 Spoken only words: none.
 Pairs accepted by the table: ihan for aivan, ikinä for koskaan, joo for kyllä, kato for katso, lähetäänks for lähdetäänkö, mentiin for menimme, mun for minun, mä for minä, saa for saavat, sä for sinä, takas for takaisin, tarkottaa for tarkoittaa, termari for termospullo, tultiin for tulimme, tuun for tulen, vaan for vain.
-Extras recorded: 11 base forms: eväs, jokamiehenoikeus, mustikka, myrkyllinen, poimia, sieni, soutuvene, takaisin, termospullo, uida, varovainen, 1 forms.
+Extras recorded: 9 base forms: eväs, jokamiehenoikeus, mustikka, myrkyllinen, poimia, soutuvene, takaisin, termospullo, varovainen, 1 forms.
 
 ## Stop 30. Invitations and celebrations
 
@@ -602,7 +602,7 @@ Extras recorded: 10 base forms: asiakaspalvelu, juuri, kaakao, kallio, kodikas, 
 |---|---|
 | 1. First words | 78 |
 | 2. Daily life | 102 |
-| 3. Services | 82 |
-| 4. Work and people | 71 |
-| 5. Finnish life | 82 |
+| 3. Services | 83 |
+| 4. Work and people | 61 |
+| 5. Finnish life | 74 |
 | 6. Getting things done | 58 |
