@@ -235,7 +235,8 @@ test.describe('a crash on a screen with a typed answer', { tag: '@seed' }, () =>
     dayLater(userId)
     finishEveryOtherDialogue(userId)
     await page.goto('/')
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    // A day with only a review says "Start review" on the road.
+    await page.getByRole('button', { name: /^Start( review)?$/ }).click()
     await page.waitForURL('**/session')
     await expect(page.locator('[data-review-item]').first()).toBeVisible()
     const answer = 'kahvilassa'

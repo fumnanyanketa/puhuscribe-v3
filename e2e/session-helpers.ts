@@ -76,8 +76,21 @@ export async function dismissTip(page: Page): Promise<void> {
   }
 }
 
-/** The cross opens "Leave this lesson?"; "Leave" goes to the road (job 19-redesign, statement 22). */
+/**
+ * The cross opens "Leave this lesson?"; "Leave" goes to the road (job 19-redesign, statement 22).
+ * The first lesson tip and the speaking consent sheet are modal, so the cross cannot be pressed
+ * until they are closed ("Got it", "Not now"). On the finish screen nothing is lost, so the cross
+ * is a link that leaves at once.
+ */
 export async function leaveLesson(page: Page): Promise<void> {
+  await dismissTip(page)
+  const consent = page.getByRole('dialog', { name: 'Say it out loud' })
+  if (await consent.isVisible()) await consent.getByRole('button', { name: 'Not now' }).click()
+  const link = page.getByRole('link', { name: 'Leave session' })
+  if ((await link.count()) > 0) {
+    await link.click()
+    return
+  }
   await page.getByRole('button', { name: 'Leave session' }).click()
   await page
     .getByRole('dialog', { name: 'Leave this lesson?' })

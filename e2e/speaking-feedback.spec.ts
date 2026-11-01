@@ -60,11 +60,16 @@ async function turnOn(page: Page, keep = false) {
 
 /** Records about a second of the tone, stops, and waits for the result. */
 async function recordOnce(page: Page, ms = 1_200) {
-  await page.getByRole('button', { name: RECORD }).click()
+  // After a clear result the redrawn screen shows the result card with "Play mine" and "Try again"
+  // (job 19-redesign, statement 30), and "Try again" starts the next recording itself.
+  const record = page.getByRole('button', { name: RECORD })
+  const tryAgain = page.getByRole('button', { name: 'Try again' })
+  if (await record.isVisible()) await record.click()
+  else await tryAgain.click()
   await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
   await page.waitForTimeout(ms)
   await page.getByRole('button', { name: /^Stop recording/ }).click()
-  await expect(page.getByRole('button', { name: RECORD })).toBeVisible({ timeout: 20_000 })
+  await expect(record.or(tryAgain).first()).toBeVisible({ timeout: 20_000 })
 }
 
 test.describe('speaking feedback', { tag: '@seed' }, () => {
@@ -129,7 +134,9 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await page.getByRole('button', { name: 'Not now' }).click()
     await expect(page.getByText('Say the line out loud after the voice.', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: RECORD })).toHaveCount(0)
-    await expect(page.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
+    // The drawn Say it card has no play buttons (job 19-redesign, statement 30): the learner heard the
+    // line in Hear it, and the card is only the line to say.
+    await expect(page.getByRole('button', { name: 'Play the spoken line' })).toHaveCount(0)
     await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
     await expect(consentHeading(page)).toBeVisible()
     await page.getByRole('button', { name: 'Not now' }).click()
@@ -198,10 +205,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
   }) => {
     const { userId, lines } = await toSayIt(page)
     const leave = async () => {
-      // On Say it the cross opens "Leave this lesson?"; on the finish screen it leaves at once.
-      const cross = page.getByRole('button', { name: 'Leave session' })
-      if (await cross.count()) await leaveLesson(page)
-      else await page.getByRole('link', { name: 'Leave session' }).click()
+      await leaveLesson(page)
       await page.waitForURL((url) => url.pathname === '/')
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
       await page.waitForURL('**/session')

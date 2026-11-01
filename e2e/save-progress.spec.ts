@@ -218,6 +218,8 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     expect(await note.innerText()).not.toMatch(/streak|badge|score|points|congratulations|lose|lost|losing/i)
 
     // [16] [call 3 A] Explicit token colours; "Done" is the only black button.
+    // Away from the buttons, so none shows its hover colour.
+    await page.mouse.move(0, 0)
     const colours = await buttonColours(page)
     expect(colours.done).toBe(colours.tokens.primary)
     expect(colours.add).toBe(colours.tokens.secondary)

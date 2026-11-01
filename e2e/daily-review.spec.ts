@@ -361,8 +361,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const feedback = page.locator(`[data-review-feedback="${formId}"]`)
     await expect(feedback.getByRole('button', { name: 'Play the spoken line', exact: true })).toHaveCount(1)
     await expect(feedback.getByRole('button', { name: 'Play the written line', exact: true })).toHaveCount(1)
-    await expect(feedback.getByText('Spoken', { exact: true }).first()).toBeVisible()
-    await expect(feedback.getByText('Written', { exact: true }).first()).toBeVisible()
+    // No "Spoken" and "Written" labels since job 19-redesign (statement 23): each line's group is named.
+    await expect(feedback.getByRole('group', { name: 'How people say it' })).toBeVisible()
+    await expect(feedback.getByRole('group', { name: 'How it is written' })).toBeVisible()
     // Every word of the line linked to the form is marked, in each register
     // (a form can sit in one register only, such as "moi" against "hei").
     const lineId = (await feedback.locator('[data-line-id]').first().getAttribute('data-line-id')) ?? ''

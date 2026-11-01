@@ -305,7 +305,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
         )}
         {item && shown !== null && shown !== 'already_saved' && (
           <div className={styles.reviewItem} data-review-feedback={item.formId}>
-            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} showGloss controls={false} />
+            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} showGloss />
             <p className={styles.reviewNote}>
               {shown.feedback.form.spoken === shown.feedback.form.written ? (
                 <>

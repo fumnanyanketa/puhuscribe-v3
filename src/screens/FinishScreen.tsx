@@ -66,6 +66,9 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   const [note, setNote] = useState(false)
   const [guest, setGuest] = useState(false)
   const [newWords, setNewWords] = useState<NewWord[]>([])
+  // After "Try again" the status line keeps one place for the rest of the screen's life: a line that
+  // moves in the page loses the keyboard focus that "Try again" gave it.
+  const [retried, setRetried] = useState(false)
   const status = useRef<HTMLParagraphElement>(null)
   // Saved once per screen: React's strict mode runs effects twice in
   // development, and the second run reuses this request.
@@ -100,6 +103,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   }, [])
 
   function tryAgain() {
+    setRetried(true)
     status.current?.focus()
     setState('saving')
     setNote(false)
@@ -118,6 +122,8 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   const tone: StatusTone = state === 'not_saved' ? 'problem' : 'neutral'
   const lastStep = steps[steps.length - 1] ?? 'Hear it'
 
+  // The line sits above the buttons while the save is unfinished or failed, and under "Done" once saved, as drawn.
+  const statusAbove = state !== 'saved' || retried
   const status_line = (
     <StatusLine ref={status} tone={tone}>
       {message}
@@ -125,7 +131,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   )
   const actions = (
     <>
-      {state !== 'saved' && status_line}
+      {statusAbove && status_line}
       {state === 'not_saved' && (
         <Button variant="secondary" block onClick={tryAgain}>
           Try again
@@ -139,7 +145,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
       >
         Done
       </Button>
-      {state === 'saved' && status_line}
+      {!statusAbove && status_line}
     </>
   )
 

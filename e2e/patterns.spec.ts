@@ -451,7 +451,8 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     finishEveryOtherDialogue(userId)
     dayLater(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    // A day with only a review says "Start review" on the road.
+    await page.getByRole('button', { name: /^Start( review)?$/ }).click()
     await page.waitForURL('**/session')
     const before = logsOf(userId).length
     const answered = await runKeepIt(page)
