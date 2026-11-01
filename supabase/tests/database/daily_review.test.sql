@@ -83,8 +83,8 @@ select is_empty(
 select tables_are('public',
   array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms', 'cards', 'review_logs', 'sessions',
         'consents', 'source_sentences', 'lemma_ipa', 'usage_events',
-        'speaking_attempts', 'kept_recordings', 'speech_checks', 'feedback'],
-  '[review 18] [speak 16] [analytics 21] job 9 added no table; the only others are job 10''s three speaking tables and job 14''s feedback');
+        'speaking_attempts', 'kept_recordings', 'speech_checks', 'feedback', 'road_parts', 'road_stops'],
+  '[review 18] [speak 16] [analytics 21] [a1-road 1] job 9 added no table; the only others are job 10''s three speaking tables, job 14''s feedback and job 20''s two road tables');
 select enum_has_labels('public', 'review_mode', array['typed', 'spoken'],
   '[review 18] review_mode is still typed, spoken');
 select enum_has_labels('public', 'usage_event_name', array['first_session_completed'],
