@@ -17,8 +17,8 @@ unless it ran.
 | level_fit | 3927 | 1.0000 |
 | grammar_cards | 7360 | 1.0000 |
 
-Register judge: FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
-Forms waiting for word notes: 1330 (see needed-notes.tsv).
+Register judge: n/a in 6 drafts, passed in 102 drafts.
+Forms waiting for word notes: 1329 (see needed-notes.tsv).
 
 ## Stop 1. Meeting people
 
