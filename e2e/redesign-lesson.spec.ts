@@ -1,6 +1,7 @@
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { mockLesson, type LessonMocks } from './lesson-mocks.ts'
+import { microphoneCalls, stubMicrophone } from './microphone.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the lesson's reads and writes
@@ -344,14 +345,10 @@ test.describe('Understand it', () => {
 })
 
 test.describe('the speaking consent sheet', () => {
+  // The shared stub counts every getUserMedia call, and adds stand-ins where Playwright's Linux
+  // WebKit has no MediaRecorder, so the record button is the real one in both browsers.
   async function noMicrophone(page: Page) {
-    await page.addInitScript(`
-      window.__mic = 0
-      Object.defineProperty(navigator, 'mediaDevices', {
-        value: { getUserMedia: () => { window.__mic += 1; return Promise.reject(new Error('no microphone in this test')) } },
-        configurable: true,
-      })
-    `)
+    await stubMicrophone(page, 'tone')
   }
 
   test('[redesign 29] shows only the title, "How it works", "Turn on" and "Not now", with no box and no microphone request', async ({
@@ -368,7 +365,7 @@ test.describe('the speaking consent sheet', () => {
     await expect(sheet.getByRole('button', { name: 'Turn on speaking feedback' })).toHaveText('Turn on')
     await expect(sheet.getByRole('button', { name: 'Not now' })).toBeVisible()
     await expect(sheet.getByRole('checkbox')).toHaveCount(0)
-    expect(await page.evaluate<number>('window.__mic')).toBe(0)
+    expect(await microphoneCalls(page)).toBe(0)
   })
 
   test('[redesign 29] "Turn on" records one choice with the box unticked, and still asks for no microphone', async ({
@@ -381,7 +378,7 @@ test.describe('the speaking consent sheet', () => {
     expect(calls.consent).toEqual([{ choice: 'turn_on', keepRecordings: false }])
     await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
     await expect(page.getByText('Tap and say the line.')).toBeVisible()
-    expect(await page.evaluate<number>('window.__mic')).toBe(0)
+    expect(await microphoneCalls(page)).toBe(0)
   })
 
   test('[redesign 29] "Not now" and Escape let the learner say each line without feedback and send nothing', async ({
@@ -402,6 +399,7 @@ test.describe('the speaking consent sheet', () => {
   test('[redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out', async ({
     page,
   }) => {
+    await noMicrophone(page)
     await open(page, { step: 'understand' })
     await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
     await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)

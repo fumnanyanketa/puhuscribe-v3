@@ -47,6 +47,8 @@ const status = (page: Page) => page.getByRole('status')
 async function turnOn(page: Page, keep = false) {
   await expect(consentHeading(page)).toBeVisible()
   await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
+  // Say it's own heading is behind the sheet from the start, so wait for the sheet to go.
+  await expect(consentHeading(page)).toBeHidden()
   await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
   if (keep) {
     await page.goto('/voice')
