@@ -49,17 +49,17 @@ The spec has no public list for visitors with no account and no `sampleLine`, so
 
 ## Check results
 
-All run on GitHub (this computer has no Docker and no Voikko). Final run on the branch head: RUN_FINAL
+All run on GitHub (this computer has no Docker and no Voikko). Final run, on the commit before this note (`6e7f272`; this note and its evidence files are the only later change): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41321561654. Its browser job failed to start the first time (a Docker networking error on the runner, before any test) and passed when that job alone was run again.
 
 | Check | Result |
 |---|---|
-| Type check, lint, format (`npm run check:code`) | RESULT_CODE |
-| Unit tests (`npm test`, includes the 4 row cap tests and 7 road route tests) | RESULT_UNIT |
-| Python tests and lint (283 tests, real Voikko, no network, no skips) | RESULT_PY |
-| `python scripts/generate/pipeline.py check-committed` (all 108 drafts) | RESULT_PY |
-| Database tests (pgTAP, local Supabase) | RESULT_DB |
-| Browser tests (Playwright, local Supabase) | RESULT_BROWSER |
-| Secret scan, dependency check | RESULT_SECRETS |
+| Type check, lint, format (`npm run check:code`) | passed |
+| Unit tests (`npm test`, includes the 4 row cap tests and 7 road route tests) | passed |
+| Python tests and lint (283 tests, real Voikko, no network, no skips) | passed |
+| `python scripts/generate/pipeline.py check-committed` (all 108 drafts) | passed |
+| Database tests (pgTAP, local Supabase) | passed (a1_road 103 checks, the published road test 9, the fix test 11, schema and daily review extended, types match the migrated database) |
+| Browser tests (Playwright, local Supabase) | passed (422 passed, 31 skipped, as before; the new hide step ran) |
+| Secret scan, dependency check | passed |
 | `python scripts/generate/road_sql.py --check`, `road_pgtap.py --check`, `road_fix_pgtap.py --check` | pytest compares each to the committed file |
 
 Runs of the "A1 road" tasks (the workflow only runs from the default branch, so they ran from a scratch branch with a push trigger, deleted afterwards): import https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41321298577 (its last run: no mapping, Voikko, level or judge failure; the log lists only two stale word note rows of the old skeleton, since replaced; the first run with no failure at all was 41318033424), analyse 41317041041, judge 41318417132, 41319745436 and 41320245477, voice sample 41317587713, count-characters 41317789817.
