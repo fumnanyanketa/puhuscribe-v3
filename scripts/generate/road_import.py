@@ -176,7 +176,7 @@ def choose_reading(
     surface: str, options: list[dict], brief: dict, ctx: Context, mid_sentence_capital: bool
 ) -> dict | None:
     """One of Voikko's own readings, by fixed rules (no AI): an override, then names for a capital in
-    the middle of a sentence, then a reading that fits the stop's level, then a dictionary form."""
+    the middle of a sentence, then a reading that fits the stop's level, then the more common word."""
     if not options:
         return None
     override = ctx.data.overrides.get(surface.lower())
@@ -200,8 +200,12 @@ def choose_reading(
             except UnknownTagValue:
                 fits = False
         base = is_base_form(parse_tag(option["form_tag"]))
+        # Among readings that fit equally, the more common word wins (asua before the genitive of asu,
+        # tuo before nuo), then a dictionary form, then the shorter tag.
+        commonness = ctx.ranks.get(option["lemma"].lower(), 10**9)
         return (
             0 if fits else 1,
+            commonness,
             0 if base else 1,
             len(option["form_tag"]),
             option["form_tag"],

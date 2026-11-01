@@ -271,15 +271,15 @@ _FOUR = [("Moi!", "Hei!"), ("Moi!", "Hei!"), ("Moi!", "Hei!"), ("Moi!", "Hei!")]
 
 
 def test_a1_road_13_a_planted_form_outside_the_stops_list_fails(ctx, voikko, ranks, thresholds):
-    """[a1-road 13] kotiin (illative) is on no list at stop 1, so the level check refuses the line."""
-    lines = [("Mä meen kotiin.", "Minä menen kotiin.")] + _FOUR[1:]
+    """[a1-road 13] taloon (illative) is on no list at stop 1, so the level check refuses the line."""
+    lines = [("Mä meen taloon.", "Minä menen taloon.")] + _FOUR[1:]
     draft = _planted(ctx, lines)
     report = check_draft(draft, voikko, ranks, thresholds)
     assert not report["ok"]
-    assert any("kotiin" in f and "grammar list" in f for f in report["failures"])
+    assert any("taloon" in f and "grammar list" in f for f in report["failures"])
     # The same line at stop 5, where the illative is taught, passes the grammar part of the check.
     later = check_draft(_planted(ctx, lines, stop=5), voikko, ranks, thresholds)
-    assert not any("kotiin" in f and "grammar list" in f for f in later["failures"])
+    assert not any("taloon" in f and "grammar list" in f for f in later["failures"])
 
 
 def test_a1_road_13_a_planted_word_outside_the_level_fails(ctx, voikko, ranks, thresholds):
