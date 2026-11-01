@@ -329,17 +329,21 @@
     font-weight: 600;
     display: block;
   }
+  .barwrap {
+    flex: 1;
+    margin-right: 14px;
+  }
   .prog {
     display: flex;
     gap: 3px;
-    margin-top: 6px;
-    width: 132px;
+    width: 100%;
   }
   .prog i {
     flex: 1;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.75);
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(30, 50, 45, 0.06);
   }
   .prog i.f {
     background: var(--a);
@@ -787,18 +791,18 @@
     ${you(0.04)}
     <span class="say moi" style="left:${f(xAt(0.04))}px;top:${f(yAt(0.04) - 24)}px;font-size:16px;padding:8px 15px;opacity:0">Moi.</span>
   </div>
-  <div class="top" style="opacity:0"><div><b>Your journey</b>${prog(0)}</div><span class="av">A</span></div>
+  <div class="top" style="opacity:0"><div class="barwrap">${prog(0)}</div><span class="av">A</span></div>
   ${startCard.replace('class="card"', 'class="card" style="opacity:0"')}`
 
   const day1 = `${status}
   <div class="scene" style="transform:scale(1.12) translateY(-14px)">${land(0, 'b')}${goal}
     ${stops.map((s, i) => sign(s, i, i === 0 ? 'cur' : 'later')).join('')}${you(0.27)}</div>
-  <div class="top"><div><b>Your journey</b>${prog(0)}</div><span class="av">A</span></div>${startCard}`
+  <div class="top"><div class="barwrap">${prog(0)}</div><span class="av">A</span></div>${startCard}`
 
   const later = `${status}
   <div class="scene" style="transform:scale(1.12) translateY(-14px)">${land(0.59, 'c')}${goal}
     ${stops.map((s, i) => sign(s, i, i < 2 ? 'done' : i === 2 ? 'cur' : 'later')).join('')}${you(0.57)}</div>
-  <div class="top"><div><b>Huomenta, Alex</b>${prog(2)}</div><span class="av">A</span></div>
+  <div class="top"><div class="barwrap">${prog(2)}</div><span class="av">A</span></div>
   <div class="card"><div class="t"><div><b>Grocery store</b><small>Stop 3 · lesson 2 of 4</small></div><span class="badge">3</span></div>
     <span class="lessons"><i class="f"></i><i></i><i></i><i></i></span><span class="pill">Continue<i></i></span></div>`
 
