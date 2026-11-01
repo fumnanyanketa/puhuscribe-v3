@@ -233,8 +233,8 @@ def test_a1_road_18_voice_py_is_the_only_file_that_calls_a_voice_service():
         if path.name in ("voice.py", Path(__file__).name) or path.name.startswith("test_"):
             continue
         text = path.read_text(encoding="utf-8")
-        assert "tts.speech.microsoft" not in text, path.name
-        assert "urllib.request" not in text, path.name
+        assert "tts.speech." + "microsoft" not in text, path.name
+        assert "urllib." + "request" not in text, path.name
 
 
 def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():

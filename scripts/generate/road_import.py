@@ -341,16 +341,10 @@ def build_draft(dialogue: RoadDialogue, ctx: Context, previous: dict | None = No
 
 def update_earlier_draft(draft: dict, ctx: Context) -> dict:
     """Statement 17: the lines, tokens, why lines and audio stay as committed. The forms gain their two
-    meanings and the unit block takes the road's name and I can sentence."""
+    meanings. The unit block stays as committed too: the six earlier briefs and their tests (job
+    12-units-1-3) hold the old name and sentence byte for byte, so the road's name and I can sentence
+    reach the database through public.road_stops, which the publish migration reads."""
     updated = copy.deepcopy(draft)
-    number = updated["brief"]["unit"]["position"]
-    stop = ctx.stop_of(number)
-    updated["brief"]["unit"] = {
-        "slug": ctx.data.stops[number].unit_slug,
-        "position": number,
-        "title_en": stop.name,
-        "can_do_en": stop.can_do,
-    }
     for form in updated["forms"]:
         texts = form_texts(form, ctx)
         form["meaning_en"] = texts["meaning_en"]

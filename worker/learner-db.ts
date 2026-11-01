@@ -2,6 +2,7 @@ import type { Database } from '../src/lib/database.types.ts'
 import type { NextReview } from '../src/lib/review-types.ts'
 import type { RecordableStep, StepReached } from '../src/lib/session-types.ts'
 import type { LearnerClient } from './learner-auth.ts'
+import { readAll, readAllIn } from './paging.ts'
 import type { ReviewLineRow, ReviewMaterial } from './review-plan.ts'
 
 // Every database read and write of the first session loop, made with the
@@ -192,6 +193,8 @@ function toSession(row: SessionRecord): SessionRow {
   }
 }
 
+const unavailable = (): Error => new DatabaseUnavailable()
+
 function must<T>(result: { data: T | null; error: unknown }): T {
   if (result.error || result.data === null) throw new DatabaseUnavailable()
   return result.data
@@ -200,8 +203,16 @@ function must<T>(result: { data: T | null; error: unknown }): T {
 export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb & SaveNoteDb {
   return {
     async readableDialogues() {
-      const units = must(await client.from('units').select('id, position, title_en, can_do_en'))
-      const dialogues = must(await client.from('dialogues').select('id, unit_id, position, title_en'))
+      const units = await readAll(
+        (from, to) =>
+          client.from('units').select('id, position, title_en, can_do_en').order('id').range(from, to),
+        unavailable,
+      )
+      const dialogues = await readAll(
+        (from, to) =>
+          client.from('dialogues').select('id, unit_id, position, title_en').order('id').range(from, to),
+        unavailable,
+      )
       const byId = new Map(units.map((unit) => [unit.id, unit]))
       return dialogues.flatMap((dialogue) => {
         const unit = byId.get(dialogue.unit_id)
@@ -220,7 +231,11 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
     },
 
     async mySessions() {
-      return must(await client.from('sessions').select(SESSION_COLUMNS)).map(toSession)
+      const rows = await readAll(
+        (from, to) => client.from('sessions').select(SESSION_COLUMNS).order('id').range(from, to),
+        unavailable,
+      )
+      return rows.map(toSession)
     },
 
     async startSession(dialogueId) {
@@ -346,43 +361,53 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
     async reviewMaterial(formIds, dialogueIds) {
       const empty: ReviewMaterial = { lines: [], tokens: [], forms: [] }
       if (formIds.length === 0 || dialogueIds.length === 0) return empty
-      const linking = must(
-        await client
-          .from('tokens')
-          .select('line_id')
-          .in('form_id', [...formIds]),
+      // Paged and in chunks: the lines a learner has met hold thousands of words (worker/paging.ts).
+      const linking = await readAllIn(
+        [...formIds],
+        (chunk) => (from, to) =>
+          client.from('tokens').select('line_id').in('form_id', chunk).order('id').range(from, to),
+        unavailable,
       )
       const candidateIds = [...new Set(linking.map((token) => token.line_id))]
       if (candidateIds.length === 0) return empty
-      const lines = must(
-        await client
-          .from('dialogue_lines')
-          .select(
-            'id, dialogue_id, position, speaker, text_puhe, text_kirja, gloss_en, audio_puhe_key, audio_kirja_key',
-          )
-          .in('id', candidateIds)
-          .in('dialogue_id', [...dialogueIds]),
+      const lines = await readAllIn(
+        candidateIds,
+        (chunk) => (from, to) =>
+          client
+            .from('dialogue_lines')
+            .select(
+              'id, dialogue_id, position, speaker, text_puhe, text_kirja, gloss_en, audio_puhe_key, audio_kirja_key',
+            )
+            .in('id', chunk)
+            .in('dialogue_id', [...dialogueIds])
+            .order('id')
+            .range(from, to),
+        unavailable,
       )
       if (lines.length === 0) return empty
-      const tokens = must(
-        await client
-          .from('tokens')
-          .select('line_id, register, position, surface, form_id')
-          .in(
-            'line_id',
-            lines.map((line) => line.id),
-          ),
+      const tokens = await readAllIn(
+        lines.map((line) => line.id),
+        (chunk) => (from, to) =>
+          client
+            .from('tokens')
+            .select('line_id, register, position, surface, form_id')
+            .in('line_id', chunk)
+            .order('id')
+            .range(from, to),
+        unavailable,
       )
       const linked = [...new Set(tokens.flatMap((token) => (token.form_id === null ? [] : [token.form_id])))]
-      const forms =
-        linked.length === 0
-          ? []
-          : must(
-              await client
-                .from('forms')
-                .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
-                .in('id', linked),
-            )
+      const forms = await readAllIn(
+        linked,
+        (chunk) => (from, to) =>
+          client
+            .from('forms')
+            .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
+            .in('id', chunk)
+            .order('id')
+            .range(from, to),
+        unavailable,
+      )
       return {
         // An approved line always has both texts, its meaning and both audio keys.
         lines: lines.map((line): ReviewLineRow => ({

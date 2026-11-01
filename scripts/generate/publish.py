@@ -118,8 +118,7 @@ def build_sql(
             f"  where s.number = {number}",
             "  on conflict (slug) do nothing;",
             "  select id, status into strict v_unit_id, v_status from public.units",
-            f"  where slug = {sql_text(unit['slug'])} and position = {number} and stop_number = {number}",
-            f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+            f"  where slug = {sql_text(unit['slug'])} and position = {number} and stop_number = {number};",
         ]
         if road["last"]:
             unit_approve_lines = [

@@ -555,18 +555,14 @@ def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_and_why_lines(commit
                 assert hashlib.sha256(clip.read_bytes()).hexdigest() == line["audio"][register]["sha256"]
 
 
-def test_a1_road_17_they_take_the_roads_unit_block_and_gain_both_meanings(committed, ctx):
-    """[a1-road 17] the unit block is the road's, and every form has both meaning fields."""
+def test_a1_road_17_they_gain_both_meaning_fields_and_keep_their_unit_block(committed):
+    """[a1-road 17] every form has both meaning fields; the unit block is as committed, because the six
+    briefs and their job 12 tests hold it. The road's name and sentence reach the database through
+    road_stops, which the publish migration reads."""
     for slug in EARLIER:
         draft = committed[slug]
-        number = draft["brief"]["unit"]["position"]
-        stop = ctx.stop_of(number)
-        assert draft["brief"]["unit"] == {
-            "slug": ctx.data.stops[number].unit_slug,
-            "position": number,
-            "title_en": stop.name,
-            "can_do_en": stop.can_do,
-        }
+        brief = json.loads((REPO / "content" / "briefs" / f"{slug}.json").read_text(encoding="utf-8"))
+        assert draft["brief"] == validate_brief(brief)
         assert all("meaning_en" in f and "lemma_meaning_en" in f for f in draft["forms"])
 
 

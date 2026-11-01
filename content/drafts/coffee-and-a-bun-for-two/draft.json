@@ -1,0 +1,1111 @@
+{
+  "format": "puhuscribe-draft-1",
+  "brief_path": "content/written/part-1.md",
+  "brief": {
+    "unit": {
+      "slug": "ordering-coffee",
+      "position": 2,
+      "title_en": "At the café",
+      "can_do_en": "order something, ask the price, and say thanks."
+    },
+    "dialogue": {
+      "slug": "coffee-and-a-bun-for-two",
+      "position": 3,
+      "title_en": "Coffee and a bun for two"
+    },
+    "situation_en": "Maria orders for herself and a friend. Ville works at the counter.",
+    "grammar": [
+      "present-tense",
+      "olla-present",
+      "personal-pronouns",
+      "inessive-elative",
+      "question-clitic",
+      "partitive-singular",
+      "numbers-1-20",
+      "saisinko",
+      "extras-stop-1",
+      "extras-stop-2"
+    ],
+    "rank_cap": 2000,
+    "extra_base_forms": [
+      "ilman",
+      "kauramaito",
+      "korvapuusti"
+    ],
+    "speakers": [
+      {
+        "name": "Ville",
+        "voice": "fi-FI-HarriNeural"
+      },
+      {
+        "name": "Maria",
+        "voice": "fi-FI-SelmaNeural"
+      }
+    ],
+    "line_count": 8,
+    "source": "written"
+  },
+  "providers": {
+    "ai": "written",
+    "judge": "off"
+  },
+  "notes": {
+    "status": "pending"
+  },
+  "lines": [
+    {
+      "n": 1,
+      "speaker": "Ville",
+      "text_puhe": "Moi! Mitä saa olla?",
+      "text_kirja": "Hei! Mitä saa olla?",
+      "gloss_en": "Hi! What can I get you?",
+      "kirja_tokens": [
+        {
+          "surface": "Hei",
+          "lemma": "hei",
+          "form_tag": "CLASS=huudahdussana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "hei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+hei(hei)"
+          },
+          "form": "form-124d5d19fe78"
+        },
+        {
+          "surface": "Mitä",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sp][Ny]tä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+mikä(mikä)"
+          },
+          "form": "form-a0c867e0dc77"
+        },
+        {
+          "surface": "saa",
+          "lemma": "saada",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "saada",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb]",
+            "MOOD": "indicative",
+            "NEGATIVE": "both",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=ppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+saada(saada)"
+          },
+          "form": "form-8d5b7d527ca0"
+        },
+        {
+          "surface": "olla",
+          "lemma": "olla",
+          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "olla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]olla[X]oll[Tn1][Eb]a",
+            "MOOD": "A-infinitive",
+            "NEGATIVE": "both",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+olla(olla)"
+          },
+          "form": "form-677fd2e58ace"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Moi",
+          "kirja": 1
+        },
+        {
+          "surface": "Mitä",
+          "kirja": 2
+        },
+        {
+          "surface": "saa",
+          "kirja": 3
+        },
+        {
+          "surface": "olla",
+          "kirja": 4
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "speaker": "Maria",
+      "text_puhe": "Kaks kahvii ja yks korvapuusti, kiitos.",
+      "text_kirja": "Kaksi kahvia ja yksi korvapuusti, kiitos.",
+      "gloss_en": "Two coffees and one cinnamon bun, please.",
+      "kirja_tokens": [
+        {
+          "surface": "Kaksi",
+          "lemma": "kaksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kaksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]kaksi[X]ka[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+kaksi(kaksi)"
+          },
+          "form": "form-05a31ace9a1d"
+        },
+        {
+          "surface": "kahvia",
+          "lemma": "kahvi",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kahvi",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kahvi(kahvi)"
+          },
+          "form": "form-9e75d9cc20ab"
+        },
+        {
+          "surface": "ja",
+          "lemma": "ja",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ja",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+ja(ja)"
+          },
+          "form": "form-938eb8c80d8d"
+        },
+        {
+          "surface": "yksi",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+yksi(yksi)"
+          },
+          "form": "form-77de6561f822"
+        },
+        {
+          "surface": "korvapuusti",
+          "lemma": "korvapuusti",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "korvapuusti",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]korva=puusti[X]korva[Bm]puust[Sn][Ny]i",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=ppppp=pppppp",
+            "WORDBASES": "+korvapuusti(korva=puusti)"
+          },
+          "form": "form-de395b49ae06"
+        },
+        {
+          "surface": "kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-c5b0481eae2b"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kaks",
+          "kirja": 1
+        },
+        {
+          "surface": "kahvii",
+          "kirja": 2
+        },
+        {
+          "surface": "ja",
+          "kirja": 3
+        },
+        {
+          "surface": "yks",
+          "kirja": 4
+        },
+        {
+          "surface": "korvapuusti",
+          "kirja": 5
+        },
+        {
+          "surface": "kiitos",
+          "kirja": 6
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "speaker": "Ville",
+      "text_puhe": "Maidol vai ilman?",
+      "text_kirja": "Maidolla vai ilman?",
+      "gloss_en": "With milk or without?",
+      "kirja_tokens": [
+        {
+          "surface": "Maidolla",
+          "lemma": "maito",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "maito",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]maito[X]maido[Sade][Ny]lla",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "ulkoolento",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+maito(maito)"
+          },
+          "form": "form-2f61aaedd09f"
+        },
+        {
+          "surface": "vai",
+          "lemma": "vai",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "vai",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]vai[X]vai",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+vai(vai)"
+          },
+          "form": "form-83d8cf4795ac"
+        },
+        {
+          "surface": "ilman",
+          "lemma": "ilman",
+          "form_tag": "CLASS=suhdesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ilman",
+            "CLASS": "suhdesana",
+            "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+ilman(ilman)"
+          },
+          "form": "form-95eeba05861c"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Maidol",
+          "kirja": 1
+        },
+        {
+          "surface": "vai",
+          "kirja": 2
+        },
+        {
+          "surface": "ilman",
+          "kirja": 3
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "speaker": "Maria",
+      "text_puhe": "Yks maidol ja yks ilman.",
+      "text_kirja": "Yksi maidolla ja yksi ilman.",
+      "gloss_en": "One with milk and one without.",
+      "kirja_tokens": [
+        {
+          "surface": "Yksi",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+yksi(yksi)"
+          },
+          "form": "form-77de6561f822"
+        },
+        {
+          "surface": "maidolla",
+          "lemma": "maito",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "maito",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]maito[X]maido[Sade][Ny]lla",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "ulkoolento",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+maito(maito)"
+          },
+          "form": "form-2f61aaedd09f"
+        },
+        {
+          "surface": "ja",
+          "lemma": "ja",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ja",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+ja(ja)"
+          },
+          "form": "form-938eb8c80d8d"
+        },
+        {
+          "surface": "yksi",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+yksi(yksi)"
+          },
+          "form": "form-77de6561f822"
+        },
+        {
+          "surface": "ilman",
+          "lemma": "ilman",
+          "form_tag": "CLASS=suhdesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "ilman",
+            "CLASS": "suhdesana",
+            "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+ilman(ilman)"
+          },
+          "form": "form-95eeba05861c"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Yks",
+          "kirja": 1
+        },
+        {
+          "surface": "maidol",
+          "kirja": 2
+        },
+        {
+          "surface": "ja",
+          "kirja": 3
+        },
+        {
+          "surface": "yks",
+          "kirja": 4
+        },
+        {
+          "surface": "ilman",
+          "kirja": 5
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "speaker": "Ville",
+      "text_puhe": "Täällä vai mukaan?",
+      "text_kirja": "Täällä vai mukaan?",
+      "gloss_en": "For here or to go?",
+      "kirja_tokens": [
+        {
+          "surface": "Täällä",
+          "lemma": "täällä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "täällä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]täällä[X]täällä",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+täällä(täällä)"
+          },
+          "form": "form-5bdac2fbf3a8"
+        },
+        {
+          "surface": "vai",
+          "lemma": "vai",
+          "form_tag": "CLASS=sidesana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "vai",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]vai[X]vai",
+            "STRUCTURE": "=ppp",
+            "WORDBASES": "+vai(vai)"
+          },
+          "form": "form-83d8cf4795ac"
+        },
+        {
+          "surface": "mukaan",
+          "lemma": "mukaan",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "mukaan",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]mukaan[X]mukaan",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+mukaan(mukaan)"
+          },
+          "form": "form-769eb876232e"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Täällä",
+          "kirja": 1
+        },
+        {
+          "surface": "vai",
+          "kirja": 2
+        },
+        {
+          "surface": "mukaan",
+          "kirja": 3
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "speaker": "Maria",
+      "text_puhe": "Täällä. Paljonks se tekee?",
+      "text_kirja": "Täällä. Paljonko se tekee?",
+      "gloss_en": "For here. How much is that?",
+      "kirja_tokens": [
+        {
+          "surface": "Täällä",
+          "lemma": "täällä",
+          "form_tag": "CLASS=seikkasana",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "täällä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]täällä[X]täällä",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+täällä(täällä)"
+          },
+          "form": "form-5bdac2fbf3a8"
+        },
+        {
+          "surface": "Paljonko",
+          "lemma": "paljo",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "paljo",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+            "KYSYMYSLIITE": "true",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "omanto",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+paljo(paljo)"
+          },
+          "form": "form-950f555b19e3"
+        },
+        {
+          "surface": "se",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "se",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pp",
+            "WORDBASES": "+se(se)"
+          },
+          "form": "form-eca33913649c"
+        },
+        {
+          "surface": "tekee",
+          "lemma": "tehdä",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "tehdä",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tehdä[X]te[Tt][Ap][P3][Ny][Ef]kee",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
+            "STRUCTURE": "=ppppp",
+            "TENSE": "present_simple",
+            "WORDBASES": "+tehdä(tehdä)"
+          },
+          "form": "form-89947eb476e5"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Täällä",
+          "kirja": 1
+        },
+        {
+          "surface": "Paljonks",
+          "kirja": 2
+        },
+        {
+          "surface": "se",
+          "kirja": 3
+        },
+        {
+          "surface": "tekee",
+          "kirja": 4
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "speaker": "Ville",
+      "text_puhe": "Yheksän euroo.",
+      "text_kirja": "Yhdeksän euroa.",
+      "gloss_en": "Nine euros.",
+      "kirja_tokens": [
+        {
+          "surface": "Yhdeksän",
+          "lemma": "yhdeksän",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "yhdeksän",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yhdeksän[X]yhdeks[Sn][Ny]än",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+yhdeksän(yhdeksän)"
+          },
+          "form": "form-5ff5b278d494"
+        },
+        {
+          "surface": "euroa",
+          "lemma": "euro",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "euro",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]euro[X]euro[Sp][Ny]a",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
+            "STRUCTURE": "=ppppp",
+            "WORDBASES": "+euro(euro)"
+          },
+          "form": "form-e0b2a20b7101"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Yheksän",
+          "kirja": 1
+        },
+        {
+          "surface": "euroo",
+          "kirja": 2
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "speaker": "Maria",
+      "text_puhe": "Kiitti!",
+      "text_kirja": "Kiitos!",
+      "gloss_en": "Thanks!",
+      "kirja_tokens": [
+        {
+          "surface": "Kiitos",
+          "lemma": "kiitos",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "name": false,
+          "analysis": {
+            "BASEFORM": "kiitos",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "nimento",
+            "STRUCTURE": "=pppppp",
+            "WORDBASES": "+kiitos(kiitos)"
+          },
+          "form": "form-35b130e20e20"
+        }
+      ],
+      "puhe_tokens": [
+        {
+          "surface": "Kiitti",
+          "kirja": 1
+        }
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-124d5d19fe78",
+      "lemma": "hei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "hei",
+      "surface_puhe": "moi",
+      "analysis": {
+        "BASEFORM": "hei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]hei[X]hei",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+hei(hei)"
+      },
+      "form_name_en": "interjection",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-a0c867e0dc77",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "mitä",
+      "surface_puhe": "mitä",
+      "analysis": {
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Sp][Ny]tä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+mikä(mikä)"
+      },
+      "form_name_en": "partitive singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-8d5b7d527ca0",
+      "lemma": "saada",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+      "surface_kirja": "saa",
+      "surface_puhe": "saa",
+      "analysis": {
+        "BASEFORM": "saada",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb]",
+        "MOOD": "indicative",
+        "NEGATIVE": "both",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=ppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+saada(saada)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-677fd2e58ace",
+      "lemma": "olla",
+      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "surface_kirja": "olla",
+      "surface_puhe": "olla",
+      "analysis": {
+        "BASEFORM": "olla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]olla[X]oll[Tn1][Eb]a",
+        "MOOD": "A-infinitive",
+        "NEGATIVE": "both",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+olla(olla)"
+      },
+      "form_name_en": "basic form (A-infinitive)",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-05a31ace9a1d",
+      "lemma": "kaksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kaksi",
+      "surface_puhe": "kaks",
+      "analysis": {
+        "BASEFORM": "kaksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]kaksi[X]ka[Sn][Ny]ksi",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+kaksi(kaksi)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-9e75d9cc20ab",
+      "lemma": "kahvi",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "kahvia",
+      "surface_puhe": "kahvii",
+      "analysis": {
+        "BASEFORM": "kahvi",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kahvi[X]kahv[Sp][Ny]ia",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kahvi(kahvi)"
+      },
+      "form_name_en": "partitive singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "'Some coffee.' The partitive singular is used for an unspecified amount of something, like coffee you ask for."
+    },
+    {
+      "id": "form-938eb8c80d8d",
+      "lemma": "ja",
+      "form_tag": "CLASS=sidesana",
+      "surface_kirja": "ja",
+      "surface_puhe": "ja",
+      "analysis": {
+        "BASEFORM": "ja",
+        "CLASS": "sidesana",
+        "FSTOUTPUT": "[Lc][Xp]ja[X]ja",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+ja(ja)"
+      },
+      "form_name_en": "conjunction",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "And: joins the coffee and the bun in the order."
+    },
+    {
+      "id": "form-77de6561f822",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "yksi",
+      "surface_puhe": "yks",
+      "analysis": {
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sn][Ny]ksi",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+yksi(yksi)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "One: counts the coffee being ordered. In speech it is often shortened to yks."
+    },
+    {
+      "id": "form-de395b49ae06",
+      "lemma": "korvapuusti",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "korvapuusti",
+      "surface_puhe": "korvapuusti",
+      "analysis": {
+        "BASEFORM": "korvapuusti",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]korva=puusti[X]korva[Bm]puust[Sn][Ny]i",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=ppppp=pppppp",
+        "WORDBASES": "+korvapuusti(korva=puusti)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "A Finnish cinnamon bun, in the nominative after yksi: the second thing ordered."
+    },
+    {
+      "id": "form-c5b0481eae2b",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitos",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "Means 'thanks!', said on its own as a reply."
+    },
+    {
+      "id": "form-2f61aaedd09f",
+      "lemma": "maito",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=singular",
+      "surface_kirja": "maidolla",
+      "surface_puhe": "maidol",
+      "analysis": {
+        "BASEFORM": "maito",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]maito[X]maido[Sade][Ny]lla",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "ulkoolento",
+        "STRUCTURE": "=pppppppp",
+        "WORDBASES": "+maito(maito)"
+      },
+      "form_name_en": "adessive singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-83d8cf4795ac",
+      "lemma": "vai",
+      "form_tag": "CLASS=sidesana",
+      "surface_kirja": "vai",
+      "surface_puhe": "vai",
+      "analysis": {
+        "BASEFORM": "vai",
+        "CLASS": "sidesana",
+        "FSTOUTPUT": "[Lc][Xp]vai[X]vai",
+        "STRUCTURE": "=ppp",
+        "WORDBASES": "+vai(vai)"
+      },
+      "form_name_en": "conjunction",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-95eeba05861c",
+      "lemma": "ilman",
+      "form_tag": "CLASS=suhdesana",
+      "surface_kirja": "ilman",
+      "surface_puhe": "ilman",
+      "analysis": {
+        "BASEFORM": "ilman",
+        "CLASS": "suhdesana",
+        "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+ilman(ilman)"
+      },
+      "form_name_en": "adposition",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-5bdac2fbf3a8",
+      "lemma": "täällä",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "täällä",
+      "surface_puhe": "täällä",
+      "analysis": {
+        "BASEFORM": "täällä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]täällä[X]täällä",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+täällä(täällä)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "Means 'here', telling where she is new."
+    },
+    {
+      "id": "form-769eb876232e",
+      "lemma": "mukaan",
+      "form_tag": "CLASS=seikkasana",
+      "surface_kirja": "mukaan",
+      "surface_puhe": "mukaan",
+      "analysis": {
+        "BASEFORM": "mukaan",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]mukaan[X]mukaan",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+mukaan(mukaan)"
+      },
+      "form_name_en": "adverb",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "This is the dictionary form. People say it the same way."
+    },
+    {
+      "id": "form-950f555b19e3",
+      "lemma": "paljo",
+      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+      "surface_kirja": "paljonko",
+      "surface_puhe": "paljonks",
+      "analysis": {
+        "BASEFORM": "paljo",
+        "CLASS": "nimisana_laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+        "KYSYMYSLIITE": "true",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "omanto",
+        "STRUCTURE": "=pppppppp",
+        "WORDBASES": "+paljo(paljo)"
+      },
+      "form_name_en": "genitive singular, with the question ending -ko/-kö",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-eca33913649c",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "se",
+      "surface_puhe": "se",
+      "analysis": {
+        "BASEFORM": "se",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Sn][Ny]e",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pp",
+        "WORDBASES": "+se(se)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "'It.' Nominative singular, referring back to the price."
+    },
+    {
+      "id": "form-89947eb476e5",
+      "lemma": "tehdä",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "surface_kirja": "tekee",
+      "surface_puhe": "tekee",
+      "analysis": {
+        "BASEFORM": "tehdä",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tehdä[X]te[Tt][Ap][P3][Ny][Ef]kee",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
+        "STRUCTURE": "=ppppp",
+        "TENSE": "present_simple",
+        "WORDBASES": "+tehdä(tehdä)"
+      },
+      "form_name_en": "present tense, 3rd person singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-5ff5b278d494",
+      "lemma": "yhdeksän",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "yhdeksän",
+      "surface_puhe": "yheksän",
+      "analysis": {
+        "BASEFORM": "yhdeksän",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yhdeksän[X]yhdeks[Sn][Ny]än",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppppp",
+        "WORDBASES": "+yhdeksän(yhdeksän)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": ""
+    },
+    {
+      "id": "form-e0b2a20b7101",
+      "lemma": "euro",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "surface_kirja": "euroa",
+      "surface_puhe": "euroo",
+      "analysis": {
+        "BASEFORM": "euro",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]euro[X]euro[Sp][Ny]a",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
+        "STRUCTURE": "=ppppp",
+        "WORDBASES": "+euro(euro)"
+      },
+      "form_name_en": "partitive singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "'Euros.' After a number like four, the counted word goes in the partitive singular."
+    },
+    {
+      "id": "form-35b130e20e20",
+      "lemma": "kiitos",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "surface_kirja": "kiitos",
+      "surface_puhe": "kiitti",
+      "analysis": {
+        "BASEFORM": "kiitos",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kiitos[X]kiito[Sn][Ny]s",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "nimento",
+        "STRUCTURE": "=pppppp",
+        "WORDBASES": "+kiitos(kiitos)"
+      },
+      "form_name_en": "nominative singular",
+      "meaning_en": "",
+      "lemma_meaning_en": "",
+      "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
+    }
+  ]
+}
