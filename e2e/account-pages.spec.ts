@@ -60,22 +60,24 @@ async function axe(page: Page, label: string) {
   ).toEqual([])
 }
 
-test('[accounts 1] the front door shows the privacy notice link, the account link and "I already have an account", and loading it makes nothing', async ({
+// Job 19-redesign (statement 15): "I already have an account" is now "Have an account? Sign in", and the
+// links sit in the day one card, under the Start button.
+test('[accounts 1] the road shows the privacy notice link, the account button and "Have an account? Sign in", and loading it makes nothing', async ({
   page,
 }) => {
   const requests = recordRequests(page)
   await page.goto('/')
-  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+  const start = page.getByRole('button', { name: 'Start', exact: true })
+  await expect(start).toBeVisible()
   await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/privacy')
   await expect(page.getByRole('link', { name: 'Your account' })).toHaveAttribute('href', '/account')
-  const already = page.getByRole('button', { name: 'I already have an account' })
+  const already = page.getByRole('link', { name: 'Sign in', exact: true })
   await expect(already).toBeVisible()
-  // The links sit under the Start line.
-  const line = await page
-    .getByText('Starting creates a guest account on this device so your progress is saved.', { exact: false })
-    .boundingBox()
+  await expect(page.getByText('Have an account?')).toBeVisible()
+  // The links sit under the Start button.
+  const startBox = await start.boundingBox()
   const link = await page.getByRole('link', { name: 'Privacy notice' }).boundingBox()
-  expect(link?.y ?? 0).toBeGreaterThan(line?.y ?? Infinity)
+  expect(link?.y ?? 0).toBeGreaterThan((startBox?.y ?? Infinity) + (startBox?.height ?? 0) - 1)
   await page.waitForLoadState('networkidle')
   expect(requests.filter(isGuestPost)).toHaveLength(0)
   expect(requests.filter((r) => r.method() === 'POST')).toHaveLength(0)
@@ -90,8 +92,12 @@ test('[accounts 16] the privacy notice loads without an account, makes no /api c
   const requests = recordRequests(page)
   await page.goto('/privacy')
   await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
+  // The whole notice is behind "Read the full notice" (job 19-redesign, statement 39).
+  await page.getByRole('button', { name: 'Read the full notice' }).click()
   for (const heading of SECTIONS) {
-    await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible()
+    await expect(
+      page.locator('#full-notice').getByRole('heading', { level: 2, name: heading, exact: true }),
+    ).toBeVisible()
   }
   await expect(page.getByText('PuhuScribe is for adults, 18 and over.')).toBeVisible()
   await expect(
@@ -109,6 +115,7 @@ test('[accounts 16] the privacy notice names who is responsible, with a mailto l
 }) => {
   await page.setViewportSize({ width: 320, height: 640 })
   await page.goto('/privacy')
+  await page.getByRole('button', { name: 'Read the full notice' }).click()
   await expect(page.getByText(/ is responsible for your data in PuhuScribe\./)).toBeVisible()
   const contact = page.locator('a[href^="mailto:"]')
   await expect(contact).toHaveCount(1)
@@ -185,7 +192,7 @@ test('[accounts 27] the privacy notice, the account page and the sign in screen 
 test('[accounts 27] the sign in screen works with the keyboard alone', async ({ page }, testInfo) => {
   const requests = recordRequests(page)
   await page.goto('/')
-  await tabTo(page, page.getByRole('button', { name: 'I already have an account' }), testInfo)
+  await tabTo(page, page.getByRole('link', { name: 'Sign in', exact: true }), testInfo)
   await page.keyboard.press('Enter')
   await page.waitForURL('**/sign-in')
   await expect(page.getByLabel('Email address')).toBeFocused()

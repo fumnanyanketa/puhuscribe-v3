@@ -60,10 +60,34 @@ export async function startSession(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+  // The tip on a first lesson has its own tests (e2e/redesign-lesson.spec.ts); the others start without it.
+  await dismissTip(page)
+}
+
+/**
+ * The tip on a learner's first lesson (job 19-redesign, statement 25): "Got it"
+ * closes it. Most tests are about something else and start with it closed.
+ */
+export async function dismissTip(page: Page): Promise<void> {
+  const gotIt = page.getByRole('button', { name: 'Got it' })
+  if (await gotIt.isVisible()) {
+    await gotIt.click()
+    await expect(gotIt).toBeHidden()
+  }
+}
+
+/** The cross opens "Leave this lesson?"; "Leave" goes to the road (job 19-redesign, statement 22). */
+export async function leaveLesson(page: Page): Promise<void> {
+  await page.getByRole('button', { name: 'Leave session' }).click()
+  await page
+    .getByRole('dialog', { name: 'Leave this lesson?' })
+    .getByRole('button', { name: 'Leave' })
+    .click()
 }
 
 /** Shows every line of Hear it and presses Continue. */
 export async function finishHearIt(page: Page): Promise<void> {
+  await dismissTip(page)
   for (;;) {
     const next = page.getByRole('button', { name: 'Next line' })
     if ((await next.count()) === 0) break
@@ -104,7 +128,7 @@ export async function finishLineId(page: Page): Promise<string> {
 export async function afterNext(page: Page, previousLineId: string): Promise<'done' | 'question'> {
   const done = page
     .getByRole('heading', { level: 1, name: 'Say it' })
-    .or(page.getByRole('heading', { level: 1, name: 'Speaking feedback' }))
+    .or(page.getByRole('dialog', { name: 'Say it out loud' }))
   const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
   const seen: { state: 'done' | 'question' | 'waiting' } = { state: 'waiting' }
   await expect

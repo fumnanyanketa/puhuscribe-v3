@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { CONTRAST_PAIRS } from '../src/styles/contrast-pairs.ts'
 import { colourTokens } from '../src/styles/token-values.ts'
+import { installRoad } from './road-route.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/5-design-system/spec.md. These run on the reference page,
@@ -145,7 +146,12 @@ test.describe('session frame', () => {
       const sideways = `(() => {
         const width = document.documentElement.clientWidth
         const past = [...document.querySelectorAll('main *')]
-          .filter((el) => !el.closest('[class*="tableWrap"]') && el.getBoundingClientRect().right > width + 0.5)
+          // A drawing's parts are clipped by their own svg (the landscape fills a box with slice), so
+          // a part inside an svg counts by the svg's edge, which is what the page can scroll to.
+          .filter((el) => {
+            const edge = el.closest('svg') ?? el
+            return !el.closest('[class*="tableWrap"]') && edge.getBoundingClientRect().right > width + 0.5
+          })
           .map((el) => el.tagName + ' ' + String(el.className))
         return { scrollWidth: document.documentElement.scrollWidth, width, past }
       })()`
@@ -206,7 +212,7 @@ test.describe('buttons and keyboard', () => {
     // Safari moves Tab between buttons only with Option held, unless a setting says otherwise.
     const tab = browserName === 'webkit' ? 'Alt+Tab' : 'Tab'
     // Start on the first control, then move with the keyboard only.
-    await page.locator('main a[href]').first().focus()
+    await page.locator('main button:not([disabled]), main a[href]').first().focus()
     let previousTop = -Infinity
     for (let i = 0; i < expected; i += 1) {
       if (i > 0) await page.keyboard.press(tab)
@@ -259,13 +265,18 @@ test.describe('status line', () => {
 test.describe('Finnish line and word card', () => {
   const lineSection = (page: Page) => section(page, 'Finnish line and word card')
 
-  test('[design 11] spoken first, written under it labelled "Written", both lang="fi", every word a button', async ({
+  // Job 19-redesign (statement 23) changed the labels on purpose: there is no visible
+  // "Spoken" or "Written" label; each line's group is named for screen readers.
+  test('[design 11] [redesign 23] spoken first, written under it, each group named, both lang="fi", every word a button', async ({
     page,
   }) => {
     await openReference(page)
     const line = lineSection(page)
     await expect(line.locator('[lang="fi"]')).toHaveText(['Mä oon', 'Minä olen'])
-    await expect(line.getByText('Written', { exact: true })).toBeVisible()
+    await expect(line.getByText('Written', { exact: true })).toHaveCount(0)
+    await expect(line.getByText('Spoken', { exact: true })).toHaveCount(0)
+    await expect(line.getByRole('group', { name: 'How people say it' })).toBeVisible()
+    await expect(line.getByRole('group', { name: 'How it is written' })).toBeVisible()
     await expect(line.locator('[lang="fi"] button')).toHaveCount(4)
   })
 
@@ -296,10 +307,13 @@ test.describe('Finnish line and word card', () => {
     await word.click()
     const card = page.getByRole('dialog', { name: 'oon' })
     await expect(card).toBeVisible()
-    await expect(card.getByText('Base form')).toBeVisible()
+    // The facts are the redesigned card's (job 19-redesign, statement 26).
+    await expect(card.getByText('Dictionary form')).toBeVisible()
     await expect(card.getByText('olla', { exact: true })).toBeVisible()
-    await expect(card.getByText('Form', { exact: true })).toBeVisible()
-    await expect(card.getByText('Why', { exact: true })).toBeVisible()
+    await expect(card.getByText('People say')).toBeVisible()
+    await expect(card.getByText('Books write')).toBeVisible()
+    await card.getByRole('button', { name: 'Why does it change?' }).click()
+    await expect(card.getByText('Spoken Finnish shortens olen to oon.')).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play the spoken form' })).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play the written form' })).toBeVisible()
     expect(await page.evaluate<boolean>('Boolean(document.activeElement.closest("dialog"))')).toBe(true)
@@ -535,7 +549,12 @@ test.describe('automatic accessibility check', () => {
       // Forces the problem state and its "Start" again, which the GitHub
       // checks never reach on their own (evaluator, job 5 round 2). Since job
       // 8-first-session the front page is the front door (statement 21).
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
+      const context = await browser.newContext({
+        colorScheme: scheme,
+        reducedMotion: 'reduce',
+        viewport: { width: 375, height: 812 },
+      })
+      await installRoad(context)
       const page = await context.newPage()
       await page.route('**/api/guest', (route) =>
         route.fulfill({
@@ -562,7 +581,12 @@ test.describe('automatic accessibility check', () => {
     test(`[design 17] axe finds no WCAG A or AA problem on the front page, ${scheme}`, async ({
       browser,
     }) => {
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
+      const context = await browser.newContext({
+        colorScheme: scheme,
+        reducedMotion: 'reduce',
+        viewport: { width: 375, height: 812 },
+      })
+      await installRoad(context)
       const page = await context.newPage()
       await page.goto('/')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible({ timeout: 11_000 })

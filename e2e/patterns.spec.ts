@@ -1,6 +1,7 @@
 import { AxeBuilder } from '@axe-core/playwright'
 import { type Locator, type Page } from '@playwright/test'
 import { expect, test } from './test-base.ts'
+import { installRoad } from './road-route.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import {
@@ -161,7 +162,7 @@ function currentSession(userId: string): { id: string; dialogueId: string } {
 
 /** Opens the word card of the first word with a card on screen and returns its button. */
 async function openFirstCard(page: Page): Promise<{ word: Locator; card: Locator }> {
-  const word = page.locator('ol [lang="fi"] button').first()
+  const word = page.locator('[data-line-id] [lang="fi"] button').first()
   const name = (await word.innerText()).trim()
   await word.click()
   const card = page.getByRole('dialog', { name })
@@ -208,13 +209,9 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await startSession(page)
     const userId = await userIdOf(page.context())
     const { card } = await openFirstCard(page)
-    const formName = (
-      await card
-        .locator('dt')
-        .filter({ hasText: /^Form$/ })
-        .locator('xpath=following-sibling::dd')
-        .innerText()
-    ).trim()
+    // The card's form name now sits behind "Why does it change?" (job 19-redesign, statement 26).
+    await card.getByRole('button', { name: 'Why does it change?' }).click()
+    const formName = (await card.locator('[class*="whyForm"]').innerText()).replace(/\.$/, '').trim()
     const asked = page.waitForRequest((r) => new URL(r.url()).pathname === '/api/patterns')
     await card.getByRole('button', { name: PANEL }).click()
     const request = await asked
@@ -326,7 +323,8 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     }
 
     // Learner B, in a new browser, is in the first dialogue: none of learner A's second dialogue only forms.
-    const other = await browser.newContext()
+    const other = await browser.newContext({ reducedMotion: 'reduce' })
+    await installRoad(other)
     const pageB = await other.newPage()
     await serveTone(pageB)
     await startSession(pageB)
@@ -510,7 +508,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
 
   test('[units 17] works with the keyboard alone', async ({ page }, testInfo) => {
     await startSession(page)
-    const word = page.locator('ol [lang="fi"] button').first()
+    const word = page.locator('[data-line-id] [lang="fi"] button').first()
     await tabTo(page, word, testInfo)
     await page.keyboard.press('Enter')
     const button = page.getByRole('button', { name: PANEL })

@@ -104,7 +104,7 @@ async function lookOfTheNote(page: Page): Promise<LookOfTheNote> {
       fill: css.backgroundColor,
       shadow: css.boxShadow,
       tableLike: note.querySelectorAll('table,tr,td,hr,[role="row"],[role="table"]').length,
-      badge: all.filter((e) => !e.closest('button') && (getComputedStyle(e).borderRadius !== '0px' || getComputedStyle(e).backgroundColor !== 'rgba(0, 0, 0, 0)')).length,
+      badge: all.filter((e) => e !== note && !e.closest('button') && (getComputedStyle(e).borderRadius !== '0px' || getComputedStyle(e).backgroundColor !== 'rgba(0, 0, 0, 0)')).length,
       overflowWrap: getComputedStyle(sentence).overflowWrap,
       langs: note.querySelectorAll('[lang]').length,
       headings: note.querySelectorAll('h1,h2,h3,h4,h5,h6,[role="heading"]').length,
@@ -141,7 +141,7 @@ async function buttonColours(page: Page) {
       tokens: {
         primary,
         secondary: resolve('--color-button-secondary', 'background'),
-        text: resolve('--color-text', 'color'),
+        text: resolve('--color-mint-deep', 'color'),
       },
       // Buttons with words: the round play controls and the word buttons have none of their own.
       primaryCount: [...document.querySelectorAll('button')].filter((b) => b.textContent.trim() !== '' && bg(b) === primary).length,
@@ -179,15 +179,15 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       `${copy.SAVE_NOTE_SENTENCE} ${copy.SAVE_NOTE_ADD} ${copy.SAVE_NOTE_LATER}`,
     )
 
-    // [1] In the page after the line card and "The words you met will come back in your review.",
-    // and before "Send feedback".
+    // [1] In the page after the line card (and the new words panel that follows it, job
+    // 19-redesign, statement 33) and before "Send feedback". The old line "The words you met will
+    // come back in your review." is gone on purpose.
     const top = async (target: Locator) => (await target.boundingBox())?.y ?? Number.NaN
+    await expect(page.getByText(COMES_BACK, { exact: true })).toHaveCount(0)
     const card = await top(page.locator('[data-line-id]').first())
-    const comesBack = await top(page.getByText(COMES_BACK, { exact: true }))
     const noteAt = await top(note)
     const feedback = await top(page.getByRole('link', { name: 'Send feedback' }))
-    expect(card).toBeLessThan(comesBack)
-    expect(comesBack).toBeLessThan(noteAt)
+    expect(card).toBeLessThan(noteAt)
     expect(noteAt).toBeLessThan(feedback)
 
     // [12] [16] [15] A plain block in the page, with nothing of a dialog, an alert or a decoration.
@@ -203,9 +203,11 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     expect(look.images).toBe(0)
     expect(look.uppercase).toBe(false)
     expect(look.gradients).toBe(false)
-    expect(look.borders).toEqual(['0px', '0px', '0px', '0px'])
-    expect(look.fill).toBe('rgba(0, 0, 0, 0)')
-    expect(look.shadow).toBe('none')
+    // A milky panel since job 19-redesign (design.md, "Save progress note"): the same thin edge on
+    // all four sides (never one thick side), a fill and the panel shadow.
+    expect(look.borders).toEqual(['1px', '1px', '1px', '1px'])
+    expect(look.fill).not.toBe('rgba(0, 0, 0, 0)')
+    expect(look.shadow).not.toBe('none')
     expect(look.tableLike).toBe(0)
     expect(look.badge).toBe(0)
     expect(look.langs).toBe(0)
@@ -233,7 +235,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     // [12] It never blocks: one tap on Done reaches the front door.
     await done.click()
     await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   })
 
   // Never mid session, never before the progress is saved -----------------------------------
@@ -341,7 +343,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       expect(url.origin, request.url()).toBe(origin)
       if (url.pathname.startsWith('/api/')) {
         expect(url.pathname, request.url()).toMatch(
-          /^\/api\/(guest|today|me|patterns|voice(\/consent)?|sessions\/today|sessions\/[0-9a-f-]+\/(step|complete|review|review\/done)|speech\/(say|recall)|review\/answer|feedback|crash)$/,
+          /^\/api\/(guest|today|me|patterns|voice(\/consent)?|road|sessions\/today|sessions\/[0-9a-f-]+\/(step|complete|review|review\/done)|speech\/(say|recall)|review\/answer|feedback|crash)$/,
         )
       }
       if (url.pathname.startsWith('/api/')) {
@@ -382,7 +384,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     await expectNoNote(page, 'after reload')
     await page.goto('/')
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expectNoNote(page, 'front door')
     await walkContinuedSession(page, userId)
     await expect(page.getByRole('status')).toHaveText(SAVED)
@@ -401,7 +403,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     await page.keyboard.press('Enter')
     await page.waitForURL((url) => url.pathname.endsWith(copy.ADD_EMAIL_PATH))
     expect(onAddEmailScreen(page)).toBe(true)
-    await expect(page.getByRole('heading', { name: 'Add your email', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Create your account', exact: true })).toBeVisible()
     const { sendsCode, takenWarning } = emailScreenSentences()
     await expect(page.getByText(sendsCode, { exact: true })).toBeVisible()
     await expect(page.getByText(takenWarning, { exact: true })).toBeVisible()
@@ -434,7 +436,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     await expect(noteOf(page)).toBeVisible()
     await page.getByRole('link', { name: 'Leave session' }).click()
     await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   })
 
   // Phone, keyboard and look ------------------------------------------------------------------------------
@@ -467,7 +469,11 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     if (testInfo.project.name !== 'webkit') {
       await tabTo(page, add, testInfo)
       await page.keyboard.press('Shift+Tab')
-      expect(await focusedName(page)).toMatch(/^Play the (spoken|written) line$/)
+      // Before the note come the new words (job 19-redesign), so the control before it is a word chip
+      // or a play button; what matters is that it is not one of the note's own.
+      expect(await focusedName(page)).not.toMatch(
+        new RegExp(`^(${copy.SAVE_NOTE_ADD}|${copy.SAVE_NOTE_LATER})$`),
+      )
       const order: string[] = []
       const outlines: string[] = []
       for (let i = 0; i < 4; i += 1) {
@@ -589,7 +595,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       await expect(page.getByRole('status')).toHaveText(SAVED)
       await noteOf(page).getByRole('button', { name: copy.SAVE_NOTE_ADD, exact: true }).click()
       await page.waitForURL((url) => url.pathname.endsWith(copy.ADD_EMAIL_PATH))
-      await expect(page.getByRole('heading', { name: 'Add your email', exact: true })).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Create your account', exact: true })).toBeVisible()
       const { sendsCode, takenWarning } = emailScreenSentences()
       await expect(page.getByText(sendsCode, { exact: true })).toBeVisible()
       await expect(page.getByText(takenWarning, { exact: true })).toBeVisible()

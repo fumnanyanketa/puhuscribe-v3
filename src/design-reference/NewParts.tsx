@@ -3,7 +3,7 @@ import { Button } from '../components/Button.tsx'
 import { FinnishLine } from '../components/FinnishLine.tsx'
 import { Landscape, RoadScene } from '../components/Landscape.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
-import { Wave } from '../components/RecordControl.tsx'
+import { RecordControl, Wave } from '../components/RecordControl.tsx'
 import { Sheet } from '../components/Sheet.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
 import { SproutMark } from '../components/Wordmark.tsx'
@@ -16,6 +16,8 @@ import { ROAD_DAY_ONE, ROAD_MID, roadFixture } from '../road/road-fixture.ts'
 import { ConsentSheet } from '../screens/ConsentSheet.tsx'
 import { FirstLessonTip } from '../screens/FirstLessonTip.tsx'
 import { OfflineScreen } from '../screens/OfflineScreen.tsx'
+import { RECORD_HINTS } from '../screens/SayIt.tsx'
+import voice from '../screens/Voice.module.css'
 import { SPOKEN_EXAMPLE, TONE, WRITTEN_EXAMPLE, SECOND_TONE } from './reference-content.ts'
 import styles from './DesignReference.module.css'
 
@@ -265,6 +267,41 @@ export function NewParts() {
             setConsent(false)
           }}
         />
+      </Section>
+
+      <Section id="say-results" title="Say it, each state">
+        <p className={styles.lead}>
+          The record button as Say it words it, while listening, with a clear result and with a try again
+          note.
+        </p>
+        <div className={styles.sceneRow}>
+          <Demo label="Ready">
+            <RecordControl state="ready" hints={RECORD_HINTS} />
+          </Demo>
+          <Demo label="Listening">
+            <RecordControl state="recording" seconds={3} hints={RECORD_HINTS} />
+          </Demo>
+          <Demo label="Clear">
+            <section className={voice.clearCard} aria-label="A clear result">
+              <p className={voice.clearLine}>
+                <span className={voice.checkCircle} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                  </svg>
+                </span>
+                Yes, that was clear.
+              </p>
+              <Wave />
+              <div className={voice.recordingControls}>
+                <Button variant="secondary">Play mine</Button>
+                <Button variant="secondary">Try again</Button>
+              </div>
+            </section>
+          </Demo>
+          <Demo label="Try again">
+            <StatusLine tone="gentle">Listen to the line once more, then try again.</StatusLine>
+          </Demo>
+        </div>
       </Section>
 
       <Section id="marks" title="Wave, brand mark, loading and no connection">

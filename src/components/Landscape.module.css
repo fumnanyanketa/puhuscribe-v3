@@ -37,7 +37,7 @@
 .sceneBox {
   position: relative;
   width: 100%;
-  max-width: 20rem;
+  max-width: min(100%, 20rem);
   aspect-ratio: 280 / 620;
 }
 

@@ -96,27 +96,21 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  test("[accounts 2] a guest's account page offers adding an email, the download and deletion, and no sign out", async ({
+  // Redrawn in job 19-redesign (statement 34): a profile page. The guest note is one sentence with an
+  // "Add" button (named "Add your email" for screen readers); the long guest paragraph and the line
+  // about signing back in are gone on purpose.
+  test("[accounts 2] [redesign 34] a guest's account page offers adding an email, the download and deletion, and no sign out", async ({
     page,
   }) => {
     await startGuest(page)
     await page.goto('/account')
-    await expect(
-      page.getByText(
-        'You are using a guest account on this device. Add your email to keep your progress and use it on other devices.',
-        { exact: true },
-      ),
-    ).toBeVisible()
+    await expect(page.getByText('Add your email to keep your progress.', { exact: true })).toBeVisible()
+    await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Add your email' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Download my data' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
-    await expect(
-      page.getByText('A guest account cannot sign back in, so add your email before you leave.', {
-        exact: true,
-      }),
-    ).toBeVisible()
     await expect(page.locator('main')).not.toContainText(/streak|score|\d+ (words|sessions|cards)/i)
   })
 
@@ -166,7 +160,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       ),
     ).toBeVisible()
     await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
-    await page.getByRole('button', { name: 'Delete my account' }).click()
+    await page.getByRole('button', { name: 'Delete for good' }).click()
     await page.waitForURL((url) => url.pathname === '/')
     await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
     expect(authUser(userId).exists).toBe(false)
@@ -191,7 +185,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     await page.route('**/api/account/delete', (route) =>
       route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"not_deleted"}' }),
     )
-    await page.getByRole('button', { name: 'Delete my account' }).click()
+    await page.getByRole('button', { name: 'Delete for good' }).click()
     const status = page.getByRole('status')
     await expect(status).toHaveText(
       'Your account was not deleted. Check your internet connection, then try again.',
@@ -210,7 +204,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.goto('/account')
       await page.getByRole('button', { name: 'Add your email' }).click()
       await page.waitForURL('**/account/email')
-      await expect(page.getByRole('heading', { level: 1, name: 'Add your email' })).toBeVisible()
+      await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
       await expect(
         page.getByText(
           'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
@@ -274,7 +268,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('1')
       expect(await userIdOf(page.context())).toBe(userId)
       await page.goto('/account')
-      await expect(page.getByText(`You are signed in as ${address}.`, { exact: true })).toBeVisible()
+      await expect(page.getByText(address, { exact: true })).toBeVisible()
+      await expect(page.getByText('Saved to your email', { exact: true })).toBeVisible()
       await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
       await expect(page.getByRole('button', { name: 'Download my data' })).toBeVisible()
       await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
@@ -425,7 +420,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(allZero(rowsOf(guestId))).toEqual([])
       expect(await userIdOf(other)).toBe(ownerId)
       await guestPage.goto('/account')
-      await expect(guestPage.getByText(`You are signed in as ${address}.`, { exact: true })).toBeVisible()
+      await expect(guestPage.getByText(address, { exact: true })).toBeVisible()
       await other.close()
     })
 
@@ -448,11 +443,11 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.getByRole('button', { name: 'Sign out' }).click()
       await page.waitForURL((url) => url.pathname === '/')
       await expect(page.getByRole('status')).toHaveText('You are signed out on this device.')
-      await expect(page.getByRole('button', { name: 'I already have an account' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible()
       expect((await page.context().cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
 
       await pageB.goto('/account')
-      await expect(pageB.getByText(`You are signed in as ${address}.`, { exact: true })).toBeVisible()
+      await expect(pageB.getByText(address, { exact: true })).toBeVisible()
       await deviceB.close()
     })
 
@@ -470,7 +465,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(Object.keys(file.tables as object).sort()).toEqual([...USER_TABLE_NAMES].sort())
 
       await page.goto('/account/delete')
-      await page.getByRole('button', { name: 'Delete my account' }).click()
+      await page.getByRole('button', { name: 'Delete for good' }).click()
       await page.waitForURL((url) => url.pathname === '/')
       await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
       expect(authUser(userId).exists).toBe(false)
@@ -498,7 +493,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await expect(pageB.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
 
       await page.goto('/account/delete')
-      await page.getByRole('button', { name: 'Delete my account' }).click()
+      await page.getByRole('button', { name: 'Delete for good' }).click()
       await page.waitForURL((url) => url.pathname === '/')
       expect(authUser(userId).exists).toBe(false)
 

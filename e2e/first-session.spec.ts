@@ -16,10 +16,12 @@ import {
 import {
   afterNext,
   answerChoices,
+  dismissTip,
   finishHearIt,
   finishUnderstandIt,
   passSayIt,
   isGuestPost,
+  leaveLesson,
   questionLineId,
   finishLineId,
   recordRequests,
@@ -106,7 +108,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     const second = await context.newPage()
     await second.goto('/')
-    await expect(second.getByRole('button', { name: "Continue today's session" })).toBeVisible()
+    await expect(second.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
     const again = await page.request.post('/api/guest', {
       headers: { 'content-type': 'application/json' },
       data: {},
@@ -181,38 +183,43 @@ test.describe('the first session', { tag: '@seed' }, () => {
     }
   })
 
-  test('[session 9] Hear it shows the lines one by one, spoken first and written labelled, and Continue stores hear', async ({
+  // Redrawn in job 19-redesign (statements 21 to 24): one line card at a time, no labels, the bar named
+  // by its step, no unit goal on this screen.
+  test('[session 9] [redesign 24] Hear it shows the lines one at a time, spoken first and written, and Continue stores hear', async ({
     page,
   }) => {
     const { userId, lines } = await startAndLoad(page)
-    const shown = page.locator('ol > li')
-    await expect(page.getByText('Hear it, step 1 of 3', { exact: true })).toBeVisible()
-    // The unit's goal is labelled (design review, round 1).
-    await expect(page.getByText(/^Unit goal\. \S/)).toBeVisible()
+    const shown = page.locator('[data-line-id]')
+    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })).toBeVisible()
+    await expect(page.getByText(/^Unit goal\./)).toHaveCount(0)
     for (let i = 0; i < lines.length; i += 1) {
       const line = firstOf(lines.slice(i))
-      await expect(shown).toHaveCount(i + 1)
+      await expect(shown).toHaveCount(1)
       // The status line says which line of how many, so each new line is announced.
       await expect(page.getByRole('status')).toHaveText(`Line ${String(i + 1)} of ${String(lines.length)}.`)
-      const card = shown.nth(i)
-      await expect(card.getByRole('heading', { level: 2 })).toHaveText(line.speaker)
+      const card = shown.first()
+      await expect(card.getByText(line.speaker, { exact: true })).toBeVisible()
+      await expect(
+        card.getByText(`Line ${String(i + 1)} of ${String(lines.length)}`, { exact: true }),
+      ).toBeVisible()
       const finnish = card.locator('[lang="fi"]')
       await expect(finnish.nth(0)).toHaveText(line.puhe.replace(/\s+/g, ' '))
       await expect(finnish.nth(1)).toHaveText(line.kirja.replace(/\s+/g, ' '))
-      await expect(card.getByText('Written', { exact: true }).first()).toBeVisible()
-      // Earlier lines stay.
-      for (let j = 0; j < i; j += 1) await expect(shown.nth(j)).toBeVisible()
+      await expect(card.getByText('Written', { exact: true })).toHaveCount(0)
+      await expect(card.getByText(line.gloss, { exact: true })).toBeVisible()
       const button = page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' })
       await expect(button).toBeVisible()
       if (i < lines.length - 1) await button.click()
     }
     expect(sessionsOf(userId)[0]?.step).toBe('')
     await page.getByRole('button', { name: 'Continue' }).click()
-    await expect(page.getByText('Understand it, step 2 of 3', { exact: true })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Understand it, step 2 of 3' })).toBeVisible()
     expect(sessionsOf(userId)[0]?.step).toBe('hear')
   })
 
-  test('[session 9] changed words are azure, and the hint about them shows once', async ({ page }) => {
+  test('[session 9] [redesign 2] changed words are peach on a peach wash, and the old hint line is gone', async ({
+    page,
+  }) => {
     const { dialogueId } = await startAndLoad(page)
     const changed = one(
       `select count(*) from public.dialogue_lines l join public.tokens t on t.line_id = l.id
@@ -221,15 +228,19 @@ test.describe('the first session', { tag: '@seed' }, () => {
       { did: dialogueId },
     )
     test.skip(changed === '0', 'This dialogue has no changed words')
-    await finishHearItLines(page)
-    await expect(
-      page.getByText('Blue words change between spoken and written Finnish.', { exact: true }),
-    ).toHaveCount(1)
-    const azure = await page.locator('[lang="fi"] button span[class*="changed"]').count()
-    expect(azure).toBeGreaterThan(0)
+    let peach = 0
+    for (;;) {
+      peach += await page.locator('[lang="fi"] button span[class*="changed"]').count()
+      const next = page.getByRole('button', { name: 'Next line' })
+      if ((await next.count()) === 0) break
+      await next.click()
+    }
+    await expect(page.getByText('Blue words change', { exact: false })).toHaveCount(0)
+    expect(peach).toBeGreaterThan(0)
   })
 
   async function finishHearItLines(page: Page) {
+    await dismissTip(page)
     for (;;) {
       const next = page.getByRole('button', { name: 'Next line' })
       if ((await next.count()) === 0) return
@@ -250,7 +261,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     const keys = sql(`select audio_puhe_key, audio_kirja_key from public.dialogue_lines where id = :lid`, {
       lid: first.id,
     })[0] ?? ['', '']
-    const card = page.locator('ol > li').first()
+    const card = page.locator('[data-line-id]').first()
     const spoken = card.getByRole('button', { name: 'Play the spoken line' })
     await expect(spoken).toHaveAttribute('data-state', 'ready')
     await spoken.click()
@@ -269,7 +280,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.unrouteAll()
     await page.route('**/audio/**', (route) => route.fulfill({ status: 404, body: '' }))
     await startAndLoad(page)
-    const card = page.locator('ol > li').first()
+    const card = page.locator('[data-line-id]').first()
     await card.getByRole('button', { name: 'Play the spoken line' }).click()
     await expect(card.getByText('Could not play.', { exact: true })).toBeVisible()
     await expect(card.getByRole('button', { name: 'Try again: play the spoken line' })).toBeVisible()
@@ -287,7 +298,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await route.fulfill({ status: 200, contentType: 'audio/wav', body })
     })
     await startAndLoad(page)
-    const card = page.locator('ol > li').first()
+    const card = page.locator('[data-line-id]').first()
     await card.getByRole('button', { name: 'Play the spoken line' }).click()
     await expect(card.getByRole('button', { name: 'Loading the spoken line' })).toBeVisible()
     release()
@@ -299,7 +310,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
   }) => {
     const { lines } = await startAndLoad(page)
     const first = firstOf(lines)
-    const card = page.locator('ol > li').first()
+    const card = page.locator('[data-line-id]').first()
     for (const register of ['puhe', 'kirja'] as const) {
       const word = firstWordWithForm(first.id, register)
       expect(word).not.toBeNull()
@@ -310,8 +321,14 @@ test.describe('the first session', { tag: '@seed' }, () => {
       const dialog = page.getByRole('dialog', { name: word.surface })
       await expect(dialog).toBeVisible()
       await expect(dialog.getByRole('heading', { name: word.surface })).toBeFocused()
-      for (const text of [word.lemma, word.formName, word.why, word.puhe, word.kirja]) {
+      // The facts of the redesigned card (job 19-redesign, statement 26): both registers and the
+      // dictionary form first, the form name and the reason behind "Why does it change?".
+      for (const text of [word.lemma, word.puhe, word.kirja]) {
         await expect(dialog.getByText(text, { exact: true }).first()).toBeVisible()
+      }
+      await dialog.getByRole('button', { name: 'Why does it change?' }).click()
+      for (const text of [word.formName, word.why]) {
+        await expect(dialog.getByText(text).first()).toBeVisible()
       }
       await expect(dialog.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
       await expect(dialog.getByRole('button', { name: 'Play the written line' })).toBeVisible()
@@ -324,20 +341,28 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
   test('[session 12] a word with no readable form is plain text, not a button', async ({ page }) => {
     const { dialogueId } = await startAndLoad(page)
-    await finishHearItLines(page)
-    const plain = sql(
-      `select t.surface from public.dialogue_lines l join public.tokens t on t.line_id = l.id
-         left join public.forms f on f.id = t.form_id and f.status = 'approved'
-        where l.dialogue_id = :did and l.status = 'approved' and f.id is null
-          and not exists (select 1 from public.tokens o join public.forms g on g.id = o.form_id
-                           where o.line_id = t.line_id and o.surface = t.surface and g.status = 'approved')`,
-      { did: dialogueId },
-    ).map((row) => row[0] ?? '')
-    test.skip(plain.length === 0, 'Every word of this dialogue has a readable form')
-    for (const surface of plain) {
-      await expect(page.locator('ol').getByText(surface, { exact: true }).first()).toBeVisible()
-      await expect(page.locator('ol').getByRole('button', { name: surface, exact: true })).toHaveCount(0)
+    let checked = 0
+    for (;;) {
+      const lineId = await finishLineId(page)
+      const plain = sql(
+        `select t.surface from public.dialogue_lines l join public.tokens t on t.line_id = l.id
+           left join public.forms f on f.id = t.form_id and f.status = 'approved'
+          where l.dialogue_id = :did and l.id = :lid and l.status = 'approved' and f.id is null
+            and not exists (select 1 from public.tokens o join public.forms g on g.id = o.form_id
+                             where o.line_id = t.line_id and o.surface = t.surface and g.status = 'approved')`,
+        { did: dialogueId, lid: lineId },
+      ).map((row) => row[0] ?? '')
+      const card = page.locator('[data-line-id]').first()
+      for (const surface of plain) {
+        await expect(card.getByText(surface, { exact: true }).first()).toBeVisible()
+        await expect(card.getByRole('button', { name: surface, exact: true })).toHaveCount(0)
+        checked += 1
+      }
+      const next = page.getByRole('button', { name: 'Next line' })
+      if ((await next.count()) === 0) break
+      await next.click()
     }
+    test.skip(checked === 0, 'Every word of this dialogue has a readable form')
   })
 
   test('[session 13] Understand it: a wrong answer is gently refused and unavailable, a right one says so, the order survives a reload, and nothing is stored', async ({
@@ -364,7 +389,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await expect(wrongButton).toHaveAttribute('aria-disabled', 'true')
       await wrongButton.click({ force: true })
       await expect(status).toHaveText('Not this one. Listen again and try another.')
-      await expect(page.getByRole('button', { name: 'Next', exact: true })).toHaveCount(0)
+      // The bottom pill is unavailable until the answer is right (job 19-redesign, statement 28).
+      await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeDisabled()
       // Never red, never a score.
       const colour = await status.evaluate('(element) => getComputedStyle(element).backgroundColor')
       expect(String(colour)).not.toMatch(/rgb\(2[0-5]\d, [0-6]?\d, [0-6]?\d\)/)
@@ -372,12 +398,12 @@ test.describe('the first session', { tag: '@seed' }, () => {
     }
     await answerChoices(page).getByRole('button', { name: right, exact: true }).click()
     await expect(page.getByRole('status')).toHaveText('Yes, that is right.')
-    await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeEnabled()
     expect(sessionsOf(userId)[0]?.step).toBe('hear')
 
     // The rest of the questions, then the step is stored.
     await page.getByRole('button', { name: 'Next', exact: true }).click()
-    const done = page.getByRole('heading', { level: 1, name: 'Speaking feedback' })
+    const done = page.getByRole('heading', { level: 1, name: 'Say it' })
     if ((await afterNext(page, before.line)) === 'question') await finishUnderstandIt(page, glossOf)
     await expect(done).toBeVisible()
     expect(sessionsOf(userId)[0]?.step).toBe('understand')
@@ -398,11 +424,10 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await finishHearIt(page)
     await finishUnderstandIt(page, glossOf)
     await passSayIt(page)
-    await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeVisible()
     await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
-    await expect(
-      page.getByText('The words you met will come back in your review.', { exact: true }),
-    ).toBeVisible()
+    // The old line "The words you met will come back in your review." is not on the redrawn screen.
+    await expect(page.getByText('The words you met will come back in your review.')).toHaveCount(0)
     const shownId = await finishLineId(page)
     const shown = lines.find((line) => line.id === shownId)
     expect(shown).toBeDefined()
@@ -439,7 +464,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
     await page.getByRole('button', { name: 'Done' }).click()
     await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   })
 
   test('[session 9] [session 22] a word and its punctuation never wrap apart, at 375 and 320 px', async ({
@@ -537,9 +562,9 @@ test.describe('the first session', { tag: '@seed' }, () => {
   test('[session 18] Leave session and Continue resume the same session at each step', async ({ page }) => {
     const { userId, glossOf } = await startAndLoad(page)
     const leave = async () => {
-      await page.getByRole('link', { name: 'Leave session' }).click()
+      await leaveLesson(page)
       await page.waitForURL((url) => url.pathname === '/')
-      await page.getByRole('button', { name: "Continue today's session" }).click()
+      await page.getByRole('button', { name: 'Continue', exact: true }).click()
       await page.waitForURL('**/session')
     }
     await leave()
@@ -550,7 +575,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.route('**/api/sessions/*/complete', (route) => route.abort('failed'))
     await finishUnderstandIt(page, glossOf)
     await leave()
-    await expect(page.getByRole('heading', { level: 1, name: 'Speaking feedback' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
     expect(sessionsOf(userId)[0]?.step).toBe('understand')
     await passSayIt(page)
     await leave()
@@ -657,7 +682,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await page.keyboard.press('Enter')
     }
     // A word card opens and closes from the keyboard.
-    const word = page.locator('ol [lang="fi"] button').first()
+    const word = page.locator('[data-line-id] [lang="fi"] button').first()
     await tabTo(page, word, testInfo)
     await page.keyboard.press('Enter')
     await expect(page.getByRole('dialog')).toBeVisible()
@@ -734,7 +759,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await scan('front door')
       const { glossOf } = await startAndLoad(page)
       await scan('Hear it')
-      await page.locator('ol [lang="fi"] button').first().click()
+      await page.locator('[data-line-id] [lang="fi"] button').first().click()
       await expect(page.getByRole('dialog')).toBeVisible()
       await page.waitForTimeout(400)
       await scan('word card')
@@ -760,7 +785,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await page.goto('/')
       await expect(
         page
-          .getByRole('button', { name: "Continue today's session" })
+          .getByRole('button', { name: 'Continue', exact: true })
           .or(page.getByRole('button', { name: 'Start', exact: true })),
       ).toBeVisible()
       await scan('front door, signed in')

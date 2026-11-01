@@ -121,7 +121,9 @@ test.describe('the Hear it sample', () => {
       const sideways = `(() => {
         const width = document.documentElement.clientWidth
         const past = [...document.querySelectorAll('body *')]
-          .filter((el) => el.getBoundingClientRect().right > width + 0.5)
+          // The band's drawing is clipped by its own svg, so a part inside an svg counts by the svg's edge
+          // (job 19-redesign), which is what the page can scroll to.
+          .filter((el) => (el.closest('svg') ?? el).getBoundingClientRect().right > width + 0.5)
           .map((el) => el.tagName + ' ' + String(el.className))
         return { scrollWidth: document.documentElement.scrollWidth, width, past }
       })()`

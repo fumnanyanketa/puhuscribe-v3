@@ -284,12 +284,18 @@ test.describe('delete, feedback and the privacy notice', () => {
     ).toBeVisible()
     await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
     await expect(page.getByText('Updated 1 November 2026.')).toBeVisible()
-    await expect(page.getByRole('heading', { level: 2, name: 'Who is responsible' })).toBeHidden()
+    await expect(
+      page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
+    ).toBeHidden()
     await page.getByRole('button', { name: 'Read the full notice' }).click()
-    await expect(page.getByRole('heading', { level: 2, name: 'Who is responsible' })).toBeVisible()
+    await expect(
+      page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
+    ).toBeVisible()
     await expect(page.getByText('Fumnanya Nketa is responsible for your data in PuhuScribe.')).toBeVisible()
     await expect(
-      page.getByRole('heading', { level: 2, name: 'Where it is kept and who processes it' }),
+      page
+        .locator('#full-notice')
+        .getByRole('heading', { level: 2, name: 'Where it is kept and who processes it' }),
     ).toBeVisible()
     expect(requests.filter((request) => new URL(request.url()).pathname.startsWith('/api/'))).toEqual([])
   })
