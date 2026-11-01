@@ -24,6 +24,7 @@ None of the five was found showing a prominent "words learned" number with a sta
 - `draft-5.html`: draft 4 with a second, warm accent, as the owner asked ("we need a second accent color", like the reference's green and orange). Mint and peach (from the reference), lake blue and coral, forest green and orange. The first colour is for everything tappable; the warm one marks the words that change, the review count and the goal. Published at https://claude.ai/artifact/JLGD2YpyeCYubY6dmazhX5
 - `draft-6.html`: one whole lesson (Hear it, word card, Understand it, Say it, Say it feedback, Keep it, Session finished) in the owner's two shortlisted pairs: mint and peach (the owner's leading choice) and lake blue and coral. Published at https://claude.ai/artifact/M1YGkx7zRfj7YXDJzW5qL6
 - `draft-7-journey.html`: the journey in mint and peach (the owner's final palette, 1 November 2026) with smaller text: the route of stops, inside a stop, a locked stop, and the unlock moment. Stop and lesson names here are examples.
+- `opening-animation-1.html`: two playable ideas for the first-open animation the owner asked for (where you are, where you are going, then into your first stop): one word becoming a conversation, and one line from you to A1. About 4 seconds, with Skip.
 
 ## Glass and journey references (1 November 2026)
 
@@ -41,3 +42,10 @@ None of the five was found showing a prominent "words learned" number with a sta
 - Duolingo Finnish (third-party tracker, July 2025): 35 units, about 1,100 words, ending around A1. https://duolingodata.com/dat/fifen35v2.html
 - No Finnish source gives an official A1 word count; integration training targets B1.1 in about a year. https://www.oph.fi/fi/tilastot-ja-julkaisut/julkaisut/kotoutumiskoulutuksen-opetussuunnitelman-perusteet-2022
 - Working conclusion (judgment, not a published figure): about 800 to 1,000 core words for a comfortable A1 in Finnish. The PRD's v3.0 target was about 180.
+
+## Opening animation references (1 November 2026)
+
+- MapTiler, animated routes: a short camera move in, the route drawn, then back to the start. https://www.maptiler.com/news/2026/06/animated-routes-on-maps
+- Strava Flyover (2023): show the whole route first, then move in on the dot. https://techcrunch.com/2023/11/15/strava-launches-flyover-an-aerial-3d-video-recap-of-every-outdoor-activity-you-do/
+- Apple's Motion guidance: brief, never blocking, a crossfade when Reduce Motion is on. https://developer.apple.com/design/human-interface-guidelines/motion
+- Accessibility rule WCAG 2.2.2: moving content that starts by itself and runs over 5 seconds needs a way to stop it, so keep it shorter and offer Skip.

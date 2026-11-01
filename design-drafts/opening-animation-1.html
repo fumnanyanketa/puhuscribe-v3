@@ -1,0 +1,648 @@
+<title>PuhuScribe opening animation</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+/>
+<style>
+  /* Layout: two phones side by side, each playing one idea for the first-open animation, with a replay button under each. */
+  :root {
+    --page: #f1f2f3;
+    --page-ink: #1b1d20;
+    --page-quiet: #5b5f66;
+    --frame: #1b1d20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --a: #23917a;
+    --a-deep: #1a6f5d;
+    --a-mid: #74bba9;
+    --a-soft: #d6efe7;
+    --wash1: #cbede1;
+    --wash2: #fbe2d1;
+    --b: #ee8763;
+    --b-deep: #b8532f;
+    --b-soft: #fde4d8;
+    --ink: #1b2a26;
+    --quiet: #637570;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #111315;
+      --page-ink: #eceef0;
+      --page-quiet: #a3a8ae;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #111315;
+    --page-ink: #eceef0;
+    --page-quiet: #a3a8ae;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+  }
+  h1 {
+    font: 600 clamp(1.8rem, 5vw, 2.3rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  header p {
+    color: var(--page-quiet);
+    margin: 0.6rem 0 0;
+    max-width: 60ch;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 2.5rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    width: 300px;
+    max-width: 100%;
+    justify-items: start;
+  }
+  figcaption {
+    font-size: 0.88rem;
+    color: var(--page-quiet);
+  }
+  figcaption b {
+    display: block;
+    color: var(--page-ink);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  button {
+    font: 500 0.85rem var(--font);
+    color: var(--page-ink);
+    background: transparent;
+    border: 1px solid var(--page-quiet);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+  }
+  button:focus-visible {
+    outline: 2px solid var(--a);
+    outline-offset: 2px;
+  }
+
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--font);
+    background: linear-gradient(160deg, var(--wash1) 0%, #f7f8f6 50%, var(--wash2) 100%);
+  }
+  .status {
+    position: relative;
+    z-index: 5;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .milk {
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 24px rgba(40, 60, 60, 0.07);
+  }
+  .skip {
+    position: absolute;
+    z-index: 6;
+    top: 40px;
+    right: 18px;
+    font-size: 11px;
+    color: var(--quiet);
+    animation: skipOut 4.4s ease forwards;
+  }
+  @keyframes skipOut {
+    0%,
+    80% {
+      opacity: 1;
+    }
+    88%,
+    100% {
+      opacity: 0;
+    }
+  }
+  .cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--quiet);
+    letter-spacing: 0.01em;
+  }
+
+  /* The end state both ideas land on: the first stop. */
+  .end {
+    position: absolute;
+    inset: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 18px 20px;
+    gap: 12px;
+    opacity: 0;
+  }
+  .end .hello {
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 auto;
+    padding-top: 70px;
+  }
+  .end .hello b {
+    font-weight: 600;
+    color: var(--a);
+  }
+  .first {
+    border-radius: 20px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .first .ring {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3px solid var(--a);
+    display: grid;
+    place-items: center;
+    flex: none;
+    background: #fff;
+  }
+  .first .ring::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--a);
+  }
+  .first b {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+  }
+  .first span {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--a);
+    color: #fff;
+    font-weight: 500;
+    font-size: 13.5px;
+    border-radius: 999px;
+    padding: 5px 5px 5px 18px;
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+  }
+  .pill i {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+  }
+  .pill i::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+  }
+  .pill i::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 9.5px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+  .signin {
+    font-size: 11.5px;
+    color: var(--quiet);
+    text-align: center;
+  }
+  .signin b {
+    color: var(--a);
+    font-weight: 500;
+  }
+
+  /* Idea 1: one word grows into a conversation. */
+  .bub {
+    position: absolute;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  .bub.me {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 24px;
+  }
+  .bub mark {
+    background: var(--b-soft);
+    color: var(--b-deep);
+    border-radius: 6px;
+    padding: 0 3px;
+  }
+  .p1 .bub.me {
+    animation: me 4.4s ease forwards;
+  }
+  .p1 .bub.o {
+    animation: other 4.4s ease forwards;
+  }
+  .p1 .cap.c1 {
+    animation: capA 4.4s ease forwards;
+  }
+  .p1 .cap.c2 {
+    animation: capB 4.4s ease forwards;
+  }
+  .p1 .end {
+    animation: endIn 4.4s ease forwards;
+  }
+  @keyframes me {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    10%,
+    48% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    66% {
+      opacity: 1;
+      transform: translate(-50%, 80px) scale(0.62);
+    }
+    78%,
+    100% {
+      opacity: 0;
+      transform: translate(-50%, 80px) scale(0.62);
+    }
+  }
+  @keyframes other {
+    0%,
+    18% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.85);
+    }
+    30%,
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    62%,
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.92);
+    }
+  }
+  @keyframes capA {
+    0%,
+    4% {
+      opacity: 0;
+    }
+    10%,
+    22% {
+      opacity: 1;
+    }
+    28%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes capB {
+    0%,
+    30% {
+      opacity: 0;
+    }
+    36%,
+    52% {
+      opacity: 1;
+    }
+    60%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes endIn {
+    0%,
+    74% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    90%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Idea 2: a single line from you to A1, then into your first stop. */
+  .track {
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    top: 120px;
+    height: 0;
+    background: linear-gradient(to top, var(--a) 0%, var(--a-mid) 60%, var(--b) 100%);
+    border-radius: 3px;
+    transform: translateX(-50%);
+  }
+  .dotyou,
+  .dota1 {
+    position: absolute;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .dotyou {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border: 3px solid var(--a);
+    top: 520px;
+  }
+  .dota1 {
+    width: 40px;
+    height: 40px;
+    background: var(--b-soft);
+    border: 2px solid var(--b);
+    top: 120px;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .tick {
+    position: absolute;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid var(--a-mid);
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .lbl {
+    position: absolute;
+    font-size: 11px;
+    color: var(--quiet);
+    opacity: 0;
+  }
+  .lbl b {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 12.5px;
+  }
+  .p2 .track {
+    animation: draw 4.4s ease forwards;
+  }
+  .p2 .dotyou {
+    animation: popYou 4.4s ease forwards;
+  }
+  .p2 .dota1 {
+    animation: popA1 4.4s ease forwards;
+  }
+  .p2 .tick {
+    animation: tickIn 4.4s ease forwards;
+  }
+  .p2 .lbl.you {
+    animation: lblYou 4.4s ease forwards;
+  }
+  .p2 .lbl.a1 {
+    animation: lblA1 4.4s ease forwards;
+  }
+  .p2 .zoom {
+    animation: zoom 4.4s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+    transform-origin: 50% 520px;
+  }
+  .p2 .end {
+    animation: endIn 4.4s ease forwards;
+  }
+  @keyframes popYou {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    8%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes lblYou {
+    0%,
+    6% {
+      opacity: 0;
+    }
+    12%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes draw {
+    0%,
+    12% {
+      top: 520px;
+      height: 0;
+    }
+    42%,
+    100% {
+      top: 120px;
+      height: 400px;
+    }
+  }
+  @keyframes popA1 {
+    0%,
+    40% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    48%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes lblA1 {
+    0%,
+    44% {
+      opacity: 0;
+    }
+    52%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes tickIn {
+    0%,
+    30% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    40%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes zoom {
+    0%,
+    55% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    70% {
+      transform: scale(2.6);
+      opacity: 0.7;
+    }
+    76%,
+    100% {
+      transform: scale(3.4);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p1 *,
+    .p2 *,
+    .p1,
+    .p2 {
+      animation-duration: 1ms !important;
+      animation-delay: 0ms !important;
+    }
+  }
+  @media (max-width: 700px) {
+    .row {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe opening animation</h1>
+    <p>
+      Two ideas for the first time someone opens the app. Each one shows where you are now and where you are
+      going, then opens onto your first stop. About 4 seconds, with Skip in the corner.
+    </p>
+  </header>
+  <div class="row">
+    <figure>
+      <div class="phone"><div class="s" id="s1"></div></div>
+      <figcaption>
+        <b>1. One word becomes a conversation</b>You start with one word, "Moi". Around it appears the Finnish
+        you will speak at A1. Then it settles into your first stop.
+      </figcaption>
+      <button type="button" id="r1">Play again</button>
+    </figure>
+    <figure>
+      <div class="phone"><div class="s" id="s2"></div></div>
+      <figcaption>
+        <b>2. One line from you to A1</b>A dot for you, a line drawing up to A1 with every stop on the way,
+        then the view moves in close on where you start.
+      </figcaption>
+      <button type="button" id="r2">Play again</button>
+    </figure>
+  </div>
+</div>
+
+<script>
+  const status =
+    '<div class="status"><span>9:41</span><i></i><span>5G</span></div><span class="skip">Skip</span>'
+  const end = `<div class="end">
+  <p class="hello">Your <b>Finnish</b><br>journey<br>starts here</p>
+  <div class="milk first"><span class="ring"></span><div><b>Meeting people</b><span>Stop 1 of 24</span></div></div>
+  <span class="pill">Start<i></i></span>
+  <span class="signin">Have an account? <b>Sign in</b></span>
+</div>`
+
+  const idea1 = `${status}
+  <span class="cap c1" style="top:190px;opacity:0">You, today</span>
+  <span class="cap c2" style="top:96px;opacity:0">You, at A1</span>
+  <span class="bub milk me" style="left:50%;top:300px">Moi.</span>
+  <span class="bub milk o" style="left:34%;top:150px"><mark>Mä oon</mark> Alex.</span>
+  <span class="bub milk o" style="left:68%;top:205px;animation-delay:.12s">Mist <mark>sä oot</mark>?</span>
+  <span class="bub milk o" style="left:30%;top:395px;animation-delay:.22s"><mark>Yks</mark> kahvi, <mark>kiitti</mark>.</span>
+  <span class="bub milk o" style="left:66%;top:455px;animation-delay:.32s">Nähdään <mark>huomenna</mark>!</span>
+  <span class="bub milk o" style="left:46%;top:515px;animation-delay:.42s"><mark>Onks</mark> teil maitoo?</span>
+  ${end}`
+
+  const ticks = Array.from(
+    { length: 22 },
+    (_, i) =>
+      `<span class="tick" style="top:${520 - ((i + 1) * 400) / 23}px;animation-delay:${0.012 * i}s"></span>`,
+  ).join('')
+  const idea2 = `${status}
+  <div class="zoom" style="position:absolute;inset:0">
+    <span class="track"></span>${ticks}
+    <span class="dotyou"></span><span class="dota1">A1</span>
+    <span class="lbl you" style="left:calc(50% + 20px);top:508px"><b>You</b>today</span>
+    <span class="lbl a1" style="left:calc(50% + 30px);top:106px"><b>Everyday Finnish</b>24 stops away</span>
+  </div>
+  ${end}`
+
+  const play = (id, cls, html) => {
+    const s = document.getElementById(id)
+    s.className = 's'
+    s.innerHTML = html
+    void s.offsetWidth
+    s.classList.add(cls)
+  }
+  play('s1', 'p1', idea1)
+  play('s2', 'p2', idea2)
+  document.getElementById('r1').addEventListener('click', () => play('s1', 'p1', idea1))
+  document.getElementById('r2').addEventListener('click', () => play('s2', 'p2', idea2))
+</script>
