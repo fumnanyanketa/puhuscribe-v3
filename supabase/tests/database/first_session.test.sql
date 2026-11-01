@@ -95,8 +95,8 @@ select u.id, d.slug, d.position, 'pgtap dialogue'
   cross join public.units u
  where u.slug = 'pgtap-first-session-unit';
 
-insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
-select 'pgtap-first-session', tag, 'pgtap-k-' || tag, 'pgtap-p-' || tag, 'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
+select 'pgtap-first-session', tag, 'pgtap-k-' || tag, 'pgtap-p-' || tag, 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from unnest(array['in-1', 'in-2', 'in-3', 'withdrawn', 'only-in-2']) as tag;
 
 insert into public.dialogue_lines

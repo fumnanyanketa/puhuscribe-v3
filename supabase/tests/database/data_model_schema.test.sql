@@ -9,7 +9,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(145);
+select plan(151);
 
 -- [data 1] Only these tables ----------------------------------------------------
 
@@ -21,9 +21,10 @@ select tables_are(
     'source_sentences', 'lemma_ipa',
     'usage_events',
     'speaking_attempts', 'kept_recordings', 'speech_checks',
-    'feedback'
+    'feedback',
+    'road_parts', 'road_stops'
   ],
-  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] public holds exactly the content, learner, reference and usage event tables, the speaking tables and feedback, and nothing else (visits dropped in job 8)'
+  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] [a1-road 1] public holds exactly the content, learner, reference and usage event tables, the speaking tables, feedback and the two road tables, and nothing else (visits dropped in job 8)'
 );
 
 select enums_are(
@@ -49,8 +50,9 @@ select enum_has_labels('public', 'consent_kind', array['voice_processing', 'voic
 -- that identifies a learner or the reviewer.
 
 select columns_are('public', 'units',
-  array['id', 'slug', 'position', 'title_en', 'can_do_en', 'status', 'approved_at', 'approval_ref'],
-  '[data 1] [data 13] units has exactly its listed columns (English titles only; design review 2)');
+  array['id', 'slug', 'position', 'title_en', 'can_do_en', 'status', 'approved_at', 'approval_ref',
+        'stop_number'],
+  '[data 1] [data 13] [a1-road 2] units has exactly its listed columns (English titles only; design review 2; stop_number added by job 20)');
 select columns_are('public', 'dialogues',
   array['id', 'unit_id', 'slug', 'position', 'title_en', 'status', 'approved_at', 'approval_ref'],
   '[data 1] [data 13] dialogues has exactly its listed columns');
@@ -63,8 +65,8 @@ select columns_are('public', 'tokens',
   '[data 1] [data 13] tokens has exactly its listed columns');
 select columns_are('public', 'forms',
   array['id', 'lemma', 'form_tag', 'analysis', 'surface_kirja', 'surface_puhe', 'form_name_en', 'why_en',
-        'status', 'approved_at', 'approval_ref'],
-  '[data 1] [data 13] forms has exactly its listed columns');
+        'status', 'approved_at', 'approval_ref', 'meaning_en', 'lemma_meaning_en'],
+  '[data 1] [data 13] [a1-road 3] forms has exactly its listed columns (the two meanings added by job 20)');
 select columns_are('public', 'cards',
   array['user_id', 'form_id', 'due', 'stability', 'difficulty', 'elapsed_days', 'scheduled_days',
         'reps', 'lapses', 'state', 'last_review', 'created_at'],
@@ -117,14 +119,14 @@ select is_empty(
 
 select table_privs_are('public', t, 'anon', array[]::text[], format('[data 2] anon has no permission on %s', t))
   from unnest(array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms', 'cards', 'review_logs',
-                    'sessions', 'consents', 'source_sentences', 'lemma_ipa']) as t;
+                    'sessions', 'consents', 'source_sentences', 'lemma_ipa', 'road_parts', 'road_stops']) as t;
 select table_privs_are('public', t, 'service_role', array[]::text[], format('[data 2] service_role has no permission on %s', t))
   from unnest(array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms', 'cards', 'review_logs',
-                    'sessions', 'consents', 'source_sentences', 'lemma_ipa']) as t;
+                    'sessions', 'consents', 'source_sentences', 'lemma_ipa', 'road_parts', 'road_stops']) as t;
 select table_privs_are('public', t, 'authenticated', array['SELECT'],
   format('[data 2] a learner may only read %s (whole table permission)', t))
   from unnest(array['units', 'dialogues', 'dialogue_lines', 'tokens', 'forms',
-                    'cards', 'review_logs', 'sessions', 'consents']) as t;
+                    'cards', 'review_logs', 'sessions', 'consents', 'road_parts', 'road_stops']) as t;
 select table_privs_are('public', t, 'authenticated', array[]::text[],
   format('[data 2] a learner has no permission on %s', t))
   from unnest(array['source_sentences', 'lemma_ipa']) as t;

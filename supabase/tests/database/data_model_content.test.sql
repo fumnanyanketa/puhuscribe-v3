@@ -12,7 +12,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(112);
+select plan(114);
 
 -- Test content, written as the database owner -------------------------------------
 -- units: approved, draft, retired
@@ -58,10 +58,10 @@ select d.id, l.position, 'pgtap speaker', 'pgtap puhe', 'pgtap kirja', l.gloss, 
   ) as l(dialogue_slug, position, gloss)
   join public.dialogues d on d.slug = l.dialogue_slug;
 
-insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref) values
-  ('pgtap-lemma', 'pgtap-approved', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review 3'),
-  ('pgtap-lemma', 'pgtap-draft', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'draft', null, null),
-  ('pgtap-lemma', 'pgtap-retired', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'retired', null, null);
+insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref) values
+  ('pgtap-lemma', 'pgtap-approved', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review 3'),
+  ('pgtap-lemma', 'pgtap-draft', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'draft', null, null),
+  ('pgtap-lemma', 'pgtap-retired', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'retired', null, null);
 
 insert into public.tokens (line_id, register, position, surface, form_id)
 select l.id, t.register::public.finnish_register, t.position, t.surface, f.id
@@ -340,7 +340,7 @@ select throws_like(
   format($$update public.forms set %I = 'pgtap changed' where form_tag = 'pgtap-approved'$$, col),
   '%approved content cannot change%',
   format('[data 6] the %s of an approved form cannot change', col)
-) from unnest(array['surface_kirja', 'surface_puhe', 'form_name_en', 'why_en']) as col;
+) from unnest(array['surface_kirja', 'surface_puhe', 'form_name_en', 'why_en', 'meaning_en', 'lemma_meaning_en']) as col;
 select throws_like(
   $$update public.dialogues set title_en = 'pgtap changed' where slug = 'pgtap-dialogue-approved'$$,
   '%approved content cannot change%',

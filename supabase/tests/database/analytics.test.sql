@@ -356,8 +356,8 @@ reset role;
 
 delete from public.feedback;
 
-insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
-values ('pgtap-analytics', 'f-1', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review');
+insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
+values ('pgtap-analytics', 'f-1', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review');
 
 insert into public.sessions (user_id, started_at, ended_at)
 select s.user_id::uuid, pg_temp.noon(s.days_ago), case when s.minutes is null then null else pg_temp.noon(s.days_ago, s.minutes) end

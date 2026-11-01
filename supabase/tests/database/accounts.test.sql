@@ -145,8 +145,8 @@ insert into public.units (slug, position, title_en, can_do_en, status, approved_
 values ('pgtap-accounts-unit', 901101, 'pgtap unit', 'pgtap can do', 'approved', now(), 'pgtap review');
 insert into public.dialogues (unit_id, slug, position, title_en)
 select u.id, 'pgtap-accounts-1', 1, 'pgtap dialogue' from public.units u where u.slug = 'pgtap-accounts-unit';
-insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
-values ('pgtap-accounts', 'f-1', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review');
+insert into public.forms (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
+values ('pgtap-accounts', 'f-1', 'pgtap-k', 'pgtap-p', 'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review');
 
 insert into auth.users (id, is_anonymous, email, created_at) values
   ('00000000-0000-4000-8000-0000000011a1', true, null, now() - interval '1 day'),

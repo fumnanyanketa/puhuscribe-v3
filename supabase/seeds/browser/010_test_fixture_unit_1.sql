@@ -38,8 +38,9 @@ select u.id, d.slug, d.position, d.title
  where u.slug = 'test-fixture-unit-1';
 
 insert into public.forms
-  (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
-select f.lemma, 'test-fixture ' || f.form_tag, f.kirja, f.puhe, f.form_name, f.why, 'approved', now(),
+  (lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
+select f.lemma, 'test-fixture ' || f.form_tag, f.kirja, f.puhe, f.form_name, f.why,
+       'Test fixture meaning', 'Test fixture dictionary meaning', 'approved', now(),
        'test-fixture:not-reviewed:form-' || f.lemma || '-' || replace(f.form_tag, ' ', '-')
   from (values
     ('moi', 'Interj', 'moi', 'moi', 'Test fixture. Greeting',

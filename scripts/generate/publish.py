@@ -138,11 +138,12 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
         analysis = sql_text(_json(form.get("analysis", {})))
         out += [
             "  insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,",
-            "    form_name_en, why_en, status, approved_at, approval_ref)",
+            "    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)",
             f"  values ({sql_text(form['lemma'])}, {sql_text(form['form_tag'])}, {analysis}::jsonb,",
             f"    {sql_text(form['surface_kirja'])}, {sql_text(form['surface_puhe'])},",
             f"    {sql_text(form['form_name_en'])},",
-            f"    {sql_text(form['why_en'])}, 'approved', now(), {sql_text(refs[form['id']])})",
+            f"    {sql_text(form['why_en'])}, {sql_text(form.get('meaning_en'))},",
+            f"    {sql_text(form.get('lemma_meaning_en'))}, 'approved', now(), {sql_text(refs[form['id']])})",
             "  on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;",
             f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
             "    raise exception 'form % (%) exists but is not approved',",

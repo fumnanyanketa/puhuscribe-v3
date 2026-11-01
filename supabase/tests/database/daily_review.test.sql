@@ -96,10 +96,10 @@ select has_function('public', 'complete_session', array['uuid'], '[review 18] co
 -- is needed here.
 
 insert into public.forms
-  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
+  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
 overriding system value
 select 9000900 + n, 'pgtap-daily-review', 'case-' || n, 'pgtap-k-' || n, 'pgtap-p-' || n,
-       'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+       'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from generate_series(1, 12) as n;
 
 insert into auth.users (id) values
@@ -182,10 +182,10 @@ reset role;
 
 -- [review 1] At most 15, whatever the limit asked for.
 insert into public.forms
-  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, status, approved_at, approval_ref)
+  (id, lemma, form_tag, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)
 overriding system value
 select 9000920 + n, 'pgtap-daily-review', 'many-' || n, 'pgtap-k-many', 'pgtap-p-many',
-       'pgtap form', 'pgtap why', 'approved', now(), 'pgtap review'
+       'pgtap form', 'pgtap why', 'pgtap meaning', 'pgtap dictionary meaning', 'approved', now(), 'pgtap review'
   from generate_series(1, 20) as n;
 insert into public.cards (user_id, form_id, due, created_at)
 select '00000000-0000-4000-8000-0000000009c1', 9000920 + n, pg_temp.helsinki_noon(-1), pg_temp.helsinki_noon(-1)
