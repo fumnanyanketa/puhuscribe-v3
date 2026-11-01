@@ -296,3 +296,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T10:14 Owner: journey draft looked like Duolingo and had too much text; rules saved to design.md and memory. Owner wants a first-open animation (where you are, where you are going, then into the start). Two playable ideas published.
 - 2026-11-01T10:25 Owner liked both opening ideas and asked to merge them on a road. Road journey draft published (animation, day one, three stops later).
 - 2026-11-01T10:31 Owner: make the road look like a real road, black and white. Road redrawn as dark asphalt with white lines; the road travelled gets a mint centre line.
+- 2026-11-01T10:35 Owner: "can you make it better". Road journey redone in a landscape: sky, soft hills with pines, the A1 sun rising, gravel edges, numbered stop signs, a pulsing you marker, a stop progress bar.

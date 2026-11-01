@@ -7,7 +7,7 @@
   href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
 />
 <style>
-  /* Layout: three phones. The opening animation (playable), the journey on day one, and the journey a few stops later. */
+  /* Layout: three phones. The opening animation, the journey on day one, the journey three stops later. */
   :root {
     --page: #f1f2f3;
     --page-ink: #1b1d20;
@@ -18,8 +18,6 @@
     --a-deep: #1a6f5d;
     --a-mid: #74bba9;
     --a-soft: #d6efe7;
-    --wash1: #cbede1;
-    --wash2: #fbe2d1;
     --b: #ee8763;
     --b-deep: #b8532f;
     --b-soft: #fde4d8;
@@ -120,7 +118,7 @@
     overflow: hidden;
     color: var(--ink);
     font-family: var(--font);
-    background: linear-gradient(180deg, #e4f4ee 0%, var(--wash1) 22%, #f6f8f5 55%, var(--wash2) 100%);
+    background: #eaf6f1;
   }
   .status {
     position: absolute;
@@ -145,61 +143,85 @@
   .scene {
     position: absolute;
     inset: 0;
-    transform-origin: 50% 88%;
+    transform-origin: 50% 80%;
   }
-  svg.road {
+  svg.land {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
+
   .sign {
     position: absolute;
-    transform: translate(-50%, -100%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform-origin: 50% 100%;
   }
-  .sign .board {
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 6px 16px rgba(40, 60, 60, 0.1);
-    border-radius: 10px;
-    padding: 4px 9px;
+  .board {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px 4px 4px;
+    border-radius: 9px;
     font-size: 10.5px;
     font-weight: 500;
     white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    background: #ffffff;
+    color: var(--ink);
+    box-shadow: 0 4px 10px rgba(30, 50, 45, 0.16);
   }
-  .sign .pole {
-    width: 2px;
-    background: rgba(27, 42, 38, 0.25);
+  .num {
+    width: 17px;
+    height: 17px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-size: 9.5px;
+    font-weight: 600;
+    background: #eef2f1;
+    color: var(--quiet);
+  }
+  .pole {
+    width: 2.5px;
+    background: linear-gradient(#9aa6a2, #7c8884);
+    border-radius: 2px;
+  }
+  .foot {
+    width: 14px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(30, 50, 45, 0.18);
+    margin-top: -1px;
   }
   .sign.done .board {
     background: var(--a);
     color: #fff;
-    border-color: var(--a);
   }
-  .sign.done .board::before {
-    content: '';
-    width: 7px;
-    height: 4px;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(-45deg) translateY(-1px);
+  .sign.done .num {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
   }
   .sign.cur .board {
-    border: 2px solid var(--a);
-    color: var(--a-deep);
+    box-shadow:
+      0 0 0 2px var(--a),
+      0 6px 14px rgba(30, 80, 65, 0.22);
     font-weight: 600;
+    color: var(--a-deep);
+  }
+  .sign.cur .num {
+    background: var(--a);
+    color: #fff;
   }
   .sign.later .board {
+    padding: 4px 9px;
+    background: rgba(255, 255, 255, 0.78);
     color: var(--quiet);
     font-weight: 400;
-    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 3px 8px rgba(30, 50, 45, 0.08);
   }
+
   .say {
     position: absolute;
     transform: translate(-50%, -100%);
@@ -209,7 +231,7 @@
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
-    box-shadow: 0 8px 20px rgba(40, 60, 60, 0.12);
+    box-shadow: 0 8px 20px rgba(40, 60, 60, 0.14);
   }
   .say mark {
     background: var(--b-soft);
@@ -228,41 +250,68 @@
     transform: translateX(-50%) rotate(45deg);
     border-radius: 2px;
   }
-  .sun {
+
+  .you {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+  }
+  .you .dot {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #fff;
+    border: 5px solid var(--a);
+    box-sizing: border-box;
+    box-shadow: 0 3px 8px rgba(20, 90, 70, 0.35);
+  }
+  .you .pulse {
+    position: absolute;
+    inset: -9px;
+    border-radius: 50%;
+    border: 2px solid rgba(127, 224, 195, 0.9);
+    animation: pulse 2.2s ease-out infinite;
+  }
+  .you .shade {
     position: absolute;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 46px;
-    height: 46px;
+    top: 15px;
+    width: 24px;
+    height: 7px;
+    transform: translateX(-50%);
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 45%, #fff3ea 0%, var(--b-soft) 55%, #f8cdb8 100%);
-    border: 2px solid var(--b);
-    display: grid;
-    place-items: center;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--b-deep);
+    background: rgba(0, 0, 0, 0.28);
+    filter: blur(1px);
   }
+  @keyframes pulse {
+    0% {
+      transform: scale(0.6);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
   .goal {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 10.5px;
-    color: var(--b-deep);
-    font-weight: 500;
-    white-space: nowrap;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    text-align: center;
   }
-  .you {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #fff;
-    border: 4px solid var(--a);
-    box-shadow:
-      0 0 0 6px rgba(255, 255, 255, 0.6),
-      0 4px 12px rgba(20, 90, 70, 0.25);
+  .goal b {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .goal span {
+    font-size: 10px;
+    color: var(--quiet);
   }
 
   .top {
@@ -273,62 +322,100 @@
     z-index: 8;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
   }
   .top b {
     font-size: 15px;
     font-weight: 600;
     display: block;
   }
-  .top span {
-    font-size: 10.5px;
-    color: var(--quiet);
+  .prog {
+    display: flex;
+    gap: 3px;
+    margin-top: 6px;
+    width: 132px;
+  }
+  .prog i {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.75);
+  }
+  .prog i.f {
+    background: var(--a);
   }
   .av {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.75);
     display: grid;
     place-items: center;
     font-size: 11px;
-    color: var(--a);
+    color: var(--a-deep);
     font-weight: 600;
+    box-shadow: 0 4px 12px rgba(40, 60, 60, 0.08);
   }
   .skip {
     position: absolute;
-    top: 40px;
+    top: 42px;
     right: 18px;
     z-index: 8;
     font-size: 11px;
     color: var(--quiet);
   }
+
   .card {
     position: absolute;
     left: 14px;
     right: 14px;
     bottom: 14px;
     z-index: 8;
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 30px rgba(40, 60, 60, 0.12);
-    border-radius: 22px;
-    padding: 12px;
+    box-shadow: 0 14px 36px rgba(30, 50, 45, 0.16);
+    border-radius: 24px;
+    padding: 14px;
     display: grid;
-    gap: 10px;
+    gap: 11px;
   }
   .card .t {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
   }
   .card .t b {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
+    display: block;
   }
-  .card .t span {
+  .card .t small {
     font-size: 10.5px;
     color: var(--quiet);
+  }
+  .badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: var(--a-soft);
+    color: var(--a-deep);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .lessons {
+    display: flex;
+    gap: 5px;
+  }
+  .lessons i {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--a-soft);
+  }
+  .lessons i.f {
+    background: var(--a);
   }
   .pill {
     display: flex;
@@ -340,7 +427,7 @@
     font-size: 13.5px;
     border-radius: 999px;
     padding: 5px 5px 5px 18px;
-    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.18);
   }
   .pill i {
     width: 28px;
@@ -379,79 +466,68 @@
     font-weight: 500;
   }
 
-  /* The opening animation, 4.6 seconds. */
+  /* The opening animation, 4.8 seconds. */
+  .play .landfade {
+    animation: fadeIn 4.8s ease forwards;
+  }
   .play .roadgroup {
-    animation: reveal 4.6s ease forwards;
+    animation: reveal 4.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .play .sunup {
+    animation: sunUp 4.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  }
+  .play .goal {
+    animation: goalIn 4.8s ease forwards;
+  }
+  .play .sign {
+    animation: signPop 4.8s cubic-bezier(0.3, 1.4, 0.5, 1) forwards;
+  }
+  .play .say.at {
+    animation: sayAt 4.8s ease forwards;
+  }
+  .play .moi {
+    animation: moi 4.8s ease forwards;
+  }
+  .play .scene {
+    animation: push 4.8s cubic-bezier(0.6, 0, 0.25, 1) forwards;
+  }
+  .play .card,
+  .play .top {
+    animation: cardIn 4.8s ease forwards;
+  }
+  .play .skip {
+    animation: skipOut 4.8s ease forwards;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    10%,
+    100% {
+      opacity: 1;
+    }
   }
   @keyframes reveal {
     0%,
-    12% {
+    6% {
       clip-path: inset(100% 0 0 0);
     }
-    44%,
+    36%,
     100% {
       clip-path: inset(0 0 0 0);
     }
   }
-  .play .you {
-    animation: fadeUp 4.6s ease forwards;
-  }
-  .play .moi {
-    animation: moi 4.6s ease forwards;
-  }
-  @keyframes moi {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -80%) scale(0.9);
-    }
-    8%,
-    30% {
-      opacity: 1;
-      transform: translate(-50%, -100%) scale(1);
-    }
-    38%,
-    100% {
-      opacity: 0;
-    }
-  }
-  .play .sign {
-    opacity: 0;
-    animation: signIn 4.6s ease forwards;
-  }
-  @keyframes signIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .play .say.at {
-    opacity: 0;
-    animation: sayAt 4.6s ease forwards;
-  }
-  @keyframes sayAt {
+  @keyframes sunUp {
     0%,
-    34% {
-      opacity: 0;
-      transform: translate(-50%, -80%);
+    26% {
+      transform: translateY(34px);
     }
     44%,
-    62% {
-      opacity: 1;
-      transform: translate(-50%, -100%);
-    }
-    70%,
     100% {
-      opacity: 0;
+      transform: translateY(0);
     }
   }
-  .play .sun,
-  .play .goal {
-    opacity: 0;
-    animation: sunIn 4.6s ease forwards;
-  }
-  @keyframes sunIn {
+  @keyframes goalIn {
     0%,
     36% {
       opacity: 0;
@@ -461,38 +537,70 @@
       opacity: 1;
     }
   }
-  .play .scene {
-    animation: push 4.6s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+  @keyframes signPop {
+    0%,
+    30% {
+      opacity: 0;
+      scale: 0.4;
+    }
+    42%,
+    100% {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+  @keyframes sayAt {
+    0%,
+    40% {
+      opacity: 0;
+      translate: 0 8px;
+    }
+    48%,
+    64% {
+      opacity: 1;
+      translate: 0 0;
+    }
+    70%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes moi {
+    0% {
+      opacity: 0;
+      translate: 0 8px;
+    }
+    6%,
+    30% {
+      opacity: 1;
+      translate: 0 0;
+    }
+    38%,
+    100% {
+      opacity: 0;
+    }
   }
   @keyframes push {
     0%,
     66% {
       transform: scale(1);
     }
-    86%,
+    88%,
     100% {
-      transform: scale(1.14) translateY(-18px);
+      transform: scale(1.12) translateY(-14px);
     }
-  }
-  .play .card,
-  .play .top {
-    opacity: 0;
-    animation: cardIn 4.6s ease forwards;
   }
   @keyframes cardIn {
     0%,
-    74% {
+    76% {
       opacity: 0;
-      transform: translateY(14px);
+      translate: 0 14px;
     }
     92%,
     100% {
       opacity: 1;
-      transform: none;
+      translate: 0 0;
     }
-  }
-  .play .skip {
-    animation: skipOut 4.6s ease forwards;
   }
   @keyframes skipOut {
     0%,
@@ -504,20 +612,14 @@
       opacity: 0;
     }
   }
-  @keyframes fadeUp {
-    0% {
-      opacity: 0;
-    }
-    8%,
-    100% {
-      opacity: 1;
-    }
-  }
   @media (prefers-reduced-motion: reduce) {
     .play *,
     .play {
       animation-duration: 1ms !important;
       animation-delay: 0ms !important;
+    }
+    .you .pulse {
+      animation: none;
     }
   }
   @media (max-width: 700px) {
@@ -531,9 +633,8 @@
   <header>
     <h1>PuhuScribe road journey</h1>
     <p>
-      Both ideas in one, on a road. You start at the near end with one word. The road runs to A1 on the
-      horizon, the stops come up as signs, and each sign shows a line you will say there. Then the view moves
-      in to your first stop.
+      The road to A1, now in a landscape. A sky, soft hills with a line of pines, the A1 sun rising behind
+      them, a real road with gravel edges, and numbered stop signs. You are the pulsing marker on the road.
     </p>
   </header>
   <div class="row">
@@ -548,35 +649,35 @@
     </figure>
     <figure>
       <div class="phone"><div class="s" id="later"></div></div>
-      <figcaption><b>Journey, three stops later</b>The road behind you turns mint.</figcaption>
+      <figcaption>
+        <b>Journey, three stops later</b>The road you have travelled is mint, passed signs are filled.
+      </figcaption>
     </figure>
   </div>
 </div>
 
 <script>
-  // The road in perspective: a gentle S bend from the bottom of the screen to the horizon.
   const W = 280,
     H = 620,
-    HORIZON = 210,
-    BOTTOM = 640
-  const yAt = (t) => HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.8)
-  const xAt = (t) => 140 + 30 * Math.sin(t * Math.PI * 1.6) * (1 - t * 0.85)
-  const wAt = (t) => 150 * Math.pow(1 - t, 1.6) + 5
-  const edge = (side, from, to) => {
+    HORIZON = 238,
+    BOTTOM = 660
+  const yAt = (t) => HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.9)
+  const xAt = (t) => 142 + 34 * Math.sin(t * Math.PI * 1.7) * (1 - t * 0.9)
+  const wAt = (t) => 168 * Math.pow(1 - t, 1.55) + 3
+  const f = (n) => n.toFixed(1)
+  const edge = (side, from, to, k = 1) => {
     const pts = []
-    for (let i = 0; i <= 60; i++) {
-      const t = from + ((to - from) * i) / 60
-      pts.push([xAt(t) + (side * wAt(t)) / 2, yAt(t)])
+    for (let i = 0; i <= 70; i++) {
+      const t = from + ((to - from) * i) / 70
+      pts.push([xAt(t) + (side * wAt(t) * k) / 2, yAt(t)])
     }
     return pts
   }
-  const roadPoly = (from, to) => {
-    const l = edge(-1, from, to),
-      r = edge(1, from, to).reverse()
-    return [...l, ...r].map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ')
-  }
+  const poly = (from, to, k = 1) =>
+    [...edge(-1, from, to, k), ...edge(1, from, to, k).reverse()].map((p) => p.map(f).join(',')).join(' ')
+  const line = (pts) => pts.map((p) => p.map(f).join(',')).join(' ')
   const quad = (t0, t1, k, colour, op) => {
-    const w0 = Math.max(0.5, wAt(t0) * k),
+    const w0 = Math.max(0.45, wAt(t0) * k),
       w1 = Math.max(0.4, wAt(t1) * k)
     return `<polygon points="${[
       [xAt(t0) - w0, yAt(t0)],
@@ -584,87 +685,122 @@
       [xAt(t1) + w1, yAt(t1)],
       [xAt(t1) - w1, yAt(t1)],
     ]
-      .map((p) => p.map((n) => n.toFixed(1)).join(','))
+      .map((p) => p.map(f).join(','))
       .join(' ')}" fill="${colour}" opacity="${op}"/>`
   }
-  // White centre dashes on the road ahead; a solid mint centre line on the road already travelled.
   const dashes = (from, to) => {
-    let out = ''
-    for (let i = 0; i < 26; i++) {
-      const t0 = from + ((to - from) * i) / 26,
-        t1 = t0 + ((to - from) * 0.5) / 26
-      out += quad(t0, t1, 0.028, '#ffffff', 0.92)
+    let o = ''
+    const n = 30
+    for (let i = 0; i < n; i++) {
+      const t0 = from + ((to - from) * i) / n,
+        t1 = t0 + ((to - from) * 0.5) / n
+      o += quad(t0, t1, 0.026, '#ffffff', 0.95)
     }
-    return out
+    return o
   }
   const solid = (to) => {
-    let out = ''
-    for (let i = 0; i < 20; i++) {
-      const t0 = (to * i) / 20,
-        t1 = (to * (i + 1)) / 20 + 0.002
-      out += quad(t0, t1, 0.034, '#7fe0c3', 1)
+    let o = ''
+    for (let i = 0; i < 24; i++) {
+      const t0 = (to * i) / 24,
+        t1 = (to * (i + 1)) / 24 + 0.002
+      o += quad(t0, t1, 0.032, '#8ce6cb', 1)
     }
-    return out
+    return o
   }
-  const edgeLine = (side, from, to, colour, w) =>
-    `<polyline points="${edge(side, from, to)
-      .map((p) => p.map((n) => n.toFixed(1)).join(','))
-      .join(' ')}" fill="none" stroke="${colour}" stroke-width="${w}" stroke-linecap="round"/>`
+
+  // Pines along the far ridge, fixed so every screen matches.
+  const pines = (() => {
+    let o = ''
+    const xs = [8, 18, 27, 39, 52, 61, 74, 88, 98, 186, 197, 209, 221, 232, 246, 257, 268, 276]
+    xs.forEach((x, i) => {
+      const h = 9 + ((i * 7) % 6),
+        base = 234 + Math.sin(x / 40) * 4
+      o += `<path d="M${x} ${f(base - h)} L${x - h * 0.38} ${f(base)} L${x + h * 0.38} ${f(base)} Z" fill="#9ccbb9"/>`
+    })
+    return o
+  })()
+
+  const land = (doneTo, id) => `
+<svg class="land" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dff3eb"/><stop offset=".75" stop-color="#f3f6ef"/><stop offset="1" stop-color="#fde9dc"/></linearGradient>
+    <linearGradient id="ground${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7ece2"/><stop offset=".45" stop-color="#e8f2ea"/><stop offset="1" stop-color="#f9e6d8"/></linearGradient>
+    <linearGradient id="asph${id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2c3234"/><stop offset=".6" stop-color="#465052"/><stop offset="1" stop-color="#8f9f9a"/></linearGradient>
+    <radialGradient id="sun${id}" cx=".5" cy=".45" r=".55"><stop offset="0" stop-color="#fff4ec"/><stop offset=".6" stop-color="#fcd7c4"/><stop offset="1" stop-color="#f6b89c"/></radialGradient>
+    <clipPath id="above${id}"><rect x="0" y="0" width="${W}" height="${HORIZON + 2}"/></clipPath>
+  </defs>
+  <g class="landfade">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="url(#sky${id})"/>
+    <g clip-path="url(#above${id})"><g class="sunup">
+      <circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity=".6"/>
+      <circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#sun${id})" stroke="#f1946f" stroke-width="1.5"/>
+    </g></g>
+    <path d="M0 ${HORIZON - 14} C 40 ${HORIZON - 30}, 80 ${HORIZON - 26}, 110 ${HORIZON - 8} C 130 ${HORIZON + 2}, 170 ${HORIZON + 2}, 190 ${HORIZON - 10} C 220 ${HORIZON - 30}, 255 ${HORIZON - 26}, 280 ${HORIZON - 16} L 280 ${HORIZON + 6} L 0 ${HORIZON + 6} Z" fill="#c4e3d6"/>
+    ${pines}
+    <rect x="0" y="${HORIZON}" width="${W}" height="${H - HORIZON}" fill="url(#ground${id})"/>
+    <path d="M0 ${HORIZON + 10} C 50 ${HORIZON + 2}, 90 ${HORIZON + 18}, 120 ${HORIZON + 6} L 120 ${HORIZON + 30} L 0 ${HORIZON + 40} Z" fill="#cfe8dc" opacity=".7"/>
+    <path d="M280 ${HORIZON + 8} C 240 ${HORIZON}, 200 ${HORIZON + 16}, 170 ${HORIZON + 6} L 170 ${HORIZON + 30} L 280 ${HORIZON + 44} Z" fill="#cfe8dc" opacity=".7"/>
+  </g>
+  <g class="roadgroup">
+    <polygon points="${poly(0, 1, 1.22)}" fill="#dfe6e1"/>
+    <polygon points="${poly(0, 1)}" fill="url(#asph${id})"/>
+    <polyline points="${line(edge(-1, 0, 0.97, 0.9))}" fill="none" stroke="#ffffff" stroke-width="1.6" opacity=".9"/>
+    <polyline points="${line(edge(1, 0, 0.97, 0.9))}" fill="none" stroke="#ffffff" stroke-width="1.6" opacity=".9"/>
+    ${dashes(doneTo, 0.97)}
+    ${doneTo > 0 ? `${solid(doneTo)}<polyline points="${line(edge(-1, 0, doneTo, 0.9))}" fill="none" stroke="#8ce6cb" stroke-width="2.2"/><polyline points="${line(edge(1, 0, doneTo, 0.9))}" fill="none" stroke="#8ce6cb" stroke-width="2.2"/>` : ''}
+  </g>
+</svg>`
 
   const stops = [
-    { t: 0.2, name: 'Meeting people', side: 1, say: '<mark>Mä oon</mark> Alex.' },
-    { t: 0.38, name: 'At the café', side: -1, say: '<mark>Yks</mark> kahvi, <mark>kiitti</mark>.' },
-    { t: 0.53, name: 'Grocery store', side: 1, say: '<mark>Onks</mark> teil maitoo?' },
-    { t: 0.65, name: 'Small talk', side: -1, say: 'Oli <mark>tosi</mark> kylmä!' },
-    { t: 0.71, name: 'Asking for help', side: 1 },
+    { t: 0.3, name: 'Meeting people', side: 1, say: '<mark>Mä oon</mark> Alex.' },
+    { t: 0.46, name: 'At the café', side: -1, say: '<mark>Yks</mark> kahvi, <mark>kiitti</mark>.' },
+    { t: 0.59, name: 'Grocery store', side: 1, say: '<mark>Onks</mark> teil maitoo?' },
+    { t: 0.7, name: 'Small talk', side: -1, say: 'Oli <mark>tosi</mark> kylmä!' },
+    { t: 0.78, name: 'Asking for help', side: 1 },
   ]
-  const signHtml = (s, i, state, withSay, delay) => {
-    const x = Math.min(204, Math.max(62, xAt(s.t) + s.side * (wAt(s.t) / 2 + 30 + (1 - s.t) * 12))),
+  const sign = (s, i, state, withSay, anim) => {
+    const sc = 1 - s.t * 0.5,
+      pole = 30 * sc + 4
+    const x = Math.min(206, Math.max(64, xAt(s.t) + s.side * (wAt(s.t) * 0.61 + 34 * sc))),
       y = yAt(s.t)
-    const scale = 1 - s.t * 0.42,
-      pole = 24 * scale + 6
-    const st = `left:${x}px;top:${y}px;transform:translate(-50%,-100%) scale(${scale});transform-origin:50% 100%;${delay != null ? `animation-delay:${delay}s` : ''}`
-    const sign = `<div class="sign ${state}" style="${st}"><span class="board">${s.name}</span><span class="pole" style="height:${pole}px"></span></div>`
+    const num = state === 'done' ? '✓' : state === 'later' ? '' : i + 1
+    const delay = anim ? `animation-delay:${(i * 0.09).toFixed(2)}s;` : ''
+    const el = `<div class="sign ${state}" style="left:${f(x)}px;top:${f(y)}px;transform:translate(-50%,-100%) scale(${sc.toFixed(2)});${delay}${anim ? 'opacity:0;' : ''}">
+    <span class="board">${num ? `<span class="num">${num}</span>` : ''}${s.name}</span><span class="pole" style="height:${f(pole)}px"></span><span class="foot"></span></div>`
     const say =
       withSay && s.say
-        ? `<span class="say at" style="left:${x}px;top:${y - pole * scale - 24 * scale}px">${s.say}</span>`
+        ? `<span class="say at" style="left:${f(x)}px;top:${f(y - (pole + 26) * sc - 6)}px;opacity:0;animation-delay:${(i * 0.1).toFixed(2)}s">${s.say}</span>`
         : ''
-    return sign + say
+    return el + say
   }
-  const road = (doneTo, states, opts = {}) => `
-  <svg class="road" viewBox="0 0 ${W} ${H}" aria-hidden="true">
-    <defs><linearGradient id="asphalt${opts.id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2f3537"/><stop offset=".55" stop-color="#4b5354"/><stop offset="1" stop-color="#9aa9a4"/></linearGradient></defs>
-    <g class="roadgroup">
-      <polygon points="${roadPoly(0, 1)}" fill="url(#asphalt${opts.id})"/>
-      ${edgeLine(-1, 0, 0.96, '#ffffff', 1.6)}${edgeLine(1, 0, 0.96, '#ffffff', 1.6)}
-      ${dashes(doneTo, 0.97)}
-      ${doneTo > 0 ? solid(doneTo) + edgeLine(-1, 0, doneTo, '#7fe0c3', 2) + edgeLine(1, 0, doneTo, '#7fe0c3', 2) : ''}
-    </g>
-  </svg>
-  <span class="sun" style="top:${HORIZON - 4}px">A1</span>
-  <span class="goal" style="top:${HORIZON - 46}px">Everyday Finnish</span>
-  ${stops.map((s, i) => signHtml(s, i, states[i], opts.say, opts.anim ? 1.4 + i * 0.12 : null)).join('')}`
-
-  const youAt = (t) => `<span class="you" style="left:${xAt(t)}px;top:${yAt(t)}px"></span>`
+  const you = (t) =>
+    `<span class="you" style="left:${f(xAt(t))}px;top:${f(yAt(t))}px"><span class="shade"></span><span class="pulse"></span><span class="dot"></span></span>`
+  const goal = `<span class="goal" style="top:${HORIZON - 92}px"><b>A1</b><span>Everyday Finnish</span></span>`
   const status = '<div class="status"><span>9:41</span><i></i><span>5G</span></div>'
+  const prog = (n) =>
+    `<span class="prog">${Array.from({ length: 12 }, (_, i) => `<i class="${i < n ? 'f' : ''}"></i>`).join('')}</span>`
 
+  const startCard = `<div class="card"><div class="t"><div><b>Meeting people</b><small>Stop 1 · 4 short lessons</small></div><span class="badge">1</span></div><span class="pill">Start<i></i></span><span class="signin">Have an account? <b>Sign in</b></span></div>`
   const anim = `${status}<span class="skip">Skip</span>
-  <div class="scene">${road(0, ['cur', 'later', 'later', 'later', 'later'], { say: true, anim: true, id: 'a' })}
-    ${youAt(0.03)}
-    <span class="say moi" style="left:${xAt(0.03)}px;top:${yAt(0.03) - 22}px;font-size:16px;padding:8px 14px">Moi.</span>
+  <div class="scene">${land(0, 'a')}${goal}
+    ${stops.map((s, i) => sign(s, i, i === 0 ? 'cur' : 'later', true, true)).join('')}
+    ${you(0.04)}
+    <span class="say moi" style="left:${f(xAt(0.04))}px;top:${f(yAt(0.04) - 24)}px;font-size:16px;padding:8px 15px;opacity:0">Moi.</span>
   </div>
-  <div class="top"><div><b>Your journey</b><span>Stop 1 of 24</span></div><span class="av">A</span></div>
-  <div class="card"><div class="t"><b>Meeting people</b><span>Stop 1</span></div><span class="pill">Start<i></i></span><span class="signin">Have an account? <b>Sign in</b></span></div>`
+  <div class="top" style="opacity:0"><div><b>Your journey</b>${prog(0)}</div><span class="av">A</span></div>
+  ${startCard.replace('class="card"', 'class="card" style="opacity:0"')}`
 
   const day1 = `${status}
-  <div class="scene" style="transform:scale(1.14) translateY(-18px)">${road(0, ['cur', 'later', 'later', 'later', 'later'], { id: 'b' })}${youAt(0.18)}</div>
-  <div class="top"><div><b>Your journey</b><span>Stop 1 of 24</span></div><span class="av">A</span></div>
-  <div class="card"><div class="t"><b>Meeting people</b><span>Stop 1</span></div><span class="pill">Start<i></i></span><span class="signin">Have an account? <b>Sign in</b></span></div>`
+  <div class="scene" style="transform:scale(1.12) translateY(-14px)">${land(0, 'b')}${goal}
+    ${stops.map((s, i) => sign(s, i, i === 0 ? 'cur' : 'later')).join('')}${you(0.27)}</div>
+  <div class="top"><div><b>Your journey</b>${prog(0)}</div><span class="av">A</span></div>${startCard}`
 
   const later = `${status}
-  <div class="scene" style="transform:scale(1.14) translateY(-18px)">${road(0.53, ['done', 'done', 'cur', 'later', 'later'], { id: 'c' })}${youAt(0.51)}</div>
-  <div class="top"><div><b>Huomenta, Alex</b><span>Stop 3 of 24</span></div><span class="av">A</span></div>
-  <div class="card"><div class="t"><b>Grocery store</b><span>Lesson 2 of 4</span></div><span class="pill">Continue<i></i></span></div>`
+  <div class="scene" style="transform:scale(1.12) translateY(-14px)">${land(0.59, 'c')}${goal}
+    ${stops.map((s, i) => sign(s, i, i < 2 ? 'done' : i === 2 ? 'cur' : 'later')).join('')}${you(0.57)}</div>
+  <div class="top"><div><b>Huomenta, Alex</b>${prog(2)}</div><span class="av">A</span></div>
+  <div class="card"><div class="t"><div><b>Grocery store</b><small>Stop 3 · lesson 2 of 4</small></div><span class="badge">3</span></div>
+    <span class="lessons"><i class="f"></i><i></i><i></i><i></i></span><span class="pill">Continue<i></i></span></div>`
 
   const playAnim = () => {
     const s = document.getElementById('anim')
