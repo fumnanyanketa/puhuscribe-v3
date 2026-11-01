@@ -1,0 +1,206 @@
+
+ RUN  v5.0.5 C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/18-save-progress
+
+ ✓ tests/save-progress-rules.test.ts > the migration stores nothing new > [save-progress 13] the job adds exactly one migration 11ms
+ ✓ tests/save-progress-rules.test.ts > the migration stores nothing new > [save-progress 13] it does not create or change a table or a type 7ms
+ ✓ tests/save-progress-rules.test.ts > the migration stores nothing new > [save-progress 13] it creates exactly one function and writes no row 4ms
+ ✓ tests/save-progress-rules.test.ts > the migration stores nothing new > [save-progress 4] the function is stable, invoker, with an empty search path and written out grants 7ms
+ ✓ tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] no file this job adds or changes holds a quoted app path, except the constant 18ms
+ ✓ tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] the constant is in save-note-copy.ts, and the screen uses it 1ms
+ ✓ tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] the check catches a quoted path in each kind of quote, and lets other addresses through 2ms
+ ✓ tests/save-progress-rules.test.ts > the note names no app path outside its one constant > [save-progress 17] this job adds no page route and no API route 4ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list 112ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] the page background fade is declared once, in tokens.css, and used only in base.css 2ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] Vite builds CSS for Safari 15.4 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches backdrop-filter 2ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches background-clip: text 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a linear gradient 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a radial gradient 4ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches text-transform: uppercase 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a 3 px top border 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a 4 px left border 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a thick right border 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a 0.25rem bottom border 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a border with the width last 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches Inter 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches Space Grotesk 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches Bricolage Grotesque 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches light-dark() 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches color-mix() 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches @starting-style 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches @property 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches @container 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches --ground-fade outside base.css 2ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a banned font in a font token (C) 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a banned font in the font shorthand (D) 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a lower case banned font in a token 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a thick one-side border through border-width (J) 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a thick inline border through border-inline-width 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches text-transform: UPPERCASE in capitals (H) 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches TEXT-TRANSFORM in capitals 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a gradient in capitals 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches -webkit-backdrop-filter 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a second gradient in tokens.css 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a gradient in an inline style (I) in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a gradient in a template string in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches textTransform uppercase in an inline style in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches backdropFilter in an inline style in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches WebkitBackgroundClip text in an inline style in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a thick one-side border in an inline style in a component 7ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a banned font in an inline font shorthand in a component 0ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches a banned font in an inline custom property in a component 7ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches color-mix in an inline style in a component 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] catches the popover attribute and a banned font in a component 1ms
+ ✓ tests/design-css.test.ts > banned look and CSS for old phones > [design 18] allows a 2 px border on one side, equal widths all round, and words that only contain a font name 2ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] wrangler.jsonc names the ASSETS binding and lists exactly /api/* and the page routes 7ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] every page of src/App.tsx, and the front door at /, is a run_worker_first route 8ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] every listed page route is a page of src/App.tsx 9ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] no built file matches a pattern, and the check finds one that would 1ms
+ ✓ tests/analytics-rules.test.ts > only page requests reach the Worker > [analytics 3] [analytics 7] every build runs the built files check 1ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 7] index.html loads nothing from another site 2ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 7] the check catches a script, a style and a pixel from another site 1ms
+ ✓ tests/analytics-rules.test.ts > no outside counter or script > [analytics 30] the browser code never calls a supabase.co address 221ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 3] light and dark declare the same colour names, all as hex 10ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 3] every colour token in tokens.css is a hex value 23ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a spoken Finnish line on its band reaches 7:1 2ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: Finnish on a card and in the word card reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a Finnish word under the finger reaches 7:1 5ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a changed word on its wash reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the word being spoken reaches 7:1 10ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the written line and quieter text on a card reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: quieter text at the top of the page reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: quieter text in the middle of the page reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: quieter text at the bottom of the page reaches 4.5:1 6ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: headings at the top of the page reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: headings at the bottom of the page reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the "Spoken" label on its band reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the "Written" label on a card reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: text on the black pill reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: text on the white pill reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a gentle correction reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a problem message reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the focus outline at the top of the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the focus outline at the bottom of the page reaches 3:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the focus outline on a card or a bar reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the focus outline on the spoken band reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the edge of a white control on a card reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the edge of a white control on the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the play control on a card or a bar reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: a black pill on the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the ring round the line that is playing reaches 3:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the record control while recording reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the stop mark on the record control reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the mark on a gentle correction reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] light: the edge of a problem message reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a spoken Finnish line on its band reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: Finnish on a card and in the word card reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a Finnish word under the finger reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a changed word on its wash reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the word being spoken reaches 7:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the written line and quieter text on a card reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: quieter text at the top of the page reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: quieter text in the middle of the page reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: quieter text at the bottom of the page reaches 4.5:1 4ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: headings at the top of the page reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: headings at the bottom of the page reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the "Spoken" label on its band reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the "Written" label on a card reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: text on the black pill reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: text on the white pill reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a gentle correction reaches 4.5:1 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a problem message reaches 4.5:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the focus outline at the top of the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the focus outline at the bottom of the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the focus outline on a card or a bar reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the focus outline on the spoken band reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the edge of a white control on a card reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the edge of a white control on the page reaches 3:1 2ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the play control on a card or a bar reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: a black pill on the page reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the ring round the line that is playing reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the record control while recording reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the stop mark on the record control reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the mark on a gentle correction reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] dark: the edge of a problem message reaches 3:1 0ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] design.md lists exactly the pairings this test checks 2ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 4] the contrast formula matches known WCAG values 1ms
+ ✓ tests/design-tokens.test.ts > design tokens > [design 3] no file in src/ other than tokens.css holds a raw colour value 108ms
+ ✓ tests/analytics-rules.test.ts > no anti metric > [analytics 11] the owner page and owner_dashboard() never mention words learned, forms learned, streaks or screens per session 6ms
+ ✓ tests/analytics-rules.test.ts > one module for crash reports > [analytics 28] no file but worker/providers/crash-reports.ts calls report_crash 270ms
+ ✓ tests/analytics-rules.test.ts > the parallel database tests > [analytics 6] [analytics 22] [analytics 26] run in the database check and must all pass, none skipped 0ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 13] [analytics 14] .env.example names the owner page settings with no value 4ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 13] no live owner hostname is written into code or config 200ms
+ ✓ tests/analytics-rules.test.ts > settings and records > [analytics 32] the conventions, data model and README record the job 6ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] follow the writing rules 8ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] hold the labels "Add your email" and "Not now" 4ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] are the words the owner chose on 31 October 2026 1ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] every rule catches a line that breaks it 5ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 9] the note has nothing in Finnish: no word that carries lang="fi" 1ms
+ ✓ src/screens/save-note-copy.test.ts > the words of the note > [save-progress 17] the add email address is the one constant that names an app path 1ms
+ ✓ src/screens/save-note-copy.test.ts > the answer to the complete request > [save-progress 3] carries a note only for a saved answer with a word this screen knows 1ms
+ ✓ src/screens/save-note-copy.test.ts > the answer to the complete request > [save-progress 2] never carries a note when the save failed, was refused or the network failed 1ms
+ ↓ tests/design-rules.test.ts > fonts > [design 5] the Switzer files are byte for byte as downloaded, with their licence (skipped while the Switzer files are absent, see docs/fonts.md)
+ ↓ tests/design-rules.test.ts > fonts > [design 5] git never converts the font files, and still reads their licence as text (skipped while the Switzer files are absent, see docs/fonts.md)
+ ✓ tests/design-rules.test.ts > fonts > [design 6] the design guide and design files check out with LF, and v2's handoff is left byte for byte 941ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] picks the first readable dialogue by unit position, then dialogue position, and adds one session 125ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] stays {"saved":true} when the database says the note is not due 133ms
+ ✓ tests/design-rules.test.ts > fonts > [design 5] the Switzer files stay out of git, and the app falls back to Poppins without them 206ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] [session 18] reuses the unfinished session: a second call adds no row 19ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] moves on to the next dialogue once a session has ended 12ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] says all_done when every readable dialogue is finished 10ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] says not_ready, with no Finnish, when nothing is readable 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] never takes a user id from the request 6ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 6] answers 401 signed_out without a sign in, and makes nothing 1ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 9] [session 12] sends both registers as words, a name as plain text, and a word whose form is not readable as plain text 8ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 10] gives each line its audio at /audio/<key> on the same address 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 9] refuses the whole session when a line cannot be split into its words 8ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 3] the answer holds no token and no user id 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 5] GET is refused with 405 and adds nothing 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/today > [session 5] a request from another website gets 403 and adds nothing 3ms
+ ✓ worker/sessions.test.ts > GET /api/today > [session 18] says continue for an unfinished session, start otherwise, and changes nothing 12ms
+ ✓ worker/sessions.test.ts > GET /api/today > [session 5] POST is refused with 405 3ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] adds "saveNote":"first" when the database says the note is due 22ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] [save-progress 8] adds "saveNote":"reminder" for the reminder 13ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] asks the database only after complete_session succeeded, never before or without it 13ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] does not ask when the session is not found, not ready or the save failed 17ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] does not ask when the session has not reached Understand it 13ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] a database function that throws gives the plain answer with status 200, and the session is still saved 13ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] the status, headers and cookies are the same with and without the note 15ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 9] [session 13] records hear, then understand 7ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses understand before hear 7ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 13] refuses any step beyond say from the browser 4ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 18] a step already reached changes nothing 8ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 6] someone else's or an unknown session id answers 404 3ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 5] another website gets 403 and the step is not stored 3ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/step > [session 5] a path that is not a session id answers 404 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 15] saves the end of a session at understand once 9ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 16] refuses a session that has not reached understand 5ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 15] a database fault answers 503 so the screen can offer Try again 9ms
+ ✓ worker/sessions.test.ts > POST /api/sessions/<id>/complete > [session 5] another website gets 403 and nothing is saved 5ms
+ ✓ worker/sessions.test.ts > every answer > [session 5] no route sends Access-Control-Allow-Origin, even when another site asks 8ms
+ ✓ worker/sessions.test.ts > every answer > [session 21] unknown /api paths, and the retired /api/visits, answer 404 1ms
+ ✓ worker/sessions.test.ts > every answer > [smoke 4] [session 5] a request body is read and an endless body is cut off, so the answer still comes 5ms
+ ✓ worker/sessions.test.ts > request bodies > [session 21] an unknown path still reads the body before answering 404 1ms
+ ✓ worker/save-progress.test.ts > the answer to POST /api/sessions/<id>/complete > [save-progress 3] adds no route: the note cannot be asked for on its own 7ms
+ ✓ worker/save-progress.test.ts > a learner who is not signed in > [save-progress 6] gets 401 as in job 8, no saveNote, and the database function is never called 3ms
+ ✓ worker/save-progress.test.ts > a learner who is not signed in > [save-progress 6] a cookie for an account that no longer exists gets 401 and no call to the function 7ms
+ ✓ worker/save-progress.test.ts > finishing the same first session twice > [save-progress 7] answers with the note both times, because the first answer may never have reached the screen 9ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 3] asks public.save_progress_note once, after complete_session, with the learner token and only the session id 9ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 3] the reminder reaches the answer 3ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 3] an answer of none, or any word the Worker does not know, gives the plain answer 18ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 3] a database error from the function gives the plain answer with status 200 4ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 6] with no sign in the function is never reached 1ms
+ ✓ worker/save-progress.test.ts > the real database module > [save-progress 3] nothing is written to the log 11ms
+ ✓ tests/design-rules.test.ts > fonts > [design 5] fonts come only from the app itself, with no italic styles 122ms
+ ✓ tests/design-rules.test.ts > fonts > [design 5] text sizes are in rem 20ms
+ ✓ tests/design-rules.test.ts > session frame > [design 7] the bottom action area clears the iPhone home bar, and the frame uses dvh after vh 1ms
+ ✓ tests/design-rules.test.ts > record control > [design 13] [speak 1] no file in src/ but the recorder module asks for the microphone 64ms
+ ✓ tests/design-rules.test.ts > motion > [design 14] durations and easings in component CSS come from tokens 13ms
+ ✓ tests/design-rules.test.ts > motion > [design 14] every component file with motion turns it off for reduce motion 13ms
+ ✓ tests/design-rules.test.ts > dark mode > [design 15] index.html declares light and dark 1ms
+
+ Test Files  8 passed (8)
+      Tests  195 passed | 2 skipped (197)
+   Start at  01:52:01
+   Duration  2.11s (tests 52%, import 26%, transform 20%, worker 2%)
+
