@@ -147,6 +147,51 @@ All of them come from `public.owner_dashboard()`. A **Helsinki day** is a calend
 
 No number counts words learned, forms learned, streaks or screens per session (PRD, "Not in v3.0": no Owner Insights dashboard beyond these).
 
+## The A1 road (job 20-a1-road)
+
+The free first leg of the journey is 6 parts and 36 stops. The decision and its alternatives are in [factory/jobs/20-a1-road/spec.md](../factory/jobs/20-a1-road/spec.md#decision). Later legs add parts and stops past 6 and 36 with a new migration.
+
+| Table | What it holds | A learner can | First used by |
+| --- | --- | --- | --- |
+| `road_parts` | A part of the road: its number and English title. English only, no learner data. | Read every row | Job 20 loads it, job 19 shows it |
+| `road_stops` | A stop: number, slug, part, English name, the "I can" sentence and the planned number of dialogues (3). English only. | Read every row | Job 20 loads it, job 19 shows it |
+
+Both tables are loaded by `supabase/migrations/20261101120100_load_road_stops.sql`, which `scripts/generate/road_sql.py` makes from `docs/curriculum-a1.md`, the `**I can:**` lines of `content/written/part-1.md` to `part-6.md` and `content/road/stops.json`. A test fails when the committed file differs. Anon and `service_role` have no access. A learner may read both tables and cannot write them.
+
+Three columns were added to existing tables:
+
+- `units.stop_number`: empty for a unit that is not on the road (the test fixture units), otherwise the stop, unique, and equal to the unit's `position`. A stop's unit is its published content. It is approved only inside the publish migration of the stop's last dialogue, so a learner never sees a stop with a dialogue missing.
+- `forms.meaning_en`: what this word form means in context (for example "those"). At most 60 characters, no control character.
+- `forms.lemma_meaning_en`: what its dictionary form means (for example "that"). The same limits.
+
+Approving a form needs both meanings, each non empty, besides its name, its "why", a time and a reference. Approved forms stay frozen and a withdrawn form loses its approval, as before. The migration refuses to run on a database that already holds approved forms.
+
+### The road interface: `public.road()` and `public.stop_review_forms(p_stop_number)`
+
+Both run with the learner's own rights (`security invoker`, empty search path, stable, callable only by `authenticated`). Neither writes anything and neither returns a Finnish word, a line or another learner's id.
+
+`public.road()` returns one row per stop in stop order, always every stop, including stops with nothing published yet:
+
+| Column | Meaning |
+| --- | --- |
+| `stop_number`, `stop_slug`, `title_en`, `can_do_en` | The stop and its "I can" sentence |
+| `part_number`, `part_title_en` | Its part |
+| `dialogues_total` | Planned dialogues (3) |
+| `dialogues_ready` | Dialogues the caller can read (approved, in an approved stop) |
+| `dialogues_done` | Distinct dialogues of the stop in which the caller has a session with an end time |
+| `review_forms_total` | The stop's new forms the caller can read |
+| `review_forms_reviewed` | Of those, forms with at least one of the caller's review logs |
+| `lessons_total` | 4 |
+| `lessons_done` | `dialogues_done`, plus 1 when `review_forms_total` is above 0 and every one of those forms is reviewed |
+| `live` | The stop is approved and `dialogues_ready` equals `dialogues_total` |
+
+A stop's new forms are the forms whose first readable line, ordered by stop, dialogue and line, is in that stop. `public.stop_review_forms(p_stop_number)` returns the ids of those forms, in order of first appearance, that the caller holds a card for and has met in a finished session: nothing unmet is reviewed. The review lesson is made only of data: no session type and no learner column was added. The Worker route `GET /api/road` (`worker/road.ts`) answers `{ "stops": [...] }`, the 14 columns of `road()` for each stop in snake case and nothing else. It needs an account (401 without one), changes nothing and answers 503 with no detail on a fault.
+
+### The owner's approval file
+
+`content/approvals/part-<n>.json` (format `puhuscribe-owner-approval-1`) is the approval reference of the road's content. Only the manager adds it, on the owner's written line. It holds the owner's own approval line word for word with its date, the part, the register judge's state (`off` or `on`) and, for each dialogue of the part, a SHA-256 fingerprint of every line's three texts and every form's texts. Each `approval_ref` in the database is the file's path plus `#<dialogue-slug>/<item id>`, so every reference is new. A changed line changes its dialogue's fingerprint and so voids its approval. A reviewer's fix writes new references of the form `content/reviews/<slug>/round-<n>.json#line-<k>` (see [content-pipeline.md](content-pipeline.md#the-a1-road)).
+
+
 ## Reference data
 
 | Table | What it holds | Who can read or write | First used by |

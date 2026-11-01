@@ -64,6 +64,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 13-review-site | `[site N]` | `review-site/handler.test.ts` |
 | 14-analytics | `[analytics N]` | `worker/visits.test.ts`; pgTAP `supabase/tests/database/analytics.test.sql` |
 | 18-save-progress | `[save-progress N]` | `worker/save-progress.test.ts`; pgTAP `supabase/tests/database/save_progress.test.sql` |
+| 20-a1-road | `[a1-road N]` | `worker/road.test.ts`; pgTAP `supabase/tests/database/a1_road.test.sql`; in pytest `scripts/generate/test_road_parse.py`, `test_road_import.py`, `test_road_voice.py` and `test_road_publish.py` |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.
 
