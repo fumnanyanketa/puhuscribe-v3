@@ -1382,3 +1382,355 @@ pass (job 20-a1-road, statement 14).
   Before: Juuri niin! Olemme perillä.
   After: Juuri niin! Me olemme perillä.
   Reason: The spoken line has a pronoun. Every spoken word renders one written word, so the written line needs its pronoun too.
+
+## Round 3, repairs after the first Voikko run
+
+- Dialogue 4.3, line 7, spoken text.
+  Before: Okei, sovitaan yheksänkyt. Mä maksan MobilePaylla.
+  After: Okei, sovitaan yheksänkyt. Mä maksan puhelimel.
+  Reason: Voikko does not know this word: MobilePaylla. The line now says puhelimella (by phone).
+
+- Dialogue 4.3, line 7, written text.
+  Before: Selvä, sovitaan yhdeksänkymmentä. Minä maksan MobilePaylla.
+  After: Selvä, sovitaan yhdeksänkymmentä. Minä maksan puhelimella.
+  Reason: Voikko does not know this word: MobilePaylla.
+
+- Dialogue 4.3, line 7, English text.
+  Before: OK, let's say ninety. I'll pay with MobilePay.
+  After: OK, let's say ninety. I'll pay with my phone.
+  Reason: The English follows the changed lines.
+
+- Dialogue 5.2, line 2, spoken text.
+  Before: Tosta automaatista tai HSL-sovelluksesta.
+  After: Tosta automaatista tai sovelluksest.
+  Reason: Voikko does not know this word: HSL-sovelluksesta. The line now says sovelluksesta (the app).
+
+- Dialogue 5.2, line 2, written text.
+  Before: Tuosta automaatista tai HSL-sovelluksesta.
+  After: Tuosta automaatista tai sovelluksesta.
+  Reason: Voikko does not know this word: HSL-sovelluksesta.
+
+- Dialogue 5.2, line 2, English text.
+  Before: From that machine or the HSL app.
+  After: From that machine or the app.
+  Reason: The English follows the changed lines.
+
+- Dialogue 8.1, line 7, spoken text.
+  Before: Kahvila Ekbergin edes.
+  After: Kahvilan edes.
+  Reason: Voikko does not know this word: Ekbergin (a made up café name). The line now says kahvilan edessä.
+
+- Dialogue 8.1, line 7, written text.
+  Before: Kahvila Ekbergin edessä.
+  After: Kahvilan edessä.
+  Reason: Voikko does not know this word: Ekbergin.
+
+- Dialogue 8.1, line 7, English text.
+  Before: In front of Café Ekberg.
+  After: In front of the café.
+  Reason: The English follows the changed lines.
+
+- Dialogue 9.2, line 8, spoken text.
+  Before: Maria Santos. Kiitti, nähään torstaina!
+  After: Maria Silva. Kiitti, nähään torstaina!
+  Reason: Voikko does not know this word: Santos. Silva is a first name Voikko knows.
+
+- Dialogue 9.2, line 8, written text.
+  Before: Maria Santos. Kiitos, nähdään torstaina!
+  After: Maria Silva. Kiitos, nähdään torstaina!
+  Reason: Voikko does not know this word: Santos.
+
+- Dialogue 9.2, line 8, English text.
+  Before: Maria Santos. Thanks, see you on Thursday!
+  After: Maria Silva. Thanks, see you on Thursday!
+  Reason: The English follows the changed lines.
+
+- Dialogue 15.3, line 3, spoken text.
+  Before: Maria Santos.
+  After: Maria Silva.
+  Reason: Voikko does not know this word: Santos.
+
+- Dialogue 15.3, line 3, written text.
+  Before: Maria Santos.
+  After: Maria Silva.
+  Reason: Voikko does not know this word: Santos.
+
+- Dialogue 15.3, line 3, English text.
+  Before: Maria Santos.
+  After: Maria Silva.
+  Reason: The English follows the changed lines.
+
+- Dialogue 16.1, line 5, spoken text.
+  Before: Santos. Äs, aa, än, tee, oo, äs.
+  After: Silva. Äs, ii, äl, vee, aa.
+  Reason: Voikko does not know this word: Santos. The spelling follows the name Silva.
+
+- Dialogue 16.1, line 5, written text.
+  Before: Santos. S, A, N, T, O, S.
+  After: Silva. S, I, L, V, A.
+  Reason: Voikko does not know this word: Santos.
+
+- Dialogue 16.1, line 5, English text.
+  Before: Santos. S, A, N, T, O, S.
+  After: Silva. S, I, L, V, A.
+  Reason: The English follows the changed lines.
+
+- Dialogue 10.3, line 2, spoken text.
+  Before: Okei. Onks sul Kela-kortti?
+  After: Okei. Onks sul Kelakortti?
+  Reason: Voikko does not know this word: Kela-kortti. Kelakortti is the closed spelling.
+
+- Dialogue 10.3, line 2, written text.
+  Before: Selvä. Onko sinulla Kela-kortti?
+  After: Selvä. Onko sinulla Kelakortti?
+  Reason: Voikko does not know this word: Kela-kortti.
+
+- Dialogue 10.3, line 8, spoken text.
+  Before: Kela-korvauksen kaa kaks euroo.
+  After: Kelan korvauksen kaa kaks euroo.
+  Reason: Voikko does not know this word: Kela-korvauksen. The line now says Kelan korvauksen.
+
+- Dialogue 10.3, line 8, written text.
+  Before: Kela-korvauksen kanssa kaksi euroa.
+  After: Kelan korvauksen kanssa kaksi euroa.
+  Reason: Voikko does not know this word: Kela-korvauksen.
+
+- Dialogue 11.3, line 6, spoken text.
+  Before: Selvä. Mä laitan musiikin hiljemmalle.
+  After: Selvä. Mä laitan musiikin hiljaa.
+  Reason: Voikko does not know this word: hiljemmalle. The line now says hiljaa (quietly).
+
+- Dialogue 11.3, line 6, written text.
+  Before: Selvä. Minä laitan musiikin hiljemmalle.
+  After: Selvä. Minä laitan musiikin hiljaa.
+  Reason: Voikko does not know this word: hiljemmalle.
+
+- Dialogue 12.2, line 7, spoken text.
+  Before: Haha, mul ei oo niin paljon rahaa.
+  After: Mul ei oo niin paljon rahaa.
+  Reason: Voikko does not know this word: Haha. The laugh is left out.
+
+- Dialogue 12.2, line 7, written text.
+  Before: Haha, minulla ei ole niin paljon rahaa.
+  After: Minulla ei ole niin paljon rahaa.
+  Reason: Voikko does not know this word: Haha.
+
+- Dialogue 12.2, line 7, English text.
+  Before: Haha, I don't have that much money.
+  After: I don't have that much money.
+  Reason: The English follows the changed lines.
+
+- Dialogue 20.1, line 8, spoken text.
+  Before: Haha, mun lapset kans!
+  After: Mun lapset kans!
+  Reason: Voikko does not know this word: Haha. The laugh is left out.
+
+- Dialogue 20.1, line 8, written text.
+  Before: Haha, minun lapseni myös!
+  After: Minun lapseni myös!
+  Reason: Voikko does not know this word: Haha.
+
+- Dialogue 20.1, line 8, English text.
+  Before: Haha, mine too!
+  After: Mine too!
+  Reason: The English follows the changed lines.
+
+- Dialogue 20.2, line 7, spoken text.
+  Before: Haha, sit niitten pitää tulla talvella!
+  After: Sit niitten pitää tulla talvella!
+  Reason: Voikko does not know this word: Haha. The laugh is left out.
+
+- Dialogue 20.2, line 7, written text.
+  Before: Haha, sitten heidän pitää tulla talvella!
+  After: Sitten heidän pitää tulla talvella!
+  Reason: Voikko does not know this word: Haha.
+
+- Dialogue 20.2, line 7, English text.
+  Before: Haha, then they need to come in winter!
+  After: Then they need to come in winter!
+  Reason: The English follows the changed lines.
+
+- Dialogue 26.2, line 8, spoken text.
+  Before: Haha! Mun lapset tykkää siitä.
+  After: Mun lapset tykkää siitä.
+  Reason: Voikko does not know this word: Haha. The laugh is left out.
+
+- Dialogue 26.2, line 8, written text.
+  Before: Haha! Minun lapseni tykkäävät siitä.
+  After: Minun lapseni tykkäävät siitä.
+  Reason: Voikko does not know this word: Haha.
+
+- Dialogue 26.2, line 8, English text.
+  Before: Haha! My kids will love that.
+  After: My kids will love that.
+  Reason: The English follows the changed lines.
+
+- Dialogue 20.3, line 3, spoken text.
+  Before: Se on mun mies, Paulo.
+  After: Se on mun mies, Pauli.
+  Reason: Voikko does not know this word: Paulo. Pauli is a first name Voikko knows.
+
+- Dialogue 20.3, line 3, written text.
+  Before: Hän on minun mieheni, Paulo.
+  After: Hän on minun mieheni, Pauli.
+  Reason: Voikko does not know this word: Paulo.
+
+- Dialogue 20.3, line 3, English text.
+  Before: That's my husband, Paulo.
+  After: That's my husband, Pauli.
+  Reason: The English follows the changed lines.
+
+- Dialogue 20.3, line 5, spoken text.
+  Before: Mun lapset, Lucas ja Ana.
+  After: Mun lapset, Lucas ja Anna.
+  Reason: Voikko does not know this word: Ana. Anna is a first name Voikko knows.
+
+- Dialogue 20.3, line 5, written text.
+  Before: Minun lapseni, Lucas ja Ana.
+  After: Minun lapseni, Lucas ja Anna.
+  Reason: Voikko does not know this word: Ana.
+
+- Dialogue 20.3, line 5, English text.
+  Before: My children, Lucas and Ana.
+  After: My children, Lucas and Anna.
+  Reason: The English follows the changed lines.
+
+- Dialogue 20.3, line 8, spoken text.
+  Before: Vau! Hieno kuva.
+  After: Hieno kuva.
+  Reason: Voikko does not know this word: Vau. The exclamation is left out.
+
+- Dialogue 20.3, line 8, written text.
+  Before: Vau! Hieno kuva.
+  After: Hieno kuva.
+  Reason: Voikko does not know this word: Vau.
+
+- Dialogue 20.3, line 8, English text.
+  Before: Wow! A great photo.
+  After: A great photo.
+  Reason: The English follows the changed lines.
+
+- Dialogue 21.2, line 1, spoken text.
+  Before: Moi! Ootsä Anan äiti?
+  After: Moi! Ootsä Annan äiti?
+  Reason: Voikko does not know this word: Anan. Annan is the genitive of Anna.
+
+- Dialogue 21.2, line 1, written text.
+  Before: Hei! Oletko sinä Anan äiti?
+  After: Hei! Oletko sinä Annan äiti?
+  Reason: Voikko does not know this word: Anan.
+
+- Dialogue 21.2, line 1, English text.
+  Before: Hi! Are you Ana's mother?
+  After: Hi! Are you Anna's mother?
+  Reason: The English follows the changed lines.
+
+- Dialogue 21.2, line 2, spoken text.
+  Before: Joo. Miten Ana pärjää koulus?
+  After: Joo. Miten Anna pärjää koulus?
+  Reason: Voikko does not know this word: Ana.
+
+- Dialogue 21.2, line 2, written text.
+  Before: Kyllä. Miten Ana pärjää koulussa?
+  After: Kyllä. Miten Anna pärjää koulussa?
+  Reason: Voikko does not know this word: Ana.
+
+- Dialogue 21.2, line 2, English text.
+  Before: Yes. How is Ana doing at school?
+  After: Yes. How is Anna doing at school?
+  Reason: The English follows the changed lines.
+
+- Dialogue 23.3, line 2, spoken text.
+  Before: Mmm, tää tuoksuu hyvält!
+  After: Tää tuoksuu hyvält!
+  Reason: Voikko does not know this word: Mmm. The sound is left out.
+
+- Dialogue 23.3, line 2, written text.
+  Before: Mmm, tämä tuoksuu hyvältä!
+  After: Tämä tuoksuu hyvältä!
+  Reason: Voikko does not know this word: Mmm.
+
+- Dialogue 23.3, line 2, English text.
+  Before: Mmm, this smells good!
+  After: This smells good!
+  Reason: The English follows the changed lines.
+
+- Dialogue 25.1, line 5, spoken text.
+  Before: Mmm, tosi hyviä! Juotteks te aina näin paljon kahvia?
+  After: Tosi hyviä! Juotteks te aina näin paljon kahvia?
+  Reason: Voikko does not know this word: Mmm. The sound is left out.
+
+- Dialogue 25.1, line 5, written text.
+  Before: Mmm, todella hyviä! Juotteko te aina näin paljon kahvia?
+  After: Todella hyviä! Juotteko te aina näin paljon kahvia?
+  Reason: Voikko does not know this word: Mmm.
+
+- Dialogue 25.1, line 5, English text.
+  Before: Mmm, really good! Do you always drink this much coffee?
+  After: Really good! Do you always drink this much coffee?
+  Reason: The English follows the changed lines.
+
+- Dialogue 24.3, line 4, spoken text.
+  Before: Vau! Mä tiesin, et sä pystyt siihen.
+  After: Mä tiesin, et sä pystyt siihen!
+  Reason: Voikko does not know this word: Vau. The exclamation is left out.
+
+- Dialogue 24.3, line 4, written text.
+  Before: Vau! Minä tiesin, että sinä pystyt siihen.
+  After: Minä tiesin, että sinä pystyt siihen!
+  Reason: Voikko does not know this word: Vau.
+
+- Dialogue 24.3, line 4, English text.
+  Before: Wow! I knew you could do it.
+  After: I knew you could do it!
+  Reason: The English follows the changed lines.
+
+- Dialogue 31.3, line 7, spoken text.
+  Before: Vau! Mä oon ollu täällä vaan kuukauden.
+  After: Mä oon ollu täällä vaan kuukauden.
+  Reason: Voikko does not know this word: Vau. The exclamation is left out.
+
+- Dialogue 31.3, line 7, written text.
+  Before: Vau! Minä olen ollut täällä vain kuukauden.
+  After: Minä olen ollut täällä vain kuukauden.
+  Reason: Voikko does not know this word: Vau.
+
+- Dialogue 31.3, line 7, English text.
+  Before: Wow! I've only been here a month.
+  After: I've only been here a month.
+  Reason: The English follows the changed lines.
+
+- Dialogue 30.1, line 6, spoken text.
+  Before: Mä teen brigadeiroja!
+  After: Mä teen suklaapalloja!
+  Reason: Voikko does not know this word: brigadeiroja. The line now says suklaapalloja (chocolate balls).
+
+- Dialogue 30.1, line 6, written text.
+  Before: Minä teen brigadeiroja!
+  After: Minä teen suklaapalloja!
+  Reason: Voikko does not know this word: brigadeiroja.
+
+- Dialogue 30.1, line 6, English text.
+  Before: I'll make brigadeiros!
+  After: I'll make chocolate balls!
+  Reason: The English follows the changed lines.
+
+- Dialogue 33.1, line 2, spoken text.
+  Before: Mä asuin São Paulos.
+  After: Mä asuin Brasilias.
+  Reason: Voikko does not know this word: São and Paulossa. Maria lived in Brasília, a place name Voikko knows.
+
+- Dialogue 33.1, line 2, written text.
+  Before: Minä asuin São Paulossa.
+  After: Minä asuin Brasiliassa.
+  Reason: Voikko does not know this word: São Paulossa.
+
+- Dialogue 33.1, line 2, English text.
+  Before: I lived in São Paulo.
+  After: I lived in Brasília.
+  Reason: The English follows the changed lines.
+
+- Dialogue 21.2, scene sentence.
+  Before: Maria meets Mika, Ana's teacher.
+  After: Maria meets Mika, Anna's teacher.
+  Reason: Voikko does not know this word: Ana.

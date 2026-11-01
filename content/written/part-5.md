@@ -16,7 +16,7 @@ Maria and her colleagues Ville and Aino.
 | 2 | Maria | Joo, mä tuun. Onks pullaa? | Kyllä, minä tulen. Onko pullaa? | Yes, I'm coming. Is there pulla? |
 | 3 | Ville | On! Aino toi korvapuusteja. | On! Aino toi korvapuusteja. | Yes! Aino brought cinnamon buns. |
 | 4 | Aino | Mä leivoin ne eilen. Ottakaa! | Minä leivoin ne eilen. Ottakaa! | I baked them yesterday. Help yourselves! |
-| 5 | Maria | Mmm, tosi hyviä! Juotteks te aina näin paljon kahvia? | Mmm, todella hyviä! Juotteko te aina näin paljon kahvia? | Mmm, really good! Do you always drink this much coffee? |
+| 5 | Maria | Tosi hyviä! Juotteks te aina näin paljon kahvia? | Todella hyviä! Juotteko te aina näin paljon kahvia? | Really good! Do you always drink this much coffee? |
 | 6 | Ville | Joo. Suomalaiset juo eniten kahvia maailmas. | Kyllä. Suomalaiset juovat eniten kahvia maailmassa. | Yes. Finns drink the most coffee in the world. |
 | 7 | Maria | Sit mäkin opettelen! | Sitten minäkin opettelen! | Then I'll learn too! |
 | 8 | Aino | Hyvä! Santsia? | Hyvä! Lisää? | Good! More? |
@@ -83,7 +83,7 @@ Leena and Maria in December.
 | 5 | Leena | Just niin. Me syödään kinkkuu ja laatikoita. | Juuri niin. Me syömme kinkkua ja laatikoita. | Exactly. We eat ham and casseroles. |
 | 6 | Maria | Entä joulupukki? | Entä joulupukki? | And Santa Claus? |
 | 7 | Leena | Se tulee illal ja kysyy: "Onks täällä kilttejä lapsii?" | Hän tulee illalla ja kysyy: "Onko täällä kilttejä lapsia?" | He comes in the evening and asks: "Are there any good children here?" |
-| 8 | Maria | Haha! Mun lapset tykkää siitä. | Haha! Minun lapseni tykkäävät siitä. | Haha! My kids will love that. |
+| 8 | Maria | Mun lapset tykkää siitä. | Minun lapseni tykkäävät siitä. | My kids will love that. |
 
 ### 26.3 When's your birthday?
 
@@ -262,7 +262,7 @@ Ahmed invites Maria to his birthday.
 | 3 | Ahmed | Hienoo! Se alkaa kuudelta mun luona. | Hienoa! Se alkaa kuudelta minun luonani. | Great! It starts at six at my place. |
 | 4 | Maria | Voinks mä tuoda jotain? | Voinko minä tuoda jotain? | Can I bring something? |
 | 5 | Ahmed | Ei tarvii. Mut jos haluut, jälkkäri ois kiva. | Ei tarvitse. Mutta jos haluat, jälkiruoka olisi kiva. | No need. But if you want, a dessert would be nice. |
-| 6 | Maria | Mä teen brigadeiroja! | Minä teen brigadeiroja! | I'll make brigadeiros! |
+| 6 | Maria | Mä teen suklaapalloja! | Minä teen suklaapalloja! | I'll make chocolate balls! |
 | 7 | Ahmed | Mitä ne on? | Mitä ne ovat? | What are they? |
 | 8 | Maria | Brasilialaisii suklaapalloja. Sä tykkäät! | Brasilialaisia suklaapalloja. Sinä tykkäät! | Brazilian chocolate balls. You'll love them! |
 

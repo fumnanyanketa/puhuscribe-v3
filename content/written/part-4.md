@@ -68,7 +68,7 @@ Maria and her colleague Ville.
 | 5 | Ville | Kiva ikä! Mul on yks tytär. Se on kolme. | Kiva ikä! Minulla on yksi tytär. Hän on kolme. | Nice age! I have one daughter. She's three. |
 | 6 | Maria | Söpö! Mikä sen nimi on? | Söpö! Mikä hänen nimensä on? | Sweet! What's her name? |
 | 7 | Ville | Ella. Se puhuu jo tosi paljon! | Ella. Hän puhuu jo todella paljon! | Ella. She already talks a lot! |
-| 8 | Maria | Haha, mun lapset kans! | Haha, minun lapseni myös! | Haha, mine too! |
+| 8 | Maria | Mun lapset kans! | Minun lapseni myös! | Mine too! |
 
 ### 20.2 Family far away
 
@@ -82,7 +82,7 @@ Maria and Aino.
 | 4 | Maria | Joo, tosi paljon. Me soitetaan joka sunnuntai. | Kyllä, todella paljon. Me soitamme joka sunnuntai. | Yes, very much. We call every Sunday. |
 | 5 | Aino | Tuleeks ne käymään Suomes? | Tulevatko he käymään Suomessa? | Will they come and visit Finland? |
 | 6 | Maria | Joo, kesällä! Mun äiti haluu nähä lunta. | Kyllä, kesällä! Minun äitini haluaa nähdä lunta. | Yes, in the summer! My mother wants to see snow. |
-| 7 | Aino | Haha, sit niitten pitää tulla talvella! | Haha, sitten heidän pitää tulla talvella! | Haha, then they need to come in winter! |
+| 7 | Aino | Sit niitten pitää tulla talvella! | Sitten heidän pitää tulla talvella! | Then they need to come in winter! |
 | 8 | Maria | Totta! | Totta! | True! |
 
 ### 20.3 A family photo
@@ -93,12 +93,12 @@ Maria shows Leena a photo.
 |---|---|---|---|---|
 | 1 | Maria | Kato, tää on mun perhe. | Katso, tämä on minun perheeni. | Look, this is my family. |
 | 2 | Leena | Ihana kuva! Kuka tää on? | Ihana kuva! Kuka tämä on? | Lovely photo! Who's this? |
-| 3 | Maria | Se on mun mies, Paulo. | Hän on minun mieheni, Paulo. | That's my husband, Paulo. |
+| 3 | Maria | Se on mun mies, Pauli. | Hän on minun mieheni, Pauli. | That's my husband, Pauli. |
 | 4 | Leena | Ja nää kaks? | Ja nämä kaksi? | And these two? |
-| 5 | Maria | Mun lapset, Lucas ja Ana. | Minun lapseni, Lucas ja Ana. | My children, Lucas and Ana. |
+| 5 | Maria | Mun lapset, Lucas ja Anna. | Minun lapseni, Lucas ja Anna. | My children, Lucas and Anna. |
 | 6 | Leena | Ne näyttää iloisilta. Entä toi vanha nainen? | He näyttävät iloisilta. Entä tuo vanha nainen? | They look happy. And that older woman? |
 | 7 | Maria | Se on mun mummo. Se on yheksänkyt! | Hän on minun isoäitini. Hän on yhdeksänkymmentä! | That's my grandma. She's ninety! |
-| 8 | Leena | Vau! Hieno kuva. | Vau! Hieno kuva. | Wow! A great photo. |
+| 8 | Leena | Hieno kuva. | Hieno kuva. | A great photo. |
 
 ## Stop 21. School and daycare
 
@@ -121,12 +121,12 @@ Maria picks up Lucas. Sari works at the daycare.
 
 ### 21.2 Talking to the teacher
 
-Maria meets Mika, Ana's teacher.
+Maria meets Mika, Anna's teacher.
 
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
-| 1 | Mika | Moi! Ootsä Anan äiti? | Hei! Oletko sinä Anan äiti? | Hi! Are you Ana's mother? |
-| 2 | Maria | Joo. Miten Ana pärjää koulus? | Kyllä. Miten Ana pärjää koulussa? | Yes. How is Ana doing at school? |
+| 1 | Mika | Moi! Ootsä Annan äiti? | Hei! Oletko sinä Annan äiti? | Hi! Are you Anna's mother? |
+| 2 | Maria | Joo. Miten Anna pärjää koulus? | Kyllä. Miten Anna pärjää koulussa? | Yes. How is Anna doing at school? |
 | 3 | Mika | Tosi hyvin. Se on hyvä matikas. | Todella hyvin. Hän on hyvä matematiikassa. | Really well. She's good at maths. |
 | 4 | Maria | Entä suomen kieli? | Entä suomen kieli? | And Finnish? |
 | 5 | Mika | Se oppii nopeesti. Se puhuu jo kavereiden kaa suomee. | Hän oppii nopeasti. Hän puhuu jo kavereiden kanssa suomea. | She learns fast. She already speaks Finnish with her friends. |
@@ -239,7 +239,7 @@ Maria serves the soup.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Maria | Ruoka on valmis! Tulkaa syömään! | Ruoka on valmis! Tulkaa syömään! | Dinner's ready! Come and eat! |
-| 2 | Aino | Mmm, tää tuoksuu hyvält! | Mmm, tämä tuoksuu hyvältä! | Mmm, this smells good! |
+| 2 | Aino | Tää tuoksuu hyvält! | Tämä tuoksuu hyvältä! | This smells good! |
 | 3 | Maria | Maista. Onks siin tarpeeks suolaa? | Maista. Onko siinä tarpeeksi suolaa? | Taste it. Is there enough salt? |
 | 4 | Aino | On! Tää on tosi hyvää. | On! Tämä on todella hyvää. | Yes! This is really good. |
 | 5 | Maria | Kiitti! Haluuksä lisää? | Kiitos! Haluatko sinä lisää? | Thanks! Do you want more? |
@@ -290,7 +290,7 @@ Maria tells Aino her news.
 | 1 | Maria | Aino! Mä oon niin onnellinen! | Aino! Minä olen niin onnellinen! | Aino! I'm so happy! |
 | 2 | Aino | Mitä tapahtu? | Mitä tapahtui? | What happened? |
 | 3 | Maria | Mä läpäsin suomen kokeen! | Minä läpäisin suomen kokeen! | I passed my Finnish exam! |
-| 4 | Aino | Vau! Mä tiesin, et sä pystyt siihen. | Vau! Minä tiesin, että sinä pystyt siihen. | Wow! I knew you could do it. |
+| 4 | Aino | Mä tiesin, et sä pystyt siihen! | Minä tiesin, että sinä pystyt siihen! | I knew you could do it! |
 | 5 | Maria | Mä olin tosi hermostunu. | Minä olin todella hermostunut. | I was really nervous. |
 | 6 | Aino | Mut nyt sä voit olla ylpee itsestäs. | Mutta nyt sinä voit olla ylpeä itsestäsi. | But now you can be proud of yourself. |
 | 7 | Maria | Joo! Juhlitaanks illal? | Kyllä! Juhlitaanko illalla? | Yes! Shall we celebrate tonight? |

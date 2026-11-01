@@ -107,7 +107,7 @@ Maria meets Juha, who is selling his bike online.
 | 4 | Juha | No, se on melkein uus. | No, se on melkein uusi. | Well, it's almost new. |
 | 5 | Maria | Käyks kaheksankyt euroo? | Käykö kahdeksankymmentä euroa? | Would eighty euros be OK? |
 | 6 | Juha | Yheksänkyt, niin se on sun. | Yhdeksänkymmentä, niin se on sinun. | Ninety, and it's yours. |
-| 7 | Maria | Okei, sovitaan yheksänkyt. Mä maksan MobilePaylla. | Selvä, sovitaan yhdeksänkymmentä. Minä maksan MobilePaylla. | OK, let's say ninety. I'll pay with MobilePay. |
+| 7 | Maria | Okei, sovitaan yheksänkyt. Mä maksan puhelimel. | Selvä, sovitaan yhdeksänkymmentä. Minä maksan puhelimella. | OK, let's say ninety. I'll pay with my phone. |
 | 8 | Juha | Hyvä. Tässä on avaimet. | Hyvä. Tässä ovat avaimet. | Good. Here are the keys. |
 
 ## Stop 5. Getting around by bus and tram
@@ -136,7 +136,7 @@ Maria asks Timo at the bus station.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Maria | Anteeks, mistä mä voin ostaa lipun? | Anteeksi, mistä minä voin ostaa lipun? | Excuse me, where can I buy a ticket? |
-| 2 | Timo | Tosta automaatista tai HSL-sovelluksesta. | Tuosta automaatista tai HSL-sovelluksesta. | From that machine or the HSL app. |
+| 2 | Timo | Tosta automaatista tai sovelluksest. | Tuosta automaatista tai sovelluksesta. | From that machine or the app. |
 | 3 | Maria | Mä meen Espooseen. Mikä lippu mun pitää ostaa? | Minä menen Espooseen. Mikä lippu minun pitää ostaa? | I'm going to Espoo. Which ticket do I need to buy? |
 | 4 | Timo | AB-lippu riittää. | AB-lippu riittää. | An AB ticket is enough. |
 | 5 | Maria | Paljonks se maksaa? | Paljonko se maksaa? | How much does it cost? |

@@ -48,7 +48,7 @@ Sofia, newer to Finland than Maria, asks her the way.
 | 4 | Maria | Joo. Tori on ihan meren rannal. | Kyllä. Tori on aivan meren rannalla. | Yes. The square is right by the sea. |
 | 5 | Sofia | Kiitti! Sä puhut tosi hyvin suomee. Ootsä suomalainen? | Kiitos! Sinä puhut todella hyvin suomea. Oletko sinä suomalainen? | Thanks! You speak really good Finnish. Are you Finnish? |
 | 6 | Maria | En, mä oon Brasiliasta. Mä oon asunu täällä vuoden. | En, minä olen Brasiliasta. Minä olen asunut täällä vuoden. | No, I'm from Brazil. I've lived here for a year. |
-| 7 | Sofia | Vau! Mä oon ollu täällä vaan kuukauden. | Vau! Minä olen ollut täällä vain kuukauden. | Wow! I've only been here a month. |
+| 7 | Sofia | Mä oon ollu täällä vaan kuukauden. | Minä olen ollut täällä vain kuukauden. | I've only been here a month. |
 | 8 | Maria | Sä opit nopeesti. Onnee! | Sinä opit nopeasti. Onnea! | You'll learn fast. Good luck! |
 
 ## Stop 32. Problems and returns
@@ -111,7 +111,7 @@ Aino asks about Maria's life in Brazil.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Aino | Missä sä asuit ennen Suomee? | Missä sinä asuit ennen Suomea? | Where did you live before Finland? |
-| 2 | Maria | Mä asuin São Paulos. | Minä asuin São Paulossa. | I lived in São Paulo. |
+| 2 | Maria | Mä asuin Brasilias. | Minä asuin Brasiliassa. | I lived in Brasília. |
 | 3 | Aino | Se on iso kaupunki! | Se on iso kaupunki! | That's a big city! |
 | 4 | Maria | Joo, tosi iso. Siel asuu yli kakskyt miljoonaa ihmistä. | Kyllä, todella iso. Siellä asuu yli kaksikymmentä miljoonaa ihmistä. | Yes, really big. Over twenty million people live there. |
 | 5 | Aino | Mitä sä teit siel? | Mitä sinä teit siellä? | What did you do there? |

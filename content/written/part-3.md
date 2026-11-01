@@ -142,7 +142,7 @@ Maria calls the bank. Tiina answers.
 |---|---|---|---|---|
 | 1 | Maria | Moi! Mun pankkikortti katos. | Hei! Minun pankkikorttini katosi. | Hi! My bank card has gone missing. |
 | 2 | Tiina | Voi ei. Mä suljen sen heti. Mikä sun nimi on? | Voi ei. Minä suljen sen heti. Mikä sinun nimesi on? | Oh no. I'll block it right away. What's your name? |
-| 3 | Maria | Maria Santos. | Maria Santos. | Maria Santos. |
+| 3 | Maria | Maria Silva. | Maria Silva. | Maria Silva. |
 | 4 | Tiina | Okei, kortti on nyt suljettu. | Selvä, kortti on nyt suljettu. | OK, the card is now blocked. |
 | 5 | Maria | Hyvä. Saanks mä uuden kortin? | Hyvä. Saanko minä uuden kortin? | Good. Can I get a new card? |
 | 6 | Tiina | Joo. Se tulee postis viikon päästä. | Kyllä. Se tulee postissa viikon päästä. | Yes. It comes in the post in a week. |
@@ -163,7 +163,7 @@ Maria picks up a parcel. Jonna works at the counter.
 | 2 | Jonna | Okei. Onks sul seurantakoodi? | Selvä. Onko sinulla seurantakoodi? | OK. Do you have the tracking code? |
 | 3 | Maria | Joo, tässä puhelimes. | Kyllä, tässä puhelimessa. | Yes, here on my phone. |
 | 4 | Jonna | Kiitti. Mikä sun sukunimi on? | Kiitos. Mikä sinun sukunimesi on? | Thanks. What's your surname? |
-| 5 | Maria | Santos. Äs, aa, än, tee, oo, äs. | Santos. S, A, N, T, O, S. | Santos. S, A, N, T, O, S. |
+| 5 | Maria | Silva. Äs, ii, äl, vee, aa. | Silva. S, I, L, V, A. | Silva. S, I, L, V, A. |
 | 6 | Jonna | Ja henkilöllisyystodistus? | Ja henkilöllisyystodistus? | And some ID? |
 | 7 | Maria | Tässä on mun ajokortti. | Tässä on minun ajokorttini. | Here's my driving licence. |
 | 8 | Jonna | Kiitti. Tässä on sun paketti. | Kiitos. Tässä on sinun pakettisi. | Thanks. Here's your parcel. |

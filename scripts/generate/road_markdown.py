@@ -77,13 +77,19 @@ def log_fix(
     fixes: Path = FIXES,
 ) -> None:
     """Append one fix to content/road/fixes.md under its round's heading."""
-    names = {"speaker": "speaker", "puhe": "spoken text", "kirja": "written text", "en": "English text"}
+    names = {
+        "speaker": "speaker",
+        "puhe": "spoken text",
+        "kirja": "written text",
+        "en": "English text",
+        "situation": "scene sentence",
+    }
     text = fixes.read_text(encoding="utf-8") if fixes.is_file() else _HEADER
     heading = f"## {round_name}"
     if heading not in text:
         text = text.rstrip("\n") + f"\n\n{heading}\n"
     entry = (
-        f"\n- Dialogue {label}, line {line}, {names[column]}.\n"
+        f"\n- Dialogue {label}, {f'line {line}, ' if line else ''}{names[column]}.\n"
         f"  Before: {before}\n"
         f"  After: {after}\n"
         f"  Reason: {reason}\n"

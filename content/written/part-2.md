@@ -67,7 +67,7 @@ Aino invites Maria.
 | 4 | Maria | Lauantai sopii hyvin! Mihin aikaan? | Lauantai sopii hyvin! Mihin aikaan? | Saturday suits me well! What time? |
 | 5 | Aino | Vaikka kahelta? | Vaikka kahdelta? | Say two o'clock? |
 | 6 | Maria | Kahelta on hyvä. Missä nähään? | Kahdelta on hyvä. Missä nähdään? | Two is good. Where shall we meet? |
-| 7 | Aino | Kahvila Ekbergin edes. | Kahvila Ekbergin edessä. | In front of Café Ekberg. |
+| 7 | Aino | Kahvilan edes. | Kahvilan edessä. | In front of the café. |
 | 8 | Maria | Sovittu! Nähään lauantaina! | Sovittu! Nähdään lauantaina! | Deal! See you on Saturday! |
 
 ### 8.2 Changing the plan
@@ -132,7 +132,7 @@ Maria calls Kaisa's hair salon.
 | 5 | Kaisa | Kolmelta tai sit viideltä. | Kolmelta tai sitten viideltä. | At three or at five. |
 | 6 | Maria | Viideltä ois parempi. | Viideltä olisi parempi. | Five would be better. |
 | 7 | Kaisa | Selvä. Mikä sun nimi on? | Selvä. Mikä sinun nimesi on? | Fine. What's your name? |
-| 8 | Maria | Maria Santos. Kiitti, nähään torstaina! | Maria Santos. Kiitos, nähdään torstaina! | Maria Santos. Thanks, see you on Thursday! |
+| 8 | Maria | Maria Silva. Kiitti, nähään torstaina! | Maria Silva. Kiitos, nähdään torstaina! | Maria Silva. Thanks, see you on Thursday! |
 
 ### 9.3 Work shifts
 
@@ -190,13 +190,13 @@ Maria and Laura, the pharmacist.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Maria | Moi! Mul on resepti. | Hei! Minulla on resepti. | Hi! I have a prescription. |
-| 2 | Laura | Okei. Onks sul Kela-kortti? | Selvä. Onko sinulla Kela-kortti? | OK. Do you have a Kela card? |
+| 2 | Laura | Okei. Onks sul Kelakortti? | Selvä. Onko sinulla Kelakortti? | OK. Do you have a Kela card? |
 | 3 | Maria | On, tässä. | On, tässä. | Yes, here. |
 | 4 | Laura | Kiitti. Lääke on valmiina. Ota sitä aamul ja illal. | Kiitos. Lääke on valmiina. Ota sitä aamulla ja illalla. | Thanks. The medicine is ready. Take it morning and evening. |
 | 5 | Maria | Ruuan kaa vai ilman? | Ruoan kanssa vai ilman? | With food or without? |
 | 6 | Laura | Ruuan kaa. | Ruoan kanssa. | With food. |
 | 7 | Maria | Paljonks se maksaa? | Paljonko se maksaa? | How much is it? |
-| 8 | Laura | Kela-korvauksen kaa kaks euroo. | Kela-korvauksen kanssa kaksi euroa. | With the Kela refund, two euros. |
+| 8 | Laura | Kelan korvauksen kaa kaks euroo. | Kelan korvauksen kanssa kaksi euroa. | With the Kela refund, two euros. |
 
 ## Stop 11. Home and neighbours
 
@@ -243,7 +243,7 @@ Maria speaks politely to Jukka, her upstairs neighbour.
 | 3 | Maria | Teilt kuuluu musiikkii myöhään illal. | Teiltä kuuluu musiikkia myöhään illalla. | There's music from your place late in the evening. |
 | 4 | Jukka | Voi anteeks! Mä en tienny. | Voi anteeksi! Minä en tiennyt. | Oh, sorry! I didn't know. |
 | 5 | Maria | Ei se mitään. Mä meen nukkuu kymmeneltä. | Ei se mitään. Minä menen nukkumaan kymmeneltä. | It's OK. I go to sleep at ten. |
-| 6 | Jukka | Selvä. Mä laitan musiikin hiljemmalle. | Selvä. Minä laitan musiikin hiljemmalle. | Of course. I'll turn the music down. |
+| 6 | Jukka | Selvä. Mä laitan musiikin hiljaa. | Selvä. Minä laitan musiikin hiljaa. | Of course. I'll turn the music down. |
 | 7 | Maria | Kiitti paljon! | Kiitos paljon! | Thanks a lot! |
 | 8 | Jukka | Kiitti et sä sanoit. | Kiitos, että sinä sanoit. | Thanks for telling me. |
 
@@ -278,7 +278,7 @@ Maria shops with her friend Aino.
 | 4 | Aino | Totta. Onks se alessa? | Totta. Onko se alennuksessa? | True. Is it on sale? |
 | 5 | Maria | Joo, kakskyt prosenttii alennusta. | Kyllä, kaksikymmentä prosenttia alennusta. | Yes, twenty percent off. |
 | 6 | Aino | Ota sit molemmat! | Ota sitten molemmat! | Then take both! |
-| 7 | Maria | Haha, mul ei oo niin paljon rahaa. | Haha, minulla ei ole niin paljon rahaa. | Haha, I don't have that much money. |
+| 7 | Maria | Mul ei oo niin paljon rahaa. | Minulla ei ole niin paljon rahaa. | I don't have that much money. |
 | 8 | Aino | No, ota sininen. | No, ota sininen. | Well, take the blue one. |
 
 ### 12.3 Warm winter shoes
