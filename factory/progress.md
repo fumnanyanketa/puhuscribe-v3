@@ -290,3 +290,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T09:15 Draft 3 published: Today as a journey, three one-colour palettes, glass and no glass.
 - 2026-11-01T09:20 Owner shared a soft gym app reference and dropped lavender. Draft 4: Welcome, Today and Hear it in that soft milky look, lake blue and birch-forest green.
 - 2026-11-01T09:27 Owner: draft 4 looks premium, wants a second accent colour like the reference's green and orange. Draft 5 published with three pairs.
+- 2026-11-01T09:32 Owner: mint and peach is the clear favourite; keep lake blue and coral as the second option. Draft 6: the whole lesson in both.
