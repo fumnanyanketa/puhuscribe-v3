@@ -384,7 +384,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
             )}
             {showClear && (
               <section className={voice.clearCard} aria-label="Your recording">
-                <p className={voice.clearLine} role="status" ref={status}>
+                <p className={voice.clearLine} role="status" data-tone="neutral" ref={status}>
                   <span className={voice.checkCircle} aria-hidden="true">
                     <svg viewBox="0 0 24 24" focusable="false">
                       <path d="M5 12.5l4.5 4.5L19 7.5" />

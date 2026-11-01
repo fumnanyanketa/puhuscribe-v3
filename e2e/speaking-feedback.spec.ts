@@ -66,6 +66,7 @@ async function recordOnce(page: Page, ms = 1_200) {
   // (job 19-redesign, statement 30), and "Try again" starts the next recording itself.
   const record = page.getByRole('button', { name: RECORD })
   const tryAgain = page.getByRole('button', { name: 'Try again' })
+  await expect(record.or(tryAgain).first()).toBeVisible({ timeout: 20_000 })
   if (await record.isVisible()) await record.click()
   else await tryAgain.click()
   await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
