@@ -75,7 +75,7 @@ def test_a1_road_10_ajan_in_varata_ajan_is_aika_not_ajaa(ctx):
 def test_a1_road_10_voi_is_oh_in_its_own_line_and_the_verb_in_another(ctx):
     """[a1-road 10] The same spelling needs a different reading in a different line: 'Voi harmi' is the
     cry, 'Lääkäri voi nähdä sinut' is the verb voida."""
-    cry, cry_form = word_at(draft_of(ctx, "a-cold"), 1, 1)
+    cry, cry_form = word_at(draft_of(ctx, "a-cold"), 2, 1)
     assert cry["surface"] == "Voi"
     assert (cry["lemma"], cry["form_tag"], cry_form["form_name_en"]) == (
         "voi",
