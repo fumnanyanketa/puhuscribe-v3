@@ -37,7 +37,7 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
   - Grammar Stage 2 as standalone lessons
   - Sentence Bank / language islands as a top-level surface (→ paid tier, v3.2)
   - Converse tutor "Otso" as a standalone surface (→ appears inside the loop from unit 4; open-ended mode is paid tier)
-  - Rank titles, confetti, milestone ladder, journey stage map
+  - Rank titles, confetti, milestone ladder
   - Bilingual / Finnish-only toggle
   - Mnemonics
   - YKI-specific content and skill tagging
