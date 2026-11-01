@@ -149,3 +149,16 @@ Round 1 (commit 9fbb60b, all GitHub checks green on run 41321561654): the road i
 Round 1 departures that still stand: the six earlier drafts keep their old unit block; `noi` has the lemma `nuo`; glued `Ootsä` is one word in the text and two in the tokens; `present-tense` is a catalogue entry at stop 1; the six earlier drafts disagree on the why line of 25 shared forms; `judge` and `voice` take `--part`; the road's seed numbers are zero until a part is approved. Round 1 run links: import 41321298577, analyse 41317041041, judge 41318417132, 41319745436 and 41320245477, voice sample 41317587713, count-characters 41317789817.
 
 Result: checks pass
+
+## After merge: voice fix
+
+The first real voice run (part 1, run 41353465089) voiced the six earlier drafts again: same text and voice, new bytes. That breaks statement 17 (their audio stays byte for byte). The manager restored the six drafts and committed only the new part 1 audio and the log (7ea1404).
+
+**Triage: a real bug.** `clip_needs_voice` in `scripts/generate/road_import.py` kept a clip only when its `request_sha256` matched the hash of the text and voice. The clips job 12 made for the six earlier drafts have a file, its `sha256`, the `text`, the `voice` and the `provider`, but no `request_sha256`, so every one counted as missing: `count-characters` counted them and `voice` made them again. The voice step of this job writes `request_sha256` for the clips it makes, so the road's own clips were never affected.
+
+**Fix (smallest).** A clip without `request_sha256` is kept when its file exists, its `sha256` is the sha256 of that file, its `text` is the line's text, its `voice` is the speaker's voice and its `provider` is the provider of the run (the run's provider is passed in by `cmd_voice`; `count-characters` does not know it and does not compare it). A clip with `request_sha256` is judged as before. Anything else changed (text, voice, provider, a file that is not the hashed one, no hash, no file) is voiced again. Kept clips cost no characters.
+
+**Tests.** `test_road_voice.py`: a job 12 clip is kept and counts 0 characters (fails on main), and each change on its own makes it be voiced again. `test_road_publish.py`: clips without `request_sha256` publish like any other (publishing needs only the file, its `sha256` and a real voice, and the approval fingerprint covers that `sha256`, so no change was needed there). The Python test count is 317. Red proof: with main's `road_import.py` put back, both new voice tests fail (the first with `assert True is False` on a clip that is kept now).
+
+**Part 1 on main, checked.** 18 drafts (the six earlier and the 12 of stops 1 to 6), 264 clips, every clip present and its `sha256` equal to its file; 72 of them (the six earlier drafts) have no `request_sha256`, the other 192 have it. The six earlier drafts are unchanged since before the voice run (`git diff` against 9217188 is empty). `count-characters --part 1` now prints 0. The log is untouched by this fix.
+

@@ -17,6 +17,7 @@ from pathlib import Path
 
 import pytest
 
+from fingerprints import sha256_bytes
 from providers import voice as voice_module
 from providers.ai import AiError, FakeProvider
 from providers.voice import (
@@ -199,6 +200,75 @@ def test_a1_road_18_a_changed_text_a_changed_voice_or_a_missing_file_is_voiced_a
     folder, line = _draft_with_clip(tmp_path / "c", "Moi!", "fi-FI-NooraNeural", "Moi!", "fi-FI-NooraNeural")
     (folder / "audio" / "1-puhe.mp3").unlink()
     assert clip_needs_voice(line, "puhe", folder, voices) is True
+
+
+def _legacy_clip(tmp_path: Path, text: str = "Moi!", voice: str = "fi-FI-NooraNeural") -> tuple[Path, dict]:
+    """A clip as job 12 made it: file, sha256 of the file, text, voice and provider, and no request_sha256."""
+    folder = tmp_path / "content" / "drafts" / "draft"
+    (folder / "audio").mkdir(parents=True)
+    data = b"clip made by job 12"
+    (folder / "audio" / "1-puhe.mp3").write_bytes(data)
+    line = {
+        "n": 1,
+        "speaker": "Maria",
+        "text_puhe": text,
+        "text_kirja": text,
+        "audio": {
+            "puhe": {
+                "file": "audio/1-puhe.mp3",
+                "sha256": sha256_bytes(data),
+                "text": text,
+                "source": "synthetic",
+                "provider": "azure",
+                "voice": voice,
+            }
+        },
+    }
+    return folder, line
+
+
+def test_a1_road_18_a_job_12_clip_without_request_sha256_is_kept_and_not_counted(tmp_path):
+    """[a1-road 18] The six earlier drafts' clips have a file, its sha256, the text, the voice and the
+    provider but no request_sha256. Voicing again would give new bytes for the same text and voice and
+    break statement 17 (their audio stays byte for byte), so such a clip is kept and costs no characters."""
+    folder, line = _legacy_clip(tmp_path)
+    voices = {"Maria": "fi-FI-NooraNeural"}
+    assert "request_sha256" not in line["audio"]["puhe"]
+    assert clip_needs_voice(line, "puhe", folder, voices) is False
+    assert clip_needs_voice(line, "puhe", folder, voices, provider="azure") is False
+    kirja = dict(line["audio"]["puhe"], file="audio/1-kirja.mp3")
+    line["audio"]["kirja"] = kirja
+    (folder / "audio" / "1-kirja.mp3").write_bytes(b"clip made by job 12")
+    draft = {"brief": {"speakers": [{"name": "Maria", "voice": "fi-FI-NooraNeural"}]}, "lines": [line]}
+    assert characters_to_voice({"draft": draft}, repo=tmp_path) == 0
+
+
+def test_a1_road_18_a_job_12_clip_is_voiced_again_when_anything_it_stands_for_changed(tmp_path):
+    """[a1-road 18] Each change on its own makes a clip without request_sha256 be made again: another
+    text, another voice, another provider, a file that is not the one hashed, no hash, no file."""
+    voices = {"Maria": "fi-FI-NooraNeural"}
+
+    runs = iter(range(100))
+
+    def needs(change, **kwargs):
+        folder, line = _legacy_clip(tmp_path / f"{change}-{next(runs)}")
+        change_clip = {
+            "text": lambda c: c.__setitem__("text", "Hei!"),
+            "voice": lambda c: c.__setitem__("voice", "fi-FI-HarriNeural"),
+            "provider": lambda c: c.__setitem__("provider", "fake"),
+            "hash": lambda c: c.__setitem__("sha256", "0" * 64),
+            "nohash": lambda c: c.pop("sha256"),
+            "nofile": lambda c: (folder / c["file"]).unlink(),
+            "none": lambda c: None,
+        }[change]
+        change_clip(line["audio"]["puhe"])
+        return clip_needs_voice(line, "puhe", folder, voices, **kwargs)
+
+    assert needs("none", provider="azure") is False
+    for change in ("text", "voice", "hash", "nohash", "nofile"):
+        assert needs(change) is True, change
+    assert needs("provider", provider="azure") is True
+    assert needs("none", provider="fake") is True
 
 
 def test_a1_road_18_the_exact_characters_of_a_part_are_counted(tmp_path):
