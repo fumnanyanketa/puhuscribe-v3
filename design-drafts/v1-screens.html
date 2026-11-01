@@ -765,6 +765,132 @@
     color: var(--b-deep);
     padding: 8px;
   }
+  .prof {
+    display: grid;
+    justify-items: center;
+    gap: 3px;
+    margin-top: -14px;
+    text-align: center;
+  }
+  .prof b {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 6px;
+  }
+  .prof span {
+    font-size: 10px;
+    color: var(--quiet);
+  }
+  .face.big {
+    width: 64px;
+    height: 64px;
+    font-size: 22px;
+    box-shadow:
+      inset 0 0 0 3px #fff,
+      0 10px 24px -8px rgba(20, 90, 70, 0.35);
+  }
+  .jcard {
+    padding: 13px 15px;
+    display: grid;
+    gap: 8px;
+  }
+  .jrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11px;
+  }
+  .jrow span {
+    color: var(--quiet);
+  }
+  .jrow b {
+    font-weight: 600;
+  }
+  .jrow.small2 {
+    font-size: 9.5px;
+  }
+  .jrow.small2 span:last-child {
+    color: var(--b-deep);
+    font-weight: 600;
+  }
+  .jbar {
+    height: 6px;
+    border-radius: 6px;
+    background: var(--a-soft);
+    overflow: hidden;
+  }
+  .jbar i {
+    display: block;
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--a), #7fd7bd);
+  }
+  .savenote {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: var(--b-soft);
+    font-size: 10.5px;
+    color: var(--b-deep);
+  }
+  .savenote b {
+    font-weight: 600;
+  }
+  .row2 .val {
+    font-size: 10.5px;
+    color: var(--a-deep);
+    font-weight: 500;
+  }
+  .foot2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .foot2 i {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #b9c4c0;
+  }
+  .foot2 .del {
+    padding: 0;
+    font-size: 10.5px;
+  }
+  .doc {
+    display: grid;
+    gap: 6px;
+    padding: 2px 4px;
+  }
+  .doc .doc-title {
+    margin: 0 0 2px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .doc .doc-lead {
+    margin: 0 0 8px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .doc h4 {
+    margin: 8px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--a-deep);
+  }
+  .doc p {
+    margin: 0;
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: var(--quiet);
+  }
   .lhead {
     display: flex;
     justify-content: space-between;
@@ -2031,20 +2157,33 @@
       screens: [
         [
           'Your account, guest',
-          '',
-          ph(`${vista()}<div class="body over">${backBar('Your account')}
-      <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">Guest</b><div class="small">Saved on this device only</div></div></div>
-      <span class="pill">Add your email<i></i></span>
-      <div class="milk group"><div class="row2">Voice settings<span class="chev"></span></div><div class="row2">Download my data<span class="chev"></span></div><div class="row2">Privacy notice<span class="chev"></span></div></div><div class="milk group"><div class="row2">Send feedback<span class="chev"></span></div></div>
-      <div class="grow"></div><span class="del">Delete my account</span></div>`),
+          'A profile, not a list. Your journey up top, settings in one panel.',
+          ph(`${vista()}<div class="body over">${backBar('')}
+      <div class="prof"><span class="face big">A</span><b>Guest</b><span>Saved on this device</span></div>
+      <div class="milk jcard"><div class="jrow"><span>Your journey</span><b>Stop 3 of 36</b></div><div class="jbar"><i style="width:7%"></i></div><div class="jrow small2"><span>Now: Grocery store</span><span>A1</span></div></div>
+      <div class="savenote"><span>Add your email to keep your progress.</span><b>Add</b></div>
+      <div class="milk group">
+        <div class="row2"><span>Speaking feedback</span><span class="val">On</span></div>
+        <div class="row2"><span>Download my data</span><span class="chev"></span></div>
+        <div class="row2"><span>Privacy notice</span><span class="chev"></span></div>
+        <div class="row2"><span>Send feedback</span><span class="chev"></span></div>
+      </div>
+      <div class="grow"></div><div class="foot2"><span class="del">Delete my account</span></div></div>`),
         ],
         [
           'Your account, signed in',
-          '',
-          ph(`${vista()}<div class="body over">${backBar('Your account')}
-      <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">alex@example.com</b><div class="small">Progress on all your devices</div></div></div>
-      <div class="milk group"><div class="row2">Voice settings<span class="chev"></span></div><div class="row2">Download my data<span class="chev"></span></div><div class="row2">Privacy notice<span class="chev"></span></div></div><div class="milk group"><div class="row2">Send feedback<span class="chev"></span></div><div class="row2">Sign out<span class="chev"></span></div></div>
-      <div class="grow"></div><span class="del">Delete my account</span></div>`),
+          'The same page once an email is added.',
+          ph(`${vista()}<div class="body over">${backBar('')}
+      <div class="prof"><span class="face big">A</span><b>alex@example.com</b><span>Saved to your email</span></div>
+      <div class="milk jcard"><div class="jrow"><span>Your journey</span><b>Stop 3 of 36</b></div><div class="jbar"><i style="width:7%"></i></div><div class="jrow small2"><span>Now: Grocery store</span><span>A1</span></div></div>
+      
+      <div class="milk group">
+        <div class="row2"><span>Speaking feedback</span><span class="val">On</span></div>
+        <div class="row2"><span>Download my data</span><span class="chev"></span></div>
+        <div class="row2"><span>Privacy notice</span><span class="chev"></span></div>
+        <div class="row2"><span>Send feedback</span><span class="chev"></span></div>
+      </div>
+      <div class="grow"></div><div class="foot2"><span>Sign out</span><i></i><span class="del">Delete my account</span></div></div>`),
         ],
         [
           'Add your email',
@@ -2095,15 +2234,17 @@
         ],
         [
           'Privacy notice',
-          'Short sections that open on tap, instead of one long page.',
-          ph(`${vista()}<div class="body over">${backBar('Privacy notice')}
-      <div class="acc">
-        <div class="milk open"><b>What we keep</b><p>Your progress, a random guest id or your email, and your settings. Never your name.</p></div>
-        <div class="milk item">Your voice<span class="chev"></span></div>
-        <div class="milk item">How long we keep it<span class="chev"></span></div>
-        <div class="milk item">Your rights<span class="chev"></span></div>
-        <div class="milk item">Who is responsible<span class="chev"></span></div>
-      </div><div class="grow"></div><p class="hint">Updated 1 November 2026</p></div>`),
+          'A calm page to read: a short summary, then plain sections.',
+          ph(`${vista()}<div class="body over">${backBar('')}
+      <div class="doc">
+        <p class="doc-title">Privacy notice</p>
+        <p class="doc-lead">We keep only what we need to teach you, in the EU. You can download it or delete it at any time.</p>
+        <h4>What we keep</h4><p>Your progress, your settings, and a random guest id or your email. Never your name.</p>
+        <h4>Your voice</h4><p>Only if you turn on speaking feedback. Checked, then deleted, unless you choose to keep it.</p>
+        <h4>How long</h4><p>While you use PuhuScribe. A guest account is deleted after 90 days without use.</p>
+        <h4>Your rights</h4><p>See, download or delete everything from Your account.</p>
+      </div>
+      <div class="grow"></div><p class="hint">Exentrik, Finland. Updated 1 November 2026</p></div>`),
         ],
         [
           'Send feedback',
