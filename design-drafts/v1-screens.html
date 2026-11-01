@@ -117,7 +117,8 @@
     overflow: hidden;
     color: var(--ink);
     font-family: var(--font);
-    font-size: 12.5px;
+    font-size: 11px;
+    letter-spacing: 0.005em;
     background: linear-gradient(165deg, var(--wash1) 0%, #f7f8f6 50%, var(--wash2) 100%);
     display: flex;
     flex-direction: column;
@@ -152,10 +153,47 @@
     flex: 1;
   }
   .milk {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(40, 60, 60, 0.06);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.68));
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    box-shadow:
+      0 1px 1px rgba(20, 40, 35, 0.04),
+      0 14px 30px -14px rgba(20, 50, 45, 0.22);
+  }
+  .s::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+  }
+  .vista {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 170px;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(#000 70%, transparent);
+    mask-image: linear-gradient(#000 70%, transparent);
+  }
+  .vista svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .over {
+    position: relative;
+    z-index: 2;
+  }
+  .over > .top {
+    margin-bottom: 58px;
+  }
+  .over > .top + div[style*='height:4px'] {
+    display: none;
   }
   .solid {
     background: #fff;
@@ -163,20 +201,20 @@
     box-shadow: 0 8px 24px rgba(40, 60, 60, 0.07);
   }
   .title {
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 500;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     line-height: 1.25;
     margin: 0;
   }
   .hint {
-    font-size: 11.5px;
+    font-size: 10px;
     color: var(--quiet);
     margin: 0;
     text-align: center;
   }
   .small {
-    font-size: 11px;
+    font-size: 9.5px;
     color: var(--quiet);
   }
 
@@ -184,17 +222,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--a);
+    background: linear-gradient(180deg, #2a9e86, #1f8670);
     color: #fff;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 11.5px;
     border-radius: 999px;
-    padding: 5px 5px 5px 18px;
-    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+    padding: 4px 4px 4px 16px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 1px 1px rgba(10, 60, 50, 0.12),
+      0 10px 22px -8px rgba(20, 90, 70, 0.45);
   }
   .pill i {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.22);
     position: relative;
@@ -204,7 +245,7 @@
     content: '';
     position: absolute;
     left: 8px;
-    top: 13px;
+    top: 12px;
     width: 10px;
     height: 2px;
     background: #fff;
@@ -213,7 +254,7 @@
     content: '';
     position: absolute;
     left: 11px;
-    top: 9.5px;
+    top: 8.5px;
     width: 6px;
     height: 6px;
     border-top: 2px solid #fff;
@@ -237,17 +278,17 @@
   }
   .plain {
     text-align: center;
-    padding: 10px;
+    padding: 9px;
     border-radius: 999px;
     font-weight: 500;
-    font-size: 12.5px;
+    font-size: 11.5px;
     background: #fff;
     color: var(--a-deep);
     border: 1px solid var(--a-soft);
   }
   .link {
     text-align: center;
-    font-size: 11.5px;
+    font-size: 10px;
     color: var(--quiet);
     text-decoration: underline;
     text-decoration-color: var(--a-mid);
@@ -260,8 +301,9 @@
     gap: 10px;
   }
   .round {
-    width: 30px;
-    height: 30px;
+    background: rgba(255, 255, 255, 0.88) !important;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -292,9 +334,10 @@
   }
   .track {
     flex: 1;
-    height: 7px;
-    border-radius: 7px;
-    background: rgba(255, 255, 255, 0.75);
+    height: 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: inset 0 1px 2px rgba(20, 40, 35, 0.06);
     overflow: hidden;
   }
   .track b {
@@ -304,7 +347,7 @@
     border-radius: 7px;
   }
   .steplabel {
-    font-size: 10.5px;
+    font-size: 9.5px;
     color: var(--quiet);
     min-width: 60px;
     text-align: right;
@@ -318,7 +361,7 @@
   }
   .who {
     font-weight: 500;
-    font-size: 11.5px;
+    font-size: 10px;
     color: var(--quiet);
   }
   .pair2 {
@@ -363,12 +406,13 @@
   .spoken small {
     color: var(--a);
     font-weight: 500;
-    font-size: 10px;
+    font-size: 8.5px;
+    letter-spacing: 0.02em;
   }
   .spoken span {
     font-weight: 600;
-    font-size: 18.5px;
-    line-height: 1.25;
+    font-size: 15px;
+    line-height: 1.3;
   }
   .written {
     padding: 0 11px;
@@ -377,10 +421,11 @@
   .written small {
     color: var(--a-mid);
     font-weight: 500;
-    font-size: 10px;
+    font-size: 8.5px;
+    letter-spacing: 0.02em;
   }
   .written span {
-    font-size: 13.5px;
+    font-size: 11.5px;
     color: var(--quiet);
   }
   .mk {
@@ -407,13 +452,13 @@
   .play {
     display: flex;
     align-items: center;
-    gap: 7px;
-    font-size: 11px;
+    gap: 6px;
+    font-size: 9.5px;
     color: var(--quiet);
   }
   .play i {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--a);
     position: relative;
@@ -422,11 +467,11 @@
   .play i::after {
     content: '';
     position: absolute;
-    left: 11px;
-    top: 8.5px;
-    border-left: 9px solid #fff;
-    border-top: 5.5px solid transparent;
-    border-bottom: 5.5px solid transparent;
+    left: 9.5px;
+    top: 7px;
+    border-left: 8px solid #fff;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
   }
   .play.w i {
     background: rgba(255, 255, 255, 0.95);
@@ -436,20 +481,20 @@
     border-left-color: var(--a);
   }
   .play.big i {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
   }
   .play.big i::after {
-    left: 16px;
-    top: 13px;
-    border-left-width: 12px;
-    border-top-width: 7px;
-    border-bottom-width: 7px;
+    left: 13.5px;
+    top: 11px;
+    border-left-width: 10px;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
   }
 
   .choice {
-    padding: 13px 15px;
-    font-size: 13px;
+    padding: 11px 14px;
+    font-size: 11.5px;
   }
   .choice.on {
     border: 1.5px solid var(--a);
@@ -478,8 +523,8 @@
     transform: rotate(-45deg) translate(1px, -1px);
   }
   .mic {
-    width: 84px;
-    height: 84px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: var(--a);
     display: grid;
@@ -492,8 +537,8 @@
   }
   .mic::before {
     content: '';
-    width: 16px;
-    height: 27px;
+    width: 14px;
+    height: 23px;
     border-radius: 9px;
     background: #fff;
     margin-top: -8px;
@@ -501,12 +546,12 @@
   .mic::after {
     content: '';
     position: absolute;
-    width: 27px;
-    height: 16px;
+    width: 23px;
+    height: 14px;
     border: 3px solid #fff;
     border-top: none;
-    border-radius: 0 0 16px 16px;
-    top: 40px;
+    border-radius: 0 0 14px 14px;
+    top: 34px;
   }
   .mic.rec {
     background: var(--b);
@@ -538,9 +583,9 @@
   .result .head {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     font-weight: 500;
-    font-size: 13.5px;
+    font-size: 12px;
   }
   .twobtn {
     display: flex;
@@ -549,9 +594,9 @@
   .twobtn span {
     flex: 1;
     text-align: center;
-    padding: 9px;
+    padding: 8px;
     border-radius: 999px;
-    font-size: 11.5px;
+    font-size: 10.5px;
     font-weight: 500;
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--a-soft);
@@ -559,13 +604,13 @@
   }
   .soft-note {
     display: flex;
-    gap: 9px;
+    gap: 8px;
     align-items: center;
-    padding: 11px 13px;
-    border-radius: 18px;
+    padding: 10px 12px;
+    border-radius: 16px;
     background: var(--b-soft);
     color: var(--b-deep);
-    font-size: 12px;
+    font-size: 10.5px;
   }
   .soft-note .ring {
     width: 16px;
@@ -575,8 +620,8 @@
     flex: none;
   }
   .field {
-    padding: 13px 15px;
-    font-size: 16px;
+    padding: 11px 14px;
+    font-size: 13.5px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -585,7 +630,7 @@
   .field.ph {
     color: #9aa6a2;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
   }
   .caret {
     width: 2px;
@@ -597,12 +642,12 @@
     gap: 8px;
   }
   .keys span {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
   }
   .boxes {
@@ -611,12 +656,12 @@
     justify-content: center;
   }
   .boxes span {
-    width: 36px;
-    height: 46px;
-    border-radius: 13px;
+    width: 32px;
+    height: 40px;
+    border-radius: 12px;
     display: grid;
     place-items: center;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
   }
   .boxes span.on {
@@ -655,7 +700,7 @@
     align-items: baseline;
   }
   .word b {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--b-deep);
   }
@@ -663,7 +708,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 5px 14px;
-    font-size: 12px;
+    font-size: 10.5px;
     margin: 0;
   }
   .facts dt {
@@ -687,7 +732,7 @@
     color: var(--a-deep);
   }
   .formrow span {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
   }
   .formrow.w {
@@ -699,9 +744,9 @@
 
   .bubble {
     max-width: 78%;
-    padding: 9px 12px;
-    border-radius: 18px;
-    font-size: 13px;
+    padding: 8px 11px;
+    border-radius: 16px;
+    font-size: 11.5px;
     line-height: 1.35;
   }
   .bubble.otso {
@@ -739,7 +784,7 @@
   .compose span {
     flex: 1;
     color: #9aa6a2;
-    font-size: 13px;
+    font-size: 11px;
   }
   .send {
     flex: none;
@@ -792,7 +837,7 @@
     top: 34px;
   }
   .big {
-    font-size: 21px;
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.02em;
     text-align: center;
@@ -809,7 +854,7 @@
     display: grid;
   }
   .gain b {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     line-height: 1.1;
   }
@@ -817,7 +862,7 @@
     color: var(--b-deep);
   }
   .gain span {
-    font-size: 10.5px;
+    font-size: 9px;
     color: var(--quiet);
   }
 
@@ -828,16 +873,19 @@
     padding: 14px;
   }
   .face {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: var(--a-soft);
+    background: linear-gradient(160deg, #dff4ec, #c6e8db);
     color: var(--a-deep);
     display: grid;
     place-items: center;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     flex: none;
+    box-shadow:
+      inset 0 0 0 2px #fff,
+      0 4px 12px -4px rgba(20, 90, 70, 0.3);
   }
   .items {
     display: grid;
@@ -847,8 +895,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 13px 15px;
-    font-size: 13px;
+    padding: 11px 14px;
+    font-size: 11.5px;
   }
   .item .chev {
     width: 7px;
@@ -890,7 +938,7 @@
     gap: 7px;
   }
   .acc .item {
-    font-size: 12.5px;
+    font-size: 11px;
   }
   .acc .open {
     display: grid;
@@ -898,20 +946,20 @@
     padding: 13px 15px;
   }
   .acc .open b {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
   }
   .acc .open p {
     margin: 0;
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: var(--quiet);
     line-height: 1.5;
   }
   .area {
-    height: 150px;
-    padding: 13px 15px;
+    height: 140px;
+    padding: 12px 14px;
     color: #9aa6a2;
-    font-size: 13px;
+    font-size: 11.5px;
   }
   .center {
     align-items: center;
@@ -1086,14 +1134,32 @@
     border-radius: 50%;
     border: 2px solid rgba(127, 224, 195, 0.9);
   }
-  .goal {
+  .lvls {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: grid;
-    justify-items: center;
-    gap: 2px;
-    text-align: center;
+    inset: 0;
+    pointer-events: none;
+  }
+  .lvl {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--quiet);
+    white-space: nowrap;
+  }
+  .lvl i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 1px #c5d3cf;
+    flex: none;
+  }
+  .lvls.eve .lvl {
+    color: #dbe4ee;
   }
   .goal b {
     font-size: 12px;
@@ -1166,12 +1232,12 @@
     align-items: center;
   }
   .card .t b {
-    font-size: 14.5px;
+    font-size: 13px;
     font-weight: 600;
     display: block;
   }
   .card .t small {
-    font-size: 10.5px;
+    font-size: 9.5px;
     color: var(--quiet);
   }
   .badge {
@@ -1200,15 +1266,33 @@
   <header>
     <h1>PuhuScribe v1 screens</h1>
     <p>
-      Every remaining screen in the final look: mint and peach, the soft milky panels, smaller text, and the
-      road. Together with the road journey and the opening animation, this is the whole app for version 1.
-      Finnish lines come from the written A1 road.
+      Every remaining screen in the final look. The landscape from the road runs behind the top of each
+      screen, so a lesson feels like a stop on the journey. Text is sized as on a real phone. Together with
+      the road journey and the opening animation, this is the whole app for version 1.
     </p>
   </header>
   <div id="out"></div>
 </div>
 
 <script>
+  let uid = 0
+  const vista = () => {
+    const k = 'v' + uid++
+    const pines = [14, 26, 36, 49, 61, 150, 163, 176, 236, 248, 262]
+      .map((x, i) => {
+        const h = 7 + ((i * 5) % 5),
+          b = 112 + Math.sin(x / 30) * 4
+        return `<path d="M${x} ${(b - h).toFixed(1)} L${(x - h * 0.38).toFixed(1)} ${b.toFixed(1)} L${(x + h * 0.38).toFixed(1)} ${b.toFixed(1)} Z" fill="#a9d3c2"/>`
+      })
+      .join('')
+    return `<div class="vista"><svg viewBox="0 0 280 170" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4efe5"/><stop offset="1" stop-color="#f5f8f5"/></linearGradient><radialGradient id="${k}s" cx=".5" cy=".45" r=".55"><stop offset="0" stop-color="#fff4ec"/><stop offset=".6" stop-color="#fcd7c4"/><stop offset="1" stop-color="#f6b89c"/></radialGradient></defs>
+  <rect width="280" height="170" fill="url(#${k})"/>
+  <path d="M0 96 C 50 70, 90 80, 130 60 C 160 48, 200 72, 240 66 C 260 62, 275 74, 280 78 L280 170 L0 170 Z" fill="#e2f1ea"/>
+  <circle cx="214" cy="98" r="17" fill="url(#${k}s)" stroke="#f1946f" stroke-width="1"/>
+  <path d="M0 110 C 40 92, 80 96, 112 110 C 140 120, 175 102, 205 106 C 235 110, 260 98, 280 102 L280 170 L0 170 Z" fill="#cfe8dd"/>
+  ${pines}
+  <path d="M0 124 C 60 112, 120 126, 170 118 C 210 112, 250 120, 280 116 L280 170 L0 170 Z" fill="#e9f4ee"/></svg></div>`
+  }
   const ph = (inner) =>
     `<div class="phone"><div class="s"><div class="status"><span>9:41</span><i></i><span>5G</span></div>${inner}</div></div>`
   const topBar = (pct, label, kind = 'x') =>
@@ -1282,7 +1366,6 @@
     })
     return o
   }
-  let uid = 0
   const land = (doneTo, eve) => {
     const id = 'g' + uid++
     const sky = eve ? ['#30405a', '#6c6f8e', '#e8b9a6'] : ['#dff3eb', '#f3f6ef', '#fde9dc']
@@ -1295,7 +1378,10 @@
   <clipPath id="ab${id}"><rect x="0" y="0" width="${W}" height="${HORIZON + 2}"/></clipPath></defs>
   <rect width="${W}" height="${H}" fill="url(#sk${id})"/>
   ${eve ? '<circle cx="64" cy="120" r="1.2" fill="#fff"/><circle cx="210" cy="96" r="1" fill="#fff"/><circle cx="160" cy="140" r="1.1" fill="#fff" opacity=".8"/><circle cx="40" cy="180" r=".9" fill="#fff" opacity=".7"/>' : ''}
-  <g clip-path="url(#ab${id})"><g transform="translate(0 ${eve ? 22 : 0})"><circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity="${eve ? 0.25 : 0.6}"/><circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#su${id})" stroke="#f1946f" stroke-width="1.5"/></g></g>
+  <path d="M0 ${HORIZON - 44} C 50 ${HORIZON - 74}, 90 ${HORIZON - 64}, 130 ${HORIZON - 88} C 160 ${HORIZON - 102}, 200 ${HORIZON - 74}, 240 ${HORIZON - 82} C 260 ${HORIZON - 86}, 275 ${HORIZON - 70}, 280 ${HORIZON - 64} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="${eve ? '#5b6a80' : '#e4f2ec'}"/>
+  <path d="M0 ${HORIZON - 24} C 40 ${HORIZON - 48}, 80 ${HORIZON - 42}, 120 ${HORIZON - 58} C 150 ${HORIZON - 68}, 190 ${HORIZON - 46}, 230 ${HORIZON - 52} C 255 ${HORIZON - 56}, 270 ${HORIZON - 42}, 280 ${HORIZON - 38} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="${eve ? '#536175' : '#d5ebe1'}"/>
+  <path d="M150 ${HORIZON - 38} C 180 ${HORIZON - 44}, 200 ${HORIZON - 50}, 206 ${HORIZON - 58} C 170 ${HORIZON - 66}, 120 ${HORIZON - 66}, 98 ${HORIZON - 76} C 120 ${HORIZON - 88}, 150 ${HORIZON - 96}, 150 ${HORIZON - 104}" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="1.5 5" stroke-linecap="round" opacity="${eve ? 0.6 : 0.95}"/>
+  <g clip-path="url(#ab${id})"><g transform="translate(0 ${eve ? 22 : 0})"><circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity="${eve ? 0.25 : 0.6}"/><circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#su${id})" stroke="#f1946f" stroke-width="1.5"/><text x="150" y="${HORIZON - 12}" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#b8532f">A1</text></g></g>
   <path d="M0 ${HORIZON - 14} C 40 ${HORIZON - 30}, 80 ${HORIZON - 26}, 110 ${HORIZON - 8} C 130 ${HORIZON + 2}, 170 ${HORIZON + 2}, 190 ${HORIZON - 10} C 220 ${HORIZON - 30}, 255 ${HORIZON - 26}, 280 ${HORIZON - 16} L 280 ${HORIZON + 6} L 0 ${HORIZON + 6} Z" fill="${eve ? '#4a5a6c' : '#c4e3d6'}"/>
   ${pines(eve ? '#3d4b5b' : '#9ccbb9')}
   <rect x="0" y="${HORIZON}" width="${W}" height="${H - HORIZON}" fill="url(#gr${id})"/>
@@ -1325,7 +1411,7 @@
   const you = (t) =>
     `<span class="you" style="left:${f(xAt(t))}px;top:${f(yAt(t))}px"><span class="ringp"></span><span class="dot"></span></span>`
   const goal = (eve) =>
-    `<span class="goal ${eve ? 'eve' : ''}" style="top:${HORIZON - 92}px"><b>A1</b><span>Everyday Finnish</span></span>`
+    `<span class="lvls ${eve ? 'eve' : ''}"><span class="lvl" style="left:206px;top:${HORIZON - 58}px"><i></i>A2</span><span class="lvl" style="left:98px;top:${HORIZON - 76}px"><i></i>B1</span><span class="lvl" style="left:150px;top:${HORIZON - 104}px"><i></i>B2 · YKI</span></span>`
   const prog = (n) =>
     `<span class="prog">${Array.from({ length: 12 }, (_, i) => `<i class="${i < n ? 'f' : ''}"></i>`).join('')}</span>`
   const road = (
@@ -1345,7 +1431,7 @@
         [
           'Hear it, first time',
           'The one-time tip sits under the card, then never shows again.',
-          ph(`<div class="body">${topBar(10, 'Hear it')}
+          ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}
       <div style="height:4px"></div>${lineCard()}
       <p class="hint">How much are those strawberries?</p><div class="grow"></div>
       <div class="milk" style="padding:11px 13px;font-size:12px;display:flex;gap:10px;align-items:center"><span style="flex:1">Spoken Finnish on top, written under it. Tap any word.</span><span style="color:var(--a-deep);font-weight:500">Got it</span></div>
@@ -1354,7 +1440,7 @@
         [
           'Word card',
           'Tap a word. The sheet slides up over the lesson.',
-          ph(`<div class="body">${topBar(10, 'Hear it')}<div style="height:4px"></div>${lineCard({ s: 'Paljonks <span class="mk on">noi</span> mansikat maksaa?' })}</div>
+          ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}<div style="height:4px"></div>${lineCard({ s: 'Paljonks <span class="mk on">noi</span> mansikat maksaa?' })}</div>
       <div class="dim"></div><div class="sheet"><span class="grab"></span>
       <div class="word"><b>noi</b><span class="small">Close</span></div>
       <dl class="facts"><dt>Means</dt><dd>those</dd><dt>Base form</dt><dd>tuo, that</dd><dt>Why</dt><dd>Spoken Finnish says noi for nuo.</dd></dl>
@@ -1364,7 +1450,7 @@
         [
           'Understand it',
           'One question, three answers to tap.',
-          ph(`<div class="body">${topBar(38, 'Understand')}
+          ph(`${vista()}<div class="body over">${topBar(38, 'Understand')}
       <p class="title">What does Maria ask?</p>
       <div class="milk" style="padding:14px;display:flex;align-items:center;gap:12px"><span class="play big"><i></i></span><span style="font-size:17px;font-weight:600">Voinks mä maksaa kortilla?</span></div>
       <span class="milk choice">Can I pay in cash?</span>
@@ -1375,7 +1461,7 @@
         [
           'Speaking, first time',
           'Asked once, before the first recording. The full details sit behind one link.',
-          ph(`<div class="body">${topBar(52, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
+          ph(`${vista()}<div class="body over">${topBar(52, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
       <div class="dim"></div><div class="sheet"><span class="grab"></span>
       <p class="title">Say it out loud</p>
       <p style="margin:0;font-size:12.5px;color:var(--quiet)">Your voice is checked, then deleted.</p>
@@ -1385,28 +1471,28 @@
         [
           'Say it',
           'Listen, then tap and say the line.',
-          ph(`<div class="body">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+          ph(`${vista()}<div class="body over">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
       <div class="grow"></div><div style="display:grid;justify-items:center;gap:26px"><span class="mic"></span><p class="hint">Tap and say the line</p></div>
       <div class="grow"></div><span class="link">I can't speak right now</span></div>`),
         ],
         [
           'Say it, listening',
           'While you speak.',
-          ph(`<div class="body">${topBar(58, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+          ph(`${vista()}<div class="body over">${topBar(58, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
       <div class="grow"></div><div style="display:grid;justify-items:center;gap:18px"><span class="mic rec"></span>${waveBars(true)}<p class="hint">Listening</p></div>
       <div class="grow"></div><span class="link">Stop</span></div>`),
         ],
         [
           'Say it, clear',
           'Your recording to play back.',
-          ph(`<div class="body">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+          ph(`${vista()}<div class="body over">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
       <div class="milk result"><div class="head"><span class="tick"></span>That was clear.</div>${waveBars()}<div class="twobtn"><span>Play mine</span><span>Try again</span></div></div>
       <div class="grow"></div><span class="pill">Next line<i></i></span></div>`),
         ],
         [
           'Say it, try again',
           'Gentle, never a red cross.',
-          ph(`<div class="body">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+          ph(`${vista()}<div class="body over">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
       <div class="soft-note"><span class="ring"></span>Listen once more, then try again.</div>
       <div class="grow"></div><div style="display:grid;justify-items:center;gap:22px"><span class="mic"></span></div><div class="grow"></div>
       <span class="pill off">Next line<i></i></span></div>`),
@@ -1414,7 +1500,7 @@
         [
           'Keep it',
           'A word you met before, typed from memory.',
-          ph(`<div class="body">${topBar(80, 'Keep it')}
+          ph(`${vista()}<div class="body over">${topBar(80, 'Keep it')}
       <p class="title">Type the missing word</p>
       ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="blank"></span>?', w: 'Voinko minä maksaa <span class="blank"></span>?', noplay: true })}
       <div class="milk field">kort<span class="caret"></span></div>
@@ -1424,7 +1510,7 @@
         [
           'Keep it, right',
           '',
-          ph(`<div class="body">${topBar(84, 'Keep it')}
+          ph(`${vista()}<div class="body over">${topBar(84, 'Keep it')}
       <p class="title">Type the missing word</p>
       ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="mk">kortilla</span>?', w: 'Voinko minä maksaa <span class="mk">kortilla</span>?', noplay: true })}
       <div class="milk field" style="border:1.5px solid var(--a);justify-content:space-between">kortilla<span class="tick"></span></div>
@@ -1433,7 +1519,7 @@
         [
           'Keep it, close',
           'Nearly right counts as learning.',
-          ph(`<div class="body">${topBar(84, 'Keep it')}
+          ph(`${vista()}<div class="body over">${topBar(84, 'Keep it')}
       <p class="title">Type the missing word</p>
       ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="mk">kortilla</span>?', w: 'Voinko minä maksaa <span class="mk">kortilla</span>?', noplay: true })}
       <div class="milk field">kortila</div>
@@ -1443,7 +1529,7 @@
         [
           'Use it, with Otso',
           'Later on the road. A short typed chat with the tutor, three turns.',
-          ph(`<div class="body">${topBar(92, 'Use it')}
+          ph(`${vista()}<div class="body over">${topBar(92, 'Use it')}
       <div class="chat" style="margin-top:6px">
         <div class="bubble otso"><small>Otso</small>Moi! Mitä sulle?</div>
         <div class="bubble me"><small>You</small>Kaks kahvii, kiitos.</div>
@@ -1456,7 +1542,7 @@
         [
           'Leave the lesson?',
           'Tapping the cross.',
-          ph(`<div class="body">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
+          ph(`${vista()}<div class="body over">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
       <div class="dim"></div><div class="sheet"><span class="grab"></span>
       <p class="title">Leave this lesson?</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">You can carry on later from here.</p>
       <span class="pill">Keep going<i></i></span><span class="plain">Leave</span></div>`),
@@ -1464,7 +1550,7 @@
         [
           'Lesson finished',
           'With the save note, for guests only.',
-          ph(`<div class="body" style="padding-top:10px">
+          ph(`${vista()}<div class="body over" style="padding-top:10px">
       <span class="done-orb"></span><p class="big">Now you can say this.</p>
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
       <div class="gain"><div class="milk"><b class="warm">+11</b><span>new words</span></div><div class="milk"><b>8</b><span>lines said aloud</span></div></div>
@@ -1527,7 +1613,7 @@
         [
           'Your account, guest',
           '',
-          ph(`<div class="body">${backBar('Your account')}
+          ph(`${vista()}<div class="body over">${backBar('Your account')}
       <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">Guest</b><div class="small">Saved on this device only</div></div></div>
       <span class="pill">Add your email<i></i></span>
       <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div></div>
@@ -1536,7 +1622,7 @@
         [
           'Your account, signed in',
           '',
-          ph(`<div class="body">${backBar('Your account')}
+          ph(`${vista()}<div class="body over">${backBar('Your account')}
       <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">alex@example.com</b><div class="small">Progress on all your devices</div></div></div>
       <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div><div class="milk item">Sign out<span class="chev"></span></div></div>
       <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my account</div></div>`),
@@ -1544,7 +1630,7 @@
         [
           'Add your email',
           'One field. No password, ever.',
-          ph(`<div class="body">${backBar('')}
+          ph(`${vista()}<div class="body over">${backBar('')}
       <p class="title" style="margin-top:20px">Add your email</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">We send you a 6-digit code.</p>
       <div class="milk field">alex@exa<span class="caret"></span></div>
       <div class="grow"></div><span class="pill">Send code<i></i></span></div>`),
@@ -1552,7 +1638,7 @@
         [
           'Enter the code',
           '',
-          ph(`<div class="body">${backBar('')}
+          ph(`${vista()}<div class="body over">${backBar('')}
       <p class="title" style="margin-top:20px">Enter the code</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Sent to alex@example.com</p>
       <div class="boxes"><span class="milk">4</span><span class="milk">7</span><span class="milk">1</span><span class="milk on">9</span><span class="milk"></span><span class="milk"></span></div>
       <span class="link">Send a new code</span><div class="grow"></div><span class="pill off">Confirm<i></i></span></div>`),
@@ -1560,7 +1646,7 @@
         [
           'Sign in',
           'For someone who already added an email.',
-          ph(`<div class="body">${backBar('')}
+          ph(`${vista()}<div class="body over">${backBar('')}
       <p class="title" style="margin-top:20px">Welcome back</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Enter your email for a code.</p>
       <div class="milk field ph">Your email</div>
       <div class="grow"></div><span class="pill">Send code<i></i></span><span class="link">Start as a guest instead</span></div>`),
@@ -1568,7 +1654,7 @@
         [
           'Voice settings',
           '',
-          ph(`<div class="body">${backBar('Voice settings')}
+          ph(`${vista()}<div class="body over">${backBar('Voice settings')}
       <div class="items" style="margin-top:8px"><div class="milk item"><span>Speaking feedback</span><span class="toggle"></span></div>
       <div class="milk item"><span>Keep my recordings<br><span class="small">So I can hear my progress. 90 days.</span></span><span class="toggle offt"></span></div></div>
       <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my recordings</div></div>`),
@@ -1576,14 +1662,14 @@
         [
           'Download my data',
           '',
-          ph(`<div class="body">${backBar('Download my data')}
+          ph(`${vista()}<div class="body over">${backBar('Download my data')}
       <div class="grow"></div><div style="display:grid;justify-items:center;gap:12px;text-align:center"><span class="done-orb" style="width:74px;height:74px"></span><p class="title">Your file is ready</p><p class="hint">Everything we keep about you, in one file.</p></div>
       <div class="grow"></div><span class="pill">Download<i></i></span></div>`),
         ],
         [
           'Delete my account',
           'A second step before anything is deleted.',
-          ph(`<div class="body">${backBar('Your account')}</div>
+          ph(`${vista()}<div class="body over">${backBar('Your account')}</div>
       <div class="dim"></div><div class="sheet"><span class="grab"></span>
       <p class="title">Delete your account?</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Your progress and recordings are deleted for good.</p>
       <span class="plain" style="background:var(--b);color:#fff;border-color:var(--b)">Delete for good</span><span class="plain">Keep my account</span></div>`),
@@ -1591,7 +1677,7 @@
         [
           'Privacy notice',
           'Short sections that open on tap, instead of one long page.',
-          ph(`<div class="body">${backBar('Privacy notice')}
+          ph(`${vista()}<div class="body over">${backBar('Privacy notice')}
       <div class="acc">
         <div class="milk open"><b>What we keep</b><p>Your progress, a random guest id or your email, and your settings. Never your name.</p></div>
         <div class="milk item">Your voice<span class="chev"></span></div>
@@ -1603,7 +1689,7 @@
         [
           'Send feedback',
           '',
-          ph(`<div class="body">${backBar('Send feedback')}
+          ph(`${vista()}<div class="body over">${backBar('Send feedback')}
       <p class="title" style="margin-top:8px">What should we know?</p>
       <div class="milk area">What worked, what didn't, what broke.</div>
       <div class="grow"></div><span class="pill">Send<i></i></span></div>`),
@@ -1618,21 +1704,21 @@
           'Opening',
           'While the app loads.',
           ph(
-            `<div class="body center" style="gap:16px"><svg class="mark" viewBox="8 8 84 84" aria-hidden="true"><rect x="8" y="8" width="84" height="84" rx="26" fill="#23917a"/><path d="M50 78 L50 50" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M50 62 C 50 45 37 39 23 41 C 25 58 40 65 50 62 Z" fill="#fff"/><path d="M50 55 C 50 41 63 36 77 38 C 75 53 60 59 50 55 Z" fill="#d6efe7"/></svg><span class="dots3"><i></i><i></i><i></i></span></div>`,
+            `${vista()}<div class="body over center" style="gap:16px"><svg class="mark" viewBox="8 8 84 84" aria-hidden="true"><rect x="8" y="8" width="84" height="84" rx="26" fill="#23917a"/><path d="M50 78 L50 50" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M50 62 C 50 45 37 39 23 41 C 25 58 40 65 50 62 Z" fill="#fff"/><path d="M50 55 C 50 41 63 36 77 38 C 75 53 60 59 50 55 Z" fill="#d6efe7"/></svg><span class="dots3"><i></i><i></i><i></i></span></div>`,
           ),
         ],
         [
           'No internet',
           '',
           ph(
-            `<div class="body center" style="gap:14px"><span class="cloud"><span class="slash"></span></span><p class="title">No connection</p><p class="hint">Your progress is safe. Try again when you're online.</p><div style="width:100%;margin-top:20px"><span class="pill">Try again<i></i></span></div></div>`,
+            `${vista()}<div class="body over center" style="gap:14px"><span class="cloud"><span class="slash"></span></span><p class="title">No connection</p><p class="hint">Your progress is safe. Try again when you're online.</p><div style="width:100%;margin-top:20px"><span class="pill">Try again<i></i></span></div></div>`,
           ),
         ],
         [
           'Something went wrong',
           '',
           ph(
-            `<div class="body center" style="gap:14px"><span style="width:64px;height:64px;border-radius:50%;background:var(--b-soft);border:2px solid var(--b);display:grid;place-items:center;font-size:28px;font-weight:600;color:var(--b-deep)">!</span><p class="title">Something went wrong</p><p class="hint">We've been told about it.</p><div style="width:100%;margin-top:20px"><span class="pill">Reload<i></i></span></div></div>`,
+            `${vista()}<div class="body over center" style="gap:14px"><span style="width:64px;height:64px;border-radius:50%;background:var(--b-soft);border:2px solid var(--b);display:grid;place-items:center;font-size:28px;font-weight:600;color:var(--b-deep)">!</span><p class="title">Something went wrong</p><p class="hint">We've been told about it.</p><div style="width:100%;margin-top:20px"><span class="pill">Reload<i></i></span></div></div>`,
           ),
         ],
       ],

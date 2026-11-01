@@ -297,12 +297,27 @@
 
   .goal {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: grid;
-    justify-items: center;
-    gap: 2px;
-    text-align: center;
+    inset: 0;
+    pointer-events: none;
+  }
+  .lvl {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--quiet);
+    white-space: nowrap;
+  }
+  .lvl i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 1px #c5d3cf;
+    flex: none;
   }
   .goal b {
     font-size: 12px;
@@ -637,8 +652,9 @@
   <header>
     <h1>PuhuScribe road journey</h1>
     <p>
-      The road to A1, now in a landscape. A sky, soft hills with a line of pines, the A1 sun rising behind
-      them, a real road with gravel edges, and numbered stop signs. You are the pulsing marker on the road.
+      The road to A1, in a landscape: soft hills with a line of pines, the A1 sun on the horizon, a real road
+      with numbered stop signs, and you as the pulsing marker. Beyond A1 the path climbs on over the far hills
+      to A2, B1 and B2, the YKI level.
     </p>
   </header>
   <div class="row">
@@ -735,9 +751,13 @@
   </defs>
   <g class="landfade">
     <rect x="0" y="0" width="${W}" height="${H}" fill="url(#sky${id})"/>
+    <path d="M0 ${HORIZON - 44} C 50 ${HORIZON - 74}, 90 ${HORIZON - 64}, 130 ${HORIZON - 88} C 160 ${HORIZON - 102}, 200 ${HORIZON - 74}, 240 ${HORIZON - 82} C 260 ${HORIZON - 86}, 275 ${HORIZON - 70}, 280 ${HORIZON - 64} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="#e4f2ec"/>
+    <path d="M0 ${HORIZON - 24} C 40 ${HORIZON - 48}, 80 ${HORIZON - 42}, 120 ${HORIZON - 58} C 150 ${HORIZON - 68}, 190 ${HORIZON - 46}, 230 ${HORIZON - 52} C 255 ${HORIZON - 56}, 270 ${HORIZON - 42}, 280 ${HORIZON - 38} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="#d5ebe1"/>
+    <path d="M150 ${HORIZON - 38} C 180 ${HORIZON - 44}, 200 ${HORIZON - 50}, 206 ${HORIZON - 58} C 170 ${HORIZON - 66}, 120 ${HORIZON - 66}, 98 ${HORIZON - 76} C 120 ${HORIZON - 88}, 150 ${HORIZON - 96}, 150 ${HORIZON - 104}" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="1.5 5" stroke-linecap="round" opacity=".95"/>
     <g clip-path="url(#above${id})"><g class="sunup">
       <circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity=".6"/>
       <circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#sun${id})" stroke="#f1946f" stroke-width="1.5"/>
+      <text x="150" y="${HORIZON - 12}" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#b8532f">A1</text>
     </g></g>
     <path d="M0 ${HORIZON - 14} C 40 ${HORIZON - 30}, 80 ${HORIZON - 26}, 110 ${HORIZON - 8} C 130 ${HORIZON + 2}, 170 ${HORIZON + 2}, 190 ${HORIZON - 10} C 220 ${HORIZON - 30}, 255 ${HORIZON - 26}, 280 ${HORIZON - 16} L 280 ${HORIZON + 6} L 0 ${HORIZON + 6} Z" fill="#c4e3d6"/>
     ${pines}
@@ -779,7 +799,7 @@
   }
   const you = (t) =>
     `<span class="you" style="left:${f(xAt(t))}px;top:${f(yAt(t))}px"><span class="shade"></span><span class="pulse"></span><span class="dot"></span></span>`
-  const goal = `<span class="goal" style="top:${HORIZON - 92}px"><b>A1</b><span>Everyday Finnish</span></span>`
+  const goal = `<span class="goal lv"><span class="lvl" style="left:206px;top:${HORIZON - 58}px"><i></i>A2</span><span class="lvl" style="left:98px;top:${HORIZON - 76}px"><i></i>B1</span><span class="lvl" style="left:150px;top:${HORIZON - 104}px"><i></i>B2 · YKI</span></span>`
   const status = '<div class="status"><span>9:41</span><i></i><span>5G</span></div>'
   const prog = (n) =>
     `<span class="prog">${Array.from({ length: 12 }, (_, i) => `<i class="${i < n ? 'f' : ''}"></i>`).join('')}</span>`
