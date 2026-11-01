@@ -891,6 +891,23 @@
     line-height: 1.5;
     color: var(--quiet);
   }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chips span {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--a-soft);
+    color: var(--a-deep);
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+  .chips span:last-child {
+    background: #f1f4f3;
+    color: var(--quiet);
+  }
   .lhead {
     display: flex;
     justify-content: space-between;
@@ -2094,13 +2111,13 @@
         ],
         [
           'Lesson finished',
-          'With the save note, for guests only.',
+          'The new words you met, tap one to hear it. The save note shows for guests only.',
           ph(`${vista()}<div class="body over" style="padding-top:10px">
       <span class="done-orb"></span><p class="big">Now you can say this.</p>
       <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
-      <div class="gain"><div class="milk"><b class="warm">+11</b><span>new words</span></div><div class="milk"><b>8</b><span>lines said aloud</span></div></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px"><span style="font-size:10.5px;color:var(--quiet)">11 new words</span><div class="chips"><span>voinks</span><span>maksaa</span><span>kortilla</span><span>käteisellä</span><span>kuitti</span><span>+6</span></div></div>
       <div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Create an account to save your progress.</span><span class="plain">Create account</span></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px;text-align:center"><span>Create an account to save your progress.</span><span class="plain">Create account</span></div>
       <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
         ],
         [
