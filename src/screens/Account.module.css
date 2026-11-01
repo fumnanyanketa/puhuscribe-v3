@@ -437,3 +437,8 @@
   line-height: var(--leading-body);
   color: var(--color-text-quiet);
 }
+
+/* The class sets display, which would win over the hidden attribute. */
+.full[hidden] {
+  display: none;
+}

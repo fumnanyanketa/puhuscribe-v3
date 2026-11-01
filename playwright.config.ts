@@ -48,6 +48,10 @@ export default defineConfig({
     // Only the local server's own self-signed certificate; preview links have real ones.
     ignoreHTTPSErrors: !process.env.PLAYWRIGHT_BASE_URL,
     extraHTTPHeaders: accessHeaders,
+    // The road's opening animation hides the card for 3.4 seconds (job 19-redesign). Browser
+    // tests ask for reduced motion, so it is a crossfade of 600 ms and they stay fast and steady;
+    // the tests of the animation itself set 'no-preference' for their own describe block.
+    reducedMotion: 'reduce',
     screenshot: 'on',
     video: 'on',
     trace: keepsNoDebugFiles ? 'off' : 'retain-on-failure',

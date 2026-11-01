@@ -254,6 +254,8 @@ test.describe('the home screen is the road', () => {
 })
 
 test.describe('the opening animation', () => {
+  test.use({ reducedMotion: 'no-preference' })
+
   test('[redesign 17] [redesign 18] plays for a visitor in about 4.5 seconds, with Skip first, and ends on stop 1', async ({
     page,
   }) => {
@@ -359,7 +361,11 @@ test.describe('small phones and large text', () => {
     }) => {
       await page.setViewportSize({ width: 375, height: 667 })
       await openRoad(page, mocks)
-      if (name === 'day one') await page.getByRole('button', { name: 'Skip' }).click()
+      if (name === 'day one')
+        await page
+          .getByRole('button', { name: 'Skip' })
+          .click({ timeout: 1500 })
+          .catch(() => undefined)
       await page.waitForTimeout(400)
       const rects = await page.evaluate<{ card: number; marker: number; sign: number }>(
         `(() => {
@@ -423,7 +429,11 @@ test.describe('what the road asks for', () => {
   ] as [string, HomeMocks][]) {
     test(`[redesign 47] axe finds no WCAG A or AA problem on the road: ${name}`, async ({ page }) => {
       await openRoad(page, mocks)
-      if (name === 'day one') await page.getByRole('button', { name: 'Skip' }).click()
+      if (name === 'day one')
+        await page
+          .getByRole('button', { name: 'Skip' })
+          .click({ timeout: 1500 })
+          .catch(() => undefined)
       await page.evaluate('document.fonts.ready')
       await page.waitForTimeout(300)
       const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
