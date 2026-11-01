@@ -258,7 +258,7 @@ Extras recorded: 6 base forms: isännöitsijä, kuulemiin, palaveri, saunavuoro,
 Forms in the stop: 85.
 Spoken only words: none.
 Pairs accepted by the table: avataan for avaamme, haluun for haluan, ilmanen for ilmainen, joo for kyllä, kaa for kanssa, kiitti for kiitos, kirjotat for kirjoitat, kuussataa for kuusisataa, moi for hei, mul for minulla, mun for minun, mä for minä, nimi for nimesi, okei for selvä, ole for olkaa, osote for osoite, osotteen for osoitteen, sul for sinulla, sun for sinun, sä for sinä, tarviin for tarvitsen, tarviit for tarvitset, tili for tilin, tulot for tulosi, tän for tämän, tää for tämä, vuokran for vuokrasi.
-Extras recorded: 12 base forms: asumistuki, kuusisataa, lomake, mukana, oleskelulupa, omakela, pankkikortti, pankkitili, passi, voi, vuokrasopimus, vuokrata, 5 forms.
+Extras recorded: 11 base forms: asumistuki, kuusisataa, lomake, mukana, oleskelulupa, omakela, pankkikortti, pankkitili, passi, voi, vuokrasopimus, 5 forms.
 
 ## Stop 16. Collecting a parcel
 
@@ -602,7 +602,7 @@ Extras recorded: 10 base forms: asiakaspalvelu, juuri, kaakao, kallio, kodikas, 
 |---|---|
 | 1. First words | 78 |
 | 2. Daily life | 102 |
-| 3. Services | 83 |
+| 3. Services | 82 |
 | 4. Work and people | 61 |
 | 5. Finnish life | 74 |
 | 6. Getting things done | 58 |
