@@ -295,3 +295,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T10:06 Owner asked for the lesson structure and whether it reaches A1, and to see the journey unlock. Draft 7 (journey screens) published. Research: comfortable A1 is about 800 to 1,000 words; v3.0 as planned has about 180.
 - 2026-11-01T10:14 Owner: journey draft looked like Duolingo and had too much text; rules saved to design.md and memory. Owner wants a first-open animation (where you are, where you are going, then into the start). Two playable ideas published.
 - 2026-11-01T10:25 Owner liked both opening ideas and asked to merge them on a road. Road journey draft published (animation, day one, three stops later).
+- 2026-11-01T10:31 Owner: make the road look like a real road, black and white. Road redrawn as dark asphalt with white lines; the road travelled gets a mint centre line.

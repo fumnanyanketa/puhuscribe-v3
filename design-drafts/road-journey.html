@@ -575,24 +575,41 @@
       r = edge(1, from, to).reverse()
     return [...l, ...r].map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ')
   }
+  const quad = (t0, t1, k, colour, op) => {
+    const w0 = Math.max(0.5, wAt(t0) * k),
+      w1 = Math.max(0.4, wAt(t1) * k)
+    return `<polygon points="${[
+      [xAt(t0) - w0, yAt(t0)],
+      [xAt(t0) + w0, yAt(t0)],
+      [xAt(t1) + w1, yAt(t1)],
+      [xAt(t1) - w1, yAt(t1)],
+    ]
+      .map((p) => p.map((n) => n.toFixed(1)).join(','))
+      .join(' ')}" fill="${colour}" opacity="${op}"/>`
+  }
+  // White centre dashes on the road ahead; a solid mint centre line on the road already travelled.
   const dashes = (from, to) => {
     let out = ''
     for (let i = 0; i < 26; i++) {
       const t0 = from + ((to - from) * i) / 26,
         t1 = t0 + ((to - from) * 0.5) / 26
-      const w0 = Math.max(0.6, wAt(t0) * 0.03),
-        w1 = Math.max(0.5, wAt(t1) * 0.03)
-      out += `<polygon points="${[
-        [xAt(t0) - w0, yAt(t0)],
-        [xAt(t0) + w0, yAt(t0)],
-        [xAt(t1) + w1, yAt(t1)],
-        [xAt(t1) - w1, yAt(t1)],
-      ]
-        .map((p) => p.map((n) => n.toFixed(1)).join(','))
-        .join(' ')}" fill="#ffffff" opacity=".9"/>`
+      out += quad(t0, t1, 0.028, '#ffffff', 0.92)
     }
     return out
   }
+  const solid = (to) => {
+    let out = ''
+    for (let i = 0; i < 20; i++) {
+      const t0 = (to * i) / 20,
+        t1 = (to * (i + 1)) / 20 + 0.002
+      out += quad(t0, t1, 0.034, '#7fe0c3', 1)
+    }
+    return out
+  }
+  const edgeLine = (side, from, to, colour, w) =>
+    `<polyline points="${edge(side, from, to)
+      .map((p) => p.map((n) => n.toFixed(1)).join(','))
+      .join(' ')}" fill="none" stroke="${colour}" stroke-width="${w}" stroke-linecap="round"/>`
 
   const stops = [
     { t: 0.2, name: 'Meeting people', side: 1, say: '<mark>Mä oon</mark> Alex.' },
@@ -616,12 +633,12 @@
   }
   const road = (doneTo, states, opts = {}) => `
   <svg class="road" viewBox="0 0 ${W} ${H}" aria-hidden="true">
-    <defs><linearGradient id="fadeR${opts.id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#ffffff" stop-opacity=".55"/></linearGradient></defs>
+    <defs><linearGradient id="asphalt${opts.id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2f3537"/><stop offset=".55" stop-color="#4b5354"/><stop offset="1" stop-color="#9aa9a4"/></linearGradient></defs>
     <g class="roadgroup">
-      <polygon points="${roadPoly(0, 1)}" fill="#dde8e3" stroke="#ffffff" stroke-width="2"/>
-      <polygon points="${roadPoly(0, 1)}" fill="url(#fadeR${opts.id})" opacity=".55"/>
-      ${doneTo > 0 ? `<polygon points="${roadPoly(0, doneTo)}" fill="#bfe6d7" opacity=".9"/>` : ''}
-      ${dashes(0, 0.97)}
+      <polygon points="${roadPoly(0, 1)}" fill="url(#asphalt${opts.id})"/>
+      ${edgeLine(-1, 0, 0.96, '#ffffff', 1.6)}${edgeLine(1, 0, 0.96, '#ffffff', 1.6)}
+      ${dashes(doneTo, 0.97)}
+      ${doneTo > 0 ? solid(doneTo) + edgeLine(-1, 0, doneTo, '#7fe0c3', 2) + edgeLine(1, 0, doneTo, '#7fe0c3', 2) : ''}
     </g>
   </svg>
   <span class="sun" style="top:${HORIZON - 4}px">A1</span>
