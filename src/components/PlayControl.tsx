@@ -15,6 +15,8 @@ interface PlayControlProps {
   /** What it plays, as in "the spoken line". */
   what: string
   size?: 'regular' | 'small'
+  /** Mint for the spoken line, slate for the written line (job 19-redesign). */
+  tone?: 'spoken' | 'written'
   /** Reference page only: shows a state without playing anything. */
   showState?: PlayState
   /** Told when playback starts and when it stops, so a screen can mark what is playing. */
@@ -38,7 +40,14 @@ function PauseIcon() {
   )
 }
 
-export function PlayControl({ src, what, size = 'regular', showState, onPlayingChange }: PlayControlProps) {
+export function PlayControl({
+  src,
+  what,
+  size = 'regular',
+  tone = 'spoken',
+  showState,
+  onPlayingChange,
+}: PlayControlProps) {
   const [liveState, setState] = useState<PlayState>('ready')
   const state = showState ?? liveState
   const audio = useRef<HTMLAudioElement | null>(null)
@@ -111,7 +120,9 @@ export function PlayControl({ src, what, size = 'regular', showState, onPlayingC
       : state === 'loading'
         ? `Loading ${what}`
         : `Play ${what}`
-  const look = failed ? styles.retry : `${styles.play} ${size === 'small' ? styles.small : ''}`
+  const look = failed
+    ? styles.retry
+    : `${styles.play} ${size === 'small' ? styles.small : ''} ${tone === 'written' ? styles.written : ''}`
   return (
     <span className={failed ? styles.errorRow : styles.wrap}>
       {failed && <span className={styles.errorText}>Could not play.</span>}

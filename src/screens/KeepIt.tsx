@@ -10,9 +10,10 @@ import type { ReviewFeedback, ReviewItem, ReviewResult, TypedAnswer } from '../l
 import { MIN_RECORDING_MS } from '../lib/speech-types.ts'
 import { TOO_MANY, loadVoice, recallForm } from '../lib/voice-api.ts'
 import { methodFormId, methodsFor, type RecordedResult } from './answer-methods.ts'
-import { LineCard, hasChangedWords } from './LineCard.tsx'
+import { PATHS } from '../lib/app-paths.ts'
+import { LineCard } from './LineCard.tsx'
 import { ReviewItemView } from './ReviewItemView.tsx'
-import { CHANGED_HINT, NOT_SAVED, type StepScreenProps } from './step-screen.ts'
+import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 
 // Keep it (factory/jobs/9-daily-review/spec.md, "Done when" 6 to 9 and 12 to
@@ -276,16 +277,19 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   const place = turn ? placeOf(turn, items.length) : null
 
   return (
-    <SessionFrame step={frame.step} steps={frame.steps} leaveHref="/" actions={actions}>
+    <SessionFrame
+      step={frame.step}
+      steps={frame.steps}
+      progress={run.length === 0 ? 0 : (at + (shown !== null ? 1 : 0)) / run.length}
+      leaveHref={PATHS.home}
+      actions={actions}
+    >
       <main className={styles.main}>
         <div className={styles.intro}>
-          <h1 ref={heading} tabIndex={-1} className={styles.title}>
+          <h1 ref={heading} tabIndex={-1} className={styles.hiddenTitle}>
             Keep it
           </h1>
           {item && <p className={styles.lead}>{place ? `Word ${place}.` : ONE_MORE_TRY}</p>}
-          {shown !== null && shown !== 'already_saved' && hasChangedWords(shown.feedback.line) && (
-            <p className={styles.hint}>{CHANGED_HINT}</p>
-          )}
         </div>
         {item && shown === null && (
           <ReviewItemView
@@ -301,7 +305,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
         )}
         {item && shown !== null && shown !== 'already_saved' && (
           <div className={styles.reviewItem} data-review-feedback={item.formId}>
-            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} speakerAs="p" showGloss />
+            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} showGloss controls={false} />
             <p className={styles.reviewNote}>
               {shown.feedback.form.spoken === shown.feedback.form.written ? (
                 <>

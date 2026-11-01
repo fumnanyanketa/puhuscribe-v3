@@ -1,0 +1,28 @@
+/* The speaking consent sheet (design.md, "Sheets"). Values from src/styles/tokens.css. */
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+}
+
+.title:focus,
+.title:focus-visible {
+  outline: none;
+}
+
+.how {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: var(--tap-min);
+  color: var(--color-mint-deep);
+  font-size: var(--text-reading);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.buttons {
+  display: grid;
+  gap: var(--space-3);
+}

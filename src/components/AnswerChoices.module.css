@@ -17,9 +17,9 @@
   width: 100%;
   min-height: var(--button-height);
   padding: var(--space-3) var(--space-5);
-  border: 1px solid var(--color-control-edge);
-  border-radius: var(--radius-lg);
-  background: var(--color-button-secondary);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -44,16 +44,16 @@
 
 /* Tried and not right: muted, with a dashed edge, still readable. */
 .wrong {
-  border-style: dashed;
+  border: 2px dashed var(--color-control-edge);
   background: transparent;
   color: var(--color-text-quiet);
   box-shadow: none;
   cursor: default;
 }
 
-/* The right choice: a heavier edge in the text colour and a tick. */
+/* The right choice: a mint edge and a tick in a mint circle. */
 .right {
-  border: 2px solid var(--color-text);
+  border-color: var(--color-mint);
   font-weight: var(--weight-semibold);
   cursor: default;
 }
@@ -66,11 +66,15 @@
 
 .tick {
   flex: none;
-  width: 22px;
-  height: 22px;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--color-mint);
   fill: none;
-  stroke: currentColor;
-  stroke-width: 2.4;
+  stroke: var(--color-button-text);
+  stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
 }

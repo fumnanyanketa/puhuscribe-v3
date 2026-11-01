@@ -20,6 +20,10 @@ export interface WordForm {
   spoken: string
   /** The written form (forms.surface_kirja). */
   written: string
+  /** What the word means in this line, in plain English. Optional until job 20-a1-road adds the content. */
+  meaning?: string
+  /** What the dictionary form means, in plain English. Optional in the same way. */
+  baseMeaning?: string
 }
 
 /** One word of a line, as it appears in the line's text. */
@@ -50,6 +54,28 @@ export interface ReadySession {
   unit: { title: string; canDo: string }
   dialogue: { title: string }
   lines: SessionLine[]
+  /**
+   * True on the learner's first lesson, before Hear it is finished: the screen
+   * shows its tip (job 19-redesign, statement 25). Worked out from the learner's
+   * own session rows; nothing is stored for it.
+   */
+  firstLesson?: true
+}
+
+/** A word the learner met for the first time in a lesson, for the chips on the finish screen. */
+export interface NewWord {
+  form: WordForm
+  /** The audio of the first line the word appears in, as paths under /audio/. */
+  spokenAudio: string
+  writtenAudio: string
+}
+
+/** The answer of POST /api/sessions/<id>/complete (job 8, job 18 and job 19-redesign). */
+export interface CompleteAnswer {
+  saved: true
+  saveNote?: 'first' | 'reminder'
+  /** The words this lesson added to the learner's review, at most 24. */
+  newWords?: NewWord[]
 }
 
 /** A review only session: Keep it alone, when no new dialogue is ready (job 9-daily-review, "Done when" 7). */

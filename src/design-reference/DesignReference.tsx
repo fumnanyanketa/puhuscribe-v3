@@ -10,6 +10,7 @@ import { Wordmark } from '../components/Wordmark.tsx'
 import { contrast } from '../lib/contrast.ts'
 import { CONTRAST_PAIRS } from '../styles/contrast-pairs.ts'
 import { SaveNote } from '../screens/SaveNote.tsx'
+import { NewParts } from './NewParts.tsx'
 import { asMap, colourTokens } from '../styles/token-values.ts'
 import tokensCss from '../styles/tokens.css?raw'
 import {
@@ -414,6 +415,8 @@ export default function DesignReference() {
           <FinnishLine cardNote="Sample, not reviewed." spoken={SPOKEN_EXAMPLE} written={WRITTEN_EXAMPLE} />
         </div>
       </Section>
+
+      <NewParts />
 
       <Section id="play" title="Play control">
         <p className={styles.lead}>These play a short tone, not speech.</p>

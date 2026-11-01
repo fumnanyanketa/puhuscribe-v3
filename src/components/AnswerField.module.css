@@ -8,7 +8,7 @@
 
 .label {
   font-family: var(--font-heading);
-  font-size: var(--text-body);
+  font-size: var(--text-heading);
   font-weight: var(--weight-semibold);
   color: var(--color-text);
 }
@@ -18,9 +18,11 @@
   width: 100%;
   min-height: var(--button-height);
   padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--color-control-edge);
-  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-control-edge);
+  border-radius: var(--radius-md);
   background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  caret-color: var(--color-mint);
   color: var(--color-text);
   font-family: var(--font-heading);
   font-size: var(--text-line);
@@ -47,10 +49,10 @@
   min-width: var(--tap-min);
   min-height: var(--tap-min);
   padding: 0 var(--space-4);
-  border: 1px solid var(--color-control-edge);
+  border: 1.5px solid var(--color-control-edge);
   border-radius: var(--radius-pill);
   background: var(--color-button-secondary);
-  color: var(--color-text);
+  color: var(--color-mint-deep);
   font-family: var(--font-heading);
   font-size: var(--text-heading);
   font-weight: var(--weight-semibold);

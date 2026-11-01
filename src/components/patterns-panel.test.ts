@@ -112,11 +112,14 @@ describe('the word card button', () => {
     expect(plain).not.toContain('aria-haspopup')
   })
 
+  // Job 19-redesign changed the card layout on purpose (statement 26): the facts are now
+  // the dictionary form and "Why does it change?", and the two tiles come first.
   it('[units 9] with the prop the card shows the text button "Patterns you\'ve seen" under its facts', () => {
     const markup = card(() => undefined)
     const at = markup.indexOf('Patterns you&#x27;ve seen')
-    expect(at).toBeGreaterThan(markup.indexOf('</dl>'))
-    expect(at).toBeLessThan(markup.indexOf('Spoken'))
+    expect(at).toBeGreaterThan(markup.indexOf('Dictionary form'))
+    expect(at).toBeGreaterThan(markup.indexOf('Why does it change?'))
+    expect(at).toBeGreaterThan(markup.indexOf('Books write'))
     expect(markup).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>(<[^>]+>)*Patterns you&#x27;ve seen/)
   })
 })

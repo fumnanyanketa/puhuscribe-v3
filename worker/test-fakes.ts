@@ -17,6 +17,7 @@ import type {
   DialogueContent,
   FormRow,
   LearnerDb,
+  LessonFactsDb,
   QueueCard,
   ReadableDialogue,
   RecordReviewArgs,
@@ -184,7 +185,7 @@ export function get(path: string, cookie?: string) {
 }
 
 /** A learner database in memory, standing in for Supabase as the learner. */
-export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb {
+export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb, LessonFactsDb {
   dialogues: ReadableDialogue[]
   sessions: SessionRow[]
   content: Map<number, DialogueContent>
@@ -197,6 +198,13 @@ export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb {
   noteFails: boolean
   /** Every session id save_progress_note was asked about. */
   noteAsked: string[]
+  // The words a finished lesson added to the review (job 19-redesign).
+  /** The form ids of the cards created when the session ended. Empty unless a test sets it. */
+  newCards: number[]
+  /** Every created_at the Worker asked about. */
+  newCardsAsked: string[]
+  /** Makes the next new cards read throw. */
+  newCardsFail: boolean
   // The Keep it step (job 9-daily-review). Empty unless a test fills them.
   /** What public.review_queue returns, in order. */
   queue: QueueCard[]
@@ -224,6 +232,9 @@ export function fakeDb(
     note: 'none',
     noteFails: false,
     noteAsked: [],
+    newCards: [],
+    newCardsAsked: [],
+    newCardsFail: false,
     queue: [],
     cards: [],
     next: null,
@@ -270,6 +281,11 @@ export function fakeDb(
       db.noteAsked.push(id)
       if (db.noteFails) return Promise.reject(new Error('down'))
       return Promise.resolve(db.note)
+    },
+    newCardFormIds: (createdAt) => {
+      db.newCardsAsked.push(createdAt)
+      if (db.newCardsFail) return Promise.reject(new Error('down'))
+      return Promise.resolve([...db.newCards])
     },
     reviewQueue: (limit) => Promise.resolve(db.queue.slice(0, Math.max(0, Math.min(limit, 15)))),
     nextReviewDay: () => Promise.resolve(db.next),

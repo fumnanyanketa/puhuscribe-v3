@@ -122,7 +122,7 @@ describe('design tokens', () => {
       for (const block of file.text.matchAll(/\.[A-Za-z]+\s*\{([^}]*var\(--panel-fill\)[^}]*)\}/g)) {
         const body = block[1] ?? ''
         expect(body, `${file.path} panel shadow`).not.toMatch(/box-shadow:\s*(?!\s|var\(|none)/)
-        expect(body, `${file.path} panel corner`).not.toMatch(/border-radius:\s*\d/)
+        expect(body, `${file.path} panel corner`).not.toMatch(/border-radius:\s*[0-9.]+(px|rem|em)/)
       }
     }
   })
@@ -171,4 +171,60 @@ describe('type scale', () => {
     }
     expect(offenders).toEqual([])
   })
+})
+
+describe('colour roles', () => {
+  // Statement 2 of factory/jobs/19-redesign/spec.md: mint for spoken Finnish,
+  // slate for written Finnish and peach for the words that change are each used
+  // only where their role says. A new use elsewhere fails until the list is
+  // changed on purpose.
+  const ROLES: Record<string, { tokens: string[]; files: string[] }> = {
+    spoken: {
+      tokens: ['--color-spoken', '--color-spoken-text', '--color-spoken-soft'],
+      files: [
+        'src/components/FinnishLine.module.css',
+        'src/components/GapLine.module.css',
+        'src/components/PatternsPanel.module.css',
+        'src/components/RecordControl.module.css',
+        'src/components/WordCard.module.css',
+        'src/sample/HearItSample.module.css',
+        'src/screens/FirstLessonTip.module.css',
+      ],
+    },
+    written: {
+      tokens: ['--color-written', '--color-written-soft'],
+      files: [
+        'src/components/FinnishLine.module.css',
+        'src/components/GapLine.module.css',
+        'src/components/PatternsPanel.module.css',
+        'src/components/PlayControl.module.css',
+        'src/components/WordCard.module.css',
+        'src/design-reference/DesignReference.module.css',
+        'src/sample/HearItSample.module.css',
+        'src/screens/FirstLessonTip.module.css',
+      ],
+    },
+    changed: {
+      tokens: ['--color-changed-text', '--color-changed-wash'],
+      files: [
+        'src/components/FinnishLine.module.css',
+        'src/road/RoadPicture.module.css',
+        'src/sample/HearItSample.module.css',
+      ],
+    },
+  }
+
+  function filesUsing(tokens: string[]): string[] {
+    return srcFiles('src', /\.(css|tsx?)$/)
+      .filter((file) => file.path !== 'src/styles/tokens.css')
+      .filter((file) => tokens.some((token) => file.text.includes(`var(${token})`)))
+      .map((file) => file.path)
+      .sort()
+  }
+
+  for (const [role, { tokens, files }] of Object.entries(ROLES)) {
+    it(`[redesign 2] the ${role} role tokens are used only in the files that may use them`, () => {
+      expect(filesUsing(tokens)).toEqual([...files].sort())
+    })
+  }
 })

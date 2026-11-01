@@ -1,34 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
-import { CanDo } from './CanDo.tsx'
-import { LineCard, hasChangedWords } from './LineCard.tsx'
-import { CHANGED_HINT, NOT_SAVED, type StepScreenProps } from './step-screen.ts'
+import { PATHS } from '../lib/app-paths.ts'
+import { FirstLessonTip } from './FirstLessonTip.tsx'
+import { LineCard } from './LineCard.tsx'
+import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 
-// Hear it (factory/jobs/8-first-session/spec.md, "Done when" 9 and 10). The
-// dialogue line by line: "Next line" adds the next line under the earlier
-// ones, which stay. On the last line the button reads "Continue", which
-// stores step_reached = 'hear'. Nothing plays by itself. The status line
-// says which line of how many is showing, so a new line is announced to
-// screen readers (design review, round 1).
-
-const HELP = 'Press play to hear each line. Tap a word for its card.'
+// Hear it (factory/jobs/8-first-session/spec.md, "Done when" 9 and 10; redrawn
+// in job 19-redesign, statements 24 and 25). The dialogue one line card at a
+// time (owner's call 6, answer A): "Next line" shows the next line, and on the
+// last line the button reads "Continue", which stores step_reached = 'hear'.
+// Nothing plays by itself. The status line says which line of how many is
+// showing, so a new line is announced to screen readers; it is not drawn,
+// because the card says "Line 2 of 8" too. The card shows the dialogue's lines
+// only: the dialogue title and the can do sentence are not on this screen.
+//
+// On the learner's first lesson only, before Hear it is finished, the tip
+// explains the card (src/screens/FirstLessonTip.tsx).
 
 export function HearIt({ session, frame, onDone }: StepScreenProps) {
   const lines = session.lines
   const [shown, setShown] = useState(1)
   const [saving, setSaving] = useState(false)
   const [failed, setFailed] = useState(false)
-  const newest = useRef<HTMLLIElement>(null)
+  const [tip, setTip] = useState(session.firstLesson === true)
+  const next = useRef<HTMLButtonElement>(null)
+  const region = useRef<HTMLElement>(null)
   const last = shown >= lines.length
+  const line = lines.at(shown - 1)
 
-  useEffect(() => {
-    if (shown > 1) newest.current?.scrollIntoView({ block: 'nearest' })
-  }, [shown])
-
-  async function next() {
+  async function advance() {
     if (!last) {
       setShown(shown + 1)
       return
@@ -42,35 +45,38 @@ export function HearIt({ session, frame, onDone }: StepScreenProps) {
     }
   }
 
-  const visible = lines.slice(0, shown)
   const actions = (
     <>
-      <StatusLine tone={failed ? 'problem' : 'neutral'}>
+      <StatusLine tone={failed ? 'problem' : 'neutral'} visuallyHidden={!failed}>
         {failed ? NOT_SAVED : `Line ${String(shown)} of ${String(lines.length)}.`}
       </StatusLine>
-      <Button block busy={saving} busyLabel="Saving your progress." onClick={() => void next()}>
+      <Button block ref={next} busy={saving} busyLabel="Saving your progress." onClick={() => void advance()}>
         {last ? 'Continue' : 'Next line'}
       </Button>
     </>
   )
 
   return (
-    <SessionFrame step={frame.step} steps={frame.steps} leaveHref="/" actions={actions}>
-      <main className={styles.main}>
-        <div className={styles.intro}>
-          <h1 className={styles.title}>Hear it</h1>
-          <p className={styles.lead}>{session.dialogue.title}</p>
-          <CanDo text={session.unit.canDo} className={styles.canDo} />
-          <p className={styles.help}>{HELP}</p>
-          {visible.some(hasChangedWords) && <p className={styles.hint}>{CHANGED_HINT}</p>}
-        </div>
-        <ol className={styles.dialogue}>
-          {visible.map((line, i) => (
-            <li key={line.id} ref={i === shown - 1 ? newest : undefined}>
-              <LineCard line={line} />
-            </li>
-          ))}
-        </ol>
+    <SessionFrame
+      step={frame.step}
+      steps={frame.steps}
+      progress={shown / Math.max(1, lines.length)}
+      leaveHref={PATHS.home}
+      stepHeading
+      dim={tip}
+      actions={actions}
+    >
+      <main className={styles.main} ref={region}>
+        {line && <LineCard key={line.id} line={line} count={{ shown, of: lines.length }} showGloss />}
+        {tip && (
+          <FirstLessonTip
+            region={region}
+            restoreFocusTo={next}
+            onClose={() => {
+              setTip(false)
+            }}
+          />
+        )}
       </main>
     </SessionFrame>
   )

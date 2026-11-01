@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
-import { RecordControl, type RecordState } from '../components/RecordControl.tsx'
+import { RecordControl, Wave, type RecordState } from '../components/RecordControl.tsx'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import {
   RecorderFailed,
   recordingSupported,
@@ -15,8 +16,8 @@ import { MIN_RECORDING_MS, type VoiceAnswer } from '../lib/speech-types.ts'
 import { voiceNotice } from '../lib/voice-consent.ts'
 import { NOT_AVAILABLE, TOO_MANY, chooseVoice, loadVoice, sayLine } from '../lib/voice-api.ts'
 import { LineCard } from './LineCard.tsx'
+import { ConsentSheet } from './ConsentSheet.tsx'
 import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
-import { VoiceConsent } from './VoiceConsent.tsx'
 import styles from './Screens.module.css'
 import voice from './Voice.module.css'
 
@@ -29,6 +30,8 @@ import voice from './Voice.module.css'
 // is let go when the learner moves on or leaves.
 
 export const SAY_HELP = 'Listen to the line, then record yourself saying it.'
+/** The hints under the record button (job 19-redesign, statement 30). */
+export const RECORD_HINTS = { ready: 'Tap and say the line.', recording: 'Listening.' }
 export const ALOUD = 'Say the line out loud after the voice.'
 export const NO_RECORDING = 'Recording is not available in this browser.'
 export const MIC_OFF =
@@ -92,7 +95,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const lines = session.lines
   const [mode, setMode] = useState<Mode>('loading')
   const [settings, setSettings] = useState<VoiceAnswer | null>(null)
-  const [keep, setKeep] = useState(false)
+  const [clear, setClear] = useState(false)
   const [choosing, setChoosing] = useState(false)
   const [index, setIndex] = useState(0)
   const [rec, setRec] = useState<RecordState>('ready')
@@ -166,6 +169,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     playback.release()
     setRecording(null)
     setMessage(null)
+    setClear(false)
     setAttempted(false)
     setSeconds(0)
     setRec((now) => (now === 'unavailable' ? now : 'ready'))
@@ -193,7 +197,8 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   async function turnOn() {
     setChoosing(true)
     setMessage(null)
-    const load = await chooseVoice('turn_on', keep)
+    // The retention box is not on this sheet: it stays unticked and can be turned on in Voice settings.
+    const load = await chooseVoice('turn_on', false)
     setChoosing(false)
     if (load.kind === 'signed_out') {
       window.location.replace('/')
@@ -230,6 +235,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     switch (answer.kind) {
       case 'feedback':
         setRec('ready')
+        setClear(answer.feedback.feedbackClass === 'clear')
         setMessage(feedbackMessage(answer.feedback))
         return
       case 'signed_out':
@@ -258,6 +264,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     if (rec !== 'ready') return
     playback.release()
     setMessage(null)
+    setClear(false)
     setSeconds(0)
     setRec('recording')
     try {
@@ -294,120 +301,127 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const shown =
     mode === 'loading' ? plain('neutral', LOADING) : (message ?? (mode === 'consent' ? null : counter))
   const canMoveOn = mode === 'aloud' || attempted || rec === 'unavailable'
+  // A clear result is a milky card with its wave (statement 30); every other
+  // result is the status line, gentle for the learner's attempts.
+  const showClear = clear && recording !== null && rec === 'ready' && mode === 'record'
+  const statusShown = showClear || mode === 'consent' ? null : shown
 
-  const actions =
-    mode === 'consent' ? (
-      <>
-        {shown && (
-          <StatusLine ref={status} tone={shown.tone}>
-            <Parts parts={shown.parts} />
-          </StatusLine>
-        )}
+  const actions = (
+    <>
+      {statusShown && (
+        <StatusLine ref={status} tone={statusShown.tone}>
+          <Parts parts={statusShown.parts} />
+        </StatusLine>
+      )}
+      {mode !== 'loading' && mode !== 'consent' && (
         <div className={voice.buttons}>
-          <Button block busy={choosing} busyLabel="Saving your choice." onClick={() => void turnOn()}>
-            {notice.turnOn}
-          </Button>
-          <Button
-            block
-            variant="secondary"
-            onClick={() => {
-              setMessage(null)
-              setMode('aloud')
-            }}
-          >
-            {notice.notNow}
-          </Button>
+          {canMoveOn && (
+            <Button block busy={saving} busyLabel="Saving your progress." onClick={next}>
+              {last ? 'Continue' : 'Next line'}
+            </Button>
+          )}
+          {mode === 'record' && (
+            <Button variant="quiet" onClick={() => void finishStep()}>
+              {CANT_SPEAK}
+            </Button>
+          )}
+          {mode === 'aloud' && settings?.available && (
+            <Button
+              variant="quiet"
+              onClick={() => {
+                letGoOfLine()
+                setMode('consent')
+              }}
+            >
+              {notice.turnOn}
+            </Button>
+          )}
         </div>
-      </>
-    ) : (
-      <>
-        {shown && (
-          <StatusLine ref={status} tone={shown.tone}>
-            <Parts parts={shown.parts} />
-          </StatusLine>
-        )}
-        {mode !== 'loading' && (
-          <div className={voice.buttons}>
-            {canMoveOn && (
-              <Button block busy={saving} busyLabel="Saving your progress." onClick={next}>
-                {last ? 'Continue' : 'Next line'}
-              </Button>
-            )}
-            {mode === 'record' && (
-              <Button variant="quiet" onClick={() => void finishStep()}>
-                {CANT_SPEAK}
-              </Button>
-            )}
-            {mode === 'aloud' && settings?.available && (
-              <Button
-                variant="quiet"
-                onClick={() => {
-                  letGoOfLine()
-                  setMode('consent')
-                }}
-              >
-                {notice.turnOn}
-              </Button>
-            )}
-          </div>
-        )}
-      </>
-    )
+      )}
+    </>
+  )
 
   return (
-    <SessionFrame step={frame.step} steps={frame.steps} leaveHref="/" actions={actions}>
+    <SessionFrame
+      step={frame.step}
+      steps={frame.steps}
+      progress={(index + (attempted ? 1 : 0)) / Math.max(1, lines.length)}
+      leaveHref={PATHS.home}
+      stepHeading
+      actions={actions}
+    >
       <main className={styles.main}>
-        {mode === 'consent' ? (
-          <VoiceConsent
-            region={settings?.region ?? null}
-            keep={keep}
-            onKeepChange={setKeep}
-            headingLevel={1}
-          />
-        ) : (
-          <>
-            <div className={styles.intro}>
-              <h1 className={styles.title}>Say it</h1>
-              <p className={styles.lead}>{session.dialogue.title}</p>
-              <p className={styles.help}>{mode === 'aloud' ? ALOUD : SAY_HELP}</p>
-              <a className={voice.link} href="/voice">
-                Voice settings
-              </a>
-            </div>
-            {line && mode !== 'loading' && (
-              <div className={voice.lineArea} key={line.id} data-say-line={line.id}>
-                <LineCard line={line} speakerAs="p" />
-                {mode === 'record' && (
-                  <div className={voice.recordRow}>
-                    <RecordControl
-                      state={rec}
-                      seconds={seconds}
-                      reason={reason}
-                      onStart={() => void record()}
-                      onStop={stop}
-                    />
-                    {recording && rec === 'ready' && (
-                      <div className={voice.recordingControls}>
-                        <Button
-                          variant="secondary"
-                          onClick={() => {
-                            playback.play(recording)
-                          }}
-                        >
-                          Play my recording
-                        </Button>
-                        <Button variant="secondary" onClick={() => void record()}>
-                          Try again
-                        </Button>
-                      </div>
-                    )}
+        {line && mode !== 'loading' && (
+          <div className={voice.lineArea} key={line.id} data-say-line={line.id}>
+            <LineCard line={line} controls={false} />
+            {mode === 'aloud' && <p className={voice.hint}>{ALOUD}</p>}
+            {mode === 'record' && !showClear && (
+              <div className={voice.recordRow}>
+                <RecordControl
+                  state={rec}
+                  seconds={seconds}
+                  reason={reason}
+                  hints={RECORD_HINTS}
+                  onStart={() => void record()}
+                  onStop={stop}
+                />
+                {recording && rec === 'ready' && (
+                  <div className={voice.recordingControls}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        playback.play(recording)
+                      }}
+                    >
+                      Play mine
+                    </Button>
+                    <Button variant="secondary" onClick={() => void record()}>
+                      Try again
+                    </Button>
                   </div>
                 )}
               </div>
             )}
-          </>
+            {showClear && (
+              <section className={voice.clearCard} aria-label="Your recording">
+                <p className={voice.clearLine} role="status" ref={status}>
+                  <span className={voice.checkCircle} aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M5 12.5l4.5 4.5L19 7.5" />
+                    </svg>
+                  </span>
+                  {shown ? <Parts parts={shown.parts} /> : null}
+                </p>
+                <Wave />
+                <div className={voice.recordingControls}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      playback.play(recording)
+                    }}
+                  >
+                    Play mine
+                  </Button>
+                  <Button variant="secondary" onClick={() => void record()}>
+                    Try again
+                  </Button>
+                </div>
+              </section>
+            )}
+          </div>
         )}
       </main>
+      <ConsentSheet
+        open={mode === 'consent'}
+        region={settings?.region ?? null}
+        busy={choosing}
+        problem={mode === 'consent' && message ? <Parts parts={message.parts} /> : undefined}
+        onTurnOn={() => void turnOn()}
+        onNotNow={() => {
+          setMessage(null)
+          setMode('aloud')
+        }}
+      />
     </SessionFrame>
   )
 }

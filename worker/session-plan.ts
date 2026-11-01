@@ -1,5 +1,6 @@
 import type {
   FrontDoorState,
+  NewWord,
   ReadySession,
   SessionLine,
   SessionWord,
@@ -23,7 +24,7 @@ export class ContentUnusable extends Error {
 export type TodayPick =
   | { kind: 'not_ready' }
   | { kind: 'all_done' }
-  | { kind: 'dialogue'; dialogue: ReadableDialogue; open: SessionRow | null }
+  | { kind: 'dialogue'; dialogue: ReadableDialogue; open: SessionRow | null; sessions: readonly SessionRow[] }
 
 /**
  * The one rule. Today's dialogue is the first readable dialogue (lowest unit
@@ -46,7 +47,7 @@ export function pickToday(
     sessions
       .filter((s) => s.dialogueId === dialogue.id && s.endedAt === null)
       .sort((a, b) => b.startedAt.localeCompare(a.startedAt))[0] ?? null
-  return { kind: 'dialogue', dialogue, open }
+  return { kind: 'dialogue', dialogue, open, sessions }
 }
 
 export async function todayFor(db: LearnerDb): Promise<TodayPick> {
@@ -167,4 +168,59 @@ export async function readySession(
     dialogue: { title: dialogue.title },
     lines,
   }
+}
+
+/**
+ * True on the learner's first lesson, before Hear it is finished (job
+ * 19-redesign, statement 25): today's session is the learner's only session,
+ * and it has reached no step. The rows are the learner's own, already read
+ * for today's pick (LearnerDb.mySessions); nobody else's can be in the list.
+ */
+export function isFirstLesson(pick: Extract<TodayPick, { kind: 'dialogue' }>): boolean {
+  if (pick.open) return pick.sessions.length === 1 && pick.open.step === null
+  return pick.sessions.length === 0
+}
+
+/** The most chips the finish screen shows. */
+export const MAX_NEW_WORDS = 24
+
+/**
+ * The words a lesson added to the learner's review: each new form once, in
+ * order of first appearance, with the audio of the first line it appears in.
+ */
+export function newWordsOf(content: DialogueContent, formIds: readonly number[]): NewWord[] {
+  const wanted = new Set(formIds)
+  const forms = new Map(content.forms.map((form) => [form.id, form]))
+  const lines = new Map(content.lines.map((line) => [line.id, line]))
+  const seen = new Set<number>()
+  const words: NewWord[] = []
+  const ordered = [...content.tokens].sort((a, b) => {
+    const left = lines.get(a.lineId)?.position ?? 0
+    const right = lines.get(b.lineId)?.position ?? 0
+    return left - right || a.position - b.position
+  })
+  for (const token of ordered) {
+    const id = token.formId
+    if (id === null || !wanted.has(id) || seen.has(id)) continue
+    const form = forms.get(id)
+    const line = lines.get(token.lineId)
+    if (!form || !line) continue
+    const spokenAudio = audioPath(line.audioPuheKey)
+    const writtenAudio = audioPath(line.audioKirjaKey)
+    if (!spokenAudio || !writtenAudio) continue
+    seen.add(id)
+    words.push({
+      form: {
+        lemma: form.lemma,
+        formName: form.formName,
+        why: form.why,
+        spoken: form.surfacePuhe,
+        written: form.surfaceKirja,
+      },
+      spokenAudio,
+      writtenAudio,
+    })
+    if (words.length >= MAX_NEW_WORDS) break
+  }
+  return words
 }

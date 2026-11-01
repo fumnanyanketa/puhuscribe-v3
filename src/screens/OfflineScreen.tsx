@@ -11,16 +11,25 @@ import styles from './OfflineScreen.module.css'
 export const OFFLINE_CHECK = 'Check your internet connection, then try again.'
 export const OFFLINE_SAFE = 'Your progress is safe.'
 
-export function OfflineScreen({ where }: { where: 'road' | 'account' | 'lesson' }) {
+export function OfflineScreen({
+  where,
+  embedded = false,
+}: {
+  where: 'road' | 'account' | 'lesson'
+  /** Shown inside another page (the reference page): a plain box and a lower heading, no landmark. */
+  embedded?: boolean
+}) {
+  const Root = embedded ? 'div' : 'main'
+  const Title = embedded ? 'h3' : 'h1'
   return (
-    <main className={styles.screen}>
+    <Root className={styles.screen}>
       <Landscape />
       <div className={styles.body}>
         <svg viewBox="0 0 64 64" className={styles.cloud} aria-hidden="true" focusable="false">
           <path d="M18 46h30a10 10 0 0 0 1.4-19.9A15 15 0 0 0 20.2 24 11 11 0 0 0 18 46z" />
           <path d="M12 54L52 10" />
         </svg>
-        <h1 className={styles.title}>No connection</h1>
+        <Title className={styles.title}>No connection</Title>
         <p className={styles.text}>
           {where === 'lesson' ? OFFLINE_CHECK : `${OFFLINE_SAFE} ${OFFLINE_CHECK}`}
         </p>
@@ -33,6 +42,6 @@ export function OfflineScreen({ where }: { where: 'road' | 'account' | 'lesson' 
           Try again
         </Button>
       </div>
-    </main>
+    </Root>
   )
 }

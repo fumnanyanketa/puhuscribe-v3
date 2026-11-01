@@ -15,4 +15,3 @@ export interface StepScreenProps {
 }
 
 export const NOT_SAVED = 'Your progress was not saved. Check your internet connection, then try again.'
-export const CHANGED_HINT = 'Blue words change between spoken and written Finnish.'

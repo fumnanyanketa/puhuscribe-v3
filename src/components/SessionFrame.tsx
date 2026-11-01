@@ -29,6 +29,8 @@ interface SessionFrameProps {
   progress?: number
   /** The finish screen after the last step: the bar is full. */
   finished?: boolean
+  /** Dims everything but the content, for the first lesson tip. */
+  dim?: boolean
   /** The step name is the screen's h1 (the step screens), instead of plain text. */
   stepHeading?: boolean
   /** Hides the step name from the eye where the drawing shows only the question. It stays for screen readers. */
@@ -52,6 +54,7 @@ export function SessionFrame({
   finished = false,
   stepHeading = false,
   hideStepName = false,
+  dim = false,
   leaveHref,
   children,
   actions,
@@ -65,7 +68,10 @@ export function SessionFrame({
   const titleId = useId()
   const StepName = stepHeading ? 'h1' : 'p'
   return (
-    <div className={contained ? `${styles.frame} ${styles.contained}` : styles.frame}>
+    <div
+      className={contained ? `${styles.frame} ${styles.contained}` : styles.frame}
+      data-dim={dim ? 'on' : undefined}
+    >
       <Landscape />
       <header className={styles.topBar}>
         {finished ? (
@@ -99,6 +105,7 @@ export function SessionFrame({
           {finished ? 'Lesson finished' : step}
         </StepName>
       </header>
+      {dim && <div className={styles.scrim} aria-hidden="true" />}
       <div className={styles.content}>{children}</div>
       <div className={styles.actions}>{actions}</div>
       <Sheet

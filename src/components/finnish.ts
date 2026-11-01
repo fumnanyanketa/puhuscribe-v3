@@ -17,6 +17,14 @@ export interface WordCardData {
   formName: string
   /** One line in English on why it looks like this. */
   why: string
+  /**
+   * What the word means in this line, in plain English (job 19-redesign,
+   * statement 27). Optional: the card leaves the line out when it is missing,
+   * and no text is invented. The content comes from job 20-a1-road.
+   */
+  meaning?: string
+  /** What its dictionary form means, in plain English. Optional in the same way. */
+  baseMeaning?: string
   spoken: FormWithAudio
   written: FormWithAudio
 }

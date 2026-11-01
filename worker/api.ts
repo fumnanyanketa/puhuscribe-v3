@@ -11,7 +11,9 @@ import { crashRoute } from './crash.ts'
 import { feedbackRoute, supabaseFeedbackDb, type FeedbackDb } from './feedback.ts'
 import {
   RECORDABLE_STEPS,
+  type CompleteAnswer,
   type FrontDoorAnswer,
+  type NewWord,
   type RecordableStep,
   type ReviewSession,
 } from '../src/lib/session-types.ts'
@@ -33,6 +35,7 @@ import {
   DatabaseUnavailable,
   supabaseLearnerDb,
   type LearnerDb,
+  type LessonFactsDb,
   type ReviewDb,
   type SaveNote,
   type SaveNoteDb,
@@ -47,7 +50,14 @@ import {
   parseAnswer,
   reviewItems,
 } from './review.ts'
-import { ContentUnusable, frontDoorState, readySession, todayFor } from './session-plan.ts'
+import {
+  ContentUnusable,
+  frontDoorState,
+  isFirstLesson,
+  newWordsOf,
+  readySession,
+  todayFor,
+} from './session-plan.ts'
 import {
   deleteRecordings,
   playRecording,
@@ -137,6 +147,10 @@ function reviewDatabaseFor(context: LearnerContext, db: LearnerDb): ReviewDb {
 // The note's database (job 18-save-progress): the same idea. A job 8 test whose
 // fake has no note call gets the real client, which asks the (fake) Supabase
 // and, getting no answer, leaves the plain {"saved":true}.
+function factsDatabaseFor(context: LearnerContext, db: LearnerDb): LessonFactsDb {
+  return 'newCardFormIds' in db ? (db as LearnerDb & LessonFactsDb) : supabaseLearnerDb(context.client)
+}
+
 function noteDatabaseFor(context: LearnerContext, db: LearnerDb): SaveNoteDb {
   return 'saveProgressNote' in db ? (db as LearnerDb & SaveNoteDb) : supabaseLearnerDb(context.client)
 }
@@ -284,7 +298,11 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
     // A dialogue session is answered exactly as in job 8. Whether it ends with
     // Keep it is asked next, through GET /api/sessions/<id>/review.
     const session = pick.open ?? (await db.startSession(pick.dialogue.id))
-    return withCookies(json(await readySession(db, pick.dialogue, session)), context.setCookies())
+    const ready = await readySession(db, pick.dialogue, session)
+    // Job 19-redesign, statement 25: the first lesson's tip. Worked out from the
+    // learner's own session rows, and stored nowhere.
+    const first = isFirstLesson(pick)
+    return withCookies(json(first ? { ...ready, firstLesson: true } : ready), context.setCookies())
   } catch (error) {
     if (error instanceof AccountGone) return accountGone(request, context)
     return withCookies(faultAnswer(error), context.setCookies())
@@ -355,7 +373,25 @@ async function complete(request: Request, env: ApiEnv, deps: ApiDeps, id: string
     } catch {
       // The plain answer below: the note is optional, saving is not.
     }
-    return done(saveNote === 'none' ? { saved: true } : { saved: true, saveNote })
+    // Job 19-redesign, statement 33: the words this lesson added to the review,
+    // for the chips on the finish screen. The same rule: a failure here can never
+    // break saving.
+    let newWords: NewWord[] = []
+    try {
+      const session = await db.session(id)
+      if (session?.endedAt && session.dialogueId !== null) {
+        const ids = await factsDatabaseFor(context, db).newCardFormIds(session.endedAt)
+        if (ids.length > 0) newWords = newWordsOf(await db.dialogueContent(session.dialogueId), ids)
+      }
+    } catch {
+      // The plain answer below: the chips are optional, saving is not.
+    }
+    const answer: CompleteAnswer = {
+      saved: true,
+      ...(saveNote === 'none' ? {} : { saveNote }),
+      ...(newWords.length > 0 ? { newWords } : {}),
+    }
+    return done(answer)
   } catch (error) {
     return withCookies(faultAnswer(error), context.setCookies())
   }

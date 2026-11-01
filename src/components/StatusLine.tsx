@@ -21,14 +21,22 @@ interface StatusLineProps {
    * 10-speaking-feedback) marks a Finnish word in it with lang="fi".
    */
   children: ReactNode
+  /** Kept for screen readers and left out of the picture, where the screen already says it (Hear it). */
+  visuallyHidden?: boolean
 }
 
 export const StatusLine = forwardRef<HTMLParagraphElement, StatusLineProps>(function StatusLine(
-  { tone = 'neutral', children },
+  { tone = 'neutral', children, visuallyHidden = false },
   ref,
 ) {
   return (
-    <p ref={ref} role="status" tabIndex={-1} className={`${styles.status} ${styles[tone]}`} data-tone={tone}>
+    <p
+      ref={ref}
+      role="status"
+      tabIndex={-1}
+      className={`${styles.status} ${styles[tone]}${visuallyHidden ? ` ${styles.hidden}` : ''}`}
+      data-tone={tone}
+    >
       {tone !== 'neutral' && <span className={styles.mark} aria-hidden="true" />}
       <span>{children}</span>
     </p>

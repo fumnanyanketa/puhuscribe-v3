@@ -65,6 +65,8 @@
 /* A sign: a board with a number and a name on a pole. */
 .sign {
   position: absolute;
+  width: max-content;
+  max-width: 100%;
   transform: translate(-50%, -100%);
 }
 

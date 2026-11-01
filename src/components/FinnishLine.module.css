@@ -1,19 +1,18 @@
-/* Finnish line (design.md, "Finnish line and word card"). Values from src/styles/tokens.css. */
+/* Line card parts (design.md, "Line card"). Values from src/styles/tokens.css. */
 
 .pair {
   display: flex;
   gap: var(--space-3);
 }
 
-/* The connector: a teal dot for spoken, a violet dot for written, joined by
-   a dotted line (v2's rail, drawn with a border instead of a gradient). */
+/* The two dots joined by a dotted line: mint for spoken, slate for written. */
 .rail {
   display: flex;
   flex: none;
   flex-direction: column;
   align-items: center;
   width: 12px;
-  padding: 1.15rem 0 0.4rem;
+  padding: 30px 0 22px;
 }
 
 .dotSpoken,
@@ -32,57 +31,63 @@
 .connector {
   flex: 1;
   margin: var(--space-1) 0;
-  border-left: 2px dotted var(--color-track);
+  border-left: 2px dotted var(--color-mint-mid);
 }
 
-.registers {
+.rows {
+  display: grid;
+  flex: 1;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* The spoken line sits in a soft box, with its play button at the end. */
+.spokenRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+/* Understand it: the one spoken line, larger. */
+.large .spokenLine {
+  font-size: var(--text-line-large);
+}
+
+.writtenRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 0 var(--space-1) 0 var(--space-4);
+}
+
+.spokenLine,
+.writtenLine {
   flex: 1;
   min-width: 0;
-  max-width: var(--measure-line);
-}
-
-.spokenBand {
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-mint-mid);
-  border-radius: var(--radius-md);
-  background: var(--color-spoken-soft);
-}
-
-.written {
-  padding: var(--space-3) var(--space-4) 0;
-}
-
-.labelSpoken,
-.labelWritten {
   margin: 0;
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-spoken-text);
-}
-
-.labelWritten {
-  color: var(--color-written);
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .spokenLine {
-  margin: 0;
   font-family: var(--font-heading);
   font-size: var(--text-line);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-line);
   letter-spacing: var(--tracking-line);
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 .writtenLine {
-  margin: 0;
   font-size: var(--text-written);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-line);
-  color: var(--color-text-quiet);
-  overflow-wrap: anywhere;
-  hyphens: auto;
+  color: var(--color-written);
 }
 
 /* A word and its punctuation: never split across two lines. */

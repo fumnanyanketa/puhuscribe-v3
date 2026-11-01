@@ -1,20 +1,30 @@
+import type { ReactNode } from 'react'
+import { Button } from './Button.tsx'
 import styles from './RecordControl.module.css'
 
-// The record control, look only (design.md, "Record control"). This job never
-// asks for the microphone; recording, voice consent and feedback are job 8.
-// States: ready, recording (elapsed seconds and a Stop action), working, and
-// unavailable with a one line reason. The accessible name changes with the state.
+// The record control (design.md, "Record control"): a large round button with
+// two soft rings. States: ready (mint), recording (peach, with a wave and a
+// quiet "Stop"), working (three fading dots) and unavailable with a one line
+// reason. The accessible name changes with the state. It does not ask for the
+// microphone itself: the screen that uses it does, through src/lib/recorder.ts.
+// Colour is never the only sign: each state has its own words.
 
 export type RecordState = 'ready' | 'recording' | 'working' | 'unavailable'
 
 interface RecordControlProps {
   state: RecordState
-  /** Whole seconds recorded so far, shown while recording. */
+  /** Whole seconds recorded so far, said to screen readers while recording. */
   seconds?: number
   /** Why recording is unavailable, as one full sentence. */
   reason?: string
   onStart?: () => void
   onStop?: () => void
+  /**
+   * The hints under the button, when the screen words them (Say it: "Tap and
+   * say the line." and "Listening."). Without them the control keeps its first
+   * wording, which the spoken answer in Keep it still uses.
+   */
+  hints?: { ready: string; recording: string }
 }
 
 function MicIcon() {
@@ -26,11 +36,31 @@ function MicIcon() {
   )
 }
 
-export function RecordControl({ state, seconds = 0, reason, onStart, onStop }: RecordControlProps) {
+const BARS = [8, 14, 22, 12, 26, 18, 10, 20, 28, 14, 18, 24, 10, 16, 22, 8, 18, 12]
+
+/** A still drawing of a sound wave: it carries no information, only the look. */
+export function Wave({ tone = 'spoken' }: { tone?: 'spoken' | 'recording' }) {
+  return (
+    <span
+      className={tone === 'recording' ? `${styles.wave} ${styles.waveRecording}` : styles.wave}
+      aria-hidden="true"
+    >
+      {BARS.map((height, index) => (
+        <i key={index} style={{ height: `${String(height)}px` }} />
+      ))}
+    </span>
+  )
+}
+
+function Caption({ children }: { children: ReactNode }) {
+  return <p className={styles.caption}>{children}</p>
+}
+
+export function RecordControl({ state, seconds = 0, reason, onStart, onStop, hints }: RecordControlProps) {
   const time = `${String(Math.floor(seconds / 60))}:${String(seconds % 60).padStart(2, '0')}`
   if (state === 'recording') {
     return (
-      <div className={styles.row}>
+      <div className={styles.column}>
         <button
           type="button"
           className={`${styles.record} ${styles.recording}`}
@@ -38,17 +68,27 @@ export function RecordControl({ state, seconds = 0, reason, onStart, onStop }: R
           aria-label={`Stop recording, ${String(seconds)} ${seconds === 1 ? 'second' : 'seconds'} recorded`}
           data-state="recording"
         >
-          <span className={styles.stop} aria-hidden="true" />
+          <MicIcon />
         </button>
-        <p className={styles.caption}>
-          Recording <span className={styles.time}>{time}</span>. Tap to stop.
-        </p>
+        <Wave tone="recording" />
+        {hints ? (
+          <Caption>{hints.recording}</Caption>
+        ) : (
+          <Caption>
+            Recording <span className={styles.time}>{time}</span>. Tap to stop.
+          </Caption>
+        )}
+        {hints && (
+          <Button variant="quiet" onClick={onStop}>
+            Stop
+          </Button>
+        )}
       </div>
     )
   }
   if (state === 'working') {
     return (
-      <div className={styles.row}>
+      <div className={styles.column}>
         <button
           type="button"
           className={`${styles.record} ${styles.working}`}
@@ -63,13 +103,13 @@ export function RecordControl({ state, seconds = 0, reason, onStart, onStop }: R
             <span />
           </span>
         </button>
-        <p className={styles.caption}>Listening to your recording.</p>
+        <Caption>Listening to your recording.</Caption>
       </div>
     )
   }
   if (state === 'unavailable') {
     return (
-      <div className={styles.row}>
+      <div className={styles.column}>
         <button
           type="button"
           className={`${styles.record} ${styles.unavailable}`}
@@ -79,12 +119,12 @@ export function RecordControl({ state, seconds = 0, reason, onStart, onStop }: R
         >
           <MicIcon />
         </button>
-        <p className={styles.caption}>{reason ?? 'Recording is not available on this device.'}</p>
+        <Caption>{reason ?? 'Recording is not available on this device.'}</Caption>
       </div>
     )
   }
   return (
-    <div className={styles.row}>
+    <div className={styles.column}>
       <button
         type="button"
         className={styles.record}
@@ -94,7 +134,7 @@ export function RecordControl({ state, seconds = 0, reason, onStart, onStop }: R
       >
         <MicIcon />
       </button>
-      <p className={styles.caption}>Tap to record yourself.</p>
+      <Caption>{hints?.ready ?? 'Tap to record yourself.'}</Caption>
     </div>
   )
 }

@@ -38,15 +38,22 @@ export function ReviewItemView({
   return (
     <div className={styles.reviewItem} data-review-item={item.formId}>
       <div className={styles.card}>
-        <p className={styles.speaker}>{item.speaker}</p>
-        <GapLine register={item.register} words={item.words} />
-        <p className={styles.promptGloss}>{item.gloss}</p>
-        <div className={styles.promptControls}>
-          <span className={styles.lineControl}>
-            <PlayControl src={item.audio} what={what} size="small" />
-            <span className={styles.controlLabel}>{item.register === 'spoken' ? 'Spoken' : 'Written'}</span>
-          </span>
+        <div className={styles.cardHead}>
+          <p className={styles.speaker}>{item.speaker}</p>
         </div>
+        <GapLine
+          register={item.register}
+          words={item.words}
+          control={
+            <PlayControl
+              src={item.audio}
+              what={what}
+              size={item.register === 'spoken' ? 'regular' : 'small'}
+              tone={item.register === 'spoken' ? 'spoken' : 'written'}
+            />
+          }
+        />
+        <p className={styles.gloss}>{item.gloss}</p>
       </div>
       <div className={styles.answerArea} data-answer-area="">
         {methods.map(({ kind, Answer }) => (
