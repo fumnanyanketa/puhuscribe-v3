@@ -8,7 +8,8 @@ import { pickFinishLine } from '../lib/session-rules.ts'
 import type { ReadySession } from '../lib/session-types.ts'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import { LineCard } from './LineCard.tsx'
-import { carriesSaveNote } from './save-note.ts'
+import { accountKindOf, carriesSaveNote } from './save-note.ts'
+import { SAVED_ON_THIS_DEVICE } from './save-note-copy.ts'
 import { SaveNote } from './SaveNote.tsx'
 import { NOT_SAVED } from './step-screen.ts'
 import styles from './Screens.module.css'
@@ -30,6 +31,8 @@ type SaveState = 'saving' | 'saved' | 'not_saved'
 interface SaveResult {
   saved: boolean
   note: boolean
+  /** A guest is told the progress is saved on this device (owner's choice, 1 November 2026). */
+  guest: boolean
 }
 
 async function save(sessionId: string): Promise<SaveResult> {
@@ -37,7 +40,11 @@ async function save(sessionId: string): Promise<SaveResult> {
   // An email account deleted or signed out on another device (job 11-accounts,
   // "Done when" 22). Guests keep job 8's own handling.
   if (emailSignInEnded(answer)) leaveWith('signed-out-email')
-  return { saved: answer?.status === 200, note: carriesSaveNote(answer) }
+  const saved = answer?.status === 200
+  // Only after a save: which kind of account this is, from the same route the
+  // account page uses. Without a clear answer the plain line is shown.
+  const guest = saved && accountKindOf(await callApi('/api/me', 'GET')) === 'guest'
+  return { saved, note: carriesSaveNote(answer), guest }
 }
 
 interface FinishScreenProps {
@@ -51,6 +58,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   // Job 18-save-progress, "Done when" 1 and 2: the note follows a saved answer
   // that asks for it, and never shows while saving or after a failed save.
   const [note, setNote] = useState(false)
+  const [guest, setGuest] = useState(false)
   const status = useRef<HTMLParagraphElement>(null)
   // Saved once per screen: React's strict mode runs effects twice in
   // development, and the second run reuses this request.
@@ -63,6 +71,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
       if (!active) return
       setState(result.saved ? 'saved' : 'not_saved')
       setNote(result.saved && result.note)
+      setGuest(result.saved && result.guest)
     })
     return () => {
       active = false
@@ -86,13 +95,16 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
     status.current?.focus()
     setState('saving')
     setNote(false)
+    setGuest(false)
     void save(session.session.id).then((result) => {
       setState(result.saved ? 'saved' : 'not_saved')
       setNote(result.saved && result.note)
+      setGuest(result.saved && result.guest)
     })
   }
 
-  const message = state === 'saving' ? SAVING : state === 'saved' ? SAVED : NOT_SAVED
+  const savedLine = guest ? SAVED_ON_THIS_DEVICE : SAVED
+  const message = state === 'saving' ? SAVING : state === 'saved' ? savedLine : NOT_SAVED
   const tone: StatusTone = state === 'not_saved' ? 'problem' : 'neutral'
   const lastStep = steps[steps.length - 1] ?? 'Hear it'
 

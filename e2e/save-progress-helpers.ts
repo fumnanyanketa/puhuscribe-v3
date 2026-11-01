@@ -22,7 +22,10 @@ import {
 
 export { copy }
 
-export const SAVED = 'Your progress is saved.'
+/** The finish screen's line for a guest (the owner's choice of 1 November 2026). */
+export const SAVED = copy.SAVED_ON_THIS_DEVICE
+/** The finish screen's line for an account with an email: unchanged since job 8. */
+export const SAVED_PLAIN = 'Your progress is saved.'
 export const SAVING = 'Saving your progress.'
 export const NOT_SAVED = 'Your progress was not saved. Check your internet connection, then try again.'
 export const COMES_BACK = 'The words you met will come back in your review.'

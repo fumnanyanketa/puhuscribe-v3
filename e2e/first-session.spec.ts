@@ -142,7 +142,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     seen.push(await storage())
     await finishUnderstandIt(page, glossOf)
     await passSayIt(page)
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     seen.push(await storage())
     await page.waitForLoadState('networkidle')
 
@@ -398,7 +398,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await finishUnderstandIt(page, glossOf)
     await passSayIt(page)
     await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     await expect(
       page.getByText('The words you met will come back in your review.', { exact: true }),
     ).toBeVisible()
@@ -508,7 +508,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.keyboard.press('Enter')
     await expect(tryAgain).toHaveCount(0)
     await expect(status).toBeFocused()
-    await expect(status).toHaveText('Your progress is saved.')
+    await expect(status).toHaveText('Your progress is saved on this device.')
     await expect(status).toBeFocused()
   })
 
@@ -528,7 +528,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     expect(sessionsOf(userId)[0]?.ended).toBe(false)
     await page.unroute('**/api/sessions/*/complete')
     await page.getByRole('button', { name: 'Try again' }).click()
-    await expect(status).toHaveText('Your progress is saved.')
+    await expect(status).toHaveText('Your progress is saved on this device.')
     expect(sessionsOf(userId)[0]?.ended).toBe(true)
     expect(one(`select count(*) from public.usage_events where user_id = :'uid'`, { uid: userId })).toBe('1')
   })
@@ -754,7 +754,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
       await scan('Say it, consent')
       await passSayIt(page)
-      await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
       await scan('finish')
       await page.goto('/')
       await expect(

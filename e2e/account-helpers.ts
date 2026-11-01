@@ -155,7 +155,7 @@ export async function finishTodaysSession(page: Page): Promise<string> {
   await finishHearIt(page)
   await finishUnderstandIt(page, (lineId) => lines.find((l) => l.id === lineId)?.gloss ?? '')
   await passSayIt(page)
-  await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
   return userId
 }
 

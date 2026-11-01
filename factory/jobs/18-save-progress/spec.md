@@ -60,6 +60,7 @@ Product rules from `AGENTS.md` that apply: P2 and P4 indirectly; one front door,
 - Button: Add your email
 - Button: Not now
 - Line shown after "Not now": No problem. You can add your email later from Your account.
+- Finish screen status line for a guest: Your progress is saved on this device. A learner with an email keeps "Your progress is saved." Owner's choice of 1 November 2026 (round 2, test label `[save-progress 19]`). It is in `save-note-copy.ts` as `SAVED_ON_THIS_DEVICE`.
 
 That is 31 words with the region name. The sentence is the owner's, word for word. It makes no promise about what happens if the email already has an account; job 11's screen, one tap later, says that in two sentences, and statement 10 checks it is still there.
 

@@ -24,6 +24,7 @@ import {
   NOTE_SELECTOR,
   NOT_SAVED,
   SAVED,
+  SAVED_PLAIN,
   SAVING,
   axe,
   axeIn,
@@ -351,6 +352,8 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     expect(before.documentCookie).toBe('')
     expect(before.localStorage).toBe(0)
     expect(before.sessionStorage).toBe(0)
+    // At least one sign in cookie is held (the test must not pass with no cookie at all), and nothing else.
+    expect(before.cookies.filter((cookie) => cookie.startsWith('puhuscribe-auth')).length).toBeGreaterThan(0)
     for (const cookie of before.cookies) expect(cookie).toMatch(/^puhuscribe-auth/)
 
     // [11] [15] "Not now" by keyboard (Space): no request, nothing stored, one plain line, focus on it.
@@ -534,7 +537,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       )
       expect(authUser(userId)).toEqual({ exists: true, anonymous: false, email: address })
       await walkContinuedSession(page, userId)
-      await expect(page.getByRole('status')).toHaveText(SAVED)
+      await expect(page.getByRole('status')).toHaveText(SAVED_PLAIN)
       await expect.poll(() => answers.length).toBe(1)
       // The first finished session of a guest gets "first". The database sees a token that is not a guest's.
       expect(answers[0]).toEqual({ status: 200, body: { saved: true } })
@@ -552,11 +555,29 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       await addEmail(page, address)
       expect(authUser(userId)).toEqual({ exists: true, anonymous: false, email: address })
       await walkNextSession(page, userId)
-      await expect(page.getByRole('status')).toHaveText(SAVED)
+      await expect(page.getByRole('status')).toHaveText(SAVED_PLAIN)
       await expectNoNote(page, 'email account, second session')
       await expect.poll(() => answers.length).toBe(2)
       expect(answers[0]?.body).toEqual({ saved: true, saveNote: 'first' })
       expect(answers[1]).toEqual({ status: 200, body: { saved: true } })
+    })
+
+    test('[save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line', async ({
+      page,
+    }, testInfo) => {
+      const address = testAddress('learner-a', testInfo)
+      const userId = await walkToFinish(page)
+      // The owner's choice of 1 November 2026: the guest's line says where the progress is.
+      await expect(page.getByRole('status')).toHaveText(copy.SAVED_ON_THIS_DEVICE)
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+      await expect(noteOf(page)).toBeVisible()
+      await addEmail(page, address)
+      expect(authUser(userId)).toEqual({ exists: true, anonymous: false, email: address })
+      await walkNextSession(page, userId)
+      // The same screen for a learner with an email: exactly the plain line.
+      await expect(page.getByRole('status')).toHaveText(SAVED_PLAIN)
+      await expect(page.getByRole('status')).not.toContainText('on this device')
+      await expectNoNote(page, 'email account, second session')
     })
 
     test('[save-progress 10] from the note a guest adds their email with a code from Mailpit and keeps the same account', async ({

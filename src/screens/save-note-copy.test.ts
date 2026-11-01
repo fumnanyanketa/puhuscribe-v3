@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { carriesSaveNote } from './save-note.ts'
+import { accountKindOf, carriesSaveNote } from './save-note.ts'
 import * as copy from './save-note-copy.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -15,6 +15,7 @@ function wordsOfTheNote(): string[] {
     copy.SAVE_NOTE_ADD,
     copy.SAVE_NOTE_LATER,
     copy.SAVE_NOTE_CLOSED,
+    copy.SAVED_ON_THIS_DEVICE,
   ]
 }
 
@@ -55,6 +56,10 @@ describe('the words of the note', () => {
     expect(copy.SAVE_NOTE_SENTENCE).toBe('Add your email to save your progress.')
     expect(copy.SAVE_NOTE_REGION).toBe('Keep your progress')
     expect(copy.SAVE_NOTE_CLOSED).toBe('No problem. You can add your email later from Your account.')
+  })
+
+  it('[save-progress 19] the guest line is the words the owner chose on 1 November 2026', () => {
+    expect(copy.SAVED_ON_THIS_DEVICE).toBe('Your progress is saved on this device.')
   })
 
   it('[save-progress 9] every rule catches a line that breaks it', () => {
@@ -109,5 +114,21 @@ describe('the answer to the complete request', () => {
     expect(carriesSaveNote(answer(200, null))).toBe(false)
     expect(carriesSaveNote(answer(200, 'first'))).toBe(false)
     expect(carriesSaveNote(null)).toBe(false)
+  })
+})
+
+describe('the kind of account that GET /api/me names', () => {
+  const me = (status: number, body: unknown) => ({ status, body })
+
+  it('[save-progress 19] only a clear guest answer gives the guest line', () => {
+    expect(accountKindOf(me(200, { kind: 'guest' }))).toBe('guest')
+    expect(accountKindOf(me(200, { kind: 'email', email: 'a@example.com' }))).toBe('email')
+    expect(accountKindOf(me(200, { kind: 'none' }))).toBe('other')
+    expect(accountKindOf(me(401, { kind: 'guest' }))).toBe('other')
+    expect(accountKindOf(me(503, { kind: 'guest' }))).toBe('other')
+    expect(accountKindOf(me(200, null))).toBe('other')
+    expect(accountKindOf(me(200, 'guest'))).toBe('other')
+    expect(accountKindOf(me(200, { kind: 'Guest' }))).toBe('other')
+    expect(accountKindOf(null)).toBe('other')
   })
 })

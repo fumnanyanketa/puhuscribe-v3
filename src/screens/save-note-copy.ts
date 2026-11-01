@@ -17,6 +17,14 @@ export const SAVE_NOTE_ADD = 'Add your email'
 /** The quiet button that closes the note. */
 export const SAVE_NOTE_LATER = 'Not now'
 
+/**
+ * The finish screen's status line for a guest (the owner's choice of 1 November
+ * 2026, round 2): the progress is saved, and only on this phone until an email
+ * is added. A learner with an email keeps the plain "Your progress is saved.",
+ * which stays in FinishScreen.tsx.
+ */
+export const SAVED_ON_THIS_DEVICE = 'Your progress is saved on this device.'
+
 /** What replaces the note after "Not now", and where to find the choice again. */
 export const SAVE_NOTE_CLOSED = 'No problem. You can add your email later from Your account.'
 
