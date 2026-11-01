@@ -303,3 +303,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T11:21 All A1 dialogues written by Claude: content/written/part-1.md to part-6.md, 102 dialogues (816 lines) plus the 6 earlier drafts = 108. About 1,330 distinct written word forms. Not yet through Voikko or the native reviewer.
 - 2026-11-01T11:45 All remaining v1 screens drawn in the final look (design-drafts/v1-screens.html), waiting for the owner's review.
 - 2026-11-01T12:11 Owner: screens still flat, text too big, and B1/B2 missing on the journey. Road now shows A2, B1 and B2 beyond the A1 sun. All screens redrawn at real-phone text size with the road's landscape behind each, layered panels and a fine grain.
+- 2026-11-01T12:21 Owner: A2/B1/B2 can look better, Hear it looks crowded. A2, B1, B2 are now three fells beyond the A1 sun with summit flags; the line card drops its Spoken/Written labels and button row (play buttons sit on each line, English inside the card).

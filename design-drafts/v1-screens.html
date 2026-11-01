@@ -428,6 +428,61 @@
     font-size: 11.5px;
     color: var(--quiet);
   }
+  .lhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .spoken {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .written {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .pi {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--a);
+    position: relative;
+    flex: none;
+    box-shadow: 0 4px 10px -4px rgba(20, 90, 70, 0.5);
+  }
+  .pi::after {
+    content: '';
+    position: absolute;
+    left: 9.5px;
+    top: 7px;
+    border-left: 8px solid #fff;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+  .pi.w {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--a-soft);
+  }
+  .pi.w::after {
+    left: 8px;
+    top: 6px;
+    border-left: 6.5px solid var(--a);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+  .en {
+    padding: 8px 0 0 20px;
+    margin-top: 2px;
+    border-top: 1px dashed rgba(116, 187, 169, 0.35);
+    font-size: 10px;
+    color: var(--quiet);
+  }
   .mk {
     color: var(--b-deep);
     background: var(--b-soft);
@@ -1141,22 +1196,39 @@
   }
   .lvl {
     position: absolute;
-    transform: translate(-50%, -50%);
     display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 9px;
-    font-weight: 500;
-    color: var(--quiet);
+    align-items: flex-end;
+    gap: 3px;
+    transform: translate(-1px, -100%);
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #4f7268;
     white-space: nowrap;
+    letter-spacing: 0.02em;
   }
-  .lvl i {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 0 0 1px #c5d3cf;
+  .lvl .fp {
+    width: 1.5px;
+    height: 14px;
+    background: #6f7d79;
+    position: relative;
     flex: none;
+  }
+  .lvl .fg {
+    position: absolute;
+    left: 1.5px;
+    top: 0;
+    border-left: 9px solid #f3a07f;
+    border-top: 3.5px solid transparent;
+    border-bottom: 3.5px solid transparent;
+    filter: drop-shadow(0 0 0.6px rgba(60, 80, 75, 0.6));
+  }
+  .lvl b,
+  .goal .lvl b {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #4f7268;
+    line-height: 1;
+    padding-bottom: 1px;
   }
   .lvls.eve .lvl {
     color: #dbe4ee;
@@ -1299,11 +1371,13 @@
     `<div class="top"><span class="round milk ${kind}"></span><span class="track"><b style="width:${pct}%"></b></span><span class="steplabel">${label}</span></div>`
   const backBar = (label) =>
     `<div class="top"><span class="round milk back"></span><span style="font-weight:500;font-size:13.5px">${label}</span></div>`
-  const lineCard = (o = {}) => `<div class="milk line"><div class="who">${o.who || 'Pekka'}</div>
+  const lineCard = (
+    o = {},
+  ) => `<div class="milk line"><div class="lhead"><span class="who">${o.who || 'Pekka'}</span>${o.noplay ? '' : '<span class="small">Line 2 of 8</span>'}</div>
   <div class="pair2"><div class="rail"><i class="d t"></i><i class="l"></i><i class="d v"></i></div>
-  <div class="rows"><div class="spoken"><small>Spoken</small><span>${o.s || 'Paljonks <span class="mk">noi</span> mansikat maksaa?'}</span></div>
-  <div class="written"><small>Written</small><span>${o.w || 'Paljonko <span class="mk">nuo</span> mansikat maksavat?'}</span></div></div></div>
-  ${o.noplay ? '' : '<div class="plays"><span class="play"><i></i>Spoken</span><span class="play w"><i></i>Written</span></div>'}</div>`
+  <div class="rows"><div class="spoken"><span>${o.s || 'Paljonks <span class="mk">noi</span> mansikat maksaa?'}</span>${o.noplay ? '' : '<i class="pi"></i>'}</div>
+  <div class="written"><span>${o.w || 'Paljonko <span class="mk">nuo</span> mansikat maksavat?'}</span>${o.noplay ? '' : '<i class="pi w"></i>'}</div></div></div>
+  ${o.en ? `<div class="en">${o.en}</div>` : ''}</div>`
   const waveBars = (warm) =>
     `<div class="wave ${warm ? 'warm' : ''}">${[8, 14, 22, 12, 26, 18, 10, 20, 28, 14, 18, 24, 10, 16, 22, 8, 18, 12].map((h) => `<i style="height:${h}px"></i>`).join('')}</div>`
 
@@ -1378,9 +1452,11 @@
   <clipPath id="ab${id}"><rect x="0" y="0" width="${W}" height="${HORIZON + 2}"/></clipPath></defs>
   <rect width="${W}" height="${H}" fill="url(#sk${id})"/>
   ${eve ? '<circle cx="64" cy="120" r="1.2" fill="#fff"/><circle cx="210" cy="96" r="1" fill="#fff"/><circle cx="160" cy="140" r="1.1" fill="#fff" opacity=".8"/><circle cx="40" cy="180" r=".9" fill="#fff" opacity=".7"/>' : ''}
-  <path d="M0 ${HORIZON - 44} C 50 ${HORIZON - 74}, 90 ${HORIZON - 64}, 130 ${HORIZON - 88} C 160 ${HORIZON - 102}, 200 ${HORIZON - 74}, 240 ${HORIZON - 82} C 260 ${HORIZON - 86}, 275 ${HORIZON - 70}, 280 ${HORIZON - 64} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="${eve ? '#5b6a80' : '#e4f2ec'}"/>
-  <path d="M0 ${HORIZON - 24} C 40 ${HORIZON - 48}, 80 ${HORIZON - 42}, 120 ${HORIZON - 58} C 150 ${HORIZON - 68}, 190 ${HORIZON - 46}, 230 ${HORIZON - 52} C 255 ${HORIZON - 56}, 270 ${HORIZON - 42}, 280 ${HORIZON - 38} L 280 ${HORIZON} L 0 ${HORIZON} Z" fill="${eve ? '#536175' : '#d5ebe1'}"/>
-  <path d="M150 ${HORIZON - 38} C 180 ${HORIZON - 44}, 200 ${HORIZON - 50}, 206 ${HORIZON - 58} C 170 ${HORIZON - 66}, 120 ${HORIZON - 66}, 98 ${HORIZON - 76} C 120 ${HORIZON - 88}, 150 ${HORIZON - 96}, 150 ${HORIZON - 104}" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="1.5 5" stroke-linecap="round" opacity="${eve ? 0.6 : 0.95}"/>
+  <path d="M66 ${HORIZON} C 104 ${HORIZON - 52}, 136 ${HORIZON - 92}, 160 ${HORIZON - 94} C 184 ${HORIZON - 92}, 216 ${HORIZON - 52}, 254 ${HORIZON} Z" fill="${eve ? '#56667c' : '#e1ebf0'}"/>
+  <path d="M146 ${HORIZON - 86} C 152 ${HORIZON - 93}, 168 ${HORIZON - 93}, 174 ${HORIZON - 86} C 168 ${HORIZON - 83}, 164 ${HORIZON - 86}, 160 ${HORIZON - 82} C 156 ${HORIZON - 86}, 151 ${HORIZON - 83}, 146 ${HORIZON - 86} Z" fill="#ffffff" opacity="${eve ? 0.5 : 0.95}"/>
+  <path d="M-4 ${HORIZON} C 30 ${HORIZON - 42}, 62 ${HORIZON - 70}, 86 ${HORIZON - 72} C 110 ${HORIZON - 70}, 140 ${HORIZON - 42}, 172 ${HORIZON} Z" fill="${eve ? '#4e5c71' : '#d6e8e4'}"/>
+  <path d="M156 ${HORIZON} C 182 ${HORIZON - 30}, 204 ${HORIZON - 50}, 222 ${HORIZON - 52} C 240 ${HORIZON - 50}, 262 ${HORIZON - 30}, 288 ${HORIZON} Z" fill="${eve ? '#475569' : '#cde5da'}"/>
+  <path d="M150 ${HORIZON - 34} C 175 ${HORIZON - 38}, 208 ${HORIZON - 44}, 222 ${HORIZON - 51} C 186 ${HORIZON - 58}, 118 ${HORIZON - 60}, 86 ${HORIZON - 71} C 108 ${HORIZON - 80}, 146 ${HORIZON - 86}, 160 ${HORIZON - 93}" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="2 4" stroke-linecap="round" opacity="${eve ? 0.55 : 0.9}"/>
   <g clip-path="url(#ab${id})"><g transform="translate(0 ${eve ? 22 : 0})"><circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity="${eve ? 0.25 : 0.6}"/><circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#su${id})" stroke="#f1946f" stroke-width="1.5"/><text x="150" y="${HORIZON - 12}" text-anchor="middle" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#b8532f">A1</text></g></g>
   <path d="M0 ${HORIZON - 14} C 40 ${HORIZON - 30}, 80 ${HORIZON - 26}, 110 ${HORIZON - 8} C 130 ${HORIZON + 2}, 170 ${HORIZON + 2}, 190 ${HORIZON - 10} C 220 ${HORIZON - 30}, 255 ${HORIZON - 26}, 280 ${HORIZON - 16} L 280 ${HORIZON + 6} L 0 ${HORIZON + 6} Z" fill="${eve ? '#4a5a6c' : '#c4e3d6'}"/>
   ${pines(eve ? '#3d4b5b' : '#9ccbb9')}
@@ -1411,7 +1487,7 @@
   const you = (t) =>
     `<span class="you" style="left:${f(xAt(t))}px;top:${f(yAt(t))}px"><span class="ringp"></span><span class="dot"></span></span>`
   const goal = (eve) =>
-    `<span class="lvls ${eve ? 'eve' : ''}"><span class="lvl" style="left:206px;top:${HORIZON - 58}px"><i></i>A2</span><span class="lvl" style="left:98px;top:${HORIZON - 76}px"><i></i>B1</span><span class="lvl" style="left:150px;top:${HORIZON - 104}px"><i></i>B2 · YKI</span></span>`
+    `<span class="lvls ${eve ? 'eve' : ''}"><span class="lvl" style="left:222px;top:${HORIZON - 52}px"><span class="fp"><span class="fg"></span></span><b>A2</b></span><span class="lvl" style="left:86px;top:${HORIZON - 72}px"><span class="fp"><span class="fg"></span></span><b>B1</b></span><span class="lvl" style="left:160px;top:${HORIZON - 94}px"><span class="fp"><span class="fg"></span></span><b>B2 · YKI</b></span></span>`
   const prog = (n) =>
     `<span class="prog">${Array.from({ length: 12 }, (_, i) => `<i class="${i < n ? 'f' : ''}"></i>`).join('')}</span>`
   const road = (
@@ -1430,11 +1506,11 @@
       screens: [
         [
           'Hear it, first time',
-          'The one-time tip sits under the card, then never shows again.',
+          'One line of the dialogue. The tip shows once.',
           ph(`${vista()}<div class="body over">${topBar(10, 'Hear it')}
-      <div style="height:4px"></div>${lineCard()}
-      <p class="hint">How much are those strawberries?</p><div class="grow"></div>
-      <div class="milk" style="padding:11px 13px;font-size:12px;display:flex;gap:10px;align-items:center"><span style="flex:1">Spoken Finnish on top, written under it. Tap any word.</span><span style="color:var(--a-deep);font-weight:500">Got it</span></div>
+      ${lineCard({ en: 'How much are those strawberries?' })}
+      <div class="grow"></div>
+      <div class="milk" style="padding:10px 12px;font-size:10.5px;display:flex;gap:10px;align-items:center"><span style="flex:1">Top: how it's said. Below: how it's written. Tap a word to learn it.</span><span style="color:var(--a-deep);font-weight:600">Got it</span></div>
       <span class="pill">Next line<i></i></span></div>`),
         ],
         [
