@@ -1,0 +1,20 @@
+Round 4 proof by breaking each protection of statement 29 (job 20-a1-road, visitors read the road).
+
+Worker tests (vitest, run here), one break at a time, undone with git checkout. Tests are in worker/road.test.ts:
+V1 the Worker no longer zeroes a visitor's progress
+   red: the zeroing test, the no sign in test, the road_for_visitors request test and the invalid or ended sign in test
+V2 a sign in check that finds a fault answers a visitor (instead of 503)
+   red: "[a1-road 29] a fault stays a 503 with no detail, for a visitor, for a learner and when sign in is down"
+V3 the visitor reads road() and not road_for_visitors()
+   red: "[a1-road 29] reads public.road_for_visitors() with the publishable key and nothing else: no Auth call, no write, no cookie"
+V4 a signed in learner is answered with the visitor rows
+   red: "[a1-road 29] a signed in learner still gets their own progress and never the visitor rows" and the four [a1-road 7] tests that read the learner's rows
+
+Database tests (pgTAP in supabase/tests/database/a1_road.test.sql, GitHub, throwaway database), scratch branches from 7666086, deleted afterwards:
+D1 run 41335874564, the function is made security invoker
+   red: "[a1-road 29] road_for_visitors() is security definer, because the road tables are closed to anon" (test 104), and the tests that read as anon stop with a permission error
+D2 run 41336021259, the function is also granted to authenticated
+   red: "[a1-road 29] a learner does not call road_for_visitors(), they call road()" (test 109), and no other test (1 of 123)
+D3 run 41336004857, the approved filter of the dialogue is dropped from the count
+   red: "[a1-road 29] stop 9002: a draft dialogue and its form are not counted, and there is no progress" (test 115), and no other test (1 of 123)
+Only the database job was read; the runs were cancelled afterwards.
