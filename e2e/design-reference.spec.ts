@@ -25,7 +25,7 @@ async function openReference(page: Page) {
 const section = (page: Page, name: string) => page.getByRole('region', { name, exact: true })
 
 test.describe('the reference page', () => {
-  test('[design 16] shows every colour token, every contrast pairing, and the type, spacing and radius scales', async ({
+  test('[design 16] [redesign 8] shows every colour token, every contrast pairing, and the type, spacing and radius scales', async ({
     page,
   }) => {
     await openReference(page)
@@ -166,7 +166,7 @@ test.describe('session frame', () => {
 })
 
 test.describe('buttons and keyboard', () => {
-  test('[design 8] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide', async ({
+  test('[design 8] [redesign 7] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide', async ({
     page,
   }) => {
     await openReference(page)
@@ -241,7 +241,7 @@ test.describe('buttons and keyboard', () => {
 })
 
 test.describe('status line', () => {
-  test('[design 10] three styles, each one full sentence in role="status", differing in shape as well as colour', async ({
+  test('[design 10] [redesign 42] three styles, each one full sentence in role="status", differing in shape as well as colour', async ({
     page,
   }) => {
     await openReference(page)

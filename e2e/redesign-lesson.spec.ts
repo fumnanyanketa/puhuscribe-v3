@@ -29,6 +29,37 @@ test.describe('the lesson frame and the leave sheet', () => {
     expect(cross?.height ?? 0).toBeGreaterThanOrEqual(44)
   })
 
+  test('[redesign 4] the band behind the top is an inline drawing: hidden from screen readers, no image file, no request of its own, about 210 px high', async ({
+    page,
+  }) => {
+    const requests: string[] = []
+    page.on('request', (request) => requests.push(request.resourceType()))
+    await open(page)
+    await hearIt(page)
+    const band = await page.evaluate<{
+      hidden: boolean
+      height: number
+      images: number
+      fills: string[]
+    }>(`(() => {
+      const svg = [...document.querySelectorAll('div[aria-hidden="true"] > svg')][0]
+      const box = svg.parentElement
+      return {
+        hidden: box.getAttribute('aria-hidden') === 'true',
+        height: Math.round(box.getBoundingClientRect().height),
+        images: document.querySelectorAll('img, picture, image, video, canvas').length,
+        fills: [...svg.querySelectorAll('[fill]')].map((el) => el.getAttribute('fill')).filter((f) => /^#/.test(f ?? '')),
+      }
+    })()`)
+    expect(band.hidden).toBe(true)
+    expect(band.height).toBeGreaterThanOrEqual(200)
+    expect(band.height).toBeLessThanOrEqual(220)
+    expect(band.images).toBe(0)
+    // The art's colours come from tokens, not from colour values written into the drawing.
+    expect(band.fills).toEqual([])
+    expect(requests.filter((type) => ['image', 'media'].includes(type))).toEqual([])
+  })
+
   test('[redesign 21] the bar fills by the share of the lesson done: a line shown moves it, a step finished moves it more', async ({
     page,
   }) => {

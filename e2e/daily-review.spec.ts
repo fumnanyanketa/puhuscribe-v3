@@ -246,7 +246,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(todayCard(page).getByText(`Your next review is on ${day}.`, { exact: true })).toBeVisible()
   })
 
-  test('[review 9] the ä button types where the cursor is and keeps focus; Check waits for text; Enter submits', async ({
+  test('[review 9] [redesign 31] the ä button types where the cursor is and keeps focus; Check waits for text; Enter submits', async ({
     page,
   }) => {
     const { userId } = await metYesterday(page)
@@ -300,7 +300,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     expect(logsOf(userId).map((l) => l.formId)).toEqual([formId])
   })
 
-  test('[review 8] [review 12] [review 17] the items hold no answer and no draft; after answering, the whole line, the word and what was typed, gently', async ({
+  test('[review 8] [review 12] [review 17] [redesign 31] the items hold no answer and no draft; after answering, the whole line, the word and what was typed, gently', async ({
     page,
   }) => {
     const { userId } = await metYesterday(page)
