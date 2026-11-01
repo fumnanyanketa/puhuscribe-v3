@@ -117,6 +117,23 @@ describe('the welcome styles', () => {
 })
 
 describe('the rules catch what they are meant to catch', () => {
+  it('[onboarding 7] the diff check runs only on the job branch, with a main branch to compare with', () => {
+    expect(runsDiffCheck('factory/15-onboarding', 'main')).toBe(true)
+    expect(runsDiffCheck('factory/15-onboarding', 'origin/main')).toBe(true)
+    // Any other branch, including main itself and later jobs' branches, is left alone.
+    for (const other of [
+      'main',
+      'factory/16-tutor-step',
+      'factory/18-save-progress',
+      'scratch/anything',
+      null,
+    ]) {
+      expect(runsDiffCheck(other, 'main'), String(other)).toBe(false)
+    }
+    // No main branch to compare with (GitHub's checkout): nothing to run.
+    expect(runsDiffCheck('factory/15-onboarding', null)).toBe(false)
+  })
+
   it('[onboarding 4] the control rule catches a button, a link, an input and a lang="fi"', () => {
     const CONTROLS = /<\s*(button|a|input|select|textarea|img|picture|video|canvas|svg|dialog|form|label)\b/i
     for (const bad of [
@@ -150,15 +167,39 @@ function baseBranch(): string | null {
 
 const BASE = baseBranch()
 
-// The GitHub checks start from a one commit checkout without main, so on
-// GitHub this test cannot run; build.md records the run on this computer. After
-// the merge the branch is main, and the diff is empty by itself.
-const itWithBase = it.skipIf(BASE === null)
-const WHEN_NO_BASE = BASE === null ? '(skipped while the checkout has no main branch to compare with)' : ''
+/** The branch this job is built on. The diff below belongs to this job alone. */
+const JOB_BRANCH = 'factory/15-onboarding'
+
+function currentBranch(): string | null {
+  try {
+    const name = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { encoding: 'utf8' }).trim()
+    // A detached head (GitHub's checkout) answers "HEAD", which is no branch.
+    return name === 'HEAD' ? null : name
+  } catch {
+    return null
+  }
+}
+
+/**
+ * The diff against main belongs to this job's branch only. Once the job is
+ * merged, every later job that touches worker/, supabase/ or package.json
+ * would fail it on its own branch, so it must not run there (evaluation of
+ * round 1). It also needs a main branch to compare with, which GitHub's one
+ * commit checkout does not have; build.md records the run on this computer.
+ */
+function runsDiffCheck(branch: string | null, base: string | null): boolean {
+  return base !== null && branch === JOB_BRANCH
+}
+
+const RUNS_DIFF = runsDiffCheck(currentBranch(), BASE)
+const itOnJobBranch = it.skipIf(!RUNS_DIFF)
+const WHEN_SKIPPED = RUNS_DIFF
+  ? ''
+  : '(skipped except on the branch factory/15-onboarding with a main branch to compare with)'
 
 describe('what the branch changed', () => {
-  itWithBase(
-    `[onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing ${WHEN_NO_BASE}`,
+  itOnJobBranch(
+    `[onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing ${WHEN_SKIPPED}`,
     () => {
       const out = execFileSync(
         'git',
