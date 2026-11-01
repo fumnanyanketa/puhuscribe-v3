@@ -1,6 +1,6 @@
 # Build notes: 19-redesign, round 3
 
-Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 3 answers the two small items left in "Round 2 re-check" of `review-design.md` (A and B) and its note C. Both review files are committed with this work. The tested commit is `__COMMIT__`.
+Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 3 answers the two small items left in "Round 2 re-check" of `review-design.md` (A and B) and its note C. Both review files are committed with this work. The tested commit is `0347ae4`.
 
 ## Round 3: what changed
 
@@ -24,7 +24,7 @@ None. The new tests are added; no earlier check was changed or loosened this rou
 
 - `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except one `commit-tool` timing test that fails under load on this machine and passes alone and on GitHub (round 1's open points).
 - The mock based browser files and the reference page (161 tests) pass in Chromium against the running app.
-- Full run on GitHub: __RUN3__
+- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41348915446, tested commit `0347ae4`: success. The browser job (Chromium and WebKit, local database), the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check all passed on the first run.
 - No scratch branch of this job is left on origin.
 
 ## Round 3: unfinished or uncertain
@@ -32,7 +32,7 @@ None. The new tests are added; no earlier check was changed or loosened this rou
 - At 320 px with text at 200 percent the two remaining signs are big (their names are 26 px) and the current sign can partly cover the A1 label of the sun. They never touch each other, the bar or an edge. That is the price of keeping text at 200 percent.
 - When the opening animation ends, a short phone may drop signs once (the check waits for the animation so its sizes are right).
 
-Result: __FINAL__
+Result: checks pass
 
 ---
 
