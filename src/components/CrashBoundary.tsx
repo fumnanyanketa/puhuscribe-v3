@@ -1,6 +1,7 @@
 import { Component, type ReactNode } from 'react'
 import { reportError } from '../lib/crash-reporter.ts'
 import { Button } from './Button.tsx'
+import { Landscape } from './Landscape.tsx'
 import { StatusLine } from './StatusLine.tsx'
 import styles from './CrashBoundary.module.css'
 
@@ -29,15 +30,22 @@ export class CrashBoundary extends Component<{ children: ReactNode }, State> {
     if (!this.state.broken) return this.props.children
     return (
       <main className={styles.page}>
-        <StatusLine tone="problem">{SOMETHING_WENT_WRONG}</StatusLine>
-        <Button
-          block
-          onClick={() => {
-            window.location.reload()
-          }}
-        >
-          Reload
-        </Button>
+        <Landscape />
+        <div className={styles.body}>
+          <span className={styles.mark} aria-hidden="true">
+            !
+          </span>
+          <h1 className={styles.title}>Something went wrong</h1>
+          <StatusLine tone="problem">{SOMETHING_WENT_WRONG}</StatusLine>
+          <Button
+            block
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
+            Reload
+          </Button>
+        </div>
       </main>
     )
   }

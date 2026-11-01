@@ -136,3 +136,304 @@
   text-underline-offset: 0.2em;
   overflow-wrap: anywhere;
 }
+
+/* The privacy notice's first layer (job 19-redesign, statement 39). */
+.summary {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+}
+
+.firstLayer {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.short {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.shortHeading {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  letter-spacing: normal;
+  color: var(--color-mint-deep);
+}
+
+.shortText {
+  margin: 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+}
+
+.full {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-4);
+}
+
+/* The account page, a profile (job 19-redesign, statement 34). */
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.profile {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--space-2);
+  border: var(--panel-edge);
+  border-radius: 50%;
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-mint-deep);
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.saved {
+  margin: 0;
+  font-size: var(--text-reading);
+  color: var(--color-text-quiet);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.panelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-reading);
+}
+
+.quiet {
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+.stopCount {
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.level {
+  font-weight: var(--weight-semibold);
+  color: var(--color-peach-deep);
+}
+
+.journeyBar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-mint-soft);
+}
+
+.journeyFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-mint);
+}
+
+/* The peach note a guest sees: add an email to keep the progress. */
+.addNote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-peach-soft);
+}
+
+.addText {
+  margin: 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+}
+
+/* The settings panel: four rows, no lines between them. */
+.settings {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  list-style: none;
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--button-height);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rowEnd {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-quiet);
+}
+
+.value {
+  font-weight: var(--weight-semibold);
+  color: var(--color-mint-deep);
+}
+
+.chevron {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.smallLink,
+.deleteLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  font-size: var(--text-reading);
+  text-underline-offset: 0.2em;
+}
+
+.smallLink {
+  color: var(--color-text-quiet);
+  text-decoration: underline;
+}
+
+.deleteLink {
+  color: var(--color-peach-deep);
+  text-decoration: none;
+}
+
+/* The file is ready, shown in place (statement 37). */
+.ready {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-6);
+  text-align: center;
+}
+
+.orb {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border: var(--panel-edge);
+  border-radius: 50%;
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.orb svg {
+  box-sizing: border-box;
+  width: 64px;
+  height: 64px;
+  padding: 16px;
+  border-radius: 50%;
+  background: var(--color-mint);
+  fill: none;
+  stroke: var(--color-button-text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.readyText {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+/* The delete page looks like the drawn sheet: a title, the warning in full, the danger pill. */
+.sheet {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  border: var(--panel-edge);
+  border-radius: var(--sheet-radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-3);
+}
+
+.sheetTitle {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+}
+
+.sheetText {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}

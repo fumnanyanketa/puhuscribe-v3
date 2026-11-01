@@ -42,6 +42,8 @@ export function RoadScreen() {
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
   const [lowest, setLowest] = useState(400)
+  // Skip asks for focus on Start; it is given once the card is no longer hidden by the animation.
+  const focusAfterSkip = useRef(false)
   const first = useRef<Promise<Home> | null>(null)
   const startRef = useRef<HTMLButtonElement>(null)
   const cardBox = useRef<HTMLDivElement>(null)
@@ -63,6 +65,13 @@ export function RoadScreen() {
   }, [])
 
   const signedIn = home.kind === 'ready' && home.today.signedIn
+
+  useEffect(() => {
+    if (!playing && focusAfterSkip.current) {
+      focusAfterSkip.current = false
+      startRef.current?.focus()
+    }
+  }, [playing])
 
   // A failsafe: the opening animation always ends, even if a browser never fires its end.
   useEffect(() => {
@@ -101,7 +110,7 @@ export function RoadScreen() {
     if (unit <= 0) return
     // The box starts above the screen's top (offsetTop is negative).
     const room = window.innerHeight - cardHeight - 24 - box.offsetTop
-    setLowest(Math.max(300, room / unit))
+    setLowest(Math.max(260, room / unit))
   }, [])
 
   useLayoutEffect(() => {
@@ -129,8 +138,8 @@ export function RoadScreen() {
   }
 
   function skip() {
+    focusAfterSkip.current = true
     setPlaying(false)
-    startRef.current?.focus()
   }
 
   if (home.kind === 'loading') return <LoadingMark label={LOADING} />

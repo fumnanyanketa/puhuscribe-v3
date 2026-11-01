@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from 'react'
 import { Button } from '../components/Button.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { CodeField } from '../components/CodeField.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
 import { TextField } from '../components/TextField.tsx'
-import { Wordmark } from '../components/Wordmark.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { cleanCode, cleanEmail } from '../lib/email-address.ts'
 import styles from './Account.module.css'
@@ -50,7 +52,8 @@ interface Status {
 const QUIET: Status = { text: '', tone: 'neutral' }
 
 export function EmailFlow({ mode }: { mode: Mode }) {
-  const heading = mode === 'add' ? 'Add your email' : 'Sign in with your email'
+  // The owner's title of 1 November 2026 (job 19-redesign): "Create your account".
+  const heading = mode === 'add' ? 'Create your account' : 'Sign in with your email'
   const [step, setStep] = useState<Step>('loading')
   const [email, setEmail] = useState('')
   const [sentTo, setSentTo] = useState('')
@@ -76,7 +79,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     })
     void firstLook.current.then((next) => {
       if (!active) return
-      if (next === 'leave') window.location.replace('/account')
+      if (next === 'leave') window.location.replace(PATHS.account)
       else setStep(next)
     })
     return () => {
@@ -109,7 +112,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     const answer = await callApi(path, 'POST', { email: address })
     if (answer?.status === 200) return true
     if (answer?.status === 400) setStatus({ text: CHECK_EMAIL, tone: 'gentle' })
-    else if (answer?.status === 401 || answer?.status === 409) window.location.replace('/account')
+    else if (answer?.status === 401 || answer?.status === 409) window.location.replace(PATHS.account)
     else setStatus({ text: NOT_SENT, tone: 'problem' })
     return false
   }
@@ -164,7 +167,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     }
     if (answer?.status === 400) setStatus({ text: WRONG_CODE, tone: 'gentle' })
     else if (answer?.status === 429) setStatus({ text: TOO_MANY, tone: 'gentle' })
-    else if (answer?.status === 401 || answer?.status === 409) window.location.replace('/account')
+    else if (answer?.status === 401 || answer?.status === 409) window.location.replace(PATHS.account)
     else setStatus({ text: NOT_CHECKED, tone: 'problem' })
   }
 
@@ -174,11 +177,10 @@ export function EmailFlow({ mode }: { mode: Mode }) {
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.top}>
-        <Wordmark height={36} />
-      </div>
-
+    <PageFrame
+      back={mode === 'add' ? PATHS.account : PATHS.home}
+      backLabel={mode === 'add' ? 'Back to your account' : 'Back to the road'}
+    >
       {step === 'loading' && (
         <div className={styles.intro}>
           <h1 className={styles.title}>{heading}</h1>
@@ -205,7 +207,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
               variant="secondary"
               block
               onClick={() => {
-                window.location.assign('/account')
+                window.location.assign(PATHS.account)
               }}
             >
               Go back
@@ -240,6 +242,11 @@ export function EmailFlow({ mode }: { mode: Mode }) {
             <Button type="submit" block busy={busy} busyLabel="Sending the code.">
               Send code
             </Button>
+            {mode === 'sign-in' && (
+              <a className={styles.smallLink} href={PATHS.home}>
+                Start as a guest instead
+              </a>
+            )}
           </div>
         </form>
       )}
@@ -247,7 +254,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
       {step === 'code' && (
         <form className={styles.form} noValidate onSubmit={(event) => void confirm(event)}>
           <div className={styles.intro}>
-            <h1 className={styles.title}>{heading}</h1>
+            <h1 className={styles.title}>Enter the code</h1>
             {mode === 'add' ? (
               <p className={styles.text}>
                 Enter the 6 digit code we sent to {sentTo}. {CODE_WORKS}
@@ -260,19 +267,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
               </>
             )}
           </div>
-          <TextField
-            ref={codeField}
-            id="code"
-            label="6 digit code"
-            type="text"
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            maxLength={12}
-            value={code}
-            onChange={(event) => {
-              setCode(event.target.value)
-            }}
-          />
+          <CodeField ref={codeField} id="code" label="6 digit code" value={code} onChange={setCode} />
           <div className={styles.actions}>
             <StatusLine tone={status.tone}>{status.text}</StatusLine>
             <Button type="submit" block busy={busy} busyLabel="Checking the code.">
@@ -299,7 +294,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
             <Button
               block
               onClick={() => {
-                window.location.assign('/')
+                window.location.assign(PATHS.home)
               }}
             >
               Continue
@@ -309,19 +304,10 @@ export function EmailFlow({ mode }: { mode: Mode }) {
       )}
 
       {step !== 'done' && (
-        <ul className={styles.links}>
-          <li>
-            <a className={styles.link} href="/privacy">
-              Privacy notice
-            </a>
-          </li>
-          <li>
-            <a className={styles.link} href="/account">
-              Your account
-            </a>
-          </li>
-        </ul>
+        <a className={styles.smallLink} href={PATHS.privacy}>
+          Privacy notice
+        </a>
       )}
-    </main>
+    </PageFrame>
   )
 }

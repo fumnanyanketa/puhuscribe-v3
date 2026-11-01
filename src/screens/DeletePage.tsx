@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
-import { Wordmark } from '../components/Wordmark.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { NO_ACCOUNT } from './AccountPage.tsx'
@@ -52,7 +53,7 @@ export function DeletePage() {
       return
     }
     if (answer?.status === 401) {
-      window.location.assign('/')
+      window.location.assign(PATHS.home)
       return
     }
     setBusy(false)
@@ -61,26 +62,27 @@ export function DeletePage() {
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.top}>
-        <Wordmark height={36} />
-      </div>
-      <div className={styles.intro}>
-        <h1 className={styles.title}>Delete my account</h1>
-        {view === 'confirm' && <p className={styles.text}>{DELETE_TEXT}</p>}
-        {view === 'none' && <p className={styles.text}>{NO_ACCOUNT}</p>}
-      </div>
-      <div className={styles.actions}>
+    <PageFrame back={PATHS.account} backLabel="Back to your account">
+      <div className={styles.sheet}>
+        <h1 className={styles.sheetTitle}>Delete your account?</h1>
+        {view === 'confirm' && <p className={styles.sheetText}>{DELETE_TEXT}</p>}
+        {view === 'none' && <p className={styles.sheetText}>{NO_ACCOUNT}</p>}
         {view === 'confirm' && (
           <>
-            <Button block busy={busy} busyLabel="Deleting your account." onClick={() => void deleteAccount()}>
-              Delete my account
+            <Button
+              block
+              variant="danger"
+              busy={busy}
+              busyLabel="Deleting your account."
+              onClick={() => void deleteAccount()}
+            >
+              Delete for good
             </Button>
             <Button
               variant="secondary"
               block
               onClick={() => {
-                window.location.assign('/account')
+                window.location.assign(PATHS.account)
               }}
             >
               Keep my account
@@ -90,16 +92,12 @@ export function DeletePage() {
         <StatusLine ref={status} tone={failed ? 'problem' : 'neutral'}>
           {view === 'loading' ? LOADING : failed ? NOT_DELETED : ''}
         </StatusLine>
+        {view === 'none' && (
+          <a className={styles.smallLink} href={PATHS.home}>
+            Back to the road
+          </a>
+        )}
       </div>
-      {view === 'none' && (
-        <ul className={styles.links}>
-          <li>
-            <a className={styles.link} href="/">
-              Back to the start
-            </a>
-          </li>
-        </ul>
-      )}
-    </main>
+    </PageFrame>
   )
 }

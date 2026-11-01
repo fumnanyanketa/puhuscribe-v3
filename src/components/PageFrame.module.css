@@ -1,0 +1,72 @@
+/* Page frame (design.md, "Page frame"). Values from src/styles/tokens.css. */
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: calc(var(--space-4) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
+}
+
+.back {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: var(--panel-edge);
+  border-radius: var(--radius-pill);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-1);
+  color: var(--color-text);
+}
+
+.back svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+  letter-spacing: normal;
+}
+
+/* The content starts below the landscape's sun, as drawn. */
+.body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-9) var(--space-5) var(--space-6);
+}
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+}

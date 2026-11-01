@@ -1,0 +1,94 @@
+/* Switches (design.md, "Switches"). Values from src/styles/tokens.css. */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--tap-min);
+}
+
+.text {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.hint {
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: 56px;
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* The track, 32 px high inside the 44 px tap area. */
+.switch::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 0;
+  bottom: 6px;
+  left: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-switch-off);
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.switch[aria-checked='true']::before {
+  background: var(--color-mint);
+}
+
+.thumb {
+  position: absolute;
+  top: 10px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  transition: left var(--motion-fast) var(--motion-ease);
+}
+
+.switch[aria-checked='true'] .thumb {
+  left: 28px;
+}
+
+.switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch::before,
+  .thumb {
+    transition: none;
+  }
+}

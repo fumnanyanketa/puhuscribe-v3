@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { Switch } from '../components/Switch.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import type { VoiceAnswer } from '../lib/speech-types.ts'
-import { voiceNotice } from '../lib/voice-consent.ts'
 import { NOT_AVAILABLE, chooseVoice, deleteKept, loadVoice, type VoiceLoad } from '../lib/voice-api.ts'
-import { VoiceConsent } from './VoiceConsent.tsx'
+import { ConsentSheet } from './ConsentSheet.tsx'
 import voice from './Voice.module.css'
 
-// Voice settings, at /voice (factory/jobs/10-speaking-feedback/spec.md,
-// "Done when" 4 and 19). Both choices with one press each to change, and the
-// learner's kept recordings, newest first, each with Play and Delete.
-// Turning speaking feedback on here shows the same consent text as Say it.
-// Turning either choice off deletes kept recordings in the database, in the
-// same transaction as the choice.
+// Voice settings, at /voice (factory/jobs/10-speaking-feedback/spec.md, "Done
+// when" 4 and 19; redrawn in job 19-redesign, statement 36). Two real switches,
+// "Speaking feedback" and "Keep my recordings", one press changes each, and the
+// learner's kept recordings, newest first, each with Play and Delete, and a
+// danger text button "Delete my recordings". Turning speaking feedback on shows
+// the consent sheet, as Say it does. Turning either choice off deletes kept
+// recordings in the database, in the same transaction as the choice.
 
 const LOADING = 'Loading your voice settings.'
 const NOT_LOADED = 'Your voice settings could not be loaded. Check your internet connection, then try again.'
@@ -33,13 +36,12 @@ export function VoiceSettings() {
     text: LOADING,
   })
   const [asking, setAsking] = useState(false)
-  const [keep, setKeep] = useState(false)
   const [busy, setBusy] = useState<string | null>(null)
   const firstLoad = useRef<Promise<VoiceLoad> | null>(null)
 
   function show(load: VoiceLoad, done: string, failed: string) {
     if (load.kind === 'signed_out') {
-      window.location.replace('/')
+      window.location.replace(PATHS.home)
       return
     }
     if (load.kind === 'failed') {
@@ -68,109 +70,51 @@ export function VoiceSettings() {
     show(load, done, NOT_SAVED)
   }
 
-  const notice = voiceNotice(state?.region ?? null)
   const on = state?.processing === 'granted'
 
   return (
-    <main className={voice.page}>
-      <h1 className={voice.title}>Voice settings</h1>
+    <PageFrame back={PATHS.account} backLabel="Back to your account" title="Voice settings">
       <StatusLine tone={message.tone}>{message.text}</StatusLine>
       {state && (
         <>
-          <section className={voice.section} aria-labelledby="speaking-heading">
-            <h2 id="speaking-heading" className={voice.sectionTitle}>
-              Speaking feedback
-            </h2>
-            <p className={voice.text}>
-              {on
-                ? 'On. Your recordings are checked and you get a short hint for each line.'
-                : 'Off. Nothing is recorded. You can still say each line out loud.'}
-            </p>
-            {!state.available && <p className={voice.text}>{NOT_AVAILABLE}</p>}
-            {on && (
-              <Button
-                variant="secondary"
-                busy={busy === 'off'}
-                busyLabel="Turning off speaking feedback."
-                onClick={() => void change('off', () => chooseVoice('turn_off'), 'Speaking feedback is off.')}
-              >
-                Turn off speaking feedback
-              </Button>
-            )}
-            {!on && !asking && state.available && (
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setKeep(false)
-                  setAsking(true)
-                }}
-              >
-                {notice.turnOn}
-              </Button>
-            )}
-            {!on && asking && (
-              <>
-                <VoiceConsent region={state.region} keep={keep} onKeepChange={setKeep} headingLevel={2} />
-                <div className={voice.buttons}>
-                  <Button
-                    block
-                    busy={busy === 'on'}
-                    busyLabel="Saving your choice."
-                    onClick={() =>
-                      void change(
-                        'on',
-                        async () => {
-                          const load = await chooseVoice('turn_on', keep)
-                          if (load.kind === 'ok') setAsking(false)
-                          return load
-                        },
-                        'Speaking feedback is on.',
-                      )
-                    }
-                  >
-                    {notice.turnOn}
-                  </Button>
-                  <Button
-                    block
-                    variant="secondary"
-                    onClick={() => {
-                      setAsking(false)
-                    }}
-                  >
-                    {notice.notNow}
-                  </Button>
-                </div>
-              </>
-            )}
-          </section>
-
-          <section className={voice.section} aria-labelledby="keep-heading">
-            <h2 id="keep-heading" className={voice.sectionTitle}>
-              Keep my recordings
-            </h2>
-            <p className={voice.text}>
-              {state.retention
-                ? 'On. We keep your first and latest try of each line for 90 days.'
-                : 'Off. Your recordings are deleted as soon as your feedback is ready.'}
-            </p>
-            {on && (
-              <Button
-                variant="secondary"
-                busy={busy === 'keep'}
-                busyLabel="Saving your choice."
-                onClick={() =>
-                  void change(
-                    'keep',
-                    () => chooseVoice(state.retention ? 'keep_off' : 'keep_on'),
-                    state.retention
-                      ? 'Your recordings are no longer kept, and the kept ones are deleted.'
-                      : 'Your recordings will be kept.',
-                  )
-                }
-              >
-                {state.retention ? 'Stop keeping my recordings' : 'Keep my recordings'}
-              </Button>
-            )}
+          <section className={voice.switches} aria-label="Your choices">
+            <Switch
+              label="Speaking feedback"
+              hint={
+                on
+                  ? 'On. Your recordings are checked and you get a short hint for each line.'
+                  : 'Off. Nothing is recorded. You can still say each line out loud.'
+              }
+              checked={on}
+              busy={busy === 'speaking'}
+              busyLabel={on ? 'Turning off speaking feedback.' : 'Saving your choice.'}
+              disabled={!on && !state.available}
+              onChange={(next) => {
+                if (next) setAsking(true)
+                else void change('speaking', () => chooseVoice('turn_off'), 'Speaking feedback is off.')
+              }}
+            />
+            {!state.available && <p className={voice.quietText}>{NOT_AVAILABLE}</p>}
+            <Switch
+              label="Keep my recordings"
+              hint={
+                state.retention
+                  ? 'On. We keep your first and latest try of each line for 90 days.'
+                  : 'Off. Your recordings are deleted as soon as your feedback is ready.'
+              }
+              checked={state.retention}
+              busy={busy === 'keep'}
+              disabled={!on}
+              onChange={(next) => {
+                void change(
+                  'keep',
+                  () => chooseVoice(next ? 'keep_on' : 'keep_off'),
+                  next
+                    ? 'Your recordings will be kept.'
+                    : 'Your recordings are no longer kept, and the kept ones are deleted.',
+                )
+              }}
+            />
             {!on && <p className={voice.quietText}>Turn on speaking feedback first.</p>}
           </section>
 
@@ -181,57 +125,74 @@ export function VoiceSettings() {
             {state.recordings.length === 0 ? (
               <p className={voice.text}>You have no kept recordings.</p>
             ) : (
-              <>
-                <ul className={voice.recordings}>
-                  {state.recordings.map((row) => (
-                    <li key={row.id} className={voice.recording} data-recording-id={row.id}>
-                      {row.line && (
-                        <p className={voice.text} lang="fi">
-                          {row.line}
-                        </p>
-                      )}
-                      <p className={voice.quietText}>
-                        {row.slot === 'first' ? 'First try' : 'Latest try'}, {dateOf(row.createdAt)}.
+              <ul className={voice.recordings}>
+                {state.recordings.map((row) => (
+                  <li key={row.id} className={voice.recording} data-recording-id={row.id}>
+                    {row.line && (
+                      <p className={voice.text} lang="fi">
+                        {row.line}
                       </p>
-                      <div className={voice.recordingControls}>
-                        <PlayControl
-                          src={`/api/voice/recordings/${row.id}`}
-                          what="your recording"
-                          size="small"
-                        />
-                        <Button
-                          variant="secondary"
-                          busy={busy === row.id}
-                          busyLabel="Deleting the recording."
-                          aria-label={`Delete this recording, ${row.slot === 'first' ? 'first try' : 'latest try'}`}
-                          onClick={() =>
-                            void change(row.id, () => deleteKept({ id: row.id }), 'The recording is deleted.')
-                          }
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant="secondary"
-                  busy={busy === 'all'}
-                  busyLabel="Deleting all your recordings."
-                  onClick={() =>
-                    void change('all', () => deleteKept({ all: true }), 'All your recordings are deleted.')
-                  }
-                >
-                  Delete all my recordings
-                </Button>
-              </>
+                    )}
+                    <p className={voice.quietText}>
+                      {row.slot === 'first' ? 'First try' : 'Latest try'}, {dateOf(row.createdAt)}.
+                    </p>
+                    <div className={voice.recordingControls}>
+                      <PlayControl
+                        src={`/api/voice/recordings/${row.id}`}
+                        what="your recording"
+                        size="small"
+                      />
+                      <Button
+                        variant="secondary"
+                        busy={busy === row.id}
+                        busyLabel="Deleting the recording."
+                        aria-label={`Delete this recording, ${row.slot === 'first' ? 'first try' : 'latest try'}`}
+                        onClick={() =>
+                          void change(row.id, () => deleteKept({ id: row.id }), 'The recording is deleted.')
+                        }
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             )}
           </section>
         </>
       )}
-      <a className={voice.link} href="/">
-        Back to the start
-      </a>
-    </main>
+      {state && state.recordings.length > 0 && (
+        <Button
+          variant="quiet"
+          className={voice.danger}
+          busy={busy === 'all'}
+          busyLabel="Deleting all your recordings."
+          onClick={() =>
+            void change('all', () => deleteKept({ all: true }), 'All your recordings are deleted.')
+          }
+        >
+          Delete all my recordings
+        </Button>
+      )}
+      <ConsentSheet
+        open={asking}
+        region={state?.region ?? null}
+        busy={busy === 'on'}
+        onTurnOn={() =>
+          void change(
+            'on',
+            async () => {
+              const load = await chooseVoice('turn_on', false)
+              if (load.kind === 'ok') setAsking(false)
+              return load
+            },
+            'Speaking feedback is on.',
+          )
+        }
+        onNotNow={() => {
+          setAsking(false)
+        }}
+      />
+    </PageFrame>
   )
 }

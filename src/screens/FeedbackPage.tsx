@@ -1,7 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
-import { Wordmark } from '../components/Wordmark.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import {
   FEEDBACK_LIMIT_TEXT,
@@ -37,9 +38,9 @@ function screenFrom(search: string): FeedbackScreen {
 }
 
 const BACK: Record<FeedbackScreen, { href: string; text: string }> = {
-  front_door: { href: '/', text: 'Back to the start' },
-  account: { href: '/account', text: 'Back to your account' },
-  finish: { href: '/', text: 'Back to the start' },
+  front_door: { href: PATHS.home, text: 'Back to the road' },
+  account: { href: PATHS.account, text: 'Back to your account' },
+  finish: { href: PATHS.home, text: 'Back to the road' },
 }
 
 export function FeedbackPage() {
@@ -104,13 +105,9 @@ export function FeedbackPage() {
   const back = BACK[screen]
 
   return (
-    <main className={styles.page}>
-      <div className={styles.top}>
-        <Wordmark height={36} />
-      </div>
+    <PageFrame back={back.href} backLabel={back.text} title="Send feedback">
       <div className={styles.intro}>
-        <h1 className={styles.title}>Send feedback</h1>
-        {view === 'form' && <p className={styles.text}>{FEEDBACK_INTRO}</p>}
+        {view === 'form' && <p className={styles.quietText}>{FEEDBACK_INTRO}</p>}
         {view === 'none' && <p className={styles.text}>{FEEDBACK_NO_ACCOUNT}</p>}
       </div>
 
@@ -125,7 +122,7 @@ export function FeedbackPage() {
         >
           <div className={own.field}>
             <label htmlFor={id} className={own.label}>
-              Your message
+              What should we know?
             </label>
             <textarea
               ref={field}
@@ -156,21 +153,11 @@ export function FeedbackPage() {
       {view === 'loading' && <StatusLine tone="neutral">{LOADING}</StatusLine>}
       {view === 'problem' && <StatusLine tone="problem">{NOT_LOADED}</StatusLine>}
 
-      <ul className={styles.links}>
-        {view === 'none' ? (
-          <li>
-            <a className={styles.link} href="/">
-              Go to the front door
-            </a>
-          </li>
-        ) : (
-          <li>
-            <a className={styles.link} href={back.href}>
-              {back.text}
-            </a>
-          </li>
-        )}
-      </ul>
-    </main>
+      {view === 'none' && (
+        <a className={styles.smallLink} href={PATHS.home}>
+          Back to the road
+        </a>
+      )}
+    </PageFrame>
   )
 }

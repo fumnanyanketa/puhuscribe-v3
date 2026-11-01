@@ -169,3 +169,20 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* Voice settings, as drawn (job 19-redesign, statement 36): the two switches
+   in one milky panel, and the danger text button. */
+.switches {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.danger {
+  justify-self: center;
+  color: var(--color-peach-deep);
+}

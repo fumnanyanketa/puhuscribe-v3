@@ -265,44 +265,71 @@ It plays when this device has no account, and never for a signed in learner. Abo
 
 "Skip" is a text button of at least 44 px, first in the tab order. It ends the animation at once and moves focus to "Start". Under reduced motion the animation is a crossfade of 600 ms or less from the empty landscape to the final screen, and nothing slides, scales or draws. Hidden parts use `visibility`, never `inert` (older Safari lacks it), so nothing hidden can be focused or tapped while it runs.
 
-### Finnish line and word card (`FinnishLine`, `WordCard`)
+### Line card and word card (`LineCard`, `FinnishLine`, `WordCard`)
 
-A dialogue line in v2's register pairing. The spoken line comes first, on a teal band labelled "Spoken". The written line sits under it, labelled "Written" in text. A teal dot and a violet dot joined by a dotted line connect the two. Both lines carry `lang="fi"`. The words that change between spoken and written are azure on an azure wash, in both lines; azure means only that. The word being spoken is an ink block with light text. Each word's button is the 44 px tap area and stays invisible; the wash and the ink block are drawn on the word itself at text height, so a line reads as text with a few marked words.
+A dialogue line as drawn on 1 November 2026. A milky panel with the speaker's name (12 px, quiet) and "Line 2 of 8" at its top right. Inside, the spoken line in a soft box with a mint play button at its end, and under it the written line in slate with a slate play button. Two dots at the left, mint for spoken and slate for written, are joined by a dotted line. There are no "Spoken" and "Written" labels: each group is named for screen readers ("How people say it", "How it is written"). Both lines carry `lang="fi"`. The English gloss sits inside the card under a dashed line.
 
-Every word is a button. A tap, Enter or Space opens its word card: a native `<dialog>` that rises from the bottom. It shows the word as it appears, its base form, the name of the form, a one line "why" in English, and the spoken and written forms, each with a play control. It closes with the Close button, the Escape key, or a tap outside it. Focus moves into the card when it opens and back to the same word when it closes. While it is open, the page behind cannot be used or scrolled. Grammar is always behind this tap, never on the main screen. On design pages the card ends with "Sample, not reviewed." (the `cardNote` prop).
+- The words that change between spoken and written are peach on a peach wash, in both lines. Peach there means only that (`--color-changed-text`, `--color-changed-wash`).
+- The word being spoken is an ink block with light text. Each word's button is the 44 px tap area and stays invisible; the wash and the ink block are drawn on the word itself at text height.
+- Every word with word data is a button. A word without data (a name) is plain text, never a dead button. A word and the punctuation after it never wrap apart.
+- While a line plays the card shows a ring and the word "Playing" next to the speaker's name, so colour is never the only sign.
+- Understand it shows only the spoken line, larger (21 px), with one play button. Say it and Keep it show the card without play buttons.
 
-The first time a screen shows changed words, one plain line explains them: "Blue words change between spoken and written Finnish."
+#### The tip on a learner's first lesson (`FirstLessonTip`)
 
-On session screens the word card's two play controls play the whole line in each register, because audio exists per line only (job 8, Decision 6). Their names say "Play the spoken line" and "Play the written line", and one plain caption under them says "Plays the whole line." (the `audioCaption` prop). A word and the punctuation after it never wrap apart: each sits in one span that does not break, with the button still the word's only tap target.
+On the learner's first lesson only, before Hear it is finished, the line card stays lit and the rest of the screen dims with a real scrim. Three short lines: "How people say it" (mint dot), "How it's written" (slate dot) and "Tap any word to learn it" (peach ring), and a "Got it" button. Focus moves to "Got it" when it opens and back to "Next line" when it closes. Escape closes it. Tab cannot leave the lit card and the tip, and the page behind cannot be used or scrolled. Whether it shows comes from the session answer (`firstLesson`), never from the phone.
+
+#### The word card (`WordCard`)
+
+A bottom sheet. The word large with a play button and a close cross, what it means in plain English, two tiles "People say" (mint) and "Books write" (slate) each with a play button, "Dictionary form" with the base form and what it means, and "Why does it change?" behind one more tap. Audio exists per line only, so every play button plays the whole line in its register, its name says so, and one caption says "Plays the whole line." The two meaning lines come from word data (`meaning`, `baseMeaning`); when it is missing the line is left out and no text is invented. The quiet "Patterns you've seen" button stays under the facts. The card keeps its dialog behaviour: focus in and back, Escape, tap outside, no page scroll.
 
 ### Answer choices (`AnswerChoices`)
 
-The rows of the comprehension check in Understand it (job 8-first-session). One full width row per English meaning, in the white pill look with a visible edge, at least 54 px tall, text left aligned and allowed to wrap. Three states, which differ in shape and words as well as colour:
+The rows of the comprehension check in Understand it. One full width white row per English meaning, at least 52 px tall, text left aligned and allowed to wrap. Three states, which differ in shape and words as well as colour:
 
-- **Ready**: `--color-text` on `--color-button-secondary` with the `--color-control-edge` edge (the white pill rows of the contrast table).
-- **Tried and not right**: no fill, a dashed `--color-control-edge` edge and `--color-text-quiet` text on the page (the quieter text on the page rows), with "not this one" for screen readers. It stays focusable (`aria-disabled`, not `disabled`), so focus is never lost, and pressing it again does nothing. Never red, no cross, no count. The status line says "Not this one. Listen again and try another." in the gentle style.
-- **Right**: a 2 px edge in `--color-text` (the headings on the page rows), semibold text and a tick inside the row, with "that is right" for screen readers. The other rows become unavailable and the status line says "Yes, that is right."
-
-Keyboard focus uses the normal outline. The list is named by the question heading "What does this mean?", and the screen keeps the rows in view on a short phone. The reference page shows each state.
+- **Ready**: ink on white with a soft shadow.
+- **Tried and not right**: no fill, a dashed edge and quiet text, with "not this one" for screen readers. It stays focusable (`aria-disabled`, not `disabled`), so focus is never lost, and pressing it again does nothing. Never red, no cross, no count. The status line says "Not this one. Listen again and try another."
+- **Right**: a 2 px mint edge, semibold text and a tick in a mint circle, with "that is right" for screen readers. The other rows become unavailable and the status line says "Yes, that is right." The bottom pill reads "Next" and is unavailable until the answer is right.
 
 ### Play control (`PlayControl`)
 
-A round button that plays and pauses one audio file. States: ready (a play triangle), loading (a ring), playing (pause bars), and could not play ("Could not play." with a "Try again" button). Its accessible name says what it plays, for example "Play the spoken line". Starting one control stops any other. It is one button in every state, so keyboard focus stays on it when playback fails and when "Try again" is pressed. Audio starts only from a tap or key press, never by itself; the file is not fetched until the first press. 56 px in the action area, 44 px inside a card.
+A round button that plays and pauses one audio file. Mint for the spoken line, slate for the written line. States: ready (a play triangle), loading (a ring), playing (pause bars), and could not play ("Could not play." with a "Try again" button). Its accessible name says what it plays, for example "Play the spoken line". Starting one control stops any other. It is one button in every state, so keyboard focus stays on it when playback fails and when "Try again" is pressed. Audio starts only from a tap or key press, never by itself; the file is not fetched until the first press. 48 px on a line card, 44 px small.
 
 ### Record control (`RecordControl`)
 
-Look only in this job; recording, voice consent and feedback come in job 8, and nothing here asks for the microphone. A 72 px round button. States, each with its own accessible name: ready ("Record yourself saying the line"), recording (teal, a square stop mark, elapsed time as 0:03 in tabular numbers, "Stop recording, 3 seconds recorded"), working ("Working on your recording", three fading dots) and unavailable (grey, disabled, with a one line reason). The spec named Geist Mono for the time; the owner's choice of v2's fonts replaced it with tabular numbers in Switzer.
+A large 88 px round mint button with two flat rings. States, each with its own accessible name: ready ("Record yourself saying the line", hint "Tap and say the line."), recording (peach, a still wave, hint "Listening.", and a quiet "Stop"; the button is named "Stop recording, 3 seconds recorded"), working (three fading dots, "Listening to your recording.") and unavailable (grey, disabled, with a one line reason). A clear result is a milky card with a mint tick, the feedback sentence, the wave, "Play mine" and "Try again". A try again result is the gentle peach note with its open ring. The spoken answer in Keep it uses the same button and keeps its own words.
+
+### Sheets in use
+
+The leave sheet ("Leave this lesson?"), the word card, the speaking consent sheet and the delete page share the sheet look. **The speaking consent sheet** shows only its title "Say it out loud", a "How it works" link to the privacy page's "Your voice" section (it opens in a new tab so the lesson stays where it is), "Turn on" and "Not now". Nothing asks for the microphone before "Turn on". The box "Keep my recordings" is never ticked for the learner and is not on the sheet; it is a switch in Voice settings. Escape does what "Not now" does, because it records nothing.
+
+### Switches (`Switch`)
+
+A real switch with a name: a button with `role="switch"` and `aria-checked`, 44 px tall, one press changes it. The hint under the name says the state in words. Used for "Speaking feedback" and "Keep my recordings" in Voice settings.
+
+### Page frame (`PageFrame`)
+
+Every page that is not a lesson or the road: the landscape band, a 44 px back arrow in a milky round, the page's title beside it, the content below the sun, and the actions at the bottom clear of the home bar. Used by the account page, the email and code screens, Voice settings, the privacy notice, Send feedback and the delete page.
+
+### The finished lesson
+
+A tick orb, "Now you can say this.", the line card with its English line, a panel headed "N new words" with the new words as tappable chips (each opens its word card; the count is the number of chips and nothing else), the save note for a guest, a quiet "Send feedback" link, "Done", and one status line. The drawing's "lines said aloud" box is not built. The save note is a milky panel with centred words: "Create an account to save your progress.", a "Create account" button and a quiet "Not now". It keeps job 18's rules: not a status, alert or dialog, no focus move, and the finish screen has exactly one `role="status"`.
+
+### The account page and its neighbours
+
+The account page is a profile: a large avatar with the letter, the name line ("Guest" and "Saved on this device", or the email and "Saved to your email"), a "Your journey" panel ("Stop 3 of 36", a bar, "Now: Grocery store", "A1"), and one settings panel with four rows (Speaking feedback with On or Off, Download my data, Privacy notice, Send feedback). A guest sees a peach note "Add your email to keep your progress." with an "Add" button. Below the panel: "Sign out" (email accounts only) and "Delete my account" as small text. When the data file is ready it shows in place: a tick orb, "Your file is ready", one line and "Download". The delete page keeps its address and its two steps and looks like the drawn sheet: "Delete your account?", the warning in full, "Delete for good" as the danger pill and "Keep my account". The email screens have one field and one button each; the code is one input with `autocomplete="one-time-code"` and a visible box for each digit (`CodeField`).
+
+### The privacy notice
+
+A readable first layer: the title, a two line summary, five short sections (What we keep, Your voice, How long, Your rights, Who runs PuhuScribe), "Updated" with the date, and "Read the full notice". Behind that control is the whole notice of job 11, unchanged in content. Each claim of the first layer is checked against `src/privacy/data-inventory.ts` by a unit test.
+
+### Errors, offline and loading
+
+"Opening" is the sprout mark on a mint tile and three fading dots. "No connection" is a cloud with a slash, the title, "Your progress is safe." (only on the road and account screens, where nothing waits to be saved) and "Check your internet connection, then try again.", and "Try again". "Something went wrong" is the crash screen with a peach mark, the existing words and "Reload"; it does not claim a report was sent. All other problem messages keep their words and show in the problem style.
 
 ### Save progress note (`SaveNote`)
 
-One short note near the end of the finish screen (job 18-save-progress), shown to a guest after their first finished session and once more after their third. It sits in the page after the line card and "The words you met will come back in your review.", and before "Send feedback". It is a plain block, not a card, a dialog or a banner: no fill, no edge, no icon, no label above it, no animation. It is a `section` named "Keep your progress" for screen readers, and adds no heading.
-
-- **Words.** One sentence in `--color-text`, at body size. All the words are in `src/screens/save-note-copy.ts` and follow the writing rules (no pressure, no loss warning, no number).
-- **Buttons.** "Add your email" is the secondary button (white pill with an edge) and "Not now" is the quiet one, side by side, wrapping under each other on a narrow phone. "Done" stays the only primary (black) button on the screen, so finishing stays the main action. No new button style.
-- **The status line above it.** For a guest the finish screen's one status line says "Your progress is saved on this device." (the owner's choice of 1 November 2026), so the note's offer to add an email reads as the next step and not as a contradiction. A learner with an email keeps "Your progress is saved." The line is `role="status"` as before, in the neutral style.
-- **After "Not now".** The note is replaced by one plain line ("No problem. You can add your email later from Your account.") in the same text style. Focus moves to that line (`tabindex="-1"`), so a keyboard or screen reader user is not left on a button that has gone. Neither the note nor the line is a status or an alert: the finish screen keeps its one `role="status"` line.
-- **Never blocks.** Nothing on the page is disabled, covered or moved to make room: "Done", "Leave session", "Send feedback" and the line's play controls work as before. Focus does not move when the note appears.
-- **Look and reference.** Tokens only, in its own file `src/screens/SaveNote.module.css`. `/design-reference` shows the live note under "Save progress note", in light and dark.
+See "The finished lesson". Its words are in `src/screens/save-note-copy.ts`: "Create an account to save your progress." and "Create account" are the owner's words of 1 November 2026. After "Not now" the note is replaced by one plain line ("No problem. You can add your email later from Your account.") that takes focus.
 
 ### Wordmark (`Wordmark`)
 

@@ -1,15 +1,48 @@
-/* The error boundary's screen (job 14-analytics): the problem status line and
-   a Reload button, at the page width of the account pages. Values from
-   src/styles/tokens.css. */
+/* The error boundary's screen (job 14-analytics, redrawn in job 19-redesign,
+   statement 41): the landscape band, a peach mark, the title, the problem
+   status line with its existing words, and a Reload button. It does not claim
+   a report was sent. Values from src/styles/tokens.css. */
 
 .page {
+  position: relative;
   display: grid;
-  align-content: start;
-  gap: var(--space-4);
+  align-content: center;
   width: 100%;
   max-width: 30rem;
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
   padding: var(--space-7) var(--space-5);
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.body > button {
+  width: 100%;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 2px solid var(--color-peach);
+  border-radius: 50%;
+  background: var(--color-peach-soft);
+  color: var(--color-peach-deep);
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
 }

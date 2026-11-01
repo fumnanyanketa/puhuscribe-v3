@@ -137,7 +137,7 @@ export interface SignSpot {
 }
 
 export function signSpots(count: number, lowest: number, firstSide: -1 | 1 = 1): SignSpot[] {
-  const bottom = Math.min(Math.max(lowest, HORIZON + 40), 560)
+  const bottom = Math.min(Math.max(lowest, HORIZON + 24), 560)
   // Far signs stand just below the sun when there is room, and higher when there is not.
   const top = Math.min(HORIZON + 46, bottom - 56)
   const spots: SignSpot[] = []

@@ -1,4 +1,8 @@
-import { Wordmark } from '../components/Wordmark.tsx'
+import { useState } from 'react'
+import { Button } from '../components/Button.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
+import { PATHS } from '../lib/app-paths.ts'
+import { voiceNotice } from '../lib/voice-consent.ts'
 import {
   ACCOUNT_ITEMS,
   HOW_LONG,
@@ -7,12 +11,18 @@ import {
   OWNER_TABLES,
   type InventoryItem,
 } from '../privacy/data-inventory.ts'
+import { FIRST_LAYER } from '../privacy/first-layer.ts'
 import { NOTICE_UPDATED, RESPONSIBLE, type Responsible } from '../privacy/notice-settings.ts'
 import { PROCESSORS, PROVIDER_LOGS } from '../privacy/processors.ts'
 import styles from './Account.module.css'
 
 // The privacy notice, at /privacy (factory/jobs/11-accounts/spec.md, "Done
 // when" 16 and 17). It loads without an account and calls no /api route.
+// Job 19-redesign (statement 39) puts a readable first layer on top: a summary
+// and five short sections (src/privacy/first-layer.ts, every claim checked
+// against the inventory), with "Updated" and the date, and "Read the full
+// notice". The whole notice of job 11 is behind that control, unchanged in
+// content, and stays in the page (hidden until opened).
 // Every fact comes from the spec's "Privacy notice facts" table; "What we
 // keep" is rendered from src/privacy/data-inventory.ts and the processors
 // from src/privacy/processors.ts. The responsible name and contact come from
@@ -71,154 +81,171 @@ function Item({ item }: { item: InventoryItem }) {
 
 export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible }) {
   const [who, what, howLong, where, cookies, rights, age, updated] = SECTION_HEADINGS
+  const [open, setOpen] = useState(false)
+  const notice = voiceNotice(null)
   return (
-    <main className={styles.page}>
-      <div className={styles.top}>
-        <Wordmark height={36} />
+    <PageFrame back={PATHS.home} backLabel="Back to the road" title={FIRST_LAYER.title}>
+      <p className={styles.summary}>{FIRST_LAYER.summary}</p>
+      <div className={styles.firstLayer}>
+        {FIRST_LAYER.sections.map((section) => (
+          <section key={section.id} className={styles.short} aria-labelledby={section.id}>
+            <h2 id={section.id} className={styles.shortHeading}>
+              {section.heading}
+            </h2>
+            <p className={styles.shortText}>{section.text}</p>
+            {section.id === 'privacy-voice' && (
+              <>
+                {notice.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className={styles.shortText}>
+                    {paragraph}
+                  </p>
+                ))}
+                <p className={styles.shortText}>{notice.changeLater}</p>
+              </>
+            )}
+          </section>
+        ))}
       </div>
-      <div className={styles.intro}>
-        <h1 className={styles.title}>Privacy notice</h1>
+      <p className={styles.shortText}>Updated {formatDate(NOTICE_UPDATED)}.</p>
+      <Button
+        variant="secondary"
+        aria-expanded={open}
+        aria-controls="full-notice"
+        onClick={() => {
+          setOpen(!open)
+        }}
+      >
+        {open ? FIRST_LAYER.hideFullNotice : FIRST_LAYER.fullNotice}
+      </Button>
+
+      <div id="full-notice" className={styles.full} hidden={!open}>
         <p className={styles.text}>
           This notice explains what PuhuScribe keeps about you and why, how long it is kept, where it is kept,
           and how to reach the person responsible.
         </p>
-      </div>
-
-      <div className={styles.notice}>
-        <section className={styles.section} aria-labelledby="privacy-who">
-          <h2 id="privacy-who" className={styles.heading}>
-            {who}
-          </h2>
-          <p className={styles.text}>
-            {responsible.responsibleName} is responsible for your data in PuhuScribe.
-          </p>
-          <p className={styles.text}>Send questions and privacy requests to:</p>
-          <p className={styles.text}>
-            <a className={styles.inlineLink} href={contactHref(responsible.contact)}>
-              {responsible.contact}
-            </a>
-          </p>
-        </section>
-
-        <section className={styles.section} aria-labelledby="privacy-what">
-          <h2 id="privacy-what" className={styles.heading}>
-            {what}
-          </h2>
-          <ul className={styles.cards} data-inventory="account">
-            {ACCOUNT_ITEMS.map((item) => (
-              <Item key={item.name} item={item} />
-            ))}
-          </ul>
-          <p className={styles.text}>Your learning and what you send us:</p>
-          <ul className={styles.cards} data-inventory="tables">
-            {LEARNER_TABLES.map((item) => (
-              <Item key={item.table} item={item} />
-            ))}
-          </ul>
-          <p className={styles.text}>Only for the app&apos;s owner:</p>
-          <ul className={styles.cards} data-inventory="owner">
-            {OWNER_TABLES.map((item) => (
-              <Item key={item.table} item={item} />
-            ))}
-          </ul>
-          {/* Job 14-analytics: kept without any link to your account. */}
-          <p className={styles.text}>Not linked to your account:</p>
-          <ul className={styles.cards} data-inventory="not-linked">
-            {NOT_LINKED_ITEMS.map((item) => (
-              <Item key={item.name} item={item} />
-            ))}
-          </ul>
-        </section>
-
-        <section className={styles.section} aria-labelledby="privacy-how-long">
-          <h2 id="privacy-how-long" className={styles.heading}>
-            {howLong}
-          </h2>
-          <p className={styles.text}>{HOW_LONG}</p>
-        </section>
-
-        <section className={styles.section} aria-labelledby="privacy-where">
-          <h2 id="privacy-where" className={styles.heading}>
-            {where}
-          </h2>
-          <ul className={styles.cards}>
-            {PROCESSORS.map((processor) => (
-              <li key={processor.name} className={styles.item}>
-                <h3 className={styles.itemName}>{processor.name}</h3>
-                <p className={styles.text}>{processor.role}</p>
-                <p className={styles.quietText}>{processor.where}</p>
-              </li>
-            ))}
-          </ul>
-          <p className={styles.text}>{PROVIDER_LOGS}</p>
-        </section>
-
-        <section className={styles.section} aria-labelledby="privacy-cookies">
-          <h2 id="privacy-cookies" className={styles.heading}>
-            {cookies}
-          </h2>
-          <p className={styles.text}>
-            PuhuScribe uses only the sign in cookies it needs to work. It uses no tracking or advertising
-            cookies.
-          </p>
-        </section>
-
-        <section className={styles.section} aria-labelledby="privacy-rights">
-          <h2 id="privacy-rights" className={styles.heading}>
-            {rights}
-          </h2>
-          <p className={styles.text}>You have the right to:</p>
-          <ul className={styles.list}>
-            {RIGHTS.map((right) => (
-              <li key={right} className={styles.text}>
-                {right}
-              </li>
-            ))}
-          </ul>
-          <p className={styles.text}>{NOT_LINKED_RIGHTS}</p>
-          <p className={styles.text}>
-            For anything you cannot do in the app, write to the contact address above. Requests are answered
-            within one month.
-          </p>
-          <p className={styles.text}>
-            You can also complain to Finland&apos;s Office of the Data Protection Ombudsman:
-          </p>
-          <ul className={styles.links}>
-            <li>
-              <a className={styles.link} href={COMPLAINT_URL} rel="noreferrer">
-                Make a complaint to the Data Protection Ombudsman
+        <div className={styles.notice}>
+          <section className={styles.section} aria-labelledby="privacy-who">
+            <h2 id="privacy-who" className={styles.heading}>
+              {who}
+            </h2>
+            <p className={styles.text}>
+              {responsible.responsibleName} is responsible for your data in PuhuScribe.
+            </p>
+            <p className={styles.text}>Send questions and privacy requests to:</p>
+            <p className={styles.text}>
+              <a className={styles.inlineLink} href={contactHref(responsible.contact)}>
+                {responsible.contact}
               </a>
-            </li>
-          </ul>
-        </section>
+            </p>
+          </section>
 
-        <section className={styles.section} aria-labelledby="privacy-age">
-          <h2 id="privacy-age" className={styles.heading}>
-            {age}
-          </h2>
-          <p className={styles.text}>PuhuScribe is for adults, 18 and over.</p>
-        </section>
+          <section className={styles.section} aria-labelledby="privacy-what">
+            <h2 id="privacy-what" className={styles.heading}>
+              {what}
+            </h2>
+            <ul className={styles.cards} data-inventory="account">
+              {ACCOUNT_ITEMS.map((item) => (
+                <Item key={item.name} item={item} />
+              ))}
+            </ul>
+            <p className={styles.text}>Your learning and what you send us:</p>
+            <ul className={styles.cards} data-inventory="tables">
+              {LEARNER_TABLES.map((item) => (
+                <Item key={item.table} item={item} />
+              ))}
+            </ul>
+            <p className={styles.text}>Only for the app&apos;s owner:</p>
+            <ul className={styles.cards} data-inventory="owner">
+              {OWNER_TABLES.map((item) => (
+                <Item key={item.table} item={item} />
+              ))}
+            </ul>
+            {/* Job 14-analytics: kept without any link to your account. */}
+            <p className={styles.text}>Not linked to your account:</p>
+            <ul className={styles.cards} data-inventory="not-linked">
+              {NOT_LINKED_ITEMS.map((item) => (
+                <Item key={item.name} item={item} />
+              ))}
+            </ul>
+          </section>
 
-        <section className={styles.section} aria-labelledby="privacy-updated">
-          <h2 id="privacy-updated" className={styles.heading}>
-            {updated}
-          </h2>
-          <p className={styles.text}>This notice was last updated on {formatDate(NOTICE_UPDATED)}.</p>
-        </section>
+          <section className={styles.section} aria-labelledby="privacy-how-long">
+            <h2 id="privacy-how-long" className={styles.heading}>
+              {howLong}
+            </h2>
+            <p className={styles.text}>{HOW_LONG}</p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="privacy-where">
+            <h2 id="privacy-where" className={styles.heading}>
+              {where}
+            </h2>
+            <ul className={styles.cards}>
+              {PROCESSORS.map((processor) => (
+                <li key={processor.name} className={styles.item}>
+                  <h3 className={styles.itemName}>{processor.name}</h3>
+                  <p className={styles.text}>{processor.role}</p>
+                  <p className={styles.quietText}>{processor.where}</p>
+                </li>
+              ))}
+            </ul>
+            <p className={styles.text}>{PROVIDER_LOGS}</p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="privacy-cookies">
+            <h2 id="privacy-cookies" className={styles.heading}>
+              {cookies}
+            </h2>
+            <p className={styles.text}>
+              PuhuScribe uses only the sign in cookies it needs to work. It uses no tracking or advertising
+              cookies.
+            </p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="privacy-rights">
+            <h2 id="privacy-rights" className={styles.heading}>
+              {rights}
+            </h2>
+            <p className={styles.text}>You have the right to:</p>
+            <ul className={styles.list}>
+              {RIGHTS.map((right) => (
+                <li key={right} className={styles.text}>
+                  {right}
+                </li>
+              ))}
+            </ul>
+            <p className={styles.text}>{NOT_LINKED_RIGHTS}</p>
+            <p className={styles.text}>
+              For anything you cannot do in the app, write to the contact address above. Requests are answered
+              within one month.
+            </p>
+            <p className={styles.text}>
+              You can also complain to Finland&apos;s Office of the Data Protection Ombudsman:
+            </p>
+            <ul className={styles.links}>
+              <li>
+                <a className={styles.link} href={COMPLAINT_URL} rel="noreferrer">
+                  Make a complaint to the Data Protection Ombudsman
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.section} aria-labelledby="privacy-age">
+            <h2 id="privacy-age" className={styles.heading}>
+              {age}
+            </h2>
+            <p className={styles.text}>PuhuScribe is for adults, 18 and over.</p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="privacy-updated">
+            <h2 id="privacy-updated" className={styles.heading}>
+              {updated}
+            </h2>
+            <p className={styles.text}>This notice was last updated on {formatDate(NOTICE_UPDATED)}.</p>
+          </section>
+        </div>
       </div>
-
-      <ul className={styles.links}>
-        <li>
-          <a className={styles.link} href="/account">
-            Your account
-          </a>
-        </li>
-        <li>
-          <a className={styles.link} href="/">
-            Back to the start
-          </a>
-        </li>
-      </ul>
-    </main>
+    </PageFrame>
   )
 }
