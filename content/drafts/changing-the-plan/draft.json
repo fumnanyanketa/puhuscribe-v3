@@ -65,7 +65,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -203,7 +203,13 @@
           "surface": "lauantaina",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei and mä/minä are register differences; meaning is identical.",
+        "fingerprint": "ac5f41ce15651b7c20a9d2abfb8faed75982a58631b63eae9d7831905482f59f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -301,7 +307,13 @@
           "surface": "tapahtu",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tapahtu is a spoken form of tapahtui; same meaning.",
+        "fingerprint": "135acc4f95644ed17fd9b506d87b7345b467e47a5fb5f1d85782993379b7c93b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -397,7 +409,13 @@
           "surface": "kipee",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun lapsi/minun lapseni and kipee/kipeä are register variants; same meaning.",
+        "fingerprint": "29dcc89dcad120eace32954ce5462f3aa7fda0a5e46f2e9db9aaec5fa5b3da05",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -535,7 +553,13 @@
           "surface": "pian",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "In spoken Finnish 'se' is commonly used for a person; it corresponds to 'hän' (the child). Same meaning.",
+        "fingerprint": "a3fc58216852ea7344c7bc17f81fc97dce4656d673a20c20ac4c34c907cbbdee",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -628,7 +652,13 @@
           "surface": "viikko",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos, sopiiks/sopiiko, ens/ensi are register differences only.",
+        "fingerprint": "374174e077aee656f01e9d692f4cf25ee23e0190803d2af2308d4ec778a7e0d4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -758,7 +788,13 @@
           "surface": "mulle",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and mulle/minulle are register differences; same options tiistai or keskiviikko.",
+        "fingerprint": "f4f16d522d1bc13586e4626e37bee3803970349cd4a201933955a260ace2b8a9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -833,7 +869,13 @@
           "surface": "paras",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "db28d293cf0de0d6200abe784eeab22c399d61a1445d87bcc041129831c1b9bb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -903,7 +945,13 @@
           "surface": "sit",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä and sit/sitten are register differences; same day, Wednesday.",
+        "fingerprint": "fda1058d2527c625c73813838c09186c46168782351fe4cea432e6a04b38c202",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

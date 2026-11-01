@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -281,7 +281,13 @@
           "surface": "Suomes",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: Christmas in two weeks, are you in Finland; only register differences.",
+        "fingerprint": "f549bed4bfae437b7efdc99e6b9366b5c476f703cf34d1f49b8a465a18ba7a2c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -434,7 +440,13 @@
           "surface": "vuonna",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä both mean yes; same statement about not flying to Brazil this year.",
+        "fingerprint": "e161dbbe34f762c51016f070903cb43383199fd4ecce2a241d395bcde946e5a5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -549,7 +561,13 @@
           "surface": "päivä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only the spoken Suomes vs Suomessa differs; same meaning.",
+        "fingerprint": "a7a7a79b2de0dfd6ad5fdd49ba3c55a5265e0c88aa8d6b60a3b17e8295571b56",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -618,7 +636,13 @@
           "surface": "joulukuuta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 24th of December; the number is spelled in spoken vs written form.",
+        "fingerprint": "cfd24f901fe641a3798c58b2df49afe252acd553983a17dbb30a762c5cf772ad",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -771,7 +795,13 @@
           "surface": "laatikoita",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: we eat ham and casseroles; spoken forms only.",
+        "fingerprint": "6211df91d05cd5675ee71fba4f4b5cb03318b3223261b0cae6b877c3595f53e3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -820,7 +850,13 @@
           "surface": "joulupukki",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "ff81ad8e945bb44ecb0f2243255cf1870b8facf3dee1f09e04c2d1867a4b0fe7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1018,7 +1054,13 @@
           "surface": "lapsii",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Se vs hän both refer to Santa in speech; same evening visit and question.",
+        "fingerprint": "f9d2e7ed0038d4edd26efdd8d8a2e902cfb26197f2aa535d6856fccea4556c5f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1113,7 +1155,13 @@
           "surface": "siitä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "My children like it; spoken mun/lapset tykkää vs written minun lapseni tykkäävät, same meaning.",
+        "fingerprint": "6f7f968e1f597d987897d311e75290b2ec8484b37244162d44ee5c205d06485f",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

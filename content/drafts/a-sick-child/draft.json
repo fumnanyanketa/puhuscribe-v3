@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -200,7 +200,13 @@
           "surface": "äiti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and Hei are both greetings; the rest is identical.",
+        "fingerprint": "3d5c9bc6b2954ffb670be3710bed442491cd6ec5843931e9612a601d672167de",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -249,7 +255,13 @@
           "surface": "Maria",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and Hei are register variants of the same greeting.",
+        "fingerprint": "b145b6e52c459896333039f3a4e38e464715ab2b9a0d17cbc8bf5cf18c8163d4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -426,7 +438,13 @@
           "surface": "päiväkotiin",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kipee and sairas both mean sick; se and hän both refer to Lucas; tuu is the spoken form of tule.",
+        "fingerprint": "9974a8b4afacaf215007eeb5726aa33226d1bda33b5ba85ccde7566531cfa600",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -546,7 +564,13 @@
           "surface": "kuumetta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks sil is the spoken form of onko hänellä; both ask whether he has a fever.",
+        "fingerprint": "2cb3f6c6db12bc3f9a46674e8dba2824f951223c10046f30b50956c38ce77147",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -631,7 +655,13 @@
           "surface": "nuha",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; the content is the same.",
+        "fingerprint": "399335766c949be9034f26c26590c441d359266ceae33bd76a606f443c3feb6a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -745,7 +775,13 @@
           "surface": "paranemista",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti and kiitos both mean thanks; pikasta and pikaista both mean quick; same wish.",
+        "fingerprint": "11281c97eaba3d20da5c810232c3d513744a3e91e5e71a41594e5a71b40d3383",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -901,7 +937,13 @@
           "surface": "terve",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same meaning: I will let you know when he is well; only the register differs.",
+        "fingerprint": "d011abab26a5afee8e1d2cacba896b29a658cae4d304d575b721e301c2507402",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -954,7 +996,13 @@
           "surface": "Moikka",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moikka and Näkemiin are both farewells that differ only in register.",
+        "fingerprint": "7567f4b9952645b0245f9fd3efa92bd4f028f366f647fd835fd883626f23abaa",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

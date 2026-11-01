@@ -100,7 +100,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -177,7 +177,13 @@
           "surface": "itsestäs",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "itsestäs is the spoken form of itsestäsi (about yourself); same meaning.",
+        "fingerprint": "a374ccdb55fbe12cbbc2bddf00356378051aca15748f2c5ba874e76637ed7ecc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -332,7 +338,13 @@
           "surface": "Brasiliasta",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä oon/minä olen are register variants; same name and origin.",
+        "fingerprint": "722bcdd83fb8c43191abe3ff212042877a464f8373a8d24e30c5323cd3888e15",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -424,7 +436,13 @@
           "surface": "nyt",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä only register difference; same question.",
+        "fingerprint": "d523339e2737bb7dad6cd35ffd8c615d6c9629762e09909b33e3ee91743a866a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -574,7 +592,13 @@
           "surface": "kaa",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mun miehen/minun mieheni, kahen/kahden, kaa/kanssa are register variants; husband and two children in both.",
+        "fingerprint": "488b1dd387ce7416a0ca8a9a54dcb0a5c79a0daf00356dfbfd4a7f41d8d3b053",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -648,7 +672,13 @@
           "surface": "teet",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mitä sä teet/Mitä sinä teet are the same question.",
+        "fingerprint": "60b224c757797ca6064e6a524ac443568fabb0d910ef279dc51236d8b053c904",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -824,7 +854,13 @@
           "surface": "opettaja",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "asiakaspalvelus/asiakaspalvelussa, mut/mutta, haluun/haluan are register variants; same facts.",
+        "fingerprint": "7151a68f22ec640b24a2710d157147eaf174abf6545a9bd98951943453f65e24",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -936,7 +972,13 @@
           "surface": "tehä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tehä/tehdä and sä/sinä are register differences only.",
+        "fingerprint": "9608bb2d9437c38b51d4a344eff0ba0494d32d48c10422c0876aaca533f12bcf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1194,7 +1236,13 @@
           "surface": "voin",
           "kirja": 12
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kuoros/kuorossa, saunas/saunassa, suomee/suomea, ku/kun are register variants; same content.",
+        "fingerprint": "7f6e0a85c703ac4bd800397bb1a12d5da0890c591cb87ecef010740cba622ef6",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -76,7 +76,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -172,7 +172,13 @@
           "surface": "resepti",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei and Mul/Minulla are register differences; same meaning.",
+        "fingerprint": "0040b1d372c89224fc4292cce115774c36678841719fa8dd7854f5dc898c694d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -268,7 +274,13 @@
           "surface": "Kelakortti",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä, onks sul/onko sinulla: same question about a Kela card.",
+        "fingerprint": "13a56483015e2ed74df5de2386c0b52dc900742834ddd52085a609e1c4f25347",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -322,7 +334,13 @@
           "surface": "tässä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "787f3288a0e1676a96ff4be62cef7ca41c771eae260bebc8df093c4beb19e1e2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -518,7 +536,13 @@
           "surface": "illal",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/Kiitos, aamul/aamulla, illal/illalla are only register differences; same content.",
+        "fingerprint": "bfcd827f5342e9798ea7d007602badf1a8d1ab1856da3941f4b5be224c5214be",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -605,7 +629,13 @@
           "surface": "ilman",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ruuan kaa/Ruoan kanssa: same, with food or without.",
+        "fingerprint": "774d2e8a1d3e10e6c99e48ccd15851e61b88a52b9fb74370689d769422253218",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -654,7 +684,13 @@
           "surface": "kaa",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same answer: with food.",
+        "fingerprint": "5f6b164ceb2645c7c5bf7f56ce5c6286586612b1eae91357fb24b958feb50fe6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -727,7 +763,13 @@
           "surface": "maksaa",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Paljonks/Paljonko: same question about the price.",
+        "fingerprint": "bd1b48ebd663445ebf717ff9e9e531c7bb33e82933f544914fddde20410ed232",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -836,7 +878,13 @@
           "surface": "euroo",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kaks euroo/kaksi euroa: same amount, two euros, with the Kela reimbursement.",
+        "fingerprint": "55d225191f7e1ffe3e68497e17c0b892116f015364ddb8ff0b9aa63c0e2ce36c",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

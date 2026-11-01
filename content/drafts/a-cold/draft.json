@@ -76,7 +76,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -172,7 +172,13 @@
           "surface": "flunssa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei and Mul/Minulla are register differences; the meaning is the same.",
+        "fingerprint": "617c4508d33952f3d11cc8f12bcab8a30b5a8dead01edd3f70c431dada35adaa",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -291,7 +297,13 @@
           "surface": "kuumetta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks sul and Onko sinulla are the same question about having a fever.",
+        "fingerprint": "edccab767780fe4b132565e768f89b26a5dbd1d4e6e6164215837585269fa129",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -401,7 +413,13 @@
           "surface": "yskää",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/minulla is only a register difference; same content.",
+        "fingerprint": "3afe5ad77eaa09313daf5f464e0f7103fa1684c2f5719f6db239cf7c3c5e6984",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -535,7 +553,13 @@
           "surface": "illalla",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tää/Tämä is a register difference; the rest is identical.",
+        "fingerprint": "00d614139b751dc44cfa7600b5453ba5f90d5d50e16d4551cbdcf4f63e0e2ff9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -665,7 +689,13 @@
           "surface": "tukossa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ihan and aivan both mean 'completely'; the meaning is the same.",
+        "fingerprint": "3bf677d8447c68988bcb8f70ffbae7a31b799696d80cce274e6057c12a2a900e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -797,7 +827,13 @@
           "surface": "vettä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sit/Sitten is a shortened form; same meaning.",
+        "fingerprint": "42a5178527784fa5c8e58caa0e4a4afc50eb26f10bde7c5ae168107559319284",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -892,7 +928,13 @@
           "surface": "kotona",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä are both 'okay'; mä/minä is a register difference; same content.",
+        "fingerprint": "8cf75e14b55c130a2ac399b33ca1e828683757336feac235f58edbd0c22a96cf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -966,7 +1008,13 @@
           "surface": "paranemista",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Pikasta/Pikaista is a spoken form of 'speedy'; same wish.",
+        "fingerprint": "b6dc4ef236b24cbdd66ebd08c85501f417c0c11a8b6cf9f5bab74708bbe710ff",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

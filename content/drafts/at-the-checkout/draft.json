@@ -64,7 +64,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -161,7 +161,13 @@
           "surface": "bonuskorttii",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about a loyalty card; only register differences (onks/onko, sulla/sinulla, bonuskorttii/bonuskorttia).",
+        "fingerprint": "65da5911f2ace25177d36ddd02f24cda3888b908cf4c45c237bac002b2a4f993",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -216,7 +222,13 @@
           "surface": "oo",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same negative answer; oo vs ole is only register.",
+        "fingerprint": "c718770ff657a004954313c887c2c2882192b78745f716d61880c2210962d9d3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -331,7 +343,13 @@
           "surface": "neljäkyt",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same acknowledgment and total 23.40; numbers are just spoken forms (kakskytkolme = kaksikymmentäkolme, neljäkyt = neljäkymmentä).",
+        "fingerprint": "7ee0321ed5c25bae31024c3bfad1d94633290e1634eaa6fff381b6519de217fb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -399,7 +417,13 @@
           "surface": "paljon",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same apology and question; anteeks vs anteeksi is register only.",
+        "fingerprint": "092500b3e5729bf3d064660b375bc7847e2a1707c8b9a3aa78823f214389f4dc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -508,7 +532,13 @@
           "surface": "senttii",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same amount: 23 euros 40 cents; only colloquial endings differ.",
+        "fingerprint": "a6f33a04614cdfdf488e5358423aec2dbb07e1de797cec503cecbdcd48eb904f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -642,7 +672,13 @@
           "surface": "euroo",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: pays cash, hands over 30 euros; mä/minä, kolkyt/kolmekymmentä are register.",
+        "fingerprint": "4c72169a767c67a31089d1ebcff01d8535f24b7a847606a69994443caf96e329",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -780,7 +816,13 @@
           "surface": "kuittii",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: thanks, change 6.60, asks if receipt needed; kuus/kuusi, takas/takaisin, tarviitko/tarvitsetko are register differences.",
+        "fingerprint": "6496ad867f442dc33c3e2a165ca695ef1665617519944c2e60134b7d9f4ba087",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -873,7 +915,13 @@
           "surface": "päivänjatkoo",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same refusal and farewell wish; päivänjatkoo vs päivänjatkoa is register only.",
+        "fingerprint": "801b95019e15bbd651a7e16e249e9e6047b54d62e9297f7acfb2cc5e479e9f7a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

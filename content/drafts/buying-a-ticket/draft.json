@@ -59,7 +59,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -196,7 +196,13 @@
           "surface": "lipun",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (anteeks/anteeksi, mä/minä).",
+        "fingerprint": "6d5c3ded4296099157545db64ff9d132ab372cfc6049b8fda0aa90d91a39eee2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -285,7 +291,13 @@
           "surface": "sovelluksest",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tosta/tuosta and sovelluksest/sovelluksesta are register variants; same meaning.",
+        "fingerprint": "c4883f3b08985acc5d9deac8c54b14a3b9567adc6eca786f390cb10ca96ee48a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -460,7 +472,13 @@
           "surface": "ostaa",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/mun and minä/minun; same destination Espoo and same question.",
+        "fingerprint": "ddcd7b27de4e86c8454c7693c5f12dfcd43fc74855119904f47bc80d378d80b5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -511,7 +529,13 @@
           "surface": "riittää",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical sentences.",
+        "fingerprint": "6e18ffaa7396d3e2de9d133950c3da8e8d8566bd1d67c58d61c9b8d81d2c7637",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -584,7 +608,13 @@
           "surface": "maksaa",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "paljonks/paljonko is a register difference.",
+        "fingerprint": "9c5da90ccf8ba53d43761b1d72121fce44c6fcbc4bd359ed2d247375492cac94",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -671,7 +701,13 @@
           "surface": "euroo",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "euroo/euroa is a spoken form; same amount.",
+        "fingerprint": "96bcab457de5c81a3292042a03d19eb21ec06f4ddd3f9107578f90f75a0aa8c7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -801,7 +837,13 @@
           "surface": "sinne",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä only; same question about the bus.",
+        "fingerprint": "19800d48d5ca6585fea46a6ce07999f0a7867f752b3ec5e9163765d1d318617f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -872,7 +914,13 @@
           "surface": "laiturilta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "viistoista/viisitoista is the spoken form of fifteen; tolta/tuolta same; same bus number and platform.",
+        "fingerprint": "1aed9dab11abd608fa5ab71d33ce619a08bd5f6b08454f9e5629a7281fc67686",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

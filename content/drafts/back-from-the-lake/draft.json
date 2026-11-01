@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -196,7 +196,13 @@
           "surface": "viikonloppuna",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä is only a register difference; the question is the same.",
+        "fingerprint": "daa04d45c3e7867234615a7e2f11b488de0ecfca6fafcab68b99dcbd27d3e36b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -312,7 +318,13 @@
           "surface": "rannalla",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä is only a register difference; place and facts are the same.",
+        "fingerprint": "2405d0fcf34fceefd119003a82b1878125c7178e346e42b9e83e15626b3dea75",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -363,7 +375,13 @@
           "surface": "mökillä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "fc6a8ffed79c284c42c3ebe596d726398d772c9d4674dde4fa7f465156a2ca50",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -498,7 +516,13 @@
           "surface": "eilen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tultiin takas is the colloquial form of tulimme takaisin; both say 'we came back yesterday'.",
+        "fingerprint": "caadb664c5b525a5bd2678060e20a27189051c9763031deeb47ee2722d39d800",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -574,7 +598,13 @@
           "surface": "järves",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Uitteks/järves are colloquial forms of uitteko/järvessä; both ask 'did you swim in the lake?'.",
+        "fingerprint": "129e122b954496befe86363a964bce4b87a663a417b60b993f4c4e5cfc7dc0e4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -705,7 +735,13 @@
           "surface": "saareen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä both mean yes; mentiin soutuveneel is the colloquial form of menimme soutuveneellä; the island and rowboat are unchanged.",
+        "fingerprint": "68c158cd4095d96c8158afbe5f9be245369461a69c5439e69d357b7153193c32",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -795,7 +831,13 @@
           "surface": "kesältä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ihan and aivan are synonyms meaning 'quite/totally'; the rest is identical.",
+        "fingerprint": "9dcb862796b5602feec79c2d737a7c256bd11a10d56c75df5b833a4dd7592471",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -908,7 +950,13 @@
           "surface": "ikinä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ikinä and koskaan both mean 'ever' in this context; the meaning is the same.",
+        "fingerprint": "643c3e4d63286f10089a17612b4e4dccee3dfa7d3bff5db2fb2c4102882d3702",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

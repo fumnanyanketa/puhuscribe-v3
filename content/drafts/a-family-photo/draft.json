@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -203,7 +203,13 @@
           "surface": "perhe",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same meaning; kato/katso, tää/tämä, mun/minun perheeni are register differences.",
+        "fingerprint": "c5fb3367fe82b5232f783f66e7c01fa0507623b708d299e201c1afbefda199ea",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -318,7 +324,13 @@
           "surface": "on",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical meaning; tää/tämä is only a register difference.",
+        "fingerprint": "4c31d3237d112c8dce046c762bd2906e0030fd1c7c05dcf4b8a89d21aa51ce3f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -433,7 +445,13 @@
           "surface": "Pauli",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "se/hän referring to a person and mun mies/minun mieheni are equivalent in meaning.",
+        "fingerprint": "3127d20cab77920adeb70d8fc5bee08c2464f652c96951327c711ac5e06f4ee4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -502,7 +520,13 @@
           "surface": "kaks",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "nää kaks = nämä kaksi, same meaning.",
+        "fingerprint": "4a17660c34390ffaac8ca13468efc3d18337aa8037959cddfdf04edb8f958a89",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -612,7 +636,13 @@
           "surface": "Anna",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun lapset = minun lapseni, same names listed.",
+        "fingerprint": "2b63473a23a5774a6080b9008a11f3ef572a430d4ebfb6217682e7705a993174",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -769,7 +799,13 @@
           "surface": "nainen",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ne/he, näyttää/näyttävät, toi/tuo are register differences; meaning is the same.",
+        "fingerprint": "23ecd4d3a76a410d27edecfeeaefa4f32cba7e67be100d608d8482a00f30eef0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -927,7 +963,13 @@
           "surface": "yheksänkyt",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mummo = isoäiti (grandmother), yheksänkyt = yhdeksänkymmentä (90); same meaning.",
+        "fingerprint": "200879f67e387cbe7fa2ea5718938ad8a03f495c96d24d07015e8a4238f6bcbe",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -979,7 +1021,13 @@
           "surface": "kuva",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "5224e4906512fbea40040bea4fa792d80b0fc2ca48aef79e76ad91fae473e7a1",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

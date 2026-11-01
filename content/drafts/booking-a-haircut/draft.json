@@ -68,7 +68,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -141,7 +141,13 @@
           "surface": "moi",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "moi and hei are both greetings; only register differs.",
+        "fingerprint": "3f79b846c4b57c31350698b26ed84e7e50aa6db6ddf45a706c1aae873f7fb117",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -277,7 +283,13 @@
           "surface": "hiustenleikkuuseen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä and haluisin/haluaisin are register variants; same request.",
+        "fingerprint": "9c323fea8966bd05b3b7e1484683af61ccacc5e96fb33626175fcac965ebbb99",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -353,7 +365,13 @@
           "surface": "torstai",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä and sopiiks/sopiiko are register variants; same question about Thursday.",
+        "fingerprint": "d3d11d7741d338a0e8d1f91b63f7f534f28f81ff2354138e97ba4f622606e7f3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -404,7 +422,13 @@
           "surface": "aikaan",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "49c43ab309500e20d64cd1a17df4964b4b1fd7efdf26bb1d16985950137fe454",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -491,7 +515,13 @@
           "surface": "viideltä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sit/sitten is a spoken shortening; same times three or five.",
+        "fingerprint": "db047e60c046481633a9a47098629bb06b95739201bec35d19d8476b14263826",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -566,7 +596,13 @@
           "surface": "parempi",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ois/olisi is a register variant; same statement about five being better.",
+        "fingerprint": "62e91478065fe5b218b408b33597a260eb85960ddad3984155b02f72a3f42e2d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -684,7 +720,13 @@
           "surface": "on",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sun/sinun and nimi/nimesi: both ask for your name; the possessive suffix is just a register difference.",
+        "fingerprint": "095075a2c98f844548b3355b9a49b1895cadf49f2da8d37fde1b13f1d2b2ed2f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -797,7 +839,13 @@
           "surface": "torstaina",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kiitti/kiitos and nähään/nähdään are register variants; same name and Thursday.",
+        "fingerprint": "b2efa6a61dd6c4b3ae62b71c002470e9ba9aa7cfa96d0d041e678c63f29d3979",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -183,7 +183,13 @@
           "surface": "menee",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and hei are both greetings; only register differs.",
+        "fingerprint": "a512cd7b55e485a8848c35ab3da3b9a80666347d2103989b98c4192155fc3f4c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -271,7 +277,13 @@
           "surface": "väsyttää",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": false,
+        "reason": "'Ihan ok' means fine/okay, while 'ihan hyvin' means quite well; this is a slight change of meaning, and the 'vähän väsyttää' part matches. Treated as a difference in the description of how things are going.",
+        "fingerprint": "4d2f65026cf18cca25d19c530f462e4fe6cc771ce5244d82a862e3e2f1f0e65c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -368,7 +380,13 @@
           "surface": "huonosti",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Miks/miksi and sä/sinä are register differences; both ask why and whether you slept badly.",
+        "fingerprint": "e11fd955eb2c5251c4afcb875e7cd55d0a833c2466b831f75214789814143c79",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -460,7 +478,13 @@
           "surface": "bileet",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä are both 'yes'; bileet/juhlat both mean party.",
+        "fingerprint": "3f408992a8acd4f30f44237e9749c1afb9b44dae2f577fefaff3ecc7e2d719fe",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -552,7 +576,13 @@
           "surface": "muuten",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "bb7e207c34efa66c2f77a51044ae14a1300ba93f98689f7a0974433e318f8911",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -686,7 +716,13 @@
           "surface": "työpaikan",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä are the same pronoun; the rest is identical.",
+        "fingerprint": "06750bf4b50008ed3e3ead4432a7104c79b2256969584881a3028e6829b99a9e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -762,7 +798,13 @@
           "surface": "olkoon",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onneks/onneksi is a dropped ending; both mean congratulations.",
+        "fingerprint": "673e76cdb2f96f3b4228fa38a019d8d90ff069c97d6bf891e355880139eeac07",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -878,7 +920,13 @@
           "surface": "iloinen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos, oon/olen, tosi/todella are all register variants with the same meaning.",
+        "fingerprint": "37d72b828323983647cea80a1ba3a70f1a099e68eab80be26a5c5ac2bd6fa14a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

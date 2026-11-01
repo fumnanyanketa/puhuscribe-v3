@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -206,7 +206,13 @@
           "surface": "Lucasta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: Moi/Hei, mä/minä, 'hakee' vs 'hakemaan'. Same meaning.",
+        "fingerprint": "197e48bd6788e1639153d87acd62b43ef725e3c00188c313581b936482078ce9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -299,7 +305,13 @@
           "surface": "pihal",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "se/hän is a register difference for a person; pihal/pihalla is a dropped ending. Same meaning.",
+        "fingerprint": "fd2806200004ec6f1777518ffd65d74143272cfe5a8e17b168667299386eba58",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -371,7 +383,13 @@
           "surface": "meni",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "fcc36bbbd7a08f5c5412e54ffa94e6cec4aa3bcf4ed1feb0f4587ba33d9b03d0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -528,7 +546,13 @@
           "surface": "päiväunet",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "se/hän and nukku/nukkui are register differences; same content.",
+        "fingerprint": "b836b77caa83569d7a36634ae752867db8096bca7b744a948e2f7927a4a66d1f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -680,7 +704,13 @@
           "surface": "myöhemmin",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä and sen/hänet are register differences; same time and action.",
+        "fingerprint": "62d26a1cda274c29fe1dd8a867e8f8068de28586c2be7652886e5eafa5823900",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -731,7 +761,13 @@
           "surface": "aikaan",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "b70e17fa8b101d03baa669163d75721caa2c973f86682bcb8123efd2aa85d8ec",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -824,7 +860,13 @@
           "surface": "okei",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks/onko is a register difference; same time and question.",
+        "fingerprint": "782e999632e7fb5c18201407908387cda01c83e696495f23100f2e58a26e61af",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -954,7 +996,13 @@
           "surface": "kuuteen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, ollaan/olemme and puol/puoli are register differences; same meaning, open until half past five.",
+        "fingerprint": "06ff15f84b6ed3e9b3ae54a08e2347d6dec30f328717cd0b2c8144708ae08d75",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

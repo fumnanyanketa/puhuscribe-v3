@@ -75,7 +75,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -190,7 +190,13 @@
           "surface": "täs",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "täs is just spoken tässä; same meaning.",
+        "fingerprint": "859d47385097bf81b90d07889119828b5fe10d96c810ecbffa0cc3b12141345c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -322,7 +328,13 @@
           "surface": "kaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei, voinks/voinko, mä/minä, kaa/kanssa are register differences only.",
+        "fingerprint": "f6b2b7d724746a9d36398b5e65935e8673779c3c4ab45d210fe25aa44f4f2fb9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -479,7 +491,13 @@
           "surface": "auttaa",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken se for a person equals written hän; the rest is register variation.",
+        "fingerprint": "0f2f6d02b6b9207b4d35e009a63d69aa124f3fc2d4065ad1c675fa270fcb4fd4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -573,7 +591,13 @@
           "surface": "saunavuorosta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul on is spoken for minulla on; same content.",
+        "fingerprint": "aa717648dd6f09b8e4d9c81aa996eeed748c5f3effd23d4712f82ba5721f8211",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -771,7 +795,13 @@
           "surface": "on",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sulle/sinulle, takas/takaisin, iltapäiväl/iltapäivällä, sun numero/sinun numerosi are register differences only.",
+        "fingerprint": "6da1e008c7595cf45ace4e6138c95e28377810a7506d5b9c75fa6cca4455ac13",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -983,7 +1013,13 @@
           "surface": "seittemän",
           "kirja": 10
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same digits in both: 045 123 4567; only spoken forms of numerals differ.",
+        "fingerprint": "57747a2e13c0213d8fac244d9cfb7ea185b26826f91c0861a78660f9afa12106",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1095,7 +1131,13 @@
           "surface": "ylös",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and kirjotin/kirjoitin are register differences only.",
+        "fingerprint": "bfe909fd0fc2489f8b48d8fdee6c534d42e3e9a5a374896c0fa40cd01d5b4fec",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1147,7 +1189,13 @@
           "surface": "kuulemiin",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti vs kiitos is a register difference only.",
+        "fingerprint": "d0baf932919730d24a97b814fdabd322d6a21a771952bfec5e49e62a2de75cd5",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

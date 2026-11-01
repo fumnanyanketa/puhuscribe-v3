@@ -96,7 +96,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -193,7 +193,13 @@
           "surface": "kauppatori",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Anteeks is just spoken for anteeksi; the question is the same.",
+        "fingerprint": "62146ff12504122b441487c2dafd0099d8d98501e099939ac874530d186cba14",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -307,7 +313,13 @@
           "surface": "katuu",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mee/mene and katuu/katua are register variants; same instruction.",
+        "fingerprint": "8e796f16a4c87d22541915cfbf759b0b9f0de31910abff39f70efc51bf7b4625",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -359,7 +371,13 @@
           "surface": "suuntaan",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "a48c43e6c1fc29237b0b8f6afa32ec30ce0c0351fc60de1e4982c78096085559",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -492,7 +510,13 @@
           "surface": "rannal",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, ihan/aivan and rannal/rannalla are register variants; same statement.",
+        "fingerprint": "bcd742c87f54c9afae4b9fa7292c434d87b8d19bf737b55199591997c6b7cc73",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -695,7 +719,13 @@
           "surface": "suomalainen",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos, sä/sinä, tosi/todella, suomee/suomea and oot sä/oletko sinä are register variants; same content.",
+        "fingerprint": "46b5dba99c13c5cc23a75103db4d0956abaff9a8522f674936a94ff8a4a19f9e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -893,7 +923,13 @@
           "surface": "vuoden",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä oon/minä olen and asunu/asunut are register variants; same facts (Brazil, one year).",
+        "fingerprint": "11b9b417a49e3c84a2f0661341befd7c6fa8dabae921eb7951d54ccfdf441974",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1025,7 +1061,13 @@
           "surface": "kuukauden",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Oon ollu/olen ollut and vaan/vain are register variants; same one month.",
+        "fingerprint": "bd4920bea0871bc2c7a2c6720ef5e55a3b3483d57775d0cfe59bea4c25fc4293",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1119,7 +1161,13 @@
           "surface": "Onnee",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nopeesti/nopeasti and onnee/onnea are register variants; same meaning.",
+        "fingerprint": "ef054167776db001bf6de368ca8b33639fabce22e6ae692cf5574e4a6cb0c3bf",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -240,7 +240,13 @@
           "kirja": 6,
           "glued": "Tulisitsä"
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (synttärit/syntymäpäiväjuhlat, mä/minä, sä/sinä, dropped -ko); same meaning.",
+        "fingerprint": "d515685aad88e7f016012f5165356978bb0d817bcc64e8598bcf5fddf73db186",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -335,7 +341,13 @@
           "surface": "mielelläni",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos; rest identical.",
+        "fingerprint": "2fdf635b66a358f0298787a54523e681001a07c960a6fb8f4f1becb96d2736b4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -466,7 +478,13 @@
           "surface": "luona",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Hienoo/hienoa and mun luona/minun luonani are register variants; same time and place.",
+        "fingerprint": "c9b53d37884e52ce5a04fb3eff4b3a1c721bc813db3553400dd27cd938b3debb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -562,7 +580,13 @@
           "surface": "jotain",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Voinks mä is spoken for voinko minä; same question.",
+        "fingerprint": "6835b3a77bedbf8e531cceee06aa884bbf2070c765ddeff851fa0b886487cf48",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -741,7 +765,13 @@
           "surface": "kiva",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei tarvii/tarvitse, mut/mutta, haluut/haluat, jälkkäri/jälkiruoka, ois/olisi are all register variants.",
+        "fingerprint": "da0a36689e852e4d74d21bf1c6240af2f6ad166eb1a8dcd663ed58a1956caf8f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -815,7 +845,13 @@
           "surface": "suklaapalloja",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä only; same statement about chocolate balls.",
+        "fingerprint": "92f0049b4e362c36a53b0268cc231e2b3fd2ff40a244fefe0349a25e9a2b745b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -889,7 +925,13 @@
           "surface": "on",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ne on is spoken for ne ovat; same question.",
+        "fingerprint": "c6d405a89b162dec86bda130bb38b84d15a882335ef2735ff21d9fcdb4337b9b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -984,7 +1026,13 @@
           "surface": "tykkäät",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Brasilialaisii/brasilialaisia and sä/sinä are register variants; same content.",
+        "fingerprint": "229ab379f08f30a451dfae414935262cf7c3792a0a7bb683a93bc649bb62c781",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

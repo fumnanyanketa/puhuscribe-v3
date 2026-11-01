@@ -62,7 +62,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -198,7 +198,13 @@
           "surface": "tänään",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kyl/kyllä and tosi/todella are register variants; same meaning.",
+        "fingerprint": "6e4d1427472c0a3132615f84dc4406eaf98e89c3afa250cf5b31d773466e4961",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -292,7 +298,13 @@
           "surface": "pakkasta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and Kyllä are equivalent affirmations; paljonks/paljonko is the same question.",
+        "fingerprint": "27faa4f3f2438a2d90c9deeeafd6157587cfb03176debaea077365d018488236",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -422,7 +434,13 @@
           "surface": "viis",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "vaan/vain and viis/viisi are register variants; numbers match (10 and 5).",
+        "fingerprint": "dfadab1baf4cea333b5495356e50f6a2dc06517f4013a503b50753bc9620c842",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -515,7 +533,13 @@
           "surface": "lämmin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Brasilias is the spoken form of Brasiliassa; both mean 'in Brazil'.",
+        "fingerprint": "582905280ae4aa014cb619cbb8490cae7f1134e4d40bae4686060e5f6deae68e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -609,7 +633,13 @@
           "surface": "viikonloppuna",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä are the same pronoun (you); same question.",
+        "fingerprint": "9ee59add919531400354dcde324a870b7a047a0275a49ce73abed8075a11f905",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -744,7 +774,13 @@
           "surface": "leffoja",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "katoin/katsoin and leffoja/elokuvia mean 'watched movies'; mä/minä same.",
+        "fingerprint": "0db97163660c2ef856788197c8c99c1a39d724e8d12a1537223c79a5c9844814",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -922,7 +958,13 @@
           "surface": "kaunista",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "siel/siellä and tosi/todella are register variants; same content.",
+        "fingerprint": "201d08d41ff47e990e1bac6401de5fb9d1710023de1e3ed7d5207fcf354a5287",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -974,7 +1016,13 @@
           "surface": "ihanalta",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "97b88afdeff75c3fb2e787bfc2545788d666455d59ac512a15a728f1a0ce6711",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -195,7 +195,13 @@
           "surface": "juhannuksena",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register difference: sä vs sinä.",
+        "fingerprint": "6a4f366e7b361ba48bc216acefe2da42f5fcfb6d0e3593c8798aaa869fe86b29",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -329,7 +335,13 @@
           "surface": "on",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tiiä/tiedä and millon/milloin are register variants; negation and meaning are the same.",
+        "fingerprint": "6bdbe3a750834e16bebb7268138c0f063596a053395a266af8a5e618edf10580",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -461,7 +473,13 @@
           "surface": "lauantaina",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "lopus/lopussa is a register variant; the rest is identical.",
+        "fingerprint": "194c315e7098634629b13786dbfbecabaf43727434d2d8c48ca23ee8129eb741",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -556,7 +574,13 @@
           "surface": "juhannuksena",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken 'tekee' with a plural subject is normal colloquial usage for 'tekevät'.",
+        "fingerprint": "40283180af82fda2986d7c2775410a2dae632ff87690d8f10b261eefbabced0d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -714,7 +738,13 @@
           "surface": "kokkoja",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ne/he and the dropped plural verb endings are register differences; the actions are the same.",
+        "fingerprint": "eaff42e834438ea577e930c60b22fea1ce38607e746324a9f42b6373891f739e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -766,7 +796,13 @@
           "surface": "kivalta",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "90a4756141d3e149bac48b3bf66795a1ce35ef4904dec97ff294a4479d08788f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -905,7 +941,13 @@
           "surface": "tilaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tuu/tule, siel/siellä and meidän mökille/mökillemme are register variants; the same invitation and place.",
+        "fingerprint": "ea83e22050d6ccdd4805654dc97f38f58398166a04640e4dec36604a61eb12c0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -977,7 +1019,13 @@
           "surface": "mielellään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Oikeesti/oikeasti, kiitti/kiitos and mielellään/mielelläni are register variants; the meaning is the same.",
+        "fingerprint": "f41a671d7b791ff4a8daeb76e671c5351089012e7eaa24ff239b04835ee9909e",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

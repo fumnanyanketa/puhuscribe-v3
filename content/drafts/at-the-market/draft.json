@@ -64,7 +64,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -137,7 +137,13 @@
           "surface": "sulle",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei and sulle/sinulle are register variants; same greeting and question.",
+        "fingerprint": "209ce6e0d85186e497106216adfac5b6ab102747bccc9715d63e7d43965bacae",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -251,7 +257,13 @@
           "surface": "maksaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Paljonks/paljonko, noi/nuo, maksaa/maksavat are colloquial variants; same question about the price of those strawberries.",
+        "fingerprint": "49a639b32821aabb30cf73e6d0776fd42dce7c1d8c2c2dfcd9099dcab74b8974",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -345,7 +357,13 @@
           "surface": "euroo",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Viis euroo is spoken for viisi euroa; same price, five euros per litre.",
+        "fingerprint": "14ccf96bdb2b6a4a8254c7901c3bf81d6b19bf4e24fdd514a4ef3babe415d818",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -438,7 +456,13 @@
           "surface": "rasia",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Toi is colloquial for tuo; same meaning.",
+        "fingerprint": "5d6c05fdef7b524e564e741d902e69c7ae7875005423100b17e55352929d63aa",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -532,7 +556,13 @@
           "surface": "euroo",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Euroo is spoken for euroa; same three euros.",
+        "fingerprint": "2a65b5ac0188c32be42fa93d36e50f4c7349502d4410574d1615dd2b7fa7c9da",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -691,7 +721,13 @@
           "surface": "kortilla",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä and voinks/voinko are register differences; same litre and card payment.",
+        "fingerprint": "ed5964a848dd0fbe907664496f271c5f340837985015707eb212fbbc2c6af22c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -779,7 +815,13 @@
           "surface": "Tässä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; rest is identical.",
+        "fingerprint": "0d9bb022616bf092639815ad5a98ce74e041eafdae65015d62073a3c75b25f2c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -831,7 +873,13 @@
           "surface": "moikka",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and moikka/näkemiin are register variants of thanks and goodbye.",
+        "fingerprint": "0573513caa238a6595bcc01409306300a4bc44c2ca9633801c6f8bb2a2e666d3",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

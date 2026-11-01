@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -159,7 +159,13 @@
           "surface": "hyvä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ole hyvä (singular/informal) vs olkaa hyvä (plural/formal) is only a register/politeness difference; the meaning 'next, please' is the same.",
+        "fingerprint": "db9ffc2f89f2ef1f7859679aed4968c2fffdef1f3a141fdeeba232c6369e0326",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -272,7 +278,13 @@
           "surface": "pankkitilin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei, mä/minä, haluun/haluan are register variants; same meaning.",
+        "fingerprint": "08d944c5922f407637088c323e8fd41e4c625fc542b3ac96c84414a73fb2925e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -386,7 +398,13 @@
           "surface": "mukana",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä, onks sul/onko sinulla are register variants; same question about having a passport.",
+        "fingerprint": "7dc6de77f9eb32810804810189f71e98cf6c6a014f71cd1cddbeee8780bfb6c9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -501,7 +519,13 @@
           "surface": "oleskelulupa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/minulla is a register variant; same statement.",
+        "fingerprint": "bc91bbab1d0bff53bf087aa093a6a7d8c0f2ed8ed111723a191817581a16b90c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -635,7 +659,13 @@
           "surface": "osotteen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sä/sinä, tarviit/tarvitset, osotteen/osoitteen are register variants; same meaning.",
+        "fingerprint": "3488ea03027dc0d0ade73102370131d30c02b661b31eee617e268f40459dc22b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -729,7 +759,13 @@
           "surface": "Kalliossa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/minulla and osote/osoite are register variants; same address in Kallio.",
+        "fingerprint": "bc92ad09df6294c947ee3f3fe6bd1570024d2da6e4b93cb7a9126a29f839a722",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -905,7 +941,13 @@
           "surface": "tili",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tää/tämä and avataan/avaamme are register variants; tili/tilin is just case form of the object; same meaning.",
+        "fingerprint": "3843dda5b936efb3f05b79c0410cd9586bd230a80ab74a50b2e97b9ecc214d32",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1017,7 +1059,13 @@
           "surface": "heti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/Kiitos and mä/minä are register variants; same meaning.",
+        "fingerprint": "99cd478e8260bebd00763e36f0226fb29f9bab78cd1a5f38a4ead1e6b0f37852",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

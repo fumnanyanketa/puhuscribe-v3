@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -209,7 +209,13 @@
           "surface": "porkkanat",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Eka' is the spoken form of 'ensin' (first); the rest is identical.",
+        "fingerprint": "e0a22d3e050e990fc837fc6a42169e646ab77d75cc7be081fc3bec1d5b9068a1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -277,7 +283,13 @@
           "surface": "sit",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä are both acknowledgements, and sit/sitten both mean 'then'.",
+        "fingerprint": "f237767bc1e47986b1ef309b418dd72339440bf5ae44e955a7affaaae91e0f99",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -372,7 +384,13 @@
           "surface": "paloiks",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The spoken pieniks paloiks is the same as the written pieniksi paloiksi (into small pieces).",
+        "fingerprint": "a319fb90abbdd97f463bfeb84291618bcc5431161fba10dffd5f804353c08c4e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -401,7 +419,13 @@
           "surface": "Näin",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "1e77a1a7930600d29d947f679ffce8d43c57c5b2334b4c76957b1996662d7860",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -573,7 +597,13 @@
           "surface": "vettä",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean 'yes'; the instructions are the same.",
+        "fingerprint": "ba1535a1979517b9334741d0d2a7a5bcb75cb660239c164d8501e839c4ea66e8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -644,7 +674,13 @@
           "surface": "vettä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "7569d5990f3ab7e26672f2a98902bfe1c36f0a6789f6f4679a3ddfbcab900f74",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -735,7 +771,13 @@
           "surface": "minuuttii",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kakskyt minuuttii is the spoken form of kaksikymmentä minuuttia (twenty minutes); litra is unchanged.",
+        "fingerprint": "1f6e3f4664ff79707e36d86c71ff808ac80dd1a7cd06a81c6561eac1f7813770",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -828,7 +870,13 @@
           "surface": "vikana",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Vikana is the spoken form of viimeisenä (last); the meaning is unchanged.",
+        "fingerprint": "367fd035c59e8dd6e2a0ad5cbed801cd68ef496a20102e17de36be73f5828ed6",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

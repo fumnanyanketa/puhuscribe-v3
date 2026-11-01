@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -178,7 +178,13 @@
           "surface": "katos",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same greeting and same statement: my bank card disappeared; only register differences (moi/hei, mun/minun, katos/katosi).",
+        "fingerprint": "7c92dcc9f22277d5494311498b6037ae656567c03b11e97bb799ba569b79ef94",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -400,7 +406,13 @@
           "surface": "on",
           "kirja": 10
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: I'll close it right away, what is your name; only pronoun register differences.",
+        "fingerprint": "bb30f53a775a50c171fccebe32a526d6f8c911c4d3a6315f949f256e08c95d23",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -451,7 +463,13 @@
           "surface": "Silva",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical name.",
+        "fingerprint": "98d48a6a17e66d9786a83045f9c337b2c948a42f6063a2db4a2d29e4a949f7c2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -566,7 +584,13 @@
           "surface": "suljettu",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä are register variants; the card is now closed in both.",
+        "fingerprint": "0aff641a67f89b8861c000a2bbab4dd8fc3d75f7491a049b824d36b313d01758",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -683,7 +707,13 @@
           "surface": "kortin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether I can get a new card; saanks mä = saanko minä.",
+        "fingerprint": "e2f4099ee218b1dfbb505ad2bd4b7a38e70fe59795f131f2227ed4ae9e22cdfe",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -815,7 +845,13 @@
           "surface": "päästä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä are equivalent; it arrives by post in a week in both; postis = postissa.",
+        "fingerprint": "a9e3d01a4a4befd49be42fe3fd618e2b7271ec79836e7761314a3012ba51c9a6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -887,7 +923,13 @@
           "surface": "jotain",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether it costs anything; maksaaks = maksaako.",
+        "fingerprint": "a006836e3b74bc086d97921c4446708b417dab086ca5ef4de9577fe3512133e2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1004,7 +1046,13 @@
           "surface": "ilmanen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say no, the new card is free; uus/uusi and ilmanen/ilmainen are spoken variants.",
+        "fingerprint": "2b5241869043e69e16a656b2187a3261fcb05006e0076ca7ce7323e696695e08",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

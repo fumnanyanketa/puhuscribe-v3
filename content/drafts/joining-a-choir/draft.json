@@ -87,7 +87,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -250,7 +250,13 @@
           "surface": "mukaan",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (mä/minä, kuoros/kuorossa, haluuk/haluatko); same meaning.",
+        "fingerprint": "7d8597ddf3e8057797f3bcc6d512167df0dd5c25b4ef493e7245a71dff94027b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -464,7 +470,13 @@
           "surface": "hyvin",
           "kirja": 10
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content; mä/minä, mut/mutta, suomeks/suomeksi are register variants.",
+        "fingerprint": "ec74ad298df401b7af917fd3030dd60014e07fe44bb401f2209d5344c439d74a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -620,7 +632,13 @@
           "surface": "englanniks",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken passive 'lauletaan' is the colloquial 'we sing', equal to 'laulamme'; englanniks/englanniksi is register only.",
+        "fingerprint": "ee76345f1ccc7c81e4f226885380ec29542e71591e42783429d34c4b7d76882f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -692,7 +710,13 @@
           "surface": "harjottelette",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question 'when do you rehearse'; millon/harjottelette are spoken forms.",
+        "fingerprint": "8fe6412478c64b40b4819fc35a8a006b49db40ba32371d4cbb721c36b63bc85d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -744,7 +768,13 @@
           "surface": "seittemältä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tiistaisin at seven; seittemältä is the spoken form of seitsemältä.",
+        "fingerprint": "a8d2857dae226222d8c1e6da7d76e11425b2810e3fe991f9549c8edf82d30e63",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -775,7 +805,13 @@
           "surface": "Missä",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical 'Where?'.",
+        "fingerprint": "1c3157e4b83d7c6be8ff29b33bc90c6835e75bf2d61e39ef0861cce49bb58950",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -865,7 +901,13 @@
           "surface": "lähellä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Church hall, very close; salis/salissa and ihan/aivan are register differences.",
+        "fingerprint": "986dcb1d42d59b54ef04539d2e5a71f1cf7179c36be125d8ea8c16aca35f5f3a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -978,7 +1020,13 @@
           "surface": "tiistaina",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä both mean okay, tuun/tulen and ens/ensi are register variants; still 'I'll come next Tuesday'.",
+        "fingerprint": "d6ea185d098d51f3bfa4275667353442937ec84438495778790ab95afbc9f04d",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

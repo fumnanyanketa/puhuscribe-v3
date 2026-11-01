@@ -99,7 +99,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -180,7 +180,13 @@
           "kirja": 3,
           "glued": "Tuuksä"
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tuuk sä = Tuletko sinä; same question.",
+        "fingerprint": "43c2da77d51af5e50bcb759f7e1756135a51b669fd0214b3659a094508c56a68",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -296,7 +302,13 @@
           "surface": "pullaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, mä tuun/minä tulen, onks/onko are only register differences.",
+        "fingerprint": "46043d126bafadad1b666bde829949bb5c0619902918a4c6fe60aef9e3dec4b3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -393,7 +405,13 @@
           "surface": "korvapuusteja",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "c4940c0007e274ca4fef539f7ec99279d80f1b0434a657df5c328017f0ce8c12",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -508,7 +526,13 @@
           "surface": "Ottakaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä only register difference; content is the same.",
+        "fingerprint": "c907b2efc4b8e121de169739e82443ad86e1fb0d5aff1550a0606ea3db0b3b6d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -682,7 +706,13 @@
           "surface": "kahvia",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tosi/todella and juotteks/juotteko are register variants.",
+        "fingerprint": "f4b50d549a57c0fac5fac5846e825d1885df5035383d23df3923127f2851f87c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -813,7 +843,13 @@
           "surface": "maailmas",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Juo/juovat and maailmas/maailmassa are register differences; same claim.",
+        "fingerprint": "c994ca2a5d621efbbdf664b8d1629f9b297f8a05676d431b7f745ce09130c1f8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -886,7 +922,13 @@
           "surface": "opettelen",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sit/sitten and mäkin/minäkin are register variants.",
+        "fingerprint": "b2a08ebcfd3810ec6882b5be28c38d2a6ae6a78703fabd0f842b46a97390b40d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -938,7 +980,13 @@
           "surface": "Santsia",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Santsia is spoken for 'more/seconds', equal to lisää.",
+        "fingerprint": "448599f973e7ea44a08ef62e2d27781e1777c54199f350b1c8f909133049e9a6",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

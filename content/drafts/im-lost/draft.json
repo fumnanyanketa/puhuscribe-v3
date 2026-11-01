@@ -67,7 +67,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -230,7 +230,13 @@
           "surface": "eksyksissä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: anteeks/anteeksi, voit sä/voitko sinä, mä oon/minä olen.",
+        "fingerprint": "85c250b4adc0d72b050181003708617e42005fc63ef33843485a379966838213",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -363,7 +369,13 @@
           "surface": "menossa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question and answer; sä oot/sinä olet is just register.",
+        "fingerprint": "b536614d479402d369a5c096ed1f9083d50babe2965f88fa8b67ac86ab32befc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -478,7 +490,13 @@
           "surface": "sitä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical meaning; mä/minä only differs in register.",
+        "fingerprint": "459e8db615cc303f48fa018f3cd22253ab52a08ab52632298ae0fa09e03abf53",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -682,7 +700,13 @@
           "surface": "kellotornin",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tos/tuossa, näät sä/näetkö sinä, ton/tuon are register variants; same meaning.",
+        "fingerprint": "92e815f4788ac5e272832b54adc51c485876f2414fbb486da615d4da835463b9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -757,7 +781,13 @@
           "surface": "Missä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "nää/näe is a register difference; both say 'I don't see. Where?'",
+        "fingerprint": "e2d990503167a2d517c1490124a8d9c82c114038378f594966ce395a9c268c8b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -915,7 +945,13 @@
           "surface": "alla",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "just/juuri is a register variant; same location information.",
+        "fingerprint": "359b0f97d47206c8b763b1e5b3d205dea395b957764b1dc29b4f08b68501e68f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1025,7 +1061,13 @@
           "surface": "Kiitti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä nään/minä näen and kiitti/kiitos are register differences only.",
+        "fingerprint": "270d7b9d0a9047ba730df5375c4d98f0f327452ac25e86785020f0a4e401a598",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1121,7 +1163,13 @@
           "surface": "päivää",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses; the rest is identical.",
+        "fingerprint": "55408137a7a190aafeb11cdd5d9fd7c7507bfd3d851a927ab6eefd71b7813ffa",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

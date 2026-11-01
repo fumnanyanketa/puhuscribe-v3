@@ -76,7 +76,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -191,7 +191,13 @@
           "surface": "auttaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei and mä/minä are only register differences.",
+        "fingerprint": "1ce157a448329f91876b3460e2cda1d0a250d143027fd9d999953aca9e07972c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -349,7 +355,13 @@
           "surface": "siihen",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content: headache and asking if they have something for it; only spoken forms differ.",
+        "fingerprint": "e1ab8ff876d324ced79a310f96ef18e59a1a6343a09ebf0f779eecee9e787f78",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -467,7 +479,13 @@
           "surface": "särkylääke",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tää/tämä is a register difference; same statement.",
+        "fingerprint": "e9e4b072e1cb4ce19dc2fa64a3928c2ff485569e37aa0dd5421a6a0666c9c9ad",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -580,7 +598,13 @@
           "surface": "ottaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä only; same question.",
+        "fingerprint": "1692e466ad0a78f61f7cc30d1f5b99bdc0e63b9874cb9d8a386cc7acb5bb432b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -691,7 +715,13 @@
           "surface": "päivässä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Yks/yksi; same number and frequency.",
+        "fingerprint": "a4e60a6e3b9777bcea6fdce6a1a7b1cb6bad80a24432e9170c69e33dd5b74751",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -765,7 +795,13 @@
           "surface": "reseptii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tarviiks siihen reseptii and Tarvitaanko siihen reseptiä both ask whether a prescription is needed; the written form is passive but means the same.",
+        "fingerprint": "ea01244fe7793c4e798d21c6d9dc395d720852bb7fa1970ac69c99411fd27347",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -897,7 +933,13 @@
           "surface": "euroo",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei tarvii/ei tarvita both mean not needed; kuus euroo/kuusi euroa is six euros in both.",
+        "fingerprint": "66fa6294a08c3e9794a6a2d1d84adccd6a186ed897cb34b7ac5be392ed4c2df4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1012,7 +1054,13 @@
           "surface": "Kiitti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä and kiitti/kiitos are register differences.",
+        "fingerprint": "f222ac51586ba86291e888b98043d4f434be9137c40b5431e228a20f3f052e6a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -199,7 +199,13 @@
           "surface": "kirjastokortin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei, mä/minä, haluisin/haluaisin are register differences only; same request.",
+        "fingerprint": "62b476c927dc22a7650cd93141f3bef1baa4f1046e8744bae0ce86342557e367",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -313,7 +319,13 @@
           "surface": "henkilökortti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks sul/Onko sinulla is just register; same question about an ID card.",
+        "fingerprint": "e6f8ed8db710c0c8c4a34bfc141ad2191ac794b3446f050f614ebae12e3eaac9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -428,7 +440,13 @@
           "surface": "se",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/Minulla and Käyks/Käykö are register differences; same content.",
+        "fingerprint": "1bd4794c13a01863cf2dc7a76410da11edd529c942a138ac47407e0000d95937",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -564,7 +582,13 @@
           "surface": "osote",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sun osote/sinun osoitteesi is a spoken form of 'your address'; same meaning.",
+        "fingerprint": "14a2e3e2fc11c35ce7a3c8e8d0504de2c48c6f694040e07fc5df5ec5f785aadb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -656,7 +680,13 @@
           "surface": "kakstoist",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "viis/viisi and kakstoist/kaksitoista are the same numbers (5 A 12).",
+        "fingerprint": "831e08ae9969ff2b2f860899dbbab01014397fcbd10316ca71fcf25d4b65bc1e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -791,7 +821,13 @@
           "surface": "PIN-koodi",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ilmanen/ilmainen is a spoken form of 'free'; rest identical.",
+        "fingerprint": "2d34c9ec9075f8af9a871bf53443ca2526eff45a67333beb32e5ed74dba84965",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -928,7 +964,13 @@
           "surface": "lainata",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä, Montaks/Montako, mä/minä are register differences; same question.",
+        "fingerprint": "2ed29322ad1f76076a1050cd4bb047c31b19420bc16ef718b49def305529078b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -977,7 +1019,13 @@
           "surface": "viiskyt",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "viiskyt/viisikymmentä both mean fifty.",
+        "fingerprint": "3ef82ae091fae95897b427a219dfabe26fe42f783ec8bb995418b1d9d993f44b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -96,7 +96,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -174,7 +174,13 @@
           "surface": "mennään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Mihin päin' and 'mihin suuntaan' both mean 'in which direction'; 'mennään' is the spoken form of 'menemme'.",
+        "fingerprint": "c4d9f6ee19389054ac0acc0fcb0bbec46d3cfdc57149cfcd0712e728ed36bbc2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -244,7 +250,13 @@
           "surface": "oikeelle",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Oikeelle' is the spoken form of 'oikealle' (to the right); the rest is identical.",
+        "fingerprint": "752f1e2395efc5ba74efcd2091d5a35b2df5b1ed671c41e06f0a9675f89c8b77",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -335,7 +347,13 @@
           "surface": "yli",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Ton' is the spoken form of 'tuon'; 'that bridge' in both.",
+        "fingerprint": "699eb4cca48c8e0f50a3089906dd797cc5cf9e3510ac4b581b6f7c05b8954de4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -460,7 +478,13 @@
           "surface": "suoraan",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Joo' is spoken for 'kyllä' and 'sit' for 'sitten'; same content: over the bridge and then straight.",
+        "fingerprint": "20a2a0e9b4c714b86d718a31cf9bfc7f233d815f6cb27033121c36dd01d57881",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -525,7 +549,13 @@
           "surface": "vielä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "ad7694cf367580e940bfa7bbf54b0cdb785f3fecb7edbd8ee7c858799e17b22a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -658,7 +688,13 @@
           "surface": "takana",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Viis minuuttii' is the spoken form of 'viisi minuuttia'; both say five minutes, behind the park.",
+        "fingerprint": "bdf6ce17e4ec84644d6822eab4bb7b5f02f26cb4ea29965020596c3ec3030187",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -821,7 +857,13 @@
           "surface": "talo",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Toi' and 'punanen' are spoken forms of 'tuo' and 'punainen'; same meaning: that red house.",
+        "fingerprint": "b279a109119c2364e78db4d093234a9398ca094990de6dfe7ed0530691b2c086",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -937,7 +979,13 @@
           "surface": "perillä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Just' is spoken for 'juuri' and 'ollaan' for 'olemme'; both say 'Exactly! We are there.'",
+        "fingerprint": "5cf5748cbd9f69e3befd717ed804dc624bd134833a5a136b3c88c50b24378a01",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

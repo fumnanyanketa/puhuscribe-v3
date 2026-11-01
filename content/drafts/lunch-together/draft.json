@@ -65,7 +65,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -124,7 +124,13 @@
           "surface": "syömään",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question 'shall we go eat?'; spoken Lähetäänks is a register variant of Lähdetäänkö.",
+        "fingerprint": "512a0d3f5d26b9d8d01f809164995a02c524c3af3b51c21fc59e8ef383850daa",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -195,7 +201,13 @@
           "surface": "mennään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and Kyllä both mean 'yes'; the question 'where are we going?' is identical.",
+        "fingerprint": "763a13927d624f56a20867dac3895ca806da335c3e991af1ad9547041cc8359c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -311,7 +323,13 @@
           "surface": "lounaspaikka",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tos kulmas is spoken for tuossa kulmassa; same place and fact.",
+        "fingerprint": "eb23b41d3cd7dfae73539cdd29bc11c4caffe2dac71ed6f02933004d7eadcabe",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -384,7 +402,13 @@
           "surface": "heti",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei and Selvä both mean 'okay'; same question about leaving right away.",
+        "fingerprint": "64b9cd741c8a94f9c42ce1f80b308e54d206e2e483d0533cefabe3153bbc2829",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -557,7 +581,13 @@
           "surface": "päästä",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/minulla, yks juttu/yksi asia ('one thing'), käyks/käykö are register variants; same meaning and time (in a quarter hour).",
+        "fingerprint": "9dae8a8d5bd50245fdd5757f0e81127e9129e1e4e23b78447a0f6f861d71ed34",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -654,7 +684,13 @@
           "surface": "alaovella",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä only a register difference; same waiting place (downstairs door).",
+        "fingerprint": "58a3637a97b4976be341eea2c0ffd6d89868ef56b698c9d662c2473a919b18fc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -748,7 +784,13 @@
           "surface": "mukaan",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Pyydetäänks/pyydetäänkö are the same question about inviting Aino too.",
+        "fingerprint": "a6d9db783c2b6f31acfa188efac95b4f595e31646eb4f171d25eec3a93a294ab",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -840,7 +882,13 @@
           "surface": "siltä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/Kyllä, mä/minä, siltä/häneltä (spoken 'se' for a person) all refer to Aino; same meaning.",
+        "fingerprint": "4aafd67710ae22353aa912838053f3bca7106a20d0763fc534e6f4f04ed20a1c",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

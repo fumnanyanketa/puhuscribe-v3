@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -177,7 +177,13 @@
           "surface": "sunnuntaina",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask 'Shall we go to the forest on Sunday?'; only register differs.",
+        "fingerprint": "f8e90951955c44ed7f0a2ffdd2b4bf5515eafa989b32aea49bc66ed6911621f3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -291,7 +297,13 @@
           "surface": "metsä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and Kyllä both mean 'yes'; the question is identical.",
+        "fingerprint": "2621b33d9a8a25c8bcb505bcf136555d1a5fa0cb2dfc3a9b7a7c312b7d0407ed",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -383,7 +395,13 @@
           "surface": "bussil",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nuuksios/Nuuksiossa and bussil/bussilla are the same place and means of transport.",
+        "fingerprint": "4237c3975fa961a2de5825ed529d4c6f62a509af3faf9fa9c6667501e473dea4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -493,7 +511,13 @@
           "surface": "mukaan",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mun/minun both mean 'my/I'; same question.",
+        "fingerprint": "4e34711fbea526c79bd18f082fe8446478548e3b5c82ef6c4985e531bf0c3d0d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -603,7 +627,13 @@
           "surface": "termari",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "termari is the colloquial form of termospullo (thermos); same list.",
+        "fingerprint": "b07e71b73ba2b464905ad957a2cabdec20eb403c0220be45a259209fb1755412",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -676,7 +706,13 @@
           "surface": "karhuja",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask 'Are there bears there?'; only register differs.",
+        "fingerprint": "0eb852ef8c7a568ad415009d9a8c4aa77eb61f8a725703bab7418fcaf8ad2fa8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -829,7 +865,13 @@
           "surface": "järviä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same negation, place and statement about beautiful lakes; mut/mutta and siel/siellä are register variants.",
+        "fingerprint": "3d93d017ac022dd89122810803465451ba93bf5a2afc6e727bb9d5a391b82ef0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -904,7 +946,13 @@
           "surface": "tuun",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 'Lovely. I'm coming!'; mä tuun and minä tulen are the same.",
+        "fingerprint": "886936eea538de859551c2d8e70c171f02b85382b9321f9be09a15f568b5d7c1",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

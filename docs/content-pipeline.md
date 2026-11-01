@@ -60,6 +60,53 @@ Until the four deploy settings (the two `CLOUDFLARE_REVIEW_` secrets and the two
 
 When the reviewer stops reviewing, remove their email from the Allow policy and remove them from the Zero Trust users list, which frees their seat. This does not delete Cloudflare's sign-in records of their email.
 
+## The A1 road
+
+Built in job 20-a1-road; the decision and its alternatives are in [factory/jobs/20-a1-road/spec.md](../factory/jobs/20-a1-road/spec.md#decision). The 36 stops of the free A1 road (6 parts, [docs/curriculum-a1.md](curriculum-a1.md)) have 3 dialogues each. Claude wrote 102 of them by hand in `content/written/part-1.md` to `part-6.md` (8 lines each, with a spoken text, a written text and an English text); the other 6 are the pipeline's earlier drafts for stops 1 to 3. The hand written ones do not go through the AI drafting loop. A deterministic importer reads the markdown, the free checks run on it, the voices read it, and it goes live on the owner's written approval, part by part. A native speaker reads it after launch and the reviewer's fixes replace live lines.
+
+### The files in `content/road/`
+
+| File | What it holds |
+| --- | --- |
+| `stops.json` | For each stop its unit slug, rank cap, the grammar entries it adds and the extra base forms it allows. The rank cap is the same for every stop of a part: the lowest of 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000 that leaves each stop with at most 15 words on its extra list. `present-tense` is added at stop 1 because the curriculum's grammar column does not name the present tense of everyday verbs |
+| `speakers.json` | Each named speaker's Azure voice. The same voice every time, and no two speakers of a dialogue share one |
+| `spoken-forms.tsv` | The spoken and written word pairs that are not equal and that no ending rule explains, and the fillers. A reader can check each register difference here |
+| `allowed-extras.json` | Base forms above the part's cap or missing from the frequency list, and forms used before the curriculum teaches them, each with its reason. Each form is recorded at the first stop that uses it |
+| `reading-overrides.tsv` | A Voikko reading chosen by hand where the automatic choice is wrong (empty so far) |
+| `glossary.tsv` | The English meaning of each dictionary form (`lemma_meaning_en`) |
+| `word-notes.tsv` | The own meaning (`meaning_en`) and the one line "why" of each form that is not an unchanged dictionary form |
+| `needed-notes.tsv` | Made by the importer: every form still missing a text, with its first line. Do not edit by hand |
+| `road-report.md` | Made by the importer: for each stop each check's rate, the spoken only words, the pairs accepted by the table, the extras recorded and the number of forms; for each part the extras allowed |
+| `fixes.md` | Every change made to Claude's markdown after a failing run, with the text before, the text after and the reason |
+
+### What the importer checks
+
+`python scripts/generate/road_import.py import --out <folder>` reads the curriculum and the six part files. It refuses, naming the file, the stop and the line, a row with an empty cell, a stray pipe, a line number out of order, a stop without its `**I can:**` line and a dialogue count that is not 3 once the six earlier drafts are counted. It then:
+
+- maps each spoken word to the written word it renders, in order (`scripts/generate/road_mapping.py`). A pair is accepted when the words are equal ignoring case, or are in `spoken-forms.tsv`, or one ending rule applies (a dropped final letter, a dropped final vowel with a shortened double consonant, a stretched final vowel such as `euroo` for `euroa`, `-ks` for `-ko`, or a possessive ending left out after `mun`, `sun`, `meidän`, `teidän` or `sen`). Any other pair fails the line with both words named. A written word no spoken word renders fails the line. A spoken only word is accepted only as a filler. A spoken pronoun must pair with a written pronoun, so a line whose written version drops it gets the pronoun added in the markdown (a logged repair).
+- splits a spoken word glued to `sä` after a verb (`Ootsä`, `Puhutsä`) into two words for the checks and the word cards, by one rule. The line is shown as written: only the tokens are two words.
+- asks Voikko about every written word and chooses one of its readings by fixed rules: an override, a name for a capital in the middle of a sentence, a reading that fits the stop's level, then the more common word. The lemma of a form is Voikko's base form of the written word the spoken word is paired with, because Voikko cannot analyse spoken Finnish.
+- runs job 7's checks unchanged. A form outside the stop's grammar list or a word outside the level fails unless it is recorded in `allowed-extras.json`.
+- writes `content/drafts/<slug>/draft.json` in the `puhuscribe-draft-1` format with `providers` set to `{"ai": "written", "judge": "off"}`, or `"judge": "on"` after the judge ran.
+
+No AI call is made and no network is needed. A written draft says `"notes": "pending"` while some form still lacks a meaning or a why; such a draft passes the checks but cannot be approved or published, and the database would refuse the form.
+
+### The register judge
+
+It is off unless the owner turns it on. With it off the report says `register judge: not run`, never `passed`. `python scripts/generate/road_import.py judge` runs the golden set first (it must pass), then the judge on every line without a current verdict, logs every call with its cost and stops a run that reaches $2. A verdict is tied to the line's analysis text, so a changed line needs a new verdict.
+
+### Running it on GitHub
+
+The manual workflow "A1 road" (`.github/workflows/a1-road.yml`) has the tasks `import`, `analyse`, `count-characters`, `voice` (input part 1 to 6, optional `only` for one dialogue), `judge` and `review-pages`. It needs Linux with Voikko, so it runs on GitHub. `voice` is the only step with the Azure key and `judge` the only step with the Anthropic key. Voiced clips, changed drafts and reports come back as an artifact; the manager commits them once, under `content/drafts/<slug>/audio/`. `python scripts/generate/road_import.py count-characters` prints the exact number of characters a part needs; a run refuses to start when this month's logged characters plus the new ones would pass 450,000 (90 percent of the free allowance). Azure's free tier allows 20 requests a minute, so a part of about 270 clips takes about 15 minutes.
+
+### The owner's approval and publishing
+
+The owner approves each part in writing. The manager adds `content/approvals/part-<n>.json` (see [data-model.md](data-model.md#the-owners-approval-file)). `python scripts/generate/pipeline.py publish-part --part <n>` then writes one migration per dialogue in stop and dialogue order, with explicit timestamps one minute apart after every migration on main, and copies the clips to `public/audio/`. It refuses, naming every reason, and writes nothing, when the approval file is missing, a dialogue is not listed or its fingerprint differs, a check fails, a clip is missing or fake, word notes are missing, the judge's state differs or a dialogue of the part fails. The unit row is made from `road_stops`, and the stop is approved only in the migration of its last dialogue.
+
+### How a reviewer's fix comes back
+
+The review pages are made on request: `python scripts/generate/pipeline.py review-pages --part <n>`. Each word card shows the base form and its meaning, the form name, its meaning here and the "why". The reviewer's file goes to `content/reviews/<slug>/round-<n>.json` as for any dialogue. `python scripts/generate/pipeline.py road-next-round --draft content/drafts/<slug>` writes each accepted fix into the exact markdown cell, imports and checks the dialogue again, voices only the changed lines and writes `supabase/migrations/<timestamp>_fix_<slug>_round_<n>.sql`. In one transaction the migration sets the dialogue back to draft, replaces the changed lines, their words and their audio keys, approves any new forms, then approves the lines and the dialogue with the references `content/reviews/<slug>/round-<n>.json#line-<k>`. The old references stay in `private.approval_history`, so they cannot be used again. A new form that needs texts stops the command with a list for `needed-notes.tsv`. A reviewer who approves a live line changes nothing in the database; the file in `content/reviews/` is the record that a native speaker saw it.
+
 ## Where each file lives
 
 | Path | What |

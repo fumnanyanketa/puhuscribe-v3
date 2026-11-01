@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -197,7 +197,13 @@
           "surface": "töihin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (moi/hei, mä/minä, tarviin/tarvitsen); same meaning.",
+        "fingerprint": "8384ccc5bfd1a44b8d9c1d057771f9aa12c263b862576968d47ddbe36c6dba0f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -334,7 +340,13 @@
           "surface": "kipee",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kauanks/kauanko, sä/sinä, oot/olet, kipee/kipeä are register variants; same question.",
+        "fingerprint": "642a1048a9bfcb8dd09e04b36470909df8b2bc61bb99cb0ecadb5ebe8008377e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -383,7 +395,13 @@
           "surface": "asti",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Maanantaist is the dropped-ending form of maanantaista; same meaning.",
+        "fingerprint": "e91b1251eb4d2a4bf36ac25007c5af2dccb14f261d540eca18b60c1fc079c6a9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -460,7 +478,13 @@
           "surface": "lääkärillä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kävit sä is spoken form of kävitkö sinä; same question about visiting a doctor.",
+        "fingerprint": "82e1966fcac6519a44a714e2e4740dc8836e7437ba80d3c15e897bd01b88abc2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -507,7 +531,13 @@
           "surface": "eilen",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; eilen (yesterday) is the same in both.",
+        "fingerprint": "948ca78a0ec1481fff1e636da29dfd8609361bcf511232617430f46166574f7b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -660,7 +690,13 @@
           "surface": "vaan",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (mä/minä, sulle/sinulle, vaan/vain); same meaning.",
+        "fingerprint": "8ed78ecd506bd0146e79eb2d499391d9259d8631aa3709be8cb2f2ce358d6369",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -793,7 +829,13 @@
           "surface": "sähköpostiin",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and saanks mä/saanko minä are register variants; same request.",
+        "fingerprint": "ad708615ee596965483b9a0d4d3357848828d12c2d78c22310240674a20c9924",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -868,7 +910,13 @@
           "surface": "Omakannast",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Omakannast is the spoken form of Omakannasta; same meaning.",
+        "fingerprint": "5a708ac50ab935a80a8af7e29aee07c520ac5609a621d961fca07d54e6f6c139",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

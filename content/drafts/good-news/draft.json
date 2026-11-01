@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -206,7 +206,13 @@
           "surface": "onnellinen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: mä/minä, oon/olen.",
+        "fingerprint": "e43098ef02d4662f97deb624909f2ec0388ce1ac160424ea892714a9efa9e547",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -260,7 +266,13 @@
           "surface": "tapahtu",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tapahtu is the spoken form of tapahtui; same meaning.",
+        "fingerprint": "4ea0578cf9e36445f26cea6155d8b63e778d3c95cb72fc658d83d8b1086e63e3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -354,7 +366,13 @@
           "surface": "kokeen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä and läpäsin/läpäisin are register variants; same meaning.",
+        "fingerprint": "bbf88b5cef4d96a8b5bc8d81aef17a7a75b4bc026fe3c794ae8808d34fac3c11",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -490,7 +508,13 @@
           "surface": "siihen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "et/että and sä/sinä are colloquial variants; same meaning.",
+        "fingerprint": "f20099e13f09591559f0813ea1d54b09b4f22b5e6ba1a9055ca26d1551a6757e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -587,7 +611,13 @@
           "surface": "hermostunu",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tosi/todella and hermostunu/hermostunut are register variants.",
+        "fingerprint": "a7f4f01baed6877be14b5c0848ac008064db373f996061a605c6ead651e0fd41",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -740,7 +770,13 @@
           "surface": "itsestäs",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mut/mutta, sä/sinä, ylpee/ylpeä, itsestäs/itsestäsi are all register variants.",
+        "fingerprint": "c46ab3063d93585ded753bb16498f075f060329bcd137281e6bb97de1d0b9272",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -812,7 +848,13 @@
           "surface": "illal",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and Kyllä both mean yes; juhlitaanks/juhlitaanko and illal/illalla are register variants.",
+        "fingerprint": "f09c619b5185354888fb6ef29cb14db96c777fed5cd852e718a24e8b40682b3b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -863,7 +905,13 @@
           "surface": "muuta",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "dd86ae464375284c6ee68719469a3cd2d70e275ad35cb63296de1998f2784a35",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

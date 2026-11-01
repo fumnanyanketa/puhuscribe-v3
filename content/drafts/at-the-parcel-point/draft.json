@@ -84,7 +84,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -201,7 +201,13 @@
           "surface": "pakettii",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: I came to pick up a package; only register differences.",
+        "fingerprint": "a0c7a7b6a0644be33628ed823c7d379fa810a703148d4b761777eac5c23edf2c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -297,7 +303,13 @@
           "surface": "seurantakoodi",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about having a tracking code; okei/selvä and onks/onko are register differences.",
+        "fingerprint": "f60ea7a0a20f1c2535fed608cf15009476c6a7bd72bcc74c7819be4e4b7907ae",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -366,7 +378,13 @@
           "surface": "puhelimes",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": false,
+        "reason": "Spoken 'puhelimes' means 'on your phone' (sinun puhelimessasi), while written 'puhelimessa' lacks the possessive, so 'your' is missing and it just means 'on the phone'.",
+        "fingerprint": "9e160e1b6bd7a891f03ac26a15774869b257dfb10af521bfcdd176cbeb8e6a8c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -482,7 +500,13 @@
           "surface": "on",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: what is your last name; only register differences.",
+        "fingerprint": "c5c442841a90ba385aefffdf757e1c981052bd1d74e2d7e5b5f5d0aa74dad619",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -613,7 +637,13 @@
           "surface": "aa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": false,
+        "reason": "Spoken spells Ä-S, I, L, V, A as 'äs, ii, äl, vee, aa' which is S, I, L, V, A, so the letters match; this is the same spelling.",
+        "fingerprint": "95755e4ee9c20985523b11fdc51a56fe1b5337ef8aa7ce59856b4030b27ce8a3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -662,7 +692,13 @@
           "surface": "henkilöllisyystodistus",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines asking for ID.",
+        "fingerprint": "b05bd17d7ca38f1a60e7fa3ffab5d79e0d4d99619c1082b0baa96c0f0571d87f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -757,7 +793,13 @@
           "surface": "ajokortti",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: here is my driver's license; mun/minun and ajokortti/ajokorttini are register differences.",
+        "fingerprint": "d38b1176a2b94a3771af8216703b06bd6f2a15ae06bf88d8ca6ae24d50a9de3b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -872,7 +914,13 @@
           "surface": "paketti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: here is your package; only register differences.",
+        "fingerprint": "a9bc9e35f3e04937f1c47b7ea624855d5e5fdff76462e49e71dc75d8cb346087",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -75,7 +75,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -191,7 +191,13 @@
           "surface": "mulle",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei greeting, sä/sinä, mulle/minulle are only register differences.",
+        "fingerprint": "776c981e52ecf84eead17a788a2c3b9f7d43e218226fc3b13fabd43049e4e587",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -352,7 +358,13 @@
           "surface": "sen",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/Kyllä, mä/minä, and 'Kuulit sä' vs 'Kuulitko sinä' are the same question and meaning.",
+        "fingerprint": "ee0758f5e5bf7d0f8ad8c99383daab49d90016eae8c5e00814a3a649467c7926",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -442,7 +454,13 @@
           "surface": "asiaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "0b636634499afc71341c2626ccab61fd2c25098f168ee40fd1bd25434b976083",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -578,7 +596,13 @@
           "surface": "huomenna",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether you can pick me up from the station tomorrow; hakee/hakea and mut/minut are register differences.",
+        "fingerprint": "aa3efbaea4e155c5095ca67d18ef0e045bcb7d1a9b6234847e69d2f855e3ba5b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -711,7 +735,13 @@
           "surface": "tulee",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "30b413ffe3177f6573320dfa2c8047e909fba4b8ba05481fffdb74f29a3ed85c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -762,7 +792,13 @@
           "surface": "neljä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Puol is spoken for puoli; both mean half past three.",
+        "fingerprint": "7c2059116761ce6b2354606d8ae0958cb4459f261495cbbc9f422f8477be3985",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -980,7 +1016,13 @@
           "surface": "myöhäs",
           "kirja": 10
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä, siel/siellä, myöhäs/myöhässä are register differences; 'laita viesti' and 'lähetä viesti' both mean send a message.",
+        "fingerprint": "e8da8a832712010e0e1a65dd757a6dd82e26896482185784dde6266e3bb6fc04",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1073,7 +1115,13 @@
           "surface": "Moikka",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moikka and Kuulemiin are both goodbyes, and the rest is the same.",
+        "fingerprint": "f029bc8b96da390fe1e4e71bfd6ba9f3ac246b0ae6aa47c47d06aebc967667c0",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

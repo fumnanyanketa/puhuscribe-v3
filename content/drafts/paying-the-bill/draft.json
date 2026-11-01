@@ -86,7 +86,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -183,7 +183,13 @@
           "surface": "laskun",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (anteeks/anteeksi, saisinks mä/saisinko minä); same request for the bill.",
+        "fingerprint": "d0205b300c061923f4dc71176c8a47e6097d320ef112616a192a1a7ac3db61f7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -316,7 +322,13 @@
           "surface": "erikseen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "maksatteks/maksatteko is just spoken vs written; same question.",
+        "fingerprint": "2b5382064a274caafef4fa8bb7c5537207c52f7964ab7313fa0341e4981eb73b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -429,7 +441,13 @@
           "surface": "osuuden",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/mun are spoken forms of minä/minun; same meaning.",
+        "fingerprint": "0f41838aaf01acaad27f4ee81da0c80d405ce280f41b3f95f2632b6e3d108d1e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -565,7 +583,13 @@
           "surface": "euroo",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä both mean okay; sun/sinun, kakstoist euroo/kaksitoista euroa are the same amount (12 euros).",
+        "fingerprint": "6f80721473268821f87580e70d12d9afef37e7361a01d904d9ab01115e12657b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -614,7 +638,13 @@
           "surface": "kahvi",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "6d520f8bcabe08ba307dbb34ca631611782f4af9f25cb50761a7f90e824153b0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -685,7 +715,13 @@
           "surface": "lounaaseen",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "4490bfcb15c0ae5bf9172e459514cc70c3df1797efd478fbc3792f1f01dc3c63",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -775,7 +811,13 @@
           "surface": "kiitos",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kortil is a spoken form of kortilla; both mean by card.",
+        "fingerprint": "455077deb897c3c474962cdca9183ee81447e3ba3b6f789122562fb8df864b1d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -842,7 +884,13 @@
           "surface": "uudestaan",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tervetuloo is a spoken form of tervetuloa; same meaning.",
+        "fingerprint": "3de829c44d9f27f1a6e96b4e5d9dbfbc1d541df0d4cb768493ee3d2f4e24cce5",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

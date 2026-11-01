@@ -100,7 +100,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -216,7 +216,13 @@
           "surface": "virhe",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: anteeks/anteeksi, täs laskus/tässä laskussa. Same meaning.",
+        "fingerprint": "a8a688ddd119c97dd06f8923f4b5205cd60dcd0f83064e462f6bfd98f246ca31",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -265,7 +271,13 @@
           "surface": "mikä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "e39454ac6aab8e0cb6f7e33d966f4cfed2cf1f7fee0804eb8046d96538633690",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -458,7 +470,13 @@
           "surface": "kaks",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: one soup eaten, two on the bill; mä/minä, vaan/vain, yhen/yhden, kaks/kaksi are register variants.",
+        "fingerprint": "8a6b28457c2e20a8d47380e6eaeb03c25ae5fd3882c79d5834cc6b5d232efe63",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -592,7 +610,13 @@
           "surface": "heti",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: anteeks/anteeksi, mä/minä. Same meaning.",
+        "fingerprint": "63ee3a7283d17c445d74c81caca7fde92595a587fe25bbd830a22d9556b08d0f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -664,7 +688,13 @@
           "surface": "mitään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "5418d7fae73728c75a59f093a49aea6148ed00b6066bd248b279b889f21511e0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -799,7 +829,13 @@
           "surface": "euroo",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: new bill, twelve euros; spoken forms of uusi, kaksitoista, euroa.",
+        "fingerprint": "a6cc0a16d6e2dfeb3420e9101a5cc3541733fe5f693b87196bb674f122985879",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -912,7 +948,13 @@
           "surface": "Kiitti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos; otherwise identical.",
+        "fingerprint": "de23bdca781e50741ba8531204544bdf42d17d34113ddeb43934205e3c5218c6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1024,7 +1066,13 @@
           "surface": "huomasit",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: thanks to you for noticing; kiitti/kiitos, sulle/sinulle, et/että, sä/sinä are register variants.",
+        "fingerprint": "2bb7bd84daa83ec6060ba9d616a2a8daf7b8f3bf444e654e8852e51ed4ef25ad",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

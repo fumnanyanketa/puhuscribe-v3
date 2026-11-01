@@ -100,7 +100,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -281,7 +281,13 @@
           "surface": "tuntuu",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, oot/olet, asunu/asunut, Suomes/Suomessa); same meaning.",
+        "fingerprint": "28094a92c21ac3c80fe8c1a503a46ae5a9d9ab4af40286627f43ec29ebed0eb1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -397,7 +403,13 @@
           "surface": "vaikeeta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Alus/alussa and vaikeeta/vaikeaa are just spoken forms; same meaning.",
+        "fingerprint": "d8f3165840aaeac322ca636782f161ddb785f537a2ae6df48b1b99d8bb65a760",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -472,7 +484,13 @@
           "surface": "vaikeinta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "63d0f7bf9a539019c85eb45c14a07da2cd901ed1578cfb7059bd04c916ce3f57",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -641,7 +659,13 @@
           "surface": "molemmist",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mut/mutta, mä/minä, tykkään/pidän are register variants; same meaning, both things liked.",
+        "fingerprint": "5ba7827bcc477b734d4b9bf69300785071ad70d8f665a4a84caf7a127d560169",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -693,7 +717,13 @@
           "surface": "Pimeydestäkin",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Molemmist/molemmista is just a spoken form; same question.",
+        "fingerprint": "c120f6f81fcf0a20c0f15cd33388d82ff8471eda579e99950cd7798877486a48",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -885,7 +915,13 @@
           "surface": "kodikasta",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and tosi/todella are register differences; same items and meaning.",
+        "fingerprint": "34777ff379d2ca1b4400322f2b97d8e2d8c035fc1e22041b5cdfd13ccc4b6922",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -996,7 +1032,13 @@
           "surface": "suomalainen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sä oot/sinä olet and ihan/aivan are register variants; same meaning.",
+        "fingerprint": "e0d73355f9e17a7e95acfef86af325f1315e441d0958d90d639e5da63ccd8ad7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1185,7 +1227,13 @@
           "surface": "sä",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mut/mutta, mä/minä, ku/kuin are register differences; same comparison.",
+        "fingerprint": "916d27d6c285c6066e1a1f549a651d80b9ebfd88d1105b209870e69133b07e8b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

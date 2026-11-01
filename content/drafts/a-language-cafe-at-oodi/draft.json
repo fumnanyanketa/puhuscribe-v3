@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -265,7 +265,13 @@
           "surface": "kielikahviloita",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: do you know that Oodi has free language cafés; only register differs (Oodis/Oodissa, ilmasii/ilmaisia).",
+        "fingerprint": "950380d63d464e484f0e53030b46c492fc2ae8b1a97dec706fa0c351d81869a2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -315,7 +321,13 @@
           "surface": "Millon",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: 'No! When?' Millon is just spoken for milloin.",
+        "fingerprint": "1e46cda3954a69e1c37affc1b052db7fdfc9a1b0f501aa5903a668defa07c8b4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -386,7 +398,13 @@
           "surface": "viideltä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines: every Wednesday at five.",
+        "fingerprint": "ce8261677c9084b38e284cdc5e574201b6f0e5e3f0f4078884602a9b88aabebe",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -457,7 +475,13 @@
           "surface": "tehään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question 'What is done there?'; siel/tehään are spoken forms.",
+        "fingerprint": "b37432907fb3561496b3ee00c1bacd7cae275c194e17e4ba85d9de55688d6de2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -567,7 +591,13 @@
           "surface": "kaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: Finnish is spoken there with volunteers; kaa is spoken for kanssa.",
+        "fingerprint": "47b606e0ffb5c50a58588adf8ed55021e5a5bfcb726d23cd826e71f7976daaa5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -620,7 +650,13 @@
           "surface": "ilmottautuu",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: do you have to register? Spoken forms of pitääkö ilmoittautua.",
+        "fingerprint": "13ea22ce51abb9e77fd7d71f82937532b6eb863d880ae9e55a4f3512ff48e501",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -716,7 +752,13 @@
           "surface": "vaan",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: no need, just come; tarvii/tuu/vaan are spoken forms.",
+        "fingerprint": "27f9da2957ef6d5b94b3ae3f6ac6c7f2acb75a398919c7df0a9a9385b6480666",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -807,7 +849,13 @@
           "surface": "viikol",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: let's go together next week; ens viikol is spoken for ensi viikolla.",
+        "fingerprint": "c0edec47b255ee3974a4ccb30eb4465153984ac4b623fd03ce2596ffa37d7c12",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

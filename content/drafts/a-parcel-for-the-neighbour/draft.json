@@ -84,7 +84,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -221,7 +221,13 @@
           "surface": "asunto",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei and onks/onko are register differences; same question about Leena Virtanen's apartment.",
+        "fingerprint": "cf29f8dc1792525aa0a07c289036f185fd8bce50b73d5e42add0fab969bdffd1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -337,7 +343,13 @@
           "surface": "asunnossa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken 'se' refers to a person, equal to written 'hän'; same meaning.",
+        "fingerprint": "80a1a4361ac8626245829ef9acb4c221ed5706e0e81885c50a397aa774d05a72",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -540,7 +552,13 @@
           "surface": "paketin",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": false,
+        "reason": "Spoken 'sen paketin' means 'the package' (a definite parcel), while the written version says 'hänen pakettinsa' (her package), which adds the possessor; this is an added detail.",
+        "fingerprint": "f4aa13e9ce1da58f09378243b41d90b15706fbb9677403eef10daa90926fbd09",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -608,7 +626,13 @@
           "surface": "kai",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; same reply.",
+        "fingerprint": "7d259a26a873d80dca60f5cb04da67b4a579ff0376cf2adef0887fee8acbcad6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -724,7 +748,13 @@
           "surface": "tähän",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and sun nimi/sinun nimesi are register variants; same request to write your name.",
+        "fingerprint": "5db30304a9304e0a351385500dccc0cfd0111252604e89b4a8ddfc796b25bbe6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -822,7 +852,13 @@
           "surface": "painava",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä and onks/onko are register differences; same question about whether it is heavy.",
+        "fingerprint": "ebe8cf3a70840fd20104c1bc4590d7ac8af06c3060fe3f56dd51321175f6ac20",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -914,7 +950,13 @@
           "surface": "kirjoja",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Siin/siinä is a dropped ending; same statement that there are books in it.",
+        "fingerprint": "b27dd5393bb6c21d319dabcc8bac7f67ed558015f40e6f2d8d21597ee1478e21",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1069,7 +1111,13 @@
           "surface": "illal",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä and illal/illalla are register differences; same promise to give it to Leena in the evening.",
+        "fingerprint": "3748597d8008466f4e9e404c66c5ef109877cd6d88a1013e3f098c334bca6032",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

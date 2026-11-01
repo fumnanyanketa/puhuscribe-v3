@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -272,7 +272,13 @@
           "surface": "niin",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: tää/tämä, sun/sinun, eiks/eikö; same meaning.",
+        "fingerprint": "15aa8ffd2a029835ff6e5f2dd98ac29030e3764cf64c16c54dd93a842ebfeeff",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -384,7 +390,13 @@
           "surface": "jännittyny",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, mä oon/minä olen, jännittyny/jännittynyt are register variants.",
+        "fingerprint": "e669d6f17870d29f39618669f98f7773ac71473cb8f317b1af329adf11b83c1b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -621,7 +633,13 @@
           "surface": "tiimissä",
           "kirja": 11
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Täs/tässä, ne on/he ovat, sun/sinun are register differences; same people and place.",
+        "fingerprint": "9fb5cb1daaf575dcb2231b52c379f4a68d5aca6c306c64ef816fe7bf18c59a53",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -752,7 +770,13 @@
           "surface": "tulit",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei, et/että, sä/sinä; same meaning.",
+        "fingerprint": "8c476492f36a8bfad914e4fc7883f6bd12aa30d4d1f97f58b0e9bf89a34a4f7b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -862,7 +886,13 @@
           "surface": "täällä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei only; the question is identical.",
+        "fingerprint": "fc206ed3302fa539f1f314122fdf149bffc22e1c16067fc6502c8c688e803fea",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -936,7 +966,13 @@
           "surface": "asiakaspalvelua",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tehään is spoken form of teemme (we do); same meaning.",
+        "fingerprint": "2ea6ff436a094afe5ba1e74fb8bd2f7e4f81a8d7d749f18db52a14dc3a8d089d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1071,7 +1107,13 @@
           "surface": "vieres",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sun/sinun, vieres/vieressä; same workstation by the window.",
+        "fingerprint": "1b93ed59e6e146938f512a9bfaf49686fc91d8692a0b331e1cd02b723e983595",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1186,7 +1228,13 @@
           "surface": "paikka",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and tää/tämä are register differences; same meaning.",
+        "fingerprint": "e0cff2bac90fd3838ef11b6a97005d67bcfd5f939cd2855540b1152badae7753",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

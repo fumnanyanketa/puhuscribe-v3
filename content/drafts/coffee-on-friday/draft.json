@@ -65,7 +65,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -143,7 +143,13 @@
           "surface": "perjantaina",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mennäänks is the spoken form of mennäänkö; same question, same day and place.",
+        "fingerprint": "4acf37453ca6475d5feb0f0f4992bd078422d8c233f2ff37c1d1bc4d7a4d0c94",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -301,7 +307,13 @@
           "surface": "kurssi",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mul is the spoken form of minulla; same meaning, same person, same course.",
+        "fingerprint": "981ce32f0848fe74a971ee24f21ae0ba03b5a5dec5d77c9c5db4e2930cb18523",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -350,7 +362,13 @@
           "surface": "lauantai",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two versions are identical.",
+        "fingerprint": "8d542c124a408c528b0f07fcec25371be7d5d97312020d5ff64779c5fdf689a2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -462,7 +480,13 @@
           "surface": "aikaan",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two versions are identical.",
+        "fingerprint": "5daf1b124dc45897933deda76ddec5c75105ef62b952014894d87bd2f37f9672",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -511,7 +535,13 @@
           "surface": "kahelta",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kahelta is the spoken form of kahdelta; same time (at two).",
+        "fingerprint": "9528d4d89d0acf2b548b0166b01feee6306eaec913cca1faf32a7695482f9760",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -628,7 +658,13 @@
           "surface": "nähään",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kahelta/kahdelta and nähään/nähdään are only register differences; meaning is the same.",
+        "fingerprint": "900af78f2d3fa01a9074658940d3decff3b9400a67bf5be725a3fd38563a81a5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -679,7 +715,13 @@
           "surface": "edes",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "edes is the spoken form of edessä; both mean in front of the café.",
+        "fingerprint": "c2767a338baf82e1bc3dd9636b56821283941d41f2a65f8213a817480c64c786",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -754,7 +796,13 @@
           "surface": "lauantaina",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "nähään is the spoken form of nähdään; same day, Saturday.",
+        "fingerprint": "ae64a913c552ab03b93b532b035a5dd17352e056b87551be8fb7b8fdd105e67a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

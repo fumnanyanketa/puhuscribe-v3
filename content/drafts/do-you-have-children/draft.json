@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -160,7 +160,13 @@
           "surface": "lapsii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask 'Do you have children?' Only register differs.",
+        "fingerprint": "fa6317c0f39c4c1447f95092e8273c9e51b7ee9dc4e51f886a6ba8e9bcadf7ac",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -277,7 +283,13 @@
           "surface": "lasta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 'Yes, I have two children.' Spoken kaks equals kaksi.",
+        "fingerprint": "2de93361bd85770eb3d8bbae87f6734bf44ad45d5ccae3a91bce89eebfd32eca",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -370,7 +382,13 @@
           "surface": "on",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask how old they are. Spoken ne means they, same as he; the number and subject are unchanged.",
+        "fingerprint": "4084f60faa7914d65aed33c256c726e219b6c7f280cd4953003074ee21dbae46",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -502,7 +520,13 @@
           "surface": "kaheksan",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Boy is five and girl eight in both. Only the spoken forms of the numbers differ.",
+        "fingerprint": "ba5887e320e70d242de9823c77524a2f84a3ad0a35ec71838f7dcb92390ce29b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -700,7 +724,13 @@
           "surface": "kolme",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 'I have one daughter. She is three.' Spoken se equals hän.",
+        "fingerprint": "d7e82ec3cbf5279f9ec43a435d7a38801bb578ec859cd9a72f1cf2ff76e91864",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -817,7 +847,13 @@
           "surface": "on",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask 'What is her name?' Spoken sen nimi equals hänen nimensä.",
+        "fingerprint": "808e43a781b4124b92951d229ebbb11c6217ab0f22ea0d88dee5555715bcbd1b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -951,7 +987,13 @@
           "surface": "paljon",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say the girl is called Ella and already talks a lot. Spoken tosi equals todella.",
+        "fingerprint": "9bec08ea6066792e9cefc3b21d4d3007790c931a012fc80072029c760a20b0a9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1021,7 +1063,13 @@
           "surface": "kans",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both mean 'My children too.' Spoken kans equals myös.",
+        "fingerprint": "39c875ce94799b01c5c5f66ba60f93852c04ae922246d82d6501f00a30094937",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

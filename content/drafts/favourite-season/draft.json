@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -196,7 +196,13 @@
           "surface": "lempivuodenaika",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sun = sinun; lempivuodenaikasi is the written possessive form. Same meaning: 'What is your favourite season?'",
+        "fingerprint": "a3631f4ae1038f99b73ca1b89bd36dd8b0c5b997f0af3e70415f569eca0d0005",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -286,7 +292,13 @@
           "surface": "sun",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sun = sinun; both mean 'And yours?'",
+        "fingerprint": "ee57559e31c2294e4d2ce3aa3179557b13cd9bf5c1846f320de97d7974e4f58e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -443,7 +455,13 @@
           "surface": "värikkäitä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä, tykkään/pidän (both 'like'), syksyst/syksystä, on/ovat; same meaning.",
+        "fingerprint": "efa9f3a199a120c4f9d6dd411629157a5c5a66b518ed671fb43431d00d0fb062",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -554,7 +572,13 @@
           "surface": "paljon",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mut/mutta, syksyl/syksyllä; both say it rains a lot in autumn.",
+        "fingerprint": "ac35cda7c1101c8b05dd6f3824c4a54457c49258fef6a2f9101ceb7ee5caa2f6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -690,7 +714,13 @@
           "surface": "pitenee",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kans/myös, pitenee/pitenevät; same meaning.",
+        "fingerprint": "da040ec621781f0983e09d770d45fa9b99e01dd9ac4aac262d2878868b7d5159",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -760,7 +790,13 @@
           "surface": "sulaa",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "02bc8112912850707b43a8284b34ebccfe25c0d96ef85ab723935a741da7be81",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -853,7 +889,13 @@
           "surface": "pisin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kyl/kyllä is only a register difference; same meaning.",
+        "fingerprint": "f175ad22e26cd2a9a1f86101d672617eaa2e51ead98b56be659c4e48437d489b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -903,7 +945,13 @@
           "surface": "kylmin",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "1b248b798f7f0c44015b21b4cee562cbdb3740857ca9e3d163e734718aac5c9a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

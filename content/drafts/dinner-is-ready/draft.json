@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -221,7 +221,13 @@
           "surface": "syömään",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "18f41666527ae2be956ff6124a137bc0933a6cabd511df9431a6657cd1aa5ecd",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -296,7 +302,13 @@
           "surface": "hyvält",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (tää/tämä, hyvält/hyvältä); same meaning.",
+        "fingerprint": "5fb9f00430964eb5c2f22c4dce0162aa130de9f08e829013b9c0ba6842e88e70",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -412,7 +424,13 @@
           "surface": "suolaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks/onko, siin/siinä, tarpeeks/tarpeeksi are register differences only.",
+        "fingerprint": "17de4084be1013a783cce968fcbe34a8ec526406a39c1da15c99eb142817da1d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -531,7 +549,13 @@
           "surface": "hyvää",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tosi and todella both mean 'really'; tää/tämä is register.",
+        "fingerprint": "b545945ad438a6d461939ffa96549dedb6e12518f051d8c327eb16fd793e4187",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -629,7 +653,13 @@
           "surface": "lisää",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and haluuk sä/haluatko sinä are register variants; same question.",
+        "fingerprint": "1795acef520cc1d2623be46fb455fed90a4b1a074cb0f48479fa1a4f743f5970",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -734,7 +764,13 @@
           "surface": "leipää",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean 'yes'; rest identical.",
+        "fingerprint": "12b5ac0ee5d468ab082925711f228c0e7328f122273c126c44143b5534a7b318",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -911,7 +947,13 @@
           "surface": "ruokaa",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ens kerral/ensi kerralla and mä/minä are register differences; same meaning.",
+        "fingerprint": "9984675cfcf1153bc72dc718139d783f48ac9d54e5dcd5b0c344f50c609c1549",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1026,7 +1068,13 @@
           "surface": "muuta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä tuun/minä tulen is register only; same meaning.",
+        "fingerprint": "2281feea52a07d2cf3a4caac9f668b7e3327df46c0a7bd1eeea0de645433da46",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

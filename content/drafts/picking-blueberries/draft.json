@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -156,7 +156,13 @@
           "surface": "mustikoita",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kato/katso is only a register difference; same meaning.",
+        "fingerprint": "1952b4245d7a9d2c4a5bf2e8f56a6b2dd4de3b7f5584b111f5781688579cc8b9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -228,7 +234,13 @@
           "surface": "poimii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Saaks/saako and poimii/poimia are colloquial forms; same question.",
+        "fingerprint": "86c1fc4a4f2f20c18722700d3a0b71e0b8197854dfacc975cebb80c5b2681731",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -325,7 +337,13 @@
           "surface": "jokamiehenoikeudet",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Suomes/Suomessa is a dropped ending; same statement.",
+        "fingerprint": "eff5a8a1c9cbec116d8b08ff1b09339e8a490c6883f67d8f8c4cacecee1c41aa",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -396,7 +414,13 @@
           "surface": "tarkottaa",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tarkottaa/tarkoittaa is a spelling variant; same question.",
+        "fingerprint": "b0706067d54be8b77e4337df37090da395913934c7c1d77d898c14a5cf0a1f48",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -548,7 +572,13 @@
           "surface": "marjoja",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Colloquial singular agreement (saa) and dropped endings; same meaning.",
+        "fingerprint": "038b72e926d6d3699a7e6a317aa03ad7f47d14085cae0adfd5539037be20b356",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -619,7 +649,13 @@
           "surface": "sienet",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "5e06961cffaf39c9c92bec647fa3e67a7eaef2183ab6d4dc6faa7908df95651b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -778,7 +814,13 @@
           "surface": "myrkyllisiä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mut/mutta is a register difference; the rest is identical.",
+        "fingerprint": "c9649e1ba48fdedda0c14cdcde77f33fa66f6a4a3baadcf1ecdbe381aed0a5ed",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -870,7 +912,13 @@
           "surface": "mustikoita",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä and vaan/vain are register differences; same meaning.",
+        "fingerprint": "e427963d09e6778b6e24b8887c6c186e847f70b0fe2e3e3d7058ea87d99d2a67",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

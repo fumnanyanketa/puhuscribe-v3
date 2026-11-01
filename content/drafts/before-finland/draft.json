@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -211,7 +211,13 @@
           "surface": "Suomee",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, Suomee/Suomea); same question.",
+        "fingerprint": "610e6dee7eee290aed767ac5fdeb8dd86d6eb347a03bce2ef4b4e0838e48ba23",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -285,7 +291,13 @@
           "surface": "Brasilias",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Brasilias/Brasiliassa and mä/minä are register variants; same statement.",
+        "fingerprint": "bbecf1a77a376cc907a6d1926ebc10322c65727d4350fa17d33bb30c9a95e028",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -380,7 +392,13 @@
           "surface": "kaupunki",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical sentences.",
+        "fingerprint": "c8e2bb7c4ecd3bc1d709901be4b23e5b0d63a9a4756c16d098cb40b74b5cade4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -570,7 +588,13 @@
           "surface": "ihmistä",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, tosi/todella, kakskyt/kaksikymmentä are register variants; same number (over 20 million).",
+        "fingerprint": "df75b46f95c2a0d304deded471fcfa93a7d3fc383c2d90a212b0ab54d122ce25",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -662,7 +686,13 @@
           "surface": "siel",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, siel/siellä); same question.",
+        "fingerprint": "fc5d7b74a9717bca7f7385e50ffeeb0b0f1ad6cb173989dd0070fbef56ca933c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -757,7 +787,13 @@
           "surface": "koulus",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Register variants only; same meaning (I was a teacher at school).",
+        "fingerprint": "808719440ca9e52574b490f62ccd2b123475518e7b97eed076b0ca3ccb1d5175",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -869,7 +905,13 @@
           "surface": "Suomeen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "miks/miksi and sä/sinä are register variants; same question.",
+        "fingerprint": "c88f89bf465e5c457830f5a58f7d9f612ee58fe0573b71b084fdb0916049f9a9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -982,7 +1024,13 @@
           "surface": "täältä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun mies and minun mieheni both mean 'my husband'; same statement.",
+        "fingerprint": "02c6fd6ab970d88583899f5a8924f5222a03cb65b54af78dc6fd8fb4d0d13de0",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

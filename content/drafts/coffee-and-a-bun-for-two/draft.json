@@ -46,7 +46,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -142,7 +142,13 @@
           "surface": "olla",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and Hei are both greetings; the rest is identical.",
+        "fingerprint": "70a5c66af6954e1417d88385d284afe764d948e173bdfa2580255ce87ff977b1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -271,7 +277,13 @@
           "surface": "kiitos",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same quantities (two coffees, one korvapuusti); only spoken forms differ.",
+        "fingerprint": "768ff49e863565239dcf08933f1cf7789e09884c22085fa1a0e60a85e61d60a7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -340,7 +352,13 @@
           "surface": "ilman",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Maidol is the spoken form of maidolla; same question.",
+        "fingerprint": "7b1f5d7cbbab17c5cc87bd5ec06ba82f5067e9d9ddd10dc5dc64b1ab9124ebd2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -449,7 +467,13 @@
           "surface": "ilman",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "One with milk and one without in both; only spoken forms differ.",
+        "fingerprint": "cf7854e6c1fd4bc139680a6affd7b633e87f17211067d35a71ebefb26e7dd7f3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -514,7 +538,13 @@
           "surface": "mukaan",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two versions are identical.",
+        "fingerprint": "6c4892baaa5e92250803c30f5b9925b18e383f25993a97b4d4b387bb97e6b867",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -608,7 +638,13 @@
           "surface": "tekee",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Paljonks is spoken for paljonko; same question about the price.",
+        "fingerprint": "b12c751ee604674fcc8e3d155537b756a0e0a88824ee0c03b71f13120b5e083d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -659,7 +695,13 @@
           "surface": "euroo",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nine euros in both; only spoken forms differ.",
+        "fingerprint": "b2b9d85980e2d0d141084778b57abeb1149eec804d999f944c2ce0ed454c5e0d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -690,7 +732,13 @@
           "surface": "Kiitti",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is the colloquial form of kiitos; both mean thanks.",
+        "fingerprint": "1ecee31df0ab120d206d4053824308f0cfd5475611413f89e54ba78e258f8129",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

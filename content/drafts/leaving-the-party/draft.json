@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -253,7 +253,13 @@
           "surface": "illast",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (mun/minun, lähtee/lähteä, kiitti/kiitos, tosi/todella, kivast/mukavasta); same meaning.",
+        "fingerprint": "c073210c3392d2e32f925218bfaf42a5d0fa29b133388076d642faea757f7d34",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -345,7 +351,13 @@
           "surface": "tulit",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti et sä tulit = Kiitos, että sinä tulit; same meaning.",
+        "fingerprint": "8f9340a80d85a46900f939dcef0aaaaa67013171cdf993bb9cf8ac700f1b79d4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -504,7 +516,13 @@
           "surface": "teki",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tosi vs todella is only register; rest identical.",
+        "fingerprint": "23c8e9da7fe578ecbb602b5c620bbb7c6267a8ebacddfb2d1c99c736c50bf065",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -640,7 +658,13 @@
           "surface": "käymään",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun äiti/minun äitini, se/hän, Somaliast/Somaliasta are register variants; same facts.",
+        "fingerprint": "41c953cdb0b057aa51669dfe1e3365547fb346577db271233959269e82b846ed",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -734,7 +758,13 @@
           "surface": "multa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sille/hänelle and multa/minulta are colloquial vs standard forms; same meaning.",
+        "fingerprint": "78ec7ce847a04220bcef35222f1fb4b7ed322c2234812d14a0f66d81ae8c42db",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -875,7 +905,13 @@
           "surface": "hyvin",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Pääsek sä = Pääsetkö sinä; mä = minä; same meaning.",
+        "fingerprint": "4f4c26868b89f5f9ac02f1004f0d09011781bd9cdae368f78de8042eeef58d2f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -985,7 +1021,13 @@
           "surface": "tosta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, ratikka/raitiovaunu, ihan/aivan, tosta/tuosta are register variants; same meaning.",
+        "fingerprint": "2458feaac8c869389d29b98b447da5f08e08c1cc970dca8ec2594bcd5c1bd4ac",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1058,7 +1100,13 @@
           "surface": "yötä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lines are identical.",
+        "fingerprint": "258409e3225ddd4f37facdba62e8de5365d217fafa0d8c3e82db8f8312995d25",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

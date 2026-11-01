@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -241,7 +241,13 @@
           "surface": "kirjoja",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question; only register differences (anteeks/anteeksi, onks/onko, teil/teillä).",
+        "fingerprint": "d55d784e02933c9c9bab70a767ec7a980cef14347680e8a6ac03eb35732e162e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -358,7 +364,13 @@
           "surface": "hyllys",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content: yes, easy-reading books are over there on the shelf; on/ovat and hyllys/hyllyssä are register differences.",
+        "fingerprint": "b3082b873c73e7cf906b71aa27ccaf1f4e9045844a71f6df7e62151deadee419",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -432,7 +444,13 @@
           "surface": "selkokirja",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "83a3a0af3f36ae3b7c9724f9a4daa8fe6d382d00b2fb85330e86f4d0357a372f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -590,7 +608,13 @@
           "surface": "suomee",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same meaning; helppoo suomee is spoken for helppoa suomea.",
+        "fingerprint": "00eda695c7b4ce8b76d24c9bb2f8947098dcd91aeefff48cc3520b0df9a6bb6a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -725,7 +749,13 @@
           "surface": "sen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about how long I may keep it; kauanks/mä vs kauanko/minä.",
+        "fingerprint": "be470211804a962eb420ad093a6f29c65d707287ac7f15cd5dcfea9733c4ff21",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -881,7 +911,13 @@
           "surface": "netissä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: four weeks, you can renew the loan online; netissä and verkossa both mean online.",
+        "fingerprint": "1d6023e70c25a04433721c6f0280292ca8e60aa2eb0022c1acc70123ce31c16b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -993,7 +1029,13 @@
           "surface": "sen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: where do I borrow it from; mist/mä vs mistä/minä.",
+        "fingerprint": "a412d1901bca2e05eed72c1a5ccc9277498a103db8b4a1aa4e132122de702910",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1125,7 +1167,13 @@
           "surface": "siihen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: from that machine over there, just put the card in; spoken forms only.",
+        "fingerprint": "d9bc37bbcb32358fe3646adafafcb31123d6b3812b340c442fc660c368ab7c0b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

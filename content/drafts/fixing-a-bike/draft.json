@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -285,7 +285,13 @@
           "surface": "puhki",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about repairing a bike and the tire being flat; only register differs.",
+        "fingerprint": "e73aebb9d65cbfc7e316da1b228677a3f7a32048d807e3f86a56103bf1f1d5b0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -400,7 +406,13 @@
           "surface": "mulle",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: I can, my father taught me.",
+        "fingerprint": "72883b668a555bae12065ac7270d800c82ccd018b631659c430fee3b71d0e459",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -512,7 +524,13 @@
           "surface": "yhtään",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: great, I can't do it at all.",
+        "fingerprint": "5d095a2a141f6f766e976070386bc4aa0eddad02cd0985b492149758425d9278",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -587,7 +605,13 @@
           "surface": "paikkaussarja",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about having a repair kit.",
+        "fingerprint": "0c31dbdb7e77ae050196f8d4a6a4e98a6317d810e44365584160752c8538f890",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -641,7 +665,13 @@
           "surface": "täs",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: yes, here (it is).",
+        "fingerprint": "d0f32abd48f1d5c96b5bb934dbb87f705db96daaf47b8fea31ba442dc0263f18",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -774,7 +804,13 @@
           "surface": "minuuttii",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: this only takes ten minutes.",
+        "fingerprint": "d79fb48cbfe4884d22a0f5909ed87dc8d4a9069adaee6c99949430cb0e4990bf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -910,7 +946,13 @@
           "surface": "vastineeks",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same offer to teach knitting in return.",
+        "fingerprint": "074ef6553ca6a59e8476e08f34c04547db18357efcc9e3af976c7f33f9d4a51d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -943,7 +985,13 @@
           "surface": "Diili",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Diili (slang 'deal') and Sovittu ('agreed') both mean deal; register difference only.",
+        "fingerprint": "a629f898f7cf2342e808a82379f984995d66fc71e0fbbef0d3066b72744cd825",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

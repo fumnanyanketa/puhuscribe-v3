@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -232,7 +232,13 @@
           "surface": "vuonna",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, tehä/tehdä, ens/ensi); same question.",
+        "fingerprint": "9fd7c0fc07e3fac83e974da69625b13bbdeb2fd6c42509652a952ee7459b7ac3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -426,7 +432,13 @@
           "surface": "kouluist",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content: study more Finnish and apply for jobs at schools; only spoken forms differ.",
+        "fingerprint": "b33c74209ae7034e93a3584aaa642757d267f2aac8f1e77e74f3a1edf287edbb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -457,7 +469,13 @@
           "surface": "Opettajaks",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Opettajaks is the spoken form of opettajaksi; same meaning.",
+        "fingerprint": "afec1b46e222afd34cc00eb974e8f2fa5083eaf5b6475d048d58bb9976b1bdf3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -624,7 +642,13 @@
           "surface": "paremmin",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, mut/mutta, mun/minun are register differences; same meaning.",
+        "fingerprint": "2a89201ce8739a98f6ed6c90b59eff4e2b9daf12ce8d2758c5e0f528c2dc492e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -737,7 +761,13 @@
           "surface": "kesällä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only sä/sinä differs; otherwise identical.",
+        "fingerprint": "71886148c05d93f51573f96bccfbbc8d4514898db254252add3f246044f46c27",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -831,7 +861,13 @@
           "surface": "Brasiliaan",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken 'lennetään' is the colloquial first-person plural, same as 'lennämme'; same place and time.",
+        "fingerprint": "2795fb659ca3ce41205e96bf764cc53fd8b8ab998db4a8a3a88186fc2df15b83",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -922,7 +958,13 @@
           "surface": "siel",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kauanks/kauanko, ootte/olette, siel/siellä are register variants; same question.",
+        "fingerprint": "33aa41ea8cecb51f171683ac21bd450a16e1e792b2f00f5807cd155ae00a3550",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1057,7 +1099,13 @@
           "surface": "odottaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same number (three weeks) and same negation; only register differs.",
+        "fingerprint": "182fa89218800cbba30cb93d2a0ac320f5eb334e8aa3e91a9e5b923ed7aa6420",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

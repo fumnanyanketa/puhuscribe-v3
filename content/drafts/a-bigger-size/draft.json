@@ -77,7 +77,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -175,7 +175,13 @@
           "surface": "auttaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei, voinks mä/voinko minä are only register differences.",
+        "fingerprint": "e835e772d3ae5a0840f45f134858039f4fabe79ef7ace22a0e4b2a64c0cff2cb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -289,7 +295,13 @@
           "surface": "isompana",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/Kyllä, tää/tämä, onks/onko are the same meaning.",
+        "fingerprint": "5ff8a80abe583f6fbfa3c66752e72148d138d0dbba8b4af22c5290b77a530eb5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -383,7 +395,13 @@
           "surface": "tarviit",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mikä koko sä tarviit and Minkä koon sinä tarvitset both ask which size you need; the case difference is only register.",
+        "fingerprint": "89000b9003b963a48a480980b9cbc20d6c8471e4fd8013e4f33df74a89fa972b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -499,7 +517,13 @@
           "surface": "pieni",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same sentences; tää/tämä is only register.",
+        "fingerprint": "89bf0d2f9c16c21c912ca1e57382518c28556baf103722b72842f14bcd970226",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -597,7 +621,13 @@
           "surface": "kokeilla",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Haluuk sä/haluatko sinä is the same question.",
+        "fingerprint": "d15698e7f8cddde743321c67335efd329aee9757fe7b8ee2ed5399c8f8b3e622",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -689,7 +719,13 @@
           "surface": "sovituskopit",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Missä on/ovat sovituskopit is the same question; the singular verb in speech is colloquial.",
+        "fingerprint": "77658158c583a01d492c797f7af1199a35561001fd520a10f4b2a17ca3125cef",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -738,7 +774,13 @@
           "surface": "takana",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "fb4d8037678bd71a6fd5422c7db887d6d134b9c57c174069e13fb1a1a4de06c2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -876,7 +918,13 @@
           "surface": "sen",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tää/tämä and mä/minä are only register; the meaning is the same.",
+        "fingerprint": "c243e1cac091a2740e5a9a1d5d66ed79e6dd347da957011bf787121248d2dd1f",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

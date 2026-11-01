@@ -41,7 +41,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off",
+    "judge": "on",
     "voice": "azure"
   },
   "notes": {
@@ -180,6 +180,12 @@
           "voice": "fi-FI-NooraNeural",
           "request_sha256": "be8d6a53ad4b21b58077137d5480b135bd9c0daa7d579712a573c3076eff5af8"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Same greeting and question 'Are you new here?'; only register differs.",
+        "fingerprint": "dde5ae84f05726387c0b7b1fdfcea0125acbfe6318751ed74b0c34337c26fcee",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -315,6 +321,12 @@
           "voice": "fi-FI-SelmaNeural",
           "request_sha256": "a5913df6d414c0bb72f8dd7eb0992c114aba630a98d7e5fab10dd2d4dd1aca47"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "'Yes, I am. I'm Maria.' in both; register only.",
+        "fingerprint": "b2c6fb34905b5c6aed644492beddc046c73c60c11813f239949822d6eef77848",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -531,6 +543,12 @@
           "voice": "fi-FI-NooraNeural",
           "request_sha256": "3fbd527ebf9e0c01311a6d9ecaeaa6c4018f44ecbf38896f3dde3ef1d859dc40"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Same: nice to meet you, I'm Leena, where are you from; register only.",
+        "fingerprint": "92ef895e526655c4b9f8d5de643ac6bfee8b0fa69f6b1453da4eb5f41f058999",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -663,6 +681,12 @@
           "voice": "fi-FI-SelmaNeural",
           "request_sha256": "4228f7c35cb921ec9276fb35ddea4c1ce4f83479c4db9339063b17db64ea20d7"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 'I'm from Brazil. And you?'",
+        "fingerprint": "45b784165359f43130d6b1803619882138a3a86a1f4d338f7d8a0d4e38c97d1c",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -874,6 +898,12 @@
           "voice": "fi-FI-NooraNeural",
           "request_sha256": "2d0723f92480db91dcb32db3e5cc4aa8917540cdf3e4784d8dbc93ba5385ce6d"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Same: from Tampere but now living in Helsinki; only spoken forms differ.",
+        "fingerprint": "38bbb740eeddcab5afcd143c50063b9ac643eca78b245e70e790456f75bf8ac3",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -971,6 +1001,12 @@
           "voice": "fi-FI-SelmaNeural",
           "request_sha256": "0513295af10741202bdac326deca11c518bd1784f0f61d1664b80a8320cca7af"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask 'Do you speak English?'; word order and endings differ by register.",
+        "fingerprint": "659aca52ed6e1b467990901af904dc7511969068be97e35bf69efdfe10f2976b",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -1080,6 +1116,12 @@
           "voice": "fi-FI-NooraNeural",
           "request_sha256": "d1b28fe7fef431e71fbf04fd56c837277817c4ed31f39051bd520c569f3887c8"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "Same: 'A little. But let's speak Finnish!'",
+        "fingerprint": "b46bc94c1d5cff78e3524c3b07b10fbc71e13cea8e794d6631cdf306575cf72d",
+        "model": "claude-sonnet-5-5"
       }
     },
     {
@@ -1154,6 +1196,12 @@
           "voice": "fi-FI-SelmaNeural",
           "request_sha256": "51f02914ea01ff577e479d160c3aab6bbfcca23776f14b971224c9825e663616"
         }
+      },
+      "judge": {
+        "faithful": true,
+        "reason": "'Okei' and 'Selvä' are both 'OK', and 'Nähään' and 'Nähdään' both mean 'See you'; register difference only.",
+        "fingerprint": "ffb2775026a4eeab3c17bede9867901087261a67a73025ba9afbe3c0a9acd08d",
+        "model": "claude-sonnet-5-5"
       }
     }
   ],

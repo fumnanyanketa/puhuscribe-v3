@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -235,7 +235,13 @@
           "surface": "kaa",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (moi/hei, mä/minä, apuu/apua, kaa/kanssa); same meaning.",
+        "fingerprint": "41a357a33b01e3fbf23a90a83d0e64fcb6d61077756be76be0b4c5d45e9b4dc1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -368,7 +374,13 @@
           "surface": "on",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lines are identical.",
+        "fingerprint": "b3c46d2f2f280f026c67a787aa245d5199690861b9aea8cdd445c656e50fc1a4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -503,7 +515,13 @@
           "surface": "kohtaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only mä/minä differs; same meaning.",
+        "fingerprint": "3575b1768229c3197517b9d9499a776e1a081eb5fa2050f65c7639f70ed87993",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -618,7 +636,13 @@
           "surface": "vuokran",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Colloquial sä/sun/kirjotat vs standard sinä/sinun/kirjoitat; both mean 'you write your rent here'.",
+        "fingerprint": "56de1a6fe1e0ac2d792fdf0fa85f9281f5351d251293cee4b95b28036270e07c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -733,7 +757,13 @@
           "surface": "euroo",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": false,
+        "reason": "Spoken 'kuussataa' means 600 only as 'kuus sataa'? Actually 'kuussataa' is a colloquial form of kuusisataa (600), so number matches; okei/selvä is register only.",
+        "fingerprint": "b04008678a1125f12e68c6ee5893062b66156361d9d0c5e6c69c0bacb21e3319",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -904,7 +934,13 @@
           "surface": "vuokrasopimuksen",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Register differences only (sun/sinun, tulot/tulosi, tarviit/tarvitset); same content.",
+        "fingerprint": "83283d654951279e125e59ba5666b4cc80eac755baba595314b0733add59de88",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -1020,7 +1056,13 @@
           "surface": "OmaKelas",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Voinks mä = voinko minä; 'OmaKelas' is a clipped form of OmaKelassa; same meaning.",
+        "fingerprint": "ac9bcdd3ee20a20cce080985f0c7f386696ec33cb615a9d5d6be3d843831b505",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1133,7 +1175,13 @@
           "surface": "tapa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo vs kyllä is a register difference; same meaning.",
+        "fingerprint": "de3745e4ff1497182d7823d578f2f9e07b60f9814096d8df33bf6de3a51b6ca4",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

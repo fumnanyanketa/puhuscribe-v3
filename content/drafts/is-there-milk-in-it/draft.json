@@ -86,7 +86,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -203,7 +203,13 @@
           "surface": "maitoo",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: anteeks/anteeksi, onks/onko, täs keitos/tässä keitossa, maitoo/maitoa. Same question.",
+        "fingerprint": "55b0b2a09b7042c131dbd87a3d9fa4140710c8a2c3b08071a0b5336bcf8047cb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -300,7 +306,13 @@
           "surface": "kermaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "siin/siinä is just register; same content.",
+        "fingerprint": "a3a4c9a74d18af32f7d44a6722cc03cb0da63534b6914e2cc5ed2101313e078e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -416,7 +428,13 @@
           "surface": "maitotuotteita",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä only; same statement.",
+        "fingerprint": "053b7d63de0b3fe1780bd3c4f6e4eea30e15149cead371f5e0098dd54084b68b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -509,7 +527,13 @@
           "surface": "allergia",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "onks sul/onko sinulla is register only; same question.",
+        "fingerprint": "7bc67b1bd5db605b0ed9c612e6d62d8ccfae44a76963335e8071817272378acb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -601,7 +625,13 @@
           "surface": "laktoosi-intoleranssi",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "joo/kyllä and mul/minulla are register; same meaning.",
+        "fingerprint": "cd85cd3f82ab2617f54e31c0582013854f7dfcaedf4d9f4c73e00c34c7623c6d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -757,7 +787,13 @@
           "surface": "maidoton",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sit/sitten, mä/minä, kasviskeittoo/kasviskeittoa are register; same recommendation and fact.",
+        "fingerprint": "04635c39f26391f0065305bc15db04b88fce11ce3f4ee2628357f56f12a6f538",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -852,7 +888,13 @@
           "surface": "sen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä only; same meaning.",
+        "fingerprint": "606aeb134d609c5170a4eba8612aea8cdefb9cbe5d533660d05f6f6c8716b628",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -904,7 +946,13 @@
           "surface": "tulossa",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "56c25b6291eaaa828abb4a248e8c17569a8b9776b4f5721686f07378dec38d3a",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

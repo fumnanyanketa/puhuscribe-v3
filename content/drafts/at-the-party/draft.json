@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -171,7 +171,13 @@
           "surface": "sisään",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (tervetuloo/tervetuloa, tuu/tule); same welcome and invitation.",
+        "fingerprint": "70bfca1fe96904f3df4dde531a7ee818a751f2cd3e59588136f08834e9da2d72",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -263,7 +269,13 @@
           "surface": "synttärisankarille",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos, onnee/onnea, synttäri/syntymäpäivä are register variants; same meaning.",
+        "fingerprint": "e59f227411de11c916bd3f2cc34ee9d0590fa5573d0087fd7cb907787f24c2cc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -352,7 +364,13 @@
           "surface": "suklaapalloist",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and suklaapalloist/suklaapalloista are register variants; same thanks for chocolates.",
+        "fingerprint": "d0e926def9c1fc78eb39fd0250e75d0d1f9201acb5408a9fc092a2345037592d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -509,7 +527,13 @@
           "surface": "lahja",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Täs/tässä is a register difference; same content.",
+        "fingerprint": "5024d55cf4781b566d7e1804c4b4fb22522c5f6695ba5cdd9d40909804a79ec1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -688,7 +712,13 @@
           "surface": "nyt",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken contractions (ois tarvinnu, saanks mä) match written forms; same meaning.",
+        "fingerprint": "4fa9bf6c0837e3bc7a031c2b1edfd1341405225f916f4afce838d35b0b5c846e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -738,7 +768,13 @@
           "surface": "kai",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "bcc7198fc57fe96df25735e9deda70d89125426e40e360fd3113bf8ecfc3169c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -830,7 +866,13 @@
           "surface": "Täydellinen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kielest/kielestä is only a dropped ending; same meaning.",
+        "fingerprint": "a277d586af72f998df15d5490afad2fcc63026b04be2c6cdd3578b348715e6f0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -922,7 +964,13 @@
           "surface": "opiskellaan",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken passive opiskellaan is used for 'we study'; written opiskelemme is the same meaning.",
+        "fingerprint": "9b692b63bf4830995a387799e941b11ae114f0eacab026b1112ec71fd1bfde44",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

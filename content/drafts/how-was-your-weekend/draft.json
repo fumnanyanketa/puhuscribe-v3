@@ -62,7 +62,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -156,7 +156,13 @@
           "surface": "meni",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and Hei are both greetings; the rest is identical.",
+        "fingerprint": "dc7c515354bade9d424b78b8f060b0d338a55c80158e43767384fcf85bd56ff9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -270,7 +276,13 @@
           "surface": "Suomenlinnas",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (tosi/todella, mä/minä, Suomenlinnas/Suomenlinnassa); same meaning.",
+        "fingerprint": "59f36be3c716d84862db30dd76029b34f8b097ebb8c288c18239d48cfeb96fc5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -382,7 +394,13 @@
           "surface": "ihmisii",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken forms oliks, siel, ihmisii correspond to oliko, siellä, ihmisiä; same question.",
+        "fingerprint": "3a9e9251a15c6b13f6d12d50ceb423c31068f5872f457577d34a87c70b4a4853",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -497,7 +515,13 @@
           "surface": "vähän",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "9d471ff259259d3747a49cfa0562fcdd6aa2032d06ceb9f695be9646a5ca93cf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -608,7 +632,13 @@
           "surface": "rauhallista",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sateel/siel are spoken forms of sateella/siellä; same meaning.",
+        "fingerprint": "2a4fe083c5762856b0908329e692514ae93d274f3521684d1282899d3482463a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -720,7 +750,13 @@
           "surface": "teit",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä only register difference; same questions.",
+        "fingerprint": "1e412a288b15d58178c36843c080806602120d6b4d2d5a7a3fdf3c486f41285b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -837,7 +873,13 @@
           "surface": "voitettiin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken passive 'voitettiin' is the colloquial form for 'we won' (voitimme); jalkapalloo/jalkapalloa and mä/minä are register only.",
+        "fingerprint": "6d8273cb439dc55c5578c3ec05fd261cfed5d95f46bdcee98521782296cac244",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -891,7 +933,13 @@
           "surface": "olkoon",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onneks is a clipped spoken form of onneksi; same congratulation.",
+        "fingerprint": "a2fd5c161d7b4fd94f9f4f48276d6dca19e622293617f3472a1a0cb676551adc",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

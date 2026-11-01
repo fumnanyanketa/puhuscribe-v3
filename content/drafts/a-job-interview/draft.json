@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -179,7 +179,13 @@
           "surface": "itsestäs",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "itsestäs is the spoken form of itsestäsi; same meaning.",
+        "fingerprint": "01d50dc60ae4f5f1c407b6fca7bf5fe17957be7dc23947919ccbf603fd640bb0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -414,7 +420,13 @@
           "surface": "kieltä",
           "kirja": 11
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only mä/minä and oon/olen differ; same facts.",
+        "fingerprint": "4a15e593626b70dd874305b527724db9dda98cf631da3a54b820d7f3514cf1ba",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -465,7 +477,13 @@
           "surface": "kieliä",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "4495058c4bb4455d9131d31b3a6b81cf32d50bfbb2006c4eb2a91c8253a9c01f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -592,7 +610,13 @@
           "surface": "suomee",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same languages listed; only spoken partitive endings differ.",
+        "fingerprint": "63a8fbe041e822ce8eff3e27037f64461db943ddb236b6a2ccbbc6b5bac5ef0e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -731,7 +755,13 @@
           "surface": "hyvin",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Osaat sä is the spoken question form of osaatko sinä; Hienoo/Hienoa is the same.",
+        "fingerprint": "fc442810ceb58bda2d30808ffc3bcb4c36647e0918128f8e950c02c28ee53e12",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -858,7 +888,13 @@
           "surface": "tiimis",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/Kyllä both mean yes; tiimis is tiimissä, same meaning.",
+        "fingerprint": "28f5c12b4dfdf4c3a33137e7ee4f49d756ba92b295305a178656660d40fc4ef7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -973,7 +1009,13 @@
           "surface": "työn",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Miks/miksi, sä/sinä, haluut/haluat, tän/tämän are register variants only.",
+        "fingerprint": "6256adf189c50f1c8060fe59b061a56bfcde0c12864dc8b55d0cbca5f1c951d4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1126,7 +1168,13 @@
           "surface": "uutta",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "ihmisii/ihmisiä and oppii/oppia are spoken variants; same meaning.",
+        "fingerprint": "55cdbc37ff8546d48c281b53719282c0c49b54cfb953b6c8311171eeea0bb542",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

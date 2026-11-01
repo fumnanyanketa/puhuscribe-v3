@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -251,7 +251,13 @@
           "surface": "hyvin",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, onks/onko); same meaning.",
+        "fingerprint": "525b1d5371002f62f7777a7724567c1814b69486f6270c81018e7d26a765b890",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -325,7 +331,13 @@
           "surface": "koti-ikävä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul/minulla is the same; both say 'I am homesick'.",
+        "fingerprint": "dcc0bb83e90c511b59272013ae5a5fbb5b6033d890f11e5637de57f3bcecf3c4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -461,7 +473,13 @@
           "surface": "normaalii",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä, ihan/aivan, normaalii/normaalia are register variants; same meaning.",
+        "fingerprint": "ebfd4627c7f481fe9704f8458f04adcc994753de11ca6dce47233b6147061c74",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -591,7 +609,13 @@
           "surface": "kylmää",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "pimeetä/pimeää is a spoken variant; same meaning.",
+        "fingerprint": "476e40041b8abc81775007890d431b42e5a8bf8001715baf5788df50024bd151",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -729,7 +753,13 @@
           "surface": "yhdessä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "vaikee/vaikea and mennäänks/mennäänkö are register variants; same meaning.",
+        "fingerprint": "7f429ed04bc268bc1ce7eda6adccbcf38c89883ea39c53ea092c8f7ff24fa7a1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -822,7 +852,13 @@
           "surface": "kiva",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and ois/olisi are register differences; same meaning.",
+        "fingerprint": "bcd54fb63588ff7afa892688461e2925142567a339b8e60580e7b09de739c98c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -948,7 +984,13 @@
           "surface": "luona",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun luona/minun luonani both mean 'at my place'; same meaning.",
+        "fingerprint": "655f64ca35a67b1721defefceaff757799fb9427c083a7a2b5395a37882caa05",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1083,7 +1125,13 @@
           "surface": "ystävä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos, sä oot/sinä olet are register variants; same meaning.",
+        "fingerprint": "3e385bd9efe67db400cfc999c5b2f0dc9d62ded48d9e8b860e3dc04daa077087",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

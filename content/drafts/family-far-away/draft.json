@@ -81,7 +81,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -181,7 +181,13 @@
           "surface": "Brasilias",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: is your family in Brazil; only register differs.",
+        "fingerprint": "f390d2ea6fbe8551180302eb85a999fee638e7ba887a88d63a9bfb9e426b671d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -314,7 +320,13 @@
           "surface": "siel",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Parents and brother live there in both; spoken uses colloquial verb agreement.",
+        "fingerprint": "f188ef7a6f7ac949b666dd4e4e42369cdc9339a1fbac334ed36715d412e20eb7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -410,7 +422,13 @@
           "surface": "niitä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether you miss them; 'niitä' vs 'heitä' is register.",
+        "fingerprint": "334959c76e15655ab001d032c4c19280176c68b66c31ef3a2fa1e383efcfe485",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -564,7 +582,13 @@
           "surface": "sunnuntai",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Yes, very much; we call every Sunday in both; spoken passive 'soitetaan' means 'we call'.",
+        "fingerprint": "2c99900edbd22f7d527275f40d1d9c62841adb4ef5f5dd72fbc07abdb9812e94",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -660,7 +684,13 @@
           "surface": "Suomes",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether they come to visit Finland.",
+        "fingerprint": "da623e4d34b66e20cdbdb7ddb96d5ef1312f7789d8d7a2f257be364bfdeb93de",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -814,7 +844,13 @@
           "surface": "lunta",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Yes, in summer; my mother wants to see snow in both.",
+        "fingerprint": "29f06d477443db5e3c60991d4f0023d59b2bf03c11afd3b25dd01251ef91c0cf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -924,7 +960,13 @@
           "surface": "talvella",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say they must then come in winter; 'niitten' vs 'heidän' is register.",
+        "fingerprint": "7c824bcd4bc4cb5509fef1856369e8aa045aedb8cc558c171957b887f62e55ee",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -956,7 +998,13 @@
           "surface": "Totta",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical: 'True!'",
+        "fingerprint": "e65cdcccf3108a5679d43f39509f201a8ae9ecff6b0275bae90db00258a8558b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

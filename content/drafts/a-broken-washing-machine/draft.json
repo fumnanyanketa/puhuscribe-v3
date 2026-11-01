@@ -100,7 +100,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -217,7 +217,13 @@
           "surface": "auttaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "43b96e0b83a3b9feb6456513d91ac4078df757adaad4df17453b088de72045f1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -352,7 +358,13 @@
           "surface": "käynnisty",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei, mun/minun, uus/uusi are register differences; same meaning.",
+        "fingerprint": "f0f50646f9ea9fede9364f775a3db29644083337e1f85a3a9631a38878a7b5ab",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -465,7 +477,13 @@
           "surface": "sen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Millon/milloin and sä/sinä are register variants; same meaning.",
+        "fingerprint": "c0f65af89a7dafc32eb1199254e6df634a82ad42e1a877671021fd2fba06a0ab",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -534,7 +552,13 @@
           "surface": "sitten",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kaks viikkoo is spoken for kaksi viikkoa; same number and time.",
+        "fingerprint": "2a3638ec3d5d9e8ccc62437030bc8f7df081c34f1e3de88efff2d41d12996564",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -689,7 +713,13 @@
           "surface": "huoltomies",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sit/sitten, siin/siinä, lähetetään/lähetämme are register variants; same meaning.",
+        "fingerprint": "226e6de16d2735d6cc905fa1aef2d5434644b3caa0142e4dd0fe0f7b09df1f62",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -803,7 +833,13 @@
           "surface": "tulla",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken se refers to a person in speech, equals written hän; same meaning.",
+        "fingerprint": "0ffd6576ab3ad5461ed816bae017cfe4a9262e3f4328306231891a16b9f77faf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -898,7 +934,13 @@
           "surface": "se",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Aamupäiväl/aamupäivällä and sopiiks/sopiiko are register variants; same meaning.",
+        "fingerprint": "ea39c62c35b11f99cb84c5ba4bd24fed08b057de353d3dc4989c95def578d73d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -972,7 +1014,13 @@
           "surface": "avusta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos; same meaning.",
+        "fingerprint": "d2f11edc09979fa1a2df687a453228f6e96d3179af9fbd258804dd81f707d528",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [
