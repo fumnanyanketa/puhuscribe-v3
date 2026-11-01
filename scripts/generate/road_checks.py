@@ -24,6 +24,8 @@ from grammar import form_name
 from road_data import (
     FIXED_WHY,
     ReadingOverride,
+    aliased_ranks,
+    load_list_aliases,
     load_overrides,
     load_position_overrides,
     manual_analysis,
@@ -131,6 +133,7 @@ def check_draft(
     register_road_extras()
     forms = forms or SpokenForms.load()
     gate = ManualReadingGate(gate, road_manual_readings() if manual is None else manual)
+    ranks = aliased_ranks(ranks, load_list_aliases())
     report = run_checks(analysis_view(draft), gate, ranks, thresholds)
     checks = report["checks"]
 

@@ -7,6 +7,7 @@ content/road/word-notes.tsv     each other form's own meaning and its one line "
 content/road/allowed-extras.json  base forms and forms allowed outside a stop's level, with a reason
 content/road/reading-overrides.tsv  a chosen reading for a spelling, the same in every line
 content/road/reading-overrides-by-position.tsv  a chosen reading for one word in one line
+content/road/list-aliases.tsv   a dictionary form the frequency list holds under another base form
 
 Nothing here calls Voikko, the network or an AI service.
 """
@@ -85,6 +86,17 @@ class ReadingOverride:
     file_line: int = 0
 
 
+@dataclass(frozen=True)
+class ListAlias:
+    """A dictionary form the frequency list does not have under that spelling, and the base form the list
+    does have for the same word (paljon is listed as paljo). The word takes the rank of its list form."""
+
+    lemma: str
+    listed_as: str
+    reason: str
+    file_line: int = 0
+
+
 def manual_analysis(lemma: str, form_tag: str) -> dict:
     """The analysis stored for a manual reading: the same keys as Voikko's, plus a marker."""
     return dict(sorted({"BASEFORM": lemma, **parse_tag(form_tag), "MANUAL": "true"}.items()))
@@ -99,6 +111,7 @@ class RoadData:
     extras: dict[int, dict] = field(default_factory=dict)
     overrides: dict[str, ReadingOverride] = field(default_factory=dict)
     position_overrides: dict[tuple[str, int, int], ReadingOverride] = field(default_factory=dict)
+    list_aliases: dict[str, ListAlias] = field(default_factory=dict)
 
     def cumulative_grammar(self, stop: int) -> list[str]:
         """A stop's list is its own entries plus every earlier stop's."""
@@ -254,6 +267,35 @@ def load_position_overrides(
     return found
 
 
+def load_list_aliases(path: Path = ROAD_DIR / "list-aliases.tsv") -> dict[str, ListAlias]:
+    """Dictionary form (lower case) to the list form that stands for it. Columns: dictionary form, the
+    base form the frequency list has for the same word, reason."""
+    if not path.is_file():
+        return {}
+    found: dict[str, ListAlias] = {}
+    for number, cells in read_tsv(path, 3, "list-aliases.tsv"):
+        lemma, listed_as, reason = cells[0].lower(), cells[1].lower(), cells[2]
+        where = f"list-aliases.tsv, line {number}"
+        if not lemma or not listed_as or lemma == listed_as:
+            raise RoadDataError(f"{where}: two different base forms are needed")
+        if not reason:
+            raise RoadDataError(f"{where}: the reason must not be empty")
+        if lemma in found:
+            raise RoadDataError(f"{where}: '{lemma}' appears twice")
+        found[lemma] = ListAlias(lemma, listed_as, reason, number)
+    return found
+
+
+def aliased_ranks(ranks: dict[str, int], aliases: dict[str, ListAlias]) -> dict[str, int]:
+    """The frequency ranks with each alias given the rank of its list form. A word the list already has
+    keeps its own rank, and an alias whose list form is missing adds nothing."""
+    result = dict(ranks)
+    for lemma, alias in aliases.items():
+        if lemma not in result and alias.listed_as in result:
+            result[lemma] = result[alias.listed_as]
+    return result
+
+
 def load_road_data(road_dir: Path = ROAD_DIR) -> RoadData:
     return RoadData(
         stops=load_stops(road_dir / "stops.json"),
@@ -263,6 +305,7 @@ def load_road_data(road_dir: Path = ROAD_DIR) -> RoadData:
         extras=load_extras(road_dir / "allowed-extras.json"),
         overrides=load_overrides(road_dir / "reading-overrides.tsv"),
         position_overrides=load_position_overrides(road_dir / "reading-overrides-by-position.tsv"),
+        list_aliases=load_list_aliases(road_dir / "list-aliases.tsv"),
     )
 
 

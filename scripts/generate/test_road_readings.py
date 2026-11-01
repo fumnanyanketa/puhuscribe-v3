@@ -16,8 +16,11 @@ from analysis import candidates
 from grammar import form_name
 from road_checks import ManualReadingGate, manual_readings
 from road_data import (
+    ListAlias,
     ReadingOverride,
     RoadDataError,
+    aliased_ranks,
+    load_list_aliases,
     load_overrides,
     load_position_overrides,
     manual_analysis,
@@ -114,7 +117,7 @@ def test_a1_road_10_every_override_key_matches_a_real_token_in_the_drafts(offlin
     word written there; each spelling row is a word some dialogue uses. A stale key is a failure."""
     drafts = committed()
     assert ri.override_problems(drafts, offline_ctx) == []
-    assert len(offline_ctx.data.position_overrides) > 100
+    assert len(offline_ctx.data.position_overrides) > 50
     assert len(offline_ctx.data.overrides) > 20
 
 
@@ -243,3 +246,83 @@ def test_a1_road_10_only_the_rejected_flags_are_still_in_the_drafts():
         if form["id"].removeprefix("form-")[:6] in flagged
     }
     assert present == FLAGGED_FORMS_STILL_IN_THE_DRAFTS
+
+
+# Round 3: the list aliases and the pronoun minä --------------------------------------------------------
+
+
+def test_a1_road_10_every_alias_key_is_a_lemma_in_the_drafts_and_every_value_is_on_the_list(ranks):
+    """[a1-road 10] An alias maps a dictionary form some draft uses, which the frequency list lacks,
+    to a base form the list has; each row has a reason."""
+    aliases = load_list_aliases()
+    assert len(aliases) >= 8
+    lemmas = {f["lemma"].lower() for draft in committed().values() for f in draft["forms"]}
+    for key, alias in aliases.items():
+        assert key in lemmas, f"{key} is not a dictionary form of any draft"
+        assert key not in ranks, f"{key} is on the list itself, so it needs no alias"
+        assert alias.listed_as in ranks, f"{alias.listed_as} is not on the list"
+        assert alias.reason.strip()
+
+
+def test_a1_road_10_an_alias_takes_its_list_forms_rank_and_never_replaces_a_listed_word(ranks):
+    """[a1-road 10] paljon counts as paljo for the level checks. A word the list has keeps its rank."""
+    aliases = load_list_aliases()
+    result = aliased_ranks(ranks, aliases)
+    assert result["paljon"] == ranks["paljo"] and "paljon" not in ranks
+    assert result["tuo"] == ranks["tuo"]
+    own = {"tuo": ListAlias("tuo", "paljo", "r")}
+    assert aliased_ranks({"tuo": 5, "paljo": 9}, own)["tuo"] == 5
+    missing = {"abc": ListAlias("abc", "nowhere", "r")}
+    assert "abc" not in aliased_ranks(ranks, missing)
+
+
+def test_a1_road_10_the_alias_file_refuses_a_wrong_row(tmp_path):
+    """[a1-road 10] The same word twice, a missing reason and a word listed as itself are refused."""
+    tab = chr(9)
+    nl = chr(10)
+    path = tmp_path / "list-aliases.tsv"
+
+    def load(*rows: str):
+        path.write_text(nl.join(rows) + nl, encoding="utf-8")
+        return load_list_aliases(path)
+
+    good = tab.join(["paljon", "paljo", "a lot"])
+    assert list(load(good)) == ["paljon"]
+    with pytest.raises(RoadDataError, match="appears twice"):
+        load(good, good)
+    with pytest.raises(RoadDataError, match="reason"):
+        load(tab.join(["paljon", "paljo", ""]))
+    with pytest.raises(RoadDataError, match="two different base forms"):
+        load(tab.join(["paljon", "paljon", "same"]))
+
+
+def test_a1_road_10_minae_is_the_pronoun_in_every_line_of_the_drafts():
+    """[a1-road 10] All 179 words minä (and Minä) are the personal pronoun, none the noun minä and none
+    a form of mikä, and one spelling row says so."""
+    assert load_overrides()["minä"].form_tag == "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular"
+    found = 0
+    for draft in committed().values():
+        if draft["brief"].get("source") != "written":
+            continue
+        for line in draft["lines"]:
+            for token in line["kirja_tokens"]:
+                if token["surface"].lower() == "minä":
+                    found += 1
+                    assert (token["lemma"], token["form_tag"]) == (
+                        "minä",
+                        "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+                    )
+    assert found == 179
+
+
+def test_a1_road_10_minae_is_the_pronoun_even_where_voikko_prefers_the_noun(ctx):
+    """[a1-road 10] In these dialogues the automatic choice used to be the noun minä for some words."""
+    for slug in ("im-lost", "buying-a-ticket", "at-the-market"):
+        draft = draft_of(ctx, slug)
+        tags = {
+            token["form_tag"]
+            for line in draft["lines"]
+            for token in line["kirja_tokens"]
+            if token["surface"].lower() == "minä"
+        }
+        assert tags == {"CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular"}, slug

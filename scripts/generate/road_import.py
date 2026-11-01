@@ -44,6 +44,7 @@ from road_data import (
     ReadingOverride,
     RoadData,
     RoadDataError,
+    aliased_ranks,
     load_road_data,
     manual_analysis,
     note_problems,
@@ -69,7 +70,7 @@ class Context:
         self.data: RoadData = load_road_data(repo / "content" / "road")
         self.spoken_forms = SpokenForms.load(repo / "content" / "road" / "spoken-forms.tsv")
         self.gate = gate
-        self.ranks = ranks if ranks is not None else frequency_ranks()
+        self.ranks = aliased_ranks(ranks if ranks is not None else frequency_ranks(), self.data.list_aliases)
         self.thresholds = thresholds if thresholds is not None else load_thresholds()
         self.earlier = self._earlier_drafts()
         self.road: Road = parse_road(

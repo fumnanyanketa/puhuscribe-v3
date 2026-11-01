@@ -2,115 +2,54 @@
 # same reading in every line is in reading-overrides.tsv instead.
 # Columns: dialogue slug, line number, word position (counted over the line's written words from 1),
 # written word, dictionary form, form tag, voikko or manual, reason.
-a-bigger-size	1	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-bigger-size	4	4	liian	liian	CLASS=seikkasana	voikko	'liian pieni' is the adverb 'too'
-a-bigger-size	8	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-broken-washing-machine	2	6	käynnisty	käynnistyä	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	after ei: negative form, not a command
 a-broken-washing-machine	6	4	voi	voida	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both	voikko	Voi ei = oh no
 a-cold	2	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-a-cold	7	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-cold-radiator	4	5	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-cold-radiator	4	8	ilmaan	ilmata	CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	ilmaan sen = I'll bleed it (verb), not 'into the air'
-a-cold-radiator	8	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-family-photo	5	2	lapseni	lapsi	CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s	manual	my children (spoken mun lapset)
-a-headache	1	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-headache	4	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-headache	7	2	tarvita	tarvita	CLASS=teonsana;PERSON=4;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	voikko	'Ei tarvita' is the passive after ei
 a-headache	7	4	maksaa	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb to pay after voinko, not maksa (liver)
-a-headache	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-job-interview	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-job-interview	2	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-job-interview	2	8	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-job-interview	6	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-job-interview	8	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-library-card	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-library-card	6	5	Keksi	keksiä	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	'Keksi PIN-koodi' is imperative of keksiä (make up), not keksi (biscuit)
-a-library-card	7	4	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-lost-bank-card	2	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-a-lost-bank-card	2	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-lost-bank-card	4	5	suljettu	sulkea	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_passive	manual	dictionary form should be the verb sulkea
-a-lost-bank-card	5	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-lost-bank-card	7	1	Maksaako	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true	voikko	'Maksaako se' is 'does it cost', not 'liver'
-a-mistake-on-the-bill	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-mistake-on-the-bill	4	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei = oh no
-a-mistake-on-the-bill	4	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-mistake-on-the-bill	7	4	oikein	oikein	CLASS=seikkasana	voikko	adverb 'correctly', not the superlative of oikea
 a-parcel-for-the-neighbour	3	3	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
-a-parcel-for-the-neighbour	8	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-sauna-invitation	2	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-sauna-invitation	2	5	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
-a-sauna-invitation	3	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-sauna-invitation	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-sick-child	3	7	tule	tulla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	ei tule = won't come, not a command
 a-sick-child	4	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-a-sick-child	7	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-sick-note-for-work	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-sick-note-for-work	6	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-sick-note-for-work	7	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-sick-note-for-work	8	3	Omakannasta	omakanta	CLASS=nimisana;SIJAMUOTO=sisaeronto;NUMBER=singular	voikko	'löytyy OmaKannasta' is 'from My Kanta' (the health service)
 a-walk-in-the-forest	1	3	sunnuntaina	sunnuntai	CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular	voikko	one Sunday, not plural
-a-walk-in-the-forest	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-year-in-finland	4	6	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-a-year-in-finland	8	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 a-year-in-finland	8	6	vähemmän	vähän	CLASS=seikkasana;COMPARISON=comparative	manual	adverb 'less'; genitive singular is wrong
-an-invitation	1	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-invitation	4	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-invitation	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-ordinary-day	2	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-ordinary-day	4	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-ordinary-day	6	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-an-ordinary-day	8	6	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 at-the-checkout	2	2	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
 at-the-doctors	3	3	Näytä	näyttää	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	'Näytä.' is 'show me', from näyttää
 at-the-market	6	6	maksaa	maksaa	CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both	voikko	verb to pay after voinko, not maksa (liver)
-at-the-parcel-point	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 at-the-party	5	3	tarvinnut	tarvita	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active	manual	lemma should be tarvita, not tarvinnut
-at-the-party	5	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-back-from-the-lake	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 back-from-the-lake	3	1	Kenen	kuka	CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular	manual	kenen is the form of kuka; ken is old-fashioned
 back-from-the-lake	5	1	Uitteko	uida	CLASS=teonsana;NUMBER=plural;PERSON=2;MOOD=indicative;TENSE=past_imperfective;NEGATIVE=false;KYSYMYSLIITE=true	voikko	English 'did you swim'; uitte is the same in both tenses
-before-finland	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-before-finland	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-booking-a-haircut	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 booking-a-haircut	2	5	ajan	aika	CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular	voikko	'varata ajan' is booking an appointment (aika), not 'I drive'
-booking-a-visit	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 booking-a-visit	3	4	sattunut	sattua	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active	manual	dictionary form should be the verb sattua
 buying-a-ticket	5	3	maksaa	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb to pay after voinko, not maksa (liver)
 buying-a-used-bike	2	3	maksaa	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb to pay after voinko, not maksa (liver)
-calling-back	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-calling-back	7	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 calling-back	7	5	Lähetä	lähettää	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	'Lähetä viesti' is 'send a message'
 calling-back	7	6	viesti	viesti	CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the noun 'a message', not 'signalled'
-calling-back	8	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-can-i-speak-to-the-manager	2	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-can-i-speak-to-the-manager	3	6	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-can-i-speak-to-the-manager	7	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-changing-the-plan	1	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 changing-the-plan	1	5	pääsekään	päästä	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true;FOCUS=kaan	manual	en pääsekään is the negative form, not an order
 changing-the-plan	2	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
 changing-the-plan	4	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-christmas	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 christmas	2	4	lennä	lentää	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	en lennä = I'm not flying
 christmas	3	4	tärkein	tärkeä	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=superlative	voikko	the most important
 christmas	8	2	lapseni	lapsi	CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s	manual	my children (spoken mun lapset)
-coffee-break	2	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-coffee-break	4	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 coffee-break	7	2	minäkin	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular;FOCUS=kin	voikko	minä + -kin, not mikä
 coffee-on-friday	8	1	Sovittu	sopia	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_passive	manual	dictionary form should be the verb sopia
 dinner-is-ready	3	1	Maista	maistaa	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	a command: taste
-dinner-is-ready	7	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-dinner-is-ready	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 do-you-have-children	8	2	lapseni	lapsi	CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s	manual	my children (spoken mun lapset)
-easy-books-in-finnish	5	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 easy-books-in-finnish	6	5	uusia	uusia	CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both	voikko	verb 'to renew' after voit, not the plural of uusi
-easy-books-in-finnish	7	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 easy-books-in-finnish	7	4	lainaan	lainata	CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	'minä lainaan' = I borrow, not laina 'into the loan'
 family-far-away	2	2	vanhempani	vanhempi	CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s	manual	parents, not 'older'
-favourite-season	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 favourite-season	6	3	sulaa	sulaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb sulaa 'to melt', not the noun sula
-fixing-a-bike	3	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 fixing-a-bike	6	3	vie	viedä	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both	voikko	'tämä vie' = this takes, not a command
-fixing-a-bike	7	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 fixing-a-bike	7	5	neulomista	neulominen	CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular	manual	noun 'knitting' from neuloa; not neuloma
 following-the-map	7	3	varmaan	varmaan	CLASS=seikkasana	manual	adverb 'probably', not varma 'into sure'
 following-the-recipe	1	2	kuori	kuoria	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	'kuori perunat' is peel, from kuoria, not the noun kuori
@@ -118,139 +57,47 @@ following-the-recipe	3	1	Leikkaa	leikata	CLASS=teonsana;NUMBER=singular;PERSON=2
 following-the-recipe	3	4	paloiksi	pala	CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural	voikko	pala = piece; palo = fire
 following-the-recipe	5	7	lisää	lisätä	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	manual	lisää vettä = add water
 following-the-recipe	7	2	Keitä	keittää	CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both	voikko	a command: boil
-giving-directions	6	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-giving-directions	6	5	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-giving-directions	7	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-good-news	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-good-news	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-good-news	4	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-good-news	5	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-help-with-a-kela-form	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-help-with-a-kela-form	3	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 help-with-a-kela-form	3	4	ymmärrä	ymmärtää	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	'en ymmärrä' is the negative, not a command
-help-with-a-kela-form	7	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 help-with-a-kela-form	8	4	helpoin	helppo	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=superlative	voikko	'helpoin tapa' is 'the easiest way'
-homesick	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 how-was-your-weekend	4	2	kovin	kovin	CLASS=seikkasana	manual	means very
 hows-it-going	5	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei = oh no
-hows-it-going	6	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-hows-it-going	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 im-lost	3	4	löydä	löytää	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	en löydä is the negative form
 im-lost	5	2	näe	nähdä	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	en näe is the negative form
-is-there-milk-in-it	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-is-there-milk-in-it	6	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-is-there-milk-in-it	7	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-joining-a-choir	1	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-joining-a-choir	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-joining-a-choir	2	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 joining-a-choir	5	1	Tiistaisin	tiistaisin	CLASS=seikkasana	voikko	'on Tuesdays', from tiistai
-joining-a-choir	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 joining-a-choir	8	5	tiistaina	tiistai	CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular	voikko	one Tuesday
-leaving-the-party	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-lunch-together	6	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-lunch-together	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-meeting-the-team	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 midsummer-plans	2	2	tiedä	tietää	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	en tiedä = I don't know
 midsummer-plans	7	6	tilaa	tila	CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular	voikko	on tilaa = there is room
-music-late-at-night	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 music-late-at-night	4	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-music-late-at-night	4	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 music-late-at-night	4	5	tiennyt	tietää	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active	manual	dictionary form should be the verb tietää
-music-late-at-night	5	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-music-late-at-night	6	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 my-first-week-in-finland	1	5	viikkosi	viikko	CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=2s	manual	object of muistatko: genitive, not nominative
-my-first-week-in-finland	4	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-first-week-in-finland	6	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-first-week-in-finland	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-story	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-story	2	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 my-story	4	3	mieheni	mies	CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s	manual	with kanssa: genitive, not nominative
 my-story	4	6	lapseni	lapsi	CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s	manual	with kanssa: genitive, not nominative
-my-story	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-story	6	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-story	8	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-my-story	8	11	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-next-year	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-next-year	8	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 next-year	8	5	malta	malttaa	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	after en: negative form, not a command
 opening-a-bank-account	1	2	olkaa	olla	CLASS=teonsana;NUMBER=plural;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=false	voikko	'olkaa hyvä' is 'please', not 'shoulder'
-opening-a-bank-account	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 opening-a-bank-account	3	5	mukana	mukana	CLASS=seikkasana	manual	'passi mukana' is mukana 'with you', its own adverb
-opening-a-bank-account	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-paying-the-bill	1	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-paying-the-bill	3	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-pick-up-time	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-pick-up-time	5	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 pick-up-time	5	7	myöhemmin	myöhemmin	CLASS=seikkasana	voikko	the adverb 'later'
 picking-blueberries	2	1	Saako	saada	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true	voikko	question 'is it allowed?', not a command
 picking-blueberries	7	4	varovainen	varovainen	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive	manual	plain adjective 'careful', not a participle
-picking-blueberries	8	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 picking-up-a-prescription	4	4	valmiina	valmis	CLASS=laatusana;SIJAMUOTO=olento;NUMBER=singular;COMPARISON=positive	voikko	'lääke on valmiina' is one medicine, singular
 picking-up-a-prescription	7	3	maksaa	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb to pay after voinko, not maksa (liver)
-returning-headphones	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-returning-headphones	5	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-returning-headphones	8	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-sauna-at-the-cottage	1	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-sauna-at-the-cottage	4	5	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 sauna-at-the-cottage	6	3	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
 sauna-at-the-cottage	7	5	parasta	paras	CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive	manual	paras = best; parka = poor thing
-sauna-at-the-cottage	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-sending-a-parcel-home	1	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 sending-a-parcel-home	4	5	maksaa	maksaa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false	voikko	verb to pay after voinko, not maksa (liver)
 sorry-i-didnt-understand	2	4	ymmärtänyt	ymmärtää	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active	manual	dictionary form should be the verb ymmärtää
 the-dark-time	8	4	laske	laskea	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	after ei: negative form, not a command
-the-first-snow	7	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 the-football-match	5	6	pitänyt	pitää	CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active	manual	dictionary form should be pitää
-the-football-match	7	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-laundry-room	7	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-shopping-list	2	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 the-shopping-list	7	2	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
-the-shower-doesnt-work	4	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-shower-doesnt-work	5	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-shower-doesnt-work	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-shower-doesnt-work	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-shower-doesnt-work	8	7	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-the-way-to-the-museum	1	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-this-weekend	2	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-this-weekend	4	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-todays-lunch	4	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-todays-lunch	6	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 todays-lunch	7	6	kannusta	kannu	CLASS=nimisana;SIJAMUOTO=sisaeronto;NUMBER=singular	voikko	'tuosta kannusta' is 'from that jug', not 'spur'
-tomorrow-at-work	4	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-tomorrow-at-work	6	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-warm-winter-shoes	1	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-warm-winter-shoes	7	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 water-under-the-sink	2	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-water-under-the-sink	4	4	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-water-under-the-sink	7	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-what-do-you-do	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-what-do-you-do	2	6	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-what-do-you-like-doing	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-what-do-you-like-doing	5	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 what-do-you-like-doing	6	2	usein	usein	CLASS=seikkasana	manual	the adverb 'often'
-what-do-you-like-doing	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 what-time-is-it	3	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-what-time-is-it	3	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-what-time-is-it	7	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 whens-your-birthday	4	4	etukäteen	etukäteen	CLASS=seikkasana	manual	the adverb 'in advance'
-whens-your-birthday	5	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 whens-your-birthday	8	4	juhlia	juhlia	CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both	voikko	pitää juhlia = need to celebrate (verb)
-where-do-you-live	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-where-do-you-live	3	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 where-do-you-live	6	4	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
 which-colour	7	3	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
 will-it-rain-tomorrow	1	5	sataako	sataa	CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true	voikko	verb to rain, not sata (hundred)
 will-it-rain-tomorrow	4	6	tuulista	tuulinen	CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive	voikko	windy, oli tuulista
 will-it-rain-tomorrow	6	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-work-shifts	8	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-working-hours	3	2	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 working-hours	4	6	perjantaihin	perjantai	CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=singular	voikko	one Friday (to Friday)
-working-hours	5	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-working-hours	7	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-working-hours	8	2	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
 wrong-number	2	2	ole	olla	CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true	manual	Ei ole is the negative form
 wrong-number	3	1	Voi	voi	CLASS=huudahdussana	voikko	Voi ei! is the cry oh no
-yesterday	2	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-yesterday	4	3	minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-yesterday	6	1	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
-yesterday	8	3	Minä	minä	CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular	voikko	the pronoun I, not a form of mikä
