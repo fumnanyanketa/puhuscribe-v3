@@ -33,13 +33,15 @@ from test_units_1_3 import THRESHOLDS_SHA256_ON_MAIN
 DRAFTS = REPO / "content" / "drafts"
 ROAD = REPO / "content" / "road"
 FINNISH_VOICES = {"fi-FI-NooraNeural", "fi-FI-HarriNeural", "fi-FI-SelmaNeural"}
+# The six earlier drafts: a hash of the lines, the providers, the why and name of every form the road does not
+# also have, and the name of every form it does (the road's texts win for those, statement 17 as amended).
 EARLIER = {
-    "meeting-people-new-colleague": "fc9e9516c5e85c7d476cf044c92b932ab459346611743a1a09e3f2673b543f58",
-    "meeting-people-language-cafe": "c9984d1f7ed14e342a5208bc89b91d3f84625ce40d6267eebbf7acdc6411beb6",
-    "ordering-coffee-at-the-counter": "408a6a6a8acb879b035d0c255ea6672e60b2cb9a5d04a07de9d5e112ac8a75f5",
-    "ordering-coffee-paying": "b76682245ca1500ca61341c9755fc36b7e92032eca7940ecae9177e382845174",
-    "grocery-store-asking-staff": "414c6e4a023ec1c154f6bd75a90fa63ac0bca7a25db2602e1cffe3da0a4df921",
-    "grocery-store-directions": "ff64ef59301695a02f8feb2946af398acd5b0682deea34b8582c8c51363732fc",
+    "meeting-people-new-colleague": "b270d869aec0cd4e244c3f423c2c9659ce02d2fb66581f11b90b2e7f3457d189",
+    "meeting-people-language-cafe": "d74cbc3bae93826ada4afed09052c9682db176515cac38364bc4ad9474c93b95",
+    "ordering-coffee-at-the-counter": "261458be2e6fb685e9af4a4b06bf8ac75ae6ec80047ff29bfe855cc7275a8425",
+    "ordering-coffee-paying": "562d97904d7eecd24ee8cf1d4dc4d38e304769cd423de4baede035d893f08d34",
+    "grocery-store-asking-staff": "4fc789f1415895cfdefcfe8ff29b978411c67f51f1a050637fa54fe735942f11",
+    "grocery-store-directions": "2019ec882dcab0fb2b31a52dbb613753dc2287339e57acda0f65eb4fee38ca18",
 }
 # The six earlier briefs, byte for byte as on main (their tests in test_units_1_3.py need that).
 EARLIER_BRIEF_SHA256 = {
@@ -548,13 +550,22 @@ def test_a1_road_16_a_form_id_is_the_same_form_in_every_draft(committed):
             assert form["id"] == form_id(form)
 
 
-def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_and_why_lines(committed):
-    """[a1-road 17] lines, tokens, why lines and providers are the ones committed on main."""
+def _road_form_ids(committed: dict[str, dict]) -> set[str]:
+    return {f["id"] for d in committed.values() if d["brief"].get("source") == "written" for f in d["forms"]}
+
+
+def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_clips_and_other_why_lines(committed):
+    """[a1-road 17] lines, tokens, providers and clips are the ones committed on main, and so are the why
+    lines of the forms the road does not also have. (The forms the road shares take the road's texts.)"""
+    shared = _road_form_ids(committed)
     for slug, sha in EARLIER.items():
         draft = committed[slug]
         payload = {
             "lines": draft["lines"],
-            "why": [[f["id"], f["why_en"], f["form_name_en"]] for f in draft["forms"]],
+            "why": [
+                [f["id"], f["why_en"], f["form_name_en"]] for f in draft["forms"] if f["id"] not in shared
+            ],
+            "names": [[f["id"], f["form_name_en"]] for f in draft["forms"] if f["id"] in shared],
             "providers": draft["providers"],
         }
         digest = hashlib.sha256(
@@ -565,6 +576,28 @@ def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_and_why_lines(commit
             for register in ("puhe", "kirja"):
                 clip = DRAFTS / slug / line["audio"][register]["file"]
                 assert hashlib.sha256(clip.read_bytes()).hexdigest() == line["audio"][register]["sha256"]
+
+
+def test_a1_road_17_a_form_the_road_and_an_earlier_draft_share_has_the_same_texts_in_every_draft(committed):
+    """[a1-road 17] for every form id in more than one draft (the 22 forms of the six earlier drafts and the
+    road included), the meaning, the dictionary form meaning, the why and the name are identical."""
+    seen: dict[str, dict[str, set]] = {}
+    for draft in committed.values():
+        for form in draft["forms"]:
+            for key in ("meaning_en", "lemma_meaning_en", "why_en", "form_name_en"):
+                seen.setdefault(form["id"], {}).setdefault(key, set()).add(form.get(key, ""))
+    earlier_ids = {f["id"] for slug in EARLIER for f in committed[slug]["forms"]}
+    shared = _road_form_ids(committed) & earlier_ids
+    assert len(shared) >= 22
+    for fid, keys in seen.items():
+        for key, values in keys.items():
+            assert len(values) == 1, (fid, key, values)
+    # an earlier draft's shared form carries the road files' why, not an AI text of its own
+    notes = load_road_data().notes
+    for slug in EARLIER:
+        for form in committed[slug]["forms"]:
+            if form["id"] in shared and form["id"] in notes:
+                assert form["why_en"] == notes[form["id"]]["why_en"], (slug, form["id"])
 
 
 def test_a1_road_17_they_gain_both_meaning_fields_and_keep_their_unit_block(committed):

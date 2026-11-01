@@ -14,10 +14,11 @@ from pathlib import Path
 
 import pytest
 
-from publish import PublishRefused
+from publish import PublishRefused, road_form_lines
 from road_publish import (
     FIRST_PUBLISH_TIMESTAMP,
     approval_path,
+    form_conflicts,
     is_last_dialogue,
     make_approval,
     migration_name,
@@ -157,6 +158,81 @@ def test_a1_road_20_a_changed_clip_speaker_or_word_link_voids_the_approval(
             run(repo, changed, voikko, ranks, thresholds)
         assert any("changed after the owner approved" in r for r in refused.value.reasons), name
         assert nothing_written(repo), name
+
+
+def _other_why(draft: dict) -> dict:
+    """The first form of the draft with another why, as an earlier migration might have inserted it."""
+    return {**draft["forms"][0], "why_en": draft["forms"][0]["why_en"] + " (another text)"}
+
+
+def test_a1_road_17_the_form_sql_refuses_other_texts_and_no_longer_skips_them(draft):
+    """[a1-road 17] the lines every road migration holds insert a missing form and refuse an existing one
+    with other texts, naming the form and both texts; the old `on conflict do nothing` is gone."""
+    sql = "\n".join(road_form_lines(draft["forms"][0], "ref"))
+    assert "on conflict" not in sql
+    assert (
+        "already exists with different texts. Existing: name %, why %, meaning %, dictionary meaning %."
+        in sql
+    )
+    assert "is not distinct from" in sql and "exists but is not approved" in sql
+
+
+def test_a1_road_17_an_earlier_migration_with_other_texts_for_a_form_is_found(draft, tmp_path):
+    """[a1-road 17] form_conflicts reads the form inserts of the migrations in the repository and names the
+    form and both sets of texts; the same texts, another form and an older insert without the new
+    columns are not conflicts."""
+    migrations = tmp_path / "migrations"
+    migrations.mkdir()
+    assert form_conflicts(draft, migrations) == []
+    other = _other_why(draft)
+    (migrations / "20261101130000_forms_seed.sql").write_text(
+        "\n".join(road_form_lines(other, "r")), encoding="utf-8"
+    )
+    reasons = form_conflicts(draft, migrations)
+    assert len(reasons) == 1
+    form = draft["forms"][0]
+    assert form["surface_kirja"] in reasons[0] and "20261101130000_forms_seed.sql" in reasons[0]
+    assert repr(form["why_en"]) in reasons[0] and repr(other["why_en"]) in reasons[0]
+    (migrations / "20261101130000_forms_seed.sql").write_text(
+        "\n".join(road_form_lines(form, "r")), encoding="utf-8"
+    )
+    assert form_conflicts(draft, migrations) == []
+    old_insert = (
+        "insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,"
+        " form_name_en, why_en)"
+        f" values ('{form['lemma']}', '{form['form_tag']}', '{{}}'::jsonb, '{form['surface_kirja']}',"
+        f" '{form['surface_puhe']}', '{form['form_name_en']}', '{form['why_en']}') on conflict do nothing;"
+    )
+    (migrations / "20261101130000_forms_seed.sql").write_text(old_insert, encoding="utf-8")
+    assert len(form_conflicts(draft, migrations)) == 1  # the old insert held no meanings, the draft has them
+
+
+def test_a1_road_17_publish_refuses_a_form_an_earlier_migration_inserted_with_other_texts(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 17] with an approved draft and an earlier migration that holds one of its forms with another
+    why, publishing is refused, names the form and both texts, and writes no migration and no clip."""
+    approve(repo, draft)
+    other = _other_why(draft)
+    seed = repo / "supabase" / "migrations" / "20261101130000_forms_seed.sql"
+    seed.write_text("\n".join(road_form_lines(other, "r")), encoding="utf-8")
+    with pytest.raises(PublishRefused) as refused:
+        run(repo, draft, voikko, ranks, thresholds)
+    text = " ".join(refused.value.reasons)
+    assert "was already inserted by 20261101130000_forms_seed.sql" in text
+    assert draft["forms"][0]["why_en"] in text and other["why_en"] in text
+    assert nothing_written(repo)
+    seed.unlink()
+    migration, _ = run(repo, draft, voikko, ranks, thresholds)  # control: without the conflict it publishes
+    assert migration.is_file()
+
+
+def test_a1_road_17_the_form_insert_pgtap_matches_its_generator():
+    """[a1-road 17] a1_road_forms.test.sql is made by road_forms_pgtap.py from the same lines (7 checks)."""
+    from road_forms_pgtap import PLAN, TEST_FILE, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text()
+    assert f"select plan({PLAN});" in TEST_FILE.read_text(encoding="utf-8") and PLAN == 7
 
 
 def test_a1_road_20_it_refuses_without_the_file_with_a_wrong_file_and_when_the_dialogue_is_not_listed(

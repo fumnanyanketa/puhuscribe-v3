@@ -78,7 +78,8 @@ class Context:
             repo / "content" / "written",
             {stop: self._earlier_positions(stop) for stop in range(1, 37)},
         )
-        # The "why" and name of forms the six earlier drafts already carry stay as they are.
+        # The name of a form the six earlier drafts already carry stays as it is. Its texts do not: for a
+        # form id the road and an earlier draft share, the road's texts win (statement 17, amended).
         self.existing_forms: dict[str, dict] = {}
         for draft in self.earlier.values():
             for form in draft["forms"]:
@@ -293,13 +294,14 @@ def is_plain_dictionary_form(form: dict) -> bool:
 
 
 def form_texts(form: dict, ctx: Context) -> dict:
-    """The meaning, the dictionary form meaning and the why of a form, from the road files."""
+    """The meaning, the dictionary form meaning and the why of a form, from the road files only
+    (glossary.tsv, word-notes.tsv and the fixed line). The six earlier drafts' own texts are never read
+    here: where the road and an earlier draft share a form id, the road's texts win."""
     lemma_meaning = ctx.data.glossary.get(form["lemma"], "")
     note = ctx.data.notes.get(form["id"], {})
-    existing = ctx.existing_forms.get(form["id"], {})
     plain = is_plain_dictionary_form(form)
-    meaning = existing.get("meaning_en") or note.get("meaning_en") or (lemma_meaning if plain else "")
-    why = existing.get("why_en") or note.get("why_en") or (FIXED_WHY["dictionary-same"] if plain else "")
+    meaning = note.get("meaning_en") or (lemma_meaning if plain else "")
+    why = note.get("why_en") or (FIXED_WHY["dictionary-same"] if plain else "")
     return {"meaning_en": meaning, "lemma_meaning_en": lemma_meaning, "why_en": why}
 
 
@@ -383,9 +385,13 @@ def build_draft(dialogue: RoadDialogue, ctx: Context, previous: dict | None = No
 # The earlier six drafts ---------------------------------------------------------------------
 
 
-def update_earlier_draft(draft: dict, ctx: Context) -> dict:
-    """Statement 17: the lines, tokens, why lines and audio stay as committed. The forms gain their two
-    meanings. The unit block stays as committed too: the six earlier briefs and their tests (job
+def update_earlier_draft(
+    draft: dict, ctx: Context, road_ids: frozenset[str] | set[str] = frozenset()
+) -> dict:
+    """Statement 17, as amended: the lines, tokens and audio stay as committed. The forms gain their two
+    meanings from the road files. A form the road also has (its id is in road_ids) takes the road's three
+    texts, so one form id carries the same texts in every draft; the why lines of the other forms stay as
+    committed. The unit block stays as committed too: the six earlier briefs and their tests (job
     12-units-1-3) hold the old name and sentence byte for byte, so the road's name and I can sentence
     reach the database through public.road_stops, which the publish migration reads."""
     updated = copy.deepcopy(draft)
@@ -393,9 +399,25 @@ def update_earlier_draft(draft: dict, ctx: Context) -> dict:
         texts = form_texts(form, ctx)
         form["meaning_en"] = texts["meaning_en"]
         form["lemma_meaning_en"] = texts["lemma_meaning_en"]
+        if form["id"] in road_ids and texts["why_en"]:
+            form["why_en"] = texts["why_en"]
     missing = pending_forms(updated)
     updated["notes"] = {"status": "pending" if missing else "complete"}
     return updated
+
+
+def road_form_ids(ctx: Context, built: dict[str, dict]) -> set[str]:
+    """The form ids of every written road draft: the ones just built and, for a part not built in this
+    run, the ones committed."""
+    ids = {f["id"] for d in built.values() if d["brief"].get("source") == "written" for f in d["forms"]}
+    for stop in ctx.road.stops.values():
+        for dialogue in stop.dialogues:
+            if dialogue.slug in built:
+                continue
+            path = ctx.repo / "content" / "drafts" / dialogue.slug / "draft.json"
+            if path.is_file():
+                ids |= {f["id"] for f in json.loads(path.read_text(encoding="utf-8"))["forms"]}
+    return ids
 
 
 # Everything --------------------------------------------------------------------------------
@@ -416,8 +438,12 @@ def build_all(ctx: Context, part: int | None = None) -> dict[str, dict]:
             path = ctx.repo / "content" / "drafts" / dialogue.slug / "draft.json"
             previous = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
             drafts[dialogue.slug] = build_draft(dialogue, ctx, previous)
+    shared = road_form_ids(ctx, drafts)
+    for stop in ctx.road.stops.values():
+        if part is not None and stop.part != part:
+            continue
         for slug in ctx.data.stops[stop.number].earlier_dialogues:
-            drafts[slug] = update_earlier_draft(ctx.earlier[slug], ctx)
+            drafts[slug] = update_earlier_draft(ctx.earlier[slug], ctx, shared)
     return drafts
 
 
@@ -556,22 +582,18 @@ def manual_readings_table(drafts: dict[str, dict], ctx: Context) -> str:
 
 
 def lemma_consistency(drafts: dict[str, dict]) -> list[str]:
-    """One dictionary form has one meaning, and one form id carries the same texts in every draft that
-    has it. The six earlier drafts keep the why lines they were committed with (statement 17), and they
-    were written one by one, so a shared form may carry a different why there: only the road's written
-    drafts must agree on the why."""
+    """One dictionary form has one meaning, and one form id carries the same texts (meaning, dictionary
+    form meaning, why and name) in every draft that has it, the six earlier drafts included (statement 17,
+    amended: where the road and an earlier draft share a form, the road's texts win)."""
     problems = []
     meanings: dict[str, set[str]] = defaultdict(set)
     texts: dict[str, dict[str, str]] = {}
     for slug, draft in drafts.items():
-        written = draft["brief"].get("source") == "written"
         for form in draft["forms"]:
             if form.get("lemma_meaning_en"):
                 meanings[form["lemma"]].add(form["lemma_meaning_en"])
             texts.setdefault(form["id"], {})
             for key in ("meaning_en", "lemma_meaning_en", "why_en", "form_name_en"):
-                if key == "why_en" and not written:
-                    continue
                 have = texts[form["id"]].setdefault(key, form.get(key, ""))
                 if have != form.get(key, ""):
                     problems.append(f"form {form['id']} has two different {key} texts (draft {slug})")

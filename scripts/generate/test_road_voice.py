@@ -337,6 +337,15 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     ]
 
 
+def test_a1_road_19_every_action_in_the_workflow_is_pinned_to_a_full_commit():
+    """[a1-road 19] each `uses:` is owner/name@ plus 40 hex characters, with the version in a comment."""
+    text = (REPO / ".github" / "workflows" / "a1-road.yml").read_text(encoding="utf-8")
+    uses = [ln.strip() for ln in text.splitlines() if re.match(r"^\s*(-\s+)?uses:", ln)]
+    assert len(uses) >= 4
+    for line in uses:
+        assert re.fullmatch(r"(- )?uses: [\w.-]+/[\w.-]+@[0-9a-f]{40} # v\d+(\.\d+)*", line), line
+
+
 def test_a1_road_15_a_judge_run_that_has_reached_its_limit_stops(tmp_path):
     """[a1-road 15] a run that would pass $2 stops: the provider counts what its calls cost."""
     ai = FakeProvider({"calls": []}, tmp_path / "ai-calls.jsonl")

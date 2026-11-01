@@ -77,6 +77,51 @@ def audio_key(slug: str, line: int, register: str, sha256: str) -> str:
     return f"{slug}/{line}-{register}-{sha256[:12]}.mp3"
 
 
+def road_form_lines(form: dict, ref: str) -> list[str]:
+    """The PL/pgSQL lines that put one form of a road dialogue in. A form that does not exist is inserted.
+    A form that exists must be approved and carry exactly these texts (name, why, meaning, dictionary form
+    meaning), otherwise the migration refuses, naming the form and both sets of texts. The first
+    dialogue's text is never kept while a later dialogue's differing text is silently dropped
+    (statement 17, amended)."""
+    identity = (
+        f"lemma = {sql_text(form['lemma'])} and form_tag = {sql_text(form['form_tag'])} "
+        f"and surface_kirja = {sql_text(form['surface_kirja'])} "
+        f"and surface_puhe = {sql_text(form['surface_puhe'])}"
+    )
+    analysis = sql_text(_json(form.get("analysis", {})))
+    new_texts = (
+        f"{sql_text(form['form_name_en'])}, {sql_text(form['why_en'])}, "
+        f"{sql_text(form.get('meaning_en'))}, {sql_text(form.get('lemma_meaning_en'))}"
+    )
+    same_texts = f"(form_name_en, why_en, meaning_en, lemma_meaning_en) is not distinct from ({new_texts})"
+    message = (
+        "form % (%) already exists with different texts. Existing: name %, why %, meaning %, "
+        "dictionary meaning %. New: name %, why %, meaning %, dictionary meaning %"
+    )
+    return [
+        f"  if not exists (select 1 from public.forms where {identity}) then",
+        "    insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,",
+        "      form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)",
+        f"    values ({sql_text(form['lemma'])}, {sql_text(form['form_tag'])}, {analysis}::jsonb,",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['surface_puhe'])},",
+        f"      {new_texts}, 'approved', now(), {sql_text(ref)});",
+        "  end if;",
+        f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
+        "    raise exception 'form % (%) exists but is not approved',",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
+        "  end if;",
+        f"  if not exists (select 1 from public.forms where {identity} and {same_texts}) then",
+        f"    raise exception {sql_text(message)},",
+        f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])},",
+        *[
+            f"      (select {column} from public.forms where {identity}),"
+            for column in ("form_name_en", "why_en", "meaning_en", "lemma_meaning_en")
+        ],
+        f"      {new_texts};",
+        "  end if;",
+    ]
+
+
 def build_sql(
     draft: dict,
     refs: dict[str, str],
@@ -182,7 +227,7 @@ def build_sql(
             f"and surface_puhe = {sql_text(form['surface_puhe'])}"
         )
         analysis = sql_text(_json(form.get("analysis", {})))
-        out += [
+        columns = [
             "  insert into public.forms (lemma, form_tag, analysis, surface_kirja, surface_puhe,",
             "    form_name_en, why_en, meaning_en, lemma_meaning_en, status, approved_at, approval_ref)",
             f"  values ({sql_text(form['lemma'])}, {sql_text(form['form_tag'])}, {analysis}::jsonb,",
@@ -190,12 +235,18 @@ def build_sql(
             f"    {sql_text(form['form_name_en'])},",
             f"    {sql_text(form['why_en'])}, {sql_text(form.get('meaning_en'))},",
             f"    {sql_text(form.get('lemma_meaning_en'))}, 'approved', now(), {sql_text(refs[form['id']])})",
-            "  on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;",
-            f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
-            "    raise exception 'form % (%) exists but is not approved',",
-            f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
-            "  end if;",
         ]
+        if road is None:
+            out += [
+                *columns,
+                "  on conflict (lemma, form_tag, surface_kirja, surface_puhe) do nothing;",
+                f"  if not exists (select 1 from public.forms where {identity} and status = 'approved') then",
+                "    raise exception 'form % (%) exists but is not approved',",
+                f"      {sql_text(form['surface_kirja'])}, {sql_text(form['lemma'])};",
+                "  end if;",
+            ]
+            continue
+        out += road_form_lines(form, refs[form["id"]])
     out += ["", "  -- 2. Lines with their words, each approved after its words are in."]
     for line in draft["lines"]:
         n = line["n"]

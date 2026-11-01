@@ -88,6 +88,84 @@ def road_fingerprint(draft: dict) -> str:
     )
 
 
+_FORM_INSERT = re.compile(r"insert into public\.forms\s*\(([^)]*)\)\s*values\s*\(", re.IGNORECASE)
+FORM_TEXT_COLUMNS = ("form_name_en", "why_en", "meaning_en", "lemma_meaning_en")
+
+
+def _sql_values(text: str, start: int) -> list[str | None]:
+    """The top level values of a SQL `values (...)` list that begins at `start` (after the opening
+    bracket): string literals without their quotes, NULL as None, anything else as written."""
+    values: list[str | None] = []
+    current: list[str] = []
+    depth, i, quoted = 0, start, False
+    while i < len(text):
+        ch = text[i]
+        if quoted:
+            if ch == "'" and text[i + 1 : i + 2] == "'":
+                current.append("'")
+                i += 2
+                continue
+            if ch == "'":
+                quoted = False
+            else:
+                current.append(ch)
+        elif ch == "'":
+            quoted = True
+        elif ch == "(":
+            depth += 1
+            current.append(ch)
+        elif ch == ")":
+            if depth == 0:
+                break
+            depth -= 1
+            current.append(ch)
+        elif ch == "," and depth == 0:
+            values.append("".join(current).strip())
+            current = []
+        else:
+            current.append(ch)
+        i += 1
+    values.append("".join(current).strip())
+    return [None if v.upper() == "NULL" else v for v in values]
+
+
+def migration_forms(migrations: Path) -> dict[tuple[str, str, str, str], tuple[str, dict[str, str | None]]]:
+    """The form inserts of the migrations already in the repository, by form identity (lemma, form tag,
+    written and spoken shape): the migration's name and the texts it inserted. A column an older insert
+    did not have counts as empty."""
+    found: dict[tuple[str, str, str, str], tuple[str, dict[str, str | None]]] = {}
+    for path in sorted(migrations.glob("*.sql")):
+        text = path.read_text(encoding="utf-8")
+        for match in _FORM_INSERT.finditer(text):
+            columns = [c.strip() for c in match.group(1).split(",")]
+            row = dict(zip(columns, _sql_values(text, match.end()), strict=False))
+            identity = (row["lemma"], row["form_tag"], row["surface_kirja"], row["surface_puhe"])
+            found.setdefault(identity, (path.name, {c: row.get(c) for c in FORM_TEXT_COLUMNS}))
+    return found
+
+
+def form_conflicts(draft: dict, migrations: Path) -> list[str]:
+    """A reason for each form of the draft that an earlier migration already inserted with other texts.
+    The publisher refuses (statement 17, amended): it never keeps the first text and drops a later one."""
+    earlier = migration_forms(migrations)
+    reasons = []
+    for form in draft["forms"]:
+        identity = (form["lemma"], form["form_tag"], form["surface_kirja"], form["surface_puhe"])
+        if identity not in earlier:
+            continue
+        name, old = earlier[identity]
+        new = {c: form.get(c) or None for c in FORM_TEXT_COLUMNS}
+        if {c: old[c] or None for c in FORM_TEXT_COLUMNS} != new:
+            reasons.append(
+                f"form {form['surface_kirja']} ({form['lemma']}) was already inserted by {name} with other "
+                f"texts. Existing: name {old['form_name_en']!r}, why {old['why_en']!r}, meaning "
+                f"{old['meaning_en']!r}, dictionary meaning {old['lemma_meaning_en']!r}. "
+                f"New: name {new['form_name_en']!r}, why {new['why_en']!r}, meaning {new['meaning_en']!r}, "
+                f"dictionary meaning {new['lemma_meaning_en']!r}"
+            )
+    return reasons
+
+
 def approval_path(part: int, repo: Path = REPO) -> Path:
     return repo / "content" / "approvals" / f"part-{part}.json"
 
@@ -182,6 +260,7 @@ def road_preconditions(
                 f"but this draft says {judge_state(draft)}"
             )
     reasons += unsafe_texts(draft)
+    reasons += form_conflicts(draft, repo / "supabase" / "migrations")
     report = check_draft(draft, gate, ranks, thresholds)
     reasons += [f"check failed: {f}" for f in report["failures"]]
     if pending_forms(draft):
