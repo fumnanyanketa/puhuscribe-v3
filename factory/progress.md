@@ -317,3 +317,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T13:12 18-save-progress merged (owner approved). 15-onboarding closed as superseded by the redesign ("Close it (Recommended)"), never merged; its branch and notes stay.
 - 2026-11-01T13:43 Owner: run both next jobs at once ("Both at once (Recommended)"). Spec writers started for 19-redesign and 20-a1-road.
 - 2026-11-01T13:51 Merge run 41303106243 green: job 18's database function is on the test project and the after-merge browser tests pass.
+- 2026-11-01T14:03 Owner answers on the job 19 and 20 specs: no daily lesson limit ("anyone who wants to do more than one session a day is free to do so"); AI judge on ("Yes, about $0.60 (Recommended)"); consent details live on the privacy page ("it can be on the privacy page."). Numbers question shown as design-drafts/numbers-question.html. Recommended defaults taken for the other technical calls.
