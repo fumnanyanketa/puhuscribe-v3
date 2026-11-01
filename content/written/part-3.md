@@ -161,7 +161,7 @@ Maria picks up a parcel. Jonna works at the counter.
 |---|---|---|---|---|
 | 1 | Maria | Moi! Mä tulin hakee pakettii. | Hei! Minä tulin hakemaan pakettia. | Hi! I've come to pick up a parcel. |
 | 2 | Jonna | Okei. Onks sul seurantakoodi? | Selvä. Onko sinulla seurantakoodi? | OK. Do you have the tracking code? |
-| 3 | Maria | Joo, tässä puhelimes. | Kyllä, tässä puhelimessa. | Yes, here on my phone. |
+| 3 | Maria | Joo, tässä puhelimessa. | Kyllä, tässä puhelimessa. | Yes, here on my phone. |
 | 4 | Jonna | Kiitti. Mikä sun sukunimi on? | Kiitos. Mikä sinun sukunimesi on? | Thanks. What's your surname? |
 | 5 | Maria | Silva. Äs, ii, äl, vee, aa. | Silva. S, I, L, V, A. | Silva. S, I, L, V, A. |
 | 6 | Jonna | Ja henkilöllisyystodistus? | Ja henkilöllisyystodistus? | And some ID? |
@@ -176,7 +176,7 @@ A courier, Mikael, knocks on Maria's door.
 |---|---|---|---|---|
 | 1 | Mikael | Moi! Onks tää Leena Virtasen asunto? | Hei! Onko tämä Leena Virtasen asunto? | Hi! Is this Leena Virtanen's flat? |
 | 2 | Maria | Ei, se asuu viereisessä asunnossa. | Ei, hän asuu viereisessä asunnossa. | No, she lives in the flat next door. |
-| 3 | Mikael | Se ei oo kotona. Voitsä ottaa sen paketin? | Hän ei ole kotona. Voitko sinä ottaa hänen pakettinsa? | She's not home. Could you take her parcel? |
+| 3 | Mikael | Se ei oo kotona. Voitsä ottaa paketin? | Hän ei ole kotona. Voitko sinä ottaa paketin? | She's not home. Could you take the parcel? |
 | 4 | Maria | Joo, totta kai. | Kyllä, totta kai. | Yes, of course. |
 | 5 | Mikael | Kiitti. Kirjota sun nimi tähän. | Kiitos. Kirjoita sinun nimesi tähän. | Thanks. Write your name here. |
 | 6 | Maria | Okei. Onks se painava? | Selvä. Onko se painava? | OK. Is it heavy? |

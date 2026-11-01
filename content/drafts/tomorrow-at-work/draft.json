@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -211,7 +211,13 @@
           "surface": "huomenna",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sul = sinulla; same question about tomorrow.",
+        "fingerprint": "3e1698b6858f3103e815fdb716a348baf87e4fe44b3b6fbf51438e54fcf167f1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -343,7 +349,13 @@
           "surface": "kaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: aamul/aamulla, mul/minulla, kaa/kanssa.",
+        "fingerprint": "0eabf812103b0bd310e1692b172109d4ae7a2a61a50bfa409ce4362d55a92ee3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -392,7 +404,13 @@
           "surface": "iltapäiväl",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "iltapäiväl = iltapäivällä; identical meaning.",
+        "fingerprint": "7523f05197ff691e596f02737ace58ec75376a0ec391eb7e510e85b736e0460d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -486,7 +504,13 @@
           "surface": "raportin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: I'll write the report in the afternoon; mä/minä, spoken ending drop.",
+        "fingerprint": "2812c9799d6e8b9be533d7919baf24a84a6144ab7fd808d690a0c5033c276e51",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -622,7 +646,13 @@
           "surface": "huomenna",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ehit sä tehä = Ehditkö sinä tehdä; same question.",
+        "fingerprint": "bcc9e51796e98eb38b125433452cced1ad44e47e44879f8d9e5a8446977becd6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -773,7 +803,13 @@
           "surface": "mennes",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, sulle/sinulle, mennes/mennessä are register variants; same content and deadline.",
+        "fingerprint": "ee9dd23dcbe562e85cf26c359d54d5f797c138b6818efed1d920049622777b31",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -825,7 +861,13 @@
           "surface": "Kiitti",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos.",
+        "fingerprint": "79a98503a971a362b8254bcc1dc9dc0b545933f3183c89e8d39d130c2eeaf555",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -880,7 +922,13 @@
           "surface": "mitään",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both are 'you're welcome'/'no problem' responses; idiomatic equivalents.",
+        "fingerprint": "19bc97471baf8f74a05dbc5d83696d90237accb28477612feb1a22f391af0107",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -77,7 +77,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -216,7 +216,13 @@
           "surface": "musta",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "72758fd6b49e9bab996af7374a849e441d1b22c17664c71cca08d44ccdb7ae17",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -353,7 +359,13 @@
           "surface": "hyvin",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sulle/sinulle and tosi/todella are register differences only; same meaning.",
+        "fingerprint": "a5cfb0bf6ffdc9a8390f23e030ba06f1eea7566050d93ffb57355fea274cfda3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -447,7 +459,13 @@
           "surface": "käytännöllisempi",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mut/mutta is a register difference; same meaning.",
+        "fingerprint": "78514fc5cae4fe6ed63ea4e2d65a08b1d349a2f430845adac6b6866726a4c5b6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -543,7 +561,13 @@
           "surface": "alessa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks/onko and alessa/alennuksessa both ask whether it is on sale; only register differs.",
+        "fingerprint": "0817cb56c535819f649fbc99b8ba04aa79934ab16127948d0b05cc75f2974867",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -632,7 +656,13 @@
           "surface": "alennusta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and kakskyt prosenttii/kaksikymmentä prosenttia: same answer and same number (20%).",
+        "fingerprint": "7612d9330ade30789f35bc733aa9f109e254afd86571929f281335d6d3d2cced",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -704,7 +734,13 @@
           "surface": "molemmat",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sit/sitten is a register difference; same command.",
+        "fingerprint": "5b23cb2076853e2831c9e6f1199d6ed20efc363ed9b5a4abb312aec515e77897",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -838,7 +874,13 @@
           "surface": "rahaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mul ei oo/minulla ei ole: same negation and person; only register differs.",
+        "fingerprint": "f017cafb9e9ee1a2ac66844173bcea929d99ed6ad6eb29763b12f90ebae4689e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -911,7 +953,13 @@
           "surface": "sininen",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "bf54b11d6e39cb910cdb6664671aa403b5f5bc676aa9a5ace4cc52676136b01c",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

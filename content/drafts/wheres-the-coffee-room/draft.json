@@ -91,7 +91,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -189,7 +189,13 @@
           "surface": "kahvihuone",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mis is a colloquial form of missä (where); same question.",
+        "fingerprint": "345468ac066b1ce8f0388ec9c27ddca5ed766701668a79225e4b5ee4b895b375",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -262,7 +268,13 @@
           "surface": "vasemmal",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "pääs/päässä and vasemmal/vasemmalla are only register differences; same location.",
+        "fingerprint": "d9d60e2127780ffe907cd531a3712c1aedf53d3d13d8eeaac9eb8bce74ad5a32",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -335,7 +347,13 @@
           "surface": "kahvinkeitin",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks siel is colloquial for Onko siellä; same question about a coffee maker there.",
+        "fingerprint": "a81900528b7af836df36e30e1960c1e0326b4b5288a0bf1c0c1c9016cdae862c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -445,7 +463,13 @@
           "surface": "mikro",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mikro is the colloquial short form of mikroaaltouuni (microwave oven); same items.",
+        "fingerprint": "99bcbecb3ccda0da5f4cd5e162d5c66bc0025564f83fa941302ecda46b4da34e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -517,7 +541,13 @@
           "surface": "kahvitauko",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Millon is colloquial for milloin (when); same question.",
+        "fingerprint": "620f725839a804a78150b6c2f3c55e59d65597adbe2efab90555c4d5a2226181",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -604,7 +634,13 @@
           "surface": "kahelta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kahelta is colloquial for kahdelta (at two); times are the same.",
+        "fingerprint": "4dc694c6be9baa49efb4bf3d396d6b2c34004853056afe6b700de82853b70c21",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -653,7 +689,13 @@
           "surface": "lounas",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "f59a6a5b0a405797eb005633207cf9fd354270eb0a114a284e4902b0eecb5199",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -746,7 +788,13 @@
           "surface": "yhdessä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Puol kakstoist is colloquial for puoli kaksitoista (half past eleven, i.e. 11:30); the same time, and the invitation to go together is the same.",
+        "fingerprint": "d692b3e47f9ecf30034250c6f89e70293324a4260c6511bc00a427f95eda4929",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

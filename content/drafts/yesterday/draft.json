@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -191,7 +191,13 @@
           "surface": "eilen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä is only a register difference; same question.",
+        "fingerprint": "4f27b0e03cd166176f843a641bc059af968fec54dd79c5d82611be71edbfc2f8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -327,7 +333,13 @@
           "surface": "lenkillä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (mä/minä, aikasin/aikaisin); same content.",
+        "fingerprint": "a53308d71447f77750e94472ce3624b8be30ecf94a261d2bca7e2f8c4df229c2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -396,7 +408,13 @@
           "surface": "töitä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "3d8d4d96d2a1f30a130c0b5ee03245470f87b328c8c1ce4142feb45e58c10093",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -567,7 +585,13 @@
           "surface": "töihin",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "joo/kyllä, sit/sitten, mä/minä are register variants; same events.",
+        "fingerprint": "3488796b19574cee358d432cff9495a7ab112a6b6e0950f4fc2b9b324e1432b9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -616,7 +640,13 @@
           "surface": "illal",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "illal is the spoken form of illalla; same meaning.",
+        "fingerprint": "336804d028e7698aadc06d46986620b9bfd6fc38c05ab347c6aeaf43801d65cf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -751,7 +781,13 @@
           "surface": "uutisii",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "katoin/katsoin and uutisii/uutisia are spoken variants; same meaning.",
+        "fingerprint": "bf8472dc661ca70f220ba591f2426c3706935409466ad0e8536dfeca46048cbb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -782,7 +818,13 @@
           "surface": "Suomeks",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Suomeks is the spoken form of suomeksi.",
+        "fingerprint": "0d81ce76393630e3b2785c45cc53665974408ff48a404f87c5dacff08682d67e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -912,7 +954,13 @@
           "surface": "kaiken",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "selkouutisii/selkouutisia and joo/kyllä are register variants; same content.",
+        "fingerprint": "dace77693bf67bd48508911cb47077db0ccbdd73475a585c4f3e5d373d8e5e0d",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

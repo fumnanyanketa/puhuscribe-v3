@@ -85,7 +85,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -222,7 +222,13 @@
           "surface": "vettä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi and hei are both greetings; the rest is identical.",
+        "fingerprint": "98d64edadb200e1c69238650745b07cbd94cd14d87a19598b33a9a4a07f8eb14",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -343,7 +349,13 @@
           "surface": "on",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Paljonks is the spoken form of paljonko; same question.",
+        "fingerprint": "76d1b30ab06cb47524cb26ff092c389e6d6c88f0d6920dcfd13839c30ab77946",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -458,7 +470,13 @@
           "surface": "putkest",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Putkest is the spoken form of putkesta; same meaning.",
+        "fingerprint": "94eaa52a1f9d95b4f243b2c9eee20d67150299a91225cde4e1318ce42a0a40be",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -612,7 +630,13 @@
           "surface": "päästä",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä tuun is the spoken form of minä tulen; both say 'in an hour'.",
+        "fingerprint": "dc73210b88343c7141070a3cfac1b9bf9d9705117f9a3eb67841a7aaec2dc136",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -726,7 +750,13 @@
           "surface": "vesi",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and pitääks mun/pitääkö minun are register differences only.",
+        "fingerprint": "975ae6f6f0552cf49ad519b2dadef00d412d0234dfac6431b9af64f62c3f2bf5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -878,7 +908,13 @@
           "surface": "vähän",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tarvii/tarvitse and vaan/vain are register variants; the negation and condition are unchanged.",
+        "fingerprint": "0116b9979c57e6e71fe63ce41f3e001b19e2b4885ffae4a6327c63162d4b945e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -973,7 +1009,13 @@
           "surface": "kotona",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei and selvä both mean 'OK'; mä oon is the spoken form of minä olen.",
+        "fingerprint": "84754fcb7bcdb128c79eb96615eaea8b305da5093df8edb6f45636972ea7380c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1045,7 +1087,13 @@
           "surface": "kohta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nähään is the spoken form of nähdään; kohta and pian both mean 'soon'.",
+        "fingerprint": "1ff5a90a67c94dbb0172125cea2f908997695015f3e244081c9c80f9fe464204",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

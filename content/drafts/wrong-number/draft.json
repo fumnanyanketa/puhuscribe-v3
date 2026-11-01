@@ -75,7 +75,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -172,7 +172,13 @@
           "surface": "Jari",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/hei greeting, onks/onko, tää/tämä are only register differences.",
+        "fingerprint": "378f0b42cef1251d5d0b14c0f8dcf4ab6de5b0549200ac284321f8e25217b26b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -265,7 +271,13 @@
           "surface": "Esa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei oo/Ei ole is the same negation; the rest is identical.",
+        "fingerprint": "4bc75676b554d19652662546023f2db46c8084c8670104c340e701c7152093c3",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -402,7 +414,13 @@
           "surface": "numero",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "anteeks/anteeksi and mul/minulla are register variants; same meaning.",
+        "fingerprint": "f50012b4662e77322aee25e63993ddb68173645cbff14619c9706b5fe4bc7f7d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -557,7 +575,13 @@
           "surface": "soitit",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "sä/sinä is only a register difference; the rest is identical.",
+        "fingerprint": "ec4c2418a3094887ee45c62287e3536fa930610dfbefbfe9940e87a4c40a7e7f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -691,7 +715,13 @@
           "surface": "kuus",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kuus/kuusi is the spoken form of six; the digits are the same.",
+        "fingerprint": "0b934509dcf4760e5ed163e7f28c88fde97305cd9226d33c6ce8cbddeae69340",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -823,7 +853,13 @@
           "surface": "viis",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun numero/minun numeroni and viis/viisi are register variants; the digits are the same.",
+        "fingerprint": "5101c244f4ad8dafd6ce965707b023cd0c509bab6a92235c64b79e5b8a25cbf0",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -913,7 +949,13 @@
           "surface": "avusta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Aa/Ai, okei/selvä and kiitti/kiitos are interjections and register variants; the thanks for the help is the same.",
+        "fingerprint": "89834e517a18aeea33b044a3cafc128decb66d8e491f280edebc1b46637da7c6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -989,7 +1031,13 @@
           "surface": "Moikka",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moikka and Kuulemiin are both goodbyes, a difference of register only; Ole hyvä is the same.",
+        "fingerprint": "c68731394283ffb5d95cca88d1e1a64844cd06a494dfba300fc4369c5d38c9ba",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

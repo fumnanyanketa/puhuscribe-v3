@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -276,7 +276,13 @@
           "surface": "pimeetä",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content: dark in the morning and again in the afternoon; only spoken forms differ.",
+        "fingerprint": "a0d66d2d6a9db6183c3b60475a499d7351d89a57849a395c3acf5d9637a4cb03",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -389,7 +395,13 @@
           "surface": "kuukausi",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo vs kyllä is register; November is the darkest month in both.",
+        "fingerprint": "08d4f3f8d1f6a017b215027633a312e49e52b64c900b8a1af90f3014e2cfdc58",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -462,7 +474,13 @@
           "surface": "jaksatte",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "9291087338b3db9e07dc31902290cb65a171ac9bbb3ca0f53b947d0386f973c6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -597,7 +615,13 @@
           "surface": "päiväl",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken passive 'sytytetään' stands for 'we light' and 'päiväl' means 'during the day'; same meaning.",
+        "fingerprint": "7d3f436aac95a24a9181d9781ad499f37a3d49c49d116b52cf55d316830c706b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -646,7 +670,13 @@
           "surface": "D-vitamiinii",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only the partitive spelling differs (vitamiinii vs vitamiinia); same question.",
+        "fingerprint": "27c929099a43b01856bc9eafa6c983800978fbceecc58ba6d389029115f44692",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -739,7 +769,13 @@
           "surface": "tärkee",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same statement that it is important; joo/kyllä and tärkee/tärkeä are register differences.",
+        "fingerprint": "2c7ed049140a0ca04ee943327290ddafa25e494cf9a270116cc0fd3fa55e3e65",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -834,7 +870,13 @@
           "surface": "valoisaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onneks/onneksi and kesäl/kesällä are register differences; same meaning.",
+        "fingerprint": "f9e8310f8f340f299f1ddbdb30197c4e8175e4e2187f0fe2511c401b75855881",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -967,7 +1009,13 @@
           "surface": "ollenkaan",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same statement that the sun hardly sets in summer; only the spoken form kesäl differs.",
+        "fingerprint": "cb2fd416eaf50899bed1307971981915071180871175580bd91da7a35d86ac85",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

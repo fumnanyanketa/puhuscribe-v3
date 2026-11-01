@@ -62,7 +62,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -200,7 +200,13 @@
           "surface": "huomenna",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same greeting and question about whether it will rain tomorrow; only register differs.",
+        "fingerprint": "8efd977e05de46c6ec616bb453ee99b7ad58a7ebd91499562eff9261197fdccf",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -318,7 +324,13 @@
           "surface": "aurinkoista",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Ei pitäs' is the spoken form of 'Ei pitäisi'; the rest is identical.",
+        "fingerprint": "8010a44c252a3ce533a5b65ae16d313f6b57794577b05bab6266787b2003714f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -435,7 +447,13 @@
           "surface": "rannalle",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä haluun and minä haluan are the same: I want to go to the beach.",
+        "fingerprint": "7e6606f4846a37ebe108b1fc384c5d0d87501b9f8b427c758117c8e3c9d1e8ae",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -569,7 +587,13 @@
           "surface": "tuulista",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'Tosi' and 'todella' both mean 'really'; the meaning is identical.",
+        "fingerprint": "a1cb814493ad47a25ade8a2f505f4435f917d42e40582ad7a79a57e24b448b0c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -680,7 +704,13 @@
           "surface": "rikki",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä are both 'yes'; mun/minun sateenvarjoni is 'my umbrella'. Same meaning.",
+        "fingerprint": "e56af2aadebfd932e1c21e99d07921ac82e016e6eafafa3a51018e94a88d492d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -882,7 +912,13 @@
           "surface": "sateenvarjon",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same offer to lend my old umbrella to you; only pronoun forms differ in register.",
+        "fingerprint": "056999d9b29915d47c98ef67073d5ccbe15b69a31fe18861272c9ac0753f60bd",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -955,7 +991,13 @@
           "surface": "kiva",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is spoken for kiitos; tosi equals todella. Same meaning.",
+        "fingerprint": "00d462a1b29fa07f1bcd95301499be3839050e6d46abb5b7ee2ce09f87068bf6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,

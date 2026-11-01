@@ -86,7 +86,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -248,7 +248,13 @@
           "surface": "haluut",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question; moi/hei, sä/sinä, haluut/haluat are register differences only.",
+        "fingerprint": "fd2d48bf885df6117e081c822101f6417d54561c96a8412ced5019698953af98",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -342,7 +348,13 @@
           "surface": "lounas",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical sentences.",
+        "fingerprint": "00aa3b80abea84ceb8762b9d6bfb90fdd5d4cf970f2b6ca393efe946ac4e92ab",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -411,7 +423,13 @@
           "surface": "kanapastaa",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lohikeittoo/lohikeittoa is a spoken variant; same options.",
+        "fingerprint": "d64511d76074a41e72b9f08493b49c672cc9cfb177c83cfd0ded2092efa0b73a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -485,7 +503,13 @@
           "surface": "lohikeiton",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä/minä only; same order of lohikeitto.",
+        "fingerprint": "d117408cfaa29b37c8be6703a027ec4edef5f5bfb35e7ab859857f72990a05d6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -658,7 +682,13 @@
           "surface": "pöydällä",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "on/ovat with plural subject is a colloquial agreement difference; same content.",
+        "fingerprint": "63b850fbac9c695a6b8484c91a620631c353360e3f688d4bb4ee33b2eb209480",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -772,7 +802,13 @@
           "surface": "vettä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and saisinks mä/saisinko minä are register variants; same request.",
+        "fingerprint": "8e88f80d1545b19cc7d73ecdcd813839d2c70258354cc6b13502c938283234b6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -911,7 +947,13 @@
           "surface": "kannusta",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ilmasta/ilmaista (free), tosta/tuosta are spoken forms; same meaning.",
+        "fingerprint": "9c50bd45aa2319bf8e97618845c6353c1f639f1c5e2bfad9ab03da62e53081a7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -963,7 +1005,13 @@
           "surface": "Kiitti",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos only register difference.",
+        "fingerprint": "e943e188e6bbbb1d64e1eff855fae1409a1be0ca35fb84e7d2f9e31822224cf4",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

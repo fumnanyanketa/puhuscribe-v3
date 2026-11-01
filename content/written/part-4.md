@@ -258,7 +258,7 @@ Maria meets Ahmed.
 | # | Speaker | Spoken Finnish | Written Finnish | English |
 |---|---|---|---|---|
 | 1 | Ahmed | Moi Maria! Miten menee? | Hei Maria! Miten menee? | Hi Maria! How's it going? |
-| 2 | Maria | Ihan ok. Vähän väsyttää. | Ihan hyvin. Vähän väsyttää. | OK. I'm a bit tired. |
+| 2 | Maria | Ihan ok. Vähän väsyttää. | Ihan okei. Vähän väsyttää. | OK. I'm a bit tired. |
 | 3 | Ahmed | Miks? Nukuitsä huonosti? | Miksi? Nukuitko sinä huonosti? | Why? Did you sleep badly? |
 | 4 | Maria | Joo. Naapureilla oli bileet. | Kyllä. Naapureilla oli juhlat. | Yes. The neighbours had a party. |
 | 5 | Ahmed | Voi ei. Entä muuten? | Voi ei. Entä muuten? | Oh no. And otherwise? |

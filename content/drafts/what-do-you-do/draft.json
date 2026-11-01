@@ -102,7 +102,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -201,7 +201,13 @@
           "surface": "työks",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (sä/sinä, työks/työksesi); same question.",
+        "fingerprint": "7215fb1ca3d1680bbe192f70eca446e35d83747f0c534c4fa68985b50abeb02d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -377,7 +383,13 @@
           "surface": "opettaja",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same content: works in customer service, profession is teacher; only register differences.",
+        "fingerprint": "26139f957056935db6a82537fa8149ae39416074f93d6690de351da119cc8efa",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -451,7 +463,13 @@
           "surface": "opetit",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical meaning; sä vs sinä.",
+        "fingerprint": "af5b73c78bb0a64cebc960cf94ae6ad709e122c18b00073c46c604fcba386dee",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -520,7 +538,13 @@
           "surface": "englantii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Matikkaa/matematiikkaa and englantii/englantia are colloquial vs standard forms of same words.",
+        "fingerprint": "5257b071b3f7be6b52f5ddfa18bedc3da4b7efc1bb5118d47d4c76ed47e91c2d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -640,7 +664,13 @@
           "surface": "Suomessakin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same exclamation and question; haluuk sä = haluatko sinä.",
+        "fingerprint": "ab683be60b4ac141fd472598f40e5bb82e20a2105466023f7dbd4963fe2c8d89",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -753,7 +783,13 @@
           "surface": "unelma",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo = kyllä, mun = minun; same meaning.",
+        "fingerprint": "e0c44851182894f86d6867db580b2c8216a77a779babe3c5aa61a6d8380419e1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -827,7 +863,13 @@
           "surface": "opettajii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kouluis = kouluissa, opettajii = opettajia; same statement.",
+        "fingerprint": "c4d5c29b3e887d1a56e7087ec31ead0782b8cef8b7c2a2c53e960f014c690477",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -859,7 +901,13 @@
           "surface": "Toivottavasti",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "a817fe5bc9f3422a9519ff04ef0298360e6e24a4bca43f3d0849c2a002286d84",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

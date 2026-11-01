@@ -77,7 +77,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -173,7 +173,13 @@
           "surface": "talvikenkii",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (anteeks/anteeksi, mä/minä, etin/etsin, kenkii/kenkiä); same meaning: looking for winter shoes.",
+        "fingerprint": "72b67c8a20fee8c7e0d772eb41323e6f9daf1ac32cacc9e3333d0a3eb4d4ffa6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -245,7 +251,13 @@
           "surface": "kengännumero",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei vs selvä are register variants; same question about shoe size.",
+        "fingerprint": "1b44a1931be3c2761dfad8f8fdc2687218604f13054dcaa2d8fcde72e95e5471",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -276,7 +288,13 @@
           "surface": "Kolkytseittemän",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kolkytseittemän is spoken form of kolmekymmentäseitsemän; both 37.",
+        "fingerprint": "eaa0987583da4004f1b7c37f3e106a7fa378d51d4984a851e49ceb111360359f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -391,7 +409,13 @@
           "surface": "vedenpitävät",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nää on/nämä ovat; same statement that these are warm and waterproof.",
+        "fingerprint": "df9ab4a9d18714dd9891f52fa926cb83bb7313b6aed43ea3d5bdc17c531c39ec",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -523,7 +547,13 @@
           "surface": "kalliit",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ne on/ne ovat, mut/mutta; same meaning.",
+        "fingerprint": "0c3472afba4b90890f507060f7f8166405dea17149012f136714349fe733ce5e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -637,7 +667,13 @@
           "surface": "hyvät",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Nää/nämä, on/ovat; same meaning that the cheaper ones are also good.",
+        "fingerprint": "69017f01377dd5ebe6a454acabab214f1fb30ca0d26d0e78bbc50a48b1905c27",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -733,7 +769,13 @@
           "surface": "niitä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Voinks mä/voinko minä; same question about trying them on.",
+        "fingerprint": "67d66fc0bb01403e537080b83ae266cfa95e0c4805b7221c331863de38e02d0a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -826,7 +868,13 @@
           "surface": "tähän",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "3db30ad36b5769bc39d899282b660c2d2d07c72b9bc63ce9ad20b461fce1c939",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

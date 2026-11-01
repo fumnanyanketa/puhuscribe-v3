@@ -1734,3 +1734,30 @@ pass (job 20-a1-road, statement 14).
   Before: Maria meets Mika, Ana's teacher.
   After: Maria meets Mika, Anna's teacher.
   Reason: Voikko does not know this word: Ana.
+
+## Round 4, repairs after the register judge
+
+- Dialogue 16.2, line 3, spoken text.
+  Before: Se ei oo kotona. Voitsä ottaa sen paketin?
+  After: Se ei oo kotona. Voitsä ottaa paketin?
+  Reason: The register judge said the two versions differ in meaning: spoken sen paketin against written hänen pakettinsa. Both now say the parcel.
+
+- Dialogue 16.2, line 3, written text.
+  Before: Hän ei ole kotona. Voitko sinä ottaa hänen pakettinsa?
+  After: Hän ei ole kotona. Voitko sinä ottaa paketin?
+  Reason: The register judge said the two versions differ in meaning: the possessive is left out of both.
+
+- Dialogue 16.2, line 3, English text.
+  Before: She's not home. Could you take her parcel?
+  After: She's not home. Could you take the parcel?
+  Reason: The English follows the changed lines.
+
+- Dialogue 16.1, line 3, spoken text.
+  Before: Joo, tässä puhelimes.
+  After: Joo, tässä puhelimessa.
+  Reason: The register judge said the two versions differ in meaning: puhelimes was read as on your phone. The spoken line now has the same word as the written line.
+
+- Dialogue 24.1, line 2, written text.
+  Before: Ihan hyvin. Vähän väsyttää.
+  After: Ihan okei. Vähän väsyttää.
+  Reason: The register judge said the two versions differ in meaning: ihan ok against ihan hyvin. Written now says okei, the word ok stands for.

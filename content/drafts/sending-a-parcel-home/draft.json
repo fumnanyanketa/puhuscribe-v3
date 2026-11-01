@@ -84,7 +84,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -241,7 +241,13 @@
           "surface": "Brasiliaan",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (moi/hei, mä/minä, haluun/haluan, tän/tämän); same meaning.",
+        "fingerprint": "bb3c368c8b4179bcc203326e88b3b54878106e9416a11fa0651aa9106d3a82a8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -335,7 +341,13 @@
           "surface": "vaa'alle",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei vs selvä is just register; the rest is identical.",
+        "fingerprint": "4a5af5e13b8cce234821cdc68e48f90a808115ca4b0671f0815a2d4876678fed",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -425,7 +437,13 @@
           "surface": "painaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The lines are identical.",
+        "fingerprint": "07cb5103b39ddcdcd13a7c4dd14dae9ff264816158038f77df22711562f0e64e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -576,7 +594,13 @@
           "surface": "euroo",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same numbers (2 kg, 35 euros) and same content, only spoken forms differ.",
+        "fingerprint": "997965316d473afca03f4d4a678e301456bed4f95177cee77feadb78a96f1cb9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -646,7 +670,13 @@
           "surface": "kestää",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kauanks and kauanko are the same question, differing only in register.",
+        "fingerprint": "916e8ec989cd0532f9a6cb6aa6211aa961c2f7629035f5a144656d3163c128c6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -717,7 +747,13 @@
           "surface": "viikkoo",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: about two weeks.",
+        "fingerprint": "51fdb243ac8291919f38733747cd76fd2e7e1bbdd1cdc9a42e4cf3ce977dd1e6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -853,7 +889,13 @@
           "surface": "synttärilahja",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: it's my mother's birthday present; synttäri is the spoken form of syntymäpäivä.",
+        "fingerprint": "b985b55b65d7f185dadda51847f39382a54855966cc666de9b89b7efcdaa2628",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -968,7 +1010,13 @@
           "surface": "lappuun",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same request to write the address on this note; only spoken spelling differs.",
+        "fingerprint": "04011f09bb3c51fe133376dce1cdfb5ce2aa793cb6f5d87e8c12c9b6ef48b314",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

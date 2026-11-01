@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -194,7 +194,13 @@
           "surface": "on",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Millon/Milloin and sun/sinun are only register differences; both ask when your birthday is.",
+        "fingerprint": "e7291d79ee152eaf8f287141af60bb93b680c26bc824a098c9794c9583aa2dbc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -283,7 +289,13 @@
           "surface": "sun",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same date and question; sun/sinun is a register difference.",
+        "fingerprint": "a8c99abebc5eabc8449c422cd144f18e15cc5127f6494ee93ce1d38361c1f855",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -418,7 +430,13 @@
           "surface": "ylihuomenna",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mun/Minun is a register difference; same date and 'day after tomorrow'.",
+        "fingerprint": "1bb1e662e0ede94d255011f5cbd8805ece6a56cb599724f4447cbc7a03ce8e50",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -512,7 +530,13 @@
           "surface": "etukäteen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Oikeesti/Oikeasti and Onneks/Onneksi are only register variants; same meaning.",
+        "fingerprint": "10636a12b1bfce435d671f779effd93fd443d62760af6b8c10100397b4e38c73",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -648,7 +672,13 @@
           "surface": "lauantaina",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/Kiitos and mä/minä are register variants; same party plan on Saturday.",
+        "fingerprint": "bfe22e66245d959a9a04ca1a041c910bebc1c2763eb63d827906598a0b6b1b0a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -762,7 +792,13 @@
           "surface": "täytät",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Vanhaks/vanhaksi and sä/sinä are register variants; same question.",
+        "fingerprint": "0fb9289da4f9ed37c9b4d8d37d40ae3db7f04079e13cafddfab74dc90395393c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -793,7 +829,13 @@
           "surface": "Kolkyt",
           "kirja": 1
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kolkyt is the spoken form of kolmekymmentä; both mean thirty.",
+        "fingerprint": "4321ed5ee8c8d406f90dc0aed445abaa3bdf1f117874adc1da444dc30a136791",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -906,7 +948,13 @@
           "surface": "kunnolla",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Pyöreet/Pyöreät is a register variant; same meaning.",
+        "fingerprint": "b0a0b306494b4c3d4ec10a89ea0f4af8c0dcc2a2979b9e07be459c71f8c283f8",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

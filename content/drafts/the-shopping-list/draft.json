@@ -98,7 +98,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -196,7 +196,13 @@
           "surface": "ruuaks",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question about what we are making for food; only register differs (tehään/teemme, ruuaks/ruoaksi).",
+        "fingerprint": "4efd501ba7960c126c446b337e01be92ad5f843a043a4cf4f3f6ceb41dadf029",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -311,7 +317,13 @@
           "surface": "ruokaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: salmon soup, I am learning Finnish food; only register differences.",
+        "fingerprint": "8c4793124b99e4dac60def3b5aaca7e356ae752d743c518a700ec6c78cf7ebb9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -426,7 +438,13 @@
           "surface": "tarvitaan",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: good idea, what do we need; tarvitaan/tarvitsemme is register.",
+        "fingerprint": "ba90cd7030b51e00baee7b5fc8ea6c3d9bb7432ffb7a246ce3df49dbd5a8bf42",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -515,7 +533,13 @@
           "surface": "porkkanoita",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "69854a47005321aa599b9bde61f783f40ab728fea4e77dde72311ad299b4308c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -602,7 +626,13 @@
           "surface": "tilliä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "0347fe082ae58ce65f0eca56a2a5c2e8e756d2798be93ee82e98255dd74dc402",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -677,7 +707,13 @@
           "surface": "sipulii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: do we have onion; onks/onko, meil/meillä, sipulii/sipulia are register.",
+        "fingerprint": "78a32c41a1e0c7c492550ad91314c78c328d45c75cf2bb84e85d675da958b210",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -795,7 +831,13 @@
           "surface": "listaan",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: we don't have any; write it on the list. Only register differences.",
+        "fingerprint": "24a0b021deb044f0c225687b4fbd809fa05f402585036b109c880d121d63db83",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -869,7 +911,13 @@
           "surface": "kauppaan",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei and Selvä are both 'OK'; same suggestion to go to the store.",
+        "fingerprint": "6637fa7a73addbc921d15e8a209363d26aa4ffb6728eeac94ccd5fc9f5e3072b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

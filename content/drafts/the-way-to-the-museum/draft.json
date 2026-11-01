@@ -96,7 +96,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -210,7 +210,13 @@
           "surface": "Ateneumiin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (anteeks/anteeksi, mä/minä); same question.",
+        "fingerprint": "a52f29b6b4ccab67abad3bb190d4d505eb96636c5aa6b2628afda20bc5a826b9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -306,7 +312,13 @@
           "surface": "katuu",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mee/mene and katuu/katua are spoken variants; same instruction.",
+        "fingerprint": "2c7dce0854323ae229ecc1267ddd2c2c008876517a580d74a3c09d14561da33b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -356,7 +368,13 @@
           "surface": "pitkälle",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "12d9c9ee0c5b915d2547d887485ba20d96a3ede61bbd3326f7eebd98144e1d40",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -487,7 +505,13 @@
           "surface": "vasemmalle",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Sit/sitten only differs in register; same directions.",
+        "fingerprint": "872478a54a95f59e8b8a18fcf01601562af20abd8cdb041ea442a796585653e9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -576,7 +600,13 @@
           "surface": "sit",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä are both acknowledgments; sit/sitten is register only.",
+        "fingerprint": "cd10c587a210347376406579349350e588046e37f2eb71f04876b784e17b5adc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -711,7 +741,13 @@
           "surface": "vieres",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Spoken oikeel puolel, vieres equal written oikealla puolella, vieressä; same location.",
+        "fingerprint": "4bf12c23e1d2b9c6c952e4bcccd3c85be1c2ce1614b7f7899b98e5555b306469",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -784,7 +820,13 @@
           "surface": "kaukana",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Onks/onko is register only; same question.",
+        "fingerprint": "9857e809d2be82039e18eefce5899fc4f898bc4a9a0b77299d31c74eb3d5e4c4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -875,7 +917,13 @@
           "surface": "kävellen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Minuuttii/minuuttia is a spoken variant; same number and meaning.",
+        "fingerprint": "b4e5f9c276b77b1760e69ee7197c28a789deed8b254a0b73464f2c02c68ca358",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

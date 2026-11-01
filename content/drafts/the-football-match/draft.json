@@ -87,7 +87,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -186,7 +186,13 @@
           "surface": "jalkapalloo",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both ask whether you watched football yesterday; only register differs.",
+        "fingerprint": "f58c94ee5898cdb7d3931e9ca7fcc8471d31afcef84dec7dbca6b3ce50f46b0d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -279,7 +285,13 @@
           "surface": "pelas",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'pelas' is spoken for 'pelasi'; both say Brazil played.",
+        "fingerprint": "2708887ab3246a24ae7ed306ea58da0381f8d77c885e7a80c52e68aa58772444",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -334,7 +346,13 @@
           "surface": "ne",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "'ne' is spoken for 'he'; both ask whether they won.",
+        "fingerprint": "aca3834e7607518614591443df5c0cb0fb88bcc64d8f2a9aa7fe1e8b3f58143d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -403,7 +421,13 @@
           "surface": "yks",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Yes, two-one in both; joo/kyllä and kaks/kaksi are register variants.",
+        "fingerprint": "56b2af6fa6f7c5c298bb3f2473faa656db8df424542ed87eb6668b0bdbd3d372",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -563,7 +587,13 @@
           "surface": "jalkapallost",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Congratulations and asking whether you have always liked football; tykänny/pitänyt are equivalent.",
+        "fingerprint": "75636ba4d3b1ec4f473d92ffd9ab2a863e45c32aeffdcec30ff0fdef8d93a7ea",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -691,7 +721,13 @@
           "surface": "sä",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Yes, my whole life, and you? Same content in both.",
+        "fingerprint": "cc06fad9df85586d99ec86c1ff2ef294fb5e7f433a353b459b24132a4ec850ba",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -784,7 +820,13 @@
           "surface": "jääkiekost",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say I like ice hockey more; only register differs.",
+        "fingerprint": "3fa7bb1c279fab64941a77928063a067d7ae2d34dd84c67bdcc2f9da91c72275",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -898,7 +940,13 @@
           "surface": "suomalainen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say 'Ah, of course. You are Finnish!'; aa/ai is just an interjection variant.",
+        "fingerprint": "9aadadc8036da612363c98a06f85160c2e12aa095336917c7200f447b364eca4",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

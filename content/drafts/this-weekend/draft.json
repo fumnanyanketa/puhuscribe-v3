@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -193,7 +193,13 @@
           "surface": "viikonloppuna",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differs (sä/sinä); same question about weekend plans.",
+        "fingerprint": "f3fb774661f66c08c074f2663189b21621d14cc9b508bd4bf392de83032498c4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -288,7 +294,13 @@
           "surface": "kirpparille",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä meen/minä menen and kirpparille/kirpputorille are register variants; same meaning (Saturday, flea market).",
+        "fingerprint": "8c8f388fe90745e4a9ea34c6fc776c4f4b18e5421fd0b116d33b03fe24410324",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -383,7 +395,13 @@
           "surface": "etit",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "etit/etsit and sä/sinä are register variants; same question.",
+        "fingerprint": "1d796837e4f47d7adba05731072b4614102e1b6078e626dbef43af0aa6cc5433",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -556,7 +574,13 @@
           "surface": "asuntoon",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "tarviin/tarvitsen is a register difference; same content: tables and chairs for the new apartment.",
+        "fingerprint": "a0776b707c032c0a72001b70e75c43685f30133bd8049a3a716eb5594b60b81e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -628,7 +652,13 @@
           "surface": "muutat",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only sä/sinä differs; same question about moving.",
+        "fingerprint": "65223529ed6c92625b51d9f200acb187db5c2c63b0c4f00583aed147a8a59bb2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -736,7 +766,13 @@
           "surface": "asuntoon",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and ens kuus/ensi kuussa are register variants; same time (next month) and bigger apartment.",
+        "fingerprint": "3cc7d9754024f5444b13633ca44696236d7804a855a62ce891b15ca2eb408352",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -833,7 +869,13 @@
           "surface": "muutos",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tarviik sä apuu muutos is colloquial for Tarvitsetko sinä apua muutossa; same question about needing help with the move.",
+        "fingerprint": "ab019191666b500a2936866398aa9974f094fb68eb5fe00c78a685ebc69df452",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -926,7 +968,13 @@
           "surface": "ihanaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and ois/olisi are register differences; same meaning.",
+        "fingerprint": "00639f508cd3740279731121c811bb0e8974e12991c3d12d18abd6b35f76c6c4",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

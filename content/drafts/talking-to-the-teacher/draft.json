@@ -89,7 +89,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -208,7 +208,13 @@
           "surface": "äiti",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same greeting and question; only register differs (moi/hei, oot sä/oletko sinä).",
+        "fingerprint": "0b53f50076fe8b40fa30608bff3b9e412d2a63119b618ea08313b57d5a25ea72",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -319,7 +325,13 @@
           "surface": "koulus",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä and koulus/koulussa are register variants; same question about Anna at school.",
+        "fingerprint": "ad65f99be69271fa7daa275f5f473bc804a34c2699b88d3faeef50795756ca85",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -456,7 +468,13 @@
           "surface": "matikas",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Tosi/todella, se/hän, matikas/matematiikassa are register differences; same meaning.",
+        "fingerprint": "62bfe8f716b095f1b6d1ef4cba835f7c03b03a404bda9037d7a3b65a4f10bcbc",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -525,7 +543,13 @@
           "surface": "kieli",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "3faaedd3f70f3165e35a471e2ce765fdba00918a5d66b9e0fab6c29030c6cb00",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -718,7 +742,13 @@
           "surface": "suomee",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Se/hän, nopeesti/nopeasti, kaa/kanssa, suomee/suomea are spoken forms; same meaning.",
+        "fingerprint": "baab8144ed6e3a941b46f9a760aac2f4e1145850aac1c6409e513cca08b126d8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -833,7 +863,13 @@
           "surface": "portugalia",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Puhutaan is the spoken form of puhumme; same fact about speaking Portuguese at home.",
+        "fingerprint": "f4b1080f76026493b4e547584b5279ccb49c9adde825b26b0007b59db35ac1d6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -991,7 +1027,13 @@
           "surface": "rikkaus",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kaks/kaksi is the same number two; same statement.",
+        "fingerprint": "23f77d1ea021e5df09850d542abd0ca10e4254608a2966067d3280e1297e8a84",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1043,7 +1085,13 @@
           "surface": "paljon",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos are register variants of thanks.",
+        "fingerprint": "dc199ae4f1a29e064fa42ab7980129f6f06af6539835d24ec737caaa4130773c",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

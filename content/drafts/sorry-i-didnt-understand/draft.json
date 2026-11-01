@@ -67,7 +67,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -252,7 +252,13 @@
           "surface": "kassi",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: plastic bag or own bag; only register differs (haluuk, onks, sul).",
+        "fingerprint": "23ac47b745e077622a1ed589c7062b6fb50f1a990e7adbf87c84bd49c64297b8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -344,7 +350,13 @@
           "surface": "ymmärtäny",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: sorry, I didn't understand; spoken forms only.",
+        "fingerprint": "3bcebf955360000e988f8f48960ae0667b694b9df2b3690c5cfeb1ff422d852b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -422,7 +434,13 @@
           "surface": "pussin",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question: do you want a bag; register difference only.",
+        "fingerprint": "9b9929fe2c0709e3201afa734376196bd9db11f4d90122b61efd0eaba893e2b4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -539,7 +557,13 @@
           "surface": "hitaammin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: can you speak a bit slower; spoken 'voit sä puhuu' equals 'voitko sinä puhua'.",
+        "fingerprint": "149dd4d66d78860711a313a11c485661766948dc60591881c7c695b13aa81153",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -633,7 +657,13 @@
           "surface": "pussin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: do you need a bag; tarviitko is spoken form of tarvitsetko.",
+        "fingerprint": "f35ce55d9001ceae5455af5391b832bfd57c4efdf0e434a333c3e99c279abdad",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -787,7 +817,13 @@
           "surface": "oma",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: no thanks, I have my own; mul = minulla.",
+        "fingerprint": "de99915016b82747317b8c4cf7d792941a3b7b0dd30806c13a6a3c168ce094f6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -918,7 +954,13 @@
           "surface": "suomee",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: you already speak Finnish well; suomee = suomea.",
+        "fingerprint": "80fc16a5336c3beade2550d029a7e92a340732fca7d128fa9ca71626a23ffd91",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1010,7 +1052,13 @@
           "surface": "vielä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same: thanks, I'm still learning; kiitti = kiitos, mä = minä.",
+        "fingerprint": "c3fa099fec818a0500e5fe95c758b968dbfcb02a656e1dcc223f4790380389c1",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

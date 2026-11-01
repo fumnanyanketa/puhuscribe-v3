@@ -68,7 +68,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -208,7 +208,13 @@
           "surface": "aamulla",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question; sä/sinä and voit sä/voitko sinä are register differences.",
+        "fingerprint": "8fcafcdbe944396b5371927e9aeb70c11580c66ae6eba30fee80f8f9f8ddc58e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -279,7 +285,13 @@
           "surface": "aikaan",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "79eeed9707bae463ab95c13001c9fdd7f5e0fc462de529cbdf47bf4ea4e3ad4f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -373,7 +385,13 @@
           "surface": "kolmelta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Seittemältä is spoken for seitsemältä (seven); shift ends at three in both.",
+        "fingerprint": "d017bb5c8708de0615c60e1e64f2354202bf813ad567bc464ead65b0ce6bd2cd",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -484,7 +502,13 @@
           "surface": "okei",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "aikasin/aikaisin and mut okei/mutta selvä are register variants; same meaning.",
+        "fingerprint": "2def45dba1e7b20254b81463c2399702fb2038b74ce34e5d94f3b738fc21b103",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -616,7 +640,13 @@
           "surface": "iltavuoro",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti/kiitos and sul/sinulla are register differences; Friday evening shift in both.",
+        "fingerprint": "16fde145c074975d98e21cd222fd3b14cb0bab89be63a7612b9f84a42d18ce8a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -708,7 +738,13 @@
           "surface": "on",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical lines.",
+        "fingerprint": "9a6902a8ce2e50021002a56307d3e288bdb971e472c94fb57dc7c061f1a76a7e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -759,7 +795,13 @@
           "surface": "illal",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "illal is a clipped form of illalla; until ten in the evening in both.",
+        "fingerprint": "7cc1b968bc285f979b5931d53f55ebe20131466bdf92d78a7e55b95827975521",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -872,7 +914,13 @@
           "surface": "ylös",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä, mä/minä, kirjotan/kirjoitan are register differences; same statement.",
+        "fingerprint": "ed16c0bcf5f537478cca0c7b0d53a91134c39ea75dce55ef15efafa1a1ec57ed",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

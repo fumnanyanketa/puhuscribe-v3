@@ -59,7 +59,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -175,7 +175,13 @@
           "surface": "keskustaan",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Anteeks/anteeksi and ratikka/raitiovaunu are register variants; same question.",
+        "fingerprint": "3f7f42850edabce182865727dfb9f75c7eecf7af550a87471018e54a6d71a67a",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -284,7 +290,13 @@
           "surface": "seiska",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Seiska is the colloquial form of seitsemän; both mean line seven.",
+        "fingerprint": "b0c52cc7b8c3cfdcc8fc7ae46a519f0953b65779dc2d9f77da9a364cc3662931",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -378,7 +390,13 @@
           "surface": "on",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Niitten/niiden are variants of the same genitive plural; same meaning.",
+        "fingerprint": "ad6cec5464bf540ca332cbdc3746defa25ea2bc642f29b4822d5224fb5636835",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -493,7 +511,13 @@
           "surface": "pysäkki",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Täs/tässä, tää/tämä, oikee/oikea are colloquial variants only.",
+        "fingerprint": "45823cbed03fff339ad1bd40480848a58116fe3c0d4a1e8ca78adfa2ccba96c2",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -563,7 +587,13 @@
           "surface": "kestää",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kauanks is the colloquial form of kauanko; same question.",
+        "fingerprint": "4cfc7e317ded89d0af49845df0d2a2c0e315d7a74ddebbf2bbdfca5ef24a370c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -634,7 +664,13 @@
           "surface": "minuuttii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Minuuttii/minuuttia is a spoken variant; ten minutes in both.",
+        "fingerprint": "eb65638b4a34148763ae1c02bbcd1dfbfcdeab9dcd16e8ca1594139ac020c082",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -706,7 +742,13 @@
           "surface": "avusta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos; same thanks.",
+        "fingerprint": "88fa2f463b2f84482299c06f165fc894516a7a639180da4b382e031c19dc422e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -802,7 +844,13 @@
           "surface": "matkaa",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses; the same function and meaning.",
+        "fingerprint": "7c6ca8b692f15160754d157d8f488074d78aaff30a43dd96191f31c2afd3c7d7",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

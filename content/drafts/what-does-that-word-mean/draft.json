@@ -67,7 +67,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -180,7 +180,13 @@
           "surface": "kymmenen",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Palsu is colloquial for palaveri (meeting); varttii/varttia is the same word. Same meaning.",
+        "fingerprint": "60aaa3bad009cdba300fc8ad36ea2ecccc3ff39d8503344c999f8056a3aa7906",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -293,7 +299,13 @@
           "surface": "tarkottaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences: anteeks/anteeksi, toi/tuo, tarkottaa/tarkoittaa.",
+        "fingerprint": "5c9c3e2ede5b35fd8e2151696b1ebfc825e7ae3487a141a79a5aa0e9114496a1",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -364,7 +376,13 @@
           "surface": "kokousta",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Palsu/palaveri and tarkottaa/tarkoittaa are register variants; same statement.",
+        "fingerprint": "cd2d08ccb027d247a3cb8f3bb3a01a556cd297ce77c05280bbe9bfe3dfc90a74",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -490,7 +508,13 @@
           "surface": "alkaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Aa, okei vs ai, selvä are interchangeable acknowledgements; the question is identical.",
+        "fingerprint": "32e72706a01c17d3b1b93330ec8099f0d8ad5a46d1c1be0029a03433af9f1bf8",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -720,7 +744,13 @@
           "surface": "sen",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Voit sä is colloquial for voitko sinä; both ask 'can you write it?'",
+        "fingerprint": "c4fb776a2dcf7c41277a0a9576e34a220518e48c9e027126247bf4af4e24ef43",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -927,7 +957,13 @@
           "surface": "paljon",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti is colloquial for kiitos; the rest is identical.",
+        "fingerprint": "a34c5bad0cea4c267ab5dc491ddc66595494a79bf5da3fed9989fefcbbb192bd",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

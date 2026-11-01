@@ -91,7 +91,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -227,7 +227,13 @@
           "surface": "alkaa",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Only register differences (mun/minun, työpäiväni possessive); same question about start time.",
+        "fingerprint": "fc918d28ba7aee1ffb162eee91424cd09ee287ffb2f7609873c380153b1e2e6b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -339,7 +345,13 @@
           "surface": "neljältä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kaheksalta is the spoken form of kahdeksalta; same times (eight, four).",
+        "fingerprint": "aef3c3a8e397b1d375eb4bdb2206456b02d31c131cae57e1f9ff8acd6ae9c320",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -452,7 +464,13 @@
           "surface": "lauantaina",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Teenks mä/Teenkö minä: same question about working on Saturday.",
+        "fingerprint": "2914690370bc1c97ed7f153cd1cbaa31377f0840ac47f22a0b0646b0f0cdc529",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -587,7 +605,13 @@
           "surface": "perjantaihin",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same negation and same days, Monday to Friday; only register differs.",
+        "fingerprint": "ded10e221fecabbc5a0c429be06c3feab11b3bfa533f405831346cdfa604b246",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -704,7 +728,13 @@
           "surface": "etätöitä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Voinks mä tehä/Voinko minä tehdä: same question about remote work.",
+        "fingerprint": "2f74b6c867d1db3fb40a583f36086e2839c37acd04a900b8dd65198aefb47b5c",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -751,7 +781,13 @@
           "surface": "perjantaisin",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo and kyllä both mean yes; perjantaisin is the same.",
+        "fingerprint": "2edcbea3bd57a4ae0b3933de97f689e7aab95e11969a0e3279b88f37395bf223",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -866,7 +902,13 @@
           "surface": "avainkortin",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mist mä/Mistä minä: same question about where to get the key card.",
+        "fingerprint": "78fffe8ffd2f5cb4b270eea6088ae54fbdbdc18ad3efcc7dc4b61579e1468a80",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -979,7 +1021,13 @@
           "surface": "kaa",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä tuun sun kaa = Minä tulen sinun kanssasi; same meaning, 'I'll come with you'.",
+        "fingerprint": "db6c43a5dfa3193dc58981c040136f87a5d402fd0b71354d8f2621df080bad2b",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

@@ -53,7 +53,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -149,7 +149,13 @@
           "surface": "kananmunat",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Anteeks/anteeksi and on/ovat are register differences; same question about the eggs.",
+        "fingerprint": "c5a6f60bb4789ed5df17ae462fe604d10394f3bee4a8074adbe2ce5c669b1273",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -263,7 +269,13 @@
           "surface": "vieres",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same statement: they are over there next to the dairy shelf; only register differs.",
+        "fingerprint": "0e8765f0705749760d6585518ad07979ab0d0dabed2feb82d1c86d4e9847470f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -315,7 +327,13 @@
           "surface": "vasemmalla",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lines are identical.",
+        "fingerprint": "4d54d3cd5768be3ce2b1a34e0576562bec117fe8aaae79e7b61a03fc5c45a052",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -469,7 +487,13 @@
           "surface": "oikeelle",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Oikeella/oikealla, mee/mene, sit/sitten are register variants; same directions.",
+        "fingerprint": "55fda835c1615770abc1bc632d77d92a90f2c354a1e681457898ef297a00ebff",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -657,7 +681,13 @@
           "surface": "hyllyllä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lines are identical.",
+        "fingerprint": "1f5490a5afb62a5d9ec8403b27973c6b3e16decb863785be411fdee9540739a9",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -709,7 +739,13 @@
           "surface": "paljon",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kiitti paljon is the colloquial form of kiitos paljon; both mean thanks a lot.",
+        "fingerprint": "2b196369acaf49574e01731505ec13446e970d5e460db122256af127607df74f",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -764,7 +800,13 @@
           "surface": "mitään",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses.",
+        "fingerprint": "762a533ce11d9ac76ab38339c68ff32076c9672b8e16965fcbf5902ef3f0ba3c",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

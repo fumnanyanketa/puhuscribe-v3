@@ -95,7 +95,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -194,7 +194,13 @@
           "surface": "löylyä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Same question; only register differences (heitänks/mä vs heitänkö/minä).",
+        "fingerprint": "d9866234347119afeaddf93f6cfe753fb757f27cd645ce7ab007cfd7eead23c5",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -241,7 +247,13 @@
           "surface": "vaan",
           "kirja": 2
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "vaan/vain are register variants of 'just'; same meaning.",
+        "fingerprint": "c42b68a17e70dcd8e271c729a8b3523d74fee8f6fbe9f057bbeeda01b1a63b1e",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -318,7 +330,13 @@
           "surface": "hyvä",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei and selvä both mean 'okay'; onks/onko is register only.",
+        "fingerprint": "77def014cd5995d4bd3578429142055e9ac5d8e81d6f988e8ee41c6f89229d5d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -533,7 +551,13 @@
           "surface": "saunast",
           "kirja": 10
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä both 'yes'; tykkäätte saunast and pidätte saunasta both mean 'like the sauna'; same meaning.",
+        "fingerprint": "bae3f1721f3fdefebfabb55b641ff296496882052276f70b6c7011710070cb23",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -670,7 +694,13 @@
           "surface": "tos",
           "kirja": 6
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Kohta/pian both 'soon'; tos/tuossa 'over there'; same meaning.",
+        "fingerprint": "a8951c20c9c7d0f94e09a0bc2cd07f85c56117b24ac3e1024680d45c50209871",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -789,7 +819,13 @@
           "surface": "kylmää",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Eiks/eikö, oo/ole, tosi/todella all register variants; same question.",
+        "fingerprint": "c7a6ee35d42df5c5c0cd11c1b24a3acadb6f43731a8711d7cae129693b1b9896",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -905,7 +941,13 @@
           "surface": "parasta",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mut/mutta is register only.",
+        "fingerprint": "d22ecf493ddf775006a4ed01311a924dd0679fa40ff2e793720dff12df6fcb8d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -980,7 +1022,13 @@
           "surface": "uskallan",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/selvä both 'okay'; mä/minä; same statement.",
+        "fingerprint": "e40c6c7a1c674ca3e41ff24b45abdb3b8e6b809647a8dcb569d68a24be61b4bb",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

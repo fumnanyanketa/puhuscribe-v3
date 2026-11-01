@@ -85,7 +85,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -203,7 +203,13 @@
           "surface": "toimi",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Moi/Hei and mun/minun are register differences; same meaning.",
+        "fingerprint": "a48407dd379d66f29ae9e239b29a7c5d40c8e12a81291771eb1176e948730ec4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -318,7 +324,13 @@
           "surface": "vettä",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä and tuleeks siit/tuleeko siitä are register variants; same question.",
+        "fingerprint": "211d4e113d7e200eff34205454510cd69aac164aca8fb32c3c1e52c771f047c7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -407,7 +419,13 @@
           "surface": "vettä",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Vaan/Vain both mean 'only'; same meaning.",
+        "fingerprint": "96b543e44928335f768a7a55a4f23230283b014136d4e4a5648ff6e5ffc298b4",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -520,7 +538,13 @@
           "surface": "huomenna",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Mä tuun kattoo = minä tulen katsomaan; same meaning, same time (tomorrow).",
+        "fingerprint": "c5e09cf5af40d12a24f4d2f9ca066f2cbd72db6998390f705229d3b38c8a47d6",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -674,7 +698,13 @@
           "surface": "neljään",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Töis/töissä and kaheksast/kahdeksasta are spoken forms; same hours 8 to 4.",
+        "fingerprint": "f0854d6eeacf0a48c1d2e5b90311a38cadceafc2eb0bb6c9789bb35bb3308676",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -769,7 +799,13 @@
           "surface": "yleisavaimella",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Identical content, only mä/minä differs.",
+        "fingerprint": "cd1a77a4c3abb365aed702c4ba1e65383ad4f071b87118e443fb7487728a5165",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -844,7 +880,13 @@
           "surface": "sopii",
           "kirja": 3
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Okei/Selvä is a register difference; same meaning.",
+        "fingerprint": "c0c0fd80678198d7184d3614ad924ce9a60051fe3b80bb491c946e37a76061de",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1042,7 +1084,13 @@
           "surface": "käyny",
           "kirja": 9
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Käyny/käynyt and mä/minä are spoken forms; same meaning.",
+        "fingerprint": "241e9aac958412dccee15d0410be7e543ad02160330736afc7ce1bac77f068a6",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [

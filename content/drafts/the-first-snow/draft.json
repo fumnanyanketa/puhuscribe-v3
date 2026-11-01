@@ -97,7 +97,7 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "on"
   },
   "notes": {
     "status": "pending"
@@ -195,7 +195,13 @@
           "surface": "lunta",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "kato/katso is only a register difference; the content is the same.",
+        "fingerprint": "a13587eff39219323f2bdf1f0437d61308a3dc473e5196d78ccc25e3d723cfc7",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 2,
@@ -369,7 +375,13 @@
           "surface": "kerta",
           "kirja": 8
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Joo/kyllä, eka/ensimmäinen, tää/tämä and sun/sinun are all register variants; the meaning is identical.",
+        "fingerprint": "6c8b941d177f2bf902f2aad353b4ad9578ec6e1e23fbccf32cf73b9297c2f382",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 3,
@@ -485,7 +497,13 @@
           "surface": "kaunista",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "The two lines are identical.",
+        "fingerprint": "cf5e8df9e1951cb3f9b35177ea087e67da302ba6e889374e30b7dd5541397185",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 4,
@@ -636,7 +654,13 @@
           "surface": "lunta",
           "kirja": 7
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "talvel is spoken for talvella (in winter); vaan/vain is the same word in a different register.",
+        "fingerprint": "965fbf982beccc42ac851ed90e33a9ed3d418f6d541fa2aa8e4dda105640bf17",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 5,
@@ -750,7 +774,13 @@
           "surface": "Lapis",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Lapis is colloquial for Lapissa (in Lapland); ku/kuin is a register difference. The question is the same.",
+        "fingerprint": "9d6bf14c46e972819648918df063dcae96bf5b2391a9e6fe785972f6335f5e7b",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 6,
@@ -867,7 +897,13 @@
           "surface": "kylmempää",
           "kirja": 5
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "Both say no, Lapland is much colder; Lapis/Lapissa is a register difference.",
+        "fingerprint": "8ec39be12d35ae02febd8e2b91f7b5a5f3179ed1e8a57a3931b6b449a6dea9eb",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 7,
@@ -962,7 +998,13 @@
           "surface": "takin",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "mä/minä and tarviin/tarvitsen are register differences; the warmer coat is the same.",
+        "fingerprint": "a8cdec1753ab9826b6ad9df5cfc814354c8e7eed2829d53a7915ab38e613ee3d",
+        "model": "claude-sonnet-5-5"
+      }
     },
     {
       "n": 8,
@@ -1049,7 +1091,13 @@
           "surface": "pipon",
           "kirja": 4
         }
-      ]
+      ],
+      "judge": {
+        "faithful": true,
+        "reason": "hanskat and käsineet both mean gloves or hand coverings; this is a register or vocabulary difference, and the pipon (hat) is the same.",
+        "fingerprint": "022dfa43a0f76aa6b056b73dc97e6f21d0bc9cb76c815a6a9a64a88268f8af41",
+        "model": "claude-sonnet-5-5"
+      }
     }
   ],
   "forms": [
