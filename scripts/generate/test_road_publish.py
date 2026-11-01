@@ -280,3 +280,71 @@ def test_a1_road_22_the_published_road_test_matches_the_approvals():
     assert "select plan(9);" in text
     changed = pgtap_text({"stops": 6, "dialogues": 18, "lines": 144, "live": 6})
     assert changed != text and "reads 6 approved road units" in changed
+
+
+def test_a1_road_24_a_reviewer_fix_is_written_into_the_exact_markdown_cell(tmp_path):
+    """[a1-road 24] an accepted fix replaces only its cell and is logged with before, after and the reason."""
+    from road_fix import changed_lines, fix_sql, write_fixes_to_markdown
+    from road_markdown import log_fix as _log_fix  # noqa: F401  (the fix goes through it)
+
+    written = tmp_path / "written"
+    shutil.copytree(REPO / "content" / "written", written)
+    fixes = tmp_path / "fixes.md"
+    shutil.copyfile(REPO / "content" / "road" / "fixes.md", fixes)
+    draft = {"brief": {"unit": {"position": 4}, "dialogue": {"position": 1, "slug": "at-the-market"}}}
+    before = (written / "part-1.md").read_text(encoding="utf-8")
+    entries = {
+        "line-3": {
+            "decision": "fix",
+            "fix": {
+                "text_puhe": "Litra on viis euroo!",
+                "text_kirja": "Litra on viisi euroa.",
+                "gloss_en": "A litre is five euros.",
+            },
+        },
+        "line-4": {"decision": "approve"},
+    }
+    changed = write_fixes_to_markdown(draft, entries, "round 1", written, fixes)
+    after = (written / "part-1.md").read_text(encoding="utf-8")
+    assert changed == {3}
+    assert before != after and after.count("Litra on viis euroo!") == 1
+    assert [a for a, b in zip(before.splitlines(), after.splitlines(), strict=True) if a != b] == [
+        next(line for line in before.splitlines() if line.startswith("| 3 | Pekka | Litra on viis euroo."))
+    ]
+    log = fixes.read_text(encoding="utf-8")
+    assert "## Reviewer round 1" in log and "Dialogue 4.1, line 3, spoken text." in log
+    assert "Before: Litra on viis euroo." in log and "After: Litra on viis euroo!" in log
+    old = {"lines": [{"n": 3, "text_puhe": "a", "text_kirja": "b", "gloss_en": "c"}]}
+    assert changed_lines(
+        old, {"lines": [{"n": 3, "text_puhe": "a", "text_kirja": "b", "gloss_en": "d"}]}
+    ) == {3}
+    assert fix_sql.__doc__
+
+
+def test_a1_road_24_the_fix_migration_pgtap_matches_its_generator():
+    """[a1-road 24] a1_road_fix.test.sql is made by road_fix_pgtap.py and counts 11 checks."""
+    from road_fix_pgtap import TEST_FILE, pgtap_text
+
+    assert TEST_FILE.read_text(encoding="utf-8") == pgtap_text()
+    assert "select plan(11);" in TEST_FILE.read_text(encoding="utf-8")
+
+
+def test_a1_road_25_review_pages_show_both_meanings_next_to_the_name_and_why():
+    """[a1-road 25] the page's word card shows the dictionary form meaning and the meaning in context, and the
+    form fingerprint holds them."""
+    from fingerprints import form_fingerprint
+
+    page = (REPO / "scripts" / "generate" / "review_page.py").read_text(encoding="utf-8")
+    assert "Base form means: " in page and "Means here: " in page
+    form = {
+        "lemma": "tuo",
+        "form_tag": "t",
+        "surface_kirja": "nuo",
+        "surface_puhe": "noi",
+        "form_name_en": "nominative plural",
+        "why_en": "Spoken Finnish says noi.",
+        "meaning_en": "those",
+        "lemma_meaning_en": "that",
+    }
+    assert form_fingerprint(form) != form_fingerprint({**form, "meaning_en": "these"})
+    assert form_fingerprint(form) != form_fingerprint({**form, "lemma_meaning_en": "this"})

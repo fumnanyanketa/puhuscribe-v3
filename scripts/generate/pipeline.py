@@ -24,6 +24,11 @@ python scripts/generate/pipeline.py review-pages --part <n> [--out <folder>]
     Round 1 review pages for the dialogues of one part of the A1 road (job 20-a1-road). Only on request:
     nothing builds them until the owner sends a batch.
 
+python scripts/generate/pipeline.py road-next-round --draft content/drafts/<slug>
+    A native reviewer's fix replaces a live line of the A1 road (job 20-a1-road): the accepted fixes go into
+    the markdown cells, the dialogue is imported and checked again, the changed lines are voiced again and
+    supabase/migrations/<timestamp>_fix_<slug>_round_<n>.sql is written. No AI call is made.
+
 python scripts/generate/pipeline.py publish-part --part <n>
     Writes the migrations and copies the audio for every dialogue of a part of the A1 road, in stop and
     dialogue order, only when the owner's approval file content/approvals/part-<n>.json covers them all.
@@ -50,6 +55,7 @@ from review_import import ReviewRefused, approvals, load_manifest, read_round, r
 from review_page import write_round
 from road_checks import check_draft, is_written
 from road_extras import register_road_extras
+from road_fix import changed_lines, fix_migration_name, fix_sql, set_note_why, write_fixes_to_markdown
 from road_publish import approval_path, is_last_dialogue, part_of, publish_part, publish_road
 from voikko_gate import VoikkoGate
 
@@ -380,6 +386,71 @@ def cmd_publish_part(args, gate=None, repo: Path = REPO) -> int:
     return 0
 
 
+def cmd_road_next_round(args, gate=None, voice=None, repo: Path = REPO, now=None) -> int:
+    from publish import audio_key
+    from road_checks import pending_forms
+    from road_import import Context, build_draft
+    from road_import import write_json as write_road_json
+
+    draft_dir = Path(args.draft)
+    draft = read_json(draft_dir / "draft.json")
+    if not is_written(draft):
+        print("This dialogue was not written by hand. Its fixes go through the pipeline's next-round.")
+        return 1
+    slug = draft["brief"]["dialogue"]["slug"]
+    try:
+        files = review_files(repo / "content" / "reviews" / slug)
+        if not files:
+            raise ReviewRefused([f"there is no review file in content/reviews/{slug}"])
+        number, _, review = files[-1]
+        manifest = load_manifest(draft_dir, number)
+        entries = read_round(review, manifest, slug, lambda line, register: False)
+    except ReviewRefused as refused:
+        print("The review file was refused:")
+        for reason in refused.reasons:
+            print(f"  {reason}")
+        return 1
+    written = repo / "content" / "written"
+    forms = {f["id"]: f for f in draft["forms"]}
+    for item_id, entry in entries.items():
+        if entry.get("decision") == "fix" and item_id in forms:
+            notes = repo / "content" / "road" / "word-notes.tsv"
+            set_note_why(forms[item_id], entry["fix"]["why_en"].strip(), notes)
+    write_fixes_to_markdown(draft, entries, f"round {number}", written)
+    register_road_extras(repo / "content" / "road" / "allowed-extras.json")
+    ctx = Context(gate=gate or VoikkoGate(), repo=repo)
+    dialogue = next(d for d in ctx.road.dialogues() if d.slug == slug)
+    new = build_draft(dialogue, ctx, previous=draft)
+    report = check_draft(new, ctx.gate, ctx.ranks, ctx.thresholds, ctx.spoken_forms)
+    if not report["ok"]:
+        print("The fixed dialogue fails these checks. The markdown holds the fixes; nothing was voiced:")
+        for problem in report["failures"]:
+            print(f"  {problem}")
+        return 1
+    if pending_forms(new):
+        print("These forms need their texts first. Add each to content/road/glossary.tsv and word-notes.tsv:")
+        for form_id in pending_forms(new):
+            form = next(f for f in new["forms"] if f["id"] == form_id)
+            print("  " + chr(9).join([form_id, form["surface_kirja"], form["surface_puhe"], form["lemma"]]))
+        return 1
+    changed = changed_lines(draft, new)
+    redo = {(n, register) for n in changed for register in ("puhe", "kirja")}
+    if redo:
+        voice = voice or voice_module.get_provider()
+        make_audio(new, draft_dir, voice, only=redo, log=print)
+    keys = {
+        (n, register): audio_key(slug, n, register, new["lines"][n - 1]["audio"][register]["sha256"])
+        for n, register in redo
+    }
+    write_road_json(draft_dir / "draft.json", new)
+    migration = repo / "supabase" / "migrations" / fix_migration_name(slug, number, now)
+    sql = fix_sql(new, draft, changed, number, keys, draft_dir.as_posix())
+    migration.write_text(sql, encoding="utf-8", newline=chr(10))
+    lines_text = ", ".join(str(n) for n in sorted(changed))
+    print(f"Wrote {migration.relative_to(repo).as_posix()} for lines {lines_text}")
+    return 0
+
+
 def cmd_review_pages(args, repo: Path = REPO) -> int:
     """Round 1 pages for one part of the A1 road, showing both meanings on each word card."""
     made = 0
@@ -415,6 +486,8 @@ def main(argv: list[str]) -> int:
     pages = sub.add_parser("review-pages")
     pages.add_argument("--part", type=int, required=True)
     pages.add_argument("--out")
+    nxt_road = sub.add_parser("road-next-round")
+    nxt_road.add_argument("--draft", required=True)
     part = sub.add_parser("publish-part")
     part.add_argument("--part", type=int, required=True)
     args = parser.parse_args(argv)
@@ -426,6 +499,7 @@ def main(argv: list[str]) -> int:
         "judge-golden": cmd_judge_golden,
         "review-pages": cmd_review_pages,
         "publish-part": cmd_publish_part,
+        "road-next-round": cmd_road_next_round,
     }
     try:
         return commands[args.command](args)
