@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import shutil
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -35,6 +36,7 @@ from brief import validate_brief
 from content_checks import load_thresholds
 from fingerprints import form_id
 from grammar import UnknownTagValue, form_name, is_base_form, on_grammar_list, parse_tag
+from review_page import write_round
 from road_checks import check_draft, judged_line, line_judge_fingerprint, pending_forms
 from road_data import FIXED_WHY, RoadData, RoadDataError, load_road_data, note_problems
 from road_extras import register_road_extras
@@ -549,7 +551,7 @@ def report_text(drafts: dict[str, dict], reports: dict[str, dict], ctx: Context)
         "",
     ]
     totals: dict[str, list[int]] = {n: [0, 0] for n in names}
-    pending = 0
+    pending_ids: set[str] = set()
     judge_state = defaultdict(int)
     for slug in drafts:
         for name in names:
@@ -557,7 +559,7 @@ def report_text(drafts: dict[str, dict], reports: dict[str, dict], ctx: Context)
             failed = len(reports[slug]["checks"].get(name, {}).get("failures", []))
             totals[name][0] += checked
             totals[name][1] += min(failed, checked)
-        pending += len(reports[slug]["notes_pending"]) if "notes_pending" in reports[slug] else 0
+        pending_ids.update(reports[slug].get("notes_pending", []))
         judge_state[reports[slug].get("register_judge", "n/a")] += 1
     out += ["## The road", ""]
     out += ["| Check | Items | Rate |", "|---|---|---|"]
@@ -568,7 +570,7 @@ def report_text(drafts: dict[str, dict], reports: dict[str, dict], ctx: Context)
     out += [
         "",
         f"Register judge: {', '.join(f'{state} in {n} drafts' for state, n in sorted(judge_state.items()))}.",
-        f"Forms waiting for word notes: {pending} (see needed-notes.tsv).",
+        f"Forms waiting for word notes: {len(pending_ids)} (see needed-notes.tsv).",
         "",
     ]
     by_stop: dict[int, list[str]] = defaultdict(list)
@@ -645,9 +647,20 @@ def cmd_import(args, ctx: Context | None = None, out_dir: Path | None = None) ->
     out = out_dir or Path(args.out)
     drafts = build_all(ctx, getattr(args, "part", None))
     reports = run_all_checks(drafts, ctx)
+    earlier = {slug for stop in ctx.data.stops.values() for slug in stop.earlier_dialogues}
     for slug, draft in drafts.items():
         write_json(out / "drafts" / slug / "draft.json", draft)
-        write_json(out / "drafts" / slug / "check-report.json", reports[slug])
+        if slug not in earlier:
+            # The six earlier drafts keep their committed check report.
+            write_json(out / "drafts" / slug / "check-report.json", reports[slug])
+    # Their review pages and manifests are made again: the form fingerprints now hold the two meanings.
+    if getattr(args, "part", None) is None:
+        for slug in sorted(earlier):
+            page, manifest = write_round(drafts[slug], ctx.repo / "content" / "drafts" / slug, {}, 1)
+            dest = out / "drafts" / slug / "review"
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(page, dest / page.name)
+            shutil.copyfile(manifest, dest / manifest.name)
     glossary, notes, needed = notes_tables(drafts, ctx)
     (out / "road").mkdir(parents=True, exist_ok=True)
     (out / "road" / "glossary.tsv").write_text(glossary, encoding="utf-8", newline="\n")
@@ -668,6 +681,31 @@ def cmd_import(args, ctx: Context | None = None, out_dir: Path | None = None) ->
     return 1 if problems else 0
 
 
+def stop_lemma_ranks(drafts: dict[str, dict], ranks: dict[str, int]) -> dict[int, dict[str, int | None]]:
+    """For each stop, the base forms of its drafts (names have no form) with their frequency rank, or
+    None when the list does not have them."""
+    found: dict[int, dict[str, int | None]] = defaultdict(dict)
+    for draft in drafts.values():
+        stop = draft["brief"]["unit"]["position"]
+        for form in draft["forms"]:
+            found[stop][form["lemma"]] = ranks.get(form["lemma"].lower())
+    return found
+
+
+def words_above(words: dict[str, int | None], cap: int) -> set[str]:
+    return {lemma for lemma, rank in words.items() if rank is None or rank > cap}
+
+
+def lowest_cap(words_by_stop: dict[int, dict[str, int | None]], stops: list[int]) -> int | None:
+    """The lowest cap of the ladder that leaves each of the stops with at most 15 words above it."""
+    for cap in RANK_LADDER:
+        if all(
+            len(words_above(words_by_stop.get(stop, {}), cap)) <= MAX_EXTRA_WORDS_PER_STOP for stop in stops
+        ):
+            return cap
+    return None
+
+
 def cmd_analyse(args, ctx: Context | None = None) -> int:
     """Per stop: the base forms above each candidate rank cap, and the forms outside the grammar list."""
     from voikko_gate import VoikkoGate
@@ -677,17 +715,13 @@ def cmd_analyse(args, ctx: Context | None = None) -> int:
         stop.rank_cap = 1_000_000
     drafts = build_all(ctx)
     result: dict = {"stops": {}, "parts": {}}
-    part_words: dict[int, dict[int, set[str]]] = defaultdict(lambda: defaultdict(set))
     for slug in stop_order(drafts):
         draft = drafts[slug]
         number = draft["brief"]["unit"]["position"]
-        stop = result["stops"].setdefault(number, {"words": {}, "outside_grammar": {}})
+        stop = result["stops"].setdefault(number, {"outside_grammar": {}})
         for form in draft["forms"]:
-            rank = ctx.ranks.get(form["lemma"].lower())
-            stop["words"][form["lemma"]] = rank
-            grammar = draft["brief"]["grammar"]
             try:
-                fits = on_grammar_list(form["lemma"], form["form_tag"], grammar)
+                fits = on_grammar_list(form["lemma"], form["form_tag"], draft["brief"]["grammar"])
             except UnknownTagValue:
                 fits = False
             if not fits:
@@ -697,23 +731,18 @@ def cmd_analyse(args, ctx: Context | None = None) -> int:
                     "name": form["form_name_en"],
                     "first_line": slug,
                 }
-    for number, stop in result["stops"].items():
-        part = ctx.stop_of(number).part
-        for lemma, rank in stop["words"].items():
-            part_words[part][number].add((lemma, rank))
-    for part, stops in sorted(part_words.items()):
-        ladder = {}
-        for cap in RANK_LADDER:
-            worst = 0
-            for words in stops.values():
-                above = {w for w, r in words if r is None or r > cap}
-                worst = max(worst, len(above))
-            ladder[cap] = worst
-        result["parts"][part] = {"max_words_above_cap_per_stop": ladder}
-    for stop in result["stops"].values():
-        stop["absent_from_list"] = sorted(w for w, r in stop["words"].items() if r is None)
-        stop["ranks_above_1500"] = {w: r for w, r in stop["words"].items() if r is not None and r > 1500}
-        del stop["words"]
+    words = stop_lemma_ranks(drafts, ctx.ranks)
+    for stop_number, stop in result["stops"].items():
+        stop["absent_from_list"] = sorted(w for w, r in words[stop_number].items() if r is None)
+        stop["ranks_above_1500"] = {w: r for w, r in words[stop_number].items() if r is not None and r > 1500}
+    for part in sorted(ctx.road.parts):
+        stops = [n for n in ctx.road.stops if ctx.road.stops[n].part == part]
+        result["parts"][part] = {
+            "max_words_above_cap_per_stop": {
+                cap: max(len(words_above(words.get(n, {}), cap)) for n in stops) for cap in RANK_LADDER
+            },
+            "lowest_cap": lowest_cap(words, stops),
+        }
     out = Path(args.out)
     write_json(out / "analysis.json", result)
     print(json.dumps(result["parts"], indent=1))
@@ -749,18 +778,17 @@ def characters_to_voice(drafts: dict[str, dict], repo: Path = REPO) -> int:
 
 
 def committed_road_drafts(part: int | None, repo: Path = REPO) -> dict[str, dict]:
-    """The committed drafts of the road's stops (the written ones, and the six earlier ones)."""
+    """The committed drafts of the road: the written ones and the six earlier ones."""
     data = load_road_data(repo / "content" / "road")
+    earlier = {slug for stop in data.stops.values() for slug in stop.earlier_dialogues}
     found = {}
     for path in sorted((repo / "content" / "drafts").glob("*/draft.json")):
         draft = json.loads(path.read_text(encoding="utf-8"))
         stop = draft["brief"]["unit"]["position"]
-        if stop in data.stops and (
-            draft["brief"].get("source") == "written"
-            or path.parent.name in {s for st in data.stops.values() for s in st.earlier_dialogues}
-        ):
-            if part is None or (stop - 1) // 6 + 1 == part:
-                found[path.parent.name] = draft
+        if draft["brief"].get("source") != "written" and path.parent.name not in earlier:
+            continue
+        if part is None or (stop - 1) // 6 + 1 == part:
+            found[path.parent.name] = draft
     return found
 
 
