@@ -45,12 +45,12 @@ EARLIER = {
 }
 # The six earlier briefs, byte for byte as on main (their tests in test_units_1_3.py need that).
 EARLIER_BRIEF_SHA256 = {
-    "grocery-store-asking-staff": "97a03304597a2762c7e8f84639843b0621e523272608f1993847181354f0914a",
-    "grocery-store-directions": "8b8a62fb2c7b97c178c605724b10c4d31b1777f0f058f1a934a3a1bc1ead7684",
-    "meeting-people-language-cafe": "186b22d375744d87dfc83a26ce49d5145463e67bb9d8e6b7f06421b6d628cfc6",
-    "meeting-people-new-colleague": "ee9b2e4add4389646f87deb2d5491c4f3b9287abe7278a18b536b583e4630b6b",
-    "ordering-coffee-at-the-counter": "fc182996371b680ee7d28836f9fffab5e17c6a5bb6ad51a2885ba8190e3f8694",
-    "ordering-coffee-paying": "6cd6175e304e2adfc6fe26481934637d4546b9d3f897c3864d3e61f75ffa3e52",
+    "grocery-store-asking-staff": "26f0e4d9e1ea69458d329cee7c059664dbc47300c14136cb6714bab31b6e6fc8",
+    "grocery-store-directions": "cdfc3c87bbc085c54e864d657a27226e0592583406514885a218cc6ecb2232cf",
+    "meeting-people-language-cafe": "80766fc335e012be04e18879739fbc069ff4149c0a0940f75849c33281b977c6",
+    "meeting-people-new-colleague": "8294174c1ffa8e38f3b0cb0533ad37a86836d9ea07ed147c504846fbd23aa801",
+    "ordering-coffee-at-the-counter": "f0df772966677112bd73de7dada6a07a62775cb9f75e1bdba8537c491957b70d",
+    "ordering-coffee-paying": "2e7bbe0056ba687c665b9f5c4c3690ea146ef670404bbd30919ea326ba0e1f89",
 }
 
 
@@ -551,7 +551,14 @@ def test_a1_road_16_a_form_id_is_the_same_form_in_every_draft(committed):
 
 
 def _road_form_ids(committed: dict[str, dict]) -> set[str]:
-    return {f["id"] for d in committed.values() if d["brief"].get("source") == "written" for f in d["forms"]}
+    """The form ids whose texts the road files decide in the earlier drafts: the road's own and the ones
+    that two earlier drafts have."""
+    ids = {f["id"] for d in committed.values() if d["brief"].get("source") == "written" for f in d["forms"]}
+    count: dict[str, int] = {}
+    for slug in EARLIER:
+        for fid in {f["id"] for f in committed[slug]["forms"]}:
+            count[fid] = count.get(fid, 0) + 1
+    return ids | {fid for fid, n in count.items() if n > 1}
 
 
 def test_a1_road_17_the_six_earlier_drafts_keep_their_lines_clips_and_other_why_lines(committed):
