@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -165,6 +166,26 @@
         "reason": "Moi and Hei are both greetings; the rest is identical.",
         "fingerprint": "dc7c515354bade9d424b78b8f060b0d338a55c80158e43767384fcf85bd56ff9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c4db6891a47a89b11f6619184ef137d9cbd1df8ef0d756d102b2b3b8a59e2864",
+          "text": "Moi! Miten viikonloppu meni?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "88873e583be2ba9c01e0bdfd084ab6c070cd72a75e1e631a90066717dbbaf391"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8d864356053e10046845ab9cafa2ea9e3a3b87e578a7c34c67600fd7b6d5fe1d",
+          "text": "Hei! Miten viikonloppu meni?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "54160b1f6ec1b04c1165e2f650fdfe816267d87fb1c39cbaa4f669e25553856c"
+        }
       }
     },
     {
@@ -280,6 +301,26 @@
         "reason": "Only register differences (tosi/todella, mä/minä, Suomenlinnas/Suomenlinnassa); same meaning.",
         "fingerprint": "59f36be3c716d84862db30dd76029b34f8b097ebb8c288c18239d48cfeb96fc5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "dffde3e511a70da7795d92f98245df77c46eda7a2ed2306a25a815252c87cb8a",
+          "text": "Tosi hyvin! Mä kävin Suomenlinnas.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "64f4fbe9e5391c35ac7b123ed295e6f79a734c07d6e4b2428e76bc5b1fdbc99d"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "f521c3141943efd85c41f4b3e7333e7bcdf5f3b797f1ee5a9a8591f036ed6756",
+          "text": "Todella hyvin! Minä kävin Suomenlinnassa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2467bb390673984f1610783544e9b67cbb95efc1542f1f3d5bc92ebe45b43b25"
+        }
       }
     },
     {
@@ -393,6 +434,26 @@
         "reason": "Spoken forms oliks, siel, ihmisii correspond to oliko, siellä, ihmisiä; same question.",
         "fingerprint": "3a9e9251a15c6b13f6d12d50ceb423c31068f5872f457577d34a87c70b4a4853",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "b399f5eb1cfeb6b781f466c35aebe45146b08fa1d87ae119f2c53422eb4d8488",
+          "text": "Oho! Oliks siel paljon ihmisii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "07eee8bc62cb84afb0c52d4b4c19fc763aa6b4be053d22afdb095d1fa40e584f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "c96b5d58714b77a22377d3884ca2d519381965f581f4a5b44955226097693932",
+          "text": "Oho! Oliko siellä paljon ihmisiä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2433be00290dbae18bd79288bf010946341b0590061c67cb4a6b9b3cb5c0e628"
+        }
       }
     },
     {
@@ -504,6 +565,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "9d471ff259259d3747a49cfa0562fcdd6aa2032d06ceb9f695be9646a5ca93cf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "a52489c4b571afa3cbc402754dc71456e56dfcbc53b6c6d278a0858083ee2810",
+          "text": "Ei kovin paljon. Satoi vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6970fddd66d2c0e3bf53b0bf029c40ddb2088c25d37138a60ec937fce08fd3a2"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "93cf21706e7445122457e7b7d0e78859a7716462478edba7bd605e5638ec15b4",
+          "text": "Ei kovin paljon. Satoi vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6970fddd66d2c0e3bf53b0bf029c40ddb2088c25d37138a60ec937fce08fd3a2"
+        }
       }
     },
     {
@@ -621,6 +702,26 @@
         "reason": "sateel/siel are spoken forms of sateella/siellä; same meaning.",
         "fingerprint": "2a4fe083c5762856b0908329e692514ae93d274f3521684d1282899d3482463a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "d3d2c2e62023ebe16e63648595a88459263ca3a75a1a909efaf87b5850f88204",
+          "text": "No, sateel siel on rauhallista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c027e81f2442a2e21002599ac938faee223ff0979ec915249dac5f93cf87ab1e"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "7bd21cecd6df7a5539516c5700f8a36568cedcd0138d7faf853513fb81f1a16e",
+          "text": "No, sateella siellä on rauhallista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f6f08f4d9fd8205c61e1212e05e0ef3ba89718119a289c3c14c94d8b3ab4766a"
+        }
       }
     },
     {
@@ -739,6 +840,26 @@
         "reason": "sä/sinä only register difference; same questions.",
         "fingerprint": "1e412a288b15d58178c36843c080806602120d6b4d2d5a7a3fdf3c486f41285b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "a4c8a45b706c4eabb1703812e3ed55ba2c34677f40f0b6c5d3e69b535c216616",
+          "text": "Entä sä? Mitä sä teit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "21f92d80848951e25c58ac9704518b0a77148a017ce14be49cf5a9dbc3e77dcc"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "ea0d4acff79586c7857159ccedffe06325b6ed33e7572980c9e749e1ff122566",
+          "text": "Entä sinä? Mitä sinä teit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8c8d8f0b7be10d392a612445ec5fb3fb15a3c3a4171bcd5fee0531556489c7cb"
+        }
       }
     },
     {
@@ -862,6 +983,26 @@
         "reason": "Spoken passive 'voitettiin' is the colloquial form for 'we won' (voitimme); jalkapalloo/jalkapalloa and mä/minä are register only.",
         "fingerprint": "6d8273cb439dc55c5578c3ec05fd261cfed5d95f46bdcee98521782296cac244",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "5f418b228967ba31f0fbe403b2d6ef96cf858a30a5fb80acc0218b8bb4f9c9ad",
+          "text": "Mä pelasin jalkapalloo. Me voitettiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "515e808fb653ed035f3da15ea5a484e46047620d8e59062a76947ad5db6d4ed8"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "6ea3c53236ecf5a7746aae9d51767d5e67f0ed5c2fec786589d7c4cabed4f8b0",
+          "text": "Minä pelasin jalkapalloa. Me voitimme!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "650ba57058a3a9cde81bd1228d2bdfa4489cb8cac449bf82168c13edeb8d3f12"
+        }
       }
     },
     {
@@ -922,6 +1063,26 @@
         "reason": "Onneks is a clipped spoken form of onneksi; same congratulation.",
         "fingerprint": "a2fd5c161d7b4fd94f9f4f48276d6dca19e622293617f3472a1a0cb676551adc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d256841e30af67b140f731f21c9ec1861ee46266beb896f62df0690806396866",
+          "text": "Onneks olkoon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1a169d1e38ca88576bf4985f3b270aa634d4e8b35b38f8f47ef2830fbe7cf54d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7a2fb4700eb5df222c5503d724e4ed0ae9c22e44f1ca85785f5b70475822bf5d",
+          "text": "Onneksi olkoon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "be2d96bf7217b6eb4bf54f847529df2425feef8bb2dc996018bcebbe7a1e87b1"
+        }
       }
     }
   ],

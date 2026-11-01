@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -206,6 +207,26 @@
         "reason": "Moi/hei, onks/onko, toi/tuo are register differences only; same question about the bike.",
         "fingerprint": "df660bcd2ebeab7611e44381a50826244f632aa244384a7655ebe9636ff9f115",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a8a3fa71d414caa625bc469ba66499917b6dc472a2effeab008cec9ddc13a128",
+          "text": "Moi! Onks toi pyörä vielä myynnissä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4581c8eb9a8c98527ac930141d7f699d30066dad0e8e74627b868d29f09a157a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "a403fbd5a68612c2690738dc5eb9c422bb2ee8657ba36a6c0341801261e7d472",
+          "text": "Hei! Onko tuo pyörä vielä myynnissä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ae89a08e64ececaa13fddd29f71597c300cb2a9c068838eb103cb53edc493080"
+        }
       }
     },
     {
@@ -329,6 +350,26 @@
         "reason": "Only the spoken 'euroo' vs 'euroa'; same price of one hundred euros.",
         "fingerprint": "88f3ccc2175142862a7383c399cc8a3f60330db0515bd8f03c6d7d6c5423f3fa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5363ad35305bb783ecf62275b55561d2b5a97f732281338c98cdc34c84a36564",
+          "text": "On. Se maksaa sata euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "85bcee7e6f6be373363a1eff1673e9167b05f498774e5a5393a2e0f327f87229"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "6597bf912d94b3365c4129492a9a3969732c672ebc2147894501a512899c3d62",
+          "text": "On. Se maksaa sata euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f19408b4c002f303db8b53f5b31a7ea33c83eead240d43854199a279d061a362"
+        }
       }
     },
     {
@@ -468,6 +509,26 @@
         "reason": "Same content; only spoken 'euroo' vs 'euroa'.",
         "fingerprint": "e157b28005c1450d32cbf18eca703f8e7069a4cde4b48774da590203ffb855c9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "5121c11c3c28ab02c4cdba5cee44204a5ef03b5ed6da901c134fc8a23d03c9d1",
+          "text": "Sata euroo? Se on vähän kallis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8ab47da0df4253326bc78cde854d45b7e87335305a5008449150d6d87fa4ee8d"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "1fc11f661cd9742c88c8868f04712a998641243dc29ca9af8d35ae5748f12812",
+          "text": "Sata euroa? Se on vähän kallis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "94d33338fd441231855328b0ff44539cfacd70ff1688e22e984ddecc0440fd54"
+        }
       }
     },
     {
@@ -585,6 +646,26 @@
         "reason": "'uus' is the spoken form of 'uusi'; same meaning.",
         "fingerprint": "8729b67822ae1029a43266c1e3cc1281f9ada3e1a86c28ab839d99acc079ae53",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "5c4bfbe29dd4c980b3fe0fad9b07c680a062ef6361054b4d6fed34214b0bd73f",
+          "text": "No, se on melkein uus.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6c9f99c5764d2f6acc711e5403c530c90337afaa27ce20833d3d2dec83acdcdf"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "30e1e97c1f3c630e8933fe5425b5fa2a1ed8029dce033ba29b4cb43693cdff87",
+          "text": "No, se on melkein uusi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "80ca0886f0a4b9db8e6705e95e2e42390b805d83739876e76ce7489910065f68"
+        }
       }
     },
     {
@@ -666,6 +747,26 @@
         "reason": "Käyks/käykö and kaheksankyt/kahdeksankymmentä are the same offer of eighty euros.",
         "fingerprint": "f91e90fd38d17f49019e22f16de82433eb40ac02b39819184c80a690e86dd694",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f99cb760a1a6e8127ceb75dc6627f00010be6b59fa651c6005b597db411c4eb1",
+          "text": "Käyks kaheksankyt euroo?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "13ba486de40a340053cc2b37ec9f42f036e2c205969530b85e3017cb22a40ae7"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "2e955464f675747883eda719e5688f509dd073effcea89dc2860897ee1439dc3",
+          "text": "Käykö kahdeksankymmentä euroa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7873836eb60ce5d2b6505357af9ec41de4810506db7b932afd0f20b12b8a0563"
+        }
       }
     },
     {
@@ -784,6 +885,26 @@
         "reason": "Yheksänkyt = yhdeksänkymmentä (ninety), sun = sinun; same meaning.",
         "fingerprint": "fb54fce8fb4de4c0083808935caa3d3872f8701849375e2b87cdecfed53d4fa1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "afc930e3cc1cd29bdea505e49233be064478dbbc2adac34b7b19d8520db0ada9",
+          "text": "Yheksänkyt, niin se on sun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "39a2fa8f1b77995ea828f5f041903aa348ff544d588fbe87a426fe924d459767"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "d464933c5367a2a29ce111505a969424579b8f55d47c0d9896428b7de5fcfe39",
+          "text": "Yhdeksänkymmentä, niin se on sinun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "020cc847730622191bffad3d6a79d31fcaa87cbfe5170c733c8ff2fe98fce07c"
+        }
       }
     },
     {
@@ -927,6 +1048,26 @@
         "reason": "Okei/selvä, mä/minä, puhelimel/puhelimella; same agreement on ninety and paying by phone.",
         "fingerprint": "406be34dcbfc0c94510e1e827a8cbf387a7aad404a95610626ab97a758a879db",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "2295aa05fa086442375eaed7c6e21a7372a53785c64107bbd824d7d1cfb14c67",
+          "text": "Okei, sovitaan yheksänkyt. Mä maksan puhelimel.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "89b9740e794cd9e20375f154a364e7d7be59644cda2d85454fbb6faec2aeeec0"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "206ed87d17e29d22458d6812810a4ef518bbe74b7488de144ced66a923329855",
+          "text": "Selvä, sovitaan yhdeksänkymmentä. Minä maksan puhelimella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a87ecddae542c496354a03bb4432814dcdf90390388a49ec6c3f5941b86af2cb"
+        }
       }
     },
     {
@@ -1028,6 +1169,26 @@
         "reason": "'on' with plural subject is colloquial; 'ovat' is the standard form. Same meaning.",
         "fingerprint": "2209de4a6b3aabcfecb07974a1c264cde4c080a666a2026fc5cc9deb6afff6d7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "3470051ab2eeff786c7164002ac86903693d66140ea1b75ca706879ad6e842ae",
+          "text": "Hyvä. Tässä on avaimet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a0ddea18b6fbd2804ca3f6b14121e40754849af76fa9bddea198f423dda7bb7d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "df15f9cc5815778ed506e109984de480337e92cb4a5a28ece6d44f7789807b53",
+          "text": "Hyvä. Tässä ovat avaimet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b42abdb2cf2a24daa142fbf458b1ac22bb9425047ec6ccf7ae04f7c4ebae61e7"
+        }
       }
     }
   ],

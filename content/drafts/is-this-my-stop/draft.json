@@ -60,7 +60,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -185,6 +186,26 @@
         "reason": "Only register differences (anteeks/anteeksi, onks/onko); same question about Kamppi.",
         "fingerprint": "4233dc189d918db80b34d6a7f08ad0a6a4799ec005a117588dcc4437d8ae3cfa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c11727eebdc1e3d99febebfab366aaeb17274ced4c552897da42c0074edb328a",
+          "text": "Anteeks, onks seuraava pysäkki Kamppi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8da1d301ce1f72a7630c7d742b423a8a095ff07fddf0f83662bf10467a87be2c"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "796529899fcf1c4c980af7331bc6aa1c72530c0083e498769865b79359c49a2e",
+          "text": "Anteeksi, onko seuraava pysäkki Kamppi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1e58df93fc3f3f2c6091a4de046f2beb5be99af03dcfdd0704155e6dc300a8c2"
+        }
       }
     },
     {
@@ -324,6 +345,26 @@
         "reason": "Lines are identical.",
         "fingerprint": "b35d398aaf5c4e7b870e31b465787010c9fb58ab922310ed6caa8fc934927415",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5731c395aa11c1bcb9125ba9a809d2c3e532f623641e65f281ec26d842cc3301",
+          "text": "Ei, Kamppi on vasta kolmas pysäkki.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b666bf106ae9c7f11409d1290e8d27f11afd8739e3092e52a07a56cd879c5b2a"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "fd6a3c7d54e5d4068b9c65ab6379a532ced1bfd9de975a0bc56003ea7dbafa57",
+          "text": "Ei, Kamppi on vasta kolmas pysäkki.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b666bf106ae9c7f11409d1290e8d27f11afd8739e3092e52a07a56cd879c5b2a"
+        }
       }
     },
     {
@@ -444,6 +485,26 @@
         "reason": "Okei/selvä, mä oon/minä olen, uus/uusi are register variants; same meaning.",
         "fingerprint": "4db1a48b5cf53a75a2f7c58ccddeeb05682e5f7c4bdd99063c4cb4d045887d37",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "c20f2ab6a537153d35fbd7ba1936ffb738ebf287374034b9e66f975dec2090c0",
+          "text": "Okei. Mä oon uus täällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "15ce57cff619c98636d3d757801c471d87b14ee4353fc52d8819747832355021"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "444c589e6cf7ac235cbbc7176d051193c0c6d6083dbe44bd12d9d24253dafbde",
+          "text": "Selvä. Minä olen uusi täällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "673406d705cb1e3bbfb7104bd421e2e4cae8f00d7640d44d7f35e1abf4b21f69"
+        }
       }
     },
     {
@@ -565,6 +626,26 @@
         "reason": "sä meet/sinä menet are register variants; same question about where you are going.",
         "fingerprint": "9ff2d3aa9a71dcb3a46f9b73e696c4edc389a82d6aad32126096c0b9ba16f20a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "ff2a3e62674f9306bd68c397d1f9a9aa0d4a52f0cef953eb7f796b787ce66899",
+          "text": "Ei hätää. Mihin sä meet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bde6748ab959e07553dec8c9fa41c844581f4f0b9116e38d6458d0d844f9bb88"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b3fb9251754e0a95ded2b4db39e29d099f217f861ad76dfc4a1720c838d756bd",
+          "text": "Ei hätää. Mihin sinä menet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5a1cf7958721b2127e487a6520c4f1eacf891c0c045b29a0e9f54cf26ae5d192"
+        }
       }
     },
     {
@@ -665,6 +746,26 @@
         "reason": "mä meen/minä menen; same destination, library Oodi.",
         "fingerprint": "4ecaf077b9e1bb641b27b184358da05c4a4f690bffc5fba24c937fd7453b3246",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "6069726afcf40d5eb6ecfe7ce127e72fb8cb48dd2822a2270996070d044e608c",
+          "text": "Mä meen kirjastoon, Oodiin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c6bb8862edca20adc8469aa1ae76f227b04640b5dad37540f04e3e0dc6ff90c0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "f2127644ef29198234844f3a5c19e097a4834aa8902d79ee884e03bc4efb0c4c",
+          "text": "Minä menen kirjastoon, Oodiin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f8fbbbbfef7f5476af28d05be5db87ab44ceb68bff1cffe66c44d0adf04bd568"
+        }
       }
     },
     {
@@ -840,6 +941,26 @@
         "reason": "sit/sitten, sä/sinä, Kampis/Kampissa are register variants; same content.",
         "fingerprint": "940d7570c3b8f7837f6a54192777ec0925fdaac4778edd1ee9608ea220b7f2ac",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3fa0e1d5fa94d0b6515975f8db54ad16d89aeeb2106518cc053bb8c200587ce1",
+          "text": "Sit sä jäät pois Kampis ja kävelet sinne.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "dee0d0beb79a75f568e4da26cc6bc933dbe683de9e9bd7d63245153b21db939c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "83541344f103aee67c6778b0d6c865c481e571bc98075e6f26a3244cd292b5c8",
+          "text": "Sitten sinä jäät pois Kampissa ja kävelet sinne.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "32291e2bb27046f33f9f70ac4c3e3d7e7e18b6a7e897a1db0633fe600dae5b82"
+        }
       }
     },
     {
@@ -919,6 +1040,26 @@
         "reason": "onks/onko only register difference; same question.",
         "fingerprint": "9857e809d2be82039e18eefce5899fc4f898bc4a9a0b77299d31c74eb3d5e4c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "324264f911fb3db60e245cbedf2c652c2eb892aa7940c1b2adb93d61eef21ce3",
+          "text": "Onks se kaukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d35616141256fc0a4352b1cfff89efaa9e941cdde27bf43f1f00ba9352e22ca6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d5da539e9478b2f42a8ac5c6927063192f9cba2b5369e4a19337b75f031ad82d",
+          "text": "Onko se kaukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a1e54f522e7595557671a9cc30940faafe107103956b88fc459e7695ecd98ccd"
+        }
       }
     },
     {
@@ -1035,6 +1176,26 @@
         "reason": "ihan/aivan and viis minuuttii/viisi minuuttia are register variants; same five minutes.",
         "fingerprint": "2034c85502b0287b040e85b18adaa3c77dd9d3503d04509a55b500ce16ea58dd",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "e901e456f0560e84e3c69de55afa8c347e834abebd47dc04491329ac9350b689",
+          "text": "Ei, ihan lähellä. Viis minuuttii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "01eb4b2674a5f080c7de813ab3289f7af5ddb4578823ee649ea5fc0759670cf2"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "cf4f73629faccb2c6863fd32cc69e86ad4dac2fd4b94d0bcf3a00559a7e878db",
+          "text": "Ei, aivan lähellä. Viisi minuuttia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "042d32dc6c5510eccda6b4527aadd32a136869a7155d4ca9a4ca312ad2ebfedb"
+        }
       }
     }
   ],

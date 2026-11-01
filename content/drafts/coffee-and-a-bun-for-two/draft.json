@@ -47,7 +47,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -149,6 +150,26 @@
         "reason": "Moi and Hei are both greetings; the rest is identical.",
         "fingerprint": "70a5c66af6954e1417d88385d284afe764d948e173bdfa2580255ce87ff977b1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "b8579846bb3c42d4d110231bef208a25e79c51ed72dbb4655a5ddb1bf1386efb",
+          "text": "Moi! Mitä saa olla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b1ccb34a7959f01920319a0d70571c87ed7d08675ed7036800a699e18ab3a6c6"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "acfa1dca5e9ccbf3329019d1aaa0692219c61c8e29645a7ac7693170339d0092",
+          "text": "Hei! Mitä saa olla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5e51787b40bf741db9a8544f74d38af1b311578f93fbaca018de73b36543e289"
+        }
       }
     },
     {
@@ -284,6 +305,26 @@
         "reason": "Same quantities (two coffees, one korvapuusti); only spoken forms differ.",
         "fingerprint": "768ff49e863565239dcf08933f1cf7789e09884c22085fa1a0e60a85e61d60a7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "b4a8cad5494d78c1aaadb37e27ab8eeb29ac006276969dc7f8f8b6958d62a13b",
+          "text": "Kaks kahvii ja yks korvapuusti, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d45fcc5ef33c8d803534fa19a15209430e8772f34bf18f3a30b011ad73041af9"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "078525dd1eef52e07255d34240cc229e1a645c496b2f78de25274aaa9d498f24",
+          "text": "Kaksi kahvia ja yksi korvapuusti, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "67806eeb19cfc077f399150be3fa70d76892d833c55b466847a8d8bdd9b513cf"
+        }
       }
     },
     {
@@ -357,6 +398,26 @@
         "reason": "Maidol is the spoken form of maidolla; same question.",
         "fingerprint": "7b1f5d7cbbab17c5cc87bd5ec06ba82f5067e9d9ddd10dc5dc64b1ab9124ebd2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "a6c54bcae6a626b76424eb84fa872f7b5a7aaea590c1decb0dc84adc06770ba4",
+          "text": "Maidol vai ilman?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8e7e033b6d3e4e9da07e32220b9438232a82739f46f1612be7b42c7d03094b38"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "8f41446448c78fd778d901d0ea51e4e7974a6a00fc5908a0b0cb83c33144e6bc",
+          "text": "Maidolla vai ilman?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9e766ea93dc33e03119729e63301df55483950a6604e6cd930d51c870fe27b99"
+        }
       }
     },
     {
@@ -470,6 +531,26 @@
         "reason": "One with milk and one without in both; only spoken forms differ.",
         "fingerprint": "cf7854e6c1fd4bc139680a6affd7b633e87f17211067d35a71ebefb26e7dd7f3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e8566b446b946cc65d3ae290e50ff3d244beba5ec417e8922d329adaac4c3cee",
+          "text": "Yks maidol ja yks ilman.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "77edb27965212182092ca41f1409f930ba4d65304f48e65d26f0f0ac14220bcd"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6b8020460fb8f91334387fb5e04ba243a61049eef385f17b1fae3d185b0933cb",
+          "text": "Yksi maidolla ja yksi ilman.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "60f760be52b5846b1bef663c7252696d4af4420f677c3b70ce0df6fdeda908b4"
+        }
       }
     },
     {
@@ -541,6 +622,26 @@
         "reason": "The two versions are identical.",
         "fingerprint": "6c4892baaa5e92250803c30f5b9925b18e383f25993a97b4d4b387bb97e6b867",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "dc8f2de8f69c8c9aaecf203e1e7e6c4c749fbf5fa3c6291712a3d1b89e07e731",
+          "text": "Täällä vai mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dffba6887586134a2986ecb800611f1461ed1fcb58554042d5e2b62a50a76a33"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "bd976e502f18280ad89e0ed9d6aa3bee543b16f53cfecc9398174dc7682e4937",
+          "text": "Täällä vai mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dffba6887586134a2986ecb800611f1461ed1fcb58554042d5e2b62a50a76a33"
+        }
       }
     },
     {
@@ -636,6 +737,26 @@
         "reason": "Paljonks is spoken for paljonko; same question about the price.",
         "fingerprint": "b12c751ee604674fcc8e3d155537b756a0e0a88824ee0c03b71f13120b5e083d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "8cb99eb093cb090a220eaa69fc4d6707caa166f85df6278aa0e432cb8502a985",
+          "text": "Täällä. Paljonks se tekee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ea9a12e61fca521b878a500133c9487665db8697df43aaf41c9b6d63472a9632"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "2c44386814dc87739a691330732a6304161814d7db2cfb62332c080e13cd6f7b",
+          "text": "Täällä. Paljonko se tekee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "074de93ecf58471f096a60adfb6b6ff145c400d9f4743ff03add2a056a81fa91"
+        }
       }
     },
     {
@@ -693,6 +814,26 @@
         "reason": "Nine euros in both; only spoken forms differ.",
         "fingerprint": "b2b9d85980e2d0d141084778b57abeb1149eec804d999f944c2ce0ed454c5e0d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "5f217751b997b051deeed0064edffb82edf0975a8282ca469d582d8587297545",
+          "text": "Yheksän euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "37a93ffbf6af0aedfcc237a2d6e080aed2dc381425e943cd7f7f25717c8c9ea4"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "89235c191ca727f8581384e3e9ea26790fc6c1764c0d41809cb180069eecfd69",
+          "text": "Yhdeksän euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "69a6f9fa4efe01a72b2be45c2d78d226a85aa73603a0d0ac196ed6747b76af37"
+        }
       }
     },
     {
@@ -730,6 +871,26 @@
         "reason": "Kiitti is the colloquial form of kiitos; both mean thanks.",
         "fingerprint": "1ecee31df0ab120d206d4053824308f0cfd5475611413f89e54ba78e258f8129",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "cf3f865f892359e0cbfe902ae2465446a5e242998fb82511b2e933e28fad0426",
+          "text": "Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3928d10965cece88c1a55edc6c6749841e073085ea06ce31c77fa0b739efeeef"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "486931c4fd1797f8e3723e1f6874841b01f06059a6e6cd724ac53dfa8a3a24c4",
+          "text": "Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a993bc341c2d8cfd553961973d977cf52b917d712cba3dfa6773fcad02e6e0a0"
+        }
       }
     }
   ],

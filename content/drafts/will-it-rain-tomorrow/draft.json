@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -212,6 +213,26 @@
         "reason": "Same greeting and question about whether it will rain tomorrow; only register differs.",
         "fingerprint": "8efd977e05de46c6ec616bb453ee99b7ad58a7ebd91499562eff9261197fdccf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "35f71d52a899e1c91828d321864cc775faf59ea0f2fd06c9a529a21cfe5ccf0e",
+          "text": "Moi Leena! Tiiätsä, sataaks huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "50620b06d153141b7a6115ebbb748a288dad3189c6d511dd1f9334c02b24d7ba"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8a5a2cce5e13a343107e3faaac5e193bde0cad4e56b6bfc0a9ef076fab88670a",
+          "text": "Hei Leena! Tiedätkö sinä, sataako huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8a507e7b59d54bbeb3cc82d97be0b42b7e74ac350a18df03d8a534ea45b800ed"
+        }
       }
     },
     {
@@ -336,6 +357,26 @@
         "reason": "'Ei pitäs' is the spoken form of 'Ei pitäisi'; the rest is identical.",
         "fingerprint": "8010a44c252a3ce533a5b65ae16d313f6b57794577b05bab6266787b2003714f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ce51df60ec983ba850d020b6c451fc6c6d0ea1ad4d1ed452b809c62921c3cce4",
+          "text": "Ei pitäs. Huomenna on aurinkoista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "34a760bcda8cd481e9d3770e945f11ba9a0c902dbbddbd1107e26daae615e867"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "9c5f1a030ee371c2de296e6f4b1b60d0c27cf1f29ff10ac8a442f569b734f0ad",
+          "text": "Ei pitäisi. Huomenna on aurinkoista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "02ef8fa3d9fea396646f7df1f5cab0a004772c174092090e79b8166137d5701f"
+        }
       }
     },
     {
@@ -459,6 +500,26 @@
         "reason": "Mä haluun and minä haluan are the same: I want to go to the beach.",
         "fingerprint": "7e6606f4846a37ebe108b1fc384c5d0d87501b9f8b427c758117c8e3c9d1e8ae",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "85cc73a2f3d347b3146dd8c7f7a9db9a8fe747d784d51d90591aaef6f6a3f12c",
+          "text": "Hyvä! Mä haluun mennä rannalle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7815288d59f043e9b5931c11bedd85c0cbcd081d4aafb20e90a70563ec5ef5d0"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "fe53fd2cde5dbcef897e6bdc79a8ca6770b26eff87f638934db5116e862e49a3",
+          "text": "Hyvä! Minä haluan mennä rannalle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "940294777ef05e513cbc8f1409bf2c6f8ba419c68f5762643a31054ef0fa806f"
+        }
       }
     },
     {
@@ -595,6 +656,26 @@
         "reason": "'Tosi' and 'todella' both mean 'really'; the meaning is identical.",
         "fingerprint": "a1cb814493ad47a25ade8a2f505f4435f917d42e40582ad7a79a57e24b448b0c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d7ce0190996a7f78bb6a8895d7ccc9f2a3ca0a93a2d1776f058431bba289a220",
+          "text": "Hyvä idea. Tänään oli tosi tuulista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1353de9af3bdbba490b889ae4e3e6d31e9d5eec9d184eb3044d51182c75fa41d"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c89bd9444a7fd684d3b9566b964446bc073533de65f7eb21cfbd008ee17aac0e",
+          "text": "Hyvä idea. Tänään oli todella tuulista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8e6259866a7b852912de0a09b70c1cea763780ab8993cfe91001477e592e62c1"
+        }
       }
     },
     {
@@ -712,6 +793,26 @@
         "reason": "Joo/kyllä are both 'yes'; mun/minun sateenvarjoni is 'my umbrella'. Same meaning.",
         "fingerprint": "e56af2aadebfd932e1c21e99d07921ac82e016e6eafafa3a51018e94a88d492d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "fd72b50fdb9f79cd2a562d69bc1c4cd2641bca1b033dec3c521304cc30fd7a08",
+          "text": "Joo, mun sateenvarjo meni rikki!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a40316d3a1f924cc0d503ed5532981e42677bce3884bc72bc67d346eff4c0f4"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "9078474811f9232395d08de60fcb3b437ac2057e3362f86abd522ada97291420",
+          "text": "Kyllä, minun sateenvarjoni meni rikki!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3c39e52ea22b4abded7f09e52d741d3fe5b1c631a93d9924ed660f3b54a8b6e6"
+        }
       }
     },
     {
@@ -914,6 +1015,26 @@
         "reason": "Same offer to lend my old umbrella to you; only pronoun forms differ in register.",
         "fingerprint": "056999d9b29915d47c98ef67073d5ccbe15b69a31fe18861272c9ac0753f60bd",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3396cbec104d8f75a02f083ff074a71e7a0f6caec7af583d90f34fcdca776eea",
+          "text": "Voi ei! Mä voin lainata sulle mun vanhan sateenvarjon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "fa89b1c8c7b5cb002333d9bd9bfb4961d922a43a0db3891a20af307d76beb773"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "9fa0f36300cdb94b5604569ce1a91390745c3ee64bd1f40c3fa9e049ae97e850",
+          "text": "Voi ei! Minä voin lainata sinulle minun vanhan sateenvarjoni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5631705def07cb492f48b36cb5ca0b8f60563960dfa0654987cc36a52dab3805"
+        }
       }
     },
     {
@@ -988,6 +1109,26 @@
         "reason": "Kiitti is spoken for kiitos; tosi equals todella. Same meaning.",
         "fingerprint": "00d462a1b29fa07f1bcd95301499be3839050e6d46abb5b7ee2ce09f87068bf6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "b0d704bda29bd48be56c7fa7c727aaa49d86236fe5c4abaf6a9db1c138be69cb",
+          "text": "Kiitti, tosi kiva!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f19f00d2bd6c6d18ffc35b9487ee9bc31455a48b93ac5437cc2af5a9e64118f6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d13641844d1c2ce7bab2979c1deb1dca8907401e123610ca4230847055829f46",
+          "text": "Kiitos, todella kiva!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "54bda40527536a98febbe1f3f7e3134de1026e0abcc7fd198da9f2747a6451a8"
+        }
       }
     },
     {
@@ -1085,6 +1226,26 @@
         "reason": "\"Nähään\" is just the spoken form of \"nähdään\"; both mean \"see you tomorrow\" and the rest of the line is identical.",
         "fingerprint": "f88a222788d5474e52ea8690852887b5cee61e40bea1c47f71b4ca8b5dcc59a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "fa3b05eed0051d1ba4c3e568a60a918fe0afde81940bdfdcc7c44f05c4e9623e",
+          "text": "Ei kestä. Nähään huomenna!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3d1bc1d7c79ad38c292e26d75c088fae546047975a14026cedc6e6a600029a3b"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "740fc1af28eac246e220719000bc6b96ca88cff8a60143eae3df592f50cf7794",
+          "text": "Ei kestä. Nähdään huomenna!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bb43542941a1921e85f0cc1b3d4773b161845a2a6715cb108cf7cdd3c7e33975"
+        }
       }
     }
   ],

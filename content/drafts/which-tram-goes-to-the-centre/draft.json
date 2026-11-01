@@ -60,7 +60,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -182,6 +183,26 @@
         "reason": "Anteeks/anteeksi and ratikka/raitiovaunu are register variants; same question.",
         "fingerprint": "3f7f42850edabce182865727dfb9f75c7eecf7af550a87471018e54a6d71a67a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "2a36c6383c257ec110f9cc156b6c20ca764102c006f6044fa3b0e5edc5d85dae",
+          "text": "Anteeks, mikä ratikka menee keskustaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a6abcf7ee22cfb6b9fa270aa4105cd5d6aa29525106b1bb8c8ebcc3b3e44966"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "5b3cab3456f1ae87f0cd07f06b824e42221bf4f5c440faefc40a625ecb834164",
+          "text": "Anteeksi, mikä raitiovaunu menee keskustaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8ce3930b7b7360caed485395617a02015c4821c9e79d0384562e5094a1995e34"
+        }
       }
     },
     {
@@ -297,6 +318,26 @@
         "reason": "Seiska is the colloquial form of seitsemän; both mean line seven.",
         "fingerprint": "b0c52cc7b8c3cfdcc8fc7ae46a519f0953b65779dc2d9f77da9a364cc3662931",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "10c47b654825cd93a67b7f14a3d8a26c9b6cb079834f177572fede393017f338",
+          "text": "Linja kolme tai linja seiska.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "46aa3b74780ce4a9f5556728cf15c6f67246394c032c487088e2c4f44f124db2"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "e50138a34056643ed1c6e855a7d334cfc57394d74b9f99b7804340008d6830b1",
+          "text": "Linja kolme tai linja seitsemän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "92242c4be1cc8acf3235640836ecf49f0208525467fff0b56bdd2020887434ec"
+        }
       }
     },
     {
@@ -397,6 +438,26 @@
         "reason": "Niitten/niiden are variants of the same genitive plural; same meaning.",
         "fingerprint": "ad6cec5464bf540ca332cbdc3746defa25ea2bc642f29b4822d5224fb5636835",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "07bf818e167609ba80db2e3dd1191b3af4a7687210ff888bce45b4ff6cf41826",
+          "text": "Missä niitten pysäkki on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c9d9796c6d8577701f58bac1bcd4c1b41d13b467dfe70fe3949813cf8248a725"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "47f630cd305f858b946db8caee07a99cca0554705981d739693714ba313c6384",
+          "text": "Missä niiden pysäkki on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "37b6ebffeb510d48b8125d341969f42e53dedb55c0f912a80418dab8934ca9c9"
+        }
       }
     },
     {
@@ -518,6 +579,26 @@
         "reason": "Täs/tässä, tää/tämä, oikee/oikea are colloquial variants only.",
         "fingerprint": "45823cbed03fff339ad1bd40480848a58116fe3c0d4a1e8ca78adfa2ccba96c2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b259ce0c25adcc42c15277e6bd91f874aaeabf22e33b7916e300de5e98ba74d7",
+          "text": "Täs. Tää on oikee pysäkki.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c3181d3ca5353bf6caa801d26dda9192965f3c000dbfcc58fc4003645b1cf3b7"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6e5c7b74221d0ca7765f7e156996a94b4fcfb24e3cb6a32bb971fdd34a9e5d32",
+          "text": "Tässä. Tämä on oikea pysäkki.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "53a3a65c49481de98a6a6d13a10b39898b07eb5baf160e0b79daa51d568e83c9"
+        }
       }
     },
     {
@@ -594,6 +675,26 @@
         "reason": "Kauanks is the colloquial form of kauanko; same question.",
         "fingerprint": "4cfc7e317ded89d0af49845df0d2a2c0e315d7a74ddebbf2bbdfca5ef24a370c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e9bcbfd2b44553db09a9e31177fe08924d775a57c2afb0b880ac94480ffc8893",
+          "text": "Kauanks matka kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3e26880aefef309eef81ca6b071ede6249fc6a54038b83a2f0df922552da8c54"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "81e85a47945497c9ee271dca37ea68918cee87ede16c9c1ddffa0462240b9573",
+          "text": "Kauanko matka kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bb982abe554753694ba933d569ea6a0d38e7b94d4b9fc5e1aee8966f80b5b41b"
+        }
       }
     },
     {
@@ -669,6 +770,26 @@
         "reason": "Minuuttii/minuuttia is a spoken variant; ten minutes in both.",
         "fingerprint": "eb65638b4a34148763ae1c02bbcd1dfbfcdeab9dcd16e8ca1594139ac020c082",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3712e85c73d12c376c7504db0cbd44e1907cd82988b2c964137c93da77d24430",
+          "text": "Noin kymmenen minuuttii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "27dea46cd97c3c8ab8d1e44c1cf97190a38a5f64ee79b680d2864c250236d065"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "bd5cb1d731d3e687f34eae7e688e5fafe8687958804ff5820a9207538eed1721",
+          "text": "Noin kymmenen minuuttia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "fa6502407545e439f0338760b71cce74a60fa1eaf164d7c7546d22f126dfe471"
+        }
       }
     },
     {
@@ -747,6 +868,26 @@
         "reason": "Kiitti is colloquial for kiitos; same thanks.",
         "fingerprint": "88fa2f463b2f84482299c06f165fc894516a7a639180da4b382e031c19dc422e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "2c88513f19a08489953413c3432c97186baccef2138a8b9f0092617cd311b584",
+          "text": "Hyvä. Kiitti avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fcd7a88f6c2fdb4dff9ebd14fd4632c35610324b046a1e225c311a8d1514435b"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "876ce2c5e9e548e6479c9b690d6a197bb4c40bdc8a0835cc30d43fec8d87329c",
+          "text": "Hyvä. Kiitos avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4292b3c56169d80a8dc26e416173ca838e2d14a03d7160ebc7001f41d688a1b7"
+        }
       }
     },
     {
@@ -845,6 +986,26 @@
         "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses; the same function and meaning.",
         "fingerprint": "7c6ca8b692f15160754d157d8f488074d78aaff30a43dd96191f31c2afd3c7d7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "06a09f66054b62dd4b24193915772ba5a7080b0bbc2469035a3557910e513f66",
+          "text": "Ei mitään. Hyvää matkaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "17ad214aa3db2eb4eee990bbf6c13bf582c3e5c9d08ee2ad9fb4173f901f0730"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "66a78e0a02e45e86156546957c3b899e54816adf84b0e737f4c89f9b7c037729",
+          "text": "Ei kestä. Hyvää matkaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7ac03a7ded0bc38106d20603e3838189472e63094d5571292167d5d477c99cb7"
+        }
       }
     }
   ],

@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -168,6 +169,26 @@
         "reason": "Same question about a loyalty card; only register differences (onks/onko, sulla/sinulla, bonuskorttii/bonuskorttia).",
         "fingerprint": "65da5911f2ace25177d36ddd02f24cda3888b908cf4c45c237bac002b2a4f993",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "055c6a1ed36c3517e50ddbc5469262995c1c38b45bd08d264b3307bde4ce7ca4",
+          "text": "Moi! Onks sulla bonuskorttii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "26e667ccb07c66a57a7ab47e25e18bafb26ab943676a2271902c6943a7eb5ced"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "42547c00b5e6a879df2d074bd23e0805ded8821c28c7b9f208d269bca4c7fe61",
+          "text": "Hei! Onko sinulla bonuskorttia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "617f117461fa1a76e3ada9780f5998d41e3bafdddcf76ca034c93dd00e9f9e24"
+        }
       }
     },
     {
@@ -225,6 +246,26 @@
         "reason": "Same negative answer; oo vs ole is only register.",
         "fingerprint": "c718770ff657a004954313c887c2c2882192b78745f716d61880c2210962d9d3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "341d446e1df75305f147b07740350e7b6f7e7e8ca08db06424cdc567e2950403",
+          "text": "Ei oo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "608cdabbb85018db06cb0b3975f65450e3254d75e9e89c57725c116b8787b2cd"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "907eaacf7bb47842231f436fd0ac4a26058efe46665b00a4975fe7589cd8b29b",
+          "text": "Ei ole.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1438a9882c0e3027b615ca66b2f1036cbbe3c8d2c566b1fca511a93a2fab48bd"
+        }
       }
     },
     {
@@ -346,6 +387,26 @@
         "reason": "Same acknowledgment and total 23.40; numbers are just spoken forms (kakskytkolme = kaksikymmentäkolme, neljäkyt = neljäkymmentä).",
         "fingerprint": "7ee0321ed5c25bae31024c3bfad1d94633290e1634eaa6fff381b6519de217fb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "242a32b040c002143e719a32e1ac61bf7f8502512e34a57e2dc91e2d8aa9743b",
+          "text": "Okei. Se tekee kakskytkolme neljäkyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d1c1a45721d6efd0ce2018cec49663322a6317b012a67311d3396a5ec46359a7"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "024c49ac3d7d54664ab2fd6bfdaefc35f8f204507ed35ae1037846f2578f05ff",
+          "text": "Selvä. Se tekee kaksikymmentäkolme neljäkymmentä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bf69ff9cb58c44041d4011f8d763d9bff665761c5b14c0505b479ed0a46c50f6"
+        }
       }
     },
     {
@@ -415,6 +476,26 @@
         "reason": "Same apology and question; anteeks vs anteeksi is register only.",
         "fingerprint": "092500b3e5729bf3d064660b375bc7847e2a1707c8b9a3aa78823f214389f4dc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "418907bb63c85d4e1d326623e047dfb638f6e58bb20c90ac618b179b589f6d28",
+          "text": "Anteeks, kuinka paljon?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "de9fa7e7c6f7789244b42cef7ad8b3cbc53899133f545995b6883b7bc5caf627"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "cb37f5da5484f2d7097088590b8e72768c521fed8101a0c2ef370df2ee10fc0d",
+          "text": "Anteeksi, kuinka paljon?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c29bf54f7737eeaed6fc7fcc1e97f3cd19f166bcf444c812fafe731d67f47a8f"
+        }
       }
     },
     {
@@ -530,6 +611,26 @@
         "reason": "Same amount: 23 euros 40 cents; only colloquial endings differ.",
         "fingerprint": "a6f33a04614cdfdf488e5358423aec2dbb07e1de797cec503cecbdcd48eb904f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "54e857a8a65cd6f894f2c39e196255e5921e4e4b4d640b42f7cbab1724155c08",
+          "text": "Kakskytkolme euroo ja neljäkyt senttii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "897546c7fac7cb43d4f8a0108ab3547b657f43f42a36acc5f95d68d9b4d657e0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "2395ac4a223e1e95b87e3b7be73329271e0996b4c0e5c0a0d06e1172abced3c1",
+          "text": "Kaksikymmentäkolme euroa ja neljäkymmentä senttiä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7e2b9ce530ff75dbca4aa30d54ccb5f32a147d047293d28961d705e66e48e3b3"
+        }
       }
     },
     {
@@ -670,6 +771,26 @@
         "reason": "Same: pays cash, hands over 30 euros; mä/minä, kolkyt/kolmekymmentä are register.",
         "fingerprint": "4c72169a767c67a31089d1ebcff01d8535f24b7a847606a69994443caf96e329",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "dcf71744c4cde78ba005c84b480f9025f388425c2c40b35915e027054344750a",
+          "text": "Mä maksan käteisellä. Tässä kolkyt euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b9173d43d616cb7f8911d1bb6930ae2e9f65affa86111a7d6f5c2e6448cd522f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "bfeef6eda7841006e4b25312d98db1dc447696be8bc0b93e4fc6b441697090df",
+          "text": "Minä maksan käteisellä. Tässä kolmekymmentä euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a3171d050623e7f2ba9d443db716624c826db6cacced8d7bf99dace8b4b58722"
+        }
       }
     },
     {
@@ -807,6 +928,26 @@
         "reason": "Same: thanks, change 6.60, asks if receipt needed; kuus/kuusi, takas/takaisin, tarviitko/tarvitsetko are register differences.",
         "fingerprint": "6496ad867f442dc33c3e2a165ca695ef1665617519944c2e60134b7d9f4ba087",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "f717aa86ef3629e0855b43bec19d7afab9790970b1348fa97065227a064f51d1",
+          "text": "Kiitos. Kuus kuuskyt takas. Tarviitko kuittii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "563c0db7a4ce16cb70f551e93b0d22ef3cda3b1932b6cea12b121bf41f479b5b"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "5c96577e1c20a05e16033d5146dfc151fc0cac58a9d8f02e3c4abb3df2a235f1",
+          "text": "Kiitos. Kuusi kuusikymmentä takaisin. Tarvitsetko kuittia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "502a012d7ffba504c7849ef3cb8454da30747aad53b3d36b12911c3f4bb46510"
+        }
       }
     },
     {
@@ -906,6 +1047,26 @@
         "reason": "Same refusal and farewell wish; päivänjatkoo vs päivänjatkoa is register only.",
         "fingerprint": "801b95019e15bbd651a7e16e249e9e6047b54d62e9297f7acfb2cc5e479e9f7a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "26dba4fcf6591f1d3bf584ee9faa80aee6224088f172ee90f9e3d0f90aba2b9c",
+          "text": "Ei kiitos. Hyvää päivänjatkoo!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d3b20a7636f7e375649864c2bef8dfe49235e340e119cf5224ab2fa163f335fc"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "97eff935426dcebe83984a3fabf97d321018ab1e26fae308fa8b617df6908cac",
+          "text": "Ei kiitos. Hyvää päivänjatkoa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a68d82a6cf9e64fccf24371724f33613b481a5f95609004d6e27d3f075dc2ab8"
+        }
       }
     }
   ],

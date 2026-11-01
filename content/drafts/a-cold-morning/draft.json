@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -202,6 +203,26 @@
         "reason": "kyl/kyllä and tosi/todella are register variants; same meaning.",
         "fingerprint": "6e4d1427472c0a3132615f84dc4406eaf98e89c3afa250cf5b31d773466e4961",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "04c2c3321fa843ecff4a454528fc01a9e0b150f767361f4573298c48e0a48414",
+          "text": "Huomenta! On kyl tosi kylmä tänään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "008f792be5d002a1779c21fd749d51029611962da4629cb0ff4e8f676191499f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "1cf7603f921d98f7098e91296c762b75d19444455c2f0a4e6d1030b12fcba5f7",
+          "text": "Huomenta! On kyllä todella kylmä tänään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ec6c6f6c55cc36526da31b361683109050090600198ce5cb84922491d66ae055"
+        }
       }
     },
     {
@@ -297,6 +318,26 @@
         "reason": "Joo and Kyllä are equivalent affirmations; paljonks/paljonko is the same question.",
         "fingerprint": "27faa4f3f2438a2d90c9deeeafd6157587cfb03176debaea077365d018488236",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2d9525839ee8c088c261924a01f24c296d4604df53811345ad3f6e671e1a02af",
+          "text": "Joo! Paljonks on pakkasta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "53ae82c037c930643c88733eda68a032d7ba9b1dd7bff7f43e58b37fda36944b"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "185426e425197d9462c13e912742917bad4b76bd1351cda5082043dc172a2edf",
+          "text": "Kyllä! Paljonko on pakkasta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "245c13960028cec72939e671a45ca688a796055d172f3e2f0db8ac3b812912c9"
+        }
       }
     },
     {
@@ -433,6 +474,26 @@
         "reason": "vaan/vain and viis/viisi are register variants; numbers match (10 and 5).",
         "fingerprint": "dfadab1baf4cea333b5495356e50f6a2dc06517f4013a503b50753bc9620c842",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "96beda61f19fc24089927252d6d41b44decbef899aa4c2faac1f0310774d2def",
+          "text": "Kymmenen astetta. Eilen oli vaan viis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "17247282f322c5b52f7dfb4a34070851806510811058b8e03cf89145f58ee1c0"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "4c5abb3155225b496eda638172f2d20da0c3171fb608d232ad8980e358edd521",
+          "text": "Kymmenen astetta. Eilen oli vain viisi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2ecd54a57c57fd997ba36dd5de649548a4d6f5779e05a41d4030b19c99dfcc9b"
+        }
       }
     },
     {
@@ -532,6 +593,26 @@
         "reason": "Brasilias is the spoken form of Brasiliassa; both mean 'in Brazil'.",
         "fingerprint": "582905280ae4aa014cb619cbb8490cae7f1134e4d40bae4686060e5f6deae68e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f128865483324b9b85ba10bb2cdd9e9bbba39e44c81bfcb2a1562b80e0b7162a",
+          "text": "Brasilias on aina lämmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e1b3792e78ca40cac40808ede73c4d9c317144daf04eca72e7cc9097e19b96f1"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "46bcc2c2c1e242acd47408debd9026ec7bd52eb787af42832f3e8bb7486c40a5",
+          "text": "Brasiliassa on aina lämmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0c43123c45db7850cbdf2bbe2b270e2afb4e429b45a1af4457d3745390864dca"
+        }
       }
     },
     {
@@ -632,6 +713,26 @@
         "reason": "sä/sinä are the same pronoun (you); same question.",
         "fingerprint": "9ee59add919531400354dcde324a870b7a047a0275a49ce73abed8075a11f905",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "fd83862f6f705a2e5900fe91eeda717d6f89037c4eb2299e9371c2b81970af91",
+          "text": "Mitä sä teit viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "38badf2963047aaa1e0bc506eb7f90d2d7da6c14ea8bb50486aff794c2125c83"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "38c6f26b7502b632edcaa59ffcb0ee500bf8bdb4371f2fa9666265bdd2f72af3",
+          "text": "Mitä sinä teit viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4ddc4f51e9b94ecd0f5199bede06c0af0e770eb47f1928da64f51170a08d5b4b"
+        }
       }
     },
     {
@@ -771,6 +872,26 @@
         "reason": "katoin/katsoin and leffoja/elokuvia mean 'watched movies'; mä/minä same.",
         "fingerprint": "0db97163660c2ef856788197c8c99c1a39d724e8d12a1537223c79a5c9844814",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "8ed87b510961008c82bd571ef82dbdc643d0d7a561bf77f1fcd2cc9521f13835",
+          "text": "Mä olin kotona ja katoin leffoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "df778ff7e2be8456b2f54f8bf8bea7193adc45e1b818d9513f8be05fc1cc79eb"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "57068dd036f000b2dac87c1d763249363c785a0a9251a829ba850c91801059b5",
+          "text": "Minä olin kotona ja katsoin elokuvia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "33ca86642c8d23f57d287c2fb5d2e4b8db52effa806cd50012d9d861a0b02ea5"
+        }
       }
     },
     {
@@ -950,6 +1071,26 @@
         "reason": "siel/siellä and tosi/todella are register variants; same content.",
         "fingerprint": "201d08d41ff47e990e1bac6401de5fb9d1710023de1e3ed7d5207fcf354a5287",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "9c1499f7a26f6c10e4c911a1018d2655e24f028b19866b2fe77877ffe0ad9696",
+          "text": "Kiva! Mä olin mökillä. Siel oli tosi kaunista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d871182ffdcf5dcd1bd6c289a63612d655cd08b2c2e6450790f321f902309bf7"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "abe963a245d6ece294714ced38990855ce3927a473ff690a549fe02c187a8112",
+          "text": "Kiva! Minä olin mökillä. Siellä oli todella kaunista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "abc47890d7fac5d5d191a53c828bbf84605e0768e7408223f7cd796226d53ad7"
+        }
       }
     },
     {
@@ -1008,6 +1149,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "97b88afdeff75c3fb2e787bfc2545788d666455d59ac512a15a728f1a0ce6711",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "8785a6421aea7c43b0afb5317228e41f110d0af5a0eb303d9e55a036b9c5364b",
+          "text": "Kuulostaa ihanalta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2567d37f91a13697c5cb95f0c342c086f310a5c987e57ae5fd416d4198616db1"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7225bbde653145664e9b418497384705bb6d51247fb250ab4a2fb946c322b949",
+          "text": "Kuulostaa ihanalta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2567d37f91a13697c5cb95f0c342c086f310a5c987e57ae5fd416d4198616db1"
+        }
       }
     }
   ],

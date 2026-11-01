@@ -53,7 +53,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -155,6 +156,26 @@
         "reason": "Anteeks/anteeksi and on/ovat are register differences; same question about the eggs.",
         "fingerprint": "c5a6f60bb4789ed5df17ae462fe604d10394f3bee4a8074adbe2ce5c669b1273",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "d66c9e09b1583c6927a6f3a3d8eb420c2113d89bef428256c6107ce2f6b376d9",
+          "text": "Anteeks, missä on kananmunat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e0742f90c29a755c7ed92216e36ca99a010c2076341e2cac6f0f5e805ddd002d"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8bf9b49083604a7883f76d433b69ea344ff3eb1ca139e2d2cbe7d194e2b566bd",
+          "text": "Anteeksi, missä ovat kananmunat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "57c8b9e1988880a366c0c37d9a98933885992cacd164cc89ad4126f857d766b9"
+        }
       }
     },
     {
@@ -275,6 +296,26 @@
         "reason": "Same statement: they are over there next to the dairy shelf; only register differs.",
         "fingerprint": "0e8765f0705749760d6585518ad07979ab0d0dabed2feb82d1c86d4e9847470f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0e1de83bef516ce96949f5621fc402c3929081c7200c528d007f9872c54c4e8b",
+          "text": "Ne on tuolla, maitohyllyn vieres.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0bec3f12bf7d3e78d95b806f6687e855ebbb1b3471518fe85e47d24cc60c11a6"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "003f208f7f731d96b40709c847a42c2a1a0a7d91a584604a62e13fcc42b5f300",
+          "text": "Ne ovat tuolla, maitohyllyn vieressä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3ed3e00182b06b86eedde4da0e67451f071b0e3a1a4073e9a99f4dfcfeb005e2"
+        }
       }
     },
     {
@@ -333,6 +374,26 @@
         "reason": "Lines are identical.",
         "fingerprint": "4d54d3cd5768be3ce2b1a34e0576562bec117fe8aaae79e7b61a03fc5c45a052",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "ffdd7fea6d5f4eca63911102f4ca473b270d24441e5050ca6e010b02201c5b25",
+          "text": "Tuolla vasemmalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b4f11b9f9006f98158f8810151fa4859392d3bb4baa9ff893ec0bdff2150a13a"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "03cbc02c6838e1720c140c8f4ccdb5ddfdd5c36d8684f768161084e5a1bad8f0",
+          "text": "Tuolla vasemmalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b4f11b9f9006f98158f8810151fa4859392d3bb4baa9ff893ec0bdff2150a13a"
+        }
       }
     },
     {
@@ -493,6 +554,26 @@
         "reason": "Oikeella/oikealla, mee/mene, sit/sitten are register variants; same directions.",
         "fingerprint": "55fda835c1615770abc1bc632d77d92a90f2c354a1e681457898ef297a00ebff",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b87f18ff57cbdd94ad0637b9d5441c59dabe5bf2ad5d33c0b7fa231074642f6e",
+          "text": "Ei, oikeella. Mee suoraan ja sit oikeelle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6ccd5dd4e2752c7c1d22853539a5b081beff4c95c21fa2972349f81afce7a1e4"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "2e3217771a2ab8985c115c046cb12e6bb6325c3236ff8de91255462a11b76c55",
+          "text": "Ei, oikealla. Mene suoraan ja sitten oikealle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "368520b3055a37fd0ee478511395efd3bc0b44d6c87a6f4ecf1b8f8a966f49ab"
+        }
       }
     },
     {
@@ -613,6 +694,26 @@
         "reason": "Both ask 'Okay/Alright. Do you also have oat milk?' Differences are only register: okei/selvä, onks/onko, teil/teillä, kauramaitoo/kauramaitoa.",
         "fingerprint": "f74bea2b82b49a75c7e3e3add72d799e23180824cb471600e828658f3ac7f625",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "7a4a293fc28b188a136b31b3c7c377f4b23cae4e963aa3e11bcf2275a3323860",
+          "text": "Okei. Onks teil myös kauramaitoo?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c7de02d12ac81d761a379c1aed0a46ce5519c1eca7b46d970860d70c3a317bb3"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "4fdf9dfb2c7185e3e05f35c419e8897b1b18403e5c8da8735b307846b5427101",
+          "text": "Selvä. Onko teillä myös kauramaitoa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0457e39d656137ac1843eecbb9ef2c3bc6b7b6e874e68a580f086f40c46563f0"
+        }
       }
     },
     {
@@ -693,6 +794,26 @@
         "reason": "Lines are identical.",
         "fingerprint": "1f5490a5afb62a5d9ec8403b27973c6b3e16decb863785be411fdee9540739a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "de6ca09d8bb1639ed05eb679e94c122255a83b589494c7a594966aeda5768350",
+          "text": "On, samalla hyllyllä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2ff3001e9a4a6dc1331959999debbff06955bab3a0250bcff3e8997702184437"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "c8d5de4857395faa32dec68401ccbb43c4d100430db4936dea3d94b2d0fc7a29",
+          "text": "On, samalla hyllyllä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2ff3001e9a4a6dc1331959999debbff06955bab3a0250bcff3e8997702184437"
+        }
       }
     },
     {
@@ -746,6 +867,26 @@
         "reason": "Kiitti paljon is the colloquial form of kiitos paljon; both mean thanks a lot.",
         "fingerprint": "2b196369acaf49574e01731505ec13446e970d5e460db122256af127607df74f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "59372a6d1fae366f69eb773d45619a50d6676bcbb8864d22c77efe66b028c1bb",
+          "text": "Kiitti paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1414872fb461fdd14caee7b14c3e8697dd1aa45024f9248a8ee5e4c142636282"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "41dfbd20e39293b62b5cca21103cf8ee48b69cbc95c8a3de7f134f68a30e8013",
+          "text": "Kiitos paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b464ba8d0c03c8e190f5b71af7e3cabdc1d22299b5348fbeeb45af2b6b61cb72"
+        }
       }
     },
     {
@@ -803,6 +944,26 @@
         "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses.",
         "fingerprint": "762a533ce11d9ac76ab38339c68ff32076c9672b8e16965fcbf5902ef3f0ba3c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a2b51dc0af792813a32924e389f24ece1d12deeaa350ec534726b12dcb7e24fa",
+          "text": "Ei mitään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "260a89a0fe744f3458184e6e245e7e6685b62a6eadf411b1f8b145c0f8eeb712"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "8d040084165aebfe2c42a86a2185cbce49818b57e4df7c324946e3a5d82e366b",
+          "text": "Ei kestä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0011a76294ffc1a6d0c95f8704c74e87e315965355c7c96e8ab418ad3a2ec23a"
+        }
       }
     }
   ],

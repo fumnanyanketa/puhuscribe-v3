@@ -65,7 +65,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -144,6 +145,26 @@
         "reason": "Moi/hei and sulle/sinulle are register variants; same greeting and question.",
         "fingerprint": "209ce6e0d85186e497106216adfac5b6ab102747bccc9715d63e7d43965bacae",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "fa53d3a8972f3f8d1669ca9044c2ead80b75d8575fe4db9ae09f6838166b7a50",
+          "text": "Moi! Mitä sulle?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "45349ee73697b10d03d44fb0c80b647efd9d921a8443737100445127aa94c98d"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "90a93914cf50cf931ab7c46181b19a64e4dad5038b72f30e63e30f11a7dd9f1c",
+          "text": "Hei! Mitä sinulle?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "df509009f6bb3eb8f31990e34f993422651ed5c64bbd4d648833ac020882be24"
+        }
       }
     },
     {
@@ -259,6 +280,26 @@
         "reason": "Paljonks/paljonko, noi/nuo, maksaa/maksavat are colloquial variants; same question about the price of those strawberries.",
         "fingerprint": "49a639b32821aabb30cf73e6d0776fd42dce7c1d8c2c2dfcd9099dcab74b8974",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "80ae2d9bfe05b5fcd134cc6a2f52051f6b8108afb6b26a078607bdf6cad5df12",
+          "text": "Moi! Paljonks noi mansikat maksaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4afed5fca428235d7e632134d859fd7ce0155f2d266c8e0a99ae09d182a24bc8"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "e10637ef797fc641e2f348b7219e29994d3c139e730e3b9d75de8cb4084eb595",
+          "text": "Hei! Paljonko nuo mansikat maksavat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "004db110e93ed9aa9e886c0058b019ac88d113cef0b0233a6a62187cf79ba0c5"
+        }
       }
     },
     {
@@ -359,6 +400,26 @@
         "reason": "Viis euroo is spoken for viisi euroa; same price, five euros per litre.",
         "fingerprint": "14ccf96bdb2b6a4a8254c7901c3bf81d6b19bf4e24fdd514a4ef3babe415d818",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "135ea55b9a89995fe8afbb9a0a187c4a35feb4eeb0f028438ec873bfc60d8223",
+          "text": "Litra on viis euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a4cd13f253ea60311b9f078bcdfa7bc114428efd7e541484cbd3b6a8e87a4dd2"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "4d0eaebb192f9990b89d09b230a7cc4742b3d43572872cb48a5760572daa670b",
+          "text": "Litra on viisi euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "4995080fdc8ae4ea788d8cfae927f1e801a2c8dcb36328bbef8b5d685644803c"
+        }
       }
     },
     {
@@ -455,6 +516,26 @@
         "reason": "Toi is colloquial for tuo; same meaning.",
         "fingerprint": "5d6c05fdef7b524e564e741d902e69c7ae7875005423100b17e55352929d63aa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e9fc25182420445ead31feded5c97fb5609bd19623ea10ad6ad3f5db05654219",
+          "text": "Entä toi pieni rasia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0f430cc5dcacb3cba53ef2b620d95942845ada2aa22fe1bf134920035fa4991c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "2497efa97543f80816e3f53b35d1438c3d1f4e3bd76179e8910cf9d26500fd17",
+          "text": "Entä tuo pieni rasia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6983c2c1599822a10bf29d0b27d71d300dd46a465caa1863ba8d9f8dbdb8ebc9"
+        }
       }
     },
     {
@@ -555,6 +636,26 @@
         "reason": "Euroo is spoken for euroa; same three euros.",
         "fingerprint": "2a65b5ac0188c32be42fa93d36e50f4c7349502d4410574d1615dd2b7fa7c9da",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "bb78f6fca6974e90afa3e104c15f4e3ce54c92ed0667cab52647dfb79607b935",
+          "text": "Se on kolme euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7242a06e2f52f41d39a3d035c4ab19051e4556f9743460bed658d40a6b218ee7"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "8500f46bc94dec0d32fd5cacbbd86ae19b1cda876cff252cda50b5f2e965bb47",
+          "text": "Se on kolme euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e4531340cb2f040788c175df7355f22a0d70abebbae550527eda21645a03e77d"
+        }
       }
     },
     {
@@ -720,6 +821,26 @@
         "reason": "Mä/minä and voinks/voinko are register differences; same litre and card payment.",
         "fingerprint": "ed5964a848dd0fbe907664496f271c5f340837985015707eb212fbbc2c6af22c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "5f0354d91063904fa20deb9689a918f2edfb6539589c470e186763ebe089c99a",
+          "text": "Mä otan litran. Voinks mä maksaa kortilla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d39b8804a4565b18f6d71a9d0600bb243edd7305973d916044e093435e7ac716"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "9c9b4e181aec796bd5e2bdc018893d7cbbae13572793b2958af9232a3f45b89d",
+          "text": "Minä otan litran. Voinko minä maksaa kortilla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2072f73f67225e846797883518acb7929a4c7df31aeaf7530bd7ea9cd0f1fa79"
+        }
       }
     },
     {
@@ -814,6 +935,26 @@
         "reason": "Joo and kyllä both mean yes; rest is identical.",
         "fingerprint": "0d9bb022616bf092639815ad5a98ce74e041eafdae65015d62073a3c75b25f2c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "cdc1c978a8913f195a1ba09078a28e39b3d4a813d28fc3096cc211ab95e0c826",
+          "text": "Joo, totta kai. Tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "871c13fb66188fd79c6c51c42d198270913211f77b364f095c6dd00bd5ba74ac"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "25dbf8a2a519d456c310895a22a136cfa76778dd070041b38353613feb87014e",
+          "text": "Kyllä, totta kai. Tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "58130f3b8c14f6b7918ba6f1f03eef0b7fd5c1c5d4d0b525dfa06b669b21a09f"
+        }
       }
     },
     {
@@ -867,6 +1008,26 @@
         "reason": "Kiitti/kiitos and moikka/näkemiin are register variants of thanks and goodbye.",
         "fingerprint": "0573513caa238a6595bcc01409306300a4bc44c2ca9633801c6f8bb2a2e666d3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d40c82e40ed386d4a2c5ca0015e9b6a8a62a395785340db760d25398b26cd9c1",
+          "text": "Kiitti, moikka!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "02ea505bc85cc27a9f6c24458a2cfb6819e7df93fe16d53faece0d3d6363a94f"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "5a5df08e2c47f0ed6409793b15fe076a24f583b2604b55099727de936b63aa3f",
+          "text": "Kiitos, näkemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c0adbdc196d5438f5e695d24472e82f049bb539023bd2c1d03c2b0d89a027795"
+        }
       }
     }
   ],

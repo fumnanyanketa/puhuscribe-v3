@@ -60,7 +60,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -203,6 +204,26 @@
         "reason": "Only register differences (anteeks/anteeksi, mä/minä).",
         "fingerprint": "6d5c3ded4296099157545db64ff9d132ab372cfc6049b8fda0aa90d91a39eee2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "ff2bd8ee1ffd54a44a989fcccbb10e2ee3b3874b0acb9b9f1941acd97ba13738",
+          "text": "Anteeks, mistä mä voin ostaa lipun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b900a28d0f0337ab2c249d54f9a36f0d43b04ae3bf29e8cfa1bd1f12154668fc"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6790a8c74bc50cff5bcbaa791f594dd3ffec058057a9b93982a19876364296a1",
+          "text": "Anteeksi, mistä minä voin ostaa lipun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b5fbf28a5ed93c32f9ebcdd2f483bf37e87ef2aa83f1c548cc5fd9131d8427a0"
+        }
       }
     },
     {
@@ -298,6 +319,26 @@
         "reason": "tosta/tuosta and sovelluksest/sovelluksesta are register variants; same meaning.",
         "fingerprint": "c4883f3b08985acc5d9deac8c54b14a3b9567adc6eca786f390cb10ca96ee48a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "584a44b8e6b6f59b16e90477f5d6d3996c089b3d2b0daecfdd686b27cac281b7",
+          "text": "Tosta automaatista tai sovelluksest.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "12e291ca76aa20c83f9d4da25f48d27558d09b12a5a6fc2dd2c2f90b24e7aab3"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5879ad7ecdd06292d947e8e375043726b5fd715f6311ddd2a39617c5a8e6474c",
+          "text": "Tuosta automaatista tai sovelluksesta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e091d54ecc9e7f7332ec9634901e7dc80f8b9db911f9b4365fc1d8067d63f380"
+        }
       }
     },
     {
@@ -479,6 +520,26 @@
         "reason": "mä/mun and minä/minun; same destination Espoo and same question.",
         "fingerprint": "ddcd7b27de4e86c8454c7693c5f12dfcd43fc74855119904f47bc80d378d80b5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "482e8769a9044959190a9ad681058dfa1b71c69bd4e91499ccea4537a30f71aa",
+          "text": "Mä meen Espooseen. Mikä lippu mun pitää ostaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c37277bacb00e957f0dd1a4ea7bb77bc2b25f100b26ec03ca5ca0df5492a48a7"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "af7807ef3cbfab1f7d2ed6564f5d9aed769e3fcdcf4a1465524d6389767b090c",
+          "text": "Minä menen Espooseen. Mikä lippu minun pitää ostaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d15b0a24c482963284f5f1a0874b3bed7eadfb673049b5eca4ebeffcceb75add"
+        }
       }
     },
     {
@@ -536,6 +597,26 @@
         "reason": "Identical sentences.",
         "fingerprint": "6e18ffaa7396d3e2de9d133950c3da8e8d8566bd1d67c58d61c9b8d81d2c7637",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c1562ee9e1ebdba5324ebcd96686e39fa8837344a9f8b82bcdb945e43c6e274f",
+          "text": "AB-lippu riittää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0bc1bcc4368eccdb6de717df0499f55cdf4d5e1e2c51217242161163a179adb5"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "0f170f8e0157d990f549ba51444dfd0d59c80ed218e8c36828eaa0beaa167b9c",
+          "text": "AB-lippu riittää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0bc1bcc4368eccdb6de717df0499f55cdf4d5e1e2c51217242161163a179adb5"
+        }
       }
     },
     {
@@ -613,6 +694,26 @@
         "reason": "paljonks/paljonko is a register difference.",
         "fingerprint": "9c5da90ccf8ba53d43761b1d72121fce44c6fcbc4bd359ed2d247375492cac94",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "c41c64e0791bc177e494533846cdd9995cbb17bbb42ae69d9a47fa2b69bad05d",
+          "text": "Paljonks se maksaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cd60a2ee8828b9f0828b92e2f605ea63b3eb7629a1906ab664970db601e859b1"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "7453d031a036c517efd9bf3e363efe071ae5398e3782f707ffc3d1811c905854",
+          "text": "Paljonko se maksaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "55c03f8a30627c56f95cac031c1e7edd779dfc5253cdd4cb54309c1e7707a5a3"
+        }
       }
     },
     {
@@ -706,6 +807,26 @@
         "reason": "euroo/euroa is a spoken form; same amount.",
         "fingerprint": "96bcab457de5c81a3292042a03d19eb21ec06f4ddd3f9107578f90f75a0aa8c7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "baf94af16a829554877c367840ff8fdc3e81ddc1c522d574cc5d77180f9916c1",
+          "text": "Vähän yli kolme euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b8fcb244d0ca6970649d64e3cb15be46e98f87f4617b53baf9569f5773eb5794"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "f146e6eafbd0d50540177421132484b828a18895ec21addf4233401f9a91e4fb",
+          "text": "Vähän yli kolme euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "79744bb0afd8e08d1ef33480e2679853da679b86f4832d69517974382afbf723"
+        }
       }
     },
     {
@@ -842,6 +963,26 @@
         "reason": "mä/minä only; same question about the bus.",
         "fingerprint": "19800d48d5ca6585fea46a6ce07999f0a7867f752b3ec5e9163765d1d318617f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "913631543dabdefa4c1000f428e5d97a0d6e7b2079f3f5cbf5108a3a243da93a",
+          "text": "Ja millä bussilla mä pääsen sinne?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "03bc5c7cda7f60ab67c0b02617b2c964aa59934f739fae4a9b16f909d1f4d6f9"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "da912176efa733754d052b2143d7bae89ae2104d3aeda635746a10ccefe12c81",
+          "text": "Ja millä bussilla minä pääsen sinne?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4912c471b3ee0bbf5fbd1697117b55b225b478dba483ca37f6acc0bffc113402"
+        }
       }
     },
     {
@@ -919,6 +1060,26 @@
         "reason": "viistoista/viisitoista is the spoken form of fifteen; tolta/tuolta same; same bus number and platform.",
         "fingerprint": "1aed9dab11abd608fa5ab71d33ce619a08bd5f6b08454f9e5629a7281fc67686",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "74fc52179b7ffc5fe72c6c4297d7668b4e972567f3bd51a79688e99a4b51bd9a",
+          "text": "Viistoista, tolta laiturilta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c5d279aa78ff53d66988301228fcd4611f48d06a90e9870d075cb57dbe12320f"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "bf3914771844e3fd03aea422edcced829167ebc735d071b24dca94dc7cb0011d",
+          "text": "Viisitoista, tuolta laiturilta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a3a67d0c182e09f0e255653edb55e8e3bd0e95d295ccb49838bd9be56f3b94a9"
+        }
       }
     }
   ],
