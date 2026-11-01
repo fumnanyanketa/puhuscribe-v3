@@ -1,0 +1,29 @@
+Round 6 proof by breaking each protection (job 20-a1-road: the evaluation's fixes).
+Local breaks, one at a time, undone with git checkout.
+
+1. The four actions pinned to commits (statement 19), test_road_voice.py::test_a1_road_19_every_action_in_the_workflow_is_pinned_to_a_full_commit
+A1 one action put back on a tag (setup-node@v7)                        red: that test
+A2 a commit hash without its version comment                           red: that test
+A3 a hash of 39 characters                                             red: that test
+
+2. One text per shared form, and the publisher refusing a form with other texts (statement 17, amended)
+C1 the repository form check finds nothing
+   red: test_road_publish.py::test_a1_road_17_an_earlier_migration_with_other_texts_for_a_form_is_found
+C2 the check compares only the why                                     red: the same test
+C3 the road form lines skip an existing form again (no refusal)
+   red: test_a1_road_17_the_form_sql_refuses_other_texts_and_no_longer_skips_them
+        test_a1_road_17_the_form_insert_pgtap_matches_its_generator
+C4 `on conflict do nothing` is back in the road form lines             red: the same two tests
+S1 an earlier draft keeps its own AI why for a shared form
+   red: test_road_import.py::test_a1_road_17_a_form_the_road_and_an_earlier_draft_share_has_the_same_texts_in_every_draft
+        test_road_import.py::test_a1_road_17_their_review_manifests_match_the_new_form_fingerprints
+GitHub run 41344746188 (real Voikko), the repository form check left out of the publisher's preconditions:
+   red: test_a1_road_17_publish_refuses_a_form_an_earlier_migration_inserted_with_other_texts (1 failed, 313 passed)
+GitHub run 41344762072, database job (real Postgres), the refusal taken out of the form lines and the pgTAP file made again:
+   red: "[a1-road 17] the same form with another why is refused, naming the form and both texts" (test 5 of 7 in a1_road_forms.test.sql),
+   and no other check of that file. The other six checks (insert, the same texts again, an unapproved form refused) passed on the real database.
+GitHub run 41344779721, the importer reads the earlier draft's text first again: all 314 tests passed. This break is not
+   caught by itself, because the earlier drafts committed now already carry the road's texts, so reading them first gives the
+   same result. The protection is the committed drafts together with test S1 above, which fails when an earlier draft holds
+   an AI text for a shared form.
+Scratch branches deleted afterwards; only the Python or database job was read.
