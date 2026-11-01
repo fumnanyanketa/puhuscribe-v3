@@ -27,6 +27,7 @@ import {
   recordRequests,
   scrollsSideways,
   serveTone,
+  settleAnimations,
   startSession,
   tabTo,
 } from './session-helpers.ts'
@@ -198,7 +199,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       // The status line says which line of how many, so each new line is announced.
       await expect(page.getByRole('status')).toHaveText(`Line ${String(i + 1)} of ${String(lines.length)}.`)
       const card = shown.first()
-      await expect(card.getByText(line.speaker, { exact: true })).toBeVisible()
+      await expect(card.getByText(line.speaker, { exact: true }).first()).toBeVisible()
       await expect(
         card.getByText(`Line ${String(i + 1)} of ${String(lines.length)}`, { exact: true }),
       ).toBeVisible()
@@ -747,6 +748,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
       const scan = async (label: string) => {
         await page.evaluate('document.fonts.ready')
+        // The road's opening is a crossfade at reduced motion: measure the finished colours.
+        await settleAnimations(page)
         const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
         expect(
           result.violations.map(

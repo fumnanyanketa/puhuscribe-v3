@@ -21,7 +21,7 @@ import {
   throughUnderstandIt,
   typeAnswer,
 } from './review-helpers.ts'
-import { leaveLesson, scrollsSideways, serveTone, tabTo } from './session-helpers.ts'
+import { leaveLesson, scrollsSideways, serveTone, settleAnimations, tabTo } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/9-daily-review/spec.md that each test protects.
@@ -559,6 +559,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
       const scan = async (label: string) => {
         await page.evaluate('document.fonts.ready')
+        await settleAnimations(page)
         const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
         expect(
           result.violations.map(

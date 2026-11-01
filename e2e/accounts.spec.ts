@@ -22,7 +22,14 @@ import {
 } from './account-helpers.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { one, sessionsOf, userIdOf } from './db.ts'
-import { recordRequests, scrollsSideways, serveTone, settleAnimations, tabTo } from './session-helpers.ts'
+import {
+  dismissTip,
+  recordRequests,
+  scrollsSideways,
+  serveTone,
+  settleAnimations,
+  tabTo,
+} from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/11-accounts/spec.md that each test protects.
@@ -497,6 +504,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.waitForURL((url) => url.pathname === '/')
       expect(authUser(userId).exists).toBe(false)
 
+      await dismissTip(pageB)
       for (;;) {
         const next = pageB.getByRole('button', { name: 'Next line' })
         if ((await next.count()) === 0) break

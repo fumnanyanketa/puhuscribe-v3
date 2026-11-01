@@ -129,6 +129,7 @@ export async function afterNext(page: Page, previousLineId: string): Promise<'do
   const done = page
     .getByRole('heading', { level: 1, name: 'Say it' })
     .or(page.getByRole('dialog', { name: 'Say it out loud' }))
+    .first()
   const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
   const seen: { state: 'done' | 'question' | 'waiting' } = { state: 'waiting' }
   await expect

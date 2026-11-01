@@ -81,6 +81,7 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
   const sayIt = page
     .getByRole('heading', { level: 1, name: 'Say it' })
     .or(page.getByRole('dialog', { name: 'Say it out loud' }))
+    .first()
   for (;;) {
     const lineId = await questionLineId(page)
     const gloss = lines.find((line) => line.id === lineId)?.gloss ?? ''
