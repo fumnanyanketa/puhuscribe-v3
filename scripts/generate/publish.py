@@ -77,11 +77,64 @@ def audio_key(slug: str, line: int, register: str, sha256: str) -> str:
     return f"{slug}/{line}-{register}-{sha256[:12]}.mp3"
 
 
-def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str], source: str) -> str:
-    """The publish migration. refs maps item ids (and "unit") to approval references."""
+def build_sql(
+    draft: dict,
+    refs: dict[str, str],
+    keys: dict[tuple[int, str], str],
+    source: str,
+    road: dict | None = None,
+) -> str:
+    """The publish migration. refs maps item ids (and "unit") to approval references.
+
+    `road` (job 20-a1-road) is {"stop": <number>, "last": <True for the stop's last dialogue>}. The
+    unit row is then made from public.road_stops, and the unit is approved only inside the migration
+    of the stop's last dialogue, so a learner never sees a stop with a dialogue missing."""
     brief = draft["brief"]
     unit, dialogue = brief["unit"], brief["dialogue"]
     slug = dialogue["slug"]
+    if road is None:
+        unit_lines = [
+            "  insert into public.units (slug, position, title_en, can_do_en)",
+            f"  values ({sql_text(unit['slug'])}, {int(unit['position'])}, {sql_text(unit['title_en'])}, "
+            f"{sql_text(unit['can_do_en'])})",
+            "  on conflict (slug) do nothing;",
+            "  select id, status into strict v_unit_id, v_status from public.units",
+            f"  where slug = {sql_text(unit['slug'])} and position = {int(unit['position'])}",
+            f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+        ]
+        unit_approve_lines = [
+            "  -- 4. The unit, unless an earlier dialogue already published it.",
+            "  if v_status = 'draft' then",
+            "    update public.units set status = 'approved', approved_at = now(),",
+            f"      approval_ref = {sql_text(refs['unit'])}",
+            "    where id = v_unit_id;",
+            "  end if;",
+        ]
+    else:
+        number = int(road["stop"])
+        unit_lines = [
+            "  insert into public.units (slug, position, title_en, can_do_en, stop_number)",
+            "  select s.slug, s.number, s.name_en, s.can_do_en, s.number from public.road_stops s",
+            f"  where s.number = {number}",
+            "  on conflict (slug) do nothing;",
+            "  select id, status into strict v_unit_id, v_status from public.units",
+            f"  where slug = {sql_text(unit['slug'])} and position = {number} and stop_number = {number}",
+            f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+        ]
+        if road["last"]:
+            unit_approve_lines = [
+                "  -- 4. The stop, now that this is its last dialogue.",
+                "  if v_status = 'draft' then",
+                "    update public.units set status = 'approved', approved_at = now(),",
+                f"      approval_ref = {sql_text(refs['unit'])}",
+                "    where id = v_unit_id;",
+                "  end if;",
+            ]
+        else:
+            unit_approve_lines = [
+                "  -- 4. The stop stays a draft until its last dialogue is published, so a learner",
+                "  -- never sees a stop with a dialogue missing.",
+            ]
     out = [
         f"-- Publishes the dialogue {slug} (unit {unit['slug']}). Made by",
         f"-- scripts/generate/pipeline.py publish from {source}. Do not edit by hand:",
@@ -103,13 +156,7 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
         "  end if;",
         "",
         "  -- The unit, as a draft until the end.",
-        "  insert into public.units (slug, position, title_en, can_do_en)",
-        f"  values ({sql_text(unit['slug'])}, {int(unit['position'])}, {sql_text(unit['title_en'])}, "
-        f"{sql_text(unit['can_do_en'])})",
-        "  on conflict (slug) do nothing;",
-        "  select id, status into strict v_unit_id, v_status from public.units",
-        f"  where slug = {sql_text(unit['slug'])} and position = {int(unit['position'])}",
-        f"    and title_en = {sql_text(unit['title_en'])} and can_do_en = {sql_text(unit['can_do_en'])};",
+        *unit_lines,
         "  if v_status = 'retired' then",
         f"    raise exception 'unit % is retired', {sql_text(unit['slug'])};",
         "  end if;",
@@ -197,12 +244,7 @@ def build_sql(draft: dict, refs: dict[str, str], keys: dict[tuple[int, str], str
         f"    approval_ref = {sql_text(refs[DIALOGUE_ITEM])}",
         "  where id = v_dialogue_id;",
         "",
-        "  -- 4. The unit, unless an earlier dialogue already published it.",
-        "  if v_status = 'draft' then",
-        "    update public.units set status = 'approved', approved_at = now(),",
-        f"      approval_ref = {sql_text(refs['unit'])}",
-        "    where id = v_unit_id;",
-        "  end if;",
+        *unit_approve_lines,
         "end",
         "$publish$;",
         "",

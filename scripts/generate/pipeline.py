@@ -19,6 +19,14 @@ python scripts/generate/pipeline.py check-committed
 
 python scripts/generate/pipeline.py judge-golden --out <file>
     Runs the AI judge on the golden set of 20 pairs and writes the result.
+
+python scripts/generate/pipeline.py review-pages --part <n> [--out <folder>]
+    Round 1 review pages for the dialogues of one part of the A1 road (job 20-a1-road). Only on request:
+    nothing builds them until the owner sends a batch.
+
+python scripts/generate/pipeline.py publish-part --part <n>
+    Writes the migrations and copies the audio for every dialogue of a part of the A1 road, in stop and
+    dialogue order, only when the owner's approval file content/approvals/part-<n>.json covers them all.
 """
 
 from __future__ import annotations
@@ -40,6 +48,9 @@ from providers import voice as voice_module
 from publish import PublishRefused, publish
 from review_import import ReviewRefused, approvals, load_manifest, read_round, review_files
 from review_page import write_round
+from road_checks import check_draft, is_written
+from road_extras import register_road_extras
+from road_publish import approval_path, is_last_dialogue, part_of, publish_part, publish_road
 from voikko_gate import VoikkoGate
 
 REPO = Path(__file__).resolve().parents[2]
@@ -263,15 +274,34 @@ def cmd_publish(args, gate=None, repo: Path = REPO) -> int:
         return 1
     slug = draft["brief"]["dialogue"]["slug"]
     try:
-        migration, audio = publish(
-            draft,
-            draft_dir,
-            repo / "content" / "reviews" / slug,
-            gate or VoikkoGate(),
-            frequency_ranks(),
-            load_thresholds(),
-            repo,
-        )
+        if is_written(draft) or approval_path(part_of(draft), repo).is_file():
+            # The A1 road: the owner's approval file is the approval reference (job 20-a1-road).
+            register_road_extras(repo / "content" / "road" / "allowed-extras.json")
+            part_drafts = {
+                p.parent.name: read_json(p)
+                for p in sorted((repo / "content" / "drafts").glob("*/draft.json"))
+                if part_of(read_json(p)) == part_of(draft)
+            }
+            migration, audio = publish_road(
+                draft,
+                draft_dir,
+                gate or VoikkoGate(),
+                frequency_ranks(),
+                load_thresholds(),
+                part_drafts,
+                is_last_dialogue(draft, part_drafts),
+                repo,
+            )
+        else:
+            migration, audio = publish(
+                draft,
+                draft_dir,
+                repo / "content" / "reviews" / slug,
+                gate or VoikkoGate(),
+                frequency_ranks(),
+                load_thresholds(),
+                repo,
+            )
     except PublishRefused as refused:
         print("Not published. Every reason:")
         for reason in refused.reasons:
@@ -295,6 +325,7 @@ def published_slugs(repo: Path = REPO) -> list[str]:
 
 def cmd_check_committed(args, gate=None, repo: Path = REPO) -> int:
     gate = gate or VoikkoGate()
+    register_road_extras(repo / "content" / "road" / "allowed-extras.json")
     ranks = frequency_ranks()
     thresholds = load_thresholds()
     drafts = committed_dialogues(repo)
@@ -305,9 +336,15 @@ def cmd_check_committed(args, gate=None, repo: Path = REPO) -> int:
             print(f"{slug}: published, but its draft is not in content/drafts/{slug}/")
             failed = True
     for folder in drafts:
-        report = run_checks(read_json(folder / "draft.json"), gate, ranks, thresholds)
+        draft = read_json(folder / "draft.json")
+        report = check_draft(draft, gate, ranks, thresholds)
         state = "passes" if report["ok"] else "FAILS"
         print(f"{folder.name}: {state} every check")
+        if is_written(draft):
+            # The judge is off unless the owner turned it on, and "not run" is never "passed".
+            print(f"  register judge: {report['register_judge']}")
+            if report["notes_pending"]:
+                print(f"  word notes still to write: {len(report['notes_pending'])} forms")
         for problem in report["failures"]:
             print(f"  {problem}")
         failed = failed or not report["ok"]
@@ -328,6 +365,39 @@ def cmd_judge_golden(args, ai=None) -> int:
     return 0 if result["passed"] else 1
 
 
+def cmd_publish_part(args, gate=None, repo: Path = REPO) -> int:
+    register_road_extras(repo / "content" / "road" / "allowed-extras.json")
+    try:
+        made = publish_part(args.part, gate or VoikkoGate(), frequency_ranks(), load_thresholds(), repo)
+    except PublishRefused as refused:
+        print("Not published. Every reason:")
+        for reason in refused.reasons:
+            print(f"  {reason}")
+        return 1
+    for slug, migration in made:
+        print(f"Wrote {migration.relative_to(repo).as_posix()} for {slug}")
+    print(f"Part {args.part}: {len(made)} migrations and their audio under public/audio/")
+    return 0
+
+
+def cmd_review_pages(args, repo: Path = REPO) -> int:
+    """Round 1 pages for one part of the A1 road, showing both meanings on each word card."""
+    made = 0
+    for path in sorted((repo / "content" / "drafts").glob("*/draft.json")):
+        draft = read_json(path)
+        if not 1 <= draft["brief"]["unit"]["position"] <= 36 or part_of(draft) != args.part:
+            continue
+        page, manifest = write_round(draft, path.parent, {}, 1)
+        if args.out:
+            dest = Path(args.out) / "drafts" / path.parent.name / "review"
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(page, dest / page.name)
+            shutil.copyfile(manifest, dest / manifest.name)
+        made += 1
+    print(f"Wrote round 1 pages for {made} dialogues of part {args.part}")
+    return 0 if made else 1
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="PuhuScribe content pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -342,6 +412,11 @@ def main(argv: list[str]) -> int:
     sub.add_parser("check-committed")
     golden = sub.add_parser("judge-golden")
     golden.add_argument("--out", required=True)
+    pages = sub.add_parser("review-pages")
+    pages.add_argument("--part", type=int, required=True)
+    pages.add_argument("--out")
+    part = sub.add_parser("publish-part")
+    part.add_argument("--part", type=int, required=True)
     args = parser.parse_args(argv)
     commands = {
         "run": cmd_run,
@@ -349,6 +424,8 @@ def main(argv: list[str]) -> int:
         "publish": cmd_publish,
         "check-committed": cmd_check_committed,
         "judge-golden": cmd_judge_golden,
+        "review-pages": cmd_review_pages,
+        "publish-part": cmd_publish_part,
     }
     try:
         return commands[args.command](args)
