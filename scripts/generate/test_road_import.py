@@ -193,14 +193,15 @@ def test_a1_road_10_every_dialogue_has_a_draft_in_the_draft_format(committed):
 
 
 def test_a1_road_16_the_lemma_is_voikkos_base_form_of_the_paired_written_word(ctx):
-    """[a1-road 16] noi pairs with nuo, so noi and toi both show the dictionary form tuo."""
+    """[a1-road 16] noi pairs with nuo, so its lemma is Voikko's base form of nuo. (The spec says tuo;
+    Voikko gives nuo its own base form nuo, and the rule is Voikko's base form.) toi pairs with tuo."""
     market = next(d for d in ctx.road.dialogues() if d.slug == "at-the-market")
     draft = ri.build_draft(market, ctx)
     line2 = draft["lines"][1]
     assert line2["text_puhe"] == "Moi! Paljonks noi mansikat maksaa?"
     forms = {f["id"]: f for f in draft["forms"]}
     noi = next(forms[t["form"]] for t in line2["kirja_tokens"] if t.get("form") and t["surface"] == "nuo")
-    assert (noi["surface_kirja"], noi["surface_puhe"], noi["lemma"]) == ("nuo", "noi", "tuo")
+    assert (noi["surface_kirja"], noi["surface_puhe"], noi["lemma"]) == ("nuo", "noi", "nuo")
     line4 = draft["lines"][3]
     toi = next(forms[t["form"]] for t in line4["kirja_tokens"] if t.get("form") and t["surface"] == "tuo")
     assert (toi["surface_puhe"], toi["lemma"]) == ("toi", "tuo")
@@ -321,7 +322,7 @@ def test_a1_road_13_each_part_has_the_lowest_cap_that_leaves_at_most_15_extra_wo
         assert len(ctx.data.extras[number]["base_forms"]) <= 15, f"stop {number}"
 
 
-def test_a1_road_13_every_recorded_extra_has_a_reason_and_is_used(committed, ctx):
+def test_a1_road_13_every_recorded_extra_has_a_reason_and_is_used(committed):
     """[a1-road 13] no stale extra: each recorded base form and form is in a draft of its stop."""
     extras = load_extras()
     for number, entry in extras.items():

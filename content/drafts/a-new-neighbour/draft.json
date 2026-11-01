@@ -41,7 +41,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "off"
+    "judge": "off",
+    "voice": "azure"
   },
   "notes": {
     "status": "pending"
@@ -159,7 +160,27 @@
           "surface": "täällä",
           "kirja": 5
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f67324556ccb193b7b821782a9c482c204aa5bab0b59a0fc6d669bc1fe7607b2",
+          "text": "Moi! Ootsä uus täällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "985571ad6888de91190575a5a62041d661d62ad2957f16d91c98b1c65f9710c8"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "78368e078187da22bea494b418e4d84e5e9af0e3e84b12a2ddeb20b340813f91",
+          "text": "Hei! Oletko sinä uusi täällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "be8d6a53ad4b21b58077137d5480b135bd9c0daa7d579712a573c3076eff5af8"
+        }
+      }
     },
     {
       "n": 2,
@@ -274,7 +295,27 @@
           "surface": "Maria",
           "kirja": 5
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "19f9ed3d9163a30f4e7577d6eeac487b02fbc79fb81f5044d8ffac4970f6b9bd",
+          "text": "Joo, oon. Mä oon Maria.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a9d4abe10114d3c4f67e5374d4c5818a1c73c08f455ad27415d283a78c5f049"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "013caa3c3a944282698dea47e6e74f2c0bf3ab530d2707aea13a68eabc43b0de",
+          "text": "Kyllä, olen. Minä olen Maria.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a5913df6d414c0bb72f8dd7eb0992c114aba630a98d7e5fab10dd2d4dd1aca47"
+        }
+      }
     },
     {
       "n": 3,
@@ -470,7 +511,27 @@
           "surface": "kotoisin",
           "kirja": 9
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "0271cdba292d190ae31969a4fe257c662a5c2fe3a2fb3a060bbb3933a701744c",
+          "text": "Kiva tavata! Mä oon Leena. Mist sä oot kotoisin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b377c0d2b7f2c066a957ffeab969e0ccc96f3e9c2a548c5d4aaa79530224f8da"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "29e2b52ae41399913465838e1f7ef2b14f442b030e8e214105718c7d783595db",
+          "text": "Kiva tavata! Minä olen Leena. Mistä sinä olet kotoisin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3fbd527ebf9e0c01311a6d9ecaeaa6c4018f44ecbf38896f3dde3ef1d859dc40"
+        }
+      }
     },
     {
       "n": 4,
@@ -582,7 +643,27 @@
           "surface": "sä",
           "kirja": 5
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "2ae6737ba8e150ac4a3fe55c4fd22609a39ed71f0d6207e3ce3ad7513d0dc407",
+          "text": "Mä oon Brasiliasta. Entä sä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "71e10fbe7dedbb72f16bc3009e131fb9c02dbf242fbafe5ec4bd2860535beadc"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "1ba3696cc316e87fc78fa4f624c4e07db708ec20d8279506f61aeeef854ca642",
+          "text": "Minä olen Brasiliasta. Entä sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4228f7c35cb921ec9276fb35ddea4c1ce4f83479c4db9339063b17db64ea20d7"
+        }
+      }
     },
     {
       "n": 5,
@@ -773,7 +854,27 @@
           "surface": "Helsingis",
           "kirja": 9
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e1e27e870d19802f1c18d19c34508269d6d6486d6dcbcbcf0937ce1f3434020e",
+          "text": "Mä oon Tampereelta, mut mä asun nyt täällä Helsingis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c9fd62d7193a45ebc2c5b9007236d7ff523f8279d62130565d4cfb6f7bb88c6d"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "648ca755b125e285bcf5adac840c4216a18fa7421ce16fb32fb69ea40db2c345",
+          "text": "Minä olen Tampereelta, mutta minä asun nyt täällä Helsingissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2d0723f92480db91dcb32db3e5cc4aa8917540cdf3e4784d8dbc93ba5385ce6d"
+        }
+      }
     },
     {
       "n": 6,
@@ -850,7 +951,27 @@
           "surface": "englantii",
           "kirja": 3
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "df8dfcfa63ca34734fc8d2854ccbdb8e4e7569f61c5921c9429f9a41e6098681",
+          "text": "Puhutsä englantii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cf452489d2ece01f4933addf630a7120841d10af6bfa231bf3592aca4884dc21"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "960ad2934aecbd8db060989843f5c924626b9fdd8e8ef3a42972d48f6e79035b",
+          "text": "Puhutko sinä englantia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0513295af10741202bdac326deca11c518bd1784f0f61d1664b80a8320cca7af"
+        }
+      }
     },
     {
       "n": 7,
@@ -939,7 +1060,27 @@
           "surface": "suomee",
           "kirja": 4
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "373ad9b90856947e54bc62551d7f92536c47ae9a9f52ba0d21c1daceaeecd716",
+          "text": "Vähän. Mut puhutaan suomee!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1f886e209b4eeb45e1f78b2de48945a44d1c3f518a4912d2afa92aa229a631e6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c79434ef0b545354afbebac1545788a1a7d585441272dcd72f18b3f07f2a0884",
+          "text": "Vähän. Mutta puhutaan suomea!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d1b28fe7fef431e71fbf04fd56c837277817c4ed31f39051bd520c569f3887c8"
+        }
+      }
     },
     {
       "n": 8,
@@ -993,7 +1134,27 @@
           "surface": "Nähään",
           "kirja": 2
         }
-      ]
+      ],
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "0ca437ce3e176c9638a4c91cbad87376c696e705aca06f1629a43875ad8c703a",
+          "text": "Okei! Nähään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5b8b74651efada31772498514d7a0383c62e391afe1de6dc57a0720595991d22"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "95ca252d32233c15fedf71f0a639c86349c7d7f5c5a23cfb54bbe98169e014cc",
+          "text": "Selvä! Nähdään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "51f02914ea01ff577e479d160c3aab6bbfcca23776f14b971224c9825e663616"
+        }
+      }
     }
   ],
   "forms": [
