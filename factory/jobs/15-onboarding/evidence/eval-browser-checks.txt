@@ -1,0 +1,104 @@
+=== chromium ===
+1 order: H1:Today's session | P:A session is one short Finni | SECTION:Welcome to PuhuScribeYou tap | BUTTON:Start | P:Starting creates a guest acc | BUTTON:I already have an account | P: | A:Privacy notice | A:Your account
+1/4/10 info: {"leadBeforeWelcome":true,"welcomeBeforeStart":true,"nothingBetweenWelcomeAndStartButButton":[],"guestNext":"Starting creates a guest account on this","afterGuest":"I already have an account","h1":1,"h2":1,"h2text":"Welcome to PuhuScribe","regionLabel":"welcome-heading","controls":0,"langs":0,"imgs":1,"startH":54}
+2 word count: 73
+2 flat page text equals the joined copy constants exactly: true | constants found: 8
+2 has a/o/a with dots (ä ö å): false
+7 requests (non-source files): ["http://localhost:5195 GET /","http://localhost:5195 GET /content/checks/speech-thresholds.json","http://localhost:5195 GET /api/today"]
+7 all requests same origin: true
+7 cookie/localStorage/sessionStorage: ["",0,0]
+7 indexedDB dbs: 0 | cookies in context: 0
+3 light: {"spokenLabel":["rgb(22, 98, 112)","rgb(22, 98, 112)"],"writtenLabel":["rgb(107, 70, 193)","rgb(107, 70, 193)"],"band":["rgb(233, 242, 244)","rgb(233, 242, 244)"],"sentencesAllTextToken":true,"anyAzure":false,"spokenBeforeWritten":true}
+9 light: {"startBottom":709,"guestBottom":784,"vh":812,"docH":932,"docW":375} fits: true
+10 axe light: violations [] needs review ["color-contrast"]
+10/11 light: {"transitions":0,"upper":0,"grad":0,"borders":["1px/1px/1px/1px"],"btns":["Start color rgb(246, 244, 251) bg rgb(27, 26, 32)","I already have an account color rgb(27, 26, 32) bg rgba(0, 0, 0, 0)"],"running":0}
+3 dark: {"spokenLabel":["rgb(124, 202, 215)","rgb(124, 202, 215)"],"writtenLabel":["rgb(167, 139, 234)","rgb(167, 139, 234)"],"band":["rgb(35, 48, 58)","rgb(35, 48, 58)"],"sentencesAllTextToken":true,"anyAzure":false,"spokenBeforeWritten":true}
+9 dark: {"startBottom":709,"guestBottom":784,"vh":812,"docH":932,"docW":375} fits: true
+10 axe dark: violations [] needs review ["color-contrast"]
+10/11 dark: {"transitions":0,"upper":0,"grad":0,"borders":["1px/1px/1px/1px"],"btns":["Start color rgb(27, 26, 32) bg rgb(242, 240, 248)","I already have an account color rgb(242, 240, 248) bg rgba(0, 0, 0, 0)"],"running":0}
+10 tab sequence from load: ["BUTTON:Start","BUTTON:I already have an ac","A:Privacy notice","A:Your account","BODY:Today's sessionA ses"] (WebKit may skip buttons on Tab by system setting)
+10 DOM order of buttons and links: ["Start","I already have an ac","Privacy notice","Your account"]
+10 320px scrollWidth/clientWidth/body: [320,320,320]
+10 200% text scrollWidth/clientWidth: [375,375]
+10 reduced motion screenshot identical: true
+5 guest-start: welcome not shown (expected not shown) OK | other messages: ["Unit goal. I can introduce myself.",""]
+5 guest-continue: welcome not shown (expected not shown) OK | other messages: [""]
+5 review: welcome not shown (expected not shown) OK | other messages: ["A short review of words you met before. Type each missing word from memory.",""]
+5 all-done: welcome not shown (expected not shown) OK | other messages: ["You have finished every dialogue that is ready."]
+5 not-ready: welcome not shown (expected not shown) OK | other messages: ["Today's session is not ready yet. Please come back later."]
+5 ended: welcome not shown (expected not shown) OK | other messages: ["Your guest session ended on this device. Press Start to begin again."]
+5 email-ended: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device. Sign in with your email to continue."]
+5 notice-signed-out: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device."]
+5 notice-signed-out-email: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device. Sign in with your email to continue."]
+5 notice-deleted: welcome not shown (expected not shown) OK | other messages: ["Your account and all its data are deleted."]
+5 notice-unknown: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+5 garbage-body-null: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+  console error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+5 status-500: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+6 delayed (2 s) guest answer, welcome ever in the page (MutationObserver from before load): false
+6 new visitor while loading: welcome count 0 | main text: "Today's session\n\nA session is one short Finnish dialogue that you hear line by line and then check you understand.\n\nLoading today's session.\n\nPrivacy notice\nYour account"
+6 new visitor after the answer: welcome count 1
+  console error: Failed to load resource: net::ERR_FAILED
+  console error: Failed to load resource: net::ERR_FAILED
+6 aborted /api/today and /api/guest: welcome shown, exact Start failure message shown, url http://localhost:5195/
+6 retry after failure reaches http://localhost:5195/session (stand-in for /api/guest and /session)
+break double tap on Start: POST /api/guest count 1 (stand-in for /api/guest and /session)
+break back from /session: welcome count 1 url http://localhost:5195/
+break refresh: welcome count 1 | cookie/ls/ss ["",0,0]
+break slow network (chromium 400 KB/s, 300 ms latency, dev server unbundled): welcome after 13723 ms; Start visible true
+keyboard: Enter on Start reaches /session
+13 /design-reference light: status 200 welcome section missing, welcome h2 count 0
+13 /design-reference dark: status 200 welcome section missing, welcome h2 count 0
+=== webkit ===
+1 order: H1:Today's session | P:A session is one short Finni | SECTION:Welcome to PuhuScribeYou tap | BUTTON:Start | P:Starting creates a guest acc | BUTTON:I already have an account | P: | A:Privacy notice | A:Your account
+1/4/10 info: {"leadBeforeWelcome":true,"welcomeBeforeStart":true,"nothingBetweenWelcomeAndStartButButton":[],"guestNext":"Starting creates a guest account on this","afterGuest":"I already have an account","h1":1,"h2":1,"h2text":"Welcome to PuhuScribe","regionLabel":"welcome-heading","controls":0,"langs":0,"imgs":1,"startH":54}
+2 word count: 73
+2 flat page text equals the joined copy constants exactly: true | constants found: 8
+2 has a/o/a with dots (ä ö å): false
+7 requests (non-source files): ["http://localhost:5195 GET /","http://localhost:5195 GET /content/checks/speech-thresholds.json","http://localhost:5195 GET /api/today"]
+7 all requests same origin: true
+7 cookie/localStorage/sessionStorage: ["",0,0]
+7 indexedDB dbs: 0 | cookies in context: 0
+3 light: {"spokenLabel":["rgb(22, 98, 112)","rgb(22, 98, 112)"],"writtenLabel":["rgb(107, 70, 193)","rgb(107, 70, 193)"],"band":["rgb(233, 242, 244)","rgb(233, 242, 244)"],"sentencesAllTextToken":true,"anyAzure":false,"spokenBeforeWritten":true}
+9 light: {"startBottom":709,"guestBottom":784,"vh":812,"docH":932,"docW":375} fits: true
+10 axe light: violations [] needs review ["color-contrast"]
+10/11 light: {"transitions":0,"upper":0,"grad":0,"borders":["1px/1px/1px/1px"],"btns":["Start color rgb(246, 244, 251) bg rgb(27, 26, 32)","I already have an account color rgb(27, 26, 32) bg rgba(0, 0, 0, 0)"],"running":0}
+3 dark: {"spokenLabel":["rgb(124, 202, 215)","rgb(124, 202, 215)"],"writtenLabel":["rgb(167, 139, 234)","rgb(167, 139, 234)"],"band":["rgb(35, 48, 58)","rgb(35, 48, 58)"],"sentencesAllTextToken":true,"anyAzure":false,"spokenBeforeWritten":true}
+9 dark: {"startBottom":709,"guestBottom":784,"vh":812,"docH":932,"docW":375} fits: true
+10 axe dark: violations [] needs review ["color-contrast"]
+10/11 dark: {"transitions":0,"upper":0,"grad":0,"borders":["1px/1px/1px/1px"],"btns":["Start color rgb(27, 26, 32) bg rgb(242, 240, 248)","I already have an account color rgb(242, 240, 248) bg rgba(0, 0, 0, 0)"],"running":0}
+10 tab sequence from load: ["BUTTON:Start","BUTTON:I already have an ac","BODY:Today's sessionA ses","BUTTON:Start","BUTTON:I already have an ac"] (WebKit may skip buttons on Tab by system setting)
+10 DOM order of buttons and links: ["Start","I already have an ac","Privacy notice","Your account"]
+10 320px scrollWidth/clientWidth/body: [320,320,320]
+10 200% text scrollWidth/clientWidth: [375,375]
+10 reduced motion screenshot identical: true
+5 guest-start: welcome not shown (expected not shown) OK | other messages: ["Unit goal. I can introduce myself.",""]
+5 guest-continue: welcome not shown (expected not shown) OK | other messages: [""]
+5 review: welcome not shown (expected not shown) OK | other messages: ["A short review of words you met before. Type each missing word from memory.",""]
+5 all-done: welcome not shown (expected not shown) OK | other messages: ["You have finished every dialogue that is ready."]
+5 not-ready: welcome not shown (expected not shown) OK | other messages: ["Today's session is not ready yet. Please come back later."]
+5 ended: welcome not shown (expected not shown) OK | other messages: ["Your guest session ended on this device. Press Start to begin again."]
+5 email-ended: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device. Sign in with your email to continue."]
+5 notice-signed-out: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device."]
+5 notice-signed-out-email: welcome not shown (expected not shown) OK | other messages: ["You are signed out on this device. Sign in with your email to continue."]
+5 notice-deleted: welcome not shown (expected not shown) OK | other messages: ["Your account and all its data are deleted."]
+5 notice-unknown: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+5 garbage-body-null: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+  console error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+5 status-500: welcome shown (expected shown) OK | other messages: ["Spoken comes first. The written form sits under it.",""]
+6 delayed (2 s) guest answer, welcome ever in the page (MutationObserver from before load): false
+6 new visitor while loading: welcome count 0 | main text: "Today's session\n\nA session is one short Finnish dialogue that you hear line by line and then check you understand.\n\nLoading today's session.\n\nPrivacy notice\nYour account"
+6 new visitor after the answer: welcome count 1
+6 aborted /api/today and /api/guest: welcome shown, exact Start failure message shown, url http://localhost:5195/
+6 retry after failure reaches http://localhost:5195/session (stand-in for /api/guest and /session)
+break double tap on Start: POST /api/guest count 1 (stand-in for /api/guest and /session)
+break back from /session: welcome count 1 url http://localhost:5195/
+break refresh: welcome count 1 | cookie/ls/ss ["",0,0]
+break slow network (webkit, no throttle available): welcome after 811 ms; Start visible true
+keyboard: Enter on Start reaches /session
+13 /design-reference light: status 200 welcome section missing, welcome h2 count 0
+13 /design-reference dark: status 200 welcome section missing, welcome h2 count 0
+
+Note: the dev server (npm run dev) does not serve the /design-reference page, so the two "13" lines above say missing. The reference page was checked on a build made with VITE_DESIGN_REFERENCE=1 (eval-13-reference-page.txt).
+Note: "imgs":1 in the info line counts svg elements too; the one is the wordmark above the heading, outside the welcome region.
+The /api/today answers marked standing in were stubbed with page.route; the new visitor, aborted, delayed and notice cases hit the real local Worker.

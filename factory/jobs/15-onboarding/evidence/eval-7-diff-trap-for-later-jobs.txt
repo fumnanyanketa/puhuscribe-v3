@@ -1,0 +1,7 @@
+Own check of statement 7's permanent test (throwaway clone outside the repository).
+Setup: 'main' set to the 15-onboarding tip, then a branch for a LATER job that edits worker/api.ts (one comment line).
+Command: npx vitest run tests/onboarding-rules.test.ts
+     × [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing  86ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected ' worker/api.ts | 1 +\n 1 file changed…' to be '' // Object.is equality
+      Tests  1 failed | 24 passed (25)

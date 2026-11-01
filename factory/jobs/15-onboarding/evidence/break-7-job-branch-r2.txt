@@ -1,0 +1,14 @@
+Round 2 break run 1 of 2: on the job branch.
+Branch: factory/15-onboarding, tip before the break: fa8117af09a7a42ee244d57f5add8fd8d97f7f6c
+Break: one comment line added to worker/api.ts and committed on this branch, so main...HEAD differs in a forbidden path.
+Command: npx vitest run tests/onboarding-rules.test.ts --reporter=verbose
+
+ ✓ tests/onboarding-rules.test.ts > the rules catch what they are meant to catch > [onboarding 7] the diff check runs only on the job branch, with a main branch to compare with 1ms
+ × tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing  72ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing 
+AssertionError: expected ' worker/api.ts | 1 +\n 1 file changed…' to be '' // Object.is equality
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 passed (26)
+
+Undone with: git reset --hard fa8117af09a7a42ee244d57f5add8fd8d97f7f6c

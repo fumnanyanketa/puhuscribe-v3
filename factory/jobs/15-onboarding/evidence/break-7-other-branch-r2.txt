@@ -1,0 +1,11 @@
+Round 2 break run 2 of 2: on another branch.
+Branch: scratch/15-onboarding-r2-other-branch (throwaway, local only, made from fa8117af09a7a42ee244d57f5add8fd8d97f7f6c)
+Same change: one comment line added to worker/api.ts and committed. main...HEAD differs in a forbidden path, as a later job's branch would.
+Command: npx vitest run tests/onboarding-rules.test.ts --reporter=verbose
+
+ ✓ tests/onboarding-rules.test.ts > the rules catch what they are meant to catch > [onboarding 7] the diff check runs only on the job branch, with a main branch to compare with 1ms
+ ↓ tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing (skipped except on the
+ Test Files  1 passed (1)
+      Tests  25 passed | 1 skipped (26)
+
+The diff test no longer runs here (skipped), and the rule test passes. The always-run tests beside it ran and passed.

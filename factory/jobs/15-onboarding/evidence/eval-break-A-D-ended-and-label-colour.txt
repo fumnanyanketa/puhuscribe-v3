@@ -1,0 +1,47 @@
+Own break check A and D (throwaway clone outside the repository, tip 4d46b3c, built with VITE_DESIGN_REFERENCE=1, vite preview on port 4195).
+Clean run: npx playwright test e2e/onboarding.spec.ts --grep-invert '@seed|@email': 64 passed, 0 failed.
+
+Break A (statement 5): the rule for who sees the welcome drops its 'not ended' condition. Break D (statement 3): the Spoken label uses the Written violet token.
+Diff:
+diff --git a/src/screens/FrontDoor.tsx b/src/screens/FrontDoor.tsx
+index 1774f25..594b7a4 100644
+--- a/src/screens/FrontDoor.tsx
++++ b/src/screens/FrontDoor.tsx
+@@ -127,7 +127,7 @@ export function FrontDoor() {
+   const instead = view.kind === 'all_done' ? ALL_DONE : view.kind === 'not_ready' ? NOT_READY : null
+ 
+   const signedOut = view.kind === 'signed_out'
+-  const newVisitor = view.kind === 'signed_out' && !view.ended && noticeFrom(window.location.search) === null
++  const newVisitor = view.kind === 'signed_out' && noticeFrom(window.location.search) === null
+   const canDo = view.kind === 'start' || view.kind === 'continue' ? view.canDo : undefined
+   const nextReview = view.kind === 'all_done' ? view.nextReview : undefined
+   let lead = LEAD
+diff --git a/src/screens/Welcome.module.css b/src/screens/Welcome.module.css
+index c558cd3..6874134 100644
+--- a/src/screens/Welcome.module.css
++++ b/src/screens/Welcome.module.css
+@@ -36,7 +36,7 @@
+   margin: 0;
+   font-size: var(--text-small);
+   font-weight: var(--weight-semibold);
+-  color: var(--color-spoken-text);
++  color: var(--color-written);
+ }
+ 
+ .labelWritten {
+
+Result after the break: 12 failed, 52 passed. Failures (each in Chromium and WebKit):
+  1) [chromium] › e2e\onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, light 
+  2) [chromium] › e2e\onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, dark 
+  3) [chromium] › e2e\onboarding.spec.ts:362:3 › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome 
+  4) [chromium] › e2e\onboarding.spec.ts:372:3 › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome 
+  5) [chromium] › e2e\onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, light 
+  6) [chromium] › e2e\onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, dark 
+  7) [webkit] › e2e\onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, light 
+  8) [webkit] › e2e\onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, dark 
+  9) [webkit] › e2e\onboarding.spec.ts:362:3 › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome 
+  10) [webkit] › e2e\onboarding.spec.ts:372:3 › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome 
+  11) [webkit] › e2e\onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, light 
+  12) [webkit] › e2e\onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, dark 
+
+Only the colour tests (3), the two standing-in 'ended' and email signed out tests (5) and the reference page tests (13, which also read the colours) went red. The break was made in the clone and the worktree was not touched.

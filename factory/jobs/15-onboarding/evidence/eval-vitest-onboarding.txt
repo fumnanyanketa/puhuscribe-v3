@@ -1,0 +1,38 @@
+ RUN  v5.0.5 C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/15-onboarding
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] hold exactly the approved draft 7ms
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] come to at most 80 words, counting the heading and the band labels 1ms
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] have no em dash, no hyphen used as punctuation and no colon in the sentences 2ms
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] name no hype word and none of the banned product words 16ms
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 2] contain the labels Spoken and Written, in that order 1ms
+ ✓ src/screens/welcome-copy.test.ts > the welcome words (spec "Welcome wording") > [onboarding 4] hold no Finnish: no ä, ö or å in the words (the file itself is checked in tests/onboarding-rules.test.ts) 1ms
+ ✓ src/screens/welcome-copy.test.ts > the rules catch what they are meant to catch > [onboarding 2] the word count sees 81 words 0ms
+ ✓ src/screens/welcome-copy.test.ts > the rules catch what they are meant to catch > [onboarding 2] the punctuation rule catches an em dash, an en dash, a colon and a spaced hyphen 1ms
+ ✓ src/screens/welcome-copy.test.ts > the rules catch what they are meant to catch > [onboarding 2] the word rules catch a hype word and a banned word, whatever the case 9ms
+ ✓ src/screens/welcome-copy.test.ts > the rules catch what they are meant to catch > [onboarding 4] the Finnish letter rule catches ä, ö and å 1ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 4] the copy file has no ä, ö or å, in its words or its comments (no Finnish, owner call 5 A) 4ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 4] the component has no button, link, input, select, text area or picture, and no lang="fi" 1ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 7] the component and its copy touch no storage and make no request 1ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 7] the front door still makes exactly its two requests and touches no storage 2ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 5] [onboarding 6] the welcome shows only for a new visitor, from the answer of /api/today 3ms
+ ✓ tests/onboarding-rules.test.ts > the welcome source > [onboarding 1] the welcome sits in the intro, after the lead sentence and before the actions (Start) 2ms
+ ✓ tests/onboarding-rules.test.ts > the welcome styles > [onboarding 11] use tokens only: no hex or function colour, no gradient, picture, animation, transition or uppercase 1ms
+ ✓ tests/onboarding-rules.test.ts > the welcome styles > [onboarding 3] the two bands use the spoken and written tokens and the sentences the text token 0ms
+ ✓ tests/onboarding-rules.test.ts > the welcome styles > [onboarding 11] no border wider than 1 px and none on one side only 1ms
+ ✓ tests/onboarding-rules.test.ts > the rules catch what they are meant to catch > [onboarding 4] the control rule catches a button, a link, an input and a lang="fi" 1ms
+ ✓ tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] git diff --stat main...HEAD for worker, supabase, wrangler.jsonc, package.json, package-lock.json and src/privacy prints nothing  75ms
+ ✓ tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] the page route list is the one the visit counter already knows (no new address) 1ms
+ ✓ tests/onboarding-rules.test.ts > what the branch changed > [onboarding 7] nothing in the Worker, the database folder or the privacy notice names the welcome 75ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] gives the exact words said to each person 1ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] gives the stopwatch rule: starts when the phone is handed over, stops at the first line 1ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] gives the two questions, word for word 0ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] gives a marking guide with three answers that pass and three that fail, for each question 1ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] has a result table of 5 rows, one per person, with every column the spec names, all still empty 1ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] says the test has not been run and marks nothing as passed 0ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] follows the writing rules: no em dash, no colon reveal sentence, no hype word 0ms
+ ✓ tests/onboarding-rules.test.ts > the hallway test pack > [onboarding 12] stores no name: the sheet has no name column and says no name is taken 0ms
+ ✓ tests/onboarding-rules.test.ts > the records > [onboarding 13] design.md has a "Welcome block" entry that names the tokens and the rules 1ms
+ ✓ tests/onboarding-rules.test.ts > the records > [onboarding 13] conventions.md has the [onboarding N] row for 15-onboarding 2ms
+ ✓ tests/onboarding-rules.test.ts > the records > [onboarding 13] the reference page shows the welcome block 1ms
+ ✓ tests/onboarding-rules.test.ts > the records > [onboarding 13] the README running costs table has no new row and no cost for onboarding 1ms
+ Test Files  2 passed (2)
+      Tests  35 passed (35)

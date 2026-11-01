@@ -1,0 +1,76 @@
+✓  138 [chromium] › e2e/onboarding.spec.ts:166:3 › the welcome for a new visitor › [onboarding 1] the front door shows, in order, the wordmark, the heading, the lead sentence, the welcome, Start, the gu
+✓  139 [chromium] › e2e/onboarding.spec.ts:222:3 › the welcome for a new visitor › [onboarding 2] the welcome shows exactly the words of welcome-copy.ts and no other text (372ms)
+✓  141 [chromium] › e2e/onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, light (562ms)
+✓  142 [chromium] › e2e/onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, dark (458ms)
+✓  143 [chromium] › e2e/onboarding.spec.ts:281:3 › the welcome for a new visitor › [onboarding 4] the welcome holds no button, link, input, select, text area or tap target, no Finnish and no question (3
+✓  144 [chromium] › e2e/onboarding.spec.ts:299:3 › the welcome for a new visitor › [onboarding 11] the block has no picture, icon, emoji, uppercase label, carousel, accent border, table style row or gra
+✓  146 [chromium] › e2e/onboarding.spec.ts:336:3 › who sees the welcome › [onboarding 5] a new visitor sees it (381ms)
+✓  147 [chromium] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "signed-out" shows its message and no welcome (434ms)
+✓  148 [chromium] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "signed-out-email" shows its message and no welcome (384ms)
+✓  149 [chromium] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "deleted" shows its message and no welcome (416ms)
+✓  150 [chromium] › e2e/onboarding.spec.ts:362:3 › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome (284ms)
+✓  151 [chromium] › e2e/onboarding.spec.ts:372:3 › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome (262ms)
+✓  152 [chromium] › e2e/onboarding.spec.ts:382:5 › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "start") no welcome (338ms)
+✓  153 [chromium] › e2e/onboarding.spec.ts:382:5 › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "continue") no welcome (302ms)
+✓  154 [chromium] › e2e/onboarding.spec.ts:396:3 › who sees the welcome › [onboarding 6] (a guest, answer delayed 2 seconds) the welcome is never in the page while the answer is awaited, nor after it (2
+✓  158 [chromium] › e2e/onboarding.spec.ts:419:3 › who sees the welcome › [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words (409ms)
+✓  160 [chromium] › e2e/onboarding.spec.ts:441:3 › nothing new is stored or sent › [onboarding 7] before Start the page sends only its files and GET /api/today, to its own address, and stores nothing (1
+✓  161 [chromium] › e2e/onboarding.spec.ts:474:3 › nothing new is stored or sent › [onboarding 7] [onboarding 2] the welcome shows at the same address as before, and a reload changes nothing stored (413
+✓  162 [chromium] › e2e/onboarding.spec.ts:491:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, light (358ms)
+✓  164 [chromium] › e2e/onboarding.spec.ts:491:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, dark (382ms)
+✓  165 [chromium] › e2e/onboarding.spec.ts:514:3 › fit on the first screen › [onboarding 9] on a smaller phone the page may scroll, and Start stays reachable by keyboard before the links (377ms)
+✓  166 [chromium] › e2e/onboarding.spec.ts:530:3 › phone, keyboard and look › [onboarding 10] nothing scrolls sideways at 320 px or with text at 200 percent, and Start stays at least 44 px tall (353ms)
+✓  167 [chromium] › e2e/onboarding.spec.ts:550:3 › phone, keyboard and look › [onboarding 10] the page has one h1, then the welcome h2, and the first Tab stop is Start (335ms)
+✓  168 [chromium] › e2e/onboarding.spec.ts:574:5 › phone, keyboard and look › [onboarding 10] axe finds no WCAG 2.0 to 2.2 A or AA problem on the new visitor's front door, light (779ms)
+✓  169 [chromium] › e2e/onboarding.spec.ts:581:5 › phone, keyboard and look › [onboarding 10] every piece of text in the welcome keeps at least 4.5 to 1 against what is behind it, light (403ms)
+✓  170 [chromium] › e2e/onboarding.spec.ts:613:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, light (328ms)
+✓  171 [chromium] › e2e/onboarding.spec.ts:574:5 › phone, keyboard and look › [onboarding 10] axe finds no WCAG 2.0 to 2.2 A or AA problem on the new visitor's front door, dark (896ms)
+✓  172 [chromium] › e2e/onboarding.spec.ts:581:5 › phone, keyboard and look › [onboarding 10] every piece of text in the welcome keeps at least 4.5 to 1 against what is behind it, dark (488ms)
+✓  173 [chromium] › e2e/onboarding.spec.ts:613:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, dark (393ms)
+✓  174 [chromium] › e2e/onboarding.spec.ts:638:3 › phone, keyboard and look › [onboarding 10] the welcome has no animation or transition, and with reduced motion the page is unchanged (472ms)
+✓  175 [chromium] › e2e/onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, light (849ms)
+✓  176 [chromium] › e2e/onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, dark (1.0s)
+✓  178 [chromium] › e2e/onboarding.spec.ts:708:3 › a returning learner and the fixture › [onboarding 5] a guest who pressed Start and came back by Leave session sees no welcome @seed (1.2s)
+✓  180 [chromium] › e2e/onboarding.spec.ts:723:3 › a returning learner and the fixture › [onboarding 5] a guest whose account was deleted in the database sees the "ended" message and no welcome @seed (1
+✓  181 [chromium] › e2e/onboarding.spec.ts:734:3 › a returning learner and the fixture › [onboarding 6] a guest whose answer is delayed 2 seconds never sees the welcome @seed (3.1s)
+✓  182 [chromium] › e2e/onboarding.spec.ts:761:5 › a returning learner and the fixture › with an email account › [onboarding 5] an email account (the fixture's, as in job 11) sees no welcome, and afte
+✓  183 [chromium] › e2e/onboarding.spec.ts:781:3 › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with
+✓  185 [chromium] › e2e/onboarding.spec.ts:825:3 › a returning learner and the fixture › [onboarding 8] loading the front door still creates no account @seed (917ms)
+✓  386 [webkit] › e2e/onboarding.spec.ts:166:3 › the welcome for a new visitor › [onboarding 1] the front door shows, in order, the wordmark, the heading, the lead sentence, the welcome, Start, the gues
+✓  387 [webkit] › e2e/onboarding.spec.ts:222:3 › the welcome for a new visitor › [onboarding 2] the welcome shows exactly the words of welcome-copy.ts and no other text (722ms)
+✓  388 [webkit] › e2e/onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, light (981ms)
+✓  389 [webkit] › e2e/onboarding.spec.ts:239:5 › the welcome for a new visitor › [onboarding 3] the Spoken band, then the Written band, in the Hear it colours, dark (980ms)
+✓  390 [webkit] › e2e/onboarding.spec.ts:281:3 › the welcome for a new visitor › [onboarding 4] the welcome holds no button, link, input, select, text area or tap target, no Finnish and no question (766
+✓  392 [webkit] › e2e/onboarding.spec.ts:299:3 › the welcome for a new visitor › [onboarding 11] the block has no picture, icon, emoji, uppercase label, carousel, accent border, table style row or gradi
+✓  393 [webkit] › e2e/onboarding.spec.ts:336:3 › who sees the welcome › [onboarding 5] a new visitor sees it (644ms)
+✓  394 [webkit] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "signed-out" shows its message and no welcome (784ms)
+✓  395 [webkit] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "signed-out-email" shows its message and no welcome (731ms)
+✓  396 [webkit] › e2e/onboarding.spec.ts:349:5 › who sees the welcome › [onboarding 5] the notice "deleted" shows its message and no welcome (724ms)
+✓  397 [webkit] › e2e/onboarding.spec.ts:362:3 › who sees the welcome › [onboarding 5] (standing in for the ended state) a guest whose account is gone sees job 8's message and no welcome (598ms)
+✓  398 [webkit] › e2e/onboarding.spec.ts:372:3 › who sees the welcome › [onboarding 5] (standing in for the email account's signed out state) the signed out message shows and no welcome (683ms)
+✓  399 [webkit] › e2e/onboarding.spec.ts:382:5 › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "start") no welcome (625ms)
+✓  400 [webkit] › e2e/onboarding.spec.ts:382:5 › who sees the welcome › [onboarding 5] (standing in for a signed in learner, "continue") no welcome (638ms)
+✓  401 [webkit] › e2e/onboarding.spec.ts:396:3 › who sees the welcome › [onboarding 6] (a guest, answer delayed 2 seconds) the welcome is never in the page while the answer is awaited, nor after it (3.0
+✓  405 [webkit] › e2e/onboarding.spec.ts:419:3 › who sees the welcome › [onboarding 6] when /api/today fails the welcome shows, and Start fails in job 8's own words (740ms)
+✓  406 [webkit] › e2e/onboarding.spec.ts:441:3 › nothing new is stored or sent › [onboarding 7] before Start the page sends only its files and GET /api/today, to its own address, and stores nothing (1.7
+✓  408 [webkit] › e2e/onboarding.spec.ts:474:3 › nothing new is stored or sent › [onboarding 7] [onboarding 2] the welcome shows at the same address as before, and a reload changes nothing stored (701ms
+✓  409 [webkit] › e2e/onboarding.spec.ts:491:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, light (717ms)
+✓  410 [webkit] › e2e/onboarding.spec.ts:491:5 › fit on the first screen › [onboarding 9] at 375 x 812 the whole Start button and the whole guest line are on the first screen, dark (516ms)
+✓  411 [webkit] › e2e/onboarding.spec.ts:514:3 › fit on the first screen › [onboarding 9] on a smaller phone the page may scroll, and Start stays reachable by keyboard before the links (479ms)
+✓  412 [webkit] › e2e/onboarding.spec.ts:530:3 › phone, keyboard and look › [onboarding 10] nothing scrolls sideways at 320 px or with text at 200 percent, and Start stays at least 44 px tall (782ms)
+✓  413 [webkit] › e2e/onboarding.spec.ts:550:3 › phone, keyboard and look › [onboarding 10] the page has one h1, then the welcome h2, and the first Tab stop is Start (750ms)
+✓  415 [webkit] › e2e/onboarding.spec.ts:574:5 › phone, keyboard and look › [onboarding 10] axe finds no WCAG 2.0 to 2.2 A or AA problem on the new visitor's front door, light (1.3s)
+✓  416 [webkit] › e2e/onboarding.spec.ts:581:5 › phone, keyboard and look › [onboarding 10] every piece of text in the welcome keeps at least 4.5 to 1 against what is behind it, light (735ms)
+✓  417 [webkit] › e2e/onboarding.spec.ts:613:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, light (680ms)
+✓  418 [webkit] › e2e/onboarding.spec.ts:574:5 › phone, keyboard and look › [onboarding 10] axe finds no WCAG 2.0 to 2.2 A or AA problem on the new visitor's front door, dark (1.2s)
+✓  419 [webkit] › e2e/onboarding.spec.ts:581:5 › phone, keyboard and look › [onboarding 10] every piece of text in the welcome keeps at least 4.5 to 1 against what is behind it, dark (661ms)
+✓  420 [webkit] › e2e/onboarding.spec.ts:613:5 › phone, keyboard and look › [onboarding 10] every button on the page has explicit token colours, dark (632ms)
+✓  421 [webkit] › e2e/onboarding.spec.ts:638:3 › phone, keyboard and look › [onboarding 10] the welcome has no animation or transition, and with reduced motion the page is unchanged (762ms)
+✓  422 [webkit] › e2e/onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, light (1.3s)
+✓  423 [webkit] › e2e/onboarding.spec.ts:676:5 › the reference page › [onboarding 13] /design-reference shows the welcome block with the same words and colours, dark (1.3s)
+✓  426 [webkit] › e2e/onboarding.spec.ts:708:3 › a returning learner and the fixture › [onboarding 5] a guest who pressed Start and came back by Leave session sees no welcome @seed (1.7s)
+✓  427 [webkit] › e2e/onboarding.spec.ts:723:3 › a returning learner and the fixture › [onboarding 5] a guest whose account was deleted in the database sees the "ended" message and no welcome @seed (1.1
+✓  428 [webkit] › e2e/onboarding.spec.ts:734:3 › a returning learner and the fixture › [onboarding 6] a guest whose answer is delayed 2 seconds never sees the welcome @seed (3.4s)
+✓  429 [webkit] › e2e/onboarding.spec.ts:761:5 › a returning learner and the fixture › with an email account › [onboarding 5] an email account (the fixture's, as in job 11) sees no welcome, and after 
+✓  430 [webkit] › e2e/onboarding.spec.ts:781:3 › a returning learner and the fixture › [onboarding 7] [onboarding 8] a new visitor presses Start once and nothing else, the first line is on screen with i
+✓  431 [webkit] › e2e/onboarding.spec.ts:825:3 › a returning learner and the fixture › [onboarding 8] loading the front door still creates no account @seed (1.2s)
