@@ -94,4 +94,37 @@ The same statement also has a part I cannot prove: the workflow has never run, b
 4. Approve part by part, in his own written words, one line per part. The manager then adds `content/approvals/part-<n>.json`; nothing publishes without it, and it must be made after voicing because the fingerprint covers the clips.
 5. After each part's migrations and audio are on the preview, the evaluator walks one dialogue of a stop from each part through Hear it, Understand it, Say it and the next day's review. Then `summary.md` carries the owner's own "approved" line with the date (GA).
 
-Result: fail
+## Re-check (branch tip `81dd2a9`, after round 6)
+
+What I looked at. Checks run 41346798223 is on `8ba0b01`; the only change in `81dd2a9` after it is one line of `build.md`. That run is green: pgTAP 1,094 tests in 16 files (the new `a1_road_forms.test.sql` ok, also in the second load), Python 314 passed with 0 skipped, Playwright, Vitest, gitleaks, dependency check. I pulled the tip and re-ran my own harness against it (`evidence/recheck-publish-skeptic-refusals.txt`), then compared every draft with the one at `0613e94`.
+
+**Statement 19, pinned actions: now pass for that clause.** `a1-road.yml` lines 60, 67, 71 and 146 are each `owner/name@` plus 40 hex characters with the version in a comment. I confirmed with `gh api` that all four commits exist in their repositories (checkout `3d3c42e5`, setup-python `6d4fd22b`, setup-node `949feb24`, upload-artifact `cf430e03`). A test `test_a1_road_19_every_action_in_the_workflow_is_pinned_to_a_full_commit` guards it. The part I flagged as unprovable remains: the workflow is still not on `main` and has never run, and 101 of the 102 new dialogues still have no audio. That is a "first run after merge" fact, not a defect; the manager's first real voice run is the proof.
+
+**Shared forms: pass.**
+- Across all 1,332 forms, no form id has two different texts in any draft (name, meaning, dictionary meaning, why). 0 conflicts, where there were 22 before. No dictionary form has two meanings.
+- Lines are unchanged in all 108 drafts (judge verdicts and fingerprints inside them unchanged), and no audio file changed. The only form text changes are `why_en` in 828 form entries across the 108 drafts, plus the one `rikkaus` meaning. Statement 17 is amended in `spec.md` and the amendment names this.
+- The publisher now refuses a form that exists with other texts and names both sets (road path in `publish.py`), with a real Postgres test (`a1_road_forms.test.sql`, 7 tests, green). The old `on conflict do nothing` remains only in the job 7 AI path, which the spec leaves unchanged.
+- My earlier skeptic harness (missing note, swapped audio, swapped audio with hash, changed line, fake audio, judge mismatch, empty approval line, missing approval file) gives the same refusals on the new code, and the control still publishes.
+- Cost to the owner: the six earlier AI drafts now show the road's why lines, not their own. That is intended by the amendment.
+
+**Word card sample of 15 again** (random seed plus `tuolla`). All read correctly for a beginner and agree with their line:
+- `tuolla` (`form-d53af38ffdce`) is now one text in both drafts that use it: dictionary form `tuo` (that), "adessive singular", meaning "over there", why "Tuo, that, with -lla: tuolla, over there. Speech shortens -lla to -l: tuolla becomes tuol." It was "Adessive of 'tuo': here it means 'over there'..." in the grocery-store draft before.
+- Also checked and fine: `päivät`, `sateel`, `puut`, `me` (16 drafts), `maitohyllyn`, `paranee`, `sulkee`, `kauramaito`, `kiitos` (12 drafts), `seittemältä`, `niitä`, `vikana`.
+- `rikkaus` now has "wealth, something valuable" in both fields (the glossary row and the drafts agree).
+- Small nits, not failures: `osaa` has the meaning "can (can't sing)", which fits the line "Mä en osaa yhtään" only loosely; `huoltomiehen` has the why "a whole person sent", which is clumsy wording. `kaukana` still shows `kauas` as dictionary form (Voikko's own base form).
+
+**Statements 21, 22 and 28 are correctly "cannot prove yet".**
+- 21: no approval file exists in `content/approvals/`, no publish migration exists (only the three road migrations), and no `public/audio` exists. The publisher is proven on a real draft and on fixtures. The 108-migration match test and total size need the approvals.
+- 22: `a1_road_published.test.sql` is generated from the approval files and still asserts 0 stops, 0 dialogues, 0 lines, 0 live. It will assert 36, 108 and 852 only after part approvals.
+- 28: open and the owner's.
+
+**What exactly the owner must do.**
+1. Wait for the manager to run the voice step per part (the workflow must be on `main` first), then listen to a sample of five dialogues per part and read that part's numbers in `content/road/road-report.md`.
+2. Read `content/road/manual-readings.tsv` (135 hand written readings) and `content/road/allowed-extras.json`, the two places where the automatic checks were widened.
+3. For each part, write his own approval line in chat, in his own words. The manager then adds `content/approvals/part-<n>.json` with that line word for word and its date; the manager must do this after voicing, because the fingerprint covers the clips, and a later re-voice or edit voids that dialogue.
+4. Approve the merge of each part's migrations and audio. Then the evaluator walks one dialogue of a stop from each part on the preview (Hear it, Understand it, Say it, next day's review).
+5. Write the final "approved" line with the date for `summary.md` (GA).
+
+Result of the re-check: statement 19 now passes, the shared forms point is fixed, nothing else regressed. Statements 21, 22 and 28 stay open until approvals and the first voice runs exist.
+
+Result: pass (every statement that can be proven today passes; 21, 22 and 28 are open for the reasons above)
