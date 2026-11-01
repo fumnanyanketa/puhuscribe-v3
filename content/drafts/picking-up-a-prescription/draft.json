@@ -48,7 +48,6 @@
     "rank_cap": 2000,
     "extra_base_forms": [
       "flunssa",
-      "ilman",
       "kelakortti",
       "kuume",
       "levätä",
@@ -58,7 +57,6 @@
       "päänsärky",
       "särkylääke",
       "tabletti",
-      "tee",
       "tukko",
       "yskä",
       "yskänlääke"
@@ -575,17 +573,19 @@
         },
         {
           "surface": "ilman",
-          "lemma": "ilman",
-          "form_tag": "CLASS=suhdesana",
+          "lemma": "ilma",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "ilman",
-            "CLASS": "suhdesana",
-            "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
+            "BASEFORM": "ilma",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sg][Ny]an",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "omanto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+ilman(ilman)"
+            "WORDBASES": "+ilma(ilma)"
           },
-          "form": "form-95eeba05861c"
+          "form": "form-473ae936d931"
         }
       ],
       "puhe_tokens": [
@@ -699,19 +699,19 @@
         },
         {
           "surface": "maksaa",
-          "lemma": "maksaa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "lemma": "maksa",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "maksaa",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]maksaa[X]maksa[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "BASEFORM": "maksa",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=pppppp",
-            "WORDBASES": "+maksaa(maksaa)"
+            "WORDBASES": "+maksa(maksa)"
           },
-          "form": "form-1b7e1b6b7551"
+          "form": "form-145f27b41a8c"
         }
       ],
       "puhe_tokens": [
@@ -1245,22 +1245,24 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-95eeba05861c",
-      "lemma": "ilman",
-      "form_tag": "CLASS=suhdesana",
+      "id": "form-473ae936d931",
+      "lemma": "ilma",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
       "surface_kirja": "ilman",
       "surface_puhe": "ilman",
       "analysis": {
-        "BASEFORM": "ilman",
-        "CLASS": "suhdesana",
-        "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
+        "BASEFORM": "ilma",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sg][Ny]an",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "omanto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+ilman(ilman)"
+        "WORDBASES": "+ilma(ilma)"
       },
-      "form_name_en": "adposition",
+      "form_name_en": "genitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-950f555b19e3",
@@ -1305,24 +1307,24 @@
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
-      "id": "form-1b7e1b6b7551",
-      "lemma": "maksaa",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "id": "form-145f27b41a8c",
+      "lemma": "maksa",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
       "surface_kirja": "maksaa",
       "surface_puhe": "maksaa",
       "analysis": {
-        "BASEFORM": "maksaa",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]maksaa[X]maksa[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "BASEFORM": "maksa",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=pppppp",
-        "WORDBASES": "+maksaa(maksaa)"
+        "WORDBASES": "+maksa(maksa)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "partitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-25173aeff97f",

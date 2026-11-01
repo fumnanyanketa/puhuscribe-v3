@@ -69,12 +69,13 @@
       "extras-stop-25",
       "extras-stop-27"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "automaatti",
       "fleminginkatu",
       "henkilökortti",
       "hylly",
+      "ilmoittautua",
       "kaksitoista",
       "kielikahvila",
       "kirjastokortti",
@@ -83,8 +84,7 @@
       "oodi",
       "pin-koodi",
       "selkokirja",
-      "tee",
-      "uusia",
+      "suomenkielinen",
       "viisikymmentä"
     ],
     "speakers": [
@@ -137,19 +137,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "että",
@@ -745,17 +745,19 @@
         },
         {
           "surface": "yhdessä",
-          "lemma": "yhdessä",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "yhdessä",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+yhdessä(yhdessä)"
+            "WORDBASES": "+yksi(yksi)"
           },
-          "form": "form-b16041571d77"
+          "form": "form-9f03b11b2b04"
         },
         {
           "surface": "ensi",
@@ -834,24 +836,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-4eeca18a865d",
@@ -1345,22 +1347,24 @@
       "why_en": ""
     },
     {
-      "id": "form-b16041571d77",
-      "lemma": "yhdessä",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-9f03b11b2b04",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
       "surface_kirja": "yhdessä",
       "surface_puhe": "yhdessä",
       "analysis": {
-        "BASEFORM": "yhdessä",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+yhdessä(yhdessä)"
+        "WORDBASES": "+yksi(yksi)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "inessive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-00d6b814f19a",

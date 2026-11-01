@@ -70,18 +70,15 @@
       "extras-stop-27",
       "extras-stop-29"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "brasilialainen",
       "jälkiruoka",
-      "kuudelta",
       "raitiovaunu",
       "sisä",
       "suklaapallo",
       "syntymäpäiväjuhla",
-      "syntymäpäiväsankari",
-      "tee",
-      "tulinen"
+      "syntymäpäiväsankari"
     ],
     "speakers": [
       {
@@ -297,19 +294,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "tulit",
@@ -567,19 +564,22 @@
         },
         {
           "surface": "tuli",
-          "lemma": "tuli",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "tulla",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=past_imperfective;NEGATIVE=false",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuli",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]tuli[X]tul[Sn][Ny]i",
+            "BASEFORM": "tulla",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tulla[X]tul[Tt][Ai][P3][Ny][Ef]i",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "3",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+tuli(tuli)"
+            "TENSE": "past_imperfective",
+            "WORDBASES": "+tulla(tulla)"
           },
-          "form": "form-dd2fa43e5bfc"
+          "form": "form-01430b9259ed"
         },
         {
           "surface": "Somaliasta",
@@ -599,20 +599,20 @@
         },
         {
           "surface": "käymään",
-          "lemma": "käymä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=singular;PARTICIPLE=agent",
+          "lemma": "käydä",
+          "form_tag": "CLASS=teonsana;SIJAMUOTO=sisatulento;NUMBER=singular;MOOD=MA-infinitive",
           "name": false,
           "analysis": {
-            "BASEFORM": "käymä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Ln][Rm]m[Xj]ä[X][Sill][Ny]ään",
+            "BASEFORM": "käydä",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tn3][Ny][Sill]mään",
+            "MOOD": "MA-infinitive",
             "NUMBER": "singular",
-            "PARTICIPLE": "agent",
             "SIJAMUOTO": "sisatulento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+käy(käydä)+m+ä(+ä)"
+            "WORDBASES": "+käydä(käydä)"
           },
-          "form": "form-f4dcd1ecdc2d"
+          "form": "form-5947e1f56514"
         }
       ],
       "puhe_tokens": [
@@ -745,19 +745,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "sanon",
@@ -800,19 +800,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "kotiin",
@@ -832,17 +832,20 @@
         },
         {
           "surface": "hyvin",
-          "lemma": "hyvin",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "hyvä",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
           "name": false,
           "analysis": {
-            "BASEFORM": "hyvin",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]hyvin[X]hyvin",
+            "BASEFORM": "hyvä",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sin][Nm]in",
+            "NUMBER": "plural",
+            "SIJAMUOTO": "keinonto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+hyvin(hyvin)"
+            "WORDBASES": "+hyvä(hyvä)"
           },
-          "form": "form-e18d9223b2b2"
+          "form": "form-7cb095a4d8ee"
         }
       ],
       "puhe_tokens": [
@@ -1221,24 +1224,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-e3858e4b70af",
@@ -1432,42 +1435,45 @@
       "why_en": ""
     },
     {
-      "id": "form-dd2fa43e5bfc",
-      "lemma": "tuli",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-01430b9259ed",
+      "lemma": "tulla",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=past_imperfective;NEGATIVE=false",
       "surface_kirja": "tuli",
       "surface_puhe": "tuli",
       "analysis": {
-        "BASEFORM": "tuli",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]tuli[X]tul[Sn][Ny]i",
+        "BASEFORM": "tulla",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tulla[X]tul[Tt][Ai][P3][Ny][Ef]i",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "3",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+tuli(tuli)"
+        "TENSE": "past_imperfective",
+        "WORDBASES": "+tulla(tulla)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "past tense, 3rd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
-      "id": "form-f4dcd1ecdc2d",
-      "lemma": "käymä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=singular;PARTICIPLE=agent",
+      "id": "form-5947e1f56514",
+      "lemma": "käydä",
+      "form_tag": "CLASS=teonsana;SIJAMUOTO=sisatulento;NUMBER=singular;MOOD=MA-infinitive",
       "surface_kirja": "käymään",
       "surface_puhe": "käymään",
       "analysis": {
-        "BASEFORM": "käymä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Ln][Rm]m[Xj]ä[X][Sill][Ny]ään",
+        "BASEFORM": "käydä",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tn3][Ny][Sill]mään",
+        "MOOD": "MA-infinitive",
         "NUMBER": "singular",
-        "PARTICIPLE": "agent",
         "SIJAMUOTO": "sisatulento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+käy(käydä)+m+ä(+ä)"
+        "WORDBASES": "+käydä(käydä)"
       },
-      "form_name_en": "agent participle, illative singular",
+      "form_name_en": "MA-infinitive, illative",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1556,21 +1562,21 @@
       "why_en": ""
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1643,22 +1649,25 @@
       "why_en": ""
     },
     {
-      "id": "form-e18d9223b2b2",
-      "lemma": "hyvin",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-7cb095a4d8ee",
+      "lemma": "hyvä",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
       "surface_kirja": "hyvin",
       "surface_puhe": "hyvin",
       "analysis": {
-        "BASEFORM": "hyvin",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]hyvin[X]hyvin",
+        "BASEFORM": "hyvä",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sin][Nm]in",
+        "NUMBER": "plural",
+        "SIJAMUOTO": "keinonto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+hyvin(hyvin)"
+        "WORDBASES": "+hyvä(hyvä)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "instructive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-fbf4cf6cbcf9",

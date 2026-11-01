@@ -65,21 +65,23 @@
       "extras-stop-21",
       "extras-stop-22"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "brasilialainen",
       "kaksikymmentä",
       "kattila",
       "kerma",
+      "kuori",
+      "litra",
       "lohi",
       "lohikeitto",
-      "pala",
+      "palo",
       "peruna",
-      "perunoita",
       "porkkana",
       "sipuli",
-      "tee",
-      "tilli"
+      "suola",
+      "tilli",
+      "tuoksua"
     ],
     "speakers": [
       {
@@ -338,19 +340,19 @@
         },
         {
           "surface": "paloiksi",
-          "lemma": "pala",
+          "lemma": "palo",
           "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural",
           "name": false,
           "analysis": {
-            "BASEFORM": "pala",
+            "BASEFORM": "palo",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]pala[X]palo[Str][Nm]iksi",
+            "FSTOUTPUT": "[Ln][Xp]palo[X]palo[Str][Nm]iksi",
             "NUMBER": "plural",
             "SIJAMUOTO": "tulento",
             "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+pala(pala)"
+            "WORDBASES": "+palo(palo)"
           },
-          "form": "form-1a08e56b5545"
+          "form": "form-cdcafab61e17"
         }
       ],
       "puhe_tokens": [
@@ -441,19 +443,22 @@
         },
         {
           "surface": "Laita",
-          "lemma": "laita",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "laittaa",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "laita",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]laita[X]lait[Sn][Ny]a",
+            "BASEFORM": "laittaa",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]laittaa[X]laita[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+laita(laita)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+laittaa(laittaa)"
           },
-          "form": "form-ec4abd7150b6"
+          "form": "form-6310bab3540e"
         },
         {
           "surface": "ne",
@@ -1027,19 +1032,19 @@
       "why_en": ""
     },
     {
-      "id": "form-1a08e56b5545",
-      "lemma": "pala",
+      "id": "form-cdcafab61e17",
+      "lemma": "palo",
       "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural",
       "surface_kirja": "paloiksi",
       "surface_puhe": "paloiks",
       "analysis": {
-        "BASEFORM": "pala",
+        "BASEFORM": "palo",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]pala[X]palo[Str][Nm]iksi",
+        "FSTOUTPUT": "[Ln][Xp]palo[X]palo[Str][Nm]iksi",
         "NUMBER": "plural",
         "SIJAMUOTO": "tulento",
         "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+pala(pala)"
+        "WORDBASES": "+palo(palo)"
       },
       "form_name_en": "translative plural",
       "meaning_en": "",
@@ -1104,24 +1109,27 @@
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
-      "id": "form-ec4abd7150b6",
-      "lemma": "laita",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-6310bab3540e",
+      "lemma": "laittaa",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "laita",
       "surface_puhe": "laita",
       "analysis": {
-        "BASEFORM": "laita",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]laita[X]lait[Sn][Ny]a",
+        "BASEFORM": "laittaa",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]laittaa[X]laita[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+laita(laita)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+laittaa(laittaa)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-8da50554a5b2",

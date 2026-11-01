@@ -64,8 +64,7 @@
       "sairauslomatodistus",
       "sattunut",
       "särkeä",
-      "terveysasema",
-      "vaiva"
+      "terveysasema"
     ],
     "speakers": [
       {
@@ -143,19 +142,22 @@
         },
         {
           "surface": "vaivaa",
-          "lemma": "vaiva",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "lemma": "vaivata",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "vaiva",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]vaiva[X]vaiv[Sp][Ny]aa",
+            "BASEFORM": "vaivata",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]vaivata[X]vaiva[Tt][Ap][P3][Ny][Eb]a",
+            "MOOD": "indicative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "osanto",
+            "PERSON": "3",
             "STRUCTURE": "=pppppp",
-            "WORDBASES": "+vaiva(vaiva)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+vaivata(vaivata)"
           },
-          "form": "form-b03334863e8a"
+          "form": "form-36b36ebbb1db"
         }
       ],
       "puhe_tokens": [
@@ -513,19 +515,19 @@
       "kirja_tokens": [
         {
           "surface": "Sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "tarvitset",
@@ -848,21 +850,24 @@
       "why_en": ""
     },
     {
-      "id": "form-b03334863e8a",
-      "lemma": "vaiva",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "id": "form-36b36ebbb1db",
+      "lemma": "vaivata",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "vaivaa",
       "surface_puhe": "vaivaa",
       "analysis": {
-        "BASEFORM": "vaiva",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]vaiva[X]vaiv[Sp][Ny]aa",
+        "BASEFORM": "vaivata",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]vaivata[X]vaiva[Tt][Ap][P3][Ny][Eb]a",
+        "MOOD": "indicative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "osanto",
+        "PERSON": "3",
         "STRUCTURE": "=pppppp",
-        "WORDBASES": "+vaiva(vaiva)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+vaivata(vaivata)"
       },
-      "form_name_en": "partitive singular",
+      "form_name_en": "present tense, 3rd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1140,24 +1145,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-bbff218098a9",

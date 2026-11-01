@@ -75,20 +75,15 @@
     ],
     "rank_cap": 1500,
     "extra_base_forms": [
-      "aikaisin",
       "asiakaspalvelu",
       "asunut",
-      "juuri",
       "kaakao",
       "kallio",
       "kodikas",
-      "kuin",
       "kuoro",
-      "kuudelta",
       "kynttilä",
       "pimeys",
-      "päiväkoti",
-      "tee"
+      "päiväkoti"
     ],
     "speakers": [
       {
@@ -251,19 +246,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "herään",
@@ -286,19 +281,19 @@
         },
         {
           "surface": "kuudelta",
-          "lemma": "kuudelta",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kuusi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=ulkoeronto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "kuudelta",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][Bh][Bc][Ln][Xp]delta[X]delt[Sn][Ny]a",
+            "BASEFORM": "kuusi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sabl][Ny]delta",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppp=ppppp",
-            "WORDBASES": "+kuu(kuu)+delta(delta)"
+            "SIJAMUOTO": "ulkoeronto",
+            "STRUCTURE": "=pppppppp",
+            "WORDBASES": "+kuusi(kuusi)"
           },
-          "form": "form-7388874cfd47"
+          "form": "form-e9d72c78c633"
         },
         {
           "surface": "ja",
@@ -390,17 +385,20 @@
       "kirja_tokens": [
         {
           "surface": "Aikaisin",
-          "lemma": "aikaisin",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "aikainen",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
           "name": false,
           "analysis": {
-            "BASEFORM": "aikaisin",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]aikaisin[X]aikaisin",
+            "BASEFORM": "aikainen",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ln][Xp]aika[X]aika[Ll][Xj]inen[X]is[Sin][Nm]in",
+            "NUMBER": "plural",
+            "SIJAMUOTO": "keinonto",
             "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+aikaisin(aikaisin)"
+            "WORDBASES": "+aika(aika)+inen(+inen)"
           },
-          "form": "form-1a7a5395a8f3"
+          "form": "form-54a1444a5f36"
         }
       ],
       "puhe_tokens": [
@@ -447,19 +445,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "vien",
@@ -655,17 +653,22 @@
       "kirja_tokens": [
         {
           "surface": "Juuri",
-          "lemma": "juuri",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "juuria",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "juuri",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
+            "BASEFORM": "juuria",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
+            "NUMBER": "singular",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+juuri(juuri)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+juuria(juuria)"
           },
-          "form": "form-57dd552fb07a"
+          "form": "form-a3345ebbbcea"
         },
         {
           "surface": "niin",
@@ -683,19 +686,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "olen",
@@ -889,17 +892,19 @@
         },
         {
           "surface": "yhdessä",
-          "lemma": "yhdessä",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "yhdessä",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+yhdessä(yhdessä)"
+            "WORDBASES": "+yksi(yksi)"
           },
-          "form": "form-b16041571d77"
+          "form": "form-9f03b11b2b04"
         },
         {
           "surface": "ja",
@@ -933,19 +938,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "opiskelen",
@@ -1185,21 +1190,21 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1228,24 +1233,24 @@
       "why_en": ""
     },
     {
-      "id": "form-7388874cfd47",
-      "lemma": "kuudelta",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-e9d72c78c633",
+      "lemma": "kuusi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=ulkoeronto;NUMBER=singular",
       "surface_kirja": "kuudelta",
       "surface_puhe": "kuudelta",
       "analysis": {
-        "BASEFORM": "kuudelta",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][Bh][Bc][Ln][Xp]delta[X]delt[Sn][Ny]a",
+        "BASEFORM": "kuusi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sabl][Ny]delta",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppp=ppppp",
-        "WORDBASES": "+kuu(kuu)+delta(delta)"
+        "SIJAMUOTO": "ulkoeronto",
+        "STRUCTURE": "=pppppppp",
+        "WORDBASES": "+kuusi(kuusi)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "ablative singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1309,19 +1314,22 @@
       "why_en": "Partitive of 'kahvi': 'some coffee', an amount, not one counted thing."
     },
     {
-      "id": "form-1a7a5395a8f3",
-      "lemma": "aikaisin",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-54a1444a5f36",
+      "lemma": "aikainen",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
       "surface_kirja": "aikaisin",
       "surface_puhe": "aikasin",
       "analysis": {
-        "BASEFORM": "aikaisin",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]aikaisin[X]aikaisin",
+        "BASEFORM": "aikainen",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ln][Xp]aika[X]aika[Ll][Xj]inen[X]is[Sin][Nm]in",
+        "NUMBER": "plural",
+        "SIJAMUOTO": "keinonto",
         "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+aikaisin(aikaisin)"
+        "WORDBASES": "+aika(aika)+inen(+inen)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "instructive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1467,19 +1475,24 @@
       "why_en": ""
     },
     {
-      "id": "form-57dd552fb07a",
-      "lemma": "juuri",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-a3345ebbbcea",
+      "lemma": "juuria",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "juuri",
       "surface_puhe": "just",
       "analysis": {
-        "BASEFORM": "juuri",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
+        "BASEFORM": "juuria",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
+        "NUMBER": "singular",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+juuri(juuri)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+juuria(juuria)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1667,22 +1680,24 @@
       "why_en": ""
     },
     {
-      "id": "form-b16041571d77",
-      "lemma": "yhdessä",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-9f03b11b2b04",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
       "surface_kirja": "yhdessä",
       "surface_puhe": "yhdessä",
       "analysis": {
-        "BASEFORM": "yhdessä",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+yhdessä(yhdessä)"
+        "WORDBASES": "+yksi(yksi)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "inessive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-c549ca8e5bd2",

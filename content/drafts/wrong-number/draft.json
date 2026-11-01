@@ -55,13 +55,10 @@
     "rank_cap": 2000,
     "extra_base_forms": [
       "isännöitsijä",
-      "kirjoitin",
       "kuulema",
       "lähetä",
       "palaveri",
-      "saunavuoro",
-      "takainen",
-      "tee"
+      "saunavuoro"
     ],
     "speakers": [
       {
@@ -497,19 +494,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "soitit",
@@ -619,51 +616,54 @@
         },
         {
           "surface": "kuusi",
-          "lemma": "kuusi",
-          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kuu",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
           "name": false,
           "analysis": {
-            "BASEFORM": "kuusi",
-            "CLASS": "lukusana",
-            "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sn][Ny]si",
+            "BASEFORM": "kuu",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][O2y]si",
             "NUMBER": "singular",
+            "POSSESSIVE": "2s",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+kuusi(kuusi)"
+            "WORDBASES": "+kuu(kuu)"
           },
-          "form": "form-0790aad5d8d9"
+          "form": "form-6d0952c4cb28"
         },
         {
           "surface": "kuusi",
-          "lemma": "kuusi",
-          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kuu",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
           "name": false,
           "analysis": {
-            "BASEFORM": "kuusi",
-            "CLASS": "lukusana",
-            "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sn][Ny]si",
+            "BASEFORM": "kuu",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][O2y]si",
             "NUMBER": "singular",
+            "POSSESSIVE": "2s",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+kuusi(kuusi)"
+            "WORDBASES": "+kuu(kuu)"
           },
-          "form": "form-0790aad5d8d9"
+          "form": "form-6d0952c4cb28"
         },
         {
           "surface": "kuusi",
-          "lemma": "kuusi",
-          "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kuu",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
           "name": false,
           "analysis": {
-            "BASEFORM": "kuusi",
-            "CLASS": "lukusana",
-            "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sn][Ny]si",
+            "BASEFORM": "kuu",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][O2y]si",
             "NUMBER": "singular",
+            "POSSESSIVE": "2s",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+kuusi(kuusi)"
+            "WORDBASES": "+kuu(kuu)"
           },
-          "form": "form-0790aad5d8d9"
+          "form": "form-6d0952c4cb28"
         }
       ],
       "puhe_tokens": [
@@ -1324,24 +1324,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-e327468d1673",
@@ -1407,21 +1407,22 @@
       "why_en": "'Four.' The number stays in nominative singular; the counted word after it changes form."
     },
     {
-      "id": "form-0790aad5d8d9",
-      "lemma": "kuusi",
-      "form_tag": "CLASS=lukusana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-6d0952c4cb28",
+      "lemma": "kuu",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=2s",
       "surface_kirja": "kuusi",
       "surface_puhe": "kuus",
       "analysis": {
-        "BASEFORM": "kuusi",
-        "CLASS": "lukusana",
-        "FSTOUTPUT": "[Lu][Xp]kuusi[X]kuu[Sn][Ny]si",
+        "BASEFORM": "kuu",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]kuu[X]kuu[Sn][Ny][O2y]si",
         "NUMBER": "singular",
+        "POSSESSIVE": "2s",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+kuusi(kuusi)"
+        "WORDBASES": "+kuu(kuu)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "nominative singular, with the possessive ending for your",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

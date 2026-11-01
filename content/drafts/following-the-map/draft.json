@@ -74,12 +74,8 @@
     "rank_cap": 1500,
     "extra_base_forms": [
       "asunut",
-      "juuri",
       "kartta",
-      "katua",
       "kauppatori",
-      "oppi",
-      "perillä",
       "puisto",
       "rautatieasema",
       "risteys",
@@ -273,19 +269,22 @@
         },
         {
           "surface": "tuon",
-          "lemma": "tuo",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+          "lemma": "tuoda",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuo",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sg][Ny]n",
+            "BASEFORM": "tuoda",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P1][Ny][Ef]n",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
             "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
+            "PERSON": "1",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+tuo(tuo)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+tuoda(tuoda)"
           },
-          "form": "form-e5b38e62bbf5"
+          "form": "form-71e4360a3209"
         },
         {
           "surface": "sillan",
@@ -670,19 +669,22 @@
       "kirja_tokens": [
         {
           "surface": "Tuo",
-          "lemma": "tuo",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "tuoda",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuo",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sn][Ny]",
+            "BASEFORM": "tuoda",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "2",
             "STRUCTURE": "=ppp",
-            "WORDBASES": "+tuo(tuo)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+tuoda(tuoda)"
           },
-          "form": "form-e7513afe9e6b"
+          "form": "form-25d4d587aedd"
         },
         {
           "surface": "on",
@@ -738,19 +740,22 @@
         },
         {
           "surface": "Tuo",
-          "lemma": "tuo",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "tuoda",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuo",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sn][Ny]",
+            "BASEFORM": "tuoda",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "2",
             "STRUCTURE": "=ppp",
-            "WORDBASES": "+tuo(tuo)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+tuoda(tuoda)"
           },
-          "form": "form-e7513afe9e6b"
+          "form": "form-25d4d587aedd"
         },
         {
           "surface": "punainen",
@@ -827,17 +832,22 @@
       "kirja_tokens": [
         {
           "surface": "Juuri",
-          "lemma": "juuri",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "juuria",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "juuri",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
+            "BASEFORM": "juuria",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
+            "NUMBER": "singular",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+juuri(juuri)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+juuria(juuria)"
           },
-          "form": "form-57dd552fb07a"
+          "form": "form-a3345ebbbcea"
         },
         {
           "surface": "niin",
@@ -890,17 +900,20 @@
         },
         {
           "surface": "perillä",
-          "lemma": "perillä",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "perä",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
           "name": false,
           "analysis": {
-            "BASEFORM": "perillä",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]perillä[X]perillä",
+            "BASEFORM": "perä",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Ica][Xp]perä[X]per[Sade][Nm]illä",
+            "NUMBER": "plural",
+            "POSSIBLE_GEOGRAPHICAL_NAME": "true",
+            "SIJAMUOTO": "ulkoolento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+perillä(perillä)"
+            "WORDBASES": "+perä(perä)"
           },
-          "form": "form-b3cdcf142713"
+          "form": "form-84255aaa2e73"
         }
       ],
       "puhe_tokens": [
@@ -1069,21 +1082,24 @@
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
-      "id": "form-e5b38e62bbf5",
-      "lemma": "tuo",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
+      "id": "form-71e4360a3209",
+      "lemma": "tuoda",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
       "surface_kirja": "tuon",
       "surface_puhe": "ton",
       "analysis": {
-        "BASEFORM": "tuo",
-        "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sg][Ny]n",
+        "BASEFORM": "tuoda",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P1][Ny][Ef]n",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
         "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
+        "PERSON": "1",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+tuo(tuo)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+tuoda(tuoda)"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "present tense, 1st person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1361,21 +1377,24 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-e7513afe9e6b",
-      "lemma": "tuo",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-25d4d587aedd",
+      "lemma": "tuoda",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "tuo",
       "surface_puhe": "toi",
       "analysis": {
-        "BASEFORM": "tuo",
-        "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sn][Ny]",
+        "BASEFORM": "tuoda",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "2",
         "STRUCTURE": "=ppp",
-        "WORDBASES": "+tuo(tuo)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+tuoda(tuoda)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1444,19 +1463,24 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-57dd552fb07a",
-      "lemma": "juuri",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-a3345ebbbcea",
+      "lemma": "juuria",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "juuri",
       "surface_puhe": "just",
       "analysis": {
-        "BASEFORM": "juuri",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
+        "BASEFORM": "juuria",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
+        "NUMBER": "singular",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+juuri(juuri)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+juuria(juuria)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1523,22 +1547,25 @@
       "why_en": ""
     },
     {
-      "id": "form-b3cdcf142713",
-      "lemma": "perillä",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-84255aaa2e73",
+      "lemma": "perä",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
       "surface_kirja": "perillä",
       "surface_puhe": "perillä",
       "analysis": {
-        "BASEFORM": "perillä",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]perillä[X]perillä",
+        "BASEFORM": "perä",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Ica][Xp]perä[X]per[Sade][Nm]illä",
+        "NUMBER": "plural",
+        "POSSIBLE_GEOGRAPHICAL_NAME": "true",
+        "SIJAMUOTO": "ulkoolento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+perillä(perillä)"
+        "WORDBASES": "+perä(perä)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "adessive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     }
   ]
 }

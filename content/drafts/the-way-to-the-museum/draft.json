@@ -74,12 +74,8 @@
     "rank_cap": 1500,
     "extra_base_forms": [
       "asunut",
-      "juuri",
       "kartta",
-      "katua",
       "kauppatori",
-      "oppi",
-      "perillä",
       "puisto",
       "rautatieasema",
       "risteys",
@@ -143,19 +139,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "pääsen",
@@ -277,19 +273,20 @@
         },
         {
           "surface": "katua",
-          "lemma": "katua",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "lemma": "katu",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "katua",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]katua[X]katu[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "BASEFORM": "katu",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Ica][Xp]katu[X]katu[Sp][Ny]a",
+            "NUMBER": "singular",
+            "POSSIBLE_GEOGRAPHICAL_NAME": "true",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+katua(katua)"
+            "WORDBASES": "+katu(katu)"
           },
-          "form": "form-83a8d0f2f6a4"
+          "form": "form-7c153b60a55f"
         }
       ],
       "puhe_tokens": [
@@ -919,21 +916,21 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1026,21 +1023,22 @@
       "why_en": ""
     },
     {
-      "id": "form-83a8d0f2f6a4",
-      "lemma": "katua",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "id": "form-7c153b60a55f",
+      "lemma": "katu",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
       "surface_kirja": "katua",
       "surface_puhe": "katuu",
       "analysis": {
-        "BASEFORM": "katua",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]katua[X]katu[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "BASEFORM": "katu",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Ica][Xp]katu[X]katu[Sp][Ny]a",
+        "NUMBER": "singular",
+        "POSSIBLE_GEOGRAPHICAL_NAME": "true",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+katua(katua)"
+        "WORDBASES": "+katu(katu)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "partitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

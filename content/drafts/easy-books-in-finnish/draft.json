@@ -69,12 +69,13 @@
       "extras-stop-25",
       "extras-stop-27"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "automaatti",
       "fleminginkatu",
       "henkilökortti",
       "hylly",
+      "ilmoittautua",
       "kaksitoista",
       "kielikahvila",
       "kirjastokortti",
@@ -83,8 +84,7 @@
       "oodi",
       "pin-koodi",
       "selkokirja",
-      "tee",
-      "uusia",
+      "suomenkielinen",
       "viisikymmentä"
     ],
     "speakers": [
@@ -151,19 +151,19 @@
         },
         {
           "surface": "teillä",
-          "lemma": "tee",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+          "lemma": "te",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=plural",
           "name": false,
           "analysis": {
-            "BASEFORM": "tee",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]tee[X]te[Sade][Nm]illä",
+            "BASEFORM": "te",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]te[X]te[Sade][Nm]illä",
             "NUMBER": "plural",
             "SIJAMUOTO": "ulkoolento",
             "STRUCTURE": "=pppppp",
-            "WORDBASES": "+tee(tee)"
+            "WORDBASES": "+te(te)"
           },
-          "form": "form-b1bdfd4611cf"
+          "form": "form-2661e101e057"
         },
         {
           "surface": "helppoja",
@@ -633,19 +633,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "saan",
@@ -768,19 +768,19 @@
         },
         {
           "surface": "Sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "voit",
@@ -804,19 +804,20 @@
         },
         {
           "surface": "uusia",
-          "lemma": "uusia",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "lemma": "uusi",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=plural;COMPARISON=positive",
           "name": false,
           "analysis": {
-            "BASEFORM": "uusia",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]uusia[X]uusi[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "BASEFORM": "uusi",
+            "CLASS": "laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Ll][De][Xp]uusi[X]uu[Sp][Nm]sia",
+            "NUMBER": "plural",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+uusia(uusia)"
+            "WORDBASES": "+uusi(uusi)"
           },
-          "form": "form-3e55d5a7d1bc"
+          "form": "form-3470bdcc5a44"
         },
         {
           "surface": "lainan",
@@ -924,19 +925,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "lainaan",
@@ -1035,19 +1036,22 @@
         },
         {
           "surface": "Laita",
-          "lemma": "laita",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "laittaa",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "laita",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]laita[X]lait[Sn][Ny]a",
+            "BASEFORM": "laittaa",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]laittaa[X]laita[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+laita(laita)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+laittaa(laittaa)"
           },
-          "form": "form-ec4abd7150b6"
+          "form": "form-6310bab3540e"
         },
         {
           "surface": "vain",
@@ -1168,24 +1172,24 @@
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
-      "id": "form-b1bdfd4611cf",
-      "lemma": "tee",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+      "id": "form-2661e101e057",
+      "lemma": "te",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=ulkoolento;NUMBER=plural",
       "surface_kirja": "teillä",
       "surface_puhe": "teil",
       "analysis": {
-        "BASEFORM": "tee",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]tee[X]te[Sade][Nm]illä",
+        "BASEFORM": "te",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]te[X]te[Sade][Nm]illä",
         "NUMBER": "plural",
         "SIJAMUOTO": "ulkoolento",
         "STRUCTURE": "=pppppp",
-        "WORDBASES": "+tee(tee)"
+        "WORDBASES": "+te(te)"
       },
       "form_name_en": "adessive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "Adessive plural of 'te' (you): 'teillä' with 'onko' means 'do you (all) have'."
     },
     {
       "id": "form-ea29d573798b",
@@ -1537,21 +1541,21 @@
       "why_en": ""
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1661,24 +1665,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-3d1f6ef9fe32",
@@ -1705,21 +1709,22 @@
       "why_en": ""
     },
     {
-      "id": "form-3e55d5a7d1bc",
-      "lemma": "uusia",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "id": "form-3470bdcc5a44",
+      "lemma": "uusi",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=plural;COMPARISON=positive",
       "surface_kirja": "uusia",
       "surface_puhe": "uusii",
       "analysis": {
-        "BASEFORM": "uusia",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]uusia[X]uusi[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "BASEFORM": "uusi",
+        "CLASS": "laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Ll][De][Xp]uusi[X]uu[Sp][Nm]sia",
+        "NUMBER": "plural",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+uusia(uusia)"
+        "WORDBASES": "+uusi(uusi)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "partitive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1866,24 +1871,27 @@
       "why_en": ""
     },
     {
-      "id": "form-ec4abd7150b6",
-      "lemma": "laita",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-6310bab3540e",
+      "lemma": "laittaa",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "laita",
       "surface_puhe": "laita",
       "analysis": {
-        "BASEFORM": "laita",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]laita[X]lait[Sn][Ny]a",
+        "BASEFORM": "laittaa",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]laittaa[X]laita[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+laita(laita)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+laittaa(laittaa)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-ab6bb2b103e4",

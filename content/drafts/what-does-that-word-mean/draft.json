@@ -42,7 +42,6 @@
     "rank_cap": 2000,
     "extra_base_forms": [
       "eksyksissä",
-      "juuri",
       "kassi",
       "kellotorni",
       "muovipussi",
@@ -222,19 +221,22 @@
         },
         {
           "surface": "tuo",
-          "lemma": "tuo",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "tuoda",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuo",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sn][Ny]",
+            "BASEFORM": "tuoda",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P3][Ny][Eb]",
+            "MOOD": "indicative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "3",
             "STRUCTURE": "=ppp",
-            "WORDBASES": "+tuo(tuo)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+tuoda(tuoda)"
           },
-          "form": "form-e7513afe9e6b"
+          "form": "form-f3da7731c1e9"
         },
         {
           "surface": "sana",
@@ -1066,21 +1068,24 @@
       "why_en": ""
     },
     {
-      "id": "form-e7513afe9e6b",
-      "lemma": "tuo",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-f3da7731c1e9",
+      "lemma": "tuoda",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "tuo",
       "surface_puhe": "toi",
       "analysis": {
-        "BASEFORM": "tuo",
-        "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sn][Ny]",
+        "BASEFORM": "tuoda",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P3][Ny][Eb]",
+        "MOOD": "indicative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "3",
         "STRUCTURE": "=ppp",
-        "WORDBASES": "+tuo(tuo)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+tuoda(tuoda)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "present tense, 3rd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

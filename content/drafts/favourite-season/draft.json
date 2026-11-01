@@ -68,17 +68,15 @@
       "extras-stop-25",
       "extras-stop-27"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "d-vitamiini",
-      "kuin",
       "kynttilä",
       "käsine",
       "lempivuodenaika",
       "pidetä",
       "pipo",
-      "sataa",
-      "sulaa",
+      "sula",
       "sytyttää",
       "ulkoilla",
       "valoisa",
@@ -299,19 +297,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "pidän",
@@ -503,19 +501,19 @@
         },
         {
           "surface": "sataa",
-          "lemma": "sataa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "lemma": "sata",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=osanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sataa",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]sataa[X]sata[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "BASEFORM": "sata",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]sata[X][Sp][Ny]sataa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+sataa(sataa)"
+            "WORDBASES": "+sata(sata)"
           },
-          "form": "form-a5e89a8c41b2"
+          "form": "form-85b7881e1e0d"
         },
         {
           "surface": "paljon",
@@ -733,19 +731,20 @@
         },
         {
           "surface": "sulaa",
-          "lemma": "sulaa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "lemma": "sula",
+          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
           "name": false,
           "analysis": {
-            "BASEFORM": "sulaa",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]sulaa[X]sula[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "BASEFORM": "sula",
+            "CLASS": "nimisana_laatusana",
+            "COMPARISON": "positive",
+            "FSTOUTPUT": "[Lnl][Xp]sula[X]sul[Sp][Ny]aa",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+sulaa(sulaa)"
+            "WORDBASES": "+sula(sula)"
           },
-          "form": "form-67092973f4e9"
+          "form": "form-20484dab61c4"
         }
       ],
       "puhe_tokens": [
@@ -1052,21 +1051,21 @@
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1257,24 +1256,24 @@
       "why_en": ""
     },
     {
-      "id": "form-a5e89a8c41b2",
-      "lemma": "sataa",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "id": "form-85b7881e1e0d",
+      "lemma": "sata",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=osanto;NUMBER=singular",
       "surface_kirja": "sataa",
       "surface_puhe": "sataa",
       "analysis": {
-        "BASEFORM": "sataa",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]sataa[X]sata[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "BASEFORM": "sata",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]sata[X][Sp][Ny]sataa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+sataa(sataa)"
+        "WORDBASES": "+sata(sata)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "partitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-4c93c0afc944",
@@ -1438,24 +1437,25 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-67092973f4e9",
-      "lemma": "sulaa",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "id": "form-20484dab61c4",
+      "lemma": "sula",
+      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
       "surface_kirja": "sulaa",
       "surface_puhe": "sulaa",
       "analysis": {
-        "BASEFORM": "sulaa",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]sulaa[X]sula[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "BASEFORM": "sula",
+        "CLASS": "nimisana_laatusana",
+        "COMPARISON": "positive",
+        "FSTOUTPUT": "[Lnl][Xp]sula[X]sul[Sp][Ny]aa",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+sulaa(sulaa)"
+        "WORDBASES": "+sula(sula)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "partitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-b30448401534",

@@ -60,10 +60,10 @@
       "extras-stop-19",
       "extras-stop-20"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "isoäiti",
-      "vanhempi",
+      "söpö",
       "yhdeksänkymmentä"
     ],
     "speakers": [
@@ -208,20 +208,21 @@
         },
         {
           "surface": "vanhempani",
-          "lemma": "vanhempi",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "lemma": "vanha",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s;COMPARISON=comparative",
           "name": false,
           "analysis": {
-            "BASEFORM": "vanhempi",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]vanhempi[X]vanhe[Sn][Ny][Cc]mpa[O1y]ni",
+            "BASEFORM": "vanha",
+            "CLASS": "laatusana",
+            "COMPARISON": "comparative",
+            "FSTOUTPUT": "[Lnl][Xp]vanha[X]vanhe[Sn][Ny][Cc]mpa[O1y]ni",
             "NUMBER": "singular",
             "POSSESSIVE": "1s",
             "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppppppppp",
-            "WORDBASES": "+vanhempi(vanhempi)"
+            "WORDBASES": "+vanha(vanha)"
           },
-          "form": "form-9058b1c1ec89"
+          "form": "form-2ff6a19fd39d"
         },
         {
           "surface": "ja",
@@ -610,20 +611,20 @@
         },
         {
           "surface": "käymään",
-          "lemma": "käymä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=singular;PARTICIPLE=agent",
+          "lemma": "käydä",
+          "form_tag": "CLASS=teonsana;SIJAMUOTO=sisatulento;NUMBER=singular;MOOD=MA-infinitive",
           "name": false,
           "analysis": {
-            "BASEFORM": "käymä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Ln][Rm]m[Xj]ä[X][Sill][Ny]ään",
+            "BASEFORM": "käydä",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tn3][Ny][Sill]mään",
+            "MOOD": "MA-infinitive",
             "NUMBER": "singular",
-            "PARTICIPLE": "agent",
             "SIJAMUOTO": "sisatulento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+käy(käydä)+m+ä(+ä)"
+            "WORDBASES": "+käydä(käydä)"
           },
-          "form": "form-f4dcd1ecdc2d"
+          "form": "form-5947e1f56514"
         },
         {
           "surface": "Suomessa",
@@ -1045,22 +1046,23 @@
       "why_en": ""
     },
     {
-      "id": "form-9058b1c1ec89",
-      "lemma": "vanhempi",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "id": "form-2ff6a19fd39d",
+      "lemma": "vanha",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s;COMPARISON=comparative",
       "surface_kirja": "vanhempani",
       "surface_puhe": "vanhemmat",
       "analysis": {
-        "BASEFORM": "vanhempi",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]vanhempi[X]vanhe[Sn][Ny][Cc]mpa[O1y]ni",
+        "BASEFORM": "vanha",
+        "CLASS": "laatusana",
+        "COMPARISON": "comparative",
+        "FSTOUTPUT": "[Lnl][Xp]vanha[X]vanhe[Sn][Ny][Cc]mpa[O1y]ni",
         "NUMBER": "singular",
         "POSSESSIVE": "1s",
         "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppppppppp",
-        "WORDBASES": "+vanhempi(vanhempi)"
+        "WORDBASES": "+vanha(vanha)"
       },
-      "form_name_en": "nominative singular, with the possessive ending for my",
+      "form_name_en": "comparative, nominative singular, with the possessive ending for my",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1394,22 +1396,22 @@
       "why_en": ""
     },
     {
-      "id": "form-f4dcd1ecdc2d",
-      "lemma": "käymä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=singular;PARTICIPLE=agent",
+      "id": "form-5947e1f56514",
+      "lemma": "käydä",
+      "form_tag": "CLASS=teonsana;SIJAMUOTO=sisatulento;NUMBER=singular;MOOD=MA-infinitive",
       "surface_kirja": "käymään",
       "surface_puhe": "käymään",
       "analysis": {
-        "BASEFORM": "käymä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Ln][Rm]m[Xj]ä[X][Sill][Ny]ään",
+        "BASEFORM": "käydä",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tn3][Ny][Sill]mään",
+        "MOOD": "MA-infinitive",
         "NUMBER": "singular",
-        "PARTICIPLE": "agent",
         "SIJAMUOTO": "sisatulento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+käy(käydä)+m+ä(+ä)"
+        "WORDBASES": "+käydä(käydä)"
       },
-      "form_name_en": "agent participle, illative singular",
+      "form_name_en": "MA-infinitive, illative",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

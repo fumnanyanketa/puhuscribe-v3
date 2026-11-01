@@ -58,20 +58,21 @@
       "extras-stop-18",
       "extras-stop-19"
     ],
-    "rank_cap": 2500,
+    "rank_cap": 2000,
     "extra_base_forms": [
       "asiakaspalvelu",
       "aula",
       "avainkortti",
       "etätyö",
       "jännittynyt",
+      "jääkaappi",
       "kahvihuone",
       "kahvinkeitin",
       "kahvitauko",
       "kaksitoista",
+      "käytävä",
       "mikroaaltouuni",
       "perjantaisin",
-      "tee",
       "työpiste",
       "työpäivä"
     ],
@@ -713,17 +714,19 @@
         },
         {
           "surface": "yhdessä",
-          "lemma": "yhdessä",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "yhdessä",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+yhdessä(yhdessä)"
+            "WORDBASES": "+yksi(yksi)"
           },
-          "form": "form-b16041571d77"
+          "form": "form-9f03b11b2b04"
         }
       ],
       "puhe_tokens": [
@@ -1189,22 +1192,24 @@
       "why_en": ""
     },
     {
-      "id": "form-b16041571d77",
-      "lemma": "yhdessä",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-9f03b11b2b04",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
       "surface_kirja": "yhdessä",
       "surface_puhe": "yhdessä",
       "analysis": {
-        "BASEFORM": "yhdessä",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+yhdessä(yhdessä)"
+        "WORDBASES": "+yksi(yksi)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "inessive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     }
   ]
 }

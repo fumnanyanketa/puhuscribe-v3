@@ -59,7 +59,6 @@
     "rank_cap": 2000,
     "extra_base_forms": [
       "allergia",
-      "erillään",
       "kaksitoista",
       "kanapasta",
       "kannus",
@@ -136,19 +135,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "laskun",
@@ -246,17 +245,19 @@
         },
         {
           "surface": "yhdessä",
-          "lemma": "yhdessä",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "yksi",
+          "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "yhdessä",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+            "BASEFORM": "yksi",
+            "CLASS": "lukusana",
+            "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+            "NUMBER": "singular",
+            "SIJAMUOTO": "sisaolento",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+yhdessä(yhdessä)"
+            "WORDBASES": "+yksi(yksi)"
           },
-          "form": "form-b16041571d77"
+          "form": "form-9f03b11b2b04"
         },
         {
           "surface": "vai",
@@ -274,17 +275,20 @@
         },
         {
           "surface": "erikseen",
-          "lemma": "erillään",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "erä",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural;POSSESSIVE=3",
           "name": false,
           "analysis": {
-            "BASEFORM": "erillään",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]erillään[X]erikseen",
+            "BASEFORM": "erä",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]erä[X]er[Str][Nm]iksee[O3]n",
+            "NUMBER": "plural",
+            "POSSESSIVE": "3",
+            "SIJAMUOTO": "tulento",
             "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+erillään(erillään)"
+            "WORDBASES": "+erä(erä)"
           },
-          "form": "form-17e44ee1e092"
+          "form": "form-e5e1bae56556"
         }
       ],
       "puhe_tokens": [
@@ -323,33 +327,36 @@
       "kirja_tokens": [
         {
           "surface": "Erikseen",
-          "lemma": "erillään",
-          "form_tag": "CLASS=seikkasana",
+          "lemma": "erä",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural;POSSESSIVE=3",
           "name": false,
           "analysis": {
-            "BASEFORM": "erillään",
-            "CLASS": "seikkasana",
-            "FSTOUTPUT": "[Ls][Xp]erillään[X]erikseen",
+            "BASEFORM": "erä",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]erä[X]er[Str][Nm]iksee[O3]n",
+            "NUMBER": "plural",
+            "POSSESSIVE": "3",
+            "SIJAMUOTO": "tulento",
             "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+erillään(erillään)"
+            "WORDBASES": "+erä(erä)"
           },
-          "form": "form-17e44ee1e092"
+          "form": "form-e5e1bae56556"
         },
         {
           "surface": "Minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "maksan",
@@ -882,21 +889,21 @@
       "why_en": "'Could I get?' Conditional makes it polite, 1st person singular means 'I', the question ending -ko makes it a question."
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -985,22 +992,24 @@
       "why_en": ""
     },
     {
-      "id": "form-b16041571d77",
-      "lemma": "yhdessä",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-9f03b11b2b04",
+      "lemma": "yksi",
+      "form_tag": "CLASS=lukusana;SIJAMUOTO=sisaolento;NUMBER=singular",
       "surface_kirja": "yhdessä",
       "surface_puhe": "yhdessä",
       "analysis": {
-        "BASEFORM": "yhdessä",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]yhdessä[X]yhdessä",
+        "BASEFORM": "yksi",
+        "CLASS": "lukusana",
+        "FSTOUTPUT": "[Lu][Xp]yksi[X]y[Sine][Ny]hdessä",
+        "NUMBER": "singular",
+        "SIJAMUOTO": "sisaolento",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+yhdessä(yhdessä)"
+        "WORDBASES": "+yksi(yksi)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "inessive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-83d8cf4795ac",
@@ -1021,19 +1030,22 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-17e44ee1e092",
-      "lemma": "erillään",
-      "form_tag": "CLASS=seikkasana",
+      "id": "form-e5e1bae56556",
+      "lemma": "erä",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural;POSSESSIVE=3",
       "surface_kirja": "erikseen",
       "surface_puhe": "erikseen",
       "analysis": {
-        "BASEFORM": "erillään",
-        "CLASS": "seikkasana",
-        "FSTOUTPUT": "[Ls][Xp]erillään[X]erikseen",
+        "BASEFORM": "erä",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]erä[X]er[Str][Nm]iksee[O3]n",
+        "NUMBER": "plural",
+        "POSSESSIVE": "3",
+        "SIJAMUOTO": "tulento",
         "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+erillään(erillään)"
+        "WORDBASES": "+erä(erä)"
       },
-      "form_name_en": "adverb",
+      "form_name_en": "translative plural, with the possessive ending for his, her or their",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

@@ -59,11 +59,9 @@
     "extra_base_forms": [
       "ajokortti",
       "henkilöllisyystodistus",
-      "kirjoja",
       "kolmekymmentäviisi",
       "lappu",
       "lentoposti",
-      "noin",
       "painava",
       "seurantakoodi",
       "sukunimi",
@@ -439,19 +437,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "sinä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "se",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "sinä",
+            "BASEFORM": "se",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+sinä(sinä)"
+            "WORDBASES": "+se(se)"
           },
-          "form": "form-ec7b2eab227a"
+          "form": "form-66f36cc4036b"
         },
         {
           "surface": "ottaa",
@@ -884,19 +882,19 @@
         },
         {
           "surface": "kirjoja",
-          "lemma": "kirjoja",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kirja",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=plural",
           "name": false,
           "analysis": {
-            "BASEFORM": "kirjoja",
+            "BASEFORM": "kirja",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Lt][Xp]kirjoa[X]kirjo[Ln][Xj]ja[X][Sn][Ny]ja",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "FSTOUTPUT": "[Ln][Xp]kirja[X]kirj[Sp][Nm]oja",
+            "NUMBER": "plural",
+            "SIJAMUOTO": "osanto",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+kirjo(kirjoa)+ja(+ja)"
+            "WORDBASES": "+kirja(kirja)"
           },
-          "form": "form-a5dab3eddb36"
+          "form": "form-53ae688ef426"
         }
       ],
       "puhe_tokens": [
@@ -960,19 +958,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "minä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "mikä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "minä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+            "BASEFORM": "mikä",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+minä(minä)"
+            "WORDBASES": "+mikä(mikä)"
           },
-          "form": "form-2f3bea3d9937"
+          "form": "form-4de0717344e0"
         },
         {
           "surface": "annan",
@@ -1331,24 +1329,24 @@
       "why_en": ""
     },
     {
-      "id": "form-ec7b2eab227a",
-      "lemma": "sinä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-66f36cc4036b",
+      "lemma": "se",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "sinä",
+        "BASEFORM": "se",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
+        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+sinä(sinä)"
+        "WORDBASES": "+se(se)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "Means 'you' (one person). Spoken: 'sä'."
+      "why_en": ""
     },
     {
       "id": "form-0bb2d5b32826",
@@ -1698,24 +1696,24 @@
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
-      "id": "form-a5dab3eddb36",
-      "lemma": "kirjoja",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-53ae688ef426",
+      "lemma": "kirja",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=plural",
       "surface_kirja": "kirjoja",
       "surface_puhe": "kirjoja",
       "analysis": {
-        "BASEFORM": "kirjoja",
+        "BASEFORM": "kirja",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Lt][Xp]kirjoa[X]kirjo[Ln][Xj]ja[X][Sn][Ny]ja",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "FSTOUTPUT": "[Ln][Xp]kirja[X]kirj[Sp][Nm]oja",
+        "NUMBER": "plural",
+        "SIJAMUOTO": "osanto",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+kirjo(kirjoa)+ja(+ja)"
+        "WORDBASES": "+kirja(kirja)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "partitive plural",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-83955fefc056",
@@ -1738,21 +1736,21 @@
       "why_en": ""
     },
     {
-      "id": "form-2f3bea3d9937",
-      "lemma": "minä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-4de0717344e0",
+      "lemma": "mikä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "minä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]minä[X]min[Sn][Ny]ä",
+        "BASEFORM": "mikä",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+minä(minä)"
+        "WORDBASES": "+mikä(mikä)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "essive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
