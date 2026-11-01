@@ -1,0 +1,751 @@
+<title>PuhuScribe two accent draft</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+/>
+<style>
+  /* Layout: one row per palette with the same three screens (Welcome, Today, Hear it), drawn in the soft milky look of the owner's gym app reference. */
+  :root {
+    --page: #f1f2f3;
+    --page-ink: #1b1d20;
+    --page-quiet: #5b5f66;
+    --frame: #1b1d20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #111315;
+      --page-ink: #eceef0;
+      --page-quiet: #a3a8ae;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #111315;
+    --page-ink: #eceef0;
+    --page-quiet: #a3a8ae;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    gap: 3.5rem;
+  }
+  h1 {
+    font: 600 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  h2 {
+    font: 600 1.45rem/1.2 var(--font);
+    margin: 0;
+  }
+  header,
+  section {
+    display: grid;
+    gap: 1rem;
+  }
+  header p,
+  section > p {
+    color: var(--page-quiet);
+    margin: 0;
+    max-width: 66ch;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+  }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--page-quiet);
+    font-weight: 500;
+  }
+  .decide ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 70ch;
+  }
+
+  /* Two palettes. Each washes from its own colour to a pale warm sand, as the reference washes from mint to peach. */
+  .mint {
+    --a: #23917a;
+    --a-deep: #1a6f5d;
+    --a-mid: #74bba9;
+    --a-soft: #d6efe7;
+    --wash1: #cbede1;
+    --wash2: #fbe2d1;
+    --b: #ee8763;
+    --b-deep: #b8532f;
+    --b-soft: #fde4d8;
+    --ink: #1b2a26;
+    --quiet: #637570;
+  }
+  .lake {
+    --a: #1c7386;
+    --a-deep: #135a69;
+    --a-mid: #6aa9b8;
+    --a-soft: #d9edf2;
+    --wash1: #cfe8ef;
+    --wash2: #f9e4d8;
+    --b: #ec8a6a;
+    --b-deep: #b5553a;
+    --b-soft: #fce6dc;
+    --ink: #1d2a2f;
+    --quiet: #66777d;
+  }
+  .forest {
+    --a: #2f7556;
+    --a-deep: #225a41;
+    --a-mid: #82ad97;
+    --a-soft: #dcede3;
+    --wash1: #d4eadc;
+    --wash2: #f8e6d0;
+    --b: #e58f4a;
+    --b-deep: #a95f22;
+    --b-soft: #fcead7;
+    --ink: #1d2721;
+    --quiet: #67756c;
+  }
+  /* The second accent: the words that change between spoken and written, the review count and the goal. Everything you tap stays in the first colour. */
+  .rev {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+  .rev i {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--b-soft);
+    display: grid;
+    place-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--b-deep);
+    flex: none;
+  }
+
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+    flex: none;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--font);
+    font-weight: 400;
+    background: linear-gradient(160deg, var(--wash1) 0%, #f7f8f6 48%, var(--wash2) 100%);
+    display: flex;
+    flex-direction: column;
+  }
+  .status {
+    height: 34px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 16px 16px;
+  }
+  .grow {
+    flex: 1;
+  }
+
+  /* The milky surface: white at 55 percent, a white edge, a very soft shadow. */
+  .milk {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 22px;
+    box-shadow: 0 8px 28px rgba(40, 60, 60, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--a);
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 6px 6px 6px 20px;
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+  }
+  .pill i {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+  }
+  .pill i::after {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 11px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+  }
+  .pill i::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+  .pill.full {
+    display: flex;
+    justify-content: space-between;
+  }
+  .quietlink {
+    font-size: 12px;
+    color: var(--quiet);
+    text-align: center;
+  }
+  .quietlink b {
+    color: var(--a);
+    font-weight: 500;
+  }
+
+  /* Welcome */
+  .hello {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .hello b {
+    font-weight: 600;
+    color: var(--a);
+  }
+  .sub {
+    font-size: 12.5px;
+    color: var(--quiet);
+    margin: 0;
+    max-width: 22ch;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  /* The line card in the soft look */
+  .line {
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  .who {
+    font-weight: 500;
+    font-size: 12.5px;
+    color: var(--quiet);
+  }
+  .pair2 {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0 8px;
+  }
+  .rail .d {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .rail .t {
+    background: var(--a);
+  }
+  .rail .v {
+    background: var(--a-mid);
+  }
+  .rail .l {
+    flex: 1;
+    border-left: 2px dotted var(--a-mid);
+    margin: 4px 0;
+    opacity: 0.7;
+  }
+  .rows {
+    display: grid;
+    gap: 8px;
+  }
+  .spoken {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 10px 12px;
+    display: grid;
+    border: 1px solid var(--a-soft);
+  }
+  .spoken small {
+    color: var(--a);
+    font-weight: 500;
+    font-size: 10.5px;
+  }
+  .spoken span {
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+  .written {
+    padding: 0 12px;
+    display: grid;
+  }
+  .written small {
+    color: var(--a-mid);
+    font-weight: 500;
+    font-size: 10.5px;
+  }
+  .written span {
+    font-size: 14.5px;
+    color: var(--quiet);
+  }
+  .mk {
+    color: var(--b-deep);
+    background: var(--b-soft);
+    border-radius: 6px;
+    padding: 0 4px;
+  }
+  .plays {
+    display: flex;
+    gap: 14px;
+    padding-left: 20px;
+  }
+  .play {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11.5px;
+    color: var(--quiet);
+  }
+  .play i {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--a);
+    position: relative;
+  }
+  .play i::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 9px;
+    border-left: 10px solid #fff;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+  }
+  .play.w i {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--a-soft);
+  }
+  .play.w i::after {
+    border-left-color: var(--a);
+  }
+
+  /* Session top bar */
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .round {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex: none;
+    position: relative;
+  }
+  .x::before,
+  .x::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 1.6px;
+    background: var(--ink);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+  .x::after {
+    transform: rotate(-45deg);
+  }
+  .track {
+    flex: 1;
+    height: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    overflow: hidden;
+  }
+  .track b {
+    display: block;
+    height: 100%;
+    width: 22%;
+    background: var(--a);
+    border-radius: 8px;
+  }
+  .steplabel {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--quiet);
+    text-align: center;
+  }
+
+  /* Today */
+  .greet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 4px;
+  }
+  .greet b {
+    font-size: 17px;
+    font-weight: 600;
+    display: block;
+  }
+  .greet span {
+    font-size: 11.5px;
+    color: var(--quiet);
+  }
+  .av {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--a);
+  }
+  .now {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 74px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  .ring {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(var(--a) 0 33%, var(--a-soft) 33% 100%);
+    position: relative;
+  }
+  .ring::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: #fbfcfb;
+  }
+  .ring span {
+    position: relative;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+  }
+  .ring small {
+    display: block;
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--quiet);
+    margin-top: 2px;
+  }
+  .now h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .now p {
+    margin: 2px 0 0;
+    font-size: 11.5px;
+    color: var(--quiet);
+  }
+  .label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--quiet);
+  }
+  .stops {
+    padding: 6px 14px;
+    display: grid;
+  }
+  .stop {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 7px 0;
+    position: relative;
+  }
+  .stop::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 28px;
+    bottom: -10px;
+    width: 2px;
+    background: var(--a);
+  }
+  .stop.up::before,
+  .stop.cur::before {
+    background: repeating-linear-gradient(to bottom, var(--a-mid) 0 4px, transparent 4px 8px);
+  }
+  .stop.end::before {
+    display: none;
+  }
+  .dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+  }
+  .done .dot {
+    background: var(--a);
+  }
+  .done .dot::after {
+    content: '';
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .cur .dot {
+    background: #fff;
+    border: 2px solid var(--a);
+    box-shadow: 0 0 0 5px var(--a-soft);
+  }
+  .cur .dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--a);
+  }
+  .up .dot {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid var(--a-mid);
+  }
+  .stop b {
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+  }
+  .stop span {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .up b {
+    color: var(--quiet);
+    font-weight: 400;
+  }
+  .stop.goal .dot {
+    background: var(--b-soft);
+    border: 1.5px solid var(--b);
+  }
+  .stop.goal b {
+    color: var(--b-deep);
+    font-weight: 500;
+  }
+  @media (max-width: 700px) {
+    .row {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe two accent draft</h1>
+    <p>
+      Draft 5 adds a second, warm accent colour, as your gym app reference pairs green with orange. The first
+      colour is for everything you can tap. The warm colour marks the words that change between spoken and
+      written, the words coming back for review, and the goal at the end of the journey. Three pairs: the
+      reference's own mint green with peach, lake blue with coral, and forest green with orange.
+    </p>
+  </header>
+  <div id="rows"></div>
+  <section>
+    <h2>What was taken from the reference</h2>
+    <p>
+      The wash from one colour into a pale warm sand, as it goes from mint to peach. Milky panels instead of
+      solid white boxes. A welcome headline with one coloured word. Round pill buttons with an arrow in a
+      circle. A ring showing progress, like its 75 percent ring. Small, quiet text. Its photos of people are
+      left out for now, because PuhuScribe has no photos yet.
+    </p>
+  </section>
+  <section class="decide">
+    <h2>Your choices after this draft</h2>
+    <ol>
+      <li>Which pair: mint and peach, lake blue and coral, or forest green and orange.</li>
+      <li>Whether this soft look is the direction for every screen.</li>
+      <li>
+        Whether you want photos of people in Finland, like the reference uses, or keep the screens without
+        photos.
+      </li>
+    </ol>
+  </section>
+</div>
+
+<script>
+  const palettes = [
+    { key: 'mint', name: 'Mint green and peach, as in your reference' },
+    { key: 'lake', name: 'Lake blue and coral' },
+    { key: 'forest', name: 'Forest green and orange' },
+  ]
+  const shell = (p, inner) =>
+    `<div class="phone"><div class="s ${p}"><div class="status"><span>9:41</span><i></i><span>5G</span></div>${inner}</div></div>`
+  const lineCard = `<div class="milk line"><div class="who">Alex</div>
+  <div class="pair2"><div class="rail"><i class="d t"></i><i class="l"></i><i class="d v"></i></div>
+  <div class="rows"><div class="spoken"><small>Spoken</small><span>Moi! <span class="mk">Mä oon</span> Alex.</span></div>
+  <div class="written"><small>Written</small><span>Hei! <span class="mk">Minä olen</span> Alex.</span></div></div></div>
+  <div class="plays"><span class="play"><i></i>Spoken</span><span class="play w"><i></i>Written</span></div></div>`
+
+  const welcome = (p) =>
+    shell(
+      p,
+      `
+  <span class="orb" style="width:210px;height:210px;right:-70px;top:120px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.8)"></span>
+  <span class="orb" style="width:46px;height:46px;left:-12px;top:330px;background:var(--b-soft);border:1px solid rgba(255,255,255,.8)"></span>
+  <span class="orb" style="width:22px;height:22px;right:34px;top:96px;background:var(--b);opacity:.55"></span>
+  <div class="body" style="padding-top:44px;position:relative">
+    <p class="hello">Your <b>Finnish</b><br>journey<br>starts here</p>
+    <p class="sub">Learn the Finnish people really speak, one short dialogue a day.</p>
+    <div class="grow"></div>
+    <div class="milk" style="padding:12px 14px;display:grid;gap:4px">
+      <span style="font-size:10.5px;color:var(--a);font-weight:500">Spoken</span>
+      <span style="font-size:18px;font-weight:600"><span class="mk">Mä oon</span> Alex.</span>
+      <span style="font-size:10.5px;color:var(--a-mid);font-weight:500;margin-top:4px">Written</span>
+      <span style="font-size:13.5px;color:var(--quiet)"><span class="mk">Minä olen</span> Alex.</span>
+    </div>
+    <div class="grow"></div>
+    <span class="pill full">Get started<i></i></span>
+    <span class="quietlink">Have an account? <b>Sign in</b></span>
+    <span class="quietlink" style="font-size:10.5px">For adults, 18 and over</span>
+  </div>`,
+    )
+
+  const today = (p) =>
+    shell(
+      p,
+      `
+  <div class="body" style="gap:9px">
+    <div class="greet"><div><b>Huomenta, Alex</b><span>Ready for today's stop?</span></div><span class="av milk">A</span></div>
+    <div class="milk now">
+      <div class="ring"><span>2<small>of 6</small></span></div>
+      <div><h3>At the café</h3><p>Today: Ordering a coffee</p><p>About 8 minutes</p></div>
+    </div>
+    <div class="milk rev"><i>8</i><span>words to review today</span></div>
+    <span class="label">Your journey</span>
+    <div class="milk stops">
+      <div class="stop done"><span class="dot"></span><div><b>Meeting people</b><span>I can say who I am and where I'm from.</span></div></div>
+      <div class="stop cur"><span class="dot"></span><div><b>At the café</b><span>Today</span></div></div>
+      <div class="stop up"><span class="dot"></span><div><b>At the grocery store</b></div></div>
+      <div class="stop up"><span class="dot"></span><div><b>Small talk, and 2 more</b></div></div>
+      <div class="stop goal end"><span class="dot"></span><div><b>Goal: everyday Finnish (A1)</b></div></div>
+    </div>
+    <div class="grow"></div>
+    <span class="pill full">Start today's stop<i></i></span>
+  </div>`,
+    )
+
+  const hear = (p) =>
+    shell(
+      p,
+      `
+  <div class="body">
+    <div class="top"><span class="round milk x"></span><span class="track"><b></b></span><span class="steplabel">Hear it</span></div>
+    <div class="grow" style="max-height:18px"></div>
+    ${lineCard}
+    <p class="hint">Hi! I'm Alex.</p>
+    <div class="grow"></div>
+    <p class="hint">Tap a word to see what it means.</p>
+    <span class="pill full">Next line<i></i></span>
+  </div>`,
+    )
+
+  document.getElementById('rows').outerHTML = palettes
+    .map(
+      (p) => `
+  <section>
+    <h2>${p.name}</h2>
+    <div class="row">
+      <figure>${welcome(p.key)}<figcaption>Welcome</figcaption></figure>
+      <figure>${today(p.key)}<figcaption>Today, with the journey</figcaption></figure>
+      <figure>${hear(p.key)}<figcaption>Hear it</figcaption></figure>
+    </div>
+  </section>`,
+    )
+    .join('')
+</script>

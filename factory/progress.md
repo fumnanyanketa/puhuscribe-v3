@@ -289,3 +289,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T09:10 Owner: make the journey the heart of the app ("Yes, situations route (Recommended)"). PRD changed (exentrik-os 6f2166a): "journey stage map" removed from Not in v3.0; ranks, badges, points, confetti and a milestone ladder stay out. AGENTS.md and its test follow the PRD. Soft look: "Show me both (Recommended)", glass and no glass. Colours: "Research, then 3 palettes (Recommended)". Owner finds four colours too many.
 - 2026-11-01T09:15 Draft 3 published: Today as a journey, three one-colour palettes, glass and no glass.
 - 2026-11-01T09:20 Owner shared a soft gym app reference and dropped lavender. Draft 4: Welcome, Today and Hear it in that soft milky look, lake blue and birch-forest green.
+- 2026-11-01T09:27 Owner: draft 4 looks premium, wants a second accent colour like the reference's green and orange. Draft 5 published with three pairs.
