@@ -91,7 +91,7 @@ describe('fonts', () => {
     expect(attributes('design/v2-handoff/README.md')).toContain('text: unset')
   })
 
-  it('[design 5] the Switzer files stay out of git, and the app falls back to Poppins without them', () => {
+  it('[design 5] [redesign 5] the Switzer files stay out of git, and the app uses Poppins everywhere', () => {
     // The ITF Free Font License forbids offering the files through a public
     // repository. This test needs no font file, so it always runs.
     const tracked = execFileSync('git', ['ls-files', '--', SWITZER_DIR], { encoding: 'utf8' })
@@ -101,17 +101,16 @@ describe('fonts', () => {
         encoding: 'utf8',
       }),
     ).toContain('Switzer-Regular.woff2')
-    // The body font stack ends in Poppins and then a system font.
+    // Owner's call 3, 1 November 2026: Poppins for headings and body text.
     const tokens = readFileSync('src/styles/tokens.css', 'utf8')
-    expect(tokens).toMatch(/--font-body:\s*'Switzer',\s*'Poppins',\s*system-ui/)
-    // Poppins comes from npm; the Switzer rules are not in the committed CSS.
+    expect(tokens).toMatch(/--font-heading:\s*'Poppins',\s*system-ui/)
+    expect(tokens).toMatch(/--font-body:\s*'Poppins',\s*system-ui/)
+    expect(tokens).not.toMatch(/Switzer/)
+    // Poppins comes from npm; no Switzer rule is loaded and the app no longer imports its file.
     const fonts = readFileSync('src/styles/fonts.css', 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
     expect(fonts).toContain('@fontsource/poppins')
     expect(fonts).not.toMatch(/Switzer/)
-    // The app imports the generated CSS only when it exists.
-    expect(readFileSync('src/main.tsx', 'utf8')).toContain(
-      "import.meta.glob('./assets/fonts/switzer/switzer.css'",
-    )
+    expect(readFileSync('src/main.tsx', 'utf8')).not.toMatch(/switzer/i)
   })
 
   it('[design 5] fonts come only from the app itself, with no italic styles', () => {
@@ -182,8 +181,8 @@ describe('motion', () => {
   })
 })
 
-describe('dark mode', () => {
-  it('[design 15] index.html declares light and dark', () => {
-    expect(readFileSync('index.html', 'utf8')).toMatch(/<meta name="color-scheme" content="light dark" \/>/)
+describe('light only', () => {
+  it('[design 15] [redesign 1] index.html declares light only (owner call 4, 1 November 2026)', () => {
+    expect(readFileSync('index.html', 'utf8')).toMatch(/<meta name="color-scheme" content="light" \/>/)
   })
 })

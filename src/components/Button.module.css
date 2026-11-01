@@ -12,8 +12,8 @@
   border: 0;
   border-radius: var(--radius-pill);
   font-family: var(--font-heading);
-  font-size: var(--text-body);
-  font-weight: var(--weight-semibold);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-tight);
   cursor: pointer;
   transition:
@@ -21,8 +21,11 @@
     color var(--motion-fast) var(--motion-ease);
 }
 
+/* Every colour is set here on purpose: WebKit's own button colours failed
+   contrast in an earlier job (job 5), so no button relies on a default. */
 .primary {
   min-height: var(--button-height);
+  padding: 0 var(--space-2) 0 var(--space-5);
   background: var(--color-button);
   color: var(--color-button-text);
   box-shadow: var(--shadow-button);
@@ -42,9 +45,9 @@
 .secondary {
   min-height: var(--button-height);
   background: var(--color-button-secondary);
-  color: var(--color-text);
+  color: var(--color-mint-deep);
   box-shadow:
-    inset 0 0 0 1px var(--color-control-edge),
+    inset 0 0 0 1.5px var(--color-control-edge),
     var(--shadow-1);
 }
 
@@ -56,6 +59,24 @@
 .secondary:active,
 .secondary[data-state='pressed'] {
   background: var(--color-button-secondary-pressed);
+  transform: translateY(1px);
+}
+
+.danger {
+  min-height: var(--button-height);
+  background: var(--color-danger);
+  color: var(--color-danger-text);
+  box-shadow: var(--shadow-button);
+}
+
+.danger:hover,
+.danger[data-state='hover'] {
+  background: var(--color-danger-hover);
+}
+
+.danger:active,
+.danger[data-state='pressed'] {
+  background: var(--color-danger-pressed);
   transform: translateY(1px);
 }
 
@@ -98,15 +119,54 @@
   width: 100%;
 }
 
+.block.primary .label {
+  flex: 1;
+  justify-content: space-between;
+}
+
 .label {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-4);
+}
+
+/* The small arrow circle of the primary pill: a lighter mint disc, drawn with
+   the button text colour at a low strength through opacity on its own layer. */
+.arrow {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-button-text);
+  opacity: 0.22;
+}
+
+.arrow svg {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* While busy the label keeps its space, so the button keeps its size. */
 .hiddenLabel {
   display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
   visibility: hidden;
 }
 

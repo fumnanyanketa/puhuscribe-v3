@@ -28,19 +28,28 @@ import styles from './DesignReference.module.css'
 // owner, the reviewers and the evaluator. Built only in development and in
 // preview builds; no learner ever sees it. design.md explains each part.
 
-const { light, dark } = colourTokens(tokensCss)
+const light = colourTokens(tokensCss)
 const LIGHT = asMap(light)
-const DARK = asMap(dark)
+
+/** The value the owner's drawing used, when the comment in tokens.css names one that was changed. */
+function drawnValue(purpose: string): string | null {
+  return /drawn (#[0-9a-f]{6})/i.exec(purpose)?.[1] ?? null
+}
 
 const TEXT_SIZES = [
-  ['--text-display', 'Reference page title', 'heading'],
-  ['--text-title', 'Step name', 'heading'],
-  ['--text-word-card', 'The word on its card', 'heading'],
-  ['--text-line', 'A spoken Finnish line', 'heading'],
-  ['--text-heading', 'Card and section headings', 'heading'],
-  ['--text-written', 'The written line', 'body'],
-  ['--text-body', 'Body text', 'body'],
-  ['--text-small', 'Labels and notes', 'body'],
+  ['--text-display', 'Reference page title, 36 px'],
+  ['--text-word-card', 'The word on its card, 32 px'],
+  ['--text-line-large', 'The spoken line on Understand it, 21 px'],
+  ['--text-title', 'Lesson title and sheet title, 20 px'],
+  ['--text-line', 'The spoken line on the line card, 19 px'],
+  ['--text-heading', 'Card and section headings, 17 px'],
+  ['--text-written', 'The written line, 17 px'],
+  ['--text-body', 'Body and sheet text, 15 px'],
+  ['--text-button', 'Button text, 14.5 px'],
+  ['--text-reading', 'The least size of a sentence of reading text, 14 px'],
+  ['--text-sign', 'Names on the road signs, 13 px'],
+  ['--text-small-plus', 'Small labels, 12.5 px'],
+  ['--text-small', 'Hints, captions and fell labels, 12 px'],
 ] as const
 
 const SPACES = [
@@ -156,40 +165,51 @@ export default function DesignReference() {
           the evaluator. Learners never see this page. The rules behind each part are in design.md.
         </p>
         <p className={styles.lead}>
-          The page follows your phone’s light or dark setting. The contrast tables show both.
+          The look is light only. Where a drawn colour failed a contrast floor it is a little darker, and the
+          drawn colour is shown beside the built one.
         </p>
       </header>
 
       <Section id="colour" title="Colour">
         <ul className={styles.swatches}>
-          {light.map((token) => (
-            <li key={token.name} className={styles.swatch}>
-              <span className={styles.chip} style={{ background: `var(${token.name})` }} />
-              <span className={styles.swatchText}>
-                <code>{token.name}</code>
-                <span className={styles.quiet}>
-                  Light {token.value}, dark {DARK.get(token.name) ?? ''}
+          {light.map((token) => {
+            const drawn = drawnValue(token.purpose)
+            return (
+              <li key={token.name} className={styles.swatch}>
+                <span className={styles.chip} style={{ background: `var(${token.name})` }} />
+                {drawn && (
+                  <span
+                    className={styles.chip}
+                    style={{ background: drawn }}
+                    role="img"
+                    aria-label={`The colour in the drawing, ${drawn}`}
+                  />
+                )}
+                <span className={styles.swatchText}>
+                  <code>{token.name}</code>
+                  <span className={styles.quiet}>
+                    {token.value}
+                    {drawn ? `, built (the drawing used ${drawn}, shown beside it)` : ''}
+                  </span>
+                  {token.purpose && <span className={styles.quiet}>{token.purpose}</span>}
                 </span>
-                {token.purpose && <span className={styles.quiet}>{token.purpose}</span>}
-              </span>
-            </li>
-          ))}
+              </li>
+            )
+          })}
         </ul>
-        <h3 className={styles.subTitle}>Contrast, light and dark</h3>
+        <h3 className={styles.subTitle}>Contrast</h3>
         <div className={styles.tableWrap}>
           <table className={styles.table}>
             <thead>
               <tr>
                 <th scope="col">Pairing</th>
                 <th scope="col">Needs</th>
-                <th scope="col">Light</th>
-                <th scope="col">Dark</th>
+                <th scope="col">Result</th>
               </tr>
             </thead>
             <tbody>
               {CONTRAST_PAIRS.map(({ fore, back, min, use }) => {
                 const lightRatio = contrast(LIGHT.get(fore) ?? '', LIGHT.get(back) ?? '')
-                const darkRatio = contrast(DARK.get(fore) ?? '', DARK.get(back) ?? '')
                 const verdict = (ratio: number) =>
                   `${ratio.toFixed(1)}:1, ${ratio >= min ? 'passes' : 'fails'}`
                 return (
@@ -203,7 +223,6 @@ export default function DesignReference() {
                     </td>
                     <td>{min}:1</td>
                     <td>{verdict(lightRatio)}</td>
-                    <td>{verdict(darkRatio)}</td>
                   </tr>
                 )
               })}
@@ -214,16 +233,13 @@ export default function DesignReference() {
 
       <Section id="type" title="Type">
         <p className={styles.lead}>
-          Poppins for headings, buttons and Finnish lines. Switzer for body text. No italics. Sizes are in
-          rem, so they follow the phone’s text size.
+          Poppins everywhere, for headings, buttons, body text and Finnish lines. No italics. Sizes are in
+          rem, so they follow the phone’s text size. No text is under 12 px.
         </p>
         <ul className={styles.typeList}>
-          {TEXT_SIZES.map(([token, use, family]) => (
+          {TEXT_SIZES.map(([token, use]) => (
             <li key={token}>
-              <span
-                className={family === 'heading' ? styles.typeHeading : styles.typeBody}
-                style={{ fontSize: `var(${token})` }}
-              >
+              <span className={styles.typeHeading} style={{ fontSize: `var(${token})` }}>
                 {use}
               </span>
               <code className={styles.small}>{token}</code>
@@ -305,7 +321,7 @@ export default function DesignReference() {
       </Section>
 
       <Section id="buttons" title="Buttons">
-        {(['primary', 'secondary', 'quiet'] as const).map((variant) => (
+        {(['primary', 'secondary', 'quiet', 'danger'] as const).map((variant) => (
           <div key={variant} className={styles.stateGroup}>
             <h3 className={styles.subTitle}>{capitalise(variant)}</h3>
             <div className={styles.stateRow}>

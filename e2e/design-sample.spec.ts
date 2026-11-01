@@ -1,5 +1,4 @@
 import { expect, test, type Page } from '@playwright/test'
-import { SWITZER_SKIP_REASON, switzerPresent } from './switzer.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/5-design-system/spec.md that each test protects. Round 1 builds
@@ -77,16 +76,14 @@ test.describe('the Hear it sample', () => {
     expect(family.startsWith('Poppins')).toBe(true)
   })
 
-  // Switzer is kept out of the public repository (docs/fonts.md): this test
-  // runs when the files were fetched and skips, with its reason, when not.
-  test('[design 5] ä, ö, å, Ä, Ö and Å render in Switzer, and the body text uses it', async ({ page }) => {
-    test.skip(!switzerPresent, SWITZER_SKIP_REASON)
+  // Owner's call 3 of job 19-redesign: Poppins for the body text as well.
+  test('[design 5] [redesign 5] the body text is Poppins as well', async ({ page }) => {
     await openSample(page)
-    for (const font of ['400 16px Switzer', '500 16px Switzer']) {
+    for (const font of ['400 16px Poppins', '500 16px Poppins']) {
       expect(await page.evaluate<boolean>(`document.fonts.check('${font}', 'äöåÄÖÅ')`), font).toBe(true)
     }
     const body = await page.evaluate<string>('getComputedStyle(document.body).fontFamily')
-    expect(body.startsWith('Switzer')).toBe(true)
+    expect(body.startsWith('Poppins')).toBe(true)
   })
 
   test('[design 5] text sizes follow the browser text size', async ({ page }) => {
@@ -104,8 +101,8 @@ test.describe('the Hear it sample', () => {
     await openSample(page)
     // Round 3: the top bar is the shared SessionFrame's, which names the step
     // in words. Unit 1 has no Use it step, so it is step 1 of 4.
-    await expect(page.getByText('Hear it, step 1 of 4', { exact: true })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Leave session' })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Leave session' })).toBeVisible()
     const play = page.getByRole('button', { name: 'Play the dialogue' })
     await expect(play).toBeInViewport()
     await expect(page.getByRole('button', { name: 'Continue' })).toBeInViewport()
@@ -223,24 +220,18 @@ test.describe('the Hear it sample', () => {
     await expect(status).toHaveText(/whole dialogue/)
   })
 
-  test('[design 15] the page declares light and dark, and follows the phone’s setting', async ({
+  test('[design 15] [redesign 1] the page declares light only, with the mint to peach wash', async ({
     browser,
   }) => {
-    // Round 2: the page background is now v2's fade (owner's decision,
-    // 21 October 2026), so the test reads the page's background image and
-    // checks its first and last colour in each mode.
-    for (const [scheme, top, bottom] of [
-      ['light', 'rgb(255, 255, 255)', 'rgb(241, 240, 246)'],
-      ['dark', 'rgb(18, 17, 23)', 'rgb(23, 22, 29)'],
-    ] as const) {
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
-      const page = await context.newPage()
-      await openSample(page)
-      await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute('content', 'light dark')
-      const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
-      expect(image, scheme).toContain(top)
-      expect(image, scheme).toContain(bottom)
-      await context.close()
-    }
+    // The look is light only (owner's call 4 of job 19-redesign). The test
+    // reads the page's background image and checks its first and last colour.
+    const context = await browser.newContext({ colorScheme: 'dark', viewport: { width: 375, height: 812 } })
+    const page = await context.newPage()
+    await openSample(page)
+    await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute('content', 'light')
+    const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
+    expect(image).toContain('rgb(203, 237, 225)')
+    expect(image).toContain('rgb(251, 226, 209)')
+    await context.close()
   })
 })

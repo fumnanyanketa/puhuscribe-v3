@@ -7,12 +7,6 @@ import './styles/tokens.css'
 import './styles/fonts.css'
 import './styles/base.css'
 
-// Switzer (body text) is not in this public repository. When the files were
-// fetched (scripts/ci/fetch-private-fonts.ts, docs/fonts.md) this glob finds the
-// generated switzer.css and imports it. When they were not, the glob finds
-// nothing and the body text uses the fallback fonts.
-import.meta.glob('./assets/fonts/switzer/switzer.css', { eager: true })
-
 // Errors nobody caught are reported without anything that identifies the learner (job 14-analytics).
 installCrashReporter()
 

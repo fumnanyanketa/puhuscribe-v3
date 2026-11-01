@@ -1,6 +1,7 @@
 /* Session frame (design.md, "Session frame"). Values from src/styles/tokens.css. */
 
 .frame {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -15,12 +16,13 @@
 }
 
 .topBar {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: none;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-4);
-  padding: var(--space-3) var(--space-5) var(--space-2) var(--space-4);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5) var(--space-2);
 }
 
 .leave {
@@ -29,11 +31,13 @@
   place-items: center;
   width: var(--tap-min);
   height: var(--tap-min);
-  border: 1px solid var(--color-card-edge);
+  padding: 0;
+  border: var(--panel-edge);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--panel-fill);
   box-shadow: var(--shadow-1);
   color: var(--color-text);
+  cursor: pointer;
 }
 
 .leave svg {
@@ -45,40 +49,47 @@
   stroke-linecap: round;
 }
 
-.segments {
-  display: flex;
+/* The bar fills by the share of the lesson done. Its name says which step. */
+.bar {
   flex: 1;
-  gap: 6px;
   min-width: 48px;
-}
-
-.segment,
-.segmentDone,
-.segmentNow {
   height: 6px;
-  flex: 1;
+  overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-track);
+  background: var(--color-surface);
 }
 
-.segmentDone {
-  background: var(--color-text-quiet);
-}
-
-.segmentNow {
-  flex: 2.4;
-  background: var(--color-text);
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-mint);
+  transition: width var(--motion-sheet) var(--motion-ease-out);
 }
 
 .step {
   margin: 0;
-  font-size: var(--text-small);
+  font-family: var(--font-heading);
+  font-size: var(--text-small-plus);
   font-weight: var(--weight-medium);
+  letter-spacing: normal;
   color: var(--color-text-quiet);
+}
+
+.stepHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* Only the content scrolls; the top bar and the actions stay. */
 .content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -87,11 +98,34 @@
 }
 
 .actions {
+  position: relative;
+  z-index: 1;
   flex: none;
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  background: var(--color-surface);
-  box-shadow: var(--shadow-dock);
+  padding: var(--space-3) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+}
+
+.sheetTitle {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+}
+
+.sheetText {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+.sheetActions {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
 }

@@ -43,9 +43,9 @@
 
 .spokenBand {
   padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-spoken-band-edge);
+  border: 1px solid var(--color-mint-mid);
   border-radius: var(--radius-md);
-  background: var(--color-spoken-band);
+  background: var(--color-spoken-soft);
 }
 
 .written {
@@ -133,8 +133,8 @@
 
 .changed,
 .word:hover .changed {
-  color: var(--color-flag-text);
-  background: var(--color-flag-wash);
+  color: var(--color-changed-text);
+  background: var(--color-changed-wash);
   font-weight: var(--weight-bold);
 }
 

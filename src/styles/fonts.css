@@ -3,19 +3,14 @@
  * to Google Fonts, Fontshare or any other font service, so no learner's IP
  * address leaves for one (factory/jobs/5-design-system/spec.md, "Done when" 5).
  *
- * Poppins (headings, Finnish lines): @fontsource/poppins, pinned in
- * package.json, SIL Open Font License 1.1. Each weight file declares the
- * latin, latin-ext and devanagari subsets with unicode ranges, so a phone
- * downloads only the subset its text needs. The latin subset holds ä, ö, å.
+ * Poppins (headings, buttons, Finnish lines and body text, owner's call 3 of
+ * job 19-redesign): @fontsource/poppins, pinned in package.json, SIL Open Font
+ * License 1.1. Each weight file declares the latin, latin-ext and devanagari
+ * subsets with unicode ranges, so a phone downloads only the subset its text
+ * needs. The latin subset holds ä, ö, å.
  *
- * Switzer (body text): the official WOFF2 files from fontshare.com, kept
- * byte for byte as downloaded (the ITF Free Font License forbids subsetting
- * and conversion; tests/design-rules.test.ts checks their SHA-256). The
- * licence forbids offering the files through a public repository, so they are
- * not in git. scripts/ci/fetch-private-fonts.ts fills src/assets/fonts/switzer/
- * from a private source and writes switzer.css there, and src/main.tsx imports
- * that file only when it exists. Without it the body font falls back to
- * Poppins, then the system font (--font-body in tokens.css). See docs/fonts.md.
+ * Switzer is no longer used. Its private files and the scripts that fetch them
+ * (docs/fonts.md) stay for history; nothing in the app imports them.
  *
  * No italic files are loaded: design.md bans italics.
  */

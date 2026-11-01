@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { CONTRAST_PAIRS } from '../src/styles/contrast-pairs.ts'
 import { colourTokens } from '../src/styles/token-values.ts'
-import { SWITZER_SKIP_REASON, switzerPresent } from './switzer.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/5-design-system/spec.md. These run on the reference page,
@@ -14,7 +13,7 @@ import { SWITZER_SKIP_REASON, switzerPresent } from './switzer.ts'
 // are passed as text.
 
 const REFERENCE = '/design-reference'
-const COLOUR_TOKENS = colourTokens(readFileSync('src/styles/tokens.css', 'utf8')).light
+const COLOUR_TOKENS = colourTokens(readFileSync('src/styles/tokens.css', 'utf8'))
 
 async function openReference(page: Page) {
   await page.goto(REFERENCE)
@@ -25,7 +24,7 @@ async function openReference(page: Page) {
 const section = (page: Page, name: string) => page.getByRole('region', { name, exact: true })
 
 test.describe('the reference page', () => {
-  test('[design 16] shows every colour token, every contrast pairing in both modes, and the type, spacing and radius scales', async ({
+  test('[design 16] shows every colour token, every contrast pairing, and the type, spacing and radius scales', async ({
     page,
   }) => {
     await openReference(page)
@@ -98,17 +97,17 @@ test.describe('the reference page', () => {
     }
   })
 
-  // Switzer is kept out of the public repository (docs/fonts.md): this test
-  // runs when the files were fetched and skips, with its reason, when not.
-  test('[design 5] ä ö å render in Switzer, and the body text uses it', async ({ page }) => {
-    test.skip(!switzerPresent, SWITZER_SKIP_REASON)
+  // Owner's call 3 of job 19-redesign: Poppins for the body text as well.
+  test('[design 5] [redesign 5] the body text is Poppins, and ä ö å render in every weight used', async ({
+    page,
+  }) => {
     await openReference(page)
     await page.waitForLoadState('networkidle')
-    for (const font of ['400 16px Switzer', '500 16px Switzer', '600 16px Switzer', '700 16px Switzer']) {
+    for (const font of ['400 16px Poppins', '500 16px Poppins', '600 16px Poppins', '700 16px Poppins']) {
       expect(await page.evaluate<boolean>(`document.fonts.check('${font}', 'äöåÄÖÅ')`), font).toBe(true)
     }
     const body = await page.evaluate<string>('getComputedStyle(document.body).fontFamily')
-    expect(body.startsWith('Switzer')).toBe(true)
+    expect(body.startsWith('Poppins')).toBe(true)
   })
 })
 
@@ -118,8 +117,8 @@ test.describe('session frame', () => {
   }) => {
     await openReference(page)
     const frame = section(page, 'Session frame')
-    await expect(frame.getByText('Hear it, step 1 of 5', { exact: true })).toBeVisible()
-    await expect(frame.getByRole('link', { name: 'Leave session' })).toBeVisible()
+    await expect(frame.getByRole('progressbar', { name: 'Hear it, step 1 of 5' })).toBeVisible()
+    await expect(frame.getByRole('button', { name: 'Leave session' })).toBeVisible()
     // The actions sit at the bottom of the frame, and stay there when the
     // content scrolls.
     const place = await page.evaluate<{ before: number; after: number }>(`(() => {
@@ -482,29 +481,23 @@ test.describe('record control', () => {
   })
 })
 
-test.describe('both colour modes', () => {
-  test('[design 15] the page background fades from white to lilac in light, and to its dark equivalent in dark', async ({
-    browser,
+test.describe('the page wash', () => {
+  test('[redesign 3] the page background is the mint to off white to peach wash, declared once', async ({
+    page,
   }) => {
-    for (const [scheme, stops] of [
-      ['light', ['rgb(255, 255, 255)', 'rgb(250, 249, 252)', 'rgb(241, 240, 246)']],
-      ['dark', ['rgb(18, 17, 23)', 'rgb(20, 19, 25)', 'rgb(23, 22, 29)']],
-    ] as const) {
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
-      const page = await context.newPage()
-      await openReference(page)
-      const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
-      expect(image, scheme).toContain('linear-gradient')
-      for (const stop of stops) expect(image, scheme).toContain(stop)
-      await context.close()
-    }
+    await openReference(page)
+    const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
+    expect(image).toContain('linear-gradient')
+    for (const stop of ['rgb(203, 237, 225)', 'rgb(247, 248, 246)', 'rgb(251, 226, 209)'])
+      expect(image).toContain(stop)
   })
 })
 
 test.describe('automatic accessibility check', () => {
   const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
 
-  for (const scheme of ['light', 'dark'] as const) {
+  // The look is light only (owner's call 4 of job 19-redesign).
+  for (const scheme of ['light'] as const) {
     test(`[design 17] axe finds no WCAG A or AA problem on the reference page, ${scheme}`, async ({
       browser,
     }) => {
