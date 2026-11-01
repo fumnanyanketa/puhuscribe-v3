@@ -4,7 +4,7 @@
 // hosted setting was not checked) and says nothing when it cuts an answer short. A learner who has
 // met all 108 dialogues has about 14,000 words in their lines and up to about 1,500 cards, so a read
 // that selects them in one go would silently lose rows. readAll asks for pages of 500 and goes on
-// until a page comes back empty, so it is complete whatever the cap is, even a lower one. Lists in
+// until a page comes back short, so it is complete while the cap is at least the page size. Lists in
 // a request address (an `in` filter) are cut into chunks so the address stays short.
 
 export const PAGE_SIZE = 500
@@ -21,8 +21,10 @@ export async function readAll<T>(
   for (;;) {
     const { data, error } = await page(rows.length, rows.length + PAGE_SIZE - 1)
     if (error || data === null) throw fail()
-    if (data.length === 0) return rows
     rows.push(...data)
+    // A page shorter than the page size is the last one. This holds while the API's own cap is at
+    // least the page size; the cap is 1,000 here and its hosted value is an open point.
+    if (data.length < PAGE_SIZE) return rows
   }
 }
 
