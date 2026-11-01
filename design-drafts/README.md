@@ -26,6 +26,7 @@ None of the five was found showing a prominent "words learned" number with a sta
 - `draft-7-journey.html`: the journey in mint and peach (the owner's final palette, 1 November 2026) with smaller text: the route of stops, inside a stop, a locked stop, and the unlock moment. Stop and lesson names here are examples.
 - `opening-animation-1.html`: two playable ideas for the first-open animation the owner asked for (where you are, where you are going, then into your first stop): one word becoming a conversation, and one line from you to A1. About 4 seconds, with Skip.
 - `road-journey.html`: the owner's merge of both opening ideas on a road ("let it look more like a road", after the Yatre reference): the road runs in perspective to A1 on the horizon, stops are signs, each sign shows a line said there, then the view moves in to the first stop. Also the journey on day one and three stops later. Stop names and "24" are examples until the curriculum is decided.
+- `v1-screens.html`: every remaining v1 screen in the final mint and peach look (owner chose "Screens first", 1 November 2026): the lesson step by step, stop finished, review and done-for-today days on the road, account, sign in, privacy, feedback, and the error screens. Published at https://claude.ai/artifact/TmabshYDGY1vJ8XTvzUzPg
 
 ## Glass and journey references (1 November 2026)
 

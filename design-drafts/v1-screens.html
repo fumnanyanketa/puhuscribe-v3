@@ -1,0 +1,1650 @@
+<title>PuhuScribe v1 screens</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+/>
+<style>
+  /* Layout: every v1 screen in the final mint and peach look, grouped by where it sits in the app, phones in wrapping rows with one short caption each. */
+  :root {
+    --page: #f1f2f3;
+    --page-ink: #1b1d20;
+    --page-quiet: #5b5f66;
+    --frame: #1b1d20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --a: #23917a;
+    --a-deep: #1a6f5d;
+    --a-mid: #74bba9;
+    --a-soft: #d6efe7;
+    --wash1: #cbede1;
+    --wash2: #fbe2d1;
+    --b: #ee8763;
+    --b-deep: #b8532f;
+    --b-soft: #fde4d8;
+    --ink: #1b2a26;
+    --quiet: #637570;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #111315;
+      --page-ink: #eceef0;
+      --page-quiet: #a3a8ae;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #111315;
+    --page-ink: #eceef0;
+    --page-quiet: #a3a8ae;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    gap: 3rem;
+  }
+  h1 {
+    font: 600 clamp(1.8rem, 5vw, 2.4rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  h2 {
+    font: 600 1.35rem/1.2 var(--font);
+    margin: 0;
+  }
+  header,
+  section {
+    display: grid;
+    gap: 1rem;
+  }
+  header p,
+  section > p {
+    color: var(--page-quiet);
+    margin: 0;
+    max-width: 66ch;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 1.6rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.45rem;
+    width: 300px;
+    max-width: 100%;
+    align-content: start;
+  }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--page-quiet);
+  }
+  figcaption b {
+    display: block;
+    color: var(--page-ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* Phone and the app's own look (always light inside the phone). */
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 12.5px;
+    background: linear-gradient(165deg, var(--wash1) 0%, #f7f8f6 50%, var(--wash2) 100%);
+    display: flex;
+    flex-direction: column;
+  }
+  .status {
+    flex: none;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 10.5px;
+    font-weight: 600;
+    position: relative;
+    z-index: 9;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: 6px 16px 16px;
+  }
+  .grow {
+    flex: 1;
+  }
+  .milk {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(40, 60, 60, 0.06);
+  }
+  .solid {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(40, 60, 60, 0.07);
+  }
+  .title {
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0;
+  }
+  .hint {
+    font-size: 11.5px;
+    color: var(--quiet);
+    margin: 0;
+    text-align: center;
+  }
+  .small {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+
+  .pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--a);
+    color: #fff;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 999px;
+    padding: 5px 5px 5px 18px;
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+  }
+  .pill i {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+    flex: none;
+  }
+  .pill i::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+  }
+  .pill i::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 9.5px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+  .pill.off {
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--quiet);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+  }
+  .pill.off i {
+    background: var(--a-soft);
+  }
+  .pill.off i::after {
+    background: var(--quiet);
+  }
+  .pill.off i::before {
+    border-color: var(--quiet);
+  }
+  .plain {
+    text-align: center;
+    padding: 10px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 12.5px;
+    background: #fff;
+    color: var(--a-deep);
+    border: 1px solid var(--a-soft);
+  }
+  .link {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--quiet);
+    text-decoration: underline;
+    text-decoration-color: var(--a-mid);
+    text-underline-offset: 3px;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .round {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex: none;
+    position: relative;
+  }
+  .x::before,
+  .x::after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 1.6px;
+    background: var(--ink);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+  .x::after {
+    transform: rotate(-45deg);
+  }
+  .back::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-left: 1.8px solid var(--ink);
+    border-bottom: 1.8px solid var(--ink);
+    transform: rotate(45deg);
+    margin-left: 3px;
+  }
+  .track {
+    flex: 1;
+    height: 7px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.75);
+    overflow: hidden;
+  }
+  .track b {
+    display: block;
+    height: 100%;
+    background: var(--a);
+    border-radius: 7px;
+  }
+  .steplabel {
+    font-size: 10.5px;
+    color: var(--quiet);
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* The line card, kept from v2: two dots joined by a dotted line. */
+  .line {
+    padding: 13px;
+    display: grid;
+    gap: 9px;
+  }
+  .who {
+    font-weight: 500;
+    font-size: 11.5px;
+    color: var(--quiet);
+  }
+  .pair2 {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 0 8px;
+  }
+  .rail .d {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .rail .t {
+    background: var(--a);
+  }
+  .rail .v {
+    background: var(--a-mid);
+  }
+  .rail .l {
+    flex: 1;
+    border-left: 2px dotted var(--a-mid);
+    margin: 4px 0;
+    opacity: 0.7;
+  }
+  .rows {
+    display: grid;
+    gap: 7px;
+  }
+  .spoken {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 9px 11px;
+    display: grid;
+    border: 1px solid var(--a-soft);
+  }
+  .spoken small {
+    color: var(--a);
+    font-weight: 500;
+    font-size: 10px;
+  }
+  .spoken span {
+    font-weight: 600;
+    font-size: 18.5px;
+    line-height: 1.25;
+  }
+  .written {
+    padding: 0 11px;
+    display: grid;
+  }
+  .written small {
+    color: var(--a-mid);
+    font-weight: 500;
+    font-size: 10px;
+  }
+  .written span {
+    font-size: 13.5px;
+    color: var(--quiet);
+  }
+  .mk {
+    color: var(--b-deep);
+    background: var(--b-soft);
+    border-radius: 6px;
+    padding: 0 4px;
+  }
+  .mk.on {
+    box-shadow: 0 0 0 2px var(--b);
+  }
+  .blank {
+    display: inline-block;
+    min-width: 46px;
+    border-bottom: 2px dashed var(--b);
+    height: 1em;
+    vertical-align: -2px;
+  }
+  .plays {
+    display: flex;
+    gap: 14px;
+    padding-left: 20px;
+  }
+  .play {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .play i {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--a);
+    position: relative;
+    flex: none;
+  }
+  .play i::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 8.5px;
+    border-left: 9px solid #fff;
+    border-top: 5.5px solid transparent;
+    border-bottom: 5.5px solid transparent;
+  }
+  .play.w i {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--a-soft);
+  }
+  .play.w i::after {
+    border-left-color: var(--a);
+  }
+  .play.big i {
+    width: 40px;
+    height: 40px;
+  }
+  .play.big i::after {
+    left: 16px;
+    top: 13px;
+    border-left-width: 12px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+  }
+
+  .choice {
+    padding: 13px 15px;
+    font-size: 13px;
+  }
+  .choice.on {
+    border: 1.5px solid var(--a);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--a-deep);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tick {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--a);
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+  }
+  .tick::after {
+    content: '';
+    width: 7px;
+    height: 3.5px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .mic {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--a);
+    display: grid;
+    place-items: center;
+    position: relative;
+    box-shadow:
+      0 0 0 12px rgba(255, 255, 255, 0.55),
+      0 0 0 24px rgba(255, 255, 255, 0.28),
+      0 12px 28px rgba(20, 60, 60, 0.18);
+  }
+  .mic::before {
+    content: '';
+    width: 16px;
+    height: 27px;
+    border-radius: 9px;
+    background: #fff;
+    margin-top: -8px;
+  }
+  .mic::after {
+    content: '';
+    position: absolute;
+    width: 27px;
+    height: 16px;
+    border: 3px solid #fff;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    top: 40px;
+  }
+  .mic.rec {
+    background: var(--b);
+    box-shadow:
+      0 0 0 12px rgba(253, 228, 216, 0.8),
+      0 0 0 24px rgba(253, 228, 216, 0.45),
+      0 12px 28px rgba(150, 70, 40, 0.2);
+  }
+  .wave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 30px;
+  }
+  .wave i {
+    width: 3.5px;
+    border-radius: 3px;
+    background: var(--a-mid);
+  }
+  .wave.warm i {
+    background: var(--b);
+  }
+  .result {
+    padding: 13px;
+    display: grid;
+    gap: 9px;
+  }
+  .result .head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 500;
+    font-size: 13.5px;
+  }
+  .twobtn {
+    display: flex;
+    gap: 8px;
+  }
+  .twobtn span {
+    flex: 1;
+    text-align: center;
+    padding: 9px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--a-soft);
+    color: var(--a-deep);
+  }
+  .soft-note {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    padding: 11px 13px;
+    border-radius: 18px;
+    background: var(--b-soft);
+    color: var(--b-deep);
+    font-size: 12px;
+  }
+  .soft-note .ring {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--b);
+    flex: none;
+  }
+  .field {
+    padding: 13px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .field.ph {
+    color: #9aa6a2;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .caret {
+    width: 2px;
+    height: 20px;
+    background: var(--a);
+  }
+  .keys {
+    display: flex;
+    gap: 8px;
+  }
+  .keys span {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .boxes {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+  }
+  .boxes span {
+    width: 36px;
+    height: 46px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .boxes span.on {
+    border: 1.5px solid var(--a);
+  }
+
+  .dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(25, 45, 40, 0.28);
+    z-index: 4;
+  }
+  .sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    background: #fdfefd;
+    border-radius: 28px 28px 0 0;
+    padding: 12px 18px 18px;
+    display: grid;
+    gap: 11px;
+    box-shadow: 0 -12px 40px rgba(20, 40, 40, 0.14);
+  }
+  .grab {
+    width: 38px;
+    height: 5px;
+    border-radius: 4px;
+    background: #d8dcdc;
+    justify-self: center;
+  }
+  .word {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .word b {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 14px;
+    font-size: 12px;
+    margin: 0;
+  }
+  .facts dt {
+    color: var(--quiet);
+  }
+  .facts dd {
+    margin: 0;
+  }
+  .formrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 15px;
+    background: var(--a-soft);
+  }
+  .formrow small {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--a-deep);
+  }
+  .formrow span {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .formrow.w {
+    background: #f2f5f4;
+  }
+  .formrow.w small {
+    color: var(--quiet);
+  }
+
+  .bubble {
+    max-width: 78%;
+    padding: 9px 12px;
+    border-radius: 18px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .bubble.otso {
+    background: #fff;
+    border-bottom-left-radius: 6px;
+    box-shadow: 0 4px 12px rgba(40, 60, 60, 0.06);
+  }
+  .bubble.me {
+    background: var(--a);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 6px;
+  }
+  .bubble small {
+    display: block;
+    font-size: 10px;
+    color: var(--quiet);
+    margin-bottom: 2px;
+  }
+  .bubble.me small {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .compose {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 6px 6px 14px;
+    border-radius: 999px;
+  }
+  .compose span {
+    flex: 1;
+    color: #9aa6a2;
+    font-size: 13px;
+  }
+  .send {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--a);
+    position: relative;
+  }
+  .send::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    width: 9px;
+    height: 9px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+
+  .done-orb {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 12px 30px rgba(20, 60, 60, 0.1);
+    justify-self: center;
+    align-self: center;
+    position: relative;
+  }
+  .done-orb::before {
+    content: '';
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--a);
+  }
+  .done-orb::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    border-left: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    transform: rotate(-45deg);
+    top: 34px;
+  }
+  .big {
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .gain {
+    display: flex;
+    gap: 9px;
+  }
+  .gain div {
+    flex: 1;
+    padding: 9px 12px;
+    display: grid;
+  }
+  .gain b {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .gain b.warm {
+    color: var(--b-deep);
+  }
+  .gain span {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+
+  .who-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+  }
+  .face {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--a-soft);
+    color: var(--a-deep);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    flex: none;
+  }
+  .items {
+    display: grid;
+    gap: 8px;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 15px;
+    font-size: 13px;
+  }
+  .item .chev {
+    width: 7px;
+    height: 7px;
+    border-top: 1.8px solid var(--quiet);
+    border-right: 1.8px solid var(--quiet);
+    transform: rotate(45deg);
+  }
+  .item.warn {
+    color: var(--b-deep);
+  }
+  .toggle {
+    width: 38px;
+    height: 22px;
+    border-radius: 22px;
+    background: var(--a);
+    position: relative;
+    flex: none;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .toggle.offt {
+    background: #d5dcd9;
+  }
+  .toggle.offt::after {
+    right: auto;
+    left: 3px;
+  }
+  .acc {
+    display: grid;
+    gap: 7px;
+  }
+  .acc .item {
+    font-size: 12.5px;
+  }
+  .acc .open {
+    display: grid;
+    gap: 6px;
+    padding: 13px 15px;
+  }
+  .acc .open b {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .acc .open p {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--quiet);
+    line-height: 1.5;
+  }
+  .area {
+    height: 150px;
+    padding: 13px 15px;
+    color: #9aa6a2;
+    font-size: 13px;
+  }
+  .center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .cloud {
+    width: 70px;
+    height: 44px;
+    position: relative;
+  }
+  .cloud::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 14px;
+    width: 58px;
+    height: 28px;
+    border-radius: 16px;
+    background: var(--a-soft);
+  }
+  .cloud::after {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--a-soft);
+  }
+  .slash {
+    position: absolute;
+    left: 30px;
+    top: -2px;
+    width: 3px;
+    height: 50px;
+    background: var(--b);
+    transform: rotate(40deg);
+    border-radius: 2px;
+  }
+  .mark {
+    width: 64px;
+    height: 64px;
+  }
+  .dots3 {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .dots3 i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--a-mid);
+  }
+  .dots3 i:nth-child(2) {
+    opacity: 0.6;
+  }
+  .dots3 i:nth-child(3) {
+    opacity: 0.3;
+  }
+
+  /* Road pieces, from the journey screen. */
+  svg.land {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .scene {
+    position: absolute;
+    inset: 0;
+    transform: scale(1.12) translateY(-14px);
+    transform-origin: 50% 80%;
+  }
+  .sign {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: 50% 100%;
+  }
+  .board {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px 4px 4px;
+    border-radius: 9px;
+    font-size: 10.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 4px 10px rgba(30, 50, 45, 0.16);
+  }
+  .num {
+    width: 17px;
+    height: 17px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    font-size: 9.5px;
+    font-weight: 600;
+    background: #eef2f1;
+    color: var(--quiet);
+  }
+  .pole {
+    width: 2.5px;
+    background: linear-gradient(#9aa6a2, #7c8884);
+    border-radius: 2px;
+  }
+  .foot {
+    width: 14px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(30, 50, 45, 0.18);
+    margin-top: -1px;
+  }
+  .sign.done .board {
+    background: var(--a);
+    color: #fff;
+  }
+  .sign.done .num {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+  .sign.cur .board {
+    box-shadow:
+      0 0 0 2px var(--a),
+      0 6px 14px rgba(30, 80, 65, 0.22);
+    font-weight: 600;
+    color: var(--a-deep);
+  }
+  .sign.cur .num {
+    background: var(--a);
+    color: #fff;
+  }
+  .sign.later .board {
+    padding: 4px 9px;
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--quiet);
+    font-weight: 400;
+    box-shadow: 0 3px 8px rgba(30, 50, 45, 0.08);
+  }
+  .sign.next .board {
+    box-shadow:
+      0 0 0 2px var(--b),
+      0 6px 14px rgba(150, 70, 40, 0.2);
+    color: var(--b-deep);
+    font-weight: 600;
+    padding: 4px 9px;
+  }
+  .you {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+  }
+  .you .dot {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #fff;
+    border: 5px solid var(--a);
+    box-sizing: border-box;
+    box-shadow: 0 3px 8px rgba(20, 90, 70, 0.35);
+  }
+  .you .ringp {
+    position: absolute;
+    inset: -9px;
+    border-radius: 50%;
+    border: 2px solid rgba(127, 224, 195, 0.9);
+  }
+  .goal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    text-align: center;
+  }
+  .goal b {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .goal span {
+    font-size: 10px;
+    color: var(--quiet);
+  }
+  .goal.eve b {
+    color: #ffd9c6;
+  }
+  .goal.eve span {
+    color: #d8e3ef;
+  }
+  .topbar {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 40px;
+    z-index: 8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .prog {
+    display: flex;
+    gap: 3px;
+    flex: 1;
+    margin-right: 14px;
+  }
+  .prog i {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .prog i.f {
+    background: var(--a);
+  }
+  .av {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.75);
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    color: var(--a-deep);
+    font-weight: 600;
+  }
+  .card {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    z-index: 8;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 14px 36px rgba(30, 50, 45, 0.16);
+    border-radius: 24px;
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  .card .t {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card .t b {
+    font-size: 14.5px;
+    font-weight: 600;
+    display: block;
+  }
+  .card .t small {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: var(--a-soft);
+    color: var(--a-deep);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .badge.warm {
+    background: var(--b-soft);
+    color: var(--b-deep);
+  }
+  @media (max-width: 700px) {
+    .row {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe v1 screens</h1>
+    <p>
+      Every remaining screen in the final look: mint and peach, the soft milky panels, smaller text, and the
+      road. Together with the road journey and the opening animation, this is the whole app for version 1.
+      Finnish lines come from the written A1 road.
+    </p>
+  </header>
+  <div id="out"></div>
+</div>
+
+<script>
+  const ph = (inner) =>
+    `<div class="phone"><div class="s"><div class="status"><span>9:41</span><i></i><span>5G</span></div>${inner}</div></div>`
+  const topBar = (pct, label, kind = 'x') =>
+    `<div class="top"><span class="round milk ${kind}"></span><span class="track"><b style="width:${pct}%"></b></span><span class="steplabel">${label}</span></div>`
+  const backBar = (label) =>
+    `<div class="top"><span class="round milk back"></span><span style="font-weight:500;font-size:13.5px">${label}</span></div>`
+  const lineCard = (o = {}) => `<div class="milk line"><div class="who">${o.who || 'Pekka'}</div>
+  <div class="pair2"><div class="rail"><i class="d t"></i><i class="l"></i><i class="d v"></i></div>
+  <div class="rows"><div class="spoken"><small>Spoken</small><span>${o.s || 'Paljonks <span class="mk">noi</span> mansikat maksaa?'}</span></div>
+  <div class="written"><small>Written</small><span>${o.w || 'Paljonko <span class="mk">nuo</span> mansikat maksavat?'}</span></div></div></div>
+  ${o.noplay ? '' : '<div class="plays"><span class="play"><i></i>Spoken</span><span class="play w"><i></i>Written</span></div>'}</div>`
+  const waveBars = (warm) =>
+    `<div class="wave ${warm ? 'warm' : ''}">${[8, 14, 22, 12, 26, 18, 10, 20, 28, 14, 18, 24, 10, 16, 22, 8, 18, 12].map((h) => `<i style="height:${h}px"></i>`).join('')}</div>`
+
+  /* Road, same drawing as the journey screen. */
+  const W = 280,
+    H = 620,
+    HORIZON = 238,
+    BOTTOM = 660
+  const yAt = (t) => HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.9)
+  const xAt = (t) => 142 + 34 * Math.sin(t * Math.PI * 1.7) * (1 - t * 0.9)
+  const wAt = (t) => 168 * Math.pow(1 - t, 1.55) + 3
+  const f = (n) => n.toFixed(1)
+  const edge = (side, from, to, k = 1) => {
+    const p = []
+    for (let i = 0; i <= 70; i++) {
+      const t = from + ((to - from) * i) / 70
+      p.push([xAt(t) + (side * wAt(t) * k) / 2, yAt(t)])
+    }
+    return p
+  }
+  const poly = (from, to, k = 1) =>
+    [...edge(-1, from, to, k), ...edge(1, from, to, k).reverse()].map((p) => p.map(f).join(',')).join(' ')
+  const line = (pts) => pts.map((p) => p.map(f).join(',')).join(' ')
+  const quad = (t0, t1, k, c, op) => {
+    const w0 = Math.max(0.45, wAt(t0) * k),
+      w1 = Math.max(0.4, wAt(t1) * k)
+    return `<polygon points="${[
+      [xAt(t0) - w0, yAt(t0)],
+      [xAt(t0) + w0, yAt(t0)],
+      [xAt(t1) + w1, yAt(t1)],
+      [xAt(t1) - w1, yAt(t1)],
+    ]
+      .map((p) => p.map(f).join(','))
+      .join(' ')}" fill="${c}" opacity="${op}"/>`
+  }
+  const dashes = (from, to) => {
+    let o = ''
+    for (let i = 0; i < 30; i++) {
+      const t0 = from + ((to - from) * i) / 30,
+        t1 = t0 + ((to - from) * 0.5) / 30
+      o += quad(t0, t1, 0.026, '#ffffff', 0.95)
+    }
+    return o
+  }
+  const solid = (to) => {
+    let o = ''
+    for (let i = 0; i < 24; i++) {
+      const t0 = (to * i) / 24,
+        t1 = (to * (i + 1)) / 24 + 0.002
+      o += quad(t0, t1, 0.032, '#8ce6cb', 1)
+    }
+    return o
+  }
+  const pines = (c) => {
+    let o = ''
+    ;[8, 18, 27, 39, 52, 61, 74, 88, 98, 186, 197, 209, 221, 232, 246, 257, 268, 276].forEach((x, i) => {
+      const h = 9 + ((i * 7) % 6),
+        b = 234 + Math.sin(x / 40) * 4
+      o += `<path d="M${x} ${f(b - h)} L${x - h * 0.38} ${f(b)} L${x + h * 0.38} ${f(b)} Z" fill="${c}"/>`
+    })
+    return o
+  }
+  let uid = 0
+  const land = (doneTo, eve) => {
+    const id = 'g' + uid++
+    const sky = eve ? ['#30405a', '#6c6f8e', '#e8b9a6'] : ['#dff3eb', '#f3f6ef', '#fde9dc']
+    const ground = eve ? ['#56677a', '#7b8794', '#c9a99c'] : ['#d7ece2', '#e8f2ea', '#f9e6d8']
+    return `<svg class="land" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs>
+  <linearGradient id="sk${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky[0]}"/><stop offset=".75" stop-color="${sky[1]}"/><stop offset="1" stop-color="${sky[2]}"/></linearGradient>
+  <linearGradient id="gr${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${ground[0]}"/><stop offset=".45" stop-color="${ground[1]}"/><stop offset="1" stop-color="${ground[2]}"/></linearGradient>
+  <linearGradient id="as${id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2c3234"/><stop offset=".6" stop-color="#465052"/><stop offset="1" stop-color="${eve ? '#6d7680' : '#8f9f9a'}"/></linearGradient>
+  <radialGradient id="su${id}" cx=".5" cy=".45" r=".55"><stop offset="0" stop-color="#fff4ec"/><stop offset=".6" stop-color="#fcd7c4"/><stop offset="1" stop-color="#f6b89c"/></radialGradient>
+  <clipPath id="ab${id}"><rect x="0" y="0" width="${W}" height="${HORIZON + 2}"/></clipPath></defs>
+  <rect width="${W}" height="${H}" fill="url(#sk${id})"/>
+  ${eve ? '<circle cx="64" cy="120" r="1.2" fill="#fff"/><circle cx="210" cy="96" r="1" fill="#fff"/><circle cx="160" cy="140" r="1.1" fill="#fff" opacity=".8"/><circle cx="40" cy="180" r=".9" fill="#fff" opacity=".7"/>' : ''}
+  <g clip-path="url(#ab${id})"><g transform="translate(0 ${eve ? 22 : 0})"><circle cx="150" cy="${HORIZON - 6}" r="44" fill="#fde4d8" opacity="${eve ? 0.25 : 0.6}"/><circle cx="150" cy="${HORIZON - 6}" r="30" fill="url(#su${id})" stroke="#f1946f" stroke-width="1.5"/></g></g>
+  <path d="M0 ${HORIZON - 14} C 40 ${HORIZON - 30}, 80 ${HORIZON - 26}, 110 ${HORIZON - 8} C 130 ${HORIZON + 2}, 170 ${HORIZON + 2}, 190 ${HORIZON - 10} C 220 ${HORIZON - 30}, 255 ${HORIZON - 26}, 280 ${HORIZON - 16} L 280 ${HORIZON + 6} L 0 ${HORIZON + 6} Z" fill="${eve ? '#4a5a6c' : '#c4e3d6'}"/>
+  ${pines(eve ? '#3d4b5b' : '#9ccbb9')}
+  <rect x="0" y="${HORIZON}" width="${W}" height="${H - HORIZON}" fill="url(#gr${id})"/>
+  <polygon points="${poly(0, 1, 1.22)}" fill="${eve ? '#8a96a0' : '#dfe6e1'}"/>
+  <polygon points="${poly(0, 1)}" fill="url(#as${id})"/>
+  <polyline points="${line(edge(-1, 0, 0.97, 0.9))}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".9"/>
+  <polyline points="${line(edge(1, 0, 0.97, 0.9))}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".9"/>
+  ${dashes(doneTo, 0.97)}
+  ${doneTo > 0 ? `${solid(doneTo)}<polyline points="${line(edge(-1, 0, doneTo, 0.9))}" fill="none" stroke="#8ce6cb" stroke-width="2.2"/><polyline points="${line(edge(1, 0, doneTo, 0.9))}" fill="none" stroke="#8ce6cb" stroke-width="2.2"/>` : ''}
+</svg>`
+  }
+  const STOPS = [
+    { t: 0.3, n: 'Numbers and paying', side: 1, i: 4 },
+    { t: 0.46, n: 'Getting around', side: -1, i: 5 },
+    { t: 0.59, n: 'Small talk', side: 1, i: 6 },
+    { t: 0.7, n: 'Asking for help', side: -1, i: 7 },
+    { t: 0.78, n: 'Making a plan', side: 1, i: 8 },
+  ]
+  const sign = (s, state) => {
+    const sc = 1 - s.t * 0.5,
+      pole = 30 * sc + 4
+    const x = Math.min(204, Math.max(62, xAt(s.t) + s.side * (wAt(s.t) * 0.61 + 34 * sc))),
+      y = yAt(s.t)
+    const num = state === 'done' ? '✓' : state === 'cur' ? s.i : ''
+    return `<div class="sign ${state}" style="left:${f(x)}px;top:${f(y)}px;transform:translate(-50%,-100%) scale(${sc.toFixed(2)})"><span class="board">${num ? `<span class="num">${num}</span>` : ''}${s.n}</span><span class="pole" style="height:${f(pole)}px"></span><span class="foot"></span></div>`
+  }
+  const you = (t) =>
+    `<span class="you" style="left:${f(xAt(t))}px;top:${f(yAt(t))}px"><span class="ringp"></span><span class="dot"></span></span>`
+  const goal = (eve) =>
+    `<span class="goal ${eve ? 'eve' : ''}" style="top:${HORIZON - 92}px"><b>A1</b><span>Everyday Finnish</span></span>`
+  const prog = (n) =>
+    `<span class="prog">${Array.from({ length: 12 }, (_, i) => `<i class="${i < n ? 'f' : ''}"></i>`).join('')}</span>`
+  const road = (
+    states,
+    doneTo,
+    youT,
+    card,
+    eve,
+  ) => `<div class="scene">${land(doneTo, eve)}${goal(eve)}${STOPS.map((s, i) => sign(s, states[i])).join('')}${you(youT)}</div>
+  <div class="topbar">${prog(1)}<span class="av">A</span></div>${card}`
+
+  const sections = [
+    {
+      h: 'The lesson',
+      p: 'One dialogue, step by step. The bar at the top fills as you go.',
+      screens: [
+        [
+          'Hear it, first time',
+          'The one-time tip sits under the card, then never shows again.',
+          ph(`<div class="body">${topBar(10, 'Hear it')}
+      <div style="height:4px"></div>${lineCard()}
+      <p class="hint">How much are those strawberries?</p><div class="grow"></div>
+      <div class="milk" style="padding:11px 13px;font-size:12px;display:flex;gap:10px;align-items:center"><span style="flex:1">Spoken Finnish on top, written under it. Tap any word.</span><span style="color:var(--a-deep);font-weight:500">Got it</span></div>
+      <span class="pill">Next line<i></i></span></div>`),
+        ],
+        [
+          'Word card',
+          'Tap a word. The sheet slides up over the lesson.',
+          ph(`<div class="body">${topBar(10, 'Hear it')}<div style="height:4px"></div>${lineCard({ s: 'Paljonks <span class="mk on">noi</span> mansikat maksaa?' })}</div>
+      <div class="dim"></div><div class="sheet"><span class="grab"></span>
+      <div class="word"><b>noi</b><span class="small">Close</span></div>
+      <dl class="facts"><dt>Means</dt><dd>those</dd><dt>Base form</dt><dd>tuo, that</dd><dt>Why</dt><dd>Spoken Finnish says noi for nuo.</dd></dl>
+      <div class="formrow"><div><small>Spoken</small><span>noi</span></div><span class="play"><i></i></span></div>
+      <div class="formrow w"><div><small>Written</small><span>nuo</span></div><span class="play w"><i></i></span></div></div>`),
+        ],
+        [
+          'Understand it',
+          'One question, three answers to tap.',
+          ph(`<div class="body">${topBar(38, 'Understand')}
+      <p class="title">What does Maria ask?</p>
+      <div class="milk" style="padding:14px;display:flex;align-items:center;gap:12px"><span class="play big"><i></i></span><span style="font-size:17px;font-weight:600">Voinks mä maksaa kortilla?</span></div>
+      <span class="milk choice">Can I pay in cash?</span>
+      <span class="milk choice on">Can I pay by card?<span class="tick"></span></span>
+      <span class="milk choice">Is there a card machine?</span>
+      <div class="grow"></div><span class="pill">Check<i></i></span></div>`),
+        ],
+        [
+          'Speaking, first time',
+          'Asked once, before the first recording. The full details sit behind one link.',
+          ph(`<div class="body">${topBar(52, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
+      <div class="dim"></div><div class="sheet"><span class="grab"></span>
+      <p class="title">Say it out loud</p>
+      <p style="margin:0;font-size:12.5px;color:var(--quiet)">Your voice is checked, then deleted.</p>
+      <span class="link" style="text-align:left">How it works</span>
+      <span class="pill">Turn on<i></i></span><span class="plain">Not now</span></div>`),
+        ],
+        [
+          'Say it',
+          'Listen, then tap and say the line.',
+          ph(`<div class="body">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+      <div class="grow"></div><div style="display:grid;justify-items:center;gap:26px"><span class="mic"></span><p class="hint">Tap and say the line</p></div>
+      <div class="grow"></div><span class="link">I can't speak right now</span></div>`),
+        ],
+        [
+          'Say it, listening',
+          'While you speak.',
+          ph(`<div class="body">${topBar(58, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+      <div class="grow"></div><div style="display:grid;justify-items:center;gap:18px"><span class="mic rec"></span>${waveBars(true)}<p class="hint">Listening</p></div>
+      <div class="grow"></div><span class="link">Stop</span></div>`),
+        ],
+        [
+          'Say it, clear',
+          'Your recording to play back.',
+          ph(`<div class="body">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+      <div class="milk result"><div class="head"><span class="tick"></span>That was clear.</div>${waveBars()}<div class="twobtn"><span>Play mine</span><span>Try again</span></div></div>
+      <div class="grow"></div><span class="pill">Next line<i></i></span></div>`),
+        ],
+        [
+          'Say it, try again',
+          'Gentle, never a red cross.',
+          ph(`<div class="body">${topBar(62, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}
+      <div class="soft-note"><span class="ring"></span>Listen once more, then try again.</div>
+      <div class="grow"></div><div style="display:grid;justify-items:center;gap:22px"><span class="mic"></span></div><div class="grow"></div>
+      <span class="pill off">Next line<i></i></span></div>`),
+        ],
+        [
+          'Keep it',
+          'A word you met before, typed from memory.',
+          ph(`<div class="body">${topBar(80, 'Keep it')}
+      <p class="title">Type the missing word</p>
+      ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="blank"></span>?', w: 'Voinko minä maksaa <span class="blank"></span>?', noplay: true })}
+      <div class="milk field">kort<span class="caret"></span></div>
+      <div class="keys"><span class="milk">ä</span><span class="milk">ö</span></div>
+      <div class="grow"></div><span class="pill">Check<i></i></span><span class="link">I don't remember</span></div>`),
+        ],
+        [
+          'Keep it, right',
+          '',
+          ph(`<div class="body">${topBar(84, 'Keep it')}
+      <p class="title">Type the missing word</p>
+      ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="mk">kortilla</span>?', w: 'Voinko minä maksaa <span class="mk">kortilla</span>?', noplay: true })}
+      <div class="milk field" style="border:1.5px solid var(--a);justify-content:space-between">kortilla<span class="tick"></span></div>
+      <div class="grow"></div><p class="hint">Right. Same in both.</p><span class="pill">Next<i></i></span></div>`),
+        ],
+        [
+          'Keep it, close',
+          'Nearly right counts as learning.',
+          ph(`<div class="body">${topBar(84, 'Keep it')}
+      <p class="title">Type the missing word</p>
+      ${lineCard({ who: 'Maria', s: 'Voinks mä maksaa <span class="mk">kortilla</span>?', w: 'Voinko minä maksaa <span class="mk">kortilla</span>?', noplay: true })}
+      <div class="milk field">kortila</div>
+      <div class="soft-note"><span class="ring"></span>Close. It has a double l: kortilla.</div>
+      <div class="grow"></div><span class="pill">Next<i></i></span></div>`),
+        ],
+        [
+          'Use it, with Otso',
+          'Later on the road. A short typed chat with the tutor, three turns.',
+          ph(`<div class="body">${topBar(92, 'Use it')}
+      <div class="chat" style="margin-top:6px">
+        <div class="bubble otso"><small>Otso</small>Moi! Mitä sulle?</div>
+        <div class="bubble me"><small>You</small>Kaks kahvii, kiitos.</div>
+        <div class="bubble otso"><small>Otso</small>Maidol vai ilman?</div>
+      </div>
+      <div class="grow"></div>
+      <div class="keys"><span class="milk">ä</span><span class="milk">ö</span></div>
+      <div class="milk compose"><span>Write your answer</span><i class="send"></i></div></div>`),
+        ],
+        [
+          'Leave the lesson?',
+          'Tapping the cross.',
+          ph(`<div class="body">${topBar(56, 'Say it')}<div style="height:4px"></div>${lineCard({ noplay: true })}</div>
+      <div class="dim"></div><div class="sheet"><span class="grab"></span>
+      <p class="title">Leave this lesson?</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">You can carry on later from here.</p>
+      <span class="pill">Keep going<i></i></span><span class="plain">Leave</span></div>`),
+        ],
+        [
+          'Lesson finished',
+          'With the save note, for guests only.',
+          ph(`<div class="body" style="padding-top:10px">
+      <span class="done-orb"></span><p class="big">Now you can say this.</p>
+      <div class="milk" style="padding:11px 13px;text-align:center"><div style="font-size:16px;font-weight:600">Voinks mä maksaa kortilla?</div><div class="small">Can I pay by card?</div></div>
+      <div class="gain"><div class="milk"><b class="warm">+11</b><span>new words</span></div><div class="milk"><b>8</b><span>lines said aloud</span></div></div>
+      <div class="grow"></div>
+      <div class="milk" style="padding:11px 13px;display:grid;gap:8px;font-size:12px"><span>Add your email to save your progress.</span><span class="plain">Add your email</span></div>
+      <span class="pill">Done<i></i></span><span class="hint">Saved on this device.</span></div>`),
+        ],
+        [
+          'Stop finished',
+          'After the last lesson of a stop. The next sign lights up on the road.',
+          ph(
+            road(
+              ['done', 'next', 'later', 'later', 'later'],
+              0.32,
+              0.3,
+              `<div class="card"><div class="t"><div><b>Numbers and paying, done</b><small>You can ask what things cost and pay.</small></div><span class="badge">4</span></div>
+       <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px"><span>Next stop</span><b style="color:var(--b-deep);font-weight:600">Getting around</b></div>
+       <span class="pill">Continue<i></i></span></div>`,
+            ),
+          ),
+        ],
+      ],
+    },
+    {
+      h: 'The journey, other days',
+      p: 'The road screen also covers the days with only review, and the evening when today is done.',
+      screens: [
+        [
+          'Review waiting',
+          'No new lesson today, only words coming back.',
+          ph(
+            road(
+              ['cur', 'later', 'later', 'later', 'later'],
+              0,
+              0.27,
+              `<div class="card"><div class="t"><div><b>Review</b><small>About 4 minutes</small></div><span class="badge warm">14</span></div>
+       <span class="pill">Start review<i></i></span></div>`,
+            ),
+          ),
+        ],
+        [
+          'Done for today',
+          "The sky turns to evening. Tomorrow's lesson waits.",
+          ph(
+            road(
+              ['cur', 'later', 'later', 'later', 'later'],
+              0,
+              0.27,
+              `<div class="card"><div class="t"><div><b>Done for today</b><small>Next lesson tomorrow</small></div><span class="badge">✓</span></div></div>`,
+              true,
+            ),
+          ),
+        ],
+      ],
+    },
+    {
+      h: 'Account',
+      p: 'Behind the round button in the corner of the road.',
+      screens: [
+        [
+          'Your account, guest',
+          '',
+          ph(`<div class="body">${backBar('Your account')}
+      <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">Guest</b><div class="small">Saved on this device only</div></div></div>
+      <span class="pill">Add your email<i></i></span>
+      <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div></div>
+      <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my account</div></div>`),
+        ],
+        [
+          'Your account, signed in',
+          '',
+          ph(`<div class="body">${backBar('Your account')}
+      <div class="milk who-card"><span class="face">A</span><div><b style="font-weight:500;font-size:14px">alex@example.com</b><div class="small">Progress on all your devices</div></div></div>
+      <div class="items"><div class="milk item">Voice settings<span class="chev"></span></div><div class="milk item">Download my data<span class="chev"></span></div><div class="milk item">Privacy notice<span class="chev"></span></div><div class="milk item">Send feedback<span class="chev"></span></div><div class="milk item">Sign out<span class="chev"></span></div></div>
+      <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my account</div></div>`),
+        ],
+        [
+          'Add your email',
+          'One field. No password, ever.',
+          ph(`<div class="body">${backBar('')}
+      <p class="title" style="margin-top:20px">Add your email</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">We send you a 6-digit code.</p>
+      <div class="milk field">alex@exa<span class="caret"></span></div>
+      <div class="grow"></div><span class="pill">Send code<i></i></span></div>`),
+        ],
+        [
+          'Enter the code',
+          '',
+          ph(`<div class="body">${backBar('')}
+      <p class="title" style="margin-top:20px">Enter the code</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Sent to alex@example.com</p>
+      <div class="boxes"><span class="milk">4</span><span class="milk">7</span><span class="milk">1</span><span class="milk on">9</span><span class="milk"></span><span class="milk"></span></div>
+      <span class="link">Send a new code</span><div class="grow"></div><span class="pill off">Confirm<i></i></span></div>`),
+        ],
+        [
+          'Sign in',
+          'For someone who already added an email.',
+          ph(`<div class="body">${backBar('')}
+      <p class="title" style="margin-top:20px">Welcome back</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Enter your email for a code.</p>
+      <div class="milk field ph">Your email</div>
+      <div class="grow"></div><span class="pill">Send code<i></i></span><span class="link">Start as a guest instead</span></div>`),
+        ],
+        [
+          'Voice settings',
+          '',
+          ph(`<div class="body">${backBar('Voice settings')}
+      <div class="items" style="margin-top:8px"><div class="milk item"><span>Speaking feedback</span><span class="toggle"></span></div>
+      <div class="milk item"><span>Keep my recordings<br><span class="small">So I can hear my progress. 90 days.</span></span><span class="toggle offt"></span></div></div>
+      <div class="grow"></div><div class="milk item warn" style="justify-content:center">Delete my recordings</div></div>`),
+        ],
+        [
+          'Download my data',
+          '',
+          ph(`<div class="body">${backBar('Download my data')}
+      <div class="grow"></div><div style="display:grid;justify-items:center;gap:12px;text-align:center"><span class="done-orb" style="width:74px;height:74px"></span><p class="title">Your file is ready</p><p class="hint">Everything we keep about you, in one file.</p></div>
+      <div class="grow"></div><span class="pill">Download<i></i></span></div>`),
+        ],
+        [
+          'Delete my account',
+          'A second step before anything is deleted.',
+          ph(`<div class="body">${backBar('Your account')}</div>
+      <div class="dim"></div><div class="sheet"><span class="grab"></span>
+      <p class="title">Delete your account?</p><p style="margin:0;font-size:12.5px;color:var(--quiet)">Your progress and recordings are deleted for good.</p>
+      <span class="plain" style="background:var(--b);color:#fff;border-color:var(--b)">Delete for good</span><span class="plain">Keep my account</span></div>`),
+        ],
+        [
+          'Privacy notice',
+          'Short sections that open on tap, instead of one long page.',
+          ph(`<div class="body">${backBar('Privacy notice')}
+      <div class="acc">
+        <div class="milk open"><b>What we keep</b><p>Your progress, a random guest id or your email, and your settings. Never your name.</p></div>
+        <div class="milk item">Your voice<span class="chev"></span></div>
+        <div class="milk item">How long we keep it<span class="chev"></span></div>
+        <div class="milk item">Your rights<span class="chev"></span></div>
+        <div class="milk item">Who is responsible<span class="chev"></span></div>
+      </div><div class="grow"></div><p class="hint">Updated 1 November 2026</p></div>`),
+        ],
+        [
+          'Send feedback',
+          '',
+          ph(`<div class="body">${backBar('Send feedback')}
+      <p class="title" style="margin-top:8px">What should we know?</p>
+      <div class="milk area">What worked, what didn't, what broke.</div>
+      <div class="grow"></div><span class="pill">Send<i></i></span></div>`),
+        ],
+      ],
+    },
+    {
+      h: 'When things go wrong',
+      p: 'Calm, one line, one way forward.',
+      screens: [
+        [
+          'Opening',
+          'While the app loads.',
+          ph(
+            `<div class="body center" style="gap:16px"><svg class="mark" viewBox="8 8 84 84" aria-hidden="true"><rect x="8" y="8" width="84" height="84" rx="26" fill="#23917a"/><path d="M50 78 L50 50" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M50 62 C 50 45 37 39 23 41 C 25 58 40 65 50 62 Z" fill="#fff"/><path d="M50 55 C 50 41 63 36 77 38 C 75 53 60 59 50 55 Z" fill="#d6efe7"/></svg><span class="dots3"><i></i><i></i><i></i></span></div>`,
+          ),
+        ],
+        [
+          'No internet',
+          '',
+          ph(
+            `<div class="body center" style="gap:14px"><span class="cloud"><span class="slash"></span></span><p class="title">No connection</p><p class="hint">Your progress is safe. Try again when you're online.</p><div style="width:100%;margin-top:20px"><span class="pill">Try again<i></i></span></div></div>`,
+          ),
+        ],
+        [
+          'Something went wrong',
+          '',
+          ph(
+            `<div class="body center" style="gap:14px"><span style="width:64px;height:64px;border-radius:50%;background:var(--b-soft);border:2px solid var(--b);display:grid;place-items:center;font-size:28px;font-weight:600;color:var(--b-deep)">!</span><p class="title">Something went wrong</p><p class="hint">We've been told about it.</p><div style="width:100%;margin-top:20px"><span class="pill">Reload<i></i></span></div></div>`,
+          ),
+        ],
+      ],
+    },
+  ]
+
+  document.getElementById('out').outerHTML = sections
+    .map(
+      (sec) => `
+  <section><h2>${sec.h}</h2><p>${sec.p}</p>
+    <div class="row">${sec.screens.map(([n, c, html]) => `<figure>${html}<figcaption><b>${n}</b>${c}</figcaption></figure>`).join('')}</div>
+  </section>`,
+    )
+    .join('')
+</script>
