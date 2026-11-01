@@ -8,7 +8,7 @@ The locked design system for PuhuScribe v3, from job 5-design-system (`factory/j
 
 ## Redesign under way (owner, 1 November 2026)
 
-All building is paused while every screen is redesigned. Until the new screens are approved and this file is rewritten from them, these rules from the owner win over anything below:
+The owner approved every v1 screen on 1 November 2026: `design-drafts/v1-screens.html`, `design-drafts/road-journey.html` and the opening animation inside it. They are the source of truth for the look until this file is rewritten from them in the redesign build. These rules from the owner win over anything below:
 
 - The soft, milky look of the owner's reference (`design-drafts/reference-soft-gym-app.jpg`): a colour wash behind each screen, milky white panels, light type, lots of space.
 - Mint green and peach. Mint for everything you tap and for spoken Finnish; slate blue (#4f6d94) for written Finnish; peach only for the words that change between spoken and written.
