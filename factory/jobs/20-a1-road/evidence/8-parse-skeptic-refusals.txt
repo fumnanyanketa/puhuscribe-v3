@@ -1,0 +1,7 @@
+CONTROL unchanged (earlier drafts not passed, so 3-per-stop check relaxed?): ACCEPTED (36 stops)
+EMPTY CELL in part-2 row: REFUSED RoadParseError: content/written/part-2.md, stop 7, dialogue 7.2, line 3 (file line 32): the spoken text is empty
+STRAY PIPE in part-3 row: REFUSED RoadParseError: content/written/part-3.md, stop 13, dialogue 13.1, line 6 (file line 20): 7 cells instead of 5, probably a stray pipe
+LINE ORDER swapped in part-4: REFUSED RoadParseError: content/written/part-4.md, stop 19, dialogue 19.1, line 4 (file line 18): the line number is '5', expected 4
+MISSING **I can:** in part-5: REFUSED RoadParseError: content/written/part-5.md, stop 25: the **I can:** line is missing
+DIALOGUE with 7 lines in part-6: REFUSED RoadParseError: content/written/part-6.md, stop 31, dialogue 31.1: 7 lines instead of 8
+SCRIPT TAG in a cell (should be accepted as plain text and escaped when shown): ACCEPTED (36 stops)
