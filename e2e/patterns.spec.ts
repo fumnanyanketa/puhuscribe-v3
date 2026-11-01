@@ -1,5 +1,6 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Locator, type Page } from '@playwright/test'
+import { type Locator, type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import {

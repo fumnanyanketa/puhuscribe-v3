@@ -1,5 +1,6 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page, type Request } from '@playwright/test'
+import { type Page, type Request } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { finishTodaysSession, startGuest } from './account-helpers.ts'
 import { one, sql } from './db.ts'
 import { dayLater, finishEveryOtherDialogue, typeAnswer } from './review-helpers.ts'

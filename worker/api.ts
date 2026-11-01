@@ -210,10 +210,15 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
     if (pick.kind === 'all_done') {
       // No new dialogue: a review only session when something is reviewable,
       // otherwise the day of the next review (statements 4 and 5).
-      if ((await reviewItems(db, reviewDb)).length > 0) {
+      const due = await reviewItems(db, reviewDb)
+      if (due.length > 0) {
+        const open = openReviewSession(await db.mySessions())
+        // The review card on the road shows how many words are waiting and
+        // about how long it takes (job 19-redesign, owner's call 7, 1 November 2026).
         return answer({
           signedIn: true,
-          today: openReviewSession(await db.mySessions()) ? 'continue' : 'review',
+          today: open ? 'continue' : 'review',
+          ...(open ? {} : { reviewCount: due.length }),
         })
       }
       const nextReview = await reviewDb.nextReviewDay()

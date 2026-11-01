@@ -1,0 +1,44 @@
+/* The "No connection" screen (design.md, "Errors"). Values from src/styles/tokens.css. */
+
+.screen {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  place-items: center;
+  padding: var(--space-6) var(--space-5);
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.cloud {
+  width: 72px;
+  height: 72px;
+  fill: none;
+  stroke: var(--color-text-quiet);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+}
+
+.text {
+  max-width: 24ch;
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}

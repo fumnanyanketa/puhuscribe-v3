@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react'
 import styles from './Button.module.css'
 
 // The app's buttons (design.md, "Buttons"). Primary is the flat mint pill with
@@ -22,6 +22,8 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'chi
   block?: boolean
   /** The small arrow circle of the primary pill. On unless turned off. */
   arrow?: boolean
+  /** The button element, for moving focus to it (React 19 passes ref as a prop). */
+  ref?: Ref<HTMLButtonElement>
   /** Reference page only: shows the hover or pressed look without a pointer. */
   showState?: 'hover' | 'pressed'
 }

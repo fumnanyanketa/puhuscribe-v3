@@ -71,7 +71,7 @@ describe('a normal build', () => {
     expect(client.some((file) => file.endsWith('.js'))).toBe(true)
   })
 
-  it('[design 16] holds none of the design pages, their code or their samples', () => {
+  it('[design 16] [redesign 19] holds none of the design pages, their code or their samples, nor the road fixture', () => {
     const found: string[] = []
     for (const file of client) {
       const text = readFileSync(file, 'utf8')

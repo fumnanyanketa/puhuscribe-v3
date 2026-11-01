@@ -159,6 +159,10 @@
   --land-trail: #ffffff;
   --land-line-white: #ffffff;
   --land-travelled: #8ce6cb;
+  --land-pole: #8b9793;
+  --land-ink: #1b2a26;
+  --land-sign-shadow: #1e322d29;
+  --land-you-shadow: #145a4659;
   --land-star: #ffffff;
   --land-star-opacity: 0;
   --land-snow-opacity: 0.95;
@@ -252,6 +256,7 @@
   --motion-ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
   --motion-fade: 600ms; /* the crossfade that replaces the opening animation */
   --motion-intro: 4500ms; /* the opening animation */
+  --motion-stagger: 0.2s; /* between the three loading dots */
 }
 
 /* The evening set of the landscape (Done for today, and the end of the road). */
@@ -274,6 +279,7 @@
   --land-halo-opacity: 0.25;
   --land-star-opacity: 1;
   --land-sun-drop: 22px;
+  --land-ink: #f1f6f4;
 }
 
 /* Dims the page behind a sheet. Declared on ::backdrop itself, because

@@ -119,32 +119,36 @@ export const FELLS = {
 } as const
 
 /**
- * The positions of the five signs, from the nearest to the farthest. The
- * nearest is the lowest on the screen; each is placed on alternate sides of the
- * road. `lowest` is the lowest scene height a sign may stand at, so the card
- * at the bottom never covers one.
+ * The positions of the signs, from the nearest to the farthest, each on the
+ * other side of the road from the one before. `lowest` is the lowest scene
+ * height a sign's foot may stand at, so the card at the bottom never covers
+ * one; the farthest stands just below the sun. The spacing is almost even in
+ * height, so signs never crowd each other on a short phone.
  */
 export interface SignSpot {
   /** Centre of the sign's foot, in scene units. */
   x: number
   y: number
+  /** Where on the road the sign stands (0 at the bottom, 1 at the horizon). */
+  t: number
   /** Share of full size, kept high enough that its text stays at 12 px or more. */
   scale: number
   side: -1 | 1
 }
 
 export function signSpots(count: number, lowest: number, firstSide: -1 | 1 = 1): SignSpot[] {
-  const nearest = tAtY(Math.min(lowest, 560))
-  const farthest = 0.72
+  const bottom = Math.min(Math.max(lowest, HORIZON + 40), 560)
+  // Far signs stand just below the sun when there is room, and higher when there is not.
+  const top = Math.min(HORIZON + 46, bottom - 56)
   const spots: SignSpot[] = []
   for (let i = 0; i < count; i++) {
     const share = count === 1 ? 0 : i / (count - 1)
-    // Nearer signs are further apart: the road is in perspective.
-    const t = nearest + (farthest - nearest) * Math.pow(share, 0.85)
+    const y = bottom - (bottom - top) * Math.pow(share, 0.9)
+    const t = tAtY(y)
     const side = (i % 2 === 0 ? firstSide : -firstSide) as -1 | 1
-    const scale = 1 - share * 0.07
-    const x = Math.min(205, Math.max(70, xAt(t) + side * (wAt(t) * 0.55 + 40)))
-    spots.push({ x, y: yAt(t), scale, side })
+    const scale = 1 - share * 0.06
+    const x = Math.min(194, Math.max(86, xAt(t) + side * (wAt(t) * 0.55 + 38)))
+    spots.push({ x, y, t, scale, side })
   }
   return spots
 }

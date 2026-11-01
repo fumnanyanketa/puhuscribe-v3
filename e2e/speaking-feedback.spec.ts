@@ -1,5 +1,6 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import { microphoneCalls, microphoneReleased, stubMicrophone, useSpeechFixture } from './microphone.ts'
 import {

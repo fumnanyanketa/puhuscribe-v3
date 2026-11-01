@@ -21,7 +21,9 @@ import styles from './Landscape.module.css'
 //
 // Two uses. The band sits behind the top of every screen except the road and
 // fades into the wash (the fade is drawn inside the SVG, because CSS gradients
-// are refused). The road scene (RoadScene) is the home screen's picture.
+// are refused). The road scene is the home screen's picture, in two layers of
+// the same 280 x 620 box: the backdrop (sky, fells, sun, ridge, ground) and the
+// road on top, so the opening animation can draw the road on its own.
 
 const fill = (name: string, opacity?: string): CSSProperties => ({
   fill: `var(--land-${name})`,
@@ -92,22 +94,30 @@ export function Landscape({ className }: { className?: string }) {
   )
 }
 
-interface RoadSceneProps {
-  /** How far up the road the learner has travelled (0 to 1), for the mint centre line. */
-  travelledTo: number
+interface RoadPartProps {
   /** The evening set, for Done for today. */
   evening?: boolean
+  /** Lets the road screen animate this layer (the opening animation). */
+  className?: string
+  /** Lets the road screen animate the sun's rise. */
+  sunClassName?: string
 }
 
-/** The road, the fells, the pine ridge and the A1 sun, in the 280 x 620 box. */
-export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
+const SCENE_BOX = `0 0 ${String(SCENE_WIDTH)} ${String(SCENE_HEIGHT)}`
+
+/**
+ * The sky, the fells, the A1 sun, the pine ridge and the ground, in the 280 x
+ * 620 box. The road is drawn on top of it by RoadWay, a second layer with the
+ * same box.
+ */
+export function RoadBackdrop({ evening = false, className, sunClassName }: RoadPartProps) {
   const id = useId().replace(/\W/g, '')
   const horizon = HORIZON
-  const doneTo = Math.max(0, Math.min(0.97, travelledTo))
+  const h = (offset: number) => String(horizon + offset)
   return (
     <svg
-      className={styles.scene}
-      viewBox={`0 0 ${String(SCENE_WIDTH)} ${String(SCENE_HEIGHT)}`}
+      className={className ? `${styles.scene} ${className}` : styles.scene}
+      viewBox={SCENE_BOX}
       preserveAspectRatio="none"
       aria-hidden="true"
       focusable="false"
@@ -123,11 +133,6 @@ export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
           <stop offset="0" style={stop('ground-top')} />
           <stop offset=".45" style={stop('ground-middle')} />
           <stop offset="1" style={stop('ground-bottom')} />
-        </linearGradient>
-        <linearGradient id={`${id}asphalt`} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" style={stop('asphalt-near')} />
-          <stop offset=".6" style={stop('asphalt-middle')} />
-          <stop offset="1" style={stop('asphalt-far')} />
         </linearGradient>
         <radialGradient id={`${id}sun`} cx=".5" cy=".45" r=".55">
           <stop offset="0" style={stop('sun-core')} />
@@ -146,23 +151,23 @@ export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
         <circle cx="40" cy="180" r=".9" />
       </g>
       <path
-        d={`M66 ${String(horizon)} C 104 ${String(horizon - 52)}, 136 ${String(horizon - 92)}, 160 ${String(horizon - 94)} C 184 ${String(horizon - 92)}, 216 ${String(horizon - 52)}, 254 ${String(horizon)} Z`}
+        d={`M66 ${h(0)} C 104 ${h(-52)}, 136 ${h(-92)}, 160 ${h(-94)} C 184 ${h(-92)}, 216 ${h(-52)}, 254 ${h(0)} Z`}
         style={fill('fell-far')}
       />
       <path
-        d={`M146 ${String(horizon - 86)} C 152 ${String(horizon - 93)}, 168 ${String(horizon - 93)}, 174 ${String(horizon - 86)} C 168 ${String(horizon - 83)}, 164 ${String(horizon - 86)}, 160 ${String(horizon - 82)} C 156 ${String(horizon - 86)}, 151 ${String(horizon - 83)}, 146 ${String(horizon - 86)} Z`}
+        d={`M146 ${h(-86)} C 152 ${h(-93)}, 168 ${h(-93)}, 174 ${h(-86)} C 168 ${h(-83)}, 164 ${h(-86)}, 160 ${h(-82)} C 156 ${h(-86)}, 151 ${h(-83)}, 146 ${h(-86)} Z`}
         style={fill('snow', 'snow-opacity')}
       />
       <path
-        d={`M-4 ${String(horizon)} C 30 ${String(horizon - 42)}, 62 ${String(horizon - 70)}, 86 ${String(horizon - 72)} C 110 ${String(horizon - 70)}, 140 ${String(horizon - 42)}, 172 ${String(horizon)} Z`}
+        d={`M-4 ${h(0)} C 30 ${h(-42)}, 62 ${h(-70)}, 86 ${h(-72)} C 110 ${h(-70)}, 140 ${h(-42)}, 172 ${h(0)} Z`}
         style={fill('fell-left')}
       />
       <path
-        d={`M156 ${String(horizon)} C 182 ${String(horizon - 30)}, 204 ${String(horizon - 50)}, 222 ${String(horizon - 52)} C 240 ${String(horizon - 50)}, 262 ${String(horizon - 30)}, 288 ${String(horizon)} Z`}
+        d={`M156 ${h(0)} C 182 ${h(-30)}, 204 ${h(-50)}, 222 ${h(-52)} C 240 ${h(-50)}, 262 ${h(-30)}, 288 ${h(0)} Z`}
         style={fill('fell-right')}
       />
       <path
-        d={`M150 ${String(horizon - 34)} C 175 ${String(horizon - 38)}, 208 ${String(horizon - 44)}, 222 ${String(horizon - 51)} C 186 ${String(horizon - 58)}, 118 ${String(horizon - 60)}, 86 ${String(horizon - 71)} C 108 ${String(horizon - 80)}, 146 ${String(horizon - 86)}, 160 ${String(horizon - 93)}`}
+        d={`M150 ${h(-34)} C 175 ${h(-38)}, 208 ${h(-44)}, 222 ${h(-51)} C 186 ${h(-58)}, 118 ${h(-60)}, 86 ${h(-71)} C 108 ${h(-80)}, 146 ${h(-86)}, 160 ${h(-93)}`}
         fill="none"
         strokeWidth="2"
         strokeDasharray="2 4"
@@ -170,36 +175,38 @@ export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
         style={strokeOf('trail', 'trail-opacity')}
       />
       <g clipPath={`url(#${id}above)`}>
-        <g className={styles.sun}>
-          <circle
-            cx="150"
-            cy={horizon - 6}
-            r="44"
-            style={{ ...fill('sun-halo'), fillOpacity: 'var(--land-halo-opacity)' }}
-          />
-          <circle
-            cx="150"
-            cy={horizon - 6}
-            r="30"
-            fill={`url(#${id}sun)`}
-            strokeWidth="1.5"
-            style={strokeOf('sun-ring')}
-          />
-          <text
-            x="150"
-            y={horizon - 12}
-            textAnchor="middle"
-            fontFamily="Poppins, sans-serif"
-            fontSize="12"
-            fontWeight="600"
-            style={fill('sun-text')}
-          >
-            A1
-          </text>
+        <g className={styles.sunDrop}>
+          <g className={sunClassName}>
+            <circle
+              cx="150"
+              cy={horizon - 6}
+              r="44"
+              style={{ ...fill('sun-halo'), fillOpacity: 'var(--land-halo-opacity)' }}
+            />
+            <circle
+              cx="150"
+              cy={horizon - 6}
+              r="30"
+              fill={`url(#${id}sun)`}
+              strokeWidth="1.5"
+              style={strokeOf('sun-ring')}
+            />
+            <text
+              x="150"
+              y={horizon - 12}
+              textAnchor="middle"
+              fontFamily="Poppins, sans-serif"
+              fontSize="12"
+              fontWeight="600"
+              style={fill('sun-text')}
+            >
+              A1
+            </text>
+          </g>
         </g>
       </g>
       <path
-        d={`M0 ${String(horizon - 14)} C 40 ${String(horizon - 30)}, 80 ${String(horizon - 26)}, 110 ${String(horizon - 8)} C 130 ${String(horizon + 2)}, 170 ${String(horizon + 2)}, 190 ${String(horizon - 10)} C 220 ${String(horizon - 30)}, 255 ${String(horizon - 26)}, 280 ${String(horizon - 16)} L 280 ${String(horizon + 6)} L 0 ${String(horizon + 6)} Z`}
+        d={`M0 ${h(-14)} C 40 ${h(-30)}, 80 ${h(-26)}, 110 ${h(-8)} C 130 ${h(2)}, 170 ${h(2)}, 190 ${h(-10)} C 220 ${h(-30)}, 255 ${h(-26)}, 280 ${h(-16)} L 280 ${h(6)} L 0 ${h(6)} Z`}
         style={fill('ridge')}
       />
       <g style={fill('pine')}>
@@ -214,6 +221,35 @@ export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
         height={SCENE_HEIGHT - horizon}
         fill={`url(#${id}ground)`}
       />
+    </svg>
+  )
+}
+
+interface RoadWayProps extends RoadPartProps {
+  /** How far up the road the learner has travelled (0 to 1), for the mint centre line. */
+  travelledTo: number
+}
+
+/** The road winding to the sun: verge, asphalt, edge lines, dashes, and the mint travelled stretch. */
+export function RoadWay({ travelledTo, evening = false, className }: RoadWayProps) {
+  const id = useId().replace(/\W/g, '')
+  const doneTo = Math.max(0, Math.min(0.97, travelledTo))
+  return (
+    <svg
+      className={className ? `${styles.scene} ${className}` : styles.scene}
+      viewBox={SCENE_BOX}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+      data-land={evening ? 'evening' : undefined}
+    >
+      <defs>
+        <linearGradient id={`${id}asphalt`} x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0" style={stop('asphalt-near')} />
+          <stop offset=".6" style={stop('asphalt-middle')} />
+          <stop offset="1" style={stop('asphalt-far')} />
+        </linearGradient>
+      </defs>
       <polygon points={roadPolygon(0, 1, 1.22)} style={fill('verge')} />
       <polygon points={roadPolygon(0, 1)} fill={`url(#${id}asphalt)`} />
       <polyline
@@ -257,6 +293,21 @@ export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
         </g>
       )}
     </svg>
+  )
+}
+
+interface RoadSceneProps {
+  travelledTo: number
+  evening?: boolean
+}
+
+/** The whole picture in one box, as the reference page shows it. */
+export function RoadScene({ travelledTo, evening = false }: RoadSceneProps) {
+  return (
+    <div className={styles.sceneBox}>
+      <RoadBackdrop evening={evening} />
+      <RoadWay travelledTo={travelledTo} evening={evening} className={styles.layer} />
+    </div>
   )
 }
 

@@ -28,6 +28,21 @@
   height: 100%;
 }
 
-.sun {
+.sunDrop {
   transform: translateY(var(--land-sun-drop));
+}
+
+/* The reference page's picture: the box keeps the 280 x 620 shape, and the road
+   layer lies on top of the backdrop. */
+.sceneBox {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+  aspect-ratio: 280 / 620;
+}
+
+.sceneBox > svg,
+.layer {
+  position: absolute;
+  inset: 0;
 }

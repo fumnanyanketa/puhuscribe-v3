@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { USER_TABLE_NAMES } from '../src/privacy/data-inventory.ts'
 import {
   addEmail,

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { isGuestPost, recordRequests, scrollsSideways } from './session-helpers.ts'
 

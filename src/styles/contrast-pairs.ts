@@ -85,6 +85,8 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   },
   { fore: '--color-mint-deep', back: '--color-panel', min: 4.5, use: 'mint text on a panel' },
   { fore: '--color-mint-deep', back: '--color-mint-soft', min: 4.5, use: 'mint text on a soft mint fill' },
+  { fore: '--color-peach-deep', back: '--color-surface', min: 4.5, use: 'the name on the next sign' },
+  { fore: '--color-peach-deep', back: '--color-panel', min: 4.5, use: 'the next stop name on the card' },
   { fore: '--color-button-text', back: '--color-button', min: 4.5, use: 'text on the mint pill' },
   { fore: '--color-mint-deep', back: '--color-button-secondary', min: 4.5, use: 'text on the white pill' },
   { fore: '--color-danger-text', back: '--color-danger', min: 4.5, use: 'text on the delete pill' },

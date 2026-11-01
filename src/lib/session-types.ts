@@ -82,6 +82,8 @@ export type FrontDoorAnswer =
       review?: true
       /** With "all_done", when the learner has cards: today's Helsinki date and the next review day. */
       nextReview?: NextReview
+      /** With "review": how many words wait. The review card on the road shows it (job 19-redesign, owner's call 7). */
+      reviewCount?: number
     }
 
 /**

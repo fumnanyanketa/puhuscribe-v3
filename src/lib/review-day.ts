@@ -51,3 +51,18 @@ export function nextReviewSentence(today: string, day: string): string | null {
   const month = MONTHS[at.getUTCMonth()] ?? ''
   return `Your next review is on ${weekday} ${String(at.getUTCDate())} ${month}.`
 }
+
+/**
+ * "About 4 minutes", worked out by a fixed rule and never measured: 18 seconds
+ * a word, rounded to whole minutes, at least one (job 19-redesign, owner's
+ * call 7, 1 November 2026). The review card on the road shows it.
+ */
+export function reviewMinutes(count: number): number {
+  return Math.max(1, Math.round((count * 18) / 60))
+}
+
+/** "About 4 minutes" or "About 1 minute". */
+export function reviewMinutesLine(count: number): string {
+  const minutes = reviewMinutes(count)
+  return `About ${String(minutes)} ${minutes === 1 ? 'minute' : 'minutes'}`
+}

@@ -164,6 +164,8 @@ Every pairing below is checked by `tests/design-tokens.test.ts`, which fails if 
 | `--color-mint-deep`         | `--color-surface`          | 4.5:1 | 6.0:1  | the "How it works" link and a sign number               |
 | `--color-mint-deep`         | `--color-panel`            | 4.5:1 | 5.9:1  | mint text on a panel                                    |
 | `--color-mint-deep`         | `--color-mint-soft`        | 4.5:1 | 5.0:1  | mint text on a soft mint fill                           |
+| `--color-peach-deep`        | `--color-surface`          | 4.5:1 | 4.9:1  | the name on the next sign                               |
+| `--color-peach-deep`        | `--color-panel`            | 4.5:1 | 4.8:1  | the next stop name on the card                          |
 | `--color-button-text`       | `--color-button`           | 4.5:1 | 4.5:1  | text on the mint pill                                   |
 | `--color-mint-deep`         | `--color-button-secondary` | 4.5:1 | 6.0:1  | text on the white pill                                  |
 | `--color-danger-text`       | `--color-danger`           | 4.5:1 | 4.9:1  | text on the delete pill                                 |
@@ -244,6 +246,24 @@ One status line per screen, with `role="status"` so screen readers announce it. 
 - **Neutral**: plain quiet text, for what is happening ("Saving your answer.").
 - **Gentle**: a rounded peach note with a small open circle, for the learner's attempts ("Close. Try the double k."). Never red, never an alarm word.
 - **Problem**: a square-cornered amber block with an edge all round and a filled square, for system faults only ("No connection. Check your internet, then try again."). A learner's mistake never uses it.
+
+### The road (`RoadScreen`, `RoadPicture`, `RoadCard`, `RoadTop`)
+
+The home screen. The wordmark header, "Today's session", the lead sentence, the can do line and the link list of the old front door are gone; the Voice settings, Privacy notice and Send feedback links live on the account page. One visually hidden `h1`, "Your road to A1".
+
+- **The scene.** Inline SVG in the 280 x 620 drawing box, in two layers (the backdrop, then the road) so the opening animation can draw the road on its own: the sky, the A1 sun low on the horizon with "A1" on it, three fells beyond it with summit flags and the real text labels A2, B1 and B2, a pine ridge, and the road winding in perspective toward the sun. The stretch the learner has travelled has a mint centre line. The box is 112 percent of the screen width and sits 56 px above the screen's top, so the sun is at the same height on every phone.
+- **Stops are signs.** Five at a time: the current stop, up to two before it, and the rest after it, shifted so five always show. A sign is a list item, a number and a name on a pole, never a button: tapping one does nothing. The five form one ordered list named "Stops on your road", and each item reads like "Stop 3, Grocery store, current". Four states: done (filled mint with a tick), current (ringed in mint, number in mint), next (a peach ring, only on the Stop finished card) and later (quiet). Names wrap, and the text never shrinks below 12 px. Names are text, never HTML.
+- **The "you" marker** is a white dot with a mint ring on the road at the current stop, with a slow pulse that stops under reduced motion.
+- **The top** holds only the progress bar (12 pieces, one per three stops, filled when all three are done) and the account button, a 44 px round named "Your account" that shows the first letter of the learner's email, a G for a guest, or a plain person mark.
+- **The card at the bottom** is one milky panel, by state. Day one: stop 1's name, "Stop 1, 4 short lessons", "Start", "Have an account? Sign in", and small, the protected guest line and "Privacy notice". Start or continue: the stop's name, "Stop 3, lesson 2 of 4", the lesson pieces and "Start" or "Continue". Review: "Review", "About 4 minutes" (a fixed rule of 18 seconds a word), the count and "Start review". Stop finished: the stop and its can do sentence, "Next stop" and the next name, "Continue". Done for today and the end of the road: the evening sky and no button. The existing messages show as one plain line in the same card.
+- **Small phones.** The signs are placed above the card whatever its height, so the card never covers the current sign or the marker. At 320 px wide and 200 percent text nothing scrolls sideways.
+- **Loading** shows the sprout mark on its mint tile and three fading dots, then the road. **No connection** shows a cloud with a slash, "No connection", "Your progress is safe. Check your internet connection, then try again." and "Try again" (the first sentence only where nothing waits to be saved).
+
+### The opening animation
+
+It plays when this device has no account, and never for a signed in learner. About 4.5 seconds, CSS only: the landscape fades in, the road is drawn from the bottom, the sun rises, the A2, B1 and B2 fells appear, the signs pop in with one approved spoken line as a speech bubble (only when the stop data has one), then the view moves in to stop 1 and the card rises. It ends on the day one road with stop 1 current. Nothing is stored, so a visitor who has not pressed Start sees it again on the next visit.
+
+"Skip" is a text button of at least 44 px, first in the tab order. It ends the animation at once and moves focus to "Start". Under reduced motion the animation is a crossfade of 600 ms or less from the empty landscape to the final screen, and nothing slides, scales or draws. Hidden parts use `visibility`, never `inert` (older Safari lacks it), so nothing hidden can be focused or tapped while it runs.
 
 ### Finnish line and word card (`FinnishLine`, `WordCard`)
 
