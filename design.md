@@ -11,7 +11,8 @@ The locked design system for PuhuScribe v3, from job 5-design-system (`factory/j
 All building is paused while every screen is redesigned. Until the new screens are approved and this file is rewritten from them, these rules from the owner win over anything below:
 
 - The soft, milky look of the owner's reference (`design-drafts/reference-soft-gym-app.jpg`): a colour wash behind each screen, milky white panels, light type, lots of space.
-- Mint green and peach. Mint for everything you tap and for spoken Finnish; peach only for the words that change between spoken and written.
+- Mint green and peach. Mint for everything you tap and for spoken Finnish; slate blue (#4f6d94) for written Finnish; peach only for the words that change between spoken and written.
+- The journey is a real road through a soft landscape to the A1 sun, with the A2, B1 and B2 fells beyond it (`design-drafts/road-journey.html`).
 - No mascot. The line card keeps its two dots joined by a dotted line.
 - As little text as possible: one short line per screen, smaller type than today.
 - The journey is the heart of the app, but it must not look like Duolingo's winding path of round nodes.
