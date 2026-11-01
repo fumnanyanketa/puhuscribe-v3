@@ -147,7 +147,7 @@ test(
     // Feedback from the finish screen.
     const message = `Journey feedback ${String(Date.now())}`
     await learner.getByRole('link', { name: 'Send feedback' }).click()
-    await learner.getByLabel('Your message').fill(message)
+    await learner.getByLabel('What should we know?').fill(message)
     await learner.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(learner.getByRole('status')).toHaveText('Thank you. Your message is sent.')
 
