@@ -711,6 +711,9 @@ def cmd_analyse(args, ctx: Context | None = None) -> int:
     ctx = ctx or Context(gate=VoikkoGate())
     for stop in ctx.data.stops.values():
         stop.rank_cap = 1_000_000
+    # Count against the curriculum's own lists, without the extras recorded earlier.
+    ctx.data.extras = {}
+    register_road_extras(Path("no-extras.json"))
     drafts = build_all(ctx)
     result: dict = {"stops": {}, "parts": {}}
     for slug in stop_order(drafts):
