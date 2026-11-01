@@ -18,3 +18,14 @@ Real shipped apps, checked on their App Store pages on 1 November 2026:
 - Praktika: store page not reached; its 4.0 redesign post is https://praktika.ai/blog/praktika-4-0
 
 None of the five was found showing a prominent "words learned" number with a stated definition, so PuhuScribe's count is our own design.
+
+- `draft-3.html`: the Today screen as a journey of the six units as real-life situations (PRD changed by the owner, 1 November 2026), in three one-colour palettes (lavender, lake blue, birch-forest green), each soft with no glass and with glass only on the top and bottom bars. Published at https://claude.ai/artifact/BpN2PPPXC8tRtf5mA5YxkR
+
+## Glass and journey references (1 November 2026)
+
+- Apple Human Interface Guidelines, Materials: glass only on controls and navigation, never on the content layer, used sparingly. https://developer.apple.com/design/human-interface-guidelines/materials
+- WWDC25 "Meet Liquid Glass": no glass on glass, tint only the one main action, design a fallback for Reduce Transparency. https://developer.apple.com/videos/play/wwdc2025/219/
+- Speak's December 2025 home path: one colour, one pulsing "next" marker, stops fill as they are finished. https://help.speak.com/en/articles/11430473-explore-your-new-home-screen
+- Duolingo's path (2022, still current): one route, tap a locked stop to see why. https://blog.duolingo.com/new-duolingo-home-screen-design
+- Transit apps (Citymapper, Transit): a dot per stop on a line that fills behind you, and a "stops left" count.
+- No verified source gave palette colours; the three palettes in draft 3 are our own starting points.

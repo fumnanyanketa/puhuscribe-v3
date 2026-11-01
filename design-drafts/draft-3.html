@@ -1,0 +1,597 @@
+<title>PuhuScribe journey draft</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+/>
+<style>
+  /* Layout: one row per palette, the soft version without glass on the left and the glass version on the right, then the line card in each palette. */
+  :root {
+    --page: #f3f2f6;
+    --page-ink: #1b1a20;
+    --page-quiet: #5a5666;
+    --frame: #1b1a20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #121117;
+      --page-ink: #eeecf4;
+      --page-quiet: #a7a3b5;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #121117;
+    --page-ink: #eeecf4;
+    --page-quiet: #a7a3b5;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    gap: 3.5rem;
+  }
+  h1 {
+    font: 700 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  h2 {
+    font: 600 1.45rem/1.2 var(--font);
+    margin: 0;
+  }
+  header,
+  section {
+    display: grid;
+    gap: 1rem;
+  }
+  header p,
+  section > p {
+    color: var(--page-quiet);
+    margin: 0;
+    max-width: 64ch;
+  }
+  .pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 3rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+  }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--page-quiet);
+    font-weight: 500;
+  }
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .decide ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 70ch;
+  }
+
+  /* Palettes: one colour family each. Strong for spoken and the one main button, mid for written, soft for washes. */
+  .lavender {
+    --strong: #5b3fb8;
+    --mid: #8a74d0;
+    --soft: #ebe5fa;
+    --wash: #f6f3fd;
+    --mesh1: #dcd2f7;
+    --mesh2: #f3e9fb;
+    --ink: #1d1b26;
+    --quiet: #6b6780;
+  }
+  .lake {
+    --strong: #17697b;
+    --mid: #5b9fb0;
+    --soft: #dceef2;
+    --wash: #f2f8f9;
+    --mesh1: #cfe6ec;
+    --mesh2: #e6f1f3;
+    --ink: #172226;
+    --quiet: #5f7177;
+  }
+  .forest {
+    --strong: #2c6a4e;
+    --mid: #79a58f;
+    --soft: #e0eee6;
+    --wash: #f3f7f4;
+    --mesh1: #d3e7da;
+    --mesh2: #eef3e6;
+    --ink: #1a221d;
+    --quiet: #627068;
+  }
+
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+    flex: none;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    background: var(--wash);
+    color: var(--ink);
+    font-family: var(--font);
+  }
+  .s.glass {
+    background:
+      radial-gradient(120% 60% at 0% 0%, var(--mesh1) 0%, transparent 60%),
+      radial-gradient(90% 50% at 100% 35%, var(--mesh2) 0%, transparent 65%),
+      radial-gradient(120% 60% at 30% 100%, var(--mesh1) 0%, transparent 60%), var(--wash);
+  }
+  .status {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+
+  .topbar {
+    margin: 4px 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 8px 14px;
+    border-radius: 20px;
+  }
+  .topbar b {
+    font-weight: 600;
+    font-size: 15px;
+    display: block;
+  }
+  .topbar span {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .av {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--soft);
+    color: var(--strong);
+  }
+  .glass .topbar,
+  .glass .dock {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 8px 24px rgba(30, 20, 60, 0.08);
+  }
+  .glass .av {
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .route {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 100px;
+    bottom: 0;
+    overflow: hidden;
+    display: grid;
+    align-content: start;
+    gap: 0;
+  }
+  .stop {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .stop.next {
+    padding-bottom: 6px;
+  }
+  .topbar {
+    position: relative;
+    z-index: 2;
+  }
+  .dock {
+    z-index: 2;
+  }
+  .stop::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 30px;
+    bottom: -2px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--strong);
+  }
+  .stop.next::before,
+  .stop.cur::before {
+    background: repeating-linear-gradient(to bottom, var(--mid) 0 5px, transparent 5px 10px);
+    opacity: 0.6;
+  }
+  .stop.last::before {
+    display: none;
+  }
+  .node {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .done .node {
+    background: var(--strong);
+  }
+  .done .node::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2.5px solid #fff;
+    border-bottom: 2.5px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .cur .node {
+    background: #fff;
+    border: 3px solid var(--strong);
+    box-shadow: 0 0 0 6px var(--soft);
+  }
+  .cur .node::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--strong);
+  }
+  .next .node {
+    background: var(--wash);
+    border: 2px solid var(--mid);
+    opacity: 0.9;
+  }
+  .goal .node {
+    background: var(--soft);
+    border: 2px dashed var(--mid);
+  }
+  .stop h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    padding-top: 6px;
+  }
+  .stop p {
+    margin: 2px 0 0;
+    font-size: 11.5px;
+    color: var(--quiet);
+    line-height: 1.4;
+  }
+  .next h3,
+  .goal h3 {
+    color: var(--quiet);
+    font-weight: 500;
+  }
+  .today {
+    margin-top: 8px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(30, 20, 60, 0.07);
+  }
+  .glass .today {
+    box-shadow: 0 10px 30px rgba(30, 20, 60, 0.1);
+  }
+  .today b {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .today small {
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .steps {
+    display: flex;
+    gap: 4px;
+  }
+  .steps i {
+    flex: 1;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--soft);
+  }
+
+  .dock {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    border-radius: 26px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .s:not(.glass) .dock {
+    background: #fff;
+    box-shadow: 0 -2px 16px rgba(30, 20, 60, 0.06);
+  }
+  .btn {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 14px;
+    background: var(--strong);
+    color: #fff;
+  }
+  .tab {
+    width: 48px;
+    height: 48px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--quiet);
+  }
+
+  /* The line card in each palette */
+  .line {
+    width: 280px;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 22px;
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+    color: var(--ink);
+    font-family: var(--font);
+    box-shadow: 0 6px 20px rgba(30, 20, 60, 0.07);
+  }
+  .who {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .pair2 {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 8px;
+  }
+  .rail .d {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .rail .t {
+    background: var(--strong);
+  }
+  .rail .v {
+    background: var(--mid);
+  }
+  .rail .l {
+    flex: 1;
+    border-left: 2px dotted var(--mid);
+    margin: 4px 0;
+    opacity: 0.6;
+  }
+  .rows {
+    display: grid;
+    gap: 8px;
+  }
+  .spoken {
+    background: var(--soft);
+    border-radius: 16px;
+    padding: 10px 12px;
+    display: grid;
+  }
+  .spoken small {
+    color: var(--strong);
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .spoken span {
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  .written {
+    padding: 0 12px;
+    display: grid;
+  }
+  .written small {
+    color: var(--mid);
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .written span {
+    font-size: 15px;
+    color: var(--quiet);
+  }
+  .mk {
+    background: #fff;
+    color: var(--strong);
+    border-radius: 6px;
+    padding: 0 3px;
+    box-shadow: inset 0 0 0 1.5px var(--mid);
+  }
+  .written .mk {
+    color: var(--strong);
+  }
+  .plays {
+    display: flex;
+    gap: 12px;
+    padding-left: 20px;
+  }
+  .play {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .play i {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--strong);
+    position: relative;
+  }
+  .play i::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    border-left: 10px solid #fff;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+  }
+  .play.w i {
+    background: var(--soft);
+  }
+  .play.w i::after {
+    border-left-color: var(--strong);
+  }
+  @media (max-width: 700px) {
+    .pair,
+    .cards {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe journey draft</h1>
+    <p>
+      Draft 3 shows the Today screen with the journey, in three colour palettes. Each palette is one colour
+      family, inspired by Finland: lavender, lake blue and birch-forest green. Every palette appears twice. On
+      the left it is soft, with no glass. On the right, glass is used only on the bar at the top and the bar
+      at the bottom, as Apple's guidelines recommend, over a soft wash of the same colour.
+    </p>
+  </header>
+  <div id="rows"></div>
+  <section>
+    <h2>The line card in each palette</h2>
+    <p>
+      The same card you like, with its dots and dotted line, now in one colour family. Spoken uses the strong
+      shade and written uses the soft shade. The words that change are outlined, not filled blue.
+    </p>
+    <div class="cards" id="cards"></div>
+  </section>
+  <section class="decide">
+    <h2>Your choices after this draft</h2>
+    <ol>
+      <li>Which palette: lavender, lake blue or birch-forest green.</li>
+      <li>Glass on the top and bottom bars, or soft with no glass.</li>
+      <li>
+        Whether the journey reads right: done stops with their "I can" sentence, today's stop open, upcoming
+        stops quiet, and the goal at the end.
+      </li>
+    </ol>
+  </section>
+</div>
+
+<script>
+  const palettes = [
+    {
+      key: 'lavender',
+      name: 'Lavender',
+      note: 'Keeps the purple of your logo and landing page, made softer.',
+    },
+    { key: 'lake', name: 'Lake blue', note: 'The blue-green of a Finnish lake. Calm and clear.' },
+    {
+      key: 'forest',
+      name: 'Birch-forest green',
+      note: 'Soft green like a birch forest. The most restful of the three.',
+    },
+  ]
+  const route = `
+  <div class="stop done"><span class="node"></span><div><h3>Meeting people</h3><p>I can say who I am and where I'm from.</p></div></div>
+  <div class="stop cur"><span class="node"></span><div><h3>At the café</h3><p>Today, stop 2 of 6</p>
+    <div class="today"><b>Ordering a coffee</b><div class="steps"><i></i><i></i><i></i><i></i></div><small>Hear it, Understand it, Say it, Keep it. About 8 minutes.</small></div></div></div>
+  <div class="stop next"><span class="node"></span><div><h3>At the grocery store</h3></div></div>
+  <div class="stop next"><span class="node"></span><div><h3>Small talk</h3></div></div>
+  <div class="stop next"><span class="node"></span><div><h3>Asking for help</h3></div></div>
+  <div class="stop next"><span class="node"></span><div><h3>Making a plan</h3></div></div>
+  <div class="stop goal last"><span class="node"></span><div><h3>Goal: everyday Finnish (A1)</h3></div></div>`
+  const phone = (p, glass) => `<div class="phone"><div class="s ${p} ${glass ? 'glass' : ''}">
+  <div class="status"><span>9:41</span><i></i><span>5G</span></div>
+  <div class="topbar"><div><b>Huomenta, Alex</b><span>Your journey to everyday Finnish</span></div><span class="av">A</span></div>
+  <div class="route">${route}</div>
+  <div class="dock"><span class="btn">Start today's session</span></div>
+</div></div>`
+  document.getElementById('rows').outerHTML = palettes
+    .map(
+      (p) => `
+  <section>
+    <h2>${p.name}</h2>
+    <p>${p.note}</p>
+    <div class="pair">
+      <figure>${phone(p.key, false)}<figcaption>Soft, no glass</figcaption></figure>
+      <figure>${phone(p.key, true)}<figcaption>Glass bars</figcaption></figure>
+    </div>
+  </section>`,
+    )
+    .join('')
+  document.getElementById('cards').innerHTML = palettes
+    .map(
+      (p) => `
+  <figure><div class="line ${p.key}"><div class="who">Alex</div>
+    <div class="pair2"><div class="rail"><i class="d t"></i><i class="l"></i><i class="d v"></i></div>
+    <div class="rows"><div class="spoken"><small>Spoken</small><span>Moi! <span class="mk">Mä oon</span> Alex.</span></div>
+    <div class="written"><small>Written</small><span>Hei! <span class="mk">Minä olen</span> Alex.</span></div></div></div>
+    <div class="plays"><span class="play"><i></i>Spoken</span><span class="play w"><i></i>Written</span></div>
+  </div><figcaption>${p.name}</figcaption></figure>`,
+    )
+    .join('')
+</script>
