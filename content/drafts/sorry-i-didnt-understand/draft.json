@@ -71,7 +71,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "complete"
+    "status": "pending"
   },
   "lines": [
     {
@@ -518,19 +518,15 @@
         {
           "surface": "hitaammin",
           "lemma": "hidas",
-          "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=comparative",
+          "form_tag": "CLASS=seikkasana;COMPARISON=comparative",
           "name": false,
           "analysis": {
             "BASEFORM": "hidas",
-            "CLASS": "laatusana",
+            "CLASS": "seikkasana",
             "COMPARISON": "comparative",
-            "FSTOUTPUT": "[Ll][Xp]hidas[X]hitaa[Sin][Nm][Cc]mmin",
-            "NUMBER": "plural",
-            "SIJAMUOTO": "keinonto",
-            "STRUCTURE": "=ppppppppp",
-            "WORDBASES": "+hidas(hidas)"
+            "MANUAL": "true"
           },
-          "form": "form-ba63b5995fe7"
+          "form": "form-3c09073a2190"
         }
       ],
       "puhe_tokens": [
@@ -1349,9 +1345,9 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö",
-      "meaning_en": "could you?",
+      "meaning_en": "can you?",
       "lemma_meaning_en": "can, to be able to",
-      "why_en": "In Voitsä, speech drops -ko from voitko and joins sä."
+      "why_en": "Voit with -ko asks 'can you?': voitko. Speech drops -ko and adds sä: voitsä."
     },
     {
       "id": "form-1e2e7b912f42",
@@ -1392,25 +1388,21 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-ba63b5995fe7",
+      "id": "form-3c09073a2190",
       "lemma": "hidas",
-      "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=comparative",
+      "form_tag": "CLASS=seikkasana;COMPARISON=comparative",
       "surface_kirja": "hitaammin",
       "surface_puhe": "hitaammin",
       "analysis": {
         "BASEFORM": "hidas",
-        "CLASS": "laatusana",
+        "CLASS": "seikkasana",
         "COMPARISON": "comparative",
-        "FSTOUTPUT": "[Ll][Xp]hidas[X]hitaa[Sin][Nm][Cc]mmin",
-        "NUMBER": "plural",
-        "SIJAMUOTO": "keinonto",
-        "STRUCTURE": "=ppppppppp",
-        "WORDBASES": "+hidas(hidas)"
+        "MANUAL": "true"
       },
-      "form_name_en": "comparative, instructive plural",
-      "meaning_en": "more slowly",
+      "form_name_en": "comparative, adverb",
+      "meaning_en": "",
       "lemma_meaning_en": "slow",
-      "why_en": "From hidas, slow: hitaammin means more slowly."
+      "why_en": ""
     },
     {
       "id": "form-b20bd263b5ae",
@@ -1512,7 +1504,7 @@
       "form_name_en": "negative verb, 3rd person singular",
       "meaning_en": "no",
       "lemma_meaning_en": "no, not",
-      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
+      "why_en": "Ei on its own answers 'no'. People say it the same way."
     },
     {
       "id": "form-c5b0481eae2b",

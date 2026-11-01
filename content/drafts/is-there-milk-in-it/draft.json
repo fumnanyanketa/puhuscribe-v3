@@ -90,7 +90,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "complete"
+    "status": "pending"
   },
   "lines": [
     {
@@ -358,22 +358,17 @@
         {
           "surface": "voi",
           "lemma": "voida",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "voida",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Ira][Xp]voida[X]voi[Tt][Ap][P3][Ny][Eb]",
+            "MANUAL": "true",
             "MOOD": "indicative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "3",
-            "REQUIRE_FOLLOWING_VERB": "A-infinitive",
-            "STRUCTURE": "=ppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+voida(voida)"
+            "NEGATIVE": "true",
+            "TENSE": "present_simple"
           },
-          "form": "form-fc6219c3121b"
+          "form": "form-1328b4909965"
         },
         {
           "surface": "syödä",
@@ -1037,7 +1032,7 @@
       "form_name_en": "inessive singular",
       "meaning_en": "in the soup",
       "lemma_meaning_en": "soup",
-      "why_en": "Adds -ssa for 'in': keitto becomes keitossa, tt turning to t. Speech drops the last a: keitos."
+      "why_en": "Adds -ssa for 'in': keitto becomes keitossa, tt turning to t. Speech shortens -ssa to -s: keitossa becomes keitos."
     },
     {
       "id": "form-f89ae4012259",
@@ -1164,28 +1159,23 @@
       "why_en": "Ei with -n for 'I': en, I do not."
     },
     {
-      "id": "form-fc6219c3121b",
+      "id": "form-1328b4909965",
       "lemma": "voida",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
       "surface_kirja": "voi",
       "surface_puhe": "voi",
       "analysis": {
         "BASEFORM": "voida",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Ira][Xp]voida[X]voi[Tt][Ap][P3][Ny][Eb]",
+        "MANUAL": "true",
         "MOOD": "indicative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "3",
-        "REQUIRE_FOLLOWING_VERB": "A-infinitive",
-        "STRUCTURE": "=ppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+voida(voida)"
+        "NEGATIVE": "true",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "oh",
+      "form_name_en": "present tense, negative form",
+      "meaning_en": "",
       "lemma_meaning_en": "can, to be able to",
-      "why_en": "Voi ei! means oh no. Here voi is a cry, not the verb voida, can."
+      "why_en": ""
     },
     {
       "id": "form-b52f245eef06",
