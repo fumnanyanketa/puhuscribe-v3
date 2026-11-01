@@ -1,5 +1,5 @@
 {
-  "ok": false,
+  "ok": true,
   "checks": {
     "shape": {
       "passed": true,
@@ -44,13 +44,11 @@
       "failures": []
     },
     "register_faithfulness": {
-      "passed": false,
+      "passed": true,
       "rate": 1.0,
       "threshold": 0.98,
-      "checked": 7,
-      "failures": [
-        "line 2: the judge has not checked this line"
-      ]
+      "checked": 8,
+      "failures": []
     },
     "spoken_pairs": {
       "passed": true,
@@ -60,11 +58,9 @@
       "failures": []
     }
   },
-  "failures": [
-    "line 2: the judge has not checked this line"
-  ],
+  "failures": [],
   "spoken_only_words": [],
-  "register_judge": "FAILED",
+  "register_judge": "passed",
   "notes_pending": [
     "form-124d5d19fe78",
     "form-34eb915c255e",

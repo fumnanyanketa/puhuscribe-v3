@@ -1002,7 +1002,7 @@
     {
       "n": 8,
       "speaker": "Leena",
-      "text_puhe": "Ei mitään. Nähään huomenna!",
+      "text_puhe": "Ei kestä. Nähään huomenna!",
       "text_kirja": "Ei kestä. Nähdään huomenna!",
       "gloss_en": "You're welcome. See you tomorrow!",
       "kirja_tokens": [
@@ -1040,7 +1040,7 @@
             "TENSE": "present_simple",
             "WORDBASES": "+kestää(kestää)"
           },
-          "form": "form-dec88706871b"
+          "form": "form-4e2e8eedc287"
         },
         {
           "surface": "Nähdään",
@@ -1081,7 +1081,7 @@
           "kirja": 1
         },
         {
-          "surface": "mitään",
+          "surface": "kestä",
           "kirja": 2
         },
         {
@@ -1092,13 +1092,7 @@
           "surface": "huomenna",
           "kirja": 4
         }
-      ],
-      "judge": {
-        "faithful": false,
-        "reason": "Spoken \"Ei mitään\" means \"Nothing\" (or \"Not at all\"), while written \"Ei kestä\" means \"You're welcome\". The phrases differ in meaning, even though \"Nähään\"/\"Nähdään huomenna\" (see you tomorrow) is the same.",
-        "fingerprint": "40308e167d700467e040a06073362df2c1251f94695cec33e233706a34177242",
-        "model": "claude-sonnet-5-5"
-      }
+      ]
     }
   ],
   "forms": [
@@ -1772,11 +1766,11 @@
       "why_en": "Means 'nice'; 'Kiva tavata' = 'Nice to meet you'."
     },
     {
-      "id": "form-dec88706871b",
+      "id": "form-4e2e8eedc287",
       "lemma": "kestää",
       "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "kestä",
-      "surface_puhe": "mitään",
+      "surface_puhe": "kestä",
       "analysis": {
         "BASEFORM": "kestää",
         "CLASS": "teonsana",

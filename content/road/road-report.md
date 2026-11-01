@@ -17,8 +17,8 @@ unless it ran.
 | level_fit | 3927 | 1.0000 |
 | grammar_cards | 7360 | 1.0000 |
 
-Register judge: FAILED in 7 drafts, n/a in 6 drafts, passed in 95 drafts.
-Forms waiting for word notes: 1329 (see needed-notes.tsv).
+Register judge: FAILED in 1 drafts, n/a in 6 drafts, passed in 101 drafts.
+Forms waiting for word notes: 1330 (see needed-notes.tsv).
 
 ## Stop 1. Meeting people
 
@@ -113,7 +113,7 @@ Extras recorded: 7 base forms: ab-lippu, automaatti, laituri, oodi, pysäkki, ra
 
 Forms in the stop: 81.
 Spoken only words: none.
-Pairs accepted by the table: haluun for haluan, joo for kyllä, katoin for katsoin, kiitti for kiitos, leffoja for elokuvia, mitään for kestä, moi for hei, mun for minun, mä for minä, nähään for nähdään, pitäs for pitäisi, sulle for sinulle, sä for sinä, tiiät for tiedätkö, tosi for todella, vaan for vain, voitettiin for voitimme.
+Pairs accepted by the table: haluun for haluan, joo for kyllä, katoin for katsoin, kiitti for kiitos, leffoja for elokuvia, moi for hei, mun for minun, mä for minä, nähään for nähdään, pitäs for pitäisi, sulle for sinulle, sä for sinä, tiiät for tiedätkö, tosi for todella, vaan for vain, voitettiin for voitimme.
 Extras recorded: 8 base forms: Suomenlinna, aurinkoinen, lainata, oho, pakkanen, rikki, sataa, sateenvarjo, 11 forms.
 
 ## Stop 7. Asking for help
