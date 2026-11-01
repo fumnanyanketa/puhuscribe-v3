@@ -9,6 +9,8 @@ from __future__ import annotations
 import io
 import json
 import re
+import subprocess
+import types
 import urllib.error
 from datetime import UTC, datetime
 from pathlib import Path
@@ -19,11 +21,13 @@ from providers import voice as voice_module
 from providers.ai import AiError, FakeProvider
 from providers.voice import (
     GUARD_CHARACTERS,
+    MAX_RETRY_WAIT_SECONDS,
     AzureProvider,
     Throttle,
     VoiceError,
     month_characters,
     refuse_over_allowance,
+    refuse_uncommitted_log,
     request_hash,
 )
 from road_import import characters_to_voice, clip_needs_voice
@@ -120,6 +124,17 @@ def test_a1_road_18_azure_retries_a_busy_answer_and_a_server_error(azure_env, tm
     assert len(sent) == 3
     assert 7.0 in clock.sleeps  # the Retry-After header is honoured
     assert len(azure.log_path.read_text(encoding="utf-8").splitlines()) == 1
+
+
+def test_a1_road_18_a_retry_after_header_is_capped_at_60_seconds(azure_env, tmp_path):
+    """[a1-road 18] Azure asking for a wait of a day is answered with a wait of at most a minute."""
+    assert MAX_RETRY_WAIT_SECONDS == 60.0
+    clock = Clock()
+    azure, sent = provider(tmp_path, clock, [http_error(429, "86400"), http_error(429, "60"), b"mp3-bytes"])
+    assert azure.synthesize(text="Moi!", voice="fi-FI-NooraNeural", dialogue="x") == b"mp3-bytes"
+    assert len(sent) == 3
+    assert 86400.0 not in clock.sleeps and max(clock.sleeps) <= 60.0
+    assert clock.sleeps.count(60.0) >= 2  # the huge value was cut to 60, and 60 stays 60
 
 
 def test_a1_road_18_azure_does_not_retry_a_refusal_and_gives_up_after_the_last_try(azure_env, tmp_path):
@@ -225,6 +240,63 @@ def test_a1_road_18_no_log_means_nothing_used(tmp_path):
     """[a1-road 18] a missing log counts as zero characters."""
     assert month_characters(tmp_path / "none.jsonl") == 0
     refuse_over_allowance(tmp_path / "none.jsonl", GUARD_CHARACTERS)
+
+
+def _git(folder: Path, *args: str) -> None:
+    subprocess.run(
+        ["git", "-c", "user.name=test", "-c", "user.email=test@example.test", *args],
+        cwd=folder,
+        check=True,
+        capture_output=True,
+    )
+
+
+def test_a1_road_18_a_voice_log_with_uncommitted_changes_stops_the_voice_task(tmp_path):
+    """[a1-road 18] the guard reads the log from the working tree, so a log that git does not hold
+    (changed or new) refuses the run before anything is voiced; a committed log passes (round 5)."""
+    _git(tmp_path, "init", "-q")
+    log = tmp_path / "ai-calls.jsonl"
+    refuse_uncommitted_log(log)  # no file yet and nothing to commit: allowed
+    _log(log, [{"time": "2026-11-02T10:00:00Z", "purpose": "voice", "characters": 10}])
+    with pytest.raises(VoiceError) as new_file:  # a log git has never seen
+        refuse_uncommitted_log(log)
+    assert "not committed" in str(new_file.value) and "Nothing was voiced" in str(new_file.value)
+    _git(tmp_path, "add", "ai-calls.jsonl")
+    _git(tmp_path, "commit", "-q", "-m", "log")
+    refuse_uncommitted_log(log)  # committed: allowed
+    log.write_text(
+        log.read_text(encoding="utf-8") + '{"purpose": "voice", "characters": 5}' + chr(10), encoding="utf-8"
+    )
+    with pytest.raises(VoiceError, match="not committed"):  # a run whose log was not committed yet
+        refuse_uncommitted_log(log)
+    stray = tmp_path / "other.txt"
+    stray.write_text("x", encoding="utf-8")
+    _git(tmp_path, "add", "ai-calls.jsonl")
+    _git(tmp_path, "commit", "-q", "-m", "log again")
+    refuse_uncommitted_log(log)  # another untracked file does not matter, only the log does
+
+
+def test_a1_road_18_the_voice_task_refuses_before_it_voices_when_the_log_is_not_committed(tmp_path):
+    """[a1-road 18] cmd_voice stops with the refusal and calls the voice provider zero times."""
+    from road_import import cmd_voice
+
+    _git(tmp_path, "init", "-q")
+    log = tmp_path / "ai-calls.jsonl"
+    _log(log, [{"time": "2026-11-02T10:00:00Z", "purpose": "voice", "characters": 10}])
+    calls: list[str] = []
+    fake = types.SimpleNamespace(log_path=log, name="fake", synthesize=lambda **kw: calls.append("x") or b"")
+    with pytest.raises(VoiceError, match="not committed"):
+        cmd_voice(types.SimpleNamespace(part=1, only=None), voice=fake)
+    assert calls == []
+
+
+def test_a1_road_18_the_workflow_and_the_docs_say_the_manager_commits_the_voice_log():
+    """[a1-road 18] the process rule is written where the manager reads it."""
+    workflow = (REPO / ".github" / "workflows" / "a1-road.yml").read_text(encoding="utf-8")
+    docs = (REPO / "docs" / "content-pipeline.md").read_text(encoding="utf-8")
+    for text in (workflow, docs):
+        assert "commits the voice log" in text or "commit the voice log" in text
+        assert "before the next" in text
 
 
 def test_a1_road_18_voice_py_is_the_only_file_that_calls_a_voice_service():

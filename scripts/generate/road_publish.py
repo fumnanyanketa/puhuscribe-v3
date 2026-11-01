@@ -49,10 +49,28 @@ def part_of(draft: dict) -> int:
 
 
 def road_fingerprint(draft: dict) -> str:
-    """A SHA-256 of every line's three texts and every form's texts, in order."""
+    """A SHA-256 of what the owner approved, in order: every line's three texts, its speaker, the hash of
+    each of its two clips, which written word links to which form and which spoken word renders which
+    written word, and every form's texts. Changing any of them after approval voids the approval, so a
+    clip that was voiced again, a swapped speaker or a moved word link needs a new approval."""
     return fingerprint(
         {
             "lines": [[ln["text_puhe"], ln["text_kirja"], ln["gloss_en"]] for ln in draft["lines"]],
+            "speakers": [ln.get("speaker", "") for ln in draft["lines"]],
+            "audio": [
+                [ln.get("audio", {}).get(register, {}).get("sha256", "") for register in ("puhe", "kirja")]
+                for ln in draft["lines"]
+            ],
+            "links": [
+                [
+                    [[t.get("surface", ""), t.get("form")] for t in ln["kirja_tokens"]],
+                    [
+                        [t.get("surface", ""), t.get("kirja"), bool(t.get("spoken_only"))]
+                        for t in ln["puhe_tokens"]
+                    ],
+                ]
+                for ln in draft["lines"]
+            ],
             "forms": [
                 [
                     f["lemma"],

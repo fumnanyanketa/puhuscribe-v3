@@ -14,6 +14,10 @@
 #   step holds the Anthropic key. Used only when the owner turned the judge on.
 # - review-pages: round 1 review pages for the part's dialogues. No key.
 #
+# The manager commits the voice log (content/logs/ai-calls.jsonl) after every voice run and
+# before the next one, because the character guard reads the log from the checkout: characters of a
+# run whose log was not committed would be forgotten. The voice task refuses to start when that log
+# has uncommitted changes.
 # Voiced clips and changed drafts go up as an artifact; the manager commits them once, under
 # content/drafts/<slug>/audio/. They reach public/audio/ only when a part is published.
 #

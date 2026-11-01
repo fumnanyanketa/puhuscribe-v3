@@ -914,6 +914,7 @@ def cmd_voice(args, voice=None) -> int:
         drafts = {slug: d for slug, d in drafts.items() if slug == args.only}
     voice = voice or voice_module.get_provider()
     need = characters_to_voice(drafts)
+    voice_module.refuse_uncommitted_log(voice.log_path)
     voice_module.refuse_over_allowance(voice.log_path, need)
     print(f"Voicing {need} characters for part {args.part}")
     for slug in stop_order(drafts):

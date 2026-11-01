@@ -326,3 +326,42 @@ def test_a1_road_10_minae_is_the_pronoun_even_where_voikko_prefers_the_noun(ctx)
             if token["surface"].lower() == "minä"
         }
         assert tags == {"CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular"}, slug
+
+
+# Round 5: hitaammin, en voi and the third person voi ---------------------------------------------------
+
+
+def test_a1_road_10_hitaammin_is_the_adverb_more_slowly_from_hidas(ctx):
+    """[a1-road 10] Voikko offers only the instructive plural; the card says hidas, comparative, adverb."""
+    token, form = word_at(draft_of(ctx, "sorry-i-didnt-understand"), 4, 5)
+    assert token["surface"] == "hitaammin"
+    assert (token["lemma"], token["form_tag"]) == ("hidas", "CLASS=seikkasana;COMPARISON=comparative")
+    assert form["form_name_en"] == "comparative, adverb"
+
+
+def test_a1_road_10_en_voi_is_the_negative_form_of_voida(ctx):
+    """[a1-road 10] In Minä en voi syödä, voi is voida, present tense, negative form."""
+    token, form = word_at(draft_of(ctx, "is-there-milk-in-it"), 3, 3)
+    assert token["surface"] == "voi"
+    assert (token["lemma"], token["form_tag"]) == ("voida", NEGATIVE_PRESENT)
+    assert form["form_name_en"] == "present tense, negative form"
+
+
+def test_a1_road_10_the_third_person_voi_row_is_used_only_by_the_verb_line():
+    """[a1-road 10] No "Voi ei!" or other cry uses the verb row form-fc6219c3121b: its only line is
+    "Lääkäri voi nähdä sinut" (booking-a-visit 7). Every cry has the interjection row."""
+    places = []
+    cries = 0
+    for slug, draft in committed().items():
+        if draft["brief"].get("source") != "written":
+            continue
+        for line in draft["lines"]:
+            for position, token in enumerate(line["kirja_tokens"], start=1):
+                if token["surface"].lower() != "voi":
+                    continue
+                if token.get("form") == "form-fc6219c3121b":
+                    places.append((slug, line["n"], position))
+                elif token["form_tag"] == "CLASS=huudahdussana":
+                    cries += 1
+    assert places == [("booking-a-visit", 7, 3)]
+    assert cries == 12

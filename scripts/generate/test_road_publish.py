@@ -119,6 +119,46 @@ def test_a1_road_20_a_changed_line_voids_the_approval_of_its_dialogue(repo, draf
         assert nothing_written(repo)
 
 
+def _binding_edits(draft: dict) -> dict:
+    """One edit for each thing the approval also binds: clips, speakers, word links."""
+    other_form = next(
+        f["id"] for f in draft["forms"] if f["id"] != draft["lines"][0]["kirja_tokens"][0]["form"]
+    )
+    return {
+        "the puhe clip's hash": lambda d: d["lines"][0]["audio"]["puhe"].__setitem__("sha256", "a" * 64),
+        "the kirja clip's hash": lambda d: d["lines"][3]["audio"]["kirja"].__setitem__("sha256", "b" * 64),
+        "a speaker": lambda d: d["lines"][1].__setitem__("speaker", d["lines"][1]["speaker"] + " X"),
+        "a written word's form": lambda d: d["lines"][0]["kirja_tokens"][0].__setitem__("form", other_form),
+        "a spoken word's link": lambda d: d["lines"][0]["puhe_tokens"][0].__setitem__("kirja", 99),
+    }
+
+
+def test_a1_road_20_the_fingerprint_covers_each_clip_speaker_and_word_link(draft):
+    """[a1-road 20] each of the five edits alone changes the fingerprint, and a copy does not
+    (round 5, security review: the approval binds the audio, the speakers and the word links)."""
+    base = road_fingerprint(draft)
+    assert road_fingerprint(copy.deepcopy(draft)) == base
+    for name, edit in _binding_edits(draft).items():
+        changed = copy.deepcopy(draft)
+        edit(changed)
+        assert road_fingerprint(changed) != base, name
+
+
+def test_a1_road_20_a_changed_clip_speaker_or_word_link_voids_the_approval(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] after the owner approved, changing a clip's hash, a speaker or a word link makes
+    publishing refuse, naming the changed fingerprint, and writes nothing."""
+    approve(repo, draft)
+    for name, edit in _binding_edits(draft).items():
+        changed = copy.deepcopy(draft)
+        edit(changed)
+        with pytest.raises(PublishRefused) as refused:
+            run(repo, changed, voikko, ranks, thresholds)
+        assert any("changed after the owner approved" in r for r in refused.value.reasons), name
+        assert nothing_written(repo), name
+
+
 def test_a1_road_20_it_refuses_without_the_file_with_a_wrong_file_and_when_the_dialogue_is_not_listed(
     repo, draft, voikko, ranks, thresholds
 ):

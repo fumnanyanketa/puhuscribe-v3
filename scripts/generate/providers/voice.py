@@ -21,6 +21,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import time
 import urllib.error
 import urllib.request
@@ -65,6 +66,8 @@ TIMEOUT_SECONDS = 60
 MAX_REQUESTS = 20
 WINDOW_SECONDS = 60.0
 MAX_ATTEMPTS = 6
+# A wait asked for by Azure (Retry-After) is never longer than this, so a huge value cannot stall a run.
+MAX_RETRY_WAIT_SECONDS = 60.0
 FREE_ALLOWANCE_CHARACTERS = 500_000
 GUARD_CHARACTERS = 450_000
 
@@ -115,6 +118,35 @@ def month_characters(log_path: Path | str, now: datetime | None = None) -> int:
         if entry.get("purpose") == "voice" and str(entry.get("time", "")).startswith(prefix):
             total += int(entry.get("characters", 0))
     return total
+
+
+def refuse_uncommitted_log(log_path: Path | str, run=subprocess.run) -> None:
+    """Refuse to voice when the voice log in the working tree has changes git does not hold.
+
+    The month's characters are read from the log, and a run on a fresh checkout only sees the committed
+    log. Characters from a run whose log was not committed yet would be forgotten, and the guard could
+    be passed by repeated runs. The manager commits the log after every voice run and before the next.
+    Outside a git working tree (a temporary folder in a test) there is nothing to compare, so the
+    check does nothing there."""
+    path = Path(log_path)
+    try:
+        result = run(
+            ["git", "status", "--porcelain", "--", path.name],
+            cwd=path.parent,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except (FileNotFoundError, NotADirectoryError):
+        return
+    if result.returncode != 0:
+        return
+    if result.stdout.strip():
+        raise VoiceError(
+            f"the voice log {path.name} has changes that are not committed ({result.stdout.strip()[:2]}): "
+            "commit the log after every voice run and before the next one, so this month's characters are "
+            "counted. Nothing was voiced"
+        )
 
 
 def refuse_over_allowance(
@@ -232,8 +264,9 @@ class AzureProvider(_Provider):
                 if not busy or attempt == MAX_ATTEMPTS:
                     raise VoiceError(f"Azure refused the synthesis (HTTP {err.code})") from None
                 header = err.headers.get("Retry-After") if err.headers else None
-                self._sleep(float(header) if header and header.isdigit() else wait)
-                wait = min(wait * 2, 60.0)
+                asked = float(header) if header and header.isdigit() else wait
+                self._sleep(min(asked, MAX_RETRY_WAIT_SECONDS))
+                wait = min(wait * 2, MAX_RETRY_WAIT_SECONDS)
                 continue
             except urllib.error.URLError as err:
                 raise VoiceError(f"could not reach Azure ({err.reason})") from None
