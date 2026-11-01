@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "ok": false,
   "checks": {
     "shape": {
       "passed": true,
@@ -12,7 +12,7 @@
       "passed": true,
       "rate": 1.0,
       "threshold": 1.0,
-      "checked": 43,
+      "checked": 42,
       "failures": []
     },
     "token_order": {
@@ -26,42 +26,45 @@
       "passed": true,
       "rate": 1.0,
       "threshold": 1.0,
-      "checked": 43,
+      "checked": 42,
       "failures": []
     },
     "level_fit": {
       "passed": true,
       "rate": 1.0,
       "threshold": 1.0,
-      "checked": 40,
+      "checked": 39,
       "failures": []
     },
     "grammar_cards": {
       "passed": true,
       "rate": 1.0,
       "threshold": 1.0,
-      "checked": 79,
+      "checked": 77,
       "failures": []
     },
     "register_faithfulness": {
-      "passed": null,
-      "status": "not run",
-      "rate": null,
+      "passed": false,
+      "rate": 1.0,
       "threshold": 0.98,
-      "checked": 0,
-      "failures": []
+      "checked": 7,
+      "failures": [
+        "line 3: the judge has not checked this line"
+      ]
     },
     "spoken_pairs": {
       "passed": true,
       "rate": 1.0,
       "threshold": 1.0,
-      "checked": 43,
+      "checked": 42,
       "failures": []
     }
   },
-  "failures": [],
+  "failures": [
+    "line 3: the judge has not checked this line"
+  ],
   "spoken_only_words": [],
-  "register_judge": "not run",
+  "register_judge": "FAILED",
   "notes_pending": [
     "form-124d5d19fe78",
     "form-5eb112d9aace",
@@ -77,8 +80,7 @@
     "form-90c207b76ecc",
     "form-66f36cc4036b",
     "form-0bb2d5b32826",
-    "form-956bf17f9fd8",
-    "form-bf7f922a797a",
+    "form-e7e5785f8270",
     "form-fbf4cf6cbcf9",
     "form-b20bd263b5ae",
     "form-b1285c45ffe6",

@@ -354,9 +354,9 @@
     {
       "n": 3,
       "speaker": "Mikael",
-      "text_puhe": "Se ei oo kotona. Voitsä ottaa sen paketin?",
-      "text_kirja": "Hän ei ole kotona. Voitko sinä ottaa hänen pakettinsa?",
-      "gloss_en": "She's not home. Could you take her parcel?",
+      "text_puhe": "Se ei oo kotona. Voitsä ottaa paketin?",
+      "text_kirja": "Hän ei ole kotona. Voitko sinä ottaa paketin?",
+      "gloss_en": "She's not home. Could you take the parcel?",
       "kirja_tokens": [
         {
           "surface": "Hän",
@@ -480,37 +480,20 @@
           "form": "form-0bb2d5b32826"
         },
         {
-          "surface": "hänen",
-          "lemma": "hän",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
-          "name": false,
-          "analysis": {
-            "BASEFORM": "hän",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]hän[X]hä[Sg][Ny]nen",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=ppppp",
-            "WORDBASES": "+hän(hän)"
-          },
-          "form": "form-956bf17f9fd8"
-        },
-        {
-          "surface": "pakettinsa",
+          "surface": "paketin",
           "lemma": "paketti",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=3",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "paketti",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]paketti[X]pakett[Sn][Ny]i[O3]nsa",
+            "FSTOUTPUT": "[Ln][Xp]paketti[X]paket[Sg][Ny]in",
             "NUMBER": "singular",
-            "POSSESSIVE": "3",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=pppppppppp",
+            "SIJAMUOTO": "omanto",
+            "STRUCTURE": "=ppppppp",
             "WORDBASES": "+paketti(paketti)"
           },
-          "form": "form-bf7f922a797a"
+          "form": "form-e7e5785f8270"
         }
       ],
       "puhe_tokens": [
@@ -545,20 +528,10 @@
           "kirja": 7
         },
         {
-          "surface": "sen",
-          "kirja": 8
-        },
-        {
           "surface": "paketin",
-          "kirja": 9
+          "kirja": 8
         }
-      ],
-      "judge": {
-        "faithful": false,
-        "reason": "Spoken 'sen paketin' means 'the package' (a definite parcel), while the written version says 'hänen pakettinsa' (her package), which adds the possessor; this is an added detail.",
-        "fingerprint": "f4aa13e9ce1da58f09378243b41d90b15706fbb9677403eef10daa90926fbd09",
-        "model": "claude-sonnet-5-5"
-      }
+      ]
     },
     {
       "n": 4,
@@ -1417,42 +1390,21 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-956bf17f9fd8",
-      "lemma": "hän",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
-      "surface_kirja": "hänen",
-      "surface_puhe": "sen",
-      "analysis": {
-        "BASEFORM": "hän",
-        "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]hän[X]hä[Sg][Ny]nen",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=ppppp",
-        "WORDBASES": "+hän(hän)"
-      },
-      "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
-    },
-    {
-      "id": "form-bf7f922a797a",
+      "id": "form-e7e5785f8270",
       "lemma": "paketti",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=3",
-      "surface_kirja": "pakettinsa",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+      "surface_kirja": "paketin",
       "surface_puhe": "paketin",
       "analysis": {
         "BASEFORM": "paketti",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]paketti[X]pakett[Sn][Ny]i[O3]nsa",
+        "FSTOUTPUT": "[Ln][Xp]paketti[X]paket[Sg][Ny]in",
         "NUMBER": "singular",
-        "POSSESSIVE": "3",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=pppppppppp",
+        "SIJAMUOTO": "omanto",
+        "STRUCTURE": "=ppppppp",
         "WORDBASES": "+paketti(paketti)"
       },
-      "form_name_en": "nominative singular, with the possessive ending for his, her or their",
+      "form_name_en": "genitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

@@ -195,7 +195,7 @@
       "n": 2,
       "speaker": "Maria",
       "text_puhe": "Ihan ok. Vähän väsyttää.",
-      "text_kirja": "Ihan hyvin. Vähän väsyttää.",
+      "text_kirja": "Ihan okei. Vähän väsyttää.",
       "gloss_en": "OK. I'm a bit tired.",
       "kirja_tokens": [
         {
@@ -213,21 +213,18 @@
           "form": "form-f0a709b48382"
         },
         {
-          "surface": "hyvin",
-          "lemma": "hyvä",
-          "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
+          "surface": "okei",
+          "lemma": "okei",
+          "form_tag": "CLASS=huudahdussana",
           "name": false,
           "analysis": {
-            "BASEFORM": "hyvä",
-            "CLASS": "laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sin][Nm]in",
-            "NUMBER": "plural",
-            "SIJAMUOTO": "keinonto",
-            "STRUCTURE": "=ppppp",
-            "WORDBASES": "+hyvä(hyvä)"
+            "BASEFORM": "okei",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]okei[X]okei",
+            "STRUCTURE": "=pppp",
+            "WORDBASES": "+okei(okei)"
           },
-          "form": "form-666f993dc91f"
+          "form": "form-a1abac21b21b"
         },
         {
           "surface": "Vähän",
@@ -277,13 +274,7 @@
           "surface": "väsyttää",
           "kirja": 4
         }
-      ],
-      "judge": {
-        "faithful": false,
-        "reason": "'Ihan ok' means fine/okay, while 'ihan hyvin' means quite well; this is a slight change of meaning, and the 'vähän väsyttää' part matches. Treated as a difference in the description of how things are going.",
-        "fingerprint": "4d2f65026cf18cca25d19c530f462e4fe6cc771ce5244d82a862e3e2f1f0e65c",
-        "model": "claude-sonnet-5-5"
-      }
+      ]
     },
     {
       "n": 3,
@@ -1008,22 +999,19 @@
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-666f993dc91f",
-      "lemma": "hyvä",
-      "form_tag": "CLASS=laatusana;SIJAMUOTO=keinonto;NUMBER=plural;COMPARISON=positive",
-      "surface_kirja": "hyvin",
+      "id": "form-a1abac21b21b",
+      "lemma": "okei",
+      "form_tag": "CLASS=huudahdussana",
+      "surface_kirja": "okei",
       "surface_puhe": "ok",
       "analysis": {
-        "BASEFORM": "hyvä",
-        "CLASS": "laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Ll][Xp]hyvä[X]hyv[Sin][Nm]in",
-        "NUMBER": "plural",
-        "SIJAMUOTO": "keinonto",
-        "STRUCTURE": "=ppppp",
-        "WORDBASES": "+hyvä(hyvä)"
+        "BASEFORM": "okei",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]okei[X]okei",
+        "STRUCTURE": "=pppp",
+        "WORDBASES": "+okei(okei)"
       },
-      "form_name_en": "instructive plural",
+      "form_name_en": "interjection",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

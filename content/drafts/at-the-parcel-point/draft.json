@@ -314,7 +314,7 @@
     {
       "n": 3,
       "speaker": "Maria",
-      "text_puhe": "Joo, tässä puhelimes.",
+      "text_puhe": "Joo, tässä puhelimessa.",
       "text_kirja": "Kyllä, tässä puhelimessa.",
       "gloss_en": "Yes, here on my phone.",
       "kirja_tokens": [
@@ -362,7 +362,7 @@
             "STRUCTURE": "=ppppppppppp",
             "WORDBASES": "+puhelin(puhelin)"
           },
-          "form": "form-9ccf8d7bd55b"
+          "form": "form-00d138a331d0"
         }
       ],
       "puhe_tokens": [
@@ -375,16 +375,10 @@
           "kirja": 2
         },
         {
-          "surface": "puhelimes",
+          "surface": "puhelimessa",
           "kirja": 3
         }
-      ],
-      "judge": {
-        "faithful": false,
-        "reason": "Spoken 'puhelimes' means 'on your phone' (sinun puhelimessasi), while written 'puhelimessa' lacks the possessive, so 'your' is missing and it just means 'on the phone'.",
-        "fingerprint": "9e160e1b6bd7a891f03ac26a15774869b257dfb10af521bfcdd176cbeb8e6a8c",
-        "model": "claude-sonnet-5-5"
-      }
+      ]
     },
     {
       "n": 4,
@@ -1144,11 +1138,11 @@
       "why_en": "'Here you are.' Inessive singular of tämä 'this', literally 'in this', said when handing something over."
     },
     {
-      "id": "form-9ccf8d7bd55b",
+      "id": "form-00d138a331d0",
       "lemma": "puhelin",
       "form_tag": "CLASS=nimisana;SIJAMUOTO=sisaolento;NUMBER=singular",
       "surface_kirja": "puhelimessa",
-      "surface_puhe": "puhelimes",
+      "surface_puhe": "puhelimessa",
       "analysis": {
         "BASEFORM": "puhelin",
         "CLASS": "nimisana",

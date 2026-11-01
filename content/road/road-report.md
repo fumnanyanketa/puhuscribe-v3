@@ -10,15 +10,15 @@ unless it ran.
 
 | Check | Items | Rate |
 |---|---|---|
-| word_validity | 4031 | 1.0000 |
+| word_validity | 4030 | 1.0000 |
 | token_order | 1704 | 1.0000 |
-| spoken_links | 4032 | 1.0000 |
-| spoken_pairs | 3869 | 1.0000 |
-| level_fit | 3928 | 1.0000 |
-| grammar_cards | 7362 | 1.0000 |
+| spoken_links | 4031 | 1.0000 |
+| spoken_pairs | 3868 | 1.0000 |
+| level_fit | 3927 | 1.0000 |
+| grammar_cards | 7360 | 1.0000 |
 
-Register judge: n/a in 6 drafts, not run in 102 drafts.
-Forms waiting for word notes: 1330 (see needed-notes.tsv).
+Register judge: FAILED in 7 drafts, n/a in 6 drafts, passed in 95 drafts.
+Forms waiting for word notes: 1329 (see needed-notes.tsv).
 
 ## Stop 1. Meeting people
 
@@ -264,16 +264,16 @@ Extras recorded: 10 base forms: asumistuki, kuusisataa, lomake, oleskelulupa, ol
 
 | Check | Items | Rate |
 |---|---|---|
-| word_validity | 116 | 1.0000 |
+| word_validity | 115 | 1.0000 |
 | token_order | 48 | 1.0000 |
-| spoken_links | 116 | 1.0000 |
-| spoken_pairs | 116 | 1.0000 |
-| level_fit | 106 | 1.0000 |
-| grammar_cards | 206 | 1.0000 |
+| spoken_links | 115 | 1.0000 |
+| spoken_pairs | 115 | 1.0000 |
+| level_fit | 105 | 1.0000 |
+| grammar_cards | 204 | 1.0000 |
 
-Forms in the stop: 74.
+Forms in the stop: 72.
 Spoken only words: none.
-Pairs accepted by the table: aa for a, hakee for hakemaan, haluun for haluan, ii for i, joo for kyllä, kiitti for kiitos, kirjota for kirjoita, kolkytviis for kolmekymmentäviisi, moi for hei, mun for minun, mä for minä, nimi for nimesi, okei for selvä, oo for ole, osote for osoite, paketin for pakettinsa, se for hän, sen for hänen, sukunimi for sukunimesi, sul for sinulla, sun for sinun, synttärilahja for syntymäpäivälahja, sä for sinä, tän for tämän, tää for tämä, vee for v, äidin for äitini, äl for l, äs for s.
+Pairs accepted by the table: aa for a, hakee for hakemaan, haluun for haluan, ii for i, joo for kyllä, kiitti for kiitos, kirjota for kirjoita, kolkytviis for kolmekymmentäviisi, moi for hei, mun for minun, mä for minä, nimi for nimesi, okei for selvä, oo for ole, osote for osoite, se for hän, sukunimi for sukunimesi, sul for sinulla, sun for sinun, synttärilahja for syntymäpäivälahja, sä for sinä, tän for tämän, tää for tämä, vee for v, äidin for äitini, äl for l, äs for s.
 Extras recorded: 11 base forms: ajokortti, henkilöllisyystodistus, kolmekymmentäviisi, lappu, lentoposti, painava, seurantakoodi, sukunimi, syntymäpäivälahja, vaaka, viereinen, 2 forms.
 
 ## Stop 17. Lunch out
@@ -401,7 +401,7 @@ Extras recorded: 15 base forms: brasilialainen, kaksikymmentä, kattila, kerma, 
 
 Forms in the stop: 84.
 Spoken only words: none.
-Pairs accepted by the table: bileet for juhlat, ihan for aivan, joo for kyllä, kiitti for kiitos, läpäsin for läpäisin, moi for hei, mul for minulla, mun for minun, mä for minä, ois for olisi, ok for hyvin, oon for olen, oot for olet, pimeetä for pimeää, sä for sinä, tosi for todella.
+Pairs accepted by the table: bileet for juhlat, ihan for aivan, joo for kyllä, kiitti for kiitos, läpäsin for läpäisin, moi for hei, mul for minulla, mun for minun, mä for minä, ois for olisi, ok for okei, oon for olen, oot for olet, pimeetä for pimeää, sä for sinä, tosi for todella.
 Extras recorded: 6 base forms: hermostunut, kaakao, koti-ikävä, kävely, läpäistä, väsyttää, 0 forms.
 
 ## Stop 25. Coffee break and sauna
