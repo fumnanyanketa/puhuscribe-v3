@@ -277,7 +277,7 @@ def test_a1_road_18_a_voice_log_with_uncommitted_changes_stops_the_voice_task(tm
 
 
 def test_a1_road_18_the_voice_task_refuses_before_it_voices_when_the_log_is_not_committed(tmp_path):
-    """[a1-road 18] cmd_voice stops with the refusal and calls the voice provider zero times."""
+    """[a1-road 18] cmd_voice stops with the refusal (no draft is named, so a broken guard voices nothing)."""
     from road_import import cmd_voice
 
     _git(tmp_path, "init", "-q")
@@ -286,7 +286,7 @@ def test_a1_road_18_the_voice_task_refuses_before_it_voices_when_the_log_is_not_
     calls: list[str] = []
     fake = types.SimpleNamespace(log_path=log, name="fake", synthesize=lambda **kw: calls.append("x") or b"")
     with pytest.raises(VoiceError, match="not committed"):
-        cmd_voice(types.SimpleNamespace(part=1, only=None), voice=fake)
+        cmd_voice(types.SimpleNamespace(part=1, only="no-such-draft"), voice=fake)
     assert calls == []
 
 
