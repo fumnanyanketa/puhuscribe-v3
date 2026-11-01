@@ -134,6 +134,14 @@ test.describe('the account page', () => {
     expect((await downloading).suggestedFilename()).toBe('puhuscribe-data.json')
     // Round 2: "Your file is ready." is the title, centred under the orb, and the only way back is the arrow.
     await expect(page.getByRole('heading', { level: 1, name: 'Your file is ready.' })).toBeVisible()
+    // The status line still says it for screen readers, and is not drawn a second time.
+    await expect(page.getByRole('status')).toHaveText('Your file is ready.')
+    expect(
+      await page
+        .getByRole('status')
+        .boundingBox()
+        .then((box) => box?.width ?? 0),
+    ).toBeLessThan(3)
     await expect(page.getByText('Everything we keep about you, in one file.')).toBeVisible()
     await expect(page.getByRole('link', { name: 'Back to your account' })).toHaveCount(1)
     await expect(page.getByRole('button', { name: 'Back to your account' })).toHaveCount(0)
@@ -472,7 +480,7 @@ test.describe('every page at phone size', () => {
       if ((header && header.contains(element)) || element.closest('[hidden]')) continue
       const range = document.createRange()
       range.selectNodeContents(node)
-      for (const box of range.getClientRects()) if (box.width > 2 && box.height > 2) top = Math.min(top, box.top)
+      for (const box of range.getClientRects()) if (box.width > 2 && box.height > 2) top = Math.min(top, box.top + window.scrollY)
     }
     // The lowest painted point of anything the band draws as a shape of its own (the pines, the flags,
     // the sun); the hills are the ground they stand on and fade out under them.
@@ -480,7 +488,7 @@ test.describe('every page at phone size', () => {
     let lowest = 0
     for (const shape of band.querySelectorAll('circle, path')) {
       const box = shape.getBoundingClientRect()
-      if (box.height > 0 && box.height < 50) lowest = Math.max(lowest, box.bottom)
+      if (box.height > 0 && box.height < 50) lowest = Math.max(lowest, box.bottom + window.scrollY)
     }
     return { top, lowest }
   })()`

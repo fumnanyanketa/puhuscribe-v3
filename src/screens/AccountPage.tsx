@@ -162,8 +162,10 @@ export function AccountPage() {
           </div>
           <h1 className={styles.readyTitle}>{READY}</h1>
           <p className={styles.readyText}>Everything we keep about you, in one file.</p>
-          {/* The title says the file is ready; this line speaks only when something else happens. */}
-          <StatusLine tone={status.tone}>{status.text === READY ? '' : status.text}</StatusLine>
+          {/* The title says it to the eye; the status line says it to a screen reader, and carries any later message. */}
+          <StatusLine tone={status.tone} visuallyHidden={status.text === READY}>
+            {status.text}
+          </StatusLine>
         </div>
       </PageFrame>
     )
