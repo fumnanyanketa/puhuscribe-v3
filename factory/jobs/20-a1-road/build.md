@@ -1,146 +1,85 @@
-# Build notes: job 20-a1-road, round 4 (visitors read the road, statement 29)
+# Build notes: job 20-a1-road, round 5 (fixes from the security and design reviews)
 
-Branch `factory/20-a1-road` (pushed, no pull request, not merged). Round 4 applies the manager's amendment of 1 November 2026, found by job 19: the day one screen shows the road to a visitor with no account and may not create a guest before Start, so `GET /api/road` can no longer answer 401 without a session. Rounds 3, 2 and 1 follow, in short form for the older ones. The cap decision that came after round 3 is recorded in round 3 below.
+Branch `factory/20-a1-road` (pushed, no pull request, not merged). Round 5 starts from cfe05ac, where the manager rewrote 225 word note rows. I did not change those texts. Both review files, `factory/jobs/20-a1-road/review-security.md` (pass, two should fix) and `factory/jobs/20-a1-road/review-design.md` (changes needed, all in the word card texts), are committed with this work. Rounds 4, 3, 2 and 1 follow in short form.
 
 ## What I built, in plain English
 
-- **The amendment is in the spec.** `factory/jobs/20-a1-road/spec.md` has statement 29 under the heading "Manager's amendment, 1 November 2026", word for word, and statement 7's "answers 401 without an account" is marked as replaced.
-- **A database function for visitors.** `public.road_for_visitors()` (migration `supabase/migrations/20261101120200_road_for_visitors.sql`) returns the same 14 columns as `road()`, with `dialogues_done`, `review_forms_reviewed` and `lessons_done` always 0. It takes no user and has no `auth.uid()` and no learner table in it, so it cannot return any learner's progress. It counts only approved content, by the same rules the learner read policies use (an approved dialogue in an approved unit, an approved line, an approved form). The road tables are closed to anon, so it is `security definer` with an empty search path, `stable` (it writes nothing), and granted to `anon` for this one function only. `road()` is unchanged and still callable by learners only.
-- **The Worker route.** `GET /api/road` with no sign in cookie reads `road_for_visitors()` with the publishable key and no session at all: no account is made, no Auth call, no write, no `Set-Cookie`. With a sign in cookie that is expired or invalid (or whose account is gone) it answers the same visitor rows and drops the cookie changes the check made. A signed in learner still gets `road()` with their own token. A fault is still a 503 with no detail, also when the sign in service is down (that is not turned into a visitor answer). The Worker also sets the three progress columns to 0 itself, so a database answer can never carry progress to a visitor.
-- **Types.** `src/lib/database.types.ts` gains the new function. The database check compares it with the Supabase CLI's output and passed, so it is exact. I did not touch `src/lib/session-types.ts` or the session route.
-- `docs/data-model.md` describes the visitor function and the route.
+- **hitaammin (design item 4).** A manual reading by position for `sorry-i-didnt-understand`, line 4, word 5: dictionary form `hidas`, form name "comparative, adverb" (tag `CLASS=seikkasana;COMPARISON=comparative`), like `vähemmän`. Voikko only offers the instructive plural.
+- **en voi.** A manual reading by position for "Minä en voi syödä maitotuotteita" (`is-there-milk-in-it`, line 3, word 3): `voida`, "present tense, negative form". The third person rows of `voi` (form-fc6219c3121b) stay the verb, as the manager asked.
+- **Design item 5 ("Voi ei!"), confirmed.** No cry uses form-fc6219c3121b. All 12 words `Voi` that are the cry (for example `Voi ei`, `Voi harmi`, `Voi anteeksi`) use the interjection row. Form-fc6219c3121b is now used by exactly two lines, both the verb: "Lääkäri voi nähdä sinut" (`booking-a-visit` 7) and "Milloin hän voi tulla?" (`a-broken-washing-machine` 6). A test fixes this.
+- **Security should fix 1, the approval fingerprint.** `road_fingerprint` in `scripts/generate/road_publish.py` now also covers each line's speaker, the SHA-256 of each of the two clips, which written word links to which form, and which spoken word renders which written word. A clip voiced again, a swapped speaker or a moved word link after the owner approved now makes publishing refuse ("changed after the owner approved it") and writes nothing.
+- **Security should fix 2, the voice log.** The `voice` task now refuses to start when `content/logs/ai-calls.jsonl` has changes git does not hold (changed, staged or new), because the character guard counts what the checkout holds. The workflow file's comment and `docs/content-pipeline.md` say that the manager commits the voice log after every voice run and before the next one. Outside a git working tree (a temporary folder in a test) the check does nothing.
+- **Retry-After.** A wait that Azure asks for is cut to 60 seconds at most (`MAX_RETRY_WAIT_SECONDS` in `scripts/generate/providers/voice.py`), the same as the back off.
+- **Import (part all).** `analyse` gave the same caps as before (2000, 2000, 2000, 2500, 2500, 1500). The import changed two words, the two above, and nothing else. The importer dropped the manager's row for the old hitaammin form (form-ba63b5995fe7, no longer used).
+
+## New empty rows for the manager
+
+Two forms have no text yet, so two drafts say `"notes": "pending"` (106 of 108 are `"complete"`). The list is `content/road/needed-notes.tsv`:
+
+| Form id | Written, spoken | Dictionary form | Form name | Needs | Line |
+|---|---|---|---|---|---|
+| form-3c09073a2190 | hitaammin, hitaammin | hidas | comparative, adverb | meaning and why | `sorry-i-didnt-understand` 4: Voitko sinä puhua vähän hitaammin? |
+| form-1328b4909965 | voi, voi | voida | present tense, negative form | meaning and why | `is-there-milk-in-it` 3: Minä en voi syödä maitotuotteita. |
+
+The lemma `hidas` already has its meaning in `glossary.tsv`. No other lemma and no other form is missing. After these two rows are written, rerun `import` (part `all`) so the two drafts say `"complete"`.
 
 ## Which tests protect it
 
 | Where | Tests |
 |---|---|
-| `worker/road.test.ts`, `[a1-road 29]` (6 new tests, the old "401 without an account" test is replaced by them) | no sign in gives 200 with the 14 columns and no progress, the learner database is not asked, no cookie; the one request is `rpc/road_for_visitors` with the publishable key, no Auth request, nothing issued; an invalid cookie and an ended account are visitors and set no cookie; a signed in learner still gets own progress and never the visitor rows; a fault, a downed sign in and a missing configuration are 503 with no detail; a wrong shaped row is a fault and progress is zeroed |
-| `supabase/tests/database/a1_road.test.sql`, `[a1-road 29]` (20 new checks, 123 in all) | the function exists, is `security definer`, `stable`, has an empty search path and returns exactly the columns of `road()`; anon may call it, a learner, service_role and PUBLIC may not; as anon, with learner B's claims in the request, it returns the 40 rows with no progress although the test learners finished sessions; draft and unapproved content is not counted; anon still cannot read `road_stops`, `sessions`, `review_logs`, `units` or call `road()` |
+| `scripts/generate/test_road_publish.py`, `[a1-road 20]` (2 new) | each of five edits alone (the `puhe` clip hash, the `kirja` clip hash, a speaker, a written word's form, a spoken word's link) changes the fingerprint and a copy does not; after approval each edit makes publishing refuse, naming the changed fingerprint, and nothing is written |
+| `scripts/generate/test_road_voice.py`, `[a1-road 18]` (4 new) | a `Retry-After` of a day waits 60 seconds; a voice log that is new, or changed after it was committed, refuses (in a real temporary git repository), and a committed log passes; `cmd_voice` refuses before it voices; the workflow and the docs say the manager commits the voice log and when |
+| `scripts/generate/test_road_readings.py`, `[a1-road 10]` (3 new) | hitaammin is hidas, "comparative, adverb"; en voi is voida, "present tense, negative form"; form-fc6219c3121b is used only by the two verb lines and every cry has the interjection row (12) |
 
-The test of the old wording (`[a1-road 7]` "answers 401 without an account and asks no database") was replaced because the spec amendment replaced that behaviour. No other test was changed, and no check was weakened. The other `[a1-road 7]` tests (learner path, POST refused, no extra field, 503) still pass unchanged.
-
-## Check results
-
-All on GitHub. The final run is on 7666086 (the commit that adds the amendment; this note and its evidence file are the only later change): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41335613077
-
-| Check | Result |
-|---|---|
-| Type check, lint, format | passed |
-| Unit tests (Vitest) | passed |
-| Python tests (299, real Voikko, no skips) | passed |
-| Database tests (pgTAP, includes the 123 checks of `a1_road.test.sql` and that the types match the migrated database) | passed |
-| Browser tests (Playwright, local Supabase) | passed |
-| Secret scan, dependency check | passed |
-
-The run before it, for the cap decision (parts 4 and 5 at 2500), was also fully green: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41334188420 (on 29c7af7).
-
-## Proof by breaking each protection
-
-Details in `factory/jobs/20-a1-road/evidence/round4-red-proofs.txt`. Each break was made on its own and undone.
-
-| Protection broken | Tests that went red |
-|---|---|
-| The Worker stops zeroing a visitor's progress (local) | the zeroing test and the three visitor tests that read rows |
-| A fault in the sign in check answers a visitor (local) | the fault test |
-| The visitor reads `road()` instead of `road_for_visitors()` (local) | the request test |
-| A signed in learner is answered with the visitor rows (local) | the learner test and the `[a1-road 7]` learner tests |
-| The function is made `security invoker` (GitHub run 41335874564) | `road_for_visitors() is security definer` (test 104) |
-| The function is also granted to `authenticated` (run 41336021259) | `a learner does not call road_for_visitors()` (test 109), and no other |
-| The dialogue's approved filter is dropped (run 41336004857) | `stop 9002: a draft dialogue ... not counted` (test 115), and no other |
-
-## Departures and notes
-
-1. **A new function, granted to `anon`** (spec amendment, manager's decision). It is `security definer`, which is why it holds no user, no progress and only approved content, and why its tests are the protection. It exposes stop names, "I can" sentences and counts, which are public by design.
-2. **`road()` is unchanged.** A signed in learner never reads `road_for_visitors()`.
-3. **A visitor answer after an ended sign in drops the cookie clearing** the check would have set, because statement 29 says the answer sets no cookie. The stale cookie stays until another route clears it.
-
-## Unfinished or uncertain
-
-- Nothing open from round 4. Statement 28 and the voices are as in round 1.
-
----
-
-# Round 3 (the manager's two decisions and the final import)
-
-Branch `factory/20-a1-road` (pushed, no pull request, not merged). Round 3 starts from c59db55, where the manager wrote the 89 new form rows and the 44 dictionary forms and reworded the three whys. Rounds 1 and 2 follow in short form.
-
-## What I built, in plain English
-
-- **Decision 1, the alias table.** The frequency list holds some words under another base form (`paljo`, `tosi`), so the correct dictionary forms `paljon` and `todella` counted as extra words and pushed the rank caps up. `content/road/list-aliases.tsv` now maps each such word to the list form of the same word, one reason per row (8 rows: `liian` to `liika`, `myöhemmin` to `myöhä`, `oikein` to `oikea`, `paljon` to `paljo`, `tietysti` to `tietty`, `todella` to `tosi`, `usein` to `usea`, `varmaan` to `varma`). A word takes the rank of its list form in `Context` (the importer) and in `check_draft` (every check run), through `aliased_ranks` in `scripts/generate/road_data.py`. A word the list already has keeps its own rank. I left out forms that are not the same word (`ilman` is not `ilma`, `pala` is not `palo`, `uusia` is not `uusi`).
-- **Decision 2, `minä`.** One spelling row in `content/road/reading-overrides.tsv` makes all 179 words `minä` and `Minä` the personal pronoun (26 were the noun `minä`). The 153 position rows for `minä` that this row now covers are removed.
-- **The final import** ran on GitHub (part `all`). It changed exactly the 26 words that were the noun `minä` and nothing else (checked word by word: no unplanned change). Every draft now says `"notes": "complete"` (108 of 108), the import log has 0 failures, and there are no empty rows (`needed-notes.tsv` has no entry, no empty cell in `glossary.tsv` or `word-notes.tsv`).
-- **Stale row.** The manager's row for the old noun form of `minä` (form 2f3bea3d9937) is no longer used, so the importer dropped it. `word-notes.tsv` has 1,032 rows (was 1,033) and no text of another row changed. `glossary.tsv` is unchanged (767 rows).
-- Five new tests (`scripts/generate/test_road_readings.py`, `[a1-road 10]`): the alias file's keys are lemmas in the drafts and its values are on the list, an alias gives its list form's rank and never replaces a listed word, the alias file refuses a wrong row, all 179 `minä` are the pronoun in the drafts, and the pronoun also wins in a real Voikko build of three dialogues. The Python test count is 299 (set in `.github/workflows/checks.yml`).
-
-## Rank caps before and after the aliases
-
-| Part | 1 | 2 | 3 | 4 | 5 | 6 |
-|---|---|---|---|---|---|---|
-| Round 1 | 2000 | 2000 | 2000 | 2000 | 2000 | 1500 |
-| Round 2 (no aliases, by the rule) | 2500 | 2500 | 2000 | 4000 | 4000 | 1500 |
-| Final, in `content/road/stops.json` | 2000 | 2000 | 2000 | 2500 | 2500 | 1500 |
-
-With the aliases parts 1, 2, 3 and 6 are back at their round 1 caps. Parts 4 and 5 cannot return to 2000 by aliasing the same word: three stops keep more than 15 extra words at 2000. At first I left both parts at 2000 as the manager had decided and reported the words; the test of the rule (`test_a1_road_13_each_part_has_the_lowest_cap_that_leaves_at_most_15_extra_words_per_stop`) was red. **The manager then decided to set parts 4 and 5 to 2500, as the spec's own rule gives** (the lowest cap that leaves at most 15 extras per stop). I changed neither the test nor the limit of 15. `analyse` and `import` were run again, the extras were rebuilt (349 base words, 107 forms, at most 15 base words on any stop) and no word changed reading. The words that caused it, at cap 2000:
-
-- Stop 23 (part 4), 18 words: it gained `ilman`, `keittää` (rank 4097), `kuoria` (2432), `maistaa` (4263) and `pala` (5279) and lost `kuori` and `palo`. `ilman` is not on the list (`ilma` is a different word).
-- Stop 26 (part 5), 16 words: `etukäteen` moved in (the list has it only as `etukäsi`).
-- Stop 28 (part 5), 17 words: it gained `keksiä` (2241) and `uusia` (4196).
-
-A cap of 2500 lets words of rank 2000 to 2500 pass the level check in parts 4 and 5 without being listed.
-
-## Which statements the new tests protect
-
-All five carry `[a1-road 10]` (Voikko's reading for each written word, chosen by fixed rules, no AI) and sit in `scripts/generate/test_road_readings.py`. The level fit and caps are also protected by the existing `test_a1_road_12_*` and `test_a1_road_13_*` tests in `test_road_import.py`.
+The Python test count is 308 (set in `.github/workflows/checks.yml`).
 
 ## Check results
 
-All on GitHub (no Docker or Voikko here). Superseded by the cap decision (parts 4 and 5 at 2500), whose run 41334188420 on 29c7af7 passed every check including the Python rank cap test. The run described here was on 8ffd14c, with parts 4 and 5 still at 2000, and is on 9e9e3e6 plus the pruning commit that follows it (three briefs lose one extra word and the report): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41330364917 (on 8ffd14c). Its browser job failed once on one test that reads a dialogue id from a shared database (`save-progress 19`, an empty id in a test helper, nothing to do with the road) and passed when only the failed jobs were run again
+All on GitHub. The final run is on 724e0fb: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41339331848
 
 | Check | Result |
 |---|---|
 | Type check, lint, format (`npm run check:code`) | passed |
 | Unit tests (Vitest) | passed |
 | Python lint and format (ruff) | passed |
-| Python tests (299, real Voikko, no network, no skips) | **298 passed, 1 failed**: `test_a1_road_13_each_part_has_the_lowest_cap_that_leaves_at_most_15_extra_words_per_stop` (parts 4 and 5 at cap 2000, see above), and nothing else |
+| Python tests (308, real Voikko, no network, no skips) | passed |
 | `pipeline.py check-committed` (all 108 drafts) | passed |
 | Database tests (pgTAP, local Supabase) | passed |
-| Browser tests (Playwright, local Supabase) | passed on the second attempt (see above) |
+| Browser tests (Playwright, local Supabase) | passed |
 | Secret scan, dependency check | passed |
-
-Import runs (scratch branch, deleted afterwards): the last 41330241971 (108 drafts, 0 failures), the one before 41330052372 (1 failure, the stale `minä` note row, 26 words changed), and the analysis for the caps 41329922707.
 
 ## Proof by breaking each protection
 
-Each break was made on its own and undone.
+Details and test names are in `factory/jobs/20-a1-road/evidence/round5-red-proofs.txt`. Each break was made on its own and undone.
 
-| Protection broken | Tests that went red (besides the baseline) |
+| Protection broken | Tests that went red |
 |---|---|
-| An alias no longer takes its list form's rank (local) | `an_alias_takes_its_list_forms_rank_and_never_replaces_a_listed_word` |
-| The alias file accepts the same word twice (local) | `the_alias_file_refuses_a_wrong_row` |
-| An alias row for a word no draft uses, or whose list form is not on the list (local) | `every_alias_key_is_a_lemma_in_the_drafts_and_every_value_is_on_the_list` (and the rank test for the second) |
-| The noun `minä` back in a draft, or the spelling row removed (local) | `minae_is_the_pronoun_in_every_line_of_the_drafts` |
-| The `minä` row removed (GitHub run 41331399346, real Voikko) | both `minae` tests, `test_a1_road_12` (draft equals importer, report current) and the notes test |
-| `check_draft` ignores the aliases (GitHub run 41331402136, real Voikko) | `test_a1_road_12_all_108_committed_drafts_pass_every_check` and both `test_a1_road_15` tests |
+| The clip hashes, the speakers, the written word links or the spoken word links left out of the fingerprint (4 local breaks) | `the_fingerprint_covers_each_clip_speaker_and_word_link`, each time |
+| The whole fingerprint put back to round 4 (GitHub run 41339362359, real Voikko) | `a_changed_clip_speaker_or_word_link_voids_the_approval` and the fingerprint test |
+| The voice log check does nothing, or does not see a new log (local) | `a_voice_log_with_uncommitted_changes_stops_the_voice_task` and `the_voice_task_refuses_before_it_voices...` |
+| `cmd_voice` does not call the check (local) | `the_voice_task_refuses_before_it_voices_when_the_log_is_not_committed` |
+| The `Retry-After` wait is not capped (local) | `a_retry_after_header_is_capped_at_60_seconds` |
 
-The baseline is the rank cap test, which was red at the time of these breaks because parts 4 and 5 were at 2000 (it is green with the 2500 caps). The details and test names are in `factory/jobs/20-a1-road/evidence/round3-red-proofs.txt`. The two GitHub runs were cancelled after their Python job.
+While making these proofs, the test of `cmd_voice` showed a danger: with its guard broken, it voiced the real drafts with the fake provider into the working folder. I restored the folder at once (`git checkout` and removing the new audio folders) and changed the test so that it names no draft (`only="no-such-draft"`): a broken guard now voices nothing.
 
-## Departures recorded in round 3
+## Departures
 
-1. **Alias table** (`content/road/list-aliases.tsv`): 8 words take the rank of their list form. The manager's decision. It loosens the level check for those words only, in the importer and in every `check_draft` run.
-2. **Parts 4 and 5 are at cap 2500** (the spec's rule), by the manager's decision after the aliases could not bring them back to 2000 (above).
-3. **`minä` is one spelling row**; the 153 position rows it replaces are gone.
+1. **Statement 20 changes its wording.** It said the approval fingerprint is "a SHA-256 of every line's three texts and every form's texts". It is now a SHA-256 of every line's three texts and speaker, the hash of each line's two clips, the word links of both registers, and every form's texts. Voicing a line again therefore voids that dialogue's approval, and a new approval reference is needed (the security review's finding 1, the manager's decision).
+2. **Statement 18 gains a rule.** The voice task refuses to start when the voice log in the working tree has uncommitted changes (the security review's finding 2). The process rule that the manager commits the log after every voice run and before the next is in the workflow comment, `docs/content-pipeline.md` and here.
+3. **Two more manual readings** (hitaammin and en voi), so `content/road/manual-readings.tsv` now has 135 rows.
 
-## Unfinished or uncertain
+## Not changed, from the reviews
 
-- Nothing open from round 3.
-- Statement 28 and the voices are as in round 1: no part is approved, nothing is published.
-
-## How to run it
-
-- Python checks: `python -m pytest scripts/generate`; lint `python -m ruff check scripts` and `python -m ruff format --check scripts`.
-- The importer on GitHub: Actions, "A1 road", task `analyse` then `import`, part `all`. To change a cap, edit `content/road/stops.json`, then rerun `analyse`, rebuild `allowed-extras.json` from its output and rerun `import`.
+- **Security notes 1 and 3 to 10.** Actions are pinned by tag like the other workflows (note 1), the judge limit can overshoot by a cent (note 4), a manual reading widens Voikko's check in the open, so the owner should read `manual-readings.tsv` before approving (note 5), the visitor road function can be called repeatedly (note 7), a stale cookie stays after an ended session (note 8), and the approval file is only a process lock (note 10). Note 3, the `Retry-After` cap, is done. None of the others was asked for.
+- **Design items 6 to 10 and the notes** are word card texts and form names, the manager's. The review says the form names of participles ("past active participle, nominative singular") are correct but heavy for a beginner. They come from the manual readings, chosen on purpose.
 
 ---
+
+# Rounds 4 and 3 in short
+
+**Round 4 (statement 29, visitors read the road).** The manager's amendment is statement 29 in `spec.md` (the 401 wording of statement 7 is marked replaced). `public.road_for_visitors()` (migration `20261101120200_road_for_visitors.sql`) returns the 14 columns of `road()` with `dialogues_done`, `review_forms_reviewed` and `lessons_done` always 0. It takes no user, counts approved content only, is `security definer` with an empty search path and `stable`, and is granted to `anon` for that function only. `GET /api/road` with no session, or an expired or invalid one, answers 200 with those rows (no account, no Auth call, no write, no cookie); a signed in learner still gets `road()`; a fault is a 503 with no detail. 6 Worker tests replaced the old 401 test, 20 pgTAP checks were added (123 in all), each protection was broken on purpose (`evidence/round4-red-proofs.txt`). Final checks run 41335613077, all green. A visitor answer after an ended sign in drops the cookie clearing, as statement 29 says no cookie.
+
+**Round 3 (aliases, minä, caps).** `content/road/list-aliases.tsv` (8 rows with a reason each: `paljon` to `paljo`, `todella` to `tosi`, `liian` to `liika`, `usein` to `usea`, `oikein` to `oikea`, `varmaan` to `varma`, `tietysti` to `tietty`, `myöhemmin` to `myöhä`) gives a word the rank of its list form in the importer and in every `check_draft` run. One spelling row makes all 179 `minä` the pronoun. Parts 1, 2, 3 and 6 returned to their round 1 caps; parts 4 and 5 could not (stops 23, 26 and 28 kept more than 15 extra words at cap 2000) and by the manager's decision are at 2500, the rule's own result. Final caps 2000, 2000, 2000, 2500, 2500, 1500 (round 2 without aliases had 2500, 2500, 2000, 4000, 4000, 1500). 5 tests (`[a1-road 10]`), red proofs in `evidence/round3-red-proofs.txt`, final checks 41334188420 all green, every draft complete at that time.
 
 # Round 2 in short (readings that did not fit the line)
 
@@ -217,4 +156,4 @@ Round 1 (commit 9fbb60b, all GitHub checks green on run 41321561654): the road i
 
 Round 1 departures that still stand: the six earlier drafts keep their old unit block; `noi` has the lemma `nuo`; glued `Ootsä` is one word in the text and two in the tokens; `present-tense` is a catalogue entry at stop 1; the six earlier drafts disagree on the why line of 25 shared forms; `judge` and `voice` take `--part`; the road's seed numbers are zero until a part is approved. Round 1 run links: import 41321298577, analyse 41317041041, judge 41318417132, 41319745436 and 41320245477, voice sample 41317587713, count-characters 41317789817.
 
-Result: checks pass
+Result: checks pass, with two word note rows for the manager still empty (form-3c09073a2190 and form-1328b4909965, listed above), so two drafts say pending until they are written and the import is run again
