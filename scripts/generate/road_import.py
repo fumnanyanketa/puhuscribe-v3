@@ -483,15 +483,22 @@ def notes_tables(drafts: dict[str, dict], ctx: Context) -> tuple[str, str, str]:
 
 
 def lemma_consistency(drafts: dict[str, dict]) -> list[str]:
+    """One dictionary form has one meaning, and one form id carries the same texts in every draft that
+    has it. The six earlier drafts keep the why lines they were committed with (statement 17), and they
+    were written one by one, so a shared form may carry a different why there: only the road's written
+    drafts must agree on the why."""
     problems = []
     meanings: dict[str, set[str]] = defaultdict(set)
     texts: dict[str, dict[str, str]] = {}
     for slug, draft in drafts.items():
+        written = draft["brief"].get("source") == "written"
         for form in draft["forms"]:
             if form.get("lemma_meaning_en"):
                 meanings[form["lemma"]].add(form["lemma_meaning_en"])
             texts.setdefault(form["id"], {})
             for key in ("meaning_en", "lemma_meaning_en", "why_en", "form_name_en"):
+                if key == "why_en" and not written:
+                    continue
                 have = texts[form["id"]].setdefault(key, form.get(key, ""))
                 if have != form.get(key, ""):
                     problems.append(f"form {form['id']} has two different {key} texts (draft {slug})")
