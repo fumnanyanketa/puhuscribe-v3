@@ -3,6 +3,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { expect, test, type Page } from '@playwright/test'
 import { mockLesson, type LessonMocks } from './lesson-mocks.ts'
+import { stubMicrophone } from './microphone.ts'
 import { mockHome, type HomeMocks } from './road-mocks.ts'
 
 // The evidence of job 19-redesign (statement 48): one screenshot at phone size,
@@ -71,6 +72,21 @@ async function pages(page: Page, path: string, me: Record<string, unknown> = { k
   await page.goto(path)
   await page.evaluate('document.fonts.ready')
   await page.waitForTimeout(700)
+}
+
+/** Say it after one recorded try (a generated tone, never a voice) that the speech check answers with the given class. */
+async function sayItResult(page: Page, feedbackClass: string) {
+  await stubMicrophone(page, 'tone')
+  await lesson(page, { step: 'understand' })
+  await page.route('**/api/speech/say', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ feedbackClass }) }),
+  )
+  await page.getByRole('button', { name: 'Record yourself saying the line' }).click()
+  await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
+  await page.waitForTimeout(1200)
+  await page.getByRole('button', { name: /^Stop recording/ }).click()
+  await expect(page.getByRole('button', { name: 'Try again' })).toBeVisible({ timeout: 10_000 })
+  await page.waitForTimeout(600)
 }
 
 const SHOTS: Shot[] = [
@@ -197,11 +213,39 @@ const SHOTS: Shot[] = [
       await page.waitForTimeout(500)
     },
   },
+  {
+    drawing: 'Say it, listening',
+    file: 'say-it-listening',
+    run: async (page) => {
+      await stubMicrophone(page, 'tone')
+      await lesson(page, { step: 'understand' })
+      await page.getByRole('button', { name: 'Record yourself saying the line' }).click()
+      await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
+      await page.waitForTimeout(900)
+    },
+  },
+  {
+    drawing: 'Say it, clear',
+    file: 'say-it-clear',
+    run: (page) => sayItResult(page, 'clear'),
+  },
+  {
+    drawing: 'Say it, try again',
+    file: 'say-it-try-again',
+    run: (page) => sayItResult(page, 'try_again'),
+  },
 ]
 
 test.describe('the app screens', () => {
   for (const [index, shot] of SHOTS.entries()) {
-    test(`[redesign 48] ${shot.drawing}`, async ({ page }, testInfo) => {
+    test(`[redesign 48] ${shot.drawing}`, async ({ page, browserName }, testInfo) => {
+      // Recording needs a secure page, and the local WebKit build runs the page over plain http, so the
+      // three recording states are taken in Chromium here. Both browsers run them in the GitHub checks
+      // (e2e/speaking-feedback.spec.ts) and the reference page shows each state.
+      test.skip(
+        browserName === 'webkit' && shot.drawing.startsWith('Say it, '),
+        'The local WebKit page is not a secure page, so it cannot record.',
+      )
       mkdirSync(OUT, { recursive: true })
       await shot.run(page)
       const name = `${String(index + 1).padStart(2, '0')}-${shot.file}-app-${testInfo.project.name}.png`
