@@ -963,14 +963,14 @@
       "id": "18-save-progress",
       "feature": "save-progress",
       "title": "Ask a guest to save their progress after the first session",
-      "stage": "build",
+      "stage": "your-approval",
       "round": 2,
       "flag": "look closely",
       "flag_reasons": [
         "learner data, recordings or consent"
       ],
-      "waiting_on": "builder: guest bottom line wording, then merge",
-      "updated": "2026-11-01T07:32:00+02:00",
+      "waiting_on": "merge held while the owner reviews all screens",
+      "updated": "2026-11-01T08:25:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -1008,6 +1008,11 @@
           "stage": "build",
           "at": "2026-11-01T07:32:00+02:00",
           "note": "round 2, owner approved with one wording change"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-11-01T08:25:00+02:00",
+          "note": "round 2 checks green and re-check passes"
         }
       ]
     }
