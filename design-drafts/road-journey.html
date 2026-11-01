@@ -1,0 +1,663 @@
+<title>PuhuScribe road journey</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+/>
+<style>
+  /* Layout: three phones. The opening animation (playable), the journey on day one, and the journey a few stops later. */
+  :root {
+    --page: #f1f2f3;
+    --page-ink: #1b1d20;
+    --page-quiet: #5b5f66;
+    --frame: #1b1d20;
+    --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --a: #23917a;
+    --a-deep: #1a6f5d;
+    --a-mid: #74bba9;
+    --a-soft: #d6efe7;
+    --wash1: #cbede1;
+    --wash2: #fbe2d1;
+    --b: #ee8763;
+    --b-deep: #b8532f;
+    --b-soft: #fde4d8;
+    --ink: #1b2a26;
+    --quiet: #637570;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --page: #111315;
+      --page-ink: #eceef0;
+      --page-quiet: #a3a8ae;
+      --frame: #000;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --page: #111315;
+    --page-ink: #eceef0;
+    --page-quiet: #a3a8ae;
+    --frame: #000;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--page);
+    color: var(--page-ink);
+    font: 400 15px/1.55 var(--font);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2.5rem 4rem;
+  }
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+  }
+  h1 {
+    font: 600 clamp(1.8rem, 5vw, 2.3rem)/1.1 var(--font);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  header p {
+    color: var(--page-quiet);
+    margin: 0.6rem 0 0;
+    max-width: 60ch;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 1.75rem;
+  }
+  figure {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    width: 300px;
+    max-width: 100%;
+    justify-items: start;
+    align-content: start;
+  }
+  figcaption {
+    font-size: 0.88rem;
+    color: var(--page-quiet);
+  }
+  figcaption b {
+    display: block;
+    color: var(--page-ink);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  button {
+    font: 500 0.85rem var(--font);
+    color: var(--page-ink);
+    background: transparent;
+    border: 1px solid var(--page-quiet);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+  }
+  button:focus-visible {
+    outline: 2px solid var(--a);
+    outline-offset: 2px;
+  }
+
+  .phone {
+    width: 300px;
+    max-width: 100%;
+    height: 640px;
+    border-radius: 44px;
+    background: var(--frame);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .s {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--font);
+    background: linear-gradient(180deg, #e4f4ee 0%, var(--wash1) 22%, #f6f8f5 55%, var(--wash2) 100%);
+  }
+  .status {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .status i {
+    width: 64px;
+    height: 18px;
+    background: #000;
+    border-radius: 12px;
+  }
+  .scene {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 88%;
+  }
+  svg.road {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .sign {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .sign .board {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 16px rgba(40, 60, 60, 0.1);
+    border-radius: 10px;
+    padding: 4px 9px;
+    font-size: 10.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .sign .pole {
+    width: 2px;
+    background: rgba(27, 42, 38, 0.25);
+  }
+  .sign.done .board {
+    background: var(--a);
+    color: #fff;
+    border-color: var(--a);
+  }
+  .sign.done .board::before {
+    content: '';
+    width: 7px;
+    height: 4px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-1px);
+  }
+  .sign.cur .board {
+    border: 2px solid var(--a);
+    color: var(--a-deep);
+    font-weight: 600;
+  }
+  .sign.later .board {
+    color: var(--quiet);
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .say {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: #fff;
+    border-radius: 14px;
+    padding: 6px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(40, 60, 60, 0.12);
+  }
+  .say mark {
+    background: var(--b-soft);
+    color: var(--b-deep);
+    border-radius: 5px;
+    padding: 0 3px;
+  }
+  .say::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 2px;
+  }
+  .sun {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, #fff3ea 0%, var(--b-soft) 55%, #f8cdb8 100%);
+    border: 2px solid var(--b);
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--b-deep);
+  }
+  .goal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    color: var(--b-deep);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .you {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--a);
+    box-shadow:
+      0 0 0 6px rgba(255, 255, 255, 0.6),
+      0 4px 12px rgba(20, 90, 70, 0.25);
+  }
+
+  .top {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 40px;
+    z-index: 8;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .top b {
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+  }
+  .top span {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .av {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    color: var(--a);
+    font-weight: 600;
+  }
+  .skip {
+    position: absolute;
+    top: 40px;
+    right: 18px;
+    z-index: 8;
+    font-size: 11px;
+    color: var(--quiet);
+  }
+  .card {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    z-index: 8;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 30px rgba(40, 60, 60, 0.12);
+    border-radius: 22px;
+    padding: 12px;
+    display: grid;
+    gap: 10px;
+  }
+  .card .t {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .card .t b {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .card .t span {
+    font-size: 10.5px;
+    color: var(--quiet);
+  }
+  .pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--a);
+    color: #fff;
+    font-weight: 500;
+    font-size: 13.5px;
+    border-radius: 999px;
+    padding: 5px 5px 5px 18px;
+    box-shadow: 0 8px 20px rgba(20, 60, 60, 0.16);
+  }
+  .pill i {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    position: relative;
+  }
+  .pill i::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+  }
+  .pill i::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 9.5px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+  .signin {
+    font-size: 11px;
+    color: var(--quiet);
+    text-align: center;
+  }
+  .signin b {
+    color: var(--a);
+    font-weight: 500;
+  }
+
+  /* The opening animation, 4.6 seconds. */
+  .play .roadgroup {
+    animation: reveal 4.6s ease forwards;
+  }
+  @keyframes reveal {
+    0%,
+    12% {
+      clip-path: inset(100% 0 0 0);
+    }
+    44%,
+    100% {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  .play .you {
+    animation: fadeUp 4.6s ease forwards;
+  }
+  .play .moi {
+    animation: moi 4.6s ease forwards;
+  }
+  @keyframes moi {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -80%) scale(0.9);
+    }
+    8%,
+    30% {
+      opacity: 1;
+      transform: translate(-50%, -100%) scale(1);
+    }
+    38%,
+    100% {
+      opacity: 0;
+    }
+  }
+  .play .sign {
+    opacity: 0;
+    animation: signIn 4.6s ease forwards;
+  }
+  @keyframes signIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .play .say.at {
+    opacity: 0;
+    animation: sayAt 4.6s ease forwards;
+  }
+  @keyframes sayAt {
+    0%,
+    34% {
+      opacity: 0;
+      transform: translate(-50%, -80%);
+    }
+    44%,
+    62% {
+      opacity: 1;
+      transform: translate(-50%, -100%);
+    }
+    70%,
+    100% {
+      opacity: 0;
+    }
+  }
+  .play .sun,
+  .play .goal {
+    opacity: 0;
+    animation: sunIn 4.6s ease forwards;
+  }
+  @keyframes sunIn {
+    0%,
+    36% {
+      opacity: 0;
+    }
+    46%,
+    100% {
+      opacity: 1;
+    }
+  }
+  .play .scene {
+    animation: push 4.6s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+  }
+  @keyframes push {
+    0%,
+    66% {
+      transform: scale(1);
+    }
+    86%,
+    100% {
+      transform: scale(1.14) translateY(-18px);
+    }
+  }
+  .play .card,
+  .play .top {
+    opacity: 0;
+    animation: cardIn 4.6s ease forwards;
+  }
+  @keyframes cardIn {
+    0%,
+    74% {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    92%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .play .skip {
+    animation: skipOut 4.6s ease forwards;
+  }
+  @keyframes skipOut {
+    0%,
+    72% {
+      opacity: 1;
+    }
+    80%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+    }
+    8%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .play *,
+    .play {
+      animation-duration: 1ms !important;
+      animation-delay: 0ms !important;
+    }
+  }
+  @media (max-width: 700px) {
+    .row {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PuhuScribe road journey</h1>
+    <p>
+      Both ideas in one, on a road. You start at the near end with one word. The road runs to A1 on the
+      horizon, the stops come up as signs, and each sign shows a line you will say there. Then the view moves
+      in to your first stop.
+    </p>
+  </header>
+  <div class="row">
+    <figure>
+      <div class="phone"><div class="s" id="anim"></div></div>
+      <figcaption><b>Opening animation</b>About 4.5 seconds, with Skip.</figcaption>
+      <button type="button" id="replay">Play again</button>
+    </figure>
+    <figure>
+      <div class="phone"><div class="s" id="day1"></div></div>
+      <figcaption><b>Journey, day one</b>Where the animation lands.</figcaption>
+    </figure>
+    <figure>
+      <div class="phone"><div class="s" id="later"></div></div>
+      <figcaption><b>Journey, three stops later</b>The road behind you turns mint.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+  // The road in perspective: a gentle S bend from the bottom of the screen to the horizon.
+  const W = 280,
+    H = 620,
+    HORIZON = 210,
+    BOTTOM = 640
+  const yAt = (t) => HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.8)
+  const xAt = (t) => 140 + 30 * Math.sin(t * Math.PI * 1.6) * (1 - t * 0.85)
+  const wAt = (t) => 150 * Math.pow(1 - t, 1.6) + 5
+  const edge = (side, from, to) => {
+    const pts = []
+    for (let i = 0; i <= 60; i++) {
+      const t = from + ((to - from) * i) / 60
+      pts.push([xAt(t) + (side * wAt(t)) / 2, yAt(t)])
+    }
+    return pts
+  }
+  const roadPoly = (from, to) => {
+    const l = edge(-1, from, to),
+      r = edge(1, from, to).reverse()
+    return [...l, ...r].map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ')
+  }
+  const dashes = (from, to) => {
+    let out = ''
+    for (let i = 0; i < 26; i++) {
+      const t0 = from + ((to - from) * i) / 26,
+        t1 = t0 + ((to - from) * 0.5) / 26
+      const w0 = Math.max(0.6, wAt(t0) * 0.03),
+        w1 = Math.max(0.5, wAt(t1) * 0.03)
+      out += `<polygon points="${[
+        [xAt(t0) - w0, yAt(t0)],
+        [xAt(t0) + w0, yAt(t0)],
+        [xAt(t1) + w1, yAt(t1)],
+        [xAt(t1) - w1, yAt(t1)],
+      ]
+        .map((p) => p.map((n) => n.toFixed(1)).join(','))
+        .join(' ')}" fill="#ffffff" opacity=".9"/>`
+    }
+    return out
+  }
+
+  const stops = [
+    { t: 0.2, name: 'Meeting people', side: 1, say: '<mark>Mä oon</mark> Alex.' },
+    { t: 0.38, name: 'At the café', side: -1, say: '<mark>Yks</mark> kahvi, <mark>kiitti</mark>.' },
+    { t: 0.53, name: 'Grocery store', side: 1, say: '<mark>Onks</mark> teil maitoo?' },
+    { t: 0.65, name: 'Small talk', side: -1, say: 'Oli <mark>tosi</mark> kylmä!' },
+    { t: 0.71, name: 'Asking for help', side: 1 },
+  ]
+  const signHtml = (s, i, state, withSay, delay) => {
+    const x = Math.min(204, Math.max(62, xAt(s.t) + s.side * (wAt(s.t) / 2 + 30 + (1 - s.t) * 12))),
+      y = yAt(s.t)
+    const scale = 1 - s.t * 0.42,
+      pole = 24 * scale + 6
+    const st = `left:${x}px;top:${y}px;transform:translate(-50%,-100%) scale(${scale});transform-origin:50% 100%;${delay != null ? `animation-delay:${delay}s` : ''}`
+    const sign = `<div class="sign ${state}" style="${st}"><span class="board">${s.name}</span><span class="pole" style="height:${pole}px"></span></div>`
+    const say =
+      withSay && s.say
+        ? `<span class="say at" style="left:${x}px;top:${y - pole * scale - 24 * scale}px">${s.say}</span>`
+        : ''
+    return sign + say
+  }
+  const road = (doneTo, states, opts = {}) => `
+  <svg class="road" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+    <defs><linearGradient id="fadeR${opts.id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#ffffff" stop-opacity=".55"/></linearGradient></defs>
+    <g class="roadgroup">
+      <polygon points="${roadPoly(0, 1)}" fill="#dde8e3" stroke="#ffffff" stroke-width="2"/>
+      <polygon points="${roadPoly(0, 1)}" fill="url(#fadeR${opts.id})" opacity=".55"/>
+      ${doneTo > 0 ? `<polygon points="${roadPoly(0, doneTo)}" fill="#bfe6d7" opacity=".9"/>` : ''}
+      ${dashes(0, 0.97)}
+    </g>
+  </svg>
+  <span class="sun" style="top:${HORIZON - 4}px">A1</span>
+  <span class="goal" style="top:${HORIZON - 46}px">Everyday Finnish</span>
+  ${stops.map((s, i) => signHtml(s, i, states[i], opts.say, opts.anim ? 1.4 + i * 0.12 : null)).join('')}`
+
+  const youAt = (t) => `<span class="you" style="left:${xAt(t)}px;top:${yAt(t)}px"></span>`
+  const status = '<div class="status"><span>9:41</span><i></i><span>5G</span></div>'
+
+  const anim = `${status}<span class="skip">Skip</span>
+  <div class="scene">${road(0, ['cur', 'later', 'later', 'later', 'later'], { say: true, anim: true, id: 'a' })}
+    ${youAt(0.03)}
+    <span class="say moi" style="left:${xAt(0.03)}px;top:${yAt(0.03) - 22}px;font-size:16px;padding:8px 14px">Moi.</span>
+  </div>
+  <div class="top"><div><b>Your journey</b><span>Stop 1 of 24</span></div><span class="av">A</span></div>
+  <div class="card"><div class="t"><b>Meeting people</b><span>Stop 1</span></div><span class="pill">Start<i></i></span><span class="signin">Have an account? <b>Sign in</b></span></div>`
+
+  const day1 = `${status}
+  <div class="scene" style="transform:scale(1.14) translateY(-18px)">${road(0, ['cur', 'later', 'later', 'later', 'later'], { id: 'b' })}${youAt(0.18)}</div>
+  <div class="top"><div><b>Your journey</b><span>Stop 1 of 24</span></div><span class="av">A</span></div>
+  <div class="card"><div class="t"><b>Meeting people</b><span>Stop 1</span></div><span class="pill">Start<i></i></span><span class="signin">Have an account? <b>Sign in</b></span></div>`
+
+  const later = `${status}
+  <div class="scene" style="transform:scale(1.14) translateY(-18px)">${road(0.53, ['done', 'done', 'cur', 'later', 'later'], { id: 'c' })}${youAt(0.51)}</div>
+  <div class="top"><div><b>Huomenta, Alex</b><span>Stop 3 of 24</span></div><span class="av">A</span></div>
+  <div class="card"><div class="t"><b>Grocery store</b><span>Lesson 2 of 4</span></div><span class="pill">Continue<i></i></span></div>`
+
+  const playAnim = () => {
+    const s = document.getElementById('anim')
+    s.className = 's'
+    s.innerHTML = anim
+    void s.offsetWidth
+    s.classList.add('play')
+  }
+  playAnim()
+  document.getElementById('day1').innerHTML = day1
+  document.getElementById('later').innerHTML = later
+  document.getElementById('replay').addEventListener('click', playAnim)
+</script>
