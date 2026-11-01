@@ -277,3 +277,4 @@ One dated line per factory event, newest at the bottom. The /factory manager app
 - 2026-11-01T00:57 15-onboarding built, full checks green (runs 41243855040 and 41247997929, one WebKit retry on job 5's [design 12]). Combined review and evaluator started. Hallway test is the owner's.
 - 2026-11-01T01:05 Paused on the owner's request (recording). Evaluators for 15-onboarding and 18-save-progress stopped mid run; both restart from the start when the owner says go. Reviews for both are done and pass.
 - 2026-11-01T01:45 Resumed on the owner's go. Evaluators for 15-onboarding and 18-save-progress restarted from the start.
+- 2026-11-01T02:11 18-save-progress evaluation passes all 18 statements. Summary written; waiting for the owner's approval.

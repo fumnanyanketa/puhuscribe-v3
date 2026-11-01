@@ -949,14 +949,14 @@
       "id": "18-save-progress",
       "feature": "save-progress",
       "title": "Ask a guest to save their progress after the first session",
-      "stage": "evaluate",
+      "stage": "your-approval",
       "round": 1,
       "flag": "look closely",
       "flag_reasons": [
         "learner data, recordings or consent"
       ],
-      "waiting_on": "evaluator",
-      "updated": "2026-11-01T00:57:00+02:00",
+      "waiting_on": "owner: approval, status line wording, note position",
+      "updated": "2026-11-01T02:11:00+02:00",
       "history": [
         {
           "stage": "spec",
@@ -985,6 +985,10 @@
         {
           "stage": "evaluate",
           "at": "2026-11-01T00:57:00+02:00"
+        },
+        {
+          "stage": "your-approval",
+          "at": "2026-11-01T02:11:00+02:00"
         }
       ]
     }
