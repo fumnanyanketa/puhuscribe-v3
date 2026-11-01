@@ -240,4 +240,4 @@ Recorded by the manager from the owner's own words in chat. These replace the re
 - **2. AI judge:** on, once over the whole road ("Yes, about $0.60 (Recommended)").
 - **3. Approval:** part by part. (Recommended default; the owner asked the manager to decide the remaining points.)
 - **4. Review lesson:** opens as soon as the stop's third dialogue is finished, because there is no daily limit ("anyone who wants to do more than one session a day is free to do so").
-- **5. Glued spoken words:** split, for example "Ootsä" becomes "Ootsä" shown as written but analysed as "oot" and "sä". (Recommended default.)
+- **5. Glued spoken words:** split for the checks: "Ootsä" stays one word on screen and is analysed as "oot" plus "sä". (Recommended default.)
