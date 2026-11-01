@@ -72,7 +72,12 @@ export function RoadPicture({
       data-intro={intro ? 'on' : undefined}
     >
       <RoadBackdrop evening={evening} className={styles.backdrop} sunClassName={styles.sunRise} />
-      <RoadWay travelledTo={travelledTo} evening={evening} className={styles.way} />
+      {/* The mint runs from the bottom of the road up to the "you" marker (round 2, design review), so it is always seen between the card and the marker. Nothing is drawn while nothing is travelled. */}
+      <RoadWay
+        travelledTo={travelledTo > 0 ? (marker?.t ?? travelledTo) : 0}
+        evening={evening}
+        className={styles.way}
+      />
       <ul className={styles.fells} aria-label="Levels beyond A1">
         {FELLS.map((fell) => (
           <li

@@ -57,6 +57,8 @@
   overflow: hidden;
   border-radius: var(--radius-pill);
   background: var(--color-surface);
+  /* The part not reached has an edge that reaches 3 to 1 on the wash (round 2, design review). */
+  box-shadow: inset 0 0 0 1px var(--color-control-edge);
 }
 
 .fill {
@@ -117,6 +119,14 @@
   display: grid;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+}
+
+/* The finish screen's content scrolls under the dock, so the dock is a milky bar with a soft shadow
+   instead of a hard cut through the new words panel (round 2, design review). */
+.actionsSoft {
+  border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+  background: var(--color-panel);
+  box-shadow: var(--shadow-dock);
 }
 
 .sheetTitle {

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { CONTRAST_PAIRS } from '../src/styles/contrast-pairs.ts'
 
 // Repository rules of factory/jobs/19-redesign/spec.md. Labels in brackets are
 // that spec's "Done when" statement numbers.
@@ -109,5 +110,25 @@ describe('what the road must not hold', () => {
       const text = readFileSync(path, 'utf8')
       expect(text, path).not.toMatch(/localStorage|sessionStorage|indexedDB|document\.cookie/)
     }
+  })
+})
+
+describe('small text placed straight on the wash', () => {
+  it('[redesign 6] the "Delete my account" link uses a colour whose pair on the peach end of the wash is in the contrast list at 4.5 to 1', () => {
+    const css = readFileSync('src/screens/Account.module.css', 'utf8')
+    const block = /\.deleteLink\s*\{[^}]*?color:\s*var\((--[a-z-]+)\)/s.exec(css)
+    const token = block?.[1] ?? ''
+    expect(token).not.toBe('')
+    const pair = CONTRAST_PAIRS.find((p) => p.fore === token && p.back === '--color-wash-bottom')
+    expect(
+      pair?.min,
+      `${token} on the peach end of the wash must be in the contrast list`,
+    ).toBeGreaterThanOrEqual(4.5)
+  })
+
+  it('[redesign 4] [redesign 41] the crash screen starts its words below the landscape, like every page', () => {
+    const css = readFileSync('src/components/CrashBoundary.module.css', 'utf8')
+    const page = /\.page\s*\{[^}]*\}/s.exec(css)?.[0] ?? ''
+    expect(page).toMatch(/padding:\s*var\(--page-content-top\)/)
   })
 })

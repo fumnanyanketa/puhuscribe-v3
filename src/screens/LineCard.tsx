@@ -97,7 +97,8 @@ export function LineCard({
 
   if (only === 'spoken') {
     return (
-      <div className={now ? `${styles.card} ${styles.cardNow}` : styles.card} data-line-id={line.id}>
+      // One card, as drawn: the line's own box is the card (round 2, design review), not a box inside a panel.
+      <div className={now ? `${styles.cardBare} ${styles.cardNow}` : styles.cardBare} data-line-id={line.id}>
         <FinnishLine
           only="spoken"
           large

@@ -147,6 +147,26 @@ test.describe('Hear it and its line card', () => {
     expect(calls.audio).toEqual([])
   })
 
+  test('[redesign 23] [redesign 46] the rows of a Finnish line are about 1.4 apart while every word is still a 44 px target', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    const rows = await page.evaluate<{ pitch: number; size: number; rows: number; short: number }>(`(() => {
+      const line = document.querySelector('[data-line-id] p[lang="fi"]')
+      const size = parseFloat(getComputedStyle(line).fontSize)
+      const range = document.createRange()
+      range.selectNodeContents(line)
+      const tops = [...new Set([...range.getClientRects()].filter((r) => r.width > 2).map((r) => Math.round(r.top / 4)))].sort((a, b) => a - b).map((t) => t * 4)
+      const buttons = [...line.querySelectorAll('button')].map((b) => b.getBoundingClientRect().height)
+      return { pitch: tops.length > 1 ? (tops[tops.length - 1] - tops[0]) / (tops.length - 1) : 0, size, rows: tops.length, short: buttons.filter((h) => h < 43.5).length }
+    })()`)
+    expect(rows.rows).toBeGreaterThan(1)
+    expect(rows.pitch / rows.size).toBeLessThan(1.6)
+    expect(rows.pitch / rows.size).toBeGreaterThan(1.2)
+    expect(rows.short).toBe(0)
+  })
+
   test('[redesign 23] a word with word data is a button and a word without it is plain text', async ({
     page,
   }) => {
@@ -166,13 +186,13 @@ test.describe('Hear it and its line card', () => {
     const colours = await page.evaluate<{
       dotSpoken: string
       dotWritten: string
-      spoken: { text: string; color: string; background: string }[]
-      written: { text: string; color: string; background: string }[]
+      spoken: { text: string; color: string; background: string; ring: string }[]
+      written: { text: string; color: string; background: string; ring: string }[]
     }>(
       `(() => {
         const read = (group) => [...document.querySelectorAll('[role="group"][aria-label="' + group + '"] [class*="face"]')].map((el) => {
           const s = getComputedStyle(el)
-          return { text: el.textContent, color: s.color, background: s.backgroundColor }
+          return { text: el.textContent, color: s.color, background: s.backgroundColor, ring: s.boxShadow }
         })
         return {
           dotSpoken: getComputedStyle(document.querySelector('[class*="dotSpoken"]')).backgroundColor,
@@ -188,18 +208,23 @@ test.describe('Hear it and its line card', () => {
       if (word.text === 'noi') {
         expect(word.color).toBe('rgb(127, 54, 24)')
         expect(word.background).toBe('rgb(253, 228, 216)')
+        // The drawn thin peach ring (round 2, design review): 1 px, inside, in the peach mark colour.
+        expect(word.ring).toBe('rgb(219, 114, 73) 0px 0px 0px 1px inset')
       } else {
         expect(word.color, word.text).toBe('rgb(27, 42, 38)')
         expect(word.background, word.text).toBe('rgba(0, 0, 0, 0)')
+        expect(word.ring, word.text).toBe('none')
       }
     }
     for (const word of colours.written) {
       if (word.text === 'nuo') {
         expect(word.color).toBe('rgb(127, 54, 24)')
         expect(word.background).toBe('rgb(253, 228, 216)')
+        expect(word.ring).toBe('rgb(219, 114, 73) 0px 0px 0px 1px inset')
       } else {
         expect(word.color, word.text).toBe('rgb(56, 82, 122)')
         expect(word.background, word.text).toBe('rgba(0, 0, 0, 0)')
+        expect(word.ring, word.text).toBe('none')
       }
     }
   })
@@ -322,6 +347,24 @@ test.describe('the word card', () => {
 })
 
 test.describe('Understand it', () => {
+  test('[redesign 28] the spoken line is one milky card, not a card inside a card', async ({ page }) => {
+    await open(page, { step: 'hear' })
+    await expect(page.getByRole('heading', { level: 2, name: 'What does this mean?' })).toBeVisible()
+    const look = await page.evaluate<{ shadow: string; fill: string; panels: number }>(`(() => {
+      const outer = document.querySelector('[data-line-id]')
+      const style = getComputedStyle(outer)
+      const panels = [...outer.querySelectorAll('*')].filter((el) => {
+        const s = getComputedStyle(el)
+        const box = el.getBoundingClientRect()
+        return s.boxShadow !== 'none' && s.backgroundColor !== 'rgba(0, 0, 0, 0)' && box.width > 150 && box.height > 50
+      })
+      return { shadow: style.boxShadow, fill: style.backgroundColor, panels: panels.length }
+    })()`)
+    expect(look.fill).toBe('rgba(0, 0, 0, 0)')
+    expect(look.shadow).toBe('none')
+    expect(look.panels).toBe(1)
+  })
+
   test('[redesign 28] the question, one spoken line with one play button, three rows, and Next unavailable until the answer is right', async ({
     page,
   }) => {
@@ -429,6 +472,21 @@ test.describe('the finished lesson', () => {
     // The drawing's "lines said aloud" figure is not built.
     await expect(page.getByText(/lines said aloud/)).toHaveCount(0)
     await expect(page.getByRole('link', { name: 'Send feedback' })).toBeVisible()
+  })
+
+  test('[redesign 33] the Done dock is a milky bar with a soft edge over the new words, not a hard cut', async ({
+    page,
+  }) => {
+    await open(page, { step: 'say', newWords: 11, saveNote: 'first' })
+    const done = page.getByRole('button', { name: 'Done', exact: true })
+    await expect(done).toBeVisible()
+    const dock = await page.evaluate<{ fill: string; shadow: string }>(`(() => {
+      const button = [...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Done')
+      const style = getComputedStyle(button.parentElement)
+      return { fill: style.backgroundColor, shadow: style.boxShadow }
+    })()`)
+    expect(dock.fill).not.toBe('rgba(0, 0, 0, 0)')
+    expect(dock.shadow).not.toBe('none')
   })
 
   test('[redesign 33] one new word says "1 new word", and none shows no panel at all', async ({ page }) => {

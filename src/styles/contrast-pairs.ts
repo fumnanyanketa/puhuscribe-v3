@@ -87,6 +87,18 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   { fore: '--color-mint-deep', back: '--color-mint-soft', min: 4.5, use: 'mint text on a soft mint fill' },
   { fore: '--color-peach-deep', back: '--color-surface', min: 4.5, use: 'the name on the next sign' },
   { fore: '--color-peach-deep', back: '--color-panel', min: 4.5, use: 'the next stop name on the card' },
+  {
+    fore: '--color-danger-ink',
+    back: '--color-wash-bottom',
+    min: 4.5,
+    use: 'the "Delete my account" link on the peach end of the wash',
+  },
+  {
+    fore: '--color-danger-ink',
+    back: '--color-wash-middle',
+    min: 4.5,
+    use: 'the "Delete my account" link in the middle of the wash',
+  },
   { fore: '--color-button-text', back: '--color-button', min: 4.5, use: 'text on the mint pill' },
   { fore: '--color-mint-deep', back: '--color-button-secondary', min: 4.5, use: 'text on the white pill' },
   { fore: '--color-danger-text', back: '--color-danger', min: 4.5, use: 'text on the delete pill' },
@@ -135,6 +147,12 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
     back: '--color-wash-top',
     min: 3,
     use: 'the edge of a white control on the mint end of the wash',
+  },
+  {
+    fore: '--color-control-edge',
+    back: '--color-wash-bottom',
+    min: 3,
+    use: 'the edge of a progress piece not reached, on the peach end of the wash',
   },
   { fore: '--color-button', back: '--color-surface', min: 3, use: 'the play control in a sheet' },
   {

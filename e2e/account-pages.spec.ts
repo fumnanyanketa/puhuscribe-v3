@@ -106,7 +106,12 @@ test('[accounts 16] the privacy notice loads without an account, makes no /api c
   await page.waitForLoadState('networkidle')
   const origin = new URL(page.url()).origin
   for (const request of requests) expect(new URL(request.url()).origin, request.url()).toBe(origin)
-  expect(requests.filter((r) => new URL(r.url()).pathname.startsWith('/api/'))).toEqual([])
+  // Round 2 of job 19-redesign: the voice section names the speech service's country, which only the
+  // Worker knows, so the page makes the one read of the voice settings and no other /api call. With no
+  // account it is a 401 and the page says "in the EU" without the country.
+  const calls = requests.filter((r) => new URL(r.url()).pathname.startsWith('/api/'))
+  expect(calls.map((r) => `${r.method()} ${new URL(r.url()).pathname}`)).toEqual(['GET /api/voice'])
+  await expect(page.getByText(/service in the EU\./).first()).toBeVisible()
   expect(await page.evaluate<string>('document.cookie')).toBe('')
 })
 

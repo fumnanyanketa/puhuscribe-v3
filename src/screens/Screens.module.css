@@ -38,8 +38,9 @@
   white-space: nowrap;
 }
 
+/* Keep it's counter starts below the hills of the band, so no text sits on them. */
 .lead {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-5) 0 0;
   font-size: var(--text-body);
   color: var(--color-text-quiet);
 }
@@ -80,6 +81,12 @@
   border-radius: var(--panel-radius);
   background: var(--panel-fill);
   box-shadow: var(--panel-shadow);
+  transition: box-shadow var(--motion-fast) var(--motion-ease);
+}
+
+/* Understand it: the spoken line's own box is the card, so the wrapper adds no panel of its own. */
+.cardBare {
+  border-radius: var(--panel-radius);
   transition: box-shadow var(--motion-fast) var(--motion-ease);
 }
 

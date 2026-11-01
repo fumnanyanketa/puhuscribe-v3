@@ -107,7 +107,7 @@ export function SessionFrame({
       </header>
       {dim && <div className={styles.scrim} aria-hidden="true" />}
       <div className={styles.content}>{children}</div>
-      <div className={styles.actions}>{actions}</div>
+      <div className={finished ? `${styles.actions} ${styles.actionsSoft}` : styles.actions}>{actions}</div>
       <Sheet
         open={leaving}
         labelledBy={titleId}

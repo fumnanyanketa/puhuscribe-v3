@@ -12,7 +12,12 @@
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: var(--space-7) var(--space-5);
+  /* The words start below the band's hills, trees and sun (round 2, design review). */
+  padding: var(--page-content-top) var(--space-5) var(--space-7);
+}
+
+.embedded {
+  min-height: 0;
 }
 
 .body {

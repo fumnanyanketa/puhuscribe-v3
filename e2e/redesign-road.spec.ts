@@ -72,6 +72,27 @@ test.describe('the home screen is the road', () => {
     await expect(page.locator('svg text', { hasText: 'A1' })).toHaveCount(1)
   })
 
+  test('[redesign 12] the mint travelled road runs from the bottom of the road up to the "you" marker at stop 3, and is not drawn on day one', async ({
+    page,
+  }) => {
+    await openRoad(page, { today: SIGNED_IN, done: MID })
+    await expect(page.getByTestId('you-marker')).toBeAttached()
+    const mint = await page.evaluate<{ top: number; bottom: number; marker: number; box: number }>(`(() => {
+      const group = document.querySelector('svg g[style*="land-travelled"]')
+      const marker = document.querySelector('[data-testid="you-marker"]').getBoundingClientRect()
+      const box = group.getBoundingClientRect()
+      const scene = group.closest('svg').getBoundingClientRect()
+      return { top: box.top, bottom: box.bottom, marker: marker.top + marker.height / 2, box: scene.bottom }
+    })()`)
+    // It ends at the marker (within a few pixels) and reaches the foot of the picture, behind the card.
+    expect(Math.abs(mint.top - mint.marker)).toBeLessThan(12)
+    expect(mint.bottom).toBeGreaterThan(mint.box - 20)
+    expect(mint.bottom - mint.top).toBeGreaterThan(200)
+    const none = await page.context().newPage()
+    await openRoad(none, {})
+    await expect(none.locator('svg g[style*="land-travelled"]')).toHaveCount(0)
+  })
+
   test('[redesign 13] five signs in one ordered list, each read like "Stop 3, At the grocery store, current"', async ({
     page,
   }) => {
@@ -134,6 +155,25 @@ test.describe('the home screen is the road', () => {
     await expect(account).toHaveText('M')
     expect(((await account.boundingBox())?.width ?? 0) >= 44).toBe(true)
     expect(calls.me).toBe(1)
+  })
+
+  test('[redesign 14] [redesign 6] a progress piece not reached is hollow with an edge of 3 to 1 on the wash, and a reached one is solid mint', async ({
+    page,
+  }) => {
+    await openRoad(page, { today: { signedIn: true, today: 'start' }, done: { 1: 4, 2: 4, 3: 4 } })
+    const bar = page.getByRole('progressbar', { name: 'Progress on the road' })
+    await expect(bar).toBeVisible()
+    const pieces = await page.evaluate<{ fill: string; ring: string }[]>(`(() =>
+      [...document.querySelectorAll('[role="progressbar"] i')].map((item) => {
+        const style = getComputedStyle(item)
+        return { fill: style.backgroundColor, ring: style.boxShadow }
+      }))()`)
+    const reached = pieces.filter((piece) => piece.fill === 'rgb(30, 133, 111)')
+    const open = pieces.filter((piece) => piece.fill !== 'rgb(30, 133, 111)')
+    expect(reached.length).toBeGreaterThan(0)
+    expect(open.length).toBeGreaterThan(0)
+    // The edge colour is the control edge token, which the contrast list holds at 3 to 1 on every wash end.
+    for (const piece of open) expect(piece.ring).toBe('rgb(30, 133, 111) 0px 0px 0px 1px inset')
   })
 
   test('[redesign 14] a guest has a G, a visitor has a person mark and no call to GET /api/me, and a failure falls back to the mark', async ({

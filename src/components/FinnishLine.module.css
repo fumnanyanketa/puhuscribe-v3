@@ -53,6 +53,15 @@
   background: var(--color-surface);
 }
 
+/* Understand it: the one spoken line, larger, in a single milky card with its play button (round 2). */
+.spokenRow.large {
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
 /* Understand it: the one spoken line, larger. */
 .large .spokenLine {
   font-size: var(--text-line-large);
@@ -95,12 +104,8 @@
   white-space: nowrap;
 }
 
-/* A word with no card (such as a name) is plain text, laid out like a word
-   button so the line keeps its rhythm. */
+/* A word with no card (such as a name) is plain text. It is not a target, so it needs no height of its own. */
 .plain {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
   margin: 0 -0.08em;
 }
 
@@ -108,13 +113,17 @@
    target, WCAG 2.5.8). The button itself is invisible; the face inside it
    carries the wash and the lit block at text height, so a line reads as text
    with a few marked words, not a row of tall tiles. The face's padding is
-   always there, so lighting a word never moves the line. */
+   always there, so lighting a word never moves the line.
+   The 44 px is the hit area only: a negative block margin makes the button
+   take up one line of the text (the leading of the type scale, 1.4), so the
+   hit areas of two rows overlap by a few pixels and the rows stay tight, as
+   drawn (round 2, design review). */
 .word {
   display: inline-flex;
   align-items: center;
   min-width: var(--word-min-width);
   min-height: var(--tap-min);
-  margin: 0 -0.08em;
+  margin: calc((var(--leading-line) * 1em - var(--tap-min)) / 2) -0.08em;
   padding: 0;
   border: 0;
   border-radius: var(--radius-word);
@@ -140,6 +149,9 @@
 .word:hover .changed {
   color: var(--color-changed-text);
   background: var(--color-changed-wash);
+  /* The drawn thin peach ring (round 2, design review). The darker text colour keeps the 7 to 1 floor;
+     the ring, the wash and the bold weight say "this word changes" without leaning on colour alone. */
+  box-shadow: inset 0 0 0 1px var(--color-peach);
   font-weight: var(--weight-bold);
 }
 

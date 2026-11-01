@@ -18,6 +18,7 @@ interface PageMocks {
   me?: Me
   processing?: 'granted' | 'not_asked' | 'withdrawn'
   retention?: boolean
+  region?: string | null
 }
 
 async function mockAccount(page: Page, mocks: PageMocks = {}) {
@@ -32,7 +33,7 @@ async function mockAccount(page: Page, mocks: PageMocks = {}) {
   await page.route('**/api/voice', (route) =>
     json(route, {
       available: true,
-      region: null,
+      region: mocks.region ?? null,
       processing: mocks.processing ?? 'granted',
       retention: mocks.retention ?? false,
       recordings: [],
@@ -131,9 +132,13 @@ test.describe('the account page', () => {
     const downloading = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download my data' }).click()
     expect((await downloading).suggestedFilename()).toBe('puhuscribe-data.json')
-    await expect(page.getByRole('heading', { level: 1, name: 'Download my data' })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText('Your file is ready.')
+    // Round 2: "Your file is ready." is the title, centred under the orb, and the only way back is the arrow.
+    await expect(page.getByRole('heading', { level: 1, name: 'Your file is ready.' })).toBeVisible()
     await expect(page.getByText('Everything we keep about you, in one file.')).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Back to your account' })).toHaveCount(1)
+    await expect(page.getByRole('button', { name: 'Back to your account' })).toHaveCount(0)
+    const title = await page.getByRole('heading', { level: 1 }).boundingBox()
+    expect(Math.abs((title?.x ?? 0) + (title?.width ?? 0) / 2 - 187.5)).toBeLessThan(3)
     await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeVisible()
     expect(new URL(page.url()).pathname).toBe('/account')
     const again = page.waitForEvent('download')
@@ -224,6 +229,27 @@ test.describe('Voice settings', () => {
     await expect.poll(() => calls.consent).toEqual([{ choice: 'keep_on' }, { choice: 'turn_off' }])
   })
 
+  test('[redesign 36] [redesign 29] the Keep switch says what keeping means before the press, in the sentence the consent version covers', async ({
+    page,
+  }) => {
+    await mockAccount(page, { processing: 'granted', retention: false })
+    await page.goto('/voice')
+    const keep = page.getByRole('switch', { name: 'Keep my recordings' })
+    await expect(keep).toHaveAccessibleDescription(
+      /Off\. Keep my recordings so I can hear my progress\. We keep your first and latest try of each line for 90 days\. You can delete them at any time\./,
+    )
+    await expect(
+      page.getByText(
+        'Keep my recordings so I can hear my progress. We keep your first and latest try of each line for 90 days. You can delete them at any time.',
+        { exact: false },
+      ),
+    ).toBeVisible()
+    await keep.click()
+    await expect(keep).toHaveAccessibleDescription(
+      /On\. Keep my recordings so I can hear my progress\. We keep your first and latest try of each line for 90 days\. You can delete them at any time\./,
+    )
+  })
+
   test('[redesign 36] turning speaking feedback on shows the consent sheet; nothing is sent until "Turn on"', async ({
     page,
   }) => {
@@ -297,16 +323,54 @@ test.describe('delete, feedback and the privacy notice', () => {
         .locator('#full-notice')
         .getByRole('heading', { level: 2, name: 'Where it is kept and who processes it' }),
     ).toBeVisible()
-    expect(requests.filter((request) => new URL(request.url()).pathname.startsWith('/api/'))).toEqual([])
+    // The only /api call is the one read that names the speech service's country (round 2).
+    expect(
+      requests
+        .filter((request) => new URL(request.url()).pathname.startsWith('/api/'))
+        .map((request) => `${request.method()} ${new URL(request.url()).pathname}`),
+    ).toEqual(['GET /api/voice'])
   })
 
-  test('[redesign 29] [redesign 39] "How it works" opens the privacy page at its voice section', async ({
+  test('[redesign 29] [redesign 39] "How it works" opens the privacy page at its voice section, with the Keep sentence and the country', async ({
     page,
   }) => {
+    await mockAccount(page, { region: 'Italy' })
     await page.goto('/privacy#privacy-voice')
     const section = page.getByRole('heading', { level: 2, name: 'Your voice' })
     await expect(section).toBeInViewport()
     await expect(page.getByText('Microsoft does not keep your recording', { exact: false })).toBeVisible()
+    await expect(
+      page.getByText("Microsoft's speech service in the EU, in Italy.", { exact: false }),
+    ).toBeVisible()
+    await expect(
+      page.getByText(
+        'Keep my recordings so I can hear my progress. We keep your first and latest try of each line for 90 days. You can delete them at any time.',
+        { exact: true },
+      ),
+    ).toBeVisible()
+    await expect(page.getByText('You can change both choices at any time in Voice settings.')).toBeVisible()
+  })
+
+  test('[redesign 39] the section headings are ink, not mint, because mint means a control you can press', async ({
+    page,
+  }) => {
+    await page.goto('/privacy')
+    const colours = await page.evaluate<
+      string[]
+    >(`[...document.querySelectorAll('[class*="firstLayer"] section h2')]
+      .map((h) => getComputedStyle(h).color)`)
+    expect(colours).toHaveLength(5)
+    for (const colour of colours) expect(colour).toBe('rgb(27, 42, 38)')
+  })
+
+  test('[redesign 39] with no account the voice section says "in the EU" and names no country', async ({
+    page,
+  }) => {
+    await mockHome(page, { me: { kind: 'none' } })
+    await page.route('**/api/voice', (route) => json(route, { error: 'not_signed_in' }, 401))
+    await page.goto('/privacy#privacy-voice')
+    await expect(page.getByText('speech service in the EU. The service', { exact: false })).toBeVisible()
+    await expect(page.getByText(/in the EU, in /)).toHaveCount(0)
   })
 
   test('[redesign 40] Send feedback: the title, "What should we know?", the protected line, and one message per press', async ({
@@ -393,5 +457,53 @@ test.describe('every page at phone size', () => {
         ),
       ).toBe(true)
     })
+  }
+
+  // Round 2 (design review, must fix 1): the content of a page starts below the hills, trees and sun of
+  // the band, so no text sits on them. The band is the first drawing in the page.
+  const CONTENT_START = `(() => {
+    const main = document.querySelector('main')
+    const header = main.querySelector('header')
+    let top = Infinity
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT)
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (!node.textContent.trim()) continue
+      const element = node.parentElement
+      if ((header && header.contains(element)) || element.closest('[hidden]')) continue
+      const range = document.createRange()
+      range.selectNodeContents(node)
+      for (const box of range.getClientRects()) if (box.width > 2 && box.height > 2) top = Math.min(top, box.top)
+    }
+    // The lowest painted point of anything the band draws as a shape of its own (the pines, the flags,
+    // the sun); the hills are the ground they stand on and fade out under them.
+    const band = main.querySelector('div[aria-hidden="true"] > svg')
+    let lowest = 0
+    for (const shape of band.querySelectorAll('circle, path')) {
+      const box = shape.getBoundingClientRect()
+      if (box.height > 0 && box.height < 50) lowest = Math.max(lowest, box.bottom)
+    }
+    return { top, lowest }
+  })()`
+  for (const [name, path, mocks] of PAGES) {
+    for (const [width, height, size] of [
+      [375, 812, '100%'],
+      [375, 667, '100%'],
+      [320, 640, '200%'],
+    ] as const) {
+      test(`[redesign 4] [redesign 46] ${name}: the first text of the content starts below the landscape at ${String(width)} x ${String(height)}, text ${size}`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height })
+        await mockAccount(page, mocks)
+        await page.goto(`/${path}`)
+        await page.addStyleTag({ content: `html { font-size: ${size} !important; }` })
+        await page.evaluate('document.fonts.ready')
+        await page.waitForTimeout(300)
+        const { top, lowest } = await page.evaluate<{ top: number; lowest: number }>(CONTENT_START)
+        expect(top).toBeGreaterThanOrEqual(160)
+        expect(lowest).toBeGreaterThan(40)
+        expect(top).toBeGreaterThan(lowest)
+      })
+    }
   }
 })

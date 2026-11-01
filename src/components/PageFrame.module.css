@@ -16,8 +16,10 @@
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-4);
+  /* The header is as tall as the landscape's sky and hills, so the content below it never sits on them. */
+  min-height: calc(var(--page-content-top) + env(safe-area-inset-top, 0px));
   padding: calc(var(--space-4) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
 }
 
@@ -45,13 +47,16 @@
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
   margin: 0;
   font-size: var(--text-heading);
   font-weight: var(--weight-medium);
   letter-spacing: normal;
 }
 
-/* The content starts below the landscape's sun, as drawn. */
+/* The content starts at least 168 px from the top (--page-content-top), below the hills, trees and sun. */
 .body {
   position: relative;
   z-index: 1;
@@ -59,7 +64,7 @@
   flex: 1;
   align-content: start;
   gap: var(--space-4);
-  padding: var(--space-9) var(--space-5) var(--space-6);
+  padding: var(--space-2) var(--space-5) var(--space-6);
 }
 
 .actions {

@@ -89,6 +89,8 @@ export interface LessonMocks {
   newWords?: number
   /** The save note word of the complete answer. */
   saveNote?: 'first' | 'reminder'
+  /** One review item for Keep it, answered by the typed text: "maksaa" is right, "maksa" is close. */
+  review?: boolean
   /** A guest or an email account, for the finish status line. */
   me?: { kind: 'guest' } | { kind: 'email'; email: string }
 }
@@ -116,7 +118,32 @@ export async function mockLesson(page: Page, mocks: LessonMocks = {}): Promise<L
       ...(mocks.firstLesson ? { firstLesson: true } : {}),
     }),
   )
-  await page.route('**/api/sessions/s1/review', (route) => json(route, { items: [] }))
+  await page.route('**/api/sessions/s1/review', (route) =>
+    json(route, {
+      items: mocks.review
+        ? [
+            {
+              formId: 1,
+              speaker: 'Maria',
+              gloss: 'Can I pay by card?',
+              register: 'spoken',
+              audio: '/audio/a.wav',
+              words: [{ text: 'Voinks' }, { text: 'mä' }, { gap: true }, { text: 'kortilla', after: '?' }],
+            },
+          ]
+        : [],
+    }),
+  )
+  await page.route('**/api/review/answer', (route) => {
+    const sent = route.request().postDataJSON() as { text?: string }
+    const result = sent.text === 'maksaa' ? 'correct' : sent.text === 'maksa' ? 'close' : 'wrong'
+    return json(route, {
+      result,
+      line: MOCK_LINES[1],
+      marked: { spoken: [2], written: [2] },
+      form: { spoken: 'maksaa', written: 'maksaa' },
+    })
+  })
   await page.route('**/api/sessions/s1/step', async (route) => {
     const body = route.request().postDataJSON() as { step: string }
     calls.steps.push(body.step)

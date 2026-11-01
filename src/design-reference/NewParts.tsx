@@ -15,6 +15,7 @@ import { homeView, todayInfoFrom } from '../road/home-view.ts'
 import { ROAD_DAY_ONE, ROAD_MID, roadFixture } from '../road/road-fixture.ts'
 import { ConsentSheet } from '../screens/ConsentSheet.tsx'
 import { FirstLessonTip } from '../screens/FirstLessonTip.tsx'
+import { CrashScreen } from '../components/CrashBoundary.tsx'
 import { OfflineScreen } from '../screens/OfflineScreen.tsx'
 import { RECORD_HINTS } from '../screens/SayIt.tsx'
 import voice from '../screens/Voice.module.css'
@@ -325,6 +326,9 @@ export function NewParts() {
         </div>
         <div className={styles.offlineBox}>
           <OfflineScreen where="road" embedded />
+        </div>
+        <div className={styles.offlineBox} data-crash-screen="">
+          <CrashScreen embedded />
         </div>
       </Section>
     </>

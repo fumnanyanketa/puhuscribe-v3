@@ -148,7 +148,6 @@ export function AccountPage() {
       <PageFrame
         back={PATHS.account}
         backLabel="Back to your account"
-        title="Download my data"
         actions={
           <Button block busy={busy === 'download'} busyLabel={PREPARING} onClick={() => void download()}>
             Download
@@ -161,16 +160,10 @@ export function AccountPage() {
               <path d="M5 12.5l4.5 4.5L19 7.5" />
             </svg>
           </div>
-          <StatusLine tone={status.tone}>{status.text}</StatusLine>
+          <h1 className={styles.readyTitle}>{READY}</h1>
           <p className={styles.readyText}>Everything we keep about you, in one file.</p>
-          <Button
-            variant="quiet"
-            onClick={() => {
-              setFileReady(false)
-            }}
-          >
-            Back to your account
-          </Button>
+          {/* The title says the file is ready; this line speaks only when something else happens. */}
+          <StatusLine tone={status.tone}>{status.text === READY ? '' : status.text}</StatusLine>
         </div>
       </PageFrame>
     )

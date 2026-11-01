@@ -155,13 +155,14 @@
   gap: var(--space-1);
 }
 
+/* Ink, not mint: mint means a control you can press, and a section heading is not one. */
 .shortHeading {
   margin: 0;
   font-family: var(--font-heading);
   font-size: var(--text-body);
   font-weight: var(--weight-semibold);
   letter-spacing: normal;
-  color: var(--color-mint-deep);
+  color: var(--color-text);
 }
 
 .shortText {
@@ -369,7 +370,7 @@
 }
 
 .deleteLink {
-  color: var(--color-peach-deep);
+  color: var(--color-danger-ink);
   text-decoration: none;
 }
 
@@ -378,8 +379,15 @@
   display: grid;
   justify-items: center;
   gap: var(--space-3);
-  padding-top: var(--space-6);
+  padding-top: var(--space-3);
   text-align: center;
+}
+
+.readyTitle {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
 }
 
 .orb {

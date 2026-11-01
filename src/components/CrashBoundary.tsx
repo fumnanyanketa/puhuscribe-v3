@@ -15,6 +15,32 @@ interface State {
   broken: boolean
 }
 
+/** The crash screen itself. `embedded` draws it inside a box (the reference page) instead of as the page. */
+export function CrashScreen({ embedded = false }: { embedded?: boolean }) {
+  const Root = embedded ? 'div' : 'main'
+  const Title = embedded ? 'h3' : 'h1'
+  return (
+    <Root className={embedded ? `${styles.page} ${styles.embedded}` : styles.page}>
+      <Landscape />
+      <div className={styles.body}>
+        <span className={styles.mark} aria-hidden="true">
+          !
+        </span>
+        <Title className={styles.title}>Something went wrong</Title>
+        <StatusLine tone="problem">{SOMETHING_WENT_WRONG}</StatusLine>
+        <Button
+          block
+          onClick={() => {
+            window.location.reload()
+          }}
+        >
+          Reload
+        </Button>
+      </div>
+    </Root>
+  )
+}
+
 export class CrashBoundary extends Component<{ children: ReactNode }, State> {
   state: State = { broken: false }
 
@@ -28,25 +54,6 @@ export class CrashBoundary extends Component<{ children: ReactNode }, State> {
 
   render(): ReactNode {
     if (!this.state.broken) return this.props.children
-    return (
-      <main className={styles.page}>
-        <Landscape />
-        <div className={styles.body}>
-          <span className={styles.mark} aria-hidden="true">
-            !
-          </span>
-          <h1 className={styles.title}>Something went wrong</h1>
-          <StatusLine tone="problem">{SOMETHING_WENT_WRONG}</StatusLine>
-          <Button
-            block
-            onClick={() => {
-              window.location.reload()
-            }}
-          >
-            Reload
-          </Button>
-        </div>
-      </main>
-    )
+    return <CrashScreen />
   }
 }

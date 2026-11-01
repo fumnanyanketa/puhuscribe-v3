@@ -6,6 +6,7 @@ import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { Switch } from '../components/Switch.tsx'
 import { PATHS } from '../lib/app-paths.ts'
 import type { VoiceAnswer } from '../lib/speech-types.ts'
+import { voiceNotice } from '../lib/voice-consent.ts'
 import { NOT_AVAILABLE, chooseVoice, deleteKept, loadVoice, type VoiceLoad } from '../lib/voice-api.ts'
 import { ConsentSheet } from './ConsentSheet.tsx'
 import voice from './Voice.module.css'
@@ -97,11 +98,8 @@ export function VoiceSettings() {
             {!state.available && <p className={voice.quietText}>{NOT_AVAILABLE}</p>}
             <Switch
               label="Keep my recordings"
-              hint={
-                state.retention
-                  ? 'On. We keep your first and latest try of each line for 90 days.'
-                  : 'Off. Your recordings are deleted as soon as your feedback is ready.'
-              }
+              // The sentence the consent record is stamped with (src/lib/voice-consent.ts), read before the press.
+              hint={`${state.retention ? 'On.' : 'Off.'} ${voiceNotice(state.region).keepBox}`}
               checked={state.retention}
               busy={busy === 'keep'}
               disabled={!on}

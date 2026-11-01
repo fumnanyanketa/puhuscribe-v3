@@ -26,6 +26,11 @@
   background: var(--color-mint);
 }
 
+/* A piece not reached is hollow, with an edge that reaches 3 to 1 on the wash (round 2, design review). */
+.piece {
+  box-shadow: inset 0 0 0 1px var(--color-control-edge);
+}
+
 .account {
   display: grid;
   flex: none;

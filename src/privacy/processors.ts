@@ -36,7 +36,8 @@ export const PROCESSORS: readonly Processor[] = [
   {
     name: 'Microsoft (Azure Speech)',
     role: 'Turns your voice into text for speaking feedback, only if you turned speaking feedback on. It receives a few seconds of audio per line and does not keep it.',
-    where: 'In the EU. The country is named on the speaking feedback screen.',
+    where:
+      'In the EU. The voice section at the top of this notice names the country when you have an account.',
     modules: ['speech-feedback.ts', 'fixtures/speech/index.ts'],
   },
 ]

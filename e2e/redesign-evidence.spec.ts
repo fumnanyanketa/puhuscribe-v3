@@ -1,4 +1,4 @@
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { expect, test, type Page } from '@playwright/test'
@@ -22,7 +22,8 @@ interface Shot {
   /** The drawing's caption, as in design-drafts/v1-screens.html or road-journey.html. */
   drawing: string
   file: string
-  run: (page: Page) => Promise<void>
+  /** Resolves to a picture when the screen is a box on another page (the crash screen), else nothing. */
+  run: (page: Page) => Promise<unknown>
 }
 
 const slug = (text: string) =>
@@ -72,6 +73,15 @@ async function pages(page: Page, path: string, me: Record<string, unknown> = { k
   await page.goto(path)
   await page.evaluate('document.fonts.ready')
   await page.waitForTimeout(700)
+}
+
+/** Keep it with one typed answer, checked by the mock. */
+async function keepItAnswer(page: Page, text: string) {
+  await lesson(page, { step: 'say', review: true })
+  await page.locator('input').first().fill(text)
+  await page.getByRole('button', { name: 'Check', exact: true }).click()
+  await expect(page.locator('[data-review-feedback]')).toBeVisible()
+  await page.waitForTimeout(600)
 }
 
 /** Say it after one recorded try (a generated tone, never a voice) that the speech check answers with the given class. */
@@ -214,6 +224,38 @@ const SHOTS: Shot[] = [
     },
   },
   {
+    drawing: 'Keep it',
+    file: 'keep-it',
+    run: async (page) => {
+      await lesson(page, { step: 'say', review: true })
+      await page.locator('input').first().focus()
+      await page.waitForTimeout(300)
+    },
+  },
+  {
+    drawing: 'Keep it, right',
+    file: 'keep-it-right',
+    run: (page) => keepItAnswer(page, 'maksaa'),
+  },
+  {
+    drawing: 'Keep it, close',
+    file: 'keep-it-close',
+    run: (page) => keepItAnswer(page, 'maksa'),
+  },
+  {
+    drawing: 'Something went wrong',
+    file: 'something-went-wrong',
+    run: async (page) => {
+      // The crash screen is shown on the reference page, in its own box (a render error cannot be made on purpose in the app).
+      await page.goto('/design-reference')
+      await page.evaluate('document.fonts.ready')
+      const box = page.locator('[data-crash-screen]')
+      await box.scrollIntoViewIfNeeded()
+      await page.waitForTimeout(300)
+      return box.screenshot()
+    },
+  },
+  {
     drawing: 'Say it, listening',
     file: 'say-it-listening',
     run: async (page) => {
@@ -247,10 +289,52 @@ test.describe('the app screens', () => {
         'The local WebKit page is not a secure page, so it cannot record.',
       )
       mkdirSync(OUT, { recursive: true })
-      await shot.run(page)
+      const taken = await shot.run(page)
       const name = `${String(index + 1).padStart(2, '0')}-${shot.file}-app-${testInfo.project.name}.png`
-      await page.screenshot({ path: join(OUT, name) })
+      if (Buffer.isBuffer(taken)) writeFileSync(join(OUT, name), taken)
+      else await page.screenshot({ path: join(OUT, name) })
     })
+  }
+})
+
+// The same screens on a short phone and with large text (round 2, design review): 375 x 667, and 320 px
+// wide with text at 200 percent. They show that the card never covers the sign, nothing scrolls sideways
+// and the content clears the landscape.
+const SMALL_SCREENS = [
+  'road-day-one',
+  'road-continue',
+  'hear-it-tip',
+  'understand-it',
+  'say-it',
+  'keep-it',
+  'lesson-finished',
+  'account-guest',
+  'create-account',
+  'voice-settings',
+  'privacy-notice',
+  'send-feedback',
+]
+const SMALL_SIZES = [
+  { width: 375, height: 667, text: '100%', label: '375x667' },
+  { width: 320, height: 640, text: '200%', label: '320x640-text-200' },
+] as const
+
+test.describe('the app screens on a short phone and with large text', () => {
+  for (const [index, shot] of SHOTS.entries()) {
+    if (!SMALL_SCREENS.includes(shot.file)) continue
+    for (const size of SMALL_SIZES) {
+      test(`[redesign 48] ${shot.drawing}, ${size.label}`, async ({ page }, testInfo) => {
+        mkdirSync(OUT, { recursive: true })
+        await page.setViewportSize({ width: size.width, height: size.height })
+        await shot.run(page)
+        if (size.text !== '100%') {
+          await page.addStyleTag({ content: `html { font-size: ${size.text} !important; }` })
+          await page.waitForTimeout(500)
+        }
+        const name = `${String(index + 1).padStart(2, '0')}-${shot.file}-${size.label}-${testInfo.project.name}.png`
+        await page.screenshot({ path: join(OUT, name) })
+      })
+    }
   }
 })
 

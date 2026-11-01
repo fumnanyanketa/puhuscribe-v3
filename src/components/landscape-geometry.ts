@@ -14,9 +14,15 @@ export function yAt(t: number): number {
   return HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.9)
 }
 
-/** Horizontal centre of the road at t. */
+/**
+ * Horizontal centre of the road at t. The drawing's bend is 34; the phone shows the picture larger
+ * than the drawing and the card hides the lowest part, so the bend is 48 to read as the same S
+ * (round 2, design review).
+ */
+export const BEND = 48
+
 export function xAt(t: number): number {
-  return 142 + 34 * Math.sin(t * Math.PI * 1.7) * (1 - t * 0.9)
+  return 142 + BEND * Math.sin(t * Math.PI * 1.7) * (1 - t * 0.9)
 }
 
 /** Width of the road at t. */

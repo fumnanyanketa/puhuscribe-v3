@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { PageFrame } from '../components/PageFrame.tsx'
+import { callApi } from '../lib/api.ts'
 import { PATHS } from '../lib/app-paths.ts'
 import { voiceNotice } from '../lib/voice-consent.ts'
+import { parseVoiceAnswer } from '../lib/voice-api.ts'
 import {
   ACCOUNT_ITEMS,
   HOW_LONG,
@@ -82,7 +84,24 @@ function Item({ item }: { item: InventoryItem }) {
 export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible }) {
   const [who, what, howLong, where, cookies, rights, age, updated] = SECTION_HEADINGS
   const [open, setOpen] = useState(false)
-  const notice = voiceNotice(null)
+  // The country of the speech service comes from the one read of the voice settings (GET /api/voice),
+  // because it is set where the Worker runs and not in the page. Someone with no account gets a 401 and
+  // sees "in the EU" without the country. Nothing is sent and nothing is stored.
+  const [region, setRegion] = useState<string | null>(null)
+  // One request even where React runs an effect twice (development).
+  const firstRead = useRef<ReturnType<typeof callApi> | null>(null)
+  useEffect(() => {
+    let active = true
+    firstRead.current ??= callApi('/api/voice', 'GET')
+    void firstRead.current.then((answer) => {
+      const voice = answer?.status === 200 ? parseVoiceAnswer(answer.body) : null
+      if (active && voice?.region) setRegion(voice.region)
+    })
+    return () => {
+      active = false
+    }
+  }, [])
+  const notice = voiceNotice(region)
   return (
     <PageFrame back={PATHS.home} backLabel="Back to the road" title={FIRST_LAYER.title}>
       <p className={styles.summary}>{FIRST_LAYER.summary}</p>
@@ -100,6 +119,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                     {paragraph}
                   </p>
                 ))}
+                <p className={styles.shortText}>{notice.keepBox}</p>
                 <p className={styles.shortText}>{notice.changeLater}</p>
               </>
             )}
