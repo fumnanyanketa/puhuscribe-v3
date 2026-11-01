@@ -64,22 +64,24 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27",
+      "extras-stop-26",
       "extras-stop-29",
       "extras-stop-31"
     ],
     "rank_cap": 1500,
     "extra_base_forms": [
-      "asunut",
+      "juuri",
       "kartta",
       "kauppatori",
+      "perillä",
       "puisto",
       "rautatieasema",
       "risteys",
-      "tori"
+      "todella",
+      "tori",
+      "varmaan"
     ],
     "speakers": [
       {
@@ -99,7 +101,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -139,19 +141,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "pääsen",
@@ -941,8 +943,8 @@
         "WORDBASES": "+anteeksi(anteeksi)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "excuse me",
+      "lemma_meaning_en": "sorry, excuse me",
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
@@ -959,29 +961,29 @@
         "WORDBASES": "+miten(miten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-ba15b2fde78d",
@@ -1002,9 +1004,9 @@
         "WORDBASES": "+päästä(päästä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I get (there)",
+      "lemma_meaning_en": "to get (somewhere), to get in",
+      "why_en": "Päästä, to get somewhere, with -n for 'I': pääsen."
     },
     {
       "id": "form-6f4a7faac046",
@@ -1025,9 +1027,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "go",
+      "lemma_meaning_en": "to go",
+      "why_en": "Mennä without its ending tells someone to go: mene. Speech says mee."
     },
     {
       "id": "form-5365495a5c62",
@@ -1046,9 +1048,9 @@
         "WORDBASES": "+suora(suora)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "straight ahead",
+      "lemma_meaning_en": "straight",
+      "why_en": "Suora, straight, with -an: suoraan, straight ahead."
     },
     {
       "id": "form-6a62bc54500c",
@@ -1066,9 +1068,9 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "this",
+      "lemma_meaning_en": "this",
+      "why_en": "The partitive singular of tämä after 'en ymmärrä': tätä."
     },
     {
       "id": "form-7c153b60a55f",
@@ -1087,9 +1089,9 @@
         "WORDBASES": "+katu(katu)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the street",
+      "lemma_meaning_en": "street",
+      "why_en": "Moving along a street takes -a: katu becomes katua. Speech turns -ua into -uu."
     },
     {
       "id": "form-fd1a9ffcfdb7",
@@ -1105,8 +1107,8 @@
         "WORDBASES": "+kuinka(kuinka)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1126,9 +1128,9 @@
         "WORDBASES": "+pitkä(pitkä)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "far",
+      "lemma_meaning_en": "long, tall",
+      "why_en": "Adds -lle for 'to' a point: pitkä, 'long', becomes pitkälle, 'how far'."
     },
     {
       "id": "form-88d9fe3c1ea1",
@@ -1146,9 +1148,9 @@
         "WORDBASES": "+toinen(toinen)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the second",
+      "lemma_meaning_en": "second, other",
+      "why_en": "Adds -en for 'to': toinen becomes toiseen, to match risteykseen."
     },
     {
       "id": "form-79342e863f13",
@@ -1166,9 +1168,9 @@
         "WORDBASES": "+risteys(risteys)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the crossing",
+      "lemma_meaning_en": "crossing, junction",
+      "why_en": "Adds -en for 'to': risteys becomes risteykseen."
     },
     {
       "id": "form-58ae00563058",
@@ -1184,8 +1186,8 @@
         "WORDBASES": "+asti(asti)"
       },
       "form_name_en": "adposition",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "until, as far as",
+      "lemma_meaning_en": "until, as far as",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1202,8 +1204,8 @@
         "WORDBASES": "+sitten(sitten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
       "why_en": "An adverb: 'then', the next step. Spoken short as 'sit'."
     },
     {
@@ -1225,9 +1227,9 @@
         "WORDBASES": "+kääntyä(kääntyä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "turn",
+      "lemma_meaning_en": "to turn",
+      "why_en": "kääntyä means to turn. Telling someone to do it drops the ending: käänny."
     },
     {
       "id": "form-fdbe75f7a0bd",
@@ -1246,9 +1248,9 @@
         "WORDBASES": "+vasen(vasen)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the left",
+      "lemma_meaning_en": "left",
+      "why_en": "Adds -lle for direction: vasen becomes vasemmalle, 'to the left'."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1267,9 +1269,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1285,8 +1287,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1308,8 +1310,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1329,9 +1331,9 @@
         "WORDBASES": "+oikea(oikea)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the right",
+      "lemma_meaning_en": "right, correct",
+      "why_en": "Adds -lla for 'on': oikea becomes oikealla. Speech says oikeel."
     },
     {
       "id": "form-9b2e89310018",
@@ -1349,9 +1351,9 @@
         "WORDBASES": "+puoli(puoli)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "side",
+      "lemma_meaning_en": "half, side",
+      "why_en": "Adds -lla for 'on': puoli becomes puolella. Speech drops the last vowel: puolel."
     },
     {
       "id": "form-953705540742",
@@ -1369,9 +1371,9 @@
         "WORDBASES": "+rauta(rauta)+tie(tie)+asema(asema)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the railway station",
+      "lemma_meaning_en": "railway station",
+      "why_en": "vieressä, 'next to', needs -n on the word before: rautatieasema becomes rautatieaseman."
     },
     {
       "id": "form-a54598413b94",
@@ -1389,9 +1391,9 @@
         "WORDBASES": "+vieri(vieri)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "next to",
+      "lemma_meaning_en": "side (in vieressä, next to)",
+      "why_en": "Vieressä means next to and comes after its word. Speech drops the last vowel: vieres."
     },
     {
       "id": "form-5eb112d9aace",
@@ -1413,8 +1415,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1433,8 +1435,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1451,9 +1453,9 @@
         "WORDBASES": "+kauas(kauas)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "far",
+      "lemma_meaning_en": "far (away)",
+      "why_en": "Kaukana means far away, at a distance."
     },
     {
       "id": "form-4752d8dd4e2d",
@@ -1472,9 +1474,9 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
       "id": "form-0fc03492889e",
@@ -1492,8 +1494,8 @@
         "WORDBASES": "+kymmenen(kymmenen)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "ten",
+      "lemma_meaning_en": "ten",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1512,9 +1514,9 @@
         "WORDBASES": "+minuutti(minuutti)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "minutes",
+      "lemma_meaning_en": "minute",
+      "why_en": "After a number the noun takes the partitive: kymmenen minuuttia. Speech turns -ia into -ii."
     },
     {
       "id": "form-3466a7928f96",
@@ -1531,9 +1533,9 @@
         "WORDBASES": "+kävellä(kävellä)"
       },
       "form_name_en": "E-infinitive",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on foot",
+      "lemma_meaning_en": "to walk",
+      "why_en": "kävellä means to walk. The ending -en means 'by walking': kävellen."
     }
   ]
 }

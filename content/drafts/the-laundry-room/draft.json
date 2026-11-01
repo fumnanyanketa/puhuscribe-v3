@@ -47,18 +47,20 @@
       "extras-stop-10",
       "extras-stop-11"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "alapuoli",
       "hissi",
       "isännöitsijä",
       "kellari",
       "mones",
+      "paljon",
       "parveke",
       "pesutupa",
       "porras",
       "saunavuoro",
       "varauslista",
+      "voi",
       "yksiö",
       "ylin"
     ],
@@ -327,20 +329,23 @@
         {
           "surface": "Pitääkö",
           "lemma": "pitää",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=false;KYSYMYSLIITE=true",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "pitää",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Ira][Xp]pitää[X]pitä[Tn1][Eb]ä[Fko][Ef]kö",
+            "FSTOUTPUT": "[Lt][Ira][Xp]pitää[X]pit[Tt][Ap][P3][Ny][Ef]ää[Fko][Ef]kö",
             "KYSYMYSLIITE": "true",
-            "MOOD": "A-infinitive",
+            "MOOD": "indicative",
             "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "REQUIRE_FOLLOWING_VERB": "A-infinitive",
             "STRUCTURE": "=ppppppp",
+            "TENSE": "present_simple",
             "WORDBASES": "+pitää(pitää)"
           },
-          "form": "form-86eabcfc3c06"
+          "form": "form-c65047e392e5"
         },
         {
           "surface": "se",
@@ -741,19 +746,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "haluan",
@@ -893,9 +898,9 @@
         "WORDBASES": "+hei(hei)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
     },
     {
       "id": "form-58f467b0bcb4",
@@ -913,8 +918,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
@@ -931,8 +936,8 @@
         "WORDBASES": "+täällä(täällä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "here",
+      "lemma_meaning_en": "here",
       "why_en": "Means 'here', telling where she is new."
     },
     {
@@ -954,8 +959,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -974,8 +979,8 @@
         "WORDBASES": "+pes(pestä)+u(+u)+tupa(tupa)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "laundry room",
+      "lemma_meaning_en": "laundry room",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -994,9 +999,9 @@
         "WORDBASES": "+kellari(kellari)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the basement",
+      "lemma_meaning_en": "basement, cellar",
+      "why_en": "Adds -ssa for 'in': kellari becomes kellarissa. Speech drops the last a: kellaris."
     },
     {
       "id": "form-6f4a7faac046",
@@ -1017,9 +1022,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "go",
+      "lemma_meaning_en": "to go",
+      "why_en": "Mennä without its ending tells someone to go: mene. Speech says mee."
     },
     {
       "id": "form-96f68b98c28a",
@@ -1035,8 +1040,8 @@
         "WORDBASES": "+alas(alas)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "down",
+      "lemma_meaning_en": "down",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1055,30 +1060,33 @@
         "WORDBASES": "+porras(porras)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the stairs",
+      "lemma_meaning_en": "stair, step",
+      "why_en": "The partitive plural of porras 'step': portaita, 'down the stairs'. The rr turns to rt."
     },
     {
-      "id": "form-86eabcfc3c06",
+      "id": "form-c65047e392e5",
       "lemma": "pitää",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=false;KYSYMYSLIITE=true",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
       "surface_kirja": "pitääkö",
       "surface_puhe": "pitääks",
       "analysis": {
         "BASEFORM": "pitää",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Ira][Xp]pitää[X]pitä[Tn1][Eb]ä[Fko][Ef]kö",
+        "FSTOUTPUT": "[Lt][Ira][Xp]pitää[X]pit[Tt][Ap][P3][Ny][Ef]ää[Fko][Ef]kö",
         "KYSYMYSLIITE": "true",
-        "MOOD": "A-infinitive",
+        "MOOD": "indicative",
         "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
         "REQUIRE_FOLLOWING_VERB": "A-infinitive",
         "STRUCTURE": "=ppppppp",
+        "TENSE": "present_simple",
         "WORDBASES": "+pitää(pitää)"
       },
-      "form_name_en": "basic form (A-infinitive), with the question ending -ko/-kö",
+      "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to have to, to like, to hold",
       "why_en": ""
     },
     {
@@ -1097,8 +1105,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1117,8 +1125,8 @@
         "WORDBASES": "+varata(varata)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to book, to reserve",
+      "lemma_meaning_en": "to book, to reserve",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1135,8 +1143,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1155,8 +1163,8 @@
         "WORDBASES": "+vara(varata)+us(+us)+lista(lista)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "booking list",
+      "lemma_meaning_en": "booking list",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1175,9 +1183,9 @@
         "WORDBASES": "+ovi(ovi)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the door's (next to the door)",
+      "lemma_meaning_en": "door",
+      "why_en": "The genitive singular goes before vieressä 'next to': ovi becomes oven."
     },
     {
       "id": "form-a54598413b94",
@@ -1195,9 +1203,9 @@
         "WORDBASES": "+vieri(vieri)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "next to",
+      "lemma_meaning_en": "side (in vieressä, next to)",
+      "why_en": "Vieressä means next to and comes after its word. Speech drops the last vowel: vieres."
     },
     {
       "id": "form-99966cae578b",
@@ -1213,8 +1221,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1233,8 +1241,8 @@
         "WORDBASES": "+sauna(sauna)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "sauna",
+      "lemma_meaning_en": "sauna",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1257,8 +1265,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1278,9 +1286,9 @@
         "WORDBASES": "+talo(talo)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the building",
+      "lemma_meaning_en": "house, building",
+      "why_en": "Adds -ssa for 'in': talo becomes talossa. Speech drops the last a: talos."
     },
     {
       "id": "form-84e1296c6d52",
@@ -1299,9 +1307,9 @@
         "WORDBASES": "+ylin(ylin)"
       },
       "form_name_en": "superlative, inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the top",
+      "lemma_meaning_en": "top, highest",
+      "why_en": "The superlative ylin means 'top'; adds -ssä for 'on': ylimmässä. Speech drops the last ä."
     },
     {
       "id": "form-87b291dcab91",
@@ -1319,9 +1327,9 @@
         "WORDBASES": "+kerros(kerros)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the floor",
+      "lemma_meaning_en": "floor, storey",
+      "why_en": "Adds -ssa for 'on' a floor: kerros becomes kerroksessa. Speech drops the last a: kerrokses."
     },
     {
       "id": "form-bbaeb136ed47",
@@ -1340,29 +1348,29 @@
         "WORDBASES": "+ihana(ihana)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "lovely",
+      "lemma_meaning_en": "lovely, wonderful",
+      "why_en": "The partitive singular is used in exclamations: ihana becomes ihanaa!"
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-65809211d876",
@@ -1384,9 +1392,9 @@
         "WORDBASES": "+haluta(haluta)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I want",
+      "lemma_meaning_en": "to want",
+      "why_en": "Haluta with -n for 'I': haluan. Speech says haluun."
     },
     {
       "id": "form-554507176294",
@@ -1404,9 +1412,9 @@
         "WORDBASES": "+sauna(sauna)+vuoro(vuoro)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a sauna slot",
+      "lemma_meaning_en": "sauna slot, sauna turn",
+      "why_en": "As the thing you want, saunavuoro takes -n: saunavuoron. People say it the same way."
     },
     {
       "id": "form-86f0b379764e",
@@ -1427,9 +1435,9 @@
         "WORDBASES": "+kysyä(kysyä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "ask",
+      "lemma_meaning_en": "to ask (a question)",
+      "why_en": "The imperative for one person is the verb without its ending: kysyä becomes kysy."
     },
     {
       "id": "form-8e8eee84c5b2",
@@ -1447,9 +1455,9 @@
         "WORDBASES": "+isännöitsi(isännöidä)+jä(+jä)"
       },
       "form_name_en": "ablative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from the building manager",
+      "lemma_meaning_en": "building manager",
+      "why_en": "Adds -ltä for 'from' a person: isännöitsijä becomes isännöitsijältä."
     }
   ]
 }

@@ -64,10 +64,9 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27",
+      "extras-stop-26",
       "extras-stop-29",
       "extras-stop-31",
       "extras-stop-34",
@@ -76,14 +75,16 @@
     "rank_cap": 1500,
     "extra_base_forms": [
       "asiakaspalvelu",
-      "asunut",
+      "juuri",
       "kaakao",
       "kallio",
       "kodikas",
+      "kuin",
       "kuoro",
       "kynttilä",
       "pimeys",
-      "päiväkoti"
+      "päiväkoti",
+      "todella"
     ],
     "speakers": [
       {
@@ -194,19 +195,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "olen",
@@ -259,19 +260,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "olen",
@@ -371,19 +372,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "se",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "sinä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "se",
+            "BASEFORM": "sinä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+se(se)"
+            "WORDBASES": "+sinä(sinä)"
           },
-          "form": "form-66f36cc4036b"
+          "form": "form-ec7b2eab227a"
         },
         {
           "surface": "asut",
@@ -487,19 +488,17 @@
         {
           "surface": "mieheni",
           "lemma": "mies",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s",
           "name": false,
           "analysis": {
             "BASEFORM": "mies",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]mies[X]miehe[Sn][Ny][O1y]ni",
+            "MANUAL": "true",
             "NUMBER": "singular",
             "POSSESSIVE": "1s",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+mies(mies)"
+            "SIJAMUOTO": "omanto"
           },
-          "form": "form-1299ed1f559e"
+          "form": "form-84a435b7ff95"
         },
         {
           "surface": "ja",
@@ -534,19 +533,17 @@
         {
           "surface": "lapseni",
           "lemma": "lapsi",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s",
           "name": false,
           "analysis": {
             "BASEFORM": "lapsi",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
+            "MANUAL": "true",
             "NUMBER": "singular",
             "POSSESSIVE": "1s",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+lapsi(lapsi)"
+            "SIJAMUOTO": "omanto"
           },
-          "form": "form-5198194037c0"
+          "form": "form-8ba45f54b531"
         },
         {
           "surface": "kanssa",
@@ -625,19 +622,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "se",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "sinä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "se",
+            "BASEFORM": "sinä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+se(se)"
+            "WORDBASES": "+sinä(sinä)"
           },
-          "form": "form-66f36cc4036b"
+          "form": "form-ec7b2eab227a"
         },
         {
           "surface": "teet",
@@ -689,19 +686,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "olen",
@@ -754,19 +751,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "haluan",
@@ -901,19 +898,19 @@
         },
         {
           "surface": "sinä",
-          "lemma": "se",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "sinä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "se",
+            "BASEFORM": "sinä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+se(se)"
+            "WORDBASES": "+sinä(sinä)"
           },
-          "form": "form-66f36cc4036b"
+          "form": "form-ec7b2eab227a"
         },
         {
           "surface": "tykkäät",
@@ -989,19 +986,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "laulan",
@@ -1152,19 +1149,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "voin",
@@ -1265,9 +1262,9 @@
         "WORDBASES": "+kertoa(kertoa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "tell",
+      "lemma_meaning_en": "to tell",
+      "why_en": "kertoa means to tell. Dropping the last -a gives kerro, telling someone to do it."
     },
     {
       "id": "form-008b8a3eae32",
@@ -1283,8 +1280,8 @@
         "WORDBASES": "+vähän(vähän)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a little, a bit",
+      "lemma_meaning_en": "a little, a bit",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1304,29 +1301,29 @@
         "WORDBASES": "+itse(itse)"
       },
       "form_name_en": "elative singular, with the possessive ending for your",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "of yourself",
+      "lemma_meaning_en": "self",
+      "why_en": "Itse with -stä and -si for 'your': itsestäsi. Speech drops the last i: itsestäs."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-7588912c8134",
@@ -1347,8 +1344,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "I am",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'am': present tense, 1st person singular, so it goes with 'minä'. Spoken: 'oon'."
     },
     {
@@ -1365,8 +1362,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1385,29 +1382,29 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
-      "id": "form-66f36cc4036b",
-      "lemma": "se",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-ec7b2eab227a",
+      "lemma": "sinä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "se",
+        "BASEFORM": "sinä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+se(se)"
+        "WORDBASES": "+sinä(sinä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "you",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Means 'you' (one person). Spoken: 'sä'."
     },
     {
       "id": "form-e256969dad6f",
@@ -1428,9 +1425,9 @@
         "WORDBASES": "+asua(asua)"
       },
       "form_name_en": "present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you live",
+      "lemma_meaning_en": "to live (somewhere)",
+      "why_en": "Adds -t for 'you': asua becomes asut. People say it the same way."
     },
     {
       "id": "form-00cf76bd38f0",
@@ -1446,8 +1443,8 @@
         "WORDBASES": "+nyt(nyt)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "now",
+      "lemma_meaning_en": "now",
       "why_en": "Means 'now'. Leo asks where home is at this time."
     },
     {
@@ -1467,9 +1464,9 @@
         "WORDBASES": "+kallio(kallio)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in Kallio",
+      "lemma_meaning_en": "rock, cliff (Kallio, a Helsinki district)",
+      "why_en": "Adds -ssa for 'in': Kallio becomes Kalliossa."
     },
     {
       "id": "form-ae1caa07874f",
@@ -1487,29 +1484,27 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
-      "id": "form-1299ed1f559e",
+      "id": "form-84a435b7ff95",
       "lemma": "mies",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s",
       "surface_kirja": "mieheni",
       "surface_puhe": "miehen",
       "analysis": {
         "BASEFORM": "mies",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]mies[X]miehe[Sn][Ny][O1y]ni",
+        "MANUAL": "true",
         "NUMBER": "singular",
         "POSSESSIVE": "1s",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+mies(mies)"
+        "SIJAMUOTO": "omanto"
       },
-      "form_name_en": "nominative singular, with the possessive ending for my",
+      "form_name_en": "genitive singular, with the possessive ending for my",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "man, husband",
       "why_en": ""
     },
     {
@@ -1528,29 +1523,27 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "two",
+      "lemma_meaning_en": "two",
+      "why_en": "Kaksi with -n before päästä: kahden minuutin päästä. Speech drops the d: kahen."
     },
     {
-      "id": "form-5198194037c0",
+      "id": "form-8ba45f54b531",
       "lemma": "lapsi",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular;POSSESSIVE=1s",
       "surface_kirja": "lapseni",
       "surface_puhe": "lapsen",
       "analysis": {
         "BASEFORM": "lapsi",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
+        "MANUAL": "true",
         "NUMBER": "singular",
         "POSSESSIVE": "1s",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+lapsi(lapsi)"
+        "SIJAMUOTO": "omanto"
       },
-      "form_name_en": "nominative singular, with the possessive ending for my",
+      "form_name_en": "genitive singular, with the possessive ending for my",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "child",
       "why_en": ""
     },
     {
@@ -1567,9 +1560,9 @@
         "WORDBASES": "+kanssa(kanssa)"
       },
       "form_name_en": "adposition",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "with",
+      "lemma_meaning_en": "with",
+      "why_en": "Speech shortens kanssa to kaa. Books write kanssa."
     },
     {
       "id": "form-a0c867e0dc77",
@@ -1587,9 +1580,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-d8e27c6cf4bb",
@@ -1610,9 +1603,9 @@
         "WORDBASES": "+tehdä(tehdä)"
       },
       "form_name_en": "present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you do",
+      "lemma_meaning_en": "to do, to make",
+      "why_en": "Tehdä changes to tee- and takes -t for 'you': teet."
     },
     {
       "id": "form-df893cd83caf",
@@ -1630,9 +1623,9 @@
         "WORDBASES": "+asiakas(asiakas)+palvel(palvella)+u(+u)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in customer service",
+      "lemma_meaning_en": "customer service",
+      "why_en": "Adds -ssa for 'in': asiakaspalvelu becomes asiakaspalvelussa. Speech drops the last vowel."
     },
     {
       "id": "form-f177cddd7c31",
@@ -1648,8 +1641,8 @@
         "WORDBASES": "+mutta(mutta)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "but",
+      "lemma_meaning_en": "but",
       "why_en": "Means 'but'. It links two ideas: from Tampere, but home is in Helsinki."
     },
     {
@@ -1672,9 +1665,9 @@
         "WORDBASES": "+haluta(haluta)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I want",
+      "lemma_meaning_en": "to want",
+      "why_en": "Haluta with -n for 'I': haluan. Speech says haluun."
     },
     {
       "id": "form-677fd2e58ace",
@@ -1692,8 +1685,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to be, to have",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1712,8 +1705,8 @@
         "WORDBASES": "+opetta(opettaa)+ja(+ja)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "teacher",
+      "lemma_meaning_en": "teacher",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1735,9 +1728,9 @@
         "WORDBASES": "+tykätä(tykätä)"
       },
       "form_name_en": "present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you like",
+      "lemma_meaning_en": "to like",
+      "why_en": "Tykätä changes to tykkää- and takes -t for 'you': tykkäät."
     },
     {
       "id": "form-f64c6f94ba00",
@@ -1755,9 +1748,9 @@
         "WORDBASES": "+tehdä(tehdä)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "do",
+      "lemma_meaning_en": "to do, to make",
+      "why_en": "This is the dictionary form, after voin (I can). Speech drops the d: tehä."
     },
     {
       "id": "form-c37cc30d4ec4",
@@ -1778,9 +1771,9 @@
         "WORDBASES": "+laulaa(laulaa)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I sing",
+      "lemma_meaning_en": "to sing",
+      "why_en": "Laulaa drops the last a and takes -n for 'I': laulan."
     },
     {
       "id": "form-aa5fee5dd7b4",
@@ -1798,9 +1791,9 @@
         "WORDBASES": "+kuoro(kuoro)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in a choir",
+      "lemma_meaning_en": "choir",
+      "why_en": "Adds -ssa for 'in': kuoro becomes kuorossa. Speech drops the end: kuoros."
     },
     {
       "id": "form-042a57533dce",
@@ -1821,9 +1814,9 @@
         "WORDBASES": "+käydä(käydä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I go",
+      "lemma_meaning_en": "to visit, to go, to be OK",
+      "why_en": "Käydä drops -dä and takes -n for 'I': käyn. Käyn salilla means 'I go to the gym'."
     },
     {
       "id": "form-d98fbee7d5d9",
@@ -1841,9 +1834,9 @@
         "WORDBASES": "+sauna(sauna)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in a sauna",
+      "lemma_meaning_en": "sauna",
+      "why_en": "Adds -ssa for 'in': sauna becomes saunassa. Speech drops the end: saunas."
     },
     {
       "id": "form-84d51cdf8c95",
@@ -1864,9 +1857,9 @@
         "WORDBASES": "+puhua(puhua)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I speak",
+      "lemma_meaning_en": "to speak, to talk",
+      "why_en": "puhua means to speak. -n goes with minä: puhun."
     },
     {
       "id": "form-68ca7e058498",
@@ -1884,9 +1877,9 @@
         "WORDBASES": "+suomi(suomi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "Finnish",
+      "lemma_meaning_en": "Finnish (the language), Finland",
+      "why_en": "The partitive adds -a after puhua, to speak: suomea. Speech turns -ea into -ee."
     },
     {
       "id": "form-2f65b514975a",
@@ -1902,8 +1895,8 @@
         "WORDBASES": "+aina(aina)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "always",
+      "lemma_meaning_en": "always",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1920,9 +1913,9 @@
         "WORDBASES": "+kun(kun)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "whenever, when",
+      "lemma_meaning_en": "when, once",
+      "why_en": "This is the dictionary form. Speech drops the n: ku."
     },
     {
       "id": "form-1932b7fb8d7b",
@@ -1944,9 +1937,9 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I can",
+      "lemma_meaning_en": "can, to be able to",
+      "why_en": "Voida, can, with -n for 'I': voin."
     }
   ]
 }

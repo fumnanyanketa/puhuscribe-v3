@@ -30,13 +30,13 @@
       "extras-stop-2",
       "extras-stop-3"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "hylly",
       "kananmuna",
-      "kassa",
       "kauramaito",
-      "maitohylly"
+      "maitohylly",
+      "paljon"
     ],
     "speakers": [
       {
@@ -720,20 +720,15 @@
         },
         {
           "surface": "paljon",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-4c93c0afc944"
+          "form": "form-c89c8a769850"
         }
       ],
       "puhe_tokens": [
@@ -780,21 +775,17 @@
         {
           "surface": "kestä",
           "lemma": "kestää",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "kestää",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]kestää[X]kestä[Tk][Ap][P2][Ny][Eb]",
-            "MOOD": "imperative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "2",
-            "STRUCTURE": "=ppppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+kestää(kestää)"
+            "MANUAL": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "true",
+            "TENSE": "present_simple"
           },
-          "form": "form-dec88706871b"
+          "form": "form-6eb46dbcfd77"
         }
       ],
       "puhe_tokens": [
@@ -830,8 +821,8 @@
         "WORDBASES": "+anteeksi(anteeksi)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "excuse me",
+      "lemma_meaning_en": "sorry, excuse me",
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
@@ -850,8 +841,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
@@ -873,9 +864,9 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "are",
+      "lemma_meaning_en": "to be, to have",
+      "why_en": "Books write ovat for 'they are'. Speech uses on for one thing or many."
     },
     {
       "id": "form-e0ec1921cd25",
@@ -893,9 +884,9 @@
         "WORDBASES": "+kanan(kana)+muna(muna)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the eggs",
+      "lemma_meaning_en": "egg",
+      "why_en": "Kananmuna with -t for more than one: kananmunat."
     },
     {
       "id": "form-18803b094966",
@@ -913,9 +904,9 @@
         "WORDBASES": "+ne(ne)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "they",
+      "lemma_meaning_en": "they, those",
+      "why_en": "Ne means they, for things. Speech also uses it for people."
     },
     {
       "id": "form-38dbd7729054",
@@ -933,9 +924,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "over there",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo, that, with -lla: tuolla, over there."
     },
     {
       "id": "form-9aa0549406c2",
@@ -953,9 +944,9 @@
         "WORDBASES": "+maito(maito)+hylly(hylly)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the milk shelf",
+      "lemma_meaning_en": "milk shelf",
+      "why_en": "Maitohylly with -n before vieressä, next to: maitohyllyn vieressä."
     },
     {
       "id": "form-a54598413b94",
@@ -973,9 +964,9 @@
         "WORDBASES": "+vieri(vieri)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "next to",
+      "lemma_meaning_en": "side (in vieressä, next to)",
+      "why_en": "Vieressä means next to and comes after its word. Speech drops the last vowel: vieres."
     },
     {
       "id": "form-816e0bada9e3",
@@ -994,8 +985,8 @@
         "WORDBASES": "+vasen(vasen)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "on the left",
+      "lemma_meaning_en": "left",
       "why_en": "Adessive singular of vasen: 'on the left', describing which shelf."
     },
     {
@@ -1015,9 +1006,9 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
       "id": "form-afc85d368b08",
@@ -1036,9 +1027,9 @@
         "WORDBASES": "+oikea(oikea)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the right",
+      "lemma_meaning_en": "right, correct",
+      "why_en": "Oikea, right, with -lla for 'on'. Speech turns -ea into -ee: oikeella."
     },
     {
       "id": "form-6f4a7faac046",
@@ -1059,9 +1050,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "go",
+      "lemma_meaning_en": "to go",
+      "why_en": "Mennä without its ending tells someone to go: mene. Speech says mee."
     },
     {
       "id": "form-5365495a5c62",
@@ -1080,9 +1071,9 @@
         "WORDBASES": "+suora(suora)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "straight ahead",
+      "lemma_meaning_en": "straight",
+      "why_en": "Suora, straight, with -an: suoraan, straight ahead."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1098,8 +1089,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1116,8 +1107,8 @@
         "WORDBASES": "+sitten(sitten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
       "why_en": "An adverb: 'then', the next step. Spoken short as 'sit'."
     },
     {
@@ -1137,9 +1128,9 @@
         "WORDBASES": "+oikea(oikea)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the right",
+      "lemma_meaning_en": "right, correct",
+      "why_en": "Oikea, right, with -lle for 'to'. Speech turns -ea into -ee: oikeelle."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1158,9 +1149,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-5eb112d9aace",
@@ -1182,8 +1173,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1202,8 +1193,8 @@
         "WORDBASES": "+te(te)"
       },
       "form_name_en": "adessive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "you have",
+      "lemma_meaning_en": "you (more than one, or polite)",
       "why_en": "Adessive plural of 'te' (you): 'teillä' with 'onko' means 'do you (all) have'."
     },
     {
@@ -1220,8 +1211,8 @@
         "WORDBASES": "+myös(myös)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "also, too",
+      "lemma_meaning_en": "also, too",
       "why_en": "Means 'also' or 'too': coffee as well as oat milk."
     },
     {
@@ -1240,8 +1231,8 @@
         "WORDBASES": "+kaura(kaura)+maito(maito)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "some oat milk",
+      "lemma_meaning_en": "oat milk",
       "why_en": "Oat milk in the partitive: asking about some oat milk, an amount not counted. Spoken as kauramaitoo."
     },
     {
@@ -1263,8 +1254,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1283,9 +1274,9 @@
         "WORDBASES": "+sama(sama)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the same",
+      "lemma_meaning_en": "same",
+      "why_en": "Sama, same, with -lla to match hyllyllä, on the shelf."
     },
     {
       "id": "form-9eb56c7fa24f",
@@ -1303,8 +1294,8 @@
         "WORDBASES": "+hylly(hylly)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "on the shelf",
+      "lemma_meaning_en": "shelf",
       "why_en": "Adessive singular of hylly: 'on the shelf'."
     },
     {
@@ -1323,52 +1314,43 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     },
     {
-      "id": "form-4c93c0afc944",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+      "id": "form-c89c8a769850",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "paljon",
       "surface_puhe": "paljon",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-dec88706871b",
+      "id": "form-6eb46dbcfd77",
       "lemma": "kestää",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
       "surface_kirja": "kestä",
       "surface_puhe": "mitään",
       "analysis": {
         "BASEFORM": "kestää",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]kestää[X]kestä[Tk][Ap][P2][Ny][Eb]",
-        "MOOD": "imperative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "2",
-        "STRUCTURE": "=ppppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+kestää(kestää)"
+        "MANUAL": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "true",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "imperative present tense, 2nd person singular",
+      "form_name_en": "present tense, negative form",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to last, to take (time)",
       "why_en": ""
     }
   ]

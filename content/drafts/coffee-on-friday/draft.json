@@ -42,13 +42,12 @@
       "extras-stop-7",
       "extras-stop-8"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "alaovi",
-      "kahvila",
-      "kipeä",
       "lounaspaikka",
-      "vartti"
+      "vartti",
+      "voi"
     ],
     "speakers": [
       {
@@ -116,18 +115,18 @@
         {
           "surface": "perjantaina",
           "lemma": "perjantai",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "perjantai",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]perjantai[X]perjanta[Ses][Nm]ina",
-            "NUMBER": "plural",
+            "FSTOUTPUT": "[Ln][Xp]perjantai[X]perjantai[Ses][Ny]na",
+            "NUMBER": "singular",
             "SIJAMUOTO": "olento",
             "STRUCTURE": "=ppppppppppp",
             "WORDBASES": "+perjantai(perjantai)"
           },
-          "form": "form-728a21c7101d"
+          "form": "form-85d910cf041c"
         }
       ],
       "puhe_tokens": [
@@ -732,21 +731,19 @@
       "kirja_tokens": [
         {
           "surface": "Sovittu",
-          "lemma": "sovittu",
+          "lemma": "sopia",
           "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_passive",
           "name": false,
           "analysis": {
-            "BASEFORM": "sovittu",
+            "BASEFORM": "sopia",
             "CLASS": "laatusana",
             "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lt][Xp]sopia[X]sovi[Ll][Rt]t[Xj]tu[X]tu[Sn][Ny]",
+            "MANUAL": "true",
             "NUMBER": "singular",
             "PARTICIPLE": "past_passive",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+sovi(sopia)+t+tu(+tu)"
+            "SIJAMUOTO": "nimento"
           },
-          "form": "form-50c91b3dc024"
+          "form": "form-e0a34444732a"
         },
         {
           "surface": "Nähdään",
@@ -769,18 +766,18 @@
         {
           "surface": "lauantaina",
           "lemma": "lauantai",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "lauantai",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]lauantai[X]lauanta[Ses][Nm]ina",
-            "NUMBER": "plural",
+            "FSTOUTPUT": "[Ln][Xp]lauantai[X]lauantai[Ses][Ny]na",
+            "NUMBER": "singular",
             "SIJAMUOTO": "olento",
             "STRUCTURE": "=pppppppppp",
             "WORDBASES": "+lauantai(lauantai)"
           },
-          "form": "form-9c106659768a"
+          "form": "form-3978a16fa6b0"
         }
       ],
       "puhe_tokens": [
@@ -825,9 +822,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "present tense, passive, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "shall we go?",
+      "lemma_meaning_en": "to go",
+      "why_en": "Mennään, let's go, with -kö to ask. Speech says -ks: mennäänks."
     },
     {
       "id": "form-7d0e810f4a23",
@@ -845,28 +842,28 @@
         "WORDBASES": "+kahvi(kahvi)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "for coffee",
+      "lemma_meaning_en": "coffee",
+      "why_en": "Kahvi with -lle for 'to': mennä kahville, go for coffee."
     },
     {
-      "id": "form-728a21c7101d",
+      "id": "form-85d910cf041c",
       "lemma": "perjantai",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "perjantaina",
       "surface_puhe": "perjantaina",
       "analysis": {
         "BASEFORM": "perjantai",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]perjantai[X]perjanta[Ses][Nm]ina",
-        "NUMBER": "plural",
+        "FSTOUTPUT": "[Ln][Xp]perjantai[X]perjantai[Ses][Ny]na",
+        "NUMBER": "singular",
         "SIJAMUOTO": "olento",
         "STRUCTURE": "=ppppppppppp",
         "WORDBASES": "+perjantai(perjantai)"
       },
-      "form_name_en": "essive plural",
+      "form_name_en": "essive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "Friday",
       "why_en": ""
     },
     {
@@ -885,8 +882,8 @@
         "WORDBASES": "+perjantai(perjantai)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "Friday",
+      "lemma_meaning_en": "Friday",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -906,9 +903,9 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
       "id": "form-24f89699a032",
@@ -929,9 +926,9 @@
         "WORDBASES": "+käydä(käydä)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "works",
+      "lemma_meaning_en": "to visit, to go, to be OK",
+      "why_en": "Käydä in the form for he, she or it. Ei käy means it doesn't work."
     },
     {
       "id": "form-cc0fdb024b55",
@@ -949,9 +946,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I have",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -lla. With on it means 'I have'. Speech shortens it to mul."
     },
     {
       "id": "form-24c73cc721d6",
@@ -972,8 +969,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -992,9 +989,9 @@
         "WORDBASES": "+suomi(suomi)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "Finnish",
+      "lemma_meaning_en": "Finnish (the language), Finland",
+      "why_en": "Suomi with -n, and i turns to e: suomen kurssi, a Finnish course."
     },
     {
       "id": "form-710798aad462",
@@ -1012,8 +1009,8 @@
         "WORDBASES": "+kurssi(kurssi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "course",
+      "lemma_meaning_en": "course",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1030,8 +1027,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1050,8 +1047,8 @@
         "WORDBASES": "+lauantai(lauantai)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "Saturday",
+      "lemma_meaning_en": "Saturday",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1073,9 +1070,9 @@
         "WORDBASES": "+sopia(sopia)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "suits",
+      "lemma_meaning_en": "to suit, to agree",
+      "why_en": "Sopia, to suit, in the form for he, she or it: sopii."
     },
     {
       "id": "form-e18d9223b2b2",
@@ -1091,8 +1088,8 @@
         "WORDBASES": "+hyvin(hyvin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "well",
+      "lemma_meaning_en": "well",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1111,9 +1108,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "where to",
+      "lemma_meaning_en": "what, which",
+      "why_en": "Mikä with -hin for 'to': mihin, where to."
     },
     {
       "id": "form-ea79f0748e36",
@@ -1131,9 +1128,9 @@
         "WORDBASES": "+aika(aika)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "(what) time",
+      "lemma_meaning_en": "time",
+      "why_en": "Aika with -an. Mihin aikaan? means at what time?"
     },
     {
       "id": "form-db8570c5aa75",
@@ -1149,8 +1146,8 @@
         "WORDBASES": "+vaikka(vaikka)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "for example, say, although",
+      "lemma_meaning_en": "for example, say, although",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1169,9 +1166,9 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "ablative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "at two",
+      "lemma_meaning_en": "two",
+      "why_en": "Kaksi with -lta for 'at' a clock time: kahdelta. Speech drops the d: kahelta."
     },
     {
       "id": "form-ed646e1f1923",
@@ -1190,8 +1187,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1210,8 +1207,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
@@ -1232,9 +1229,9 @@
         "WORDBASES": "+nähdä(nähdä)"
       },
       "form_name_en": "present tense, passive",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "see you",
+      "lemma_meaning_en": "to see",
+      "why_en": "The passive form means 'let's see each other'. Speech drops the d: nähään."
     },
     {
       "id": "form-ec4b94229501",
@@ -1252,9 +1249,9 @@
         "WORDBASES": "+kahvila(kahvila)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the café",
+      "lemma_meaning_en": "café",
+      "why_en": "Kahvila with -n before edessä, in front of: kahvilan edessä."
     },
     {
       "id": "form-1b8704bc3c91",
@@ -1272,50 +1269,48 @@
         "WORDBASES": "+edessä(edessä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in front of",
+      "lemma_meaning_en": "in front of",
+      "why_en": "Edessä comes after its word. Speech drops the last vowel: edes."
     },
     {
-      "id": "form-50c91b3dc024",
-      "lemma": "sovittu",
+      "id": "form-e0a34444732a",
+      "lemma": "sopia",
       "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_passive",
       "surface_kirja": "sovittu",
       "surface_puhe": "sovittu",
       "analysis": {
-        "BASEFORM": "sovittu",
+        "BASEFORM": "sopia",
         "CLASS": "laatusana",
         "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lt][Xp]sopia[X]sovi[Ll][Rt]t[Xj]tu[X]tu[Sn][Ny]",
+        "MANUAL": "true",
         "NUMBER": "singular",
         "PARTICIPLE": "past_passive",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+sovi(sopia)+t+tu(+tu)"
+        "SIJAMUOTO": "nimento"
       },
       "form_name_en": "past passive participle, nominative singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to suit, to agree",
       "why_en": ""
     },
     {
-      "id": "form-9c106659768a",
+      "id": "form-3978a16fa6b0",
       "lemma": "lauantai",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "lauantaina",
       "surface_puhe": "lauantaina",
       "analysis": {
         "BASEFORM": "lauantai",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]lauantai[X]lauanta[Ses][Nm]ina",
-        "NUMBER": "plural",
+        "FSTOUTPUT": "[Ln][Xp]lauantai[X]lauantai[Ses][Ny]na",
+        "NUMBER": "singular",
         "SIJAMUOTO": "olento",
         "STRUCTURE": "=pppppppppp",
         "WORDBASES": "+lauantai(lauantai)"
       },
-      "form_name_en": "essive plural",
+      "form_name_en": "essive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "Saturday",
       "why_en": ""
     }
   ]

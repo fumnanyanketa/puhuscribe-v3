@@ -60,10 +60,11 @@
       "extras-stop-19",
       "extras-stop-20"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
-      "isoäiti",
-      "söpö",
+      "paljon",
+      "todella",
+      "vanhempi",
       "yhdeksänkymmentä"
     ],
     "speakers": [
@@ -554,19 +555,17 @@
         {
           "surface": "lapseni",
           "lemma": "lapsi",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s",
           "name": false,
           "analysis": {
             "BASEFORM": "lapsi",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
-            "NUMBER": "singular",
+            "MANUAL": "true",
+            "NUMBER": "plural",
             "POSSESSIVE": "1s",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+lapsi(lapsi)"
+            "SIJAMUOTO": "nimento"
           },
-          "form": "form-e4d43bb07f41"
+          "form": "form-9f193d6d72e6"
         },
         {
           "surface": "Lucas",
@@ -1047,9 +1046,9 @@
         "WORDBASES": "+katsoa(katsoa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "look",
+      "lemma_meaning_en": "to look, to watch",
+      "why_en": "This is how you tell someone to look: katso. Speech drops the s: kato."
     },
     {
       "id": "form-4352ca83b810",
@@ -1067,9 +1066,9 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "this",
+      "lemma_meaning_en": "this",
+      "why_en": "Speech shortens tämä to tää. Books write tämä."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1090,8 +1089,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1110,9 +1109,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
       "id": "form-28b462828347",
@@ -1131,9 +1130,9 @@
         "WORDBASES": "+perhe(perhe)"
       },
       "form_name_en": "nominative singular, with the possessive ending for my",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "my family",
+      "lemma_meaning_en": "family",
+      "why_en": "Books add -ni for 'my', with an extra e: perheeni. Speech drops it and says mun perhe."
     },
     {
       "id": "form-8265d7db1e21",
@@ -1152,8 +1151,8 @@
         "WORDBASES": "+ihana(ihana)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "lovely, wonderful",
+      "lemma_meaning_en": "lovely, wonderful",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1172,8 +1171,8 @@
         "WORDBASES": "+kuva(kuva)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "picture, photo",
+      "lemma_meaning_en": "picture, photo",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1192,8 +1191,8 @@
         "WORDBASES": "+kuka(kuka)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "who",
+      "lemma_meaning_en": "who",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1212,9 +1211,9 @@
         "WORDBASES": "+hän(hän)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "he, she",
+      "lemma_meaning_en": "he, she",
+      "why_en": "Speech uses se for a person. Books write hän."
     },
     {
       "id": "form-c429d8f59328",
@@ -1233,9 +1232,9 @@
         "WORDBASES": "+mies(mies)"
       },
       "form_name_en": "nominative singular, with the possessive ending for my",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "my husband",
+      "lemma_meaning_en": "man, husband",
+      "why_en": "Books add -ni for 'my': mieheni, with mies changing to miehe-. Speech says mun mies."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1251,8 +1250,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1271,9 +1270,9 @@
         "WORDBASES": "+nämä(nämä)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "these",
+      "lemma_meaning_en": "these",
+      "why_en": "Speech shortens nämä to nää. Books write nämä."
     },
     {
       "id": "form-05a31ace9a1d",
@@ -1291,29 +1290,27 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "two",
+      "lemma_meaning_en": "two",
+      "why_en": "Speech drops the final i: kaksi becomes kaks."
     },
     {
-      "id": "form-e4d43bb07f41",
+      "id": "form-9f193d6d72e6",
       "lemma": "lapsi",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s",
       "surface_kirja": "lapseni",
       "surface_puhe": "lapset",
       "analysis": {
         "BASEFORM": "lapsi",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
-        "NUMBER": "singular",
+        "MANUAL": "true",
+        "NUMBER": "plural",
         "POSSESSIVE": "1s",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+lapsi(lapsi)"
+        "SIJAMUOTO": "nimento"
       },
-      "form_name_en": "nominative singular, with the possessive ending for my",
+      "form_name_en": "nominative plural, with the possessive ending for my",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "child",
       "why_en": ""
     },
     {
@@ -1332,9 +1329,9 @@
         "WORDBASES": "+he(he)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "they",
+      "lemma_meaning_en": "they",
+      "why_en": "Speech uses ne for people too. Books write he."
     },
     {
       "id": "form-0e35ed6a5b20",
@@ -1355,9 +1352,9 @@
         "WORDBASES": "+näyttää(näyttää)"
       },
       "form_name_en": "present tense, 3rd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "they look",
+      "lemma_meaning_en": "to look, to show",
+      "why_en": "Books add -vät for 'they': näyttävät. Speech uses the he or she form: ne näyttää."
     },
     {
       "id": "form-887b04afc8aa",
@@ -1376,9 +1373,9 @@
         "WORDBASES": "+ilo(ilo)+inen(+inen)"
       },
       "form_name_en": "ablative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "happy",
+      "lemma_meaning_en": "happy, cheerful",
+      "why_en": "Näyttää (to look) wants -lta: iloinen becomes iloisilta, 'look happy', for several people."
     },
     {
       "id": "form-99966cae578b",
@@ -1394,8 +1391,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1414,9 +1411,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo means that. Speech says toi."
     },
     {
       "id": "form-1dda4d9bd7e4",
@@ -1435,8 +1432,8 @@
         "WORDBASES": "+vanha(vanha)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "old",
+      "lemma_meaning_en": "old",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1455,8 +1452,8 @@
         "WORDBASES": "+nainen(nainen)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "woman",
+      "lemma_meaning_en": "woman",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1476,9 +1473,9 @@
         "WORDBASES": "+isoäiti(iso=äiti)"
       },
       "form_name_en": "nominative singular, with the possessive ending for my",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "my grandmother",
+      "lemma_meaning_en": "grandmother",
+      "why_en": "Books write isoäitini, with -ni for 'my'. Speech uses the everyday word mummo: mun mummo."
     },
     {
       "id": "form-f99dd2957257",
@@ -1496,9 +1493,9 @@
         "WORDBASES": "+yhdeksän(yhdeksän)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "ninety",
+      "lemma_meaning_en": "ninety",
+      "why_en": "Speech drops the d and shortens kymmentä to kyt: yheksänkyt."
     },
     {
       "id": "form-70eea424843d",
@@ -1517,8 +1514,8 @@
         "WORDBASES": "+hieno(hieno)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "great, fine",
+      "lemma_meaning_en": "great, fine",
       "why_en": "This is the dictionary form. People say it the same way."
     }
   ]

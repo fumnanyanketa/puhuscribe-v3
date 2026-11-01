@@ -39,18 +39,18 @@
       "extras-stop-6",
       "extras-stop-7"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "eksyksissä",
+      "eli",
       "kassi",
       "kellotorni",
       "muovipussi",
       "palaveri",
-      "pussi",
+      "paljon",
       "rautatieasema",
       "vartti",
-      "viisitoista",
-      "ymmärtänyt"
+      "viisitoista"
     ],
     "speakers": [
       {
@@ -261,18 +261,21 @@
         {
           "surface": "tarkoittaa",
           "lemma": "tarkoittaa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
           "name": false,
           "analysis": {
             "BASEFORM": "tarkoittaa",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitta[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitt[Tt][Ap][P3][Ny][Ef]aa",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "STRUCTURE": "=pppppppppp",
+            "TENSE": "present_simple",
             "WORDBASES": "+tarkoittaa(tarkoittaa)"
           },
-          "form": "form-158909990540"
+          "form": "form-e8893d00d23d"
         }
       ],
       "puhe_tokens": [
@@ -330,18 +333,21 @@
         {
           "surface": "tarkoittaa",
           "lemma": "tarkoittaa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
           "name": false,
           "analysis": {
             "BASEFORM": "tarkoittaa",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitta[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitt[Tt][Ap][P3][Ny][Ef]aa",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "STRUCTURE": "=pppppppppp",
+            "TENSE": "present_simple",
             "WORDBASES": "+tarkoittaa(tarkoittaa)"
           },
-          "form": "form-158909990540"
+          "form": "form-e8893d00d23d"
         },
         {
           "surface": "kokousta",
@@ -568,22 +574,17 @@
         },
         {
           "surface": "Eli",
-          "lemma": "elää",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=past_imperfective;NEGATIVE=false",
+          "lemma": "eli",
+          "form_tag": "CLASS=sidesana",
           "name": false,
           "analysis": {
-            "BASEFORM": "elää",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]elää[X]el[Tt][Ai][P3][Ny][Ef]i",
-            "MOOD": "indicative",
-            "NEGATIVE": "false",
-            "NUMBER": "singular",
-            "PERSON": "3",
+            "BASEFORM": "eli",
+            "CLASS": "sidesana",
+            "FSTOUTPUT": "[Lc][Xp]eli[X]eli",
             "STRUCTURE": "=ppp",
-            "TENSE": "past_imperfective",
-            "WORDBASES": "+elää(elää)"
+            "WORDBASES": "+eli(eli)"
           },
-          "form": "form-e7c933ca448b"
+          "form": "form-fad125e4e583"
         },
         {
           "surface": "kymmenen",
@@ -829,22 +830,19 @@
         },
         {
           "surface": "viestin",
-          "lemma": "viestiä",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "lemma": "viesti",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "viestiä",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]viestiä[X]viesti[Tt][Ap][P1][Ny][Ef]n",
-            "MOOD": "indicative",
-            "NEGATIVE": "false",
+            "BASEFORM": "viesti",
+            "CLASS": "nimisana",
+            "FSTOUTPUT": "[Ln][Xp]viesti[X]viest[Sg][Ny]in",
             "NUMBER": "singular",
-            "PERSON": "1",
+            "SIJAMUOTO": "omanto",
             "STRUCTURE": "=ppppppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+viestiä(viestiä)"
+            "WORDBASES": "+viesti(viesti)"
           },
-          "form": "form-5807c0eba2ac"
+          "form": "form-d12ce3e2c669"
         }
       ],
       "puhe_tokens": [
@@ -933,20 +931,15 @@
         },
         {
           "surface": "paljon",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-4c93c0afc944"
+          "form": "form-c89c8a769850"
         }
       ],
       "puhe_tokens": [
@@ -992,9 +985,9 @@
         "WORDBASES": "+pala(pala)+veri(veri)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "meeting",
+      "lemma_meaning_en": "meeting",
+      "why_en": "Palsu is everyday work slang for palaveri, a meeting."
     },
     {
       "id": "form-66c4c8a1800c",
@@ -1012,8 +1005,8 @@
         "WORDBASES": "+alkaa(alkaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to start, to begin",
+      "lemma_meaning_en": "to start, to begin",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1032,9 +1025,9 @@
         "WORDBASES": "+vartti(vartti)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a quarter",
+      "lemma_meaning_en": "quarter of an hour",
+      "why_en": "The partitive before yli, past: varttia yli kymmenen. Speech turns -ia into -ii."
     },
     {
       "id": "form-e51df5672690",
@@ -1050,8 +1043,8 @@
         "WORDBASES": "+yli(yli)"
       },
       "form_name_en": "adposition",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "over, past",
+      "lemma_meaning_en": "over, past",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1070,8 +1063,8 @@
         "WORDBASES": "+kymmenen(kymmenen)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "ten",
+      "lemma_meaning_en": "ten",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1088,8 +1081,8 @@
         "WORDBASES": "+anteeksi(anteeksi)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "excuse me",
+      "lemma_meaning_en": "sorry, excuse me",
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
@@ -1108,9 +1101,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-e7513afe9e6b",
@@ -1128,9 +1121,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo means that. Speech says toi."
     },
     {
       "id": "form-feb61c0a682d",
@@ -1149,28 +1142,31 @@
         "WORDBASES": "+sana(sana)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "word",
+      "lemma_meaning_en": "word",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-158909990540",
+      "id": "form-e8893d00d23d",
       "lemma": "tarkoittaa",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
       "surface_kirja": "tarkoittaa",
       "surface_puhe": "tarkottaa",
       "analysis": {
         "BASEFORM": "tarkoittaa",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitta[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitt[Tt][Ap][P3][Ny][Ef]aa",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
         "STRUCTURE": "=pppppppppp",
+        "TENSE": "present_simple",
         "WORDBASES": "+tarkoittaa(tarkoittaa)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "present tense, 3rd person singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to mean",
       "why_en": ""
     },
     {
@@ -1189,9 +1185,9 @@
         "WORDBASES": "+kokous(kokous)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a meeting",
+      "lemma_meaning_en": "meeting",
+      "why_en": "The partitive after tarkoittaa: tarkoittaa kokousta."
     },
     {
       "id": "form-7fde14808815",
@@ -1207,9 +1203,9 @@
         "WORDBASES": "+ai(ai)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "ah",
+      "lemma_meaning_en": "oh",
+      "why_en": "Speech often says aa for ai, ah."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1228,9 +1224,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1246,8 +1242,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1264,8 +1260,8 @@
         "WORDBASES": "+milloin(milloin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "when",
+      "lemma_meaning_en": "when",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1284,32 +1280,27 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
-      "id": "form-e7c933ca448b",
-      "lemma": "elää",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=past_imperfective;NEGATIVE=false",
+      "id": "form-fad125e4e583",
+      "lemma": "eli",
+      "form_tag": "CLASS=sidesana",
       "surface_kirja": "eli",
       "surface_puhe": "eli",
       "analysis": {
-        "BASEFORM": "elää",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]elää[X]el[Tt][Ai][P3][Ny][Ef]i",
-        "MOOD": "indicative",
-        "NEGATIVE": "false",
-        "NUMBER": "singular",
-        "PERSON": "3",
+        "BASEFORM": "eli",
+        "CLASS": "sidesana",
+        "FSTOUTPUT": "[Lc][Xp]eli[X]eli",
         "STRUCTURE": "=ppp",
-        "TENSE": "past_imperfective",
-        "WORDBASES": "+elää(elää)"
+        "WORDBASES": "+eli(eli)"
       },
-      "form_name_en": "past tense, 3rd person singular",
+      "form_name_en": "conjunction",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-e542602d99e6",
@@ -1327,9 +1318,9 @@
         "WORDBASES": "+viisitoista"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "fifteen",
+      "lemma_meaning_en": "fifteen",
+      "why_en": "Speech drops an i: viisitoista becomes viistoista."
     },
     {
       "id": "form-90c207b76ecc",
@@ -1352,9 +1343,9 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "could you?",
+      "lemma_meaning_en": "can, to be able to",
+      "why_en": "In Voitsä, speech drops -ko from voitko and joins sä."
     },
     {
       "id": "form-ec7b2eab227a",
@@ -1372,8 +1363,8 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "you",
+      "lemma_meaning_en": "you (one person)",
       "why_en": "Means 'you' (one person). Spoken: 'sä'."
     },
     {
@@ -1392,9 +1383,9 @@
         "WORDBASES": "+kirjoittaa(kirjoittaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "write",
+      "lemma_meaning_en": "to write",
+      "why_en": "Kirjoittaa in its basic form after voitko. Speech drops the i: kirjottaa."
     },
     {
       "id": "form-1bca14269daf",
@@ -1412,9 +1403,9 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "it",
+      "lemma_meaning_en": "it, that",
+      "why_en": "Se with -n when the whole thing is the object: kirjoittaa sen."
     },
     {
       "id": "form-fbf4cf6cbcf9",
@@ -1430,8 +1421,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1450,9 +1441,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Speech shortens minä to mä. Books write minä."
     },
     {
       "id": "form-e61e06e3a1c0",
@@ -1473,9 +1464,9 @@
         "WORDBASES": "+lähettää(lähettää)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'll send",
+      "lemma_meaning_en": "to send",
+      "why_en": "Speech often says laitan, I put, for sending. Books write lähetän, I send."
     },
     {
       "id": "form-026c280fc0ae",
@@ -1493,29 +1484,26 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "for you",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Sinä with -lle for 'to, for'. Speech shortens it to sulle."
     },
     {
-      "id": "form-5807c0eba2ac",
-      "lemma": "viestiä",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "id": "form-d12ce3e2c669",
+      "lemma": "viesti",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
       "surface_kirja": "viestin",
       "surface_puhe": "viestin",
       "analysis": {
-        "BASEFORM": "viestiä",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]viestiä[X]viesti[Tt][Ap][P1][Ny][Ef]n",
-        "MOOD": "indicative",
-        "NEGATIVE": "false",
+        "BASEFORM": "viesti",
+        "CLASS": "nimisana",
+        "FSTOUTPUT": "[Ln][Xp]viesti[X]viest[Sg][Ny]in",
         "NUMBER": "singular",
-        "PERSON": "1",
+        "SIJAMUOTO": "omanto",
         "STRUCTURE": "=ppppppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+viestiä(viestiä)"
+        "WORDBASES": "+viesti(viesti)"
       },
-      "form_name_en": "present tense, 1st person singular",
+      "form_name_en": "genitive singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1536,8 +1524,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     },
     {
@@ -1556,30 +1544,25 @@
         "WORDBASES": "+auttaa(auttaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to help",
+      "lemma_meaning_en": "to help",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-4c93c0afc944",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+      "id": "form-c89c8a769850",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "paljon",
       "surface_puhe": "paljon",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     }
   ]
 }

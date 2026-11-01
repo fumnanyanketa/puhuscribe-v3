@@ -60,9 +60,8 @@
       "kuume",
       "lepo",
       "niellä",
-      "omakannas",
+      "omakanta",
       "sairauslomatodistus",
-      "sattunut",
       "särkeä",
       "terveysasema"
     ],
@@ -308,21 +307,22 @@
         },
         {
           "surface": "Näytä",
-          "lemma": "näkyä",
-          "form_tag": "CLASS=teonsana;PERSON=4;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
+          "lemma": "näyttää",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "näkyä",
+            "BASEFORM": "näyttää",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]näkyä[X]näyt[Tt][Ap][P4][Et]ä",
-            "MOOD": "indicative",
-            "NEGATIVE": "true",
-            "PERSON": "4",
+            "FSTOUTPUT": "[Lt][Xp]näyttää[X]näytä[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
+            "NUMBER": "singular",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
             "TENSE": "present_simple",
-            "WORDBASES": "+näkyä(näkyä)"
+            "WORDBASES": "+näyttää(näyttää)"
           },
-          "form": "form-0ef1311c9bab"
+          "form": "form-c30761c9f4e2"
         }
       ],
       "puhe_tokens": [
@@ -551,19 +551,19 @@
       "kirja_tokens": [
         {
           "surface": "Sinä",
-          "lemma": "se",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "sinä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "se",
+            "BASEFORM": "sinä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+            "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+se(se)"
+            "WORDBASES": "+sinä(sinä)"
           },
-          "form": "form-66f36cc4036b"
+          "form": "form-ec7b2eab227a"
         },
         {
           "surface": "tarvitset",
@@ -853,9 +853,9 @@
         "WORDBASES": "+hei(hei)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
     },
     {
       "id": "form-bfff487cc1b5",
@@ -873,8 +873,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "what, which",
+      "lemma_meaning_en": "what, which",
       "why_en": "'What.' A question word in nominative singular, asking what the price is."
     },
     {
@@ -893,9 +893,9 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "The partitive singular of sinä: sinua, used with vaivata 'to trouble'. Speech says sua."
     },
     {
       "id": "form-36b36ebbb1db",
@@ -916,9 +916,9 @@
         "WORDBASES": "+vaivata(vaivata)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "troubles (bothers)",
+      "lemma_meaning_en": "to trouble, to bother",
+      "why_en": "Vaivata 'to trouble' adds an extra a for 'it': vaivaa. People say it the same way."
     },
     {
       "id": "form-ae1caa07874f",
@@ -936,9 +936,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
       "id": "form-eb683af60acb",
@@ -958,9 +958,9 @@
         "WORDBASES": "+selkä(selkä)"
       },
       "form_name_en": "partitive singular, with the possessive ending for my",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "my back",
+      "lemma_meaning_en": "back (of the body)",
+      "why_en": "Adds -ä and -ni for 'my': selkä becomes selkääni. Speech drops -ni: selkää."
     },
     {
       "id": "form-8c2f0d1fc4ec",
@@ -981,9 +981,9 @@
         "WORDBASES": "+särkeä(särkeä)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "aches",
+      "lemma_meaning_en": "to ache",
+      "why_en": "Särkeä 'to ache' doubles its last vowel for 'it': särkee. People say it the same way."
     },
     {
       "id": "form-58f467b0bcb4",
@@ -1001,8 +1001,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
@@ -1021,30 +1021,31 @@
         "WORDBASES": "+kohta(kohta)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in which spot",
+      "lemma_meaning_en": "spot, point, soon",
+      "why_en": "Adds -ssa for 'in': kohta becomes kohdassa, the t turning to d. Speech says missä kohtaa."
     },
     {
-      "id": "form-0ef1311c9bab",
-      "lemma": "näkyä",
-      "form_tag": "CLASS=teonsana;PERSON=4;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
+      "id": "form-c30761c9f4e2",
+      "lemma": "näyttää",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "näytä",
       "surface_puhe": "näytä",
       "analysis": {
-        "BASEFORM": "näkyä",
+        "BASEFORM": "näyttää",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]näkyä[X]näyt[Tt][Ap][P4][Et]ä",
-        "MOOD": "indicative",
-        "NEGATIVE": "true",
-        "PERSON": "4",
+        "FSTOUTPUT": "[Lt][Xp]näyttää[X]näytä[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
+        "NUMBER": "singular",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
         "TENSE": "present_simple",
-        "WORDBASES": "+näkyä(näkyä)"
+        "WORDBASES": "+näyttää(näyttää)"
       },
-      "form_name_en": "present tense, passive, negative form",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to look, to show",
       "why_en": ""
     },
     {
@@ -1063,8 +1064,8 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "here",
+      "lemma_meaning_en": "this",
       "why_en": "Here: in the inessive, literally 'in this'; said when handing something over. Spoken as täs."
     },
     {
@@ -1083,9 +1084,9 @@
         "WORDBASES": "+alhaalla(alhaalla)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "low down",
+      "lemma_meaning_en": "down, low down",
+      "why_en": "Alhaalla means 'down low, below'. People say it the same way."
     },
     {
       "id": "form-39a520a0fa7f",
@@ -1108,9 +1109,9 @@
         "WORDBASES": "+sattua(sattua)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "does it hurt?",
+      "lemma_meaning_en": "to hurt, to happen",
+      "why_en": "Sattuu 'it hurts' takes -ko to ask: sattuuko. Speech says sattuuks."
     },
     {
       "id": "form-4352ca83b810",
@@ -1128,9 +1129,9 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "this",
+      "lemma_meaning_en": "this",
+      "why_en": "Speech shortens tämä to tää. Books write tämä."
     },
     {
       "id": "form-2ab0015782b0",
@@ -1146,8 +1147,8 @@
         "WORDBASES": "+ai(ai)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "oh",
+      "lemma_meaning_en": "oh",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1164,8 +1165,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1188,29 +1189,29 @@
         "WORDBASES": "+sattua(sattua)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hurts",
+      "lemma_meaning_en": "to hurt, to happen",
+      "why_en": "Sattua 'to hurt' doubles its last vowel for 'it': sattuu. People say it the same way."
     },
     {
-      "id": "form-66f36cc4036b",
-      "lemma": "se",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-ec7b2eab227a",
+      "lemma": "sinä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "sinä",
       "surface_puhe": "sä",
       "analysis": {
-        "BASEFORM": "se",
+        "BASEFORM": "sinä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]se[X]s[Ses][Ny]inä",
+        "FSTOUTPUT": "[Lr][Xp]sinä[X]sin[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+se(se)"
+        "WORDBASES": "+sinä(sinä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "you",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Means 'you' (one person). Spoken: 'sä'."
     },
     {
       "id": "form-bbff218098a9",
@@ -1231,9 +1232,9 @@
         "WORDBASES": "+tarvita(tarvita)"
       },
       "form_name_en": "present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you need",
+      "lemma_meaning_en": "to need",
+      "why_en": "Adds -t for 'you': tarvita becomes tarvitset. Speech says tarviit."
     },
     {
       "id": "form-27dfbd2f19c6",
@@ -1251,9 +1252,9 @@
         "WORDBASES": "+lepo(lepo)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "rest",
+      "lemma_meaning_en": "rest",
+      "why_en": "After tarvita 'to need', the noun takes the partitive singular: lepo becomes lepoa. Speech says lepoo."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1269,8 +1270,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1289,9 +1290,9 @@
         "WORDBASES": "+kipu(kipu)+lääke(lääke)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "painkillers",
+      "lemma_meaning_en": "painkiller",
+      "why_en": "After tarvita 'to need', the noun takes the partitive singular: kipulääke becomes kipulääkettä."
     },
     {
       "id": "form-2d42ecff1379",
@@ -1312,9 +1313,9 @@
         "WORDBASES": "+kävellä(kävellä)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "walk",
+      "lemma_meaning_en": "to walk",
+      "why_en": "The imperative for one person drops the ending: kävellä becomes kävele."
     },
     {
       "id": "form-008b8a3eae32",
@@ -1330,8 +1331,8 @@
         "WORDBASES": "+vähän(vähän)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a little, a bit",
+      "lemma_meaning_en": "a little, a bit",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1350,8 +1351,8 @@
         "WORDBASES": "+joka(joka)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "every, which, who",
+      "lemma_meaning_en": "every, which, who",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1370,8 +1371,8 @@
         "WORDBASES": "+päivä(päivä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "day",
+      "lemma_meaning_en": "day",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1391,9 +1392,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-35b130e20e20",
@@ -1411,8 +1412,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     },
     {
@@ -1431,8 +1432,8 @@
         "WORDBASES": "+tohtori(tohtori)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "doctor (as a title)",
+      "lemma_meaning_en": "doctor (as a title)",
       "why_en": "This is the dictionary form. People say it the same way."
     }
   ]

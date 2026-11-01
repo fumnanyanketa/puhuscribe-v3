@@ -62,26 +62,24 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
       "brasilialainen",
+      "ilman",
       "kaksikymmentä",
       "kattila",
+      "keittää",
       "kerma",
-      "kuori",
-      "litra",
-      "lohi",
+      "kuoria",
       "lohikeitto",
-      "palo",
-      "peruna",
+      "maistaa",
+      "pala",
+      "paljon",
       "porkkana",
-      "sipuli",
-      "suola",
       "tilli",
-      "tuoksua"
+      "todella"
     ],
     "speakers": [
       {
@@ -229,19 +227,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "opettelen",
@@ -742,21 +740,17 @@
         {
           "surface": "ole",
           "lemma": "olla",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "olla",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]olla[X]ole[Tk][Ap][P2][Ny][Eb]",
-            "MOOD": "imperative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "2",
-            "STRUCTURE": "=ppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+olla(olla)"
+            "MANUAL": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "true",
+            "TENSE": "present_simple"
           },
-          "form": "form-7b09b1399112"
+          "form": "form-0fcdf4079f8d"
         },
         {
           "surface": "Kirjoita",
@@ -937,9 +931,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-9f0f9f1fdd21",
@@ -957,9 +951,9 @@
         "WORDBASES": "+me(me)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we",
+      "lemma_meaning_en": "we",
+      "why_en": "Me means we. Speech says it the same way."
     },
     {
       "id": "form-571fca58f152",
@@ -980,9 +974,9 @@
         "WORDBASES": "+tehdä(tehdä)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we do",
+      "lemma_meaning_en": "to do, to make",
+      "why_en": "Books write teemme. Speech says me tehään, the same form as 'one does', for 'we do'."
     },
     {
       "id": "form-c1558b96eb03",
@@ -1000,9 +994,9 @@
         "WORDBASES": "+ruoka(ruoka)"
       },
       "form_name_en": "translative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "for dinner",
+      "lemma_meaning_en": "food, meal",
+      "why_en": "Adds -ksi for 'as' or 'for': ruoka becomes ruoaksi. Speech says ruuaks."
     },
     {
       "id": "form-03111121e507",
@@ -1020,29 +1014,29 @@
         "WORDBASES": "+lohi(lohi)+keitto(keitto)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "salmon soup",
+      "lemma_meaning_en": "salmon soup",
+      "why_en": "The partitive singular is used for some soup: lohikeitto becomes lohikeittoa. Speech says lohikeittoo."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-d0e407cc4c7c",
@@ -1063,9 +1057,9 @@
         "WORDBASES": "+opet(opettaa)+ella(+ella)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'm learning",
+      "lemma_meaning_en": "to learn, to practise",
+      "why_en": "Opetella, to learn, with -n for 'I': opettelen."
     },
     {
       "id": "form-1f666b70966f",
@@ -1084,9 +1078,9 @@
         "WORDBASES": "+suomalainen(suomalainen)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "Finnish",
+      "lemma_meaning_en": "Finnish, a Finn",
+      "why_en": "Suomalainen changes to suomalaista to match ruokaa: suomalaista ruokaa, 'Finnish food'."
     },
     {
       "id": "form-cbb6d60b2833",
@@ -1104,9 +1098,9 @@
         "WORDBASES": "+ruoka(ruoka)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "food",
+      "lemma_meaning_en": "food, meal",
+      "why_en": "Adds -a for food in general: ruoka becomes ruokaa."
     },
     {
       "id": "form-ed646e1f1923",
@@ -1125,8 +1119,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1145,8 +1139,8 @@
         "WORDBASES": "+idea(idea)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "idea",
+      "lemma_meaning_en": "idea",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1168,9 +1162,9 @@
         "WORDBASES": "+tarvita(tarvita)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we need",
+      "lemma_meaning_en": "to need",
+      "why_en": "Books write me tarvitsemme. Speech says me tarvitaan, the same form as 'one needs', for 'we need'."
     },
     {
       "id": "form-8f70a52faa6b",
@@ -1188,9 +1182,9 @@
         "WORDBASES": "+lohi(lohi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "salmon",
+      "lemma_meaning_en": "salmon",
+      "why_en": "Lohi becomes lohta for some salmon: the i drops and -ta is added."
     },
     {
       "id": "form-a822a7bdfc2d",
@@ -1208,9 +1202,9 @@
         "WORDBASES": "+peruna(peruna)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "potatoes",
+      "lemma_meaning_en": "potato",
+      "why_en": "Peruna becomes perunoita for some potatoes, an amount you don't count."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1226,8 +1220,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1246,9 +1240,9 @@
         "WORDBASES": "+porkkana(porkkana)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "carrots",
+      "lemma_meaning_en": "carrot",
+      "why_en": "Porkkana becomes porkkanoita for some carrots, an amount you don't count."
     },
     {
       "id": "form-095ba3df9042",
@@ -1266,9 +1260,9 @@
         "WORDBASES": "+kerma(kerma)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "cream",
+      "lemma_meaning_en": "cream",
+      "why_en": "The partitive singular is used for some cream: kerma becomes kermaa."
     },
     {
       "id": "form-7a8ac0635e6b",
@@ -1286,9 +1280,9 @@
         "WORDBASES": "+tilli(tilli)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "dill",
+      "lemma_meaning_en": "dill",
+      "why_en": "Adds -ä for some dill: tilli becomes tilliä."
     },
     {
       "id": "form-5eb112d9aace",
@@ -1310,8 +1304,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1330,9 +1324,9 @@
         "WORDBASES": "+me(me)"
       },
       "form_name_en": "adessive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "do we have",
+      "lemma_meaning_en": "we",
+      "why_en": "Me takes -llä for 'has': meillä on, 'we have'. Speech drops the end: meil."
     },
     {
       "id": "form-99824ee93d30",
@@ -1350,9 +1344,9 @@
         "WORDBASES": "+sipuli(sipuli)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "onions",
+      "lemma_meaning_en": "onion",
+      "why_en": "Adds -a for some onion: sipuli becomes sipulia. Speech turns the a into i: sipulii."
     },
     {
       "id": "form-4752d8dd4e2d",
@@ -1371,31 +1365,27 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
-      "id": "form-7b09b1399112",
+      "id": "form-0fcdf4079f8d",
       "lemma": "olla",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
       "surface_kirja": "ole",
       "surface_puhe": "oo",
       "analysis": {
         "BASEFORM": "olla",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]olla[X]ole[Tk][Ap][P2][Ny][Eb]",
-        "MOOD": "imperative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "2",
-        "STRUCTURE": "=ppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+olla(olla)"
+        "MANUAL": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "true",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "imperative present tense, 2nd person singular",
+      "form_name_en": "present tense, negative form",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to be, to have",
       "why_en": ""
     },
     {
@@ -1417,9 +1407,9 @@
         "WORDBASES": "+kirjoittaa(kirjoittaa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "write",
+      "lemma_meaning_en": "to write",
+      "why_en": "The imperative for one person drops the ending: kirjoittaa becomes kirjoita. Speech says kirjota."
     },
     {
       "id": "form-eca33913649c",
@@ -1437,8 +1427,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1457,9 +1447,9 @@
         "WORDBASES": "+lista(lista)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the list",
+      "lemma_meaning_en": "list",
+      "why_en": "Adds -an for 'into': lista becomes listaan. You write it into the list."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1478,9 +1468,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-e184450d7d09",
@@ -1500,9 +1490,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "present tense, passive",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "let's go",
+      "lemma_meaning_en": "to go",
+      "why_en": "The passive form means 'let's' here: mennään, let's go."
     },
     {
       "id": "form-8974894f8fac",
@@ -1520,9 +1510,9 @@
         "WORDBASES": "+kauppa(kauppa)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the shop",
+      "lemma_meaning_en": "shop, store",
+      "why_en": "Adds -an for 'to': kauppa becomes kauppaan."
     }
   ]
 }

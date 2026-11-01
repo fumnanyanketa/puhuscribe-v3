@@ -42,13 +42,12 @@
       "extras-stop-7",
       "extras-stop-8"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "alaovi",
-      "kahvila",
-      "kipeä",
       "lounaspaikka",
-      "vartti"
+      "vartti",
+      "voi"
     ],
     "speakers": [
       {
@@ -68,7 +67,7 @@
     "judge": "on"
   },
   "notes": {
-    "status": "pending"
+    "status": "complete"
   },
   "lines": [
     {
@@ -501,19 +500,22 @@
         {
           "surface": "Käykö",
           "lemma": "käydä",
-          "form_tag": "CLASS=teonsana;MOOD=imperative;TENSE=present_simple;NEGATIVE=true",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "käydä",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tk][Ap][Et]kö",
-            "MOOD": "imperative",
-            "NEGATIVE": "true",
+            "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tt][Ap][P3][Ny][Eb][Fko][Ef]kö",
+            "KYSYMYSLIITE": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "STRUCTURE": "=ppppp",
             "TENSE": "present_simple",
             "WORDBASES": "+käydä(käydä)"
           },
-          "form": "form-fc42c194d2f4"
+          "form": "form-5941266599a1"
         },
         {
           "surface": "vartin",
@@ -617,19 +619,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "odotan",
@@ -815,19 +817,19 @@
         },
         {
           "surface": "minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "kysyn",
@@ -911,9 +913,9 @@
         "WORDBASES": "+lähteä(lähteä)"
       },
       "form_name_en": "present tense, passive, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "shall we go?",
+      "lemma_meaning_en": "to leave, to go",
+      "why_en": "Lähdetään, let's go, with -kö to ask. Speech drops the d and says -ks."
     },
     {
       "id": "form-030a6c23a310",
@@ -932,9 +934,9 @@
         "WORDBASES": "+syödä(syödä)"
       },
       "form_name_en": "MA-infinitive, illative",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to eat",
+      "lemma_meaning_en": "to eat",
+      "why_en": "Syödä with -mään after a verb of going: lähteä syömään, go to eat."
     },
     {
       "id": "form-fbf4cf6cbcf9",
@@ -950,8 +952,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -970,9 +972,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "where to",
+      "lemma_meaning_en": "what, which",
+      "why_en": "Mikä with -hin for 'to': mihin, where to."
     },
     {
       "id": "form-e184450d7d09",
@@ -992,9 +994,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "present tense, passive",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "let's go",
+      "lemma_meaning_en": "to go",
+      "why_en": "The passive form means 'let's' here: mennään, let's go."
     },
     {
       "id": "form-8e6317edf047",
@@ -1012,9 +1014,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "there",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo, that, with -ssa: tuossa, there. Speech says tos."
     },
     {
       "id": "form-daee785cf008",
@@ -1033,9 +1035,9 @@
         "WORDBASES": "+kulma(kulma)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "on the corner",
+      "lemma_meaning_en": "corner",
+      "why_en": "Kulma with -ssa for 'in, on': kulmassa. Speech drops the last vowel: kulmas."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1056,8 +1058,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1077,8 +1079,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1097,8 +1099,8 @@
         "WORDBASES": "+lounas(lounas)+paikka(paikka)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "lunch place",
+      "lemma_meaning_en": "lunch place",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1118,9 +1120,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-78a5f0b146da",
@@ -1136,8 +1138,8 @@
         "WORDBASES": "+heti(heti)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "right away",
+      "lemma_meaning_en": "right away",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1156,9 +1158,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I have",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -lla. With on it means 'I have'. Speech shortens it to mul."
     },
     {
       "id": "form-2b3844766909",
@@ -1174,8 +1176,8 @@
         "WORDBASES": "+vielä(vielä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "still, yet",
+      "lemma_meaning_en": "still, yet",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1194,8 +1196,8 @@
         "WORDBASES": "+yksi(yksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "one",
+      "lemma_meaning_en": "one",
       "why_en": "One: counts the coffee being ordered. In speech it is often shortened to yks."
     },
     {
@@ -1214,30 +1216,33 @@
         "WORDBASES": "+asia(asia)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "thing",
+      "lemma_meaning_en": "thing, matter",
+      "why_en": "Juttu is the everyday spoken word for a thing. Books write asia."
     },
     {
-      "id": "form-fc42c194d2f4",
+      "id": "form-5941266599a1",
       "lemma": "käydä",
-      "form_tag": "CLASS=teonsana;MOOD=imperative;TENSE=present_simple;NEGATIVE=true",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
       "surface_kirja": "käykö",
       "surface_puhe": "käyks",
       "analysis": {
         "BASEFORM": "käydä",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tk][Ap][Et]kö",
-        "MOOD": "imperative",
-        "NEGATIVE": "true",
+        "FSTOUTPUT": "[Lt][Xp]käydä[X]käy[Tt][Ap][P3][Ny][Eb][Fko][Ef]kö",
+        "KYSYMYSLIITE": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
         "STRUCTURE": "=ppppp",
         "TENSE": "present_simple",
         "WORDBASES": "+käydä(käydä)"
       },
-      "form_name_en": "imperative present tense, negative form",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
+      "meaning_en": "is it OK?",
+      "lemma_meaning_en": "to visit, to go, to be OK",
+      "why_en": "Käy, it works, with -kö to ask. Speech says -ks: käyks."
     },
     {
       "id": "form-de3142e545c9",
@@ -1255,9 +1260,9 @@
         "WORDBASES": "+vartti(vartti)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a quarter of an hour",
+      "lemma_meaning_en": "quarter of an hour",
+      "why_en": "Vartti with -n before päästä, and tt turns to t: vartin päästä, in fifteen minutes."
     },
     {
       "id": "form-c5dcc023ac08",
@@ -1275,8 +1280,8 @@
         "WORDBASES": "+päästä(päästä)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to get (somewhere), to get in",
+      "lemma_meaning_en": "to get (somewhere), to get in",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1298,29 +1303,29 @@
         "WORDBASES": "+käydä(käydä)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "works",
+      "lemma_meaning_en": "to visit, to go, to be OK",
+      "why_en": "Käydä in the form for he, she or it. Ei käy means it doesn't work."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-cc3ddf2504b1",
@@ -1341,9 +1346,9 @@
         "WORDBASES": "+odottaa(odottaa)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'll wait",
+      "lemma_meaning_en": "to wait",
+      "why_en": "Odottaa, to wait, with -n for 'I', and tt turns to t: odotan."
     },
     {
       "id": "form-446bcc4fb0e8",
@@ -1361,9 +1366,9 @@
         "WORDBASES": "+ala(ala)+ovi(ovi)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "at the front door",
+      "lemma_meaning_en": "front door (downstairs)",
+      "why_en": "Alaovi with -lla for 'at', and i turns to e: alaovella."
     },
     {
       "id": "form-838bd34a0bfc",
@@ -1384,9 +1389,9 @@
         "WORDBASES": "+pyytää(pyytää)"
       },
       "form_name_en": "present tense, passive, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "shall we ask?",
+      "lemma_meaning_en": "to ask (for), to invite",
+      "why_en": "Pyydetään, let's ask, with -kö to ask. Speech says -ks: pyydetäänks."
     },
     {
       "id": "form-769eb876232e",
@@ -1402,8 +1407,8 @@
         "WORDBASES": "+mukaan(mukaan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "along, with you, according to",
+      "lemma_meaning_en": "along, with you, according to",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1425,9 +1430,9 @@
         "WORDBASES": "+kysyä(kysyä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'll ask",
+      "lemma_meaning_en": "to ask (a question)",
+      "why_en": "Kysyä, to ask, with -n for 'I': kysyn."
     },
     {
       "id": "form-d8eaec86253c",
@@ -1445,9 +1450,9 @@
         "WORDBASES": "+hän(hän)"
       },
       "form_name_en": "ablative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "(ask) her",
+      "lemma_meaning_en": "he, she",
+      "why_en": "Hän with -ltä for 'from': kysyä häneltä. Speech uses se for people: siltä."
     }
   ]
 }

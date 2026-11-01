@@ -26,10 +26,12 @@
       "extras-stop-1",
       "extras-stop-2"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
+      "ilman",
       "kauramaito",
-      "korvapuusti"
+      "korvapuusti",
+      "paljon"
     ],
     "speakers": [
       {
@@ -324,19 +326,17 @@
         },
         {
           "surface": "ilman",
-          "lemma": "ilma",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+          "lemma": "ilman",
+          "form_tag": "CLASS=suhdesana",
           "name": false,
           "analysis": {
-            "BASEFORM": "ilma",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sg][Ny]an",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
+            "BASEFORM": "ilman",
+            "CLASS": "suhdesana",
+            "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+ilma(ilma)"
+            "WORDBASES": "+ilman(ilman)"
           },
-          "form": "form-473ae936d931"
+          "form": "form-95eeba05861c"
         }
       ],
       "puhe_tokens": [
@@ -431,19 +431,17 @@
         },
         {
           "surface": "ilman",
-          "lemma": "ilma",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+          "lemma": "ilman",
+          "form_tag": "CLASS=suhdesana",
           "name": false,
           "analysis": {
-            "BASEFORM": "ilma",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sg][Ny]an",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
+            "BASEFORM": "ilman",
+            "CLASS": "suhdesana",
+            "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+ilma(ilma)"
+            "WORDBASES": "+ilman(ilman)"
           },
-          "form": "form-473ae936d931"
+          "form": "form-95eeba05861c"
         }
       ],
       "puhe_tokens": [
@@ -569,21 +567,16 @@
         },
         {
           "surface": "Paljonko",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
             "KYSYMYSLIITE": "true",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "MANUAL": "true"
           },
-          "form": "form-950f555b19e3"
+          "form": "form-40bfc95558ca"
         },
         {
           "surface": "se",
@@ -756,9 +749,9 @@
         "WORDBASES": "+hei(hei)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
     },
     {
       "id": "form-a0c867e0dc77",
@@ -776,9 +769,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-8d5b7d527ca0",
@@ -799,9 +792,9 @@
         "WORDBASES": "+saada(saada)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "may (be)",
+      "lemma_meaning_en": "to get, to be allowed to",
+      "why_en": "From saada. Mitä saa olla? is a set phrase for 'What can I get you?'"
     },
     {
       "id": "form-677fd2e58ace",
@@ -819,8 +812,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to be, to have",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -839,9 +832,9 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "two",
+      "lemma_meaning_en": "two",
+      "why_en": "Speech drops the final i: kaksi becomes kaks."
     },
     {
       "id": "form-9e75d9cc20ab",
@@ -859,8 +852,8 @@
         "WORDBASES": "+kahvi(kahvi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "some coffee",
+      "lemma_meaning_en": "coffee",
       "why_en": "'Some coffee.' The partitive singular is used for an unspecified amount of something, like coffee you ask for."
     },
     {
@@ -877,8 +870,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -897,8 +890,8 @@
         "WORDBASES": "+yksi(yksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "one",
+      "lemma_meaning_en": "one",
       "why_en": "One: counts the coffee being ordered. In speech it is often shortened to yks."
     },
     {
@@ -917,8 +910,8 @@
         "WORDBASES": "+korvapuusti(korva=puusti)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "cinnamon bun",
+      "lemma_meaning_en": "cinnamon bun",
       "why_en": "A Finnish cinnamon bun, in the nominative after yksi: the second thing ordered."
     },
     {
@@ -937,8 +930,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you, thanks",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Means 'thanks!', said on its own as a reply."
     },
     {
@@ -957,9 +950,9 @@
         "WORDBASES": "+maito(maito)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "with milk",
+      "lemma_meaning_en": "milk",
+      "why_en": "Maito with -lla for 'with': maidolla, and the t turns to d. Speech drops the last vowel: maidol."
     },
     {
       "id": "form-83d8cf4795ac",
@@ -975,29 +968,27 @@
         "WORDBASES": "+vai(vai)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "or (in questions)",
+      "lemma_meaning_en": "or (in questions)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-473ae936d931",
-      "lemma": "ilma",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=omanto;NUMBER=singular",
+      "id": "form-95eeba05861c",
+      "lemma": "ilman",
+      "form_tag": "CLASS=suhdesana",
       "surface_kirja": "ilman",
       "surface_puhe": "ilman",
       "analysis": {
-        "BASEFORM": "ilma",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]ilma[X]ilm[Sg][Ny]an",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
+        "BASEFORM": "ilman",
+        "CLASS": "suhdesana",
+        "FSTOUTPUT": "[Ld][Xp]ilman[X]ilman",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+ilma(ilma)"
+        "WORDBASES": "+ilman(ilman)"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adposition",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-5bdac2fbf3a8",
@@ -1013,8 +1004,8 @@
         "WORDBASES": "+täällä(täällä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "here",
+      "lemma_meaning_en": "here",
       "why_en": "Means 'here', telling where she is new."
     },
     {
@@ -1031,28 +1022,23 @@
         "WORDBASES": "+mukaan(mukaan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "along, with you, according to",
+      "lemma_meaning_en": "along, with you, according to",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-950f555b19e3",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+      "id": "form-40bfc95558ca",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
       "surface_kirja": "paljonko",
       "surface_puhe": "paljonks",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
         "KYSYMYSLIITE": "true",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular, with the question ending -ko/-kö",
+      "form_name_en": "adverb, with the question ending -ko/-kö",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1073,8 +1059,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1096,9 +1082,9 @@
         "WORDBASES": "+tehdä(tehdä)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "comes to",
+      "lemma_meaning_en": "to do, to make",
+      "why_en": "From tehdä, to do. When paying, se tekee means 'it comes to'."
     },
     {
       "id": "form-5ff5b278d494",
@@ -1116,9 +1102,9 @@
         "WORDBASES": "+yhdeksän(yhdeksän)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "nine",
+      "lemma_meaning_en": "nine",
+      "why_en": "Speech drops the d: yhdeksän becomes yheksän."
     },
     {
       "id": "form-e0b2a20b7101",
@@ -1136,8 +1122,8 @@
         "WORDBASES": "+euro(euro)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "euros",
+      "lemma_meaning_en": "euro",
       "why_en": "'Euros.' After a number like four, the counted word goes in the partitive singular."
     },
     {
@@ -1156,8 +1142,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     }
   ]

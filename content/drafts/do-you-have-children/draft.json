@@ -60,10 +60,11 @@
       "extras-stop-19",
       "extras-stop-20"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
-      "isoäiti",
-      "söpö",
+      "paljon",
+      "todella",
+      "vanhempi",
       "yhdeksänkymmentä"
     ],
     "speakers": [
@@ -929,37 +930,27 @@
         },
         {
           "surface": "todella",
-          "lemma": "tosi",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=ulkoolento;NUMBER=singular;COMPARISON=positive",
+          "lemma": "todella",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "tosi",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]tosi[X]tode[Sade][Ny]lla",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "ulkoolento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+tosi(tosi)"
+            "BASEFORM": "todella",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-d18d871b061b"
+          "form": "form-26f45640039d"
         },
         {
           "surface": "paljon",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-4c93c0afc944"
+          "form": "form-c89c8a769850"
         }
       ],
       "puhe_tokens": [
@@ -1021,19 +1012,17 @@
         {
           "surface": "lapseni",
           "lemma": "lapsi",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s",
           "name": false,
           "analysis": {
             "BASEFORM": "lapsi",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
-            "NUMBER": "singular",
+            "MANUAL": "true",
+            "NUMBER": "plural",
             "POSSESSIVE": "1s",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+lapsi(lapsi)"
+            "SIJAMUOTO": "nimento"
           },
-          "form": "form-e4d43bb07f41"
+          "form": "form-9f193d6d72e6"
         },
         {
           "surface": "myös",
@@ -1093,8 +1082,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1113,9 +1102,9 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you have",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Sinä with -lla. With on it means 'you have'. Speech shortens it to sul."
     },
     {
       "id": "form-12b8d37063cb",
@@ -1133,9 +1122,9 @@
         "WORDBASES": "+lapsi(lapsi)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "children",
+      "lemma_meaning_en": "child",
+      "why_en": "Lapsi becomes lapsia in a question about having any. Speech turns the last a into i: lapsii."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1156,8 +1145,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1176,9 +1165,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I have",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -lla. With on it means 'I have'. Speech shortens it to mul."
     },
     {
       "id": "form-05a31ace9a1d",
@@ -1196,9 +1185,9 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "two",
+      "lemma_meaning_en": "two",
+      "why_en": "Speech drops the final i: kaksi becomes kaks."
     },
     {
       "id": "form-91c58f01ab16",
@@ -1216,9 +1205,9 @@
         "WORDBASES": "+lapsi(lapsi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "children (after a number)",
+      "lemma_meaning_en": "child",
+      "why_en": "After a number like kaksi, the word takes -a: lapsi becomes lasta, 'two children'."
     },
     {
       "id": "form-fd1a9ffcfdb7",
@@ -1234,8 +1223,8 @@
         "WORDBASES": "+kuinka(kuinka)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1255,9 +1244,9 @@
         "WORDBASES": "+vanha(vanha)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "old",
+      "lemma_meaning_en": "old",
+      "why_en": "Vanha becomes vanhoja when asking about the age of several people."
     },
     {
       "id": "form-ae2f0cff6156",
@@ -1275,9 +1264,9 @@
         "WORDBASES": "+he(he)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "they",
+      "lemma_meaning_en": "they",
+      "why_en": "Speech uses ne for people too. Books write he."
     },
     {
       "id": "form-4ab061b662f0",
@@ -1298,9 +1287,9 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "are",
+      "lemma_meaning_en": "to be, to have",
+      "why_en": "Books write ovat for 'they are'. Speech uses on for one thing or many."
     },
     {
       "id": "form-c718bd228f59",
@@ -1318,8 +1307,8 @@
         "WORDBASES": "+poika(poika)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "boy, son",
+      "lemma_meaning_en": "boy, son",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1338,9 +1327,9 @@
         "WORDBASES": "+viisi(viisi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "five",
+      "lemma_meaning_en": "five",
+      "why_en": "Speech drops the final i: viisi becomes viis."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1356,8 +1345,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1376,8 +1365,8 @@
         "WORDBASES": "+tyttö(tyttö)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "girl",
+      "lemma_meaning_en": "girl",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1396,9 +1385,9 @@
         "WORDBASES": "+kahdeksan(kahdeksan)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "eight",
+      "lemma_meaning_en": "eight",
+      "why_en": "Speech drops the d: kaheksan. Books write kahdeksan."
     },
     {
       "id": "form-483066471a02",
@@ -1417,8 +1406,8 @@
         "WORDBASES": "+kiva(kiva)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "nice",
+      "lemma_meaning_en": "nice",
       "why_en": "Means 'nice'; 'Kiva tavata' = 'Nice to meet you'."
     },
     {
@@ -1437,8 +1426,8 @@
         "WORDBASES": "+ikä(ikä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "age",
+      "lemma_meaning_en": "age",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1457,8 +1446,8 @@
         "WORDBASES": "+yksi(yksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "one",
+      "lemma_meaning_en": "one",
       "why_en": "One: counts the coffee being ordered. In speech it is often shortened to yks."
     },
     {
@@ -1477,8 +1466,8 @@
         "WORDBASES": "+tytär(tytär)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "daughter",
+      "lemma_meaning_en": "daughter",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1497,9 +1486,9 @@
         "WORDBASES": "+hän(hän)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "he, she",
+      "lemma_meaning_en": "he, she",
+      "why_en": "Speech uses se for a person. Books write hän."
     },
     {
       "id": "form-9242c81b9d91",
@@ -1517,8 +1506,8 @@
         "WORDBASES": "+kolme(kolme)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "three",
+      "lemma_meaning_en": "three",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1538,8 +1527,8 @@
         "WORDBASES": "+söpö(söpö)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "cute, sweet",
+      "lemma_meaning_en": "cute, sweet",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1558,8 +1547,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "what, which",
+      "lemma_meaning_en": "what, which",
       "why_en": "'What.' A question word in nominative singular, asking what the price is."
     },
     {
@@ -1578,9 +1567,9 @@
         "WORDBASES": "+hän(hän)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "her",
+      "lemma_meaning_en": "he, she",
+      "why_en": "Hän (he, she) with -n for 'whose': hänen nimensä, 'her name'. Speech uses se and says sen."
     },
     {
       "id": "form-1bbc3ba2ca0d",
@@ -1600,9 +1589,9 @@
         "WORDBASES": "+nimi(nimi)"
       },
       "form_name_en": "nominative singular, with the possessive ending for his, her or their",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "her name",
+      "lemma_meaning_en": "name",
+      "why_en": "Books add -nsä for 'his, her or their': nimensä. Speech drops it and says sen nimi."
     },
     {
       "id": "form-880508ea2186",
@@ -1623,9 +1612,9 @@
         "WORDBASES": "+puhua(puhua)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "she talks",
+      "lemma_meaning_en": "to speak, to talk",
+      "why_en": "Puhua doubles its last vowel for he or she: puhuu."
     },
     {
       "id": "form-31092ec721a1",
@@ -1641,51 +1630,41 @@
         "WORDBASES": "+jo(jo)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "already",
+      "lemma_meaning_en": "already",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-d18d871b061b",
-      "lemma": "tosi",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=ulkoolento;NUMBER=singular;COMPARISON=positive",
+      "id": "form-26f45640039d",
+      "lemma": "todella",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "todella",
       "surface_puhe": "tosi",
       "analysis": {
-        "BASEFORM": "tosi",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]tosi[X]tode[Sade][Ny]lla",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "ulkoolento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+tosi(tosi)"
+        "BASEFORM": "todella",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "adessive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
     },
     {
-      "id": "form-4c93c0afc944",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+      "id": "form-c89c8a769850",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "paljon",
       "surface_puhe": "paljon",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-ae1caa07874f",
@@ -1703,29 +1682,27 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
-      "id": "form-e4d43bb07f41",
+      "id": "form-9f193d6d72e6",
       "lemma": "lapsi",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular;POSSESSIVE=1s",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=plural;POSSESSIVE=1s",
       "surface_kirja": "lapseni",
       "surface_puhe": "lapset",
       "analysis": {
         "BASEFORM": "lapsi",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]lapsi[X]la[Sn][Ny]pse[O1y]ni",
-        "NUMBER": "singular",
+        "MANUAL": "true",
+        "NUMBER": "plural",
         "POSSESSIVE": "1s",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+lapsi(lapsi)"
+        "SIJAMUOTO": "nimento"
       },
-      "form_name_en": "nominative singular, with the possessive ending for my",
+      "form_name_en": "nominative plural, with the possessive ending for my",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "child",
       "why_en": ""
     },
     {
@@ -1742,9 +1719,9 @@
         "WORDBASES": "+myös(myös)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "too",
+      "lemma_meaning_en": "also, too",
+      "why_en": "Speech often says kans. Books write myös."
     }
   ]
 }

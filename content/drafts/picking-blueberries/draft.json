@@ -64,24 +64,19 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27",
+      "extras-stop-26",
       "extras-stop-29"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
-      "eväs",
       "jokamiehenoikeus",
       "mustikka",
       "myrkyllinen",
-      "poimia",
-      "sieni",
       "soutuvene",
-      "termospullo",
-      "uida",
-      "varovainen"
+      "takaisin",
+      "termospullo"
     ],
     "speakers": [
       {
@@ -174,19 +169,22 @@
         {
           "surface": "Saako",
           "lemma": "saada",
-          "form_tag": "CLASS=teonsana;MOOD=imperative;TENSE=present_simple;NEGATIVE=true",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "saada",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tk][Ap][Et]ko",
-            "MOOD": "imperative",
-            "NEGATIVE": "true",
+            "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb][Fko][Ef]ko",
+            "KYSYMYSLIITE": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "STRUCTURE": "=ppppp",
             "TENSE": "present_simple",
             "WORDBASES": "+saada(saada)"
           },
-          "form": "form-430aa3c5d0f5"
+          "form": "form-ef78e99a7c25"
         },
         {
           "surface": "niitä",
@@ -252,21 +250,21 @@
         {
           "surface": "Saa",
           "lemma": "saada",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
             "BASEFORM": "saada",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tk][Ap][P2][Ny][Eb]",
-            "MOOD": "imperative",
+            "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb]",
+            "MOOD": "indicative",
             "NEGATIVE": "both",
             "NUMBER": "singular",
-            "PERSON": "2",
+            "PERSON": "3",
             "STRUCTURE": "=ppp",
             "TENSE": "present_simple",
             "WORDBASES": "+saada(saada)"
           },
-          "form": "form-f113685be886"
+          "form": "form-8d5b7d527ca0"
         },
         {
           "surface": "Suomessa",
@@ -387,18 +385,21 @@
         {
           "surface": "tarkoittaa",
           "lemma": "tarkoittaa",
-          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
           "name": false,
           "analysis": {
             "BASEFORM": "tarkoittaa",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitta[Tn1][Eb]a",
-            "MOOD": "A-infinitive",
-            "NEGATIVE": "both",
+            "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitt[Tt][Ap][P3][Ny][Ef]aa",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
+            "NUMBER": "singular",
+            "PERSON": "3",
             "STRUCTURE": "=pppppppppp",
+            "TENSE": "present_simple",
             "WORDBASES": "+tarkoittaa(tarkoittaa)"
           },
-          "form": "form-158909990540"
+          "form": "form-e8893d00d23d"
         }
       ],
       "puhe_tokens": [
@@ -590,20 +591,17 @@
         {
           "surface": "Mahtavaa",
           "lemma": "mahtava",
-          "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive;PARTICIPLE=present_active",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
           "name": false,
           "analysis": {
             "BASEFORM": "mahtava",
             "CLASS": "laatusana",
             "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lt][Ira][Xp]mahtaa[X]mahta[Ll][Rv]v[Xj]a[X][Sp][Ny]aa",
+            "MANUAL": "true",
             "NUMBER": "singular",
-            "PARTICIPLE": "present_active",
-            "SIJAMUOTO": "osanto",
-            "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+mahta(mahtaa)+v+a(+a)"
+            "SIJAMUOTO": "osanto"
           },
-          "form": "form-4b9c0fc1e354"
+          "form": "form-1377edc59a33"
         },
         {
           "surface": "Entä",
@@ -717,20 +715,17 @@
         {
           "surface": "varovainen",
           "lemma": "varovainen",
-          "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=present_active",
+          "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
           "name": false,
           "analysis": {
             "BASEFORM": "varovainen",
             "CLASS": "laatusana",
             "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lt][Xp]varoa[X]varo[Ll][Rv]v[Xj]a[X]ai[Xj]nen[X][Sn][Ny]nen",
+            "MANUAL": "true",
             "NUMBER": "singular",
-            "PARTICIPLE": "present_active",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=pppppppppp",
-            "WORDBASES": "+varo(varoa)+vai(+a)+nen(+nen)"
+            "SIJAMUOTO": "nimento"
           },
-          "form": "form-94b521c5ccbb"
+          "form": "form-e76edb14e9f5"
         },
         {
           "surface": "Osa",
@@ -831,19 +826,19 @@
       "kirja_tokens": [
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "poimin",
@@ -941,9 +936,9 @@
         "WORDBASES": "+katsoa(katsoa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "look",
+      "lemma_meaning_en": "to look, to watch",
+      "why_en": "This is how you tell someone to look: katso. Speech drops the s: kato."
     },
     {
       "id": "form-beb4218dfba2",
@@ -961,29 +956,32 @@
         "WORDBASES": "+mustikka(mustikka)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "blueberries",
+      "lemma_meaning_en": "blueberry",
+      "why_en": "An open number of things takes -ita: mustikka becomes mustikoita, kk turning into k."
     },
     {
-      "id": "form-430aa3c5d0f5",
+      "id": "form-ef78e99a7c25",
       "lemma": "saada",
-      "form_tag": "CLASS=teonsana;MOOD=imperative;TENSE=present_simple;NEGATIVE=true",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false;KYSYMYSLIITE=true",
       "surface_kirja": "saako",
       "surface_puhe": "saaks",
       "analysis": {
         "BASEFORM": "saada",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tk][Ap][Et]ko",
-        "MOOD": "imperative",
-        "NEGATIVE": "true",
+        "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb][Fko][Ef]ko",
+        "KYSYMYSLIITE": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
         "STRUCTURE": "=ppppp",
         "TENSE": "present_simple",
         "WORDBASES": "+saada(saada)"
       },
-      "form_name_en": "imperative present tense, negative form",
+      "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to get, to be allowed to",
       "why_en": ""
     },
     {
@@ -1002,9 +1000,9 @@
         "WORDBASES": "+ne(ne)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "them",
+      "lemma_meaning_en": "they, those",
+      "why_en": "The partitive plural of ne 'they': niitä, used after kokeilla 'to try'."
     },
     {
       "id": "form-ddea4cdf8570",
@@ -1022,32 +1020,32 @@
         "WORDBASES": "+poimia(poimia)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to pick",
+      "lemma_meaning_en": "to pick",
+      "why_en": "This is the dictionary form, used after saa, 'may'. Speech turns the ending -ia into -ii: poimii."
     },
     {
-      "id": "form-f113685be886",
+      "id": "form-8d5b7d527ca0",
       "lemma": "saada",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "saa",
       "surface_puhe": "saa",
       "analysis": {
         "BASEFORM": "saada",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tk][Ap][P2][Ny][Eb]",
-        "MOOD": "imperative",
+        "FSTOUTPUT": "[Lt][Xp]saada[X]saa[Tt][Ap][P3][Ny][Eb]",
+        "MOOD": "indicative",
         "NEGATIVE": "both",
         "NUMBER": "singular",
-        "PERSON": "2",
+        "PERSON": "3",
         "STRUCTURE": "=ppp",
         "TENSE": "present_simple",
         "WORDBASES": "+saada(saada)"
       },
-      "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "present tense, 3rd person singular",
+      "meaning_en": "may (be)",
+      "lemma_meaning_en": "to get, to be allowed to",
+      "why_en": "From saada. Mitä saa olla? is a set phrase for 'What can I get you?'"
     },
     {
       "id": "form-11490962728d",
@@ -1065,9 +1063,9 @@
         "WORDBASES": "+suomi(suomi)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in Finland",
+      "lemma_meaning_en": "Finnish (the language), Finland",
+      "why_en": "Adds -ssa for 'in', and si changes to e: Suomi becomes Suomessa. Speech drops the end: Suomes."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1088,8 +1086,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1108,9 +1106,9 @@
         "WORDBASES": "+jokamiehen(joka=mies)+oike(oikea)+us(+us)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "everyone's right to roam",
+      "lemma_meaning_en": "everyone's right to roam",
+      "why_en": "Finns say this with -t, as several rights: jokamiehenoikeus becomes jokamiehenoikeudet."
     },
     {
       "id": "form-a0c867e0dc77",
@@ -1128,9 +1126,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-eca33913649c",
@@ -1148,28 +1146,31 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
-      "id": "form-158909990540",
+      "id": "form-e8893d00d23d",
       "lemma": "tarkoittaa",
-      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
       "surface_kirja": "tarkoittaa",
       "surface_puhe": "tarkottaa",
       "analysis": {
         "BASEFORM": "tarkoittaa",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitta[Tn1][Eb]a",
-        "MOOD": "A-infinitive",
-        "NEGATIVE": "both",
+        "FSTOUTPUT": "[Lt][Xp]tarkoittaa[X]tarkoitt[Tt][Ap][P3][Ny][Ef]aa",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
+        "NUMBER": "singular",
+        "PERSON": "3",
         "STRUCTURE": "=pppppppppp",
+        "TENSE": "present_simple",
         "WORDBASES": "+tarkoittaa(tarkoittaa)"
       },
-      "form_name_en": "basic form (A-infinitive)",
+      "form_name_en": "present tense, 3rd person singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to mean",
       "why_en": ""
     },
     {
@@ -1188,8 +1189,8 @@
         "WORDBASES": "+kaikki(kaikki)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "all, everything, everyone",
+      "lemma_meaning_en": "all, everything, everyone",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1211,9 +1212,9 @@
         "WORDBASES": "+saada(saada)"
       },
       "form_name_en": "present tense, 3rd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "can, are allowed",
+      "lemma_meaning_en": "to get, to be allowed to",
+      "why_en": "Books add -vat for 'they': saavat. Speech uses the short form saa with kaikki, 'everyone'."
     },
     {
       "id": "form-bc1a0696022f",
@@ -1231,9 +1232,9 @@
         "WORDBASES": "+liikkua(liikkua)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to move around",
+      "lemma_meaning_en": "to move (around)",
+      "why_en": "This is the dictionary form, used after saa, 'may'. Speech turns the ending -ua into -uu."
     },
     {
       "id": "form-f7121f74c115",
@@ -1251,9 +1252,9 @@
         "WORDBASES": "+luonto(luonto)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in nature",
+      "lemma_meaning_en": "nature",
+      "why_en": "Adds -ssa for 'in': luonto becomes luonnossa, nt turning into nn. Speech says luonnos."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1269,8 +1270,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1289,30 +1290,27 @@
         "WORDBASES": "+marja(marja)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "berries",
+      "lemma_meaning_en": "berry",
+      "why_en": "An open number of things takes -ja: marja becomes marjoja, the last a turning into o."
     },
     {
-      "id": "form-4b9c0fc1e354",
+      "id": "form-1377edc59a33",
       "lemma": "mahtava",
-      "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive;PARTICIPLE=present_active",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=osanto;NUMBER=singular;COMPARISON=positive",
       "surface_kirja": "mahtavaa",
       "surface_puhe": "mahtavaa",
       "analysis": {
         "BASEFORM": "mahtava",
         "CLASS": "laatusana",
         "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lt][Ira][Xp]mahtaa[X]mahta[Ll][Rv]v[Xj]a[X][Sp][Ny]aa",
+        "MANUAL": "true",
         "NUMBER": "singular",
-        "PARTICIPLE": "present_active",
-        "SIJAMUOTO": "osanto",
-        "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+mahta(mahtaa)+v+a(+a)"
+        "SIJAMUOTO": "osanto"
       },
-      "form_name_en": "present active participle, partitive singular",
+      "form_name_en": "partitive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "fantastic, great",
       "why_en": ""
     },
     {
@@ -1329,8 +1327,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1349,9 +1347,9 @@
         "WORDBASES": "+sieni(sieni)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "mushrooms",
+      "lemma_meaning_en": "mushroom",
+      "why_en": "Adds -t for more than one: sieni becomes sienet."
     },
     {
       "id": "form-3f98424b1f05",
@@ -1370,9 +1368,9 @@
         "WORDBASES": "+ne(ne)"
       },
       "form_name_en": "partitive plural, with -kin (also)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "those too",
+      "lemma_meaning_en": "they, those",
+      "why_en": "niitä means 'them'. The ending -kin adds 'too': niitäkin."
     },
     {
       "id": "form-f177cddd7c31",
@@ -1388,8 +1386,8 @@
         "WORDBASES": "+mutta(mutta)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "but",
+      "lemma_meaning_en": "but",
       "why_en": "Means 'but'. It links two ideas: from Tampere, but home is in Helsinki."
     },
     {
@@ -1411,31 +1409,28 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "be (here you are)",
+      "lemma_meaning_en": "to be, to have",
+      "why_en": "The imperative for one person is olla without its ending: ole. 'Ole hyvä' means 'here you are' or 'you're welcome'."
     },
     {
-      "id": "form-94b521c5ccbb",
+      "id": "form-e76edb14e9f5",
       "lemma": "varovainen",
-      "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=present_active",
+      "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive",
       "surface_kirja": "varovainen",
       "surface_puhe": "varovainen",
       "analysis": {
         "BASEFORM": "varovainen",
         "CLASS": "laatusana",
         "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lt][Xp]varoa[X]varo[Ll][Rv]v[Xj]a[X]ai[Xj]nen[X][Sn][Ny]nen",
+        "MANUAL": "true",
         "NUMBER": "singular",
-        "PARTICIPLE": "present_active",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=pppppppppp",
-        "WORDBASES": "+varo(varoa)+vai(+a)+nen(+nen)"
+        "SIJAMUOTO": "nimento"
       },
-      "form_name_en": "present active participle, nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "careful",
+      "lemma_meaning_en": "careful",
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-7b309eb706e5",
@@ -1453,8 +1448,8 @@
         "WORDBASES": "+osa(osa)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "part, some",
+      "lemma_meaning_en": "part, some",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1474,29 +1469,29 @@
         "WORDBASES": "+myrky(myrkky)+lli+nen(+nen)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "poisonous",
+      "lemma_meaning_en": "poisonous",
+      "why_en": "Describing part of a group takes -iä: myrkyllinen becomes myrkyllisiä."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-517310fcc9d2",
@@ -1517,9 +1512,9 @@
         "WORDBASES": "+poimia(poimia)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I pick",
+      "lemma_meaning_en": "to pick",
+      "why_en": "poimia means to pick. The ending -n goes with minä: poimin."
     },
     {
       "id": "form-ab6bb2b103e4",
@@ -1535,9 +1530,9 @@
         "WORDBASES": "+vain(vain)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "only",
+      "lemma_meaning_en": "only, just",
+      "why_en": "Speech says vaan. Books write vain."
     }
   ]
 }

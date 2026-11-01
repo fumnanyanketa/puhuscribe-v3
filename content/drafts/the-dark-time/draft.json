@@ -63,24 +63,25 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27"
+      "extras-stop-26"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
       "d-vitamiini",
-      "kynttilä",
+      "kuin",
       "käsine",
       "lempivuodenaika",
+      "ollenkaan",
+      "paljon",
       "pidetä",
       "pipo",
-      "sula",
-      "sytyttää",
+      "sataa",
+      "sulaa",
+      "tietysti",
       "ulkoilla",
-      "valoisa",
-      "värikäs"
+      "valoisa"
     ],
     "speakers": [
       {
@@ -937,21 +938,17 @@
         {
           "surface": "laske",
           "lemma": "laskea",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
           "name": false,
           "analysis": {
             "BASEFORM": "laskea",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]laskea[X]laske[Tk][Ap][P2][Ny][Eb]",
-            "MOOD": "imperative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "2",
-            "STRUCTURE": "=ppppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+laskea(laskea)"
+            "MANUAL": "true",
+            "MOOD": "indicative",
+            "NEGATIVE": "true",
+            "TENSE": "present_simple"
           },
-          "form": "form-3c2cc3b5cf46"
+          "form": "form-4c86b5c4b32f"
         },
         {
           "surface": "melkein",
@@ -969,19 +966,15 @@
         },
         {
           "surface": "ollenkaan",
-          "lemma": "olla",
-          "form_tag": "CLASS=teonsana;MOOD=E-infinitive;FOCUS=kaan",
+          "lemma": "ollenkaan",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "olla",
-            "CLASS": "teonsana",
-            "FOCUS": "kaan",
-            "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tn2]ll[Tn2]en[Fkaan]kaan",
-            "MOOD": "E-infinitive",
-            "STRUCTURE": "=ppppppppp",
-            "WORDBASES": "+olla(olla)"
+            "BASEFORM": "ollenkaan",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-e33f2ac926a8"
+          "form": "form-d2f590cc0a3b"
         }
       ],
       "puhe_tokens": [
@@ -1035,9 +1028,9 @@
         "WORDBASES": "+aamu(aamu)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the morning",
+      "lemma_meaning_en": "morning",
+      "why_en": "Adds -lla for a time of day: aamu becomes aamulla. Speech drops the last a: aamul."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1058,8 +1051,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1079,9 +1072,9 @@
         "WORDBASES": "+pimeä(pimeä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "dark",
+      "lemma_meaning_en": "dark",
+      "why_en": "Adds -ä: pimeä becomes pimeää. Speech says pimeetä."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1097,8 +1090,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1117,9 +1110,9 @@
         "WORDBASES": "+ilta(ilta)+päivä(päivä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the afternoon",
+      "lemma_meaning_en": "afternoon",
+      "why_en": "Adds -llä for a time of day: iltapäivä becomes iltapäivällä. Speech drops the last ä."
     },
     {
       "id": "form-a5754fee25d8",
@@ -1135,8 +1128,8 @@
         "WORDBASES": "+taas(taas)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "again",
+      "lemma_meaning_en": "again",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1153,8 +1146,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1173,8 +1166,8 @@
         "WORDBASES": "+marras(marras)+kuu(kuu)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "November",
+      "lemma_meaning_en": "November",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1194,9 +1187,9 @@
         "WORDBASES": "+pimeä(pimeä)"
       },
       "form_name_en": "superlative, nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "darkest",
+      "lemma_meaning_en": "dark",
+      "why_en": "pimeä means dark. The ending -in makes 'the darkest': pimeä becomes pimein."
     },
     {
       "id": "form-53aa87236c13",
@@ -1214,8 +1207,8 @@
         "WORDBASES": "+kuu(kuu)+kausi(kausi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "month",
+      "lemma_meaning_en": "month",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1232,8 +1225,8 @@
         "WORDBASES": "+miten(miten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1252,9 +1245,9 @@
         "WORDBASES": "+te(te)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you (all)",
+      "lemma_meaning_en": "you (more than one, or polite)",
+      "why_en": "Te is 'you' when you talk to more than one person. People say it the same way."
     },
     {
       "id": "form-b631422191f9",
@@ -1276,9 +1269,9 @@
         "WORDBASES": "+jaksaa(jaksaa)"
       },
       "form_name_en": "present tense, 2nd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "do you (all) cope",
+      "lemma_meaning_en": "to cope, to have the energy",
+      "why_en": "jaksaa means to have the energy. The ending -tte goes with te, 'you all'."
     },
     {
       "id": "form-9f0f9f1fdd21",
@@ -1296,9 +1289,9 @@
         "WORDBASES": "+me(me)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we",
+      "lemma_meaning_en": "we",
+      "why_en": "Me means we. Speech says it the same way."
     },
     {
       "id": "form-b561fffae140",
@@ -1319,9 +1312,9 @@
         "WORDBASES": "+sytyttää(sytyttää)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we light",
+      "lemma_meaning_en": "to light",
+      "why_en": "Speech uses the form sytytetään with me, 'we'. Books write sytytämme."
     },
     {
       "id": "form-05532514e827",
@@ -1339,9 +1332,9 @@
         "WORDBASES": "+kynttilä(kynttilä)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "candles",
+      "lemma_meaning_en": "candle",
+      "why_en": "An open number of things takes -itä: kynttilä becomes kynttilöitä, the last ä turning into ö."
     },
     {
       "id": "form-4caa3df509a9",
@@ -1362,9 +1355,9 @@
         "WORDBASES": "+ulkoilla(ulkoilla)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we get outside",
+      "lemma_meaning_en": "to be outdoors, to get outside",
+      "why_en": "Speech uses the form ulkoillaan with me, 'we'. Books write ulkoilemme."
     },
     {
       "id": "form-e068cd14094b",
@@ -1382,9 +1375,9 @@
         "WORDBASES": "+päivä(päivä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "during the day",
+      "lemma_meaning_en": "day",
+      "why_en": "Adds -llä for 'during': päivä becomes päivällä. Speech drops the last vowel: päiväl."
     },
     {
       "id": "form-f7c4720fb2d6",
@@ -1402,9 +1395,9 @@
         "WORDBASES": "+d(d)+-+vitamiini(vitamiini)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "vitamin D",
+      "lemma_meaning_en": "vitamin D",
+      "why_en": "Asking about some of something takes -a: D-vitamiini becomes D-vitamiinia. Speech turns -ia into -ii."
     },
     {
       "id": "form-eca33913649c",
@@ -1422,8 +1415,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1443,9 +1436,9 @@
         "WORDBASES": "+tärkeä(tärkeä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "important",
+      "lemma_meaning_en": "important",
+      "why_en": "This is the dictionary form. Speech turns the ending -eä into -ee: tärkee."
     },
     {
       "id": "form-5df29264208f",
@@ -1463,9 +1456,9 @@
         "WORDBASES": "+onni(onni)"
       },
       "form_name_en": "translative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "(congratulations)",
+      "lemma_meaning_en": "luck, happiness",
+      "why_en": "Onni, luck, with -ksi. Onneksi olkoon means congratulations. Speech says onneks."
     },
     {
       "id": "form-9b45c353e900",
@@ -1483,9 +1476,9 @@
         "WORDBASES": "+kesä(kesä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in summer",
+      "lemma_meaning_en": "summer",
+      "why_en": "Adds -llä for 'in' a season: kesä becomes kesällä. Speech drops the last vowel: kesäl."
     },
     {
       "id": "form-437368147563",
@@ -1504,9 +1497,9 @@
         "WORDBASES": "+valoisa(valoisa)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "light, bright",
+      "lemma_meaning_en": "light, bright",
+      "why_en": "Saying what a time is like takes -a: valoisa becomes valoisaa, 'it is light'."
     },
     {
       "id": "form-ebd46b859a27",
@@ -1524,8 +1517,8 @@
         "WORDBASES": "+aurinko(aurinko)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "sun",
+      "lemma_meaning_en": "sun",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1545,31 +1538,27 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
-      "id": "form-3c2cc3b5cf46",
+      "id": "form-4c86b5c4b32f",
       "lemma": "laskea",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;MOOD=indicative;TENSE=present_simple;NEGATIVE=true",
       "surface_kirja": "laske",
       "surface_puhe": "laske",
       "analysis": {
         "BASEFORM": "laskea",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]laskea[X]laske[Tk][Ap][P2][Ny][Eb]",
-        "MOOD": "imperative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "2",
-        "STRUCTURE": "=ppppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+laskea(laskea)"
+        "MANUAL": "true",
+        "MOOD": "indicative",
+        "NEGATIVE": "true",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "imperative present tense, 2nd person singular",
+      "form_name_en": "present tense, negative form",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to set (the sun), to count, to lower",
       "why_en": ""
     },
     {
@@ -1586,29 +1575,25 @@
         "WORDBASES": "+melkein(melkein)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "almost",
+      "lemma_meaning_en": "almost",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-e33f2ac926a8",
-      "lemma": "olla",
-      "form_tag": "CLASS=teonsana;MOOD=E-infinitive;FOCUS=kaan",
+      "id": "form-d2f590cc0a3b",
+      "lemma": "ollenkaan",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "ollenkaan",
       "surface_puhe": "ollenkaan",
       "analysis": {
-        "BASEFORM": "olla",
-        "CLASS": "teonsana",
-        "FOCUS": "kaan",
-        "FSTOUTPUT": "[Lt][Xp]olla[X]o[Tn2]ll[Tn2]en[Fkaan]kaan",
-        "MOOD": "E-infinitive",
-        "STRUCTURE": "=ppppppppp",
-        "WORDBASES": "+olla(olla)"
+        "BASEFORM": "ollenkaan",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "E-infinitive, with -kaan/-kään",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     }
   ]
 }

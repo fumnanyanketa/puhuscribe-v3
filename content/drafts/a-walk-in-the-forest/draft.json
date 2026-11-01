@@ -64,24 +64,19 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27",
+      "extras-stop-26",
       "extras-stop-29"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
-      "eväs",
       "jokamiehenoikeus",
       "mustikka",
       "myrkyllinen",
-      "poimia",
-      "sieni",
       "soutuvene",
-      "termospullo",
-      "uida",
-      "varovainen"
+      "takaisin",
+      "termospullo"
     ],
     "speakers": [
       {
@@ -150,18 +145,18 @@
         {
           "surface": "sunnuntaina",
           "lemma": "sunnuntai",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+          "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
             "BASEFORM": "sunnuntai",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]sunnuntai[X]sunnunta[Ses][Nm]ina",
-            "NUMBER": "plural",
+            "FSTOUTPUT": "[Ln][Xp]sunnuntai[X]sunnuntai[Ses][Ny]na",
+            "NUMBER": "singular",
             "SIJAMUOTO": "olento",
             "STRUCTURE": "=ppppppppppp",
             "WORDBASES": "+sunnuntai(sunnuntai)"
           },
-          "form": "form-ab7693fc7690"
+          "form": "form-71ca298e2e8a"
         }
       ],
       "puhe_tokens": [
@@ -899,19 +894,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "tulen",
@@ -975,9 +970,9 @@
         "WORDBASES": "+lähteä(lähteä)"
       },
       "form_name_en": "present tense, passive, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "shall we go?",
+      "lemma_meaning_en": "to leave, to go",
+      "why_en": "Lähdetään, let's go, with -kö to ask. Speech drops the d and says -ks."
     },
     {
       "id": "form-f180df68589b",
@@ -996,28 +991,28 @@
         "WORDBASES": "+metsä(metsä)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the forest",
+      "lemma_meaning_en": "forest",
+      "why_en": "Adds -än for 'into': metsä becomes metsään."
     },
     {
-      "id": "form-ab7693fc7690",
+      "id": "form-71ca298e2e8a",
       "lemma": "sunnuntai",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=plural",
+      "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "sunnuntaina",
       "surface_puhe": "sunnuntaina",
       "analysis": {
         "BASEFORM": "sunnuntai",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]sunnuntai[X]sunnunta[Ses][Nm]ina",
-        "NUMBER": "plural",
+        "FSTOUTPUT": "[Ln][Xp]sunnuntai[X]sunnuntai[Ses][Ny]na",
+        "NUMBER": "singular",
         "SIJAMUOTO": "olento",
         "STRUCTURE": "=ppppppppppp",
         "WORDBASES": "+sunnuntai(sunnuntai)"
       },
-      "form_name_en": "essive plural",
+      "form_name_en": "essive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "Sunday",
       "why_en": ""
     },
     {
@@ -1034,8 +1029,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1054,8 +1049,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "where",
+      "lemma_meaning_en": "what, which",
       "why_en": "Inessive of 'mikä': here it means 'where', asking about a place."
     },
     {
@@ -1077,8 +1072,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1098,8 +1093,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1119,8 +1114,8 @@
         "WORDBASES": "+metsä(metsä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "forest",
+      "lemma_meaning_en": "forest",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1137,9 +1132,9 @@
         "WORDBASES": "+siellä(siellä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "there",
+      "lemma_meaning_en": "there",
+      "why_en": "Sinne means to there, for moving towards a place."
     },
     {
       "id": "form-014fff3c0b83",
@@ -1160,9 +1155,9 @@
         "WORDBASES": "+päästä(päästä)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "one can get (there)",
+      "lemma_meaning_en": "to get (somewhere), to get in",
+      "why_en": "päästä means to get somewhere. pääsee here means 'you can get', with no one named."
     },
     {
       "id": "form-94ae68ff18ca",
@@ -1180,9 +1175,9 @@
         "WORDBASES": "+bussi(bussi)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "by bus",
+      "lemma_meaning_en": "bus",
+      "why_en": "Adds -lla for 'by': bussi becomes bussilla. Speech drops the last vowel: bussil."
     },
     {
       "id": "form-a0c867e0dc77",
@@ -1200,9 +1195,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-ae1caa07874f",
@@ -1220,9 +1215,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
       "id": "form-7aba8e0c1b63",
@@ -1241,8 +1236,8 @@
         "WORDBASES": "+pitää(pitää)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to have to, to like, to hold",
+      "lemma_meaning_en": "to have to, to like, to hold",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1261,8 +1256,8 @@
         "WORDBASES": "+ottaa(ottaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to take",
+      "lemma_meaning_en": "to take",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1279,8 +1274,8 @@
         "WORDBASES": "+mukaan(mukaan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "along, with you, according to",
+      "lemma_meaning_en": "along, with you, according to",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1300,9 +1295,9 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
+      "why_en": "The nominative plural adds -t: hyvä becomes hyvät."
     },
     {
       "id": "form-98875dec41f4",
@@ -1320,9 +1315,9 @@
         "WORDBASES": "+kenkä(kenkä)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "shoes",
+      "lemma_meaning_en": "shoe",
+      "why_en": "Adds -t for more than one: kenkä becomes kengät, nk turning into ng."
     },
     {
       "id": "form-0fd28481363f",
@@ -1340,9 +1335,9 @@
         "WORDBASES": "+eväs(eväs)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a packed lunch",
+      "lemma_meaning_en": "packed lunch, snack",
+      "why_en": "eväs means packed food. With -t for more than one, it becomes eväät."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1358,8 +1353,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1378,9 +1373,9 @@
         "WORDBASES": "+termos(termos)+pullo(pullo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a thermos",
+      "lemma_meaning_en": "thermos",
+      "why_en": "This is the dictionary form. Speech says termari for termospullo."
     },
     {
       "id": "form-5eb112d9aace",
@@ -1402,8 +1397,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1420,9 +1415,9 @@
         "WORDBASES": "+siellä(siellä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "there",
+      "lemma_meaning_en": "there",
+      "why_en": "Siellä means there. Speech drops the last vowel: siel."
     },
     {
       "id": "form-7b7cb5a4ccf4",
@@ -1440,9 +1435,9 @@
         "WORDBASES": "+karhu(karhu)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "bears",
+      "lemma_meaning_en": "bear",
+      "why_en": "Asking if there are any takes -ja: karhu becomes karhuja."
     },
     {
       "id": "form-4752d8dd4e2d",
@@ -1461,9 +1456,9 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
       "id": "form-f177cddd7c31",
@@ -1479,8 +1474,8 @@
         "WORDBASES": "+mutta(mutta)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "but",
+      "lemma_meaning_en": "but",
       "why_en": "Means 'but'. It links two ideas: from Tampere, but home is in Helsinki."
     },
     {
@@ -1500,9 +1495,9 @@
         "WORDBASES": "+kaunis(kaunis)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "beautiful",
+      "lemma_meaning_en": "beautiful",
+      "why_en": "Describing an open number of things takes -ita: kaunis becomes kauniita."
     },
     {
       "id": "form-de02773205e9",
@@ -1521,9 +1516,9 @@
         "WORDBASES": "+järvi(järvi)"
       },
       "form_name_en": "partitive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "lakes",
+      "lemma_meaning_en": "lake",
+      "why_en": "An open number of things takes -iä: järvi becomes järviä."
     },
     {
       "id": "form-bbaeb136ed47",
@@ -1542,29 +1537,29 @@
         "WORDBASES": "+ihana(ihana)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "lovely",
+      "lemma_meaning_en": "lovely, wonderful",
+      "why_en": "The partitive singular is used in exclamations: ihana becomes ihanaa!"
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-e0ecd37fd00f",
@@ -1585,9 +1580,9 @@
         "WORDBASES": "+tulla(tulla)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I come",
+      "lemma_meaning_en": "to come",
+      "why_en": "Adds -en for 'I': tulla becomes tulen. Speech says tuun."
     }
   ]
 }

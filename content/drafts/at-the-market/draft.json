@@ -32,7 +32,7 @@
       "extras-stop-3",
       "extras-stop-4"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "bonuskortti",
       "kahdeksankymmentä",
@@ -41,12 +41,13 @@
       "kuitti",
       "kuusikymmentä",
       "käteinen",
-      "litra",
       "mansikka",
       "neljäkymmentä",
-      "näkemä",
+      "näkemiin",
+      "paljon",
       "päivänjatko",
       "rasia",
+      "takaisin",
       "yhdeksänkymmentä"
     ],
     "speakers": [
@@ -168,21 +169,16 @@
         },
         {
           "surface": "Paljonko",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
             "KYSYMYSLIITE": "true",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "MANUAL": "true"
           },
-          "form": "form-950f555b19e3"
+          "form": "form-40bfc95558ca"
         },
         {
           "surface": "nuo",
@@ -658,19 +654,19 @@
         },
         {
           "surface": "maksaa",
-          "lemma": "maksa",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "lemma": "maksaa",
+          "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "maksa",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "osanto",
+            "BASEFORM": "maksaa",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]maksaa[X]maksa[Tn1][Eb]a",
+            "MOOD": "A-infinitive",
+            "NEGATIVE": "both",
             "STRUCTURE": "=pppppp",
-            "WORDBASES": "+maksa(maksa)"
+            "WORDBASES": "+maksaa(maksaa)"
           },
-          "form": "form-145f27b41a8c"
+          "form": "form-1b7e1b6b7551"
         },
         {
           "surface": "kortilla",
@@ -845,20 +841,15 @@
         },
         {
           "surface": "näkemiin",
-          "lemma": "näkemä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=plural;PARTICIPLE=agent",
+          "lemma": "näkemiin",
+          "form_tag": "CLASS=huudahdussana",
           "name": false,
           "analysis": {
-            "BASEFORM": "näkemä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Lt][Xp]nähdä[X]näke[Ln][Rm]m[Xj]ä[X][Sill][Nm]iin",
-            "NUMBER": "plural",
-            "PARTICIPLE": "agent",
-            "SIJAMUOTO": "sisatulento",
-            "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+näke(nähdä)+m+ä(+ä)"
+            "BASEFORM": "näkemiin",
+            "CLASS": "huudahdussana",
+            "MANUAL": "true"
           },
-          "form": "form-edf128b116e9"
+          "form": "form-39faa9c62cd0"
         }
       ],
       "puhe_tokens": [
@@ -894,9 +885,9 @@
         "WORDBASES": "+hei(hei)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
     },
     {
       "id": "form-a0c867e0dc77",
@@ -914,9 +905,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "what",
+      "lemma_meaning_en": "what, which",
+      "why_en": "The partitive of mikä, what. Mitä saa olla? means What can I get you?"
     },
     {
       "id": "form-026c280fc0ae",
@@ -934,28 +925,23 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "for you",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Sinä with -lle for 'to, for'. Speech shortens it to sulle."
     },
     {
-      "id": "form-950f555b19e3",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+      "id": "form-40bfc95558ca",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
       "surface_kirja": "paljonko",
       "surface_puhe": "paljonks",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
         "KYSYMYSLIITE": "true",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular, with the question ending -ko/-kö",
+      "form_name_en": "adverb, with the question ending -ko/-kö",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -976,9 +962,9 @@
         "WORDBASES": "+nuo(nuo)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "those",
+      "lemma_meaning_en": "those",
+      "why_en": "Nuo means those. Speech says noi."
     },
     {
       "id": "form-6eae4e4c8191",
@@ -996,9 +982,9 @@
         "WORDBASES": "+mansikka(mansikka)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the strawberries",
+      "lemma_meaning_en": "strawberry",
+      "why_en": "Mansikka with -t for more than one, and kk turns to k: mansikat."
     },
     {
       "id": "form-1ae288117693",
@@ -1019,9 +1005,9 @@
         "WORDBASES": "+maksaa(maksaa)"
       },
       "form_name_en": "present tense, 3rd person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "cost",
+      "lemma_meaning_en": "to cost, to pay",
+      "why_en": "Books write maksavat when more than one thing costs. Speech keeps maksaa for one or many."
     },
     {
       "id": "form-bf934ebbc276",
@@ -1039,8 +1025,8 @@
         "WORDBASES": "+litra(litra)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "litre",
+      "lemma_meaning_en": "litre",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1062,8 +1048,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1082,9 +1068,9 @@
         "WORDBASES": "+viisi(viisi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "five",
+      "lemma_meaning_en": "five",
+      "why_en": "Speech drops the final i: viisi becomes viis."
     },
     {
       "id": "form-e0b2a20b7101",
@@ -1102,8 +1088,8 @@
         "WORDBASES": "+euro(euro)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "euros",
+      "lemma_meaning_en": "euro",
       "why_en": "'Euros.' After a number like four, the counted word goes in the partitive singular."
     },
     {
@@ -1120,8 +1106,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1140,9 +1126,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo means that. Speech says toi."
     },
     {
       "id": "form-67a3c3282d5c",
@@ -1161,8 +1147,8 @@
         "WORDBASES": "+pieni(pieni)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "small, little",
+      "lemma_meaning_en": "small, little",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1181,8 +1167,8 @@
         "WORDBASES": "+rasia(rasia)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "box, carton",
+      "lemma_meaning_en": "box, carton",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1201,8 +1187,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1221,8 +1207,8 @@
         "WORDBASES": "+kolme(kolme)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "three",
+      "lemma_meaning_en": "three",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1241,9 +1227,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Speech shortens minä to mä. Books write minä."
     },
     {
       "id": "form-0c51315b5e63",
@@ -1264,9 +1250,9 @@
         "WORDBASES": "+ottaa(ottaa)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'll take",
+      "lemma_meaning_en": "to take",
+      "why_en": "Ottaa, to take, with -n for 'I'. The tt becomes t: otan."
     },
     {
       "id": "form-8ebaa5ea9920",
@@ -1284,9 +1270,9 @@
         "WORDBASES": "+litra(litra)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a litre",
+      "lemma_meaning_en": "litre",
+      "why_en": "Litra with -n when you take the whole thing: otan litran."
     },
     {
       "id": "form-cbf76e213246",
@@ -1309,29 +1295,29 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 1st person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "can I?",
+      "lemma_meaning_en": "can, to be able to",
+      "why_en": "Voin, I can, with -ko to ask. Speech says -ks: voinks."
     },
     {
-      "id": "form-145f27b41a8c",
-      "lemma": "maksa",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "id": "form-1b7e1b6b7551",
+      "lemma": "maksaa",
+      "form_tag": "CLASS=teonsana;MOOD=A-infinitive;NEGATIVE=both",
       "surface_kirja": "maksaa",
       "surface_puhe": "maksaa",
       "analysis": {
-        "BASEFORM": "maksa",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "osanto",
+        "BASEFORM": "maksaa",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]maksaa[X]maksa[Tn1][Eb]a",
+        "MOOD": "A-infinitive",
+        "NEGATIVE": "both",
         "STRUCTURE": "=pppppp",
-        "WORDBASES": "+maksa(maksa)"
+        "WORDBASES": "+maksaa(maksaa)"
       },
-      "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "basic form (A-infinitive)",
+      "meaning_en": "to cost, to pay",
+      "lemma_meaning_en": "to cost, to pay",
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-a7361fea7083",
@@ -1349,9 +1335,9 @@
         "WORDBASES": "+kortti(kortti)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "by card",
+      "lemma_meaning_en": "card",
+      "why_en": "Kortti with -lla for 'with, by', and tt turns to t: kortilla."
     },
     {
       "id": "form-fbf4cf6cbcf9",
@@ -1367,8 +1353,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1388,9 +1374,9 @@
         "WORDBASES": "+tosi(tosi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "of course (with kai)",
+      "lemma_meaning_en": "really, true",
+      "why_en": "From tosi, true. Totta kai means of course."
     },
     {
       "id": "form-b1285c45ffe6",
@@ -1406,8 +1392,8 @@
         "WORDBASES": "+kai(kai)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "probably (totta kai, of course)",
+      "lemma_meaning_en": "probably (totta kai, of course)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1426,8 +1412,8 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "here you are",
+      "lemma_meaning_en": "this",
       "why_en": "'Here you are.' Inessive singular of tämä 'this', literally 'in this', said when handing something over."
     },
     {
@@ -1446,27 +1432,22 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     },
     {
-      "id": "form-edf128b116e9",
-      "lemma": "näkemä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=sisatulento;NUMBER=plural;PARTICIPLE=agent",
+      "id": "form-39faa9c62cd0",
+      "lemma": "näkemiin",
+      "form_tag": "CLASS=huudahdussana",
       "surface_kirja": "näkemiin",
       "surface_puhe": "moikka",
       "analysis": {
-        "BASEFORM": "näkemä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Lt][Xp]nähdä[X]näke[Ln][Rm]m[Xj]ä[X][Sill][Nm]iin",
-        "NUMBER": "plural",
-        "PARTICIPLE": "agent",
-        "SIJAMUOTO": "sisatulento",
-        "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+näke(nähdä)+m+ä(+ä)"
+        "BASEFORM": "näkemiin",
+        "CLASS": "huudahdussana",
+        "MANUAL": "true"
       },
-      "form_name_en": "agent participle, illative plural",
+      "form_name_en": "interjection",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""

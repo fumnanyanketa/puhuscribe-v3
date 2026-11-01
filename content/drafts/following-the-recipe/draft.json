@@ -62,26 +62,24 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 4000,
     "extra_base_forms": [
       "brasilialainen",
+      "ilman",
       "kaksikymmentä",
       "kattila",
+      "keittää",
       "kerma",
-      "kuori",
-      "litra",
-      "lohi",
+      "kuoria",
       "lohikeitto",
-      "palo",
-      "peruna",
+      "maistaa",
+      "pala",
+      "paljon",
       "porkkana",
-      "sipuli",
-      "suola",
       "tilli",
-      "tuoksua"
+      "todella"
     ],
     "speakers": [
       {
@@ -127,19 +125,22 @@
         },
         {
           "surface": "kuori",
-          "lemma": "kuori",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+          "lemma": "kuoria",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "kuori",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]kuori[X]kuor[Sn][Ny]i",
+            "BASEFORM": "kuoria",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]kuoria[X]kuori[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "nimento",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+kuori(kuori)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+kuoria(kuoria)"
           },
-          "form": "form-0b7ccf9acc24"
+          "form": "form-9c9de5d4e8ea"
         },
         {
           "surface": "perunat",
@@ -301,21 +302,19 @@
         {
           "surface": "Leikkaa",
           "lemma": "leikata",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
             "BASEFORM": "leikata",
             "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]leikata[X]leikka[Tt][Ap][P3][Ny][Eb]a",
-            "MOOD": "indicative",
+            "MANUAL": "true",
+            "MOOD": "imperative",
             "NEGATIVE": "both",
             "NUMBER": "singular",
-            "PERSON": "3",
-            "STRUCTURE": "=ppppppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+leikata(leikata)"
+            "PERSON": "2",
+            "TENSE": "present_simple"
           },
-          "form": "form-89549e377bb4"
+          "form": "form-c6e5d9835929"
         },
         {
           "surface": "ne",
@@ -352,19 +351,19 @@
         },
         {
           "surface": "paloiksi",
-          "lemma": "palo",
+          "lemma": "pala",
           "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural",
           "name": false,
           "analysis": {
-            "BASEFORM": "palo",
+            "BASEFORM": "pala",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]palo[X]palo[Str][Nm]iksi",
+            "FSTOUTPUT": "[Ln][Xp]pala[X]palo[Str][Nm]iksi",
             "NUMBER": "plural",
             "SIJAMUOTO": "tulento",
             "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+palo(palo)"
+            "WORDBASES": "+pala(pala)"
           },
-          "form": "form-cdcafab61e17"
+          "form": "form-1a08e56b5545"
         }
       ],
       "puhe_tokens": [
@@ -532,19 +531,20 @@
         },
         {
           "surface": "lisää",
-          "lemma": "lisä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "lemma": "lisätä",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "lisä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]lisä[X]lis[Sp][Ny]ää",
+            "BASEFORM": "lisätä",
+            "CLASS": "teonsana",
+            "MANUAL": "true",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
             "NUMBER": "singular",
-            "SIJAMUOTO": "osanto",
-            "STRUCTURE": "=ppppp",
-            "WORDBASES": "+lisä(lisä)"
+            "PERSON": "2",
+            "TENSE": "present_simple"
           },
-          "form": "form-aa8e1d0f22c9"
+          "form": "form-0f2b13a77e10"
         },
         {
           "surface": "vettä",
@@ -628,20 +628,15 @@
         },
         {
           "surface": "paljon",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-4c93c0afc944"
+          "form": "form-c89c8a769850"
         },
         {
           "surface": "vettä",
@@ -707,19 +702,22 @@
         },
         {
           "surface": "Keitä",
-          "lemma": "ken",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=osanto;NUMBER=plural",
+          "lemma": "keittää",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
           "name": false,
           "analysis": {
-            "BASEFORM": "ken",
-            "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]ken[X]ke[Sp][Nm]itä",
-            "NUMBER": "plural",
-            "SIJAMUOTO": "osanto",
+            "BASEFORM": "keittää",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]keittää[X]keitä[Tk][Ap][P2][Ny][Eb]",
+            "MOOD": "imperative",
+            "NEGATIVE": "both",
+            "NUMBER": "singular",
+            "PERSON": "2",
             "STRUCTURE": "=ppppp",
-            "WORDBASES": "+ken(ken)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+keittää(keittää)"
           },
-          "form": "form-e58773d79a99"
+          "form": "form-d426e7a9b401"
         },
         {
           "surface": "kaksikymmentä",
@@ -894,29 +892,32 @@
         "WORDBASES": "+ensin(ensin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "first",
+      "lemma_meaning_en": "first",
+      "why_en": "Speech often uses the short word eka. Books write ensin."
     },
     {
-      "id": "form-0b7ccf9acc24",
-      "lemma": "kuori",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=nimento;NUMBER=singular",
+      "id": "form-9c9de5d4e8ea",
+      "lemma": "kuoria",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "kuori",
       "surface_puhe": "kuori",
       "analysis": {
-        "BASEFORM": "kuori",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]kuori[X]kuor[Sn][Ny]i",
+        "BASEFORM": "kuoria",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]kuoria[X]kuori[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "nimento",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+kuori(kuori)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+kuoria(kuoria)"
       },
-      "form_name_en": "nominative singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": "This is the dictionary form. People say it the same way."
+      "why_en": ""
     },
     {
       "id": "form-d9fc599d3bfb",
@@ -934,9 +935,9 @@
         "WORDBASES": "+peruna(peruna)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the potatoes",
+      "lemma_meaning_en": "potato",
+      "why_en": "Adds -t for more than one: peruna becomes perunat."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -952,8 +953,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -972,9 +973,9 @@
         "WORDBASES": "+porkkana(porkkana)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the carrots",
+      "lemma_meaning_en": "carrot",
+      "why_en": "Adds -t for more than one: porkkana becomes porkkanat."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -993,9 +994,9 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
       "id": "form-ad4c189b50dd",
@@ -1011,31 +1012,29 @@
         "WORDBASES": "+sitten(sitten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
       "why_en": "An adverb: 'then', the next step. Spoken short as 'sit'."
     },
     {
-      "id": "form-89549e377bb4",
+      "id": "form-c6e5d9835929",
       "lemma": "leikata",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "leikkaa",
       "surface_puhe": "leikkaa",
       "analysis": {
         "BASEFORM": "leikata",
         "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]leikata[X]leikka[Tt][Ap][P3][Ny][Eb]a",
-        "MOOD": "indicative",
+        "MANUAL": "true",
+        "MOOD": "imperative",
         "NEGATIVE": "both",
         "NUMBER": "singular",
-        "PERSON": "3",
-        "STRUCTURE": "=ppppppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+leikata(leikata)"
+        "PERSON": "2",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "present tense, 3rd person singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to cut",
       "why_en": ""
     },
     {
@@ -1054,9 +1053,9 @@
         "WORDBASES": "+ne(ne)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "they",
+      "lemma_meaning_en": "they, those",
+      "why_en": "Ne means they, for things. Speech also uses it for people."
     },
     {
       "id": "form-70fd4e5cba31",
@@ -1075,24 +1074,24 @@
         "WORDBASES": "+pieni(pieni)"
       },
       "form_name_en": "translative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "small",
+      "lemma_meaning_en": "small, little",
+      "why_en": "Adds -ksi for 'into': pieni becomes pieniksi, 'into small (pieces)'. Speech drops the last i."
     },
     {
-      "id": "form-cdcafab61e17",
-      "lemma": "palo",
+      "id": "form-1a08e56b5545",
+      "lemma": "pala",
       "form_tag": "CLASS=nimisana;SIJAMUOTO=tulento;NUMBER=plural",
       "surface_kirja": "paloiksi",
       "surface_puhe": "paloiks",
       "analysis": {
-        "BASEFORM": "palo",
+        "BASEFORM": "pala",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]palo[X]palo[Str][Nm]iksi",
+        "FSTOUTPUT": "[Ln][Xp]pala[X]palo[Str][Nm]iksi",
         "NUMBER": "plural",
         "SIJAMUOTO": "tulento",
         "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+palo(palo)"
+        "WORDBASES": "+pala(pala)"
       },
       "form_name_en": "translative plural",
       "meaning_en": "",
@@ -1113,8 +1112,8 @@
         "WORDBASES": "+näin(näin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "like this, this way",
+      "lemma_meaning_en": "like this, this way",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1131,8 +1130,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1152,8 +1151,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1175,9 +1174,9 @@
         "WORDBASES": "+laittaa(laittaa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "put",
+      "lemma_meaning_en": "to put, to make",
+      "why_en": "This is how you tell someone to put: laita. It comes from laittaa, with one t."
     },
     {
       "id": "form-8da50554a5b2",
@@ -1195,26 +1194,27 @@
         "WORDBASES": "+kattila(kattila)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the pot",
+      "lemma_meaning_en": "pot, saucepan",
+      "why_en": "Adds -an for 'into': kattila becomes kattilaan."
     },
     {
-      "id": "form-aa8e1d0f22c9",
-      "lemma": "lisä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "id": "form-0f2b13a77e10",
+      "lemma": "lisätä",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "lisää",
       "surface_puhe": "lisää",
       "analysis": {
-        "BASEFORM": "lisä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]lisä[X]lis[Sp][Ny]ää",
+        "BASEFORM": "lisätä",
+        "CLASS": "teonsana",
+        "MANUAL": "true",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
         "NUMBER": "singular",
-        "SIJAMUOTO": "osanto",
-        "STRUCTURE": "=ppppp",
-        "WORDBASES": "+lisä(lisä)"
+        "PERSON": "2",
+        "TENSE": "present_simple"
       },
-      "form_name_en": "partitive singular",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1236,9 +1236,9 @@
         "WORDBASES": "+vesi(vesi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "water",
+      "lemma_meaning_en": "water",
+      "why_en": "The partitive singular is used for some water: vesi becomes vettä, the si turning to tt."
     },
     {
       "id": "form-fd1a9ffcfdb7",
@@ -1254,30 +1254,25 @@
         "WORDBASES": "+kuinka(kuinka)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-4c93c0afc944",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+      "id": "form-c89c8a769850",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "paljon",
       "surface_puhe": "paljon",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-bf934ebbc276",
@@ -1295,26 +1290,29 @@
         "WORDBASES": "+litra(litra)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "litre",
+      "lemma_meaning_en": "litre",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-e58773d79a99",
-      "lemma": "ken",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=osanto;NUMBER=plural",
+      "id": "form-d426e7a9b401",
+      "lemma": "keittää",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
       "surface_kirja": "keitä",
       "surface_puhe": "keitä",
       "analysis": {
-        "BASEFORM": "ken",
-        "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]ken[X]ke[Sp][Nm]itä",
-        "NUMBER": "plural",
-        "SIJAMUOTO": "osanto",
+        "BASEFORM": "keittää",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]keittää[X]keitä[Tk][Ap][P2][Ny][Eb]",
+        "MOOD": "imperative",
+        "NEGATIVE": "both",
+        "NUMBER": "singular",
+        "PERSON": "2",
         "STRUCTURE": "=ppppp",
-        "WORDBASES": "+ken(ken)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+keittää(keittää)"
       },
-      "form_name_en": "partitive plural",
+      "form_name_en": "imperative present tense, 2nd person singular",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1335,9 +1333,9 @@
         "WORDBASES": "+kaksi(kaksi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "twenty",
+      "lemma_meaning_en": "twenty",
+      "why_en": "Speech shortens kaksikymmentä to kakskyt. Books write kaksikymmentä."
     },
     {
       "id": "form-2ba98cc25249",
@@ -1355,9 +1353,9 @@
         "WORDBASES": "+minuutti(minuutti)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "minutes",
+      "lemma_meaning_en": "minute",
+      "why_en": "After a number the noun takes the partitive: kymmenen minuuttia. Speech turns -ia into -ii."
     },
     {
       "id": "form-5854f879507c",
@@ -1375,8 +1373,8 @@
         "WORDBASES": "+lohi(lohi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "salmon",
+      "lemma_meaning_en": "salmon",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1398,9 +1396,9 @@
         "WORDBASES": "+tulla(tulla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "comes",
+      "lemma_meaning_en": "to come",
+      "why_en": "Tulla, to come, in the form for he, she or it: tulee."
     },
     {
       "id": "form-3b9211c753f8",
@@ -1419,9 +1417,9 @@
         "WORDBASES": "+viimeinen(viimeinen)"
       },
       "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "last",
+      "lemma_meaning_en": "last",
+      "why_en": "Adds -nä to say how or in what role: viimeinen becomes viimeisenä. Speech uses vika: vikana."
     }
   ]
 }

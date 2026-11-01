@@ -39,18 +39,18 @@
       "extras-stop-6",
       "extras-stop-7"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "eksyksissä",
+      "eli",
       "kassi",
       "kellotorni",
       "muovipussi",
       "palaveri",
-      "pussi",
+      "paljon",
       "rautatieasema",
       "vartti",
-      "viisitoista",
-      "ymmärtänyt"
+      "viisitoista"
     ],
     "speakers": [
       {
@@ -316,21 +316,19 @@
         },
         {
           "surface": "ymmärtänyt",
-          "lemma": "ymmärtänyt",
+          "lemma": "ymmärtää",
           "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active",
           "name": false,
           "analysis": {
-            "BASEFORM": "ymmärtänyt",
+            "BASEFORM": "ymmärtää",
             "CLASS": "laatusana",
             "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lt][Xp]ymmärtää[X]ymmärtä[Ll][Ru]n[Xj]yt[X][Sn][Ny]yt",
+            "MANUAL": "true",
             "NUMBER": "singular",
             "PARTICIPLE": "past_active",
-            "SIJAMUOTO": "nimento",
-            "STRUCTURE": "=pppppppppp",
-            "WORDBASES": "+ymmärtä(ymmärtää)+n+yt(+yt)"
+            "SIJAMUOTO": "nimento"
           },
-          "form": "form-40d8849f16fd"
+          "form": "form-3cd0b608f934"
         }
       ],
       "puhe_tokens": [
@@ -1083,9 +1081,9 @@
         "WORDBASES": "+haluta(haluta)"
       },
       "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "do you want?",
+      "lemma_meaning_en": "to want",
+      "why_en": "In Haluuksä, speech says haluu for haluat and -k for -ko, then joins sä."
     },
     {
       "id": "form-ec7b2eab227a",
@@ -1103,8 +1101,8 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "you",
+      "lemma_meaning_en": "you (one person)",
       "why_en": "Means 'you' (one person). Spoken: 'sä'."
     },
     {
@@ -1123,9 +1121,9 @@
         "WORDBASES": "+muovi(muovi)+pussi(pussi)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a plastic bag",
+      "lemma_meaning_en": "plastic bag",
+      "why_en": "Muovipussi with -n when you take the whole thing: muovipussin."
     },
     {
       "id": "form-83d8cf4795ac",
@@ -1141,8 +1139,8 @@
         "WORDBASES": "+vai(vai)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "or (in questions)",
+      "lemma_meaning_en": "or (in questions)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1165,8 +1163,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1185,9 +1183,9 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you have",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Sinä with -lla. With on it means 'you have'. Speech shortens it to sul."
     },
     {
       "id": "form-fe204befffb8",
@@ -1206,8 +1204,8 @@
         "WORDBASES": "+oma(oma)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "own",
+      "lemma_meaning_en": "own",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1226,8 +1224,8 @@
         "WORDBASES": "+kassi(kassi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "bag",
+      "lemma_meaning_en": "bag",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1244,8 +1242,8 @@
         "WORDBASES": "+anteeksi(anteeksi)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "excuse me",
+      "lemma_meaning_en": "sorry, excuse me",
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
@@ -1264,9 +1262,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Speech shortens minä to mä. Books write minä."
     },
     {
       "id": "form-e12332115711",
@@ -1285,30 +1283,28 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I don't",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei with -n for 'I': en, I do not."
     },
     {
-      "id": "form-40d8849f16fd",
-      "lemma": "ymmärtänyt",
+      "id": "form-3cd0b608f934",
+      "lemma": "ymmärtää",
       "form_tag": "CLASS=laatusana;SIJAMUOTO=nimento;NUMBER=singular;COMPARISON=positive;PARTICIPLE=past_active",
       "surface_kirja": "ymmärtänyt",
       "surface_puhe": "ymmärtäny",
       "analysis": {
-        "BASEFORM": "ymmärtänyt",
+        "BASEFORM": "ymmärtää",
         "CLASS": "laatusana",
         "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lt][Xp]ymmärtää[X]ymmärtä[Ll][Ru]n[Xj]yt[X][Sn][Ny]yt",
+        "MANUAL": "true",
         "NUMBER": "singular",
         "PARTICIPLE": "past_active",
-        "SIJAMUOTO": "nimento",
-        "STRUCTURE": "=pppppppppp",
-        "WORDBASES": "+ymmärtä(ymmärtää)+n+yt(+yt)"
+        "SIJAMUOTO": "nimento"
       },
       "form_name_en": "past active participle, nominative singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to understand",
       "why_en": ""
     },
     {
@@ -1327,9 +1323,9 @@
         "WORDBASES": "+pussi(pussi)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a bag",
+      "lemma_meaning_en": "bag",
+      "why_en": "Pussi with -n when you take the whole thing: pussin."
     },
     {
       "id": "form-90c207b76ecc",
@@ -1352,9 +1348,9 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "could you?",
+      "lemma_meaning_en": "can, to be able to",
+      "why_en": "In Voitsä, speech drops -ko from voitko and joins sä."
     },
     {
       "id": "form-1e2e7b912f42",
@@ -1372,9 +1368,9 @@
         "WORDBASES": "+puhua(puhua)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "speak",
+      "lemma_meaning_en": "to speak, to talk",
+      "why_en": "Puhua in its basic form after voitko. Speech turns -ua into -uu."
     },
     {
       "id": "form-008b8a3eae32",
@@ -1390,8 +1386,8 @@
         "WORDBASES": "+vähän(vähän)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a little, a bit",
+      "lemma_meaning_en": "a little, a bit",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1411,9 +1407,9 @@
         "WORDBASES": "+hidas(hidas)"
       },
       "form_name_en": "comparative, instructive plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "more slowly",
+      "lemma_meaning_en": "slow",
+      "why_en": "From hidas, slow: hitaammin means more slowly."
     },
     {
       "id": "form-b20bd263b5ae",
@@ -1432,9 +1428,9 @@
         "WORDBASES": "+tosi(tosi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "of course (with kai)",
+      "lemma_meaning_en": "really, true",
+      "why_en": "From tosi, true. Totta kai means of course."
     },
     {
       "id": "form-b1285c45ffe6",
@@ -1450,8 +1446,8 @@
         "WORDBASES": "+kai(kai)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "probably (totta kai, of course)",
+      "lemma_meaning_en": "probably (totta kai, of course)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1474,9 +1470,9 @@
         "WORDBASES": "+tarvita(tarvita)"
       },
       "form_name_en": "present tense, 2nd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "do you need?",
+      "lemma_meaning_en": "to need",
+      "why_en": "Tarvitset, you need, with -ko to ask. Speech says tarviitko."
     },
     {
       "id": "form-2ab0015782b0",
@@ -1492,8 +1488,8 @@
         "WORDBASES": "+ai(ai)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "oh",
+      "lemma_meaning_en": "oh",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1513,9 +1509,9 @@
         "WORDBASES": "+ei(ei)"
       },
       "form_name_en": "negative verb, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "no",
+      "lemma_meaning_en": "no, not",
+      "why_en": "Ei on its own answers 'no'. Speech says it the same way."
     },
     {
       "id": "form-c5b0481eae2b",
@@ -1533,8 +1529,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you, thanks",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Means 'thanks!', said on its own as a reply."
     },
     {
@@ -1553,9 +1549,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I have",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -lla. With on it means 'I have'. Speech shortens it to mul."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1576,8 +1572,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1597,8 +1593,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1620,9 +1616,9 @@
         "WORDBASES": "+puhua(puhua)"
       },
       "form_name_en": "present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you speak",
+      "lemma_meaning_en": "to speak, to talk",
+      "why_en": "Puhua, to speak, with -t for 'you': puhut."
     },
     {
       "id": "form-31092ec721a1",
@@ -1638,8 +1634,8 @@
         "WORDBASES": "+jo(jo)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "already",
+      "lemma_meaning_en": "already",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1656,8 +1652,8 @@
         "WORDBASES": "+hyvin(hyvin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "well",
+      "lemma_meaning_en": "well",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1676,9 +1672,9 @@
         "WORDBASES": "+suomi(suomi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "Finnish",
+      "lemma_meaning_en": "Finnish (the language), Finland",
+      "why_en": "The partitive adds -a after puhua, to speak: suomea. Speech turns -ea into -ee."
     },
     {
       "id": "form-35b130e20e20",
@@ -1696,8 +1692,8 @@
         "WORDBASES": "+kiitos(kiitos)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "thank you",
+      "lemma_meaning_en": "thank you, thanks",
       "why_en": "Thank you, said by the customer; in casual speech it becomes kiitti."
     },
     {
@@ -1719,9 +1715,9 @@
         "WORDBASES": "+opet(opettaa)+ella(+ella)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'm learning",
+      "lemma_meaning_en": "to learn, to practise",
+      "why_en": "Opetella, to learn, with -n for 'I': opettelen."
     },
     {
       "id": "form-2b3844766909",
@@ -1737,8 +1733,8 @@
         "WORDBASES": "+vielä(vielä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "still, yet",
+      "lemma_meaning_en": "still, yet",
       "why_en": "This is the dictionary form. People say it the same way."
     }
   ]

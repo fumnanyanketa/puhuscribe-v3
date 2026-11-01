@@ -34,12 +34,14 @@
       "extras-stop-4",
       "extras-stop-5"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "ab-lippu",
       "automaatti",
       "laituri",
+      "noin",
       "oodi",
+      "paljon",
       "pysäkki",
       "raitiovaunu",
       "viisitoista"
@@ -546,21 +548,16 @@
       "kirja_tokens": [
         {
           "surface": "Paljonko",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
             "KYSYMYSLIITE": "true",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "MANUAL": "true"
           },
-          "form": "form-950f555b19e3"
+          "form": "form-40bfc95558ca"
         },
         {
           "surface": "se",
@@ -580,19 +577,22 @@
         },
         {
           "surface": "maksaa",
-          "lemma": "maksa",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+          "lemma": "maksaa",
+          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
           "name": false,
           "analysis": {
-            "BASEFORM": "maksa",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
+            "BASEFORM": "maksaa",
+            "CLASS": "teonsana",
+            "FSTOUTPUT": "[Lt][Xp]maksaa[X]maks[Tt][Ap][P3][Ny][Ef]aa",
+            "MOOD": "indicative",
+            "NEGATIVE": "false",
             "NUMBER": "singular",
-            "SIJAMUOTO": "osanto",
+            "PERSON": "3",
             "STRUCTURE": "=pppppp",
-            "WORDBASES": "+maksa(maksa)"
+            "TENSE": "present_simple",
+            "WORDBASES": "+maksaa(maksaa)"
           },
-          "form": "form-145f27b41a8c"
+          "form": "form-859d1d409945"
         }
       ],
       "puhe_tokens": [
@@ -938,8 +938,8 @@
         "WORDBASES": "+anteeksi(anteeksi)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "excuse me",
+      "lemma_meaning_en": "sorry, excuse me",
       "why_en": "Means 'excuse me', a polite way to get someone's attention before asking."
     },
     {
@@ -958,9 +958,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "elative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "where (from)",
+      "lemma_meaning_en": "what, which",
+      "why_en": "Mikä with -stä for 'from': mistä. Mistä voin ostaa means where can I buy."
     },
     {
       "id": "form-2f3bea3d9937",
@@ -978,9 +978,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Speech shortens minä to mä. Books write minä."
     },
     {
       "id": "form-1932b7fb8d7b",
@@ -1002,9 +1002,9 @@
         "WORDBASES": "+voida(voida)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I can",
+      "lemma_meaning_en": "can, to be able to",
+      "why_en": "Voida, can, with -n for 'I': voin."
     },
     {
       "id": "form-b978f203e660",
@@ -1022,8 +1022,8 @@
         "WORDBASES": "+ostaa(ostaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to buy",
+      "lemma_meaning_en": "to buy",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1042,9 +1042,9 @@
         "WORDBASES": "+lippu(lippu)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a ticket",
+      "lemma_meaning_en": "ticket",
+      "why_en": "Lippu with -n when you buy the whole thing, and pp turns to p: lipun."
     },
     {
       "id": "form-ee758ee6468a",
@@ -1062,9 +1062,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "elative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo, that, with -sta for 'from': tuosta. Speech says tosta."
     },
     {
       "id": "form-c87b69ad739d",
@@ -1082,9 +1082,9 @@
         "WORDBASES": "+automaatti(automaatti)"
       },
       "form_name_en": "elative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from the machine",
+      "lemma_meaning_en": "machine (ticket or vending)",
+      "why_en": "Automaatti with -sta for 'from', and tt turns to t: automaatista."
     },
     {
       "id": "form-e626f185f947",
@@ -1100,8 +1100,8 @@
         "WORDBASES": "+tai(tai)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "or",
+      "lemma_meaning_en": "or",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1120,9 +1120,9 @@
         "WORDBASES": "+sovellus(sovellus)"
       },
       "form_name_en": "elative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from the app",
+      "lemma_meaning_en": "app",
+      "why_en": "Sovellus with -sta for 'from': sovelluksesta. Speech drops the last vowel."
     },
     {
       "id": "form-deeed6711e56",
@@ -1143,9 +1143,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I'm going",
+      "lemma_meaning_en": "to go",
+      "why_en": "Mennä, to go, with -n for 'I': menen. Speech says meen."
     },
     {
       "id": "form-bfff487cc1b5",
@@ -1163,8 +1163,8 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "what, which",
+      "lemma_meaning_en": "what, which",
       "why_en": "'What.' A question word in nominative singular, asking what the price is."
     },
     {
@@ -1183,8 +1183,8 @@
         "WORDBASES": "+lippu(lippu)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "ticket",
+      "lemma_meaning_en": "ticket",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1203,9 +1203,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I (have to)",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -n: minun pitää means I have to. Speech shortens it to mun."
     },
     {
       "id": "form-7aba8e0c1b63",
@@ -1224,8 +1224,8 @@
         "WORDBASES": "+pitää(pitää)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to have to, to like, to hold",
+      "lemma_meaning_en": "to have to, to like, to hold",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1244,8 +1244,8 @@
         "WORDBASES": "+ab(ab)+-+lippu(lippu)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "AB ticket (Helsinki zones A and B)",
+      "lemma_meaning_en": "AB ticket (Helsinki zones A and B)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1264,28 +1264,23 @@
         "WORDBASES": "+riittää(riittää)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to be enough",
+      "lemma_meaning_en": "to be enough",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-950f555b19e3",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive;KYSYMYSLIITE=true",
+      "id": "form-40bfc95558ca",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana;KYSYMYSLIITE=true",
       "surface_kirja": "paljonko",
       "surface_puhe": "paljonks",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n[Fko][Ef]ko",
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
         "KYSYMYSLIITE": "true",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular, with the question ending -ko/-kö",
+      "form_name_en": "adverb, with the question ending -ko/-kö",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1306,28 +1301,31 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
-      "id": "form-145f27b41a8c",
-      "lemma": "maksa",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=osanto;NUMBER=singular",
+      "id": "form-859d1d409945",
+      "lemma": "maksaa",
+      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
       "surface_kirja": "maksaa",
       "surface_puhe": "maksaa",
       "analysis": {
-        "BASEFORM": "maksa",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]maksa[X]maks[Sp][Ny]aa",
+        "BASEFORM": "maksaa",
+        "CLASS": "teonsana",
+        "FSTOUTPUT": "[Lt][Xp]maksaa[X]maks[Tt][Ap][P3][Ny][Ef]aa",
+        "MOOD": "indicative",
+        "NEGATIVE": "false",
         "NUMBER": "singular",
-        "SIJAMUOTO": "osanto",
+        "PERSON": "3",
         "STRUCTURE": "=pppppp",
-        "WORDBASES": "+maksa(maksa)"
+        "TENSE": "present_simple",
+        "WORDBASES": "+maksaa(maksaa)"
       },
-      "form_name_en": "partitive singular",
+      "form_name_en": "present tense, 3rd person singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "to cost, to pay",
       "why_en": ""
     },
     {
@@ -1344,8 +1342,8 @@
         "WORDBASES": "+vähän(vähän)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a little, a bit",
+      "lemma_meaning_en": "a little, a bit",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1362,8 +1360,8 @@
         "WORDBASES": "+yli(yli)"
       },
       "form_name_en": "adposition",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "over, past",
+      "lemma_meaning_en": "over, past",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1382,8 +1380,8 @@
         "WORDBASES": "+kolme(kolme)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "three",
+      "lemma_meaning_en": "three",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1402,8 +1400,8 @@
         "WORDBASES": "+euro(euro)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "euros",
+      "lemma_meaning_en": "euro",
       "why_en": "'Euros.' After a number like four, the counted word goes in the partitive singular."
     },
     {
@@ -1420,8 +1418,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1440,9 +1438,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "by which",
+      "lemma_meaning_en": "what, which",
+      "why_en": "Mikä with -llä for 'by': millä bussilla, by which bus."
     },
     {
       "id": "form-caa6e0039ea2",
@@ -1460,9 +1458,9 @@
         "WORDBASES": "+bussi(bussi)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "by bus",
+      "lemma_meaning_en": "bus",
+      "why_en": "Bussi with -lla for 'by': bussilla."
     },
     {
       "id": "form-ba15b2fde78d",
@@ -1483,9 +1481,9 @@
         "WORDBASES": "+päästä(päästä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I get (there)",
+      "lemma_meaning_en": "to get (somewhere), to get in",
+      "why_en": "Päästä, to get somewhere, with -n for 'I': pääsen."
     },
     {
       "id": "form-fa158d6fca29",
@@ -1501,9 +1499,9 @@
         "WORDBASES": "+siellä(siellä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "there",
+      "lemma_meaning_en": "there",
+      "why_en": "Sinne means to there, for moving towards a place."
     },
     {
       "id": "form-e542602d99e6",
@@ -1521,9 +1519,9 @@
         "WORDBASES": "+viisitoista"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "fifteen",
+      "lemma_meaning_en": "fifteen",
+      "why_en": "Speech drops an i: viisitoista becomes viistoista."
     },
     {
       "id": "form-f1b1bc346868",
@@ -1541,9 +1539,9 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "ablative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo, that, with -lta for 'from': tuolta. Speech says tolta."
     },
     {
       "id": "form-c63f9e970704",
@@ -1561,9 +1559,9 @@
         "WORDBASES": "+laituri(laituri)"
       },
       "form_name_en": "ablative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "from the platform",
+      "lemma_meaning_en": "platform",
+      "why_en": "Laituri with -lta for 'from': laiturilta."
     }
   ]
 }

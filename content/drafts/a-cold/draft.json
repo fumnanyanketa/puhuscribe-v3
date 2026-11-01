@@ -45,19 +45,21 @@
       "extras-stop-9",
       "extras-stop-10"
     ],
-    "rank_cap": 2000,
+    "rank_cap": 2500,
     "extra_base_forms": [
       "flunssa",
+      "ilman",
       "kelakortti",
       "kuume",
       "levätä",
-      "nenä",
       "nenäsumute",
+      "paljon",
       "pikainen",
       "päänsärky",
       "särkylääke",
       "tabletti",
       "tukko",
+      "voi",
       "yskä",
       "yskänlääke"
     ],
@@ -189,23 +191,17 @@
       "kirja_tokens": [
         {
           "surface": "Voi",
-          "lemma": "voida",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+          "lemma": "voi",
+          "form_tag": "CLASS=huudahdussana",
           "name": false,
           "analysis": {
-            "BASEFORM": "voida",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Ira][Xp]voida[X]voi[Tt][Ap][P3][Ny][Eb]",
-            "MOOD": "indicative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "3",
-            "REQUIRE_FOLLOWING_VERB": "A-infinitive",
+            "BASEFORM": "voi",
+            "CLASS": "huudahdussana",
+            "FSTOUTPUT": "[Lh][Xp]voi[X]voi",
             "STRUCTURE": "=ppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+voida(voida)"
+            "WORDBASES": "+voi(voi)"
           },
-          "form": "form-fc6219c3121b"
+          "form": "form-1477dccb7e44"
         },
         {
           "surface": "harmi",
@@ -769,20 +765,15 @@
         },
         {
           "surface": "paljon",
-          "lemma": "paljo",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+          "lemma": "paljon",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "paljo",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "omanto",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+paljo(paljo)"
+            "BASEFORM": "paljon",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-4c93c0afc944"
+          "form": "form-c89c8a769850"
         },
         {
           "surface": "vettä",
@@ -861,19 +852,19 @@
         },
         {
           "surface": "Minä",
-          "lemma": "mikä",
-          "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+          "lemma": "minä",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "mikä",
+            "BASEFORM": "minä",
             "CLASS": "asemosana",
-            "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+            "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
+            "SIJAMUOTO": "nimento",
             "STRUCTURE": "=pppp",
-            "WORDBASES": "+mikä(mikä)"
+            "WORDBASES": "+minä(minä)"
           },
-          "form": "form-4de0717344e0"
+          "form": "form-728ddce13587"
         },
         {
           "surface": "lepään",
@@ -896,19 +887,17 @@
         },
         {
           "surface": "kotona",
-          "lemma": "koto",
+          "lemma": "koti",
           "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "koto",
+            "BASEFORM": "koti",
             "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Xp]koto[X]koto[Ses][Ny]na",
+            "MANUAL": "true",
             "NUMBER": "singular",
-            "SIJAMUOTO": "olento",
-            "STRUCTURE": "=pppppp",
-            "WORDBASES": "+koto(koto)"
+            "SIJAMUOTO": "olento"
           },
-          "form": "form-d16546293ead"
+          "form": "form-6623d0c4b9e8"
         }
       ],
       "puhe_tokens": [
@@ -1032,9 +1021,9 @@
         "WORDBASES": "+hei(hei)"
       },
       "form_name_en": "interjection",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "hi",
+      "lemma_meaning_en": "hi, hello",
+      "why_en": "Moi is the everyday spoken hello. Books and formal texts write hei."
     },
     {
       "id": "form-cc0fdb024b55",
@@ -1052,9 +1041,9 @@
         "WORDBASES": "+minä(minä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I have",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Minä with -lla. With on it means 'I have'. Speech shortens it to mul."
     },
     {
       "id": "form-24c73cc721d6",
@@ -1075,8 +1064,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1095,33 +1084,27 @@
         "WORDBASES": "+flunssa(flunssa)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "cold, flu",
+      "lemma_meaning_en": "cold, flu",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-fc6219c3121b",
-      "lemma": "voida",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=3;MOOD=indicative;TENSE=present_simple;NEGATIVE=both",
+      "id": "form-1477dccb7e44",
+      "lemma": "voi",
+      "form_tag": "CLASS=huudahdussana",
       "surface_kirja": "voi",
       "surface_puhe": "voi",
       "analysis": {
-        "BASEFORM": "voida",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Ira][Xp]voida[X]voi[Tt][Ap][P3][Ny][Eb]",
-        "MOOD": "indicative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "3",
-        "REQUIRE_FOLLOWING_VERB": "A-infinitive",
+        "BASEFORM": "voi",
+        "CLASS": "huudahdussana",
+        "FSTOUTPUT": "[Lh][Xp]voi[X]voi",
         "STRUCTURE": "=ppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+voida(voida)"
+        "WORDBASES": "+voi(voi)"
       },
-      "form_name_en": "present tense, 3rd person singular",
+      "form_name_en": "interjection",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-3e8f9b85a6db",
@@ -1139,8 +1122,8 @@
         "WORDBASES": "+harmi(harmi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "shame, pity",
+      "lemma_meaning_en": "shame, pity",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1163,8 +1146,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular, with the question ending -ko/-kö",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is it?",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is...?'. The question ending -ko turns 'on' (is) into a question."
     },
     {
@@ -1183,9 +1166,9 @@
         "WORDBASES": "+sinä(sinä)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "you have",
+      "lemma_meaning_en": "you (one person)",
+      "why_en": "Sinä with -lla. With on it means 'you have'. Speech shortens it to sul."
     },
     {
       "id": "form-c63b6877e047",
@@ -1203,9 +1186,9 @@
         "WORDBASES": "+kuume(kuume)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a fever",
+      "lemma_meaning_en": "fever",
+      "why_en": "The partitive singular is used for an illness you have: kuume becomes kuumetta."
     },
     {
       "id": "form-008b8a3eae32",
@@ -1221,8 +1204,8 @@
         "WORDBASES": "+vähän(vähän)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "a little, a bit",
+      "lemma_meaning_en": "a little, a bit",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1239,8 +1222,8 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
@@ -1259,9 +1242,9 @@
         "WORDBASES": "+yskä(yskä)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "a cough",
+      "lemma_meaning_en": "cough",
+      "why_en": "The partitive singular is used for an illness you have: yskä becomes yskää."
     },
     {
       "id": "form-4352ca83b810",
@@ -1279,9 +1262,9 @@
         "WORDBASES": "+tämä(tämä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "this",
+      "lemma_meaning_en": "this",
+      "why_en": "Speech shortens tämä to tää. Books write tämä."
     },
     {
       "id": "form-63f10d94f27f",
@@ -1299,8 +1282,8 @@
         "WORDBASES": "+yskän(yskä)+lääke(lääke)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "cough medicine",
+      "lemma_meaning_en": "cough medicine",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1319,8 +1302,8 @@
         "WORDBASES": "+auttaa(auttaa)"
       },
       "form_name_en": "basic form (A-infinitive)",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "to help",
+      "lemma_meaning_en": "to help",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1342,9 +1325,9 @@
         "WORDBASES": "+ottaa(ottaa)"
       },
       "form_name_en": "imperative present tense, 2nd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "take",
+      "lemma_meaning_en": "to take",
+      "why_en": "The imperative for one person is the verb without its ending: ottaa becomes ota, tt turning to t."
     },
     {
       "id": "form-c039ed256b06",
@@ -1362,9 +1345,9 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "it",
+      "lemma_meaning_en": "it, that",
+      "why_en": "The partitive of se after en löydä: en löydä sitä."
     },
     {
       "id": "form-efbfd4a1589b",
@@ -1382,9 +1365,9 @@
         "WORDBASES": "+ilta(ilta)"
       },
       "form_name_en": "adessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "in the evening",
+      "lemma_meaning_en": "evening",
+      "why_en": "Adds -lla for a time of day: ilta becomes illalla, the t turning to l."
     },
     {
       "id": "form-99966cae578b",
@@ -1400,8 +1383,8 @@
         "WORDBASES": "+entä(entä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and, what about",
+      "lemma_meaning_en": "and, what about",
       "why_en": "Means 'and what about...?', turning the question back to the other person."
     },
     {
@@ -1420,8 +1403,8 @@
         "WORDBASES": "+nenä(nenä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "nose",
+      "lemma_meaning_en": "nose",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1440,8 +1423,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1458,9 +1441,9 @@
         "WORDBASES": "+aivan(aivan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "really",
+      "lemma_meaning_en": "quite, right, completely",
+      "why_en": "Ihan is the everyday spoken word. Books write aivan."
     },
     {
       "id": "form-eceeb4521f1b",
@@ -1478,9 +1461,9 @@
         "WORDBASES": "+tukko(tukko)"
       },
       "form_name_en": "inessive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "blocked",
+      "lemma_meaning_en": "plug, wad (tukossa, blocked)",
+      "why_en": "The inessive singular of tukko 'a plug': tukossa, 'in a blocked state'. The kk turns to k."
     },
     {
       "id": "form-ad4c189b50dd",
@@ -1496,8 +1479,8 @@
         "WORDBASES": "+sitten(sitten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
       "why_en": "An adverb: 'then', the next step. Spoken short as 'sit'."
     },
     {
@@ -1516,8 +1499,8 @@
         "WORDBASES": "+nenä(nenä)+sumute(sumute)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "nasal spray",
+      "lemma_meaning_en": "nasal spray",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1539,30 +1522,25 @@
         "WORDBASES": "+juoda(juoda)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "drink",
+      "lemma_meaning_en": "to drink",
+      "why_en": "Here juo tells someone to drink. Juoda drops its -da ending. People say it the same way."
     },
     {
-      "id": "form-4c93c0afc944",
-      "lemma": "paljo",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=omanto;NUMBER=singular;COMPARISON=positive",
+      "id": "form-c89c8a769850",
+      "lemma": "paljon",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "paljon",
       "surface_puhe": "paljon",
       "analysis": {
-        "BASEFORM": "paljo",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]paljo[X]paljo[Sg][Ny]n",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "omanto",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+paljo(paljo)"
+        "BASEFORM": "paljon",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "genitive singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-18de4322e3a2",
@@ -1581,9 +1559,9 @@
         "WORDBASES": "+vesi(vesi)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "water",
+      "lemma_meaning_en": "water",
+      "why_en": "The partitive singular is used for some water: vesi becomes vettä, the si turning to tt."
     },
     {
       "id": "form-1df5ffb944a0",
@@ -1602,29 +1580,29 @@
         "WORDBASES": "+selvä(selvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "OK",
+      "lemma_meaning_en": "clear, OK",
+      "why_en": "Okei is the everyday spoken OK. Books write selvä, which means clear."
     },
     {
-      "id": "form-4de0717344e0",
-      "lemma": "mikä",
-      "form_tag": "CLASS=asemosana;SIJAMUOTO=olento;NUMBER=singular",
+      "id": "form-728ddce13587",
+      "lemma": "minä",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=nimento;NUMBER=singular",
       "surface_kirja": "minä",
       "surface_puhe": "mä",
       "analysis": {
-        "BASEFORM": "mikä",
+        "BASEFORM": "minä",
         "CLASS": "asemosana",
-        "FSTOUTPUT": "[Lr][Xp]mikä[X]mi[Ses][Ny]nä",
+        "FSTOUTPUT": "[Lr][Xp]minä[X]min[Sn][Ny]ä",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
+        "SIJAMUOTO": "nimento",
         "STRUCTURE": "=pppp",
-        "WORDBASES": "+mikä(mikä)"
+        "WORDBASES": "+minä(minä)"
       },
-      "form_name_en": "essive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "form_name_en": "nominative singular",
+      "meaning_en": "I",
+      "lemma_meaning_en": "I, me",
+      "why_en": "Means 'I'. Spoken Finnish often says 'mä'."
     },
     {
       "id": "form-18b9849faed2",
@@ -1645,28 +1623,26 @@
         "WORDBASES": "+levätä(levätä)"
       },
       "form_name_en": "present tense, 1st person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "I rest",
+      "lemma_meaning_en": "to rest",
+      "why_en": "Levätä adds an extra ä and -n for 'I': lepään. The v turns to p."
     },
     {
-      "id": "form-d16546293ead",
-      "lemma": "koto",
+      "id": "form-6623d0c4b9e8",
+      "lemma": "koti",
       "form_tag": "CLASS=nimisana;SIJAMUOTO=olento;NUMBER=singular",
       "surface_kirja": "kotona",
       "surface_puhe": "kotona",
       "analysis": {
-        "BASEFORM": "koto",
+        "BASEFORM": "koti",
         "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Xp]koto[X]koto[Ses][Ny]na",
+        "MANUAL": "true",
         "NUMBER": "singular",
-        "SIJAMUOTO": "olento",
-        "STRUCTURE": "=pppppp",
-        "WORDBASES": "+koto(koto)"
+        "SIJAMUOTO": "olento"
       },
       "form_name_en": "essive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "home",
       "why_en": ""
     },
     {
@@ -1686,8 +1662,8 @@
         "WORDBASES": "+hyvä(hyvä)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "good",
+      "lemma_meaning_en": "good",
       "why_en": "Means 'good!' or 'great!', showing you are happy."
     },
     {
@@ -1707,9 +1683,9 @@
         "WORDBASES": "+pikainen(pikainen)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "quick (a quick ...)",
+      "lemma_meaning_en": "quick, speedy",
+      "why_en": "The partitive singular, used in wishes: pikainen becomes pikaista. Speech drops the i: pikasta."
     },
     {
       "id": "form-589b47d4916c",
@@ -1728,9 +1704,9 @@
         "WORDBASES": "+parata(parata)"
       },
       "form_name_en": "MINEN-infinitive, partitive",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "recovery",
+      "lemma_meaning_en": "to get better, to recover",
+      "why_en": "A noun made from the verb parata 'to get better', in the partitive used for wishes: paranemista."
     }
   ]
 }

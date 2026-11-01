@@ -64,22 +64,24 @@
       "extras-stop-18",
       "extras-stop-19",
       "extras-stop-20",
-      "extras-stop-21",
       "extras-stop-22",
       "extras-stop-25",
-      "extras-stop-27",
+      "extras-stop-26",
       "extras-stop-29",
       "extras-stop-31"
     ],
     "rank_cap": 1500,
     "extra_base_forms": [
-      "asunut",
+      "juuri",
       "kartta",
       "kauppatori",
+      "perillä",
       "puisto",
       "rautatieasema",
       "risteys",
-      "tori"
+      "todella",
+      "tori",
+      "varmaan"
     ],
     "speakers": [
       {
@@ -281,22 +283,19 @@
         },
         {
           "surface": "tuon",
-          "lemma": "tuoda",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+          "lemma": "tuo",
+          "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
           "name": false,
           "analysis": {
-            "BASEFORM": "tuoda",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P1][Ny][Ef]n",
-            "MOOD": "indicative",
-            "NEGATIVE": "false",
+            "BASEFORM": "tuo",
+            "CLASS": "asemosana",
+            "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sg][Ny]n",
             "NUMBER": "singular",
-            "PERSON": "1",
+            "SIJAMUOTO": "omanto",
             "STRUCTURE": "=pppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+tuoda(tuoda)"
+            "WORDBASES": "+tuo(tuo)"
           },
-          "form": "form-71e4360a3209"
+          "form": "form-e5b38e62bbf5"
         },
         {
           "surface": "sillan",
@@ -740,20 +739,15 @@
         },
         {
           "surface": "varmaan",
-          "lemma": "varma",
-          "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=sisatulento;NUMBER=singular;COMPARISON=positive",
+          "lemma": "varmaan",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "varma",
-            "CLASS": "nimisana_laatusana",
-            "COMPARISON": "positive",
-            "FSTOUTPUT": "[Lnl][Xp]varma[X]varm[Sill][Ny]aan",
-            "NUMBER": "singular",
-            "SIJAMUOTO": "sisatulento",
-            "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+varma(varma)"
+            "BASEFORM": "varmaan",
+            "CLASS": "seikkasana",
+            "MANUAL": "true"
           },
-          "form": "form-7807be502370"
+          "form": "form-2c21757d03b1"
         },
         {
           "surface": "se",
@@ -868,22 +862,17 @@
       "kirja_tokens": [
         {
           "surface": "Juuri",
-          "lemma": "juuria",
-          "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+          "lemma": "juuri",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "juuria",
-            "CLASS": "teonsana",
-            "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
-            "MOOD": "imperative",
-            "NEGATIVE": "both",
-            "NUMBER": "singular",
-            "PERSON": "2",
+            "BASEFORM": "juuri",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
             "STRUCTURE": "=ppppp",
-            "TENSE": "present_simple",
-            "WORDBASES": "+juuria(juuria)"
+            "WORDBASES": "+juuri(juuri)"
           },
-          "form": "form-a3345ebbbcea"
+          "form": "form-57dd552fb07a"
         },
         {
           "surface": "niin",
@@ -936,20 +925,17 @@
         },
         {
           "surface": "perillä",
-          "lemma": "perä",
-          "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+          "lemma": "perillä",
+          "form_tag": "CLASS=seikkasana",
           "name": false,
           "analysis": {
-            "BASEFORM": "perä",
-            "CLASS": "nimisana",
-            "FSTOUTPUT": "[Ln][Ica][Xp]perä[X]per[Sade][Nm]illä",
-            "NUMBER": "plural",
-            "POSSIBLE_GEOGRAPHICAL_NAME": "true",
-            "SIJAMUOTO": "ulkoolento",
+            "BASEFORM": "perillä",
+            "CLASS": "seikkasana",
+            "FSTOUTPUT": "[Ls][Xp]perillä[X]perillä",
             "STRUCTURE": "=ppppppp",
-            "WORDBASES": "+perä(perä)"
+            "WORDBASES": "+perillä(perillä)"
           },
-          "form": "form-84255aaa2e73"
+          "form": "form-b3cdcf142713"
         }
       ],
       "puhe_tokens": [
@@ -999,9 +985,9 @@
         "WORDBASES": "+mikä(mikä)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "where to",
+      "lemma_meaning_en": "what, which",
+      "why_en": "Mikä with -hin for 'to': mihin, where to."
     },
     {
       "id": "form-cc5e802670d9",
@@ -1019,9 +1005,9 @@
         "WORDBASES": "+suunta(suunta)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "which way",
+      "lemma_meaning_en": "direction",
+      "why_en": "Books write mihin suuntaan, 'in which direction'. Speech says mihin päin, 'which way'."
     },
     {
       "id": "form-1cbcb0b62bb7",
@@ -1042,9 +1028,9 @@
         "WORDBASES": "+mennä(mennä)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we go",
+      "lemma_meaning_en": "to go",
+      "why_en": "Speech uses mennään with me, 'we'. Books write menemme."
     },
     {
       "id": "form-5b656146997c",
@@ -1062,9 +1048,9 @@
         "WORDBASES": "+kartta(kartta)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the map",
+      "lemma_meaning_en": "map",
+      "why_en": "mukaan, 'according to', needs -n on the word before: kartta becomes kartan."
     },
     {
       "id": "form-769eb876232e",
@@ -1080,8 +1066,8 @@
         "WORDBASES": "+mukaan(mukaan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "along, with you, according to",
+      "lemma_meaning_en": "along, with you, according to",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1101,9 +1087,9 @@
         "WORDBASES": "+oikea(oikea)"
       },
       "form_name_en": "allative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "to the right",
+      "lemma_meaning_en": "right, correct",
+      "why_en": "Oikea, right, with -lle for 'to'. Speech turns -ea into -ee: oikeelle."
     },
     {
       "id": "form-938eb8c80d8d",
@@ -1119,31 +1105,28 @@
         "WORDBASES": "+ja(ja)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "and",
+      "lemma_meaning_en": "and",
       "why_en": "And: joins the coffee and the bun in the order."
     },
     {
-      "id": "form-71e4360a3209",
-      "lemma": "tuoda",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=1;MOOD=indicative;TENSE=present_simple;NEGATIVE=false",
+      "id": "form-e5b38e62bbf5",
+      "lemma": "tuo",
+      "form_tag": "CLASS=asemosana;SIJAMUOTO=omanto;NUMBER=singular",
       "surface_kirja": "tuon",
       "surface_puhe": "ton",
       "analysis": {
-        "BASEFORM": "tuoda",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]tuoda[X]tuo[Tt][Ap][P1][Ny][Ef]n",
-        "MOOD": "indicative",
-        "NEGATIVE": "false",
+        "BASEFORM": "tuo",
+        "CLASS": "asemosana",
+        "FSTOUTPUT": "[Lr][Xp]tuo[X]tuo[Sg][Ny]n",
         "NUMBER": "singular",
-        "PERSON": "1",
+        "SIJAMUOTO": "omanto",
         "STRUCTURE": "=pppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+tuoda(tuoda)"
+        "WORDBASES": "+tuo(tuo)"
       },
-      "form_name_en": "present tense, 1st person singular",
+      "form_name_en": "genitive singular",
       "meaning_en": "",
-      "lemma_meaning_en": "",
+      "lemma_meaning_en": "that",
       "why_en": ""
     },
     {
@@ -1163,9 +1146,9 @@
         "WORDBASES": "+silta(silta)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the bridge",
+      "lemma_meaning_en": "bridge",
+      "why_en": "yli, 'over', needs -n on the word before: silta becomes sillan, lt turning into ll."
     },
     {
       "id": "form-e51df5672690",
@@ -1181,8 +1164,8 @@
         "WORDBASES": "+yli(yli)"
       },
       "form_name_en": "adposition",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "over, past",
+      "lemma_meaning_en": "over, past",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1199,8 +1182,8 @@
         "WORDBASES": "+kyllä(kyllä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "yes",
+      "lemma_meaning_en": "yes, certainly",
       "why_en": "Yes. In everyday speech people often say joo instead."
     },
     {
@@ -1217,8 +1200,8 @@
         "WORDBASES": "+sitten(sitten)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "then",
+      "lemma_meaning_en": "then",
       "why_en": "An adverb: 'then', the next step. Spoken short as 'sit'."
     },
     {
@@ -1238,9 +1221,9 @@
         "WORDBASES": "+suora(suora)"
       },
       "form_name_en": "illative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "straight ahead",
+      "lemma_meaning_en": "straight",
+      "why_en": "Suora, straight, with -an: suoraan, straight ahead."
     },
     {
       "id": "form-fd1a9ffcfdb7",
@@ -1256,8 +1239,8 @@
         "WORDBASES": "+kuinka(kuinka)"
       },
       "form_name_en": "conjunction",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "how",
+      "lemma_meaning_en": "how",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1274,8 +1257,8 @@
         "WORDBASES": "+kauan(kauan)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "long (time)",
+      "lemma_meaning_en": "long (time)",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1292,8 +1275,8 @@
         "WORDBASES": "+vielä(vielä)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "still, yet",
+      "lemma_meaning_en": "still, yet",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1312,9 +1295,9 @@
         "WORDBASES": "+viisi(viisi)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "five",
+      "lemma_meaning_en": "five",
+      "why_en": "Speech drops the final i: viisi becomes viis."
     },
     {
       "id": "form-2ba98cc25249",
@@ -1332,9 +1315,9 @@
         "WORDBASES": "+minuutti(minuutti)"
       },
       "form_name_en": "partitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "minutes",
+      "lemma_meaning_en": "minute",
+      "why_en": "After a number the noun takes the partitive: kymmenen minuuttia. Speech turns -ia into -ii."
     },
     {
       "id": "form-eca33913649c",
@@ -1352,8 +1335,8 @@
         "WORDBASES": "+se(se)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "it, that",
+      "lemma_meaning_en": "it, that",
       "why_en": "'It.' Nominative singular, referring back to the price."
     },
     {
@@ -1375,8 +1358,8 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 3rd person singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "is",
+      "lemma_meaning_en": "to be, to have",
       "why_en": "Means 'is': present tense, 3rd person singular, going with 'Helsinki'."
     },
     {
@@ -1396,9 +1379,9 @@
         "WORDBASES": "+puisto(puisto)"
       },
       "form_name_en": "genitive singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "the park",
+      "lemma_meaning_en": "park",
+      "why_en": "takana, 'behind', needs -n on the word before: puisto becomes puiston."
     },
     {
       "id": "form-c0ea18440ede",
@@ -1414,8 +1397,8 @@
         "WORDBASES": "+takana(takana)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "behind, at the back",
+      "lemma_meaning_en": "behind, at the back",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1434,30 +1417,25 @@
         "WORDBASES": "+tuo(tuo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "that",
+      "lemma_meaning_en": "that",
+      "why_en": "Tuo means that. Speech says toi."
     },
     {
-      "id": "form-7807be502370",
-      "lemma": "varma",
-      "form_tag": "CLASS=nimisana_laatusana;SIJAMUOTO=sisatulento;NUMBER=singular;COMPARISON=positive",
+      "id": "form-2c21757d03b1",
+      "lemma": "varmaan",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "varmaan",
       "surface_puhe": "varmaan",
       "analysis": {
-        "BASEFORM": "varma",
-        "CLASS": "nimisana_laatusana",
-        "COMPARISON": "positive",
-        "FSTOUTPUT": "[Lnl][Xp]varma[X]varm[Sill][Ny]aan",
-        "NUMBER": "singular",
-        "SIJAMUOTO": "sisatulento",
-        "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+varma(varma)"
+        "BASEFORM": "varmaan",
+        "CLASS": "seikkasana",
+        "MANUAL": "true"
       },
-      "form_name_en": "illative singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     },
     {
       "id": "form-8e5453d03c67",
@@ -1476,9 +1454,9 @@
         "WORDBASES": "+puna(puna)+inen(+inen)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "red",
+      "lemma_meaning_en": "red",
+      "why_en": "This is the dictionary form. Speech drops the i: punanen."
     },
     {
       "id": "form-829ac69bd301",
@@ -1497,29 +1475,24 @@
         "WORDBASES": "+talo(talo)"
       },
       "form_name_en": "nominative singular",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "house, building",
+      "lemma_meaning_en": "house, building",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
-      "id": "form-a3345ebbbcea",
-      "lemma": "juuria",
-      "form_tag": "CLASS=teonsana;NUMBER=singular;PERSON=2;MOOD=imperative;TENSE=present_simple;NEGATIVE=both",
+      "id": "form-57dd552fb07a",
+      "lemma": "juuri",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "juuri",
       "surface_puhe": "just",
       "analysis": {
-        "BASEFORM": "juuria",
-        "CLASS": "teonsana",
-        "FSTOUTPUT": "[Lt][Xp]juuria[X]juuri[Tk][Ap][P2][Ny][Eb]",
-        "MOOD": "imperative",
-        "NEGATIVE": "both",
-        "NUMBER": "singular",
-        "PERSON": "2",
+        "BASEFORM": "juuri",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]juuri[X]juuri",
         "STRUCTURE": "=ppppp",
-        "TENSE": "present_simple",
-        "WORDBASES": "+juuria(juuria)"
+        "WORDBASES": "+juuri(juuri)"
       },
-      "form_name_en": "imperative present tense, 2nd person singular",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
       "why_en": ""
@@ -1538,8 +1511,8 @@
         "WORDBASES": "+niin(niin)"
       },
       "form_name_en": "adverb",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
+      "meaning_en": "so, then",
+      "lemma_meaning_en": "so, then",
       "why_en": "This is the dictionary form. People say it the same way."
     },
     {
@@ -1558,9 +1531,9 @@
         "WORDBASES": "+me(me)"
       },
       "form_name_en": "nominative plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we",
+      "lemma_meaning_en": "we",
+      "why_en": "Me means we. Speech says it the same way."
     },
     {
       "id": "form-7d01f19d8e6b",
@@ -1581,30 +1554,27 @@
         "WORDBASES": "+olla(olla)"
       },
       "form_name_en": "present tense, 1st person plural",
-      "meaning_en": "",
-      "lemma_meaning_en": "",
-      "why_en": ""
+      "meaning_en": "we are",
+      "lemma_meaning_en": "to be, to have",
+      "why_en": "Books write me olemme. Speech says me ollaan, the same form as 'one is', for 'we are'."
     },
     {
-      "id": "form-84255aaa2e73",
-      "lemma": "perä",
-      "form_tag": "CLASS=nimisana;SIJAMUOTO=ulkoolento;NUMBER=plural",
+      "id": "form-b3cdcf142713",
+      "lemma": "perillä",
+      "form_tag": "CLASS=seikkasana",
       "surface_kirja": "perillä",
       "surface_puhe": "perillä",
       "analysis": {
-        "BASEFORM": "perä",
-        "CLASS": "nimisana",
-        "FSTOUTPUT": "[Ln][Ica][Xp]perä[X]per[Sade][Nm]illä",
-        "NUMBER": "plural",
-        "POSSIBLE_GEOGRAPHICAL_NAME": "true",
-        "SIJAMUOTO": "ulkoolento",
+        "BASEFORM": "perillä",
+        "CLASS": "seikkasana",
+        "FSTOUTPUT": "[Ls][Xp]perillä[X]perillä",
         "STRUCTURE": "=ppppppp",
-        "WORDBASES": "+perä(perä)"
+        "WORDBASES": "+perillä(perillä)"
       },
-      "form_name_en": "adessive plural",
+      "form_name_en": "adverb",
       "meaning_en": "",
       "lemma_meaning_en": "",
-      "why_en": ""
+      "why_en": "This is the dictionary form. People say it the same way."
     }
   ]
 }
