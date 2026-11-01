@@ -1,0 +1,26 @@
+Round 3 proof by breaking each protection (job 20-a1-road).
+Tests are in scripts/generate/test_road_readings.py unless it says test_road_import.py.
+Baseline with no break: test_road_import.py::test_a1_road_13_each_part_has_the_lowest_cap_that_leaves_at_most_15_extra_words_per_stop
+is red (parts 4 and 5, by the manager's decision, see build.md).
+
+Local breaks, one at a time, undone with git checkout:
+A1 an alias no longer takes its list form's rank       red: test_a1_road_10_an_alias_takes_its_list_forms_rank_and_never_replaces_a_listed_word
+A2 the alias file accepts the same word twice          red: test_a1_road_10_the_alias_file_refuses_a_wrong_row
+A3 an alias row for a word no draft uses               red: test_a1_road_10_every_alias_key_is_a_lemma_in_the_drafts_and_every_value_is_on_the_list
+A4 an alias whose list form is not on the list         red: the A3 test and the A1 test (the rank test also refuses it)
+A5 the noun minä put back in a draft                   red: test_a1_road_10_minae_is_the_pronoun_in_every_line_of_the_drafts
+A6 the spelling row for minä removed                   red: test_a1_road_10_minae_is_the_pronoun_in_every_line_of_the_drafts
+
+GitHub breaks (real Voikko), scratch branches from factory/20-a1-road at 8ffd14c, deleted afterwards, only the Python job read:
+Y1 run 41331399346, the spelling row for minä removed
+   red: test_a1_road_10_minae_is_the_pronoun_even_where_voikko_prefers_the_noun
+        test_a1_road_10_minae_is_the_pronoun_in_every_line_of_the_drafts
+        test_road_import.py::test_a1_road_12_a_committed_road_draft_equals_what_the_importer_makes
+        test_road_import.py::test_a1_road_12_the_report_is_current_and_lists_every_stop_and_every_part
+        test_road_import.py::test_a1_road_16_notes_are_consistent_and_what_is_missing_is_listed
+        and the baseline test above
+Y2 run 41331402136, check_draft does not use the aliases
+   red: test_road_import.py::test_a1_road_12_all_108_committed_drafts_pass_every_check
+        test_road_import.py::test_a1_road_15_check_committed_prints_register_judge_not_run
+        test_road_import.py::test_a1_road_15_with_the_judge_off_the_report_says_not_run
+        and the baseline test above
