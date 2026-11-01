@@ -23,7 +23,7 @@ The Python test count is 314 (set in `.github/workflows/checks.yml`).
 
 ## Check results
 
-All on GitHub. The final run is on 9804065: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41344630877
+All on GitHub. The final run is on 8ba0b01 (after the manager's decision that the road files win for every form they hold): https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41346798223 . The run before it, on 9804065, was also green: 41344630877.
 
 | Check | Result |
 |---|---|
