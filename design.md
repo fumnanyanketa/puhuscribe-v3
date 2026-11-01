@@ -6,6 +6,21 @@ The locked design system for PuhuScribe v3, from job 5-design-system (`factory/j
 - The reference page, `/design-reference`, shows every value and every component in every state. It exists in local development (`npm run dev`) and on preview links, behind the Cloudflare Access sign in. Learners never see it, and a normal build leaves it out (`tests/design-build.test.ts`).
 - The parts live in `src/components/`, one PascalCase `.tsx` file with a `.module.css` file beside it.
 
+## Redesign under way (owner, 1 November 2026)
+
+All building is paused while every screen is redesigned. Until the new screens are approved and this file is rewritten from them, these rules from the owner win over anything below:
+
+- The soft, milky look of the owner's reference (`design-drafts/reference-soft-gym-app.jpg`): a colour wash behind each screen, milky white panels, light type, lots of space.
+- Mint green and peach. Mint for everything you tap and for spoken Finnish; peach only for the words that change between spoken and written.
+- No mascot. The line card keeps its two dots joined by a dotted line.
+- As little text as possible: one short line per screen, smaller type than today.
+- The journey is the heart of the app, but it must not look like Duolingo's winding path of round nodes.
+- In the owner's words: "at no point should the app lose its aesthetic feel. I don't want it to look like every Claude deployed slop." Take the look from the owner's references, never from common app patterns.
+
+The drafts and references are in `design-drafts/`.
+
+## The current look
+
 The look is v2's own, chosen by the owner on 21 October 2026: a white to soft lilac page, ink text, violet for written Finnish, teal for spoken Finnish, azure for the words that change between the two, soft white cards and black pill buttons. Three ideas come from the look options page: the word being spoken lights up, the audio player sits at the bottom with a slim waveform, and the spacing is calm.
 
 ## Type
