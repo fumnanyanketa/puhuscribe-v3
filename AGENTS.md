@@ -141,3 +141,4 @@ The factory adds one line here for every mistake a reviewer, the evaluator or th
 - Data not tied to an account needs its own privacy notice line on deletion and keeping time. (14-analytics, design review)
 - Cloudflare Access blocks fetches sent with `credentials: 'omit'`; tests that add its header everywhere hide that. (14-analytics, security review)
 - A fake that always returns 0 cannot prove a sum; use a known non zero value. Send buttons ignore taps while sending. (14-analytics, evaluator)
+- When a job rebuilds screens from approved drawings, compare every screen side by side with its drawing before the owner sees it. Reviewers who check only the written spec miss extra text, outlines and layout drift. (19-redesign, owner)
