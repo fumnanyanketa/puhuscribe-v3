@@ -101,6 +101,18 @@ def test_a1_road_20_an_approved_dialogue_is_published_with_references_into_the_a
     assert all(c.is_file() and c.name.endswith(".mp3") for c in clips)
 
 
+def test_a1_road_20_clips_without_request_sha256_publish_like_any_other(
+    repo, draft, voikko, ranks, thresholds
+):
+    """[a1-road 20] The six earlier drafts' clips (job 12) have no request_sha256. Publishing needs only the
+    file, its sha256 and a real voice, and the fingerprint covers that sha256, so they publish."""
+    clips = [line["audio"][register] for line in draft["lines"] for register in ("puhe", "kirja")]
+    assert clips and all("request_sha256" not in clip for clip in clips)
+    approve(repo, draft)
+    migration, written = run(repo, draft, voikko, ranks, thresholds)
+    assert migration.is_file() and len(written) == len(clips)
+
+
 def test_a1_road_20_a_changed_line_voids_the_approval_of_its_dialogue(repo, draft, voikko, ranks, thresholds):
     """[a1-road 20] the fingerprint covers every line's three texts and every form's texts."""
     approve(repo, draft)

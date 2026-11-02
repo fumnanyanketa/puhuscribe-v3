@@ -369,7 +369,14 @@ def test_every_ai_and_voice_call_of_each_run_is_logged(slug):
     assert {"draft", "why", "judge"} <= purposes
     rounds = committed(slug)["rounds"]
     assert len([c for c in mine if c["purpose"] == "draft"]) == rounds
-    assert len([c for c in mine if c["provider"] == "azure"]) == 2 * len(committed(slug)["lines"])
+    # One voice call per clip and per run. These six dialogues were voiced twice: by their own run, and again
+    # by mistake by the first run of part 1 of the A1 road on 1 November 2026 (run 41353465089), which cost
+    # real characters and stays in the log as the true record. Their clips were put back (statement 17) and
+    # the voice step keeps them from now on (job 20-a1-road, "After merge: voice fix").
+    voice_runs = 2
+    assert len([c for c in mine if c["provider"] == "azure"]) == voice_runs * 2 * len(
+        committed(slug)["lines"]
+    )
     assert all(isinstance(c["cost_usd"], int | float) and c["cost_usd"] >= 0 for c in mine)
 
 

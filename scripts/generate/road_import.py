@@ -873,27 +873,44 @@ def cmd_analyse(args, ctx: Context | None = None) -> int:
 # Characters, voices and the judge -------------------------------------------------------------
 
 
-def clip_needs_voice(line: dict, register: str, draft_dir: Path, speakers: dict[str, str]) -> bool:
-    """False when the clip exists and was made from this text and this voice."""
+def clip_needs_voice(
+    line: dict, register: str, draft_dir: Path, speakers: dict[str, str], provider: str | None = None
+) -> bool:
+    """False when the clip exists and was made from this text and this voice.
+
+    A clip made by the voice step of this job carries request_sha256, a hash of its text and voice. A clip
+    that job 12 made for the six earlier drafts has no such hash, but it records its text, voice, provider
+    and the sha256 of its file. It is kept too when all of those are what a run would ask for and the file
+    is the one hashed: voicing it again would give the same words in new bytes and break statement 17
+    (the earlier drafts' audio stays byte for byte). `provider` is the voice provider of this run, when
+    it is known."""
+    from fingerprints import sha256_bytes
     from providers.voice import request_hash
 
     clip = line.get("audio", {}).get(register)
     if not clip or clip.get("source") != "synthetic":
         return True
     path = draft_dir / clip["file"]
+    if not path.is_file():
+        return True
+    voice = speakers[line["speaker"]]
+    if clip.get("request_sha256") is not None:
+        return clip["request_sha256"] != request_hash(line[f"text_{register}"], voice)
     return not (
-        path.is_file()
-        and clip.get("request_sha256") == request_hash(line[f"text_{register}"], speakers[line["speaker"]])
+        clip.get("sha256") == sha256_bytes(path.read_bytes())
+        and clip.get("text") == line[f"text_{register}"]
+        and clip.get("voice") == voice
+        and (provider is None or clip.get("provider") == provider)
     )
 
 
-def characters_to_voice(drafts: dict[str, dict], repo: Path = REPO) -> int:
+def characters_to_voice(drafts: dict[str, dict], repo: Path = REPO, provider: str | None = None) -> int:
     total = 0
     for slug, draft in drafts.items():
         voices = {s["name"]: s["voice"] for s in draft["brief"]["speakers"]}
         for line in draft["lines"]:
             for register in ("puhe", "kirja"):
-                if clip_needs_voice(line, register, repo / "content" / "drafts" / slug, voices):
+                if clip_needs_voice(line, register, repo / "content" / "drafts" / slug, voices, provider):
                     total += len(line[f"text_{register}"])
     return total
 
@@ -929,7 +946,7 @@ def cmd_voice(args, voice=None) -> int:
     if getattr(args, "only", None):
         drafts = {slug: d for slug, d in drafts.items() if slug == args.only}
     voice = voice or voice_module.get_provider()
-    need = characters_to_voice(drafts)
+    need = characters_to_voice(drafts, provider=voice.name)
     voice_module.refuse_uncommitted_log(voice.log_path)
     voice_module.refuse_over_allowance(voice.log_path, need)
     print(f"Voicing {need} characters for part {args.part}")
@@ -941,7 +958,7 @@ def cmd_voice(args, voice=None) -> int:
             (line["n"], register)
             for line in draft["lines"]
             for register in ("puhe", "kirja")
-            if clip_needs_voice(line, register, folder, voices)
+            if clip_needs_voice(line, register, folder, voices, voice.name)
         }
         if not only:
             continue
