@@ -3,6 +3,8 @@
    note"): a milky panel with centred words. Values from src/styles/tokens.css. */
 
 .note {
+  /* Scrolled to, it stops a little clear of the screen's edge, never cut by a fraction of a pixel. */
+  scroll-margin: var(--space-4);
   display: grid;
   justify-items: center;
   gap: var(--space-3);
