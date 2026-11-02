@@ -1,6 +1,6 @@
 # Build notes: 19-redesign, round 5
 
-Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 5 answers the two failures of the round 4 re-evaluation (`evaluation.md`, commit `8aa2598`). The tested commit is `__COMMIT__`.
+Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 5 answers the two failures of the round 4 re-evaluation (`evaluation.md`, commit `8aa2598`). The tested commit is `53428b9`.
 
 ## Round 5: what changed
 
@@ -36,9 +36,9 @@ None. Two assertions of my own round 5 test were tightened while writing it (it 
 
 - `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except `tooling 9`, a timing test that fails under load on this machine and passes on GitHub (see round 1's open points).
 - The mock based browser files pass in Chromium and WebKit on this computer, except three WebKit tests that need a recorder or Tab on buttons, which this Windows WebKit lacks. They pass on GitHub.
-- Full run on GitHub: __RUN5__
+- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41424781086, tested commit `53428b9`: success on the first run. The browser job (Chromium and WebKit, local database) passed all its tests, including the new Safari style focus tests, the tall word tests and the patterns test; the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check passed.
 
-Result: __FINAL__
+Result: checks pass
 
 ---
 
