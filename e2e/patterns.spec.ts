@@ -48,6 +48,16 @@ interface ShownGroup {
 const PANEL = "Patterns you've seen"
 const INTRO = 'Word forms from the dialogues you have met, grouped by pattern.'
 
+/**
+ * One shown form as text: base form, written, spoken and its why line, joined by "|". The SQL reads
+ * below join the same four columns the same way. The why line is part of the key because two
+ * different forms can share the words: the fixture's "hei" and the published A1 road's "hei"
+ * (job 20-a1-road) are separate rows, and only the why line tells them apart on screen.
+ */
+function keyOf(form: ShownForm): string {
+  return [form.lemma, form.written, form.spoken, form.why].join('|')
+}
+
 function panelOf(page: Page): Locator {
   return page.getByRole('dialog', { name: PANEL })
 }
@@ -307,12 +317,12 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await openPanel(page)
     const shownA = await shownGroups(page)
     expect(shownA).toEqual(expectedGroups(userA, currentSession(userA).id))
-    const keysA = shownA.flatMap((g) => g.forms.map((f) => `${f.lemma}|${f.written}|${f.spoken}`))
+    const keysA = shownA.flatMap((g) => g.forms.map((f) => keyOf(f)))
 
     // Every approved form of both met dialogues is there.
     const formsOf = (dialogueId: string) =>
       sql(
-        `select distinct f.lemma, f.surface_kirja, f.surface_puhe
+        `select distinct f.lemma, f.surface_kirja, f.surface_puhe, f.why_en
            from public.dialogue_lines l join public.tokens t on t.line_id = l.id
            join public.forms f on f.id = t.form_id
           where l.dialogue_id = :did and l.status = 'approved' and f.status = 'approved'`,
@@ -323,7 +333,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
 
     // Never a draft or retired form, or a form only in dialogues not met.
     const never = sql(
-      `select f.lemma, f.surface_kirja, f.surface_puhe from public.forms f
+      `select f.lemma, f.surface_kirja, f.surface_puhe, f.why_en from public.forms f
         where f.status <> 'approved'
            or not exists (select 1 from public.tokens t join public.dialogue_lines l on l.id = t.line_id
                            where t.form_id = f.id and l.dialogue_id in (:d1, :d2))`,
@@ -338,7 +348,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     const both = formsOf(firstDialogue).filter((key) => formsOf(secondDialogue).includes(key))
     const firstLines = linesOf(firstDialogue).map((l) => l.puhe)
     for (const key of both) {
-      const shown = shownA.flatMap((g) => g.forms).find((f) => `${f.lemma}|${f.written}|${f.spoken}` === key)
+      const shown = shownA.flatMap((g) => g.forms).find((f) => keyOf(f) === key)
       expect(firstLines, key).toContain(shown?.lineSpoken)
     }
 
@@ -353,7 +363,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await openPanel(pageB)
     const shownB = await shownGroups(pageB)
     expect(shownB).toEqual(expectedGroups(userB, currentSession(userB).id))
-    const keysB = shownB.flatMap((g) => g.forms.map((f) => `${f.lemma}|${f.written}|${f.spoken}`))
+    const keysB = shownB.flatMap((g) => g.forms.map((f) => keyOf(f)))
     for (const key of formsOf(secondDialogue)) {
       if (!formsOf(firstDialogue).includes(key)) expect(keysB).not.toContain(key)
     }
@@ -428,10 +438,10 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
         await openPanel(page)
         const shown = await shownGroups(page)
         expect(shown).toEqual(expectedGroups(userId, currentSession(userId).id))
-        const keys = shown.flatMap((g) => g.forms.map((f) => `${f.lemma}|${f.written}|${f.spoken}`))
+        const keys = shown.flatMap((g) => g.forms.map((f) => keyOf(f)))
         const formsOf = (id: string) =>
           sql(
-            `select distinct f.lemma, f.surface_kirja, f.surface_puhe
+            `select distinct f.lemma, f.surface_kirja, f.surface_puhe, f.why_en
                from public.dialogue_lines l join public.tokens t on t.line_id = l.id
                join public.forms f on f.id = t.form_id
               where l.dialogue_id = :did and l.status = 'approved' and f.status = 'approved'`,
@@ -439,7 +449,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
           ).map((r) => r.join('|'))
         for (const id of [...met, dialogueId]) for (const key of formsOf(id)) expect(keys).toContain(key)
         const unmet = sql(
-          `select f.lemma, f.surface_kirja, f.surface_puhe from public.forms f
+          `select f.lemma, f.surface_kirja, f.surface_puhe, f.why_en from public.forms f
             where f.status <> 'approved'
                or not exists (select 1 from public.tokens t join public.dialogue_lines l on l.id = t.line_id
                                where t.form_id = f.id and l.dialogue_id = any(string_to_array(:'ids', ',')::bigint[]))`,
