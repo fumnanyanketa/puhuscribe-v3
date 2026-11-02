@@ -51,3 +51,4 @@ Where the app still differs, a written rule from an earlier job required it, and
 2. The manager wires job 20's word meanings into the word card.
 
 ## Owner approval
+2 November 2026: the owner approved job 19 after round 6 ("Approved, merge"), having compared every screen with the drawings on the side by side page.
