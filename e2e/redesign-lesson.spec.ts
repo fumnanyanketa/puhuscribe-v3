@@ -1076,6 +1076,63 @@ test.describe('round 6, as drawn', () => {
     expect((card?.y ?? 0) < (note?.y ?? 0)).toBe(true)
   })
 
+  // Follow up after the merge (owner, Keep it right and close pairs): as drawn, only the answer is marked
+  // on the result. The changed word box (mä and minä in the mock line) would put a second mark beside it.
+  for (const [answer, outcome] of [
+    ['maksaa', 'right'],
+    ['maksa', 'close'],
+  ] as const) {
+    test(`[redesign 31] Keep it ${outcome}: exactly one word per line carries a mark, the answer, in peach deep, bold in the spoken line`, async ({
+      page,
+    }) => {
+      await open(page, { step: 'say', review: true })
+      await page.getByLabel('Type the missing word', { exact: true }).fill(answer)
+      await page.getByRole('button', { name: 'Check', exact: true }).click()
+      const feedback = page.locator('[data-review-feedback]')
+      await expect(feedback).toBeVisible()
+      for (const group of ['How people say it', 'How it is written']) {
+        // Every word face in the line, with what would show it as marked: a wash, a ring or a colour of its own.
+        const faces = await feedback
+          .getByRole('group', { name: group })
+          .locator('[data-word] span[class*="face"]')
+          .evaluateAll((spans) => {
+            const view = globalThis as unknown as { getComputedStyle: (e: unknown) => Record<string, string> }
+            return spans.map((span) => {
+              const style = view.getComputedStyle(span)
+              const line = view.getComputedStyle(
+                (span as unknown as { closest: (s: string) => unknown }).closest('p'),
+              )
+              return {
+                text: (span as unknown as { textContent: string }).textContent,
+                wash: style.backgroundColor !== 'rgba(0, 0, 0, 0)',
+                ring: style.boxShadow !== 'none',
+                ownColour: style.color !== line.color,
+                colour: style.color,
+                weight: style.fontWeight,
+              }
+            })
+          })
+        expect(faces.length).toBeGreaterThan(2)
+        const marked = faces.filter((face) => face.wash || face.ring || face.ownColour)
+        expect(marked.map((face) => face.text)).toEqual(['maksaa'])
+        const [mark] = marked
+        expect(mark?.wash).toBe(true)
+        expect(mark?.ring).toBe(false)
+        // Peach deep, darkened to the 7 to 1 floor of a Finnish line (src/styles/contrast-pairs.ts).
+        expect(mark?.colour).toBe('rgb(127, 54, 24)')
+        expect(mark?.weight).toBe(group === 'How people say it' ? '700' : '400')
+      }
+      // Still named for screen readers, once per line.
+      await expect(feedback.getByText(', the missing word')).toHaveCount(2)
+    })
+  }
+
+  test('[redesign 2] the changed word box stays on Hear it', async ({ page }) => {
+    await open(page)
+    await hearIt(page)
+    await expect(page.locator('[data-line-id] [lang="fi"] span[class*="changed"]').first()).toBeVisible()
+  })
+
   test('[redesign 30] Say it, try again: the peach note above the record button, which is now "Try again", "Play mine" small, and Next line stays (job 10)', async ({
     page,
     browserName,
