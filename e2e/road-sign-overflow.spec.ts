@@ -6,21 +6,29 @@ import { mockHome } from './road-mocks.ts'
 // Follow up 19-sign-overflow of job 19-redesign. Labels in brackets are the
 // "Done when" statement numbers from factory/jobs/19-redesign/spec.md
 // (13: the signs, 20: the card never covers a sign and nothing scrolls
-// sideways, 46: large text). The run after the merge found road signs past the
-// edge of a 320 px screen with text at 200 percent. A sign was placed with its
+// sideways, 46: large text). The runs after the merge found road signs past the
+// edge of 320 px and 375 px screens with text at 200 percent. A sign was placed with its
 // board centred on its pole and pulled back inside the screen by a script one
 // frame later, so for a frame or two it stood past the edge. These tests look
 // at every frame, not only at the end.
 //
-// The stop names are the real ones, read from content/road/road-report.md (the
-// A1 road job 20 imported), so a longer real name is tested the day it lands.
+// The stop names are the published ones: the names the migration that loads
+// the road stops writes into public.road_stops, which GET /api/road serves on
+// the test project. A longer real name is tested the day it lands. They are
+// checked against content/road/road-report.md, the road job 20 imported.
 
-const REPORT = readFileSync('content/road/road-report.md', 'utf8')
+const STOPS_SQL = readFileSync('supabase/migrations/20261101120100_load_road_stops.sql', 'utf8')
+const unquote = (text: string) => text.replaceAll("''", "'")
 const REAL_NAMES = new Map(
-  [...REPORT.matchAll(/^## Stop (\d+)\. (.+)$/gm)].map((match) => [
+  [...STOPS_SQL.matchAll(/^\s+\((\d+), '[a-z0-9-]+', \d+, '((?:[^']|'')+)',/gm)].map((match) => [
     Number(match[1]),
-    (match[2] ?? '').trim(),
+    unquote(match[2] ?? ''),
   ]),
+)
+const REPORT_NAMES = new Map(
+  [...readFileSync('content/road/road-report.md', 'utf8').matchAll(/^## Stop (\d+)\. (.+)$/gm)].map(
+    (match) => [Number(match[1]), (match[2] ?? '').trim()],
+  ),
 )
 const LONGEST = [...REAL_NAMES.entries()].reduce((a, b) => (b[1].length > a[1].length ? b : a))
 
@@ -89,54 +97,62 @@ const LARGE_TEXT_FROM_THE_START = `document.addEventListener('DOMContentLoaded',
   document.head.appendChild(style)
 })`
 
-test.describe('road signs at 320 px with text at 200 percent', () => {
-  test('[redesign 13] the longest real stop name is read from the content', () => {
-    expect(REAL_NAMES.size).toBeGreaterThanOrEqual(36)
+// A small phone and the project's phone size (Playwright's 375 x 812).
+const SCREENS = [
+  [320, 640],
+  [375, 812],
+] as const
+
+test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
+  test('[redesign 13] the longest published stop name is read from the road stops migration', () => {
+    expect(REAL_NAMES.size).toBe(36)
+    expect(REAL_NAMES).toEqual(REPORT_NAMES)
     expect(LONGEST[1].length).toBeGreaterThanOrEqual(30)
   })
 
-  for (const [place, done] of PLACES) {
-    test(`[redesign 20] [redesign 46] text grown to 200 percent: no sign stands past the screen edge in any frame, longest real name as the ${place} sign`, async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 320, height: 640 })
-      await realRoad(page, done)
-      await page.goto('/')
-      const list = page.getByRole('list', { name: 'Stops on your road' })
-      await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
-      await page.waitForTimeout(500)
-      const frames = await page.evaluate<Frame[]>(`${WATCH}(true)`)
-      expect(frames.length).toBeGreaterThan(10)
-      expect(frames.filter((frame) => frame.out.length > 0)).toEqual([])
-    })
-
-    test(`[redesign 20] [redesign 46] text at 200 percent from the start: no sign stands past the screen edge in any frame, longest real name as the ${place} sign`, async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 320, height: 640 })
-      await page.addInitScript(LARGE_TEXT_FROM_THE_START)
-      await realRoad(page, done)
-      await page.goto('/')
-      // Watch from the first frame the signs are on the page.
-      await page.waitForSelector('ol[aria-label="Stops on your road"] > li', { state: 'attached' })
-      const frames = await page.evaluate<Frame[]>(`${WATCH}(false)`)
-      expect(frames.some((frame) => frame.signs > 0)).toBe(true)
-      expect(frames.filter((frame) => frame.out.length > 0)).toEqual([])
-      // The current sign and the one after it always show. At this size the road shows fewer signs, so a
-      // done sign may be left out; whatever shows is whole. No name is cut: a name too long for one line wraps.
-      const list = page.getByRole('list', { name: 'Stops on your road' })
-      await expect(list.locator('li[data-state="current"]')).toHaveCount(1)
-      await expect(list.getByRole('listitem')).not.toHaveCount(0)
-      if (place !== 'done')
+  for (const [width, height] of SCREENS)
+    for (const [place, done] of PLACES) {
+      test(`[redesign 20] [redesign 46] ${String(width)} px, text grown to 200 percent: no sign stands past the screen edge in any frame, longest real name as the ${place} sign`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height })
+        await realRoad(page, done)
+        await page.goto('/')
+        const list = page.getByRole('list', { name: 'Stops on your road' })
         await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
-      const boards = await page.evaluate<{ text: string; scroll: number; client: number }[]>(
-        `[...document.querySelectorAll('ol[aria-label="Stops on your road"] > li [aria-hidden="true"]')].filter((el) => el.matches('span') && el.lastElementChild).map((board) => ({ text: board.textContent, scroll: board.scrollWidth, client: board.clientWidth }))`,
-      )
-      expect(boards.length).toBeGreaterThanOrEqual(2)
-      if (place !== 'done') expect(boards.map((board) => board.text).join(' ')).toContain(LONGEST[1])
-      for (const board of boards) expect(board.scroll, board.text).toBeLessThanOrEqual(board.client + 1)
-    })
-  }
+        await page.waitForTimeout(500)
+        const frames = await page.evaluate<Frame[]>(`${WATCH}(true)`)
+        expect(frames.length).toBeGreaterThan(10)
+        expect(frames.filter((frame) => frame.out.length > 0)).toEqual([])
+      })
+
+      test(`[redesign 20] [redesign 46] ${String(width)} px, text at 200 percent from the start: no sign stands past the screen edge in any frame, longest real name as the ${place} sign`, async ({
+        page,
+      }) => {
+        await page.setViewportSize({ width, height })
+        await page.addInitScript(LARGE_TEXT_FROM_THE_START)
+        await realRoad(page, done)
+        await page.goto('/')
+        // Watch from the first frame the signs are on the page.
+        await page.waitForSelector('ol[aria-label="Stops on your road"] > li', { state: 'attached' })
+        const frames = await page.evaluate<Frame[]>(`${WATCH}(false)`)
+        expect(frames.some((frame) => frame.signs > 0)).toBe(true)
+        expect(frames.filter((frame) => frame.out.length > 0)).toEqual([])
+        // The current sign and the one after it always show. At this size the road shows fewer signs, so a
+        // done sign may be left out; whatever shows is whole. No name is cut: a name too long for one line wraps.
+        const list = page.getByRole('list', { name: 'Stops on your road' })
+        await expect(list.locator('li[data-state="current"]')).toHaveCount(1)
+        await expect(list.getByRole('listitem')).not.toHaveCount(0)
+        if (place !== 'done')
+          await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
+        const boards = await page.evaluate<{ text: string; scroll: number; client: number }[]>(
+          `[...document.querySelectorAll('ol[aria-label="Stops on your road"] > li [aria-hidden="true"]')].filter((el) => el.matches('span') && el.lastElementChild).map((board) => ({ text: board.textContent, scroll: board.scrollWidth, client: board.clientWidth }))`,
+        )
+        expect(boards.length).toBeGreaterThanOrEqual(2)
+        if (place !== 'done') expect(boards.map((board) => board.text).join(' ')).toContain(LONGEST[1])
+        for (const board of boards) expect(board.scroll, board.text).toBeLessThanOrEqual(board.client + 1)
+      })
+    }
 
   test('[redesign 13] at 375 px and normal text every sign is a one line pill with its pole under it, and upcoming signs have no number', async ({
     page,
@@ -175,15 +191,16 @@ test.describe('road signs at 320 px with text at 200 percent', () => {
 })
 
 test.describe('road signs on the reference page', () => {
-  test('[design 7] [redesign 46] the moment text grows to 200 percent at 320 px, every road sign on the reference page is already inside the screen', async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 320, height: 812 })
-    await page.goto('/design-reference')
-    await expect(page.getByRole('heading', { level: 1, name: 'Design reference' })).toBeVisible()
-    await page.evaluate('document.fonts.ready')
-    // The text grows and the signs are measured in the same task, before any script can run between.
-    const past = await page.evaluate<string[]>(`(() => {
+  for (const width of [320, 375])
+    test(`[design 7] [redesign 46] the moment text grows to 200 percent at ${String(width)} px, every road sign on the reference page is already inside the screen`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 812 })
+      await page.goto('/design-reference')
+      await expect(page.getByRole('heading', { level: 1, name: 'Design reference' })).toBeVisible()
+      await page.evaluate('document.fonts.ready')
+      // The text grows and the signs are measured in the same task, before any script can run between.
+      const past = await page.evaluate<string[]>(`(() => {
       const style = document.createElement('style')
       style.textContent = 'html { font-size: 200% !important; }'
       document.head.appendChild(style)
@@ -192,6 +209,6 @@ test.describe('road signs on the reference page', () => {
         .filter((li) => li.getBoundingClientRect().right > width + 0.5 || li.getBoundingClientRect().left < -0.5)
         .map((li) => li.getAttribute('data-state') + ' ' + li.getAttribute('data-stop'))
     })()`)
-    expect(past).toEqual([])
-  })
+      expect(past).toEqual([])
+    })
 })
