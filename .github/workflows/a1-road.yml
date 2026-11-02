@@ -32,7 +32,7 @@ on:
         description: What to do
         required: true
         type: choice
-        options: [import, analyse, count-characters, voice, judge, review-pages]
+        options: [import, analyse, count-characters, voice, judge, review-pages, publish]
       part:
         description: The part, 1 to 6, or all (only count-characters and judge accept all)
         required: true
@@ -98,6 +98,16 @@ jobs:
             count-characters) python scripts/generate/road_import.py count-characters "${part_args[@]}" ;;
             review-pages) python scripts/generate/pipeline.py review-pages --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
           esac
+      - name: Publish one approved part (no key)
+        # Needs the owner's approval file content/approvals/part-<n>.json on main. Writes the part's
+        # migrations, its audio under public/audio/ and the published road's pgTAP test. The manager
+        # commits them on a branch, runs the checks and merges.
+        if: inputs.task == 'publish'
+        env:
+          PART: ${{ inputs.part }}
+        run: |
+          python scripts/generate/pipeline.py publish-part --part "$PART"
+          python scripts/generate/road_pgtap.py
       - name: Voice the part (the Azure key is here and nowhere else)
         if: inputs.task == 'voice'
         env:
@@ -130,6 +140,9 @@ jobs:
           if [ "$TASK" = voice ] || [ "$TASK" = judge ]; then
             cp -r content/drafts "$RUNNER_TEMP/road-out/drafts"
             cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+          if [ "$TASK" = publish ]; then
+            git ls-files --others --modified --exclude-standard -- supabase public               | while IFS= read -r f; do cp --parents "$f" "$RUNNER_TEMP/road-out/"; done
           fi
       - name: Check the files to upload hold no secret value
         id: upload-guard
