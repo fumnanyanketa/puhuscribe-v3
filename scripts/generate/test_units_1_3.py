@@ -322,7 +322,47 @@ def test_each_dialogue_is_a_committed_review_pack_from_the_real_providers(slug):
     assert draft["brief_path"] == f"content/briefs/{slug}.json"
     assert draft["brief"] == load_brief(BRIEFS / f"{slug}.json")
     assert "Review page: review/round-1.html" in (folder / "run.log").read_text(encoding="utf-8")
-    assert not (REPO / "public" / "audio" / slug).exists()
+    # Job 12 published nothing. The owner later approved these dialogues as part of the A1 road
+    # (job 20, statement 20), so their clips may be served, but only under that approval.
+    audio = REPO / "public" / "audio" / slug
+    if audio.exists():
+        assert owner_approved(slug), (
+            f"public/audio/{slug} exists, but no owner approval file lists {slug} "
+            "with its current fingerprint"
+        )
+        assert served_clips(audio) == approved_clips(draft)
+
+
+def owner_approved(slug: str) -> bool:
+    """True when the owner's approval file for the draft's part is valid and lists the slug with the
+    fingerprint of the committed draft (job 20-a1-road, statement 20)."""
+    from road_publish import part_of, read_approval, road_fingerprint
+
+    draft = committed(slug)
+    approval, _ = read_approval(part_of(draft), REPO)
+    return approval is not None and approval["dialogues"].get(slug) == road_fingerprint(draft)
+
+
+def served_clips(audio: Path) -> dict[str, str]:
+    """Every file under public/audio/<slug>, by key, with its SHA-256."""
+    return {
+        path.relative_to(audio.parent).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(audio.rglob("*"))
+        if path.is_file()
+    }
+
+
+def approved_clips(draft: dict) -> dict[str, str]:
+    """The published key and SHA-256 of both clips of every line of the draft, as the publisher names them."""
+    from publish import audio_key
+
+    slug = draft["brief"]["dialogue"]["slug"]
+    clips = [
+        line["audio"][register] | {"n": line["n"], "register": register}
+        for line in draft["lines"]
+        for register in ("puhe", "kirja")
+    ]
+    return {audio_key(slug, c["n"], c["register"], c["sha256"]): c["sha256"] for c in clips}
 
 
 @pytest.mark.parametrize("slug", sorted(DIALOGUES.values()))
