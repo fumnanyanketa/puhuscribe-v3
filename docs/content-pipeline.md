@@ -99,7 +99,7 @@ It is off unless the owner turns it on. With it off the report says `register ju
 
 ### Running it on GitHub
 
-The manual workflow "A1 road" (`.github/workflows/a1-road.yml`) has the tasks `import`, `analyse`, `count-characters`, `voice` (input part 1 to 6, optional `only` for one dialogue), `judge` and `review-pages`. It needs Linux with Voikko, so it runs on GitHub. `voice` is the only step with the Azure key and `judge` the only step with the Anthropic key. Voiced clips, changed drafts and reports come back as an artifact; the manager commits them once, under `content/drafts/<slug>/audio/`. `python scripts/generate/road_import.py count-characters` prints the exact number of characters a part needs; a run refuses to start when this month's logged characters plus the new ones would pass 450,000 (90 percent of the free allowance). Azure's free tier allows 20 requests a minute, so a part of about 270 clips takes about 15 minutes.
+The manual workflow "A1 road" (`.github/workflows/a1-road.yml`) has the tasks `import`, `analyse`, `count-characters`, `voice` (input part 1 to 6, optional `only` for one dialogue), `judge`, `review-pages` and `publish` (see "Publishing a part" below). It needs Linux with Voikko, so it runs on GitHub. `voice` is the only step with the Azure key and `judge` the only step with the Anthropic key. Voiced clips, changed drafts and reports come back as an artifact; the manager commits them once, under `content/drafts/<slug>/audio/`. `python scripts/generate/road_import.py count-characters` prints the exact number of characters a part needs; a run refuses to start when this month's logged characters plus the new ones would pass 450,000 (90 percent of the free allowance). Azure's free tier allows 20 requests a minute, so a part of about 270 clips takes about 15 minutes.
 
 The manager commits the voice log (`content/logs/ai-calls.jsonl`) after every voice run and before the next one. The Azure character guard (450,000 a month) adds up the characters in that log as the checkout holds it, so a run whose log was never committed would be forgotten by the next run on a fresh checkout. The `voice` task therefore refuses to start when the log in the working tree has changes git does not hold. The free tier itself refuses calls past 500,000 characters and `voice.py` refuses any other tier, so this is a rule about the guard, not about money. A wait that Azure asks for (`Retry-After`) is never longer than 60 seconds.
 
@@ -108,6 +108,15 @@ One form id carries the same texts in every draft. Every form the road files hol
 ### The owner's approval and publishing
 
 The owner approves each part in writing. The manager adds `content/approvals/part-<n>.json` (see [data-model.md](data-model.md#the-owners-approval-file)). `python scripts/generate/pipeline.py publish-part --part <n>` then writes one migration per dialogue in stop and dialogue order, with explicit timestamps one minute apart after every migration on main, and copies the clips to `public/audio/`. It refuses, naming every reason, and writes nothing, when the approval file is missing, a dialogue is not listed or its fingerprint differs, a check fails, a clip is missing or fake, word notes are missing, the judge's state differs or a dialogue of the part fails. The unit row is made from `road_stops`, and the stop is approved only in the migration of its last dialogue.
+
+### Publishing a part
+
+1. The manager commits the owner's approval file, made with `road_publish.make_approval` from the owner's written line, on a branch.
+2. Run the "A1 road" workflow on that branch with task `publish` and the part (1 to 6; `all` is refused): `gh workflow run a1-road.yml --ref <branch> -f task=publish -f part=<n>`. The step holds no key. It runs `pipeline.py publish-part --part <n>`, then `road_pgtap.py`.
+3. Download the artifact `road-publish-<n>`. It holds only the files the run added or changed under `supabase/` and `public/`, after the secret check: the part's publish migrations, its clips under `public/audio/` and the regenerated `supabase/tests/database/a1_road_published.test.sql`. Commit them as they are. Never edit them by hand; if one must change, change the publisher and run the task again.
+4. Run the full checks and wait for the owner's approval before the merge.
+
+The checks then guard the part. A road line must point at its approval file, `content/approvals/part-<n>.json#<slug>/line-<k>` (`content_publish.test.sql` and `a1_road_published.test.sql`), and the clips of the six job 12 dialogues may exist only while an approval file lists the dialogue with its current fingerprint (`test_units_1_3.py`). Part 1 was published this way on 2 November 2026 by run 41456546183.
 
 ### How a reviewer's fix comes back
 

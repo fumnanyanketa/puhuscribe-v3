@@ -407,6 +407,39 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     ]
 
 
+def test_a1_road_19_a1_road_21_the_publish_task_holds_no_key_and_uploads_only_what_it_wrote():
+    """[a1-road 19] [a1-road 21] the publish task takes one part, runs publish-part and the road pgTAP maker
+    with no key and no input written into its commands, and gathers only new or changed files under
+    supabase/ and public/, which the secret check reads before the upload."""
+    text = (REPO / ".github" / "workflows" / "a1-road.yml").read_text(encoding="utf-8")
+    assert re.search(r"options: \[[^\]]*\bpublish\]", text)
+    steps = {s.split("\n")[0]: s for s in re.split(r"\n      - ", text)}
+    publish = steps["name: Publish one approved part (no key)"]
+    assert "if: inputs.task == 'publish'" in publish
+    assert "secrets." not in publish and "_KEY" not in publish
+    run = publish.split("run: |", 1)[1]
+    assert "${{" not in run
+    assert [ln.strip() for ln in run.strip().splitlines()] == [
+        'python scripts/generate/pipeline.py publish-part --part "$PART"',
+        "python scripts/generate/road_pgtap.py",
+    ]
+    # "all" is refused for publish: only these tasks accept it.
+    check = steps["name: Check the inputs"]
+    accept_all = set(re.findall(r'"\$TASK" != ([a-z-]+)', check))
+    assert accept_all == {"count-characters", "judge", "import", "analyse"}
+    gather = steps["name: Gather what the run changed"]
+    block = gather.split('if [ "$TASK" = publish ]; then', 1)[1].split("\n          fi", 1)[0]
+    assert "git ls-files --others --modified --exclude-standard -- supabase public" in block
+    assert 'cp --parents "$f" "$RUNNER_TEMP/road-out/"' in block
+    names = list(steps)
+    assert (
+        names.index("name: Gather what the run changed")
+        < names.index("name: Check the files to upload hold no secret value")
+        < names.index("name: Keep the result")
+    )
+    assert "steps.upload-guard.outcome == 'success'" in steps["name: Keep the result"]
+
+
 def test_a1_road_19_every_action_in_the_workflow_is_pinned_to_a_full_commit():
     """[a1-road 19] each `uses:` is owner/name@ plus 40 hex characters, with the version in a comment."""
     text = (REPO / ".github" / "workflows" / "a1-road.yml").read_text(encoding="utf-8")

@@ -8,8 +8,10 @@
 -- learner: the unit, the dialogue, every line with both texts, the meaning, both
 -- audio keys and an approval_ref pointing at a review file, and a form with a
 -- name and a "why" behind every word that has one. These reads also cover every
--- dialogue really published by then. Last, it re-approves a unit and a form
--- (factory/todo.md, from job 3-data-model).
+-- dialogue really published by then: a dialogue on the A1 road (its unit has a
+-- stop number) points instead at the owner's approval file of its part,
+-- content/approvals/part-<n>.json#<slug>/line-<n> (job 20-a1-road, statement 20).
+-- Last, it re-approves a unit and a form (factory/todo.md, from job 3-data-model).
 
 begin;
 
@@ -372,13 +374,17 @@ select is((select count(*) from public.tokens t join public.forms f on f.id = t.
   '[content 16] every word that links to a form links to an approved form '
   'with a name, a why and a review reference');
 select is((select count(*) from public.dialogue_lines l join public.dialogues d on d.id = l.dialogue_id
-  where not (coalesce(btrim(l.text_puhe), '') <> '' and coalesce(btrim(l.text_kirja), '') <> ''
+  left join public.units u on u.id = d.unit_id left join public.road_stops s on s.number = u.stop_number
+  where not coalesce((coalesce(btrim(l.text_puhe), '') <> '' and coalesce(btrim(l.text_kirja), '') <> ''
     and coalesce(btrim(l.gloss_en), '') <> ''
     and l.audio_puhe_key ~ ('^' || d.slug || '/' || l.position || '-puhe-[0-9a-f]{12}[.]mp3$')
     and l.audio_kirja_key ~ ('^' || d.slug || '/' || l.position || '-kirja-[0-9a-f]{12}[.]mp3$')
-    and l.approval_ref like ('content/reviews/' || d.slug || '/%.json#line-' || l.position))), 0::bigint,
-  '[content 16] every line a learner can read, in every published dialogue, '
-  'is complete and points at a review file');
+    and coalesce(case when u.stop_number is null
+      then l.approval_ref like ('content/reviews/' || d.slug || '/%.json#line-' || l.position)
+      else l.approval_ref = ('content/approvals/part-' || s.part_number || '.json#' || d.slug
+        || '/line-' || l.position) end, false)), false)), 0::bigint,
+  '[content 16] [a1-road 20] every line a learner can read, in every published dialogue, '
+  'is complete and points at its review file, or on the road at the owner approval file of its part');
 select is((select count(*) from public.tokens t where t.form_id is not null and not exists (
     select 1 from public.forms f
     where f.id = t.form_id and btrim(f.form_name_en) <> '' and btrim(f.why_en) <> '')),
