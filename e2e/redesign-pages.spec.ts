@@ -258,6 +258,28 @@ test.describe('Voice settings', () => {
     )
   })
 
+  // Round 5 (evaluator, statement 47): Safari does not focus a tapped button, so the switch must be given focus
+  // back by the sheet. The tap here is a mousedown that cannot move focus, as on an iPhone.
+  test('[redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the switch', async ({
+    page,
+  }) => {
+    await mockAccount(page, { processing: 'not_asked' })
+    await page.goto('/voice')
+    const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
+    await expect(speaking).toHaveAttribute('aria-checked', 'false')
+    await page.evaluate("document.addEventListener('mousedown', (event) => event.preventDefault(), true)")
+    for (const how of ['Not now', 'Escape', 'the dimmed page'] as const) {
+      await speaking.click()
+      const sheet = page.getByRole('dialog', { name: 'Say it out loud' })
+      await expect(sheet).toBeVisible()
+      if (how === 'Not now') await sheet.getByRole('button', { name: 'Not now' }).click()
+      else if (how === 'Escape') await page.keyboard.press('Escape')
+      else await page.mouse.click(187, 8)
+      await expect(sheet).toBeHidden()
+      await expect(speaking, `after ${how}`).toBeFocused()
+    }
+  })
+
   test('[redesign 36] turning speaking feedback on shows the consent sheet; nothing is sent until "Turn on"', async ({
     page,
   }) => {

@@ -278,6 +278,53 @@ const SHOTS: Shot[] = [
     },
   },
   {
+    drawing: 'A 21 letter tappable word after other words',
+    file: 'tappable-long-word',
+    run: async (page) => {
+      await mockLesson(page, {})
+      const word = 'terveyskeskuslääkärin'
+      const form = {
+        lemma: 'terveyskeskuslääkäri',
+        formName: 'Genitive',
+        why: 'A made up reason.',
+        spoken: word,
+        written: word,
+      }
+      const words = [
+        { text: 'Missä' },
+        { text: 'on' },
+        { text: word, form },
+        { text: 'vastaanotto', after: '?' },
+      ]
+      await page.route('**/api/sessions/today', (route) =>
+        route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            state: 'ready',
+            session: { id: 's1', step: null },
+            unit: { title: 'U', canDo: 'C' },
+            dialogue: { title: 'D' },
+            lines: [
+              {
+                id: 1,
+                speaker: 'Pekka',
+                gloss: 'Where is the health centre doctor’s office?',
+                spokenAudio: '/audio/a.wav',
+                writtenAudio: '/audio/b.wav',
+                spoken: words,
+                written: words,
+              },
+            ],
+          }),
+        }),
+      )
+      await page.goto('/session')
+      await page.evaluate('document.fonts.ready')
+      await page.waitForTimeout(600)
+    },
+  },
+  {
     drawing: 'Something went wrong',
     file: 'something-went-wrong',
     run: async (page) => {
@@ -344,6 +391,7 @@ const SMALL_SCREENS = [
   'keep-it',
   'lesson-finished',
   'long-word',
+  'tappable-long-word',
   'account-guest',
   'create-account',
   'voice-settings',

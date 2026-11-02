@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, type Ref } from 'react'
 import styles from './Switch.module.css'
 
 // A switch (design.md, "Switches"): a real switch with a name, one press
@@ -18,6 +18,8 @@ interface SwitchProps {
   disabled?: boolean
   /** What a screen reader hears while the change is saved. */
   busyLabel?: string
+  /** The switch itself, so a sheet it opens can give focus back to it (React 19 passes ref as a prop). */
+  ref?: Ref<HTMLButtonElement>
 }
 
 export function Switch({
@@ -28,6 +30,7 @@ export function Switch({
   busy = false,
   disabled = false,
   busyLabel,
+  ref,
 }: SwitchProps) {
   const labelId = useId()
   const hintId = useId()
@@ -44,6 +47,7 @@ export function Switch({
         )}
       </div>
       <button
+        ref={ref}
         type="button"
         role="switch"
         className={styles.switch}

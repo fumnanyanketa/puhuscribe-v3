@@ -273,6 +273,25 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await expect(button).toBeFocused()
   })
 
+  // Round 5 (evaluator, statement 47): Safari does not focus a tapped button. A mousedown that cannot move
+  // focus does the same here, so the panel must give focus back to its button by itself.
+  test('[units 10] [redesign 47] after a tap that does not focus a button, Close and Escape still give focus back to the Patterns button', async ({
+    page,
+  }) => {
+    await startSession(page)
+    await page.evaluate("document.addEventListener('mousedown', (event) => event.preventDefault(), true)")
+    const { card, button } = await openPanel(page)
+    await panelOf(page).getByRole('button', { name: 'Close' }).click()
+    await expect(panelOf(page)).toBeHidden()
+    await expect(card).toBeVisible()
+    await expect(button).toBeFocused()
+    await button.click()
+    await expect(panelOf(page)).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(panelOf(page)).toBeHidden()
+    await expect(button).toBeFocused()
+  })
+
   test('[units 11] two learners: each sees only the forms they met, with the earliest met line, and never draft, retired or unmet forms', async ({
     page,
     browser,

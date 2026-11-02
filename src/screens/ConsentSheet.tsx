@@ -1,4 +1,4 @@
-import { useId, useRef, type ReactNode } from 'react'
+import { useId, useRef, type ReactNode, type RefObject } from 'react'
 import { Button } from '../components/Button.tsx'
 import { Sheet } from '../components/Sheet.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
@@ -35,14 +35,24 @@ interface ConsentSheetProps {
   problem?: ReactNode
   onTurnOn: () => void
   onNotNow: () => void
+  /** The control that opened the sheet, when there is one: focus goes back to it (Safari does not focus a tapped button). */
+  returnFocus?: RefObject<HTMLElement | null>
 }
 
-export function ConsentSheet({ open, region, busy, problem, onTurnOn, onNotNow }: ConsentSheetProps) {
+export function ConsentSheet({
+  open,
+  region,
+  busy,
+  problem,
+  onTurnOn,
+  onNotNow,
+  returnFocus,
+}: ConsentSheetProps) {
   const titleId = useId()
   const title = useRef<HTMLHeadingElement>(null)
   const notice = voiceNotice(region)
   return (
-    <Sheet open={open} labelledBy={titleId} onClose={onNotNow} initialFocus={title}>
+    <Sheet open={open} labelledBy={titleId} onClose={onNotNow} initialFocus={title} returnFocus={returnFocus}>
       <h2 id={titleId} ref={title} tabIndex={-1} className={styles.title}>
         {CONSENT_TITLE}
       </h2>

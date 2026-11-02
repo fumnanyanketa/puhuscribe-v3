@@ -1,46 +1,50 @@
-# Build notes: 19-redesign, round 4
+# Build notes: 19-redesign, round 5
 
-Branch `factory/19-redesign`, rebased onto `origin/main` (job 20 and its voice fix are merged) and force pushed with lease. No pull request was opened and nothing was merged. This file is in the worktree. Round 4 answers the evaluator's failures (`evaluation.md`, commit `d19ad40`). The tested commit is `2ef3ad3`.
+Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 5 answers the two failures of the round 4 re-evaluation (`evaluation.md`, commit `8aa2598`). The tested commit is `__COMMIT__`.
 
-## Round 4: what changed
+## Round 5: what changed
 
 | # | Item | What I did | Protected by |
 | --- | --- | --- | --- |
-| 1 | Statements 5 and 46: a 44 letter Finnish word ran past the card | Cause: `.keep { white-space: nowrap }` in `FinnishLine.module.css`. Job 8 added it so a "?" or a comma never drops onto a row of its own after a word. The span stays `nowrap`, so that still holds, but inside it the plain word and the word button now take `white-space: normal` and `overflow-wrap: anywhere`, so a long word breaks where it must. A tappable word is now an inline block with its punctuation inside the button (hidden from screen readers, so the button's name is still the word), so a wrapped word keeps its "?" at the end of the last piece. | `e2e/redesign-lesson.spec.ts` `[redesign 46] [redesign 5]`: four variants (a plain word alone, a tappable word alone, and each in the middle of a line with punctuation). Each measures the box of every word against the line it sits in, and that no punctuation is alone on a row. They go red on the old CSS (proofs 1 and 2). A fifth test keeps job 8's protection: at 320 px a line of short words with punctuation wraps between words and no mark is left alone. The old test looked at the group's box, which a word running past the card does not widen, so it passed for the wrong reason. It is replaced. |
-| 2 | Statement 22: focus lands on the body in WebKit after a tap | `Sheet` takes `returnFocus`, the control that opened it, and focuses it explicitly on close. The leave sheet passes the cross. | Two tests tap the cross and then "Keep going", the dimmed page, or press Escape, with a mousedown that is not allowed to move focus (what Safari does when a button is tapped). They behave like an iPhone in every browser, also on the Linux WebKit of the checks. They are red without the fix (proof 3), in Chromium too. |
-| 3 | Statement 43: races | `dismissTip` and `leaveLesson` wait for the screen to settle (`sheetsSettled`: the "Loading speaking feedback." line is gone, then two frames, because a sheet opens in an effect right after the screen is drawn) before they look for a sheet. `addEmail` waits for "Your email is added. Your progress is saved to your account." before a test reads the database, so `[save-progress 19]` waits for the saved state. No test was weakened. | `e2e/redesign-lesson.spec.ts`: with the voice settings held back 900 ms, `sheetsSettled` does not come back early, the consent sheet is open when it does, and the helper leaves the lesson (red when the wait is removed, proof 6). The `[save-progress 19]` race needs the database, so it is covered by the GitHub runs and not by a local break. |
-| 4 | A fast double tap on "Next line" skipped a line | A press is ignored when it is the second click of a double click, or a finger tap that follows another within 450 ms (`useSteadyPress`). Presses by a mouse, one at a time, and presses after a pause count as before. Used in Hear it and in Say it. | `e2e/redesign-lesson.spec.ts` `[redesign 24]`: a double click and two quick finger taps move one line and a later press moves the next; the same for Say it (proofs 4 and 5). |
-| 5 | Rebase and the real road | Rebased onto `origin/main` (one conflict, the conventions table, where both job rows stay). Where a real Worker runs (GitHub, or `PUHUSCRIBE_REAL_ROAD=1`) the browser tests no longer answer the road from the fixture; the mock based redesign specs still do, because they set how many lessons are done. New `e2e/real-road.spec.ts` (`@seed`) runs against `GET /api/road`: a visitor gets all stops with no progress and no cookie; the day one road shows the real first stop, five signs and Start; a guest reads the same stops from the learner route and sees stop 1 as the current sign. I corrected the note that said job 20 refuses visitors with a 401 (it answers 200 through `road_for_visitors`). `meaning_en` is not wired into the session payload. | `e2e/real-road.spec.ts`, and every database backed spec now loads the real road. |
+| 1 | Statement 46: a tappable long word after other words ran into the row above, and its pieces were centred | Both causes were the evaluator's. The 44 px tap area was a negative margin only, which made sense for a one row button, but a button of several rows then had its first row pulled up 9 px over the row above. The tap area is now padding inside the button (`--pad`, what 44 px needs above and below one row of text) that the negative margin cancels, so the text stays on the line's rows. The button also gets `text-align: start`, so the pieces of a wrapped word start at the left and no piece such as "rin" is centred. One row buttons look as before. | `e2e/redesign-lesson.spec.ts` `[redesign 46] [redesign 5]`, in Hear it and in Say it, both browsers: a tappable word after other words (the 21 letter `terveyskeskuslääkärin` in Hear it, a longer one in Say it, whose card is wider) is measured by its text: the first piece may sit no more than 1 px above the bottom of the text row above, and every piece after the first starts at the button's left edge. Both go red on the old CSS (proofs 1 and 2). The row overlap was 9.09 px before, as the evaluator measured. |
+| 2 | Statement 47: focus lands on the body after a tap in Voice settings | `Switch` takes a `ref`, and `ConsentSheet` takes `returnFocus`; Voice settings passes its Speaking feedback switch. Every other use of a sheet was checked the same way (see below). | `e2e/redesign-pages.spec.ts` `[redesign 47]`: with a mousedown that cannot move focus (Safari's tap), tapping the switch opens the sheet and "Not now", Escape and the dimmed page each give focus back to the switch (proof 3). |
 
-Also: the consent sheet in Voice settings still returns focus the old way (a switch opens it; only the leave sheet was in the evaluator's statement). Screenshots were retaken, with a new one for the 44 letter word (`29-long-word-*`). `design.md` has the lines about long words and the sheet's `returnFocus`. The road bend stays at 48 for the owner to decide.
+Every place that opens a dialog, each tested with a Safari style tap:
 
-## Round 4: the stop hook
+- The leave sheet (cross): fixed in round 4, tested.
+- The consent sheet in Voice settings: fixed here (above).
+- The consent sheet in Say it. It opens by itself when Say it appears, so it has no opener, but the quiet "Turn on speaking feedback" button of the "Not now" state opens it too, and that button is hidden while the sheet is open. Focus is now given back to it by hand once the sheet has closed. Test: `[redesign 47]` in `e2e/redesign-lesson.spec.ts` with "Not now", Escape and the dimmed page (proof 4).
+- The word card (a word of a line, and a chip on the finish screen): `FinnishLine` gives focus back to the word itself. Test: `[redesign 47]`, tapped (proof 5).
+- The "Patterns you've seen" panel: it focuses its own button. Tested in the database backed `e2e/patterns.spec.ts` (`[units 10] [redesign 47]`), which runs on GitHub.
+- The first lesson tip is not a sheet and returns focus to "Next line", tested in round 1.
 
-The stop hook complained about `.worktrees/10-speaking-feedback` (`worker/speech-db.ts`). That is another job's worktree, not this one. I did not touch it, and nothing of this job changes that file.
+Also: screenshots were retaken, with a new one for the 21 letter tappable word (`30-tappable-long-word-*`). `design.md` has the lines on the tap area and on which control gets focus back. The road bend stays at 48 for the owner.
 
-## Round 4: earlier tests changed
+## Round 5: evidence folder
 
-- `[redesign 46] a 40 letter Finnish word wraps inside its card at 375 px` is replaced by the stricter tests of item 1 (it passed for the wrong reason).
-- `e2e/account-helpers.ts` `addEmail` waits for the added state (stricter).
-- `e2e/session-helpers.ts` `dismissTip` and `leaveLesson` wait for the screen to settle (stricter).
-- `e2e/road-route.ts`: the real road is the default where a real Worker runs.
-- `e2e/patterns.spec.ts` `openFirstCard`: it named the word card from the button's whole text. A tappable word now has its punctuation inside the button, so the helper reads the word's own face instead (the accessible name and the card's title are unchanged). The first full run found this: all the `[units N]` tests of that file failed with the dialog name "Moi!".
+In round 4 my retake of the screenshots deleted the evaluator's own files from the first evaluation (94 `eval-*.png`), because I cleared every png before taking mine. I restored all of them from git in this round. From now on my retake deletes only the numbered files that I make myself.
 
-No test was removed or weakened.
+## Round 5: earlier tests changed
 
-## Round 4: proof by breaking each new protection
+None. Two assertions of my own round 5 test were tightened while writing it (it compares only the pieces after the first, because the first piece starts after the word's own padding). No earlier test was removed or weakened.
 
-`evidence/proof-by-breaking-round4.md`: 6 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone: the word wrap rule inside a word, the punctuation outside the button, the sheet without `returnFocus`, a second press counting in Hear it and in Say it, and the helpers not waiting for the screen. Nothing from a break was committed.
+## Round 5: proof by breaking each new protection
 
-## Round 4: check results
+`evidence/proof-by-breaking-round5.md`: 5 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone: the old margin with no padding, centred pieces, the Voice settings switch not given focus back, Say it not giving focus back to its quiet button, and the word not getting focus back after its card. Nothing from a break was committed.
 
-- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes (1182 tests). The format check warns only about `design-drafts/` line endings on this Windows copy.
-- The mock based browser files (road, lesson, pages, design reference, design sample) pass in Chromium and WebKit on this computer, except WebKit tests that need a recorder or Tab on buttons, which this Windows WebKit lacks. Those pass on GitHub.
-- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41415511557, tested commit `2ef3ad3`: success. The browser job (Chromium and WebKit, local database) passed 708 tests, among them the three `real-road` tests against the real `GET /api/road` in both browsers; the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check passed. The first run of this round (41412390814) failed only the `[units N]` tests of `e2e/patterns.spec.ts`, whose helper named the word card from the button text, which now holds the punctuation. It is fixed and listed above.
+## Round 5: check results
 
-Result: checks pass
+- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except `tooling 9`, a timing test that fails under load on this machine and passes on GitHub (see round 1's open points).
+- The mock based browser files pass in Chromium and WebKit on this computer, except three WebKit tests that need a recorder or Tab on buttons, which this Windows WebKit lacks. They pass on GitHub.
+- Full run on GitHub: __RUN5__
+
+Result: __FINAL__
 
 ---
+
+# Round 4 (kept short)
+
+Round 4 (commit `2ef3ad3`, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41415511557, passed): long words wrap (`overflow-wrap: anywhere` inside the word, its punctuation inside the button), `Sheet` takes `returnFocus` (the leave sheet gives the cross), a second press of Next line within a double tap is ignored, the browser test helpers wait for the screen to settle and `addEmail` waits for the added state, the road runs against the real `GET /api/road` (job 20 answers visitors with 200 through `road_for_visitors`; a new `real-road` spec), rebased onto `origin/main`. The stop hook complained about `.worktrees/10-speaking-feedback`, which is another job's worktree and not this one. Proof: `evidence/proof-by-breaking-round4.md`.
 
 # Round 3 (kept short)
 

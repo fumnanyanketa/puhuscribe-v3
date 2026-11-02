@@ -129,10 +129,15 @@
    drawn (round 2, design review). */
 .word {
   display: inline-block;
+  /* What the 44 px needs above and below one row of text. It is padding inside the button and a negative
+     margin outside it, so the text stays where the line puts it: a button of several rows (a long word that
+     wraps) neither pulls its first row up over the row above nor leaves its pieces centred (round 5). */
+  --pad: max(0px, calc((var(--tap-min) - var(--leading-line) * 1em) / 2));
   min-width: var(--word-min-width);
   min-height: var(--tap-min);
-  margin: calc((var(--leading-line) * 1em - var(--tap-min)) / 2) -0.08em;
-  padding: 0;
+  margin: calc(-1 * var(--pad)) -0.08em;
+  padding: var(--pad) 0;
+  text-align: start;
   border: 0;
   border-radius: var(--radius-word);
   background: transparent;

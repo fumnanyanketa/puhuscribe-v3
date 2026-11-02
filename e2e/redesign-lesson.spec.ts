@@ -172,6 +172,45 @@ test.describe('the lesson frame and the leave sheet', () => {
     await expect(page.getByRole('dialog', { name: 'How this screen works' })).toBeHidden()
   })
 
+  // Round 5 (evaluator, statement 47): every other place that opens a sheet is checked the same way, with a tap
+  // that does not move focus. (The switch in Voice settings is in e2e/redesign-pages.spec.ts.)
+  test('[redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the dimmed page give focus back to it after a tap', async ({
+    page,
+  }) => {
+    await open(page, { step: 'understand', processing: 'withdrawn' })
+    await expect(page.getByText('Say the line out loud after the voice.')).toBeVisible()
+    await page.evaluate(TAP_DOES_NOT_FOCUS)
+    const opener = page.getByRole('button', { name: 'Turn on speaking feedback' })
+    for (const how of ['Not now', 'Escape', 'the dimmed page'] as const) {
+      await opener.click()
+      const sheet = page.getByRole('dialog', { name: 'Say it out loud' })
+      await expect(sheet).toBeVisible()
+      if (how === 'Not now') await sheet.getByRole('button', { name: 'Not now' }).click()
+      else if (how === 'Escape') await page.keyboard.press('Escape')
+      else await page.mouse.click(187, 8)
+      await expect(sheet).toBeHidden()
+      await expect(opener, `after ${how}`).toBeFocused()
+    }
+  })
+
+  test('[redesign 47] a tap on a word opens its card, and Close and Escape give focus back to the word after a tap that does not focus', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    await page.evaluate(TAP_DOES_NOT_FOCUS)
+    const word = page.locator('[data-line-id]').getByRole('button', { name: 'noi', exact: true })
+    for (const how of ['Close', 'Escape'] as const) {
+      await word.click()
+      const card = page.getByRole('dialog', { name: 'noi' })
+      await expect(card).toBeVisible()
+      if (how === 'Close') await card.getByRole('button', { name: 'Close' }).click()
+      else await page.keyboard.press('Escape')
+      await expect(card).toBeHidden()
+      await expect(word, `after ${how}`).toBeFocused()
+    }
+  })
+
   test('[redesign 22] Escape closes the sheet, the page behind cannot be used or scrolled, and Leave goes to the road', async ({
     page,
   }) => {
@@ -705,7 +744,7 @@ test.describe('phone size, keyboard and screen reader', () => {
   const LONG = 'epäjärjestelmällistyttämättömyydelläänsäkään'
   const aForm = { lemma: 'pitkä', formName: 'Long', why: 'A made up long word.', spoken: LONG, written: LONG }
 
-  async function lessonWith(page: Page, lines: unknown[]) {
+  async function lessonWith(page: Page, lines: unknown[], step: string | null = null) {
     await mockLesson(page)
     await page.route('**/api/sessions/today', (route) =>
       route.fulfill({
@@ -713,7 +752,7 @@ test.describe('phone size, keyboard and screen reader', () => {
         contentType: 'application/json',
         body: JSON.stringify({
           state: 'ready',
-          session: { id: 's1', step: null },
+          session: { id: 's1', step },
           unit: { title: 'U', canDo: 'C' },
           dialogue: { title: 'D' },
           lines,
@@ -721,7 +760,9 @@ test.describe('phone size, keyboard and screen reader', () => {
       }),
     )
     await page.goto('/session')
-    await hearIt(page)
+    await expect(
+      page.getByRole('heading', { level: 1, name: step === null ? 'Hear it' : 'Say it' }),
+    ).toBeVisible()
   }
 
   const lineOf = (id: number, spoken: unknown[], written: unknown[]) => ({
@@ -795,6 +836,72 @@ test.describe('phone size, keyboard and screen reader', () => {
       ).toBe(true)
       // The word is still all there, in one piece for a screen reader.
       await expect(page.locator('[data-line-id] p[lang="fi"]').first()).toContainText(LONG)
+    })
+  }
+
+  // Round 5 (evaluator, statement 46): a tappable word that wraps onto several rows is a tall button. Its
+  // negative block margin then pulled its first row up over the row above, and its pieces were centred (a
+  // lone "rin" in the middle of a row). Padding that is cancelled by the margin keeps the text where the line
+  // puts it, and the pieces start at the left. These tests measure the text itself, not the buttons, with a
+  // real 21 letter word after other words, in the spoken and in the written line, in Hear it and in Say it.
+  const REAL = 'terveyskeskuslääkärin'
+  // A word that wraps in each screen: the 21 letter word in Hear it, a longer one in Say it, whose card has no play
+  // buttons and so a wider line.
+  const wordsWith = (word: string) => [
+    { text: 'Missä' },
+    { text: 'on' },
+    { text: word, form: { ...aForm, spoken: word, written: word } },
+    { text: 'vastaanotto', after: '?' },
+  ]
+
+  /** For each Finnish line: how far the first piece of the tappable word sits above the bottom of the text row above it, and how far apart the left edges of its pieces are. */
+  const wrappedWord = (word: string) =>
+    `(() => [...document.querySelectorAll('[data-line-id] p[lang="fi"]')].map((line) => {
+    const rectsOf = (node) => { const range = document.createRange(); range.selectNodeContents(node); return [...range.getClientRects()].filter((r) => r.width > 1) }
+    const button = [...line.querySelectorAll('button')].find((b) => b.textContent.includes('__REAL__'))
+    const face = button.querySelector('[class*="face"]')
+    const pieces = rectsOf(face.firstChild).sort((a, b) => a.top - b.top)
+    const rows = [...new Set(pieces.map((r) => Math.round(r.top)))].length
+    const others = []
+    const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (!node.textContent.trim() || button.contains(node)) continue
+      others.push(...rectsOf(node))
+    }
+    const above = others.filter((r) => r.bottom <= pieces[0].bottom - 4)
+    const aboveBottom = above.length ? Math.max(...above.map((r) => r.bottom)) : -Infinity
+    // The first piece starts after the word's own padding (the wash); every piece after it starts at the same left edge.
+    const lefts = pieces.slice(1).map((r) => r.left)
+    const buttonLeft = button.getBoundingClientRect().left
+    // How far each piece after the first starts from the button's left edge: 0 when the text is left aligned.
+    const spread = Math.max(0, ...lefts.map((left) => Math.abs(left - buttonLeft)))
+    return { rows, overlap: aboveBottom - pieces[0].top, spread, buttonLeft: button.getBoundingClientRect().left, firstLeft: pieces[0].left }
+  }))()`.replace('__REAL__', word)
+
+  for (const [where, step, word] of [
+    ['Hear it', null, REAL],
+    ['Say it', 'understand', REAL + 'vastaanottolääkäri'],
+  ] as const) {
+    test(`[redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in ${where}`, async ({
+      page,
+    }) => {
+      await lessonWith(page, [lineOf(1, wordsWith(word), wordsWith(word))], step)
+      await expect(page.locator('[data-line-id]')).toBeVisible()
+      const lines = await page.evaluate<
+        { rows: number; overlap: number; spread: number; buttonLeft: number; firstLeft: number }[]
+      >(wrappedWord(word))
+      expect(lines).toHaveLength(2)
+      // The bold spoken line wraps the word; the lighter written line may fit it whole. Every row that does wrap
+      // is checked.
+      expect(
+        lines.some((line) => line.rows > 1),
+        'the word really wrapped',
+      ).toBe(true)
+      for (const line of lines.filter((candidate) => candidate.rows > 1)) {
+        expect(line.overlap, 'the word overlaps the text row above').toBeLessThanOrEqual(1)
+        expect(line.spread, 'the pieces of the word are not left aligned').toBeLessThan(1)
+        expect(line.firstLeft).toBeGreaterThanOrEqual(line.buttonLeft - 1)
+      }
     })
   }
 

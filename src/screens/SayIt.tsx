@@ -111,6 +111,10 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const firstLoad = useRef<ReturnType<typeof loadVoice> | null>(null)
   const playback = usePlayback()
   const steady = useSteadyPress()
+  // The quiet "Turn on speaking feedback" opens the consent sheet and goes while it is open, so focus is given back
+  // to it by hand once the sheet has closed (Safari does not focus a tapped button, round 5).
+  const reopen = useRef<HTMLButtonElement>(null)
+  const reopened = useRef(false)
   const line = lines.at(index)
   const last = index + 1 >= lines.length
 
@@ -155,6 +159,14 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       active = false
     }
   }, [enterRecording])
+
+  // After the consent sheet that the quiet button opened has closed, focus goes back to that button.
+  useEffect(() => {
+    if (mode === 'aloud' && reopened.current) {
+      reopened.current = false
+      reopen.current?.focus()
+    }
+  }, [mode])
 
   // Leaving the screen throws away a recording in progress.
   useEffect(
@@ -336,8 +348,10 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
           )}
           {mode === 'aloud' && settings?.available && (
             <Button
+              ref={reopen}
               variant="quiet"
               onClick={() => {
+                reopened.current = true
                 letGoOfLine()
                 setMode('consent')
               }}

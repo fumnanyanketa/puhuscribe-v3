@@ -39,6 +39,8 @@ export function VoiceSettings() {
   const [asking, setAsking] = useState(false)
   const [busy, setBusy] = useState<string | null>(null)
   const firstLoad = useRef<Promise<VoiceLoad> | null>(null)
+  // The switch that opens the consent sheet gets focus back when the sheet closes (a tap does not focus it in Safari).
+  const speakingSwitch = useRef<HTMLButtonElement>(null)
 
   function show(load: VoiceLoad, done: string, failed: string) {
     if (load.kind === 'signed_out') {
@@ -80,6 +82,7 @@ export function VoiceSettings() {
         <>
           <section className={voice.switches} aria-label="Your choices">
             <Switch
+              ref={speakingSwitch}
               label="Speaking feedback"
               hint={
                 on
@@ -174,6 +177,7 @@ export function VoiceSettings() {
       )}
       <ConsentSheet
         open={asking}
+        returnFocus={speakingSwitch}
         region={state?.region ?? null}
         busy={busy === 'on'}
         onTurnOn={() =>
