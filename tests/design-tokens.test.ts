@@ -199,6 +199,8 @@ describe('colour roles', () => {
         'src/components/WordCard.module.css',
         'src/design-reference/DesignReference.module.css',
         'src/sample/HearItSample.module.css',
+        // The finish screen's written line (job 8, statement 14), drawn small under the spoken one in round 6.
+        'src/screens/Screens.module.css',
       ],
     },
     changed: {
