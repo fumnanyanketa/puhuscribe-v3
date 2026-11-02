@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from 'react'
+import { useId, useRef, useState, type ReactNode } from 'react'
 import { Button } from './Button.tsx'
 import { Landscape } from './Landscape.tsx'
 import { Sheet } from './Sheet.tsx'
@@ -65,6 +65,7 @@ export function SessionFrame({
   const share = finished ? 1 : clamp((number - 1 + clamp(progress)) / steps.length)
   const name = finished ? 'Session finished' : `${step}, step ${String(number)} of ${String(steps.length)}`
   const [leaving, setLeaving] = useState(false)
+  const cross = useRef<HTMLButtonElement>(null)
   const titleId = useId()
   const StepName = stepHeading ? 'h1' : 'p'
   return (
@@ -80,6 +81,7 @@ export function SessionFrame({
           </a>
         ) : (
           <button
+            ref={cross}
             type="button"
             className={styles.leave}
             aria-label="Leave session"
@@ -111,6 +113,7 @@ export function SessionFrame({
       <Sheet
         open={leaving}
         labelledBy={titleId}
+        returnFocus={cross}
         onClose={() => {
           setLeaving(false)
         }}

@@ -99,9 +99,18 @@
   color: var(--color-written);
 }
 
-/* A word and its punctuation: never split across two lines. */
+/* A word and its punctuation: never split across two lines. The span does not wrap, so the "?" or the
+   comma after a word, or the quote before it, never drops onto a row of its own (job 8, design review).
+   Inside it the word itself may wrap when it is too long for the line (round 4, evaluator, statements 5
+   and 46): a 44 letter compound breaks where it must and never runs past the card. */
 .keep {
   white-space: nowrap;
+}
+
+.keep .plain,
+.keep .word {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* A word with no card (such as a name) is plain text. It is not a target, so it needs no height of its own. */
@@ -119,8 +128,7 @@
    hit areas of two rows overlap by a few pixels and the rows stay tight, as
    drawn (round 2, design review). */
 .word {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   min-width: var(--word-min-width);
   min-height: var(--tap-min);
   margin: calc((var(--leading-line) * 1em - var(--tap-min)) / 2) -0.08em;

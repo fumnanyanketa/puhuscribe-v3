@@ -94,7 +94,6 @@ function Words({
       <span key={i}>
         {i > 0 && ' '}
         <span className={styles.keep} data-word="">
-          {word.before}
           <button
             type="button"
             className={styles.word}
@@ -107,10 +106,12 @@ function Words({
               onOpen(which, i)
             }}
           >
+            {/* The punctuation is inside the button, so a word too long for its line wraps with its "?" or its quote at the end of the last piece. Hidden from a screen reader, so the button's name stays the word. */}
+            {word.before && <span aria-hidden="true">{word.before}</span>}
             <span className={face.join(' ')}>{word.text}</span>
             {marker}
+            {word.after && <span aria-hidden="true">{word.after}</span>}
           </button>
-          {word.after}
         </span>
       </span>
     )

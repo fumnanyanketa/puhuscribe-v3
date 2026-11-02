@@ -2,6 +2,7 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { mockLesson, type LessonMocks } from './lesson-mocks.ts'
 import { microphoneCalls, stubMicrophone } from './microphone.ts'
+import { dismissTip, leaveLesson, sheetsSettled } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the lesson's reads and writes
@@ -78,6 +79,43 @@ test.describe('the lesson frame and the leave sheet', () => {
     expect(Number(await next.getAttribute('aria-valuenow'))).toBeGreaterThan(30)
   })
 
+  // Round 4 (evaluator, statement 22): Safari does not focus a button when it is tapped, so what the page
+  // remembers as "the opener" is the body. A mousedown that is not allowed to move focus does the same in
+  // every browser, so these taps behave like a real iPhone's, also on the Linux WebKit the checks run on.
+  const TAP_DOES_NOT_FOCUS = "document.addEventListener('mousedown', (event) => event.preventDefault(), true)"
+
+  test('[redesign 22] a tap on the cross, then a tap on Keep going or on the dimmed page, gives focus back to the cross even where a tap does not focus a button', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    await page.evaluate(TAP_DOES_NOT_FOCUS)
+    const cross = page.getByRole('button', { name: 'Leave session' })
+    for (const how of ['Keep going', 'the dimmed page'] as const) {
+      await cross.click()
+      const sheet = page.getByRole('dialog', { name: 'Leave this lesson?' })
+      await expect(sheet).toBeVisible()
+      if (how === 'Keep going') await sheet.getByRole('button', { name: 'Keep going' }).click()
+      else await page.mouse.click(187, 8)
+      await expect(sheet).toBeHidden()
+      await expect(cross, `after a tap on ${how}`).toBeFocused()
+    }
+  })
+
+  test('[redesign 22] a tap on the cross, then Escape, gives focus back to the cross even where a tap does not focus a button', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    await page.evaluate(TAP_DOES_NOT_FOCUS)
+    const cross = page.getByRole('button', { name: 'Leave session' })
+    await cross.click()
+    await expect(page.getByRole('dialog', { name: 'Leave this lesson?' })).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('dialog', { name: 'Leave this lesson?' })).toBeHidden()
+    await expect(cross).toBeFocused()
+  })
+
   test('[redesign 22] the cross opens "Leave this lesson?"; Keep going closes it and gives focus back to the cross', async ({
     page,
   }) => {
@@ -91,6 +129,47 @@ test.describe('the lesson frame and the leave sheet', () => {
     await sheet.getByRole('button', { name: 'Keep going' }).click()
     await expect(sheet).toBeHidden()
     await expect(cross).toBeFocused()
+  })
+
+  // Round 4 (evaluator, statement 43): the helpers the browser tests use to leave a lesson looked once for the
+  // tip and the consent sheet. When the voice settings arrive late, the consent sheet opens a moment after
+  // Say it appears, and the helper pressed the cross under it. They now wait for the screen to settle.
+  test('[redesign 22] leaving Say it by the helper works when the voice settings arrive late and the consent sheet opens after the screen', async ({
+    page,
+  }) => {
+    await open(page, { step: 'understand', processing: 'not_asked' })
+    await page.route('**/api/voice', async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 900))
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          available: true,
+          region: null,
+          processing: 'not_asked',
+          retention: false,
+          recordings: [],
+        }),
+      })
+    })
+    await page.reload()
+    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeAttached()
+    // The helper waits for the screen to settle: it does not come back while the voice settings are
+    // still on their way, so it cannot look for the sheet a moment too early.
+    const started = Date.now()
+    await sheetsSettled(page)
+    expect(Date.now() - started).toBeGreaterThan(300)
+    await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
+    await leaveLesson(page)
+    await page.waitForURL((url) => url.pathname === '/')
+  })
+
+  test('[redesign 25] closing the first lesson tip by the helper works when the tip is drawn a moment after the screen', async ({
+    page,
+  }) => {
+    await open(page, { firstLesson: true })
+    await dismissTip(page)
+    await expect(page.getByRole('dialog', { name: 'How this screen works' })).toBeHidden()
   })
 
   test('[redesign 22] Escape closes the sheet, the page behind cannot be used or scrolled, and Leave goes to the road', async ({
@@ -236,6 +315,37 @@ test.describe('Hear it and its line card', () => {
         expect(word.ring, word.text).toBe('none')
       }
     }
+  })
+
+  // Round 4 (evaluator): a fast double tap on "Next line" moved two lines, so a line could be skipped
+  // without being read. A second tap in the same moment is ignored; a tap after a pause moves on.
+  test('[redesign 24] a double click on "Next line" moves one line, and a later click moves the next', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    await page.getByRole('button', { name: 'Next line' }).dblclick()
+    await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
+    await page.waitForTimeout(600)
+    await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
+    await page.getByRole('button', { name: 'Next line' }).click()
+    await expect(page.getByRole('status')).toHaveText('Line 3 of 3.')
+  })
+
+  test('[redesign 24] two quick taps with a finger on "Next line" move one line, and a tap after a pause moves the next', async ({
+    page,
+  }) => {
+    await open(page)
+    await hearIt(page)
+    const box = await page.getByRole('button', { name: 'Next line' }).boundingBox()
+    const x = (box?.x ?? 0) + (box?.width ?? 0) / 2
+    const y = (box?.y ?? 0) + (box?.height ?? 0) / 2
+    await page.touchscreen.tap(x, y)
+    await page.touchscreen.tap(x, y)
+    await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
+    await page.waitForTimeout(700)
+    await page.touchscreen.tap(x, y)
+    await expect(page.getByRole('status')).toHaveText('Line 3 of 3.')
   })
 
   test('[redesign 24] the last line says Continue and stores the step', async ({ page }) => {
@@ -448,6 +558,15 @@ test.describe('the speaking consent sheet', () => {
     expect(second.consent).toEqual([])
   })
 
+  test('[redesign 30] a double click on "Next line" in Say it moves one line, so no line is skipped', async ({
+    page,
+  }) => {
+    await open(page, { step: 'understand', processing: 'withdrawn' })
+    await expect(page.getByText('Say the line out loud after the voice.')).toBeVisible()
+    await page.getByRole('button', { name: 'Next line' }).dblclick()
+    await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
+  })
+
   test('[redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out', async ({
     page,
   }) => {
@@ -580,7 +699,13 @@ test.describe('phone size, keyboard and screen reader', () => {
     })
   }
 
-  test('[redesign 46] a 40 letter Finnish word wraps inside its card at 375 px', async ({ page }) => {
+  // Round 4 (evaluator, statements 5 and 46): the words of a line wrap when they are too long for it. The old
+  // test looked at the group's box, which a word running past the card does not widen, so it passed for the
+  // wrong reason. This one measures the box of each word itself against the line it sits in.
+  const LONG = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+  const aForm = { lemma: 'pitkä', formName: 'Long', why: 'A made up long word.', spoken: LONG, written: LONG }
+
+  async function lessonWith(page: Page, lines: unknown[]) {
     await mockLesson(page)
     await page.route('**/api/sessions/today', (route) =>
       route.fulfill({
@@ -591,30 +716,113 @@ test.describe('phone size, keyboard and screen reader', () => {
           session: { id: 's1', step: null },
           unit: { title: 'U', canDo: 'C' },
           dialogue: { title: 'D' },
-          lines: [
-            {
-              id: 1,
-              speaker: 'Pekka',
-              gloss: 'A long word.',
-              spokenAudio: '/audio/a.wav',
-              writtenAudio: '/audio/b.wav',
-              spoken: [{ text: 'epäjärjestelmällistyttämättömyydelläänsäkään' }],
-              written: [{ text: 'epäjärjestelmällistyttämättömyydelläänsäkään' }],
-            },
-          ],
+          lines,
         }),
       }),
     )
     await page.goto('/session')
     await hearIt(page)
-    const fits = await page.evaluate<boolean>(
-      `[...document.querySelectorAll('[role="group"]')].every((el) => el.getBoundingClientRect().right <= document.documentElement.clientWidth)`,
-    )
-    expect(fits).toBe(true)
-    expect(
-      await page.evaluate<boolean>(
-        'document.documentElement.scrollWidth <= document.documentElement.clientWidth',
-      ),
-    ).toBe(true)
+  }
+
+  const lineOf = (id: number, spoken: unknown[], written: unknown[]) => ({
+    id,
+    speaker: 'Pekka',
+    gloss: 'A long word.',
+    spokenAudio: '/audio/a.wav',
+    writtenAudio: '/audio/b.wav',
+    spoken,
+    written,
+  })
+
+  /** For each Finnish line of the card: the word boxes past the line's own right edge, and the punctuation alone on a row. */
+  const WORD_BOXES = `(() => [...document.querySelectorAll('[data-line-id] p[lang="fi"]')].map((line) => {
+    const edge = line.getBoundingClientRect().right
+    const card = line.closest('[data-line-id]').getBoundingClientRect().right
+    let past = 0
+    let alone = 0
+    for (const word of line.querySelectorAll('[data-word]')) {
+      for (const box of word.getClientRects()) if (box.width > 1 && box.right > edge + 0.5) past += 1
+      const texts = []
+      const walker = document.createTreeWalker(word, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) if (node.textContent.trim()) texts.push(node)
+      const last = texts.at(-1)
+      const before = texts.at(-2)
+      if (last && before && /^[^\\p{L}]+$/u.test(last.textContent)) {
+        // The last letter and the punctuation after it must sit on one row: the same top, give or take a pixel.
+        const rowOf = (node, from, to) => {
+          const range = document.createRange()
+          range.setStart(node, from)
+          range.setEnd(node, to)
+          return range.getBoundingClientRect().top
+        }
+        const letter = rowOf(before, before.textContent.length - 1, before.textContent.length)
+        const mark = rowOf(last, 0, 1)
+        if (Math.abs(letter - mark) > 3) alone += 1
+      }
+    }
+    return { past, alone, edge, card }
+  }))()`
+
+  const variants: [string, unknown[]][] = [
+    ['a plain word alone', [{ text: LONG }]],
+    ['a tappable word alone', [{ text: LONG, form: aForm }]],
+    [
+      'a tappable word in the middle with punctuation',
+      [{ text: 'Voinks' }, { text: LONG, form: aForm, after: '?' }, { text: 'maksaa', after: '.' }],
+    ],
+    [
+      'a plain word in the middle with punctuation',
+      [{ text: 'Voinks' }, { text: LONG, after: '!' }, { text: 'maksaa' }],
+    ],
+  ]
+  for (const [name, words] of variants) {
+    test(`[redesign 46] [redesign 5] a 44 letter Finnish word wraps inside its line at 375 px: ${name}`, async ({
+      page,
+    }) => {
+      await lessonWith(page, [lineOf(1, words, words)])
+      const lines =
+        await page.evaluate<{ past: number; alone: number; edge: number; card: number }[]>(WORD_BOXES)
+      expect(lines).toHaveLength(2)
+      for (const line of lines) {
+        expect(line.past, 'a word runs past the right edge of its line').toBe(0)
+        expect(line.alone, 'punctuation is alone on a row').toBe(0)
+        expect(line.edge).toBeLessThanOrEqual(line.card)
+      }
+      expect(
+        await page.evaluate<boolean>(
+          'document.documentElement.scrollWidth <= document.documentElement.clientWidth',
+        ),
+      ).toBe(true)
+      // The word is still all there, in one piece for a screen reader.
+      await expect(page.locator('[data-line-id] p[lang="fi"]').first()).toContainText(LONG)
+    })
+  }
+
+  test('[redesign 46] [redesign 5] a word and its punctuation still never part when a line wraps between its words', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    const sentence = [
+      { text: 'Voinks', form: aForm, after: ',' },
+      { text: 'mä' },
+      { text: 'maksaa', after: ',' },
+      { text: 'kortilla', form: aForm, after: '?' },
+      { text: 'Kyllä', after: ',' },
+      { text: 'totta', form: aForm, after: '.' },
+      { text: 'kahvilassa', after: '!' },
+      { text: 'maksaa', form: aForm, after: '?' },
+    ]
+    await lessonWith(page, [lineOf(1, sentence, sentence)])
+    const lines = await page.evaluate<{ past: number; alone: number; rows: number }[]>(WORD_BOXES)
+    for (const line of lines) {
+      expect(line.past).toBe(0)
+      expect(line.alone).toBe(0)
+    }
+    // The line really did wrap between words, so the check means something.
+    const rows = await page.evaluate<number>(`(() => {
+      const line = document.querySelector('[data-line-id] p[lang="fi"]')
+      return new Set([...line.querySelectorAll('[data-word]')].map((word) => Math.round(word.getBoundingClientRect().top / 8))).size
+    })()`)
+    expect(rows).toBeGreaterThan(2)
   })
 })

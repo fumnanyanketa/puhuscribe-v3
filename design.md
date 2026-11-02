@@ -229,6 +229,8 @@ Options: `steps` gives the session's own list of steps; `finished` is for the fi
 
 A bottom sheet is a native `<dialog>` opened with `showModal()`, so the page behind cannot be used and Tab stays inside. It rises from the bottom (fades with reduced motion), has a small handle, closes with Escape and with a tap on the dimmed page unless it must not, moves focus in when it opens and gives it back to what had it before. While it is open the page behind cannot scroll. The leave sheet, the word card, the speaking consent sheet and the first lesson tip use the same rules.
 
+A sheet opened by a button gives that button as `returnFocus`, so focus goes back to it when the sheet closes. Safari does not focus a button that is tapped, so without it focus would land on the page.
+
 ### Buttons (`Button`)
 
 - **Primary**: the flat mint pill with the small arrow circle, 52 px tall, a plain soft shadow and no glow (owner's call 5). One per screen, for the main action, such as "Continue".
@@ -281,7 +283,7 @@ A dialogue line as drawn on 1 November 2026. A milky panel with the speaker's na
 - The 44 px tap area of a word overlaps the next row's by a few pixels (a negative block margin), so the rows stay about 1.4 apart as drawn and every word is still a 44 px target.
 - Understand it shows the one spoken line as one milky card with its play button, not a box inside a second card.
 - The word being spoken is an ink block with light text. Each word's button is the 44 px tap area and stays invisible; the wash and the ink block are drawn on the word itself at text height.
-- Every word with word data is a button. A word without data (a name) is plain text, never a dead button. A word and the punctuation after it never wrap apart.
+- Every word with word data is a button. A word without data (a name) is plain text, never a dead button. A word and the punctuation after it never wrap apart, but a word too long for its line (a 44 letter compound) wraps inside the line instead of running past the card: the punctuation sits inside the word's button, hidden from screen readers so the button's name stays the word.
 - While a line plays the card shows a ring and the word "Playing" next to the speaker's name, so colour is never the only sign.
 - Understand it shows only the spoken line, larger (21 px), with one play button. Say it and Keep it show the card without play buttons.
 

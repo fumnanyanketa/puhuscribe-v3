@@ -4,6 +4,7 @@ import { RecordControl, Wave, type RecordState } from '../components/RecordContr
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { PATHS } from '../lib/app-paths.ts'
+import { useSteadyPress } from '../lib/use-steady-press.ts'
 import {
   RecorderFailed,
   recordingSupported,
@@ -109,6 +110,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const status = useRef<HTMLParagraphElement>(null)
   const firstLoad = useRef<ReturnType<typeof loadVoice> | null>(null)
   const playback = usePlayback()
+  const steady = useSteadyPress()
   const line = lines.at(index)
   const last = index + 1 >= lines.length
 
@@ -185,7 +187,8 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     }
   }
 
-  function next() {
+  function next(event?: { detail: number }) {
+    if (!steady.accept(event)) return
     if (last) {
       void finishStep()
       return
@@ -316,7 +319,13 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       {mode !== 'loading' && mode !== 'consent' && (
         <div className={voice.buttons}>
           {canMoveOn && (
-            <Button block busy={saving} busyLabel="Saving your progress." onClick={next}>
+            <Button
+              block
+              busy={saving}
+              busyLabel="Saving your progress."
+              onPointerDown={steady.onPointerDown}
+              onClick={next}
+            >
               {last ? 'Continue' : 'Next line'}
             </Button>
           )}

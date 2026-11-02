@@ -201,6 +201,11 @@ export async function addEmail(page: Page, address: string): Promise<Mail> {
   await sendCodeTo(page, address)
   const mail = await nextMail(address, seen)
   await confirmCode(page, mail.code)
+  // The screen says the email is added only after the account holds it. A test that reads the database
+  // straight after "Confirm" (such as [save-progress 19]) must wait for this first (round 4, evaluator).
+  await expect(page.getByRole('status')).toHaveText(
+    'Your email is added. Your progress is saved to your account.',
+  )
   return mail
 }
 

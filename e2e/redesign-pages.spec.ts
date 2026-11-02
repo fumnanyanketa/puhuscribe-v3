@@ -505,6 +505,7 @@ test.describe('every page at phone size', () => {
         await mockAccount(page, mocks)
         await page.goto(`/${path}`)
         await page.addStyleTag({ content: `html { font-size: ${size} !important; }` })
+        await page.waitForLoadState('networkidle')
         await page.evaluate('document.fonts.ready')
         await page.waitForTimeout(300)
         const { top, lowest } = await page.evaluate<{ top: number; lowest: number }>(CONTENT_START)

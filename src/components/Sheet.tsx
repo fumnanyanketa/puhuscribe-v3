@@ -15,7 +15,10 @@ import styles from './Sheet.module.css'
 // close that way passes closable={false}). While it is open the page behind
 // cannot scroll. Focus moves to `initialFocus` (or the sheet's title) on open
 // and goes back to what had it before when the sheet closes, because
-// <dialog> alone does not do that on older iPhones (job 5).
+// <dialog> alone does not do that on older iPhones (job 5). Safari does not focus a
+// button that is tapped, so what the page remembers as the opener is then the
+// body: a sheet opened by a button passes that button as `returnFocus`, and
+// focus goes to it explicitly (round 4, evaluator, statement 22).
 
 interface SheetProps {
   open: boolean
@@ -25,6 +28,8 @@ interface SheetProps {
   children: ReactNode
   /** What gets focus when the sheet opens. Defaults to the first thing inside it. */
   initialFocus?: RefObject<HTMLElement | null>
+  /** What gets focus when the sheet closes: the control that opened it. Without it, whatever had focus before. */
+  returnFocus?: RefObject<HTMLElement | null>
   /** Escape and a tap outside close the sheet. On unless turned off. */
   closable?: boolean
   className?: string
@@ -36,6 +41,7 @@ export function Sheet({
   labelledBy,
   children,
   initialFocus,
+  returnFocus,
   closable = true,
   className,
 }: SheetProps) {
@@ -44,7 +50,9 @@ export function Sheet({
   useEffect(() => {
     const element = dialog.current
     if (!element || !open) return undefined
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const active = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    // Read when the sheet opens: the opener is on the page then and stays there while the sheet is open.
+    const opener = returnFocus?.current ?? active
     if (!element.open) element.showModal()
     const root = document.documentElement
     const before = root.style.overflow
@@ -56,7 +64,7 @@ export function Sheet({
       if (element.open) element.close()
       opener?.focus()
     }
-  }, [open, initialFocus])
+  }, [open, initialFocus, returnFocus])
 
   function cancel(event: SyntheticEvent<HTMLDialogElement>) {
     event.preventDefault()

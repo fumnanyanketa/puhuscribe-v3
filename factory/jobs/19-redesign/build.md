@@ -1,44 +1,53 @@
-# Build notes: 19-redesign, round 3
+# Build notes: 19-redesign, round 4
 
-Branch `factory/19-redesign`, pushed to origin. No pull request was opened and nothing was merged. This file is in the worktree. Round 3 answers the two small items left in "Round 2 re-check" of `review-design.md` (A and B) and its note C. Both review files are committed with this work. The tested commit is `0347ae4`.
+Branch `factory/19-redesign`, rebased onto `origin/main` (job 20 and its voice fix are merged) and force pushed with lease. No pull request was opened and nothing was merged. This file is in the worktree. Round 4 answers the evaluator's failures (`evaluation.md`, commit `d19ad40`). The tested commit is `__COMMIT__`.
 
-## Round 3: what changed
+## Round 4: what changed
 
-| Item | What I did | Protected by |
-| --- | --- | --- |
-| A. Signs pile up on short phones and at 200% text | The road shows fewer signs while any two boards, or a board and the top bar, would touch. The sign of the current stop and the next one are always kept (`fitSigns` in `road-state.ts`), then one more on alternate sides. The gap between signs grows with the tallest board (`signGap`, so two tall boards never touch). A board that would run past an edge of the screen is nudged back inside. A hidden 1 rem box tells the screen when the text size changes, because a capped card does not change size. The boards may be wider (58 percent of the screen). The check waits for the opening animation, whose scaling would give wrong sizes. | `e2e/redesign-road.spec.ts` `[redesign 20] [redesign 13]`: in all five card states, at 375 x 667 and at 320 x 640 with text at 200 percent, at least two signs show, one of them done or current, no two boards touch, none touches the progress bar or the account button, every board is whole on the screen. `src/lib/road-state.test.ts` for `fitSigns`. |
-| B. Card fills the screen at 320 px, 200% text | The card's wrapper stops at 42 percent of the screen height and its inside scrolls (`overflow-y: auto`), so the road, the bar and the account button stay in view. | The same test: the card's height is at most 43 percent of the screen, the bar and the account button are on screen and not covered (`elementFromPoint`), and the card's button is reached by scrolling inside the card. |
-| C. Said twice | Keep it shows "Type the missing word" once, as the field's title (where the drawing has it); its status line is now for screen readers only. The crash screen shows "Something went wrong" once, as the title; the problem sentence (existing copy) stays in the page for screen readers, in the problem style. `StatusLine`'s hidden style now wins over a tone's padding and edge and keeps its sentence in a 1 px box. | `e2e/redesign-lesson.spec.ts` `[redesign 31]` and `e2e/design-reference.spec.ts` `[redesign 41]` count the visible copies (one) and check the status line still holds the sentence. |
+| # | Item | What I did | Protected by |
+| --- | --- | --- | --- |
+| 1 | Statements 5 and 46: a 44 letter Finnish word ran past the card | Cause: `.keep { white-space: nowrap }` in `FinnishLine.module.css`. Job 8 added it so a "?" or a comma never drops onto a row of its own after a word. The span stays `nowrap`, so that still holds, but inside it the plain word and the word button now take `white-space: normal` and `overflow-wrap: anywhere`, so a long word breaks where it must. A tappable word is now an inline block with its punctuation inside the button (hidden from screen readers, so the button's name is still the word), so a wrapped word keeps its "?" at the end of the last piece. | `e2e/redesign-lesson.spec.ts` `[redesign 46] [redesign 5]`: four variants (a plain word alone, a tappable word alone, and each in the middle of a line with punctuation). Each measures the box of every word against the line it sits in, and that no punctuation is alone on a row. They go red on the old CSS (proofs 1 and 2). A fifth test keeps job 8's protection: at 320 px a line of short words with punctuation wraps between words and no mark is left alone. The old test looked at the group's box, which a word running past the card does not widen, so it passed for the wrong reason. It is replaced. |
+| 2 | Statement 22: focus lands on the body in WebKit after a tap | `Sheet` takes `returnFocus`, the control that opened it, and focuses it explicitly on close. The leave sheet passes the cross. | Two tests tap the cross and then "Keep going", the dimmed page, or press Escape, with a mousedown that is not allowed to move focus (what Safari does when a button is tapped). They behave like an iPhone in every browser, also on the Linux WebKit of the checks. They are red without the fix (proof 3), in Chromium too. |
+| 3 | Statement 43: races | `dismissTip` and `leaveLesson` wait for the screen to settle (`sheetsSettled`: the "Loading speaking feedback." line is gone, then two frames, because a sheet opens in an effect right after the screen is drawn) before they look for a sheet. `addEmail` waits for "Your email is added. Your progress is saved to your account." before a test reads the database, so `[save-progress 19]` waits for the saved state. No test was weakened. | `e2e/redesign-lesson.spec.ts`: with the voice settings held back 900 ms, `sheetsSettled` does not come back early, the consent sheet is open when it does, and the helper leaves the lesson (red when the wait is removed, proof 6). The `[save-progress 19]` race needs the database, so it is covered by the GitHub runs and not by a local break. |
+| 4 | A fast double tap on "Next line" skipped a line | A press is ignored when it is the second click of a double click, or a finger tap that follows another within 450 ms (`useSteadyPress`). Presses by a mouse, one at a time, and presses after a pause count as before. Used in Hear it and in Say it. | `e2e/redesign-lesson.spec.ts` `[redesign 24]`: a double click and two quick finger taps move one line and a later press moves the next; the same for Say it (proofs 4 and 5). |
+| 5 | Rebase and the real road | Rebased onto `origin/main` (one conflict, the conventions table, where both job rows stay). Where a real Worker runs (GitHub, or `PUHUSCRIBE_REAL_ROAD=1`) the browser tests no longer answer the road from the fixture; the mock based redesign specs still do, because they set how many lessons are done. New `e2e/real-road.spec.ts` (`@seed`) runs against `GET /api/road`: a visitor gets all stops with no progress and no cookie; the day one road shows the real first stop, five signs and Start; a guest reads the same stops from the learner route and sees stop 1 as the current sign. I corrected the note that said job 20 refuses visitors with a 401 (it answers 200 through `road_for_visitors`). `meaning_en` is not wired into the session payload. | `e2e/real-road.spec.ts`, and every database backed spec now loads the real road. |
 
-Records: `design.md` has a bullet for the signs and the card cap and one for "said once". Screenshots retaken: every road screen (both browsers, all three sizes), Keep it and the crash screen. `evidence/02-road-day-one-*`, `03-road-continue-*`, `04`, `05` and `06` at 375 x 667 and 320 x 640 with text at 200 percent show the result.
+Also: the consent sheet in Voice settings still returns focus the old way (a switch opens it; only the leave sheet was in the evaluator's statement). Screenshots were retaken, with a new one for the 44 letter word (`29-long-word-*`). `design.md` has the lines about long words and the sheet's `returnFocus`. The road bend stays at 48 for the owner to decide.
 
-## Round 3: earlier tests changed
+## Round 4: the stop hook
 
-None. The new tests are added; no earlier check was changed or loosened this round.
+The stop hook complained about `.worktrees/10-speaking-feedback` (`worker/speech-db.ts`). That is another job's worktree, not this one. I did not touch it, and nothing of this job changes that file.
 
-## Round 3: proof by breaking each new protection
+## Round 4: earlier tests changed
 
-`evidence/proof-by-breaking-round3.md`: 7 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone: all five signs shown whatever the room, no gap for tall boards, no height cap on the card, the next sign left out of the fit (unit test), the text size probe dropped, Keep it saying its instruction twice, and the crash screen saying its sentence twice. Nothing from a break was committed.
+- `[redesign 46] a 40 letter Finnish word wraps inside its card at 375 px` is replaced by the stricter tests of item 1 (it passed for the wrong reason).
+- `e2e/account-helpers.ts` `addEmail` waits for the added state (stricter).
+- `e2e/session-helpers.ts` `dismissTip` and `leaveLesson` wait for the screen to settle (stricter).
+- `e2e/road-route.ts`: the real road is the default where a real Worker runs.
 
-## Round 3: check results
+No test was removed or weakened.
 
-- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes except one `commit-tool` timing test that fails under load on this machine and passes alone and on GitHub (round 1's open points).
-- The mock based browser files and the reference page (161 tests) pass in Chromium against the running app.
-- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41348915446, tested commit `0347ae4`: success. The browser job (Chromium and WebKit, local database), the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check all passed on the first run.
-- No scratch branch of this job is left on origin.
+## Round 4: proof by breaking each new protection
 
-## Round 3: unfinished or uncertain
+`evidence/proof-by-breaking-round4.md`: 6 deliberate breaks, each applied in the working copy, its test run, red for the intended reason, and undone: the word wrap rule inside a word, the punctuation outside the button, the sheet without `returnFocus`, a second press counting in Hear it and in Say it, and the helpers not waiting for the screen. Nothing from a break was committed.
 
-- At 320 px with text at 200 percent the two remaining signs are big (their names are 26 px) and the current sign can partly cover the A1 label of the sun. They never touch each other, the bar or an edge. That is the price of keeping text at 200 percent.
-- When the opening animation ends, a short phone may drop signs once (the check waits for the animation so its sizes are right).
+## Round 4: check results
 
-Result: checks pass
+- `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes (1182 tests). The format check warns only about `design-drafts/` line endings on this Windows copy.
+- The mock based browser files (road, lesson, pages, design reference, design sample) pass in Chromium and WebKit on this computer, except WebKit tests that need a recorder or Tab on buttons, which this Windows WebKit lacks. Those pass on GitHub.
+- Full run on GitHub: __RUN4__
+
+Result: __FINAL__
 
 ---
 
+# Round 3 (kept short)
+
+Round 3 (commit `0347ae4`, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41348915446, passed): fewer signs on short phones (`fitSigns`, `signGap`, boards nudged inside the screen), a card that stops at 42 percent of the screen and scrolls inside, Keep it and the crash screen say each sentence once. Proof: `evidence/proof-by-breaking-round3.md`.
+
 # Round 2 (kept short)
 
-Round 2 answered the first design and security reviews. Commit `48ff3c8`, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41343076151, all checks passed. Page content starts at least 168 px from the top (`--page-content-top`); the delete link has its own token `--color-danger-ink` with contrast pairs on the wash; the mint road runs from the foot of the road to the marker; Finnish rows are about 1.4 apart with 44 px hit areas that overlap; changed words have the thin peach ring; Understand it is one card; the download ready screen has the title "Your file is ready."; privacy headings are ink; the Keep switch and the privacy page show the `keepBox` sentence; the privacy page names the speech service's country through one read of `GET /api/voice` (the one check loosened: `[accounts 16]` now allows exactly that call); unreached progress pieces are hollow with a 3 to 1 edge; the finish dock is a milky bar; the road's bend is 48 against the drawn 34. Proof by breaking: `evidence/proof-by-breaking-round2.md` (14 breaks). The full round 2 notes are in git history at `921739a`.
+Round 2 (commit `48ff3c8`, run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41343076151, passed): content starts at least 168 px from the top; `--color-danger-ink`; the mint road to the marker; Finnish rows about 1.4 apart with 44 px hit areas that overlap; the peach ring; one card on Understand it; the download ready title; ink privacy headings; the Keep sentence and the speech country on the privacy page (one read of `GET /api/voice`); hollow progress pieces; a milky finish dock; road bend 48. Proof: `evidence/proof-by-breaking-round2.md`.
 
 # Round 1 (kept short)
 
@@ -101,8 +110,8 @@ All changes follow a text or layout change made on purpose. None removes or weak
 
 ### Open points
 
-- **Job 20's route answers 401 for visitors.** Its `GET /api/road` needs a signed in learner (columns `stop_number`, `title_en`, `can_do_en`, `part_number`, `lessons_total`, `lessons_done`). The day one road is shown to people with no account, so it needs a form of the route that answers visitors with zero progress. `parseRoad` already accepts both the interface shape and job 20's column names, as a list or `{ stops }`. Job 20 or the manager needs to decide; the swap on my side is `loadRoad()` only.
-- **Word meanings** (`meaning`, `baseMeaning`) are not sent by the Worker yet. Job 20 adds the data. With none, the card leaves the line out and invents nothing.
+- **Job 20's route (corrected in round 4).** `GET /api/road` answers a visitor with 200 and all the stops with no progress, through `public.road_for_visitors()`, and a learner through `public.road()`. The road screen reads both (`parseRoad` takes job 20's column names). An earlier version of this note said visitors get a 401. That is out of date: job 20 is merged and the road runs against the real route (see round 4).
+- **Word meanings** (`meaning`, `baseMeaning`) are not sent by the Worker yet. Wiring `meaning_en` into the session payload is a later job, so the card still leaves the line out and invents nothing.
 - **The consent text is not shown in full any more.** The four paragraphs of `src/lib/voice-consent.ts` stay frozen word for word with their version label (tested), but the learner now sees the privacy page voice section instead, which says the same facts in the privacy notice's words. The owner may want the privacy page to hold the consent paragraphs word for word.
 - **Privacy "Updated" date** is `NOTICE_UPDATED` in `src/privacy/notice-settings.ts`, set to 2026-11-01.
 - **Sign in page heading** is unchanged ("Sign in with your email").

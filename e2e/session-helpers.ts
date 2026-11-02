@@ -65,10 +65,24 @@ export async function startSession(page: Page): Promise<void> {
 }
 
 /**
+ * Waits until the screen has decided which sheet it shows. Say it asks for the voice settings first and says
+ * "Loading speaking feedback." until they are known; then the consent sheet may open. A sheet opens in an
+ * effect right after the screen is drawn, so the wait also lets two frames pass. One look with `isVisible()`
+ * could come a moment too early and miss the sheet (a race in round 3, found by the evaluator).
+ */
+export async function sheetsSettled(page: Page): Promise<void> {
+  await expect(page.getByText('Loading speaking feedback.')).toHaveCount(0)
+  await page.evaluate(
+    '(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))))()',
+  )
+}
+
+/**
  * The tip on a learner's first lesson (job 19-redesign, statement 25): "Got it"
  * closes it. Most tests are about something else and start with it closed.
  */
 export async function dismissTip(page: Page): Promise<void> {
+  await sheetsSettled(page)
   const gotIt = page.getByRole('button', { name: 'Got it' })
   if (await gotIt.isVisible()) {
     await gotIt.click()
@@ -84,6 +98,7 @@ export async function dismissTip(page: Page): Promise<void> {
  */
 export async function leaveLesson(page: Page): Promise<void> {
   await dismissTip(page)
+  await sheetsSettled(page)
   const consent = page.getByRole('dialog', { name: 'Say it out loud' })
   if (await consent.isVisible()) await consent.getByRole('button', { name: 'Not now' }).click()
   const link = page.getByRole('link', { name: 'Leave session' })

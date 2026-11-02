@@ -243,6 +243,41 @@ const SHOTS: Shot[] = [
     run: (page) => keepItAnswer(page, 'maksa'),
   },
   {
+    drawing: 'A 44 letter Finnish word',
+    file: 'long-word',
+    run: async (page) => {
+      await mockLesson(page, {})
+      const long = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+      const words = [{ text: 'Voinks' }, { text: long, after: '?' }, { text: 'maksaa', after: '.' }]
+      await page.route('**/api/sessions/today', (route) =>
+        route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            state: 'ready',
+            session: { id: 's1', step: null },
+            unit: { title: 'U', canDo: 'C' },
+            dialogue: { title: 'D' },
+            lines: [
+              {
+                id: 1,
+                speaker: 'Pekka',
+                gloss: 'A made up long word.',
+                spokenAudio: '/audio/a.wav',
+                writtenAudio: '/audio/b.wav',
+                spoken: words,
+                written: words,
+              },
+            ],
+          }),
+        }),
+      )
+      await page.goto('/session')
+      await page.evaluate('document.fonts.ready')
+      await page.waitForTimeout(600)
+    },
+  },
+  {
     drawing: 'Something went wrong',
     file: 'something-went-wrong',
     run: async (page) => {
@@ -308,6 +343,7 @@ const SMALL_SCREENS = [
   'say-it',
   'keep-it',
   'lesson-finished',
+  'long-word',
   'account-guest',
   'create-account',
   'voice-settings',

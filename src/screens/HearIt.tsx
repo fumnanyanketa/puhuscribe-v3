@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type MouseEvent } from 'react'
 import { Button } from '../components/Button.tsx'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
 import { PATHS } from '../lib/app-paths.ts'
+import { useSteadyPress } from '../lib/use-steady-press.ts'
 import { FirstLessonTip } from './FirstLessonTip.tsx'
 import { LineCard } from './LineCard.tsx'
 import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
@@ -27,11 +28,13 @@ export function HearIt({ session, frame, onDone }: StepScreenProps) {
   const [failed, setFailed] = useState(false)
   const [tip, setTip] = useState(session.firstLesson === true)
   const next = useRef<HTMLButtonElement>(null)
+  const steady = useSteadyPress()
   const region = useRef<HTMLElement>(null)
   const last = shown >= lines.length
   const line = lines.at(shown - 1)
 
-  async function advance() {
+  async function advance(event: MouseEvent) {
+    if (!steady.accept(event)) return
     if (!last) {
       setShown(shown + 1)
       return
@@ -50,7 +53,14 @@ export function HearIt({ session, frame, onDone }: StepScreenProps) {
       <StatusLine tone={failed ? 'problem' : 'neutral'} visuallyHidden={!failed}>
         {failed ? NOT_SAVED : `Line ${String(shown)} of ${String(lines.length)}.`}
       </StatusLine>
-      <Button block ref={next} busy={saving} busyLabel="Saving your progress." onClick={() => void advance()}>
+      <Button
+        block
+        ref={next}
+        busy={saving}
+        busyLabel="Saving your progress."
+        onPointerDown={steady.onPointerDown}
+        onClick={(event) => void advance(event)}
+      >
         {last ? 'Continue' : 'Next line'}
       </Button>
     </>
