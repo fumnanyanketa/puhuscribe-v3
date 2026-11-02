@@ -145,6 +145,8 @@ export function RoadPicture({
                   left: percentX(spot.x),
                   top: percentY(spot.y),
                   '--shift': `${String(shifts[sign.stop.number] ?? 0)}px`,
+                  // The pole's place as a share of the box, so the stylesheet can keep the board inside the picture.
+                  '--x': (spot.x / SCENE_WIDTH).toFixed(4),
                   '--sc': spot.scale.toFixed(3),
                 } as CSSProperties
               }

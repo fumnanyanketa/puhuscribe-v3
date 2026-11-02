@@ -115,6 +115,39 @@
   overflow-wrap: anywhere;
 }
 
+/* Every sign stays inside the picture, 8 px from its edges, at every text size and in every frame
+   (follow up 19-sign-overflow). The script that nudges a board back inside the screen runs a frame after
+   the text grows, so for a frame or two a board stood past the edge. Here the browser keeps it inside
+   while it lays the page out: the board is centred on its pole as drawn, and moved sideways only as far
+   as the edge needs. The sign list is a size container, so 1cqw is a hundredth of the scene box. The box
+   is 112 percent of the picture and starts 6 percent to its left, so the picture runs from 6/112 to
+   106/112 of the box: 5.3571cqw to 94.6429cqw. --x is the pole's place as a share of the box. A board
+   is never wider than the picture less 16 px (89.2857cqw is the picture's width), so it always fits;
+   a long name wraps inside it only when it must. Browsers without container units (before 2022) keep
+   the script's nudge alone. */
+@supports (width: 1cqw) {
+  .signs {
+    container-type: inline-size;
+  }
+
+  .sign {
+    --pole-at: calc(var(--x, 0.5) * 100cqw);
+
+    transform: translate(
+      clamp(
+        calc(5.3571cqw + 8px - var(--pole-at)),
+        calc(-50% + var(--shift, 0px)),
+        calc(94.6429cqw - 8px - var(--pole-at) - 100%)
+      ),
+      -100%
+    );
+  }
+
+  .board {
+    max-width: calc(89.2857cqw - 16px);
+  }
+}
+
 .num {
   display: grid;
   flex: none;
