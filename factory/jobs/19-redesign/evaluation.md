@@ -92,3 +92,55 @@ It does not matter for any statement. The bend is decoration: it changes no beha
 - Locally, prettier flags the 13 `design-drafts/` files only because the Windows checkout has CRLF line endings; GitHub's code check passed.
 
 Result: fail
+
+## Round 4 re-evaluation
+
+Re-evaluated 2 November 2026 on commit `2ef3ad3` (branch tip `89951c9` differs only in `build.md`), rebased onto main at `658034b`. I tested a throwaway copy of `2ef3ad3` (made with `git archive`, its `src/` checked identical to the worktree's) built with `npm run build` and served by `vite preview` over HTTPS, at 375 x 812 in Chromium and WebKit, with the builder's request mocks, because there is no Docker here. Real taps were made with Playwright's touch screen, without the builder's `mousedown` trick. My scripts are `eval-r4-script-main.spec.txt`, `eval-r4-script-overlap.spec.txt` and `eval-r4-script-patterns.spec.txt`. Breaks were made only in the throwaway copy and undone (`eval-r4-break-proofs.txt`). I read the round 4 part of `build.md` and `proof-by-breaking-round4.md` first, as the manager asked. No `.env*` file was read; no trace or HAR file was kept (`PUHUSCRIBE_NO_TRACE=1`).
+
+| # | Result | Evidence | What I saw |
+|---|---|---|---|
+| 5 | pass | `eval-r4-observations-webkit.jsonl`, `eval-r4-46-hear-it-plain-alone-webkit.png` | Long words now wrap (`overflow-wrap: anywhere` reaches the word); no type size changed in round 4. |
+| 46 | fail | `eval-r4-46-realistic-21-letter-tappable-webkit.png`, `eval-r4-46-tappable-mid-webkit.png`, `eval-r4-46-text-over-text-webkit.jsonl` | A plain long word wraps cleanly inside the card in both browsers, also at 320 px with 200 percent text. A tappable long word that follows another word overlaps the row above by 9 to 10 px ("Voinks" and "Missä on" run into the word below) and its wrapped pieces are centred. A real 21 letter word, `terveyskeskuslääkärin`, does it at 375 px. |
+| 22 | pass | `eval-r4-22-focus-return-webkit.json`, `eval-r4-22-leave-sheet-webkit.png` | With real touch taps in WebKit, focus returns to the cross after "Keep going", Escape and a tap on the dimmed page; also by keyboard, and after focus was on "Next line". "Leave" goes to the road. axe clean on the open sheet. Same in Chromium. |
+| 24 | pass | `eval-r4-24-double-tap-webkit.json`, `eval-r4-24-say-it-after-double-tap-webkit.png` | A double click and three fast finger taps move one line; a tap after a pause and clicks 700 ms apart move the next. "Continue" tapped three times on a slow network saved the step once. Say it moves one line on a double tap. Same in Chromium. |
+| 43 | pass | `eval-r4-ci-run.txt` | Run 41415511557 on `2ef3ad3e138559aa2a1c9b300e9241e9cc340470`: every job green on attempt 1, browser job 708 passed, 0 failed, 0 flaky. The earlier tests changed in round 4 are stricter waits and one helper that names the word card by its face; none is weakened. |
+| 47 | fail | `eval-r4-47-other-sheets-webkit.json` | New finding, also present before round 4. In WebKit, a tap on the "Speaking feedback" switch in Voice settings opens the consent sheet; after "Not now" or Escape focus is on the page body, not the switch. The word card and "Patterns you've seen" return focus correctly (`eval-r4-47-patterns-webkit.json`). |
+| 10, 13, 14, 19 | pass | `eval-r4-ci-run.txt`, `eval-r4-spot-road-day-one-webkit.png` | The three `real-road` tests passed against the real `GET /api/road` in both browsers on GitHub. Locally (mocks) the day one road has one `h1` "Your road to A1" and axe finds nothing. |
+| 15, 20 | pass | `eval-r4-spot-road-continue-webkit.png`, `eval-r4-spot-checks-webkit.json` | Five signs with their names, card below the marker, no sideways scroll, axe clean. |
+| 23 | pass | `eval-r4-spot-line-card-webkit.png` | The line card is unchanged: "noi" and "nuo" washed, punctuation stays with its word, play buttons, gloss, axe clean. |
+| 26 | pass | `eval-r4-46-word-card-webkit.png` | The word card wraps a 44 letter word in its title and both tiles, inside the sheet. |
+
+The other statements were not touched by round 4 (it changed `FinnishLine`, `Sheet`, `SessionFrame`, `HearIt`, `SayIt` and tests only) and keep their results from the table above, backed by the green run.
+
+### Proof by breaking (throwaway copy)
+
+- Wrap rule removed (`.keep .plain, .keep .word`): the builder's four 44 letter tests go red in both browsers (8 failed), and my own measure shows the word 177 px past the card in WebKit.
+- `overflow-wrap: break-word` instead of `anywhere`: the two tappable variants go red; the plain ones stay green, which is right, because a plain inline word does wrap with `break-word`.
+- `returnFocus={cross}` removed: the builder's two tap tests go red in both browsers, and my real tap run in WebKit shows the body focused after "Keep going", Escape and the dimmed page.
+- Steady press removed in Hear it: a double click moves to line 3, and three fast taps leave Hear it altogether.
+- Diagnostic only, not a fix: with `.keep .word { margin-top: 0; text-align: start; }` added, the row overlap drops from 9.1 px to 0.4 px and the pieces start at the left. So the overlap comes from the word button's negative top margin, now that the button can be several rows tall, and the centring from the button's default `text-align: center`.
+
+### Failures and how to reproduce them
+
+**Statement 46: a wrapped tappable word runs into the row above.**
+
+1. At 375 x 812, open a lesson whose spoken line is `Missä on terveyskeskuslääkärin vastaanotto?` with `terveyskeskuslääkärin` as a word with a card (any form data).
+2. Look at Hear it. The spoken line wraps the word, but "Missä on" sits on top of "terveyskeskuslääkä" and "rin" stands alone in the middle of its row (`eval-r4-46-realistic-21-letter-tappable-webkit.png`). The same in Chromium, in Say it (`eval-r4-46-say-it-webkit.png`) and with the builder's own case "Voinks" plus a tappable 44 letter word (`eval-r4-46-tappable-mid-webkit.png`).
+3. The builder's tests pass because they measure each word's right edge and where the punctuation sits, not whether one row covers another. Their evidence screenshot (`29-long-word-app-webkit.png`) uses a plain word, which is fine.
+
+**Statement 47: the Voice settings consent sheet does not return focus in WebKit after a tap.**
+
+1. In WebKit at 375 x 812, open `/voice` with speaking feedback not yet chosen.
+2. Tap the "Speaking feedback" switch, then tap "Not now" (or press Escape).
+3. `document.activeElement` is the body (`eval-r4-47-other-sheets-webkit.json`). By keyboard it is the switch; in Chromium it is the switch. Cause: `VoiceSettings.tsx` does not pass `returnFocus` to its `ConsentSheet`, so it relies on the old way that round 4 fixed for the leave sheet. `build.md` names this gap. I missed it in round 3 because I tapped only the leave sheet and the word card.
+
+### Odd, not failures
+
+- Inside a tappable word the punctuation sits a little apart from the last letter ("säkään ?"), because it is outside the word's wash padding.
+- Two quick Enter presses on "Next line" move two lines. That fits the fix, which ignores only double clicks and quick finger taps; a keyboard press is deliberate.
+- After a tap on "Keep going" the cross has focus but shows no outline (`eval-r4-22-after-keep-going-webkit.png`). That is how `:focus-visible` treats a pointer, and the outline shows by keyboard.
+- Word buttons are 44 px tall but can be as narrow as 24 px ("noi" is 35 px wide, `eval-r4-spot-checks-webkit.json`), the inline target rule of round 2. My first table said every control I measured was 44 px or more; for the words that measured only the height.
+- The GitHub browser job skips 6 more tests than round 3 (147 against 141); they are the new long word evidence screenshots, which run only with `PUHUSCRIBE_EVIDENCE=1`.
+- The road bend is still 48 for the owner to decide.
+
+Result: fail

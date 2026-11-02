@@ -1,0 +1,32 @@
+GitHub run 41415511557, read with gh on 2026-11-02 by the evaluator.
+commit: 2ef3ad3e138559aa2a1c9b300e9241e9cc340470
+branch: factory/19-redesign
+event: workflow_dispatch, attempt 1, created 2026-11-02T08:46:31Z
+status: completed, conclusion: success
+jobs:
+  Browser tests (Playwright, local Supabase): success
+  Database tests (local Supabase, pgTAP): success
+  Unit tests (Vitest): success
+  Secret scan (gitleaks): success
+  Python tests and lint (pytest, ruff): success
+  Type check, lint, format: success
+  Dependency check (npm audit, pip-audit): success
+  Apply database changes to the test project: skipped
+  Browser tests against the test project (after merge): skipped
+  Preview link (Cloudflare Worker behind Access): skipped
+
+Browser job totals (lines from the job log):
+  147 skipped
+  708 passed (16.3m)
+  2 passed (4.7s)
+Failed or flaky lines in the browser job log: 0
+
+The real road tests (GET /api/road against the local database):
+  ✓  154 [chromium] › e2e/real-road.spec.ts:29:3 › the road on the real route › [redesign 19] a visitor gets all the stops with no progress, and sets no cookie @seed (165ms)
+  ✓  155 [chromium] › e2e/real-road.spec.ts:45:3 › the road on the real route › [redesign 19] [redesign 10] the day one road of a visitor shows the real first stop, five signs and Start @seed (1.2s)
+  ✓  157 [chromium] › e2e/real-road.spec.ts:60:3 › the road on the real route › [redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign @seed (1.1s)
+  ✓  584 [webkit] › e2e/real-road.spec.ts:29:3 › the road on the real route › [redesign 19] a visitor gets all the stops with no progress, and sets no cookie @seed (550ms)
+  ✓  585 [webkit] › e2e/real-road.spec.ts:45:3 › the road on the real route › [redesign 19] [redesign 10] the day one road of a visitor shows the real first stop, five signs and Start @seed (1.8s)
+  ✓  586 [webkit] › e2e/real-road.spec.ts:60:3 › the road on the real route › [redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign @seed (2.3s)
+
+Round 3 run 41348915446 for comparison: 680 passed, 141 skipped. The 6 extra skipped are the new long word evidence screenshots (3 sizes x 2 browsers), which run only with PUHUSCRIBE_EVIDENCE=1.

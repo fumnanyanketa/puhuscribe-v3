@@ -1,0 +1,131 @@
+Break proofs in a throwaway copy of commit 2ef3ad3 (git archive into the scratchpad), never the worktree. Each break is undone before the next. Browser tests run against a fresh vite build of the copy.
+=== baseline (unbroken)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit --reporter=line -g 44 letter|does not focus a button|Escape, gives focus back
+  12 passed (15.3s)
+=== break A: drop the rule that lets a word wrap inside its nowrap span (FinnishLine.module.css lines 110-114)
+   and 46): a 44 letter compound breaks where it must and never runs past the card. */
+.keep {
+  white-space: nowrap;
+}
+
+
+/* A word with no card (such as a name) is plain text. It is not a target, so it needs no height of its own. */
+.plain {
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit --reporter=line -g 44 letter
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-a9d87-t-375-px-a-plain-word-alone-chromium\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-a9d87-t-375-px-a-plain-word-alone-webkit\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-00cbe-75-px-a-tappable-word-alone-chromium\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-00cbe-75-px-a-tappable-word-alone-webkit\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-c16fc-the-middle-with-punctuation-chromium\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-c16fc-the-middle-with-punctuation-webkit\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-ec765-the-middle-with-punctuation-chromium\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-ec765-the-middle-with-punctuation-webkit\test-failed-1.png
+  8 failed
+--- npx playwright test e2e/eval-r4.spec.ts --project=webkit --reporter=line -g hear it: tappable-alone|hear it: plain-alone
+  2 passed (8.4s)
+=== break B: the word keeps wrapping but uses overflow-wrap: break-word instead of anywhere
+.keep .plain,
+.keep .word {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --reporter=line -g 44 letter
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-00cbe-75-px-a-tappable-word-alone-chromium\test-failed-1.png
+    Error: a word runs past the right edge of its line
+    Expected: 0
+    Received: 1
+    test-results\redesign-lesson-phone-size-c16fc-the-middle-with-punctuation-chromium\test-failed-1.png
+  2 failed
+  2 passed (11.1s)
+=== break C: the leave sheet goes back to remembering document.activeElement (returnFocus removed in SessionFrame.tsx)
+0
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit --reporter=line -g does not focus a button
+    Error: after a tap on Keep going
+    expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+           - unexpected value "inactive"
+    test-results\redesign-lesson-the-lesson-9a049-tap-does-not-focus-a-button-chromium\test-failed-1.png
+    Error: after a tap on Keep going
+    expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+           - unexpected value "inactive"
+    test-results\redesign-lesson-the-lesson-9a049-tap-does-not-focus-a-button-webkit\test-failed-1.png
+    Error: expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+           - unexpected value "inactive"
+    test-results\redesign-lesson-the-lesson-8fcd8-tap-does-not-focus-a-button-chromium\test-failed-1.png
+    Error: expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+           - unexpected value "inactive"
+    test-results\redesign-lesson-the-lesson-8fcd8-tap-does-not-focus-a-button-webkit\test-failed-1.png
+  4 failed
+--- npx playwright test e2e/eval-r4.spec.ts --project=webkit --reporter=line -g leave sheet, real taps
+  1 passed (11.0s)
+{
+  "tap cross: focus while the sheet is open": "BUTTON \"Keep going\"",
+  "tap cross, tap Keep going": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "click cross, Escape": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "tap cross, tap the dimmed page": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "keyboard: focus inside the sheet": "BUTTON \"Keep going\"",
+  "keyboard: Enter on cross, Enter on first control": "BUTTON \"Leave session\"",
+  "focus on Next line, click cross, click Keep going": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "axe on the open sheet": [],
+  "Leave goes to": "/"
+}=== break D: a second press of Next line counts again (steady.accept removed in HearIt.tsx)
+(rebuilt)
+--- npx playwright test e2e/eval-r4.spec.ts --project=webkit --project=chromium --reporter=line -g hear it and say it
+  2 passed (19.1s)
+chromium:
+{
+  "hear it: mouse double click from line 1": "Line 3 of 3.",
+  "hear it: three fast finger taps from line 1": "Choose what the line means.",
+  "hear it: one more finger tap after a pause": "Choose what the line means.",
+webkit:
+{
+  "hear it: mouse double click from line 1": "Line 3 of 3.",
+  "hear it: three fast finger taps from line 1": "Choose what the line means.",
+  "hear it: one more finger tap after a pause": "Choose what the line means.",
+=== restored; rebuilt
+(rebuilt)
+copy src identical to worktree src again
+evaluator measure under break A, webkit, 46 hear it plain-alone: Finnish lines px past their right edge = 177, 121; card = 177
+evaluator measure under break A, webkit, 46 hear it tappable-alone: Finnish lines px past their right edge = 177, 121; card = 177
+=== diagnostic, not a fix: with '.keep .word { margin-top: 0; text-align: start; }' added, webkit
+{"case":"tappable-mid","lines":[{"rowsOverlapPx":0.4,"pair":"Voinks / epäjärjestel","buttonTextAlign":["start"]},{"rowsOverlapPx":0.2,"pair":"epäjärjestel / maksaa","buttonTextAlign":["start"]}]}
+{"case":"realistic-21-letter-tappable","lines":[{"rowsOverlapPx":0.4,"pair":"Missä / terveyskesku","buttonTextAlign":["start"]},{"rowsOverlapPx":0.2,"pair":"terveyskesku / vastaanotto","buttonTextAlign":["start"]}]}
+{"case":"short-tappable-mid","lines":[{"rowsOverlapPx":0.4,"pair":"Voinks / maksaa","buttonTextAlign":["start"]},{"rowsOverlapPx":0.2,"pair":"mansikat / maksaa","buttonTextAlign":["start"]}]}
+restored, copy src identical to worktree src
