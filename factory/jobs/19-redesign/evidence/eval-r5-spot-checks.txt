@@ -1,0 +1,7 @@
+Spot check, round 5, on a clean vite build of the throwaway copy of 53428b9 (src identical to the worktree), vite preview over HTTPS with the builder's mocks, 375 x 812.
+npx playwright test e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts e2e/redesign-road.spec.ts --project=chromium --project=webkit
+  2 failed
+  290 passed (3.5m)
+    [webkit] › e2e\redesign-lesson.spec.ts:572:3 › the speaking consent sheet › [redesign 29] "Turn on" records one choice with the box unticked, and still asks for no microphone 
+    [webkit] › e2e\redesign-lesson.spec.ts:609:3 › the speaking consent sheet › [redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out 
+Both failures wait for the 'Record yourself saying the line' button, which the app shows only where the browser has MediaRecorder (src/lib/recorder.ts line 75). Playwright's WebKit on Windows has none. Both tests pass in Chromium here and in WebKit on GitHub (eval-r5-ci-run.txt), so this is the machine, not round 5.

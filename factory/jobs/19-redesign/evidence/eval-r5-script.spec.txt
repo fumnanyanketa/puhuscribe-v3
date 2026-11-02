@@ -1,0 +1,446 @@
+// Evaluator, job 19-redesign round 5. Not part of the repo. Run from a throwaway copy of commit 53428b9
+// against `vite preview` over HTTPS with the builder's request mocks (no database here). Real touch taps
+// (Playwright touchscreen, hasTouch), no mousedown trick.
+import { test, expect, type Page, type Route } from '@playwright/test'
+import * as fs from 'node:fs'
+import { AxeBuilder } from '@axe-core/playwright'
+import { mockHome } from './road-mocks.ts'
+import { mockLesson } from './lesson-mocks.ts'
+
+const EV = process.env.EVAL_OUT ?? 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/factory/jobs/19-redesign/evidence'
+const TAG = process.env.EVAL_TAG ?? 'r5'
+const SHOTS = process.env.EVAL_SHOTS !== '0'
+const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
+const LONG = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+const R21 = 'terveyskeskuslääkärin'
+const formOf = (w: string) => ({ lemma: w, formName: 'Long', why: 'A test word.', spoken: w, written: w })
+const json = (route: Route, body: unknown, status = 200) =>
+  route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) })
+const out = (name: string, browser: string, value: unknown) =>
+  fs.writeFileSync(`${EV}/eval-${TAG}-${name}-${browser}.json`, JSON.stringify(value, null, 2))
+const appendl = (name: string, browser: string, value: unknown) =>
+  fs.appendFileSync(`${EV}/eval-${TAG}-${name}-${browser}.jsonl`, JSON.stringify(value) + '\n')
+const shot = async (page: Page, name: string, browser: string) => {
+  if (SHOTS) await page.screenshot({ path: `${EV}/eval-${TAG}-${name}-${browser}.png` })
+}
+
+const lineOf = (id: number, words: unknown[]) => ({
+  id,
+  speaker: 'Pekka',
+  gloss: 'A long word.',
+  spokenAudio: '/audio/a.wav',
+  writtenAudio: '/audio/b.wav',
+  spoken: words,
+  written: words,
+})
+
+async function lessonWith(page: Page, lines: unknown[], step: string | null = null) {
+  await mockLesson(page, { processing: 'withdrawn' })
+  await page.route('**/api/sessions/today', (route) =>
+    json(route, { state: 'ready', session: { id: 's1', step }, unit: { title: 'U', canDo: 'C' }, dialogue: { title: 'D' }, lines }),
+  )
+  await page.goto('/session')
+  await page.locator('[data-line-id]').first().waitFor()
+  await page.evaluate('document.fonts.ready')
+  await page.waitForTimeout(500)
+}
+
+// Everything about the Finnish lines on screen: text over text, pieces of each button, which element a
+// finger at the centre of each piece of text lands on, text past the card or screen, button sizes.
+const LAYOUT = `(() => {
+  const vw = document.documentElement.clientWidth
+  const lines = []
+  for (const line of document.querySelectorAll('[data-line-id] p[lang="fi"]')) {
+    const card = line.closest('[data-line-id]').getBoundingClientRect()
+    const rects = []
+    const w = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      if (!n.textContent.trim()) continue
+      const own = n.parentElement.closest('button')
+      const r = document.createRange(); r.selectNodeContents(n)
+      for (const q of r.getClientRects()) if (q.width > 1) rects.push({ t: n.textContent.slice(0, 14), top: q.top, bottom: q.bottom, left: q.left, right: q.right, own })
+    }
+    let worst = 0, pair = ''
+    for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) {
+      const a = rects[i], b = rects[j]
+      if (Math.abs(a.top - b.top) < 2) continue
+      const ix = Math.min(a.right, b.right) - Math.max(a.left, b.left)
+      const iy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)
+      if (ix > 1 && iy > worst) { worst = iy; pair = a.t + ' / ' + b.t }
+    }
+    // A finger at the centre of each piece of text, with that piece scrolled to the middle of the screen
+    // first (so a piece below the fold or under the action area is brought into view, as a learner would).
+    const sc = (el) => { for (let e = el; e; e = e.parentElement) { const st = getComputedStyle(e); if (/(auto|scroll)/.test(st.overflowY) && e.scrollHeight > e.clientHeight) return e } return document.scrollingElement };
+    let wrongHits = []
+    const nodes = []
+    const w2 = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    for (let n = w2.nextNode(); n; n = w2.nextNode()) if (n.textContent.trim()) nodes.push(n)
+    for (const n of nodes) {
+      const own = n.parentElement.closest('button')
+      const count = (() => { const r = document.createRange(); r.selectNodeContents(n); return [...r.getClientRects()].filter((q) => q.width > 1).length })()
+      for (let k = 0; k < count; k++) {
+        const get = () => { const r = document.createRange(); r.selectNodeContents(n); return [...r.getClientRects()].filter((q) => q.width > 1)[k] }
+        let q = get()
+        sc(n.parentElement).scrollBy({ top: (q.top + q.bottom) / 2 - window.innerHeight * 0.4, behavior: 'instant' })
+        q = get()
+        const x = (q.left + q.right) / 2, y = (q.top + q.bottom) / 2
+        const hit = document.elementFromPoint(x, y)
+        const hitButton = hit ? hit.closest('button') : null
+        if (hitButton !== own) wrongHits.push({ text: n.textContent.slice(0, 14), piece: k, y: Math.round(y), landsOn: hitButton ? hitButton.textContent.slice(0, 14) : (hit ? hit.tagName + '.' + hit.className.toString().slice(0, 20) : 'nothing') })
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    const buttons = [...line.querySelectorAll('button')].map((b) => {
+      const br = b.getBoundingClientRect()
+      const pieces = []
+      const tw = document.createTreeWalker(b, NodeFilter.SHOW_TEXT)
+      for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+        if (!n.textContent.trim()) continue
+        const r = document.createRange(); r.selectNodeContents(n)
+        for (const q of r.getClientRects()) if (q.width > 1) pieces.push({ left: Math.round(q.left * 10) / 10, top: Math.round(q.top * 10) / 10, w: Math.round(q.width) })
+      }
+      const rowTops = [...new Set(pieces.map((p) => Math.round(p.top)))].sort((a, b) => a - b)
+      const rows = rowTops.length
+      // For every row of the button after the first: how far its leftmost piece starts from the button's left.
+      const rowStarts = rowTops.slice(1).map((t) => Math.min(...pieces.filter((p) => Math.round(p.top) === t).map((p) => p.left)) - br.left)
+      const lefts = rowStarts
+      return {
+        text: b.textContent.slice(0, 22), w: Math.round(br.width * 10) / 10, h: Math.round(br.height * 10) / 10,
+        textAlign: getComputedStyle(b).textAlign, rows,
+        laterRowsStartFromButtonLeftPx: rowStarts.map((x) => Math.round(x * 10) / 10),
+      }
+    })
+    const past = Math.max(...rects.map((r) => Math.max(r.right - card.right, r.right - vw, card.left - r.left)))
+    lines.push({ text: line.textContent.slice(0, 60), rowsOverlapPx: Math.round(worst * 10) / 10, pair, textPastCardOrScreenPx: Math.round(past), wrongHits, buttons })
+  }
+  return { sideScroll: document.documentElement.scrollWidth - document.documentElement.clientWidth, lines }
+})()`
+
+const word = (text: string, tappable: boolean, after?: string, before?: string) => ({
+  text,
+  ...(tappable ? { form: formOf(text) } : {}),
+  ...(after ? { after } : {}),
+  ...(before ? { before } : {}),
+})
+const variants: [string, unknown[]][] = [
+  ['r21-after-plain', [word('Missä', false), word('on', false), word(R21, true), word('vastaanotto', false, '?')]],
+  ['r21-after-tappable', [word('Missä', true), word('on', true), word(R21, true), word('vastaanotto', true, '?')]],
+  ['r21-in-quotes', [word('Sano', true), word(R21, true, '"?', '"'), word('nyt', true, '.')]],
+  ['long44-tappable-mid', [word('Voinks', false), word(LONG, true, '?'), word('maksaa', true, '.')]],
+  ['long44-plain-mid', [word('Voinks', true), word(LONG, false, '?'), word('maksaa', true, '.')]],
+  ['long44-first-then-words', [word(LONG, true), word('maksaa', true), word('kortilla', false, '?')]],
+  ['two-long-tappable', [word(LONG, true, ','), word(LONG + 'kin', true, '!')]],
+]
+
+for (const [screen, step] of [['hear-it', null], ['say-it', 'understand']] as const) {
+  for (const size of ['375', '320-200'] as const) {
+    test.describe(`46 ${screen} ${size}`, () => {
+      for (const [name, words] of variants) {
+        test(`${name}`, async ({ page, browserName }) => {
+          if (size === '320-200') await page.setViewportSize({ width: 320, height: 640 })
+          await lessonWith(page, [lineOf(1, words)], step)
+          if (step) await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+          if (size === '320-200') {
+            await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
+            await page.waitForTimeout(400)
+          }
+          const v = await page.evaluate(LAYOUT)
+          // Real finger taps: on the word in the row above the long word (when it is a button), and on the
+          // first and last piece of the long word. Each must open the card of the word it touched.
+          const taps: Record<string, string> = {}
+          const buttonCount = await page.evaluate(`[...document.querySelector('[data-line-id] p[lang="fi"]').querySelectorAll('button')].length`) as number
+          for (let i = 0; i < buttonCount; i++) {
+            for (const [label, which] of [['first piece', 0], ['last piece', -1]] as const) {
+              const t = await page.evaluate(`(() => {
+                const b = document.querySelector('[data-line-id] p[lang="fi"]').querySelectorAll('button')[${i}]
+                const tn = [...b.querySelectorAll('*'), b].flatMap((e) => [...e.childNodes]).find((c) => c.nodeType === 3 && c.textContent.trim().length > 1)
+                const get = () => { const r = document.createRange(); r.selectNodeContents(tn); const rs = [...r.getClientRects()].filter((q) => q.width > 1); return rs.at(${which}) }
+                let q = get()
+                const sc = (el) => { for (let e = el; e; e = e.parentElement) { const st = getComputedStyle(e); if (/(auto|scroll)/.test(st.overflowY) && e.scrollHeight > e.clientHeight) return e } return document.scrollingElement };
+                sc(b).scrollBy({ top: (q.top + q.bottom) / 2 - window.innerHeight * 0.4, behavior: 'instant' })
+                q = get()
+                return { word: tn.textContent, x: (q.left + q.right) / 2, y: (q.top + q.bottom) / 2 }
+              })()`) as { word: string; x: number; y: number }
+              await page.touchscreen.tap(t.x, t.y)
+              const dlg = page.locator('dialog[open]')
+              await dlg.first().waitFor({ timeout: 3000 }).catch(() => undefined)
+              const title = (await dlg.count()) ? await dlg.first().locator('h2').first().textContent() : 'no card'
+              taps[`${t.word} (${label})`] = title === t.word ? 'opens its own card' : `opens: ${title ?? ''}`
+              if (await dlg.count()) {
+                await page.keyboard.press('Escape')
+                await dlg.first().waitFor({ state: 'hidden' })
+                await page.waitForTimeout(150)
+              }
+            }
+          }
+          await page.evaluate(`window.scrollTo({ top: 0, behavior: 'instant' })`)
+          appendl(`46-layout-${screen}-${size}`, browserName, { case: name, ...v, taps })
+          await shot(page, `46-${screen}-${size}-${name}`, browserName)
+        })
+      }
+
+      // One row words: the builder's own made up dialogue, as every learner sees it. Fingerprint every
+      // piece of text and every button, to compare with the round 4 CSS.
+      test('one-row words (mock dialogue)', async ({ page, browserName }) => {
+        if (size === '320-200') await page.setViewportSize({ width: 320, height: 640 })
+        await mockLesson(page, { step: step ?? null, processing: 'withdrawn' })
+        await page.goto('/session')
+        await page.locator('[data-line-id]').first().waitFor()
+        await page.evaluate('document.fonts.ready')
+        if (size === '320-200') await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
+        await page.waitForTimeout(600)
+        const v = await page.evaluate(LAYOUT)
+        const finger = await page.evaluate(`(() => [...document.querySelectorAll('[data-line-id] p[lang="fi"] *, [data-line-id] p[lang="fi"]')].flatMap((el) => [...el.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim()).flatMap((n) => { const r = document.createRange(); r.selectNodeContents(n); return [...r.getClientRects()].map((q) => n.textContent + '@' + Math.round(q.left * 10) / 10 + ',' + Math.round(q.top * 10) / 10) })))()`)
+        const btn = await page.evaluate(`(() => [...document.querySelectorAll('[data-line-id] p[lang="fi"] button')].map((b) => { const r = b.getBoundingClientRect(); return b.textContent + ' ' + [r.left, r.top, r.width, r.height].map((n) => Math.round(n * 10) / 10).join(',') }))()`)
+        const axe = size === '375' ? (await new AxeBuilder({ page }).withTags(TAGS).analyze()).violations.map((x) => x.id) : 'not run'
+        let tapped = ''
+        const noi = page.locator('[data-line-id]').getByRole('button', { name: 'noi', exact: true }).first()
+        if (size === '375') {
+          await noi.tap()
+          tapped = (await page.locator('dialog[open] h2').first().textContent()) ?? ''
+          await page.keyboard.press('Escape')
+        }
+        out(`46-one-row-${screen}-${size}`, browserName, { layout: v, axe, tapNoiOpens: tapped, textFingerprint: finger, buttonFingerprint: btn })
+        await shot(page, `46-one-row-${screen}-${size}`, browserName)
+      })
+    })
+  }
+}
+
+const focused = (page: Page) =>
+  page.evaluate(() => {
+    const a = document.activeElement
+    if (!a) return 'none'
+    const by = a.getAttribute('aria-labelledby')
+    const label = a.getAttribute('aria-label') ?? (by ? document.getElementById(by)?.textContent : null) ?? a.textContent?.trim().slice(0, 30) ?? ''
+    const role = a.getAttribute('role')
+    return `${a.tagName}${role ? `[role=${role}]` : ''} "${label}"`
+  })
+
+async function closeBy(page: Page, how: string, dialog: ReturnType<Page['getByRole']>, button?: string) {
+  if (how === 'button' && button) await dialog.getByRole('button', { name: button, exact: true }).tap()
+  else if (how === 'Escape') await page.keyboard.press('Escape')
+  else await page.touchscreen.tap(187, 12)
+  await dialog.waitFor({ state: 'hidden' })
+  await page.waitForTimeout(150)
+}
+
+test.describe('47 focus back after a real tap', () => {
+  test('every opener', async ({ page, browserName }) => {
+    test.setTimeout(150_000)
+    const res: Record<string, unknown> = {}
+    const errors: string[] = []
+    const watch = (p: Page) => {
+      p.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()) })
+      p.on('pageerror', (e) => errors.push(String(e)))
+    }
+    watch(page)
+
+    // 1. The leave sheet (cross) in Hear it.
+    await mockLesson(page, {})
+    await page.goto('/session')
+    await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+    const cross = page.getByRole('button', { name: 'Leave session' })
+    const leave = page.getByRole('dialog', { name: 'Leave this lesson?' })
+    for (const how of ['button', 'Escape', 'dimmed']) {
+      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+      await cross.tap()
+      await leave.waitFor()
+      if (how === 'button') res['leave sheet: focus inside while open'] = await focused(page)
+      await closeBy(page, how, leave, 'Keep going')
+      res[`leave sheet: tap cross, close by ${how === 'button' ? 'Keep going' : how}`] = await focused(page)
+    }
+
+    // 2. The word card from a word of the spoken line, and from the written line.
+    for (const w of ['noi', 'nuo']) {
+      const btn = page.locator('[data-line-id]').first().getByRole('button', { name: w, exact: true })
+      const card = page.getByRole('dialog', { name: w })
+      for (const how of ['button', 'Escape', 'dimmed']) {
+        await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        await btn.tap()
+        await card.waitFor()
+        await closeBy(page, how, card, 'Close')
+        res[`word card ${w} (Hear it): close by ${how === 'button' ? 'Close' : how}`] = await focused(page)
+      }
+    }
+
+    // 3. The patterns panel opened from the word card.
+    await page.route('**/api/patterns**', (r) =>
+      json(r, { groups: [{ formName: 'Plural', forms: [{ lemma: 'tuo', spoken: 'noi', written: 'nuo', why: 'Spoken Finnish says noi where books write nuo.', line: { spoken: 'Paljonks noi mansikat maksaa?', written: 'Paljonko nuo mansikat maksavat?', spokenAudio: '/audio/a.wav', writtenAudio: '/audio/b.wav' } }] }] }),
+    )
+    {
+      const btn = page.locator('[data-line-id]').first().getByRole('button', { name: 'noi', exact: true })
+      const card = page.getByRole('dialog', { name: 'noi' })
+      await btn.tap()
+      await card.waitFor()
+      const link = page.getByRole('button', { name: "Patterns you've seen" })
+      for (const how of ['Escape', 'dimmed', 'button']) {
+        await link.tap()
+        const panel = page.getByRole('dialog', { name: "Patterns you've seen" })
+        await panel.waitFor()
+        await page.waitForTimeout(300)
+        res[`patterns panel open (${how}): focus inside`] = await focused(page)
+        if (how === 'button') {
+          const names = await panel.getByRole('button').allTextContents()
+          res['patterns panel buttons'] = names
+          const close = panel.getByRole('button', { name: /Close|Back/ }).first()
+          await close.tap()
+          await panel.waitFor({ state: 'hidden' })
+          await page.waitForTimeout(150)
+        } else await closeBy(page, how, panel)
+        res[`patterns panel: close by ${how === 'button' ? 'its close button' : how}, card still open: ${String(await card.isVisible())}`] = await focused(page)
+        if (!(await card.isVisible())) await btn.tap()
+      }
+      await card.getByRole('button', { name: 'Close', exact: true }).tap()
+      await card.waitFor({ state: 'hidden' })
+      await page.waitForTimeout(150)
+      res['patterns: then the word card Close'] = await focused(page)
+    }
+
+    // 4. A tall (wrapped) tappable word: its card gives focus back to it.
+    {
+      const p = await page.context().newPage()
+      watch(p)
+      await lessonWith(p, [lineOf(1, [word('Missä', false), word('on', false), word(R21, true), word('vastaanotto', false, '?')])])
+      const tall = p.locator('[data-line-id]').getByRole('button', { name: R21 }).first()
+      const card = p.getByRole('dialog', { name: R21 })
+      for (const how of ['button', 'Escape', 'dimmed']) {
+        await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        await tall.tap()
+        await card.waitFor()
+        await closeBy(p, how, card, 'Close')
+        res[`tall word ${R21}: close by ${how === 'button' ? 'Close' : how}`] = await focused(p)
+      }
+      await p.close()
+    }
+
+    // 5. Say it: the quiet "Turn on speaking feedback" button, and the word card in Say it.
+    {
+      const p = await page.context().newPage()
+      watch(p)
+      await mockLesson(p, { step: 'understand', processing: 'withdrawn' })
+      await p.goto('/session')
+      await expect(p.getByText('Say the line out loud after the voice.')).toBeVisible()
+      const quiet = p.getByRole('button', { name: 'Turn on speaking feedback' })
+      const consent = p.getByRole('dialog', { name: 'Say it out loud' })
+      for (const how of ['button', 'Escape', 'dimmed']) {
+        await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        await quiet.tap()
+        await consent.waitFor()
+        await closeBy(p, how, consent, 'Not now')
+        res[`Say it quiet button: close by ${how === 'button' ? 'Not now' : how}`] = await focused(p)
+      }
+      const noi = p.locator('[data-line-id]').first().getByRole('button', { name: 'noi', exact: true })
+      if (await noi.count()) {
+        const card = p.getByRole('dialog', { name: 'noi' })
+        for (const how of ['button', 'Escape', 'dimmed']) {
+          await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+          await noi.tap()
+          await card.waitFor()
+          await closeBy(p, how, card, 'Close')
+          res[`word card noi (Say it): close by ${how === 'button' ? 'Close' : how}`] = await focused(p)
+        }
+      } else res['word card noi (Say it)'] = 'no noi button in Say it'
+      await shot(p, '47-say-it-after-focus-return', browserName)
+      await p.close()
+    }
+
+    // 6. Say it: the consent sheet that opens by itself (no opener), for the record.
+    for (const how of ['button', 'Escape', 'dimmed']) {
+      const p = await page.context().newPage()
+      watch(p)
+      await mockLesson(p, { step: 'understand', processing: 'not_asked' })
+      await p.goto('/session')
+      const consent = p.getByRole('dialog', { name: 'Say it out loud' })
+      await consent.waitFor()
+      await p.waitForTimeout(300)
+      await closeBy(p, how, consent, 'Not now')
+      res[`Say it consent sheet that opens by itself: close by ${how === 'button' ? 'Not now' : how}`] = await focused(p)
+      await p.close()
+    }
+
+    // 7. Voice settings: the Speaking feedback switch.
+    {
+      const p = await page.context().newPage()
+      watch(p)
+      let consentPosts = 0
+      await mockHome(p, { done: { 1: 4, 2: 4, 3: 2 }, me: { kind: 'guest' } })
+      await p.route('**/api/voice', (r) => json(r, { available: true, region: null, processing: 'not_asked', retention: false, recordings: [] }))
+      await p.route('**/api/voice/consent', (r) => {
+        consentPosts += 1
+        return json(r, { available: true, region: null, processing: 'granted', retention: false, recordings: [] })
+      })
+      await p.goto('/voice')
+      const sw = p.getByRole('switch', { name: 'Speaking feedback' })
+      const consent = p.getByRole('dialog', { name: 'Say it out loud' })
+      for (const how of ['button', 'Escape', 'dimmed']) {
+        await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        await sw.tap()
+        await consent.waitFor()
+        if (how === 'button') res['voice settings: focus inside while open'] = await focused(p)
+        if (how === 'button') await shot(p, '47-voice-consent-open', browserName)
+        await closeBy(p, how, consent, 'Not now')
+        res[`voice settings switch: close by ${how === 'button' ? 'Not now' : how}`] = await focused(p)
+        res[`voice settings switch after ${how}: aria-checked`] = await sw.getAttribute('aria-checked')
+      }
+      // Keyboard path still works.
+      await sw.focus()
+      await p.keyboard.press('Space')
+      await consent.waitFor()
+      await p.keyboard.press('Escape')
+      await consent.waitFor({ state: 'hidden' })
+      await p.waitForTimeout(150)
+      res['voice settings: keyboard Space, Escape'] = await focused(p)
+      // Turn on from the sheet.
+      await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+      await sw.tap()
+      await consent.waitFor()
+      await consent.getByRole('button', { name: /Turn on/ }).first().tap()
+      await consent.waitFor({ state: 'hidden' })
+      await p.waitForTimeout(400)
+      res['voice settings: tap switch, tap Turn on'] = await focused(p)
+      res['voice settings: after Turn on, aria-checked, consent posts'] = [await sw.getAttribute('aria-checked'), consentPosts]
+      await shot(p, '47-voice-after-focus-return', browserName)
+      res['axe voice settings'] = (await new AxeBuilder({ page: p }).withTags(TAGS).analyze()).violations.map((v) => v.id)
+      await p.close()
+    }
+
+    // 8. The finish screen: the new word chips.
+    {
+      const p = await page.context().newPage()
+      watch(p)
+      await mockLesson(p, { step: 'say', newWords: 3, me: { kind: 'guest' } })
+      await p.goto('/session')
+      await expect(p.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+      const chip = p.getByRole('button', { name: 'sana1' })
+      const card = p.getByRole('dialog', { name: 'sana1' })
+      for (const how of ['button', 'Escape', 'dimmed']) {
+        await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        await chip.tap()
+        await card.waitFor()
+        await closeBy(p, how, card, 'Close')
+        res[`finish chip sana1: close by ${how === 'button' ? 'Close' : how}`] = await focused(p)
+      }
+      await p.close()
+    }
+
+    // 9. The first lesson tip (not a sheet).
+    {
+      const p = await page.context().newPage()
+      watch(p)
+      await mockLesson(p, { firstLesson: true })
+      await p.goto('/session')
+      const tip = p.getByRole('dialog', { name: 'How this screen works' })
+      await tip.waitFor()
+      await p.waitForTimeout(300)
+      res['tip: focus while open'] = await focused(p)
+      await tip.getByRole('button').first().tap()
+      await tip.waitFor({ state: 'hidden' })
+      await p.waitForTimeout(200)
+      res['tip: after a tap on its button'] = await focused(p)
+      await p.close()
+    }
+    res['console and page errors'] = errors
+    out('47-focus-return', browserName, res)
+  })
+})

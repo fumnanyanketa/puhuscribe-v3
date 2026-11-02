@@ -144,3 +144,38 @@ The other statements were not touched by round 4 (it changed `FinnishLine`, `She
 - The road bend is still 48 for the owner to decide.
 
 Result: fail
+
+## Round 5 re-evaluation
+
+Re-evaluated 2 November 2026 on commit `53428b9` (branch tip `e4c4db4` differs only in `build.md`). I tested a throwaway copy of `53428b9` (made with `git archive`, its `src/` checked identical to the worktree's), built and served by `vite preview` over HTTPS with the builder's request mocks, because there is no Docker here. Everything ran at 375 x 812 in Chromium and WebKit, and again at 320 x 640 with text at 200 percent, using real finger taps (Playwright's touch screen), without the builder's `mousedown` trick. My scripts are `eval-r5-script.spec.txt` and `eval-r5-break-script.sh.txt`. Breaks were made only in the throwaway copy and undone (`eval-r5-break-proofs.txt`). I read the round 5 part of `build.md` and `proof-by-breaking-round5.md` first. No `.env*` file was read, and no trace or HAR file was kept (`PUHUSCRIBE_NO_TRACE=1`).
+
+| # | Result | Evidence | What I saw |
+|---|---|---|---|
+| 46 | pass | `eval-r5-46-summary.txt`, `eval-r5-46-layout-hear-it-375-webkit.jsonl`, `eval-r5-46-hear-it-375-r21-after-tappable-webkit.png`, `eval-r5-46-say-it-320-200-r21-after-plain-webkit.png` | I tested seven lines (the 21 letter `terveyskeskuslääkärin` after plain words, after tappable words and in quotes, and a 44 letter word tappable or plain in the middle, first, or twice), in Hear it and Say it, at 375 and at 320 with 200 percent text, in both browsers (112 measured lines). In every case the text rows overlap by 0.4 px at most (round 4 measured 9.1 to 10.3 px), every later row of a wrapped word starts at the button's left edge (0 px), text-align is `start`, nothing scrolls sideways, every word stays 19 px or more inside its card, and every word button is at least 44 px tall. A finger at the centre of every piece of text lands on that word's own button, and 256 real taps on the first and last piece of each word each opened that word's own card. |
+| 46 (one-row words) | pass | `eval-r5-46-one-row-hear-it-375-webkit.json`, `eval-r5-46-one-row-say-it-375-webkit.png`, `eval-r5-break-proofs.txt` | The builder's dialogue at 375 px has the same layout under the round 4 and round 5 CSS: none of the 10 text pieces moves and neither word button ("noi", "nuo") moves or resizes, in both browsers and both screens. The buttons are 44 px tall, a tap on "noi" opens its card, and axe finds nothing. |
+| 47 | pass | `eval-r5-47-focus-return-webkit.json`, `eval-r5-47-focus-return-chromium.json`, `eval-r5-47-voice-after-focus-return-webkit.png` | With real taps in WebKit, focus goes back to the opener after its close button, Escape and a tap on the dimmed page in every case: the leave sheet (cross), the word card from a spoken word, a written word, a tall wrapped word and a word in Say it, the patterns panel (back to "Patterns you've seen", then the card's Close back to "noi"), the quiet "Turn on speaking feedback" in Say it, the Voice settings Speaking feedback switch (also after "Turn on", and by keyboard), and the finish screen chips. The first lesson tip gives focus to "Next line". Chromium shows the same results, there are no console errors, and axe finds nothing on Voice settings. |
+| 43 | pass | `eval-r5-ci-run.txt` | GitHub run 41424781086 on `53428b9a7826c7eabf6648e918ce78a73efceb78` was green on its first attempt in every job. The browser job had 720 passed, 0 failed and 0 flaky, including the new round 5 tests in both browsers and the three real road tests. Against round 4 there are 12 more passes and 6 more skips (the new 21 letter evidence screenshots), so no test was removed. The only lines removed from tests in round 5 let a helper open Say it as well as Hear it, with Hear it still the default; nothing was weakened. |
+| 5, 22, 23, 26, 28 to 31, 33, 36, 10 to 20 | pass | `eval-r5-spot-checks.txt` | Spot check on the clean build: the builder's lesson, pages and road browser files gave 290 passed and 2 failed, both in WebKit. Both failing tests wait for the record button, which the app shows only where the browser has MediaRecorder (`src/lib/recorder.ts`), and Playwright's WebKit on Windows has none. Both pass in Chromium here and in WebKit on GitHub. Round 5 changed only `FinnishLine`'s word button, `Switch`, `ConsentSheet`, `SayIt` and `VoiceSettings`, so the other statements keep their round 4 results, backed by the green run. |
+
+### Proof by breaking (throwaway copy)
+
+- **Break A.** I put back the round 4 word button CSS (`FinnishLine.module.css` as at `2ef3ad3`). The builder's two 21 letter tests went red in both browsers (row overlap 9.09 px). My own measure showed 9.1 to 10.3 px of overlap and centred pieces again (`eval-r5-break-A-layout-hear-it-375-webkit.jsonl`, `eval-r5-break-A-hear-it-r21-webkit.png`).
+- **Break B.** With only `text-align: start` removed, the same tests went red in both browsers (later pieces 85 px and 53 px from the left).
+- **Break C.** With `returnFocus={speakingSwitch}` removed from Voice settings, the builder's switch test went red in both browsers. In my WebKit tap run, focus fell to the page body after "Not now", Escape, the dimmed page and "Turn on" (`eval-r5-break-C-focus-webkit.json`). This is exactly the round 4 failure.
+- **Break D.** With `reopen.current?.focus()` removed from Say it, the builder's quiet button test went red in both browsers, and in my tap run focus fell to the body (`eval-r5-break-D-focus-webkit.json`).
+- **Break E.** I made `Sheet` ignore `returnFocus`. The leave sheet and switch tests went red in both browsers. In my WebKit tap run, only the leave sheet and the switch lost focus (`eval-r5-break-E-focus-webkit.json`). The word card, the chips, the quiet button and the patterns panel each have their own way back, so each fix is protected separately.
+- After each break the copy was restored (its `src` checked identical to the worktree's) and rebuilt. The baseline and the final run of the builder's round 5 tests passed 14 of 14 in both browsers.
+
+### Failures
+
+None.
+
+### Odd, not failures
+
+- When a word has a visible focus outline (after a key press), the outline is drawn on the 44 px tap area. So it crosses the text of the next row, for example the outline round "noi" runs through "mansikat maksaa?" (`eval-r5-46-one-row-hear-it-375-webkit.png`), and the outline round "maksaa" crosses the last piece of the long word above it (`eval-r5-46-hear-it-375-long44-tappable-mid-webkit.png`). This is not new in round 5, because the one-row layout is identical to round 4. It only lasts while the word has focus. It could be drawn at text height in a later job.
+- The later pieces of a wrapped word start about 5 px left of the other rows of the line. They start at the button's edge, and the button sits 0.08 em outside the text because of the word's wash padding (`eval-r5-46-hear-it-375-r21-after-plain-webkit.png`, "rin"). It is small, and it is consistent.
+- The consent sheet that opens by itself when Say it appears has no opener. After "Not now", Escape or the dimmed page, focus is on the page body in both browsers. The spec asks for focus to return to the opener, and there is none here. Sending focus to the Say it heading or the quiet button would help a screen reader user, and is the owner's or designer's call.
+- My one long focus test once ran past Playwright's 30 second limit with four workers, which is a limit of my script and not the app. With a longer limit it passed 8 of 8.
+- The road bend is still 48 for the owner to decide.
+
+Result: pass
