@@ -30,6 +30,8 @@ import styles from './Account.module.css'
 // from src/privacy/processors.ts. The responsible name and contact come from
 // src/privacy/notice-settings.ts, which holds the owner's answer.
 
+const VOICE_ID = 'privacy-voice'
+
 export const COMPLAINT_URL = 'https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman'
 
 export const RIGHTS = [
@@ -84,6 +86,10 @@ function Item({ item }: { item: InventoryItem }) {
 export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible }) {
   const [who, what, howLong, where, cookies, rights, age, updated] = SECTION_HEADINGS
   const [open, setOpen] = useState(false)
+  // The voice details sit behind "More about your voice" (round 6), open at once when "How it works" sent the learner here.
+  const [voiceOpen, setVoiceOpen] = useState(
+    () => typeof window !== 'undefined' && window.location.hash === `#${VOICE_ID}`,
+  )
   // The country of the speech service comes from the one read of the voice settings (GET /api/voice),
   // because it is set where the Worker runs and not in the page. Someone with no account gets a 401 and
   // sees "in the EU" without the country. Nothing is sent and nothing is stored.
@@ -103,7 +109,9 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
   }, [])
   const notice = voiceNotice(region)
   return (
-    <PageFrame back={PATHS.home} backLabel="Back to the road" title={FIRST_LAYER.title}>
+    <PageFrame back={PATHS.home} backLabel="Back to the road" contentTop="near">
+      {/* The title is in the page, large and quiet, as drawn (round 6). */}
+      <h1 className={styles.docTitle}>{FIRST_LAYER.title}</h1>
       <p className={styles.summary}>{FIRST_LAYER.summary}</p>
       <div className={styles.firstLayer}>
         {FIRST_LAYER.sections.map((section) => (
@@ -112,23 +120,36 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               {section.heading}
             </h2>
             <p className={styles.shortText}>{section.text}</p>
-            {section.id === 'privacy-voice' && (
+            {section.id === VOICE_ID && (
               <>
-                {notice.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className={styles.shortText}>
-                    {paragraph}
-                  </p>
-                ))}
-                <p className={styles.shortText}>{notice.keepBox}</p>
-                <p className={styles.shortText}>{notice.changeLater}</p>
+                <Button
+                  variant="mint"
+                  className={styles.more}
+                  aria-expanded={voiceOpen}
+                  aria-controls="voice-details"
+                  onClick={() => {
+                    setVoiceOpen(!voiceOpen)
+                  }}
+                >
+                  More about your voice
+                </Button>
+                <div id="voice-details" className={styles.voiceDetails} hidden={!voiceOpen}>
+                  {notice.paragraphs.map((paragraph) => (
+                    <p key={paragraph} className={styles.shortText}>
+                      {paragraph}
+                    </p>
+                  ))}
+                  <p className={styles.shortText}>{notice.keepBox}</p>
+                  <p className={styles.shortText}>{notice.changeLater}</p>
+                </div>
               </>
             )}
           </section>
         ))}
       </div>
-      <p className={styles.shortText}>Updated {formatDate(NOTICE_UPDATED)}.</p>
       <Button
-        variant="secondary"
+        variant="mint"
+        className={styles.more}
         aria-expanded={open}
         aria-controls="full-notice"
         onClick={() => {
@@ -266,6 +287,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
           </section>
         </div>
       </div>
+      <p className={styles.updated}>Updated {formatDate(NOTICE_UPDATED)}</p>
     </PageFrame>
   )
 }

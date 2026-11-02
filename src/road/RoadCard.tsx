@@ -69,18 +69,20 @@ export function RoadCard({ view, onStart, onContinue, starting, problem, startRe
           <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
             Start
           </Button>
-          <div className={styles.links}>
-            <p className={styles.account}>
-              Have an account?{' '}
-              <a className={styles.link} href={PATHS.signIn}>
-                Sign in
-              </a>
-            </p>
+          {/* As drawn, centred under Start; the guest line and the Privacy notice link sit under it, small,
+              quiet and centred (owner's call 9, round 6). */}
+          <p className={styles.account}>
+            Have an account?{' '}
+            <a className={styles.link} href={PATHS.signIn}>
+              Sign in
+            </a>
+          </p>
+          <p className={styles.legal}>
+            <span>{GUEST_LINE}</span>{' '}
             <a className={styles.legalLink} href={PATHS.privacy}>
               Privacy notice
             </a>
-          </div>
-          <p className={styles.legal}>{GUEST_LINE}</p>
+          </p>
         </>
       )}
       {view.kind === 'lesson' && (

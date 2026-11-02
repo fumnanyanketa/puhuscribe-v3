@@ -14,19 +14,21 @@
   color: var(--color-text-quiet);
 }
 
-/* Gentle note: rounded peach block, an open circle as its mark. */
+/* Gentle note, as drawn (round 6): a rounded peach block, peach text and an open peach ring. */
 .gentle {
+  align-items: center;
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-gentle-wash);
+  color: var(--color-peach-text);
 }
 
 .gentle .mark {
   flex: none;
-  width: 14px;
-  height: 14px;
-  margin-top: 0.3em;
-  border: 2px solid var(--color-gentle-mark);
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid var(--color-gentle-mark);
   border-radius: 50%;
 }
 

@@ -94,7 +94,10 @@ export function UnderstandIt({ session, frame, onDone }: StepScreenProps) {
   const ready = right !== null || questions.length === 0
   const actions = (
     <>
-      <StatusLine tone={tone}>{message}</StatusLine>
+      {/* "Choose what the line means." is for screen readers; the drawing shows no line there (round 6). */}
+      <StatusLine tone={tone} visuallyHidden={message === HELP}>
+        {message}
+      </StatusLine>
       <Button
         block
         ref={nextButton}
@@ -117,7 +120,6 @@ export function UnderstandIt({ session, frame, onDone }: StepScreenProps) {
       progress={answered}
       leaveHref={PATHS.home}
       stepHeading
-      hideStepName
       actions={actions}
     >
       <main className={styles.main}>

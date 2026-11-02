@@ -10,8 +10,12 @@ import styles from './Switch.module.css'
 interface SwitchProps {
   /** Its name, such as "Speaking feedback". */
   label: string
-  /** One line under the name that says what the current state means. */
+  /** One line under the name, drawn. */
   hint?: string
+  /** Read with the switch but not drawn, such as "On." and what that means (round 6: the drawings show the name only). */
+  hiddenHint?: string
+  /** Ids of more text on the page to read with the switch, after the hidden hint. Given, the drawn hint is not repeated. */
+  describedBy?: string
   checked: boolean
   onChange: (next: boolean) => void
   busy?: boolean
@@ -25,6 +29,8 @@ interface SwitchProps {
 export function Switch({
   label,
   hint,
+  hiddenHint,
+  describedBy,
   checked,
   onChange,
   busy = false,
@@ -34,6 +40,11 @@ export function Switch({
 }: SwitchProps) {
   const labelId = useId()
   const hintId = useId()
+  const hiddenId = useId()
+  const description = [
+    ...(hiddenHint ? [hiddenId] : []),
+    ...(describedBy ? [describedBy] : hint ? [hintId] : []),
+  ].join(' ')
   return (
     <div className={styles.row}>
       <div className={styles.text}>
@@ -45,6 +56,11 @@ export function Switch({
             {hint}
           </span>
         )}
+        {hiddenHint && (
+          <span id={hiddenId} className={styles.hidden}>
+            {hiddenHint}
+          </span>
+        )}
       </div>
       <button
         ref={ref}
@@ -53,7 +69,7 @@ export function Switch({
         className={styles.switch}
         aria-checked={checked}
         aria-labelledby={labelId}
-        aria-describedby={hint ? hintId : undefined}
+        aria-describedby={description || undefined}
         aria-busy={busy || undefined}
         disabled={disabled}
         onClick={() => {

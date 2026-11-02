@@ -103,17 +103,17 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  // Redrawn in job 19-redesign (statement 34): a profile page. The guest note is one sentence with an
-  // "Add" button (named "Add your email" for screen readers); the long guest paragraph and the line
-  // about signing back in are gone on purpose.
+  // Redrawn in job 19-redesign (statement 34): a profile page. The guest note is the owner's sentence with
+  // a "Create" button (named "Create an account", round 6); the long guest paragraph and the line about
+  // signing back in are gone on purpose.
   test("[accounts 2] [redesign 34] a guest's account page offers adding an email, the download and deletion, and no sign out", async ({
     page,
   }) => {
     await startGuest(page)
     await page.goto('/account')
-    await expect(page.getByText('Add your email to keep your progress.', { exact: true })).toBeVisible()
+    await expect(page.getByText('Create an account to save your progress.', { exact: true })).toBeVisible()
     await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Add your email' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Create an account' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Download my data' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeVisible()
@@ -209,7 +209,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const userId = await startGuest(page)
       await page.clock.install()
       await page.goto('/account')
-      await page.getByRole('button', { name: 'Add your email' }).click()
+      await page.getByRole('button', { name: 'Create an account' }).click()
       await page.waitForURL('**/account/email')
       await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
       await expect(
@@ -227,15 +227,16 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       // Statement 7: after "Send code" the account is still a guest with no email.
       expect(authUser(userId)).toEqual({ exists: true, anonymous: true, email: '' })
 
-      await expect(
-        page.getByText(`Enter the 6 digit code we sent to ${address}. The code works for one hour.`),
-      ).toBeVisible()
+      // Round 6 (job 19-redesign): "Sent to" the address, as drawn, and the protected hour line under the boxes.
+      await expect(page.getByText(`Sent to ${address}`, { exact: true })).toBeVisible()
+      await expect(page.getByText('The code works for one hour.', { exact: true })).toBeVisible()
       const code = page.getByLabel('6 digit code')
       await expect(code).toHaveAttribute('inputmode', 'numeric')
       await expect(code).toHaveAttribute('autocomplete', 'one-time-code')
       const resend = page.getByRole('button', { name: 'Send a new code' })
       await expect(resend).toBeDisabled()
-      await expect(page.getByText('You can ask for a new code after one minute.')).toBeVisible()
+      // Round 6 (job 19-redesign): the link itself reads the wait.
+      await expect(resend).toHaveText('Send a new code in 1:00')
 
       // Statement 15: the email change email shows a 6 digit code and no link.
       const mail = await nextMail(address)
@@ -304,9 +305,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const seen = await mailIds(address)
       await sendCodeTo(guestPage, address)
       // The same screen as for a new address (statement 9).
-      await expect(
-        guestPage.getByText(`Enter the 6 digit code we sent to ${address}. The code works for one hour.`),
-      ).toBeVisible()
+      await expect(guestPage.getByText(`Sent to ${address}`, { exact: true })).toBeVisible()
+      await expect(guestPage.getByText('The code works for one hour.', { exact: true })).toBeVisible()
       const mail = await nextMail(address, seen)
       expect(mail.subject).toBe('Your PuhuScribe code')
       expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
@@ -529,7 +529,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       for (const scheme of ['light', 'dark'] as const) {
         await page.emulateMedia({ colorScheme: scheme })
         await page.goto('/account')
-        await expect(page.getByRole('button', { name: 'Add your email' })).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Create an account' })).toBeVisible()
         await axe(page, `account, guest, ${scheme}`)
         await page.goto('/account/delete')
         await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
@@ -547,7 +547,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
 
       // The whole add email flow by keyboard alone.
       await page.goto('/account')
-      await tabTo(page, page.getByRole('button', { name: 'Add your email' }), testInfo)
+      await tabTo(page, page.getByRole('button', { name: 'Create an account' }), testInfo)
       await page.keyboard.press('Enter')
       await page.waitForURL('**/account/email')
       await expect(page.getByLabel('Email address')).toBeFocused()

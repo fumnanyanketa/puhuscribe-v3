@@ -58,15 +58,23 @@
 
 .lineArea {
   display: grid;
+  flex: 1;
   gap: var(--space-4);
   grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   margin: var(--space-5) 0 0;
 }
 
 .recordRow {
   display: grid;
+  align-content: center;
   gap: var(--space-3);
   justify-items: center;
+}
+
+/* The peach note fills the width above the record button. */
+.recordRow > [role='status'] {
+  justify-self: stretch;
 }
 
 .buttons {
@@ -130,9 +138,11 @@
   color: var(--color-text-quiet);
 }
 
+/* "That was clear.": the tick and the words at the left, the wave, then the two buttons side by side, as drawn (round 6). */
 .clearCard {
   display: grid;
-  justify-items: center;
+  align-self: start;
+  justify-items: stretch;
   gap: var(--space-3);
   padding: var(--space-4);
   border: var(--panel-edge);
@@ -141,9 +151,24 @@
   box-shadow: var(--panel-shadow);
 }
 
+.clearCard > span {
+  justify-self: center;
+}
+
+.clearCard .recordingControls {
+  flex-wrap: nowrap;
+}
+
+.clearCard .recordingControls > * {
+  flex: 1;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+}
+
 .clearLine {
   display: flex;
   align-items: center;
+  justify-self: start;
   gap: var(--space-3);
   margin: 0;
   font-size: var(--text-body);
@@ -154,8 +179,8 @@
   display: grid;
   flex: none;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   background: var(--color-mint);
 }
@@ -170,19 +195,24 @@
   stroke-linejoin: round;
 }
 
-/* Voice settings, as drawn (job 19-redesign, statement 36): the two switches
-   in one milky panel, and the danger text button. */
+/* Voice settings, as drawn (job 19-redesign, statement 36; round 6): two separate milky cards, each a
+   switch, and the milky "Delete my recordings" at the bottom when there is something to delete. */
 .switches {
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-4);
+}
+
+.switchCard {
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-5);
   border: var(--panel-edge);
   border-radius: var(--panel-radius);
   background: var(--panel-fill);
   box-shadow: var(--panel-shadow);
 }
 
-.danger {
-  justify-self: center;
-  color: var(--color-peach-deep);
+button.danger {
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-danger-ink);
 }

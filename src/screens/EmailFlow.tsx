@@ -29,7 +29,6 @@ export const CODE_WORKS = 'The code works for one hour.'
 export const CHECK_EMAIL = 'Please check the email address.'
 export const WRONG_CODE = 'That code did not work. Check the numbers and try again.'
 export const TOO_MANY = 'Too many tries for now. Wait a few minutes, then try again.'
-export const WAIT_FOR_NEW = 'You can ask for a new code after one minute.'
 export const ADDED = 'Your email is added. Your progress is saved to your account.'
 export const SWITCHED = 'You are signed in to your account. The guest progress from this device was deleted.'
 export const SIGNED_IN = 'You are signed in to your account.'
@@ -37,6 +36,9 @@ const NOT_SENT = 'The code could not be sent. Check your internet connection, th
 const NOT_CHECKED = 'The code could not be checked. Check your internet connection, then try again.'
 const NEW_CODE_SENT = 'We sent a new code.'
 const LOADING = 'Loading.'
+
+const EMAIL_FORM = 'email-form'
+const CODE_FORM = 'code-form'
 
 /** Supabase sends one code per address per minute. */
 const RESEND_AFTER_MS = 60_000
@@ -51,9 +53,16 @@ interface Status {
 
 const QUIET: Status = { text: '', tone: 'neutral' }
 
+/** "Send a new code in 0:45": the wait, read on the link itself (round 6). */
+export function waitText(msLeft: number): string {
+  const seconds = Math.max(0, Math.ceil(msLeft / 1000))
+  return `${String(Math.floor(seconds / 60))}:${String(seconds % 60).padStart(2, '0')}`
+}
+
 export function EmailFlow({ mode }: { mode: Mode }) {
-  // The owner's title of 1 November 2026 (job 19-redesign): "Create your account".
-  const heading = mode === 'add' ? 'Create your account' : 'Sign in with your email'
+  // The owner's titles (job 19-redesign): "Create your account" (1 November 2026) and the drawing's
+  // "Welcome back" for sign in (round 6).
+  const heading = mode === 'add' ? 'Create your account' : 'Welcome back'
   const [step, setStep] = useState<Step>('loading')
   const [email, setEmail] = useState('')
   const [sentTo, setSentTo] = useState('')
@@ -61,6 +70,9 @@ export function EmailFlow({ mode }: { mode: Mode }) {
   const [status, setStatus] = useState<Status>(QUIET)
   const [busy, setBusy] = useState(false)
   const [canResend, setCanResend] = useState(false)
+  // When a new code may be asked for, and the clock that counts down to it on the link.
+  const [resendAt, setResendAt] = useState(0)
+  const [now, setNow] = useState(() => Date.now())
   const [done, setDone] = useState('')
   const resendTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const firstLook = useRef<Promise<Step | 'leave'> | null>(null)
@@ -99,8 +111,22 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     [],
   )
 
+  // The link counts down once a second while it waits.
+  useEffect(() => {
+    if (canResend || resendAt === 0) return undefined
+    const tick = setInterval(() => {
+      setNow(Date.now())
+    }, 1000)
+    return () => {
+      clearInterval(tick)
+    }
+  }, [canResend, resendAt])
+
   function startResendTimer() {
     setCanResend(false)
+    const start = Date.now()
+    setNow(start)
+    setResendAt(start + RESEND_AFTER_MS)
     if (resendTimer.current) clearTimeout(resendTimer.current)
     resendTimer.current = setTimeout(() => {
       setCanResend(true)
@@ -179,7 +205,46 @@ export function EmailFlow({ mode }: { mode: Mode }) {
   return (
     <PageFrame
       back={mode === 'add' ? PATHS.account : PATHS.home}
-      backLabel={mode === 'add' ? 'Back to your account' : 'Back to the road'}
+      backLabel={
+        step === 'code'
+          ? 'Use another email address'
+          : mode === 'add'
+            ? 'Back to your account'
+            : 'Back to the road'
+      }
+      // On the code step the back arrow goes back to the email field, as the drawing's "Use another email address" did.
+      onBack={step === 'code' ? backToEmail : undefined}
+      actions={
+        step === 'email' || step === 'code' ? (
+          <>
+            <StatusLine tone={status.tone}>{status.text}</StatusLine>
+            {step === 'email' ? (
+              <Button type="submit" form={EMAIL_FORM} block busy={busy} busyLabel="Sending the code.">
+                Send code
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                form={CODE_FORM}
+                block
+                busy={busy}
+                busyLabel="Checking the code."
+                disabled={cleanCode(code) === null}
+              >
+                Confirm
+              </Button>
+            )}
+            {step === 'email' && mode === 'sign-in' && (
+              <a className={styles.smallLink} href={PATHS.home}>
+                Start as a guest instead
+              </a>
+            )}
+            <a className={styles.smallLink} href={PATHS.privacy}>
+              Privacy notice
+            </a>
+          </>
+        ) : undefined
+      }
     >
       {step === 'loading' && (
         <div className={styles.intro}>
@@ -217,69 +282,56 @@ export function EmailFlow({ mode }: { mode: Mode }) {
       )}
 
       {step === 'email' && (
-        <form className={styles.form} noValidate onSubmit={(event) => void sendCode(event)}>
+        <form id={EMAIL_FORM} className={styles.form} noValidate onSubmit={(event) => void sendCode(event)}>
           <div className={styles.intro}>
             <h1 className={styles.title}>{heading}</h1>
-            <p className={styles.text}>{SENDS_CODE}</p>
-            {mode === 'add' && <p className={styles.text}>{TAKEN_WARNING}</p>}
+            {mode === 'sign-in' && <p className={styles.subtitle}>Enter your email for a code.</p>}
           </div>
-          <TextField
-            ref={emailField}
-            id="email"
-            label="Email address"
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            autoCapitalize="none"
-            spellCheck={false}
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value)
-            }}
-          />
-          <div className={styles.actions}>
-            <StatusLine tone={status.tone}>{status.text}</StatusLine>
-            <Button type="submit" block busy={busy} busyLabel="Sending the code.">
-              Send code
-            </Button>
-            {mode === 'sign-in' && (
-              <a className={styles.smallLink} href={PATHS.home}>
-                Start as a guest instead
-              </a>
-            )}
+          <div className={styles.fieldGroup}>
+            <TextField
+              ref={emailField}
+              id="email"
+              label="Email address"
+              placeholder="Your email"
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value)
+              }}
+            />
+            {/* The protected sentences stay word for word, small and quiet under the field (round 6). */}
+            <p className={styles.quietText}>{SENDS_CODE}</p>
+            {mode === 'add' && <p className={styles.quietText}>{TAKEN_WARNING}</p>}
           </div>
         </form>
       )}
 
       {step === 'code' && (
-        <form className={styles.form} noValidate onSubmit={(event) => void confirm(event)}>
+        <form id={CODE_FORM} className={styles.form} noValidate onSubmit={(event) => void confirm(event)}>
           <div className={styles.intro}>
             <h1 className={styles.title}>Enter the code</h1>
             {mode === 'add' ? (
-              <p className={styles.text}>
-                Enter the 6 digit code we sent to {sentTo}. {CODE_WORKS}
-              </p>
+              <p className={styles.subtitle}>Sent to {sentTo}</p>
             ) : (
-              <>
-                <p className={styles.text}>{SIGN_IN_SENT}</p>
-                <p className={styles.text}>{SIGN_IN_NO_CODE}</p>
-                <p className={styles.text}>{CODE_WORKS}</p>
-              </>
+              <p className={styles.subtitle}>{SIGN_IN_SENT}</p>
             )}
           </div>
-          <CodeField ref={codeField} id="code" label="6 digit code" value={code} onChange={setCode} />
-          <div className={styles.actions}>
-            <StatusLine tone={status.tone}>{status.text}</StatusLine>
-            <Button type="submit" block busy={busy} busyLabel="Checking the code.">
-              Confirm
+          <div className={styles.fieldGroup}>
+            <CodeField ref={codeField} id="code" label="6 digit code" value={code} onChange={setCode} />
+            <Button
+              variant="quiet"
+              className={styles.resend}
+              disabled={!canResend}
+              onClick={() => void resend()}
+            >
+              {canResend ? 'Send a new code' : `Send a new code in ${waitText(resendAt - now)}`}
             </Button>
-            <Button variant="secondary" block disabled={!canResend} onClick={() => void resend()}>
-              Send a new code
-            </Button>
-            {!canResend && <p className={styles.quietText}>{WAIT_FOR_NEW}</p>}
-            <Button variant="quiet" onClick={backToEmail}>
-              Use another email address
-            </Button>
+            {mode === 'sign-in' && <p className={styles.quietCentre}>{SIGN_IN_NO_CODE}</p>}
+            <p className={styles.quietCentre}>{CODE_WORKS}</p>
           </div>
         </form>
       )}
@@ -301,12 +353,6 @@ export function EmailFlow({ mode }: { mode: Mode }) {
             </Button>
           </div>
         </>
-      )}
-
-      {step !== 'done' && (
-        <a className={styles.smallLink} href={PATHS.privacy}>
-          Privacy notice
-        </a>
       )}
     </PageFrame>
   )

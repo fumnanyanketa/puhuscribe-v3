@@ -74,12 +74,10 @@ export function SessionFrame({
       data-dim={dim ? 'on' : undefined}
     >
       <Landscape />
-      <header className={styles.topBar}>
-        {finished ? (
-          <a className={styles.leave} href={leaveHref} aria-label="Leave session">
-            <Cross />
-          </a>
-        ) : (
+      {/* The finish screen has no top bar, as drawn (round 6): no cross (Done goes back to the road) and the
+          full bar stays for screen readers only. */}
+      <header className={finished ? styles.topBarHidden : styles.topBar}>
+        {finished ? null : (
           <button
             ref={cross}
             type="button"
@@ -104,7 +102,7 @@ export function SessionFrame({
           <span className={styles.fill} style={{ width: `${String(Math.round(share * 1000) / 10)}%` }} />
         </div>
         <StepName className={hideStepName ? styles.stepHidden : styles.step}>
-          {finished ? 'Lesson finished' : step}
+          {finished ? 'Lesson finished' : <StepLabel step={step} />}
         </StepName>
       </header>
       {dim && <div className={styles.scrim} aria-hidden="true" />}
@@ -144,6 +142,16 @@ export function SessionFrame({
         </div>
       </Sheet>
     </div>
+  )
+}
+
+/** The drawings name the second step "Understand"; screen readers still hear "Understand it" (round 6). */
+function StepLabel({ step }: { step: LoopStep }) {
+  if (step !== 'Understand it') return step
+  return (
+    <>
+      Understand<span className={styles.stepHidden}> it</span>
+    </>
   )
 }
 

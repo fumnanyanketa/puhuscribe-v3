@@ -32,7 +32,8 @@ import voice from './Voice.module.css'
 
 export const SAY_HELP = 'Listen to the line, then record yourself saying it.'
 /** The hints under the record button (job 19-redesign, statement 30). */
-export const RECORD_HINTS = { ready: 'Tap and say the line.', recording: 'Listening.' }
+/** As drawn, with no full stop (round 6). */
+export const RECORD_HINTS = { ready: 'Tap and say the line', recording: 'Listening' }
 export const ALOUD = 'Say the line out loud after the voice.'
 export const NO_RECORDING = 'Recording is not available in this browser.'
 export const MIC_OFF =
@@ -320,11 +321,15 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   // result is the status line, gentle for the learner's attempts.
   const showClear = clear && recording !== null && rec === 'ready' && mode === 'record'
   const statusShown = showClear || mode === 'consent' ? null : shown
+  // A gentle result (the learner's try) is the peach note above the record button, as drawn (round 6);
+  // every other line stays at the bottom. "Line 1 of 3." is for screen readers only.
+  const noteAbove = statusShown !== null && statusShown.tone === 'gentle' && mode === 'record'
+  const triedHere = recording !== null && rec === 'ready' && !showClear
 
   const actions = (
     <>
-      {statusShown && (
-        <StatusLine ref={status} tone={statusShown.tone}>
+      {statusShown && !noteAbove && (
+        <StatusLine ref={status} tone={statusShown.tone} visuallyHidden={statusShown === counter}>
           <Parts parts={statusShown.parts} />
         </StatusLine>
       )}
@@ -373,35 +378,39 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       stepHeading
       actions={actions}
     >
-      <main className={styles.main}>
+      <main className={`${styles.main} ${styles.mainFill}`}>
         {line && mode !== 'loading' && (
           <div className={voice.lineArea} key={line.id} data-say-line={line.id}>
             <LineCard line={line} controls={false} />
             {mode === 'aloud' && <p className={voice.hint}>{ALOUD}</p>}
             {mode === 'record' && !showClear && (
               <div className={voice.recordRow}>
+                {noteAbove && (
+                  <StatusLine ref={status} tone={statusShown.tone}>
+                    <Parts parts={statusShown.parts} />
+                  </StatusLine>
+                )}
+                {/* After a try, the record button itself is "Try again", as drawn; "Play mine" stays as a small
+                    link, because the learner can always hear their own try (job 10, statement 8). */}
                 <RecordControl
                   state={rec}
                   seconds={seconds}
                   reason={reason}
                   hints={RECORD_HINTS}
+                  readyHint={!triedHere}
+                  readyName={triedHere ? 'Try again, record yourself saying the line' : undefined}
                   onStart={() => void record()}
                   onStop={stop}
                 />
-                {recording && rec === 'ready' && (
-                  <div className={voice.recordingControls}>
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        playback.play(recording)
-                      }}
-                    >
-                      Play mine
-                    </Button>
-                    <Button variant="secondary" onClick={() => void record()}>
-                      Try again
-                    </Button>
-                  </div>
+                {triedHere && (
+                  <Button
+                    variant="quiet"
+                    onClick={() => {
+                      playback.play(recording)
+                    }}
+                  >
+                    Play mine
+                  </Button>
                 )}
               </div>
             )}

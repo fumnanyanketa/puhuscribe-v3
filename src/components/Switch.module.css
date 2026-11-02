@@ -21,16 +21,17 @@
 }
 
 .hint {
-  font-size: var(--text-reading);
-  line-height: var(--leading-body);
+  font-size: var(--text-small);
+  line-height: 1.4;
   color: var(--color-text-quiet);
 }
 
+/* The drawing's smaller switch (38 x 22, times 1.25) inside a 44 px tap area (round 6). */
 .switch {
   position: relative;
   flex: none;
   box-sizing: border-box;
-  width: 56px;
+  width: 50px;
   height: var(--tap-min);
   padding: 0;
   border: 0;
@@ -39,13 +40,13 @@
   cursor: pointer;
 }
 
-/* The track, 32 px high inside the 44 px tap area. */
+/* The track, 28 px high inside the 44 px tap area. */
 .switch::before {
   content: '';
   position: absolute;
-  top: 6px;
+  top: 8px;
   right: 0;
-  bottom: 6px;
+  bottom: 8px;
   left: 0;
   border-radius: var(--radius-pill);
   background: var(--color-switch-off);
@@ -58,10 +59,10 @@
 
 .thumb {
   position: absolute;
-  top: 10px;
+  top: 12px;
   left: 4px;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--color-surface);
   box-shadow: var(--shadow-1);
@@ -69,7 +70,7 @@
 }
 
 .switch[aria-checked='true'] .thumb {
-  left: 28px;
+  left: 26px;
 }
 
 .switch:disabled {

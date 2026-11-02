@@ -103,7 +103,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     })
     const firstPass = answered.filter((a) => !a.retry)
     const retries = answered.filter((a) => a.retry)
-    expect(firstPass[0]?.status).toBe('Close. Check the spelling below.')
+    expect(firstPass[0]?.status).toBe('Close. Check the spelling above.')
     expect(firstPass[1]?.status).toBe('Here is the word. It will come back soon.')
     for (const a of firstPass.slice(2)) expect(a.status).toBe('Yes, that is right.')
     // [review 13] The two missed items came back once each, after the others, and no third time.
@@ -112,7 +112,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     // The finish screen as in job 8.
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeVisible()
+    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
     await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     const row = sessionsOf(userId).find((s) => s.id === session?.id)
     expect(row?.step).toBe('keep')
@@ -139,7 +140,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const right = await answerItem(page, 'right')
     await nextItem(page)
     const wrong = await answerItem(page, 'wrong', 'check')
-    await expect(page.getByText(/^You wrote/)).toBeVisible()
+    // Round 6 (job 19-redesign): the field keeps what was typed, drawn; "You wrote" is read by screen readers.
+    await expect(page.getByText(/^You wrote/)).toBeAttached()
+    await expect(page.locator('[data-review-feedback] p[aria-hidden="true"]')).toBeVisible()
 
     // Saved at once: two log rows, ratings 3 and 1, mode typed.
     const logs = logsOf(userId)
@@ -212,7 +215,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(
       page.getByText('These words will come back when they are due.', { exact: true }),
     ).toBeVisible()
-    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeVisible()
+    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
     await expect(page.getByRole('button', { name: 'Done' })).toBeVisible()
     await expect(page.getByText(NO_SCORES)).toHaveCount(0)
     const [row] = sessionsOf(userId).filter((s) => s.dialogueId === '')
@@ -356,7 +360,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 12] Close: gentle, both registers, both play controls, the word marked in both lines, what was typed.
     const formId = await answerItem(page, 'close')
     const { spoken, written } = shapesOf(formId)
-    await expect(page.getByRole('status')).toHaveText('Close. Check the spelling below.')
+    await expect(page.getByRole('status')).toHaveText('Close. Check the spelling above.')
     await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
     const feedback = page.locator(`[data-review-feedback="${formId}"]`)
     await expect(feedback.getByRole('button', { name: 'Play the spoken line', exact: true })).toHaveCount(1)
@@ -377,7 +381,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(feedback.getByText(', the missing word')).toHaveCount(linked)
     await expect(feedback.locator('[lang="fi"]', { hasText: spoken }).first()).toBeVisible()
     await expect(feedback.locator('[lang="fi"]', { hasText: written }).first()).toBeVisible()
-    await expect(feedback.getByText(/^You wrote/)).toBeVisible()
+    // Round 6 (job 19-redesign): the field keeps what was typed, drawn; "You wrote" is read by screen readers.
+    await expect(feedback.getByText(/^You wrote/)).toBeAttached()
+    await expect(feedback.locator('p[aria-hidden="true"]')).toBeVisible()
     // Words are tappable for their cards, as in job 8.
     await feedback.locator('[lang="fi"] button').first().click()
     await expect(page.getByRole('dialog')).toBeVisible()

@@ -3,7 +3,8 @@
 .title {
   margin: 0;
   font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
 }
 
 .title:focus,
@@ -11,15 +12,18 @@
   outline: none;
 }
 
+/* "How it works": the drawings' small quiet link with a soft mint underline (round 6). */
 .how {
   display: inline-flex;
   align-items: center;
   justify-self: start;
   min-height: var(--tap-min);
-  color: var(--color-mint-deep);
-  font-size: var(--text-reading);
+  margin-top: calc(-1 * var(--space-2));
+  color: var(--color-text-quiet);
+  font-size: var(--text-small-plus);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-mint-mid);
+  text-underline-offset: 3px;
 }
 
 .buttons {

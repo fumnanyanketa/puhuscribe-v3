@@ -162,7 +162,9 @@ export async function finishTodaysSession(page: Page, account: 'guest' | 'email'
   await finishUnderstandIt(page, (lineId) => lines.find((l) => l.id === lineId)?.gloss ?? '')
   await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText(
-    account === 'guest' ? 'Your progress is saved on this device.' : 'Your progress is saved.',
+    account === 'guest'
+      ? 'Your progress is saved on this device.'
+      : 'Your progress is saved to your account.',
   )
   return userId
 }

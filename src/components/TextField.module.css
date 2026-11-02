@@ -10,17 +10,18 @@
 }
 
 .label {
-  font-family: var(--font-heading);
-  font-size: var(--text-body);
-  font-weight: var(--weight-semibold);
-  line-height: var(--leading-tight);
-  color: var(--color-text);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .hint {
   margin: 0;
-  font-size: var(--text-reading);
-  line-height: var(--leading-body);
+  font-size: var(--text-small);
+  line-height: 1.45;
   color: var(--color-text-quiet);
 }
 
@@ -30,11 +31,12 @@
   min-width: 0;
   min-height: var(--button-height);
   padding: var(--space-3) var(--space-5);
-  border: 1.5px solid var(--color-control-edge);
-  border-radius: var(--radius-md);
+  /* The drawings' milky field: no visible outline, a soft shadow (round 6). Focus shows the mint edge and the ink outline. */
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--panel-radius);
   caret-color: var(--color-mint);
   background: var(--color-surface);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-field);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -42,11 +44,14 @@
   line-height: var(--leading-body);
 }
 
+/* Focus shows the mint edge, as the owner allowed (round 6): a 2 px outline on the field's own edge,
+   3.6:1 or more on the wash. */
 .input:focus-visible {
-  outline: var(--focus-width) solid var(--color-focus);
-  outline-offset: var(--focus-offset);
+  outline: 2px solid var(--color-control-edge);
+  outline-offset: -1px;
 }
 
 .input::placeholder {
+  font-weight: var(--weight-regular);
   color: var(--color-text-quiet);
 }

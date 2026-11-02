@@ -27,7 +27,8 @@ import styles from './Screens.module.css'
 export const INSTRUCTION = 'Type the missing word.'
 export const RESULT_TEXT: Readonly<Record<ReviewResult, string>> = {
   correct: 'Yes, that is right.',
-  close: 'Close. Check the spelling below.',
+  // The note sits under the field and the marked word is in the card above it (round 6), so it says above.
+  close: 'Close. Check the spelling above.',
   wrong: 'Here is the word. It will come back soon.',
 }
 const RESULT_TONE: Readonly<Record<ReviewResult, StatusTone>> = {
@@ -39,7 +40,7 @@ const RESULT_TONE: Readonly<Record<ReviewResult, StatusTone>> = {
 export const SPOKEN_INSTRUCTION = 'Say the missing word.'
 export const SPOKEN_RESULT_TEXT: Readonly<Record<ReviewResult, string>> = {
   correct: 'Yes, that was clear.',
-  close: 'Close. Listen to the word below.',
+  close: 'Close. Listen to the word above.',
   wrong: 'Here is the word. It will come back soon.',
 }
 export const SPOKEN_NOT_HEARD = 'That was too quiet to hear. Try again a little closer to the phone.'
@@ -237,12 +238,22 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   } else if (!item) message = NOTHING_NOW
 
   const answering = item !== undefined && shown === null
+  // As drawn (round 6): a gentle result is the peach note under the field; "Yes, that is right." is small
+  // and centred above Next; the instruction is drawn once, as the title, and read from the status line.
+  const resultShown = shown !== null && shown !== 'already_saved' ? shown : null
+  const noteUnder = resultShown !== null && tone === 'gentle'
+  const status = (
+    <StatusLine tone={tone} visuallyHidden={message === INSTRUCTION || message === SPOKEN_INSTRUCTION}>
+      {message}
+    </StatusLine>
+  )
   const actions = (
     <>
-      {/* The instruction is the field's own title, drawn once; the status line carries it for screen readers only. */}
-      <StatusLine tone={tone} visuallyHidden={message === INSTRUCTION}>
-        {message}
-      </StatusLine>
+      {noteUnder ? null : resultShown?.feedback.result === 'correct' ? (
+        <div className={styles.rightHint}>{status}</div>
+      ) : (
+        status
+      )}
       {answering ? (
         <>
           {!spokenItem && (
@@ -292,13 +303,19 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
           <h1 ref={heading} tabIndex={-1} className={styles.hiddenTitle}>
             Keep it
           </h1>
-          {item && <p className={styles.lead}>{place ? `Word ${place}.` : ONE_MORE_TRY}</p>}
+          {/* The drawing's title at the top. The field's own label and the status line say it to a screen reader. */}
+          {item && (
+            <p className={styles.keepTitle} aria-hidden="true">
+              {spokenItem ? 'Say the missing word' : 'Type the missing word'}
+            </p>
+          )}
         </div>
         {item && shown === null && (
           <ReviewItemView
             key={at}
             item={item}
             formBase={formBase}
+            place={place ? `Word ${place}.` : ONE_MORE_TRY}
             disabled={checking}
             methods={methodsFor(mode)}
             onReady={setReady}
@@ -306,25 +323,47 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
             onRecorded={(result) => void checkSpoken(result)}
           />
         )}
-        {item && shown !== null && shown !== 'already_saved' && (
+        {item && resultShown !== null && (
           <div className={styles.reviewItem} data-review-feedback={item.formId}>
-            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} showGloss />
-            <p className={styles.reviewNote}>
-              {shown.feedback.form.spoken === shown.feedback.form.written ? (
+            <LineCard line={resultShown.feedback.line} marked={resultShown.feedback.marked} />
+            {/* What the learner typed stays in the field, as drawn: a right answer gets the mint edge and tick. */}
+            {resultShown.typed.trim() !== '' && (
+              <p
+                className={
+                  resultShown.feedback.result === 'correct'
+                    ? `${styles.typedEcho} ${styles.typedRight}`
+                    : styles.typedEcho
+                }
+                aria-hidden="true"
+              >
+                <span lang="fi">{resultShown.typed}</span>
+                {resultShown.feedback.result === 'correct' && (
+                  <span className={styles.typedTick}>
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M5 12.5l4.5 4.5L19 7.5" />
+                    </svg>
+                  </span>
+                )}
+              </p>
+            )}
+            {noteUnder && status}
+            {/* Job 9 (statement 12) keeps these for screen readers; the marked words and the field show them to the eye. */}
+            <p className={styles.hiddenTitle}>
+              {resultShown.feedback.form.spoken === resultShown.feedback.form.written ? (
                 <>
-                  The word is <span lang="fi">{shown.feedback.form.spoken}</span> in spoken and written
+                  The word is <span lang="fi">{resultShown.feedback.form.spoken}</span> in spoken and written
                   Finnish.
                 </>
               ) : (
                 <>
-                  The word is <span lang="fi">{shown.feedback.form.spoken}</span> in spoken Finnish and{' '}
-                  <span lang="fi">{shown.feedback.form.written}</span> in written Finnish.
+                  The word is <span lang="fi">{resultShown.feedback.form.spoken}</span> in spoken Finnish and{' '}
+                  <span lang="fi">{resultShown.feedback.form.written}</span> in written Finnish.
                 </>
               )}
             </p>
-            {shown.typed.trim() !== '' && (
-              <p className={styles.reviewNote}>
-                You wrote <span lang="fi">{shown.typed}</span>.
+            {resultShown.typed.trim() !== '' && (
+              <p className={styles.hiddenTitle}>
+                You wrote <span lang="fi">{resultShown.typed}</span>.
               </p>
             )}
           </div>

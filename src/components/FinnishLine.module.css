@@ -55,7 +55,8 @@
 
 /* Understand it: the one spoken line, larger, in a single milky card with its play button (round 2). */
 .spokenRow.large {
-  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5) var(--space-4) var(--space-4);
   border: var(--panel-edge);
   border-radius: var(--panel-radius);
   background: var(--panel-fill);
@@ -174,12 +175,12 @@
   background: var(--color-current-word);
 }
 
-/* The answer word after a review (job 9-daily-review): a solid underline in
-   the text colour, with its name for screen readers. */
-.marked {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
+/* The answer word after a review (job 9-daily-review): highlighted in peach in both lines, as the drawing
+   of Keep it marks it (round 6), with its name for screen readers, so colour is never the only sign. */
+.marked,
+.word:hover .marked {
+  color: var(--color-changed-text);
+  background: var(--color-changed-wash);
 }
 
 .hidden {

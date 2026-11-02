@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: calc(var(--space-4) + env(safe-area-inset-top, 0px)) var(--space-5) 0;
+  /* Where the drawing puts the bar and the round (round 6). */
+  padding: calc(10px + env(safe-area-inset-top, 0px)) var(--space-5) 0;
 }
 
 .bar {
@@ -13,22 +14,18 @@
   gap: 4px;
 }
 
+/* Solid pieces as drawn (round 6): a piece not reached is pale white with no outline, a piece done is mint. */
 .piece,
 .pieceDone {
   flex: 1;
-  height: 6px;
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  height: 7px;
+  border-radius: 4px;
+  background: var(--color-progress-track);
   box-shadow: var(--shadow-1);
 }
 
 .pieceDone {
   background: var(--color-mint);
-}
-
-/* A piece not reached is hollow, with an edge that reaches 3 to 1 on the wash (round 2, design review). */
-.piece {
-  box-shadow: inset 0 0 0 1px var(--color-control-edge);
 }
 
 .account {

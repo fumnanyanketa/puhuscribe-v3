@@ -1,11 +1,13 @@
 // The road scene's geometry, ported from the owner's approved drawing
-// (design-drafts/road-journey.html, job 19-redesign). The scene is drawn in a
-// 280 x 620 box. The road runs in perspective from the bottom of the box to
-// the horizon, where the A1 sun sits. All of it is fixed numbers and shapes;
-// nothing in it comes from learner or stop data.
+// (design-drafts/road-journey.html, job 19-redesign). The drawing's scene is a
+// 280 x 620 box whose road runs on to 660, below the phone's edge; here the box
+// is 280 x 660, so the road runs on behind the bottom card to the screen's edge
+// as drawn (round 6). The road runs in perspective from the bottom of the box
+// to the horizon, where the A1 sun sits. All of it is fixed numbers and
+// shapes; nothing in it comes from learner or stop data.
 
 export const SCENE_WIDTH = 280
-export const SCENE_HEIGHT = 620
+export const SCENE_HEIGHT = 660
 export const HORIZON = 238
 const BOTTOM = 660
 
@@ -14,12 +16,8 @@ export function yAt(t: number): number {
   return HORIZON + (BOTTOM - HORIZON) * Math.pow(1 - t, 1.9)
 }
 
-/**
- * Horizontal centre of the road at t. The drawing's bend is 34; the phone shows the picture larger
- * than the drawing and the card hides the lowest part, so the bend is 48 to read as the same S
- * (round 2, design review).
- */
-export const BEND = 48
+/** Horizontal centre of the road at t, with the drawing's bend of 34 (round 6, back from round 2's 48). */
+export const BEND = 34
 
 export function xAt(t: number): number {
   return 142 + BEND * Math.sin(t * Math.PI * 1.7) * (1 - t * 0.9)
@@ -126,10 +124,17 @@ export const FELLS = {
 
 /**
  * The positions of the signs, from the nearest to the farthest, each on the
- * other side of the road from the one before. `lowest` is the lowest scene
- * height a sign's foot may stand at, so the card at the bottom never covers
- * one; the farthest stands just below the sun. The spacing is almost even in
- * height, so signs never crowd each other on a short phone.
+ * other side of the road from the one before. They stand where the drawing
+ * puts them (road-journey.html, round 6): at five fixed places on the road,
+ * higher and smaller toward the horizon, each a little beside the road. Two
+ * rules move them. A sign's foot stands at least SIGN_CLEAR_OF_SUN below the
+ * horizon, so no board covers the sun, its "A1" or the fell labels (the
+ * drawing's farthest sign touches the sun). And `lowest` is the lowest scene
+ * height a foot may stand at, so the card at the bottom never covers one: when
+ * the nearest drawn place is below it, the places are drawn closer together
+ * toward the horizon. `minGap` keeps two neighbouring signs apart, so tall
+ * boards (large text) never touch; when there is no room, the road screen
+ * shows fewer signs.
  */
 export interface SignSpot {
   /** Centre of the sign's foot, in scene units. */
@@ -137,30 +142,66 @@ export interface SignSpot {
   y: number
   /** Where on the road the sign stands (0 at the bottom, 1 at the horizon). */
   t: number
-  /** Share of full size, kept high enough that its text stays at 12 px or more. */
+  /** The drawing's perspective: 1 near, smaller toward the horizon. The text never goes under 12 px. */
   scale: number
   side: -1 | 1
+}
+
+/** Where the drawing puts the five signs on the road, from the nearest (the drawing's STOPS). */
+export const DRAWN_SIGN_T = [0.3, 0.46, 0.59, 0.7, 0.78] as const
+
+/** A sign's foot stands at least this far below the horizon (scene units), so its board stays below the sun. */
+export const SIGN_CLEAR_OF_SUN = 50
+
+/** The least height between two neighbouring signs' feet (scene units), so a board never sits on the next one. */
+export const SIGN_STEP = 22
+
+/** The drawing's perspective scale of a sign at t. */
+export function signScale(t: number): number {
+  return 1 - t * 0.5
 }
 
 export function signSpots(
   count: number,
   lowest: number,
   firstSide: -1 | 1 = 1,
-  /** The least height between two signs' feet, in scene units, so tall boards (large text) never touch. */
+  /** The least height between two neighbouring signs' feet, in scene units, so tall boards never touch. */
   minGap = 0,
 ): SignSpot[] {
-  const bottom = Math.min(Math.max(lowest, HORIZON + 24), 560)
-  // Far signs stand just below the sun when there is room, and higher when there is not.
-  const top = Math.min(HORIZON + 46, bottom - 56)
-  const spots: SignSpot[] = []
-  for (let i = 0; i < count; i++) {
-    const share = count === 1 ? 0 : i / (count - 1)
-    const y = bottom - Math.max((bottom - top) * Math.pow(share, 0.9), minGap * i)
+  const top = HORIZON + SIGN_CLEAR_OF_SUN
+  const bottom = Math.min(Math.max(lowest, top + 24), 560)
+  const drawn = Array.from({ length: Math.min(count, 5) }, (_, i) =>
+    Math.max(top, yAt(DRAWN_SIGN_T[i] ?? 0.78)),
+  )
+  // From the farthest down: a sign stands at least a step below the one beyond it (more when large
+  // text makes the boards tall), then the places are drawn closer together if the card needs the room.
+  const step = Math.max(SIGN_STEP, minGap)
+  for (let i = drawn.length - 2; i >= 0; i--)
+    drawn[i] = Math.max(drawn[i] ?? top, (drawn[i + 1] ?? top) + step)
+  const nearest = drawn[0] ?? bottom
+  const squeeze = nearest > bottom ? (bottom - top) / Math.max(1, nearest - top) : 1
+  const ys = drawn.map((y) => top + (y - top) * squeeze)
+  // Squeezed too close for tall boards (a short phone with large text): the gap wins over the sun, and the
+  // road screen then shows fewer signs, because no board may cover the sun or another board.
+  for (let i = 1; i < ys.length; i++) ys[i] = Math.min(ys[i] ?? top, (ys[i - 1] ?? top) - step)
+  return ys.map((y, i) => {
     const t = tAtY(y)
     const side = (i % 2 === 0 ? firstSide : -firstSide) as -1 | 1
-    const scale = 1 - share * 0.06
-    const x = Math.min(194, Math.max(86, xAt(t) + side * (wAt(t) * 0.55 + 38)))
-    spots.push({ x, y, t, scale, side })
-  }
-  return spots
+    const scale = signScale(t)
+    const x = Math.min(206, Math.max(64, xAt(t) + side * (wAt(t) * 0.61 + 34 * scale)))
+    return { x, y, t, scale, side }
+  })
 }
+
+/**
+ * The "you" marker stands on the road a little nearer than its sign, as drawn (0.27 beside a sign at
+ * 0.3), unless that would bring it within 20 scene units of `lowest` (the card): then it stands level
+ * with its sign, so the card never covers it.
+ */
+export function markerT(signT: number, lowest = Infinity): number {
+  const nearer = Math.max(0, signT - 0.03)
+  return yAt(nearer) + 20 > lowest ? signT : nearer
+}
+
+/** The sun's disc above the horizon, in scene units, which no sign may cover (round 6). */
+export const SUN_BOX = { left: 120, right: 180, top: HORIZON - 36, bottom: HORIZON + 2 } as const

@@ -1,8 +1,11 @@
 /* The landscape (design.md, "Landscape"). Values from src/styles/tokens.css. */
 
 /* The band behind the top of a screen: the screen's own width up to the frame
-   width, about 210 px high at 375 px, fading into the wash (the fade is drawn
-   inside the SVG). It sits behind everything and takes no taps. */
+   width, in the drawing's 280 x 170 shape, fading into the wash (the fade is
+   drawn inside the SVG). The drawing's band starts under the phone's own status
+   strip (32 of its 280 px), so here it starts that far above the page's top
+   (round 6): its hills then sit where the drawing has them, clear of the
+   heading. It sits behind everything and takes no taps. */
 .band {
   position: absolute;
   top: 0;
@@ -10,7 +13,8 @@
   z-index: 0;
   width: 100%;
   max-width: 30rem;
-  height: var(--band-height);
+  aspect-ratio: 280 / 170;
+  margin-top: calc(-100% * 32 / 280);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -38,7 +42,7 @@
   position: relative;
   width: 100%;
   max-width: min(100%, 20rem);
-  aspect-ratio: 280 / 620;
+  aspect-ratio: 280 / 660;
 }
 
 .sceneBox > svg,

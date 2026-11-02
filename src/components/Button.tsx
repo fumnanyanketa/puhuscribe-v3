@@ -3,14 +3,15 @@ import styles from './Button.module.css'
 
 // The app's buttons (design.md, "Buttons"). Primary is the flat mint pill with
 // a small arrow circle, for the one main action on a screen. Secondary is the
-// white pill with a mint edge. Quiet is underlined text, for a minor action.
+// white pill with a very pale edge. Quiet is small underlined text, for a minor
+// action. Mint is mint text with no underline ("Why does it change?").
 // Danger is the deep peach pill, for "Delete for good". Every button is at least
 // 44 x 44 px (the pills are 52 px tall).
 //
 // Busy: the button keeps its size, ignores presses and tells screen readers
 // what is happening through busyLabel ("Saving your answer").
 
-export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'danger'
+export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'mint' | 'danger'
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   variant?: ButtonVariant

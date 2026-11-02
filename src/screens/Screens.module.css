@@ -7,6 +7,18 @@
   padding: var(--space-8) 0 0;
 }
 
+/* Hear it's line card starts where the drawing's does, under the band (round 6). */
+.main > [data-line-id]:first-child {
+  margin-top: var(--space-5);
+}
+
+/* Say it fills the room, so the record button sits in the middle of it, as drawn (round 6). */
+.mainFill {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
 .plainPage {
   display: grid;
   gap: var(--space-4);
@@ -19,11 +31,12 @@
   padding: 0 var(--space-1);
 }
 
+/* Screen titles are medium weight and ink, as drawn (round 6). */
 .title {
   margin: 0;
   font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
   line-height: var(--leading-tight);
 }
 
@@ -120,9 +133,74 @@
 }
 
 .count {
+  margin: 0;
   font-size: var(--text-small);
   font-variant-numeric: tabular-nums;
   color: var(--color-text-quiet);
+}
+
+/* Keep it, as drawn (round 6): the title at the top, then the card and the field. */
+.keepTitle {
+  margin: var(--space-5) var(--space-1) 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.keepTitle + .reviewItem,
+.intro + .reviewItem {
+  margin-top: var(--space-4);
+}
+
+/* After an answer the field still shows what was typed; a right answer gets the mint edge and a mint tick. */
+.typedEcho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--button-height);
+  margin: 0;
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-5);
+  border: 1.5px solid var(--color-panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-field);
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.typedRight {
+  border-color: var(--color-mint);
+}
+
+.typedTick {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-mint);
+}
+
+.typedTick svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--color-button-text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* "Yes, that is right." small, quiet and centred above Next, as the drawing's line is. */
+.rightHint [role='status'] {
+  justify-content: center;
+  font-size: var(--text-small-plus);
+  text-align: center;
 }
 
 /* The English gloss, inside the card under a dashed line. */
@@ -145,8 +223,8 @@
 .ask {
   margin: var(--space-2) var(--space-1) 0;
   font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
 }
 
 .next {
@@ -158,15 +236,16 @@
   display: grid;
   gap: var(--space-4);
   justify-items: stretch;
-  padding: var(--space-5) 0 0;
+  padding: var(--space-2) 0 0;
 }
 
+/* The drawing's tick orb (88 and 56 px, times 1.25). */
 .orb {
   display: grid;
   justify-self: center;
   place-items: center;
-  width: 88px;
-  height: 88px;
+  width: 110px;
+  height: 110px;
   border: var(--panel-edge);
   border-radius: 50%;
   background: var(--panel-fill);
@@ -175,9 +254,9 @@
 
 .orb svg {
   box-sizing: border-box;
-  width: 64px;
-  height: 64px;
-  padding: 16px;
+  width: 70px;
+  height: 70px;
+  padding: 17px;
   border-radius: 50%;
   background: var(--color-mint);
   fill: none;
@@ -190,13 +269,46 @@
 .finishTitle {
   margin: 0;
   text-align: center;
-  font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
+  font-size: var(--text-title-large);
+  font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-title);
+  line-height: 1.2;
 }
 
+/* The sentence card, as drawn: a milky card with the spoken line centred and bold, the English under it. */
 .finishLine {
+  display: grid;
+  gap: var(--space-1);
   margin: 0;
+  padding: 14px var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+}
+
+.finishSpoken {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-line);
+  line-height: var(--leading-line);
+  overflow-wrap: anywhere;
+}
+
+.finishGloss {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+}
+
+/* The line under Done once saved: small, quiet and centred, as drawn. */
+.savedLine [role='status'] {
+  justify-content: center;
+  font-size: var(--text-small-plus);
+  text-align: center;
 }
 
 .comesBack {

@@ -106,18 +106,19 @@ export function WordCard({
               <PlayControl src={data.written.audio} what={audioWhat.written} size="small" tone="written" />
             </div>
           </div>
-          {audioCaption && <p className={styles.note}>{audioCaption}</p>}
+          {/* Not drawn (round 6): the play buttons' names already say they play the line. */}
+          {audioCaption && <p className={styles.hidden}>{audioCaption}</p>}
           <p className={styles.dictionary}>
             <span className={styles.dictionaryLabel}>Dictionary form</span>
             <span className={styles.dictionaryValue}>
               <span className={styles.base} lang="fi">
                 {data.baseForm}
               </span>
-              {data.baseMeaning && <span> {data.baseMeaning}</span>}
+              {data.baseMeaning && <span className={styles.baseMeaning}> {data.baseMeaning}</span>}
             </span>
           </p>
           <Button
-            variant="quiet"
+            variant="mint"
             className={styles.whyButton}
             aria-expanded={why}
             aria-controls={whyId}
@@ -134,7 +135,7 @@ export function WordCard({
           )}
           {onPatterns && (
             <Button
-              variant="quiet"
+              variant="mint"
               className={styles.patterns}
               aria-haspopup="dialog"
               onClick={(event) => {

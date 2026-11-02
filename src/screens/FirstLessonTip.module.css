@@ -1,15 +1,17 @@
-/* The first lesson tip (design.md, "The first lesson tip"). Values from src/styles/tokens.css. */
+/* The first lesson tip (design.md, "The first lesson tip"), as drawn (round 6): three white lines on the
+   dimmed screen, each with its soft haloed dot or ring, and "Got it" as a white pill with a soft shadow.
+   Values from src/styles/tokens.css. The scrim is dark enough for white text (5.1:1 or more). */
 
 .tip {
   display: grid;
   gap: var(--space-4);
   justify-items: start;
-  margin: var(--space-5) var(--space-2) 0;
+  margin: 30px var(--space-3) 0;
 }
 
 .legend {
   display: grid;
-  gap: var(--space-3);
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -18,29 +20,67 @@
 .legend li {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: 13px;
+  color: var(--color-tip-text);
   font-size: var(--text-body);
   font-weight: var(--weight-medium);
 }
 
 .dotSpoken,
-.dotWritten,
-.ring {
+.dotWritten {
   flex: none;
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
+  width: 11px;
+  height: 11px;
+  margin: 0 5px;
   border-radius: 50%;
 }
 
 .dotSpoken {
-  background: var(--color-spoken);
+  background: var(--color-tip-spoken);
+  box-shadow: 0 0 0 5px var(--color-tip-spoken-halo);
 }
 
 .dotWritten {
-  background: var(--color-written);
+  background: var(--color-tip-written);
+  box-shadow: 0 0 0 5px var(--color-tip-written-halo);
 }
 
 .ring {
-  border: 2px solid var(--color-peach);
+  flex: none;
+  box-sizing: border-box;
+  width: 21px;
+  height: 21px;
+  border: 2.5px solid var(--color-tip-ring);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px var(--color-tip-ring-halo);
+}
+
+/* "Got it": the drawing's white pill, no outline, a soft shadow. */
+.gotIt {
+  min-height: var(--tap-min);
+  margin-top: 10px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft-pill);
+  color: var(--color-mint-deep);
+  font-family: var(--font-heading);
+  font-size: var(--text-button);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.gotIt:hover {
+  background: var(--color-button-secondary-hover);
+}
+
+.gotIt:active {
+  background: var(--color-button-secondary-pressed);
+  transform: translateY(1px);
+}
+
+.gotIt:focus-visible {
+  outline: var(--focus-width) solid var(--color-surface);
+  outline-offset: var(--focus-offset);
 }

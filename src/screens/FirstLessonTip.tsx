@@ -1,5 +1,4 @@
 import { useEffect, useRef, type RefObject } from 'react'
-import { Button } from '../components/Button.tsx'
 import styles from './FirstLessonTip.module.css'
 
 // The tip on a learner's first lesson (job 19-redesign, statement 25). Before
@@ -99,9 +98,9 @@ export function FirstLessonTip({ region, restoreFocusTo, onClose }: FirstLessonT
           Tap any word to learn it
         </li>
       </ul>
-      <Button variant="secondary" ref={gotIt} onClick={onClose}>
+      <button type="button" className={styles.gotIt} ref={gotIt} onClick={onClose}>
         Got it
-      </Button>
+      </button>
     </div>
   )
 }

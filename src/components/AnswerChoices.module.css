@@ -17,16 +17,17 @@
   width: 100%;
   min-height: var(--button-height);
   padding: var(--space-3) var(--space-5);
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
+  /* The drawings' milky rows: a white edge, a soft shadow, regular text (round 6). */
+  border: 1.5px solid var(--color-panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-body);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-body);
   text-align: left;
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--panel-shadow);
   cursor: pointer;
   transition:
     background-color var(--motion-fast) var(--motion-ease),
@@ -51,10 +52,12 @@
   cursor: default;
 }
 
-/* The right choice: a mint edge and a tick in a mint circle. */
+/* The chosen right row: a mint edge, mint text and a tick in a mint circle, as drawn. */
 .right {
   border-color: var(--color-mint);
-  font-weight: var(--weight-semibold);
+  background: var(--color-surface);
+  color: var(--color-mint-deep);
+  font-weight: var(--weight-medium);
   cursor: default;
 }
 
@@ -67,9 +70,9 @@
 .tick {
   flex: none;
   box-sizing: border-box;
-  width: 28px;
-  height: 28px;
-  padding: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 5px;
   border-radius: 50%;
   background: var(--color-mint);
   fill: none;

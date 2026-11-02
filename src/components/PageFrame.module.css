@@ -20,25 +20,51 @@
   gap: var(--space-4);
   /* The header is as tall as the landscape's sky and hills, so the content below it never sits on them. */
   min-height: calc(var(--page-content-top) + env(safe-area-inset-top, 0px));
-  padding: calc(var(--space-4) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
+  /* The round sits where the drawings put it, just under the top of the page (round 6). */
+  padding: calc(var(--space-1) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
 }
 
+.headerNear {
+  min-height: calc(var(--page-near-top) + env(safe-area-inset-top, 0px));
+}
+
+/* The account page: its avatar overlaps the bottom of the band, as drawn (round 6). */
+.headerProfile {
+  min-height: calc(var(--page-profile-top) + env(safe-area-inset-top, 0px));
+}
+
+/* The back arrow: a 44 px tap area with the drawing's small white round (36 px) drawn inside it (round 6). */
 .back {
+  position: relative;
   display: grid;
   flex: none;
   place-items: center;
   width: var(--tap-min);
   height: var(--tap-min);
+  margin: 0 calc(-1 * var(--space-1));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.back::before {
+  content: '';
+  position: absolute;
+  inset: var(--space-1);
   border: var(--panel-edge);
   border-radius: var(--radius-pill);
   background: var(--panel-fill);
   box-shadow: var(--shadow-1);
-  color: var(--color-text);
 }
 
 .back svg {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -65,6 +91,11 @@
   align-content: start;
   gap: var(--space-4);
   padding: var(--space-2) var(--space-5) var(--space-6);
+}
+
+.centre {
+  align-content: center;
+  padding-bottom: var(--space-9);
 }
 
 .actions {

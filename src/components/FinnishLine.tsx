@@ -171,10 +171,12 @@ export function FinnishLine({
           role="group"
           aria-label={SPOKEN_GROUP}
         >
+          {/* Understand it: the play button sits before the line, on the left, as drawn (round 6). */}
+          {large && spokenControl}
           <p className={styles.spokenLine} lang="fi">
             <Words words={spoken} which="spoken" current={current} onOpen={openCard} register={register} />
           </p>
-          {spokenControl}
+          {!large && spokenControl}
         </div>
         {only !== 'spoken' && (
           <div className={styles.writtenRow} role="group" aria-label={WRITTEN_GROUP}>

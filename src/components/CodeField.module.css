@@ -4,24 +4,26 @@
   position: relative;
 }
 
+/* Six milky boxes at the drawing's size (32 x 40, times 1.25), centred (round 6). */
 .boxes {
   display: flex;
-  gap: var(--space-2);
+  justify-content: center;
+  gap: 9px;
 }
 
 .box,
 .boxNow {
   display: grid;
-  flex: 1;
+  flex: 0 1 40px;
   place-items: center;
-  max-width: 56px;
-  height: 56px;
-  border: 1.5px solid transparent;
+  min-width: 0;
+  height: 50px;
+  border: 1.5px solid var(--color-panel-edge);
   border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-1);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-field);
   font-family: var(--font-heading);
-  font-size: var(--text-title);
+  font-size: var(--text-line);
   font-weight: var(--weight-semibold);
   font-variant-numeric: tabular-nums;
 }
@@ -46,10 +48,10 @@
   opacity: 0;
 }
 
-.wrap:focus-within .boxes {
-  outline: var(--focus-width) solid var(--color-focus);
-  outline-offset: var(--focus-offset);
-  border-radius: var(--radius-sm);
+/* Keyboard focus shows as the mint edge of the box where the next digit goes, 2 px (round 6). */
+.wrap:focus-within .boxNow {
+  outline: 2px solid var(--color-control-edge);
+  outline-offset: -1px;
 }
 
 .hidden {

@@ -103,6 +103,19 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
   { fore: '--color-mint-deep', back: '--color-button-secondary', min: 4.5, use: 'text on the white pill' },
   { fore: '--color-danger-text', back: '--color-danger', min: 4.5, use: 'text on the delete pill' },
   { fore: '--color-text', back: '--color-gentle-wash', min: 4.5, use: 'a gentle note' },
+  {
+    fore: '--color-peach-text',
+    back: '--color-gentle-wash',
+    min: 4.5,
+    use: 'the words of a gentle note, peach as drawn',
+  },
+  {
+    fore: '--color-peach-text',
+    back: '--color-peach-soft',
+    min: 4.5,
+    use: 'the review count and the guest note on the account page',
+  },
+  { fore: '--color-text-quiet', back: '--color-sign-num', min: 4.5, use: 'the "+6" chip of the new words' },
   { fore: '--color-problem-text', back: '--color-problem-wash', min: 4.5, use: 'a problem message' },
   // Focus, control edges, markers and the recording state: 3:1
   {
@@ -152,7 +165,19 @@ export const CONTRAST_PAIRS: ContrastPair[] = [
     fore: '--color-control-edge',
     back: '--color-wash-bottom',
     min: 3,
-    use: 'the edge of a progress piece not reached, on the peach end of the wash',
+    use: 'the edge of a white control on the peach end of the wash',
+  },
+  {
+    fore: '--color-mint',
+    back: '--color-progress-track',
+    min: 3,
+    use: 'the filled part of a progress bar beside the pale part not reached',
+  },
+  {
+    fore: '--color-mint',
+    back: '--color-mint-soft',
+    min: 3,
+    use: 'a lesson done beside a lesson not done on the road card',
   },
   { fore: '--color-button', back: '--color-surface', min: 3, use: 'the play control in a sheet' },
   {

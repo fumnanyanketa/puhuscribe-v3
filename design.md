@@ -111,7 +111,7 @@ Light only. Values are hex, because `light-dark()` and `color-mix()` are too new
 | `--color-button-hover`             | #1b7a65   |                                                                         |
 | `--color-button-pressed`           | #176a58   |                                                                         |
 | `--color-button-text`              | #ffffff   |                                                                         |
-| `--color-button-secondary`         | #ffffff   | the white pill with a mint edge                                         |
+| `--color-button-secondary`         | #ffffff   | the white pill with a very pale edge                                    |
 | `--color-button-secondary-hover`   | #f1f8f5   |                                                                         |
 | `--color-button-secondary-pressed` | #e3f1ec   |                                                                         |
 | `--color-danger`                   | #b8532f   | the "Delete for good" pill                                              |
@@ -142,58 +142,63 @@ Light only. Values are hex, because `light-dark()` and `color-mix()` are too new
 
 Every pairing below is checked by `tests/design-tokens.test.ts`, which fails if this table and the test's list (`src/styles/contrast-pairs.ts`) differ. The reference page shows the same results. Floors: Finnish lines and word card text 7:1; all other text 4.5:1; focus outline, control edges, markers and the recording state 3:1. By my hand calculation the drawn colours were under their floor in the five places the first table lists, and the build changed those and no others.
 
-| Text or mark                | On                         | Needs | Result | Used for                                                               |
-| --------------------------- | -------------------------- | ----- | ------ | ---------------------------------------------------------------------- |
-| `--color-text`              | `--color-panel`            | 7:1   | 14.6:1 | a spoken Finnish line on the line card                                 |
-| `--color-text`              | `--color-surface`          | 7:1   | 14.9:1 | Finnish in a sheet and in the word card                                |
-| `--color-text`              | `--color-spoken-soft`      | 7:1   | 12.3:1 | the spoken word on its tile                                            |
-| `--color-text`              | `--color-word-hover`       | 7:1   | 13.0:1 | a Finnish word under the finger                                        |
-| `--color-written`           | `--color-panel`            | 7:1   | 7.7:1  | the written Finnish line on the line card                              |
-| `--color-written`           | `--color-surface`          | 7:1   | 7.9:1  | written Finnish in a sheet                                             |
-| `--color-written`           | `--color-written-soft`     | 7:1   | 7.0:1  | the written word on its tile                                           |
-| `--color-changed-text`      | `--color-changed-wash`     | 7:1   | 7.1:1  | a changed word on its wash                                             |
-| `--color-current-word-text` | `--color-current-word`     | 7:1   | 14.1:1 | the word being spoken                                                  |
-| `--color-text-quiet`        | `--color-surface`          | 4.5:1 | 5.9:1  | quieter text in a sheet                                                |
-| `--color-text-quiet`        | `--color-panel`            | 4.5:1 | 5.8:1  | quieter text on a panel                                                |
-| `--color-text-quiet`        | `--color-wash-top`         | 4.5:1 | 4.7:1  | quieter text on the mint end of the wash                               |
-| `--color-text-quiet`        | `--color-wash-middle`      | 4.5:1 | 5.6:1  | quieter text in the middle of the wash                                 |
-| `--color-text-quiet`        | `--color-wash-bottom`      | 4.5:1 | 4.8:1  | quieter text on the peach end of the wash                              |
-| `--color-text-quiet`        | `--color-spoken-soft`      | 4.5:1 | 4.9:1  | quieter text on a soft mint fill                                       |
-| `--color-text-quiet`        | `--color-written-soft`     | 4.5:1 | 5.3:1  | quieter text on the slate tile                                         |
-| `--color-text`              | `--color-wash-top`         | 4.5:1 | 11.9:1 | headings on the mint end of the wash                                   |
-| `--color-text`              | `--color-wash-bottom`      | 4.5:1 | 12.0:1 | headings on the peach end of the wash                                  |
-| `--color-spoken-text`       | `--color-spoken-soft`      | 4.5:1 | 5.0:1  | the "People say" label on its tile                                     |
-| `--color-mint-deep`         | `--color-surface`          | 4.5:1 | 6.0:1  | the "How it works" link and a sign number                              |
-| `--color-mint-deep`         | `--color-panel`            | 4.5:1 | 5.9:1  | mint text on a panel                                                   |
-| `--color-mint-deep`         | `--color-mint-soft`        | 4.5:1 | 5.0:1  | mint text on a soft mint fill                                          |
-| `--color-peach-deep`        | `--color-surface`          | 4.5:1 | 4.9:1  | the name on the next sign                                              |
-| `--color-peach-deep`        | `--color-panel`            | 4.5:1 | 4.8:1  | the next stop name on the card                                         |
-| `--color-danger-ink`        | `--color-wash-bottom`      | 4.5:1 | 6.1:1  | the "Delete my account" link on the peach end of the wash              |
-| `--color-danger-ink`        | `--color-wash-middle`      | 4.5:1 | 7.2:1  | the "Delete my account" link in the middle of the wash                 |
-| `--color-button-text`       | `--color-button`           | 4.5:1 | 4.5:1  | text on the mint pill                                                  |
-| `--color-mint-deep`         | `--color-button-secondary` | 4.5:1 | 6.0:1  | text on the white pill                                                 |
-| `--color-danger-text`       | `--color-danger`           | 4.5:1 | 4.9:1  | text on the delete pill                                                |
-| `--color-text`              | `--color-gentle-wash`      | 4.5:1 | 12.3:1 | a gentle note                                                          |
-| `--color-problem-text`      | `--color-problem-wash`     | 4.5:1 | 7.7:1  | a problem message                                                      |
-| `--color-focus`             | `--color-wash-top`         | 3:1   | 11.9:1 | the focus outline on the mint end of the wash                          |
-| `--color-focus`             | `--color-wash-middle`      | 3:1   | 14.0:1 | the focus outline in the middle of the wash                            |
-| `--color-focus`             | `--color-wash-bottom`      | 3:1   | 12.0:1 | the focus outline on the peach end of the wash                         |
-| `--color-focus`             | `--color-surface`          | 3:1   | 14.9:1 | the focus outline in a sheet or on a card                              |
-| `--color-focus`             | `--color-panel`            | 3:1   | 14.6:1 | the focus outline on a panel                                           |
-| `--color-control-edge`      | `--color-surface`          | 3:1   | 4.5:1  | the edge of a white control in a sheet                                 |
-| `--color-control-edge`      | `--color-panel`            | 3:1   | 4.4:1  | the edge of a white control on a panel                                 |
-| `--color-control-edge`      | `--color-wash-top`         | 3:1   | 3.6:1  | the edge of a white control on the mint end of the wash                |
-| `--color-control-edge`      | `--color-wash-bottom`      | 3:1   | 3.6:1  | the edge of a progress piece not reached, on the peach end of the wash |
-| `--color-button`            | `--color-surface`          | 3:1   | 4.5:1  | the play control in a sheet                                            |
-| `--color-button`            | `--color-panel`            | 3:1   | 4.4:1  | the play control and the mint pill on a panel                          |
-| `--color-button`            | `--color-wash-top`         | 3:1   | 3.6:1  | the mint pill on the mint end of the wash                              |
-| `--color-current-line`      | `--color-panel`            | 3:1   | 4.4:1  | the ring round the line that is playing                                |
-| `--color-peach`             | `--color-surface`          | 3:1   | 3.2:1  | the ring round the next sign                                           |
-| `--color-recording`         | `--color-panel`            | 3:1   | 3.2:1  | the record control while recording                                     |
-| `--color-recording-text`    | `--color-recording`        | 3:1   | 3.2:1  | the wave and stop mark on the record control                           |
-| `--color-switch-off`        | `--color-surface`          | 3:1   | 3.4:1  | a switch that is off                                                   |
-| `--color-gentle-mark`       | `--color-gentle-wash`      | 3:1   | 4.0:1  | the mark on a gentle note                                              |
-| `--color-problem-edge`      | `--color-problem-wash`     | 3:1   | 5.1:1  | the edge of a problem message                                          |
+| Text or mark                | On                         | Needs | Result | Used for                                                           |
+| --------------------------- | -------------------------- | ----- | ------ | ------------------------------------------------------------------ |
+| `--color-text`              | `--color-panel`            | 7:1   | 14.6:1 | a spoken Finnish line on the line card                             |
+| `--color-text`              | `--color-surface`          | 7:1   | 14.9:1 | Finnish in a sheet and in the word card                            |
+| `--color-text`              | `--color-spoken-soft`      | 7:1   | 12.3:1 | the spoken word on its tile                                        |
+| `--color-text`              | `--color-word-hover`       | 7:1   | 13.0:1 | a Finnish word under the finger                                    |
+| `--color-written`           | `--color-panel`            | 7:1   | 7.7:1  | the written Finnish line on the line card                          |
+| `--color-written`           | `--color-surface`          | 7:1   | 7.9:1  | written Finnish in a sheet                                         |
+| `--color-written`           | `--color-written-soft`     | 7:1   | 7.0:1  | the written word on its tile                                       |
+| `--color-changed-text`      | `--color-changed-wash`     | 7:1   | 7.1:1  | a changed word on its wash                                         |
+| `--color-current-word-text` | `--color-current-word`     | 7:1   | 14.1:1 | the word being spoken                                              |
+| `--color-text-quiet`        | `--color-surface`          | 4.5:1 | 5.9:1  | quieter text in a sheet                                            |
+| `--color-text-quiet`        | `--color-panel`            | 4.5:1 | 5.8:1  | quieter text on a panel                                            |
+| `--color-text-quiet`        | `--color-wash-top`         | 4.5:1 | 4.7:1  | quieter text on the mint end of the wash                           |
+| `--color-text-quiet`        | `--color-wash-middle`      | 4.5:1 | 5.6:1  | quieter text in the middle of the wash                             |
+| `--color-text-quiet`        | `--color-wash-bottom`      | 4.5:1 | 4.8:1  | quieter text on the peach end of the wash                          |
+| `--color-text-quiet`        | `--color-spoken-soft`      | 4.5:1 | 4.9:1  | quieter text on a soft mint fill                                   |
+| `--color-text-quiet`        | `--color-written-soft`     | 4.5:1 | 5.3:1  | quieter text on the slate tile                                     |
+| `--color-text`              | `--color-wash-top`         | 4.5:1 | 11.9:1 | headings on the mint end of the wash                               |
+| `--color-text`              | `--color-wash-bottom`      | 4.5:1 | 12.0:1 | headings on the peach end of the wash                              |
+| `--color-spoken-text`       | `--color-spoken-soft`      | 4.5:1 | 5.0:1  | the "People say" label on its tile                                 |
+| `--color-mint-deep`         | `--color-surface`          | 4.5:1 | 6.0:1  | the "How it works" link and a sign number                          |
+| `--color-mint-deep`         | `--color-panel`            | 4.5:1 | 5.9:1  | mint text on a panel                                               |
+| `--color-mint-deep`         | `--color-mint-soft`        | 4.5:1 | 5.0:1  | mint text on a soft mint fill                                      |
+| `--color-peach-deep`        | `--color-surface`          | 4.5:1 | 4.9:1  | the name on the next sign                                          |
+| `--color-peach-deep`        | `--color-panel`            | 4.5:1 | 4.8:1  | the next stop name on the card                                     |
+| `--color-danger-ink`        | `--color-wash-bottom`      | 4.5:1 | 6.1:1  | the "Delete my account" link on the peach end of the wash          |
+| `--color-danger-ink`        | `--color-wash-middle`      | 4.5:1 | 7.2:1  | the "Delete my account" link in the middle of the wash             |
+| `--color-button-text`       | `--color-button`           | 4.5:1 | 4.5:1  | text on the mint pill                                              |
+| `--color-mint-deep`         | `--color-button-secondary` | 4.5:1 | 6.0:1  | text on the white pill                                             |
+| `--color-danger-text`       | `--color-danger`           | 4.5:1 | 4.9:1  | text on the delete pill                                            |
+| `--color-text`              | `--color-gentle-wash`      | 4.5:1 | 12.3:1 | a gentle note                                                      |
+| `--color-peach-text`        | `--color-gentle-wash`      | 4.5:1 | 5.0:1  | the words of a gentle note, peach as drawn                         |
+| `--color-peach-text`        | `--color-peach-soft`       | 4.5:1 | 5.0:1  | the review count and the guest note on the account page            |
+| `--color-text-quiet`        | `--color-sign-num`         | 4.5:1 | 5.3:1  | the "+6" chip of the new words                                     |
+| `--color-problem-text`      | `--color-problem-wash`     | 4.5:1 | 7.7:1  | a problem message                                                  |
+| `--color-focus`             | `--color-wash-top`         | 3:1   | 11.9:1 | the focus outline on the mint end of the wash                      |
+| `--color-focus`             | `--color-wash-middle`      | 3:1   | 14.0:1 | the focus outline in the middle of the wash                        |
+| `--color-focus`             | `--color-wash-bottom`      | 3:1   | 12.0:1 | the focus outline on the peach end of the wash                     |
+| `--color-focus`             | `--color-surface`          | 3:1   | 14.9:1 | the focus outline in a sheet or on a card                          |
+| `--color-focus`             | `--color-panel`            | 3:1   | 14.6:1 | the focus outline on a panel                                       |
+| `--color-control-edge`      | `--color-surface`          | 3:1   | 4.5:1  | the edge of a white control in a sheet                             |
+| `--color-control-edge`      | `--color-panel`            | 3:1   | 4.4:1  | the edge of a white control on a panel                             |
+| `--color-control-edge`      | `--color-wash-top`         | 3:1   | 3.6:1  | the edge of a white control on the mint end of the wash            |
+| `--color-control-edge`      | `--color-wash-bottom`      | 3:1   | 3.6:1  | the edge of a white control on the peach end of the wash           |
+| `--color-mint`              | `--color-progress-track`   | 3:1   | 4.5:1  | the filled part of a progress bar beside the pale part not reached |
+| `--color-mint`              | `--color-mint-soft`        | 3:1   | 3.7:1  | a lesson done beside a lesson not done on the road card            |
+| `--color-button`            | `--color-surface`          | 3:1   | 4.5:1  | the play control in a sheet                                        |
+| `--color-button`            | `--color-panel`            | 3:1   | 4.4:1  | the play control and the mint pill on a panel                      |
+| `--color-button`            | `--color-wash-top`         | 3:1   | 3.6:1  | the mint pill on the mint end of the wash                          |
+| `--color-current-line`      | `--color-panel`            | 3:1   | 4.4:1  | the ring round the line that is playing                            |
+| `--color-peach`             | `--color-surface`          | 3:1   | 3.2:1  | the ring round the next sign                                       |
+| `--color-recording`         | `--color-panel`            | 3:1   | 3.2:1  | the record control while recording                                 |
+| `--color-recording-text`    | `--color-recording`        | 3:1   | 3.2:1  | the wave and stop mark on the record control                       |
+| `--color-switch-off`        | `--color-surface`          | 3:1   | 3.4:1  | a switch that is off                                               |
+| `--color-gentle-mark`       | `--color-gentle-wash`      | 3:1   | 4.0:1  | the mark on a gentle note                                          |
+| `--color-problem-edge`      | `--color-problem-wash`     | 3:1   | 5.1:1  | the edge of a problem message                                      |
 
 ### The page wash and the grain
 
@@ -234,8 +239,9 @@ A sheet opened by a button gives that button as `returnFocus`, so focus goes bac
 ### Buttons (`Button`)
 
 - **Primary**: the flat mint pill with the small arrow circle, 52 px tall, a plain soft shadow and no glow (owner's call 5). One per screen, for the main action, such as "Continue".
-- **Secondary**: the white pill with a mint edge, 52 px tall. For a second choice next to a primary.
-- **Quiet**: underlined text, at least 44 px. For a minor action.
+- **Secondary**: the white pill with a very pale mint edge and a soft shadow, as drawn (round 6), 52 px tall. Its words name it, so the edge only decorates; focus shows the ink outline. For a second choice next to a primary.
+- **Quiet**: small quiet text (12.5 px) with a soft mint underline, at least 44 px tall. For a minor action.
+- **Mint**: mint text with no underline ("Why does it change?", "More about your voice").
 - **Danger**: the deep peach pill, for "Delete for good" only.
 
 A plain `<button>` with no component style of its own gets the secondary look from the base styles: token colours, an edge and a 44 px height, so the browser's own button colours never decide its contrast (job 5's lesson: WebKit's defaults failed contrast). Every button sets explicit token colours.
@@ -263,8 +269,8 @@ The home screen. The wordmark header, "Today's session", the lead sentence, the 
 - **The "you" marker** is a white dot with a mint ring on the road at the current stop, with a slow pulse that stops under reduced motion.
 - **Signs on a short phone or at large text.** Five signs show when there is room. When any two boards, or a board and the top bar, would touch, the road shows fewer: the sign of the current stop and the next one are always kept, then one more on alternate sides, and the gap between signs grows with the tallest board. A board that would run past an edge of the screen is nudged back inside. The card stops at 42 percent of the screen height and its inside scrolls, so the road, the bar and the account button stay in view at 320 px with text at 200 percent.
 - **Said once.** Keep it draws "Type the missing word" once, as the field's title; the status line carries it for screen readers. The crash screen draws "Something went wrong" once, as its title; the problem sentence stays in the page for screen readers.
-- **The travelled road** is mint from the bottom of the road up to the "you" marker (so it is always seen between the card and the marker), with mint edges. Nothing is drawn while nothing is travelled. The road's bend is 48 against the drawing's 34, because the phone shows the picture larger and the card hides its lowest part.
-- **The top** holds only the progress bar (12 pieces, one per three stops, solid mint when all three are done and hollow with a 1 px edge of 3 to 1 otherwise) and the account button, a 44 px round named "Your account" that shows the first letter of the learner's email, a G for a guest, or a plain person mark.
+- **The travelled road** is mint from the bottom of the road up to the "you" marker (so it is always seen between the card and the marker), with mint edges. Nothing is drawn while nothing is travelled. The road's bend is the drawing's 34 (round 6).
+- **The top** holds only the progress bar (12 pieces, one per three stops, solid mint when all three are done and solid pale white with no outline otherwise, as drawn; mint is 4.5 to 1 on the pale piece) and the account button, a 44 px round named "Your account" that shows the first letter of the learner's email, a G for a guest, or a plain person mark.
 - **The card at the bottom** is one milky panel, by state. Day one: stop 1's name, "Stop 1, 4 short lessons", "Start", "Have an account? Sign in", and small, the protected guest line and "Privacy notice". Start or continue: the stop's name, "Stop 3, lesson 2 of 4", the lesson pieces and "Start" or "Continue". Review: "Review", "About 4 minutes" (a fixed rule of 18 seconds a word), the count and "Start review". Stop finished: the stop and its can do sentence, "Next stop" and the next name, "Continue". Done for today and the end of the road: the evening sky and no button. The existing messages show as one plain line in the same card.
 - **Small phones.** The signs are placed above the card whatever its height, so the card never covers the current sign or the marker. At 320 px wide and 200 percent text nothing scrolls sideways.
 - **Loading** shows the sprout mark on its mint tile and three fading dots, then the road. **No connection** shows a cloud with a slash, "No connection", "Your progress is safe. Check your internet connection, then try again." and "Try again" (the first sentence only where nothing waits to be saved).
@@ -329,7 +335,7 @@ A tick orb, "Now you can say this.", the line card with its English line, a pane
 
 ### The account page and its neighbours
 
-The account page is a profile: a large avatar with the letter, the name line ("Guest" and "Saved on this device", or the email and "Saved to your email"), a "Your journey" panel ("Stop 3 of 36", a bar, "Now: Grocery store", "A1"), and one settings panel with four rows (Speaking feedback with On or Off, Download my data, Privacy notice, Send feedback). A guest sees a peach note "Add your email to keep your progress." with an "Add" button. Below the panel: "Sign out" (email accounts only) and "Delete my account" as small text. When the data file is ready it shows in place: a tick orb, the title "Your file is ready.", one line and "Download", with the back arrow as the only way back. "Delete my account" is small text in `--color-danger-ink`, which reaches 4.5 to 1 on the peach end of the wash. The delete page keeps its address and its two steps and looks like the drawn sheet: "Delete your account?", the warning in full, "Delete for good" as the danger pill and "Keep my account". The email screens have one field and one button each; the code is one input with `autocomplete="one-time-code"` and a visible box for each digit (`CodeField`).
+The account page is a profile: a large avatar with the letter, the name line ("Guest" and "Saved on this device", or the email and "Saved to your email"), a "Your journey" panel ("Stop 3 of 36", a bar, "Now: Grocery store", "A1"), and one settings panel with four rows (Speaking feedback with On or Off, Download my data, Privacy notice, Send feedback). A guest sees the peach bar "Create an account to save your progress." with a plain "Create" (named "Create an account"). At the bottom: "Sign out · Delete my account" (Sign out for email accounts only) as small text. When the data file is ready it shows in place under the title "Download my data": a tick orb, "Your file is ready", one line and "Download", with the back arrow as the only way back. "Delete my account" is small text in `--color-danger-ink`, which reaches 4.5 to 1 on the peach end of the wash. The delete page keeps its address and its two steps and looks like the drawn sheet: "Delete your account?", the warning in full, "Delete for good" as the danger pill and "Keep my account". The email screens have one milky field (its words as the placeholder, its label for screen readers) and the button at the bottom; the protected sentences sit small (12 px) and quiet under the field; the code screen says "Sent to" the address, its "Send a new code" link reads the wait, and its back arrow goes back to the email; the code is one input with `autocomplete="one-time-code"` and a visible box for each digit (`CodeField`).
 
 ### The privacy notice
 
@@ -386,3 +392,7 @@ Style:
 - Not the fonts Inter, Space Grotesk or Bricolage Grotesque (refused by test).
 
 Writing: no em dash asides, no "not X, but Y", no colon reveals, no hype words, no habitual groups of three.
+
+## Round 6: as drawn (2 November 2026)
+
+The owner asked for the app to look exactly like the drawings. What changed, everywhere: solid pale progress pieces with no outline; white pills with a very pale edge; milky fields with no outline whose focus is a 2 px mint edge; small quiet underlined links; medium weight screen titles; the cross and back arrow drawn as a 36 px round inside a 44 px tap area; the band in the drawing's 280 x 170 shape starting under the phone's status strip. On the road: the scene anchored so the sun's centre is 204 px from the top, signs at the drawing's places and perspective (never under 12 px, never over the sun or the fell labels), the next and later signs without a number, a done sign's tick in a small white square, the marker's pale mint halo, a 90 percent white card and "Stop 3 · lesson 2 of 4". Lessons: the tip's white lines on a darker scrim, Understand it's play button on the left, the record button's double soft halo, Say it's peach note above the record button, Keep it's title at the top and the answer kept in its field, and a finish screen with no top bar, the spoken line alone and five chips then "+N". The full list, item by item, is in `factory/jobs/19-redesign/build.md`.

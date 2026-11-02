@@ -185,10 +185,8 @@ describe('colour roles', () => {
         'src/components/FinnishLine.module.css',
         'src/components/GapLine.module.css',
         'src/components/PatternsPanel.module.css',
-        'src/components/RecordControl.module.css',
         'src/components/WordCard.module.css',
         'src/sample/HearItSample.module.css',
-        'src/screens/FirstLessonTip.module.css',
       ],
     },
     written: {
@@ -201,7 +199,6 @@ describe('colour roles', () => {
         'src/components/WordCard.module.css',
         'src/design-reference/DesignReference.module.css',
         'src/sample/HearItSample.module.css',
-        'src/screens/FirstLessonTip.module.css',
       ],
     },
     changed: {

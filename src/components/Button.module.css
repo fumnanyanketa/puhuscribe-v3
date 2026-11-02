@@ -46,8 +46,10 @@
   min-height: var(--button-height);
   background: var(--color-button-secondary);
   color: var(--color-mint-deep);
+  /* The drawings' white pill: a very pale edge and a soft shadow, no strong outline (round 6). Its words
+     name it, so the edge only decorates; keyboard focus still shows the 3 px ink outline. */
   box-shadow:
-    inset 0 0 0 1.5px var(--color-control-edge),
+    inset 0 0 0 1px var(--color-control-edge-soft),
     var(--shadow-1);
 }
 
@@ -80,21 +82,39 @@
   transform: translateY(1px);
 }
 
+/* The drawings' quiet link: small, quiet text with a soft mint underline (round 6). */
 .quiet {
   padding: 0 var(--space-3);
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-text-quiet);
+  font-family: var(--font-body);
+  font-size: var(--text-small-plus);
+  font-weight: var(--weight-regular);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-mint-mid);
+  text-underline-offset: 3px;
+}
+
+/* The drawings' mint text link with no underline ("Why does it change?"). */
+.mint {
+  padding: 0 var(--space-3);
+  background: transparent;
+  color: var(--color-mint-deep);
+  font-size: var(--text-sign);
+  font-weight: var(--weight-medium);
 }
 
 .quiet:hover,
-.quiet[data-state='hover'] {
+.quiet[data-state='hover'],
+.mint:hover,
+.mint[data-state='hover'] {
   background: var(--color-word-hover);
 }
 
 .quiet:active,
-.quiet[data-state='pressed'] {
+.quiet[data-state='pressed'],
+.mint:active,
+.mint[data-state='pressed'] {
   background: var(--color-button-secondary-pressed);
 }
 
@@ -106,7 +126,20 @@
   transform: none;
 }
 
-.quiet:disabled {
+/* A primary pill that is not available yet is the drawings' pale pill (round 6): milky white, quiet text,
+   a pale mint arrow circle, no shadow. */
+.primary:disabled {
+  background: var(--color-panel);
+  box-shadow: inset 0 0 0 1px var(--color-panel-edge);
+}
+
+.primary:disabled .arrow::before {
+  background: var(--color-mint-soft);
+  opacity: 1;
+}
+
+.quiet:disabled,
+.mint:disabled {
   background: transparent;
 }
 

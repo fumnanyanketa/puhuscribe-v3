@@ -58,9 +58,10 @@ test.describe('feedback', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Send feedback' })).toBeVisible()
     await expect(page.getByText(INTRO)).toBeVisible()
     const box = page.getByLabel('What should we know?')
-    await expect(page.getByText('0 of 1,000 characters')).toBeVisible()
+    // Round 6 (job 19-redesign): the count is read with the box and drawn only when 100 or fewer are left.
+    await expect(page.getByText('0 of 1,000 characters')).toBeAttached()
     await box.fill('The front door was clear.')
-    await expect(page.getByText('25 of 1,000 characters')).toBeVisible()
+    await expect(page.getByText('25 of 1,000 characters')).toBeAttached()
     await page.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(page.getByRole('status')).toHaveText('Thank you. Your message is sent.')
 

@@ -21,12 +21,13 @@
 .textarea {
   width: 100%;
   min-width: 0;
-  min-height: 9rem;
+  min-height: 11.5rem;
   padding: var(--space-3) var(--space-5);
-  border: 1px solid var(--color-control-edge);
-  border-radius: var(--radius-lg);
+  /* The drawings' milky box: no visible outline, a soft shadow (round 6). Focus shows the mint edge. */
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--panel-radius);
   background: var(--color-surface);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-field);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -37,8 +38,13 @@
 }
 
 .textarea:focus-visible {
-  outline: var(--focus-width) solid var(--color-focus);
-  outline-offset: var(--focus-offset);
+  outline: 2px solid var(--color-control-edge);
+  outline-offset: -1px;
+}
+
+.textarea::placeholder {
+  color: var(--color-text-quiet);
+  font-weight: var(--weight-regular);
 }
 
 .count {
@@ -48,7 +54,21 @@
   color: var(--color-text-quiet);
 }
 
-/* Drawn: the question above the box is the title of the field. */
+/* Drawn: the question above the box is the title of the field, medium weight (round 6). */
 .label {
+  margin-bottom: var(--space-1);
   font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+}
+
+/* Far from the limit the count is read with the box but not drawn. */
+.countHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

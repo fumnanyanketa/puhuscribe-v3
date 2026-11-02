@@ -54,7 +54,7 @@ test.describe('the road on the real route', { tag: '@seed' }, () => {
       first?.title_en ?? '',
     )
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-    await expect(page.getByText(`Stop 1, ${String(first?.lessons_total ?? '')} short lessons`)).toBeVisible()
+    await expect(page.getByText(`Stop 1 · ${String(first?.lessons_total ?? '')} short lessons`)).toBeVisible()
   })
 
   test('[redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign', async ({

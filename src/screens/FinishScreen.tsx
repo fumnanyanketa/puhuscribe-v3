@@ -8,7 +8,6 @@ import { PATHS } from '../lib/app-paths.ts'
 import { pickFinishLine } from '../lib/session-rules.ts'
 import type { NewWord, ReadySession } from '../lib/session-types.ts'
 import type { LoopStep } from '../components/SessionFrame.tsx'
-import { LineCard } from './LineCard.tsx'
 import { newWordsFrom } from './new-words.ts'
 import { NewWords } from './NewWords.tsx'
 import { accountKindOf, carriesSaveNote } from './save-note.ts'
@@ -27,7 +26,9 @@ import styles from './Screens.module.css'
 
 export const NOW_YOU_CAN = 'Now you can say this.'
 const SAVING = 'Saving your progress.'
-const SAVED = 'Your progress is saved.'
+// The drawing's line under Done is "Saved to your account."; the guest's protected sentence stays word for
+// word (save-note-copy.ts), so the signed in line says the same thing in the same shape (round 6).
+const SAVED = 'Your progress is saved to your account.'
 
 type SaveState = 'saving' | 'saved' | 'not_saved'
 
@@ -125,9 +126,11 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   // The line sits above the buttons while the save is unfinished or failed, and under "Done" once saved, as drawn.
   const statusAbove = state !== 'saved' || retried
   const status_line = (
-    <StatusLine ref={status} tone={tone}>
-      {message}
-    </StatusLine>
+    <div className={statusAbove ? undefined : styles.savedLine}>
+      <StatusLine ref={status} tone={tone}>
+        {message}
+      </StatusLine>
+    </div>
   )
   const actions = (
     <>
@@ -158,9 +161,20 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
           </svg>
         </div>
         <h1 className={styles.finishTitle}>{NOW_YOU_CAN}</h1>
+        {/* As drawn (round 6): only the spoken line, centred and bold, with the English under it. */}
         {line && (
-          <div className={styles.finishLine}>
-            <LineCard line={line} showGloss />
+          <div className={styles.finishLine} data-line-id={line.id}>
+            <p className={styles.finishSpoken} lang="fi">
+              {line.spoken.map((word, index) => (
+                <span key={index}>
+                  {index > 0 ? ' ' : ''}
+                  {word.before}
+                  {word.text}
+                  {word.after}
+                </span>
+              ))}
+            </p>
+            <p className={styles.finishGloss}>{line.gloss}</p>
           </div>
         )}
         {state === 'saved' && <NewWords words={newWords} />}

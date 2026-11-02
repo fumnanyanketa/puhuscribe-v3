@@ -31,7 +31,9 @@
   outline: none;
 }
 
+/* The close cross sits in a small white round with a soft shadow, as drawn (round 6), in a 44 px tap area. */
 .close {
+  position: relative;
   display: grid;
   flex: none;
   place-items: center;
@@ -45,13 +47,24 @@
   cursor: pointer;
 }
 
-.close:hover {
-  background: var(--color-word-hover);
+.close::before {
+  content: '';
+  position: absolute;
+  inset: var(--space-1);
+  border: var(--panel-edge);
+  border-radius: var(--radius-pill);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-1);
+}
+
+.close:hover::before {
+  background: var(--color-button-secondary-hover);
 }
 
 .close svg {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -59,8 +72,8 @@
 }
 
 .meaning {
-  margin: 0;
-  font-size: var(--text-heading);
+  margin: calc(-1 * var(--space-1)) 0 0;
+  font-size: var(--text-line);
   font-weight: var(--weight-medium);
   line-height: var(--leading-body);
 }
@@ -144,10 +157,23 @@
   font-weight: var(--weight-semibold);
 }
 
+.baseMeaning {
+  color: var(--color-text-quiet);
+}
+
 .whyButton,
 .patterns {
   justify-self: center;
-  color: var(--color-mint-deep);
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .why {

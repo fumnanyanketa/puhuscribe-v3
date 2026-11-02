@@ -35,6 +35,11 @@
   --color-track: #c3ddd2; /* progress segments not reached, rails */
   --color-card-edge: #1b2a2614; /* a 1 px hairline round a solid card, 8 percent ink */
   --color-control-edge: #1e856f; /* the edge of a white control, 3.6:1 on the mint end of the wash */
+  --color-control-edge-soft: #d6efe7; /* the drawings' very pale edge of a white pill or key, as drawn (round 6) */
+  --color-progress-track: #ffffff; /* the part of a progress bar not reached, pale white with no outline, as drawn (round 6) */
+  --color-sign-num: #eef2f1; /* the current sign's number square before it is mint, as drawn */
+  --color-sign-tick: #ffffff40; /* the small white square of a done sign's tick, 25 percent white on mint, as drawn */
+  --color-road-card: #ffffffe6; /* the road's bottom card, 90 percent white as drawn, so the road shows faintly through it (round 6) */
 
   /* Text */
   --color-text: #1b2a26; /* ink, as drawn */
@@ -65,6 +70,7 @@
   --color-peach: #db7249; /* drawn #ee8763; marks need 3:1 on white */
   --color-peach-soft: #fde4d8; /* gentle notes and the save note, as drawn */
   --color-peach-deep: #b8532f; /* the delete pill and the mark on a gentle note, as drawn */
+  --color-peach-text: #a1471f; /* peach text on peach soft (the review count, the save note), drawn #b8532f was 4.0:1; this reaches 5.0 */
 
   /* The word being spoken right now, and a word under the finger */
   --color-current-word: #1b2a26;
@@ -92,7 +98,16 @@
   --color-recording: #db7249; /* the record control while recording */
   --color-recording-text: #ffffff;
   --color-switch-off: #7d8f89; /* the track of a switch that is off */
-  --color-scrim: #1b2a2666; /* dims the screen behind the first lesson tip's lit card */
+  --color-scrim: #1b2a26a8; /* dims the screen behind the first lesson tip's lit card, dark enough for its white lines (5.1:1 on the wash) */
+  --color-tip-text: #ffffff; /* the tip's three lines and their dots sit on the scrim, white as drawn */
+  --color-tip-spoken: #7fe0c3; /* the tip's spoken dot, as drawn */
+  --color-tip-written: #9fb6d6; /* the tip's written dot, as drawn */
+  --color-tip-ring: #f3a07f; /* the tip's peach ring, as drawn */
+  --color-tip-lit: #ffffffb3; /* the thin white glow round the lit card, as drawn */
+  --color-tip-spoken-halo: #7fe0c338; /* the soft halos round the tip's dots and ring, as drawn */
+  --color-tip-written-halo: #9fb6d640;
+  --color-tip-ring-halo: #f3a07f38;
+  --color-dim: #192d2847; /* dims the page behind a drawn sheet, as drawn (28 percent) */
 
   /* Brand: the sprout mark, flat, on mint (owner's call 14, 1 November 2026).
      A logo is exempt from the contrast floors. */
@@ -164,6 +179,7 @@
   --land-pole: #8b9793;
   --land-ink: #1b2a26;
   --land-sign-shadow: #1e322d29;
+  --land-sign-shadow-soft: #1e322d14;
   --land-you-shadow: #145a4659;
   --land-star: #ffffff;
   --land-star-opacity: 0;
@@ -178,6 +194,14 @@
   --shadow-3: 0 18px 44px #14322d24, 0 6px 14px #14322d12;
   --shadow-dock: 0 -8px 28px #14322d1a, 0 -1px 3px #14322d0d;
   --shadow-button: 0 4px 12px #1b2a2624; /* plain and soft, no glow (owner's call 5) */
+  --shadow-track: inset 0 1px 2px #1428230f; /* the drawings' faint inner shadow of a progress track */
+  --shadow-field:
+    0 1px 1px #1428230a, 0 14px 30px -14px #14322d38; /* the drawings' milky field: no outline, a soft shadow */
+  --shadow-soft-pill: 0 10px 24px -8px #00000066; /* "Got it" on the dimmed screen, as drawn */
+  --shadow-halo-mic:
+    0 0 0 15px #ffffff8c, 0 0 0 30px #ffffff47, 0 15px 35px #143c3c2e; /* the record button's double soft halo, as drawn */
+  --shadow-halo-rec:
+    0 0 0 15px #fde4d8cc, 0 0 0 30px #fde4d873, 0 15px 35px #96462833; /* the same halo while recording, peach */
 
   /* Fonts: Poppins everywhere, self-hosted (src/styles/fonts.css). Owner's
      call 3, 1 November 2026. */
@@ -190,6 +214,8 @@
      written Finnish from 17 px. */
   --text-display: 2.25rem; /* 36 px, page titles on the reference page */
   --text-title: 1.25rem; /* 20 px, lesson title, sheet title */
+  --text-title-large: 1.375rem; /* 22 px, "Now you can say this." and the privacy notice's title (drawn 18) */
+  --text-avatar: 1.75rem; /* 28 px, the letter on the account page's avatar (drawn 22) */
   --text-heading: 1.0625rem; /* 17 px, card and section headings */
   --text-line: 1.1875rem; /* 19 px, the spoken line on the line card */
   --text-line-large: 1.3125rem; /* 21 px, the spoken line on Understand it */
@@ -199,6 +225,7 @@
   --text-reading: 0.875rem; /* 14 px, the least size of a sentence of reading text */
   --text-button: 0.90625rem; /* 14.5 px */
   --text-sign: 0.8125rem; /* 13 px, the names on the road signs */
+  --text-sign-road: 0.984375rem; /* 15.75 px: the drawing's 10.5 px sign at its 1.5 scale, before the sign's perspective scale (about 13 px near) */
   --text-small: 0.75rem; /* 12 px, hints, speaker name, captions, fell labels */
   --text-small-plus: 0.78125rem; /* 12.5 px */
 
@@ -247,6 +274,8 @@
   --focus-offset: 2px;
   --page-content-top: 168px; /* where a page's content starts, below the hills, trees and sun of the band */
   --band-height: 210px; /* the landscape band behind the top of a screen at 375 px */
+  --page-profile-top: 112px;
+  --page-near-top: 140px; /* where content starts under a titled top bar, as drawn (Voice settings, Send feedback, Privacy notice) */ /* where the account page's avatar starts, overlapping the band as drawn */
 
   /* Motion: quiet, colour and opacity, slides for sheets (no bounce).
      Reduced motion turns slides off. */

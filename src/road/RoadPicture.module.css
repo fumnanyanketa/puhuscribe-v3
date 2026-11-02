@@ -1,15 +1,19 @@
 /* The road picture (design.md, "The road"). Values from src/styles/tokens.css. */
 
-/* The box keeps the 280 x 620 shape and is 12 percent wider than the screen, so
-   the opening animation can start zoomed out to exactly the screen width and
-   move in to this size. It is anchored at the top (56 px above the screen's top,
-   behind the progress bar), so the sun sits at the same height on every phone. Everything inside is placed as a share of the box. */
+/* The box keeps the scene's 280 x 660 shape and is 12 percent wider than the
+   screen, as the drawing shows it (scale 1.12), so the opening animation can
+   start zoomed out to exactly the screen width and move in to this size. It is
+   anchored so the sun's centre sits 204 px from the top on every phone: where
+   the drawing has it at 375 px (round 6; the box's top is 204 px less 92.8
+   percent of the width, which is the sun's height in the box). Everything
+   inside is placed as a share of the box. */
 .box {
   position: absolute;
-  top: calc(-1 * var(--space-9));
+  top: 0;
   left: -6%;
   width: 112%;
-  aspect-ratio: 280 / 620;
+  aspect-ratio: 280 / 660;
+  margin-top: calc(204px - 92.8%);
   transform-origin: 50% 100%;
 }
 
@@ -62,8 +66,15 @@
   white-space: nowrap;
 }
 
-/* A sign: a board with a number and a name on a pole. */
+/* A sign, as drawn (road-journey.html, round 6): a small board on a pole, at the drawing's size (the
+   drawing's px times 1.5, its scale on a 375 px phone) and in its perspective: --sc is 1 near and smaller
+   toward the horizon. The name stays on one line; it is never drawn under 12 px, so a far sign's text is
+   set larger before the scale; and it wraps only when it is wider than the screen (large text). */
 .sign {
+  /* The sign's text size: the drawn size in the drawing's perspective, never under 12 px. Everything else
+     on the board is in em, so the whole sign shrinks with it toward the horizon. */
+  --text-sign-scaled: max(calc(var(--text-sign-road) * var(--sc, 1)), var(--text-small));
+
   position: absolute;
   width: max-content;
   max-width: 100%;
@@ -73,7 +84,6 @@
 
 .size {
   display: block;
-  transform-origin: 50% 100%;
 }
 
 .pop {
@@ -86,20 +96,22 @@
 .board {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  max-width: min(12.5rem, 58vw);
-  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
-  border-radius: var(--radius-sm);
+  gap: 0.57em;
+  max-width: calc(100vw - 16px);
+  padding: 0.38em 0.82em 0.38em 0.38em;
+  border-radius: 0.82em;
   background: var(--color-surface);
   box-shadow: 0 4px 10px var(--land-sign-shadow);
   color: var(--color-text);
-  font-size: var(--text-sign);
+  font-size: var(--text-sign-scaled);
   font-weight: var(--weight-medium);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .name {
   min-width: 0;
+  white-space: normal;
   overflow-wrap: anywhere;
 }
 
@@ -107,19 +119,19 @@
   display: grid;
   flex: none;
   place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: var(--color-mint-soft);
-  color: var(--color-mint-deep);
-  font-size: var(--text-small);
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 0.57em;
+  background: var(--color-sign-num);
+  color: var(--color-text-quiet);
+  font-size: 1em;
   font-weight: var(--weight-semibold);
   font-variant-numeric: tabular-nums;
 }
 
 .tick {
-  width: 14px;
-  height: 14px;
+  width: 1em;
+  height: 1em;
   fill: none;
   stroke: currentColor;
   stroke-width: 3;
@@ -128,15 +140,15 @@
 }
 
 .pole {
-  width: 3px;
-  height: 14px;
+  width: 4px;
+  height: calc(45px * var(--sc, 1) + 6px);
   border-radius: 2px;
   background: var(--land-pole);
 }
 
 .foot {
-  width: 16px;
-  height: 5px;
+  width: 21px;
+  height: 6px;
   margin-top: -1px;
   border-radius: 50%;
   background: var(--land-sign-shadow);
@@ -147,8 +159,9 @@
   color: var(--color-button-text);
 }
 
+/* The tick sits in a small white square, as drawn. */
 .done .num {
-  background: var(--color-mint);
+  background: var(--color-sign-tick);
   color: var(--color-button-text);
 }
 
@@ -166,26 +179,29 @@
 }
 
 .next .board {
-  padding-left: var(--space-3);
+  padding: 0.38em 0.82em;
   box-shadow:
     0 0 0 2px var(--color-peach),
-    0 4px 10px var(--land-sign-shadow);
+    0 6px 14px var(--land-sign-shadow);
   color: var(--color-peach-deep);
   font-weight: var(--weight-semibold);
 }
 
+/* A later sign: a small milky board, the name only, quiet. */
 .later .board {
-  padding: var(--space-1) var(--space-3);
+  padding: 0.38em 0.82em;
   background: var(--color-panel);
+  box-shadow: 0 4px 12px var(--land-sign-shadow-soft);
   color: var(--color-text-quiet);
   font-weight: var(--weight-regular);
 }
 
-/* The "you" marker: a white dot with a mint ring and a slow pulse. */
+/* The "you" marker, as drawn: a white dot on a mint disc with a wide pale mint halo ring round it, and a
+   slow pulse where motion is allowed. */
 .you {
   position: absolute;
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -194,16 +210,23 @@
   position: absolute;
   inset: 0;
   box-sizing: border-box;
-  border: 5px solid var(--color-mint);
+  border: 8px solid var(--color-mint);
   border-radius: 50%;
   background: var(--color-surface);
-  box-shadow: 0 3px 8px var(--land-you-shadow);
+  box-shadow: 0 4px 12px var(--land-you-shadow);
+}
+
+.halo {
+  position: absolute;
+  inset: -13px;
+  border: 3px solid var(--land-travelled);
+  border-radius: 50%;
 }
 
 .pulse {
   position: absolute;
-  inset: -10px;
-  border: 2px solid var(--land-travelled);
+  inset: -13px;
+  border: 3px solid var(--land-travelled);
   border-radius: 50%;
   animation: pulse var(--motion-marker) ease-out infinite;
 }

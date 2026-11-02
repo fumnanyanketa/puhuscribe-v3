@@ -8,13 +8,20 @@ import styles from './NewWords.module.css'
 // The panel on the finish screen (job 19-redesign, statement 33, the owner's
 // choice of 1 November 2026, option C of design-drafts/numbers-question.html):
 // "11 new words" and the words themselves as chips. Each chip is a button that
-// opens the word's card, like a word in a line. The heading counts the chips and
+// opens the word's card, like a word in a line. As drawn (round 6), five chips
+// show, then "+6", which shows the rest. The heading counts the new words and
 // nothing else: no score, no streak, no "lines said aloud".
+
+/** As drawn (round 6): at most five chips, then a "+N" chip that shows the rest. */
+export const CHIPS_SHOWN = 5
 
 export function NewWords({ words }: { words: readonly NewWord[] }) {
   const [open, setOpen] = useState<number | null>(null)
+  const [all, setAll] = useState(false)
   const chips = useRef(new Map<number, HTMLButtonElement>())
   if (words.length === 0) return null
+  const hidden = all ? 0 : Math.max(0, words.length - CHIPS_SHOWN)
+  const shown = hidden > 0 ? words.slice(0, CHIPS_SHOWN) : words
   const current = open === null ? undefined : words.at(open)
 
   function close() {
@@ -33,7 +40,7 @@ export function NewWords({ words }: { words: readonly NewWord[] }) {
         {newWordsHeading(words.length)}
       </h2>
       <ul className={styles.chips}>
-        {words.map((word, index) => (
+        {shown.map((word, index) => (
           <li key={`${word.form.lemma}-${word.form.spoken}`}>
             <button
               type="button"
@@ -48,10 +55,29 @@ export function NewWords({ words }: { words: readonly NewWord[] }) {
                 setOpen(index)
               }}
             >
-              {word.form.spoken}
+              <span className={styles.pill}>{word.form.spoken}</span>
             </button>
           </li>
         ))}
+        {hidden > 0 && (
+          <li>
+            <button
+              type="button"
+              className={styles.chip}
+              aria-expanded={false}
+              aria-label={`Show ${String(hidden)} more ${hidden === 1 ? 'word' : 'words'}`}
+              onClick={() => {
+                setAll(true)
+                // The first of the words just shown gets focus, so the keyboard is not left on a button that has gone.
+                setTimeout(() => {
+                  chips.current.get(CHIPS_SHOWN)?.focus()
+                }, 0)
+              }}
+            >
+              <span className={`${styles.pill} ${styles.more}`}>+{hidden}</span>
+            </button>
+          </li>
+        )}
       </ul>
       <WordCard
         data={current ? cardOf(current) : null}

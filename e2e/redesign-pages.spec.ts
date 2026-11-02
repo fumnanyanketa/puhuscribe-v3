@@ -1,5 +1,5 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page, type Route } from '@playwright/test'
+import { expect, test, type Locator, type Page, type Route } from '@playwright/test'
 import { mockHome } from './road-mocks.ts'
 import { recordRequests } from './session-helpers.ts'
 
@@ -8,6 +8,16 @@ import { recordRequests } from './session-helpers.ts'
 // themselves, so they need no database.
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
+
+/** One computed style of the element. The e2e files have no DOM types, so the page's function is reached through a cast. */
+const styleOf = (locator: Locator, property: string): Promise<string> =>
+  locator.evaluate(
+    (el, name) =>
+      (
+        globalThis as unknown as { getComputedStyle: (e: unknown) => Record<string, string | undefined> }
+      ).getComputedStyle(el)[name] ?? '',
+    property,
+  )
 
 const json = (route: Route, body: unknown, status = 200) =>
   route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) })
@@ -19,6 +29,8 @@ interface PageMocks {
   processing?: 'granted' | 'not_asked' | 'withdrawn'
   retention?: boolean
   region?: string | null
+  /** Kept recordings in GET /api/voice (round 6: "My recordings" and the delete button show only with some). */
+  recordings?: { id: string; line: string | null; slot: 'first' | 'latest'; createdAt: string }[]
 }
 
 async function mockAccount(page: Page, mocks: PageMocks = {}) {
@@ -36,7 +48,7 @@ async function mockAccount(page: Page, mocks: PageMocks = {}) {
       region: mocks.region ?? null,
       processing: mocks.processing ?? 'granted',
       retention: mocks.retention ?? false,
-      recordings: [],
+      recordings: mocks.recordings ?? [],
     }),
   )
   await page.route('**/api/voice/consent', (route) => {
@@ -92,15 +104,20 @@ test.describe('the account page', () => {
     await expect(page.getByText('Stop 3 of 36')).toBeVisible()
     await expect(page.getByText('Now: At the grocery store')).toBeVisible()
     await expect(page.getByText('A1', { exact: true })).toBeVisible()
-    await expect(page.getByText('Add your email to keep your progress.')).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Add your email' })).toBeVisible()
+    // Round 6 (owner, item 29): the owner's words of 1 November and a plain "Create", named in full.
+    await expect(page.getByText('Create an account to save your progress.')).toBeVisible()
+    const create = page.getByRole('button', { name: 'Create an account' })
+    await expect(create).toHaveText('Create')
     for (const row of ['Speaking feedback', 'Download my data', 'Privacy notice', 'Send feedback']) {
       await expect(page.getByRole('list').getByText(row)).toBeVisible()
     }
     await expect(page.getByText('On', { exact: true })).toBeVisible()
+    // "Speaking feedback" shows its value and no chevron, as drawn; the other rows keep theirs.
+    await expect(page.getByRole('link', { name: /Speaking feedback/ }).locator('svg')).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Privacy notice' }).locator('svg')).toHaveCount(1)
     await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
     await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
-    await page.getByRole('button', { name: 'Add your email' }).click()
+    await create.click()
     await page.waitForURL('**/account/email')
   })
 
@@ -112,8 +129,11 @@ test.describe('the account page', () => {
     await expect(page.getByText('alex@example.com')).toBeVisible()
     await expect(page.getByText('Saved to your email')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
-    await expect(page.getByText('Add your email to keep your progress.')).toHaveCount(0)
+    await expect(page.getByText('Create an account to save your progress.')).toHaveCount(0)
     await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
+    // Round 6 (item 29): "Sign out · Delete my account", with the dot between them and Sign out not underlined.
+    const signOut = page.getByRole('button', { name: 'Sign out' })
+    expect(await styleOf(signOut, 'textDecorationLine')).toBe('none')
   })
 
   test('[redesign 34] with no account it says so and offers "Sign in with your email"', async ({ page }) => {
@@ -132,8 +152,12 @@ test.describe('the account page', () => {
     const downloading = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download my data' }).click()
     expect((await downloading).suggestedFilename()).toBe('puhuscribe-data.json')
-    // Round 2: "Your file is ready." is the title, centred under the orb, and the only way back is the arrow.
-    await expect(page.getByRole('heading', { level: 1, name: 'Your file is ready.' })).toBeVisible()
+    // Round 6 (item 34): the page's title "Download my data" sits beside the back arrow, and "Your file is
+    // ready" with no full stop is the title under the orb, as drawn. The only way back is the arrow.
+    await expect(page.getByRole('heading', { level: 1, name: 'Download my data' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: 'Your file is ready' })).toHaveText(
+      'Your file is ready',
+    )
     // The status line still says it for screen readers, and is not drawn a second time.
     await expect(page.getByRole('status')).toHaveText('Your file is ready.')
     expect(
@@ -145,7 +169,7 @@ test.describe('the account page', () => {
     await expect(page.getByText('Everything we keep about you, in one file.')).toBeVisible()
     await expect(page.getByRole('link', { name: 'Back to your account' })).toHaveCount(1)
     await expect(page.getByRole('button', { name: 'Back to your account' })).toHaveCount(0)
-    const title = await page.getByRole('heading', { level: 1 }).boundingBox()
+    const title = await page.getByRole('heading', { level: 2 }).boundingBox()
     expect(Math.abs((title?.x ?? 0) + (title?.width ?? 0) / 2 - 187.5)).toBeLessThan(3)
     await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeVisible()
     expect(new URL(page.url()).pathname).toBe('/account')
@@ -216,12 +240,116 @@ test.describe('the email screens', () => {
     const none = await page.context().newPage()
     await mockAccount(none, { me: { kind: 'none' } })
     await none.goto('/sign-in')
-    await expect(none.getByRole('heading', { level: 1, name: 'Sign in with your email' })).toBeVisible()
+    // Round 6 (item 32): the drawing's title and subtitle.
+    await expect(none.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
+    await expect(none.getByText('Enter your email for a code.', { exact: true })).toBeVisible()
     await expect(none.getByRole('link', { name: 'Start as a guest instead' })).toBeVisible()
+    // "Start as a guest instead" sits small under Send code, at the bottom of the screen.
+    const send = await none.getByRole('button', { name: 'Send code' }).boundingBox()
+    const guest = await none.getByRole('link', { name: 'Start as a guest instead' }).boundingBox()
+    expect((guest?.y ?? 0) > (send?.y ?? 0)).toBe(true)
+    expect(await styleOf(none.getByRole('link', { name: 'Start as a guest instead' }), 'fontSize')).toBe(
+      '12.5px',
+    )
+  })
+
+  // Round 6 (owner, items 3 and 30): the drawn field. Its words are the placeholder, its label is for screen
+  // readers, the protected sentences sit small (12 px) and quiet under it, and Send code is at the bottom.
+  test('[redesign 35] [redesign 43] Create your account: the drawn field with "Your email", the protected sentences small under it, Send code at the bottom', async ({
+    page,
+  }) => {
+    await mockAccount(page)
+    await page.goto('/account/email')
+    const field = page.getByLabel('Email address')
+    await expect(field).toHaveAttribute('placeholder', 'Your email')
+    const label = await page.locator('label[for="email"]').boundingBox()
+    expect(label?.width ?? 0).toBeLessThan(3)
+    for (const sentence of [
+      'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
+      'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+    ]) {
+      const text = page.getByText(sentence, { exact: true })
+      await expect(text).toBeVisible()
+      expect(await styleOf(text, 'fontSize')).toBe('12px')
+      expect(((await text.boundingBox())?.y ?? 0) > ((await field.boundingBox())?.y ?? 0)).toBe(true)
+    }
+    const send = await page.getByRole('button', { name: 'Send code' }).boundingBox()
+    expect((send?.y ?? 0) + (send?.height ?? 0)).toBeGreaterThan(812 - 120)
+    await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeVisible()
+  })
+
+  // Round 6 (item 31): "Sent to" the address as the subtitle; the back arrow goes back to the email (the old
+  // "Use another email address" pill is gone); "Send a new code" is the small link under the boxes and reads
+  // the wait while it waits; Confirm is the pale pill until six digits are in.
+  test('[redesign 35] Enter the code: "Sent to", the waiting link counts down, Confirm waits for six digits, and the arrow goes back to the email', async ({
+    page,
+  }) => {
+    await page.clock.install()
+    const calls = await mockAccount(page)
+    await page.goto('/account/email')
+    await page.getByLabel('Email address').fill('alex@example.com')
+    await page.getByRole('button', { name: 'Send code' }).click()
+    await expect(page.getByRole('heading', { level: 1, name: 'Enter the code' })).toBeVisible()
+    await expect(page.getByText('Sent to alex@example.com', { exact: true })).toBeVisible()
+    await expect(page.getByText('The code works for one hour.')).toBeVisible()
+    await expect(page.getByText('You can ask for a new code after one minute.')).toHaveCount(0)
+    const resend = page.getByRole('button', { name: /^Send a new code/ })
+    await expect(resend).toBeDisabled()
+    await expect(resend).toHaveText('Send a new code in 1:00')
+    await page.clock.runFor(15_000)
+    await expect(resend).toHaveText('Send a new code in 0:45')
+    const confirm = page.getByRole('button', { name: 'Confirm' })
+    await expect(confirm).toBeDisabled()
+    await page.getByLabel('6 digit code').fill('4719')
+    await expect(confirm).toBeDisabled()
+    await page.getByLabel('6 digit code').fill('471923')
+    await expect(confirm).toBeEnabled()
+    await page.clock.runFor(46_000)
+    await expect(resend).toBeEnabled()
+    await expect(resend).toHaveText('Send a new code')
+    await resend.click()
+    await expect.poll(() => calls.sent.length).toBe(2)
+    await expect(page.getByRole('button', { name: 'Use another email address' })).toHaveCount(1)
+    await page.getByRole('button', { name: 'Use another email address' }).click()
+    await expect(page.getByLabel('Email address')).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
   })
 })
 
 test.describe('Voice settings', () => {
+  // Round 6 (owner, item 33): two separate milky cards, the drawing's short line under "Keep my recordings",
+  // no "shown below" line, and "My recordings" with "Delete my recordings" only when something is kept.
+  test('[redesign 36] two drawn cards, the short keep line, and "My recordings" and its delete button only when there are kept recordings', async ({
+    page,
+  }) => {
+    await mockAccount(page, { processing: 'granted', retention: true })
+    await page.goto('/voice')
+    const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
+    await expect(speaking).toBeVisible()
+    await expect(page.getByText('So I can hear my progress. 90 days.', { exact: true })).toBeVisible()
+    const shownBelow = page.getByText('Your voice settings are shown below.')
+    await expect(shownBelow).toBeAttached()
+    expect((await shownBelow.boundingBox())?.width ?? 0).toBeLessThan(3)
+    await expect(speaking).toHaveAccessibleDescription(/^On\. Your recordings are checked/)
+    const cards = await page.evaluate<number>(
+      `[...document.querySelectorAll('[role="switch"]')].map((s) => s.closest('[class*="switchCard"]')).filter(Boolean).length`,
+    )
+    expect(cards).toBe(2)
+    await expect(page.getByRole('heading', { name: 'My recordings' })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Delete my recordings' })).toHaveCount(0)
+    const kept = await page.context().newPage()
+    await mockAccount(kept, {
+      processing: 'granted',
+      retention: true,
+      recordings: [{ id: 'r1', line: 'Moi.', slot: 'first', createdAt: '2026-11-01T10:00:00Z' }],
+    })
+    await kept.goto('/voice')
+    await expect(kept.getByRole('heading', { name: 'My recordings' })).toBeVisible()
+    const remove = kept.getByRole('button', { name: 'Delete my recordings' })
+    await expect(remove).toBeVisible()
+    expect(((await remove.boundingBox())?.y ?? 0) > 600).toBe(true)
+  })
+
   test('[redesign 36] two real switches, one press changes each, and "Keep my recordings" waits for the first', async ({
     page,
   }) => {
@@ -339,7 +467,8 @@ test.describe('delete, feedback and the privacy notice', () => {
       page.getByText('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.'),
     ).toBeVisible()
     await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
-    await expect(page.getByText('Updated 1 November 2026.')).toBeVisible()
+    // Round 6 (item 36): "Updated 1 November 2026" small at the bottom, as drawn (no full stop).
+    await expect(page.getByText('Updated 1 November 2026', { exact: true })).toBeVisible()
     await expect(
       page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
     ).toBeHidden()
@@ -381,16 +510,25 @@ test.describe('delete, feedback and the privacy notice', () => {
     await expect(page.getByText('You can change both choices at any time in Voice settings.')).toBeVisible()
   })
 
-  test('[redesign 39] the section headings are ink, not mint, because mint means a control you can press', async ({
+  // Round 6 (owner, item 36): the drawing's look. The title is in the page, large and quiet; the section
+  // headings are mint (round 2 had made them ink); the voice details sit behind "More about your voice".
+  test('[redesign 39] the title is in the page, the section headings are mint as drawn, and the voice details sit behind one tap', async ({
     page,
   }) => {
     await page.goto('/privacy')
-    const colours = await page.evaluate<
-      string[]
-    >(`[...document.querySelectorAll('[class*="firstLayer"] section h2')]
-      .map((h) => getComputedStyle(h).color)`)
-    expect(colours).toHaveLength(5)
-    for (const colour of colours) expect(colour).toBe('rgb(27, 42, 38)')
+    const look = await page.evaluate<{ colours: string[]; titleInHeader: boolean }>(`({
+      colours: [...document.querySelectorAll('[class*="firstLayer"] section h2')].map((h) => getComputedStyle(h).color),
+      titleInHeader: Boolean(document.querySelector('header h1')),
+    })`)
+    expect(look.colours).toHaveLength(5)
+    for (const colour of look.colours) expect(colour).toBe('rgb(26, 111, 93)')
+    expect(look.titleInHeader).toBe(false)
+    const more = page.getByRole('button', { name: 'More about your voice' })
+    await expect(more).toHaveAttribute('aria-expanded', 'false')
+    await expect(page.getByText('Microsoft does not keep your recording', { exact: false })).toBeHidden()
+    await more.click()
+    await expect(more).toHaveAttribute('aria-expanded', 'true')
+    await expect(page.getByText('Microsoft does not keep your recording', { exact: false })).toBeVisible()
   })
 
   test('[redesign 39] with no account the voice section says "in the EU" and names no country', async ({
@@ -415,8 +553,25 @@ test.describe('delete, feedback and the privacy notice', () => {
         { exact: true },
       ),
     ).toBeVisible()
-    await page.getByLabel('What should we know?').fill('The road is lovely.')
-    await expect(page.getByText('19 of 1,000 characters')).toBeVisible()
+    const box = page.getByLabel('What should we know?')
+    // Round 6 (item 37): the drawn box with its placeholder, the protected line small under it, and the
+    // count drawn only when 100 or fewer characters are left (it is read with the box all the time).
+    await expect(box).toHaveAttribute('placeholder', "What worked, what didn't, what broke.")
+    const line = page.getByText(
+      'Tell us what worked, what did not, or what broke. Please do not include personal details.',
+      { exact: true },
+    )
+    expect(await styleOf(line, 'fontSize')).toBe('12px')
+    expect(((await line.boundingBox())?.y ?? 0) > ((await box.boundingBox())?.y ?? 0)).toBe(true)
+    await box.fill('The road is lovely.')
+    const count = page.getByText('19 of 1,000 characters')
+    await expect(count).toBeAttached()
+    expect((await count.boundingBox())?.width ?? 0).toBeLessThan(3)
+    await expect(box).toHaveAccessibleDescription(/19 of 1,000 characters/)
+    await box.fill('a'.repeat(905))
+    const near = page.getByText('905 of 1,000 characters')
+    expect((await near.boundingBox())?.width ?? 0).toBeGreaterThan(50)
+    await box.fill('The road is lovely.')
     await page.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(page.getByText('Thank you. Your message is sent.')).toBeVisible()
     expect(calls.feedback).toEqual([{ screen: 'account', message: 'The road is lovely.' }])
@@ -430,9 +585,7 @@ test.describe('errors and offline', () => {
     await mockHome(page, { roadFails: 0 })
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1, name: 'No connection' })).toBeVisible()
-    await expect(
-      page.getByText('Your progress is safe. Check your internet connection, then try again.'),
-    ).toBeVisible()
+    await expect(page.getByText("Your progress is safe. Try again when you're online.")).toBeVisible()
     await expect(page.getByRole('button', { name: 'Try again' })).toBeVisible()
   })
 
@@ -500,6 +653,8 @@ test.describe('every page at phone size', () => {
       if (!node.textContent.trim()) continue
       const element = node.parentElement
       if ((header && header.contains(element)) || element.closest('[hidden]')) continue
+      // Round 6: a visually hidden heading (the account page's "Your account") is not drawn, so it is not counted.
+      if (element.getBoundingClientRect().width <= 2) continue
       const range = document.createRange()
       range.selectNodeContents(node)
       for (const box of range.getClientRects()) if (box.width > 2 && box.height > 2) top = Math.min(top, box.top + window.scrollY)
@@ -531,7 +686,10 @@ test.describe('every page at phone size', () => {
         await page.evaluate('document.fonts.ready')
         await page.waitForTimeout(300)
         const { top, lowest } = await page.evaluate<{ top: number; lowest: number }>(CONTENT_START)
-        expect(top).toBeGreaterThanOrEqual(160)
+        // Round 6 (owner, items 8, 29, 33, 36 and 37): content starts where the drawings put it, which is
+        // higher than round 2's 160 px on the account page, Voice settings, the privacy notice and Send
+        // feedback. It still never sits on the band's pines, flags or sun.
+        expect(top).toBeGreaterThanOrEqual(110)
         expect(lowest).toBeGreaterThan(40)
         expect(top).toBeGreaterThan(lowest)
       })

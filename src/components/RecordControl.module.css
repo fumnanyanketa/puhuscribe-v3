@@ -4,11 +4,11 @@
   display: grid;
   justify-items: center;
   gap: var(--space-3);
-  /* Room for the two rings, so nothing round it clips them. */
-  padding: var(--space-6) var(--space-6) var(--space-2);
+  /* Room for the two halos, so nothing round it clips them. */
+  padding: var(--space-7) var(--space-7) var(--space-2);
 }
 
-/* The large round button, with two flat rings (no glow). */
+/* The large round button with the drawing's double soft halo (round 6). */
 .record {
   display: grid;
   flex: none;
@@ -20,9 +20,7 @@
   border-radius: 50%;
   background: var(--color-button);
   color: var(--color-button-text);
-  box-shadow:
-    0 0 0 10px var(--color-spoken-soft),
-    0 0 0 20px var(--color-panel);
+  box-shadow: var(--shadow-halo-mic);
   cursor: pointer;
   transition: background-color var(--motion-fast) var(--motion-ease);
 }
@@ -32,12 +30,17 @@
 }
 
 .line {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2.6;
   stroke-linecap: round;
+}
+
+.capsule {
+  fill: currentColor;
+  stroke: none;
 }
 
 /* Recording: peach, with softer peach rings. */
@@ -45,9 +48,7 @@
 .recording:hover {
   background: var(--color-recording);
   color: var(--color-recording-text);
-  box-shadow:
-    0 0 0 10px var(--color-peach-soft),
-    0 0 0 20px var(--color-panel);
+  box-shadow: var(--shadow-halo-rec);
 }
 
 .working {
@@ -90,7 +91,7 @@
 }
 
 .caption {
-  margin: var(--space-3) 0 0;
+  margin: var(--space-6) 0 0;
   max-width: 28ch;
   text-align: center;
   font-size: var(--text-reading);

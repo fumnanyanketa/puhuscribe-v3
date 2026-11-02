@@ -1,5 +1,5 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Locator, type Page } from '@playwright/test'
 import { mockLesson, type LessonMocks } from './lesson-mocks.ts'
 import { microphoneCalls, stubMicrophone } from './microphone.ts'
 import { dismissTip, leaveLesson, sheetsSettled } from './session-helpers.ts'
@@ -9,6 +9,16 @@ import { dismissTip, leaveLesson, sheetsSettled } from './session-helpers.ts'
 // themselves (e2e/lesson-mocks.ts), so they need no database.
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
+
+/** One computed style of the element. The e2e files have no DOM types, so the page's function is reached through a cast. */
+const styleOf = (locator: Locator, property: string): Promise<string> =>
+  locator.evaluate(
+    (el, name) =>
+      (
+        globalThis as unknown as { getComputedStyle: (e: unknown) => Record<string, string | undefined> }
+      ).getComputedStyle(el)[name] ?? '',
+    property,
+  )
 
 async function open(page: Page, mocks: LessonMocks = {}) {
   const calls = await mockLesson(page, mocks)
@@ -31,7 +41,9 @@ test.describe('the lesson frame and the leave sheet', () => {
     expect(cross?.height ?? 0).toBeGreaterThanOrEqual(44)
   })
 
-  test('[redesign 4] the band behind the top is an inline drawing: hidden from screen readers, no image file, no request of its own, about 210 px high', async ({
+  // Round 6 (owner, item 8): the band is the drawing's 280 x 170 shape and starts under the phone's own
+  // status strip, as drawn, so about 185 px of it shows on a 375 px screen (the spec's "about 210").
+  test('[redesign 4] the band behind the top is an inline drawing: hidden from screen readers, no image file, no request of its own, about 185 to 210 px on screen', async ({
     page,
   }) => {
     const requests: string[] = []
@@ -41,6 +53,7 @@ test.describe('the lesson frame and the leave sheet', () => {
     const band = await page.evaluate<{
       hidden: boolean
       height: number
+      bottom: number
       images: number
       fills: string[]
     }>(`(() => {
@@ -49,13 +62,15 @@ test.describe('the lesson frame and the leave sheet', () => {
       return {
         hidden: box.getAttribute('aria-hidden') === 'true',
         height: Math.round(box.getBoundingClientRect().height),
+        bottom: Math.round(box.getBoundingClientRect().bottom),
         images: document.querySelectorAll('img, picture, image, video, canvas').length,
         fills: [...svg.querySelectorAll('[fill]')].map((el) => el.getAttribute('fill')).filter((f) => /^#/.test(f ?? '')),
       }
     })()`)
     expect(band.hidden).toBe(true)
-    expect(band.height).toBeGreaterThanOrEqual(200)
-    expect(band.height).toBeLessThanOrEqual(220)
+    expect(band.bottom).toBeGreaterThanOrEqual(175)
+    expect(band.bottom).toBeLessThanOrEqual(220)
+    expect(Math.abs(band.height - Math.round((375 * 170) / 280))).toBeLessThanOrEqual(1)
     expect(band.images).toBe(0)
     // The art's colours come from tokens, not from colour values written into the drawing.
     expect(band.fills).toEqual([])
@@ -230,12 +245,21 @@ test.describe('the lesson frame and the leave sheet', () => {
     await page.waitForURL((url) => url.pathname === '/')
   })
 
-  test('[redesign 22] the finish screen has no sheet: its cross leaves at once', async ({ page }) => {
+  // Round 6 (owner, item 26): the finish screen has no top bar, as drawn: no cross and no sheet (nothing is
+  // lost there; Done goes back to the road). The full bar stays for screen readers.
+  test('[redesign 22] [redesign 33] the finish screen has no top bar and no sheet; Done goes back to the road', async ({
+    page,
+  }) => {
     await open(page, { step: 'say' })
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    const cross = page.getByRole('link', { name: 'Leave session' })
-    await expect(cross).toHaveAttribute('href', '/')
+    await expect(page.getByRole('link', { name: 'Leave session' })).toHaveCount(0)
     await expect(page.getByRole('button', { name: 'Leave session' })).toHaveCount(0)
+    const bar = page.getByRole('progressbar', { name: 'Session finished' })
+    await expect(bar).toBeAttached()
+    const shown = await page.locator('header', { has: bar }).boundingBox()
+    expect(shown?.height ?? 0).toBeLessThan(3)
+    await page.getByRole('button', { name: 'Done', exact: true }).click()
+    await page.waitForURL((url) => url.pathname === '/')
   })
 })
 
@@ -472,7 +496,9 @@ test.describe('the word card', () => {
     await expect(card.getByText('Books write')).toBeVisible()
     await expect(card.getByText('Dictionary form')).toBeVisible()
     await expect(card.getByText('that', { exact: true })).toBeVisible()
-    await expect(card.getByText('Plays the whole line.')).toBeVisible()
+    // Round 6 (item 21): "Plays the whole line." is not drawn; the play buttons' names say it.
+    const caption = card.getByText('Plays the whole line.')
+    expect((await caption.boundingBox())?.width ?? 0).toBeLessThan(3)
     await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toHaveCount(0)
     await card.getByRole('button', { name: 'Why does it change?' }).click()
     await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toBeVisible()
@@ -578,7 +604,7 @@ test.describe('the speaking consent sheet', () => {
     await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
     expect(calls.consent).toEqual([{ choice: 'turn_on', keepRecordings: false }])
     await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
-    await expect(page.getByText('Tap and say the line.')).toBeVisible()
+    await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
     expect(await microphoneCalls(page)).toBe(0)
   })
 
@@ -616,8 +642,11 @@ test.describe('the speaking consent sheet', () => {
     const record = page.getByRole('button', { name: 'Record yourself saying the line' })
     const box = await record.boundingBox()
     expect(box?.width ?? 0).toBeGreaterThanOrEqual(80)
-    await expect(page.getByText('Tap and say the line.')).toBeVisible()
+    // Round 6 (item 23): the drawing's hint, and "Line 1 of 3." is for screen readers only.
+    await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeVisible()
+    await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
+    expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
   })
 })
 
@@ -694,9 +723,12 @@ test.describe('the finished lesson', () => {
     await expect(page.getByRole('status')).toHaveCount(1)
   })
 
-  test('[redesign 33] an email account sees "Your progress is saved." and no note', async ({ page }) => {
+  // Round 6 (item 26): the drawing's "Saved to your account." in the shape of the guest's protected line.
+  test('[redesign 33] an email account sees "Your progress is saved to your account." and no note', async ({
+    page,
+  }) => {
     await open(page, { step: 'say', me: { kind: 'email', email: 'maria@example.fi' } })
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved.')
+    await expect(page.getByRole('status')).toHaveText('Your progress is saved to your account.')
     await expect(page.getByRole('region', { name: 'Keep your progress' })).toHaveCount(0)
   })
 })
@@ -931,5 +963,148 @@ test.describe('phone size, keyboard and screen reader', () => {
       return new Set([...line.querySelectorAll('[data-word]')].map((word) => Math.round(word.getBoundingClientRect().top / 8))).size
     })()`)
     expect(rows).toBeGreaterThan(2)
+  })
+})
+
+// Round 6: the owner asked for the lesson screens to look exactly like the drawings
+// (factory/jobs/19-redesign/owner-differences.md). These protect what changed on purpose.
+test.describe('round 6, as drawn', () => {
+  test('[redesign 20] [redesign 25] the tip: three white lines on the dimmed screen and "Got it" as a white pill with no mint edge', async ({
+    page,
+  }) => {
+    await open(page, { firstLesson: true })
+    const got = page.getByRole('button', { name: 'Got it' })
+    await expect(got).toBeFocused()
+    expect(await styleOf(got, 'backgroundColor')).toBe('rgb(255, 255, 255)')
+    expect(await styleOf(got, 'boxShadow')).not.toContain('inset')
+    expect(
+      await styleOf(
+        page.getByRole('dialog', { name: 'How this screen works' }).locator('li').first(),
+        'color',
+      ),
+    ).toBe('rgb(255, 255, 255)')
+    // White lines on the scrim pass the text floor (axe checks the colours it can see).
+    const axe = await new AxeBuilder({ page }).withTags(TAGS).include('[role="dialog"]').analyze()
+    expect(axe.violations).toEqual([])
+  })
+
+  test('[redesign 28] Understand it: "Understand" at the top right, the play button on the left of the line, and no drawn help line', async ({
+    page,
+  }) => {
+    await open(page, { step: 'hear' })
+    const heading = page.getByRole('heading', { level: 1, name: 'Understand it' })
+    await expect(heading).toBeVisible()
+    // "Understand" is drawn; " it" is there for screen readers only.
+    expect(
+      await heading.evaluate(
+        (el) => (el as unknown as { firstChild: { textContent: string } }).firstChild.textContent,
+      ),
+    ).toBe('Understand')
+    expect((await heading.locator('span').boundingBox())?.width ?? 0).toBeLessThan(3)
+    const card = page.locator('[data-line-id]')
+    const play = await card.getByRole('button', { name: 'Play the spoken line' }).boundingBox()
+    const line = await card.locator('p[lang="fi"]').boundingBox()
+    expect((play?.x ?? 0) < (line?.x ?? 0)).toBe(true)
+    await expect(page.getByRole('status')).toHaveText('Choose what the line means.')
+    expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
+  })
+
+  test('[redesign 33] the finish screen: the spoken line alone with its English, five chips then "+6", and the saved line small under Done', async ({
+    page,
+  }) => {
+    await open(page, { step: 'say', newWords: 11, me: { kind: 'guest' } })
+    await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+    const sentence = page.locator('[data-line-id]')
+    await expect(sentence.getByRole('button')).toHaveCount(0)
+    await expect(sentence.locator('p')).toHaveCount(2)
+    await expect(page.getByRole('heading', { level: 2, name: '11 new words' })).toBeVisible()
+    const chips = page.getByRole('list').filter({ has: page.getByRole('button', { name: 'sana0' }) })
+    await expect(chips.getByRole('button')).toHaveText(['sana0', 'sana1', 'sana2', 'sana3', 'sana4', '+6'])
+    await chips.getByRole('button', { name: 'Show 6 more words' }).click()
+    await expect(chips.getByRole('button')).toHaveCount(11)
+    await expect(chips.getByRole('button', { name: 'sana5' })).toBeFocused()
+    const status = page.getByRole('status')
+    await expect(status).toHaveText('Your progress is saved on this device.')
+    const done = await page.getByRole('button', { name: 'Done', exact: true }).boundingBox()
+    const line = await status.boundingBox()
+    expect((line?.y ?? 0) > (done?.y ?? 0)).toBe(true)
+    expect(await styleOf(status, 'fontSize')).toBe('12.5px')
+  })
+
+  test('[redesign 31] Keep it right: the field keeps the answer with a mint edge and tick, the word is peach in both lines, and the long sentences are for screen readers', async ({
+    page,
+  }) => {
+    await open(page, { step: 'say', review: true })
+    await expect(page.getByText('Word 1 of 1.', { exact: true })).toBeVisible()
+    await page.getByLabel('Type the missing word', { exact: true }).fill('maksaa')
+    await page.getByRole('button', { name: 'Check', exact: true }).click()
+    const feedback = page.locator('[data-review-feedback]')
+    await expect(feedback).toBeVisible()
+    await expect(page.getByText('Type the missing word', { exact: true })).toBeVisible()
+    const echo = feedback.locator('p[aria-hidden="true"]', { hasText: 'maksaa' })
+    await expect(echo).toBeVisible()
+    expect(await styleOf(echo, 'borderTopColor')).toBe('rgb(30, 133, 111)')
+    await expect(echo.locator('svg')).toHaveCount(1)
+    let peach = 0
+    for (const word of await feedback
+      .locator('[data-line-id] [lang="fi"] span', { hasText: /^maksaa$/ })
+      .all()) {
+      if ((await styleOf(word, 'backgroundColor')) === 'rgb(253, 228, 216)') peach += 1
+    }
+    expect(peach).toBeGreaterThanOrEqual(2)
+    for (const sentence of [/^The word is maksaa/, /^You wrote/]) {
+      const text = feedback.getByText(sentence)
+      await expect(text).toBeAttached()
+      expect((await text.boundingBox())?.width ?? 0).toBeLessThan(3)
+    }
+    await expect(page.getByRole('status')).toHaveText('Yes, that is right.')
+  })
+
+  test('[redesign 31] [redesign 42] Keep it close: the gentle peach note sits under the field and points up to the marked word', async ({
+    page,
+  }) => {
+    await open(page, { step: 'say', review: true })
+    await page.getByLabel('Type the missing word', { exact: true }).fill('maksa')
+    await page.getByRole('button', { name: 'Check', exact: true }).click()
+    const status = page.getByRole('status')
+    await expect(status).toHaveText('Close. Check the spelling above.')
+    await expect(status).toHaveAttribute('data-tone', 'gentle')
+    const echo = await page.locator('[data-review-feedback] p[aria-hidden="true"]').boundingBox()
+    const card = await page.locator('[data-review-feedback] [data-line-id]').boundingBox()
+    const note = await status.boundingBox()
+    expect((note?.y ?? 0) > (echo?.y ?? 0)).toBe(true)
+    expect((card?.y ?? 0) < (note?.y ?? 0)).toBe(true)
+  })
+
+  test('[redesign 30] Say it, try again: the peach note above the record button, which is now "Try again", "Play mine" small, and Next line stays (job 10)', async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(
+      browserName === 'webkit' && (process.env.PLAYWRIGHT_BASE_URL ?? '').startsWith('http://'),
+      'WebKit records only on a secure page; the GitHub run serves HTTPS.',
+    )
+    await stubMicrophone(page, 'tone')
+    await open(page, { step: 'understand' })
+    await page.route('**/api/speech/say', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ feedbackClass: 'try_again' }),
+      }),
+    )
+    await page.getByRole('button', { name: 'Record yourself saying the line' }).click()
+    await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
+    await page.waitForTimeout(1200)
+    await page.getByRole('button', { name: /^Stop recording/ }).click()
+    const again = page.getByRole('button', { name: 'Try again, record yourself saying the line' })
+    await expect(again).toBeVisible({ timeout: 10_000 })
+    await expect(page.getByRole('button', { name: 'Try again', exact: true })).toHaveCount(0)
+    const note = await page.getByRole('status').boundingBox()
+    const mic = await again.boundingBox()
+    expect((note?.y ?? 0) < (mic?.y ?? 0)).toBe(true)
+    await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
+    await expect(page.getByRole('button', { name: 'Play mine' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Next line' })).toBeEnabled()
   })
 })

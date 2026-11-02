@@ -333,7 +333,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       }
       await expect(dialog.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
       await expect(dialog.getByRole('button', { name: 'Play the written line' })).toBeVisible()
-      await expect(dialog.getByText('Plays the whole line.', { exact: true })).toBeVisible()
+      // Round 6 (job 19-redesign): not drawn; the play buttons' names say it, and screen readers hear it.
+      await expect(dialog.getByText('Plays the whole line.', { exact: true })).toBeAttached()
       await page.keyboard.press('Escape')
       await expect(dialog).toBeHidden()
       await expect(button).toBeFocused()
@@ -425,7 +426,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await finishHearIt(page)
     await finishUnderstandIt(page, glossOf)
     await passSayIt(page)
-    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeVisible()
+    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
     await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     // The old line "The words you met will come back in your review." is not on the redrawn screen.
     await expect(page.getByText('The words you met will come back in your review.')).toHaveCount(0)

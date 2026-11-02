@@ -22,27 +22,54 @@
   flex: none;
   align-items: center;
   gap: var(--space-4);
-  padding: calc(var(--space-4) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
+  /* The cross sits where the drawings put it, just under the top of the page (round 6). */
+  padding: calc(var(--space-1) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
+}
+
+/* The cross: a 44 px tap area with the drawing's small white round (36 px) drawn inside it (round 6). */
+.topBarHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .leave {
+  position: relative;
   display: grid;
   flex: none;
   place-items: center;
   width: var(--tap-min);
   height: var(--tap-min);
+  margin: 0 calc(-1 * var(--space-1));
   padding: 0;
-  border: var(--panel-edge);
+  border: 0;
   border-radius: var(--radius-pill);
-  background: var(--panel-fill);
-  box-shadow: var(--shadow-1);
+  background: transparent;
   color: var(--color-text);
   cursor: pointer;
 }
 
+.leave::before {
+  content: '';
+  position: absolute;
+  inset: var(--space-1);
+  border: var(--panel-edge);
+  border-radius: var(--radius-pill);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-1);
+}
+
+.leave:hover::before {
+  background: var(--color-button-secondary-hover);
+}
+
 .leave svg {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  width: 17px;
+  height: 17px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -53,12 +80,12 @@
 .bar {
   flex: 1;
   min-width: 48px;
-  height: 6px;
+  height: 7px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  /* The part not reached has an edge that reaches 3 to 1 on the wash (round 2, design review). */
-  box-shadow: inset 0 0 0 1px var(--color-control-edge);
+  /* The part not reached is pale white with no outline, as drawn (round 6); the mint fill is 4.5:1 on it. */
+  background: var(--color-progress-track);
+  box-shadow: var(--shadow-track);
 }
 
 .fill {
@@ -101,6 +128,13 @@
   z-index: 3;
 }
 
+/* The lit card has the drawing's thin white glow round it. */
+.frame[data-dim='on'] .content [data-line-id] {
+  box-shadow:
+    0 0 0 2px var(--color-tip-lit),
+    var(--panel-shadow);
+}
+
 /* Only the content scrolls; the top bar and the actions stay. */
 .content {
   position: relative;
@@ -132,7 +166,8 @@
 .sheetTitle {
   margin: 0;
   font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
 }
 
 .sheetText {

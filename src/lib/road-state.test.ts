@@ -107,10 +107,10 @@ describe('the progress bar and the lesson pieces', () => {
   it('[redesign 15] fills one piece per lesson done and says which lesson the learner is at', () => {
     const stop = ROAD_MID[2]
     expect(lessonSegments(stop)).toEqual([true, true, false, false])
-    expect(lessonLine(stop)).toBe('Stop 3, lesson 3 of 4')
-    expect(lessonLine({ ...stop, lessonsDone: 4 })).toBe('Stop 3, lesson 4 of 4')
+    expect(lessonLine(stop)).toBe('Stop 3 · lesson 3 of 4')
+    expect(lessonLine({ ...stop, lessonsDone: 4 })).toBe('Stop 3 · lesson 4 of 4')
     const first = ROAD_DAY_ONE[0]
-    expect(dayOneLine(first)).toBe('Stop 1, 4 short lessons')
+    expect(dayOneLine(first)).toBe('Stop 1 · 4 short lessons')
   })
 
   it('[redesign 12] the mint centre line reaches the marker and no further', () => {

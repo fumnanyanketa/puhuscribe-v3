@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { PATHS } from '../lib/app-paths.ts'
 import { accountKindOf } from './save-note.ts'
 import { noticeFrom } from '../lib/account-notice.ts'
+import { SCENE_HEIGHT, SCENE_WIDTH, SUN_BOX } from '../components/landscape-geometry.ts'
 import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { loadRoad } from '../lib/road-data.ts'
@@ -118,7 +119,7 @@ export function RoadScreen() {
     const box = picture.current?.firstElementChild
     if (!(box instanceof HTMLElement)) return
     const cardHeight = cardBox.current?.offsetHeight ?? CARD_ESTIMATE
-    const unit = box.offsetWidth / 280
+    const unit = box.offsetWidth / SCENE_WIDTH
     if (unit <= 0) return
     // The box starts above the screen's top (offsetTop is negative).
     const room = window.innerHeight - cardHeight - 24 - box.offsetTop
@@ -183,10 +184,28 @@ export function RoadScreen() {
     const gap = 4
     const touching = (a: DOMRect, b: DOMRect) =>
       a.left < b.right + gap && b.left < a.right + gap && a.top < b.bottom + gap && b.top < a.bottom + gap
+    // The sun with its "A1" and the three fell labels are kept clear of every board (round 6).
+    const scene = picture.current?.firstElementChild?.getBoundingClientRect()
+    const scenery: DOMRect[] = [
+      ...[...(picture.current?.querySelectorAll('ul > li') ?? [])].map((label) =>
+        label.getBoundingClientRect(),
+      ),
+      ...(scene
+        ? [
+            new DOMRect(
+              scene.left + (SUN_BOX.left / SCENE_WIDTH) * scene.width,
+              scene.top + (SUN_BOX.top / SCENE_HEIGHT) * scene.height,
+              ((SUN_BOX.right - SUN_BOX.left) / SCENE_WIDTH) * scene.width,
+              ((SUN_BOX.bottom - SUN_BOX.top) / SCENE_HEIGHT) * scene.height,
+            ),
+          ]
+        : []),
+    ]
     const crowded = boards.some(
       (box, index) =>
         box !== undefined &&
         (box.top < (bar?.bottom ?? 0) + gap ||
+          scenery.some((thing) => touching(box, thing)) ||
           boards.slice(index + 1).some((other) => other !== undefined && touching(box, other))),
     )
     if (crowded && signCount > 2) setSignCount(signCount - 1)

@@ -53,6 +53,7 @@ export function FeedbackPage() {
   const field = useRef<HTMLTextAreaElement>(null)
   const id = useId()
   const countId = `${id}-count`
+  const introId = `${id}-intro`
 
   useEffect(() => {
     let active = true
@@ -104,15 +105,36 @@ export function FeedbackPage() {
 
   const back = BACK[screen]
 
+  // The count shows once 100 or fewer characters are left (round 6); before that it is read with the box only.
+  const left = MAX_FEEDBACK_CHARS - length
+  const formId = `${id}-form`
+
   return (
-    <PageFrame back={back.href} backLabel={back.text} title="Send feedback">
-      <div className={styles.intro}>
-        {view === 'form' && <p className={styles.quietText}>{FEEDBACK_INTRO}</p>}
-        {view === 'none' && <p className={styles.text}>{FEEDBACK_NO_ACCOUNT}</p>}
-      </div>
+    <PageFrame
+      back={back.href}
+      backLabel={back.text}
+      title="Send feedback"
+      contentTop="near"
+      actions={
+        view === 'form' ? (
+          <>
+            <StatusLine tone={status.tone}>{status.text}</StatusLine>
+            <Button type="submit" form={formId} block busy={sending} busyLabel="Sending your message.">
+              Send
+            </Button>
+          </>
+        ) : undefined
+      }
+    >
+      {view === 'none' && (
+        <div className={styles.intro}>
+          <p className={styles.text}>{FEEDBACK_NO_ACCOUNT}</p>
+        </div>
+      )}
 
       {view === 'form' && (
         <form
+          id={formId}
           className={styles.form}
           noValidate
           onSubmit={(event) => {
@@ -130,21 +152,20 @@ export function FeedbackPage() {
               className={own.textarea}
               rows={6}
               maxLength={MAX_FEEDBACK_CHARS}
-              aria-describedby={countId}
+              placeholder="What worked, what didn't, what broke."
+              aria-describedby={`${introId} ${countId}`}
               value={message}
               onChange={(event) => {
                 setMessage(event.target.value)
               }}
             />
-            <p id={countId} className={own.count}>
+            {/* The protected line, word for word, small and quiet under the box (round 6). */}
+            <p id={introId} className={styles.quietText}>
+              {FEEDBACK_INTRO}
+            </p>
+            <p id={countId} className={left <= 100 ? own.count : own.countHidden}>
               {length.toLocaleString('en-GB')} of 1,000 characters
             </p>
-          </div>
-          <div className={styles.actions}>
-            <Button type="submit" block busy={sending} busyLabel="Sending your message.">
-              Send
-            </Button>
-            <StatusLine tone={status.tone}>{status.text}</StatusLine>
           </div>
         </form>
       )}

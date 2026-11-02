@@ -83,7 +83,7 @@ test('[accounts 1] the road shows the privacy notice link, the account button an
   expect(requests.filter((r) => r.method() === 'POST')).toHaveLength(0)
   await already.click()
   await page.waitForURL('**/sign-in')
-  await expect(page.getByRole('heading', { level: 1, name: 'Sign in with your email' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
 })
 
 test('[accounts 16] the privacy notice loads without an account, makes no /api call, and has every section', async ({
@@ -164,7 +164,7 @@ test('[accounts 4] [accounts 10] the sign in email screen: one email field, the 
 }) => {
   const requests = recordRequests(page)
   await page.goto('/sign-in')
-  await expect(page.getByRole('heading', { level: 1, name: 'Sign in with your email' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
   await expect(
     page.getByText(
       'We send a 6 digit code to this address. We use your email only to send you sign in codes.',

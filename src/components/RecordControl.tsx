@@ -25,13 +25,18 @@ interface RecordControlProps {
    * wording, which the spoken answer in Keep it still uses.
    */
   hints?: { ready: string; recording: string }
+  /** The ready button's name, when the screen words it ("Try again, record yourself saying the line"). */
+  readyName?: string
+  /** The hint under the ready button. Off after a try, where the drawing shows the button alone. */
+  readyHint?: boolean
 }
 
+/** The drawing's microphone: a filled capsule in a cup (round 6). */
 function MicIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.line}>
-      <rect x="9" y="3" width="6" height="12" rx="3" />
-      <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
+      <rect className={styles.capsule} x="8.6" y="2.5" width="6.8" height="11.5" rx="3.4" />
+      <path d="M6 11.5a6 6 0 0 0 12 0" />
     </svg>
   )
 }
@@ -56,7 +61,16 @@ function Caption({ children }: { children: ReactNode }) {
   return <p className={styles.caption}>{children}</p>
 }
 
-export function RecordControl({ state, seconds = 0, reason, onStart, onStop, hints }: RecordControlProps) {
+export function RecordControl({
+  state,
+  seconds = 0,
+  reason,
+  onStart,
+  onStop,
+  hints,
+  readyName,
+  readyHint = true,
+}: RecordControlProps) {
   const time = `${String(Math.floor(seconds / 60))}:${String(seconds % 60).padStart(2, '0')}`
   if (state === 'recording') {
     return (
@@ -129,12 +143,12 @@ export function RecordControl({ state, seconds = 0, reason, onStart, onStop, hin
         type="button"
         className={styles.record}
         onClick={onStart}
-        aria-label="Record yourself saying the line"
+        aria-label={readyName ?? 'Record yourself saying the line'}
         data-state="ready"
       >
         <MicIcon />
       </button>
-      <Caption>{hints?.ready ?? 'Tap to record yourself.'}</Caption>
+      {readyHint && <Caption>{hints?.ready ?? 'Tap to record yourself.'}</Caption>}
     </div>
   )
 }

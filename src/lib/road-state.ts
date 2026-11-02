@@ -118,15 +118,15 @@ export function lessonSegments(stop: RoadStop): boolean[] {
   return Array.from({ length: stop.lessons }, (_, i) => i < stop.lessonsDone)
 }
 
-/** "Stop 3, lesson 2 of 4": the lesson the learner is at, never past the last. */
+/** "Stop 3 · lesson 2 of 4", with the drawing's middle dot (round 6): the lesson the learner is at, never past the last. */
 export function lessonLine(stop: RoadStop): string {
   const lesson = Math.min(stop.lessons, stop.lessonsDone + 1)
-  return `Stop ${String(stop.number)}, lesson ${String(lesson)} of ${String(stop.lessons)}`
+  return `Stop ${String(stop.number)} · lesson ${String(lesson)} of ${String(stop.lessons)}`
 }
 
-/** "Stop 1, 4 short lessons", for a visitor on day one. */
+/** "Stop 1 · 4 short lessons", for a visitor on day one, with the drawing's middle dot. */
 export function dayOneLine(stop: RoadStop): string {
-  return `Stop ${String(stop.number)}, ${String(stop.lessons)} short lessons`
+  return `Stop ${String(stop.number)} · ${String(stop.lessons)} short lessons`
 }
 
 /** The first letter of an email, as the account button shows it. A guest gets G. */

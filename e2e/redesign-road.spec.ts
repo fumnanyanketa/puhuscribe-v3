@@ -157,7 +157,9 @@ test.describe('the home screen is the road', () => {
     expect(calls.me).toBe(1)
   })
 
-  test('[redesign 14] [redesign 6] a progress piece not reached is hollow with an edge of 3 to 1 on the wash, and a reached one is solid mint', async ({
+  // Round 6 (owner, item 1): the pieces are solid as drawn. A piece not reached is pale white with no
+  // outline; a reached one is mint, which the contrast list holds at 3 to 1 or more on the pale piece.
+  test('[redesign 14] [redesign 6] a progress piece not reached is solid pale white with no outline, and a reached one is solid mint', async ({
     page,
   }) => {
     await openRoad(page, { today: { signedIn: true, today: 'start' }, done: { 1: 4, 2: 4, 3: 4 } })
@@ -172,8 +174,10 @@ test.describe('the home screen is the road', () => {
     const open = pieces.filter((piece) => piece.fill !== 'rgb(30, 133, 111)')
     expect(reached.length).toBeGreaterThan(0)
     expect(open.length).toBeGreaterThan(0)
-    // The edge colour is the control edge token, which the contrast list holds at 3 to 1 on every wash end.
-    for (const piece of open) expect(piece.ring).toBe('rgb(30, 133, 111) 0px 0px 0px 1px inset')
+    for (const piece of open) {
+      expect(piece.fill).toBe('rgb(255, 255, 255)')
+      expect(piece.ring).not.toContain('inset')
+    }
   })
 
   test('[redesign 14] a guest has a G, a visitor has a person mark and no call to GET /api/me, and a failure falls back to the mark', async ({
@@ -197,7 +201,7 @@ test.describe('the home screen is the road', () => {
     await openRoad(page)
     const card = page.getByRole('region', { name: 'Today' })
     await expect(card.getByRole('heading', { level: 2, name: 'Meeting people' })).toBeVisible()
-    await expect(card.getByText('Stop 1, 4 short lessons')).toBeVisible()
+    await expect(card.getByText('Stop 1 · 4 short lessons')).toBeVisible()
     await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
     await expect(
@@ -213,7 +217,7 @@ test.describe('the home screen is the road', () => {
     await openRoad(page, { today: { signedIn: true, today: 'start' }, done: MID })
     const card = page.getByRole('region', { name: 'Today' })
     await expect(card.getByRole('heading', { level: 2, name: 'At the grocery store' })).toBeVisible()
-    await expect(card.getByText('Stop 3, lesson 3 of 4')).toBeVisible()
+    await expect(card.getByText('Stop 3 · lesson 3 of 4')).toBeVisible()
     await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     const resume = await page.context().newPage()
     await openRoad(resume, { today: SIGNED_IN, done: MID })

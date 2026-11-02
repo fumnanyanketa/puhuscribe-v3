@@ -18,16 +18,19 @@ import styles from './Account.module.css'
 // "Saved on this device", or the email and "Saved to your email"), a "Your
 // journey" panel from the stop data, and one settings panel with four rows:
 // Speaking feedback (On or Off, opens Voice settings), Download my data,
-// Privacy notice and Send feedback. A guest sees a peach note "Add your email to
-// keep your progress." with an "Add" button, and has no Sign out. No counts of
-// mistakes, scores or streaks.
+// Privacy notice and Send feedback. A guest sees the peach note "Create an
+// account to save your progress." with a plain "Create" (the owner's words of
+// 1 November 2026, round 6), and has no Sign out. No counts of mistakes,
+// scores or streaks.
 
 export const NO_ACCOUNT = 'There is no account on this device.'
-export const ADD_NOTE = 'Add your email to keep your progress.'
+export const ADD_NOTE = 'Create an account to save your progress.'
 const LOADING = 'Loading your account.'
 const NOT_LOADED = 'Your account could not be loaded. Check your internet connection, then try again.'
 const PREPARING = 'Preparing your file.'
 const READY = 'Your file is ready.'
+/** The title of the ready file, as drawn: no full stop (round 6). */
+const READY_TITLE = 'Your file is ready'
 const NOT_PREPARED = 'Your file could not be prepared. Check your internet connection, then try again.'
 const NOT_SIGNED_OUT = 'You were not signed out. Check your internet connection, then try again.'
 
@@ -148,6 +151,8 @@ export function AccountPage() {
       <PageFrame
         back={PATHS.account}
         backLabel="Back to your account"
+        title="Download my data"
+        centre
         actions={
           <Button block busy={busy === 'download'} busyLabel={PREPARING} onClick={() => void download()}>
             Download
@@ -160,7 +165,7 @@ export function AccountPage() {
               <path d="M5 12.5l4.5 4.5L19 7.5" />
             </svg>
           </div>
-          <h1 className={styles.readyTitle}>{READY}</h1>
+          <h2 className={styles.readyTitle}>{READY_TITLE}</h2>
           <p className={styles.readyText}>Everything we keep about you, in one file.</p>
           {/* The title says it to the eye; the status line says it to a screen reader, and carries any later message. */}
           <StatusLine tone={status.tone} visuallyHidden={status.text === READY}>
@@ -174,7 +179,34 @@ export function AccountPage() {
   const letter = view.kind === 'guest' ? 'G' : view.kind === 'email' ? accountLetter('email', view.email) : ''
 
   return (
-    <PageFrame back={PATHS.home} backLabel="Back to the road">
+    <PageFrame
+      back={PATHS.home}
+      backLabel="Back to the road"
+      contentTop="profile"
+      actions={
+        signedIn ? (
+          <div className={styles.small}>
+            {view.kind === 'email' && (
+              <>
+                <Button
+                  variant="quiet"
+                  className={styles.signOut}
+                  busy={busy === 'sign-out'}
+                  busyLabel="Signing you out."
+                  onClick={() => void signOut()}
+                >
+                  Sign out
+                </Button>
+                <span className={styles.dot} aria-hidden="true" />
+              </>
+            )}
+            <a className={styles.deleteLink} href={PATHS.accountDelete}>
+              Delete my account
+            </a>
+          </div>
+        ) : undefined
+      }
+    >
       <h1 className={styles.hidden}>Your account</h1>
       {signedIn && (
         <div className={styles.profile}>
@@ -192,15 +224,16 @@ export function AccountPage() {
       {view.kind === 'guest' && (
         <div className={styles.addNote}>
           <p className={styles.addText}>{ADD_NOTE}</p>
-          <Button
-            variant="secondary"
-            aria-label="Add your email"
+          <button
+            type="button"
+            className={styles.addButton}
+            aria-label="Create an account"
             onClick={() => {
               window.location.assign(PATHS.accountEmail)
             }}
           >
-            Add
-          </Button>
+            Create
+          </button>
         </div>
       )}
       {signedIn && (
@@ -208,10 +241,8 @@ export function AccountPage() {
           <li>
             <a className={styles.row} href={PATHS.voice}>
               <span>Speaking feedback</span>
-              <span className={styles.rowEnd}>
-                {voiceOn !== null && <span className={styles.value}>{voiceOn ? 'On' : 'Off'}</span>}
-                <Chevron />
-              </span>
+              {/* As drawn: the value alone, no chevron (round 6). */}
+              {voiceOn !== null && <span className={styles.value}>{voiceOn ? 'On' : 'Off'}</span>}
             </a>
           </li>
           <li>
@@ -224,25 +255,19 @@ export function AccountPage() {
               }}
             >
               <span>Download my data</span>
-              <span className={styles.rowEnd}>
-                <Chevron />
-              </span>
+              <Chevron />
             </button>
           </li>
           <li>
             <a className={styles.row} href={PATHS.privacy}>
               <span>Privacy notice</span>
-              <span className={styles.rowEnd}>
-                <Chevron />
-              </span>
+              <Chevron />
             </a>
           </li>
           <li>
             <a className={styles.row} href={`${PATHS.feedback}?from=account`}>
               <span>Send feedback</span>
-              <span className={styles.rowEnd}>
-                <Chevron />
-              </span>
+              <Chevron />
             </a>
           </li>
         </ul>
@@ -265,23 +290,6 @@ export function AccountPage() {
       <StatusLine tone={view.kind === 'problem' ? 'problem' : status.tone}>
         {view.kind === 'loading' ? LOADING : view.kind === 'problem' ? NOT_LOADED : status.text}
       </StatusLine>
-      {signedIn && (
-        <div className={styles.small}>
-          {view.kind === 'email' && (
-            <Button
-              variant="quiet"
-              busy={busy === 'sign-out'}
-              busyLabel="Signing you out."
-              onClick={() => void signOut()}
-            >
-              Sign out
-            </Button>
-          )}
-          <a className={styles.deleteLink} href={PATHS.accountDelete}>
-            Delete my account
-          </a>
-        </div>
-      )}
     </PageFrame>
   )
 }

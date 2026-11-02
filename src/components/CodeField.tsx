@@ -21,6 +21,8 @@ export const CodeField = forwardRef<HTMLInputElement, CodeFieldProps>(function C
   ref,
 ) {
   const digits = value.replace(/\D/g, '').slice(0, BOXES)
+  // The box of the digit typed last has the mint edge, as drawn; before any digit, the first box.
+  const current = Math.max(0, digits.length - 1)
   return (
     <div className={styles.wrap}>
       <label htmlFor={id} className={styles.hidden}>
@@ -28,7 +30,7 @@ export const CodeField = forwardRef<HTMLInputElement, CodeFieldProps>(function C
       </label>
       <div className={styles.boxes} aria-hidden="true">
         {Array.from({ length: BOXES }, (_, index) => (
-          <span key={index} className={index === digits.length ? styles.boxNow : styles.box}>
+          <span key={index} className={index === current ? styles.boxNow : styles.box}>
             {digits.charAt(index)}
           </span>
         ))}

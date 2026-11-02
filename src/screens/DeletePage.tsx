@@ -61,9 +61,13 @@ export function DeletePage() {
     status.current?.focus()
   }
 
+  // Drawn as the bottom sheet over the dimmed account page (round 6). It stays a page with its own
+  // address and its two steps (approved): the dimming takes no taps, so the back arrow still works.
   return (
-    <PageFrame back={PATHS.account} backLabel="Back to your account">
+    <PageFrame back={PATHS.account} backLabel="Back to your account" title="Your account" titleAs="p">
+      <div className={styles.dim} aria-hidden="true" />
       <div className={styles.sheet}>
+        <span className={styles.grab} aria-hidden="true" />
         <h1 className={styles.sheetTitle}>Delete your account?</h1>
         {view === 'confirm' && <p className={styles.sheetText}>{DELETE_TEXT}</p>}
         {view === 'none' && <p className={styles.sheetText}>{NO_ACCOUNT}</p>}

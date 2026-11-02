@@ -20,6 +20,7 @@ import voice from './Voice.module.css'
 // recordings in the database, in the same transaction as the choice.
 
 const LOADING = 'Loading your voice settings.'
+const LOADED = 'Your voice settings are shown below.'
 const NOT_LOADED = 'Your voice settings could not be loaded. Check your internet connection, then try again.'
 const NOT_SAVED = 'Your change was not saved. Check your internet connection, then try again.'
 
@@ -59,7 +60,7 @@ export function VoiceSettings() {
     let active = true
     firstLoad.current ??= loadVoice()
     void firstLoad.current.then((load) => {
-      if (active) show(load, 'Your voice settings are shown below.', NOT_LOADED)
+      if (active) show(load, LOADED, NOT_LOADED)
     })
     return () => {
       active = false
@@ -75,57 +76,86 @@ export function VoiceSettings() {
 
   const on = state?.processing === 'granted'
 
+  const keepSentenceId = 'keep-sentence'
+
   return (
-    <PageFrame back={PATHS.account} backLabel="Back to your account" title="Voice settings">
-      <StatusLine tone={message.tone}>{message.text}</StatusLine>
+    <PageFrame
+      back={PATHS.account}
+      backLabel="Back to your account"
+      title="Voice settings"
+      contentTop="near"
+      actions={
+        state && state.recordings.length > 0 ? (
+          <Button
+            variant="secondary"
+            block
+            className={voice.danger}
+            busy={busy === 'all'}
+            busyLabel="Deleting all your recordings."
+            onClick={() =>
+              void change('all', () => deleteKept({ all: true }), 'All your recordings are deleted.')
+            }
+          >
+            Delete my recordings
+          </Button>
+        ) : undefined
+      }
+    >
       {state && (
         <>
           <section className={voice.switches} aria-label="Your choices">
-            <Switch
-              ref={speakingSwitch}
-              label="Speaking feedback"
-              hint={
-                on
-                  ? 'On. Your recordings are checked and you get a short hint for each line.'
-                  : 'Off. Nothing is recorded. You can still say each line out loud.'
-              }
-              checked={on}
-              busy={busy === 'speaking'}
-              busyLabel={on ? 'Turning off speaking feedback.' : 'Saving your choice.'}
-              disabled={!on && !state.available}
-              onChange={(next) => {
-                if (next) setAsking(true)
-                else void change('speaking', () => chooseVoice('turn_off'), 'Speaking feedback is off.')
-              }}
-            />
+            <div className={voice.switchCard}>
+              <Switch
+                ref={speakingSwitch}
+                label="Speaking feedback"
+                hiddenHint={
+                  on
+                    ? 'On. Your recordings are checked and you get a short hint for each line.'
+                    : 'Off. Nothing is recorded. You can still say each line out loud.'
+                }
+                checked={on}
+                busy={busy === 'speaking'}
+                busyLabel={on ? 'Turning off speaking feedback.' : 'Saving your choice.'}
+                disabled={!on && !state.available}
+                onChange={(next) => {
+                  if (next) setAsking(true)
+                  else void change('speaking', () => chooseVoice('turn_off'), 'Speaking feedback is off.')
+                }}
+              />
+            </div>
             {!state.available && <p className={voice.quietText}>{NOT_AVAILABLE}</p>}
-            <Switch
-              label="Keep my recordings"
-              // The sentence the consent record is stamped with (src/lib/voice-consent.ts), read before the press.
-              hint={`${state.retention ? 'On.' : 'Off.'} ${voiceNotice(state.region).keepBox}`}
-              checked={state.retention}
-              busy={busy === 'keep'}
-              disabled={!on}
-              onChange={(next) => {
-                void change(
-                  'keep',
-                  () => chooseVoice(next ? 'keep_on' : 'keep_off'),
-                  next
-                    ? 'Your recordings will be kept.'
-                    : 'Your recordings are no longer kept, and the kept ones are deleted.',
-                )
-              }}
-            />
-            {!on && <p className={voice.quietText}>Turn on speaking feedback first.</p>}
+            <div className={voice.switchCard}>
+              <Switch
+                label="Keep my recordings"
+                hint="So I can hear my progress. 90 days."
+                hiddenHint={`${state.retention ? 'On.' : 'Off.'}${on ? '' : ' Turn on speaking feedback first.'}`}
+                // The sentence the consent record is stamped with (src/lib/voice-consent.ts), read before the press.
+                describedBy={keepSentenceId}
+                checked={state.retention}
+                busy={busy === 'keep'}
+                disabled={!on}
+                onChange={(next) => {
+                  void change(
+                    'keep',
+                    () => chooseVoice(next ? 'keep_on' : 'keep_off'),
+                    next
+                      ? 'Your recordings will be kept.'
+                      : 'Your recordings are no longer kept, and the kept ones are deleted.',
+                  )
+                }}
+              />
+            </div>
+            {/* Consent wording, word for word (protected), small and quiet under the card (round 6). */}
+            <p id={keepSentenceId} className={voice.quietText}>
+              {voiceNotice(state.region).keepBox}
+            </p>
           </section>
 
-          <section className={voice.section} aria-labelledby="recordings-heading">
-            <h2 id="recordings-heading" className={voice.sectionTitle}>
-              My recordings
-            </h2>
-            {state.recordings.length === 0 ? (
-              <p className={voice.text}>You have no kept recordings.</p>
-            ) : (
+          {state.recordings.length > 0 && (
+            <section className={voice.section} aria-labelledby="recordings-heading">
+              <h2 id="recordings-heading" className={voice.sectionTitle}>
+                My recordings
+              </h2>
               <ul className={voice.recordings}>
                 {state.recordings.map((row) => (
                   <li key={row.id} className={voice.recording} data-recording-id={row.id}>
@@ -158,23 +188,14 @@ export function VoiceSettings() {
                   </li>
                 ))}
               </ul>
-            )}
-          </section>
+            </section>
+          )}
         </>
       )}
-      {state && state.recordings.length > 0 && (
-        <Button
-          variant="quiet"
-          className={voice.danger}
-          busy={busy === 'all'}
-          busyLabel="Deleting all your recordings."
-          onClick={() =>
-            void change('all', () => deleteKept({ all: true }), 'All your recordings are deleted.')
-          }
-        >
-          Delete all my recordings
-        </Button>
-      )}
+      {/* The loading and loaded lines are for screen readers; a change or a problem is drawn (round 6). */}
+      <StatusLine tone={message.tone} visuallyHidden={message.text === LOADING || message.text === LOADED}>
+        {message.text}
+      </StatusLine>
       <ConsentSheet
         open={asking}
         returnFocus={speakingSwitch}

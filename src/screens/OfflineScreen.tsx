@@ -10,6 +10,8 @@ import styles from './OfflineScreen.module.css'
 
 export const OFFLINE_CHECK = 'Check your internet connection, then try again.'
 export const OFFLINE_SAFE = 'Your progress is safe.'
+/** The drawing's second sentence, said where the progress is safe (round 6). */
+export const OFFLINE_LATER = "Try again when you're online."
 
 export function OfflineScreen({
   where,
@@ -25,22 +27,24 @@ export function OfflineScreen({
     <Root className={styles.screen}>
       <Landscape />
       <div className={styles.body}>
-        <svg viewBox="0 0 64 64" className={styles.cloud} aria-hidden="true" focusable="false">
-          <path d="M18 46h30a10 10 0 0 0 1.4-19.9A15 15 0 0 0 20.2 24 11 11 0 0 0 18 46z" />
-          <path d="M12 54L52 10" />
-        </svg>
+        {/* The drawing's soft mint cloud with a peach slash (round 6). */}
+        <span className={styles.cloud} aria-hidden="true">
+          <span className={styles.slash} />
+        </span>
         <Title className={styles.title}>No connection</Title>
         <p className={styles.text}>
-          {where === 'lesson' ? OFFLINE_CHECK : `${OFFLINE_SAFE} ${OFFLINE_CHECK}`}
+          {where === 'lesson' ? OFFLINE_CHECK : `${OFFLINE_SAFE} ${OFFLINE_LATER}`}
         </p>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            window.location.reload()
-          }}
-        >
-          Try again
-        </Button>
+        <div className={styles.action}>
+          <Button
+            block
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
+            Try again
+          </Button>
+        </div>
       </div>
     </Root>
   )

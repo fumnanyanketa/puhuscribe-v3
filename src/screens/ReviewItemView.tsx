@@ -23,6 +23,8 @@ interface ReviewItemViewProps {
   onRecorded?: (result: RecordedResult) => void
   /** The answer methods; the one list in answer-methods.ts unless a test gives another. */
   methods?: readonly AnswerMethod[]
+  /** "Word 3 of 15." (job 9, statement 8), small at the card's top right where a line card says "Line 2 of 8". */
+  place?: string
 }
 
 export function ReviewItemView({
@@ -33,6 +35,7 @@ export function ReviewItemView({
   onAnswer,
   onRecorded = () => undefined,
   methods = ANSWER_METHODS,
+  place,
 }: ReviewItemViewProps) {
   const what = item.register === 'spoken' ? LINE_AUDIO.spoken : LINE_AUDIO.written
   return (
@@ -40,6 +43,7 @@ export function ReviewItemView({
       <div className={styles.card}>
         <div className={styles.cardHead}>
           <p className={styles.speaker}>{item.speaker}</p>
+          {place && <p className={styles.count}>{place}</p>}
         </div>
         <GapLine
           register={item.register}
