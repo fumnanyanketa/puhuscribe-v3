@@ -131,7 +131,8 @@ export function RoadScreen() {
   }, [])
 
   useLayoutEffect(() => {
-    if (home.kind !== 'ready') return undefined
+    if (home.kind !== 'ready' || playing) return undefined
+    // Measured once the opening is over, when the card and the signs stand where they end up.
     measure()
     window.addEventListener('resize', measure)
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
@@ -142,7 +143,7 @@ export function RoadScreen() {
       window.removeEventListener('resize', measure)
       observer?.disconnect()
     }
-  }, [home, measure])
+  }, [home, playing, measure])
 
   // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
   // sign of the "you" marker and the next one are always kept. It waits for the opening animation,

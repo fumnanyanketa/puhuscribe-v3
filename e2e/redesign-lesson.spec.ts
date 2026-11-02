@@ -245,21 +245,19 @@ test.describe('the lesson frame and the leave sheet', () => {
     await page.waitForURL((url) => url.pathname === '/')
   })
 
-  // Round 6 (owner, item 26): the finish screen has no top bar, as drawn: no cross and no sheet (nothing is
-  // lost there; Done goes back to the road). The full bar stays for screen readers.
-  test('[redesign 22] [redesign 33] the finish screen has no top bar and no sheet; Done goes back to the road', async ({
+  // Round 6 (owner, item 26): no bar and no "Lesson finished" on the finish screen, as drawn (the bar stays
+  // for screen readers). The cross stays as a link that leaves at once (job 18, statement 12), so no sheet.
+  test('[redesign 22] [redesign 33] the finish screen has no drawn bar and no sheet: its cross leaves at once', async ({
     page,
   }) => {
     await open(page, { step: 'say' })
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Leave session' })).toHaveCount(0)
+    const cross = page.getByRole('link', { name: 'Leave session' })
+    await expect(cross).toHaveAttribute('href', '/')
     await expect(page.getByRole('button', { name: 'Leave session' })).toHaveCount(0)
     const bar = page.getByRole('progressbar', { name: 'Session finished' })
     await expect(bar).toBeAttached()
-    const shown = await page.locator('header', { has: bar }).boundingBox()
-    expect(shown?.height ?? 0).toBeLessThan(3)
-    await page.getByRole('button', { name: 'Done', exact: true }).click()
-    await page.waitForURL((url) => url.pathname === '/')
+    expect(await bar.evaluate((el) => (el as unknown as { clientWidth: number }).clientWidth)).toBeLessThan(3)
   })
 })
 
@@ -1009,14 +1007,16 @@ test.describe('round 6, as drawn', () => {
     expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
   })
 
-  test('[redesign 33] the finish screen: the spoken line alone with its English, five chips then "+6", and the saved line small under Done', async ({
+  test('[redesign 33] the finish screen: the spoken line centred with its English, five chips then "+6", and the saved line small under Done', async ({
     page,
   }) => {
     await open(page, { step: 'say', newWords: 11, me: { kind: 'guest' } })
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+    // No speaker; the written line and both play controls stay small (job 8, statement 14).
     const sentence = page.locator('[data-line-id]')
-    await expect(sentence.getByRole('button')).toHaveCount(0)
-    await expect(sentence.locator('p')).toHaveCount(2)
+    await expect(sentence.getByRole('button')).toHaveCount(2)
+    await expect(sentence.locator('p')).toHaveCount(3)
+    expect(await styleOf(sentence, 'textAlign')).toBe('center')
     await expect(page.getByRole('heading', { level: 2, name: '11 new words' })).toBeVisible()
     const chips = page.getByRole('list').filter({ has: page.getByRole('button', { name: 'sana0' }) })
     await expect(chips.getByRole('button')).toHaveText(['sana0', 'sana1', 'sana2', 'sana3', 'sana4', '+6'])

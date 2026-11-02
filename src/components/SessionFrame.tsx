@@ -74,10 +74,15 @@ export function SessionFrame({
       data-dim={dim ? 'on' : undefined}
     >
       <Landscape />
-      {/* The finish screen has no top bar, as drawn (round 6): no cross (Done goes back to the road) and the
-          full bar stays for screen readers only. */}
-      <header className={finished ? styles.topBarHidden : styles.topBar}>
-        {finished ? null : (
+      {/* The finish screen has no bar and no "Lesson finished", as drawn (round 6); both stay for screen
+          readers. Its cross stays, a link that leaves at once, because job 18 (statement 12) keeps "Leave
+          session" working on this screen. */}
+      <header className={styles.topBar}>
+        {finished ? (
+          <a className={styles.leave} href={leaveHref} aria-label="Leave session">
+            <Cross />
+          </a>
+        ) : (
           <button
             ref={cross}
             type="button"
@@ -92,7 +97,7 @@ export function SessionFrame({
           </button>
         )}
         <div
-          className={styles.bar}
+          className={finished ? styles.topBarHidden : styles.bar}
           role="progressbar"
           aria-label={name}
           aria-valuemin={0}
@@ -101,7 +106,7 @@ export function SessionFrame({
         >
           <span className={styles.fill} style={{ width: `${String(Math.round(share * 1000) / 10)}%` }} />
         </div>
-        <StepName className={hideStepName ? styles.stepHidden : styles.step}>
+        <StepName className={hideStepName || finished ? styles.stepHidden : styles.step}>
           {finished ? 'Lesson finished' : <StepLabel step={step} />}
         </StepName>
       </header>

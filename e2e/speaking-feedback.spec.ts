@@ -445,7 +445,8 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     )
 
     await page.getByRole('switch', { name: 'Keep my recordings' }).click()
-    await expect(page.getByText('You have no kept recordings.', { exact: true })).toBeVisible()
+    // Round 6 of job 19-redesign: "My recordings" shows only while something is kept.
+    await expect(page.getByRole('heading', { name: 'My recordings' })).toHaveCount(0)
     expect(one(`select count(*) from public.kept_recordings where user_id = :'uid'`, { uid: userId })).toBe(
       '0',
     )

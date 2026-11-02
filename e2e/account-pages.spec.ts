@@ -111,6 +111,8 @@ test('[accounts 16] the privacy notice loads without an account, makes no /api c
   // account it is a 401 and the page says "in the EU" without the country.
   const calls = requests.filter((r) => new URL(r.url()).pathname.startsWith('/api/'))
   expect(calls.map((r) => `${r.method()} ${new URL(r.url()).pathname}`)).toEqual(['GET /api/voice'])
+  // Round 6 of job 19-redesign: the voice details sit behind "More about your voice", as drawn.
+  await page.getByRole('button', { name: 'More about your voice' }).click()
   await expect(page.getByText(/service in the EU\./).first()).toBeVisible()
   expect(await page.evaluate<string>('document.cookie')).toBe('')
 })

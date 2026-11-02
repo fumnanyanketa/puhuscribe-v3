@@ -178,12 +178,14 @@ export function signSpots(
   const step = Math.max(SIGN_STEP, minGap)
   for (let i = drawn.length - 2; i >= 0; i--)
     drawn[i] = Math.max(drawn[i] ?? top, (drawn[i + 1] ?? top) + step)
-  const nearest = drawn[0] ?? bottom
-  const squeeze = nearest > bottom ? (bottom - top) / Math.max(1, nearest - top) : 1
-  const ys = drawn.map((y) => top + (y - top) * squeeze)
-  // Squeezed too close for tall boards (a short phone with large text): the gap wins over the sun, and the
-  // road screen then shows fewer signs, because no board may cover the sun or another board.
-  for (let i = 1; i < ys.length; i++) ys[i] = Math.min(ys[i] ?? top, (ys[i - 1] ?? top) - step)
+  // From the nearest up: no lower than the card allows, and a step above the one in front, so the
+  // places move up only as far as the card needs. Squeezed too close for tall boards (a short phone,
+  // large text), a sign may rise toward the sun; the road screen then shows fewer signs, because no
+  // board may cover the sun or another board.
+  const ys: number[] = []
+  drawn.forEach((y, i) => {
+    ys.push(Math.min(y, i === 0 ? bottom : (ys[i - 1] ?? bottom) - step))
+  })
   return ys.map((y, i) => {
     const t = tAtY(y)
     const side = (i % 2 === 0 ? firstSide : -firstSide) as -1 | 1

@@ -516,6 +516,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     page,
   }) => {
     await page.goto('/privacy')
+    await expect(page.getByRole('heading', { level: 2, name: 'Who runs PuhuScribe' })).toBeVisible()
     const look = await page.evaluate<{ colours: string[]; titleInHeader: boolean }>(`({
       colours: [...document.querySelectorAll('[class*="firstLayer"] section h2')].map((h) => getComputedStyle(h).color),
       titleInHeader: Boolean(document.querySelector('header h1')),

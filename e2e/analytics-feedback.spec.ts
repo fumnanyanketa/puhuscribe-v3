@@ -117,7 +117,8 @@ test.describe('feedback', { tag: '@seed' }, () => {
       await route.continue()
     })
     await page.getByLabel('What should we know?').fill('Sent once on a slow connection.')
-    const send = page.locator('form button[type="submit"]')
+    // Round 6 of job 19-redesign: Send sits at the bottom of the screen and submits the form by its id.
+    const send = page.getByRole('button', { name: 'Send', exact: true })
     await send.click()
     await expect(send).toHaveAttribute('aria-busy', 'true')
     // The busy button refuses Playwright's normal click, so tap it as a finger would.

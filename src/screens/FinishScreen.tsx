@@ -14,6 +14,8 @@ import { accountKindOf, carriesSaveNote } from './save-note.ts'
 import { SAVED_ON_THIS_DEVICE } from './save-note-copy.ts'
 import { SaveNote } from './SaveNote.tsx'
 import { NOT_SAVED } from './step-screen.ts'
+import { PlayControl } from '../components/PlayControl.tsx'
+import { LINE_AUDIO } from './LineCard.tsx'
 import styles from './Screens.module.css'
 
 // The finish screen (factory/jobs/8-first-session/spec.md, "Done when" 14 and
@@ -57,6 +59,11 @@ async function save(sessionId: string): Promise<SaveResult> {
 interface FinishScreenProps {
   session: ReadySession
   steps: readonly LoopStep[]
+}
+
+/** A line's words as plain text, with their punctuation. */
+function plain(words: readonly { text: string; before?: string; after?: string }[]): string {
+  return words.map((word) => `${word.before ?? ''}${word.text}${word.after ?? ''}`).join(' ')
 }
 
 export function FinishScreen({ session, steps }: FinishScreenProps) {
@@ -161,19 +168,22 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
           </svg>
         </div>
         <h1 className={styles.finishTitle}>{NOW_YOU_CAN}</h1>
-        {/* As drawn (round 6): only the spoken line, centred and bold, with the English under it. */}
+        {/* As drawn (round 6): the spoken line centred and bold, with the English under it and no speaker.
+            Job 8 (statement 14) keeps the written line and both play controls, so they sit small with it. */}
         {line && (
           <div className={styles.finishLine} data-line-id={line.id}>
-            <p className={styles.finishSpoken} lang="fi">
-              {line.spoken.map((word, index) => (
-                <span key={index}>
-                  {index > 0 ? ' ' : ''}
-                  {word.before}
-                  {word.text}
-                  {word.after}
-                </span>
-              ))}
-            </p>
+            <div className={styles.finishRow}>
+              <p className={styles.finishSpoken} lang="fi">
+                {plain(line.spoken)}
+              </p>
+              <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} size="small" />
+            </div>
+            <div className={styles.finishRow}>
+              <p className={styles.finishWritten} lang="fi">
+                {plain(line.written)}
+              </p>
+              <PlayControl src={line.writtenAudio} what={LINE_AUDIO.written} size="small" tone="written" />
+            </div>
             <p className={styles.finishGloss}>{line.gloss}</p>
           </div>
         )}
