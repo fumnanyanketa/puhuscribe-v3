@@ -79,8 +79,10 @@ PGTAP_HEAD = """-- Published content (pgTAP). Made by scripts/generate/fixture_o
 -- learner: the unit, the dialogue, every line with both texts, the meaning, both
 -- audio keys and an approval_ref pointing at a review file, and a form with a
 -- name and a "why" behind every word that has one. These reads also cover every
--- dialogue really published by then. Last, it re-approves a unit and a form
--- (factory/todo.md, from job 3-data-model).
+-- dialogue really published by then: a dialogue on the A1 road (its unit has a
+-- stop number) points instead at the owner's approval file of its part,
+-- content/approvals/part-<n>.json#<slug>/line-<n> (job 20-a1-road, statement 20).
+-- Last, it re-approves a unit and a form (factory/todo.md, from job 3-data-model).
 
 begin;
 
@@ -96,11 +98,26 @@ LEARNER = (
     "set local role authenticated;\n"
 )
 
-LINE_COMPLETE = """coalesce(btrim(l.text_puhe), '') <> '' and coalesce(btrim(l.text_kirja), '') <> ''
+LINE_TEXTS_AND_AUDIO = """coalesce(btrim(l.text_puhe), '') <> '' and coalesce(btrim(l.text_kirja), '') <> ''
     and coalesce(btrim(l.gloss_en), '') <> ''
     and l.audio_puhe_key ~ ('^' || d.slug || '/' || l.position || '-puhe-[0-9a-f]{12}[.]mp3$')
-    and l.audio_kirja_key ~ ('^' || d.slug || '/' || l.position || '-kirja-[0-9a-f]{12}[.]mp3$')
-    and l.approval_ref like ('content/reviews/' || d.slug || '/%.json#line-' || l.position)"""
+    and l.audio_kirja_key ~ ('^' || d.slug || '/' || l.position || '-kirja-[0-9a-f]{12}[.]mp3$')"""
+
+REVIEW_FILE_REF = "l.approval_ref like ('content/reviews/' || d.slug || '/%.json#line-' || l.position)"
+
+# A line of an AI-drafted dialogue (its unit has no stop number) points at its review file. A line of a
+# road dialogue points at the owner's approval file of its stop's part, exactly (job 20, statement 20),
+# as a1_road_published.test.sql also requires. A reviewer's fix migration (statement 24) gives a changed
+# road line a review file reference instead; when the first one is written, both tests must allow it.
+# A line whose unit or stop the learner cannot read, or with any empty value, counts as failing.
+LINE_COMPLETE = f"""{LINE_TEXTS_AND_AUDIO}
+    and {REVIEW_FILE_REF}"""
+
+LINE_COMPLETE_ANY_DIALOGUE = f"""{LINE_TEXTS_AND_AUDIO}
+    and coalesce(case when u.stop_number is null
+      then {REVIEW_FILE_REF}
+      else l.approval_ref = ('content/approvals/part-' || s.part_number || '.json#' || d.slug
+        || '/line-' || l.position) end, false)"""
 
 
 def pgtap_file(draft: dict) -> str:
@@ -157,9 +174,10 @@ select is((select count(*) from public.tokens t join public.forms f on f.id = t.
   '[content 16] every word that links to a form links to an approved form '
   'with a name, a why and a review reference');
 select is((select count(*) from public.dialogue_lines l join public.dialogues d on d.id = l.dialogue_id
-  where not ({LINE_COMPLETE})), 0::bigint,
-  '[content 16] every line a learner can read, in every published dialogue, '
-  'is complete and points at a review file');
+  left join public.units u on u.id = d.unit_id left join public.road_stops s on s.number = u.stop_number
+  where not coalesce(({LINE_COMPLETE_ANY_DIALOGUE}), false)), 0::bigint,
+  '[content 16] [a1-road 20] every line a learner can read, in every published dialogue, '
+  'is complete and points at its review file, or on the road at the owner approval file of its part');
 select is((select count(*) from public.tokens t where t.form_id is not null and not exists (
     select 1 from public.forms f
     where f.id = t.form_id and btrim(f.form_name_en) <> '' and btrim(f.why_en) <> '')),
