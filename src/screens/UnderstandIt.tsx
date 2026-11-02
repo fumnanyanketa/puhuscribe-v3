@@ -3,17 +3,21 @@ import { AnswerChoices } from '../components/AnswerChoices.tsx'
 import { Button } from '../components/Button.tsx'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
+import { PATHS } from '../lib/app-paths.ts'
 import { pickQuestions } from '../lib/session-rules.ts'
-import { LineCard, hasChangedWords } from './LineCard.tsx'
-import { CHANGED_HINT, NOT_SAVED, type StepScreenProps } from './step-screen.ts'
+import { LineCard } from './LineCard.tsx'
+import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 
-// Understand it (factory/jobs/8-first-session/spec.md, "Done when" 13). Up to
-// three questions, one at a time, from the fixed rule in
-// src/lib/session-rules.ts. A wrong choice gets a gentle line and becomes
-// unavailable; the learner simply tries another. Nothing about the answers
-// is counted, scored or sent anywhere. After the last question, "Next"
-// stores step_reached = 'understand'.
+// Understand it (factory/jobs/8-first-session/spec.md, "Done when" 13; redrawn
+// in job 19-redesign, statement 28). Up to three questions, one at a time, from
+// the fixed rule in src/lib/session-rules.ts: the question, the one spoken line
+// in a milky card with a play button, and three answer rows. A wrong choice
+// gets a gentle line and becomes unavailable; the learner simply tries another.
+// Nothing about the answers is counted, scored or sent anywhere. The bottom
+// pill reads "Next" and is unavailable until the answer is right; after the
+// last question it stores step_reached = 'understand'. The written line is not
+// shown here, and the words of the spoken line stay tappable.
 
 export const RIGHT = 'Yes, that is right.'
 export const WRONG = 'Not this one. Listen again and try another.'
@@ -28,7 +32,7 @@ export function UnderstandIt({ session, frame, onDone }: StepScreenProps) {
   const [saving, setSaving] = useState(false)
   const [failed, setFailed] = useState(false)
   const heading = useRef<HTMLHeadingElement>(null)
-  const nextButton = useRef<HTMLDivElement>(null)
+  const nextButton = useRef<HTMLButtonElement>(null)
   const choices = useRef<HTMLDivElement>(null)
   const headingId = useId()
   const question = questions.at(index)
@@ -47,7 +51,7 @@ export function UnderstandIt({ session, frame, onDone }: StepScreenProps) {
       setLastWrong(false)
       // The next action is the "Next" button in the action area.
       setTimeout(() => {
-        nextButton.current?.querySelector('button')?.focus()
+        nextButton.current?.focus()
       }, 0)
       return
     }
@@ -87,35 +91,44 @@ export function UnderstandIt({ session, frame, onDone }: StepScreenProps) {
     tone = 'gentle'
   }
 
+  const ready = right !== null || questions.length === 0
   const actions = (
     <>
-      <StatusLine tone={tone}>{message}</StatusLine>
-      {(right !== null || questions.length === 0) && (
-        <div ref={nextButton} className={styles.next}>
-          <Button block busy={saving} busyLabel="Saving your progress." onClick={() => void next()}>
-            Next
-          </Button>
-        </div>
-      )}
+      {/* "Choose what the line means." is for screen readers; the drawing shows no line there (round 6). */}
+      <StatusLine tone={tone} visuallyHidden={message === HELP}>
+        {message}
+      </StatusLine>
+      <Button
+        block
+        ref={nextButton}
+        disabled={!ready}
+        busy={saving}
+        busyLabel="Saving your progress."
+        onClick={() => void next()}
+      >
+        Next
+      </Button>
     </>
   )
 
+  const answered = questions.length === 0 ? 0 : (index + (right === null ? 0 : 1)) / questions.length
+
   return (
-    <SessionFrame step={frame.step} steps={frame.steps} leaveHref="/" actions={actions}>
+    <SessionFrame
+      step={frame.step}
+      steps={frame.steps}
+      progress={answered}
+      leaveHref={PATHS.home}
+      stepHeading
+      actions={actions}
+    >
       <main className={styles.main}>
-        <div className={styles.intro}>
-          <h1 className={styles.title}>Understand it</h1>
-          <p className={styles.lead}>{session.dialogue.title}</p>
-          {questions.slice(0, index + 1).some((q) => hasChangedWords(q.line)) && (
-            <p className={styles.hint}>{CHANGED_HINT}</p>
-          )}
-        </div>
         {question && (
           <div className={styles.question} key={question.line.id} data-question-line={question.line.id}>
-            <LineCard line={question.line} speakerAs="p" />
             <h2 id={headingId} ref={heading} tabIndex={-1} className={styles.ask}>
               What does this mean?
             </h2>
+            <LineCard line={question.line} only="spoken" />
             <div ref={choices}>
               <AnswerChoices
                 choices={question.choices}

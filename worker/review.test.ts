@@ -458,9 +458,11 @@ describe("the front door and today's session", () => {
 
   it('[review 4] [review 7] no new dialogue but cards reviewable: review, then continue for the unfinished review session', async () => {
     const l = await learner([MINÄ])
+    // Job 19-redesign (owner's call 7, 1 November 2026): the review card on the road shows the count.
     expect(await body<unknown>(await handleApi(get('/api/today', l.cookie), ENV, l.deps))).toEqual({
       signedIn: true,
       today: 'review',
+      reviewCount: 1,
     })
     const id = await reviewOnly(l)
     expect(l.db.sessions.filter((s) => s.dialogueId === null)).toHaveLength(1)

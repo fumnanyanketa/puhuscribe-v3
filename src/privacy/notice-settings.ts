@@ -16,4 +16,4 @@ export const RESPONSIBLE: Responsible = {
 }
 
 /** The date the notice's wording last changed, shown at its end (YYYY-MM-DD). */
-export const NOTICE_UPDATED = '2026-10-30'
+export const NOTICE_UPDATED = '2026-11-01'

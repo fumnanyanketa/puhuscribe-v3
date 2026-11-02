@@ -1,0 +1,18 @@
+Evaluator, 2026-11-02, commit 8013e5a
+
+Statement 44: git diff --stat origin/main...HEAD -- package.json package-lock.json wrangler.jsonc supabase worker/providers worker/personal-data
+(printed nothing)
+
+Statement 49: git diff --stat merge-base..HEAD -- design-drafts supabase
+(printed nothing)
+
+Statement 43: protected copy constants compared with the merge base 7f4f4b7: GUEST_LINE SENDS_CODE TAKEN_WARNING GUEST_WARNING SIGN_IN_SENT CODE_WORKS DELETE_TEXT FEEDBACK_INTRO all identical; src/lib/voice-consent.ts unchanged (empty diff).
+
+Local checks on this Windows machine:
+- npm run check:code: type check and lint pass; prettier flags 13 design-drafts files only because the Windows checkout has CRLF line endings (git stores LF); GitHub's code check passed.
+- vitest:  Test Files  90 passed (90)
+- vitest:       Tests  1166 passed | 2 skipped (1168)
+- npm run build: pass, check:built-secrets and check:built-files pass
+- Mock based browser files (redesign-road, redesign-lesson, redesign-pages, design-reference) in Chromium and WebKit:  61 failed  261 passed (5.1m) 
+  58 of the failures are e2e/design-reference.spec.ts: /design-reference is not in a normal build, so it cannot be opened from npm run build locally (it passes on GitHub).
+  3 are WebKit on Windows: [redesign 29] Turn on and [redesign 30] Say it (this WebKit build has no recording, the app shows 'Recording is not available in this browser.'), and [redesign 22] Keep going focus (see evaluation.md, statement 22).

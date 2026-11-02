@@ -1,26 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
+import { PageFrame } from '../components/PageFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
-import { Wordmark } from '../components/Wordmark.tsx'
 import { leaveWith } from '../lib/account-notice.ts'
 import { callApi, isRecord } from '../lib/api.ts'
+import { PATHS } from '../lib/app-paths.ts'
 import { downloadMyData } from '../lib/download.ts'
+import { loadRoad } from '../lib/road-data.ts'
+import { accountLetter, currentIndex } from '../lib/road-state.ts'
+import type { RoadStop } from '../lib/road-types.ts'
+import { parseVoiceAnswer } from '../lib/voice-api.ts'
 import styles from './Account.module.css'
 
 // The account page, at /account (factory/jobs/11-accounts/spec.md, "Done
-// when" 2, 14 and 18). It says what kind of account this device has and
-// offers what fits it. No counts, scores or streaks, and no learning: the
-// learner reaches it by a quiet link from the front door.
+// when" 2, 14 and 18; redrawn in job 19-redesign, statement 34 and 37): a
+// profile page. A large avatar with the letter, the name line ("Guest" and
+// "Saved on this device", or the email and "Saved to your email"), a "Your
+// journey" panel from the stop data, and one settings panel with four rows:
+// Speaking feedback (On or Off, opens Voice settings), Download my data,
+// Privacy notice and Send feedback. A guest sees the peach note "Create an
+// account to save your progress." with a plain "Create" (the owner's words of
+// 1 November 2026, round 6), and has no Sign out. No counts of mistakes,
+// scores or streaks.
 
-export const GUEST_TEXT =
-  'You are using a guest account on this device. Add your email to keep your progress and use it on other devices.'
-export const GUEST_CANNOT_SIGN_OUT =
-  'A guest account cannot sign back in, so add your email before you leave.'
 export const NO_ACCOUNT = 'There is no account on this device.'
+export const ADD_NOTE = 'Create an account to save your progress.'
 const LOADING = 'Loading your account.'
 const NOT_LOADED = 'Your account could not be loaded. Check your internet connection, then try again.'
 const PREPARING = 'Preparing your file.'
 const READY = 'Your file is ready.'
+/** The title of the ready file, as drawn: no full stop (round 6). */
+const READY_TITLE = 'Your file is ready'
 const NOT_PREPARED = 'Your file could not be prepared. Check your internet connection, then try again.'
 const NOT_SIGNED_OUT = 'You were not signed out. Check your internet connection, then try again.'
 
@@ -35,17 +45,69 @@ function viewFrom(status: number | undefined, body: unknown): View {
   return { kind: 'problem' }
 }
 
+function Chevron() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className={styles.chevron}>
+      <path d="M9.5 5.5L16 12l-6.5 6.5" />
+    </svg>
+  )
+}
+
+function Journey({ stops }: { stops: readonly RoadStop[] }) {
+  const index = currentIndex(stops)
+  const stop = stops.at(index)
+  if (!stop) return null
+  const share = Math.round(((index + stop.lessonsDone / stop.lessons) / stops.length) * 100)
+  return (
+    <section className={styles.panel} aria-label="Your journey">
+      <div className={styles.panelHead}>
+        <span className={styles.quiet}>Your journey</span>
+        <span className={styles.stopCount}>
+          Stop {stop.number} of {stops.length}
+        </span>
+      </div>
+      <div
+        className={styles.journeyBar}
+        role="progressbar"
+        aria-label="Your journey to A1"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={share}
+      >
+        <span className={styles.journeyFill} style={{ width: `${String(share)}%` }} />
+      </div>
+      <div className={styles.panelHead}>
+        <span className={styles.quiet}>Now: {stop.name}</span>
+        <span className={styles.level}>A1</span>
+      </div>
+    </section>
+  )
+}
+
 export function AccountPage() {
   const [view, setView] = useState<View>({ kind: 'loading' })
   const [status, setStatus] = useState<{ text: string; tone: StatusTone }>({ text: '', tone: 'neutral' })
   const [busy, setBusy] = useState<'download' | 'sign-out' | null>(null)
+  const [stops, setStops] = useState<RoadStop[] | null>(null)
+  const [voiceOn, setVoiceOn] = useState<boolean | null>(null)
+  const [fileReady, setFileReady] = useState(false)
   const firstLook = useRef<Promise<View> | null>(null)
 
   useEffect(() => {
     let active = true
     firstLook.current ??= callApi('/api/me', 'GET').then((answer) => viewFrom(answer?.status, answer?.body))
     void firstLook.current.then((next) => {
-      if (active) setView(next)
+      if (!active) return
+      setView(next)
+      if (next.kind !== 'guest' && next.kind !== 'email') return
+      // The journey panel and the speaking feedback value read what the account already holds.
+      void loadRoad().then((road) => {
+        if (active && road) setStops(road.stops)
+      })
+      void callApi('/api/voice', 'GET').then((answer) => {
+        const voice = answer?.status === 200 ? parseVoiceAnswer(answer.body) : null
+        if (active && voice) setVoiceOn(voice.processing === 'granted')
+      })
     })
     return () => {
       active = false
@@ -62,7 +124,12 @@ export function AccountPage() {
       setStatus({ text: '', tone: 'neutral' })
       return
     }
-    setStatus(result === 'ready' ? { text: READY, tone: 'neutral' } : { text: NOT_PREPARED, tone: 'problem' })
+    if (result === 'ready') {
+      setStatus({ text: READY, tone: 'neutral' })
+      setFileReady(true)
+      return
+    }
+    setStatus({ text: NOT_PREPARED, tone: 'problem' })
   }
 
   async function signOut() {
@@ -78,95 +145,151 @@ export function AccountPage() {
 
   const signedIn = view.kind === 'guest' || view.kind === 'email'
 
-  return (
-    <main className={styles.page}>
-      <div className={styles.top}>
-        <Wordmark height={36} />
-      </div>
-      <div className={styles.intro}>
-        <h1 className={styles.title}>Your account</h1>
-        {view.kind === 'guest' && <p className={styles.text}>{GUEST_TEXT}</p>}
-        {view.kind === 'email' && <p className={styles.text}>You are signed in as {view.email}.</p>}
-        {view.kind === 'none' && <p className={styles.text}>{NO_ACCOUNT}</p>}
-      </div>
+  // The file is ready: shown in place, with no address of its own (statement 37).
+  if (fileReady && signedIn) {
+    return (
+      <PageFrame
+        back={PATHS.account}
+        backLabel="Back to your account"
+        title="Download my data"
+        centre
+        actions={
+          <Button block busy={busy === 'download'} busyLabel={PREPARING} onClick={() => void download()}>
+            Download
+          </Button>
+        }
+      >
+        <div className={styles.ready}>
+          <div className={styles.orb} aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+          </div>
+          <h2 className={styles.readyTitle}>{READY_TITLE}</h2>
+          <p className={styles.readyText}>Everything we keep about you, in one file.</p>
+          {/* The title says it to the eye; the status line says it to a screen reader, and carries any later message. */}
+          <StatusLine tone={status.tone} visuallyHidden={status.text === READY}>
+            {status.text}
+          </StatusLine>
+        </div>
+      </PageFrame>
+    )
+  }
 
-      <div className={styles.actions}>
-        {view.kind === 'guest' && (
-          <>
-            <Button
-              block
+  const letter = view.kind === 'guest' ? 'G' : view.kind === 'email' ? accountLetter('email', view.email) : ''
+
+  return (
+    <PageFrame
+      back={PATHS.home}
+      backLabel="Back to the road"
+      contentTop="profile"
+      actions={
+        signedIn ? (
+          <div className={styles.small}>
+            {view.kind === 'email' && (
+              <>
+                <Button
+                  variant="quiet"
+                  className={styles.signOut}
+                  busy={busy === 'sign-out'}
+                  busyLabel="Signing you out."
+                  onClick={() => void signOut()}
+                >
+                  Sign out
+                </Button>
+                <span className={styles.dot} aria-hidden="true" />
+              </>
+            )}
+            <a className={styles.deleteLink} href={PATHS.accountDelete}>
+              Delete my account
+            </a>
+          </div>
+        ) : undefined
+      }
+    >
+      <h1 className={styles.hidden}>Your account</h1>
+      {signedIn && (
+        <div className={styles.profile}>
+          <div className={styles.avatar} aria-hidden="true">
+            {letter}
+          </div>
+          <p className={styles.name}>{view.kind === 'email' ? view.email : 'Guest'}</p>
+          <p className={styles.saved}>
+            {view.kind === 'email' ? 'Saved to your email' : 'Saved on this device'}
+          </p>
+        </div>
+      )}
+      {view.kind === 'none' && <p className={styles.text}>{NO_ACCOUNT}</p>}
+      {signedIn && stops && <Journey stops={stops} />}
+      {view.kind === 'guest' && (
+        <div className={styles.addNote}>
+          <p className={styles.addText}>{ADD_NOTE}</p>
+          <button
+            type="button"
+            className={styles.addButton}
+            aria-label="Create an account"
+            onClick={() => {
+              window.location.assign(PATHS.accountEmail)
+            }}
+          >
+            Create
+          </button>
+        </div>
+      )}
+      {signedIn && (
+        <ul className={styles.settings}>
+          <li>
+            <a className={styles.row} href={PATHS.voice}>
+              <span>Speaking feedback</span>
+              {/* As drawn: the value alone, no chevron (round 6). */}
+              {voiceOn !== null && <span className={styles.value}>{voiceOn ? 'On' : 'Off'}</span>}
+            </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              className={styles.row}
+              aria-busy={busy === 'download' || undefined}
               onClick={() => {
-                window.location.assign('/account/email')
+                if (busy === null) void download()
               }}
             >
-              Add your email
-            </Button>
-            <p className={styles.quietText}>{GUEST_CANNOT_SIGN_OUT}</p>
-          </>
-        )}
-        {view.kind === 'email' && (
-          <Button
-            variant="secondary"
-            block
-            busy={busy === 'sign-out'}
-            busyLabel="Signing you out."
-            onClick={() => void signOut()}
-          >
-            Sign out
-          </Button>
-        )}
-        {view.kind === 'none' && (
+              <span>Download my data</span>
+              <Chevron />
+            </button>
+          </li>
+          <li>
+            <a className={styles.row} href={PATHS.privacy}>
+              <span>Privacy notice</span>
+              <Chevron />
+            </a>
+          </li>
+          <li>
+            <a className={styles.row} href={`${PATHS.feedback}?from=account`}>
+              <span>Send feedback</span>
+              <Chevron />
+            </a>
+          </li>
+        </ul>
+      )}
+      {view.kind === 'none' && (
+        <>
           <Button
             block
             onClick={() => {
-              window.location.assign('/sign-in')
+              window.location.assign(PATHS.signIn)
             }}
           >
             Sign in with your email
           </Button>
-        )}
-        {signedIn && (
-          <Button
-            variant="secondary"
-            block
-            busy={busy === 'download'}
-            busyLabel={PREPARING}
-            onClick={() => void download()}
-          >
-            Download my data
-          </Button>
-        )}
-        <StatusLine tone={view.kind === 'problem' ? 'problem' : status.tone}>
-          {view.kind === 'loading' ? LOADING : view.kind === 'problem' ? NOT_LOADED : status.text}
-        </StatusLine>
-      </div>
-
-      <ul className={styles.links}>
-        {signedIn && (
-          <li>
-            <a className={styles.link} href="/feedback?from=account">
-              Send feedback
-            </a>
-          </li>
-        )}
-        {signedIn && (
-          <li>
-            <a className={styles.link} href="/account/delete">
-              Delete my account
-            </a>
-          </li>
-        )}
-        <li>
-          <a className={styles.link} href="/privacy">
+          <a className={styles.smallLink} href={PATHS.privacy}>
             Privacy notice
           </a>
-        </li>
-        <li>
-          <a className={styles.link} href="/">
-            Back to the start
-          </a>
-        </li>
-      </ul>
-    </main>
+        </>
+      )}
+      <StatusLine tone={view.kind === 'problem' ? 'problem' : status.tone}>
+        {view.kind === 'loading' ? LOADING : view.kind === 'problem' ? NOT_LOADED : status.text}
+      </StatusLine>
+    </PageFrame>
   )
 }

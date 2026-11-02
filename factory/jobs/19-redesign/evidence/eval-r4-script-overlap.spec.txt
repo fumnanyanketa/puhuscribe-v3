@@ -1,0 +1,52 @@
+// Evaluator, round 4: a tappable 44 letter word in the middle of a line (the builder's own test case), text over text.
+import { test, type Route } from '@playwright/test'
+import * as fs from 'node:fs'
+import { mockLesson } from './lesson-mocks.ts'
+const EV = process.env.EVAL_OUT ?? 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/factory/jobs/19-redesign/evidence'
+const TAG = process.env.EVAL_TAG ?? 'r4'
+const LONG = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+const aForm = { lemma: 'pitkä', formName: 'Long', why: 'A made up long word.', spoken: LONG, written: LONG }
+const json = (route: Route, body: unknown) => route.fulfill({ contentType: 'application/json', body: JSON.stringify(body) })
+const OVERLAP = `(() => {
+  const out = []
+  for (const line of document.querySelectorAll('[data-line-id] p[lang="fi"]')) {
+    const rects = []
+    const w = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      if (!n.textContent.trim()) continue
+      const r = document.createRange(); r.selectNodeContents(n)
+      for (const q of r.getClientRects()) if (q.width > 1) rects.push({ t: n.textContent.slice(0, 12), top: q.top, bottom: q.bottom, left: q.left, right: q.right })
+    }
+    let worst = 0, pair = ''
+    for (let i = 0; i < rects.length; i++) for (let j = i + 1; j < rects.length; j++) {
+      const a = rects[i], b = rects[j]
+      if (Math.abs(a.top - b.top) < 2) continue
+      const ix = Math.min(a.right, b.right) - Math.max(a.left, b.left)
+      const iy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)
+      if (ix > 1 && iy > worst) { worst = iy; pair = a.t + ' / ' + b.t }
+    }
+    const align = [...line.querySelectorAll('button')].map((b) => getComputedStyle(b).textAlign)
+    out.push({ rowsOverlapPx: Math.round(worst * 10) / 10, pair, buttonTextAlign: align })
+  }
+  return out
+})()`
+const cases: [string, unknown[]][] = [
+  ['plain-mid', [{ text: 'Voinks' }, { text: LONG, after: '?' }, { text: 'maksaa', after: '.' }]],
+  ['tappable-mid', [{ text: 'Voinks' }, { text: LONG, form: aForm, after: '?' }, { text: 'maksaa', after: '.' }]],
+  ['tappable-mid-no-punctuation', [{ text: 'Voinks' }, { text: LONG, form: aForm }, { text: 'maksaa' }]],
+  ['realistic-21-letter-tappable', [{ text: 'Missä' }, { text: 'on' }, { text: 'terveyskeskuslääkärin', form: aForm }, { text: 'vastaanotto', after: '?' }]],
+  ['short-tappable-mid', [{ text: 'Voinks' }, { text: 'mansikat', form: aForm, after: '?' }, { text: 'maksaa', after: '.' }]],
+]
+for (const [name, words] of cases) {
+  test(`overlap ${name}`, async ({ page, browserName }) => {
+    await mockLesson(page, { processing: 'withdrawn' })
+    await page.route('**/api/sessions/today', (r) => json(r, { state: 'ready', session: { id: 's1', step: null }, unit: { title: 'U', canDo: 'C' }, dialogue: { title: 'D' }, lines: [{ id: 1, speaker: 'Pekka', gloss: 'A long word.', spokenAudio: '/audio/a.wav', writtenAudio: '/audio/b.wav', spoken: words, written: words }] }))
+    await page.goto('/session')
+    await page.locator('[data-line-id]').waitFor()
+    await page.evaluate('document.fonts.ready')
+    await page.waitForTimeout(500)
+    const v = await page.evaluate(OVERLAP)
+    fs.appendFileSync(`${EV}/eval-${TAG}-46-text-over-text-${browserName}.jsonl`, JSON.stringify({ case: name, lines: v }) + '\n')
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-${name}-${browserName}.png` })
+  })
+}

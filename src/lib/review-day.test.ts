@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { nextReviewSentence } from './review-day.ts'
+import { nextReviewSentence, reviewMinutes, reviewMinutesLine } from './review-day.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/9-daily-review/spec.md that each test protects.
@@ -56,5 +56,17 @@ describe('nextReviewSentence', () => {
     expect(nextReviewSentence('2026-02-30', '2026-03-01')).toBeNull()
     expect(nextReviewSentence('2026-10-22', 'tomorrow')).toBeNull()
     expect(nextReviewSentence('', '2026-10-22')).toBeNull()
+  })
+})
+
+describe('the review card time', () => {
+  it('[redesign 15] is a fixed rule of 18 seconds a word, in whole minutes, at least one', () => {
+    expect(reviewMinutes(14)).toBe(4)
+    expect(reviewMinutes(1)).toBe(1)
+    expect(reviewMinutes(0)).toBe(1)
+    expect(reviewMinutes(10)).toBe(3)
+    expect(reviewMinutes(100)).toBe(30)
+    expect(reviewMinutesLine(14)).toBe('About 4 minutes')
+    expect(reviewMinutesLine(2)).toBe('About 1 minute')
   })
 })

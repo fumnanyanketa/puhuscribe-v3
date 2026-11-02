@@ -45,15 +45,17 @@ describe('the words of the note', () => {
     expect(problemsIn(wordsOfTheNote())).toEqual([])
   })
 
-  it('[save-progress 9] hold the labels "Add your email" and "Not now"', () => {
-    expect(copy.SAVE_NOTE_ADD).toBe('Add your email')
+  // Changed on purpose by the owner on 1 November 2026 (job 19-redesign): the
+  // button was "Add your email", the sentence "Add your email to save your progress."
+  it('[save-progress 9] hold the labels "Create account" and "Not now"', () => {
+    expect(copy.SAVE_NOTE_ADD).toBe('Create account')
     expect(copy.SAVE_NOTE_LATER).toBe('Not now')
-    expect(wordsOfTheNote()).toContain('Add your email')
+    expect(wordsOfTheNote()).toContain('Create account')
     expect(wordsOfTheNote()).toContain('Not now')
   })
 
-  it('[save-progress 9] are the words the owner chose on 31 October 2026', () => {
-    expect(copy.SAVE_NOTE_SENTENCE).toBe('Add your email to save your progress.')
+  it('[save-progress 9] are the words the owner chose on 1 November 2026', () => {
+    expect(copy.SAVE_NOTE_SENTENCE).toBe('Create an account to save your progress.')
     expect(copy.SAVE_NOTE_REGION).toBe('Keep your progress')
     expect(copy.SAVE_NOTE_CLOSED).toBe('No problem. You can add your email later from Your account.')
   })

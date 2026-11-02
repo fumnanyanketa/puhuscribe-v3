@@ -2,9 +2,9 @@ import { AccountPage } from './screens/AccountPage.tsx'
 import { DeletePage } from './screens/DeletePage.tsx'
 import { EmailFlow } from './screens/EmailFlow.tsx'
 import { FeedbackPage } from './screens/FeedbackPage.tsx'
-import { FrontDoor } from './screens/FrontDoor.tsx'
 import { OwnerPage } from './screens/OwnerPage.tsx'
 import { PrivacyPage } from './screens/PrivacyPage.tsx'
+import { RoadScreen } from './screens/RoadScreen.tsx'
 import { SessionPage } from './screens/SessionPage.tsx'
 import { VoiceSettings } from './screens/VoiceSettings.tsx'
 
@@ -14,7 +14,8 @@ import { VoiceSettings } from './screens/VoiceSettings.tsx'
 // pages and the privacy notice come from factory/jobs/11-accounts/spec.md;
 // /feedback and the owner page /owner from factory/jobs/14-analytics/spec.md.
 // Every page here is listed in worker/page-routes.ts (tests/analytics-rules.test.ts).
-// Every other path, deep links included, shows the front door. The "Hei!"
+// Every other path, deep links included, shows the road, the home screen
+// (job 19-redesign). The "Hei!"
 // smoke test page of job 2-smoke is retired (job 8, statement 21).
 
 export function App({ path }: { path: string }) {
@@ -27,5 +28,5 @@ export function App({ path }: { path: string }) {
   if (path === '/privacy') return <PrivacyPage />
   if (path === '/feedback') return <FeedbackPage />
   if (path === '/owner') return <OwnerPage />
-  return <FrontDoor />
+  return <RoadScreen />
 }

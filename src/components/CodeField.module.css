@@ -1,0 +1,64 @@
+/* The code field (design.md, "Code field"). Values from src/styles/tokens.css. */
+
+.wrap {
+  position: relative;
+}
+
+/* Six milky boxes at the drawing's size (32 x 40, times 1.25), centred (round 6). */
+.boxes {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+}
+
+.box,
+.boxNow {
+  display: grid;
+  flex: 0 1 40px;
+  place-items: center;
+  min-width: 0;
+  height: 50px;
+  border: 1.5px solid var(--color-panel-edge);
+  border-radius: var(--radius-sm);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-field);
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.boxNow {
+  border-color: var(--color-mint);
+}
+
+/* The real input lies over the boxes, invisible: a tap, a paste or the phone's
+   code suggestion all land in it, and the boxes show the digits. Keyboard focus
+   shows as an outline round the boxes. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-title);
+  opacity: 0;
+}
+
+/* Keyboard focus shows as the mint edge of the box where the next digit goes, 2 px (round 6). */
+.wrap:focus-within .boxNow {
+  outline: 2px solid var(--color-control-edge);
+  outline-offset: -1px;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

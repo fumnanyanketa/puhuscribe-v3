@@ -1,5 +1,6 @@
 import { expect, type Browser, type BrowserContext, type Page, type TestInfo } from '@playwright/test'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
+import { installRoad } from './road-route.ts'
 import { finishHearIt, finishUnderstandIt, passSayIt, serveTone } from './session-helpers.ts'
 
 // Shared steps for the account browser tests (factory/jobs/11-accounts/spec.md).
@@ -161,7 +162,9 @@ export async function finishTodaysSession(page: Page, account: 'guest' | 'email'
   await finishUnderstandIt(page, (lineId) => lines.find((l) => l.id === lineId)?.gloss ?? '')
   await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText(
-    account === 'guest' ? 'Your progress is saved on this device.' : 'Your progress is saved.',
+    account === 'guest'
+      ? 'Your progress is saved on this device.'
+      : 'Your progress is saved to your account.',
   )
   return userId
 }
@@ -200,6 +203,11 @@ export async function addEmail(page: Page, address: string): Promise<Mail> {
   await sendCodeTo(page, address)
   const mail = await nextMail(address, seen)
   await confirmCode(page, mail.code)
+  // The screen says the email is added only after the account holds it. A test that reads the database
+  // straight after "Confirm" (such as [save-progress 19]) must wait for this first (round 4, evaluator).
+  await expect(page.getByRole('status')).toHaveText(
+    'Your email is added. Your progress is saved to your account.',
+  )
   return mail
 }
 
@@ -222,26 +230,28 @@ export async function secondDevice(
   baseURL: string | undefined,
 ): Promise<BrowserContext> {
   const use = testInfo.project.use
-  return browser.newContext({
+  const context = await browser.newContext({
     baseURL,
     ignoreHTTPSErrors: true,
+    reducedMotion: 'reduce',
     viewport: use.viewport ?? { width: 375, height: 812 },
     hasTouch: use.hasTouch,
     isMobile: use.isMobile,
     userAgent: use.userAgent,
     deviceScaleFactor: use.deviceScaleFactor,
   })
+  await installRoad(context)
+  return context
 }
 
 /** What the front door offers: its status line and its main buttons. */
 export async function frontDoorState(page: Page): Promise<string> {
   await page.goto('/')
-  // Job 9 headed an empty day with "That is all for today." instead.
-  await expect(
-    page.getByRole('heading', { level: 1, name: /^(Today's session|That is all for today\.)$/ }),
-  ).toBeVisible()
-  await expect(page.getByRole('status').filter({ hasText: "Loading today's session." })).toHaveCount(0)
-  const buttons = await page.getByRole('button').allInnerTexts()
+  // The front door is the road since job 19-redesign: wait for its signs, and for the opening
+  // animation (a crossfade with reduced motion) to be over, so Skip is not one of the buttons.
+  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0, { timeout: 8000 })
+  const buttons = (await page.getByRole('button').allInnerTexts()).filter((text) => text !== 'Skip')
   const message = (await page.locator('[role=status]').allInnerTexts()).join(' ')
   return `${buttons.join(' | ')} || ${message}`.replace(/\s+/g, ' ').trim()
 }

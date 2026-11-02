@@ -238,6 +238,10 @@ Then that round adds the same tests the IPA data has (copy matches v2, migration
 
 Until then the loader is tested only on made-up fixture sentences in [scripts/v2-import/fixtures/](../scripts/v2-import/fixtures/): `node scripts/v2-import/build.ts fixture` rebuilds their load SQL, and the database check loads it twice inside a transaction that is rolled back.
 
+## The redesign added no database object
+
+Job 19-redesign (the new look of every learner screen) added no table, column, function or access rule. It reads what exists: `GET /api/today` now also says how many words wait when only a review is left (the count of `review_queue` rows the route already read), the session answer carries `firstLesson` (worked out from the learner's own `sessions` rows, as RLS returns them), and the answer of `POST /api/sessions/<id>/complete` lists the words the lesson added by reading the learner's own `cards` rows whose `created_at` equals the session's `ended_at` (`public.complete_session` inserts them in the same transaction that ends the session). Nothing new is stored on the phone or in the database.
+
 ## When database changes reach the test project
 
 Owner's rule from job 3-data-model: database changes reach the shared Supabase test project only after the owner approves a job, which is when it is merged to main. On a pull request, every migration and every pgTAP test runs on a throwaway local database inside the GitHub check, and the job "Apply database changes to the test project" is skipped. It runs on the push to main and then runs the same tests on the test project.

@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { CONTRAST_PAIRS } from '../src/styles/contrast-pairs.ts'
 import { colourTokens } from '../src/styles/token-values.ts'
-import { SWITZER_SKIP_REASON, switzerPresent } from './switzer.ts'
+import { installRoad } from './road-route.ts'
+import { settleAnimations } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/5-design-system/spec.md. These run on the reference page,
@@ -14,7 +15,7 @@ import { SWITZER_SKIP_REASON, switzerPresent } from './switzer.ts'
 // are passed as text.
 
 const REFERENCE = '/design-reference'
-const COLOUR_TOKENS = colourTokens(readFileSync('src/styles/tokens.css', 'utf8')).light
+const COLOUR_TOKENS = colourTokens(readFileSync('src/styles/tokens.css', 'utf8'))
 
 async function openReference(page: Page) {
   await page.goto(REFERENCE)
@@ -25,7 +26,7 @@ async function openReference(page: Page) {
 const section = (page: Page, name: string) => page.getByRole('region', { name, exact: true })
 
 test.describe('the reference page', () => {
-  test('[design 16] shows every colour token, every contrast pairing in both modes, and the type, spacing and radius scales', async ({
+  test('[design 16] [redesign 8] shows every colour token, every contrast pairing, and the type, spacing and radius scales', async ({
     page,
   }) => {
     await openReference(page)
@@ -98,17 +99,17 @@ test.describe('the reference page', () => {
     }
   })
 
-  // Switzer is kept out of the public repository (docs/fonts.md): this test
-  // runs when the files were fetched and skips, with its reason, when not.
-  test('[design 5] ä ö å render in Switzer, and the body text uses it', async ({ page }) => {
-    test.skip(!switzerPresent, SWITZER_SKIP_REASON)
+  // Owner's call 3 of job 19-redesign: Poppins for the body text as well.
+  test('[design 5] [redesign 5] the body text is Poppins, and ä ö å render in every weight used', async ({
+    page,
+  }) => {
     await openReference(page)
     await page.waitForLoadState('networkidle')
-    for (const font of ['400 16px Switzer', '500 16px Switzer', '600 16px Switzer', '700 16px Switzer']) {
+    for (const font of ['400 16px Poppins', '500 16px Poppins', '600 16px Poppins', '700 16px Poppins']) {
       expect(await page.evaluate<boolean>(`document.fonts.check('${font}', 'äöåÄÖÅ')`), font).toBe(true)
     }
     const body = await page.evaluate<string>('getComputedStyle(document.body).fontFamily')
-    expect(body.startsWith('Switzer')).toBe(true)
+    expect(body.startsWith('Poppins')).toBe(true)
   })
 })
 
@@ -118,8 +119,8 @@ test.describe('session frame', () => {
   }) => {
     await openReference(page)
     const frame = section(page, 'Session frame')
-    await expect(frame.getByText('Hear it, step 1 of 5', { exact: true })).toBeVisible()
-    await expect(frame.getByRole('link', { name: 'Leave session' })).toBeVisible()
+    await expect(frame.getByRole('progressbar', { name: 'Hear it, step 1 of 5' })).toBeVisible()
+    await expect(frame.getByRole('button', { name: 'Leave session' })).toBeVisible()
     // The actions sit at the bottom of the frame, and stay there when the
     // content scrolls.
     const place = await page.evaluate<{ before: number; after: number }>(`(() => {
@@ -146,7 +147,12 @@ test.describe('session frame', () => {
       const sideways = `(() => {
         const width = document.documentElement.clientWidth
         const past = [...document.querySelectorAll('main *')]
-          .filter((el) => !el.closest('[class*="tableWrap"]') && el.getBoundingClientRect().right > width + 0.5)
+          // A drawing's parts are clipped by their own svg (the landscape fills a box with slice), so
+          // a part inside an svg counts by the svg's edge, which is what the page can scroll to.
+          .filter((el) => {
+            const edge = el.closest('svg') ?? el
+            return !el.closest('[class*="tableWrap"]') && edge.getBoundingClientRect().right > width + 0.5
+          })
           .map((el) => el.tagName + ' ' + String(el.className))
         return { scrollWidth: document.documentElement.scrollWidth, width, past }
       })()`
@@ -161,7 +167,7 @@ test.describe('session frame', () => {
 })
 
 test.describe('buttons and keyboard', () => {
-  test('[design 8] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide', async ({
+  test('[design 8] [redesign 7] every control is at least 44 x 44 px, and words at least 44 px tall and 24 px wide', async ({
     page,
   }) => {
     await openReference(page)
@@ -207,7 +213,7 @@ test.describe('buttons and keyboard', () => {
     // Safari moves Tab between buttons only with Option held, unless a setting says otherwise.
     const tab = browserName === 'webkit' ? 'Alt+Tab' : 'Tab'
     // Start on the first control, then move with the keyboard only.
-    await page.locator('main a[href]').first().focus()
+    await page.locator('main button:not([disabled]), main a[href]').first().focus()
     let previousTop = -Infinity
     for (let i = 0; i < expected; i += 1) {
       if (i > 0) await page.keyboard.press(tab)
@@ -236,7 +242,7 @@ test.describe('buttons and keyboard', () => {
 })
 
 test.describe('status line', () => {
-  test('[design 10] three styles, each one full sentence in role="status", differing in shape as well as colour', async ({
+  test('[design 10] [redesign 42] three styles, each one full sentence in role="status", differing in shape as well as colour', async ({
     page,
   }) => {
     await openReference(page)
@@ -260,13 +266,18 @@ test.describe('status line', () => {
 test.describe('Finnish line and word card', () => {
   const lineSection = (page: Page) => section(page, 'Finnish line and word card')
 
-  test('[design 11] spoken first, written under it labelled "Written", both lang="fi", every word a button', async ({
+  // Job 19-redesign (statement 23) changed the labels on purpose: there is no visible
+  // "Spoken" or "Written" label; each line's group is named for screen readers.
+  test('[design 11] [redesign 23] spoken first, written under it, each group named, both lang="fi", every word a button', async ({
     page,
   }) => {
     await openReference(page)
     const line = lineSection(page)
     await expect(line.locator('[lang="fi"]')).toHaveText(['Mä oon', 'Minä olen'])
-    await expect(line.getByText('Written', { exact: true })).toBeVisible()
+    await expect(line.getByText('Written', { exact: true })).toHaveCount(0)
+    await expect(line.getByText('Spoken', { exact: true })).toHaveCount(0)
+    await expect(line.getByRole('group', { name: 'How people say it' })).toBeVisible()
+    await expect(line.getByRole('group', { name: 'How it is written' })).toBeVisible()
     await expect(line.locator('[lang="fi"] button')).toHaveCount(4)
   })
 
@@ -297,10 +308,13 @@ test.describe('Finnish line and word card', () => {
     await word.click()
     const card = page.getByRole('dialog', { name: 'oon' })
     await expect(card).toBeVisible()
-    await expect(card.getByText('Base form')).toBeVisible()
+    // The facts are the redesigned card's (job 19-redesign, statement 26).
+    await expect(card.getByText('Dictionary form')).toBeVisible()
     await expect(card.getByText('olla', { exact: true })).toBeVisible()
-    await expect(card.getByText('Form', { exact: true })).toBeVisible()
-    await expect(card.getByText('Why', { exact: true })).toBeVisible()
+    await expect(card.getByText('People say')).toBeVisible()
+    await expect(card.getByText('Books write')).toBeVisible()
+    await card.getByRole('button', { name: 'Why does it change?' }).click()
+    await expect(card.getByText('Spoken Finnish shortens olen to oon.')).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play the spoken form' })).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play the written form' })).toBeVisible()
     expect(await page.evaluate<boolean>('Boolean(document.activeElement.closest("dialog"))')).toBe(true)
@@ -482,29 +496,39 @@ test.describe('record control', () => {
   })
 })
 
-test.describe('both colour modes', () => {
-  test('[design 15] the page background fades from white to lilac in light, and to its dark equivalent in dark', async ({
-    browser,
+test.describe('the crash screen', () => {
+  test('[redesign 41] says "Something went wrong" once to the eye, with the sentence kept for screen readers', async ({
+    page,
   }) => {
-    for (const [scheme, stops] of [
-      ['light', ['rgb(255, 255, 255)', 'rgb(250, 249, 252)', 'rgb(241, 240, 246)']],
-      ['dark', ['rgb(18, 17, 23)', 'rgb(20, 19, 25)', 'rgb(23, 22, 29)']],
-    ] as const) {
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
-      const page = await context.newPage()
-      await openReference(page)
-      const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
-      expect(image, scheme).toContain('linear-gradient')
-      for (const stop of stops) expect(image, scheme).toContain(stop)
-      await context.close()
-    }
+    await openReference(page)
+    const box = page.locator('[data-crash-screen]')
+    await box.scrollIntoViewIfNeeded()
+    const seen = await page.evaluate<number>(`[...document.querySelectorAll('[data-crash-screen] *')]
+      .filter((el) => el.children.length === 0 && el.textContent.trim().startsWith('Something went wrong'))
+      .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 2 && r.height > 2 })
+      .length`)
+    expect(seen).toBe(1)
+    await expect(box.getByRole('status')).toHaveText('Something went wrong on this screen.')
+  })
+})
+
+test.describe('the page wash', () => {
+  test('[redesign 3] the page background is the mint to off white to peach wash, declared once', async ({
+    page,
+  }) => {
+    await openReference(page)
+    const image = await page.evaluate<string>('getComputedStyle(document.documentElement).backgroundImage')
+    expect(image).toContain('linear-gradient')
+    for (const stop of ['rgb(203, 237, 225)', 'rgb(247, 248, 246)', 'rgb(251, 226, 209)'])
+      expect(image).toContain(stop)
   })
 })
 
 test.describe('automatic accessibility check', () => {
   const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
 
-  for (const scheme of ['light', 'dark'] as const) {
+  // The look is light only (owner's call 4 of job 19-redesign).
+  for (const scheme of ['light'] as const) {
     test(`[design 17] axe finds no WCAG A or AA problem on the reference page, ${scheme}`, async ({
       browser,
     }) => {
@@ -542,7 +566,12 @@ test.describe('automatic accessibility check', () => {
       // Forces the problem state and its "Start" again, which the GitHub
       // checks never reach on their own (evaluator, job 5 round 2). Since job
       // 8-first-session the front page is the front door (statement 21).
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
+      const context = await browser.newContext({
+        colorScheme: scheme,
+        reducedMotion: 'reduce',
+        viewport: { width: 375, height: 812 },
+      })
+      await installRoad(context)
       const page = await context.newPage()
       await page.route('**/api/guest', (route) =>
         route.fulfill({
@@ -557,6 +586,7 @@ test.describe('automatic accessibility check', () => {
         'Could not start your session. Check your internet connection, then try again.',
       )
       await page.evaluate('document.fonts.ready')
+      await settleAnimations(page)
       const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
       expect(
         result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
@@ -569,11 +599,17 @@ test.describe('automatic accessibility check', () => {
     test(`[design 17] axe finds no WCAG A or AA problem on the front page, ${scheme}`, async ({
       browser,
     }) => {
-      const context = await browser.newContext({ colorScheme: scheme, viewport: { width: 375, height: 812 } })
+      const context = await browser.newContext({
+        colorScheme: scheme,
+        reducedMotion: 'reduce',
+        viewport: { width: 375, height: 812 },
+      })
+      await installRoad(context)
       const page = await context.newPage()
       await page.goto('/')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible({ timeout: 11_000 })
       await page.evaluate('document.fonts.ready')
+      await settleAnimations(page)
       const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
       expect(
         result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),

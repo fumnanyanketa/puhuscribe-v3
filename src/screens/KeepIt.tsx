@@ -10,9 +10,10 @@ import type { ReviewFeedback, ReviewItem, ReviewResult, TypedAnswer } from '../l
 import { MIN_RECORDING_MS } from '../lib/speech-types.ts'
 import { TOO_MANY, loadVoice, recallForm } from '../lib/voice-api.ts'
 import { methodFormId, methodsFor, type RecordedResult } from './answer-methods.ts'
-import { LineCard, hasChangedWords } from './LineCard.tsx'
+import { PATHS } from '../lib/app-paths.ts'
+import { LineCard } from './LineCard.tsx'
 import { ReviewItemView } from './ReviewItemView.tsx'
-import { CHANGED_HINT, NOT_SAVED, type StepScreenProps } from './step-screen.ts'
+import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 
 // Keep it (factory/jobs/9-daily-review/spec.md, "Done when" 6 to 9 and 12 to
@@ -26,7 +27,8 @@ import styles from './Screens.module.css'
 export const INSTRUCTION = 'Type the missing word.'
 export const RESULT_TEXT: Readonly<Record<ReviewResult, string>> = {
   correct: 'Yes, that is right.',
-  close: 'Close. Check the spelling below.',
+  // The note sits under the field and the marked word is in the card above it (round 6), so it says above.
+  close: 'Close. Check the spelling above.',
   wrong: 'Here is the word. It will come back soon.',
 }
 const RESULT_TONE: Readonly<Record<ReviewResult, StatusTone>> = {
@@ -38,7 +40,7 @@ const RESULT_TONE: Readonly<Record<ReviewResult, StatusTone>> = {
 export const SPOKEN_INSTRUCTION = 'Say the missing word.'
 export const SPOKEN_RESULT_TEXT: Readonly<Record<ReviewResult, string>> = {
   correct: 'Yes, that was clear.',
-  close: 'Close. Listen to the word below.',
+  close: 'Close. Listen to the word above.',
   wrong: 'Here is the word. It will come back soon.',
 }
 export const SPOKEN_NOT_HEARD = 'That was too quiet to hear. Try again a little closer to the phone.'
@@ -236,9 +238,22 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   } else if (!item) message = NOTHING_NOW
 
   const answering = item !== undefined && shown === null
+  // As drawn (round 6): a gentle result is the peach note under the field; "Yes, that is right." is small
+  // and centred above Next; the instruction is drawn once, as the title, and read from the status line.
+  const resultShown = shown !== null && shown !== 'already_saved' ? shown : null
+  const noteUnder = resultShown !== null && tone === 'gentle'
+  const status = (
+    <StatusLine tone={tone} visuallyHidden={message === INSTRUCTION || message === SPOKEN_INSTRUCTION}>
+      {message}
+    </StatusLine>
+  )
   const actions = (
     <>
-      <StatusLine tone={tone}>{message}</StatusLine>
+      {noteUnder ? null : resultShown?.feedback.result === 'correct' ? (
+        <div className={styles.rightHint}>{status}</div>
+      ) : (
+        status
+      )}
       {answering ? (
         <>
           {!spokenItem && (
@@ -276,15 +291,23 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   const place = turn ? placeOf(turn, items.length) : null
 
   return (
-    <SessionFrame step={frame.step} steps={frame.steps} leaveHref="/" actions={actions}>
+    <SessionFrame
+      step={frame.step}
+      steps={frame.steps}
+      progress={run.length === 0 ? 0 : (at + (shown !== null ? 1 : 0)) / run.length}
+      leaveHref={PATHS.home}
+      actions={actions}
+    >
       <main className={styles.main}>
         <div className={styles.intro}>
-          <h1 ref={heading} tabIndex={-1} className={styles.title}>
+          <h1 ref={heading} tabIndex={-1} className={styles.hiddenTitle}>
             Keep it
           </h1>
-          {item && <p className={styles.lead}>{place ? `Word ${place}.` : ONE_MORE_TRY}</p>}
-          {shown !== null && shown !== 'already_saved' && hasChangedWords(shown.feedback.line) && (
-            <p className={styles.hint}>{CHANGED_HINT}</p>
+          {/* The drawing's title at the top. The field's own label and the status line say it to a screen reader. */}
+          {item && (
+            <p className={styles.keepTitle} aria-hidden="true">
+              {spokenItem ? 'Say the missing word' : 'Type the missing word'}
+            </p>
           )}
         </div>
         {item && shown === null && (
@@ -292,6 +315,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
             key={at}
             item={item}
             formBase={formBase}
+            place={place ? `Word ${place}.` : ONE_MORE_TRY}
             disabled={checking}
             methods={methodsFor(mode)}
             onReady={setReady}
@@ -299,25 +323,47 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
             onRecorded={(result) => void checkSpoken(result)}
           />
         )}
-        {item && shown !== null && shown !== 'already_saved' && (
+        {item && resultShown !== null && (
           <div className={styles.reviewItem} data-review-feedback={item.formId}>
-            <LineCard line={shown.feedback.line} marked={shown.feedback.marked} speakerAs="p" showGloss />
-            <p className={styles.reviewNote}>
-              {shown.feedback.form.spoken === shown.feedback.form.written ? (
+            <LineCard line={resultShown.feedback.line} marked={resultShown.feedback.marked} />
+            {/* What the learner typed stays in the field, as drawn: a right answer gets the mint edge and tick. */}
+            {resultShown.typed.trim() !== '' && (
+              <p
+                className={
+                  resultShown.feedback.result === 'correct'
+                    ? `${styles.typedEcho} ${styles.typedRight}`
+                    : styles.typedEcho
+                }
+                aria-hidden="true"
+              >
+                <span lang="fi">{resultShown.typed}</span>
+                {resultShown.feedback.result === 'correct' && (
+                  <span className={styles.typedTick}>
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M5 12.5l4.5 4.5L19 7.5" />
+                    </svg>
+                  </span>
+                )}
+              </p>
+            )}
+            {noteUnder && status}
+            {/* Job 9 (statement 12) keeps these for screen readers; the marked words and the field show them to the eye. */}
+            <p className={styles.hiddenTitle}>
+              {resultShown.feedback.form.spoken === resultShown.feedback.form.written ? (
                 <>
-                  The word is <span lang="fi">{shown.feedback.form.spoken}</span> in spoken and written
+                  The word is <span lang="fi">{resultShown.feedback.form.spoken}</span> in spoken and written
                   Finnish.
                 </>
               ) : (
                 <>
-                  The word is <span lang="fi">{shown.feedback.form.spoken}</span> in spoken Finnish and{' '}
-                  <span lang="fi">{shown.feedback.form.written}</span> in written Finnish.
+                  The word is <span lang="fi">{resultShown.feedback.form.spoken}</span> in spoken Finnish and{' '}
+                  <span lang="fi">{resultShown.feedback.form.written}</span> in written Finnish.
                 </>
               )}
             </p>
-            {shown.typed.trim() !== '' && (
-              <p className={styles.reviewNote}>
-                You wrote <span lang="fi">{shown.typed}</span>.
+            {resultShown.typed.trim() !== '' && (
+              <p className={styles.hiddenTitle}>
+                You wrote <span lang="fi">{resultShown.typed}</span>.
               </p>
             )}
           </div>

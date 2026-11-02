@@ -1,23 +1,34 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import type { LineWord, WordCardData } from './finnish.ts'
 import { WordCard } from './WordCard.tsx'
 import styles from './FinnishLine.module.css'
 
-// A dialogue line (design.md, "Finnish line and word card"), in v2's register
-// pairing: spoken Finnish first on a teal band, the written line under it,
-// both labelled in text and marked lang="fi", joined by a connector. The
-// words that change between the two are azure. Every word with a card is a
-// button that opens it; the card returns focus to the same word on close. A
-// word without a card (such as a name) is plain text.
+// A dialogue line (design.md, "Line card"), as drawn on 1 November 2026: the
+// spoken line in a soft box with a play button at its end, the written line
+// under it in slate with its own play button, and two dots joined by a dotted
+// line at the left (mint for spoken, slate for written). There are no
+// "Spoken" and "Written" labels: the two groups are named for screen readers,
+// and both lines carry lang="fi". The words that change between the two are
+// peach on a peach wash in both lines. Every word with a card is a button that
+// opens it; the card returns focus to the same word on close. A word without a
+// card (such as a name) is plain text, never a dead button.
 
 interface FinnishLineProps {
   spoken: LineWord[]
   written: LineWord[]
   /** Index of the spoken word being spoken right now, if any. */
   current?: number
+  /** The play control at the end of the spoken line (the session screens). */
+  spokenControl?: ReactNode
+  /** The play control at the end of the written line. */
+  writtenControl?: ReactNode
+  /** Only the spoken line, with no dots and no written line (Understand it). */
+  only?: 'spoken'
+  /** The larger spoken line of Understand it. */
+  large?: boolean
   /** Passed to each word card, such as "Sample, not reviewed." on design pages. */
   cardNote?: string
-  /** Passed to each word card: what its two play controls play. */
+  /** Passed to each word card: what its play controls play. */
   cardAudioWhat?: { spoken: string; written: string }
   /** Passed to each word card: one plain line under its play controls. */
   cardAudioCaption?: string
@@ -29,6 +40,10 @@ type Which = 'spoken' | 'written'
 
 /** Read after a marked word by screen readers. */
 export const MARKED_NAME = ', the missing word'
+
+/** What names each group for screen readers, in place of the old visible labels. */
+export const SPOKEN_GROUP = 'How people say it'
+export const WRITTEN_GROUP = 'How it is written'
 
 function Words({
   words,
@@ -79,7 +94,6 @@ function Words({
       <span key={i}>
         {i > 0 && ' '}
         <span className={styles.keep} data-word="">
-          {word.before}
           <button
             type="button"
             className={styles.word}
@@ -92,10 +106,12 @@ function Words({
               onOpen(which, i)
             }}
           >
+            {/* The punctuation is inside the button, so a word too long for its line wraps with its "?" or its quote at the end of the last piece. Hidden from a screen reader, so the button's name stays the word. */}
+            {word.before && <span aria-hidden="true">{word.before}</span>}
             <span className={face.join(' ')}>{word.text}</span>
             {marker}
+            {word.after && <span aria-hidden="true">{word.after}</span>}
           </button>
-          {word.after}
         </span>
       </span>
     )
@@ -106,6 +122,10 @@ export function FinnishLine({
   spoken,
   written,
   current = -1,
+  spokenControl,
+  writtenControl,
+  only,
+  large = false,
   cardNote,
   cardAudioWhat,
   cardAudioCaption,
@@ -138,24 +158,34 @@ export function FinnishLine({
 
   return (
     <div className={styles.pair}>
-      <div className={styles.rail} aria-hidden="true">
-        <span className={styles.dotSpoken} />
-        <span className={styles.connector} />
-        <span className={styles.dotWritten} />
-      </div>
-      <div className={styles.registers}>
-        <div className={styles.spokenBand}>
-          <p className={styles.labelSpoken}>Spoken</p>
+      {only !== 'spoken' && (
+        <div className={styles.rail} aria-hidden="true">
+          <span className={styles.dotSpoken} />
+          <span className={styles.connector} />
+          <span className={styles.dotWritten} />
+        </div>
+      )}
+      <div className={styles.rows}>
+        <div
+          className={large ? `${styles.spokenRow} ${styles.large}` : styles.spokenRow}
+          role="group"
+          aria-label={SPOKEN_GROUP}
+        >
+          {/* Understand it: the play button sits before the line, on the left, as drawn (round 6). */}
+          {large && spokenControl}
           <p className={styles.spokenLine} lang="fi">
             <Words words={spoken} which="spoken" current={current} onOpen={openCard} register={register} />
           </p>
+          {!large && spokenControl}
         </div>
-        <div className={styles.written}>
-          <p className={styles.labelWritten}>Written</p>
-          <p className={styles.writtenLine} lang="fi">
-            <Words words={written} which="written" current={-1} onOpen={openCard} register={register} />
-          </p>
-        </div>
+        {only !== 'spoken' && (
+          <div className={styles.writtenRow} role="group" aria-label={WRITTEN_GROUP}>
+            <p className={styles.writtenLine} lang="fi">
+              <Words words={written} which="written" current={-1} onOpen={openCard} register={register} />
+            </p>
+            {writtenControl}
+          </div>
+        )}
       </div>
       <WordCard
         data={card}

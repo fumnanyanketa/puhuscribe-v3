@@ -41,6 +41,13 @@
   box-shadow: var(--shadow-1);
 }
 
+/* The written line's control is slate (written-colour.html, option A). */
+.written,
+.written:hover,
+.written:active {
+  background: var(--color-written);
+}
+
 /* Loading: a ring that turns, or stays still with reduced motion. */
 .loading {
   width: 40%;

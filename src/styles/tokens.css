@@ -1,118 +1,233 @@
 /*
- * PuhuScribe v3 design tokens (job 5-design-system, factory/jobs/5-design-system/spec.md).
+ * PuhuScribe v3 design tokens (job 19-redesign, factory/jobs/19-redesign/spec.md;
+ * the first set came from job 5-design-system).
  * The design guide is design.md at the repository root.
  *
  * Every colour, font, size, space, radius, shadow and motion value the app uses
  * lives here as a CSS custom property. Components read these names and never
  * hold a raw colour themselves (tests/design-tokens.test.ts checks that).
  *
- * The look is v2's own (owner's decision, 21 October 2026, recorded in
- * factory/jobs/5-design-system/summary.md): a white to soft lilac ground,
- * ink text, violet for written Finnish (kirjakieli), teal for spoken Finnish
- * (puhekieli), azure for the words that change between the two, soft white
- * cards and black pill buttons. Values that differ from v2 were darkened only
- * where v2's colour failed the contrast floor; each one says so.
+ * The look is the owner's approved drawings of 1 November 2026
+ * (design-drafts/v1-screens.html, road-journey.html, written-colour.html option
+ * A): a soft mint and peach wash, milky panels, mint for everything you tap and
+ * for spoken Finnish (puhekieli), slate blue for written Finnish (kirjakieli),
+ * peach for the words that change between them, the road and its warm notes.
+ * Light only (owner's call 4). Where a drawn colour failed the project's
+ * contrast floors it is made as little darker as the floor needs; the comment
+ * on each such token names the drawn value, and /design-reference shows both.
  *
- * Dark mode declares the same colour names again inside
- * @media (prefers-color-scheme: dark). Colours are hex (8 digit hex where a
- * shadow needs transparency), because older iPhones lack light-dark() and
- * color-mix().
+ * Colours are hex (8 digit hex where a shadow needs transparency), because
+ * older iPhones lack light-dark() and color-mix().
  */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  /* Ground and surfaces */
-  --color-ground-top: #ffffff; /* the page background fades from this ... */
-  --color-ground-middle: #faf9fc; /* ... through this ... */
-  --color-ground-bottom: #f1f0f6; /* ... to this (v2's own three stops) */
-  --color-surface: #ffffff; /* cards, the audio player, the word card */
-  --color-track: #e3e1ec; /* step segments not yet reached, the unplayed waveform */
-  --color-card-edge: #1a16340f; /* v2's 1 px card hairline, 6 percent ink */
-  --color-control-edge: #7a7689; /* the edge of a white control, 3.9:1 on the ground */
+  /* The page wash: the drawings' 165 degree mint to off white to peach */
+  --color-wash-top: #cbede1; /* the mint end of the wash, as drawn */
+  --color-wash-middle: #f7f8f6; /* the middle, as drawn */
+  --color-wash-bottom: #fbe2d1; /* the peach end, as drawn */
+
+  /* Surfaces */
+  --color-surface: #ffffff; /* sheets, solid cards, fields, the word card */
+  --color-panel: #fbfdfc; /* milky panels, drawn as 80 percent white, written here as a solid colour */
+  --color-panel-edge: #ffffff; /* a panel's 1 px edge, as drawn */
+  --color-track: #c3ddd2; /* progress segments not reached, rails */
+  --color-card-edge: #1b2a2614; /* a 1 px hairline round a solid card, 8 percent ink */
+  --color-control-edge: #1e856f; /* the edge of a white control, 3.6:1 on the mint end of the wash */
+  --color-control-edge-soft: #d6efe7; /* the drawings' very pale edge of a white pill or key, as drawn (round 6) */
+  --color-progress-track: #ffffff; /* the part of a progress bar not reached, pale white with no outline, as drawn (round 6) */
+  --color-sign-num: #eef2f1; /* the current sign's number square before it is mint, as drawn */
+  --color-sign-tick: #ffffff40; /* the small white square of a done sign's tick, 25 percent white on mint, as drawn */
+  --color-road-card: #ffffffe6; /* the road's bottom card, 90 percent white as drawn, so the road shows faintly through it (round 6) */
 
   /* Text */
-  --color-text: #1b1a20; /* v2 ink */
-  --color-text-quiet: #56525e; /* v2 ink-2, 7.6:1 on white */
+  --color-text: #1b2a26; /* ink, as drawn */
+  --color-text-quiet: #556863; /* drawn #637570 was 3.9:1 on the mint end of the wash; this reaches 4.7 */
 
-  /* Spoken Finnish, puhekieli (v2 teal) */
-  --color-spoken: #1f7c8e; /* dot and connector */
-  --color-spoken-text: #166270; /* label text; v2's #1F7C8E was 4.3:1 on the band, too low */
-  --color-spoken-band: #e9f2f4; /* v2's 10 percent teal wash, as a solid colour */
-  --color-spoken-band-edge: #1f7c8e38; /* v2's 22 percent teal line */
+  /* Mint: everything tappable, the progress fill, done signs */
+  --color-mint: #1e856f; /* drawn #23917a, white on it was 3.9:1; this reaches 4.5 */
+  --color-mint-hover: #1b7a65;
+  --color-mint-pressed: #176a58;
+  --color-mint-deep: #1a6f5d; /* text on mint soft, "How it works", the current sign, as drawn */
+  --color-mint-mid: #74bba9; /* the dotted connector, quiet edges, as drawn */
+  --color-mint-soft: #d6efe7; /* rails and soft fills, as drawn */
 
-  /* Written Finnish, kirjakieli (v2 violet) */
-  --color-written: #6b46c1; /* dot, connector and label text, 6.4:1 on white */
+  /* Spoken Finnish, puhekieli: mint */
+  --color-spoken: #1e856f; /* the spoken dot and the wave */
+  --color-spoken-text: #1a6f5d; /* the "People say" label */
+  --color-spoken-soft: #d6efe7; /* the "People say" tile and the spoken line's edge */
 
-  /* Changed words between the registers (v2 azure). Reserved for that only. */
-  --color-flag-text: #1f42ac; /* v2's #2F5AD6 was 4.8:1 on its wash; this reaches 7:1 */
-  --color-flag-wash: #e2e8f9; /* v2's 14 percent azure wash, as a solid colour */
+  /* Written Finnish, kirjakieli: slate blue (written-colour.html, option A) */
+  --color-written: #38527a; /* drawn #4f6d94 was 5.3:1 on white, Finnish lines need 7:1 */
+  --color-written-soft: #edf2f8; /* drawn #e4ebf4, lightened so slate on it reaches 7:1 */
+
+  /* The words that change between the registers. Reserved for that only. */
+  --color-changed-text: #7f3618; /* drawn #b8532f was 4.0:1 on its wash; this reaches 7:1 */
+  --color-changed-wash: #fde4d8; /* as drawn */
+
+  /* Peach: the next sign, the recording state, gentle notes, the delete action */
+  --color-peach: #db7249; /* drawn #ee8763; marks need 3:1 on white */
+  --color-peach-soft: #fde4d8; /* gentle notes and the save note, as drawn */
+  --color-peach-deep: #b8532f; /* the delete pill and the mark on a gentle note, as drawn */
+  --color-peach-text: #a1471f; /* peach text on peach soft (the review count, the save note), drawn #b8532f was 4.0:1; this reaches 5.0 */
 
   /* The word being spoken right now, and a word under the finger */
-  --color-current-word: #1b1a20;
-  --color-current-word-text: #f6f4fb;
-  --color-current-line: #1f7c8e; /* ring round the line that is playing */
-  --color-word-hover: #ecebf2; /* v2's well colour */
+  --color-current-word: #1b2a26;
+  --color-current-word-text: #f4faf8;
+  --color-current-line: #1e856f; /* ring round the line that is playing */
+  --color-word-hover: #e6f2ed;
 
   /* Controls */
-  --color-button: #1b1a20; /* v2's black pill */
-  --color-button-hover: #2a2832;
-  --color-button-pressed: #000007;
-  --color-button-text: #f6f4fb;
-  --color-button-secondary: #ffffff; /* v2's white "light" pill */
-  --color-button-secondary-hover: #f6f5fa;
-  --color-button-secondary-pressed: #ecebf2;
-  --color-disabled: #ecebf2;
-  --color-disabled-text: #6e6a7a;
-  --color-focus: #1b1a20;
-  --color-wave-played: #1f7c8e;
-  --color-recording: #1f7c8e; /* v2 records in teal */
+  --color-button: #1e856f; /* the flat mint pill (owner's call 5) */
+  --color-button-hover: #1b7a65;
+  --color-button-pressed: #176a58;
+  --color-button-text: #ffffff;
+  --color-button-secondary: #ffffff; /* the white pill with a mint edge */
+  --color-button-secondary-hover: #f1f8f5;
+  --color-button-secondary-pressed: #e3f1ec;
+  --color-danger: #b8532f; /* the "Delete for good" pill */
+  --color-danger-hover: #a64a29;
+  --color-danger-pressed: #94411f;
+  --color-danger-text: #ffffff;
+  --color-danger-ink: #8c3b1a; /* the small "Delete my account" text on the wash, 6.1:1 on the peach end */
+  --color-disabled: #e3ebe8;
+  --color-disabled-text: #5f706b;
+  --color-focus: #1b2a26;
+  --color-wave-played: #1e856f;
+  --color-recording: #db7249; /* the record control while recording */
   --color-recording-text: #ffffff;
+  --color-switch-off: #7d8f89; /* the track of a switch that is off */
+  --color-scrim: #1b2a26a8; /* dims the screen behind the first lesson tip's lit card, dark enough for its white lines (5.1:1 on the wash) */
+  --color-tip-text: #ffffff; /* the tip's three lines and their dots sit on the scrim, white as drawn */
+  --color-tip-spoken: #7fe0c3; /* the tip's spoken dot, as drawn */
+  --color-tip-written: #9fb6d6; /* the tip's written dot, as drawn */
+  --color-tip-ring: #f3a07f; /* the tip's peach ring, as drawn */
+  --color-tip-lit: #ffffffb3; /* the thin white glow round the lit card, as drawn */
+  --color-tip-spoken-halo: #7fe0c338; /* the soft halos round the tip's dots and ring, as drawn */
+  --color-tip-written-halo: #9fb6d640;
+  --color-tip-ring-halo: #f3a07f38;
+  --color-dim: #192d2847; /* dims the page behind a drawn sheet, as drawn (28 percent) */
 
-  /* Brand: v2's sprout mark, flat (owner's brand call, 21 October 2026).
+  /* Brand: the sprout mark, flat, on mint (owner's call 14, 1 November 2026).
      A logo is exempt from the contrast floors. */
-  --color-brand: #6b4fc6;
+  --color-brand: #1e856f;
   --color-brand-leaf: #ffffff;
-  --color-brand-leaf-back: #d9d1f2;
-  --color-wordmark-quiet: #8b8798; /* "Scribe" in v2's ink-3 */
+  --color-brand-leaf-back: #bfe3d8;
+  --color-wordmark-quiet: #6f817b;
 
   /* Status line. A learner's attempt is never red. */
-  --color-gentle-wash: #e7e3f2; /* v2's lavender tint, for gentle corrections */
-  --color-gentle-mark: #6b46c1;
+  --color-gentle-wash: #fde4d8;
+  --color-gentle-mark: #b8532f;
   --color-problem-wash: #fff3e0; /* system faults only, such as no connection */
   --color-problem-text: #7a3d00;
   --color-problem-edge: #a35200;
 
-  /* The page background: v2's white to lilac fade. Owner-approved exception to
-     the gradient ban (statement 18), for the page background only. */
-  --ground-fade: linear-gradient(
-    180deg,
-    var(--color-ground-top) 0%,
-    var(--color-ground-middle) 58%,
-    var(--color-ground-bottom) 100%
+  /* The page wash: the drawings' mint to off white to peach. The one gradient
+     the CSS tests allow, for the page background only. */
+  --ground-wash: linear-gradient(
+    165deg,
+    var(--color-wash-top) 0%,
+    var(--color-wash-middle) 50%,
+    var(--color-wash-bottom) 100%
   );
 
-  /* Shadows (v2 "Snow" values, written as 8 digit hex) */
-  --shadow-1: 0 2px 8px #2621460f, 0 1px 2px #2621460d;
-  --shadow-2: 0 8px 24px #26214614, 0 2px 6px #2621460d;
-  --shadow-3: 0 18px 44px #2621461f, 0 6px 14px #26214612;
-  --shadow-dock: 0 -8px 28px #2621461a, 0 -1px 3px #2621460d;
-  --shadow-button: 0 8px 22px #1b1a2047;
+  /* The fine grain: an inline SVG noise with no gradient, drawn on the ground
+     behind panels and text (so it cannot change a text contrast). */
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+  --grain-opacity: 0.07;
 
-  /* Fonts, both v2's own and self-hosted (src/styles/fonts.css).
-     Poppins for headings and Finnish lines, Switzer for body text. */
+  /* Panels: milky white cards, sheets and bars take all four from here */
+  --panel-fill: var(--color-panel);
+  --panel-edge: 1px solid var(--color-panel-edge);
+  --panel-shadow: 0 1px 1px #14282308, 0 14px 30px -14px #14322d38;
+  --panel-radius: 22px;
+  --sheet-radius: 28px;
+
+  /* The landscape (src/components/Landscape.tsx). Drawn art, aria-hidden, so
+     its colours are decoration and carry no text contrast. Day set first. */
+  --land-sky-top: #dff3eb;
+  --land-sky-middle: #f3f6ef;
+  --land-sky-bottom: #fde9dc;
+  --land-ground-top: #d7ece2;
+  --land-ground-middle: #e8f2ea;
+  --land-ground-bottom: #f9e6d8;
+  --land-asphalt-near: #2c3234;
+  --land-asphalt-middle: #465052;
+  --land-asphalt-far: #8f9f9a;
+  --land-verge: #dfe6e1;
+  --land-fell-far: #e1ebf0;
+  --land-fell-left: #d6e8e4;
+  --land-fell-right: #cde5da;
+  --land-snow: #ffffff;
+  --land-ridge: #c4e3d6;
+  --land-pine: #9ccbb9;
+  --land-pine-band: #a9d3c2;
+  --land-hill-band-1: #e2f1ea;
+  --land-hill-band-2: #cfe8dd;
+  --land-hill-band-3: #e9f4ee;
+  --land-sun-core: #fff4ec;
+  --land-sun-mid: #fcd7c4;
+  --land-sun-edge: #f6b89c;
+  --land-sun-halo: #fde4d8;
+  --land-sun-ring: #f1946f;
+  --land-sun-text: #7f3618;
+  --land-flag: #ee8763;
+  --land-trail: #ffffff;
+  --land-line-white: #ffffff;
+  --land-travelled: #8ce6cb;
+  --land-pole: #8b9793;
+  --land-ink: #1b2a26;
+  --land-sign-shadow: #1e322d29;
+  --land-sign-shadow-soft: #1e322d14;
+  --land-you-shadow: #145a4659;
+  --land-star: #ffffff;
+  --land-star-opacity: 0;
+  --land-snow-opacity: 0.95;
+  --land-trail-opacity: 0.9;
+  --land-halo-opacity: 0.6;
+  --land-sun-drop: 0px;
+
+  /* Shadows */
+  --shadow-1: 0 2px 8px #14322d14, 0 1px 2px #14322d0d;
+  --shadow-2: 0 8px 24px #14322d1a, 0 2px 6px #14322d0d;
+  --shadow-3: 0 18px 44px #14322d24, 0 6px 14px #14322d12;
+  --shadow-dock: 0 -8px 28px #14322d1a, 0 -1px 3px #14322d0d;
+  --shadow-button: 0 4px 12px #1b2a2624; /* plain and soft, no glow (owner's call 5) */
+  --shadow-track: inset 0 1px 2px #1428230f; /* the drawings' faint inner shadow of a progress track */
+  --shadow-field:
+    0 1px 1px #1428230a, 0 14px 30px -14px #14322d38; /* the drawings' milky field: no outline, a soft shadow */
+  --shadow-soft-pill: 0 10px 24px -8px #00000066; /* "Got it" on the dimmed screen, as drawn */
+  --shadow-halo-mic:
+    0 0 0 15px #ffffff8c, 0 0 0 30px #ffffff47, 0 15px 35px #143c3c2e; /* the record button's double soft halo, as drawn */
+  --shadow-halo-rec:
+    0 0 0 15px #fde4d8cc, 0 0 0 30px #fde4d873, 0 15px 35px #96462833; /* the same halo while recording, peach */
+
+  /* Fonts: Poppins everywhere, self-hosted (src/styles/fonts.css). Owner's
+     call 3, 1 November 2026. */
   --font-heading: 'Poppins', system-ui, sans-serif;
-  --font-body: 'Switzer', 'Poppins', system-ui, sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
 
-  /* Text sizes in rem, so a browser text size change scales every line */
+  /* Text sizes in rem, so a browser text size change scales every line.
+     The mock sizes times 1.25, raised to the floors (spec statement 5):
+     nothing under 12 px, reading text from 14 px, spoken Finnish from 18 px,
+     written Finnish from 17 px. */
   --text-display: 2.25rem; /* 36 px, page titles on the reference page */
-  --text-title: 1.875rem; /* 30 px, step name */
-  --text-heading: 1.1875rem; /* 19 px, card and section headings */
-  --text-line: 1.375rem; /* 22 px, a spoken Finnish line */
+  --text-title: 1.25rem; /* 20 px, lesson title, sheet title */
+  --text-title-large: 1.375rem; /* 22 px, "Now you can say this." and the privacy notice's title (drawn 18) */
+  --text-avatar: 1.75rem; /* 28 px, the letter on the account page's avatar (drawn 22) */
+  --text-heading: 1.0625rem; /* 17 px, card and section headings */
+  --text-line: 1.1875rem; /* 19 px, the spoken line on the line card */
+  --text-line-large: 1.3125rem; /* 21 px, the spoken line on Understand it */
   --text-word-card: 2rem; /* 32 px, the word at the top of its card */
-  --text-written: 1.0625rem; /* 17 px, the written line under it */
-  --text-body: 1rem; /* 16 px */
-  --text-small: 0.875rem; /* 14 px, labels and notes */
+  --text-written: 1.0625rem; /* 17 px, the written line (the mock's 14.5, raised to the 17 px floor) */
+  --text-body: 0.9375rem; /* 15 px, body and sheet text */
+  --text-reading: 0.875rem; /* 14 px, the least size of a sentence of reading text */
+  --text-button: 0.90625rem; /* 14.5 px */
+  --text-sign: 0.8125rem; /* 13 px, the names on the road signs */
+  --text-sign-road: 0.984375rem; /* 15.75 px: the drawing's 10.5 px sign at its 1.5 scale, before the sign's perspective scale (about 13 px near) */
+  --text-small: 0.75rem; /* 12 px, hints, speaker name, captions, fell labels */
+  --text-small-plus: 0.78125rem; /* 12.5 px */
 
   --leading-tight: 1.15;
   --leading-line: 1.4;
@@ -129,7 +244,7 @@
   /* A Finnish line stays readable at up to this many characters */
   --measure-line: 34ch;
 
-  /* Spacing, v2's 4 px scale. In px on purpose: when a learner makes the
+  /* Spacing, a 4 px scale. In px on purpose: when a learner makes the
      text larger, the text grows and the margins stay, so lines keep room. */
   --space-1: 4px;
   --space-2: 8px;
@@ -141,7 +256,7 @@
   --space-8: 40px;
   --space-9: 56px;
 
-  /* Corner radii, v2's scale */
+  /* Corner radii */
   --radius-word: 6px;
   --radius-sm: 14px;
   --radius-md: 20px;
@@ -152,89 +267,55 @@
   /* Sizes */
   --tap-min: 44px;
   --word-min-width: 24px;
-  --play-size: 56px;
-  --record-size: 72px;
-  --button-height: 54px;
+  --play-size: 48px;
+  --record-size: 88px;
+  --button-height: 52px;
   --focus-width: 3px;
   --focus-offset: 2px;
+  --page-content-top: 168px; /* where a page's content starts, below the hills, trees and sun of the band */
+  --band-height: 210px; /* the landscape band behind the top of a screen at 375 px */
+  --page-profile-top: 112px;
+  --page-near-top: 140px; /* where content starts under a titled top bar, as drawn (Voice settings, Send feedback, Privacy notice) */ /* where the account page's avatar starts, overlapping the band as drawn */
 
-  /* Motion: quiet, colour and opacity, one slide for the word card
-     (v2 rule: no bounce, no scale up). Reduced motion turns slides off. */
+  /* Motion: quiet, colour and opacity, slides for sheets (no bounce).
+     Reduced motion turns slides off. */
   --motion-fast: 150ms;
   --motion-sheet: 220ms;
   --motion-ease: ease;
   --motion-turn: 800ms; /* one turn of a busy or loading ring */
   --motion-pulse: 1.2s; /* one fade of the working dots */
+  --motion-marker: 2s; /* one pulse of the "you" marker */
   --motion-ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --motion-fade: 600ms; /* the crossfade that replaces the opening animation */
+  --motion-intro: 4500ms; /* the opening animation */
+  --motion-stagger: 0.2s; /* between the three loading dots */
 }
 
-/* Dims the page behind the word card. Declared on ::backdrop itself, because
+/* The evening set of the landscape (Done for today, and the end of the road). */
+[data-land='evening'] {
+  --land-sky-top: #30405a;
+  --land-sky-middle: #6c6f8e;
+  --land-sky-bottom: #e8b9a6;
+  --land-ground-top: #56677a;
+  --land-ground-middle: #7b8794;
+  --land-ground-bottom: #c9a99c;
+  --land-asphalt-far: #6d7680;
+  --land-verge: #8a96a0;
+  --land-fell-far: #56667c;
+  --land-fell-left: #4e5c71;
+  --land-fell-right: #475569;
+  --land-ridge: #4a5a6c;
+  --land-pine: #3d4b5b;
+  --land-snow-opacity: 0.5;
+  --land-trail-opacity: 0.55;
+  --land-halo-opacity: 0.25;
+  --land-star-opacity: 1;
+  --land-sun-drop: 22px;
+  --land-ink: #f1f6f4;
+}
+
+/* Dims the page behind a sheet. Declared on ::backdrop itself, because
    older browsers do not pass custom properties from :root to the backdrop. */
 ::backdrop {
-  --color-backdrop: #1b1a2066;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-ground-top: #121117;
-    --color-ground-middle: #141319;
-    --color-ground-bottom: #17161d;
-    --color-surface: #1c1b23;
-    --color-track: #34323f;
-    --color-card-edge: #ffffff14;
-    --color-control-edge: #8a8699;
-
-    --color-text: #f2f0f8;
-    --color-text-quiet: #b8b4c4;
-
-    --color-spoken: #4fb3c4;
-    --color-spoken-text: #7ccad7;
-    --color-spoken-band: #23303a;
-    --color-spoken-band-edge: #4fb3c440;
-
-    --color-written: #a78bea;
-
-    --color-flag-text: #b6c7ff;
-    --color-flag-wash: #22305a;
-
-    --color-current-word: #f2f0f8;
-    --color-current-word-text: #1b1a20;
-    --color-current-line: #4fb3c4;
-    --color-word-hover: #2a2933;
-
-    --color-button: #f2f0f8;
-    --color-button-hover: #ffffff;
-    --color-button-pressed: #d9d6e4;
-    --color-button-text: #1b1a20;
-    --color-button-secondary: #1c1b23;
-    --color-button-secondary-hover: #24232c;
-    --color-button-secondary-pressed: #2c2b35;
-    --color-disabled: #2a2933;
-    --color-disabled-text: #9a96a8;
-    --color-focus: #f2f0f8;
-    --color-wave-played: #4fb3c4;
-    --color-recording: #4fb3c4;
-    --color-recording-text: #121117;
-
-    --color-brand: #6b4fc6;
-    --color-brand-leaf: #ffffff;
-    --color-brand-leaf-back: #d9d1f2;
-    --color-wordmark-quiet: #8a8699;
-
-    --color-gentle-wash: #2a2540;
-    --color-gentle-mark: #a78bea;
-    --color-problem-wash: #2e2216;
-    --color-problem-text: #ffc58a;
-    --color-problem-edge: #d98a3a;
-
-    --shadow-1: 0 1px 2px #00000066;
-    --shadow-2: 0 1px 2px #00000066;
-    --shadow-3: 0 8px 24px #00000080;
-    --shadow-dock: 0 -1px 0 #ffffff14;
-    --shadow-button: none;
-  }
-
-  ::backdrop {
-    --color-backdrop: #000000a6;
-  }
+  --color-backdrop: #1b2a2666;
 }

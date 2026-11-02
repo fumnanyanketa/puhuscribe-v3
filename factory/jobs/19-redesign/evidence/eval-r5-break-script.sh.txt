@@ -1,0 +1,49 @@
+set -u
+S="C:/Users/fumna/AppData/Local/Temp/claude/C--Users-fumna-dev-puhuscribe-v3/4c61d26d-55cf-47da-8e64-ec4ef75e493b/scratchpad"
+WT=C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign
+L="$S/breaks.log"
+cd "$S/copy"
+export PUHUSCRIBE_NO_TRACE=1
+build() { npx vite build > "$S/vb.log" 2>&1 && echo "(rebuilt)" >> "$L" || { echo BUILD FAILED >> "$L"; tail -20 "$S/vb.log" >> "$L"; }; }
+pw() { echo "--- npx playwright test $*" >> "$L"; npx playwright test "$@" --reporter=line > "$S/pw.log" 2>&1; grep -E "^\s+(Error|Expected|Received)|^\s+[0-9]+ (passed|failed|skipped|flaky)|✘|^\s+\[(chromium|webkit)\] ›" "$S/pw.log" | grep -v "^\s*$" | head -40 >> "$L"; }
+mine() { local tag=$1; shift; rm -rf "$S/dry/$tag"; mkdir -p "$S/dry/$tag"; EVAL_OUT="$S/dry/$tag" EVAL_TAG="$tag" npx playwright test e2e/eval-r5.spec.ts --reporter=line "$@" > "$S/mine.log" 2>&1; echo "--- evaluator script ($tag) $*: $(grep -E '[0-9]+ (passed|failed)' "$S/mine.log" | tr -s ' ' | tr '\n' ' ')" >> "$L"; }
+restore() { cp "$WT/src/components/FinnishLine.module.css" src/components/FinnishLine.module.css; cp "$WT/src/screens/VoiceSettings.tsx" src/screens/VoiceSettings.tsx; cp "$WT/src/screens/SayIt.tsx" src/screens/SayIt.tsx; cp "$WT/src/components/Sheet.tsx" src/components/Sheet.tsx; diff -rq src "$WT/src" > /dev/null && echo "restored: copy src identical to worktree src" >> "$L" || echo "RESTORE MISMATCH" >> "$L"; }
+BUILDER='21 letter tappable|Speaking feedback switch opens the consent sheet|quiet .Turn on speaking feedback. in Say it|redesign 47\] a tap on a word|redesign 22\] a tap on the cross'
+
+echo "Break proofs in a throwaway copy of commit 53428b9 (git archive into the scratchpad), never the worktree. Each break is undone before the next and the copy is rebuilt with vite build. Browser tests run against vite preview over HTTPS with the builder's mocks." > "$L"
+echo "=== baseline (unbroken)" >> "$L"
+pw e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g "$BUILDER"
+
+echo "=== break A: the round 4 word button (old negative margin, no padding, no text-align), i.e. FinnishLine.module.css as at 2ef3ad3" >> "$L"
+cp "$S/FinnishLine.r4.css" src/components/FinnishLine.module.css; build
+pw e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g "21 letter tappable"
+mine A --project=chromium --project=webkit -g "46 (hear-it|say-it) 375"
+restore
+
+echo "=== break B: only 'text-align: start;' removed from .word" >> "$L"
+python -c "p='src/components/FinnishLine.module.css';s=open(p,encoding='utf8').read();assert '  text-align: start;\n' in s;open(p,'w',encoding='utf8').write(s.replace('  text-align: start;\n','',1))"; build
+pw e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g "21 letter tappable"
+mine B --project=chromium --project=webkit -g "46 (hear-it|say-it) 375"
+restore
+
+echo "=== break C: Voice settings does not pass returnFocus={speakingSwitch} to its ConsentSheet" >> "$L"
+python -c "p='src/screens/VoiceSettings.tsx';s=open(p,encoding='utf8').read();t='        returnFocus={speakingSwitch}\n';assert t in s;open(p,'w',encoding='utf8').write(s.replace(t,'',1))"; build
+pw e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g "Speaking feedback switch opens the consent sheet"
+mine C --project=webkit --project=chromium -g "47"
+restore
+
+echo "=== break D: Say it does not give focus back to its quiet button (reopen.current?.focus() removed)" >> "$L"
+python -c "p='src/screens/SayIt.tsx';s=open(p,encoding='utf8').read();t='      reopen.current?.focus()\n';assert t in s;open(p,'w',encoding='utf8').write(s.replace(t,'',1))"; build
+pw e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g "quiet .Turn on speaking feedback. in Say it"
+mine D --project=webkit --project=chromium -g "47"
+restore
+
+echo "=== break E: Sheet ignores returnFocus and goes back to remembering document.activeElement" >> "$L"
+python -c "p='src/components/Sheet.tsx';s=open(p,encoding='utf8').read();t='const opener = returnFocus?.current ?? active';assert t in s;open(p,'w',encoding='utf8').write(s.replace(t,'const opener = active',1))"; build
+pw e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g "$BUILDER"
+mine E --project=webkit --project=chromium -g "47"
+restore
+build
+echo "=== after restore and rebuild" >> "$L"
+pw e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g "$BUILDER"
+echo DONE >> "$L"

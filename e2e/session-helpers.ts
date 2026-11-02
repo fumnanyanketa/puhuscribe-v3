@@ -60,10 +60,62 @@ export async function startSession(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+  // The tip on a first lesson has its own tests (e2e/redesign-lesson.spec.ts); the others start without it.
+  await dismissTip(page)
+}
+
+/**
+ * Waits until the screen has decided which sheet it shows. Say it asks for the voice settings first and says
+ * "Loading speaking feedback." until they are known; then the consent sheet may open. A sheet opens in an
+ * effect right after the screen is drawn, so the wait also lets two frames pass. One look with `isVisible()`
+ * could come a moment too early and miss the sheet (a race in round 3, found by the evaluator).
+ */
+export async function sheetsSettled(page: Page): Promise<void> {
+  await expect(page.getByText('Loading speaking feedback.')).toHaveCount(0)
+  await page.evaluate(
+    '(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))))()',
+  )
+}
+
+/**
+ * The tip on a learner's first lesson (job 19-redesign, statement 25): "Got it"
+ * closes it. Most tests are about something else and start with it closed.
+ */
+export async function dismissTip(page: Page): Promise<void> {
+  await sheetsSettled(page)
+  const gotIt = page.getByRole('button', { name: 'Got it' })
+  if (await gotIt.isVisible()) {
+    await gotIt.click()
+    await expect(gotIt).toBeHidden()
+  }
+}
+
+/**
+ * The cross opens "Leave this lesson?"; "Leave" goes to the road (job 19-redesign, statement 22).
+ * The first lesson tip and the speaking consent sheet are modal, so the cross cannot be pressed
+ * until they are closed ("Got it", "Not now"). On the finish screen nothing is lost, so the cross
+ * is a link that leaves at once.
+ */
+export async function leaveLesson(page: Page): Promise<void> {
+  await dismissTip(page)
+  await sheetsSettled(page)
+  const consent = page.getByRole('dialog', { name: 'Say it out loud' })
+  if (await consent.isVisible()) await consent.getByRole('button', { name: 'Not now' }).click()
+  const link = page.getByRole('link', { name: 'Leave session' })
+  if ((await link.count()) > 0) {
+    await link.click()
+    return
+  }
+  await page.getByRole('button', { name: 'Leave session' }).click()
+  await page
+    .getByRole('dialog', { name: 'Leave this lesson?' })
+    .getByRole('button', { name: 'Leave' })
+    .click()
 }
 
 /** Shows every line of Hear it and presses Continue. */
 export async function finishHearIt(page: Page): Promise<void> {
+  await dismissTip(page)
   for (;;) {
     const next = page.getByRole('button', { name: 'Next line' })
     if ((await next.count()) === 0) break
@@ -104,7 +156,8 @@ export async function finishLineId(page: Page): Promise<string> {
 export async function afterNext(page: Page, previousLineId: string): Promise<'done' | 'question'> {
   const done = page
     .getByRole('heading', { level: 1, name: 'Say it' })
-    .or(page.getByRole('heading', { level: 1, name: 'Speaking feedback' }))
+    .or(page.getByRole('dialog', { name: 'Say it out loud' }))
+    .first()
   const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
   const seen: { state: 'done' | 'question' | 'waiting' } = { state: 'waiting' }
   await expect

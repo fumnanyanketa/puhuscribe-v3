@@ -1,0 +1,69 @@
+/* The new words panel on the finish screen (design.md, "The finished lesson"), as drawn (round 6): a milky
+   card, the quiet count, small mint chips and a grey "+N". Values from src/styles/tokens.css. */
+
+.panel {
+  padding: 14px var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.heading {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-sign);
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+  color: var(--color-text-quiet);
+}
+
+/* The 44 px tap areas of two rows overlap a little, so the drawn pills sit close, as drawn. */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-2);
+  margin: -5px 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A chip: a 44 px tap area with the drawn small pill inside it. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  margin: -2px 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pill {
+  display: inline-block;
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  background: var(--color-mint-soft);
+  color: var(--color-mint-deep);
+  font-family: var(--font-heading);
+  font-size: var(--text-sign);
+  font-weight: var(--weight-medium);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.chip:hover .pill {
+  background: var(--color-word-hover);
+}
+
+.more,
+.chip:hover .more {
+  background: var(--color-sign-num);
+  color: var(--color-text-quiet);
+}

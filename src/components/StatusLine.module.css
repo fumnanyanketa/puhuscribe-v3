@@ -14,19 +14,21 @@
   color: var(--color-text-quiet);
 }
 
-/* Gentle correction: rounded lavender block, an open circle as its mark. */
+/* Gentle note, as drawn (round 6): a rounded peach block, peach text and an open peach ring. */
 .gentle {
+  align-items: center;
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-gentle-wash);
+  color: var(--color-peach-text);
 }
 
 .gentle .mark {
   flex: none;
-  width: 14px;
-  height: 14px;
-  margin-top: 0.3em;
-  border: 2px solid var(--color-gentle-mark);
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid var(--color-gentle-mark);
   border-radius: 50%;
 }
 
@@ -45,4 +47,24 @@
   height: 12px;
   margin-top: 0.35em;
   background: var(--color-problem-edge);
+}
+
+/* Last, so it wins over a tone's padding and edge: a line for screen readers only takes no room. */
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The sentence inside keeps the same 1 px box, so its own width never reaches past the screen. */
+.hidden > span {
+  display: block;
+  width: 1px;
+  white-space: normal;
 }

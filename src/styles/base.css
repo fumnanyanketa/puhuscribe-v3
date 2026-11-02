@@ -10,15 +10,15 @@
   box-sizing: border-box;
 }
 
-/* The page background is the one place the white to lilac fade is used. */
+/* The page background is the one place the mint to peach wash is used. */
 :where(html) {
   min-height: 100%;
-  background-color: var(--color-ground-bottom);
-  background-image: var(--ground-fade);
+  background-color: var(--color-wash-middle);
+  background-image: var(--ground-wash);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 100%;
   font-weight: var(--weight-regular);
+  font-size: 100%;
   line-height: var(--leading-body);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -26,8 +26,22 @@
 
 :where(body) {
   margin: 0;
+  font-size: var(--text-body);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The fine grain sits on the ground, behind the panels and the text, so it
+   cannot change a text contrast. It is an inline SVG (--grain in tokens.css)
+   and covers the screen without taking a tap. */
+:where(body)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: var(--grain);
 }
 
 :where(h1, h2, h3) {
@@ -46,17 +60,17 @@
   padding: var(--space-6) var(--space-5);
 }
 
-/* A button with no component style of its own (the front page's "Try again")
-   gets explicit token colours, the white pill look and the 44 px tap size.
-   Left to the browser, dark mode gave it white text on a light grey that axe
-   measured at 1.81:1 (job 5, round 3). Component styles override all of this. */
+/* A button with no component style of its own gets explicit token colours, the
+   white pill look and the 44 px tap size. Left to the browser, a button could
+   get colours that fail contrast in WebKit (job 5, round 3). Component styles
+   override all of this. */
 :where(button) {
   min-height: var(--tap-min);
   padding: 0 var(--space-5);
-  border: 1px solid var(--color-control-edge);
+  border: 1px solid var(--color-control-edge-soft);
   border-radius: var(--radius-pill);
   background: var(--color-button-secondary);
-  color: var(--color-text);
+  color: var(--color-mint-deep);
   font: inherit;
   cursor: pointer;
 }

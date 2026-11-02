@@ -1,5 +1,6 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { one, sessionsOf, sql } from './db.ts'
 import {
@@ -20,7 +21,7 @@ import {
   throughUnderstandIt,
   typeAnswer,
 } from './review-helpers.ts'
-import { scrollsSideways, serveTone, tabTo } from './session-helpers.ts'
+import { leaveLesson, scrollsSideways, serveTone, settleAnimations, tabTo } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/9-daily-review/spec.md that each test protects.
@@ -32,15 +33,21 @@ import { scrollsSideways, serveTone, tabTo } from './session-helpers.ts'
 // content is read from the database. "A day later" moves this learner's card
 // times back 24 hours in the local database (e2e/review-helpers.ts).
 
-const ENDS_WITH_REVIEW = 'It ends with a short review of words you met before.'
-const REVIEW_ONLY = 'A short review of words you met before. Type each missing word from memory.'
-const ALL_DONE = 'You have finished every dialogue that is ready.'
+// Job 19-redesign (statements 14 and 15): the front door is the road. Its card says "Start" on a day
+// with a lesson, and "Review", the number of words and the minutes, with "Start review", on a day that
+// has only a review. The old sentences about the review ("It ends with a short review of words you met
+// before.") are not on the road.
+const START = { name: /^Start( review)?$/ }
 
-/** Front door text that would be a count of due words, a score or a celebration. */
+/** Text that would be a score or a celebration, or a count of due words on a day that has a lesson. */
 const NO_COUNTS = /\d+\s*(words?|cards?|reviews?|due)|streak|score|points|badge|congratulations|well done/i
+const NO_SCORES = /streak|score|points|badge|congratulations|well done/i
+
+/** The card at the bottom of the road. */
+const todayCard = (page: Page) => page.getByRole('region', { name: 'Today' })
 
 async function frontDoorText(page: Page): Promise<string> {
-  return page.locator('main').innerText()
+  return todayCard(page).innerText()
 }
 
 /** A learner who met their first dialogue yesterday, now back at the front door. */
@@ -64,8 +71,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const { userId } = await finishFirstSession(page)
 
     // First day, after dialogue 1: job 8's front door for the next dialogue, no word of review.
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    await expect(page.getByRole('button', START)).toBeVisible()
     const firstDay = await frontDoorText(page)
     expect(firstDay).not.toMatch(/review/i)
     expect(firstDay).not.toMatch(NO_COUNTS)
@@ -73,17 +80,16 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // A day later, a dialogue ready and words reviewable: one sentence added, one Start.
     dayLater(userId)
     await page.reload()
-    await expect(page.getByText(ENDS_WITH_REVIEW, { exact: false })).toBeVisible()
-    await expect(page.getByRole('button')).toHaveCount(1)
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await expect(todayCard(page).getByRole('button')).toHaveCount(1)
     expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
 
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await page.waitForURL('**/session')
-    await expect(page.getByText('Hear it, step 1 of 4', { exact: true })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
     await throughUnderstandIt(page, userId)
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
-    await expect(page.getByText('Keep it, step 4 of 4', { exact: true })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Keep it, step 4 of 4' })).toBeVisible()
     await expect(page.getByText(/^Word 1 of \d+\.$/)).toBeVisible()
     const session = sessionsOf(userId).find((s) => !s.ended)
     expect(session?.step).toBe('say')
@@ -97,7 +103,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     })
     const firstPass = answered.filter((a) => !a.retry)
     const retries = answered.filter((a) => a.retry)
-    expect(firstPass[0]?.status).toBe('Close. Check the spelling below.')
+    expect(firstPass[0]?.status).toBe('Close. Check the spelling above.')
     expect(firstPass[1]?.status).toBe('Here is the word. It will come back soon.')
     for (const a of firstPass.slice(2)) expect(a.status).toBe('Yes, that is right.')
     // [review 13] The two missed items came back once each, after the others, and no third time.
@@ -106,7 +112,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     // The finish screen as in job 8.
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
+    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
     await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
     const row = sessionsOf(userId).find((s) => s.id === session?.id)
     expect(row?.step).toBe('keep')
@@ -124,7 +131,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     page,
   }) => {
     const { userId } = await metYesterday(page)
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await page.waitForURL('**/session')
     await throughUnderstandIt(page, userId)
     const total = Number(/of (\d+)/.exec(await page.getByText(/^Word 1 of \d+\.$/).innerText())?.[1])
@@ -133,7 +140,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const right = await answerItem(page, 'right')
     await nextItem(page)
     const wrong = await answerItem(page, 'wrong', 'check')
-    await expect(page.getByText(/^You wrote/)).toBeVisible()
+    // Round 6 (job 19-redesign): the field keeps what was typed, drawn; "You wrote" is read by screen readers.
+    await expect(page.getByText(/^You wrote/)).toBeAttached()
+    await expect(page.locator('[data-review-feedback] p[aria-hidden="true"]')).toBeVisible()
 
     // Saved at once: two log rows, ratings 3 and 1, mode typed.
     const logs = logsOf(userId)
@@ -157,9 +166,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     }
 
     // [review 14] Leave, then continue: Keep it again, without the two answered words.
-    await page.getByRole('link', { name: 'Leave session' }).click()
+    await leaveLesson(page)
     await page.waitForURL((url) => url.pathname === '/')
-    await page.getByRole('button', { name: "Continue today's session" }).click()
+    await page.getByRole('button', { name: 'Continue', exact: true }).click()
     await page.waitForURL('**/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
     await expect(page.getByText(`Word 1 of ${String(total - 2)}.`, { exact: true })).toBeVisible()
@@ -178,23 +187,26 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     finishEveryOtherDialogue(userId)
     dayLater(userId)
     await page.reload()
-    await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
-    await expect(page.getByText(REVIEW_ONLY, { exact: true })).toBeVisible()
-    await expect(page.getByRole('button')).toHaveCount(1)
-    expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    // The review card shows the count of words and the minutes (owner's answer, 1 November 2026).
+    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Review' })).toBeVisible()
+    await expect(todayCard(page).getByText(/^About \d+ minutes?$/)).toBeVisible()
+    await expect(todayCard(page).getByLabel(/^\d+ words$/)).toBeVisible()
+    await expect(todayCard(page).getByRole('button')).toHaveCount(1)
+    expect(await frontDoorText(page)).not.toMatch(NO_SCORES)
     const events = one(`select count(*) from public.usage_events where user_id = :'uid'`, { uid: userId })
     const cards = one(`select count(*) from public.cards where user_id = :'uid'`, { uid: userId })
 
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await page.waitForURL('**/session')
-    await expect(page.getByText('Keep it, step 1 of 1', { exact: true })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Keep it, step 1 of 1' })).toBeVisible()
     const reviewRow = sessionsOf(userId).find((s) => s.dialogueId === '')
     expect(reviewRow?.ended).toBe(false)
 
-    // [review 4] Leaving shows "Continue today's session", which reuses the same row.
-    await page.getByRole('link', { name: 'Leave session' }).click()
+    // [review 4] Leaving shows "Continue", which reuses the same row.
+    await leaveLesson(page)
     await page.waitForURL((url) => url.pathname === '/')
-    await page.getByRole('button', { name: "Continue today's session" }).click()
+    await page.getByRole('button', { name: 'Continue', exact: true }).click()
     await page.waitForURL('**/session')
     expect(sessionsOf(userId).filter((s) => s.dialogueId === '')).toHaveLength(1)
 
@@ -203,9 +215,10 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(
       page.getByText('These words will come back when they are due.', { exact: true }),
     ).toBeVisible()
-    await expect(page.getByText('Session finished', { exact: true })).toBeVisible()
-    await expect(page.getByRole('button')).toHaveCount(1)
-    await expect(page.getByText(NO_COUNTS)).toHaveCount(0)
+    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
+    await expect(page.getByRole('button', { name: 'Done' })).toBeVisible()
+    await expect(page.getByText(NO_SCORES)).toHaveCount(0)
     const [row] = sessionsOf(userId).filter((s) => s.dialogueId === '')
     expect(row?.step).toBe('keep')
     expect(row?.ended).toBe(true)
@@ -218,10 +231,11 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 5] Nothing ready and nothing due: plain words and the day of the next review.
     await page.getByRole('button', { name: 'Done' }).click()
     await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('heading', { level: 1, name: 'That is all for today.' })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText(ALL_DONE)
-    await expect(page.getByText('Your next review is tomorrow.', { exact: true })).toBeVisible()
-    await expect(page.getByRole('button')).toHaveCount(0)
+    // The road's card says "Done for today" with the day of the next review (statement 15).
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
+    await expect(todayCard(page).getByText('Your next review is tomorrow.', { exact: true })).toBeVisible()
+    await expect(todayCard(page).getByRole('button')).toHaveCount(0)
     await expect(page.locator('main img')).toHaveCount(0)
     expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
 
@@ -233,16 +247,16 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     )
     const day = one(`select to_char((now() at time zone 'Europe/Helsinki')::date + 5, 'FMDay FMDD FMMonth')`)
     await page.reload()
-    await expect(page.getByText(`Your next review is on ${day}.`, { exact: true })).toBeVisible()
+    await expect(todayCard(page).getByText(`Your next review is on ${day}.`, { exact: true })).toBeVisible()
   })
 
-  test('[review 9] the ä button types where the cursor is and keeps focus; Check waits for text; Enter submits', async ({
+  test('[review 9] [redesign 31] the ä button types where the cursor is and keeps focus; Check waits for text; Enter submits', async ({
     page,
   }) => {
     const { userId } = await metYesterday(page)
     finishEveryOtherDialogue(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await page.waitForURL('**/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
 
@@ -290,7 +304,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     expect(logsOf(userId).map((l) => l.formId)).toEqual([formId])
   })
 
-  test('[review 8] [review 12] [review 17] the items hold no answer and no draft; after answering, the whole line, the word and what was typed, gently', async ({
+  test('[review 8] [review 12] [review 17] [redesign 31] the items hold no answer and no draft; after answering, the whole line, the word and what was typed, gently', async ({
     page,
   }) => {
     const { userId } = await metYesterday(page)
@@ -301,7 +315,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
         /\/api\/sessions\/[0-9a-f-]+\/review$/.test(new URL(res.url()).pathname) &&
         res.request().method() === 'GET',
     )
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     const body = await (await itemsAnswer).text()
     const { items } = JSON.parse(body) as {
       items: { formId: number; register: string; words: { text?: string; gap?: true }[]; gloss: string }[]
@@ -346,13 +360,14 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 12] Close: gentle, both registers, both play controls, the word marked in both lines, what was typed.
     const formId = await answerItem(page, 'close')
     const { spoken, written } = shapesOf(formId)
-    await expect(page.getByRole('status')).toHaveText('Close. Check the spelling below.')
+    await expect(page.getByRole('status')).toHaveText('Close. Check the spelling above.')
     await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
     const feedback = page.locator(`[data-review-feedback="${formId}"]`)
     await expect(feedback.getByRole('button', { name: 'Play the spoken line', exact: true })).toHaveCount(1)
     await expect(feedback.getByRole('button', { name: 'Play the written line', exact: true })).toHaveCount(1)
-    await expect(feedback.getByText('Spoken', { exact: true }).first()).toBeVisible()
-    await expect(feedback.getByText('Written', { exact: true }).first()).toBeVisible()
+    // No "Spoken" and "Written" labels since job 19-redesign (statement 23): each line's group is named.
+    await expect(feedback.getByRole('group', { name: 'How people say it' })).toBeVisible()
+    await expect(feedback.getByRole('group', { name: 'How it is written' })).toBeVisible()
     // Every word of the line linked to the form is marked, in each register
     // (a form can sit in one register only, such as "moi" against "hei").
     const lineId = (await feedback.locator('[data-line-id]').first().getAttribute('data-line-id')) ?? ''
@@ -366,7 +381,9 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(feedback.getByText(', the missing word')).toHaveCount(linked)
     await expect(feedback.locator('[lang="fi"]', { hasText: spoken }).first()).toBeVisible()
     await expect(feedback.locator('[lang="fi"]', { hasText: written }).first()).toBeVisible()
-    await expect(feedback.getByText(/^You wrote/)).toBeVisible()
+    // Round 6 (job 19-redesign): the field keeps what was typed, drawn; "You wrote" is read by screen readers.
+    await expect(feedback.getByText(/^You wrote/)).toBeAttached()
+    await expect(feedback.locator('p[aria-hidden="true"]')).toBeVisible()
     // Words are tappable for their cards, as in job 8.
     await feedback.locator('[lang="fi"] button').first().click()
     await expect(page.getByRole('dialog')).toBeVisible()
@@ -407,7 +424,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const { userId } = await metYesterday(page)
     finishEveryOtherDialogue(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await page.waitForURL('**/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
     const sessionId = sessionsOf(userId).find((s) => s.dialogueId === '')?.id ?? ''
@@ -448,7 +465,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const { userId } = await metYesterday(page)
     finishEveryOtherDialogue(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', START).click()
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
     const check = async (label: string) => {
       for (const [width, text] of [
@@ -480,7 +497,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Review finished.' })).toBeVisible()
     await check('Review finished')
     await page.getByRole('button', { name: 'Done' }).click()
-    await expect(page.getByRole('heading', { level: 1, name: 'That is all for today.' })).toBeVisible()
+    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
     await check('Empty day')
   })
 
@@ -490,7 +507,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     const { userId } = await metYesterday(page)
     finishEveryOtherDialogue(userId)
     await page.reload()
-    const start = page.getByRole('button', { name: 'Start', exact: true })
+    const start = page.getByRole('button', START)
     await tabTo(page, start, testInfo)
     await page.keyboard.press('Enter')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
@@ -549,6 +566,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
       const scan = async (label: string) => {
         await page.evaluate('document.fonts.ready')
+        await settleAnimations(page)
         const result = await new AxeBuilder({ page }).withTags(TAGS).analyze()
         expect(
           result.violations.map(
@@ -558,13 +576,13 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       }
       const { userId } = await metYesterday(page)
       await page.reload()
-      await expect(page.getByText(ENDS_WITH_REVIEW, { exact: false })).toBeVisible()
-      await scan('front door, session ends with a review')
+      await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+      await scan('front door, a lesson and a review')
       finishEveryOtherDialogue(userId)
       await page.reload()
-      await expect(page.getByText(REVIEW_ONLY, { exact: true })).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Start review', exact: true })).toBeVisible()
       await scan('front door, review only')
-      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await page.getByRole('button', START).click()
       await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
       await scan('Keep it, answering')
       await answerItem(page, 'close')
@@ -589,7 +607,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Review finished.' })).toBeVisible()
       await scan('Review finished')
       await page.getByRole('button', { name: 'Done' }).click()
-      await expect(page.getByRole('heading', { level: 1, name: 'That is all for today.' })).toBeVisible()
+      await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
       await scan('front door, empty day')
     })
   }

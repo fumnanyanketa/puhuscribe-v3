@@ -146,6 +146,20 @@ export interface SaveNoteDb {
 }
 
 /**
+ * What the finish screen shows about a lesson that just ended (job
+ * 19-redesign): which review cards the lesson added. A read of the learner's own
+ * cards, made with their own token. Kept apart from LearnerDb like SaveNoteDb.
+ */
+export interface LessonFactsDb {
+  /**
+   * The form ids of the learner's cards created at this moment. public.complete_session
+   * adds a session's cards in the same transaction that ends it, so their created_at
+   * equals the session's ended_at; a card the learner already had is older.
+   */
+  newCardFormIds: (createdAt: string) => Promise<number[]>
+}
+
+/**
  * The reads and writes of the Keep it step (factory/jobs/9-daily-review/spec.md),
  * made with the learner's own token like every LearnerDb call. Kept apart from
  * LearnerDb so job 8's routes and their tests stay as they were.
@@ -200,7 +214,7 @@ function must<T>(result: { data: T | null; error: unknown }): T {
   return result.data
 }
 
-export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb & SaveNoteDb {
+export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb & SaveNoteDb & LessonFactsDb {
   return {
     async readableDialogues() {
       const units = await readAll(
@@ -338,6 +352,12 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
       if (error.code === 'P0002') return 'not_found'
       if (error.code === '22023') return 'not_ready'
       throw new DatabaseUnavailable()
+    },
+
+    async newCardFormIds(createdAt) {
+      const result = await client.from('cards').select('form_id').eq('created_at', createdAt)
+      if (result.error) throw new DatabaseUnavailable()
+      return result.data.map((row) => row.form_id)
     },
 
     async saveProgressNote(id) {

@@ -1,13 +1,14 @@
 /* Record control (design.md, "Record control"). Values from src/styles/tokens.css. */
 
-.row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  /* Room for the 6 px recording ring, so nothing round the row clips it. */
-  padding: var(--space-2);
+.column {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  /* Room for the two halos, so nothing round it clips them. */
+  padding: var(--space-7) var(--space-7) var(--space-2);
 }
 
+/* The large round button with the drawing's double soft halo (round 6). */
 .record {
   display: grid;
   flex: none;
@@ -19,7 +20,7 @@
   border-radius: 50%;
   background: var(--color-button);
   color: var(--color-button-text);
-  box-shadow: var(--shadow-button);
+  box-shadow: var(--shadow-halo-mic);
   cursor: pointer;
   transition: background-color var(--motion-fast) var(--motion-ease);
 }
@@ -29,27 +30,25 @@
 }
 
 .line {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2.6;
   stroke-linecap: round;
 }
 
-/* Recording: teal fill, a square stop mark, and a teal ring round it. */
+.capsule {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Recording: peach, with softer peach rings. */
 .recording,
 .recording:hover {
   background: var(--color-recording);
   color: var(--color-recording-text);
-  box-shadow: 0 0 0 6px var(--color-spoken-band);
-}
-
-.stop {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  background: currentColor;
+  box-shadow: var(--shadow-halo-rec);
 }
 
 .working {
@@ -70,11 +69,11 @@
 }
 
 .dots span:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: var(--motion-stagger);
 }
 
 .dots span:nth-child(3) {
-  animation-delay: 0.4s;
+  animation-delay: calc(var(--motion-stagger) * 2);
 }
 
 @keyframes fade {
@@ -92,8 +91,10 @@
 }
 
 .caption {
-  margin: 0;
-  font-size: var(--text-small);
+  margin: var(--space-6) 0 0;
+  max-width: 28ch;
+  text-align: center;
+  font-size: var(--text-reading);
   line-height: var(--leading-body);
   color: var(--color-text-quiet);
 }
@@ -102,6 +103,24 @@
   font-variant-numeric: tabular-nums;
   font-weight: var(--weight-semibold);
   color: var(--color-text);
+}
+
+/* A still sound wave: bars of the drawing's heights. */
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 32px;
+}
+
+.wave i {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-wave-played);
+}
+
+.waveRecording i {
+  background: var(--color-recording);
 }
 
 @media (prefers-reduced-motion: reduce) {

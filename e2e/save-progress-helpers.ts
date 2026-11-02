@@ -24,8 +24,8 @@ export { copy }
 
 /** The finish screen's line for a guest (the owner's choice of 1 November 2026). */
 export const SAVED = copy.SAVED_ON_THIS_DEVICE
-/** The finish screen's line for an account with an email: unchanged since job 8. */
-export const SAVED_PLAIN = 'Your progress is saved.'
+/** The finish screen's line for an account with an email (job 19-redesign round 6: the drawing's "Saved to your account."). */
+export const SAVED_PLAIN = 'Your progress is saved to your account.'
 export const SAVING = 'Saving your progress.'
 export const NOT_SAVED = 'Your progress was not saved. Check your internet connection, then try again.'
 export const COMES_BACK = 'The words you met will come back in your review.'
@@ -63,8 +63,14 @@ export function recordCompleteAnswers(page: Page): CompleteAnswer[] {
       return
     }
     const status = response.status()
+    // Job 19-redesign added `newWords` to the answer for the finish screen's chips. This job's
+    // tests are about the other fields, so the list of words is left out of what is compared.
+    const withoutWords = (body: unknown): unknown => {
+      if (typeof body !== 'object' || body === null || Array.isArray(body)) return body
+      return Object.fromEntries(Object.entries(body).filter(([key]) => key !== 'newWords'))
+    }
     void response.json().then(
-      (body: unknown) => answers.push({ status, body }),
+      (body: unknown) => answers.push({ status, body: withoutWords(body) }),
       () => answers.push({ status, body: null }),
     )
   })
@@ -101,7 +107,7 @@ export async function walkNextSession(page: Page, userId: string): Promise<void>
 /** The learner's open session, from the front door's "Continue" button. */
 export async function walkContinuedSession(page: Page, userId: string): Promise<void> {
   await page.goto('/')
-  await page.getByRole('button', { name: "Continue today's session" }).click()
+  await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   await walkFromHearIt(page, userId)
@@ -188,6 +194,10 @@ export async function axeIn(page: Page, label: string, include: string): Promise
 /** The whole note is on screen and clear of the bottom action area (statement 14). */
 export async function expectNoteFullyVisible(page: Page, label: string): Promise<void> {
   const note = noteOf(page)
+  // The redrawn finish screen scrolls above its action area (job 19-redesign, statement 33): the
+  // note sits after the new words, so the learner scrolls to it. Once there, all of it is in view
+  // and nothing covers it.
+  await note.scrollIntoViewIfNeeded()
   await expect(note, label).toBeInViewport({ ratio: 1 })
   const actions = page.getByRole('button', { name: 'Done', exact: true }).locator('xpath=..')
   const noteBox = await note.boundingBox()

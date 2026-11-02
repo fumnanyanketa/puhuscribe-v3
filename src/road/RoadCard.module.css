@@ -1,0 +1,150 @@
+/* The card at the bottom of the road (design.md, "The road"). Values from src/styles/tokens.css. */
+
+/* As drawn (round 6): a 90 percent white card, so the road shows faintly through it at the bottom. Its
+   quiet text stays 4.5:1 or more over the darkest asphalt (worked in build.md). */
+.card {
+  display: grid;
+  gap: 13px;
+  padding: 18px;
+  border: var(--panel-edge);
+  border-radius: 30px;
+  background: var(--color-road-card);
+  box-shadow: 0 18px 45px var(--land-sign-shadow);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.text {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.sub {
+  margin: 2px 0 0;
+  font-size: var(--text-sign);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+.tile,
+.countTile {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-mint-soft);
+  color: var(--color-mint-deep);
+  font-size: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.countTile {
+  background: var(--color-peach-soft);
+  color: var(--color-peach-text);
+}
+
+.tickIcon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pieces {
+  display: flex;
+  gap: 6px;
+}
+
+/* As drawn (round 6): solid pieces, a lesson not done in pale mint with no outline, a lesson done in mint. */
+.piece,
+.pieceDone {
+  flex: 1;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--color-mint-soft);
+}
+
+.pieceDone {
+  background: var(--color-mint);
+}
+
+.account {
+  margin: calc(-1 * var(--space-2)) 0 0;
+  font-size: var(--text-reading);
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+/* "Sign in" in mint, as drawn; the tap area reaches 44 px tall. */
+.link {
+  display: inline-block;
+  padding: var(--space-3) var(--space-1);
+  color: var(--color-mint-deep);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+/* The protected guest line stays in full, small, quiet and centred, with the Privacy notice link after it. */
+.legal {
+  margin: calc(-1 * var(--space-3)) 0 0;
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+.legalLink {
+  display: inline-block;
+  padding: 14px 2px;
+  margin: -14px 0;
+  color: var(--color-text-quiet);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mint-mid);
+  text-underline-offset: 3px;
+}
+
+.next {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--text-reading);
+}
+
+.nextLabel {
+  color: var(--color-text-quiet);
+}
+
+.nextName {
+  min-width: 0;
+  text-align: right;
+  font-weight: var(--weight-semibold);
+  color: var(--color-peach-deep);
+  overflow-wrap: anywhere;
+}
+
+.message {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}

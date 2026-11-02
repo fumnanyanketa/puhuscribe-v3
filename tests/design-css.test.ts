@@ -4,9 +4,10 @@ import { describe, expect, it } from 'vitest'
 
 // Statement 18 of factory/jobs/5-design-system/spec.md: the banned look and
 // CSS newer than the oldest supported Safari (15.4) are refused in src/.
-// One owner-approved exception (21 October 2026, summary.md): v2's white to
-// lilac fade, declared once as --ground-fade in tokens.css and used only as
-// the page background in base.css. Every other gradient is refused.
+// One owner-approved exception (21 October 2026, summary.md; the name and the
+// colours changed in job 19-redesign): the page wash, declared once as
+// --ground-wash in tokens.css and used only as the page background in
+// base.css. Every other CSS gradient is refused.
 //
 // Each rule is proven by the "catches" tests below, which feed it a line that
 // breaks it and expect a finding.
@@ -33,10 +34,10 @@ function withoutComments(css: string): string {
 const TOKENS_PATH = 'src/styles/tokens.css'
 const BASE_PATH = 'src/styles/base.css'
 
-// The one allowed gradient: the --ground-fade declaration in tokens.css.
+// The one allowed gradient: the --ground-wash declaration in tokens.css.
 function allowedGradients(file: SourceFile): number {
   if (file.path !== TOKENS_PATH) return 0
-  return [...withoutComments(file.text).matchAll(/--ground-fade:\s*linear-gradient\(/g)].length
+  return [...withoutComments(file.text).matchAll(/--ground-wash:\s*linear-gradient\(/g)].length
 }
 
 /** Width of one border width token in px, or null when the token is not a width. */
@@ -134,8 +135,8 @@ function findBannedCss(files: SourceFile[]): string[] {
 
     const gradients = [...text.matchAll(/gradient\(/gi)].length
     if (gradients > allowedGradients(file)) say('a gradient other than the page background fade')
-    if (text.includes('var(--ground-fade)') && file.path !== BASE_PATH)
-      say('--ground-fade used outside the page background')
+    if (text.includes('var(--ground-wash)') && file.path !== BASE_PATH)
+      say('--ground-wash used outside the page background')
 
     for (const [pattern, name] of NEWER_CSS) {
       if (pattern.test(text)) say(`${name}, newer than Safari 15.4`)
@@ -155,7 +156,7 @@ describe('banned look and CSS for old phones', () => {
   it('[design 18] the page background fade is declared once, in tokens.css, and used only in base.css', () => {
     const tokens = readFileSync(TOKENS_PATH, 'utf8')
     expect(allowedGradients({ path: TOKENS_PATH, text: tokens })).toBe(1)
-    expect(readFileSync(BASE_PATH, 'utf8')).toMatch(/background-image:\s*var\(--ground-fade\)/)
+    expect(readFileSync(BASE_PATH, 'utf8')).toMatch(/background-image:\s*var\(--ground-wash\)/)
   })
 
   it('[design 18] Vite builds CSS for Safari 15.4', () => {
@@ -184,7 +185,7 @@ describe('banned look and CSS for old phones', () => {
     ['@starting-style', '@starting-style { .a { opacity: 0; } }'],
     ['@property', '@property --x { syntax: "<length>"; }'],
     ['@container', '@container (min-width: 1px) { .a { color: red; } }'],
-    ['--ground-fade outside base.css', '.a { background-image: var(--ground-fade); }'],
+    ['--ground-wash outside base.css', '.a { background-image: var(--ground-wash); }'],
     // Round 3, from the evaluator's break tests (evidence/18-eval-break-tests.txt)
     ['a banned font in a font token (C)', ":root { --font-heading: 'Inter', system-ui, sans-serif; }"],
     ['a banned font in the font shorthand (D)', '.a { font: 600 1rem Inter, sans-serif; }'],

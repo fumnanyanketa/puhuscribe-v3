@@ -1,0 +1,46 @@
+GitHub run 41424781086, read with gh on 2026-11-02 by the evaluator (round 5).
+commit: 53428b9a7826c7eabf6648e918ce78a73efceb78
+branch: factory/19-redesign
+event: workflow_dispatch, attempt 1, created 2026-11-02T09:56:57Z
+status: completed, conclusion: success
+jobs:
+  Type check, lint, format: success
+  Secret scan (gitleaks): success
+  Unit tests (Vitest): success
+  Dependency check (npm audit, pip-audit): success
+  Browser tests (Playwright, local Supabase): success
+  Python tests and lint (pytest, ruff): success
+  Database tests (local Supabase, pgTAP): success
+  Apply database changes to the test project: skipped
+  Browser tests against the test project (after merge): skipped
+  Preview link (Cloudflare Worker behind Access): skipped
+
+Browser job totals (lines from the job log):
+  153 skipped
+  720 passed (20.2m)
+  2 passed (5.3s)
+Failed, retried or flaky lines in the browser job log: 0
+
+Round 5 tests in the browser job (both browsers):
+  ✓  137 [chromium] › e2e/patterns.spec.ts:278:3 › Patterns you have seen › [units 10] [redesign 47] after a tap that does not focus a button, Close and Escape still give focus back to the Patterns button @seed (
+  ✓  232 [chromium] › e2e/redesign-lesson.spec.ts:177:3 › the lesson frame and the leave sheet › [redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the 
+  ✓  233 [chromium] › e2e/redesign-lesson.spec.ts:196:3 › the lesson frame and the leave sheet › [redesign 47] a tap on a word opens its card, and Close and Escape give focus back to the word after a tap that doe
+  ✓  251 [chromium] › e2e/redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to th
+  ✓  300 [chromium] › e2e/redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pi
+  ✓  302 [chromium] › e2e/redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pi
+  ✓  567 [webkit] › e2e/patterns.spec.ts:278:3 › Patterns you have seen › [units 10] [redesign 47] after a tap that does not focus a button, Close and Escape still give focus back to the Patterns button @seed (4.
+  ✓  677 [webkit] › e2e/redesign-lesson.spec.ts:177:3 › the lesson frame and the leave sheet › [redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the di
+  ✓  678 [webkit] › e2e/redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the 
+  ✓  679 [webkit] › e2e/redesign-lesson.spec.ts:196:3 › the lesson frame and the leave sheet › [redesign 47] a tap on a word opens its card, and Close and Escape give focus back to the word after a tap that does 
+  ✓  750 [webkit] › e2e/redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its piec
+  ✓  752 [webkit] › e2e/redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its piec
+
+The real road tests (GET /api/road against the local database):
+  ✓  155 [chromium] › e2e/real-road.spec.ts:29:3 › the road on the real route › [redesign 19] a visitor gets all the stops with no progress, and sets no cookie @seed (221ms)
+  ✓  156 [chromium] › e2e/real-road.spec.ts:45:3 › the road on the real route › [redesign 19] [redesign 10] the day one road of a visitor shows the real first stop, five signs and Start @seed (1.3s)
+  ✓  157 [chromium] › e2e/real-road.spec.ts:60:3 › the road on the real route › [redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign 
+  ✓  594 [webkit] › e2e/real-road.spec.ts:29:3 › the road on the real route › [redesign 19] a visitor gets all the stops with no progress, and sets no cookie @seed (586ms)
+  ✓  595 [webkit] › e2e/real-road.spec.ts:45:3 › the road on the real route › [redesign 19] [redesign 10] the day one road of a visitor shows the real first stop, five signs and Start @seed (2.0s)
+  ✓  596 [webkit] › e2e/real-road.spec.ts:60:3 › the road on the real route › [redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign @s
+
+Round 4 run 41415511557 for comparison: 708 passed, 147 skipped (855). Round 5: 720 passed, 153 skipped (873). The 12 extra passes are the builder's new round 5 tests (two tall word tests, the quiet button, the word card tap, the Voice settings switch and the patterns tap, each in two browsers). The 6 extra skipped are the new 21 letter evidence screenshots (3 sizes x 2 browsers), which run only with PUHUSCRIBE_EVIDENCE=1.

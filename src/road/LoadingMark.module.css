@@ -1,0 +1,60 @@
+/* The loading screen (design.md, "Road"). Values from src/styles/tokens.css. */
+
+.screen {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-5);
+  padding: var(--space-6);
+}
+
+.dots {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-mint);
+  animation: fade var(--motion-pulse) ease-in-out infinite;
+}
+
+.dots i:nth-child(2) {
+  animation-delay: var(--motion-stagger);
+}
+
+.dots i:nth-child(3) {
+  animation-delay: calc(var(--motion-stagger) * 2);
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dots i {
+    animation: none;
+    opacity: 0.6;
+  }
+}

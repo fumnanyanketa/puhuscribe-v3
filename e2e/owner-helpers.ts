@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { expect, type Browser, type BrowserContext, type Page, type TestInfo } from '@playwright/test'
 import { importJWK, SignJWT, type JWK } from 'jose'
 import { addEmail, signIn, startGuest, testAddress } from './account-helpers.ts'
+import { installRoad } from './road-route.ts'
 import { sql } from './db.ts'
 
 // Shared steps for the owner page browser tests (factory/jobs/14-analytics).
@@ -85,7 +86,14 @@ export async function appBrowser(
   appBaseURL: string | undefined,
   extraHTTPHeaders: Record<string, string> = {},
 ): Promise<BrowserContext> {
-  return browser.newContext({ ...phoneOptions(testInfo), baseURL: appBaseURL, extraHTTPHeaders })
+  const context = await browser.newContext({
+    ...phoneOptions(testInfo),
+    baseURL: appBaseURL,
+    extraHTTPHeaders,
+    reducedMotion: 'reduce',
+  })
+  await installRoad(context)
+  return context
 }
 
 /**

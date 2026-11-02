@@ -12,8 +12,8 @@
   border: 0;
   border-radius: var(--radius-pill);
   font-family: var(--font-heading);
-  font-size: var(--text-body);
-  font-weight: var(--weight-semibold);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-tight);
   cursor: pointer;
   transition:
@@ -21,8 +21,11 @@
     color var(--motion-fast) var(--motion-ease);
 }
 
+/* Every colour is set here on purpose: WebKit's own button colours failed
+   contrast in an earlier job (job 5), so no button relies on a default. */
 .primary {
   min-height: var(--button-height);
+  padding: 0 var(--space-2) 0 var(--space-5);
   background: var(--color-button);
   color: var(--color-button-text);
   box-shadow: var(--shadow-button);
@@ -42,9 +45,11 @@
 .secondary {
   min-height: var(--button-height);
   background: var(--color-button-secondary);
-  color: var(--color-text);
+  color: var(--color-mint-deep);
+  /* The drawings' white pill: a very pale edge and a soft shadow, no strong outline (round 6). Its words
+     name it, so the edge only decorates; keyboard focus still shows the 3 px ink outline. */
   box-shadow:
-    inset 0 0 0 1px var(--color-control-edge),
+    inset 0 0 0 1px var(--color-control-edge-soft),
     var(--shadow-1);
 }
 
@@ -59,21 +64,57 @@
   transform: translateY(1px);
 }
 
+.danger {
+  min-height: var(--button-height);
+  background: var(--color-danger);
+  color: var(--color-danger-text);
+  box-shadow: var(--shadow-button);
+}
+
+.danger:hover,
+.danger[data-state='hover'] {
+  background: var(--color-danger-hover);
+}
+
+.danger:active,
+.danger[data-state='pressed'] {
+  background: var(--color-danger-pressed);
+  transform: translateY(1px);
+}
+
+/* The drawings' quiet link: small, quiet text with a soft mint underline (round 6). */
 .quiet {
   padding: 0 var(--space-3);
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-text-quiet);
+  font-family: var(--font-body);
+  font-size: var(--text-small-plus);
+  font-weight: var(--weight-regular);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-mint-mid);
+  text-underline-offset: 3px;
+}
+
+/* The drawings' mint text link with no underline ("Why does it change?"). */
+.mint {
+  padding: 0 var(--space-3);
+  background: transparent;
+  color: var(--color-mint-deep);
+  font-size: var(--text-sign);
+  font-weight: var(--weight-medium);
 }
 
 .quiet:hover,
-.quiet[data-state='hover'] {
+.quiet[data-state='hover'],
+.mint:hover,
+.mint[data-state='hover'] {
   background: var(--color-word-hover);
 }
 
 .quiet:active,
-.quiet[data-state='pressed'] {
+.quiet[data-state='pressed'],
+.mint:active,
+.mint[data-state='pressed'] {
   background: var(--color-button-secondary-pressed);
 }
 
@@ -85,7 +126,20 @@
   transform: none;
 }
 
-.quiet:disabled {
+/* A primary pill that is not available yet is the drawings' pale pill (round 6): milky white, quiet text,
+   a pale mint arrow circle, no shadow. */
+.primary:disabled {
+  background: var(--color-panel);
+  box-shadow: inset 0 0 0 1px var(--color-panel-edge);
+}
+
+.primary:disabled .arrow::before {
+  background: var(--color-mint-soft);
+  opacity: 1;
+}
+
+.quiet:disabled,
+.mint:disabled {
   background: transparent;
 }
 
@@ -98,15 +152,54 @@
   width: 100%;
 }
 
+.block.primary .label {
+  flex: 1;
+  justify-content: space-between;
+}
+
 .label {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-4);
+}
+
+/* The small arrow circle of the primary pill: a lighter mint disc, drawn with
+   the button text colour at a low strength through opacity on its own layer. */
+.arrow {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-button-text);
+  opacity: 0.22;
+}
+
+.arrow svg {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* While busy the label keeps its space, so the button keeps its size. */
 .hiddenLabel {
   display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
   visibility: hidden;
 }
 

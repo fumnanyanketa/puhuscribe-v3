@@ -1,0 +1,438 @@
+/* The road picture (design.md, "The road"). Values from src/styles/tokens.css. */
+
+/* The box keeps the scene's 280 x 660 shape and is 12 percent wider than the
+   screen, as the drawing shows it (scale 1.12), so the opening animation can
+   start zoomed out to exactly the screen width and move in to this size. It is
+   anchored so the sun's centre sits 204 px from the top on every phone: where
+   the drawing has it at 375 px (round 6; the box's top is 204 px less 92.8
+   percent of the width, which is the sun's height in the box). Everything
+   inside is placed as a share of the box. */
+.box {
+  position: absolute;
+  top: 0;
+  left: -6%;
+  width: 112%;
+  aspect-ratio: 280 / 660;
+  margin-top: calc(204px - 92.8%);
+  transform-origin: 50% 100%;
+}
+
+.backdrop,
+.way {
+  position: absolute;
+  inset: 0;
+}
+
+.fells,
+.signs {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+/* A fell label: a flag on the summit and its level in real text. */
+.fell {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  transform: translate(-1px, -100%);
+}
+
+.flag {
+  flex: none;
+  width: 12px;
+  height: 22px;
+}
+
+.flagPole {
+  fill: none;
+  stroke: var(--land-pole);
+  stroke-width: 1.5;
+}
+
+.flagCloth {
+  fill: var(--land-flag);
+}
+
+.fellName {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--land-ink);
+  white-space: nowrap;
+}
+
+/* A sign, as drawn (road-journey.html, round 6): a small board on a pole, at the drawing's size (the
+   drawing's px times 1.5, its scale on a 375 px phone) and in its perspective: --sc is 1 near and smaller
+   toward the horizon. The name stays on one line; it is never drawn under 12 px, so a far sign's text is
+   set larger before the scale; and it wraps only when it is wider than the screen (large text). */
+.sign {
+  /* The sign's text size: the drawn size in the drawing's perspective, never under 12 px. Everything else
+     on the board is in em, so the whole sign shrinks with it toward the horizon. */
+  --text-sign-scaled: max(calc(var(--text-sign-road) * var(--sc, 1)), var(--text-small));
+
+  position: absolute;
+  width: max-content;
+  max-width: 100%;
+  /* --shift moves a sign sideways, in px, when its board would run past an edge of the screen. */
+  transform: translate(calc(-50% + var(--shift, 0px)), -100%);
+}
+
+.size {
+  display: block;
+}
+
+.pop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: 50% 100%;
+}
+
+.board {
+  display: flex;
+  align-items: center;
+  gap: 0.57em;
+  max-width: calc(100vw - 16px);
+  padding: 0.38em 0.82em 0.38em 0.38em;
+  border-radius: 0.82em;
+  background: var(--color-surface);
+  box-shadow: 0 4px 10px var(--land-sign-shadow);
+  color: var(--color-text);
+  font-size: var(--text-sign-scaled);
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.name {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.num {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 0.57em;
+  background: var(--color-sign-num);
+  color: var(--color-text-quiet);
+  font-size: 1em;
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.tick {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pole {
+  width: 4px;
+  height: calc(45px * var(--sc, 1) + 6px);
+  border-radius: 2px;
+  background: var(--land-pole);
+}
+
+.foot {
+  width: 21px;
+  height: 6px;
+  margin-top: -1px;
+  border-radius: 50%;
+  background: var(--land-sign-shadow);
+}
+
+.done .board {
+  background: var(--color-mint);
+  color: var(--color-button-text);
+}
+
+/* The tick sits in a small white square, as drawn. */
+.done .num {
+  background: var(--color-sign-tick);
+  color: var(--color-button-text);
+}
+
+.current .board {
+  box-shadow:
+    0 0 0 2px var(--color-mint),
+    0 6px 14px var(--land-sign-shadow);
+  color: var(--color-mint-deep);
+  font-weight: var(--weight-semibold);
+}
+
+.current .num {
+  background: var(--color-mint);
+  color: var(--color-button-text);
+}
+
+.next .board {
+  padding: 0.38em 0.82em;
+  box-shadow:
+    0 0 0 2px var(--color-peach),
+    0 6px 14px var(--land-sign-shadow);
+  color: var(--color-peach-deep);
+  font-weight: var(--weight-semibold);
+}
+
+/* A later sign: a small milky board, the name only, quiet. */
+.later .board {
+  padding: 0.38em 0.82em;
+  background: var(--color-panel);
+  box-shadow: 0 4px 12px var(--land-sign-shadow-soft);
+  color: var(--color-text-quiet);
+  font-weight: var(--weight-regular);
+}
+
+/* The "you" marker, as drawn: a white dot on a mint disc with a wide pale mint halo ring round it, and a
+   slow pulse where motion is allowed. */
+.you {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: 8px solid var(--color-mint);
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 0 4px 12px var(--land-you-shadow);
+}
+
+.halo {
+  position: absolute;
+  inset: -13px;
+  border: 3px solid var(--land-travelled);
+  border-radius: 50%;
+}
+
+.pulse {
+  position: absolute;
+  inset: -13px;
+  border: 3px solid var(--land-travelled);
+  border-radius: 50%;
+  animation: pulse var(--motion-marker) ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* The speech bubble of the opening animation: one approved spoken line. It
+   never shows once the animation is over. */
+.say {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: 0 8px 20px var(--land-sign-shadow);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.changed {
+  padding: 0 3px;
+  border-radius: 5px;
+  background: var(--color-changed-wash);
+  color: var(--color-changed-text);
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The opening animation, 4.5 seconds (design.md, "The opening animation"): the
+   landscape fades in, the road is drawn from the bottom, the sun rises, the
+   fells appear, the signs pop in, then the view moves in to stop 1. The final
+   frame is the ordinary day one screen. */
+.box[data-intro='on'] {
+  animation: moveIn var(--motion-intro) cubic-bezier(0.6, 0, 0.25, 1) both;
+}
+
+.box[data-intro='on'] .backdrop {
+  animation: landFade var(--motion-intro) ease both;
+}
+
+.box[data-intro='on'] .way {
+  animation: drawRoad var(--motion-intro) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.box[data-intro='on'] .sunRise {
+  animation: sunUp var(--motion-intro) cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.box[data-intro='on'] .fells {
+  animation: goalIn var(--motion-intro) ease both;
+}
+
+.box[data-intro='on'] .pop {
+  animation: signPop var(--motion-intro) cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+.box[data-intro='on'] .you {
+  animation: goalIn var(--motion-intro) ease both;
+}
+
+.box[data-intro='on'] .say {
+  animation: sayAt var(--motion-intro) ease both;
+}
+
+@keyframes landFade {
+  0% {
+    opacity: 0;
+  }
+
+  10%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes drawRoad {
+  0%,
+  6% {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  36%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sunUp {
+  0%,
+  26% {
+    transform: translateY(34px);
+  }
+
+  44%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes goalIn {
+  0%,
+  36% {
+    opacity: 0;
+  }
+
+  46%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes signPop {
+  0%,
+  30% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  42%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sayAt {
+  0%,
+  40% {
+    opacity: 0;
+  }
+
+  48%,
+  64% {
+    opacity: 1;
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes moveIn {
+  0%,
+  66% {
+    transform: scale(0.893);
+  }
+
+  88%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes crossfade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: nothing slides, scales, draws or pulses. The empty landscape
+   stays and the rest fades in over 600 ms or less. */
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .box[data-intro='on'],
+  .box[data-intro='on'] .backdrop,
+  .box[data-intro='on'] .way,
+  .box[data-intro='on'] .sunRise,
+  .box[data-intro='on'] .pop,
+  .box[data-intro='on'] .say {
+    animation: none;
+  }
+
+  .box[data-intro='on'] .fells,
+  .box[data-intro='on'] .signs,
+  .box[data-intro='on'] .you {
+    animation: crossfade var(--motion-fade) ease both;
+  }
+}

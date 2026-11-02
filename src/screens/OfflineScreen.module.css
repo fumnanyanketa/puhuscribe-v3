@@ -1,0 +1,83 @@
+/* The "No connection" screen (design.md, "Errors"). Values from src/styles/tokens.css. */
+
+.screen {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  place-items: center;
+  padding: var(--space-6) var(--space-5);
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  text-align: center;
+}
+
+/* The drawing's cloud: two soft mint shapes (70 x 44, times 1.25) and a peach slash across them. */
+.cloud {
+  position: relative;
+  width: 88px;
+  height: 56px;
+}
+
+.cloud::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 8px;
+  width: 72px;
+  height: 35px;
+  border-radius: 20px;
+  background: var(--color-mint-soft);
+}
+
+.cloud::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 27px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-mint-soft);
+}
+
+.slash {
+  position: absolute;
+  top: -3px;
+  left: 38px;
+  width: 4px;
+  height: 62px;
+  border-radius: 2px;
+  background: var(--color-peach);
+  transform: rotate(40deg);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+}
+
+.text {
+  max-width: 26ch;
+  margin: 0;
+  font-size: var(--text-reading);
+  color: var(--color-text-quiet);
+}
+
+/* "Try again" is the full width mint pill under the words, as drawn. */
+.action {
+  width: 100%;
+  margin-top: var(--space-6);
+}

@@ -3,16 +3,18 @@
 // here so the owner can edit them at one place and one test can check them
 // against the writing rules (src/screens/save-note-copy.test.ts).
 //
-// The sentence is the owner's call 2, option B, of 31 October 2026. Plain
-// English, no Finnish, no number, no word about losing anything.
+// The sentence was the owner's call 2, option B, of 31 October 2026. On
+// 1 November 2026 the owner changed it to the words below and the button to
+// "Create account", centred (job 19-redesign, owner's answers). Plain English,
+// no Finnish, no number, no word about losing anything.
 
 /** The region's name for screen readers. It is not shown on screen. */
 export const SAVE_NOTE_REGION = 'Keep your progress'
 
-export const SAVE_NOTE_SENTENCE = 'Add your email to save your progress.'
+export const SAVE_NOTE_SENTENCE = 'Create an account to save your progress.'
 
 /** The secondary button. It leads to the add email screen of job 11-accounts. */
-export const SAVE_NOTE_ADD = 'Add your email'
+export const SAVE_NOTE_ADD = 'Create account'
 
 /** The quiet button that closes the note. */
 export const SAVE_NOTE_LATER = 'Not now'

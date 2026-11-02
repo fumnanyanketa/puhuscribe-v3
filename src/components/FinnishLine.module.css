@@ -1,19 +1,18 @@
-/* Finnish line (design.md, "Finnish line and word card"). Values from src/styles/tokens.css. */
+/* Line card parts (design.md, "Line card"). Values from src/styles/tokens.css. */
 
 .pair {
   display: flex;
   gap: var(--space-3);
 }
 
-/* The connector: a teal dot for spoken, a violet dot for written, joined by
-   a dotted line (v2's rail, drawn with a border instead of a gradient). */
+/* The two dots joined by a dotted line: mint for spoken, slate for written. */
 .rail {
   display: flex;
   flex: none;
   flex-direction: column;
   align-items: center;
   width: 12px;
-  padding: 1.15rem 0 0.4rem;
+  padding: 30px 0 22px;
 }
 
 .dotSpoken,
@@ -32,70 +31,91 @@
 .connector {
   flex: 1;
   margin: var(--space-1) 0;
-  border-left: 2px dotted var(--color-track);
+  border-left: 2px dotted var(--color-mint-mid);
 }
 
-.registers {
+.rows {
+  display: grid;
+  flex: 1;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* The spoken line sits in a soft box, with its play button at the end. */
+.spokenRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+/* Understand it: the one spoken line, larger, in a single milky card with its play button (round 2). */
+.spokenRow.large {
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5) var(--space-4) var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+/* Understand it: the one spoken line, larger. */
+.large .spokenLine {
+  font-size: var(--text-line-large);
+}
+
+.writtenRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 0 var(--space-1) 0 var(--space-4);
+}
+
+.spokenLine,
+.writtenLine {
   flex: 1;
   min-width: 0;
-  max-width: var(--measure-line);
-}
-
-.spokenBand {
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-spoken-band-edge);
-  border-radius: var(--radius-md);
-  background: var(--color-spoken-band);
-}
-
-.written {
-  padding: var(--space-3) var(--space-4) 0;
-}
-
-.labelSpoken,
-.labelWritten {
   margin: 0;
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-spoken-text);
-}
-
-.labelWritten {
-  color: var(--color-written);
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .spokenLine {
-  margin: 0;
   font-family: var(--font-heading);
   font-size: var(--text-line);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-line);
   letter-spacing: var(--tracking-line);
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 .writtenLine {
-  margin: 0;
   font-size: var(--text-written);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-line);
-  color: var(--color-text-quiet);
-  overflow-wrap: anywhere;
-  hyphens: auto;
+  color: var(--color-written);
 }
 
-/* A word and its punctuation: never split across two lines. */
+/* A word and its punctuation: never split across two lines. The span does not wrap, so the "?" or the
+   comma after a word, or the quote before it, never drops onto a row of its own (job 8, design review).
+   Inside it the word itself may wrap when it is too long for the line (round 4, evaluator, statements 5
+   and 46): a 44 letter compound breaks where it must and never runs past the card. */
 .keep {
   white-space: nowrap;
 }
 
-/* A word with no card (such as a name) is plain text, laid out like a word
-   button so the line keeps its rhythm. */
+.keep .plain,
+.keep .word {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* A word with no card (such as a name) is plain text. It is not a target, so it needs no height of its own. */
 .plain {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
   margin: 0 -0.08em;
 }
 
@@ -103,14 +123,22 @@
    target, WCAG 2.5.8). The button itself is invisible; the face inside it
    carries the wash and the lit block at text height, so a line reads as text
    with a few marked words, not a row of tall tiles. The face's padding is
-   always there, so lighting a word never moves the line. */
+   always there, so lighting a word never moves the line.
+   The 44 px is the hit area only: a negative block margin makes the button
+   take up one line of the text (the leading of the type scale, 1.4), so the
+   hit areas of two rows overlap by a few pixels and the rows stay tight, as
+   drawn (round 2, design review). */
 .word {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
+  /* What the 44 px needs above and below one row of text. It is padding inside the button and a negative
+     margin outside it, so the text stays where the line puts it: a button of several rows (a long word that
+     wraps) neither pulls its first row up over the row above nor leaves its pieces centred (round 5). */
+  --pad: max(0px, calc((var(--tap-min) - var(--leading-line) * 1em) / 2));
   min-width: var(--word-min-width);
   min-height: var(--tap-min);
-  margin: 0 -0.08em;
-  padding: 0;
+  margin: calc(-1 * var(--pad)) -0.08em;
+  padding: var(--pad) 0;
+  text-align: start;
   border: 0;
   border-radius: var(--radius-word);
   background: transparent;
@@ -133,8 +161,11 @@
 
 .changed,
 .word:hover .changed {
-  color: var(--color-flag-text);
-  background: var(--color-flag-wash);
+  color: var(--color-changed-text);
+  background: var(--color-changed-wash);
+  /* The drawn thin peach ring (round 2, design review). The darker text colour keeps the 7 to 1 floor;
+     the ring, the wash and the bold weight say "this word changes" without leaning on colour alone. */
+  box-shadow: inset 0 0 0 1px var(--color-peach);
   font-weight: var(--weight-bold);
 }
 
@@ -144,12 +175,12 @@
   background: var(--color-current-word);
 }
 
-/* The answer word after a review (job 9-daily-review): a solid underline in
-   the text colour, with its name for screen readers. */
-.marked {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
+/* The answer word after a review (job 9-daily-review): highlighted in peach in both lines, as the drawing
+   of Keep it marks it (round 6), with its name for screen readers, so colour is never the only sign. */
+.marked,
+.word:hover .marked {
+  color: var(--color-changed-text);
+  background: var(--color-changed-wash);
 }
 
 .hidden {

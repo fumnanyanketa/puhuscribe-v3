@@ -1,6 +1,7 @@
 /* Session frame (design.md, "Session frame"). Values from src/styles/tokens.css. */
 
 .frame {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -15,70 +16,129 @@
 }
 
 .topBar {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: none;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-4);
-  padding: var(--space-3) var(--space-5) var(--space-2) var(--space-4);
+  gap: var(--space-4);
+  /* The cross sits where the drawings put it, just under the top of the page (round 6). */
+  padding: calc(var(--space-1) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-2);
+}
+
+/* The cross: a 44 px tap area with the drawing's small white round (36 px) drawn inside it (round 6). */
+.topBarHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .leave {
+  position: relative;
   display: grid;
   flex: none;
   place-items: center;
   width: var(--tap-min);
   height: var(--tap-min);
-  border: 1px solid var(--color-card-edge);
+  margin: 0 calc(-1 * var(--space-1));
+  padding: 0;
+  border: 0;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-1);
+  background: transparent;
   color: var(--color-text);
+  cursor: pointer;
+}
+
+.leave::before {
+  content: '';
+  position: absolute;
+  inset: var(--space-1);
+  border: var(--panel-edge);
+  border-radius: var(--radius-pill);
+  background: var(--panel-fill);
+  box-shadow: var(--shadow-1);
+}
+
+.leave:hover::before {
+  background: var(--color-button-secondary-hover);
 }
 
 .leave svg {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  width: 17px;
+  height: 17px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
 }
 
-.segments {
-  display: flex;
+/* The bar fills by the share of the lesson done. Its name says which step. */
+.bar {
   flex: 1;
-  gap: 6px;
   min-width: 48px;
-}
-
-.segment,
-.segmentDone,
-.segmentNow {
-  height: 6px;
-  flex: 1;
+  height: 7px;
+  overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-track);
+  /* The part not reached is pale white with no outline, as drawn (round 6); the mint fill is 4.5:1 on it. */
+  background: var(--color-progress-track);
+  box-shadow: var(--shadow-track);
 }
 
-.segmentDone {
-  background: var(--color-text-quiet);
-}
-
-.segmentNow {
-  flex: 2.4;
-  background: var(--color-text);
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-mint);
+  transition: width var(--motion-sheet) var(--motion-ease-out);
 }
 
 .step {
   margin: 0;
-  font-size: var(--text-small);
+  font-family: var(--font-heading);
+  font-size: var(--text-small-plus);
   font-weight: var(--weight-medium);
+  letter-spacing: normal;
   color: var(--color-text-quiet);
+}
+
+.stepHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The first lesson tip dims the top bar, the wash and the actions with a real
+   scrim, and lifts the content (the lit line card and the tip) above it. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--color-scrim);
+}
+
+.frame[data-dim='on'] .content {
+  z-index: 3;
+}
+
+/* The lit card has the drawing's thin white glow round it. */
+.frame[data-dim='on'] .content [data-line-id] {
+  box-shadow:
+    0 0 0 2px var(--color-tip-lit),
+    var(--panel-shadow);
 }
 
 /* Only the content scrolls; the top bar and the actions stay. */
 .content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -87,11 +147,43 @@
 }
 
 .actions {
+  position: relative;
+  z-index: 1;
   flex: none;
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  background: var(--color-surface);
+  padding: var(--space-3) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+}
+
+/* The finish screen's content scrolls under the dock, so the dock is a milky bar with a soft shadow
+   instead of a hard cut through the new words panel (round 2, design review). */
+.actionsSoft {
+  border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+  background: var(--color-panel);
   box-shadow: var(--shadow-dock);
+}
+
+.sheetTitle {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+}
+
+.sheetText {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-quiet);
+}
+
+.sheetActions {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
 }

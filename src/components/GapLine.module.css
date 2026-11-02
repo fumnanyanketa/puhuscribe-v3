@@ -1,44 +1,59 @@
-/* The prompt line of a review item (factory/jobs/9-daily-review). Values from
-   src/styles/tokens.css; the band and labels match FinnishLine.module.css. */
+/* The prompt line of a review item (design.md, "Line card"). Values from
+   src/styles/tokens.css; the rows match FinnishLine.module.css. */
 
-.spokenBand {
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-spoken-band-edge);
+.spokenRow,
+.writtenRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.spokenRow {
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--color-spoken-soft);
   border-radius: var(--radius-md);
-  background: var(--color-spoken-band);
+  background: var(--color-surface);
 }
 
-.written {
-  padding: var(--space-3) var(--space-4);
+.writtenRow {
+  padding: var(--space-2) var(--space-1) var(--space-2) var(--space-4);
 }
 
-.labelSpoken,
-.labelWritten {
-  margin: 0;
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-spoken-text);
+.dotSpoken,
+.dotWritten {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-spoken);
 }
 
-.labelWritten {
-  color: var(--color-written);
+.dotWritten {
+  background: var(--color-written);
 }
 
 .spokenLine,
 .writtenLine {
-  margin: var(--space-1) 0 0;
-  font-family: var(--font-heading);
-  font-size: var(--text-line);
-  font-weight: var(--weight-semibold);
+  flex: 1;
+  min-width: 0;
+  margin: 0;
   line-height: var(--leading-line);
   letter-spacing: var(--tracking-line);
   overflow-wrap: anywhere;
   hyphens: auto;
 }
 
+.spokenLine {
+  font-family: var(--font-heading);
+  font-size: var(--text-line);
+  font-weight: var(--weight-semibold);
+}
+
 .writtenLine {
-  font-family: var(--font-body);
-  font-weight: var(--weight-medium);
+  font-size: var(--text-written);
+  font-weight: var(--weight-regular);
+  color: var(--color-written);
 }
 
 /* A word and its punctuation: never split across two lines. */
@@ -46,7 +61,7 @@
   white-space: nowrap;
 }
 
-/* The gap: a blank about one short word wide, ruled at the text's foot. */
+/* The gap: a blank about one short word wide, ruled in peach at the text's foot. */
 .gap {
   display: inline-block;
   vertical-align: baseline;
@@ -56,7 +71,7 @@
   display: inline-block;
   width: 3.2em;
   height: 1em;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 2px dashed var(--color-peach);
 }
 
 .hidden {

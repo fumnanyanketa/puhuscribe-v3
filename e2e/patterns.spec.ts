@@ -1,5 +1,7 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Locator, type Page } from '@playwright/test'
+import { type Locator, type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
+import { installRoad } from './road-route.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import {
@@ -160,8 +162,9 @@ function currentSession(userId: string): { id: string; dialogueId: string } {
 
 /** Opens the word card of the first word with a card on screen and returns its button. */
 async function openFirstCard(page: Page): Promise<{ word: Locator; card: Locator }> {
-  const word = page.locator('ol [lang="fi"] button').first()
-  const name = (await word.innerText()).trim()
+  const word = page.locator('[data-line-id] [lang="fi"] button').first()
+  // The word itself (its face), not the punctuation after it, which sits inside the button since round 4.
+  const name = (await word.locator('[class*="face"]').innerText()).trim()
   await word.click()
   const card = page.getByRole('dialog', { name })
   await expect(card).toBeVisible()
@@ -207,13 +210,9 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await startSession(page)
     const userId = await userIdOf(page.context())
     const { card } = await openFirstCard(page)
-    const formName = (
-      await card
-        .locator('dt')
-        .filter({ hasText: /^Form$/ })
-        .locator('xpath=following-sibling::dd')
-        .innerText()
-    ).trim()
+    // The card's form name now sits behind "Why does it change?" (job 19-redesign, statement 26).
+    await card.getByRole('button', { name: 'Why does it change?' }).click()
+    const formName = (await card.locator('[class*="whyForm"]').innerText()).replace(/\.$/, '').trim()
     const asked = page.waitForRequest((r) => new URL(r.url()).pathname === '/api/patterns')
     await card.getByRole('button', { name: PANEL }).click()
     const request = await asked
@@ -274,6 +273,25 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     await expect(button).toBeFocused()
   })
 
+  // Round 5 (evaluator, statement 47): Safari does not focus a tapped button. A mousedown that cannot move
+  // focus does the same here, so the panel must give focus back to its button by itself.
+  test('[units 10] [redesign 47] after a tap that does not focus a button, Close and Escape still give focus back to the Patterns button', async ({
+    page,
+  }) => {
+    await startSession(page)
+    await page.evaluate("document.addEventListener('mousedown', (event) => event.preventDefault(), true)")
+    const { card, button } = await openPanel(page)
+    await panelOf(page).getByRole('button', { name: 'Close' }).click()
+    await expect(panelOf(page)).toBeHidden()
+    await expect(card).toBeVisible()
+    await expect(button).toBeFocused()
+    await button.click()
+    await expect(panelOf(page)).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(panelOf(page)).toBeHidden()
+    await expect(button).toBeFocused()
+  })
+
   test('[units 11] two learners: each sees only the forms they met, with the earliest met line, and never draft, retired or unmet forms', async ({
     page,
     browser,
@@ -325,7 +343,8 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     }
 
     // Learner B, in a new browser, is in the first dialogue: none of learner A's second dialogue only forms.
-    const other = await browser.newContext()
+    const other = await browser.newContext({ reducedMotion: 'reduce' })
+    await installRoad(other)
     const pageB = await other.newPage()
     await serveTone(pageB)
     await startSession(pageB)
@@ -452,7 +471,8 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
     finishEveryOtherDialogue(userId)
     dayLater(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    // A day with only a review says "Start review" on the road.
+    await page.getByRole('button', { name: /^Start( review)?$/ }).click()
     await page.waitForURL('**/session')
     const before = logsOf(userId).length
     const answered = await runKeepIt(page)
@@ -509,7 +529,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
 
   test('[units 17] works with the keyboard alone', async ({ page }, testInfo) => {
     await startSession(page)
-    const word = page.locator('ol [lang="fi"] button').first()
+    const word = page.locator('[data-line-id] [lang="fi"] button').first()
     await tabTo(page, word, testInfo)
     await page.keyboard.press('Enter')
     const button = page.getByRole('button', { name: PANEL })

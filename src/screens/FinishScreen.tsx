@@ -4,26 +4,33 @@ import { SessionFrame } from '../components/SessionFrame.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { callApi } from '../lib/api.ts'
+import { PATHS } from '../lib/app-paths.ts'
 import { pickFinishLine } from '../lib/session-rules.ts'
-import type { ReadySession } from '../lib/session-types.ts'
+import type { NewWord, ReadySession } from '../lib/session-types.ts'
 import type { LoopStep } from '../components/SessionFrame.tsx'
-import { LineCard } from './LineCard.tsx'
+import { newWordsFrom } from './new-words.ts'
+import { NewWords } from './NewWords.tsx'
 import { accountKindOf, carriesSaveNote } from './save-note.ts'
 import { SAVED_ON_THIS_DEVICE } from './save-note-copy.ts'
 import { SaveNote } from './SaveNote.tsx'
 import { NOT_SAVED } from './step-screen.ts'
+import { PlayControl } from '../components/PlayControl.tsx'
+import { LINE_AUDIO } from './LineCard.tsx'
 import styles from './Screens.module.css'
 
 // The finish screen (factory/jobs/8-first-session/spec.md, "Done when" 14 and
 // 15). One sentence the learner can now say, picked by the fixed rule in
 // src/lib/session-rules.ts. When it opens, the Worker saves the end of the
-// session once (public.complete_session). No counts, scores, badges, streaks
-// or celebration.
+// session once (public.complete_session). Redrawn in job 19-redesign
+// (statement 33): a tick orb, the line card, a panel of the new words as
+// chips, the save note, a quiet feedback link and "Done". No scores, badges,
+// streaks or celebration; the only number is how many new words there are.
 
 export const NOW_YOU_CAN = 'Now you can say this.'
-export const COMES_BACK = 'The words you met will come back in your review.'
 const SAVING = 'Saving your progress.'
-const SAVED = 'Your progress is saved.'
+// The drawing's line under Done is "Saved to your account."; the guest's protected sentence stays word for
+// word (save-note-copy.ts), so the signed in line says the same thing in the same shape (round 6).
+const SAVED = 'Your progress is saved to your account.'
 
 type SaveState = 'saving' | 'saved' | 'not_saved'
 
@@ -33,6 +40,8 @@ interface SaveResult {
   note: boolean
   /** A guest is told the progress is saved on this device (owner's choice, 1 November 2026). */
   guest: boolean
+  /** The words this lesson added to the review, for the chips. */
+  newWords: NewWord[]
 }
 
 async function save(sessionId: string): Promise<SaveResult> {
@@ -44,12 +53,17 @@ async function save(sessionId: string): Promise<SaveResult> {
   // Only after a save: which kind of account this is, from the same route the
   // account page uses. Without a clear answer the plain line is shown.
   const guest = saved && accountKindOf(await callApi('/api/me', 'GET')) === 'guest'
-  return { saved, note: carriesSaveNote(answer), guest }
+  return { saved, note: carriesSaveNote(answer), guest, newWords: saved ? newWordsFrom(answer.body) : [] }
 }
 
 interface FinishScreenProps {
   session: ReadySession
   steps: readonly LoopStep[]
+}
+
+/** A line's words as plain text, with their punctuation. */
+function plain(words: readonly { text: string; before?: string; after?: string }[]): string {
+  return words.map((word) => `${word.before ?? ''}${word.text}${word.after ?? ''}`).join(' ')
 }
 
 export function FinishScreen({ session, steps }: FinishScreenProps) {
@@ -59,6 +73,10 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   // that asks for it, and never shows while saving or after a failed save.
   const [note, setNote] = useState(false)
   const [guest, setGuest] = useState(false)
+  const [newWords, setNewWords] = useState<NewWord[]>([])
+  // After "Try again" the status line keeps one place for the rest of the screen's life: a line that
+  // moves in the page loses the keyboard focus that "Try again" gave it.
+  const [retried, setRetried] = useState(false)
   const status = useRef<HTMLParagraphElement>(null)
   // Saved once per screen: React's strict mode runs effects twice in
   // development, and the second run reuses this request.
@@ -72,6 +90,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
       setState(result.saved ? 'saved' : 'not_saved')
       setNote(result.saved && result.note)
       setGuest(result.saved && result.guest)
+      setNewWords(result.newWords)
     })
     return () => {
       active = false
@@ -92,14 +111,17 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   }, [])
 
   function tryAgain() {
+    setRetried(true)
     status.current?.focus()
     setState('saving')
     setNote(false)
     setGuest(false)
+    setNewWords([])
     void save(session.session.id).then((result) => {
       setState(result.saved ? 'saved' : 'not_saved')
       setNote(result.saved && result.note)
       setGuest(result.saved && result.guest)
+      setNewWords(result.newWords)
     })
   }
 
@@ -108,11 +130,18 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   const tone: StatusTone = state === 'not_saved' ? 'problem' : 'neutral'
   const lastStep = steps[steps.length - 1] ?? 'Hear it'
 
-  const actions = (
-    <>
+  // The line sits above the buttons while the save is unfinished or failed, and under "Done" once saved, as drawn.
+  const statusAbove = state !== 'saved' || retried
+  const status_line = (
+    <div className={statusAbove ? undefined : styles.savedLine}>
       <StatusLine ref={status} tone={tone}>
         {message}
       </StatusLine>
+    </div>
+  )
+  const actions = (
+    <>
+      {statusAbove && status_line}
       {state === 'not_saved' && (
         <Button variant="secondary" block onClick={tryAgain}>
           Try again
@@ -121,29 +150,47 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
       <Button
         block
         onClick={() => {
-          window.location.assign('/')
+          window.location.assign(PATHS.home)
         }}
       >
         Done
       </Button>
+      {!statusAbove && status_line}
     </>
   )
 
   return (
-    <SessionFrame step={lastStep} steps={steps} finished leaveHref="/" actions={actions}>
-      <main className={styles.main}>
-        <div className={styles.intro}>
-          <h1 className={styles.title}>{NOW_YOU_CAN}</h1>
+    <SessionFrame step={lastStep} steps={steps} finished leaveHref={PATHS.home} actions={actions}>
+      <main className={styles.finishMain}>
+        <div className={styles.orb} aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>
         </div>
+        <h1 className={styles.finishTitle}>{NOW_YOU_CAN}</h1>
+        {/* As drawn (round 6): the spoken line centred and bold, with the English under it and no speaker.
+            Job 8 (statement 14) keeps the written line and both play controls, so they sit small with it. */}
         {line && (
-          <div className={styles.finishLine}>
-            <LineCard line={line} speakerAs="p" showGloss />
+          <div className={styles.finishLine} data-line-id={line.id}>
+            <div className={styles.finishRow}>
+              <p className={styles.finishSpoken} lang="fi">
+                {plain(line.spoken)}
+              </p>
+              <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} size="small" />
+            </div>
+            <div className={styles.finishRow}>
+              <p className={styles.finishWritten} lang="fi">
+                {plain(line.written)}
+              </p>
+              <PlayControl src={line.writtenAudio} what={LINE_AUDIO.written} size="small" tone="written" />
+            </div>
+            <p className={styles.finishGloss}>{line.gloss}</p>
           </div>
         )}
-        <p className={styles.comesBack}>{COMES_BACK}</p>
+        {state === 'saved' && <NewWords words={newWords} />}
         {state === 'saved' && note && <SaveNote />}
         {/* Job 14-analytics, "Done when" 19: a quiet link, never a step of the loop. */}
-        <a className={styles.feedbackLink} href="/feedback?from=finish">
+        <a className={styles.feedbackLink} href={`${PATHS.feedback}?from=finish`}>
           Send feedback
         </a>
       </main>

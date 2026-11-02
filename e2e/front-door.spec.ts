@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { isGuestPost, recordRequests, scrollsSideways } from './session-helpers.ts'
 
@@ -15,18 +15,14 @@ test.beforeEach(({ page }, testInfo) => {
   recordApiTimings(page, testInfo)
 })
 
-test('[session 1] shows the wordmark, the heading, one sentence, Start and the guest line, and loading it makes no account', async ({
+// Job 19-redesign: the front door is the road. The wordmark, "Today's session" and
+// the lead sentence are gone on purpose (statement 10); the guest line stays.
+test('[session 1] [redesign 10] [redesign 15] the road shows Start and the guest line, and loading it makes no account', async ({
   page,
 }) => {
   const requests = recordRequests(page)
   await page.goto('/')
-  await expect(page.getByRole('img', { name: 'PuhuScribe' })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
-  await expect(
-    page.getByText(
-      'A session is one short Finnish dialogue that you hear line by line and then check you understand.',
-    ),
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await expect(
     page.getByText(
@@ -41,7 +37,7 @@ test('[session 1] shows the wordmark, the heading, one sentence, Start and the g
   await expect(page).toHaveTitle('PuhuScribe')
 })
 
-test('[smoke 2] [smoke 6] [session 3] every request the front door makes goes to its own address, never to Supabase', async ({
+test('[smoke 2] [smoke 6] [session 3] every request the road makes goes to its own address, never to Supabase', async ({
   page,
 }) => {
   const requests = recordRequests(page)
@@ -82,7 +78,7 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
   await expect(page.locator('link[rel~="icon"]:not([href="data:,"])')).toHaveCount(0)
 })
 
-test('[session 22] the front door fits 320 px and 200 percent text without sideways scrolling', async ({
+test('[session 22] the road fits 320 px and 200 percent text without sideways scrolling', async ({
   page,
 }) => {
   await page.goto('/')
@@ -169,7 +165,8 @@ test.describe('older browsers', () => {
     await expect(busy).toHaveAttribute('aria-busy', 'true')
     await page.clock.runFor(9_000)
     await expect(busy).toHaveAttribute('aria-busy', 'true')
-    await expect(status).toHaveText('')
+    // The problem line belongs to the road's card and appears only when there is a problem (job 19-redesign).
+    await expect(status).toHaveCount(0)
     await page.clock.runFor(1_000)
     await expect(status).toHaveText(
       'Could not start your session. Check your internet connection, then try again.',

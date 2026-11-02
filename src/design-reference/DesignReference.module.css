@@ -264,3 +264,86 @@
   font-size: var(--text-small);
   color: var(--color-text-quiet);
 }
+
+/* The parts of job 19-redesign (NewParts.tsx). */
+.bandBox {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  height: var(--band-height);
+  overflow: hidden;
+  border-radius: var(--panel-radius);
+  background: var(--color-wash-middle);
+}
+
+.sceneRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.roadFigure {
+  margin: 0;
+}
+
+.roadFigure figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--color-text-quiet);
+}
+
+.roadBox {
+  position: relative;
+  width: min(86%, 22rem);
+  height: 520px;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--panel-radius);
+  background: var(--land-sky-top);
+}
+
+.roadTop {
+  width: 100%;
+  max-width: 24rem;
+  padding-bottom: var(--space-3);
+}
+
+.cardList {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 24rem;
+}
+
+.panelSample {
+  max-width: 24rem;
+  padding: var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+  font-size: var(--text-body);
+}
+
+.cardSample {
+  max-width: 30rem;
+  padding: var(--space-4);
+  border: var(--panel-edge);
+  border-radius: var(--panel-radius);
+  background: var(--panel-fill);
+  box-shadow: var(--panel-shadow);
+}
+
+.offlineBox {
+  max-width: 24rem;
+  border-radius: var(--panel-radius);
+  background: var(--color-wash-middle);
+}
+
+/* Nothing in the reference page's new parts may reach past the screen at 200 percent text. */
+.sceneRow > *,
+.roadFigure,
+.cardList > * {
+  min-width: 0;
+  max-width: 100%;
+}

@@ -1,0 +1,425 @@
+// Evaluator, job 19-redesign round 4. Not part of the repo. Run from a throwaway copy of commit 2ef3ad3
+// against `vite preview` over HTTPS with the builder's request mocks (no database here).
+import { test, expect, type Page, type Route } from '@playwright/test'
+import * as fs from 'node:fs'
+import { AxeBuilder } from '@axe-core/playwright'
+import { mockHome } from './road-mocks.ts'
+import { mockLesson, MOCK_LINES } from './lesson-mocks.ts'
+
+const EV = process.env.EVAL_OUT ?? 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/factory/jobs/19-redesign/evidence'
+const TAG = process.env.EVAL_TAG ?? 'r4'
+const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
+const LONG = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+const aForm = { lemma: 'pitkä', formName: 'Long', why: 'A made up long word.', spoken: LONG, written: LONG }
+const json = (route: Route, body: unknown, status = 200) =>
+  route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) })
+
+const notes: Record<string, unknown> = {}
+const note = (browser: string, key: string, value: unknown) => {
+  notes[key] = value
+  fs.appendFileSync(`${EV}/eval-${TAG}-observations-${browser}.jsonl`, JSON.stringify({ key, value }) + '\n')
+}
+
+const lineOf = (id: number, words: unknown[]) => ({
+  id,
+  speaker: 'Pekka',
+  gloss: 'A long word.',
+  spokenAudio: '/audio/a.wav',
+  writtenAudio: '/audio/b.wav',
+  spoken: words,
+  written: words,
+})
+
+async function lessonWith(page: Page, lines: unknown[], step: string | null = null, extra: Record<string, unknown> = {}) {
+  const calls = await mockLesson(page, { processing: 'withdrawn' })
+  await page.route('**/api/sessions/today', (route) =>
+    json(route, { state: 'ready', session: { id: 's1', step }, unit: { title: 'U', canDo: 'C' }, dialogue: { title: 'D' }, lines, ...extra }),
+  )
+  await page.goto('/session')
+  return calls
+}
+
+// Every text fragment inside `scope` (a CSS selector): is it inside the box `boxSel` that holds it,
+// inside the screen, and clear of every button it is not part of? Uses Range client rects, so it
+// sees the text itself, not the box of its parent.
+const MEASURE = `((args) => {
+  const [scopeSel, boxSel] = args
+  const out = []
+  const vw = document.documentElement.clientWidth
+  for (const scope of document.querySelectorAll(scopeSel)) {
+    const box = (boxSel ? scope.closest(boxSel) : scope) || scope
+    const b = box.getBoundingClientRect()
+    const buttons = [...box.querySelectorAll('button')]
+    const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT)
+    let worstRight = -999, worstLeft = -999, overlaps = 0, pieces = 0, rows = new Set()
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      if (!n.textContent.trim()) continue
+      const r = document.createRange()
+      r.selectNodeContents(n)
+      for (const rect of r.getClientRects()) {
+        if (rect.width < 1) continue
+        pieces += 1
+        rows.add(Math.round(rect.top))
+        worstRight = Math.max(worstRight, rect.right - b.right, rect.right - vw)
+        worstLeft = Math.max(worstLeft, b.left - rect.left)
+        for (const btn of buttons) {
+          if (btn.contains(n)) continue
+          const q = btn.getBoundingClientRect()
+          const ix = Math.min(rect.right, q.right) - Math.max(rect.left, q.left)
+          const iy = Math.min(rect.bottom, q.bottom) - Math.max(rect.top, q.top)
+          if (ix > 1 && iy > 1) overlaps += 1
+        }
+      }
+    }
+    out.push({ scope: scopeSel, pxPastRightEdge: Math.round(worstRight), pxPastLeftEdge: Math.round(worstLeft), textOverButtons: overlaps, rows: rows.size, pieces })
+  }
+  return { results: out, sideScroll: document.documentElement.scrollWidth - document.documentElement.clientWidth }
+})`
+
+// Is the punctuation on the same row as the last letter of the word?
+const PUNCT = `((long) => {
+  const res = []
+  for (const line of document.querySelectorAll('[data-line-id] p[lang="fi"]')) {
+    const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT)
+    const nodes = []
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) if (n.textContent.trim()) nodes.push(n)
+    const i = nodes.findIndex((n) => n.textContent === long)
+    if (i < 0) continue
+    const top = (node, a, b) => { const r = document.createRange(); r.setStart(node, a); r.setEnd(node, b); return Math.round(r.getBoundingClientRect().top) }
+    const w = nodes[i]
+    const prev = nodes[i - 1], next = nodes[i + 1]
+    res.push({
+      before: prev && /^[^\\p{L}\\s]+$/u.test(prev.textContent) ? { mark: prev.textContent, sameRow: Math.abs(top(prev, 0, 1) - top(w, 0, 1)) <= 3 } : null,
+      after: next && /^[^\\p{L}\\s]+$/u.test(next.textContent) ? { mark: next.textContent, sameRow: Math.abs(top(next, 0, 1) - top(w, w.length - 1, w.length)) <= 3 } : null,
+    })
+  }
+  return res
+})`
+
+test.describe('statement 46 and 5: a 44 letter word', () => {
+  const variants: [string, unknown[]][] = [
+    ['plain-alone', [{ text: LONG }]],
+    ['tappable-alone', [{ text: LONG, form: aForm }]],
+    ['plain-mid-quotes', [{ text: 'Sano' }, { text: LONG, before: '"', after: '"?' }, { text: 'nyt', after: '.' }]],
+    ['tappable-mid-quotes', [{ text: 'Sano' }, { text: LONG, form: aForm, before: '"', after: '"?' }, { text: 'nyt', after: '.' }]],
+    ['two-long-tappable', [{ text: LONG, form: aForm, after: ',' }, { text: LONG + 'kin', after: '!' }]],
+  ]
+  for (const [name, words] of variants) {
+    test(`hear it: ${name}`, async ({ page, browserName }) => {
+      await lessonWith(page, [lineOf(1, words)])
+      await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+      const m = await page.evaluate(`${MEASURE}(['[data-line-id]', null])`)
+      const lines = await page.evaluate(`${MEASURE}(['[data-line-id] p[lang="fi"]', '[data-line-id]'])`)
+      const punct = await page.evaluate(`${PUNCT}(${JSON.stringify(LONG)})`)
+      const name1 = await page.locator('[data-line-id] p[lang="fi"]').first().textContent()
+      note(browserName, `46 hear it ${name}`, { card: m, finnishLines: lines, punct, firstLineText: name1 })
+      await page.screenshot({ path: `${EV}/eval-${TAG}-46-hear-it-${name}-${browserName}.png` })
+    })
+  }
+
+  test('word card with the long word', async ({ page, browserName }) => {
+    await lessonWith(page, [lineOf(1, [{ text: 'Sano' }, { text: LONG, form: aForm, after: '?' }])])
+    await page.getByRole('button', { name: LONG }).first().click()
+    const dialog = page.getByRole('dialog')
+    await dialog.waitFor()
+    await page.waitForTimeout(400)
+    const m = await page.evaluate(`${MEASURE}(['dialog[open]', null])`)
+    note(browserName, '46 word card', m)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-word-card-${browserName}.png` })
+  })
+
+  test('say it with the long word', async ({ page, browserName }) => {
+    await lessonWith(page, [lineOf(1, [{ text: 'Sano' }, { text: LONG, form: aForm, after: '?' }])], 'understand')
+    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+    await page.waitForTimeout(400)
+    const m = await page.evaluate(`${MEASURE}(['[data-line-id]', null])`)
+    note(browserName, '46 say it', m)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-say-it-${browserName}.png` })
+  })
+
+  test('understand it with the long word', async ({ page, browserName }) => {
+    await lessonWith(page, [lineOf(1, [{ text: 'Sano' }, { text: LONG, form: aForm, after: '?' }])], 'hear')
+    await page.waitForTimeout(600)
+    const h1 = await page.getByRole('heading', { level: 1 }).textContent()
+    const m = await page.evaluate(`${MEASURE}(['main', null])`)
+    note(browserName, '46 understand it', { h1, m })
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-understand-it-${browserName}.png` })
+  })
+
+  test('320 px and 200 percent text, tappable long word', async ({ page, browserName }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    await lessonWith(page, [lineOf(1, [{ text: 'Sano' }, { text: LONG, form: aForm, after: '?' }])])
+    await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
+    await page.waitForTimeout(400)
+    const m = await page.evaluate(`${MEASURE}(['[data-line-id]', null])`)
+    note(browserName, '46 320 px 200 percent', m)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-320-200-${browserName}.png` })
+  })
+
+  test('a short line still keeps punctuation with its word at 320 px', async ({ page, browserName }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    const words = ['Voinks', 'mä', 'maksaa', 'kortilla', 'Kyllä', 'totta', 'kahvilassa', 'maksaa', 'mansikat', 'kortilla'].map((t, i) => ({
+      text: t,
+      ...(i % 2 ? { form: aForm } : {}),
+      after: i % 3 === 0 ? ',' : i % 3 === 1 ? '?' : '.',
+    }))
+    await lessonWith(page, [lineOf(1, words)])
+    await page.waitForTimeout(300)
+    const alone = await page.evaluate(`(() => {
+      let bad = 0, total = 0, rows = new Set()
+      for (const keep of document.querySelectorAll('[data-line-id] p[lang="fi"] [data-word]')) {
+        const nodes = []
+        const w = document.createTreeWalker(keep, NodeFilter.SHOW_TEXT)
+        for (let n = w.nextNode(); n; n = w.nextNode()) if (n.textContent.trim()) nodes.push(n)
+        const last = nodes.at(-1), word = nodes.at(-2)
+        if (!last || !word) continue
+        total += 1
+        const top = (node, a, b) => { const r = document.createRange(); r.setStart(node, a); r.setEnd(node, b); return r.getBoundingClientRect().top }
+        rows.add(Math.round(top(word, 0, 1)))
+        if (Math.abs(top(last, 0, 1) - top(word, word.length - 1, word.length)) > 3) bad += 1
+      }
+      return { marksChecked: total, marksAloneOnARow: bad, rows: rows.size }
+    })()`)
+    note(browserName, '46 job 8 punctuation kept at 320 px', alone)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-46-punctuation-320-${browserName}.png` })
+  })
+})
+
+const focused = (page: Page) =>
+  page.evaluate(() => {
+    const a = document.activeElement
+    if (!a) return 'none'
+    const label = a.getAttribute('aria-label') ?? a.textContent?.trim().slice(0, 30) ?? ''
+    return `${a.tagName} "${label}"`
+  })
+
+test.describe('statement 22 and 47: focus back to the opener', () => {
+  test('leave sheet, real taps and clicks', async ({ page, browserName }) => {
+    const out: Record<string, unknown> = {}
+    await mockLesson(page, {})
+    await page.goto('/session')
+    await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+    const cross = page.getByRole('button', { name: 'Leave session' })
+    const sheet = page.getByRole('dialog', { name: 'Leave this lesson?' })
+    // 1. A real touch tap on the cross, then a touch tap on Keep going.
+    await cross.tap()
+    await sheet.waitFor()
+    out['tap cross: focus while the sheet is open'] = await focused(page)
+    await sheet.getByRole('button', { name: 'Keep going' }).tap()
+    await sheet.waitFor({ state: 'hidden' })
+    out['tap cross, tap Keep going'] = await focused(page)
+    await page.locator('h1').click() // move focus away from the cross by a tap elsewhere
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+    // 2. Mouse click cross, Escape.
+    await cross.click()
+    await sheet.waitFor()
+    await page.keyboard.press('Escape')
+    await sheet.waitFor({ state: 'hidden' })
+    out['click cross, Escape'] = await focused(page)
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+    // 3. Tap cross, tap the dimmed page above the sheet.
+    await cross.tap()
+    await sheet.waitFor()
+    await page.touchscreen.tap(187, 20)
+    await sheet.waitFor({ state: 'hidden' })
+    out['tap cross, tap the dimmed page'] = await focused(page)
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+    // 4. Keyboard only.
+    await cross.focus()
+    await page.keyboard.press('Enter')
+    await sheet.waitFor()
+    out['keyboard: focus inside the sheet'] = await focused(page)
+    await page.keyboard.press('Enter')
+    await sheet.waitFor({ state: 'hidden' })
+    out['keyboard: Enter on cross, Enter on first control'] = await focused(page)
+    // 5. Sheet open twice in a row, with focus moved to Next line in between (opener must not be stale).
+    await page.getByRole('button', { name: 'Next line' }).focus()
+    await cross.click()
+    await sheet.waitFor()
+    await sheet.getByRole('button', { name: 'Keep going' }).click()
+    await sheet.waitFor({ state: 'hidden' })
+    out['focus on Next line, click cross, click Keep going'] = await focused(page)
+    // 6. Leave still works and goes to the road.
+    await cross.tap()
+    await sheet.waitFor()
+    await page.screenshot({ path: `${EV}/eval-${TAG}-22-leave-sheet-${browserName}.png` })
+    const axe = await new AxeBuilder({ page }).withTags(TAGS).analyze()
+    out['axe on the open sheet'] = axe.violations.map((v) => v.id)
+    await sheet.getByRole('button', { name: 'Leave' }).tap()
+    await page.waitForURL((u) => u.pathname === '/')
+    out['Leave goes to'] = new URL(page.url()).pathname
+    fs.writeFileSync(`${EV}/eval-${TAG}-22-focus-return-${browserName}.json`, JSON.stringify(out, null, 2))
+  })
+
+  test('after Keep going, the cross shows a focus outline', async ({ page, browserName }) => {
+    await mockLesson(page, {})
+    await page.goto('/session')
+    const cross = page.getByRole('button', { name: 'Leave session' })
+    await cross.tap()
+    const sheet = page.getByRole('dialog', { name: 'Leave this lesson?' })
+    await sheet.getByRole('button', { name: 'Keep going' }).tap()
+    await sheet.waitFor({ state: 'hidden' })
+    const ring = await cross.evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return { focusVisible: el.matches(':focus-visible'), outline: `${cs.outlineStyle} ${cs.outlineWidth}`, boxShadow: cs.boxShadow }
+    })
+    note(browserName, '22 cross outline after tap and Keep going', ring)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-22-after-keep-going-${browserName}.png`, clip: { x: 0, y: 0, width: 375, height: 120 } })
+  })
+
+  test('other sheets opened by a tap (statement 47)', async ({ page, browserName }) => {
+    const out: Record<string, unknown> = {}
+    // Word card.
+    await mockLesson(page, {})
+    await page.goto('/session')
+    await page.getByRole('button', { name: 'noi' }).first().tap()
+    await page.getByRole('dialog').waitFor()
+    await page.keyboard.press('Escape')
+    await page.getByRole('dialog').waitFor({ state: 'hidden' })
+    out['word card: tap noi, Escape'] = await focused(page)
+    // Voice settings consent sheet, opened by a tap on the switch.
+    const p = await page.context().newPage()
+    await mockHome(p, { done: { 1: 4, 2: 4, 3: 2 }, me: { kind: 'guest' } })
+    await p.route('**/api/voice', (r) => json(r, { available: true, region: null, processing: 'not_asked', retention: false, recordings: [] }))
+    await p.goto('/voice')
+    const sw = p.getByRole('switch', { name: 'Speaking feedback' })
+    await sw.tap()
+    const consent = p.getByRole('dialog', { name: 'Say it out loud' })
+    await consent.waitFor()
+    await consent.getByRole('button', { name: 'Not now' }).tap()
+    await consent.waitFor({ state: 'hidden' })
+    out['voice settings: tap switch, tap Not now'] = await focused(p)
+    await sw.tap()
+    await consent.waitFor()
+    await p.keyboard.press('Escape')
+    await consent.waitFor({ state: 'hidden' }).catch(() => undefined)
+    out['voice settings: tap switch, Escape'] = await focused(p)
+    await sw.focus()
+    await p.keyboard.press('Space')
+    await consent.waitFor()
+    await p.keyboard.press('Escape')
+    await consent.waitFor({ state: 'hidden' }).catch(() => undefined)
+    out['voice settings: keyboard Space on switch, Escape'] = await focused(p)
+    fs.writeFileSync(`${EV}/eval-${TAG}-47-other-sheets-${browserName}.json`, JSON.stringify(out, null, 2))
+  })
+})
+
+test.describe('double tap on Next line', () => {
+  test('hear it and say it', async ({ page, browserName }) => {
+    const out: Record<string, unknown> = {}
+    const status = page.getByRole('status')
+    let calls = await mockLesson(page, {})
+    await page.goto('/session')
+    const next = page.getByRole('button', { name: /Next line|Continue/ })
+    await expect(status).toHaveText('Line 1 of 3.')
+    await next.dblclick()
+    await page.waitForTimeout(300)
+    out['hear it: mouse double click from line 1'] = await status.textContent()
+    await page.reload()
+    await expect(status).toHaveText('Line 1 of 3.')
+    const box = (await next.boundingBox())!
+    const x = box.x + box.width / 2
+    const y = box.y + box.height / 2
+    await page.touchscreen.tap(x, y)
+    await page.touchscreen.tap(x, y)
+    await page.touchscreen.tap(x, y)
+    await page.waitForTimeout(300)
+    out['hear it: three fast finger taps from line 1'] = await status.textContent()
+    await page.waitForTimeout(600)
+    await page.touchscreen.tap(x, y)
+    await page.waitForTimeout(200)
+    out['hear it: one more finger tap after a pause'] = await status.textContent()
+    await page.reload()
+    await expect(status).toHaveText('Line 1 of 3.')
+    await next.click()
+    await page.waitForTimeout(700)
+    await next.click()
+    await page.waitForTimeout(200)
+    out['hear it: two mouse clicks 700 ms apart'] = await status.textContent()
+    await page.reload()
+    await expect(status).toHaveText('Line 1 of 3.')
+    await next.focus()
+    await page.keyboard.press('Enter')
+    await page.keyboard.press('Enter')
+    await page.waitForTimeout(200)
+    out['hear it: two quick Enter presses (keyboard)'] = await status.textContent()
+    // Continue on the last line: a double tap saves the step once.
+    await page.close()
+    const p = await page.context().newPage()
+    calls = await mockLesson(p, {})
+    await p.route('**/api/sessions/s1/step', async (route) => {
+      calls.steps.push((route.request().postDataJSON() as { step: string }).step)
+      await new Promise((r) => setTimeout(r, 1500))
+      await json(route, { step: 'hear' })
+    })
+    await p.goto('/session')
+    const st = p.getByRole('status')
+    const nx = p.getByRole('button', { name: /Next line|Continue/ })
+    await expect(st).toHaveText('Line 1 of 3.')
+    await nx.click()
+    await p.waitForTimeout(600)
+    await nx.click()
+    await p.waitForTimeout(600)
+    await expect(p.getByRole('button', { name: 'Continue' })).toBeVisible()
+    const b2 = (await nx.boundingBox())!
+    await p.touchscreen.tap(b2.x + b2.width / 2, b2.y + b2.height / 2)
+    await p.touchscreen.tap(b2.x + b2.width / 2, b2.y + b2.height / 2)
+    await p.waitForTimeout(700)
+    await p.touchscreen.tap(b2.x + b2.width / 2, b2.y + b2.height / 2)
+    await p.waitForTimeout(2000)
+    out['hear it: Continue tapped twice fast then again while saving (slow network): step saves'] = calls.steps.length
+    out['after Continue the screen is'] = await p.getByRole('heading', { level: 1 }).textContent()
+    // Say it with speaking feedback off.
+    const s = await p.context().newPage()
+    await mockLesson(s, { step: 'understand', processing: 'withdrawn' })
+    await s.goto('/session')
+    await expect(s.getByText('Say the line out loud after the voice.')).toBeVisible()
+    const sst = s.getByRole('status')
+    const snx = s.getByRole('button', { name: 'Next line' })
+    const b3 = (await snx.boundingBox())!
+    await s.touchscreen.tap(b3.x + b3.width / 2, b3.y + b3.height / 2)
+    await s.touchscreen.tap(b3.x + b3.width / 2, b3.y + b3.height / 2)
+    await s.waitForTimeout(300)
+    out['say it: two fast finger taps from line 1'] = await sst.textContent()
+    await s.screenshot({ path: `${EV}/eval-${TAG}-24-say-it-after-double-tap-${browserName}.png` })
+    fs.writeFileSync(`${EV}/eval-${TAG}-24-double-tap-${browserName}.json`, JSON.stringify(out, null, 2))
+  })
+})
+
+test.describe('spot checks after the rebase', () => {
+  test('road and line card', async ({ page, browserName }) => {
+    const out: Record<string, unknown> = {}
+    const roadCalls: string[] = []
+    page.on('request', (r) => {
+      if (r.url().includes('/api/')) roadCalls.push(`${r.method()} ${new URL(r.url()).pathname}`)
+    })
+    await mockHome(page, { today: { signedIn: true, today: 'continue' }, done: { 1: 4, 2: 4, 3: 2 } })
+    await page.goto('/')
+    await page.getByRole('list', { name: 'Stops on your road' }).waitFor()
+    await page.waitForTimeout(900)
+    out['road continue h1'] = await page.getByRole('heading', { level: 1 }).textContent()
+    out['road signs'] = await page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').allTextContents()
+    out['road api calls'] = roadCalls
+    out['axe road continue'] = (await new AxeBuilder({ page }).withTags(TAGS).analyze()).violations.map((v) => v.id)
+    out['side scroll'] = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    await page.screenshot({ path: `${EV}/eval-${TAG}-spot-road-continue-${browserName}.png` })
+    const d = await page.context().newPage()
+    await mockHome(d)
+    await d.goto('/')
+    await d.getByRole('button', { name: 'Start' }).waitFor()
+    await d.waitForTimeout(900)
+    out['day one h1'] = await d.getByRole('heading', { level: 1 }).textContent()
+    out['axe day one'] = (await new AxeBuilder({ page: d }).withTags(TAGS).analyze()).violations.map((v) => v.id)
+    await d.screenshot({ path: `${EV}/eval-${TAG}-spot-road-day-one-${browserName}.png` })
+    const l = await page.context().newPage()
+    await mockLesson(l, {})
+    await l.goto('/session')
+    await expect(l.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+    out['line card first line text'] = await l.locator('[data-line-id] p[lang="fi"]').allTextContents()
+    out['noi button name'] = await l.getByRole('button', { name: 'noi' }).first().getAttribute('aria-label').then(async (a) => a ?? (await l.getByRole('button', { name: 'noi' }).first().textContent()))
+    out['tappable word buttons in line 1'] = await l.locator('[data-line-id] button').evaluateAll((bs) => bs.map((b) => ({ text: b.textContent, h: Math.round(b.getBoundingClientRect().height), w: Math.round(b.getBoundingClientRect().width) })))
+    out['axe hear it'] = (await new AxeBuilder({ page: l }).withTags(TAGS).analyze()).violations.map((v) => v.id)
+    await l.screenshot({ path: `${EV}/eval-${TAG}-spot-line-card-${browserName}.png` })
+    fs.writeFileSync(`${EV}/eval-${TAG}-spot-checks-${browserName}.json`, JSON.stringify(out, null, 2))
+  })
+})

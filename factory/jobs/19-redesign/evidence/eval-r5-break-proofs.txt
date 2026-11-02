@@ -1,0 +1,150 @@
+Break proofs in a throwaway copy of commit 53428b9 (git archive into the scratchpad), never the worktree. Each break is undone before the next and the copy is rebuilt with vite build. Browser tests run against vite preview over HTTPS with the builder's mocks.
+=== baseline (unbroken)
+--- npx playwright test e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g 21 letter tappable|Speaking feedback switch opens the consent sheet|quiet .Turn on speaking feedback. in Say it|redesign 47\] a tap on a word|redesign 22\] a tap on the cross
+  14 passed (19.7s)
+=== break A: the round 4 word button (old negative margin, no padding, no text-align), i.e. FinnishLine.module.css as at 2ef3ad3
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g 21 letter tappable
+    Error: the word overlaps the text row above
+    Expected: <= 1
+    Received:    9.09375
+    Error: the word overlaps the text row above
+    Expected: <= 1
+    Received:    9.09375
+    Error: the word overlaps the text row above
+    Expected: <= 1
+    Received:    9.09375
+    Error: the word overlaps the text row above
+    Expected: <= 1
+    Received:    9.09375
+  4 failed
+    [chromium] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Hear it 
+    [chromium] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Say it 
+    [webkit] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Hear it 
+    [webkit] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Say it 
+--- evaluator script (A) --project=chromium --project=webkit -g 46 (hear-it|say-it) 375:  32 passed (58.1s) 
+restored: copy src identical to worktree src
+=== break B: only 'text-align: start;' removed from .word
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g 21 letter tappable
+    Error: the pieces of the word are not left aligned
+    Expected: < 1
+    Received:   85.203125
+    Error: the pieces of the word are not left aligned
+    Expected: < 1
+    Received:   85.21401977539062
+    Error: the pieces of the word are not left aligned
+    Expected: < 1
+    Received:   52.765625
+    Error: the pieces of the word are not left aligned
+    Expected: < 1
+    Received:   52.78001403808594
+  4 failed
+    [chromium] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Hear it 
+    [chromium] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Say it 
+    [webkit] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Hear it 
+    [webkit] › e2e\redesign-lesson.spec.ts:885:5 › phone size, keyboard and screen reader › [redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in Say it 
+--- evaluator script (B) --project=chromium --project=webkit -g 46 (hear-it|say-it) 375:  32 passed (57.7s) 
+restored: copy src identical to worktree src
+=== break C: Voice settings does not pass returnFocus={speakingSwitch} to its ConsentSheet
+(rebuilt)
+--- npx playwright test e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g Speaking feedback switch opens the consent sheet
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+  2 failed
+    [chromium] › e2e\redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the switch 
+    [webkit] › e2e\redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the switch 
+--- evaluator script (C) --project=webkit --project=chromium -g 47:  1 failed  1 passed (38.6s) 
+restored: copy src identical to worktree src
+=== break D: Say it does not give focus back to its quiet button (reopen.current?.focus() removed)
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts --project=chromium --project=webkit -g quiet .Turn on speaking feedback. in Say it
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+  2 failed
+    [chromium] › e2e\redesign-lesson.spec.ts:177:3 › the lesson frame and the leave sheet › [redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the dimmed page give focus back to it after a tap 
+    [webkit] › e2e\redesign-lesson.spec.ts:177:3 › the lesson frame and the leave sheet › [redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the dimmed page give focus back to it after a tap 
+--- evaluator script (D) --project=webkit --project=chromium -g 47:  1 failed  1 passed (39.4s) 
+restored: copy src identical to worktree src
+=== break E: Sheet ignores returnFocus and goes back to remembering document.activeElement
+(rebuilt)
+--- npx playwright test e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g 21 letter tappable|Speaking feedback switch opens the consent sheet|quiet .Turn on speaking feedback. in Say it|redesign 47\] a tap on a word|redesign 22\] a tap on the cross
+    Error: after a tap on Keep going
+    Expected: focused
+    Received: inactive
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+    Error: after Not now
+    Expected: focused
+    Received: inactive
+    Error: after a tap on Keep going
+    Expected: focused
+    Received: inactive
+    Error: expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+    Error: expect(locator).toBeFocused() failed
+    Expected: focused
+    Received: inactive
+  6 failed
+    [chromium] › e2e\redesign-lesson.spec.ts:87:3 › the lesson frame and the leave sheet › [redesign 22] a tap on the cross, then a tap on Keep going or on the dimmed page, gives focus back to the cross even where a tap does not focus a button 
+    [chromium] › e2e\redesign-lesson.spec.ts:105:3 › the lesson frame and the leave sheet › [redesign 22] a tap on the cross, then Escape, gives focus back to the cross even where a tap does not focus a button 
+    [chromium] › e2e\redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the switch 
+    [webkit] › e2e\redesign-lesson.spec.ts:87:3 › the lesson frame and the leave sheet › [redesign 22] a tap on the cross, then a tap on Keep going or on the dimmed page, gives focus back to the cross even where a tap does not focus a button 
+    [webkit] › e2e\redesign-lesson.spec.ts:105:3 › the lesson frame and the leave sheet › [redesign 22] a tap on the cross, then Escape, gives focus back to the cross even where a tap does not focus a button 
+    [webkit] › e2e\redesign-pages.spec.ts:263:3 › Voice settings › [redesign 47] a tap on the Speaking feedback switch opens the consent sheet, and Not now, Escape and the dimmed page give focus back to the switch 
+  8 passed (36.2s)
+--- evaluator script (E) --project=webkit --project=chromium -g 47:  2 passed (37.9s) 
+restored: copy src identical to worktree src
+(rebuilt)
+=== after restore and rebuild
+--- npx playwright test e2e/redesign-lesson.spec.ts e2e/redesign-pages.spec.ts --project=chromium --project=webkit -g 21 letter tappable|Speaking feedback switch opens the consent sheet|quiet .Turn on speaking feedback. in Say it|redesign 47\] a tap on a word|redesign 22\] a tap on the cross
+  14 passed (19.5s)
+DONE
+
+=== notes added by the evaluator after the run
+My script's single focus test failed in WebKit during breaks C and D (and once unbroken) only because the one long test passed Playwright's 30 second limit with four workers. With test.setTimeout(150_000) the unbroken run passed 8 of 8 (both browsers, --repeat-each=4). Breaks C and D were then rerun alone in WebKit:
+--- break C rerun, WebKit, real taps (eval-r5-break-C-focus-webkit.json):
+  "voice settings switch: close by Not now": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings switch: close by Escape": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings switch: close by dimmed": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings: tap switch, tap Turn on": "BODY \"Voice settingsSpeaking feedbac\"",
+--- break D rerun, WebKit, real taps (eval-r5-break-D-focus-webkit.json):
+  "Say it quiet button: close by Not now": "BODY \"Say itPekkaPaljonks noi mansik\"",
+  "Say it quiet button: close by Escape": "BODY \"Say itPekkaPaljonks noi mansik\"",
+  "Say it quiet button: close by dimmed": "BODY \"Say itPekkaPaljonks noi mansik\"",
+--- break E, WebKit, real taps (eval-r5-break-E-focus-webkit.json): the leave sheet and the switch fall to the body; the word card, the chips, the quiet button and the patterns panel still return focus because each has its own way back:
+  "leave sheet: tap cross, close by Keep going": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "leave sheet: tap cross, close by Escape": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "leave sheet: tap cross, close by dimmed": "BODY \"Hear itPekkaLine 1 of 3Paljonk\"",
+  "voice settings switch: close by Not now": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings switch: close by Escape": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings switch: close by dimmed": "BODY \"Voice settingsYour voice setti\"",
+  "voice settings: tap switch, tap Turn on": "BODY \"Voice settingsSpeaking feedbac\"",
+--- break E, Chromium: no change, because Chromium focuses a tapped button, which is why only WebKit shows the failure.
+
+=== break A, the evaluator's own measure (eval-r5-break-A-layout-hear-it-375-webkit.jsonl): text over text, round 4 CSS against round 5
+== eval-A-46-layout-hear-it-375-webkit.jsonl
+  r21-after-plain            scroll 0 ov=9.1(Missä / terveyskeskusl) past=-59 wrong=0 tall=[["tervey",53.2,"center",[85.2]]] minH=53.2 | ov=0.2(Missä / terveyskeskusl) past=-58 wrong=0 tall=[] minH=
+  r21-after-tappable         scroll 0 ov=9.1(Missä / terveyskeskusl) past=-59 wrong=0 tall=[["tervey",53.2,"center",[85.2]]] minH=44 | ov=0.2(Missä / terveyskeskusl) past=-58 wrong=0 tall=[] minH=44
+  r21-in-quotes              scroll 0 ov=9.1(Sano / ") past=-59 wrong=0 tall=[["\"terve",53.2,"center",[70.5]]] minH=44 | ov=0.2(Sano / ") past=-56 wrong=0 tall=[] minH=44
+  long44-tappable-mid        scroll 0 ov=9.1(Voinks / epäjärjestelmä) past=-59 wrong=0 tall=[["epäjär",79.8,"center",[5.1,50.7]]] minH=44 | ov=10.3(Voinks / epäjärjestelmä) past=-57 wrong=0 ta
+  long44-plain-mid           scroll 0 ov=0.4(epäjärjestelmä / epäjärjestelmä) past=-58 wrong=0 tall=[] minH=44 | ov=0.2(epäjärjestelmä / epäjärjestelmä) past=-57 wrong=0 tall=[] minH=44
+  long44-first-then-words    scroll 0 ov=0.4(epäjärjestelmä / epäjärjestelmä) past=-59 wrong=0 tall=[["epäjär",79.8,"center",[5.1,55.7]]] minH=44 | ov=0.2(epäjärjestelmä / kortilla) past=-5
+  two-long-tappable          scroll 0 ov=9.1(epäjärjestelmä / epäjärjestelmä) past=-62 wrong=0 tall=[["epäjär",79.8,"center",[5.1,53.4]],["epäjär",79.8,"center",[5.1,38.3]]] minH=79.8 | ov=1
+Round 5 (eval-r5-46-summary.txt): 0.4 px at most in every case, every later row at 0 px from the button's left.
+
+=== one row words, round 4 CSS (break A) against round 5, the builder's mock dialogue at 375 px
+hear-it chromium: text pieces 10 moved 0 | word buttons 2 moved or resized 0 | noi 158.7,163.3,35.3,44; nuo 149.4,240.1,38.5,44
+hear-it webkit: text pieces 10 moved 0 | word buttons 2 moved or resized 0 | noi 158.7,163.3,35.3,44; nuo 149.3,240.1,38.5,44
+say-it chromium: text pieces 10 moved 0 | word buttons 2 moved or resized 0 | noi 158.7,183.3,35.3,44; nuo 149.4,260.1,38.5,44
+say-it webkit: text pieces 10 moved 0 | word buttons 2 moved or resized 0 | noi 158.7,183.3,35.3,44; nuo 149.3,260.1,38.5,44

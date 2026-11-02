@@ -80,7 +80,8 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
   // Say it (job 10) follows Understand it; its consent screen or its own heading ends the loop.
   const sayIt = page
     .getByRole('heading', { level: 1, name: 'Say it' })
-    .or(page.getByRole('heading', { level: 1, name: 'Speaking feedback' }))
+    .or(page.getByRole('dialog', { name: 'Say it out loud' }))
+    .first()
   for (;;) {
     const lineId = await questionLineId(page)
     const gloss = lines.find((line) => line.id === lineId)?.gloss ?? ''

@@ -1,0 +1,150 @@
+/* The home screen, the road (design.md, "The road"). Values from src/styles/tokens.css. */
+
+.screen {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--land-sky-top);
+}
+
+.world {
+  position: absolute;
+  inset: 0;
+}
+
+.pictureBox {
+  position: absolute;
+  inset: 0;
+}
+
+.top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.card {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  /* At large text the card could fill the screen. It stops at a share of it, the road, the bar and the
+     account button stay in view, and the inside scrolls (round 3, design review). */
+  max-height: 42vh;
+  max-height: 42dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-2) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+}
+
+.probe {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Skip is the first control in the page and at least 44 px. */
+.skip {
+  position: absolute;
+  top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+  right: var(--space-3);
+  z-index: 4;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+/* The opening animation (design.md, "The opening animation"): the top and the
+   card come in last. They are hidden with visibility until then, never with
+   inert, so nothing hidden can be focused or tapped while it runs. */
+.screen[data-intro='on'] .top,
+.screen[data-intro='on'] .card {
+  animation: cardIn var(--motion-intro) ease both;
+}
+
+.screen[data-intro='on'] .skip {
+  animation: skipOut var(--motion-intro) ease both;
+}
+
+@keyframes cardIn {
+  0%,
+  75% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+  }
+
+  76% {
+    visibility: visible;
+  }
+
+  92%,
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skipOut {
+  0%,
+  72% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes crossfade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: the animation becomes a crossfade of 600 ms or less. */
+@media (prefers-reduced-motion: reduce) {
+  .screen[data-intro='on'] .top,
+  .screen[data-intro='on'] .card {
+    animation: crossfade var(--motion-fade) ease both;
+  }
+
+  .screen[data-intro='on'] .skip {
+    animation: none;
+  }
+}

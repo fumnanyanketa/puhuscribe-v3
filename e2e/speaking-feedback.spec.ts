@@ -1,10 +1,13 @@
 import { AxeBuilder } from '@axe-core/playwright'
-import { expect, test, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { expect, test } from './test-base.ts'
+import { installRoad } from './road-route.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import { microphoneCalls, microphoneReleased, stubMicrophone, useSpeechFixture } from './microphone.ts'
 import {
   finishHearIt,
   finishUnderstandIt,
+  leaveLesson,
   scrollsSideways,
   serveTone,
   startSession,
@@ -35,23 +38,41 @@ async function toSayIt(page: Page) {
   return { userId, sessionId: session?.id ?? '', lines }
 }
 
-const consentHeading = (page: Page) => page.getByRole('heading', { level: 1, name: 'Speaking feedback' })
+// Job 19-redesign (statement 29): the consent is a sheet over Say it, titled "Say it out loud", with
+// "How it works", "Turn on" and "Not now". The old keep box is not on it: keeping recordings is a switch
+// in Voice settings, so a test that needs kept recordings turns it on there.
+const consentHeading = (page: Page) => page.getByRole('dialog', { name: 'Say it out loud' })
 const status = (page: Page) => page.getByRole('status')
 
 async function turnOn(page: Page, keep = false) {
   await expect(consentHeading(page)).toBeVisible()
-  if (keep) await page.getByRole('checkbox').check()
   await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
+  // Say it's own heading is behind the sheet from the start, so wait for the sheet to go.
+  await expect(consentHeading(page)).toBeHidden()
   await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+  if (keep) {
+    await page.goto('/voice')
+    const keepSwitch = page.getByRole('switch', { name: 'Keep my recordings' })
+    await keepSwitch.click()
+    await expect(keepSwitch).toBeChecked()
+    await page.goto('/session')
+    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+  }
 }
 
 /** Records about a second of the tone, stops, and waits for the result. */
 async function recordOnce(page: Page, ms = 1_200) {
-  await page.getByRole('button', { name: RECORD }).click()
+  // After a clear result the redrawn screen shows the result card with "Play mine" and "Try again"
+  // (job 19-redesign, statement 30), and "Try again" starts the next recording itself.
+  const record = page.getByRole('button', { name: RECORD })
+  const tryAgain = page.getByRole('button', { name: 'Try again' })
+  await expect(record.or(tryAgain).first()).toBeVisible({ timeout: 20_000 })
+  if (await record.isVisible()) await record.click()
+  else await tryAgain.click()
   await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
   await page.waitForTimeout(ms)
   await page.getByRole('button', { name: /^Stop recording/ }).click()
-  await expect(page.getByRole('button', { name: RECORD })).toBeVisible({ timeout: 20_000 })
+  await expect(record.or(tryAgain).first()).toBeVisible({ timeout: 20_000 })
 }
 
 test.describe('speaking feedback', { tag: '@seed' }, () => {
@@ -59,31 +80,25 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  test('[speak 1] [speak 2] the consent screen comes first, asks for nothing, and Turn on records the choice with the text version', async ({
+  test('[speak 1] [speak 2] [redesign 29] the consent sheet comes first, asks for nothing, and Turn on records the choice with the text version', async ({
     page,
   }) => {
     await stubMicrophone(page, 'tone')
     const { userId } = await toSayIt(page)
     await expect(consentHeading(page)).toBeVisible()
-    await expect(page.getByText('Say it, step 3 of 3', { exact: true })).toBeVisible()
-    for (const text of [
-      'records your voice only while the record button is on, for a few seconds per line.',
-      "through PuhuScribe's server to Microsoft's speech service in the EU",
-      'PuhuScribe deletes it as soon as your feedback is ready.',
-      'That text is deleted after 90 days.',
-      'You can change both choices at any time in Voice settings.',
-    ]) {
-      await expect(page.getByText(text, { exact: false })).toBeVisible()
-    }
-    const box = page.getByRole('checkbox', {
-      name: 'Keep my recordings so I can hear my progress. We keep your first and latest try of each line for 90 days. You can delete them at any time.',
-    })
-    await expect(box).not.toBeChecked()
+    // The facts the old screen spelled out (the EU speech service, deletion when the feedback is
+    // ready, the 90 days) are in the privacy notice, which "How it works" opens at its voice section.
+    await expect(consentHeading(page).getByRole('link', { name: /How it works/ })).toHaveAttribute(
+      'href',
+      /\/privacy#privacy-voice$/,
+    )
+    await expect(page.getByRole('checkbox')).toHaveCount(0)
     await expect(page.getByRole('button', { name: 'Not now' })).toBeVisible()
     expect(await microphoneCalls(page)).toBe(0)
     expect(one(`select count(*) from public.consents where user_id = :'uid'`, { uid: userId })).toBe('0')
 
     await turnOn(page)
+    await expect(page.getByRole('progressbar', { name: 'Say it, step 3 of 3' })).toBeVisible()
     expect(await microphoneCalls(page)).toBe(0)
     expect(
       sql(`select kind, granted, notice_version from public.consents where user_id = :'uid'`, {
@@ -94,7 +109,9 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     expect(await microphoneCalls(page)).toBe(1)
   })
 
-  test('[speak 2] a ticked box adds the retention row as well', async ({ page }) => {
+  test('[speak 2] turning on "Keep my recordings" in Voice settings adds the retention row as well', async ({
+    page,
+  }) => {
     await stubMicrophone(page, 'tone')
     const { userId } = await toSayIt(page)
     await turnOn(page, true)
@@ -120,10 +137,13 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await page.getByRole('button', { name: 'Not now' }).click()
     await expect(page.getByText('Say the line out loud after the voice.', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: RECORD })).toHaveCount(0)
-    await expect(page.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
+    // The drawn Say it card has no play buttons (job 19-redesign, statement 30): the learner heard the
+    // line in Hear it, and the card is only the line to say.
+    await expect(page.getByRole('button', { name: 'Play the spoken line' })).toHaveCount(0)
     await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
     await expect(consentHeading(page)).toBeVisible()
     await page.getByRole('button', { name: 'Not now' }).click()
+    await expect(consentHeading(page)).toBeHidden()
     for (let i = 1; i < lines.length; i += 1) await page.getByRole('button', { name: 'Next line' }).click()
     await page.getByRole('button', { name: 'Continue' }).click()
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
@@ -188,14 +208,15 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
   }) => {
     const { userId, lines } = await toSayIt(page)
     const leave = async () => {
-      await page.getByRole('link', { name: 'Leave session' }).click()
+      await leaveLesson(page)
       await page.waitForURL((url) => url.pathname === '/')
-      await page.getByRole('button', { name: "Continue today's session" }).click()
+      await page.getByRole('button', { name: 'Continue', exact: true }).click()
       await page.waitForURL('**/session')
     }
     await leave()
     await expect(consentHeading(page)).toBeVisible()
     await page.getByRole('button', { name: 'Not now' }).click()
+    await expect(consentHeading(page)).toBeHidden()
     await page.route('**/api/sessions/*/complete', (route) => route.abort('failed'))
     for (let i = 1; i < lines.length; i += 1) await page.getByRole('button', { name: 'Next line' }).click()
     await page.getByRole('button', { name: 'Continue' }).click()
@@ -252,14 +273,14 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     }
   })
 
-  test('[speak 8] "Play my recording" plays from memory; nothing goes to any browser store, and the recording goes with the line', async ({
+  test('[speak 8] "Play mine" plays from memory; nothing goes to any browser store, and the recording goes with the line', async ({
     page,
   }) => {
     await stubMicrophone(page, 'tone')
     const { lines } = await toSayIt(page)
     await turnOn(page)
     await recordOnce(page)
-    const play = page.getByRole('button', { name: 'Play my recording' })
+    const play = page.getByRole('button', { name: 'Play mine' })
     await expect(play).toBeVisible()
     await play.click()
     const stores = await page.evaluate<Record<string, number>>(`(async () => ({
@@ -397,8 +418,10 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
       }).flat(),
     ).toEqual(['first', 'latest'])
 
-    // Linked from Say it and from the front door.
-    await page.getByRole('link', { name: 'Voice settings' }).click()
+    // Voice settings is linked from Your account (job 19-redesign, statement 36); Say it has no link of its own.
+    await page.goto('/account')
+    await expect(page.getByRole('link', { name: /^Speaking feedback/ })).toHaveAttribute('href', '/voice')
+    await page.getByRole('link', { name: /^Speaking feedback/ }).click()
     await page.waitForURL('**/voice')
     await expect(page.getByRole('heading', { level: 1, name: 'Voice settings' })).toBeVisible()
     const items = page.locator('[data-recording-id]')
@@ -421,8 +444,9 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
       '1',
     )
 
-    await page.getByRole('button', { name: 'Stop keeping my recordings' }).click()
-    await expect(page.getByText('You have no kept recordings.', { exact: true })).toBeVisible()
+    await page.getByRole('switch', { name: 'Keep my recordings' }).click()
+    // Round 6 of job 19-redesign: "My recordings" shows only while something is kept.
+    await expect(page.getByRole('heading', { name: 'My recordings' })).toHaveCount(0)
     expect(one(`select count(*) from public.kept_recordings where user_id = :'uid'`, { uid: userId })).toBe(
       '0',
     )
@@ -438,8 +462,9 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
         uid: userId,
       }),
     ).not.toBe('0')
-    await page.getByRole('button', { name: 'Turn off speaking feedback' }).click()
-    await expect(page.getByRole('button', { name: 'Turn on speaking feedback' })).toBeVisible()
+    const speakingSwitch = page.getByRole('switch', { name: 'Speaking feedback' })
+    await speakingSwitch.click()
+    await expect(speakingSwitch).not.toBeChecked()
     expect(
       one(`select count(*) from public.speaking_attempts where user_id = :'uid' and transcript <> ''`, {
         uid: userId,
@@ -456,15 +481,11 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
       ),
     ).toBe('f')
 
-    // Turning it on again from here shows the consent text first.
+    // Turning it on again from here shows the consent sheet first.
+    await speakingSwitch.click()
+    await expect(consentHeading(page)).toBeVisible()
     await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
-    await expect(page.getByRole('heading', { level: 2, name: 'Speaking feedback' }).last()).toBeVisible()
-    await expect(page.getByRole('checkbox')).not.toBeChecked()
-    await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
-    await expect(page.getByRole('button', { name: 'Turn off speaking feedback' })).toBeVisible()
-
-    await page.goto('/')
-    await expect(page.getByRole('link', { name: 'Voice settings' })).toBeVisible()
+    await expect(speakingSwitch).toBeChecked()
   })
 
   test('[speak 3] [speak 4] after withdrawing, Say it shows the lines to say out loud', async ({ page }) => {
@@ -472,8 +493,9 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await toSayIt(page)
     await turnOn(page)
     await page.goto('/voice')
-    await page.getByRole('button', { name: 'Turn off speaking feedback' }).click()
-    await expect(page.getByRole('button', { name: 'Turn on speaking feedback' })).toBeVisible()
+    const speakingSwitch = page.getByRole('switch', { name: 'Speaking feedback' })
+    await speakingSwitch.click()
+    await expect(speakingSwitch).not.toBeChecked()
     await page.goto('/session')
     await expect(page.getByText('Say the line out loud after the voice.', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: RECORD })).toHaveCount(0)
@@ -493,8 +515,10 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
 
     const other = await browser.newContext({
       ignoreHTTPSErrors: true,
+      reducedMotion: 'reduce',
       baseURL: test.info().project.use.baseURL,
     })
+    await installRoad(other)
     const b = await other.newPage()
     await b.goto('/')
     await b.getByRole('button', { name: 'Start', exact: true }).click()
@@ -548,10 +572,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await stubMicrophone(page, 'tone')
     const { lines } = await toSayIt(page)
     await expect(consentHeading(page)).toBeVisible()
-    const box = page.getByRole('checkbox')
-    await tabTo(page, box, testInfo)
-    await page.keyboard.press('Space')
-    await expect(box).toBeChecked()
+    // The sheet takes focus (on its title) and holds it: Tab reaches "How it works", then "Turn on".
     await tabTo(page, page.getByRole('button', { name: 'Turn on speaking feedback' }), testInfo)
     await page.keyboard.press('Enter')
     for (let i = 0; i < lines.length; i += 1) {

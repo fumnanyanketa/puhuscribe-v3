@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -28,7 +28,7 @@ test('[2] [10] the page loads with no console errors and reaches the Worker', as
 
   const today = page.waitForResponse((res) => new URL(res.url()).pathname === '/api/today')
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   // The front door asks the Worker what to show and gets its answer.
   expect((await today).status()).toBe(200)
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
@@ -61,7 +61,7 @@ test('[8] the page calls the API on its own address', async ({ page }) => {
 
 test('[2] an unknown page still loads the app (single page app routing)', async ({ page }) => {
   await page.goto('/some/deep/link')
-  await expect(page.getByRole('heading', { level: 1, name: "Today's session" })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
 })
 
 test.describe('private preview link', { tag: '@preview' }, () => {
