@@ -163,7 +163,8 @@ function currentSession(userId: string): { id: string; dialogueId: string } {
 /** Opens the word card of the first word with a card on screen and returns its button. */
 async function openFirstCard(page: Page): Promise<{ word: Locator; card: Locator }> {
   const word = page.locator('[data-line-id] [lang="fi"] button').first()
-  const name = (await word.innerText()).trim()
+  // The word itself (its face), not the punctuation after it, which sits inside the button since round 4.
+  const name = (await word.locator('[class*="face"]').innerText()).trim()
   await word.click()
   const card = page.getByRole('dialog', { name })
   await expect(card).toBeVisible()

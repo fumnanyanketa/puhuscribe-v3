@@ -24,6 +24,7 @@ The stop hook complained about `.worktrees/10-speaking-feedback` (`worker/speech
 - `e2e/account-helpers.ts` `addEmail` waits for the added state (stricter).
 - `e2e/session-helpers.ts` `dismissTip` and `leaveLesson` wait for the screen to settle (stricter).
 - `e2e/road-route.ts`: the real road is the default where a real Worker runs.
+- `e2e/patterns.spec.ts` `openFirstCard`: it named the word card from the button's whole text. A tappable word now has its punctuation inside the button, so the helper reads the word's own face instead (the accessible name and the card's title are unchanged). The first full run found this: all the `[units N]` tests of that file failed with the dialog name "Moi!".
 
 No test was removed or weakened.
 
