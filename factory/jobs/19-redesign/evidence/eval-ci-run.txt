@@ -1,0 +1,52 @@
+GitHub run https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41360761462 on commit 8013e5a (started by the evaluator, 2026-11-02).
+Attempt 1: every job passed except the browser job. Browser job: 678 passed, 1 failed, 141 skipped, 1 did not run.
+  1) [webkit] › e2e/save-progress.spec.ts:574:5 › the save progress note › with email › [save-progress 19] a guest is told the progress is saved on this device, and an account with an email keeps the plain line @seed @email 
+    Error: expect(received).toEqual(expected) // deep equality
+    - Expected  - 2
+    + Received  + 2
+      Object {
+    -   "anonymous": false,
+    -   "email": "learner-a-webkit-1793575520477-201428@example.com",
+    +   "anonymous": true,
+    +   "email": "",
+        "exists": true,
+      }
+      582 |       await expect(noteOf(page)).toBeVisible()
+      583 |       await addEmail(page, address)
+    > 584 |       expect(authUser(userId)).toEqual({ exists: true, anonymous: false, email: address })
+          |                                ^
+      585 |       await walkNextSession(page, userId)
+      586 |       // The same screen for a learner with an email: exactly the plain line.
+      587 |       await expect(page.getByRole('status')).toHaveText(SAVED_PLAIN)
+        at /home/runner/work/puhuscribe-v3/puhuscribe-v3/e2e/save-progress.spec.ts:584:32
+
+Attempt 2 (rerun of the failed job only): browser job again 678 passed, 1 failed, a different WebKit test.
+  1) [webkit] › e2e/first-session.spec.ts:563:3 › the first session › [session 18] Leave session and Continue resume the same session at each step @seed 
+    Test timeout of 30000ms exceeded.
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Browser logs:
+    Call log:
+        - locator resolved to <button type="button" aria-haspopup="dialog" class="_leave_rtest_28" aria-label="Leave session">…</button>
+      - attempting click action
+          - <dialog open="" class="_sheet_1upd5_3" aria-labelledby="_r_d_">…</dialog> from <div class="_content_rtest_100">…</div> subtree intercepts pointer events
+          - <dialog open="" class="_sheet_1upd5_3" aria-labelledby="_r_d_">…</dialog> from <div class="_content_rtest_100">…</div> subtree intercepts pointer events
+           - <dialog open="" class="_sheet_1upd5_3" aria-labelledby="_r_d_">…</dialog> from <div class="_content_rtest_100">…</div> subtree intercepts pointer events
+       at session-helpers.ts:94
+      92 |     return
+      93 |   }
+    > 94 |   await page.getByRole('button', { name: 'Leave session' }).click()
+         |                                                             ^
+      95 |   await page
+      96 |     .getByRole('dialog', { name: 'Leave this lesson?' })
+      97 |     .getByRole('button', { name: 'Leave' })
+        at leaveLesson (/home/runner/work/puhuscribe-v3/puhuscribe-v3/e2e/session-helpers.ts:94:61)
+        at leave (/home/runner/work/puhuscribe-v3/puhuscribe-v3/e2e/first-session.spec.ts:566:7)
+        at /home/runner/work/puhuscribe-v3/puhuscribe-v3/e2e/first-session.spec.ts:578:5
+  1 failed
+    [webkit] › e2e/first-session.spec.ts:563:3 › the first session › [session 18] Leave session and Continue resume the same session at each step @seed 
+  141 skipped
+  1 did not run
+  678 passed (16.2m)
+##[error]Process completed with exit code 1.
+
+The tested code is the same as commit 0347ae4, whose run 41348915446 passed (only files under factory/ changed since).

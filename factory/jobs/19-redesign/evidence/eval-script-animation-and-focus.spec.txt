@@ -1,0 +1,108 @@
+// Evaluator scripts for job 19-redesign, run on 2026-11-02 against commit 8013e5a with
+// `npx vite preview` (HTTPS, port 4173) and the builder's mocks. Two short specs that were run one
+// after the other from the same file; kept here as text so the results can be repeated.
+// Results: eval-17-18-animation-<browser>.json and eval-22-focus-return-<browser>.json.
+
+// ---- 1. Opening animation (statements 17 and 18), reducedMotion 'no-preference' ----
+import { test } from '@playwright/test'
+import * as fs from 'node:fs'
+import { mockHome } from '../../../../e2e/road-mocks.ts'
+import { mockLesson } from '../../../../e2e/lesson-mocks.ts'
+
+const EV = 'factory/jobs/19-redesign/evidence'
+test.use({ reducedMotion: 'no-preference' })
+test.setTimeout(60_000)
+
+test('animation timeline, tap during animation, skip', async ({ page, browserName }) => {
+  const out: Record<string, unknown> = {}
+  const calls = await mockHome(page)
+  const t0 = Date.now()
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Skip' }).waitFor()
+  out['skip visible at ms'] = Date.now() - t0
+  // Every 250 ms: is Start visible, how opaque, and would a tap in its middle reach it?
+  const samples: unknown[] = []
+  for (let i = 0; i < 24; i++) {
+    const s = await page.evaluate(() => {
+      const start = [...document.querySelectorAll('button')].find((b) => b.textContent?.trim() === 'Start')
+      const skip = [...document.querySelectorAll('button')].find((b) => b.textContent?.trim() === 'Skip')
+      if (!start) return { start: 'none', skip: Boolean(skip) }
+      const r = start.getBoundingClientRect()
+      const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)
+      let op = 1
+      for (let e: Element | null = start; e; e = e.parentElement) op *= Number(getComputedStyle(e).opacity)
+      return { vis: getComputedStyle(start).visibility, opacity: Math.round(op * 100) / 100, hitIsStart: hit === start || start.contains(hit), skip: Boolean(skip) }
+    })
+    samples.push({ ms: Date.now() - t0, ...s })
+    if (i === 6) await page.screenshot({ path: `${EV}/eval-17-animation-mid-${browserName}.png` })
+    await page.waitForTimeout(250)
+  }
+  out['samples'] = samples
+  // Tap where Start will be, about 1 s into a fresh animation.
+  const p2 = await page.context().newPage()
+  const c2 = await mockHome(p2)
+  await p2.goto('/')
+  await p2.getByRole('button', { name: 'Skip' }).waitFor()
+  await p2.waitForTimeout(800)
+  await p2.mouse.click(187, 650)
+  await p2.mouse.click(187, 640)
+  await p2.waitForTimeout(500)
+  out['guest calls after tapping the Start area at about 1 s'] = c2.guest
+  // Skip by keyboard and time how long until no finite animation runs.
+  const p3 = await page.context().newPage()
+  await mockHome(p3)
+  await p3.goto('/')
+  await p3.getByRole('button', { name: 'Skip' }).waitFor()
+  await p3.waitForTimeout(500)
+  await p3.keyboard.press('Tab')
+  out['first tab'] = await p3.evaluate(() => document.activeElement?.textContent)
+  const before = Date.now()
+  await p3.keyboard.press('Enter')
+  await p3.waitForFunction(
+    () => document.getAnimations().filter((a) => a.playState === 'running' && Number.isFinite(Number(a.effect?.getComputedTiming().endTime))).length === 0,
+    null,
+    { timeout: 3000 },
+  )
+  out['ms from Enter on Skip until no finite animation runs'] = Date.now() - before
+  out['focus after skip'] = await p3.evaluate(() => document.activeElement?.textContent)
+  await p3.screenshot({ path: `${EV}/eval-17-after-skip-${browserName}.png` })
+  out['guest calls total (page 1)'] = calls.guest
+  fs.writeFileSync(`${EV}/eval-17-18-animation-${browserName}.json`, JSON.stringify(out, null, 2))
+})
+
+// ---- 2. Where focus goes when the leave sheet closes (statement 22), default reduced motion ----
+const focused = (page: import('@playwright/test').Page) =>
+  page.evaluate(() => {
+    const a = document.activeElement
+    return a ? `${a.tagName}${a.getAttribute('aria-label') ? ` "${a.getAttribute('aria-label')}"` : ''}` : 'none'
+  })
+
+test('leave sheet focus return', async ({ page, browserName }) => {
+  const out: Record<string, unknown> = {}
+  await mockLesson(page, {})
+  await page.goto('/session')
+  const cross = page.getByRole('button', { name: 'Leave session' })
+  const sheet = page.getByRole('dialog', { name: 'Leave this lesson?' })
+  await cross.click()
+  await sheet.waitFor()
+  await sheet.getByRole('button', { name: 'Keep going' }).click()
+  await sheet.waitFor({ state: 'hidden' })
+  out['tap cross, tap Keep going: focus is on'] = await focused(page)
+  await cross.click()
+  await sheet.waitFor()
+  await page.keyboard.press('Escape')
+  await sheet.waitFor({ state: 'hidden' })
+  out['tap cross, Escape: focus is on'] = await focused(page)
+  await cross.focus()
+  await page.keyboard.press('Enter')
+  await sheet.waitFor()
+  await page.keyboard.press('Enter')
+  await sheet.waitFor({ state: 'hidden' })
+  out['keyboard: Enter on cross, Enter on Keep going: focus is on'] = await focused(page)
+  await page.getByRole('button', { name: 'noi' }).first().click()
+  await page.getByRole('dialog').waitFor()
+  await page.keyboard.press('Escape')
+  await page.getByRole('dialog').waitFor({ state: 'hidden' })
+  out['word card for comparison: tap noi, Escape: focus is on'] = await page.evaluate(() => document.activeElement?.textContent)
+  fs.writeFileSync(`${EV}/eval-22-focus-return-${browserName}.json`, JSON.stringify(out, null, 2))
+})

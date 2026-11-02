@@ -1,0 +1,57 @@
+Break proofs in a throwaway copy of commit 8013e5a (not the worktree). Each change is reverted before the next.
+=== baseline
+change: true
+      Tests  123 passed (123)
+=== 43 protected guest line shortened
+change: sed -i 's/ so your progress is saved//' src/screens/road-copy.ts
+     × [redesign 43] the guest line, with the adult line, is word for word 11ms
+ FAIL  src/screens/protected-copy.test.ts > protected copy > [redesign 43] the guest line, with the adult line, is word for word
+      Tests  1 failed | 5 passed (6)
+=== 3 a gradient on the road card
+change: printf '\n.extra { background: linear-gradient(var(--color-text), var(--color-text)); }\n' >> src/road/RoadCard.module.css
+     × [design 18] no CSS or component in src/ uses anything on the list 121ms
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 42 passed (43)
+=== 3 frosted glass on the road card
+change: printf '\n.extra { backdrop-filter: blur(4px); }\n' >> src/road/RoadCard.module.css
+     × [design 18] no CSS or component in src/ uses anything on the list 129ms
+ FAIL  tests/design-css.test.ts > banned look and CSS for old phones > [design 18] no CSS or component in src/ uses anything on the list
+      Tests  1 failed | 42 passed (43)
+=== 2 slate (written) used in the road card
+change: printf '\n.extra { color: var(--color-written); }\n' >> src/road/RoadCard.module.css
+     × [redesign 2] the written role tokens are used only in the files that may use them 144ms
+ FAIL  tests/design-tokens.test.ts > colour roles > [redesign 2] the written role tokens are used only in the files that may use them
+      Tests  1 failed | 64 passed (65)
+=== 19 road screen imports the fixture
+change: sed -i "1i import { ROAD_DAY_ONE } from './../road/road-fixture.ts'\nvoid ROAD_DAY_ONE" src/screens/RoadScreen.tsx
+     × [redesign 19] is imported only by tests and the reference page, never by a screen a learner sees 11ms
+     × [redesign 19] the road screen reads stops only through loadRoad() 3ms
+ FAIL  tests/redesign-rules.test.ts > the road fixture > [redesign 19] is imported only by tests and the reference page, never by a screen a learner sees
+ FAIL  tests/redesign-rules.test.ts > the road fixture > [redesign 19] the road screen reads stops only through loadRoad()
+      Tests  2 failed | 7 passed (9)
+=== 44 road screen stores a seen flag
+change: sed -i 's/function skip() {/function skip() {\n    localStorage.setItem("seen", "1")/' src/screens/RoadScreen.tsx
+     × [redesign 44] the road never stores anything on the phone 9ms
+ FAIL  tests/redesign-rules.test.ts > what the road must not hold > [redesign 44] the road never stores anything on the phone
+      Tests  1 failed | 8 passed (9)
+=== 45 quoted app path in an added file
+change: sed -i "s/window.location.assign(PATHS.session)/window.location.assign('\/session')/" src/screens/RoadScreen.tsx
+     × [redesign 45] the files this job adds hold no quoted app path 21ms
+ FAIL  tests/redesign-rules.test.ts > paths > [redesign 45] the files this job adds hold no quoted app path
+      Tests  1 failed | 8 passed (9)
+=== 1 an old violet token comes back
+change: printf '\n.extra { color: var(--color-violet); }\n' >> src/road/RoadCard.module.css
+      Tests  65 passed (65)
+=== 13 a stop name rendered as HTML
+change: sed -i 's|<h2 className={styles.title}>{view.stop.name}</h2>|<h2 className={styles.title} dangerouslySetInnerHTML={{ __html: view.stop.name }} />|' src/road/RoadCard.tsx
+     × [redesign 13] a sign is not a button and nothing renders a name as markup 21ms
+ FAIL  tests/redesign-rules.test.ts > what the road must not hold > [redesign 13] a sign is not a button and nothing renders a name as markup
+      Tests  1 failed | 8 passed (9)
+=== 1 (redo) an old job 5 token name comes back. Note: --color-violet above was never a real token name on main, so its pass proves nothing; the real old names are tried here
+change: printf '\n.extra { color: var(--color-flag-wash); }\n' >> src/road/RoadCard.module.css
+     × [redesign 1] the lilac ground, violet, teal and azure tokens are gone from src/, names and values 171ms
+      Tests  1 failed | 64 passed (65)
+change: printf '\n.extra { color: #6b46c1; }\n' >> src/road/RoadCard.module.css
+     × [design 3] no file in src/ other than tokens.css holds a raw colour value 129ms
+     × [redesign 1] the lilac ground, violet, teal and azure tokens are gone from src/, names and values 131ms
+      Tests  2 failed | 63 passed (65)

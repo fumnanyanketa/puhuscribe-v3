@@ -1,0 +1,109 @@
+// Evaluator: smallest visible text size and 40 letter word wrap on several screens (statements 5 and 46).
+import { test } from '@playwright/test'
+import * as fs from 'node:fs'
+import { mockHome } from 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/e2e/road-mocks.ts'
+import { mockLesson, MOCK_LINES } from 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/e2e/lesson-mocks.ts'
+
+const EV = 'C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/19-redesign/factory/jobs/19-redesign/evidence'
+
+const smallest = (page: import('@playwright/test').Page) =>
+  page.evaluate(() => {
+    let min = 999
+    let where = ''
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const el = n.parentElement
+      if (!el || !n.textContent?.trim()) continue
+      const r = el.getBoundingClientRect()
+      const cs = getComputedStyle(el)
+      if (r.width < 2 || r.height < 2 || cs.visibility === 'hidden' || el.closest('[aria-hidden="true"]:not(svg *)') && r.width < 2) continue
+      if (el.closest('svg')) continue
+      const size = parseFloat(cs.fontSize)
+      if (size < min) {
+        min = size
+        where = n.textContent.trim().slice(0, 40)
+      }
+    }
+    return { min, where }
+  })
+
+test('smallest text and long word', async ({ page, browserName }) => {
+  const out: Record<string, unknown> = {}
+  await mockHome(page, { today: { signedIn: true, today: 'continue' }, done: { 1: 4, 2: 4, 3: 2 } })
+  await page.goto('/')
+  await page.getByRole('list', { name: 'Stops on your road' }).waitFor()
+  await page.waitForTimeout(800)
+  out['road continue'] = await smallest(page)
+  const day = await page.context().newPage()
+  await mockHome(day)
+  await day.goto('/')
+  await day.getByRole('button', { name: 'Start' }).waitFor()
+  await day.waitForTimeout(900)
+  out['road day one'] = await smallest(day)
+  const lesson = await page.context().newPage()
+  await mockLesson(lesson, { firstLesson: true })
+  await lesson.goto('/session')
+  await lesson.getByRole('button', { name: 'Got it' }).waitFor()
+  out['hear it with tip'] = await smallest(lesson)
+  await lesson.getByRole('button', { name: 'Got it' }).click()
+  await lesson.getByRole('button', { name: 'noi' }).first().click()
+  await lesson.getByRole('dialog').waitFor()
+  out['word card'] = await smallest(lesson)
+  // 40 letter word in the line card at 375 px
+  const word = 'Lentokonesuihkuturbiinimoottoriapumekaa'
+  const long = await page.context().newPage()
+  await mockLesson(long, {})
+  const lines = JSON.parse(JSON.stringify(MOCK_LINES))
+  lines[0].spoken[2].text = word + 'n'
+  lines[0].written[2].text = word + 'n'
+  await long.route('**/api/sessions/today', (r) =>
+    r.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify({ state: 'ready', session: { id: 's1', step: null }, unit: { title: 'Unit', canDo: 'Can do.' }, dialogue: { title: 'Dialogue' }, lines }),
+    }),
+  )
+  await long.goto('/session')
+  await long.locator('[data-line-id]').first().waitFor()
+  out['40 letter word length'] = (word + 'n').length
+  out['40 letter word: card fits'] = await long.evaluate(() => {
+    const card = document.querySelector('[data-line-id]')!.getBoundingClientRect()
+    let worst = 0
+    document.querySelectorAll('[data-line-id] *').forEach((e) => {
+      const r = e.getBoundingClientRect()
+      worst = Math.max(worst, r.right - card.right)
+    })
+    return { cardRight: card.right, overflowPx: worst, side: document.documentElement.scrollWidth - document.documentElement.clientWidth }
+  })
+  await long.screenshot({ path: `${EV}/eval-46-forty-letter-word-${browserName}.png` })
+  fs.writeFileSync(`${EV}/eval-5-46-text-size-${browserName}.json`, JSON.stringify(out, null, 2))
+})
+
+test('40 letter word variants', async ({ page, browserName }) => {
+  const word = 'epäjärjestelmällistyttämättömyydelläänsäkään'
+  const out: Record<string, unknown> = { word, letters: word.length }
+  const variants: [string, (l: any) => void][] = [
+    ['builder test case: the whole line is one plain word', (l) => { l.spoken = [{ text: word }]; l.written = [{ text: word }] }],
+    ['a plain word in the middle of a line', (l) => { l.spoken[2].text = word; l.written[2].text = word }],
+    ['a tappable word (has word data)', (l) => { l.spoken[1].text = word; l.written[1].text = word }],
+  ]
+  for (const [name, change] of variants) {
+    const p = await page.context().newPage()
+    await mockLesson(p, {})
+    const lines = JSON.parse(JSON.stringify(MOCK_LINES))
+    change(lines[0])
+    await p.route('**/api/sessions/today', (r) =>
+      r.fulfill({ contentType: 'application/json', body: JSON.stringify({ state: 'ready', session: { id: 's1', step: null }, unit: { title: 'U', canDo: 'C.' }, dialogue: { title: 'D' }, lines }) }),
+    )
+    await p.goto('/session')
+    await p.locator('[data-line-id]').first().waitFor()
+    out[name] = await p.evaluate((w) => {
+      const card = document.querySelector('[data-line-id]')!.getBoundingClientRect()
+      const hits = [...document.querySelectorAll('[data-line-id] *')].filter((e) => e.children.length === 0 && e.textContent === w)
+      const right = Math.max(...hits.map((e) => e.getBoundingClientRect().right))
+      return { cardRight: Math.round(card.right), wordRight: Math.round(right), screen: window.innerWidth, wordsPastCard: Math.round(right - card.right) }
+    }, word)
+    await p.screenshot({ path: `${EV}/eval-46-forty-letter-${variants.findIndex((v) => v[0] === name) + 1}-${browserName}.png` })
+    await p.close()
+  }
+  fs.writeFileSync(`${EV}/eval-46-forty-letter-variants-${browserName}.json`, JSON.stringify(out, null, 2))
+})
