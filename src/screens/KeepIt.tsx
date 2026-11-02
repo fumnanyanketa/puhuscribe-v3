@@ -325,7 +325,12 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
         )}
         {item && resultShown !== null && (
           <div className={styles.reviewItem} data-review-feedback={item.formId}>
-            <LineCard line={resultShown.feedback.line} marked={resultShown.feedback.marked} />
+            {/* Only the answer is marked, as drawn: a changed word box beside it would read as a second answer. */}
+            <LineCard
+              line={resultShown.feedback.line}
+              marked={resultShown.feedback.marked}
+              showChanged={false}
+            />
             {/* What the learner typed stays in the field, as drawn: a right answer gets the mint edge and tick. */}
             {resultShown.typed.trim() !== '' && (
               <p

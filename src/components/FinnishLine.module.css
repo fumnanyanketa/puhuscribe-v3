@@ -176,11 +176,17 @@
 }
 
 /* The answer word after a review (job 9-daily-review): highlighted in peach in both lines, as the drawing
-   of Keep it marks it (round 6), with its name for screen readers, so colour is never the only sign. */
+   of Keep it marks it (round 6), with its name for screen readers, so colour is never the only sign. The
+   text is the drawn peach deep, darkened to the 7 to 1 floor of a Finnish line on its wash, and bold in the
+   spoken line, as drawn. On the result it is the only mark in the line: the changed word box is off there. */
 .marked,
 .word:hover .marked {
   color: var(--color-changed-text);
   background: var(--color-changed-wash);
+}
+
+.spokenLine .marked {
+  font-weight: var(--weight-bold);
 }
 
 .hidden {

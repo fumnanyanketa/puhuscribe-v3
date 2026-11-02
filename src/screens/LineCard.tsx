@@ -21,12 +21,14 @@ export const CARD_AUDIO_CAPTION = 'Plays the whole line.'
 
 /**
  * The Finnish line's words, with their cards, from the Worker's words. The
- * words at the indexes in `marked` are the answer of a review (job 9).
+ * words at the indexes in `marked` are the answer of a review (job 9). With
+ * `showChanged` false, no word is drawn as changed (the Keep it result).
  */
 export function lineWords(
   words: readonly SessionWord[],
   line: SessionLine,
   marked: readonly number[] = [],
+  showChanged = true,
 ): LineWord[] {
   return words.map((word, index) => {
     const form = word.form
@@ -34,7 +36,7 @@ export function lineWords(
       text: word.text,
       before: word.before,
       after: word.after,
-      changes: form ? form.spoken !== form.written : false,
+      changes: showChanged && form ? form.spoken !== form.written : false,
       ...(marked.includes(index) ? { marked: true } : {}),
       card: form
         ? {
@@ -71,6 +73,11 @@ interface LineCardProps {
   only?: 'spoken'
   /** The answer words of a review, by index in each register (job 9-daily-review). */
   marked?: { spoken: readonly number[]; written: readonly number[] }
+  /**
+   * Draw the box round the words that change between the two lines. On unless turned off: the Keep it
+   * result turns it off, so the answer is the one marked word in each line, as drawn.
+   */
+  showChanged?: boolean
 }
 
 export function LineCard({
@@ -81,6 +88,7 @@ export function LineCard({
   controls = true,
   only,
   marked,
+  showChanged = true,
 }: LineCardProps) {
   const [spokenPlaying, setSpokenPlaying] = useState(false)
   const [writtenPlaying, setWrittenPlaying] = useState(false)
@@ -102,7 +110,7 @@ export function LineCard({
         <FinnishLine
           only="spoken"
           large
-          spoken={lineWords(line.spoken, line, marked?.spoken)}
+          spoken={lineWords(line.spoken, line, marked?.spoken, showChanged)}
           written={[]}
           spokenControl={
             <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} onPlayingChange={spokenChange} />
@@ -129,8 +137,8 @@ export function LineCard({
         )}
       </div>
       <FinnishLine
-        spoken={lineWords(line.spoken, line, marked?.spoken)}
-        written={lineWords(line.written, line, marked?.written)}
+        spoken={lineWords(line.spoken, line, marked?.spoken, showChanged)}
+        written={lineWords(line.written, line, marked?.written, showChanged)}
         spokenControl={
           controls ? (
             <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} onPlayingChange={spokenChange} />
