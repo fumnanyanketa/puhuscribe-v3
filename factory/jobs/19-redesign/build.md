@@ -1,6 +1,6 @@
 # Build notes: 19-redesign, round 4
 
-Branch `factory/19-redesign`, rebased onto `origin/main` (job 20 and its voice fix are merged) and force pushed with lease. No pull request was opened and nothing was merged. This file is in the worktree. Round 4 answers the evaluator's failures (`evaluation.md`, commit `d19ad40`). The tested commit is `__COMMIT__`.
+Branch `factory/19-redesign`, rebased onto `origin/main` (job 20 and its voice fix are merged) and force pushed with lease. No pull request was opened and nothing was merged. This file is in the worktree. Round 4 answers the evaluator's failures (`evaluation.md`, commit `d19ad40`). The tested commit is `2ef3ad3`.
 
 ## Round 4: what changed
 
@@ -36,9 +36,9 @@ No test was removed or weakened.
 
 - `npm run check:code` and `npx vitest run` on this computer: type check and lint pass; vitest passes (1182 tests). The format check warns only about `design-drafts/` line endings on this Windows copy.
 - The mock based browser files (road, lesson, pages, design reference, design sample) pass in Chromium and WebKit on this computer, except WebKit tests that need a recorder or Tab on buttons, which this Windows WebKit lacks. Those pass on GitHub.
-- Full run on GitHub: __RUN4__
+- Full run on GitHub: https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41415511557, tested commit `2ef3ad3`: success. The browser job (Chromium and WebKit, local database) passed 708 tests, among them the three `real-road` tests against the real `GET /api/road` in both browsers; the database tests (pgTAP), unit tests, Python, dependency check, secret scan and code check passed. The first run of this round (41412390814) failed only the `[units N]` tests of `e2e/patterns.spec.ts`, whose helper named the word card from the button text, which now holds the punctuation. It is fixed and listed above.
 
-Result: __FINAL__
+Result: checks pass
 
 ---
 
