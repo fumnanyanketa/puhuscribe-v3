@@ -57,7 +57,7 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | 2 | Practise out loud before the real moment | You hear each line and say it straight back, with gentle feedback on how clear you were. By the time you reach the pharmacy counter, the words feel familiar. | Saying a line back |
 | 3 | Build sentences about your own life | At each stop you add one sentence about your own life. We call it your language island. By the end of the journey, you can talk about yourself fluently for about a minute. | The language island |
 | 4 | Practise a real chat without the nerves | Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud. | Chatting with Otso |
-| 5 | Remember the words you learn | PuhuScribe brings each word back just before you would forget it, so it stays with you. You type the missing word, then see it as people say it and as it’s written. | A review card |
+| 5 | Remember the words you learn | PuhuScribe brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time. | A review card |
 
 ## 7. The journey
 
