@@ -12,29 +12,52 @@ import {
   type RecorderHandle,
   type Recording,
 } from '../lib/recorder.ts'
+import type { SessionLine } from '../lib/session-types.ts'
 import { feedbackMessage, type MessagePart } from '../lib/speech-feedback.ts'
 import { MIN_RECORDING_MS, type VoiceAnswer } from '../lib/speech-types.ts'
 import { voiceNotice } from '../lib/voice-consent.ts'
 import { NOT_AVAILABLE, TOO_MANY, chooseVoice, loadVoice, sayLine } from '../lib/voice-api.ts'
+import { FirstLessonTip } from './FirstLessonTip.tsx'
 import { LineCard } from './LineCard.tsx'
 import { ConsentSheet } from './ConsentSheet.tsx'
 import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 import voice from './Voice.module.css'
 
-// Say it (factory/jobs/10-speaking-feedback/spec.md, "Done when" 1, 3 and 5
-// to 9, 13 and 15). The learner hears each line, records themselves saying
-// it, and gets one kind message. Before the first recording the consent
-// screen asks; nothing is recorded until they agree, and "Not now" still lets
-// them say each line out loud without feedback. Every failure leaves "Next
-// line" or "Continue" possible. The recording stays in this page's memory and
-// is let go when the learner moves on or leaves.
+// Saying lines out loud, in two steps of a session (owner's fast route
+// hear-and-say, 3 November 2026: "Hear + say per line, short recap").
+//
+// "Hear it, say it" (variant "hear", the session's first step, HearIt.tsx):
+// each line of the dialogue shows as Hear it showed it (the spoken and written
+// lines with their play buttons, the Meaning line, tappable words; nothing
+// plays by itself), then the learner records themselves saying it back and
+// gets one kind message, then "Next line". A learner without speaking feedback
+// ("Not now", or withdrawn), or who chose "I can't speak right now", hears each
+// line and moves on with "Next line", as in Hear it. On the learner's first
+// lesson the tip explains the card first; the recorder and the consent sheet
+// wait until it is closed. The last line's "Continue" stores step "hear".
+//
+// The recap (variant "recap", step "Recap", stored as "say"): only the key
+// lines the session names (at most three, worker/session-plan.ts keyLinesOf),
+// said from memory. The card shows the line's English meaning; the Finnish
+// shows after the attempt or on "Show the Finnish". "I can't speak right now"
+// ends the recap, as it ended Say it.
+//
+// Both keep Say it's rules (factory/jobs/10-speaking-feedback/spec.md, "Done
+// when" 1, 3 and 5 to 9, 13 and 15): before the first recording the consent
+// sheet asks, and nothing is recorded until the learner agrees; every failure
+// leaves "Next line" or "Continue" possible; the recording stays in this page's
+// memory and is let go when the learner moves on or leaves.
 
 export const SAY_HELP = 'Listen to the line, then record yourself saying it.'
 /** The hints under the record button (job 19-redesign, statement 30). */
 /** As drawn, with no full stop (round 6). */
 export const RECORD_HINTS = { ready: 'Tap and say the line', recording: 'Listening' }
-export const ALOUD = 'Say the line out loud after the voice.'
+/** The recap's hints: the Finnish is not shown yet, so the learner says it from memory. */
+export const RECAP_HINTS = { ready: 'Tap and say it in Finnish', recording: 'Listening' }
+/** The recap without speaking feedback. */
+export const RECAP_ALOUD = 'Say it out loud from memory, then show the Finnish.'
+export const SHOW_FINNISH = 'Show the Finnish'
 export const NO_RECORDING = 'Recording is not available in this browser.'
 export const MIC_OFF =
   'Microphone access is off. You can turn it on in your browser settings, or carry on without recording.'
@@ -43,10 +66,24 @@ export const NOT_CHECKED =
   'Your recording could not be checked. Check your internet connection, then try again.'
 export const CHOICE_NOT_SAVED = 'Your choice was not saved. Check your internet connection, then try again.'
 export const CANT_SPEAK = "I can't speak right now"
+/** The most lines the recap asks for when the session names no key lines. */
+const RECAP_FALLBACK = 3
 const LOADING = 'Loading speaking feedback.'
 const NOT_HEARD = feedbackMessage({ feedbackClass: 'not_heard' })
 
-type Mode = 'loading' | 'consent' | 'record' | 'aloud'
+/**
+ * "record": the recorder. "aloud": no speaking feedback ("Not now", or withdrawn). "listen": the learner
+ * chose "I can't speak right now" in Hear it, say it, and hears the rest of the lines.
+ */
+type Mode = 'loading' | 'consent' | 'record' | 'aloud' | 'listen'
+
+export type SpeakVariant = 'hear' | 'recap'
+
+/**
+ * The sessions in which the learner answered "Not now" on this page, so the recap does not ask again
+ * in the same lesson. Kept in this page's memory only: after a reload the sheet asks again, as before.
+ */
+const notNowIn = new Set<string>()
 
 interface Message {
   tone: StatusTone
@@ -67,6 +104,18 @@ function Parts({ parts }: { parts: MessagePart[] }) {
       </span>
     ),
   )
+}
+
+/**
+ * The recap's lines: the key lines the session names, in line order, or the first three lines when it
+ * names none.
+ */
+export function recapLines(
+  lines: readonly SessionLine[],
+  keyLines: readonly number[] | undefined,
+): SessionLine[] {
+  const named = keyLines ? lines.filter((line) => keyLines.includes(line.id)) : []
+  return named.length > 0 ? named : lines.slice(0, RECAP_FALLBACK)
 }
 
 /** Plays one recording from the page's memory. */
@@ -93,8 +142,15 @@ function usePlayback() {
   return { play, release }
 }
 
-export function SayIt({ session, frame, onDone }: StepScreenProps) {
-  const lines = session.lines
+/** The recap (step "Recap"): the key lines, said from memory. */
+export function SayIt(props: StepScreenProps) {
+  return <SpeakLines {...props} variant="recap" />
+}
+
+export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps & { variant: SpeakVariant }) {
+  const hear = variant === 'hear'
+  const [lines] = useState(() => (hear ? session.lines : recapLines(session.lines, session.keyLines)))
+  const sessionId = session.session.id
   const [mode, setMode] = useState<Mode>('loading')
   const [settings, setSettings] = useState<VoiceAnswer | null>(null)
   const [clear, setClear] = useState(false)
@@ -107,8 +163,15 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const [attempted, setAttempted] = useState(false)
   const [recording, setRecording] = useState<Recording | null>(null)
   const [saving, setSaving] = useState(false)
+  // The recap shows the Finnish after a try, or when the learner asks for it.
+  const [askedFinnish, setAskedFinnish] = useState(false)
+  // The first lesson's tip (job 19-redesign, statement 25), in Hear it, say it only.
+  const [tip, setTip] = useState(hear && session.firstLesson === true)
   const handle = useRef<RecorderHandle | null>(null)
   const status = useRef<HTMLParagraphElement>(null)
+  const region = useRef<HTMLElement>(null)
+  // Where focus goes when the tip closes: "Next line", or "I can't speak right now" before a try.
+  const afterTip = useRef<HTMLButtonElement>(null)
   const firstLoad = useRef<ReturnType<typeof loadVoice> | null>(null)
   const playback = usePlayback()
   const steady = useSteadyPress()
@@ -154,12 +217,13 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       }
       setSettings(load.voice)
       if (!load.voice.available || load.voice.processing === 'granted') enterRecording(load.voice)
-      else setMode(load.voice.processing === 'withdrawn' ? 'aloud' : 'consent')
+      else if (load.voice.processing === 'withdrawn' || notNowIn.has(sessionId)) setMode('aloud')
+      else setMode('consent')
     })
     return () => {
       active = false
     }
-  }, [enterRecording])
+  }, [enterRecording, sessionId])
 
   // After the consent sheet that the quiet button opened has closed, focus goes back to that button.
   useEffect(() => {
@@ -186,6 +250,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     setMessage(null)
     setClear(false)
     setAttempted(false)
+    setAskedFinnish(false)
     setSeconds(0)
     setRec((now) => (now === 'unavailable' ? now : 'ready'))
   }
@@ -210,6 +275,16 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     setIndex(index + 1)
   }
 
+  function cantSpeak() {
+    // In Hear it, say it the learner still hears every line; the recap ends, as Say it did.
+    if (!hear) {
+      void finishStep()
+      return
+    }
+    letGoOfLine()
+    setMode('listen')
+  }
+
   async function turnOn() {
     setChoosing(true)
     setMessage(null)
@@ -224,6 +299,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       setMessage(plain('problem', CHOICE_NOT_SAVED))
       return
     }
+    notNowIn.delete(sessionId)
     setSettings(load.voice)
     enterRecording(load.voice)
   }
@@ -247,7 +323,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
       setMessage(NOT_HEARD)
       return
     }
-    const answer = await sayLine(session.session.id, line.id, made.wav)
+    const answer = await sayLine(sessionId, line.id, made.wav)
     switch (answer.kind) {
       case 'feedback':
         setRec('ready')
@@ -316,7 +392,8 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   const counter = plain('neutral', `Line ${String(index + 1)} of ${String(lines.length)}.`)
   const shown =
     mode === 'loading' ? plain('neutral', LOADING) : (message ?? (mode === 'consent' ? null : counter))
-  const canMoveOn = mode === 'aloud' || attempted || rec === 'unavailable'
+  const listening = mode === 'aloud' || mode === 'listen'
+  const canMoveOn = listening || attempted || rec === 'unavailable'
   // A clear result is a milky card with its wave (statement 30); every other
   // result is the status line, gentle for the learner's attempts.
   const showClear = clear && recording !== null && rec === 'ready' && mode === 'record'
@@ -325,6 +402,34 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
   // every other line stays at the bottom. "Line 1 of 3." is for screen readers only.
   const noteAbove = statusShown !== null && statusShown.tone === 'gentle' && mode === 'record'
   const triedHere = recording !== null && rec === 'ready' && !showClear
+  // Hear it, say it shows the line while speaking feedback loads; the recap waits, as Say it did.
+  const cardShown = hear || mode !== 'loading'
+  // The recorder waits while the first lesson's tip is open.
+  const recorderShown = mode === 'record' && !tip
+
+  // Hear it, say it: Hear it's line card. The recap: the card without play buttons, its Finnish covered by
+  // "Show the Finnish" until the learner has tried or asked.
+  const finnishCovered = !hear && !askedFinnish && !attempted
+  const card = line && (
+    <LineCard
+      line={line}
+      showGloss
+      count={hear ? { shown: index + 1, of: lines.length } : undefined}
+      controls={hear}
+      cover={
+        finnishCovered ? (
+          <Button
+            variant="quiet"
+            onClick={() => {
+              setAskedFinnish(true)
+            }}
+          >
+            {SHOW_FINNISH}
+          </Button>
+        ) : undefined
+      }
+    />
+  )
 
   const actions = (
     <>
@@ -338,6 +443,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
           {canMoveOn && (
             <Button
               block
+              ref={afterTip}
               busy={saving}
               busyLabel="Saving your progress."
               onPointerDown={steady.onPointerDown}
@@ -347,7 +453,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
             </Button>
           )}
           {mode === 'record' && (
-            <Button variant="quiet" onClick={() => void finishStep()}>
+            <Button variant="quiet" ref={canMoveOn ? undefined : afterTip} onClick={cantSpeak}>
               {CANT_SPEAK}
             </Button>
           )}
@@ -369,21 +475,27 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
     </>
   )
 
+  // Hear it, say it: half a line for hearing it, the other half once it is said (or for moving on
+  // without speaking). The recap: a line once it is tried.
+  const done = hear ? (attempted || listening ? 1 : 0.5) : attempted ? 1 : 0
   return (
     <SessionFrame
       step={frame.step}
       steps={frame.steps}
-      progress={(index + (attempted ? 1 : 0)) / Math.max(1, lines.length)}
+      progress={(index + done) / Math.max(1, lines.length)}
       leaveHref={PATHS.home}
       stepHeading
+      dim={tip}
       actions={actions}
     >
-      <main className={`${styles.main} ${styles.mainFill}`}>
-        {line && mode !== 'loading' && (
+      {/* While the tip is open the tip sits right under the card, as in Hear it; after it, the room is filled
+          so the record button sits in the middle, as in Say it. */}
+      <main className={tip ? styles.main : `${styles.main} ${styles.mainFill}`} ref={region}>
+        {line && cardShown && (
           <div className={voice.lineArea} key={line.id} data-say-line={line.id}>
-            <LineCard line={line} controls={false} />
-            {mode === 'aloud' && <p className={voice.hint}>{ALOUD}</p>}
-            {mode === 'record' && !showClear && (
+            {card}
+            {mode === 'aloud' && !hear && <p className={voice.hint}>{RECAP_ALOUD}</p>}
+            {recorderShown && !showClear && (
               <div className={voice.recordRow}>
                 {noteAbove && (
                   <StatusLine ref={status} tone={statusShown.tone}>
@@ -396,7 +508,7 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
                   state={rec}
                   seconds={seconds}
                   reason={reason}
-                  hints={RECORD_HINTS}
+                  hints={hear ? RECORD_HINTS : RECAP_HINTS}
                   readyHint={!triedHere}
                   readyName={triedHere ? 'Try again, record yourself saying the line' : undefined}
                   onStart={() => void record()}
@@ -442,14 +554,24 @@ export function SayIt({ session, frame, onDone }: StepScreenProps) {
             )}
           </div>
         )}
+        {tip && (
+          <FirstLessonTip
+            region={region}
+            restoreFocusTo={afterTip}
+            onClose={() => {
+              setTip(false)
+            }}
+          />
+        )}
       </main>
       <ConsentSheet
-        open={mode === 'consent'}
+        open={mode === 'consent' && !tip}
         region={settings?.region ?? null}
         busy={choosing}
         problem={mode === 'consent' && message ? <Parts parts={message.parts} /> : undefined}
         onTurnOn={() => void turnOn()}
         onNotNow={() => {
+          notNowIn.add(sessionId)
           setMessage(null)
           setMode('aloud')
         }}

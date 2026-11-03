@@ -89,7 +89,7 @@ export default function IslandSample() {
     <IslandStep
       key={stop.stop}
       stop={stop}
-      frame={{ step: 'Use it', steps: ['Hear it', 'Understand it', 'Say it', 'Use it'] }}
+      frame={{ step: 'Use it', steps: ['Hear it, say it', 'Understand it', 'Recap', 'Use it'] }}
       leaveHref="/sample/island"
       onSave={() => Promise.resolve(true)}
       onSkip={stop.optional ? () => undefined : undefined}

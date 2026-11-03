@@ -55,6 +55,15 @@
   box-shadow: 0 0 0 5px var(--color-tip-ring-halo);
 }
 
+/* The one plain sentence on saying each line back (fast route hear-and-say): the legend's white text, with
+   no marker, set in line with the legend's words. */
+.sayBack {
+  margin: 0 0 0 34px;
+  color: var(--color-tip-text);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+}
+
 /* "Got it": the drawing's white pill, no outline, a soft shadow. */
 .gotIt {
   min-height: var(--tap-min);

@@ -70,7 +70,12 @@ function answerArea(markup: string): string {
 
 describe('Keep it in the step list', () => {
   it('[review 6] with words to review, Keep it comes after every step of the list, as step 4 of 4', () => {
-    expect(stepsFor(true).map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Say it', 'Keep it'])
+    expect(stepsFor(true).map((step) => step.name)).toEqual([
+      'Hear it, say it',
+      'Understand it',
+      'Recap',
+      'Keep it',
+    ])
     expect(stepsFor(true).at(-1)).toBe(KEEP_IT_STEP)
     expect(KEEP_IT_STEP.id).toBe('keep')
     const steps = stepsFor(true)
@@ -107,10 +112,10 @@ describe('Keep it in the step list', () => {
     expect(resumeAt(stepsFor(false), 'keep')).toEqual({ kind: 'finish' })
   })
 
-  it("[review 6] job 10's Say it sits before Keep it, and Keep it follows only when there is a card to review", () => {
+  it("[review 6] [hear-and-say] job 10's Say it, now the Recap, sits before Keep it, and Keep it follows only when there is a card to review", () => {
     const names = stepsFor(true).map((step) => step.name)
-    expect(names.indexOf('Say it')).toBe(names.indexOf('Keep it') - 1)
-    expect(stepsFor(false).map((step) => step.name)).toEqual(['Hear it', 'Understand it', 'Say it'])
+    expect(names.indexOf('Recap')).toBe(names.indexOf('Keep it') - 1)
+    expect(stepsFor(false).map((step) => step.name)).toEqual(['Hear it, say it', 'Understand it', 'Recap'])
     expect(resumeAt(stepsFor(true), 'understand')).toEqual({ kind: 'step', index: 2 })
   })
 })
@@ -182,7 +187,7 @@ describe('the Keep it screen', () => {
       createElement(KeepIt, {
         sessionId: session.session.id,
         items: [item, { ...item, formId: 4 }],
-        frame: { step: 'Keep it', steps: ['Hear it', 'Understand it', 'Keep it'] },
+        frame: { step: 'Keep it', steps: ['Hear it, say it', 'Understand it', 'Keep it'] },
         onDone: () => Promise.resolve(true),
       }),
     )

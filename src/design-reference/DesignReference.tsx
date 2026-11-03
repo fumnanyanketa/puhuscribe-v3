@@ -296,7 +296,7 @@ export default function DesignReference() {
         <SampleNote />
         <div className={styles.frameBox}>
           <SessionFrame
-            step="Hear it"
+            step="Hear it, say it"
             hasUseIt
             leaveHref="/design-reference"
             contained

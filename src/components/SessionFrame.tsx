@@ -7,13 +7,39 @@ import styles from './SessionFrame.module.css'
 // The session frame (design.md, "Session frame"): the landscape band, a 44 px
 // cross in a milky round, a progress bar that fills by the share of the lesson
 // done, the step name at the right, a scrolling content area and a bottom
-// action area that stays in view, clear of the iPhone home bar. The cross opens
+// action area that stays in view, clear of the iPhone home bar. The bar's
+// shares follow STEP_SHARES below. The cross opens
 // the sheet "Leave this lesson?" (job 19-redesign, statement 22); on the finish
 // screen nothing is lost, so it leaves at once. The learner never picks a mode:
 // the steps follow the loop order.
 
-export const LOOP_STEPS = ['Hear it', 'Understand it', 'Say it', 'Keep it', 'Use it'] as const
+// The steps since the owner's fast route hear-and-say (3 November 2026): "Hear it, say it" (each line
+// heard, then said back), "Understand it", the short "Recap" said from memory (stored as "say"), then
+// "Keep it" and "Use it" as before.
+export const LOOP_STEPS = ['Hear it, say it', 'Understand it', 'Recap', 'Keep it', 'Use it'] as const
 export type LoopStep = (typeof LOOP_STEPS)[number]
+
+/**
+ * Each step's share of the progress bar, against the others' (fast route hear-and-say): "Hear it, say it"
+ * now holds both the listening and the speaking of every line, about three times as long as any other
+ * step, so it fills three shares; every other step fills one.
+ */
+export const STEP_SHARES: Record<LoopStep, number> = {
+  'Hear it, say it': 3,
+  'Understand it': 1,
+  Recap: 1,
+  'Keep it': 1,
+  'Use it': 1,
+}
+
+/** The share of the bar filled at `progress` (0 to 1) through `step` of `steps`. */
+export function barShare(steps: readonly LoopStep[], step: LoopStep, progress: number): number {
+  const at = steps.indexOf(step)
+  const total = steps.reduce((sum, each) => sum + STEP_SHARES[each], 0)
+  if (at === -1 || total === 0) return 0
+  const before = steps.slice(0, at).reduce((sum, each) => sum + STEP_SHARES[each], 0)
+  return (before + STEP_SHARES[step] * progress) / total
+}
 
 interface SessionFrameProps {
   step: LoopStep
@@ -21,8 +47,7 @@ interface SessionFrameProps {
   hasUseIt?: boolean
   /**
    * The steps this session has, in order. Given, it replaces the default list
-   * (and hasUseIt). The first session loop passes Hear it and Understand it
-   * (src/screens/session-steps.ts).
+   * (and hasUseIt). The session passes its own list (src/screens/session-steps.ts).
    */
   steps?: readonly LoopStep[]
   /** The share of the current step that is done, from 0 to 1 (lines shown, questions answered, words done). */
@@ -62,7 +87,7 @@ export function SessionFrame({
 }: SessionFrameProps) {
   const steps = given ?? (hasUseIt ? LOOP_STEPS : LOOP_STEPS.slice(0, 4))
   const number = finished ? steps.length + 1 : steps.indexOf(step) + 1
-  const share = finished ? 1 : clamp((number - 1 + clamp(progress)) / steps.length)
+  const share = finished ? 1 : clamp(barShare(steps, step, clamp(progress)))
   const name = finished ? 'Session finished' : `${step}, step ${String(number)} of ${String(steps.length)}`
   const [leaving, setLeaving] = useState(false)
   const cross = useRef<HTMLButtonElement>(null)

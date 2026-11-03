@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, type ReactNode } from 'react'
 import { FinnishLine } from '../components/FinnishLine.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
 import type { LineWord } from '../components/finnish.ts'
@@ -97,6 +97,11 @@ interface LineCardProps {
    * result turns it off, so the answer is the one marked word in each line, as drawn.
    */
   showChanged?: boolean
+  /**
+   * Shown in place of the Finnish lines, in a soft box where they would be (the recap of fast route
+   * hear-and-say: "Show the Finnish" until the learner has tried saying the line from memory).
+   */
+  cover?: ReactNode
 }
 
 export function LineCard({
@@ -108,6 +113,7 @@ export function LineCard({
   only,
   marked,
   showChanged = true,
+  cover,
 }: LineCardProps) {
   const [spokenPlaying, setSpokenPlaying] = useState(false)
   const [writtenPlaying, setWrittenPlaying] = useState(false)
@@ -155,29 +161,35 @@ export function LineCard({
           </span>
         )}
       </div>
-      <FinnishLine
-        spoken={lineWords(line.spoken, line, marked?.spoken, showChanged)}
-        written={lineWords(line.written, line, marked?.written, showChanged)}
-        spokenControl={
-          controls ? (
-            <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} onPlayingChange={spokenChange} />
-          ) : undefined
-        }
-        writtenControl={
-          controls ? (
-            <PlayControl
-              src={line.writtenAudio}
-              what={LINE_AUDIO.written}
-              size="small"
-              tone="written"
-              onPlayingChange={writtenChange}
-            />
-          ) : undefined
-        }
-        cardAudioWhat={LINE_AUDIO}
-        cardAudioCaption={CARD_AUDIO_CAPTION}
-        cardOnPatterns={openPatterns ?? undefined}
-      />
+      {cover ? (
+        <div className={styles.cover} data-finnish-covered="">
+          {cover}
+        </div>
+      ) : (
+        <FinnishLine
+          spoken={lineWords(line.spoken, line, marked?.spoken, showChanged)}
+          written={lineWords(line.written, line, marked?.written, showChanged)}
+          spokenControl={
+            controls ? (
+              <PlayControl src={line.spokenAudio} what={LINE_AUDIO.spoken} onPlayingChange={spokenChange} />
+            ) : undefined
+          }
+          writtenControl={
+            controls ? (
+              <PlayControl
+                src={line.writtenAudio}
+                what={LINE_AUDIO.written}
+                size="small"
+                tone="written"
+                onPlayingChange={writtenChange}
+              />
+            ) : undefined
+          }
+          cardAudioWhat={LINE_AUDIO}
+          cardAudioCaption={CARD_AUDIO_CAPTION}
+          cardOnPatterns={openPatterns ?? undefined}
+        />
+      )}
       {showGloss && <Meaning english={line.gloss} />}
     </div>
   )

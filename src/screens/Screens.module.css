@@ -139,6 +139,19 @@
   color: var(--color-text-quiet);
 }
 
+/* The recap (fast route hear-and-say): where the Finnish lines go, a soft box like the spoken line's with a
+   dashed edge, holding "Show the Finnish" until the learner has tried the line from memory. */
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px dashed var(--color-spoken-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
 /* Keep it, as drawn (round 6): the title at the top, then the card and the field. */
 .keepTitle {
   margin: var(--space-5) var(--space-1) 0;
