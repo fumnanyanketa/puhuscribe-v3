@@ -307,3 +307,14 @@ What the research changes in this spec. Two apps that state their feedback timin
 - Research apps: https://www.speak.com/, https://blog.duolingo.com/duolingo-max, https://www.babbel.com/babbel-conversation-practice, https://www.busuu.com/en/languages/speak-fluently-with-busuu-conversations, https://intercom.help/praktika-ai/en/articles/12009042-what-is-praktika-and-how-does-it-work, https://www.languatalk.com/, https://apps.apple.com/app/id6749446603, https://lingtuitive.com/blog/langua-ai-tutor-review (search result only)
 
 Result: ready for owner approval
+
+## Owner's answers (3 November 2026)
+
+Recorded by the manager from the owner's own choices in chat.
+
+- **1. AI company:** Anthropic's API with the key already in use ("Anthropic key, relax rule"). The owner relaxed the house rule that learner data stays in the EU for this one use, after the manager explained the rule came from the 19 October build plan, not from GDPR itself. The privacy notice gets one line saying the tutor's text is processed by Anthropic in the United States. Before real learners arrive, the manager checks Anthropic's data processing agreement and transfer basis (standard contract clauses or the EU-US Data Privacy Framework) and reports to the owner. Small model: Claude Haiku 5.5.
+- **2. Otso's Finnish:** C, AI writing inside the word check plus the phrase rule ("AI + phrase rule").
+- **3. How the learner answers:** B, typed or spoken ("Typed or spoken"). Spoken answers use the speech module in a plain transcription mode, with a voice consent that names this use; the transcript goes to Anthropic.
+- **4. Look and voice:** not asked; the recommendations stand: name only, no audio for AI lines.
+- **5. Limits:** 2 chats per learner per day, email accounts only (guests see "Add your email to talk with Otso"), a €10 monthly AI cap ("2 a day, email accounts, €10 cap").
+- **Process:** the owner's fast route (factory/run-plan.md): one builder, one security check on the parts that send learner text out, tests paused except the database test for any new table; the owner tries it on the fixed link.

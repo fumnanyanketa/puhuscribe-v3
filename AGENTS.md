@@ -55,7 +55,7 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
 ## Privacy rules
 
 - GDPR applies. Collect the minimum, explain why, allow export and deletion. No users under 18.
-- Learner data and voice recordings stay in the EU. Audio is discarded by default.
+- Learner data and voice recordings stay in the EU, except the tutor's text, which Anthropic processes in the US (owner, 3 November 2026). Audio is discarded by default.
 - Agents only ever use the test database. Never the live one.
 - No keys, tokens or passwords in code, commits, logs or chat. They live in `.env.local` (git ignored) and GitHub secrets.
 
