@@ -38,7 +38,13 @@ Rules for waves:
 - Routine jobs: one approval at the end.
 - GA jobs: spec approval, then the final written "approved" line. Batch them. One message to the owner lists every spec that waits, one question per owner's call, with a recommendation.
 - Anything that spends money or adds a paid service is an owner's call, even in a routine job.
-- Quick lane (owner's choice, 2 November 2026, "Quick lane, one at a time"): a small fix the owner finds while using the app (wording, colour, spacing, a control's place) skips the spec and the reviewers. One builder per fix, on its own branch, with a test and the full GitHub checks. The owner sees before and after and says yes, then it merges. New features, personal data, accounts and Finnish content still take the full line.
+- Drive to MVP (owner's choice, 3 November 2026). Process weight follows risk:
+  - Small visible change (wording, colour, spacing, layout): one builder, the fast checks, the owner looks on the preview link, merge. One at a time, as the owner reports them.
+  - New screen or feature the owner judges by using it (the intro, word audio): a five line plan the owner okays in one message, one builder, the fast checks, the owner tries it on the link, merge. No spec writer, reviewers or evaluator.
+  - Full factory only for sign-in, personal data, database access rules and payments.
+  - Finnish content: voiced automatically, the owner judges it by using it and approves each part in writing before it is served.
+  - At most one rework round; if it misses, re-plan.
+  - The full run of every browser test, in both browsers, happens once, when everything is set for MVP (owner: "only when everything is set for MVP, would we run the 720 test. Once").
 
 ## Speed rules
 
