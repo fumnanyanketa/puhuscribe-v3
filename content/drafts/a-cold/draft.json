@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -180,6 +181,26 @@
         "reason": "Moi/Hei and Mul/Minulla are register differences; the meaning is the same.",
         "fingerprint": "617c4508d33952f3d11cc8f12bcab8a30b5a8dead01edd3f70c431dada35adaa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f4ecc87f69b1587393544e30a7a5ad5e87f763176dfc31b2ea4d43a0c53af070",
+          "text": "Moi! Mul on flunssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c88b14549e1bdf97414dc6f1ea3b0fd265a76038663b191038100c79dab9efed"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "80b09d64cbb0c495def2b382bdc2739721075f6fde503a5aab1221bf2dbc7a74",
+          "text": "Hei! Minulla on flunssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "22c36d81401e855bc6b8ea4a4f25b94e9ea77e9b93c4b8b83dbbdc40b1e8929b"
+        }
       }
     },
     {
@@ -299,6 +320,26 @@
         "reason": "Onks sul and Onko sinulla are the same question about having a fever.",
         "fingerprint": "edccab767780fe4b132565e768f89b26a5dbd1d4e6e6164215837585269fa129",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "31272a349ed5062339fb62efa0edf2dce9bb691e57b62b66782d5f8c2a86323f",
+          "text": "Voi harmi. Onks sul kuumetta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "be733974785ef2c20a966af1e763adf1ce33593e2247702e963bfc7b2fff5452"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "b5c7069d1e9cc27357f80e5aa50e060a6a678e9ba026175418b61b14a2466e28",
+          "text": "Voi harmi. Onko sinulla kuumetta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d57f438990600fcd37454eb5f0cb2d214d897f138708810247361acad0f34f9a"
+        }
       }
     },
     {
@@ -415,6 +456,26 @@
         "reason": "Mul/minulla is only a register difference; same content.",
         "fingerprint": "3afe5ad77eaa09313daf5f464e0f7103fa1684c2f5719f6db239cf7c3c5e6984",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "c8c39dc6a0d2a1cc1e12271b6e4bd80b5c84679b68cc4bbc85004e2df6ce3cee",
+          "text": "Vähän. Ja mul on yskää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "29273f879e5246f5dbdf941a30fa233dbdfee58686f855bc65f57e5394f92f85"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "9196d93bda0aa7a03d476693fdadee864b4fce04e1b4f09ff128544a3c5a40b1",
+          "text": "Vähän. Ja minulla on yskää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bf46ef55fed5b8f674ab9393be5eb790f76289f256b81158b8298e9cdfe78201"
+        }
       }
     },
     {
@@ -555,6 +616,26 @@
         "reason": "Tää/Tämä is a register difference; the rest is identical.",
         "fingerprint": "00d614139b751dc44cfa7600b5453ba5f90d5d50e16d4551cbdcf4f63e0e2ff9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "dd822ceb953910435b13a989166d8807f80bdfc9d8478a4ab0e759010e8affae",
+          "text": "Tää yskänlääke auttaa. Ota sitä illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ccb22100ff91ec3243ab2243b071f4de1b07adf5bec9b56d85833c3ff5c9a5e3"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "d074f9a12abe41e5b581041623911d74195a598658ec2fd452df1f76d506edc1",
+          "text": "Tämä yskänlääke auttaa. Ota sitä illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "26a0bf85ea1d468f2092f58d634ac3628ca26cbcdaf01f586ceea63eef699c3d"
+        }
       }
     },
     {
@@ -691,6 +772,26 @@
         "reason": "ihan and aivan both mean 'completely'; the meaning is the same.",
         "fingerprint": "3bf677d8447c68988bcb8f70ffbae7a31b799696d80cce274e6057c12a2a900e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "bbbc8d4569d425beb9ae13a4b090197e7abbe06b978ad3822d1178288a02b601",
+          "text": "Entä nenä? Se on ihan tukossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c16f3c6d4ceac062f972e963a44aa3e847f6ad1a0e0be8bca964c9a02478d100"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "7e24c72f98d529cb0e3606512ef71df60b4d5db5af8f0631ff376fc3eaf8237c",
+          "text": "Entä nenä? Se on aivan tukossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8b0bbe836b2028ed83e8c30bce94fb8062c612bc94839cebaad33d1fc7f7719b"
+        }
       }
     },
     {
@@ -824,6 +925,26 @@
         "reason": "Sit/Sitten is a shortened form; same meaning.",
         "fingerprint": "42a5178527784fa5c8e58caa0e4a4afc50eb26f10bde7c5ae168107559319284",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "acddbbb628adaef1133e59e37487bf4bfed2d7e5b810578f4eb7d58aa90615ed",
+          "text": "Sit nenäsumute. Ja juo paljon vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "914c282038cb24b92f2e578a51263657bf32e26515cbc3e342020cdd00d8ee6c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "6f8549e265518bc453f7d6b1bcf79060548f6079d802c43bd0d2d343558d28a5",
+          "text": "Sitten nenäsumute. Ja juo paljon vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c85fdbd90957cd6b9e6cefa13307ad78101b0515bd4c70c650e8bb907d0d914a"
+        }
       }
     },
     {
@@ -923,6 +1044,26 @@
         "reason": "Okei/Selvä are both 'okay'; mä/minä is a register difference; same content.",
         "fingerprint": "8cf75e14b55c130a2ac399b33ca1e828683757336feac235f58edbd0c22a96cf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7600cb149a79dda4647be61692f22b250ee48a724efd93b9415a02fed0382211",
+          "text": "Okei. Mä lepään kotona.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ba6039f3584b35f9a44718f3f0ff3f7b059f473127e18fb2433408eeb18596c2"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "30e3ffeff70a39597ff36952559bc320eb92ba4fca8d4c736fc12725333c3f75",
+          "text": "Selvä. Minä lepään kotona.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5870d5126758aad903de8443c310234ddad75f1f5a4c366901001189899c4130"
+        }
       }
     },
     {
@@ -1003,6 +1144,26 @@
         "reason": "Pikasta/Pikaista is a spoken form of 'speedy'; same wish.",
         "fingerprint": "b6dc4ef236b24cbdd66ebd08c85501f417c0c11a8b6cf9f5bab74708bbe710ff",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "0c918649a1a39a99e33e4ba12dff797e3e23faa6ee42a64d04a33eb5fa7fc470",
+          "text": "Hyvä. Pikasta paranemista!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9d56a8f1f60a717134e942ad055914938549c502d99b744d56db74836cb6422d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "31778ca5841bf99494d7b9b1d2b1cc3c28dd82a282823d72f7334ba763a113b1",
+          "text": "Hyvä. Pikaista paranemista!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a9ec0237ccf0f37db280b9457b68a3bd3bf3a24fc9432635830468529e4f8af0"
+        }
       }
     }
   ],

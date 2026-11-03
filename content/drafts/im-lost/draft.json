@@ -68,7 +68,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -237,6 +238,26 @@
         "reason": "Only register differences: anteeks/anteeksi, voit sä/voitko sinä, mä oon/minä olen.",
         "fingerprint": "85c250b4adc0d72b050181003708617e42005fc63ef33843485a379966838213",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c271ae0d8cf0de553eccd55b44a0ab1a2a6c68c33c44ed96b8aa868e50bed5ba",
+          "text": "Anteeks, voitsä auttaa? Mä oon eksyksissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "66b7251b791295360715675ea9e60d96619db86716b3de928ddcd02821b18d6f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "99767f59d2b6b597dce2fedaf1de8743bc02e5f316064157eb0da85172e6ab78",
+          "text": "Anteeksi, voitko sinä auttaa? Minä olen eksyksissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9e380322a261390f330888f21f62959ea3b715a113fff883b2b45af723a0e25f"
+        }
       }
     },
     {
@@ -376,6 +397,26 @@
         "reason": "Same question and answer; sä oot/sinä olet is just register.",
         "fingerprint": "b536614d479402d369a5c096ed1f9083d50babe2965f88fa8b67ac86ab32befc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "90480df044d31a9cb941e7ff553b8044bc863405e405fdb35ec71145718b2a28",
+          "text": "Totta kai. Mihin sä oot menossa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b484134abbec3eccda8c2e79ff392b63ad3bea4cb124dbbde7e788ec713912b1"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "2d4d4fb4c366fe5f8c3478f31700f67deeec7f12ffd53122d66472b9c780d530",
+          "text": "Totta kai. Mihin sinä olet menossa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f51cacbd026eb1b6c43c470c3c8695a90a5a4e978f9a327cf8a0c91212ea6a92"
+        }
       }
     },
     {
@@ -493,6 +534,26 @@
         "reason": "Identical meaning; mä/minä only differs in register.",
         "fingerprint": "459e8db615cc303f48fa018f3cd22253ab52a08ab52632298ae0fa09e03abf53",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "8574a3fefba0d758da9146e83a495757a3498d117539a219e4e8ccd5d8bd281f",
+          "text": "Rautatieasemalle. Mä en löydä sitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a42d44538f3c93793902ee4102a09b4e182aa3cada6aed341a50a7910dcccb26"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "37af75a51ad70ccdf2813369fe09a39989cb30517ca1c046e20f1c6aea3af8e9",
+          "text": "Rautatieasemalle. Minä en löydä sitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d9d48ae5537d5b8e935b83128965404775210691b2a054033388d8902d3a3d83"
+        }
       }
     },
     {
@@ -700,6 +761,26 @@
         "reason": "tos/tuossa, näät sä/näetkö sinä, ton/tuon are register variants; same meaning.",
         "fingerprint": "92e815f4788ac5e272832b54adc51c485876f2414fbb486da615d4da835463b9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "13e52a4ccf93a27cf72dd62bc060f6dc0f564e8a91139b5b3b6f533a5b95e724",
+          "text": "Se on tos lähellä. Näätsä ton ison kellotornin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "aff92f4c426d83df3e196514c6e28fb9cb9b79273166064bba69fadb12669610"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "09e73e164e959566597d53777331ba0a23d55687901dadf525bbf0c1f070b6ac",
+          "text": "Se on tuossa lähellä. Näetkö sinä tuon ison kellotornin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a1006949763f787f4d825b5033daeb15d36c373887fca6c74ff7130d9e95bf72"
+        }
       }
     },
     {
@@ -777,6 +858,26 @@
         "reason": "nää/näe is a register difference; both say 'I don't see. Where?'",
         "fingerprint": "e2d990503167a2d517c1490124a8d9c82c114038378f594966ce395a9c268c8b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "05325f5818acf56617c0fe8232cd5cd0d980b1256c0a463063a3bb7efb2a96a5",
+          "text": "En nää. Missä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "95fb177e9193ead6de92bef0726bedd032054320d5459bf4dbcdc57bb3307287"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "9ea221523a91db3dcdd2514b4d4f1b79491d220bf25c2122303225758485af06",
+          "text": "En näe. Missä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "51ef974f1d8503502a707f00525947b15e88e2eec1a16fb1ae7c675748f90a66"
+        }
       }
     },
     {
@@ -936,6 +1037,26 @@
         "reason": "just/juuri is a register variant; same location information.",
         "fingerprint": "359b0f97d47206c8b763b1e5b3d205dea395b957764b1dc29b4f08b68501e68f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "87948366391e9b7b752d4e1eba782f04da263ec4f81b17ea873a2b584c469cfc",
+          "text": "Tuolla vasemmalla. Asema on just sen alla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "351ab00a301a70b0989c9f88cc57fcefcbaa46215160e12163a4d091a8d7c381"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "3cd298022ea14056fe85afa3cbe0d07cde7bea6d01f4f44dc8638ff39eae7532",
+          "text": "Tuolla vasemmalla. Asema on juuri sen alla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d07134719d31838327b4f5f65dbe73bbf0558a89cd98af6a240fd09b9c76f937"
+        }
       }
     },
     {
@@ -1052,6 +1173,26 @@
         "reason": "mä nään/minä näen and kiitti/kiitos are register differences only.",
         "fingerprint": "270d7b9d0a9047ba730df5375c4d98f0f327452ac25e86785020f0a4e401a598",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "5bf2670388fcd237a8b5f72b73e6d8e958ba5a08e643e878052c02b6a1939b63",
+          "text": "Ai, nyt mä nään! Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "640355f6e4ca4d6829fa3aaac51ddb77c4d9c2cd20f13011f6929574aaa969d4"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "a9ca3a53103aaa74579adca12af932ad7b6cece1891b380c19d94845299c8796",
+          "text": "Ai, nyt minä näen! Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "aa25d9ff0a9ee096f59e7d8eb1cba7442787f2b3213e5006ff948888e102f688"
+        }
       }
     },
     {
@@ -1150,6 +1291,26 @@
         "reason": "Ei mitään and Ei kestä are both 'you're welcome' responses; the rest is identical.",
         "fingerprint": "55408137a7a190aafeb11cdd5d9fd7c7507bfd3d851a927ab6eefd71b7813ffa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "0528fc21e4b357e1fad6d8c2997266bc543cf1f4f51f2d778e42ba97c0de2fb1",
+          "text": "Ei mitään. Hyvää päivää!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ee458d6140da9551d48df168393066556f731c041be748dae1369f66c8570d46"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b66903852b789f3511715d650a7d0d51a77145066c4ea708ea1ccef4847b208d",
+          "text": "Ei kestä. Hyvää päivää!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7ae9c8e3e78e7fa57a61ccbcf99ca6edd9212e98371c6145dbaf945416f1eab7"
+        }
       }
     }
   ],

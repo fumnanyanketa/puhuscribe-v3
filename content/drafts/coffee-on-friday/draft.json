@@ -66,7 +66,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -150,6 +151,26 @@
         "reason": "Mennäänks is the spoken form of mennäänkö; same question, same day and place.",
         "fingerprint": "4acf37453ca6475d5feb0f0f4992bd078422d8c233f2ff37c1d1bc4d7a4d0c94",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "8ceddb694dddfa667b5f19428197bb675004fb305092d3b6c887db89255a7c86",
+          "text": "Mennäänks kahville perjantaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bfde2566a6a00951ce02f94382b706e2b9bcb6d929e780cb1a83dddfbb15aa57"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "bd45a84945cf3e91bdfdd20dca61471c09fc13d82f6874ba23e22e9ae7006abc",
+          "text": "Mennäänkö kahville perjantaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b43bc598e4f267aad40e502cbcf731fcd2a1a8370192a2852fa0f52590c27323"
+        }
       }
     },
     {
@@ -314,6 +335,26 @@
         "reason": "mul is the spoken form of minulla; same meaning, same person, same course.",
         "fingerprint": "981ce32f0848fe74a971ee24f21ae0ba03b5a5dec5d77c9c5db4e2930cb18523",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "675197a3f46952b7fc0e3cbd16b068a3d364b40919f2917a6043dddee4c475ed",
+          "text": "Perjantai ei käy, mul on suomen kurssi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "99df1a99ff42d66451034cb0d40a91d9b222121e7360a537c74635ea0f9c479a"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "cce31a9599cceb046612e434e8de1a0f0b93ebf68d302ad11cd285ffe765784e",
+          "text": "Perjantai ei käy, minulla on suomen kurssi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d3f7dea92b9ea49d01f4b259d682ef0dd2064b019c7690705ef4bae5bbc7df1e"
+        }
       }
     },
     {
@@ -369,6 +410,26 @@
         "reason": "The two versions are identical.",
         "fingerprint": "8d542c124a408c528b0f07fcec25371be7d5d97312020d5ff64779c5fdf689a2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "d72aa34095912bc64c600d3877e5efbd4930ba6f6027a26349105f1ed4707a1a",
+          "text": "Entä lauantai?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c0f2ba1d1bed2a9b8210e06f89510d42da571895b1f286f33655b0efbf8016f0"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "96dbe7b689b4dd39d34283148ba441640409cbbb5ec7f31caf55d47b58416aed",
+          "text": "Entä lauantai?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c0f2ba1d1bed2a9b8210e06f89510d42da571895b1f286f33655b0efbf8016f0"
+        }
       }
     },
     {
@@ -487,6 +548,26 @@
         "reason": "The two versions are identical.",
         "fingerprint": "5daf1b124dc45897933deda76ddec5c75105ef62b952014894d87bd2f37f9672",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d58c1db51eab9049b120a42aac5370b6006ac544d2849e1d67f641752650974b",
+          "text": "Lauantai sopii hyvin! Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7b51bf2b2de0eb5091c616943a6d06afdea44a85f4fd06274a733f645e2cca0b"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b777a55bd4469871cc3815d957ba9d3515aae0d9135736007ab90c24dad5079b",
+          "text": "Lauantai sopii hyvin! Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7b51bf2b2de0eb5091c616943a6d06afdea44a85f4fd06274a733f645e2cca0b"
+        }
       }
     },
     {
@@ -542,6 +623,26 @@
         "reason": "kahelta is the spoken form of kahdelta; same time (at two).",
         "fingerprint": "9528d4d89d0acf2b548b0166b01feee6306eaec913cca1faf32a7695482f9760",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "eb54ad0b34bb480a682bd2c5781963adb1aa42493035c990c7167eeba9031286",
+          "text": "Vaikka kahelta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7a8f04318500927292bdda53fd3774c4a694fd957f768e9c987068b2e211c55c"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "0a8f73006c1f5de60a2307863ad9f496ac1ba934d046d5cce983d2e948d74c71",
+          "text": "Vaikka kahdelta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "321450c931dc8225bad8f1f3add2bcb6fe0439d29e9bc91ee198593b5716d922"
+        }
       }
     },
     {
@@ -665,6 +766,26 @@
         "reason": "kahelta/kahdelta and nähään/nähdään are only register differences; meaning is the same.",
         "fingerprint": "900af78f2d3fa01a9074658940d3decff3b9400a67bf5be725a3fd38563a81a5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "208ad9656bec72776557c665934497441536b99ee2b1786e2d6b0f62628584f8",
+          "text": "Kahelta on hyvä. Missä nähään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9416c50ac78bf3931ded55c2495604de1b58f29ce5472b6722a04e7305a0aa9e"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "d6cc776c726958550a5ad6ac803a1c8d8934349aff3f901c805be04186d7277f",
+          "text": "Kahdelta on hyvä. Missä nähdään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9554c31f72209908627970ce43e8845f5ff1c8dbfdf9acd7467ddde6eabd6a7d"
+        }
       }
     },
     {
@@ -722,6 +843,26 @@
         "reason": "edes is the spoken form of edessä; both mean in front of the café.",
         "fingerprint": "c2767a338baf82e1bc3dd9636b56821283941d41f2a65f8213a817480c64c786",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "cf1348773386c76dd7d3df5a9fbf3a8fe00a5d0bd808740b9dd9132cf2b12f89",
+          "text": "Kahvilan edes.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5fead08ce7f275ed1102a8ee6fd67981568b0418cd06ba1d56cd3585f1a6477a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "dc7bcd256d1fb3e52a582164880a0af77c7f6828d18c31db578e7a61e720f07a",
+          "text": "Kahvilan edessä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5f87d23285263b627bfcad20048e458c69cbaf5e33429a0bfa37dd9cb805af72"
+        }
       }
     },
     {
@@ -801,6 +942,26 @@
         "reason": "nähään is the spoken form of nähdään; same day, Saturday.",
         "fingerprint": "ae64a913c552ab03b93b532b035a5dd17352e056b87551be8fb7b8fdd105e67a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "517a230be418c7153ba96ac02dec96eb8670c6056b84e8eb2833a14944b01895",
+          "text": "Sovittu! Nähään lauantaina!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5cba61950831fad55479f6f487d054641e7489b8ef76b14e763aee1a7e6ec988"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7fb0ea337088507caed746bab8e50fd1c51c6260533edb5118ad314be0753794",
+          "text": "Sovittu! Nähdään lauantaina!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "081c29a36902450c426e6e0ed62293dceb962b05e8f1327d604398a846f3a1d3"
+        }
       }
     }
   ],

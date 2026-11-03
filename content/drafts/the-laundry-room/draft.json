@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -218,6 +219,26 @@
         "reason": "Moi and Hei are both greetings; the question is identical.",
         "fingerprint": "ecc7d7a1edb2d82e626c20ffaa022752a9aa36a65e48a02233b61db11addb8db",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "5f8a4eef5224317d40fa8ac9c1cc253d4e1f54f9274fbb2a81c03f97947a2a17",
+          "text": "Moi Leena! Missä täällä on pesutupa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "542fcce25d679b967a89fb4361adf8748ac8705bfe7245b9b59deea76592a2cc"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "23e343bf0babd1ef6d2f731fb0258f0e54c1736f86184cfd2bde13b21200abe4",
+          "text": "Hei Leena! Missä täällä on pesutupa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "aebb9563887c331446a59fc4b1b567bc4bfb558ae34bf2180bb41be733e3c66f"
+        }
       }
     },
     {
@@ -316,6 +337,26 @@
         "reason": "Kellaris/Kellarissa (in the basement) and Mee/Mene (go) are register variants; the rest is identical.",
         "fingerprint": "420cf5a14086eabc0990f29d09321e44bd4b6cde967bea91b98090398ca4800f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ead769d17c7a0919f2bf0053c6a23a22d254077dfdced2d2682c183cb3cde691",
+          "text": "Kellaris. Mee alas portaita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1c7cba36e2c1af3eb9f25e66df34070dd99804ca957a3d84d5b60b8271ff728e"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "f00e3779cde13c4eb682e498cad550960f9283d690e0395f98dd2ceb0bcd14c6",
+          "text": "Kellarissa. Mene alas portaita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bc8c9bffe76720695397282d7b189959be569759450530fad8a8d4ecd094a773"
+        }
       }
     },
     {
@@ -398,6 +439,26 @@
         "reason": "Pitääks/Pitääkö is the same question: does it need to be booked.",
         "fingerprint": "bcc2f4a5fbcfc810e6a2b9f2189b8fa5b35e36da00249494e6a4df0ca04edfe5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "88791e82c6986dd370629182d71d6179d979a6c1229101cdf19d92c50e7122b4",
+          "text": "Pitääks se varata?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e8f9fffadf151632134123d1da78afa7e7237a98f241144b25bfb38b1c356802"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ac67b64dc730511475bd6ca07ff2585e1ea172e8128b5c97ef92dd620fc07467",
+          "text": "Pitääkö se varata?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fbffd829d9d93f44bcdc8c3f9dd0d1be191fb922b09a74e6c0af5c5c5704c60c"
+        }
       }
     },
     {
@@ -516,6 +577,26 @@
         "reason": "Joo/Kyllä both mean yes; vieres/vieressä is a register variant (next to the door).",
         "fingerprint": "f2c17a6c1479eca8065212895ae598c213d12374dc309cd828a56518c19f86b9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "45a2ec6924887c81899efefcd953a199d82b0bb8d3bc5403c9b8d0aba5394f40",
+          "text": "Joo. Varauslista on oven vieres.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "44e1885dae559b92abece019bc9029ca41583bdc1b1268320fbcde8e3ae8f937"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "16b72c9bc5a16571cd10adbaced3e388cddfff9083e757100d1998b4285ee36e",
+          "text": "Kyllä. Varauslista on oven vieressä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8e5804d5a00ab0a26498a2a48716d148ce3688697906a1f11b256c8e26524f60"
+        }
       }
     },
     {
@@ -636,6 +717,26 @@
         "reason": "Onks talos/Onko talossa both mean 'is there a sauna in the building'.",
         "fingerprint": "c1352b5851c664412741862427592988e15af51cd1c42bf26c964522e6a6029a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "0c7080a2a66f36c2419083298ea265e0846df1ed4c71bbd0bcc12d8d92080696",
+          "text": "Entä sauna? Onks talos sauna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "00763459bbf746a796a6975b1a16269693fc12ed3f67670b2259af39e423b5d1"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "f13084fd7b78c5180f0765a99dc0348614f1947b479a75c58c1aaafad077483f",
+          "text": "Entä sauna? Onko talossa sauna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "75259bf80c536bfbd1cccbf6512b36b55af0960256afa5569edc648c5bd3c7e9"
+        }
       }
     },
     {
@@ -717,6 +818,26 @@
         "reason": "ylimmäs kerrokses is the spoken form of ylimmässä kerroksessa (in the top floor).",
         "fingerprint": "4bac12edbc51f62d6e5f52d3ef57d7d3daae320109acde90cf8050bc8ea6ef32",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "1a926989c832d05b968b2334907bb47bd48b425b5aad58ea51f0dcc1675eb0e1",
+          "text": "On, ylimmäs kerrokses.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1cea60679d84d0c722a5923b9cb46de725c6a55674906e92aa710269ab48a41f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "6967aad424587315bfb2666c3ef0f1b3bbcd0ba65f6d42468bf29f4bea513936",
+          "text": "On, ylimmässä kerroksessa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e8462c51b08d32e8269946bba2c63dcc6da37272b5adcf3a4b0fa078883b67bd"
+        }
       }
     },
     {
@@ -819,6 +940,26 @@
         "reason": "Mä haluun/Minä haluan both mean 'I want'; the same thing is wanted (a sauna turn).",
         "fingerprint": "8ffa3fb8349c9fab1069500a974a71a82dfe96600dbc12df4aee80cdca2d7414",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "b9fd458914e8fb35a8466d4eff69a1c6ebc4a175b8a67f69c9fd2023acc409c0",
+          "text": "Ihanaa! Mä haluun saunavuoron.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "17c2be9fb53b8a4415ed8d114db7c211a1c410fa077546efd38a2d142f001f6a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "2a9d02ed69b02be62277a5dfa42b46121a25caabe610f4593c10dd3bccdafdb5",
+          "text": "Ihanaa! Minä haluan saunavuoron.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6aac226a8f48d5327a445a9c468a690ca5eb0a6ebd672e0d16051f3f465f3869"
+        }
       }
     },
     {
@@ -879,6 +1020,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "8e91d9c9a83e51dfe930287849296e965978dd2731ed77f8e38187fd09e6dc67",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "1c2356110fc6b507e4958fcf3e1547bf59c47fb7f21247e6afabca80e1053433",
+          "text": "Kysy isännöitsijältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "24eab2a6c7f933ad7f691ae1cc9bbb80175e70bc95039ff7cb2186f877358179"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c62fa2e8ee18ca32ac5b75f5ceb37173d35856610a8962acb9b19fc8af5e3958",
+          "text": "Kysy isännöitsijältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "24eab2a6c7f933ad7f691ae1cc9bbb80175e70bc95039ff7cb2186f877358179"
+        }
       }
     }
   ],

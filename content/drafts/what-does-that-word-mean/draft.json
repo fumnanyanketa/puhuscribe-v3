@@ -68,7 +68,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -187,6 +188,26 @@
         "reason": "Palsu is colloquial for palaveri (meeting); varttii/varttia is the same word. Same meaning.",
         "fingerprint": "60aaa3bad009cdba300fc8ad36ea2ecccc3ff39d8503344c999f8056a3aa7906",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "2351d4ad88769218ebdbbefce810481938d15a461e79f45dbc0e44e92a6db112",
+          "text": "Palsu alkaa varttii yli kymmenen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b716d80cd8937e3e126170650dcc4e8f130f0fbe31de32fda76378b5ba89cd89"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b992cfd958081f65311c4b3cc7a8bc5aa98e92b67151ac74f89b81ef4739edce",
+          "text": "Palaveri alkaa varttia yli kymmenen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d6ac82c29bd4ddb87c41efdd83b3dd096c687c74c00dea955434aba098616975"
+        }
       }
     },
     {
@@ -306,6 +327,26 @@
         "reason": "Only register differences: anteeks/anteeksi, toi/tuo, tarkottaa/tarkoittaa.",
         "fingerprint": "5c9c3e2ede5b35fd8e2151696b1ebfc825e7ae3487a141a79a5aa0e9114496a1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "163ea055c48ec23556b7310b3e8e2df567924b200afcb4f9bdd010cf219e55f9",
+          "text": "Anteeks, mitä toi sana tarkottaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "50ec6f54e218c9f9922df5b796c658d6e169e0be1a12578d5745f631aacfbb15"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "8c2259bb226352b91e5f0c7f57d64fc83cfc9a2267969e15df9a48c712579ed5",
+          "text": "Anteeksi, mitä tuo sana tarkoittaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "45ee27d7cfd5b5400b351405f186fedfa8df394f506bdab8a57663b2107edb49"
+        }
       }
     },
     {
@@ -386,6 +427,26 @@
         "reason": "Palsu/palaveri and tarkottaa/tarkoittaa are register variants; same statement.",
         "fingerprint": "cd2d08ccb027d247a3cb8f3bb3a01a556cd297ce77c05280bbe9bfe3dfc90a74",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "a05a5c8bb5b79ab4b5ef43a25feba4f3654a249e721c5a7e34804e74f43c983c",
+          "text": "Palsu tarkottaa kokousta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ccd8ac5cc70085b8add26646226b5a092ee0265aefd9aa7080d285ccc917e643"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "a270a70bd38fb1a6dbdd964cb6b51fddc6b68708b444a9f17dfef92d3ff0ba9e",
+          "text": "Palaveri tarkoittaa kokousta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "332e557a709588567da92e3226e56fd4b594c56701ef70a0eef4da73e9c2d287"
+        }
       }
     },
     {
@@ -518,6 +579,26 @@
         "reason": "Aa, okei vs ai, selvä are interchangeable acknowledgements; the question is identical.",
         "fingerprint": "32e72706a01c17d3b1b93330ec8099f0d8ad5a46d1c1be0029a03433af9f1bf8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "dd1b244e6377926876d4343cbd0a193d614e97a6a90b5822c61da05cef74f63a",
+          "text": "Aa, okei. Ja milloin se alkaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d00e2a92350719e3dcf8786a12bf174cde7a8050d4edb558e218cf8e241c6160"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "d2e2ec6bae7d07c6c3f7484d91380a3cb3e4463c751e4137c7dc42d565b74745",
+          "text": "Ai, selvä. Ja milloin se alkaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "65d0ca2910a3890adc4e4f2435e0c7ae27aa0574f490a3fdb6f08396397e73ee"
+        }
       }
     },
     {
@@ -651,6 +732,26 @@
         "reason": "Only spoken forms differ (varttii/varttia, viistoista/viisitoista); both say a quarter past ten, i.e. 10:15.",
         "fingerprint": "30fbfbecc0a996570cf9b1020678ad19706fb029a7bdd27cb6e41d57731ed118",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "3956e6b5f5a9e9fc5a7c1b47ac0bc66fa923548fc63fd96e5c777ec90064bc0d",
+          "text": "Varttii yli kymmenen. Eli kymmenen viistoista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b1fb99d58cbe8b82819a146a51be5d860c4258f5d9c6fed34be35203f52527e1"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "c50e1ad2e4b42fac9d671fb68d73a2991d98cf41f12eca8ddfe17ba6f01fdcc9",
+          "text": "Varttia yli kymmenen. Eli kymmenen viisitoista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d82023558b52c88619755c445480a5d9312cf679299bb826bffd52c4422b6e86"
+        }
       }
     },
     {
@@ -755,6 +856,26 @@
         "reason": "Voit sä is colloquial for voitko sinä; both ask 'can you write it?'",
         "fingerprint": "c4fb776a2dcf7c41277a0a9576e34a220518e48c9e027126247bf4af4e24ef43",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3a002af8fbbf91c4002deab75ec4157a2dcce047f582490b6bc793f886849261",
+          "text": "Voitsä kirjottaa sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c5b508f192fa8ab442bf9dbf71555875d9092d89c798660a1493093fac168066"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "6c4a795df54f31fea6d110b914bd789529b42ade653c854a0eea789359e92a18",
+          "text": "Voitko sinä kirjoittaa sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "38934f19a58e09952c684dc00b9a276ad5566ad85f64971e3543dad8c7ba28d4"
+        }
       }
     },
     {
@@ -873,6 +994,26 @@
         "reason": "Joo/kyllä, mä/minä, sulle/sinulle are register differences; 'laitan viestin' (send a message, colloquial) and 'lähetän viestin' mean the same.",
         "fingerprint": "5d048fdf76a6409ab41a59930b0d400a31ce42936c035a1cc31ddafede120afb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "6a6a1c21f6eb7c9d233f42d1d58b2d2acd0ee29905ce0c0acbe6a605a5ce3839",
+          "text": "Joo, mä laitan sulle viestin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7951d8e231a6a037300c83cdc04705bb026d97a45690bee38926002134833729"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "34aa098d89c5a0e687ae0103109042409cdd4408156a7a3de1cfa94766bd2910",
+          "text": "Kyllä, minä lähetän sinulle viestin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9289df7c990698224edbf44ebd20f679ad9252eef9cee67496689571072a7ce1"
+        }
       }
     },
     {
@@ -966,6 +1107,26 @@
         "reason": "Kiitti is colloquial for kiitos; the rest is identical.",
         "fingerprint": "a34c5bad0cea4c267ab5dc491ddc66595494a79bf5da3fed9989fefcbbb192bd",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "454e43d6eba285ff03da31f1ba4db51f7e03ce50aeea39993172f8291d342eda",
+          "text": "Kiitti, se auttaa paljon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b7e0d3094ab59afb50a8f94ec6d7ed8fa7956136d4b15d81a69f4c5d42181bd0"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "8159e1c97e464a449d697b400c80558a5110b02ef95bfc5e9b9c5fc8a0ad2e91",
+          "text": "Kiitos, se auttaa paljon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3803fe5fc60ac18fa557a1bd690d3402ef96663de4916aedd59cccd2bfcc6133"
+        }
       }
     }
   ],

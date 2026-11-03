@@ -77,7 +77,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -181,6 +182,26 @@
         "reason": "Moi/Hei, voinks mä/voinko minä are only register differences.",
         "fingerprint": "e835e772d3ae5a0840f45f134858039f4fabe79ef7ace22a0e4b2a64c0cff2cb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "bf6a4fea384d3f705895f702a0dd4ab61e0ebe810d766fb9efa76ce5a28770fb",
+          "text": "Moi! Voinks mä auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "aa9d029f272ff411b92600768c5f7431e8781186c87bf4a12190424535773c66"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8cbb0ff1e698ec7b6b3dcb643ae7cab62806f61a739a357eeeb645f49c6b3852",
+          "text": "Hei! Voinko minä auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "28a0fdbb29c57ed76e85e4e33d28010abf5f6db57e2491d60c3047fa3f59a772"
+        }
       }
     },
     {
@@ -301,6 +322,26 @@
         "reason": "Joo/Kyllä, tää/tämä, onks/onko are the same meaning.",
         "fingerprint": "5ff8a80abe583f6fbfa3c66752e72148d138d0dbba8b4af22c5290b77a530eb5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0f94624b1d2718d3243aeae31c2dd972f0f864a4f566143710a50a7de08f1576",
+          "text": "Joo. Onks tää takki isompana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "223dd65267a1efdc229f2133e9f4b979b56d4ddb8f1248fe4a01706745a3ce3f"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "76ef88d27bf84e1c63e7fcdc9004a58cfc8dc238166cf05b136b17f494d8860f",
+          "text": "Kyllä. Onko tämä takki isompana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4c70c570d112f31b8f7241dadcfc92c0cb65a85bc556514ce09b486e525455ad"
+        }
       }
     },
     {
@@ -401,6 +442,26 @@
         "reason": "Mikä koko sä tarviit and Minkä koon sinä tarvitset both ask which size you need; the case difference is only register.",
         "fingerprint": "89000b9003b963a48a480980b9cbc20d6c8471e4fd8013e4f33df74a89fa972b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7f9d88f8f7e4796cc7e490c437027f8735f4ea91b0f592a58b112cff40cca0e2",
+          "text": "Mikä koko sä tarviit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8d38801a8630ea2e0386f2335cc22878a0fbbed5cc4a9597370123ef33137237"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "334f2bf988b97df5eb11398c589fc1245aafc3baeda5e19a0c461d0bfeee9e3d",
+          "text": "Minkä koon sinä tarvitset?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6cedcf64870521cef76a3879463448a738857fdbadca626b5b1ece08fd96e954"
+        }
       }
     },
     {
@@ -520,6 +581,26 @@
         "reason": "Same sentences; tää/tämä is only register.",
         "fingerprint": "89bf0d2f9c16c21c912ca1e57382518c28556baf103722b72842f14bcd970226",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "2b992aeb96b87b2ea8faeccf10a9ea759c4f98401de30655e6ea5a4349ad0961",
+          "text": "M-koon. Tää on liian pieni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d80e3389019c4e53e8fe6aa2ace46d0d965baa591b2b69f58bf4aa6ee1f353a0"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b5ff13f1e4a94d9635fdc0961892161d8f59926538412396452f65a36dd4d780",
+          "text": "M-koon. Tämä on liian pieni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a09797af50155e4e0f3904d2e322471beff33839978ad8b9bdf48f47cf4fb4c4"
+        }
       }
     },
     {
@@ -624,6 +705,26 @@
         "reason": "Haluuk sä/haluatko sinä is the same question.",
         "fingerprint": "d15698e7f8cddde743321c67335efd329aee9757fe7b8ee2ed5399c8f8b3e622",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "472294bfe4e0d89af7ca0e2e12b0197b01d2e7ae936de48e91555c4691d32796",
+          "text": "Tässä. Haluuksä kokeilla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "916f8b16f3202db67d34f6d7c52f23f429a34b44e4c620ff40adb15f2bcd3147"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "d9cda43a5e6b8cca5472ad88134418648c27c3f9d112f17729f0d92bd6d4bd81",
+          "text": "Tässä. Haluatko sinä kokeilla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3a5a89c98f51f1d493e71d73244622c0f04bfea32a955efb01bbb0d07cccd529"
+        }
       }
     },
     {
@@ -722,6 +823,26 @@
         "reason": "Missä on/ovat sovituskopit is the same question; the singular verb in speech is colloquial.",
         "fingerprint": "77658158c583a01d492c797f7af1199a35561001fd520a10f4b2a17ca3125cef",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "253857c549500d55e2a273acd3f5be746fc38945686db11a8b6f2e6853a5343b",
+          "text": "Joo. Missä on sovituskopit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8ba24b9e3429861aff6f2603279c2ceb44f6ff5e8bf1135834e5600593387fed"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "7f35c10b6b64a39dda2dc9909006b7f5982ed021c8dd62ee553be0ccd2476fbe",
+          "text": "Kyllä. Missä ovat sovituskopit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d0aed4d76e526f41b7e3711955ca85ce57f98ec24f26fb3cd3d368469caaa52a"
+        }
       }
     },
     {
@@ -777,6 +898,26 @@
         "reason": "Identical lines.",
         "fingerprint": "fb4d8037678bd71a6fd5422c7db887d6d134b9c57c174069e13fb1a1a4de06c2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "6d5364a7067ccf94f2da28529d7d5d2274248ac59a6d827b6ecb6cd757fc022a",
+          "text": "Tuolla takana.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c3b034dace5813cb78087bb10c919898af9807d64ff878db204e50b721cf86f2"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1d4af5a3068397be1f99e1b967ec61c75317cba637d4f791669bf4b66fa63081",
+          "text": "Tuolla takana.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c3b034dace5813cb78087bb10c919898af9807d64ff878db204e50b721cf86f2"
+        }
       }
     },
     {
@@ -921,6 +1062,26 @@
         "reason": "Tää/tämä and mä/minä are only register; the meaning is the same.",
         "fingerprint": "c243e1cac091a2740e5a9a1d5d66ed79e6dd347da957011bf787121248d2dd1f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "353585422fdae08954571245c0a2cef31bfafcf33e280292807069f30849eb89",
+          "text": "Tää on täydellinen! Mä otan sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9c1e6595876ac75f7c565aac9b48fe748bd47d66bebd86d0e9f6e873eefe3f75"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "2162796de9e952f30af4696a8cb86bc2570e806699c4240b6f892a3a27f40ede",
+          "text": "Tämä on täydellinen! Minä otan sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "494c51660dee36af27ab9f618a6ae4d73c987f62680c3f60c2826e50ae34c04b"
+        }
       }
     }
   ],

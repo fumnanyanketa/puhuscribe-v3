@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -162,6 +163,26 @@
         "reason": "Only register differs (sä/sinä); same question.",
         "fingerprint": "333a1c5358a68f233cdc2e54b906b886b17a0eac4d3e6ea7e9c310808f9111f0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "7d2444123bb5088c551fdde117cae188df367e9ffb62f0a405c27e4165739645",
+          "text": "Missä sä asut?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "991f8e919944f74cb3d6122786c783c1ef654f6f176df64f3a3edb8a58d1fc9a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "9212c228bfcab9a9cf013ca834ac91ed9320baaeb6d310cdf16c6fe5af051412",
+          "text": "Missä sinä asut?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ce1ca79ed361fd291562e38770ccbf4bff9f76763bea2c7a400ccda30dfcc9e1"
+        }
       }
     },
     {
@@ -280,6 +301,26 @@
         "reason": "Same statement and question; mä/minä and sä/sinä are register only.",
         "fingerprint": "767f450f6a97e91a4d6d06f17815fa1be1aca4b7f984bfa18fe21a00630d33c0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "c39f0b8e583388329d72b75ccee1001e1fff445f51e9d5602620891f82ad31de",
+          "text": "Mä asun Kalliossa. Entä sä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "33c66afdd89b928367c08f2a5f656cb4f3b0b8c667b639c069a48f297fc7b490"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "74af698917521a43667438c44fe18f0661a0966a52db421a635f888e83dc960e",
+          "text": "Minä asun Kalliossa. Entä sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "67629dd311005fe4bd79be8c2c34f93eb5f563224994ea68516796f7a0912278"
+        }
       }
     },
     {
@@ -443,6 +484,26 @@
         "reason": "Same place and question; onks sul/onko sinulla is register only.",
         "fingerprint": "077d0543fe17bac47163924390f16cb81c431841977037eaea041b6b192091c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "98ea936ee133be0b0619bf857b8815d2342f8068e85165feb3ee0bea58b01283",
+          "text": "Mä asun Itäkeskuksessa. Onks sul iso asunto?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dda2ed9ecb8d7486cdc7a6d6e4033b4d6bd1d92ee6e5c54e3afc21d86df648e7"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b3f81ecab01620aee93238b1c9541823cee32988951d5366e4d9aeeb4a52ab92",
+          "text": "Minä asun Itäkeskuksessa. Onko sinulla iso asunto?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "93d146b7747b1c7c212bf45e7d546b1f0efad443be3182eb45ae93babed42aa1"
+        }
       }
     },
     {
@@ -625,6 +686,26 @@
         "reason": "Same content; mut/mutta is register only.",
         "fingerprint": "bc1135e60b8115554f580068c6bce56daae7dc59b293c63e4d88480321d9ac0b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b5d9b9bd0b39c5aeea64ed25d58c81a08db940d367887cad9ae1bb85c60b8a24",
+          "text": "Ei, se on yksiö. Mut siinä on parveke.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cb07fe1f70164c45711fd25049e898995d152a34a060ba75d77a3b4676c22872"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "f532ee8f77abbbdb74f3ad750977d37854c01730cfabbc0e8f07a84104bb455b",
+          "text": "Ei, se on yksiö. Mutta siinä on parveke.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7d6117559989bc13c9a390e7a0308850cdb390abe201ab5db1540924e82e0bcd"
+        }
       }
     },
     {
@@ -725,6 +806,26 @@
         "reason": "Same question about which floor; spoken inessive forms shortened.",
         "fingerprint": "e20ca0a4d3daae4538ebd8ffdef2e4cb51d3254e96e3e8cc1c03dbccdbf27f34",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "68d295d666c144f07327bdc255a4d04a1ea86afd2e3b4a09c231d7082494f618",
+          "text": "Monennes kerrokses se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "be93ba414d8cb9ef6ba1cc9f2782ef52ae68e18e7a3df42f2942d4ffc94a0741"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "9acca21fc0fddd0344625c3110a921c65c44add3ce766a819e2ada954b659960",
+          "text": "Monennessa kerroksessa se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "33d2aeb760be85aabfa8fce736cb6678e9d8409b7434aa678fd632b7158dacd0"
+        }
       }
     },
     {
@@ -843,6 +944,26 @@
         "reason": "Fifth floor and no elevator in the building in both; only spoken forms differ.",
         "fingerprint": "9f217993a9d0379b23a5dbf09faf288e1b815c46aea423971727cae814929984",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "6c87daf4fa22ead6c2dd54d9e5afcb6858bedf882b8d2c5cb9f03ff2fefa7476",
+          "text": "Viidennes. Talos ei oo hissii!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "17e16a1c12be221e854722c53cc0bab4c5a8050bb0c6e6aa3142b1f888fc24e8"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "5f0a031dbbd7930d772e95a89ab5a494e4cca61d8c782aa0f4062182edd29bb9",
+          "text": "Viidennessä. Talossa ei ole hissiä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1f1cae8131e7c0a1ab6fc85756b6d9c0684a04b35501f6aa7a4bba32405f6186"
+        }
       }
     },
     {
@@ -901,6 +1022,26 @@
         "reason": "Identical lines.",
         "fingerprint": "f13b4ab9790920eb839d0d78c75b4da031399ae091e9a1feeaaa46cc29cbc714",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "b20765032abce61c7942ad308820341277d38d5874d029372a8c977e55494fcc",
+          "text": "Hyvää liikuntaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d1273a7f6b24bba13fda8cdea49d4c8118a4295af2f0328d1cf0feed9c3ae55e"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "83eb90fc59a28952706dc2b298c3d810fa1e175d83b485aa63e0ca6d8d476f9c",
+          "text": "Hyvää liikuntaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d1273a7f6b24bba13fda8cdea49d4c8118a4295af2f0328d1cf0feed9c3ae55e"
+        }
       }
     },
     {
@@ -976,6 +1117,26 @@
         "reason": "Joo and kyllä both mean yes; same content.",
         "fingerprint": "ead8df4b3f4932ac9519047f14bd90c2ac43617787ea16aa9a430c55ae97443c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "99ecf3405ba5d5a45db01ab4cd3af90111a9a0b1aabab87a9b42060bf866fe03",
+          "text": "Joo, joka päivä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "389d967cfcd3c62133aed6a590f6f24382154c78f1f501add4d2217ed4da40c9"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "27a107077113af7c7fddf887fed02ff92782ae2e0f313a35f2017d8f2fdea0b5",
+          "text": "Kyllä, joka päivä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0841daec81c90df3233dbceb17970f740f3384c35b495228a3d6fbdf8f9acde7"
+        }
       }
     }
   ],

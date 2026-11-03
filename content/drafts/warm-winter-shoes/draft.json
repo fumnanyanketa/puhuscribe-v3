@@ -77,7 +77,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -179,6 +180,26 @@
         "reason": "Only register differences (anteeks/anteeksi, mä/minä, etin/etsin, kenkii/kenkiä); same meaning: looking for winter shoes.",
         "fingerprint": "72b67c8a20fee8c7e0d772eb41323e6f9daf1ac32cacc9e3333d0a3eb4d4ffa6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "1f4fb725bed16b53e8ad898a008df6f8ec8e8333d0949b36a2a310d53f7c3c82",
+          "text": "Anteeks, mä etin talvikenkii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0f2b7498899bb42f4e949d6b7287d5e2ba57c04906abc866f24045a3fcb3b5f3"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "11d1f0f67e563ffd84c22930a4cc4c7df112f33add235ffc27f0ef62c2046fe0",
+          "text": "Anteeksi, minä etsin talvikenkiä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "71a1fe1f785da290a1d9f499755b26083624f42064d4cf4dc4dfd083084767a5"
+        }
       }
     },
     {
@@ -257,6 +278,26 @@
         "reason": "Okei vs selvä are register variants; same question about shoe size.",
         "fingerprint": "1b44a1931be3c2761dfad8f8fdc2687218604f13054dcaa2d8fcde72e95e5471",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5f739de34634a8caff31b83dabd2e94afc7c9032899711d546d33e8dd9ec2901",
+          "text": "Okei. Mikä kengännumero?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "1e49531f83f8c4e65b5c39a79c83cb9838d905258bddd15cd95ec13f3ee6d502"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "072d4d59b879a824e784f6a33fe74ff06dbe6b319e42f3539e36128cb7329781",
+          "text": "Selvä. Mikä kengännumero?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "132099b0b8f69fbd2ed810e0e8b9b163b84b45b326a7ab5278590bf67f2fcd8d"
+        }
       }
     },
     {
@@ -294,6 +335,26 @@
         "reason": "Kolkytseittemän is spoken form of kolmekymmentäseitsemän; both 37.",
         "fingerprint": "eaa0987583da4004f1b7c37f3e106a7fa378d51d4984a851e49ceb111360359f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "93f058e192d697c35659e784cf4bd3c944cbf10be29bd30388a7f1bd6aca7ae7",
+          "text": "Kolkytseittemän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d191b441399bb121a311c10b15df0407d73fbcbdaa307265b2e0f18ef7d529b9"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "87cf1359edc8db1fc6d0e11b16e63e620789680fcede9397200093fc105c7f7e",
+          "text": "Kolmekymmentäseitsemän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "969f57fb4b69abfbbc6e6b2565e0bb026a0bf8805c9773611f3bda87e5a78161"
+        }
       }
     },
     {
@@ -415,6 +476,26 @@
         "reason": "Nää on/nämä ovat; same statement that these are warm and waterproof.",
         "fingerprint": "df9ab4a9d18714dd9891f52fa926cb83bb7313b6aed43ea3d5bdc17c531c39ec",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "5ea685f2dcaf36acd3933473f608fcec986dce021b66367a31d1aaf3af16940d",
+          "text": "Nää on lämpimät ja vedenpitävät.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "302378d3fc82bd09729b59686a0999d2fc29d189a03b8aa1b2994cb47365def6"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5daf1e7617f962b79d719466e970dc80d85c6524fd9632ac57d64a5b0c8bfcea",
+          "text": "Nämä ovat lämpimät ja vedenpitävät.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "1be829b9c86c21159fd21a8c92178126f5135f12bc5ab030b1e82bd8abcfc597"
+        }
       }
     },
     {
@@ -553,6 +634,26 @@
         "reason": "Ne on/ne ovat, mut/mutta; same meaning.",
         "fingerprint": "0c3472afba4b90890f507060f7f8166405dea17149012f136714349fe733ce5e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "11f154ca70c6f1418a510633af407a75f9bcec48f54b69f5f9abd8034202efae",
+          "text": "Ne on kauniit, mut vähän kalliit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "30e6a77b5505ed14299b334f98c6d1cce478322eb4558460d1a0312480410182"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "f34e6ab05934089da2583e4e928eeb0e9db63338f4e1f0e36858c9e31bec76d5",
+          "text": "Ne ovat kauniit, mutta vähän kalliit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a845a62776f88f009c0d7c10ca707c98d86049246d591d54ac1ac1568e28a524"
+        }
       }
     },
     {
@@ -673,6 +774,26 @@
         "reason": "Nää/nämä, on/ovat; same meaning that the cheaper ones are also good.",
         "fingerprint": "69017f01377dd5ebe6a454acabab214f1fb30ca0d26d0e78bbc50a48b1905c27",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9a5bae68fdfca20f9541bd24c9bf09dc93722df68e9f4ffb76d5c7ef8b99abb3",
+          "text": "Nää halvemmat on myös hyvät.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0554920c992e343c1298d6a400d341d6e3e1c59ebdc73823dc5c2fff8b45e738"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "b73e3102ba8b6aec0c8947e2db57a9813e0042971e724de2253075e2c4c64bc7",
+          "text": "Nämä halvemmat ovat myös hyvät.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e85b295f83dc85f2689bd3dc0c2a90ef8dbb317a1fed392e26b83e5643d84892"
+        }
       }
     },
     {
@@ -775,6 +896,26 @@
         "reason": "Voinks mä/voinko minä; same question about trying them on.",
         "fingerprint": "67d66fc0bb01403e537080b83ae266cfa95e0c4805b7221c331863de38e02d0a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "414269d5a59e20b3dd693aa3421ef142f8ba7f51741ea2a7745fc891646d9d3e",
+          "text": "Voinks mä kokeilla niitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2a681be2a2b1d107578c64c39e6850284490b2e9aeb1ddd11a0bc7bb1c1da42d"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "6530d5b098174bee1f9027e394673089f59adb9bc1607fee75a976b08a8871d0",
+          "text": "Voinko minä kokeilla niitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d72b55e4863e9b97e3ef0e62658e257b254a43020ac78f2885a2a44fe513c2cb"
+        }
       }
     },
     {
@@ -874,6 +1015,26 @@
         "reason": "Identical lines.",
         "fingerprint": "3db30ad36b5769bc39d899282b660c2d2d07c72b9bc63ce9ad20b461fce1c939",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "193d85ace3e2f777a1d79652c79d0559c110cd0a92342d1f612bcf6dcb9c9e05",
+          "text": "Totta kai. Istu tähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e131f6d2a31a49ef542028a1516df612a1fbae2684ffcb584657cffa3f5f1607"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b0a61eb97cc07e60b827a952372c66272102644194258aa2bc3005646c815dd3",
+          "text": "Totta kai. Istu tähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e131f6d2a31a49ef542028a1516df612a1fbae2684ffcb584657cffa3f5f1607"
+        }
       }
     }
   ],
