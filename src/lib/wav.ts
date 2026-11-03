@@ -160,3 +160,30 @@ export function fromBase64(value: string): Uint8Array | null {
     return null
   }
 }
+
+/**
+ * A copy of a 16 bit PCM WAV made louder for playing back to the learner (owner, 3 November 2026:
+ * "the playback is very low"). Phone microphones record far below the level of the app's voice clips,
+ * so the recording is raised until its loudest moment reaches 90 percent of full scale, by at most 8
+ * times, so a near silent recording does not turn into loud noise. Only the playback copy changes; the
+ * WAV sent for speaking feedback stays as recorded. Returns the input unchanged when it is not such a WAV.
+ */
+export function louderForPlayback(wav: Uint8Array): Uint8Array<ArrayBuffer> {
+  const info = readWav(wav)
+  const out = new Uint8Array(wav)
+  if (info?.format !== 1 || info.bitsPerSample !== 16 || info.dataBytes < 2) return out
+  const view = new DataView(out.buffer, out.byteOffset, out.byteLength)
+  const count = Math.floor(info.dataBytes / 2)
+  let peak = 0
+  for (let i = 0; i < count; i += 1)
+    peak = Math.max(peak, Math.abs(view.getInt16(info.dataOffset + i * 2, true)))
+  if (peak === 0) return out
+  const gain = Math.min(8, (0.9 * 0x7fff) / peak)
+  if (gain <= 1) return out
+  for (let i = 0; i < count; i += 1) {
+    const at = info.dataOffset + i * 2
+    const value = Math.round(view.getInt16(at, true) * gain)
+    view.setInt16(at, Math.max(-0x8000, Math.min(0x7fff, value)), true)
+  }
+  return out
+}

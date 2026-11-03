@@ -129,7 +129,9 @@ export async function startRecording(handlers: {
   const type = pickRecordingType((t) => MediaRecorder.isTypeSupported(t))
   let stream: MediaStream
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    })
   } catch (error) {
     const name = error instanceof DOMException ? error.name : ''
     throw new RecorderFailed(
