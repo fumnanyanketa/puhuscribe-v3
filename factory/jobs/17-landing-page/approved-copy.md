@@ -21,10 +21,10 @@ No menu links. The page asks for one action only.
 
 | Element | Copy |
 | --- | --- |
-| Headline | Took a Finnish course, but still lost at the café? |
-| Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli. PuhuScribe helps you make sense of both, on a journey all the way to A1. |
+| Headline | You took a Finnish course, but you still feel lost at the café. |
+| Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli, the written form. PuhuScribe is here to help you make sense of both, and takes you along the journey all the way to A1. |
 | Main button | Start your journey now |
-| Small line under the button | No app to download. Open it on your phone and begin right away. |
+| Small line under the button | No need to download any app. Works on iPhone and Android. |
 
 ## 3. The problem
 
