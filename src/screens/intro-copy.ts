@@ -10,8 +10,13 @@ export const FIRST_LINE_CAPTION = 'Your first line'
 /** What the play button plays, for its screen reader name ("Play your first line"). */
 export const FIRST_LINE_WHAT = 'your first line'
 
-/** The stop's "I can" line, from the road's can do text ("say who I am" becomes "I can say who I am."). */
+/**
+ * The stop's "I can" line from the road's can do text. The road's own rows hold the words after
+ * "I can" ("say who I am and where I'm from, and ask the same."); a text that already starts with
+ * "I can" is kept as it is. It always ends with a full stop.
+ */
 export function canDoSentence(canDo: string): string {
   const text = canDo.trim()
-  return /[.!?]$/.test(text) ? `I can ${text}` : `I can ${text}.`
+  const sentence = /^I can\b/.test(text) ? text : `I can ${text}`
+  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`
 }

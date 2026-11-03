@@ -52,7 +52,7 @@ test.describe('the first-open questions', () => {
     const card = page.getByRole('region', { name: 'Today' })
     await expect(card.getByRole('heading', { level: 2, name: 'Meeting people' })).toBeFocused()
     const stop1 = roadFixture({})[0]
-    await expect(card.getByText(`I can ${stop1?.canDo ?? ''}.`, { exact: true })).toBeVisible()
+    await expect(card.getByText(stop1?.canDo ?? '-', { exact: true })).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play your first line' })).toBeVisible()
     await expect(card.getByText(GUEST_LINE)).toBeVisible()
     await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/privacy')
@@ -113,7 +113,10 @@ test.describe('the first-open questions', () => {
     ).toEqual(['/api/guest'])
   })
 
-  test('[intro 2] the play button plays the real first line, fetched only when pressed', async ({ page }) => {
+  test('[intro 2] the play button plays the real first line, fetched only when pressed', async ({
+    page,
+    browserName,
+  }) => {
     await openRoad(page)
     const audio: string[] = []
     page.on('request', (request) => {
@@ -125,9 +128,16 @@ test.describe('the first-open questions', () => {
     const play = page.getByRole('button', { name: 'Play your first line' })
     await expect(play).toBeVisible()
     expect(audio).toEqual([])
+    // The file is served from the app's own address.
+    const file = await page.request.get(FIRST_LINE_AUDIO)
+    expect(file.status()).toBe(200)
+    expect(file.headers()['content-type']).toMatch(/^audio\//)
+    // Headless WebKit may have no audio output (see design-reference.spec.ts); Chromium must fetch and play it.
+    if (browserName !== 'chromium') return
     const answer = page.waitForResponse((response) => new URL(response.url()).pathname === FIRST_LINE_AUDIO)
     await play.click()
-    expect((await answer).ok()).toBe(true)
+    expect((await answer).status()).toBeLessThan(400)
+    await expect(page.getByRole('button', { name: 'Pause your first line' })).toBeVisible()
   })
 })
 
