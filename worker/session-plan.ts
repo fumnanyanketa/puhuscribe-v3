@@ -169,12 +169,47 @@ export function sessionLines(content: DialogueContent): SessionLine[] {
     })
 }
 
+/** The most lines the recap asks for (fast route hear-and-say, 3 November 2026). */
+export const MAX_KEY_LINES = 3
+
+/**
+ * The recap's key lines (fast route hear-and-say, 3 November 2026), as line ids in line order. Each line
+ * is counted by the forms it holds that enter review in this lesson: forms the learner can read and has
+ * no card for yet, which are the cards public.complete_session adds when the lesson ends. A form in two
+ * lines counts for both. The lines with the highest counts are taken, at most three, and a tie goes to
+ * the earlier line, so a lesson whose forms are all known already recaps its first three lines.
+ */
+export function keyLinesOf(content: DialogueContent, known: Iterable<number>): number[] {
+  const have = new Set(known)
+  const readable = new Set(content.forms.map((form) => form.id))
+  const ordered = [...content.lines].sort((a, b) => a.position - b.position)
+  const counted = ordered.map((line, order) => {
+    const entering = new Set<number>()
+    for (const token of content.tokens) {
+      const id = token.formId
+      if (token.lineId === line.id && id !== null && readable.has(id) && !have.has(id)) entering.add(id)
+    }
+    return { id: line.id, order, count: entering.size }
+  })
+  return counted
+    .sort((a, b) => b.count - a.count || a.order - b.order)
+    .slice(0, MAX_KEY_LINES)
+    .sort((a, b) => a.order - b.order)
+    .map((line) => line.id)
+}
+
+/**
+ * The session screen's content. With `known` (the form ids of the learner's cards), the answer also
+ * names the recap's key lines (keyLinesOf above).
+ */
 export async function readySession(
   db: LearnerDb,
   dialogue: ReadableDialogue,
   session: SessionRow,
+  known?: readonly number[],
 ): Promise<ReadySession> {
-  const lines = sessionLines(await db.dialogueContent(dialogue.id))
+  const content = await db.dialogueContent(dialogue.id)
+  const lines = sessionLines(content)
   if (lines.length === 0) throw new ContentUnusable(0)
   return {
     state: 'ready',
@@ -182,6 +217,7 @@ export async function readySession(
     unit: { title: dialogue.unitTitle, canDo: dialogue.canDo },
     dialogue: { title: dialogue.title },
     lines,
+    ...(known ? { keyLines: keyLinesOf(content, known) } : {}),
   }
 }
 

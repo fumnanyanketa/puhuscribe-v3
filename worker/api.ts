@@ -301,7 +301,15 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
     // A dialogue session is answered exactly as in job 8. Whether it ends with
     // Keep it is asked next, through GET /api/sessions/<id>/review.
     const session = pick.open ?? (await db.startSession(pick.dialogue.id))
-    const ready = await readySession(db, pick.dialogue, session)
+    // Fast route hear-and-say: the learner's cards pick the recap's key lines. A failed read can never
+    // break the session: every form then counts as new.
+    let known: number[] = []
+    try {
+      known = await factsDatabaseFor(context, db).cardFormIds()
+    } catch {
+      // The plain count below.
+    }
+    const ready = await readySession(db, pick.dialogue, session, known)
     // Job 19-redesign, statement 25: the first lesson's tip. Worked out from the
     // learner's own session rows, and stored nowhere.
     const first = isFirstLesson(pick)

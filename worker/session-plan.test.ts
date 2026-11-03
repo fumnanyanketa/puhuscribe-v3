@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionRow } from './learner-db.ts'
-import { audioPath, newWordsOf, pickToday, sessionLines, splitLine } from './session-plan.ts'
+import type { DialogueContent, FormRow, SessionRow } from './learner-db.ts'
+import { audioPath, keyLinesOf, newWordsOf, pickToday, sessionLines, splitLine } from './session-plan.ts'
 import { sampleContent, sampleDialogue } from './test-fakes.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -116,5 +116,64 @@ describe('word meanings', () => {
     expect(moi?.form).toBeDefined()
     expect(moi?.form).not.toHaveProperty('meaning')
     expect(moi?.form).not.toHaveProperty('baseMeaning')
+  })
+})
+
+describe("the recap's key lines", () => {
+  // Five lines in shuffled positions. Each line links to the forms listed, in both registers.
+  const FORMS: Record<number, number[]> = { 11: [1, 2], 12: [3, 4, 5], 13: [], 14: [6, 7], 15: [8, 9] }
+  const POSITIONS: Record<number, number> = { 11: 1, 12: 2, 13: 3, 14: 4, 15: 5 }
+  function content(unreadable: number[] = []): DialogueContent {
+    const lineIds = [15, 13, 11, 14, 12]
+    const form = (id: number): FormRow => ({
+      id,
+      lemma: `f${String(id)}`,
+      formName: 'x',
+      why: 'x',
+      surfacePuhe: 'x',
+      surfaceKirja: 'x',
+    })
+    return {
+      lines: lineIds.map((id) => ({
+        id,
+        position: POSITIONS[id] ?? 0,
+        speaker: 'A',
+        textPuhe: 'x',
+        textKirja: 'x',
+        gloss: 'x',
+        audioPuheKey: 'k',
+        audioKirjaKey: 'k',
+      })),
+      tokens: lineIds.flatMap((lineId) =>
+        (FORMS[lineId] ?? []).flatMap((formId, position) =>
+          (['puhe', 'kirja'] as const).map((register) => ({
+            lineId,
+            register,
+            position,
+            surface: 'x',
+            formId,
+          })),
+        ),
+      ),
+      forms: [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((id) => !unreadable.includes(id)).map(form),
+    }
+  }
+
+  it('[hear-and-say recap] takes the three lines with the most new forms, a tie to the earlier line, in line order', () => {
+    // Line 12 has 3 new forms; 11, 14 and 15 have 2 each, so 11 and 14 win the tie over 15.
+    expect(keyLinesOf(content(), [])).toEqual([11, 12, 14])
+  })
+
+  it('[hear-and-say recap] a form the learner already has a card for does not count', () => {
+    // Cards for 3, 4 and 6: line 12 has 1 new form, 14 has 1; 11 and 15 have 2.
+    expect(keyLinesOf(content(), [3, 4, 6])).toEqual([11, 12, 15])
+  })
+
+  it('[hear-and-say recap] a form the learner cannot read does not count', () => {
+    expect(keyLinesOf(content([1, 2]), [])).toEqual([12, 14, 15])
+  })
+
+  it('[hear-and-say recap] with every form known, the recap is the first three lines', () => {
+    expect(keyLinesOf(content(), [1, 2, 3, 4, 5, 6, 7, 8, 9])).toEqual([11, 12, 13])
   })
 })

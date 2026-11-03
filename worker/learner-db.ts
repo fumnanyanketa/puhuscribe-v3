@@ -163,6 +163,12 @@ export interface LessonFactsDb {
    * equals the session's ended_at; a card the learner already had is older.
    */
   newCardFormIds: (createdAt: string) => Promise<number[]>
+  /**
+   * The form ids of every card the learner has, for the recap's key lines (fast route
+   * hear-and-say, 3 November 2026): a form the learner already has a card for does not
+   * enter review again.
+   */
+  cardFormIds: () => Promise<number[]>
 }
 
 /**
@@ -394,6 +400,15 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
       const result = await client.from('cards').select('form_id').eq('created_at', createdAt)
       if (result.error) throw new DatabaseUnavailable()
       return result.data.map((row) => row.form_id)
+    },
+
+    // Paged: a learner far along the road has more cards than the API's row cap (worker/paging.ts).
+    async cardFormIds() {
+      const rows = await readAll(
+        (from, to) => client.from('cards').select('form_id').order('form_id').range(from, to),
+        unavailable,
+      )
+      return rows.map((row) => row.form_id)
     },
 
     async saveProgressNote(id) {
