@@ -130,6 +130,22 @@
   color: var(--color-written);
 }
 
+/* "Play the whole line" (job word-audio): shown only when the word has its own
+   clip, so the line stays one tap away. A small play control with a quiet name
+   beside it, in the register the word was tapped in. */
+.wholeLine {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: calc(-1 * var(--space-1)) 0 0;
+}
+
+.wholeLineLabel {
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-quiet);
+}
+
 /* "Dictionary form": a quiet bar with the base form and what it means. */
 .dictionary {
   display: flex;

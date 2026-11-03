@@ -29,7 +29,9 @@ const key = `some-dialogue/1-puhe-${sha(clip).slice(0, 12)}.mp3`
 
 describe('audio exists only for approved lines', () => {
   it('[content 17] the repository: every file under public/audio is a published key with a matching hash, and every key has its file', () => {
-    expect(checkPublishedAudio('public/audio', 'supabase/migrations')).toEqual([])
+    expect(
+      checkPublishedAudio('public/audio', 'supabase/migrations', 'content/approvals', 'content/word-audio'),
+    ).toEqual([])
   })
 
   it('[content 17] a matching file and key pass', () => {

@@ -1,4 +1,5 @@
-import { useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { wordClip } from '../lib/word-audio.ts'
 import { Button } from './Button.tsx'
 import { PlayControl } from './PlayControl.tsx'
 import { Sheet } from './Sheet.tsx'
@@ -15,10 +16,16 @@ import styles from './WordCard.module.css'
 // line returns it to the word when it closes. While it is open the page behind
 // cannot scroll.
 //
-// Audio exists per line only (job 8, Decision 6): every play button plays the
-// whole line in its register, its name says so, and one plain caption says
-// "Plays the whole line." The two meaning lines come from word data that may
-// be missing; when it is, the line is left out and no text is invented.
+// Audio (job 8, Decision 6, and job word-audio): on session screens (those that
+// pass audioCaption) every play button plays the whole line in its register,
+// its name says so, and one hidden caption says "Plays the whole line." When
+// the owner has approved a word's own clip (src/lib/word-audio.ts), that
+// register's tile plays the word ("Play the spoken word"), the button beside
+// the large word plays the word in the register it was tapped in ("Play the
+// word"), and one more control, "Play the whole line", keeps the line one tap
+// away. A register without an approved clip plays the line exactly as before.
+// The two meaning lines come from word data that may be missing; when it is,
+// the line is left out and no text is invented.
 
 interface WordCardProps {
   data: WordCardData | null
@@ -44,6 +51,36 @@ interface WordCardProps {
 
 const FORM_AUDIO = { spoken: 'the spoken form', written: 'the written form' }
 
+interface WordClips {
+  /** The two texts these answers belong to, so an answer for an earlier card is never used. */
+  texts: string
+  spoken: string | null
+  written: string | null
+}
+
+/**
+ * The approved clips of the card's two forms, or none. Only asked for when
+ * `on` (session screens). Keyed by the texts, because the card's data is a new
+ * object on every render of the line.
+ */
+function useWordClips(data: WordCardData | null, on: boolean): WordClips {
+  const spokenText = data?.spoken.text ?? ''
+  const writtenText = data?.written.text ?? ''
+  const texts = `${spokenText}\n${writtenText}`
+  const [clips, setClips] = useState<WordClips>({ texts: '', spoken: null, written: null })
+  useEffect(() => {
+    if (!on || !spokenText || !writtenText) return
+    let live = true
+    void Promise.all([wordClip(spokenText), wordClip(writtenText)]).then(([spoken, written]) => {
+      if (live) setClips({ texts, spoken, written })
+    })
+    return () => {
+      live = false
+    }
+  }, [on, spokenText, writtenText, texts])
+  return on && clips.texts === texts ? clips : { texts, spoken: null, written: null }
+}
+
 function Close() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -64,11 +101,33 @@ export function WordCard({
   const titleId = useId()
   const whyId = useId()
   const [why, setWhy] = useState(false)
+  const clips = useWordClips(data, audioCaption !== undefined)
 
   function close() {
     setWhy(false)
     onClose()
   }
+
+  // The register the word was tapped in: the written one when the word as shown
+  // is the written form and that differs from the spoken one.
+  const tapped =
+    data &&
+    data.written.text !== data.spoken.text &&
+    data.word.toLocaleLowerCase('fi') === data.written.text.toLocaleLowerCase('fi')
+      ? 'written'
+      : 'spoken'
+  const hasClip = clips.spoken !== null || clips.written !== null
+  const tappedClip = tapped === 'written' ? clips.written : clips.spoken
+
+  // Each control gets a key from its source, so a clip found after the card
+  // opened replaces the line in a fresh control instead of a stale one.
+  const wordSrc = tappedClip ?? data?.spoken.audio ?? ''
+  const wordWhat = tappedClip ? 'the word' : audioCaption ? 'the line' : 'the word'
+  const spokenSrc = clips.spoken ?? data?.spoken.audio ?? ''
+  const spokenWhat = clips.spoken ? 'the spoken word' : audioWhat.spoken
+  const writtenSrc = clips.written ?? data?.written.audio ?? ''
+  const writtenWhat = clips.written ? 'the written word' : audioWhat.written
+  const lineSrc = (tapped === 'written' ? data?.written.audio : data?.spoken.audio) ?? ''
 
   return (
     <Sheet open={data !== null} onClose={close} labelledBy={titleId} initialFocus={heading}>
@@ -79,7 +138,7 @@ export function WordCard({
               <h2 id={titleId} ref={heading} tabIndex={-1} className={styles.word} lang="fi">
                 {data.word}
               </h2>
-              <PlayControl src={data.spoken.audio} what={audioCaption ? 'the line' : 'the word'} />
+              <PlayControl key={wordSrc} src={wordSrc} what={wordWhat} />
             </div>
             <button type="button" className={styles.close} onClick={close} aria-label="Close">
               <Close />
@@ -94,7 +153,7 @@ export function WordCard({
                   {data.spoken.text}
                 </p>
               </div>
-              <PlayControl src={data.spoken.audio} what={audioWhat.spoken} size="small" />
+              <PlayControl key={spokenSrc} src={spokenSrc} what={spokenWhat} size="small" />
             </div>
             <div className={styles.tileWritten}>
               <div>
@@ -103,11 +162,25 @@ export function WordCard({
                   {data.written.text}
                 </p>
               </div>
-              <PlayControl src={data.written.audio} what={audioWhat.written} size="small" tone="written" />
+              <PlayControl key={writtenSrc} src={writtenSrc} what={writtenWhat} size="small" tone="written" />
             </div>
           </div>
+          {hasClip && (
+            <div className={styles.wholeLine}>
+              <PlayControl
+                key={lineSrc}
+                src={lineSrc}
+                what="the whole line"
+                size="small"
+                tone={tapped === 'written' ? 'written' : 'spoken'}
+              />
+              <span className={styles.wholeLineLabel} aria-hidden="true">
+                The whole line
+              </span>
+            </div>
+          )}
           {/* Not drawn (round 6): the play buttons' names already say they play the line. */}
-          {audioCaption && <p className={styles.hidden}>{audioCaption}</p>}
+          {audioCaption && !hasClip && <p className={styles.hidden}>{audioCaption}</p>}
           <p className={styles.dictionary}>
             <span className={styles.dictionaryLabel}>Dictionary form</span>
             <span className={styles.dictionaryValue}>
