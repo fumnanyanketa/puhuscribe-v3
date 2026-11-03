@@ -71,7 +71,7 @@ export interface HomeView {
   travelledTo: number
   pieces: boolean[]
   evening: boolean
-  /** Whether the opening animation plays: only when this device has no account. */
+  /** Whether the opening animation plays: every time the road opens, for everyone (owner, 3 November 2026). The road screen leaves it out when reduced motion is on. */
   intro: boolean
   /** The stop the opening animation's sample line belongs to. */
   firstStop: RoadStop | undefined
@@ -116,7 +116,7 @@ export function homeView(stops: readonly RoadStop[], info: TodayInfo, notice: st
     travelledTo: travelled(stops, marker),
     pieces: progressSegments(stops),
     evening,
-    intro: !info.signedIn,
+    intro: true,
     firstStop: first,
   }
 }

@@ -137,7 +137,8 @@
   }
 }
 
-/* Reduced motion: the animation becomes a crossfade of 600 ms or less. */
+/* Reduced motion: the road screen does not start the animation at all (owner, 3 November 2026). This
+   crossfade stays as a fallback should a phone change the setting while it runs. */
 @media (prefers-reduced-motion: reduce) {
   .screen[data-intro='on'] .top,
   .screen[data-intro='on'] .card {

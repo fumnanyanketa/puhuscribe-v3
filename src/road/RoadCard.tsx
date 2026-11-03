@@ -1,10 +1,12 @@
 import type { RefObject } from 'react'
 import { Button } from '../components/Button.tsx'
+import { PlayControl } from '../components/PlayControl.tsx'
 import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { PATHS } from '../lib/app-paths.ts'
 import { reviewMinutesLine } from '../lib/review-day.ts'
 import { dayOneLine, lessonLine, lessonSegments } from '../lib/road-state.ts'
 import type { RoadStop } from '../lib/road-types.ts'
+import { canDoSentence, FIRST_LINE_CAPTION, FIRST_LINE_WHAT } from '../screens/intro-copy.ts'
 import { GUEST_LINE } from '../screens/road-copy.ts'
 import styles from './RoadCard.module.css'
 
@@ -15,6 +17,8 @@ import styles from './RoadCard.module.css'
 
 export type CardView =
   | { kind: 'day-one'; stop: RoadStop; message?: string }
+  /** After the first-open questions: the first stop, its "I can" line and its first spoken line (fast route "intro"). */
+  | { kind: 'recap'; stop: RoadStop; audio: string }
   | { kind: 'lesson'; stop: RoadStop; action: 'Start' | 'Continue' }
   | { kind: 'review'; count: number | null }
   | { kind: 'stop-finished'; done: RoadStop; next: RoadStop }
@@ -30,6 +34,8 @@ interface RoadCardProps {
   problem: string | null
   /** The primary button, so Skip can give it focus. */
   startRef: RefObject<HTMLButtonElement | null>
+  /** The recap card's title, so focus can move to it when the card appears. */
+  headingRef?: RefObject<HTMLHeadingElement | null>
 }
 
 function Pieces({ stop }: { stop: RoadStop }) {
@@ -50,7 +56,26 @@ function Tick() {
   )
 }
 
-export function RoadCard({ view, onStart, onContinue, starting, problem, startRef }: RoadCardProps) {
+function Legal() {
+  return (
+    <p className={styles.legal}>
+      <span>{GUEST_LINE}</span>{' '}
+      <a className={styles.legalLink} href={PATHS.privacy}>
+        Privacy notice
+      </a>
+    </p>
+  )
+}
+
+export function RoadCard({
+  view,
+  onStart,
+  onContinue,
+  starting,
+  problem,
+  startRef,
+  headingRef,
+}: RoadCardProps) {
   const tone: StatusTone = 'problem'
   return (
     <section className={styles.card} aria-label="Today">
@@ -77,12 +102,34 @@ export function RoadCard({ view, onStart, onContinue, starting, problem, startRe
               Sign in
             </a>
           </p>
-          <p className={styles.legal}>
-            <span>{GUEST_LINE}</span>{' '}
-            <a className={styles.legalLink} href={PATHS.privacy}>
-              Privacy notice
-            </a>
-          </p>
+          <Legal />
+        </>
+      )}
+      {view.kind === 'recap' && (
+        <>
+          <div className={styles.head}>
+            <div className={styles.text}>
+              <h2 className={styles.title} ref={headingRef} tabIndex={-1}>
+                {view.stop.name}
+              </h2>
+              <p className={styles.canDo}>{canDoSentence(view.stop.canDo)}</p>
+            </div>
+            <span className={styles.tile} aria-hidden="true">
+              {view.stop.number}
+            </span>
+          </div>
+          <div className={styles.listen}>
+            <PlayControl src={view.audio} what={FIRST_LINE_WHAT} size="small" />
+            <span className={styles.listenText} aria-hidden="true">
+              {FIRST_LINE_CAPTION}
+            </span>
+          </div>
+          <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
+            Start
+          </Button>
+          {/* This Start makes the guest account, so the protected guest line sits under it too (job 15's rule:
+              the line stays next to the Start that starts). */}
+          <Legal />
         </>
       )}
       {view.kind === 'lesson' && (

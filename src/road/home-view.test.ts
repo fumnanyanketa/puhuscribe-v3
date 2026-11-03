@@ -52,10 +52,10 @@ describe('the card by state', () => {
     })
   })
 
-  it('[redesign 15] start and continue show the stop and its lesson, and never play the animation', () => {
+  it('[redesign 15] [intro animation] start and continue show the stop and its lesson, and the animation plays for them too (owner, 3 November 2026)', () => {
     const start = homeView(ROAD_MID, signedIn('start'), null)
     expect(start.card).toEqual({ kind: 'lesson', stop: ROAD_MID[2], action: 'Start' })
-    expect(start.intro).toBe(false)
+    expect(start.intro).toBe(true)
     expect(homeView(ROAD_MID, signedIn('continue'), null).card).toMatchObject({ action: 'Continue' })
   })
 

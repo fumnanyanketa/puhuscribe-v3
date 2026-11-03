@@ -1,5 +1,6 @@
 import type { BrowserContext, Page } from '@playwright/test'
 import { roadFixture } from '../src/road/road-fixture.ts'
+import { markIntroSeen } from './intro-seen.ts'
 
 // Job 20-a1-road is merged: the Worker answers GET /api/road, from the database
 // (public.road() for a learner, public.road_for_visitors() for a visitor). Where
@@ -16,8 +17,17 @@ export const useRealRoad = setting === undefined ? Boolean(process.env.CI) : set
 
 export type Routable = Page | BrowserContext
 
-/** Answers GET /api/road with the fixture stops, as the list the route returns. */
-export async function installRoad(target: Routable, done: Record<number, number> = {}): Promise<void> {
+/**
+ * Answers GET /api/road with the fixture stops, as the list the route returns. Every browser context
+ * of the tests is set up here, so it also marks the first-open questions as seen (e2e/intro-seen.ts)
+ * unless `introSeen` is false.
+ */
+export async function installRoad(
+  target: Routable,
+  done: Record<number, number> = {},
+  { introSeen = true }: { introSeen?: boolean } = {},
+): Promise<void> {
+  if (introSeen) await markIntroSeen(target)
   if (useRealRoad) return
   await target.route('**/api/road', (route) =>
     route.fulfill({

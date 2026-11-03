@@ -148,3 +148,26 @@
   font-size: var(--text-body);
   color: var(--color-text);
 }
+
+/* The recap card (fast route "intro"): the stop's "I can" line is a sentence, so it is reading size. */
+.canDo {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+/* The play button for the first line, with its words beside it. */
+.listen {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.listenText {
+  min-width: 0;
+  font-size: var(--text-reading);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}

@@ -6,6 +6,8 @@ import { SCENE_HEIGHT, SCENE_WIDTH, SUN_BOX } from '../components/landscape-geom
 import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { loadRoad } from '../lib/road-data.ts'
+import { offersIntro, readIntro, REASONS, saveIntro, TIMES, type IntroAnswers } from '../lib/intro-answers.ts'
+import { FIRST_LINE_AUDIO } from '../lib/intro-first-line.ts'
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
@@ -13,16 +15,28 @@ import { RoadCard } from '../road/RoadCard.tsx'
 import { RoadPicture } from '../road/RoadPicture.tsx'
 import { namesWrap, PIN_TEXT_PX, rootTextPx } from '../road/sign-pins.ts'
 import { RoadTop } from '../road/RoadTop.tsx'
+import { REASON_QUESTION, TIME_QUESTION } from './intro-copy.ts'
+import { IntroQuestion } from './IntroQuestion.tsx'
 import { LOADING, NOT_STARTED } from './road-copy.ts'
 import { OfflineScreen } from './OfflineScreen.tsx'
 import styles from './RoadScreen.module.css'
 
 // The home screen: the road to the A1 sun (job 19-redesign, statements 10 to
-// 20). It replaces the front door. Loading it creates nothing: only pressing
+// 20). The opening animation plays each time it opens (owner, 3 November 2026). It replaces the front door. Loading it creates nothing: only pressing
 // "Start" sends POST /api/guest. It reads the stops through loadRoad() and what
 // today holds from the existing GET /api/today, and, when a learner is signed
 // in, the letter for the account button from GET /api/me, once, after the road
 // is drawn.
+//
+// The first-open questions (fast route "intro", 3 November 2026): on a phone
+// that has not seen them, "Start" on the day one card opens two questions, one
+// per screen, then the road again with the recap card, whose "Start" is the one
+// that sends POST /api/guest. The answers stay on the phone
+// (src/lib/intro-answers.ts). The opening animation and the day one card are
+// unchanged.
+
+/** Where a new visitor is in the first-open questions. "road" is the road as it always was. */
+type IntroStage = 'road' | 'reason' | 'time' | 'recap'
 
 type Home = { kind: 'loading' } | { kind: 'offline' } | { kind: 'ready'; road: RoadView; today: TodayInfo }
 
@@ -32,6 +46,15 @@ async function loadHome(): Promise<Home> {
   if (!road) return { kind: 'offline' }
   const today = todayAnswer?.status === 200 ? todayInfoFrom(todayAnswer.body) : todayInfoFrom(null)
   return { kind: 'ready', road, today }
+}
+
+/** The phone asks for reduced motion. Old browsers without matchMedia count as "no". */
+function reducedMotion(): boolean {
+  try {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    return false
+  }
 }
 
 /** The card's room at the bottom, in px, until it is measured. */
@@ -45,6 +68,9 @@ export function RoadScreen() {
   const [starting, setStarting] = useState(false)
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
+  const [stage, setStage] = useState<IntroStage>('road')
+  const [answers, setAnswers] = useState<IntroAnswers>({ seen: false })
+  const recapHeading = useRef<HTMLHeadingElement>(null)
   const [lowest, setLowest] = useState(400)
   // How many signs show. Five when there is room; fewer when the room above the card is short.
   const [signCount, setSignCount] = useState(MOST_SIGNS)
@@ -74,8 +100,9 @@ export function RoadScreen() {
     void first.current.then((next) => {
       if (!active) return
       setHome(next)
-      // The opening animation plays only when this device has no account.
-      if (next.kind === 'ready' && !next.today.signedIn) setPlaying(true)
+      // The opening animation plays every time the road opens, for everyone (owner, 3 November 2026),
+      // and ends on the learner's own stop. With reduced motion on there is none: the end state at once.
+      if (next.kind === 'ready' && !reducedMotion()) setPlaying(true)
     })
     return () => {
       active = false
@@ -136,8 +163,10 @@ export function RoadScreen() {
     setMeasured((count) => count + 1)
   }, [])
 
+  const onQuestions = stage === 'reason' || stage === 'time'
+
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing) return undefined
+    if (home.kind !== 'ready' || playing || onQuestions) return undefined
     // Measured once the opening is over, when the card and the signs stand where they end up.
     measure()
     window.addEventListener('resize', measure)
@@ -149,13 +178,13 @@ export function RoadScreen() {
       window.removeEventListener('resize', measure)
       observer?.disconnect()
     }
-  }, [home, playing, measure])
+  }, [home, playing, measure, onQuestions])
 
   // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
   // sign of the "you" marker and the next one are always kept. It waits for the opening animation,
   // whose scaling would make the boxes look smaller than they end up.
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing) return
+    if (home.kind !== 'ready' || playing || onQuestions) return
     if (!pins && (rootTextPx() >= PIN_TEXT_PX || namesWrap(picture.current))) {
       setPins(true)
       setSignCount(MOST_SIGNS)
@@ -225,7 +254,12 @@ export function RoadScreen() {
       setPins(true)
       setSignCount(MOST_SIGNS)
     }
-  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins])
+  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, onQuestions])
+
+  // The recap card's title takes focus when the road comes back with it.
+  useEffect(() => {
+    if (stage === 'recap') recapHeading.current?.focus({ preventScroll: true })
+  }, [stage])
 
   async function start() {
     setStarting(true)
@@ -239,6 +273,24 @@ export function RoadScreen() {
     setProblem(NOT_STARTED)
   }
 
+  /** Day one's Start: a new visitor answers the two questions first; everyone else starts at once. */
+  function begin(ended: boolean) {
+    if (offersIntro('day-one', ended, readIntro())) {
+      setProblem(null)
+      setStage('reason')
+      return
+    }
+    void start()
+  }
+
+  /** The questions are over: the phone keeps the answers (if it can) and shows the recap card. */
+  function finishQuestions(next: IntroAnswers) {
+    const done = { ...next, seen: true }
+    setAnswers(done)
+    saveIntro(done)
+    setStage('recap')
+  }
+
   function skip() {
     focusAfterSkip.current = true
     setPlaying(false)
@@ -247,8 +299,54 @@ export function RoadScreen() {
   if (home.kind === 'loading') return <LoadingMark label={LOADING} />
   if (home.kind === 'offline') return <OfflineScreen where="road" />
 
-  const view = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
-  const sampleLine = playing ? view.firstStop?.sampleLine : undefined
+  if (stage === 'reason') {
+    return (
+      <IntroQuestion
+        question={REASON_QUESTION}
+        options={REASONS}
+        backLabel="Back to the road"
+        onBack={() => {
+          setStage('road')
+        }}
+        onAnswer={(value) => {
+          setAnswers({ seen: false, reason: REASONS.find((option) => option.value === value)?.value })
+          setStage('time')
+        }}
+        onSkip={() => {
+          setAnswers({ seen: false })
+          setStage('time')
+        }}
+      />
+    )
+  }
+  if (stage === 'time') {
+    return (
+      <IntroQuestion
+        question={TIME_QUESTION}
+        options={TIMES}
+        backLabel="Back to the first question"
+        onBack={() => {
+          setStage('reason')
+        }}
+        onAnswer={(value) => {
+          finishQuestions({ ...answers, time: TIMES.find((option) => option.value === value)?.value })
+        }}
+        onSkip={() => {
+          finishQuestions({ ...answers, time: undefined })
+        }}
+      />
+    )
+  }
+
+  const homeNow = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
+  const firstStop = home.road.stops.at(0)
+  const view =
+    stage === 'recap' && homeNow.card.kind === 'day-one' && firstStop
+      ? { ...homeNow, card: { kind: 'recap' as const, stop: firstStop, audio: FIRST_LINE_AUDIO } }
+      : homeNow
+  const ended = home.today.ended
+  // The speech bubble is stop 1's line, so it shows only when the animation ends on stop 1 (day one).
+  const sampleLine = playing && view.card.kind === 'day-one' ? view.firstStop?.sampleLine : undefined
   const shown = fitSigns(view.signs, view.markerAt, signCount)
 
   return (
@@ -296,7 +394,11 @@ export function RoadScreen() {
           starting={starting}
           problem={problem}
           startRef={startRef}
-          onStart={() => void start()}
+          headingRef={recapHeading}
+          onStart={() => {
+            if (view.card.kind === 'day-one') begin(ended)
+            else void start()
+          }}
           onContinue={() => {
             window.location.assign(PATHS.session)
           }}

@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, type Locator, type Page } from '@playwright/test'
+import { INTRO_KEY } from '../src/lib/intro-answers.ts'
 import * as copy from '../src/screens/save-note-copy.ts'
 import { startGuest } from './account-helpers.ts'
 import { linesOf, sessionsOf, sql } from './db.ts'
@@ -236,12 +237,18 @@ export interface Storage {
   documentCookie: string
 }
 
-/** What this page holds on the phone: cookie names and values, and the length of both storages. */
+/**
+ * What this page holds on the phone: cookie names and values, and the length of both storages. The
+ * one localStorage key of the first-open questions (fast route "intro", owner's plan of 3 November
+ * 2026, which keeps their answers on the phone) is left out of the count; every other key counts.
+ */
 export async function storageOf(page: Page): Promise<Storage> {
   const cookies = (await page.context().cookies()).map((c) => `${c.name}=${c.value}`).sort()
   return {
     cookies,
-    localStorage: await page.evaluate<number>('localStorage.length'),
+    localStorage: await page.evaluate<number>(
+      `Object.keys(localStorage).filter((key) => key !== ${JSON.stringify(INTRO_KEY)}).length`,
+    ),
     sessionStorage: await page.evaluate<number>('sessionStorage.length'),
     documentCookie: await page.evaluate<string>('document.cookie'),
   }
