@@ -4,7 +4,7 @@
 -- factory/jobs/20-a1-road/spec.md that each test protects: [a1-road N].
 --
 -- Runs inside one transaction that is rolled back. The numbers are what the owner approved so far:
--- 6 stops, 18 dialogues, 132 lines, 6 live stops.
+-- 36 stops, 108 dialogues, 852 lines, 36 live stops.
 -- With no part approved they are zero and road() shows no live stop.
 
 begin;
@@ -19,14 +19,14 @@ select set_config('request.jwt.claims',
   '{"sub": "00000000-0000-4000-8000-0000000022a1", "role": "authenticated", "is_anonymous": true}', true);
 set local role authenticated;
 
-select is((select count(*) from public.units where stop_number is not null), 6::bigint,
-  '[a1-road 22] a learner reads 6 approved road units');
+select is((select count(*) from public.units where stop_number is not null), 36::bigint,
+  '[a1-road 22] a learner reads 36 approved road units');
 select is((select count(*) from public.dialogues d join public.units u on u.id = d.unit_id
-  where u.stop_number is not null), 18::bigint,
-  '[a1-road 22] a learner reads 18 approved road dialogues');
+  where u.stop_number is not null), 108::bigint,
+  '[a1-road 22] a learner reads 108 approved road dialogues');
 select is((select count(*) from public.dialogue_lines l join public.dialogues d on d.id = l.dialogue_id
-  join public.units u on u.id = d.unit_id where u.stop_number is not null), 132::bigint,
-  '[a1-road 22] a learner reads 132 approved road lines');
+  join public.units u on u.id = d.unit_id where u.stop_number is not null), 852::bigint,
+  '[a1-road 22] a learner reads 852 approved road lines');
 select is_empty(
   $$ select l.id from public.dialogue_lines l join public.dialogues d on d.id = l.dialogue_id
      join public.units u on u.id = d.unit_id
@@ -49,8 +49,8 @@ select is_empty(
   '[a1-road 22] every road word with a form links to an approved form with a name, a why and both meanings');
 select is((select count(*) from public.road() where stop_number <= 36), 36::bigint,
   '[a1-road 22] road() shows all 36 stops');
-select is((select count(*) from public.road() where live), 6::bigint,
-  '[a1-road 22] road() shows 6 live stops');
+select is((select count(*) from public.road() where live), 36::bigint,
+  '[a1-road 22] road() shows 36 live stops');
 reset role;
 
 -- A draft line added now is not readable. The stop, its unit and its dialogue are drafts as well.
