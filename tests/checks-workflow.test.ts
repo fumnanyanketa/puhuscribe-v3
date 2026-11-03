@@ -286,9 +286,16 @@ describe('main-branch runs never cancel each other; pull request runs still do',
     const apply = job('apply-test-db')
     expect(apply).toMatch(/^ {4}concurrency:\n {6}group: apply-test-db\n {6}queue: max\n/m)
     expect(apply).not.toMatch(/^ *cancel-in-progress:/m)
+    // Job main-link: the main preview link queues the same way, in its own group.
     for (const [id, text] of all) {
-      if (id !== 'apply-test-db') expect(text, id).not.toMatch(/^ {4}concurrency:/m)
+      if (id !== 'apply-test-db' && id !== 'main-preview') expect(text, id).not.toMatch(/^ {4}concurrency:/m)
     }
+  })
+
+  it('[tooling 17] [main-link 1] the main preview link has its own group that queues instead of cancelling', () => {
+    const main = job('main-preview')
+    expect(main).toMatch(/^ {4}concurrency:\n {6}group: main-preview\n {6}queue: max\n/m)
+    expect(main).not.toMatch(/^ *cancel-in-progress:/m)
   })
 })
 
@@ -674,8 +681,9 @@ function uploadPaths(id: string): string[] {
 const fontJobs = [...all.keys()].filter((id) => job(id).includes('fetch-private-fonts'))
 
 describe('jobs that fetch the private fonts upload no trace and no report', () => {
-  it('[public 1] the two jobs that fetch the Switzer files are found', () => {
-    expect([...fontJobs].sort()).toEqual(['browser-test-project', 'preview'])
+  // Job main-link added the main preview link, which builds with the fonts too.
+  it('[public 1] [main-link 3] the three jobs that fetch the Switzer files are found', () => {
+    expect([...fontJobs].sort()).toEqual(['browser-test-project', 'main-preview', 'preview'])
     expect(job('browser')).not.toContain('FONTS_DEPLOY_KEY')
   })
 
@@ -694,6 +702,11 @@ describe('jobs that fetch the private fonts upload no trace and no report', () =
     expect(job('preview')).not.toContain('actions/upload-artifact')
   })
 
+  it('[public 1] [main-link 3] the main preview, which has the font files, uploads no artifact at all', () => {
+    expect(uploadPaths('main-preview')).toEqual([])
+    expect(job('main-preview')).not.toContain('actions/upload-artifact')
+  })
+
   it('[public 1] browser-test-project uploads only .png and .webm files from test-results, never a report folder', () => {
     const paths = uploadPaths('browser-test-project')
     expect(paths.length).toBeGreaterThan(0)
@@ -703,14 +716,14 @@ describe('jobs that fetch the private fonts upload no trace and no report', () =
     }
   })
 
-  it.each(['browser-test-project', 'preview'])(
+  it.each(['browser-test-project', 'preview', 'main-preview'])(
     '[public 1] %s sets PUHUSCRIBE_NO_TRACE on every step that runs Playwright, so no trace or HTML report is written',
     (id) => {
       const playwrightSteps = job(id)
         .split(/\n(?= {6}- )/)
         .filter((step) => /\bnpx playwright test\b/.test(step))
-      // The preview has no Playwright step until the MVP launch.
-      expect(playwrightSteps.length, id).toBe(id === 'preview' ? 0 : 1)
+      // The previews have no Playwright step until the MVP launch.
+      expect(playwrightSteps.length, id).toBe(id === 'browser-test-project' ? 1 : 0)
       for (const step of playwrightSteps) {
         expect(step, id).toContain("PUHUSCRIBE_NO_TRACE: '1'")
         expect(step, id).not.toMatch(/--trace|--reporter=html/)
@@ -888,10 +901,11 @@ describe('the fast run on every pull request and push', () => {
     }
   })
 
-  it('[fast 1] on a pull request or a push only the secret scan, the preview and the apply job can run', () => {
+  // Job main-link added the main preview link, which runs on a push to main.
+  it('[fast 1] [main-link 1] on a pull request or a push only the secret scan, the previews and the apply job can run', () => {
     const FULL = "github.event_name == 'workflow_dispatch' && inputs.full"
     for (const id of all.keys()) {
-      if (['secrets', 'preview', 'apply-test-db'].includes(id)) continue
+      if (['secrets', 'preview', 'apply-test-db', 'main-preview'].includes(id)) continue
       // Either the job itself runs only in the full run, or it waits for the
       // plan job, which does (the database tests).
       const own = ifLine(id).includes(FULL)
@@ -903,6 +917,10 @@ describe('the fast run on every pull request and push', () => {
       "github.event_name == 'pull_request'",
     )
     expect(ifLine('apply-test-db')).toContain("github.event_name == 'push'")
+    const main = job('main-preview')
+    expect(main.slice(main.indexOf('    if: >-'), main.indexOf('    concurrency:'))).toContain(
+      "github.event_name == 'push' && github.ref == 'refs/heads/main'",
+    )
   })
 })
 
@@ -976,5 +994,94 @@ describe('every guard is kept', () => {
     for (const file of readdirSync('e2e').filter((name) => name.endsWith('.ts'))) {
       expect(readFileSync(join('e2e', file), 'utf8'), file).not.toMatch(/FULL_RUN|@full/)
     }
+  })
+})
+
+// Labels [main-link N] are the numbered parts of the factory manager's brief
+// for job main-link (owner's fast route, 3 November 2026): merged work on main
+// gets a fixed preview link, https://main-puhuscribe-preview.fumnanya.workers.dev.
+// [main-link 1] it runs on every push to main, after the secret scan passed and
+// the apply job succeeded; [main-link 2] it builds and uploads with the fixed
+// alias `main` and the preview's secret guards; [main-link 3] no browser test,
+// no artifact and no comment, and no action from outside GitHub;
+// [main-link 4] no pull request branch can take the alias `main`.
+describe('the main preview link', () => {
+  const main = () => job('main-preview')
+  const condition = () => main().slice(main().indexOf('    if: >-'), main().indexOf('    concurrency:'))
+
+  it('[main-link 1] runs only on a push to main, never for Dependabot', () => {
+    expect(main()).toContain('    name: Main preview link (Cloudflare Worker behind Access)\n')
+    expect(condition()).toContain("github.event_name == 'push' && github.ref == 'refs/heads/main'")
+    expect(condition()).toContain("github.actor != 'dependabot[bot]'")
+    expect(condition()).not.toContain('pull_request')
+    expect(condition()).not.toContain('workflow_dispatch')
+  })
+
+  it('[main-link 1] waits for the secret scan and the apply job, and needs both to have succeeded', () => {
+    expect(needsOf('main-preview')).toEqual(['secrets', 'apply-test-db'])
+    expect(condition()).toContain('!cancelled()')
+    expect(condition()).toContain("needs.secrets.result == 'success'")
+    expect(condition()).toContain("needs.apply-test-db.result == 'success'")
+    expect(condition()).not.toMatch(/result == 'skipped'/)
+  })
+
+  it('[main-link 2] builds the app and uploads a version with the fixed alias main', () => {
+    const steps = stepsOf('main-preview')
+    const build = steps.findIndex((step) => step.includes('- name: Build the app and its Worker\n'))
+    const upload = steps.findIndex((step) =>
+      step.includes('- name: Upload the main version of puhuscribe-preview\n'),
+    )
+    expect(build).toBeGreaterThan(-1)
+    expect(upload).toBeGreaterThan(build)
+    const text = stepNamed('main-preview', 'Upload the main version of puhuscribe-preview')
+    expect(text).toContain('          ALIAS: main\n')
+    expect(text).toContain('npx wrangler versions upload')
+    expect(text).toContain('--preview-alias "$ALIAS"')
+    expect(text).toContain('--tag main')
+    expect(text).not.toMatch(/wrangler deploy|versions deploy/)
+  })
+
+  it('[main-link 2] keeps the preview secret guards on the upload', () => {
+    const run = runText('main-preview')
+    expect(run).toContain('if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then unset CLOUDFLARE_ACCOUNT_ID; fi')
+    expect(run).toContain('secrets_file="$RUNNER_TEMP/worker-secrets.json"')
+    expect(run).toContain(`trap 'rm -f "$secrets_file"' EXIT`)
+    expect(run).toContain('node scripts/ci/write-test-settings.ts json "$secrets_file"')
+    expect(main()).toContain('persist-credentials: false')
+    expect(main()).toMatch(/\n {4}permissions:\n {6}contents: read\n {4}env:/)
+    // The Cloudflare token and the test project settings reach the upload step only.
+    for (const name of [
+      'CLOUDFLARE_API_TOKEN',
+      'SUPABASE_TEST_URL',
+      'SUPABASE_TEST_PUBLISHABLE_KEY',
+      'AZURE_SPEECH_KEY',
+    ]) {
+      const holders = stepsOf('main-preview').filter((step) => step.includes(`secrets.${name} }}`))
+      expect(holders.length, name).toBe(1)
+      expect(holders[0], name).toContain('- name: Upload the main version of puhuscribe-preview\n')
+    }
+    expect(main()).not.toContain('SUPABASE_TEST_DB_URL')
+  })
+
+  it('[main-link 3] runs no browser test, uploads no artifact and posts no comment', () => {
+    expect(main()).not.toMatch(/playwright/)
+    expect(main()).not.toContain('CF_ACCESS_CLIENT')
+    expect(main()).not.toContain('actions/upload-artifact')
+    expect(main()).not.toMatch(/gh pr comment|pull-requests: write/)
+  })
+
+  it('[main-link 3] uses only GitHub actions, and gives the link on the run summary page', () => {
+    const used = [...main().matchAll(/uses: (\S+)/g)].map((m) => m[1])
+    expect(used).toEqual(['actions/checkout@v7', 'actions/setup-node@v7'])
+    expect(stepNamed('main-preview', "Write the main link on the run's summary page")).toContain(
+      '$GITHUB_STEP_SUMMARY',
+    )
+  })
+
+  it('[main-link 4] a pull request branch whose alias would be main gets no preview', () => {
+    const alias = stepNamed('preview', 'Make a readable alias from the branch name')
+    expect(alias).toContain('alias=$(node scripts/ci/preview-alias.ts)')
+    expect(alias).toMatch(/if \[ "\$alias" = main \]; then\n.*\n\s+exit 1\n\s+fi/)
+    expect(alias.indexOf('exit 1')).toBeLessThan(alias.indexOf('echo "alias=$alias" >> "$GITHUB_OUTPUT"'))
   })
 })
