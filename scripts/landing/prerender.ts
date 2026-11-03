@@ -44,14 +44,17 @@ if (!slot.test(html)) {
 }
 html = html.replace(slot, () => `<div id="root">${body}</div>`)
 
-// The headline is Poppins 600: preload its Latin file so the first screen shows in its own font.
-const font = readdirSync(join(CLIENT, 'assets')).find((name) =>
-  /^poppins-latin-600-normal-.*\.woff2$/.test(name),
+// The headline is Poppins 600 and the text under it Poppins 400: preload their Latin files so the
+// first screen shows in its own font without waiting for the style sheet to ask for them.
+const fonts = readdirSync(join(CLIENT, 'assets')).filter((name) =>
+  /^poppins-latin-(400|600)-normal-.*\.woff2$/.test(name),
 )
-if (font && !html.includes(font)) {
+for (const font of fonts) {
+  if (html.includes(font)) continue
   html = html.replace(
     '</title>',
-    `</title>\n    <link rel="preload" href="/assets/${font}" as="font" type="font/woff2" crossorigin />`,
+    `</title>
+    <link rel="preload" href="/assets/${font}" as="font" type="font/woff2" crossorigin />`,
   )
 }
 

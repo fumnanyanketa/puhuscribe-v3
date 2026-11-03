@@ -245,7 +245,7 @@ const FEATURES: Feature[] = [
     piece: (
       <div className={styles.mini}>
         <div className={styles.who}>
-          <img src="/otso/avatar.webp" alt="" width={26} height={26} />
+          <img src="/otso/avatar.webp" alt="" width={26} height={26} loading="lazy" />
           <span>Otso</span>
           <em>AI</em>
         </div>
