@@ -23,6 +23,7 @@ import { ConsentSheet } from './ConsentSheet.tsx'
 import { NOT_SAVED, type StepScreenProps } from './step-screen.ts'
 import styles from './Screens.module.css'
 import voice from './Voice.module.css'
+import { louderForPlayback } from '../lib/wav.ts'
 
 // Saying lines out loud, in two steps of a session (owner's fast route
 // hear-and-say, 3 November 2026: "Hear + say per line, short recap").
@@ -132,7 +133,7 @@ function usePlayback() {
     (recording: Recording) => {
       release()
       // A fresh copy: the Blob owns its bytes and goes when the URL is revoked.
-      url.current = URL.createObjectURL(new Blob([recording.wav.slice()], { type: 'audio/wav' }))
+      url.current = URL.createObjectURL(new Blob([louderForPlayback(recording.wav)], { type: 'audio/wav' }))
       audio.current = new Audio(url.current)
       void audio.current.play().catch(() => undefined)
     },

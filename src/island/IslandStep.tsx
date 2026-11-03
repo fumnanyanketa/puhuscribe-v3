@@ -25,6 +25,7 @@ import screens from '../screens/Screens.module.css'
 import voice from '../screens/Voice.module.css'
 import { IslandLine } from './IslandLine.tsx'
 import styles from './Island.module.css'
+import { louderForPlayback } from '../lib/wav.ts'
 
 // The "Use it" island step (language islands, fast route of 3 November 2026), as in the approved
 // mockup. At the end of a stop's last lesson the learner fills the gaps of the stop's approved
@@ -76,7 +77,7 @@ function usePlayback() {
   const play = useCallback(
     (recording: Recording) => {
       release()
-      url.current = URL.createObjectURL(new Blob([recording.wav.slice()], { type: 'audio/wav' }))
+      url.current = URL.createObjectURL(new Blob([louderForPlayback(recording.wav)], { type: 'audio/wav' }))
       audio.current = new Audio(url.current)
       void audio.current.play().catch(() => undefined)
     },

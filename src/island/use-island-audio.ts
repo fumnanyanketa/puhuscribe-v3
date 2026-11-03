@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { finished, startExclusive } from '../components/play-registry.ts'
-import { pickRecordingType, recordingSupported, RecorderFailed } from '../lib/recorder.ts'
+import { pickRecordingType, recordingSupported, RecorderFailed, toSpeechWav } from '../lib/recorder.ts'
+import { louderForPlayback } from '../lib/wav.ts'
 
 // Sound for the island card (language islands): "Play all" plays the island's clips one after the
 // other, and "Say it all" records the learner saying the whole island and plays it back. The
@@ -105,7 +106,9 @@ export function useLongRecording() {
     setProblem(null)
     let media: MediaStream
     try {
-      media = await navigator.mediaDevices.getUserMedia({ audio: true })
+      media = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+      })
     } catch (error) {
       const name = error instanceof DOMException ? error.name : ''
       setProblem(name === 'NotAllowedError' || name === 'SecurityError' ? 'denied' : 'unsupported')
@@ -128,8 +131,16 @@ export function useLongRecording() {
       const blob = new Blob(parts, { type: made.mimeType !== '' ? made.mimeType : (type ?? 'audio/webm') })
       parts.length = 0
       if (blob.size > 0) {
-        url.current = URL.createObjectURL(blob)
-        setHasRecording(true)
+        // Played back louder, as Say it does; the raw recording plays if decoding fails.
+        void toSpeechWav(blob)
+          .then((recording) => new Blob([louderForPlayback(recording.wav)], { type: 'audio/wav' }))
+          .catch(() => blob)
+          .then((playable) => {
+            url.current = URL.createObjectURL(playable)
+            setHasRecording(true)
+            setState('ready')
+          })
+        return
       }
       setState('ready')
     }
