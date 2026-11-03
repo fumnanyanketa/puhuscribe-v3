@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, type CSSProperties } from 'react'
+import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { RoadBackdrop, RoadWay } from '../components/Landscape.tsx'
 import {
   HORIZON,
@@ -12,6 +12,7 @@ import {
 import type { SampleLine } from '../lib/road-types.ts'
 import type { SignView } from '../lib/road-state.ts'
 import styles from './RoadPicture.module.css'
+import { namesWrap, PIN_TEXT_PX, rootTextPx } from './sign-pins.ts'
 
 // The road picture (job 19-redesign, statements 12 and 13): the scene, the
 // three fell labels, five signs and the pulsing "you" marker. The art is the
@@ -39,6 +40,13 @@ interface RoadPictureProps {
   intro?: boolean
   /** One approved spoken line to show as a speech bubble, only while the opening animation plays. */
   sampleLine?: SampleLine
+  /**
+   * Every sign is a small round pin with its number and no visible name, because the text is too large
+   * for the drawn signs (the owner's choice of 2 November, "Number pins only"). Without it (the reference
+   * page) the picture decides by itself, with the same rules as the road screen: text at 200 percent or
+   * more, or a name that would wrap.
+   */
+  pins?: boolean
 }
 
 const percentX = (x: number) => `${String((x / SCENE_WIDTH) * 100)}%`
@@ -77,16 +85,30 @@ export function RoadPicture({
   evening = false,
   intro = false,
   sampleLine,
+  pins: givenPins,
 }: RoadPictureProps) {
   const spots = signSpots(signs.length, lowest, 1, signGap)
   // Without nudges from the road screen (the reference page), the picture nudges its own boards back
   // inside the screen, 8 px from the edge, so a long name never runs past it.
   const box = useRef<HTMLDivElement>(null)
   const shifts = given ?? {}
+  // The reference page's own choice of pins, and the text size at which a name was seen to wrap, so the
+  // choice holds at that size and is made again when the size changes.
+  const [ownPins, setOwnPins] = useState(false)
+  const wrappedAt = useRef<number | null>(null)
+  const pins = givenPins ?? ownPins
   useLayoutEffect(() => {
     if (given) return undefined
     const items = [...(box.current?.querySelectorAll<HTMLElement>('ol > li') ?? [])]
+    const choose = () => {
+      if (givenPins !== undefined) return
+      const text = rootTextPx()
+      if (!ownPins && namesWrap(box.current)) wrappedAt.current = text
+      const wanted = text >= PIN_TEXT_PX || wrappedAt.current === text
+      if (wanted !== ownPins) setOwnPins(wanted)
+    }
     const nudge = () => {
+      choose()
       for (const item of items) {
         const board = item.querySelector('[aria-hidden="true"]')?.getBoundingClientRect()
         if (!board) continue
@@ -112,6 +134,7 @@ export function RoadPicture({
       className={styles.box}
       data-land={evening ? 'evening' : undefined}
       data-intro={intro ? 'on' : undefined}
+      data-pins={pins ? 'on' : undefined}
     >
       <RoadBackdrop evening={evening} className={styles.backdrop} sunClassName={styles.sunRise} />
       {/* The mint runs from the bottom of the road up to the "you" marker (round 2, design review), so it is always seen between the card and the marker. Nothing is drawn while nothing is travelled. */}
@@ -145,6 +168,8 @@ export function RoadPicture({
                   left: percentX(spot.x),
                   top: percentY(spot.y),
                   '--shift': `${String(shifts[sign.stop.number] ?? 0)}px`,
+                  // The pole's place as a share of the box, so the stylesheet can keep the board inside the picture.
+                  '--x': (spot.x / SCENE_WIDTH).toFixed(4),
                   '--sc': spot.scale.toFixed(3),
                 } as CSSProperties
               }
@@ -155,13 +180,20 @@ export function RoadPicture({
                 <span className={styles.pop}>
                   <span className={styles.board} aria-hidden="true">
                     {/* As drawn: a done sign has its tick in a small white square, the current sign its
-                        number; the next and later signs show the name only (round 6). */}
-                    {(sign.state === 'done' || sign.state === 'current') && (
-                      <span className={styles.num}>
-                        {sign.state === 'done' ? <Tick /> : sign.stop.number}
-                      </span>
-                    )}
-                    <span className={styles.name}>{sign.stop.name}</span>
+                        number; the next and later signs show the name only (round 6). As a pin, every
+                        sign shows its number (a tick when done) and no name. */}
+                    <span
+                      className={
+                        sign.state === 'done' || sign.state === 'current'
+                          ? styles.num
+                          : `${styles.num} ${styles.pinOnly}`
+                      }
+                    >
+                      {sign.state === 'done' ? <Tick /> : sign.stop.number}
+                    </span>
+                    <span className={styles.name} data-sign-name="">
+                      {sign.stop.name}
+                    </span>
                   </span>
                   <span className={styles.pole} aria-hidden="true" />
                   <span className={styles.foot} aria-hidden="true" />

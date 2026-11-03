@@ -139,7 +139,14 @@ test.describe('the home screen is the road', () => {
     )
     await page.goto('/')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-    await expect(page.getByText('<img src=x onerror="window.__ran=1">Meeting').first()).toBeVisible()
+    // This name wraps on a drawn sign, so the sign is a number pin (follow up 19-sign-overflow, the owner's
+    // "Number pins only"): the name is shown as text in the card and kept as text in the sign for screen readers.
+    await expect(page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 })).toHaveText(
+      '<img src=x onerror="window.__ran=1">Meeting',
+    )
+    await expect(
+      page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').first(),
+    ).toContainText('<img src=x onerror="window.__ran=1">Meeting')
     expect(await page.evaluate<unknown>('window.__ran')).toBeUndefined()
     expect(await page.locator('main img').count()).toBe(0)
   })

@@ -11,6 +11,7 @@ import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
 import { RoadCard } from '../road/RoadCard.tsx'
 import { RoadPicture } from '../road/RoadPicture.tsx'
+import { namesWrap, PIN_TEXT_PX, rootTextPx } from '../road/sign-pins.ts'
 import { RoadTop } from '../road/RoadTop.tsx'
 import { LOADING, NOT_STARTED } from './road-copy.ts'
 import { OfflineScreen } from './OfflineScreen.tsx'
@@ -53,6 +54,10 @@ export function RoadScreen() {
   const [measured, setMeasured] = useState(0)
   // Sideways nudges (px) by stop number for boards that would run past an edge.
   const [shifts, setShifts] = useState<Record<number, number>>({})
+  // Number pins in place of the drawn signs when the text is too large for them (the owner's choice of
+  // 2 November): text at 200 percent or more, a name that would wrap, or signs that still cover the sun or
+  // a fell label when only two are left.
+  const [pins, setPins] = useState(false)
   // Skip asks for focus on Start; it is given once the card is no longer hidden by the animation.
   const focusAfterSkip = useRef(false)
   const first = useRef<Promise<Home> | null>(null)
@@ -127,6 +132,7 @@ export function RoadScreen() {
     // The room changed (a turn, a text size, a taller card): try all the signs again.
     setSignCount(MOST_SIGNS)
     setShifts({})
+    setPins(false)
     setMeasured((count) => count + 1)
   }, [])
 
@@ -150,6 +156,11 @@ export function RoadScreen() {
   // whose scaling would make the boxes look smaller than they end up.
   useLayoutEffect(() => {
     if (home.kind !== 'ready' || playing) return
+    if (!pins && (rootTextPx() >= PIN_TEXT_PX || namesWrap(picture.current))) {
+      setPins(true)
+      setSignCount(MOST_SIGNS)
+      return
+    }
     const boards = [...(picture.current?.querySelectorAll('ol > li') ?? [])].map((item) => {
       const board = item.firstElementChild?.querySelector('[aria-hidden="true"]')
       return board?.getBoundingClientRect()
@@ -210,7 +221,11 @@ export function RoadScreen() {
           boards.slice(index + 1).some((other) => other !== undefined && touching(box, other))),
     )
     if (crowded && signCount > 2) setSignCount(signCount - 1)
-  }, [home, playing, signCount, signGap, lowest, measured, shifts])
+    else if (crowded && !pins) {
+      setPins(true)
+      setSignCount(MOST_SIGNS)
+    }
+  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins])
 
   async function start() {
     setStarting(true)
@@ -258,6 +273,7 @@ export function RoadScreen() {
             lowest={lowest}
             signGap={signGap}
             shifts={shifts}
+            pins={pins}
             evening={view.evening}
             intro={playing}
             sampleLine={sampleLine}
