@@ -44,7 +44,7 @@ Rules for waves:
   - Full factory only for sign-in, personal data, database access rules and payments.
   - Finnish content: voiced automatically, the owner judges it by using it and approves each part in writing before it is served.
   - At most one rework round; if it misses, re-plan.
-  - The full run of every browser test, in both browsers, happens once, when everything is set for MVP (owner: "only when everything is set for MVP, would we run the 720 test. Once").
+  - All tests are paused until the MVP is done (owner, 3 November 2026: "I want all tests paused till we are done"). Only the secret scan runs on each change, plus the database apply on main. Builders check their work by looking at it, not by running tests. The full run of every test, in both browsers, happens once, when everything is set for MVP.
 
 ## Speed rules
 
