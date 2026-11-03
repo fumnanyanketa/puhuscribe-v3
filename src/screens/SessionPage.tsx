@@ -8,6 +8,8 @@ import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { islandStop } from '../lib/islands.ts'
 import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession, ReviewSession } from '../lib/session-types.ts'
+import { tutorStepFor } from '../tutor/TutorStep.tsx'
+import { loadTutor } from '../tutor/tutor-api.ts'
 import { ALL_DONE, NOT_READY } from './road-copy.ts'
 import { KeepIt } from './KeepIt.tsx'
 import { ReviewFinish } from './ReviewFinish.tsx'
@@ -67,6 +69,19 @@ async function needsIsland(session: ReadySession): Promise<boolean> {
   return island !== null && !island.lines.some((line) => line.stop === stop)
 }
 
+/**
+ * Otso's step for this session (job 16-tutor-step), or undefined: only from stop 4, and only when the
+ * Worker says the step shows something (the consent screen, the guest card or the chat). When the
+ * state cannot be read, the step is left out and the session goes on as before.
+ */
+async function tutorStep(session: ReadySession): Promise<SessionStep | undefined> {
+  if (session.stop === undefined || session.stop < 4) return undefined
+  const state = await loadTutor(session.session.id)
+  const offer = state?.offer
+  if (!state || (offer !== 'consent' && offer !== 'guest' && offer !== 'ready')) return undefined
+  return tutorStepFor(state)
+}
+
 async function pageFrom(answer: ApiAnswer | null): Promise<Page | 'signed_out'> {
   if (!answer) return PROBLEM
   if (answer.status === 401) return 'signed_out'
@@ -86,7 +101,8 @@ async function pageFrom(answer: ApiAnswer | null): Promise<Page | 'signed_out'> 
   const session = body as unknown as ReadySession
   const review = await loadReview(session.session.id)
   if (!review) return PROBLEM
-  const steps = stepsFor(review.length > 0, await needsIsland(session))
+  const [island, tutor] = await Promise.all([needsIsland(session), tutorStep(session)])
+  const steps = stepsFor(review.length > 0, island, tutor)
   return { kind: 'ready', session, steps, review, position: resumeAt(steps, session.session.step) }
 }
 
@@ -117,7 +133,8 @@ function show(next: Loaded, setPage: (page: Page) => void) {
  * stored for it.
  */
 async function saveStep(sessionId: string, step: SessionStep): Promise<boolean> {
-  if (step.id === 'use') return true
+  // Otso's chat (job 16-tutor-step) stores nothing either: nothing about the chat is kept.
+  if (step.id === 'use' || step.id === 'tutor') return true
   const answer =
     step.id === 'keep'
       ? await callApi(`/api/sessions/${sessionId}/review/done`, 'POST')

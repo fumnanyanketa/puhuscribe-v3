@@ -78,6 +78,29 @@ export interface SpeechProvider {
   check: (wav: Uint8Array, reference: string, testFixture: string | null) => Promise<HeardAnswer>
   /** What a check of this many milliseconds of audio costs, from the dated price table. */
   costUsd: (audioMs: number) => number
+  /**
+   * Plain transcription, with no reference text and no scoring (job 16-tutor-step, owner's call 3:
+   * a spoken answer to Otso). Returns what the service heard, with its punctuation.
+   */
+  transcribe: (wav: Uint8Array, testFixture: string | null) => Promise<HeardText>
+}
+
+/** What plain transcription heard. */
+export type HeardText = { status: 'heard'; text: string } | { status: 'not_heard' }
+
+/** Turns Azure's answer without pronunciation assessment into what was heard. */
+export function mapAzureTranscript(body: unknown): HeardText {
+  const answer = record(body)
+  const status = answer.RecognitionStatus
+  if (status === 'NoMatch' || status === 'InitialSilenceTimeout' || status === 'BabbleTimeout') {
+    return { status: 'not_heard' }
+  }
+  if (status !== 'Success') throw new SpeechCheckFailed('failed')
+  const nBest = Array.isArray(answer.NBest) ? answer.NBest : []
+  const best = record(nBest[0])
+  const text = [best.Display, answer.DisplayText].find((value) => typeof value === 'string')
+  const heard = typeof text === 'string' ? text.trim() : ''
+  return heard === '' ? { status: 'not_heard' } : { status: 'heard', text: heard }
 }
 
 const TIMEOUT_MS = 10_000
@@ -175,7 +198,7 @@ async function azureRequest(
   key: string,
   region: string,
   wav: Uint8Array,
-  reference: string,
+  reference: string | null,
   fetchImpl: Fetch,
 ): Promise<Response> {
   const controller = new AbortController()
@@ -189,7 +212,8 @@ async function azureRequest(
         'Ocp-Apim-Subscription-Key': key,
         'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000',
         Accept: 'application/json',
-        'Pronunciation-Assessment': assessmentHeader(reference),
+        // Without a reference text the request is plain transcription (job 16-tutor-step).
+        ...(reference === null ? {} : { 'Pronunciation-Assessment': assessmentHeader(reference) }),
       },
       body: wav,
       signal: controller.signal,
@@ -202,7 +226,34 @@ async function azureRequest(
 }
 
 function azureProvider(key: string, region: string, usdPerHour: number, fetchImpl: Fetch): SpeechProvider {
-  const once = (wav: Uint8Array, reference: string) => azureRequest(key, region, wav, reference, fetchImpl)
+  const once = (wav: Uint8Array, reference: string | null) =>
+    azureRequest(key, region, wav, reference, fetchImpl)
+
+  async function answered(res: Response, wav: Uint8Array, reference: string | null): Promise<unknown> {
+    let current = res
+    if (current.status === 429) {
+      await current.body?.cancel()
+      await wait(RETRY_WAIT_MS)
+      current = await once(wav, reference)
+    }
+    if (current.status === 429) {
+      await current.body?.cancel()
+      throw new SpeechCheckFailed('busy')
+    }
+    if (current.status === 401 || current.status === 403) {
+      await current.body?.cancel()
+      throw new SpeechCheckFailed('refused')
+    }
+    if (!current.ok) {
+      await current.body?.cancel()
+      throw new SpeechCheckFailed('failed')
+    }
+    try {
+      return await current.json()
+    } catch {
+      throw new SpeechCheckFailed('failed')
+    }
+  }
 
   return {
     name: 'azure',
@@ -236,6 +287,9 @@ function azureProvider(key: string, region: string, usdPerHour: number, fetchImp
       }
       return mapAzureAnswer(body)
     },
+    async transcribe(wav) {
+      return mapAzureTranscript(await answered(await once(wav, null), wav, null))
+    },
   }
 }
 
@@ -268,6 +322,19 @@ function fakeProvider(): SpeechProvider {
     name: 'fake',
     regionName: null,
     costUsd: () => 0,
+    transcribe(_wav, testFixture) {
+      const name = testFixture ?? 'tutor-heard'
+      const fixture = Object.hasOwn(SPEECH_FIXTURES, name) ? SPEECH_FIXTURES[name] : undefined
+      if (!fixture) return Promise.reject(new SpeechCheckFailed('failed'))
+      const status = fixture.httpStatus ?? 200
+      if (status === 429) return Promise.reject(new SpeechCheckFailed('busy'))
+      if (status !== 200) return Promise.reject(new SpeechCheckFailed('failed'))
+      try {
+        return Promise.resolve(mapAzureTranscript(fixture.response))
+      } catch (error) {
+        return Promise.reject(error instanceof Error ? error : new SpeechCheckFailed('failed'))
+      }
+    },
     check(_wav, reference, testFixture) {
       const name = testFixture ?? 'echo'
       const fixture = Object.hasOwn(SPEECH_FIXTURES, name) ? SPEECH_FIXTURES[name] : undefined

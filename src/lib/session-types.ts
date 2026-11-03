@@ -66,6 +66,11 @@ export interface ReadySession {
    */
   islandStop?: number
   /**
+   * The tutor, Otso (job 16-tutor-step): the session's road stop, sent only from stop 4 on, where the
+   * session can end with a short chat with Otso. The app then asks GET /api/tutor?session=<id>.
+   */
+  stop?: number
+  /**
    * The recap's key lines (fast route hear-and-say, 3 November 2026): at most three line ids, in line
    * order, chosen by worker/session-plan.ts (keyLinesOf). Missing, the recap takes the first three lines.
    */

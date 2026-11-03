@@ -19,6 +19,7 @@ import notHeard from './not-heard.json' with { type: 'json' }
 import recordedLine1 from './recorded-line-1.json' with { type: 'json' }
 import recordedLine2 from './recorded-line-2.json' with { type: 'json' }
 import recordedLine5 from './recorded-line-5.json' with { type: 'json' }
+import tutorHeard from './tutor-heard.json' with { type: 'json' }
 
 export interface SpeechFixture {
   about: string
@@ -46,6 +47,7 @@ export const SPEECH_FIXTURES: Readonly<Partial<Record<string, SpeechFixture>>> =
   'recorded-line-1': recordedLine1,
   'recorded-line-2': recordedLine2,
   'recorded-line-5': recordedLine5,
+  'tutor-heard': tutorHeard,
 }
 
 /** The names of the three fixtures the Speech fixtures workflow records, with the line each one voices. */

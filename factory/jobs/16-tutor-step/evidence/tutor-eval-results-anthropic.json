@@ -1,0 +1,3571 @@
+{
+  "model": "claude-haiku-5-5",
+  "provider": "anthropic",
+  "ranAt": "2026-11-03T13:57:09.347Z",
+  "turns": 102,
+  "aiCalls": 149,
+  "costUsd": 0.099727,
+  "M1_allowed_word_share_raw": 0.9585714285714285,
+  "M2_first_try_without_outside_word": 0.8529411764705882,
+  "M3_fallback_share": {
+    "strict_1": 0.13725490196078433,
+    "middle_0_75": 0.13725490196078433,
+    "off_0": 0.0392156862745098
+  },
+  "M4_served_words_allowed": 1,
+  "M5_tips_on_list": 1,
+  "records": [
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "which-tram-goes-to-the-centre",
+      "stop": 5,
+      "turn": 1,
+      "replyKind": "english",
+      "learner": "I do not understand",
+      "attempts": [
+        {
+          "raw": "Linja kolme tai linja seiska.",
+          "reply": "Linja kolme tai linja seiska.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Linja kolme tai linja seiska.",
+        "meaning": "Line three or line seven.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "a-cold-morning",
+      "stop": 6,
+      "turn": 1,
+      "replyKind": "offtopic",
+      "learner": "Tykkäätsä jalkapallosta?",
+      "attempts": [
+        {
+          "raw": "Kymmenen astetta. Mitä sä teit viikonloppuna?",
+          "reply": "Kymmenen astetta. Mitä sä teit viikonloppuna?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kymmenen astetta. Mitä sä teit viikonloppuna?",
+        "meaning": "Ten degrees. What did you do at the weekend?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "at-the-market",
+      "stop": 4,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Joo, kiitos.",
+      "attempts": [
+        {
+          "raw": "Moi! Paljonks noi mansikat maksaa?",
+          "reply": "Moi! Paljonks noi mansikat maksaa?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Moi! Paljonks noi mansikat maksaa?",
+        "meaning": "Hi! How much do these strawberries cost?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "a-cold-morning",
+      "stop": 6,
+      "turn": 2,
+      "replyKind": "unmet",
+      "learner": "Mä asun Tampereella ja oon insinööri.",
+      "attempts": [
+        {
+          "raw": "Mä olin kotona ja katoin leffoja.",
+          "reply": "Mä olin kotona ja katoin leffoja.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä olin kotona ja katoin leffoja.",
+        "meaning": "I was at home and watched movies.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "which-tram-goes-to-the-centre",
+      "stop": 5,
+      "turn": 2,
+      "replyKind": "short",
+      "learner": "Joo",
+      "attempts": [
+        {
+          "raw": "Missä niitten pysäkki on?",
+          "reply": "Missä niitten pysäkki on?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Missä niitten pysäkki on?",
+        "meaning": "Where is their stop?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "at-the-market",
+      "stop": 4,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Minä olla hyvä kiitos",
+      "attempts": [
+        {
+          "raw": "Litra on viis euroo.",
+          "reply": "Litra on viis euroo.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Litra on viis euroo.",
+        "meaning": "A litre is five euros.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "which-tram-goes-to-the-centre",
+      "stop": 5,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Okei, hyvä.",
+      "attempts": [
+        {
+          "raw": "Ei mitään. Hyvää matkaa!",
+          "reply": "Ei mitään. Hyvää matkaa!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ei mitään. Hyvää matkaa!",
+        "meaning": "You're welcome. Have a good journey!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "at-the-market",
+      "stop": 4,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Moi! Mitä kuuluu?",
+      "attempts": [
+        {
+          "raw": "Kiitti, moikka!",
+          "reply": "Kiitti, moikka!",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti, moikka!",
+        "meaning": "Thanks, bye!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "coffee-on-friday",
+      "stop": 8,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Joo, se on hyvä.",
+      "attempts": [
+        {
+          "raw": "Perjantai ei käy, mul on suomen kurssi.",
+          "reply": "Perjantai ei käy, mul on suomen kurssi.",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Perjantai ei käy, mul on suomen kurssi.",
+        "meaning": "Friday doesn't work, I have a Finnish course.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 8,
+      "servedAllowed": 8,
+      "dialogue": "a-cold-morning",
+      "stop": 6,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Mä en tiiä.",
+      "attempts": [
+        {
+          "raw": "Kiva! Mä olin mökillä. Siel oli tosi kaunista.",
+          "reply": "Kiva! Mä olin mökillä. Siel oli tosi kaunista.",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiva! Mä olin mökillä. Siel oli tosi kaunista.",
+        "meaning": "Nice! I was at the cottage. It was really beautiful there.",
+        "tip": 6
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "sorry-i-didnt-understand",
+      "stop": 7,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Mä haluun kahvi",
+      "attempts": [
+        {
+          "raw": "Anteeks, mä en ymmärtäny. Haluuksä pussin?",
+          "reply": "Anteeks, mä en ymmärtäny. Haluuksä pussin?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Haluuksä kahvia? Anteeks, mä en ymmärtäny.",
+          "reply": "Haluuksä kahvia? Anteeks, mä en ymmärtäny.",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Kahvia? Ai, oma kassi, vai pussin?",
+          "reply": "Kahvia? Ai, oma kassi, vai pussin?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Haluuksä pussin?"
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "what-time-is-it",
+      "stop": 9,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Mä oon täällä.",
+      "attempts": [
+        {
+          "raw": "Mihin sä oot menossa?",
+          "reply": "Mihin sä oot menossa?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mihin sä oot menossa?",
+        "meaning": "Where are you going?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "what-time-is-it",
+      "stop": 9,
+      "turn": 2,
+      "replyKind": "offtopic",
+      "learner": "Mikä on sun lempiväri?",
+      "attempts": [
+        {
+          "raw": "Kurssille. Se alkaa yheksältä.",
+          "reply": "Kurssille. Se alkaa yheksältä.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kurssille. Se alkaa yheksältä.",
+        "meaning": "To the course. It starts at nine.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "a-headache",
+      "stop": 10,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Ei kiitos.",
+      "attempts": [
+        {
+          "raw": "Mul on päänsärkyy. Onks teil jotain siihen?",
+          "reply": "Mul on päänsärkyy. Onks teil jotain siihen?",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mul on päänsärkyy. Onks teil jotain siihen?",
+        "meaning": "I have a headache. Do you have something for it?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "coffee-on-friday",
+      "stop": 8,
+      "turn": 2,
+      "replyKind": "english",
+      "learner": "Yes please",
+      "attempts": [
+        {
+          "raw": "Entä lauantai?",
+          "reply": "Entä lauantai?",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Entä lauantai?",
+        "meaning": "What about Saturday?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "what-time-is-it",
+      "stop": 9,
+      "turn": 3,
+      "replyKind": "unmet",
+      "learner": "Huomenna mä lähden mökille kalastamaan.",
+      "attempts": [
+        {
+          "raw": "Ei se haittaa. Onnee matkaan!",
+          "reply": "Ei se haittaa. Onnee matkaan!",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ei se haittaa. Onnee matkaan!",
+        "meaning": "That's okay. Good luck on your journey!",
+        "tip": 7
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "coffee-on-friday",
+      "stop": 8,
+      "turn": 3,
+      "replyKind": "short",
+      "learner": "Ei",
+      "attempts": [
+        {
+          "raw": "Sovittu! Nähään lauantaina!",
+          "reply": "Sovittu! Nähään lauantaina!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Sovittu! Nähään lauantaina!",
+        "meaning": "Agreed! See you on Saturday!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "sorry-i-didnt-understand",
+      "stop": 7,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Kiitos, samoin.",
+      "attempts": [
+        {
+          "raw": "Haluuksä pussin?",
+          "reply": "Haluuksä pussin?",
+          "words": 2,
+          "allowed": 1,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Ai, pussin! Tarviitko kassin?",
+          "reply": "Ai, pussin! Tarviitko kassin?",
+          "words": 4,
+          "allowed": 3,
+          "outside": [
+            "kassin"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, mä tarviin pussin. Entä sä?",
+          "reply": "Joo, mä tarviin pussin. Entä sä?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "tarviin"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Totta kai. Tarviitko pussin?"
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "where-do-you-live",
+      "stop": 11,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Sinä on kiva",
+      "attempts": [
+        {
+          "raw": "Kiitti! Mä asun Itäkeskuksessa. Entä sä?",
+          "reply": "Kiitti! Mä asun Itäkeskuksessa. Entä sä?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti! Mä asun Itäkeskuksessa. Entä sä?",
+        "meaning": "Thanks! I live in Itäkeskus. And you?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "a-bigger-size",
+      "stop": 12,
+      "turn": 1,
+      "replyKind": "short",
+      "learner": "Okei",
+      "attempts": [
+        {
+          "raw": "Joo. Onks tää takki isompana?",
+          "reply": "Joo. Onks tää takki isompana?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Joo. Onks tää takki isompana?",
+        "meaning": "Yes. Is this jacket in a bigger size?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "sorry-i-didnt-understand",
+      "stop": 7,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Missä on se bussi menee?",
+      "attempts": [
+        {
+          "raw": "Hyvä. Sä puhut jo hyvin suomee.",
+          "reply": "Hyvä. Sä puhut jo hyvin suomee.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvä. Sä puhut jo hyvin suomee.",
+        "meaning": "Good. You already speak Finnish well.",
+        "tip": 7
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "where-do-you-live",
+      "stop": 11,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Joo, totta kai.",
+      "attempts": [
+        {
+          "raw": "Onks sul iso asunto?",
+          "reply": "Onks sul iso asunto?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Onks sul iso asunto?",
+        "meaning": "Do you have a big apartment?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "a-bigger-size",
+      "stop": 12,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Joo, kiitos.",
+      "attempts": [
+        {
+          "raw": "Mikä koko sä tarviit?",
+          "reply": "Mikä koko sä tarviit?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mikä koko sä tarviit?",
+        "meaning": "What size do you need?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 8,
+      "servedAllowed": 8,
+      "dialogue": "where-do-you-live",
+      "stop": 11,
+      "turn": 3,
+      "replyKind": "english",
+      "learner": "Can you say it again?",
+      "attempts": [
+        {
+          "raw": "Ei, se on yksiö. Mut siinä on parveke.",
+          "reply": "Ei, se on yksiö. Mut siinä on parveke.",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ei, se on yksiö. Mut siinä on parveke.",
+        "meaning": "No, it's a studio. But it has a balcony.",
+        "tip": 4
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "booking-a-visit",
+      "stop": 13,
+      "turn": 1,
+      "replyKind": "unmet",
+      "learner": "Mun auto on rikki, voitsä auttaa?",
+      "attempts": [
+        {
+          "raw": "Kauanks siihen on sattunu?",
+          "reply": "Kauanks siihen on sattunu?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kauanks siihen on sattunu?",
+        "meaning": "How long has it been hurting?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "a-headache",
+      "stop": 10,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Mä ei ymmärrä",
+      "attempts": [
+        {
+          "raw": "Tää on hyvä särkylääke. Haluuks sen?",
+          "reply": "Tää on hyvä särkylääke. Haluuks sen?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "haluuks"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Tää on hyvä särkylääke. Haluuksä sen?",
+          "reply": "Tää on hyvä särkylääke. Haluuksä sen?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mul on päänsärkyy. Onks teil jotain siihen?",
+          "reply": "Mul on päänsärkyy. Onks teil jotain siihen?",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mul on päänsärkyy. Onks teil jotain siihen?",
+        "meaning": "I have a headache. Do you have something for it?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "booking-a-visit",
+      "stop": 13,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Moi! Mitä kuuluu?",
+      "attempts": [
+        {
+          "raw": "Kolme päivää. Ja mul on kuumetta.",
+          "reply": "Kolme päivää. Ja mul on kuumetta.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kolme päivää. Ja mul on kuumetta.",
+        "meaning": "Three days. And I have a fever.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "can-i-speak-to-the-manager",
+      "stop": 14,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Okei, hyvä.",
+      "attempts": [
+        {
+          "raw": "Moi! Mikä sun numero on?",
+          "reply": "Moi! Mikä sun numero on?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Moi! Mikä sun numero on?",
+        "meaning": "Hi! What is your number?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "can-i-speak-to-the-manager",
+      "stop": 14,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Mä haluun kahvi",
+      "attempts": [
+        {
+          "raw": "Kiitti. Mul on kysymys saunavuorosta.",
+          "reply": "Kiitti. Mul on kysymys saunavuorosta.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti. Mul on kysymys saunavuorosta.",
+        "meaning": "Thanks. I have a question about the sauna slot.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "booking-a-visit",
+      "stop": 13,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Minä olla hyvä kiitos",
+      "attempts": [
+        {
+          "raw": "Okei. Lääkäri voi nähä sut huomenna kymmeneltä.",
+          "reply": "Okei. Lääkäri voi nähä sut huomenna kymmeneltä.",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Okei. Lääkäri voi nähä sut huomenna kymmeneltä.",
+        "meaning": "Okay. The doctor can see you tomorrow at ten.",
+        "tip": 7
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "a-bigger-size",
+      "stop": 12,
+      "turn": 3,
+      "replyKind": "offtopic",
+      "learner": "Mä tykkään kissoista.",
+      "attempts": [
+        {
+          "raw": "Tässä. Haluuksä kokeilla?",
+          "reply": "Tässä. Haluuksä kokeilla?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Okei. Tässä. Haluuksä kokeilla?",
+          "reply": "Okei. Tässä. Haluuksä kokeilla?",
+          "words": 4,
+          "allowed": 3,
+          "outside": [
+            "haluuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Okei. Tuolla takana.",
+          "reply": "Okei. Tuolla takana.",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Okei. Tuolla takana.",
+        "meaning": "Okay. Over there at the back.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "can-i-speak-to-the-manager",
+      "stop": 14,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Mä en tiiä.",
+      "attempts": [
+        {
+          "raw": "Kiitti, kuulemiin!",
+          "reply": "Kiitti, kuulemiin!",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti, kuulemiin!",
+        "meaning": "Thanks, goodbye!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "a-headache",
+      "stop": 10,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Hei hei!",
+      "attempts": [
+        {
+          "raw": "Hyvä, nähään! Kiitti!",
+          "reply": "Hyvä, nähään! Kiitti!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hei hei! Kiitti, nähään!",
+          "reply": "Hei hei! Kiitti, nähään!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hei hei! Kiitti, nähään!",
+        "meaning": "Bye bye! Thanks, see you!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "at-the-parcel-point",
+      "stop": 16,
+      "turn": 1,
+      "replyKind": "offtopic",
+      "learner": "Tykkäätsä jalkapallosta?",
+      "attempts": [
+        {
+          "raw": "Joo, tässä puhelimessa. Mikä sun sukunimi on?",
+          "reply": "Joo, tässä puhelimessa. Mikä sun sukunimi on?",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Joo, tässä puhelimessa. Mikä sun sukunimi on?",
+        "meaning": "Yes, here on my phone. What is your last name?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "todays-lunch",
+      "stop": 17,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Missä on se bussi menee?",
+      "attempts": [
+        {
+          "raw": "Mikä on päivän lounas?",
+          "reply": "Mikä on päivän lounas?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mikä on päivän lounas?",
+        "meaning": "What is today's lunch?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "the-shower-doesnt-work",
+      "stop": 18,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Ei kiitos.",
+      "attempts": [
+        {
+          "raw": "Mä tuun kattoo sitä huomenna.",
+          "reply": "Mä tuun kattoo sitä huomenna.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä tuun kattoo sitä huomenna.",
+        "meaning": "I'll come and look at it tomorrow.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "at-the-parcel-point",
+      "stop": 16,
+      "turn": 2,
+      "replyKind": "unmet",
+      "learner": "Mä asun Tampereella ja oon insinööri.",
+      "attempts": [
+        {
+          "raw": "Silva. Äs, ii, äl, vee, aa.",
+          "reply": "Silva. Äs, ii, äl, vee, aa.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Silva. Äs, ii, äl, vee, aa.",
+        "meaning": "Silva. S, i, l, v, a.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "todays-lunch",
+      "stop": 17,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Mä oon täällä.",
+      "attempts": [
+        {
+          "raw": "Lohikeittoo tai kanapastaa.",
+          "reply": "Lohikeittoo tai kanapastaa.",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Lohikeittoo tai kanapastaa.",
+        "meaning": "Fish soup or chicken pasta.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "opening-a-bank-account",
+      "stop": 15,
+      "turn": 1,
+      "replyKind": "english",
+      "learner": "I do not understand",
+      "attempts": [
+        {
+          "raw": "Okei. Mä autan sua. Onks sul passi mukana?",
+          "reply": "Okei. Mä autan sua. Onks sul passi mukana?",
+          "words": 8,
+          "allowed": 7,
+          "outside": [
+            "autan"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä autan sua. Onks sul passi?",
+          "reply": "Mä autan sua. Onks sul passi?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "autan"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä autan sua. Mikä on hätää?",
+          "reply": "Mä autan sua. Mikä on hätää?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "autan"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Hyvä. Sä tarviit myös suomalaisen osotteen."
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "the-shower-doesnt-work",
+      "stop": 18,
+      "turn": 2,
+      "replyKind": "english",
+      "learner": "Yes please",
+      "attempts": [
+        {
+          "raw": "Mihin aikaan? Mä oon töis kaheksast neljään.",
+          "reply": "Mihin aikaan? Mä oon töis kaheksast neljään.",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mihin aikaan? Mä oon töis kaheksast neljään.",
+        "meaning": "What time? I work from eight to four.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "at-the-parcel-point",
+      "stop": 16,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Joo, se on hyvä.",
+      "attempts": [
+        {
+          "raw": "Kiitti. Tässä on sun paketti.",
+          "reply": "Kiitti. Tässä on sun paketti.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti. Tässä on sun paketti.",
+        "meaning": "Thanks. Here is your parcel.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "opening-a-bank-account",
+      "stop": 15,
+      "turn": 2,
+      "replyKind": "short",
+      "learner": "Joo",
+      "attempts": [
+        {
+          "raw": "Mul on osote Kalliossa.",
+          "reply": "Mul on osote Kalliossa.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mul on osote Kalliossa.",
+        "meaning": "I have an address in Kallio.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "todays-lunch",
+      "stop": 17,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Mä ei ymmärrä",
+      "attempts": [
+        {
+          "raw": "Ihanaa. Kiitti!",
+          "reply": "Ihanaa. Kiitti!",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ihanaa. Kiitti!",
+        "meaning": "Lovely. Thanks!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "meeting-the-team",
+      "stop": 19,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Hei hei!",
+      "attempts": [
+        {
+          "raw": "Moi! Joo, mä oon vähän jännittyny.",
+          "reply": "Moi! Joo, mä oon vähän jännittyny.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Moi! Joo, mä oon vähän jännittyny.",
+        "meaning": "Hi! Yes, I'm a bit nervous.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "do-you-have-children",
+      "stop": 20,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Joo, totta kai.",
+      "attempts": [
+        {
+          "raw": "Kuinka vanhoja ne on?",
+          "reply": "Kuinka vanhoja ne on?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kuinka vanhoja ne on?",
+        "meaning": "How old are they?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "opening-a-bank-account",
+      "stop": 15,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Kiitos, samoin.",
+      "attempts": [
+        {
+          "raw": "Kiitti! Mä täytän sen heti.",
+          "reply": "Kiitti! Mä täytän sen heti.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti! Mä täytän sen heti.",
+        "meaning": "Thanks! I'll fill it in right away.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "the-shower-doesnt-work",
+      "stop": 18,
+      "turn": 3,
+      "replyKind": "short",
+      "learner": "Ei",
+      "attempts": [
+        {
+          "raw": "Okei, hyvä. Mä tuun huomenna. Hei hei!",
+          "reply": "Okei, hyvä. Mä tuun huomenna. Hei hei!",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Okei. Mä laitan lapun oveen.",
+          "reply": "Okei. Mä laitan lapun oveen.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Okei. Mä laitan lapun oveen.",
+        "meaning": "Okay. I will put a note on the door.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "meeting-the-team",
+      "stop": 19,
+      "turn": 2,
+      "replyKind": "offtopic",
+      "learner": "Mikä on sun lempiväri?",
+      "attempts": [
+        {
+          "raw": "Ei hätää. Mä oon Hanna. Sun työpiste on tuolla ikkunan vieres.",
+          "reply": "Ei hätää. Mä oon Hanna. Sun työpiste on tuolla ikkunan vieres.",
+          "words": 11,
+          "allowed": 11,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Ei hätää. Täs on Ville ja Aino.",
+          "reply": "Ei hätää. Täs on Ville ja Aino.",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ei hätää. Täs on Ville ja Aino.",
+        "meaning": "No worries. Here are Ville and Aino.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "pick-up-time",
+      "stop": 21,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Minä olla hyvä kiitos",
+      "attempts": [
+        {
+          "raw": "Hyvä. Mihin aikaan?",
+          "reply": "Hyvä. Mihin aikaan?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvä. Mihin aikaan?",
+        "meaning": "Good. At what time?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "what-do-you-like-doing",
+      "stop": 22,
+      "turn": 1,
+      "replyKind": "short",
+      "learner": "Okei",
+      "attempts": [
+        {
+          "raw": "Missä sä uit?",
+          "reply": "Missä sä uit?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Missä sä uit?",
+        "meaning": "Where do you swim?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "meeting-the-team",
+      "stop": 19,
+      "turn": 3,
+      "replyKind": "unmet",
+      "learner": "Huomenna mä lähden mökille kalastamaan.",
+      "attempts": [
+        {
+          "raw": "Kiitti! Tää on kiva paikka.",
+          "reply": "Kiitti! Tää on kiva paikka.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti! Tää on kiva paikka.",
+        "meaning": "Thanks! This is a nice place.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "do-you-have-children",
+      "stop": 20,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Sinä on kiva",
+      "attempts": [
+        {
+          "raw": "Kiitti! Mikä niiden nimi on?",
+          "reply": "Kiitti! Mikä niiden nimi on?",
+          "words": 5,
+          "allowed": 4,
+          "outside": [
+            "niiden"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mikä niitten nimi on?",
+          "reply": "Mikä niitten nimi on?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mikä niitten nimi on?",
+          "reply": "Mikä niitten nimi on?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Kiva ikä! Mul on yks tytär. Se on kolme."
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "the-shopping-list",
+      "stop": 23,
+      "turn": 1,
+      "replyKind": "unmet",
+      "learner": "Mun auto on rikki, voitsä auttaa?",
+      "attempts": [
+        {
+          "raw": "Lohikeittoo! Mitä me tarvitaan?",
+          "reply": "Lohikeittoo! Mitä me tarvitaan?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Lohikeittoo! Mitä me tarvitaan?",
+        "meaning": "Salmon soup! What do we need?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "what-do-you-like-doing",
+      "stop": 22,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Okei, hyvä.",
+      "attempts": [
+        {
+          "raw": "Mä uin uimahallis. Entä sä?",
+          "reply": "Mä uin uimahallis. Entä sä?",
+          "words": 5,
+          "allowed": 4,
+          "outside": [
+            "uin"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Uimahallis. Entä sä?",
+          "reply": "Uimahallis. Entä sä?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Uimahallis. Entä sä?",
+        "meaning": "At the swimming hall. And you?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "the-shopping-list",
+      "stop": 23,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Mä en tiiä.",
+      "attempts": [
+        {
+          "raw": "Lohta, perunoita ja porkkanoita.",
+          "reply": "Lohta, perunoita ja porkkanoita.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Lohta, perunoita ja porkkanoita.",
+        "meaning": "Salmon, potatoes and carrots.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "pick-up-time",
+      "stop": 21,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Moi! Mitä kuuluu?",
+      "attempts": [
+        {
+          "raw": "Hyvin, kiitos! Mihin aikaan sä haet?",
+          "reply": "Hyvin, kiitos! Mihin aikaan sä haet?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "haet"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Moi! Hyvä. Mä haen sen viideltä.",
+          "reply": "Moi! Hyvä. Mä haen sen viideltä.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Moi! Mä oon Maria. Miten sun päivä meni?",
+          "reply": "Moi! Mä oon Maria. Miten sun päivä meni?",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Hyvä. Huomenna mä haen sen vähän myöhemmin."
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "what-do-you-like-doing",
+      "stop": 22,
+      "turn": 3,
+      "replyKind": "offtopic",
+      "learner": "Mä tykkään kissoista.",
+      "attempts": [
+        {
+          "raw": "Hyvä! Moikka!",
+          "reply": "Hyvä! Moikka!",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvä! Moikka!",
+        "meaning": "Good! Bye!",
+        "tip": 5
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "do-you-have-children",
+      "stop": 20,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Joo, kiitos.",
+      "attempts": [
+        {
+          "raw": "Kiva juttu! Nähään!",
+          "reply": "Kiva juttu! Nähään!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Kiva ikä! Mul on yks tytär.",
+          "reply": "Kiva ikä! Mul on yks tytär.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiva ikä! Mul on yks tytär.",
+        "meaning": "Nice age! I have one daughter.",
+        "tip": 6
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "the-shopping-list",
+      "stop": 23,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Mä haluun kahvi",
+      "attempts": [
+        {
+          "raw": "Okei. Mennään kauppaan!",
+          "reply": "Okei. Mennään kauppaan!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Okei. Mennään kauppaan!",
+        "meaning": "Okay. Let's go to the shop!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "hows-it-going",
+      "stop": 24,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Kiitos, samoin.",
+      "attempts": [
+        {
+          "raw": "Ihan ok. Vähän väsyttää.",
+          "reply": "Ihan ok. Vähän väsyttää.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ihan ok. Vähän väsyttää.",
+        "meaning": "Pretty ok. A little tired.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "coffee-break",
+      "stop": 25,
+      "turn": 1,
+      "replyKind": "english",
+      "learner": "I do not understand",
+      "attempts": [
+        {
+          "raw": "Joo, mä tuun. Onks pullaa?",
+          "reply": "Joo, mä tuun. Onks pullaa?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Joo, mä tuun. Onks pullaa?",
+        "meaning": "Yes, I'm coming. Is there any bun?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "pick-up-time",
+      "stop": 21,
+      "turn": 3,
+      "replyKind": "english",
+      "learner": "Can you say it again?",
+      "attempts": [
+        {
+          "raw": "Joo, nähään! Hei hei.",
+          "reply": "Joo, nähään! Hei hei.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, nähään! Kiitti.",
+          "reply": "Joo, nähään! Kiitti.",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, nähään! Hyvä päivä.",
+          "reply": "Joo, nähään! Hyvä päivä.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Viideltä. Onks se okei?"
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "coffee-break",
+      "stop": 25,
+      "turn": 2,
+      "replyKind": "short",
+      "learner": "Joo",
+      "attempts": [
+        {
+          "raw": "On! Aino toi korvapuusteja.",
+          "reply": "On! Aino toi korvapuusteja.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "On! Aino toi korvapuusteja.",
+        "meaning": "Yes! Aino brought cinnamon buns.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "the-first-snow",
+      "stop": 27,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Mä ei ymmärrä",
+      "attempts": [
+        {
+          "raw": "Ei hätää. Onks tää sun eka kerta?",
+          "reply": "Ei hätää. Onks tää sun eka kerta?",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ei hätää. Onks tää sun eka kerta?",
+        "meaning": "No worries. Is this your first time?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "midsummer-plans",
+      "stop": 26,
+      "turn": 1,
+      "replyKind": "offtopic",
+      "learner": "Tykkäätsä jalkapallosta?",
+      "attempts": [
+        {
+          "raw": "Joo, mä tykkään. Tuuksä mökille?",
+          "reply": "Joo, mä tykkään. Tuuksä mökille?",
+          "words": 5,
+          "allowed": 4,
+          "outside": [
+            "tuuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "En tiiä vielä. Tuuks sä mökille?",
+          "reply": "En tiiä vielä. Tuuks sä mökille?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "tuuks"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, mä tykkään! Sä?",
+          "reply": "Joo, mä tykkään! Sä?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Joo, mä tykkään! Sä?",
+        "meaning": "Yes, I like it! And you?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "hows-it-going",
+      "stop": 24,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Missä on se bussi menee?",
+      "attempts": [
+        {
+          "raw": "Miks? Nukuitsä huonosti?",
+          "reply": "Miks? Nukuitsä huonosti?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "nukuitsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Miks? Nukuitsä huonosti?",
+          "reply": "Miks? Nukuitsä huonosti?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "nukuitsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Miks? Nukuitsä huonosti?",
+          "reply": "Miks? Nukuitsä huonosti?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "nukuitsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Miks? Nukuitsä huonosti?"
+      }
+    },
+    {
+      "servedWords": 8,
+      "servedAllowed": 8,
+      "dialogue": "the-first-snow",
+      "stop": 27,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Hei hei!",
+      "attempts": [
+        {
+          "raw": "Mä kerron kaiken. Onks tää sun eka kerta?",
+          "reply": "Mä kerron kaiken. Onks tää sun eka kerta?",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä kerron kaiken. Onks tää sun eka kerta?",
+        "meaning": "I will tell you everything. Is this your first time?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "coffee-break",
+      "stop": 25,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Mä oon täällä.",
+      "attempts": [
+        {
+          "raw": "Hyvä! Tuun kohta. Kiitti!",
+          "reply": "Hyvä! Tuun kohta. Kiitti!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hyvä! Santsia?",
+          "reply": "Hyvä! Santsia?",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvä! Santsia?",
+        "meaning": "Good! Sauna?",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "hows-it-going",
+      "stop": 24,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Joo, se on hyvä.",
+      "attempts": [
+        {
+          "raw": "Kiitti! Mä oon tosi iloinen.",
+          "reply": "Kiitti! Mä oon tosi iloinen.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti! Mä oon tosi iloinen.",
+        "meaning": "Thanks! I am really happy.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "a-library-card",
+      "stop": 28,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Joo, totta kai.",
+      "attempts": [
+        {
+          "raw": "Mul on oleskelulupakortti. Käyks se?",
+          "reply": "Mul on oleskelulupakortti. Käyks se?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mul on oleskelulupakortti. Käyks se?",
+        "meaning": "I have a residence permit card. Does that work?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "a-walk-in-the-forest",
+      "stop": 29,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Joo, kiitos.",
+      "attempts": [
+        {
+          "raw": "Missä on hyvä metsä?",
+          "reply": "Missä on hyvä metsä?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Missä on hyvä metsä?",
+        "meaning": "Where is a good forest?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "midsummer-plans",
+      "stop": 26,
+      "turn": 2,
+      "replyKind": "unmet",
+      "learner": "Mä asun Tampereella ja oon insinööri.",
+      "attempts": [
+        {
+          "raw": "Hieno! Tuuksä mökille?",
+          "reply": "Hieno! Tuuksä mökille?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "tuuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä asun Helsingis. Tuuksä mökille?",
+          "reply": "Mä asun Helsingis. Tuuksä mökille?",
+          "words": 5,
+          "allowed": 4,
+          "outside": [
+            "tuuksä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, mä tykkään! Mä oon Helsingis. Tuu mökille!",
+          "reply": "Joo, mä tykkään! Mä oon Helsingis. Tuu mökille!",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Kesäkuun lopus. Se on aina lauantaina."
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "a-library-card",
+      "stop": 28,
+      "turn": 2,
+      "replyKind": "english",
+      "learner": "Yes please",
+      "attempts": [
+        {
+          "raw": "Käy hyvin. Ja tarvitaan sun osote.",
+          "reply": "Käy hyvin. Ja tarvitaan sun osote.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Käy hyvin. Ja tarvitaan sun osote.",
+        "meaning": "That works well. And we need your address.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "a-walk-in-the-forest",
+      "stop": 29,
+      "turn": 2,
+      "replyKind": "offtopic",
+      "learner": "Mikä on sun lempiväri?",
+      "attempts": [
+        {
+          "raw": "Nuuksios. Sinne pääsee bussil.",
+          "reply": "Nuuksios. Sinne pääsee bussil.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Nuuksios. Sinne pääsee bussil.",
+        "meaning": "Nuuksio. You can get there by bus.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "midsummer-plans",
+      "stop": 26,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Ei kiitos.",
+      "attempts": [
+        {
+          "raw": "Kiitti, mielellään! Nähään!",
+          "reply": "Kiitti, mielellään! Nähään!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiitti, mielellään! Nähään!",
+        "meaning": "Thanks, gladly! See you!",
+        "tip": 7
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "a-library-card",
+      "stop": 28,
+      "turn": 3,
+      "replyKind": "short",
+      "learner": "Ei",
+      "attempts": [
+        {
+          "raw": "Hyvä! Fleminginkatu viis A kakstoist.",
+          "reply": "Hyvä! Fleminginkatu viis A kakstoist.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvä! Fleminginkatu viis A kakstoist.",
+        "meaning": "Good! Fleminginkatu five A twelve.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "the-first-snow",
+      "stop": 27,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Sinä on kiva",
+      "attempts": [
+        {
+          "raw": "Hei hei! Nähään! Tervetuloa Lapis.",
+          "reply": "Hei hei! Nähään! Tervetuloa Lapis.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hei, tervetuloa Lapis! Nähään!",
+          "reply": "Hei, tervetuloa Lapis! Nähään!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hei, tervetuloa! Kiva nähä.",
+          "reply": "Hei, tervetuloa! Kiva nähä.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Odota vaan, talvel on vielä enemmän lunta."
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "the-way-to-the-museum",
+      "stop": 31,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Mä haluun kahvi",
+      "attempts": [
+        {
+          "raw": "Mee suoraan tätä katuu.",
+          "reply": "Mee suoraan tätä katuu.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mee suoraan tätä katuu.",
+        "meaning": "Go straight along this street.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "a-walk-in-the-forest",
+      "stop": 29,
+      "turn": 3,
+      "replyKind": "unmet",
+      "learner": "Huomenna mä lähden mökille kalastamaan.",
+      "attempts": [
+        {
+          "raw": "Hyvä! Mä tuun mukaan. Ihanaa!",
+          "reply": "Hyvä! Mä tuun mukaan. Ihanaa!",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Ihanaa. Mä tuun!",
+          "reply": "Ihanaa. Mä tuun!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Ihanaa. Mä tuun!",
+        "meaning": "Great. I'm coming!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "returning-headphones",
+      "stop": 32,
+      "turn": 1,
+      "replyKind": "short",
+      "learner": "Okei",
+      "attempts": [
+        {
+          "raw": "Vasen puoli ei toimi.",
+          "reply": "Vasen puoli ei toimi.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Vasen puoli ei toimi.",
+        "meaning": "The left side does not work.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "before-finland",
+      "stop": 33,
+      "turn": 1,
+      "replyKind": "unmet",
+      "learner": "Mun auto on rikki, voitsä auttaa?",
+      "attempts": [
+        {
+          "raw": "Missä sä asuit ennen Suomee?",
+          "reply": "Missä sä asuit ennen Suomee?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Missä sä asuit ennen Suomee?",
+        "meaning": "Where did you live before Finland?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 2,
+      "servedAllowed": 2,
+      "dialogue": "the-way-to-the-museum",
+      "stop": 31,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Mä en tiiä.",
+      "attempts": [
+        {
+          "raw": "Kuinka pitkälle?",
+          "reply": "Kuinka pitkälle?",
+          "words": 2,
+          "allowed": 2,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kuinka pitkälle?",
+        "meaning": "How far?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "returning-headphones",
+      "stop": 32,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Kiitos, samoin.",
+      "attempts": [
+        {
+          "raw": "Onks sul kuitti?",
+          "reply": "Onks sul kuitti?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Onks sul kuitti?",
+        "meaning": "Do you have the receipt?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "before-finland",
+      "stop": 33,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Joo, se on hyvä.",
+      "attempts": [
+        {
+          "raw": "Mä asuin Brasilias.",
+          "reply": "Mä asuin Brasilias.",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä asuin Brasilias.",
+        "meaning": "I lived in Brazil.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "an-invitation",
+      "stop": 30,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Moi! Mitä kuuluu?",
+      "attempts": [
+        {
+          "raw": "Hei! Kuuluu hyvin. Tulisitsä?",
+          "reply": "Hei! Kuuluu hyvin. Tulisitsä?",
+          "words": 4,
+          "allowed": 3,
+          "outside": [
+            "tulisitsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hei! Hyvin, kiitti. Tulisitsä lauantaina?",
+          "reply": "Hei! Hyvin, kiitti. Tulisitsä lauantaina?",
+          "words": 5,
+          "allowed": 4,
+          "outside": [
+            "tulisitsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Moi! Hyvä. Tuutsä?",
+          "reply": "Moi! Hyvä. Tuutsä?",
+          "words": 3,
+          "allowed": 2,
+          "outside": [
+            "tuutsä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Hienoo! Se alkaa kuudelta mun luona."
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "the-way-to-the-museum",
+      "stop": 31,
+      "turn": 3,
+      "replyKind": "english",
+      "learner": "Can you say it again?",
+      "attempts": [
+        {
+          "raw": "Toiseen risteykseen asti. Sit käänny vasemmalle.",
+          "reply": "Toiseen risteykseen asti. Sit käänny vasemmalle.",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Toiseen risteykseen asti. Sit käänny vasemmalle.",
+        "meaning": "Until the second intersection. Then turn left.",
+        "tip": 4
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "returning-headphones",
+      "stop": 32,
+      "turn": 3,
+      "replyKind": "offtopic",
+      "learner": "Mä tykkään kissoista.",
+      "attempts": [
+        {
+          "raw": "Hetki. Mä haen ne varastost.",
+          "reply": "Hetki. Mä haen ne varastost.",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hetki. Mä haen ne varastost.",
+        "meaning": "Just a moment. I'll get them from the storage.",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "what-do-you-do",
+      "stop": 35,
+      "turn": 1,
+      "replyKind": "english",
+      "learner": "I do not understand",
+      "attempts": [
+        {
+          "raw": "Mitä sä opetit?",
+          "reply": "Mitä sä opetit?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mitä sä opetit?",
+        "meaning": "What do you teach?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 6,
+      "servedAllowed": 6,
+      "dialogue": "this-weekend",
+      "stop": 34,
+      "turn": 1,
+      "replyKind": "ordinary",
+      "learner": "Mä oon täällä.",
+      "attempts": [
+        {
+          "raw": "Kiva! Mitä sä teet lauantaina?",
+          "reply": "Kiva! Mitä sä teet lauantaina?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä meen kirpparille. Mitä sä teet?",
+          "reply": "Mä meen kirpparille. Mitä sä teet?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä meen kirpparille. Mitä sä teet?",
+        "meaning": "I am going to the flea market. What are you doing?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "what-do-you-do",
+      "stop": 35,
+      "turn": 2,
+      "replyKind": "short",
+      "learner": "Joo",
+      "attempts": [
+        {
+          "raw": "Matikkaa ja englantii.",
+          "reply": "Matikkaa ja englantii.",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Matikkaa ja englantii.",
+        "meaning": "Math and English.",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "before-finland",
+      "stop": 33,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Missä on se bussi menee?",
+      "attempts": [
+        {
+          "raw": "Kiitti, nähään! Mä oon iloinen et sä tulit.",
+          "reply": "Kiitti, nähään! Mä oon iloinen et sä tulit.",
+          "words": 8,
+          "allowed": 8,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Kiitti! Nähään, Maria!",
+          "reply": "Kiitti! Nähään, Maria!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, kiitti! Nähään, Maria.",
+          "reply": "Joo, kiitti! Nähään, Maria.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Se on iso kaupunki!"
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "an-invitation",
+      "stop": 30,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Minä olla hyvä kiitos",
+      "attempts": [
+        {
+          "raw": "Hienoo! Tuu vaan kuudelta. Mitä sä tuot?",
+          "reply": "Hienoo! Tuu vaan kuudelta. Mitä sä tuot?",
+          "words": 7,
+          "allowed": 6,
+          "outside": [
+            "tuot"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hienoo! Mitä sä tuot?",
+          "reply": "Hienoo! Mitä sä tuot?",
+          "words": 4,
+          "allowed": 3,
+          "outside": [
+            "tuot"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Kiva! Voinks mä tuoda jotain?",
+          "reply": "Kiva! Voinks mä tuoda jotain?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiva! Voinks mä tuoda jotain?",
+        "meaning": "Great! Can I bring something?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "what-do-you-do",
+      "stop": 35,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Hei hei!",
+      "attempts": [
+        {
+          "raw": "Hei hei! Toivottavasti!",
+          "reply": "Hei hei! Toivottavasti!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hei hei! Toivottavasti!",
+        "meaning": "Bye bye! Hopefully!",
+        "tip": 8
+      }
+    },
+    {
+      "servedWords": 5,
+      "servedAllowed": 5,
+      "dialogue": "an-ordinary-day",
+      "stop": 36,
+      "turn": 1,
+      "replyKind": "offtopic",
+      "learner": "Tykkäätsä jalkapallosta?",
+      "attempts": [
+        {
+          "raw": "Joo, mä tykkään. Entä sä?",
+          "reply": "Joo, mä tykkään. Entä sä?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Joo, mä tykkään. Entä sä?",
+        "meaning": "Yes, I like it. And you?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "an-invitation",
+      "stop": 30,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Okei, hyvä.",
+      "attempts": [
+        {
+          "raw": "Hienoo! Nähään lauantaina. Tervetuloa!",
+          "reply": "Hienoo! Nähään lauantaina. Tervetuloa!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hienoo! Nähään lauantaina. Tervetuloa!",
+        "meaning": "Great! See you Saturday. Welcome!",
+        "tip": 2
+      }
+    },
+    {
+      "servedWords": 4,
+      "servedAllowed": 4,
+      "dialogue": "at-the-checkout",
+      "stop": 4,
+      "turn": 1,
+      "replyKind": "mistakes",
+      "learner": "Sinä on kiva",
+      "attempts": [
+        {
+          "raw": "Kiva! Ootko sä Helsingist?",
+          "reply": "Kiva! Ootko sä Helsingist?",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Kiva! Ootko sä Helsingist?",
+        "meaning": "Nice! Are you from Helsinki?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "this-weekend",
+      "stop": 34,
+      "turn": 2,
+      "replyKind": "mistakes",
+      "learner": "Mä ei ymmärrä",
+      "attempts": [
+        {
+          "raw": "Mitä sä etit kirpparilta?",
+          "reply": "Mitä sä etit kirpparilta?",
+          "words": 4,
+          "allowed": 3,
+          "outside": [
+            "kirpparilta"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä etin pöytää. Mitä sä tarviit?",
+          "reply": "Mä etin pöytää. Mitä sä tarviit?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mitä sä etit?",
+          "reply": "Mitä sä etit?",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mitä sä etit?",
+        "meaning": "What are you looking for?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 7,
+      "servedAllowed": 7,
+      "dialogue": "an-ordinary-day",
+      "stop": 36,
+      "turn": 2,
+      "replyKind": "unmet",
+      "learner": "Mä asun Tampereella ja oon insinööri.",
+      "attempts": [
+        {
+          "raw": "Mahtavaa! Mitä sä teet töis?",
+          "reply": "Mahtavaa! Mitä sä teet töis?",
+          "words": 5,
+          "allowed": 5,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Mä oon töis kaheksast neljään. Entä sä?",
+          "reply": "Mä oon töis kaheksast neljään. Entä sä?",
+          "words": 7,
+          "allowed": 7,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Mä oon töis kaheksast neljään. Entä sä?",
+        "meaning": "I work from eight to four. And you?",
+        "tip": 0
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "at-the-checkout",
+      "stop": 4,
+      "turn": 2,
+      "replyKind": "ordinary",
+      "learner": "Joo, kiitos.",
+      "attempts": [
+        {
+          "raw": "Joo, kiva! Mistä sä oot kotoisin?",
+          "reply": "Joo, kiva! Mistä sä oot kotoisin?",
+          "words": 6,
+          "allowed": 5,
+          "outside": [
+            "mistä"
+          ],
+          "coverageOk": {
+            "0": false,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo! Mä oon Helsingis. Entä sä?",
+          "reply": "Joo! Mä oon Helsingis. Entä sä?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, mä oon Helsingis. Entä sä?",
+          "reply": "Joo, mä oon Helsingis. Entä sä?",
+          "words": 6,
+          "allowed": 6,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Okei. Se tekee kakskytkolme neljäkyt."
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "this-weekend",
+      "stop": 34,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Ei kiitos.",
+      "attempts": [
+        {
+          "raw": "Kiva! Moi, nähään!",
+          "reply": "Kiva! Moi, nähään!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, nähään! Kiva juttu.",
+          "reply": "Joo, nähään! Kiva juttu.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Joo, nähään! Kiva juttu.",
+          "reply": "Joo, nähään! Kiva juttu.",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Kiva! Mitä sä etit?"
+      }
+    },
+    {
+      "servedWords": 3,
+      "servedAllowed": 3,
+      "dialogue": "at-the-checkout",
+      "stop": 4,
+      "turn": 3,
+      "replyKind": "mistakes",
+      "learner": "Minä olla hyvä kiitos",
+      "attempts": [
+        {
+          "raw": "Hyvää päivänjatkoo! Nähään!",
+          "reply": "Hyvää päivänjatkoo! Nähään!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": true,
+            "0.75": true
+          }
+        }
+      ],
+      "served": {
+        "kind": "ai",
+        "text": "Hyvää päivänjatkoo! Nähään!",
+        "meaning": "Have a good rest of the day! See you!",
+        "tip": 4
+      }
+    },
+    {
+      "servedWords": 0,
+      "servedAllowed": 0,
+      "dialogue": "an-ordinary-day",
+      "stop": 36,
+      "turn": 3,
+      "replyKind": "ordinary",
+      "learner": "Joo, totta kai.",
+      "attempts": [
+        {
+          "raw": "Hyvä juttu! Kiitti, nähään!",
+          "reply": "Hyvä juttu! Kiitti, nähään!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hyvä juttu! Kiitti, nähään!",
+          "reply": "Hyvä juttu! Kiitti, nähään!",
+          "words": 4,
+          "allowed": 4,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        },
+        {
+          "raw": "Hyvä juttu! Kiitti!",
+          "reply": "Hyvä juttu! Kiitti!",
+          "words": 3,
+          "allowed": 3,
+          "outside": [],
+          "coverageOk": {
+            "0": true,
+            "1": false,
+            "0.75": false
+          }
+        }
+      ],
+      "served": {
+        "kind": "line",
+        "text": "Aikasin!"
+      }
+    }
+  ]
+}

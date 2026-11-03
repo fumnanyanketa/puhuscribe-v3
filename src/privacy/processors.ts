@@ -18,6 +18,18 @@ export interface Processor {
   modules: readonly string[]
 }
 
+/**
+ * Otso, the AI tutor (job 16-tutor-step, owner's call 1 of 3 November 2026: Anthropic's own API,
+ * processed in the United States). Before real learners arrive the manager checks Anthropic's data
+ * processing terms and transfer basis and reports to the owner.
+ */
+export const ANTHROPIC: Processor = {
+  name: 'Anthropic',
+  role: "Writes Otso's replies, only if you turned Otso on. It receives what you type or say in the chat, Otso's earlier lines and the list of Finnish words you have met, never your name, email or account. PuhuScribe does not store the chat.",
+  where: 'In the United States.',
+  modules: ['ai.ts', 'fixtures/ai/index.ts'],
+}
+
 export const PROCESSORS: readonly Processor[] = [
   {
     name: 'Supabase',
@@ -40,6 +52,7 @@ export const PROCESSORS: readonly Processor[] = [
       'In the EU. The voice section at the top of this notice names the country when you have an account.',
     modules: ['speech-feedback.ts', 'fixtures/speech/index.ts'],
   },
+  ANTHROPIC,
 ]
 
 /** How long the providers keep their own logs. */

@@ -24,7 +24,7 @@ import {
 // fake answers each check from a recorded fixture picked with a test header;
 // with no fixture named it answers as if it heard the line exactly.
 
-const NOTICE_VERSION = 'voice-2026-10.1'
+const NOTICE_VERSION = 'voice-2026-11.1'
 const RECORD = 'Record yourself saying the line'
 
 async function toSayIt(page: Page) {

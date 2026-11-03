@@ -517,7 +517,7 @@ select set_eq(
           'supabase_migrations', 'net', 'cron', 'pgbouncer', '_analytics', 'pgtle', 'pgmq', '_supavisor',
           'topology', 'tiger', 'tiger_data')
         and n.nspname not like 'pg\_temp%' and n.nspname not like 'pg\_toast%' $$,
-  $$ values ('public.speaking_attempts') $$,
+  $$ values ('public.speaking_attempts'), ('public.tutor_calls') $$,
   '[analytics 10] the catalogue finds every table with a cost_usd column; a new one must get a seeded row in this file');
 select is((pg_temp.dash() -> 'ai_cost_usd' ->> 'total')::numeric,
   (select sum(a.cost_usd) from public.speaking_attempts a

@@ -1,0 +1,617 @@
+{
+  "note": "Job 16-tutor-step, statement 28. 34 scripted exchanges of 3 learner replies (102 replies) for the tutor quality check. The replies are test data written by the builder, never shown to a learner: ordinary typed Finnish, Finnish with mistakes, English, very short answers, off topic Finnish and Finnish with unmet words. Each exchange runs on one dialogue of the A1 road at stop 4 or later, with a learner who met every dialogue before it.",
+  "scenarios": [
+    {
+      "dialogue": "at-the-market",
+      "stop": 4,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Joo, kiitos."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Minä olla hyvä kiitos"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Moi! Mitä kuuluu?"
+        }
+      ]
+    },
+    {
+      "dialogue": "which-tram-goes-to-the-centre",
+      "stop": 5,
+      "replies": [
+        {
+          "kind": "english",
+          "text": "I do not understand"
+        },
+        {
+          "kind": "short",
+          "text": "Joo"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Okei, hyvä."
+        }
+      ]
+    },
+    {
+      "dialogue": "a-cold-morning",
+      "stop": 6,
+      "replies": [
+        {
+          "kind": "offtopic",
+          "text": "Tykkäätsä jalkapallosta?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Mä asun Tampereella ja oon insinööri."
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä en tiiä."
+        }
+      ]
+    },
+    {
+      "dialogue": "sorry-i-didnt-understand",
+      "stop": 7,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Mä haluun kahvi"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Kiitos, samoin."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Missä on se bussi menee?"
+        }
+      ]
+    },
+    {
+      "dialogue": "coffee-on-friday",
+      "stop": 8,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Joo, se on hyvä."
+        },
+        {
+          "kind": "english",
+          "text": "Yes please"
+        },
+        {
+          "kind": "short",
+          "text": "Ei"
+        }
+      ]
+    },
+    {
+      "dialogue": "what-time-is-it",
+      "stop": 9,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Mä oon täällä."
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mikä on sun lempiväri?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Huomenna mä lähden mökille kalastamaan."
+        }
+      ]
+    },
+    {
+      "dialogue": "a-headache",
+      "stop": 10,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Ei kiitos."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Mä ei ymmärrä"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Hei hei!"
+        }
+      ]
+    },
+    {
+      "dialogue": "where-do-you-live",
+      "stop": 11,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Sinä on kiva"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, totta kai."
+        },
+        {
+          "kind": "english",
+          "text": "Can you say it again?"
+        }
+      ]
+    },
+    {
+      "dialogue": "a-bigger-size",
+      "stop": 12,
+      "replies": [
+        {
+          "kind": "short",
+          "text": "Okei"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, kiitos."
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mä tykkään kissoista."
+        }
+      ]
+    },
+    {
+      "dialogue": "booking-a-visit",
+      "stop": 13,
+      "replies": [
+        {
+          "kind": "unmet",
+          "text": "Mun auto on rikki, voitsä auttaa?"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Moi! Mitä kuuluu?"
+        },
+        {
+          "kind": "mistakes",
+          "text": "Minä olla hyvä kiitos"
+        }
+      ]
+    },
+    {
+      "dialogue": "can-i-speak-to-the-manager",
+      "stop": 14,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Okei, hyvä."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Mä haluun kahvi"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä en tiiä."
+        }
+      ]
+    },
+    {
+      "dialogue": "opening-a-bank-account",
+      "stop": 15,
+      "replies": [
+        {
+          "kind": "english",
+          "text": "I do not understand"
+        },
+        {
+          "kind": "short",
+          "text": "Joo"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Kiitos, samoin."
+        }
+      ]
+    },
+    {
+      "dialogue": "at-the-parcel-point",
+      "stop": 16,
+      "replies": [
+        {
+          "kind": "offtopic",
+          "text": "Tykkäätsä jalkapallosta?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Mä asun Tampereella ja oon insinööri."
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, se on hyvä."
+        }
+      ]
+    },
+    {
+      "dialogue": "todays-lunch",
+      "stop": 17,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Missä on se bussi menee?"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä oon täällä."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Mä ei ymmärrä"
+        }
+      ]
+    },
+    {
+      "dialogue": "the-shower-doesnt-work",
+      "stop": 18,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Ei kiitos."
+        },
+        {
+          "kind": "english",
+          "text": "Yes please"
+        },
+        {
+          "kind": "short",
+          "text": "Ei"
+        }
+      ]
+    },
+    {
+      "dialogue": "meeting-the-team",
+      "stop": 19,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Hei hei!"
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mikä on sun lempiväri?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Huomenna mä lähden mökille kalastamaan."
+        }
+      ]
+    },
+    {
+      "dialogue": "do-you-have-children",
+      "stop": 20,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Joo, totta kai."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Sinä on kiva"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, kiitos."
+        }
+      ]
+    },
+    {
+      "dialogue": "pick-up-time",
+      "stop": 21,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Minä olla hyvä kiitos"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Moi! Mitä kuuluu?"
+        },
+        {
+          "kind": "english",
+          "text": "Can you say it again?"
+        }
+      ]
+    },
+    {
+      "dialogue": "what-do-you-like-doing",
+      "stop": 22,
+      "replies": [
+        {
+          "kind": "short",
+          "text": "Okei"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Okei, hyvä."
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mä tykkään kissoista."
+        }
+      ]
+    },
+    {
+      "dialogue": "the-shopping-list",
+      "stop": 23,
+      "replies": [
+        {
+          "kind": "unmet",
+          "text": "Mun auto on rikki, voitsä auttaa?"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä en tiiä."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Mä haluun kahvi"
+        }
+      ]
+    },
+    {
+      "dialogue": "hows-it-going",
+      "stop": 24,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Kiitos, samoin."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Missä on se bussi menee?"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, se on hyvä."
+        }
+      ]
+    },
+    {
+      "dialogue": "coffee-break",
+      "stop": 25,
+      "replies": [
+        {
+          "kind": "english",
+          "text": "I do not understand"
+        },
+        {
+          "kind": "short",
+          "text": "Joo"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä oon täällä."
+        }
+      ]
+    },
+    {
+      "dialogue": "midsummer-plans",
+      "stop": 26,
+      "replies": [
+        {
+          "kind": "offtopic",
+          "text": "Tykkäätsä jalkapallosta?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Mä asun Tampereella ja oon insinööri."
+        },
+        {
+          "kind": "ordinary",
+          "text": "Ei kiitos."
+        }
+      ]
+    },
+    {
+      "dialogue": "the-first-snow",
+      "stop": 27,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Mä ei ymmärrä"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Hei hei!"
+        },
+        {
+          "kind": "mistakes",
+          "text": "Sinä on kiva"
+        }
+      ]
+    },
+    {
+      "dialogue": "a-library-card",
+      "stop": 28,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Joo, totta kai."
+        },
+        {
+          "kind": "english",
+          "text": "Yes please"
+        },
+        {
+          "kind": "short",
+          "text": "Ei"
+        }
+      ]
+    },
+    {
+      "dialogue": "a-walk-in-the-forest",
+      "stop": 29,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Joo, kiitos."
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mikä on sun lempiväri?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Huomenna mä lähden mökille kalastamaan."
+        }
+      ]
+    },
+    {
+      "dialogue": "an-invitation",
+      "stop": 30,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Moi! Mitä kuuluu?"
+        },
+        {
+          "kind": "mistakes",
+          "text": "Minä olla hyvä kiitos"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Okei, hyvä."
+        }
+      ]
+    },
+    {
+      "dialogue": "the-way-to-the-museum",
+      "stop": 31,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Mä haluun kahvi"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Mä en tiiä."
+        },
+        {
+          "kind": "english",
+          "text": "Can you say it again?"
+        }
+      ]
+    },
+    {
+      "dialogue": "returning-headphones",
+      "stop": 32,
+      "replies": [
+        {
+          "kind": "short",
+          "text": "Okei"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Kiitos, samoin."
+        },
+        {
+          "kind": "offtopic",
+          "text": "Mä tykkään kissoista."
+        }
+      ]
+    },
+    {
+      "dialogue": "before-finland",
+      "stop": 33,
+      "replies": [
+        {
+          "kind": "unmet",
+          "text": "Mun auto on rikki, voitsä auttaa?"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, se on hyvä."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Missä on se bussi menee?"
+        }
+      ]
+    },
+    {
+      "dialogue": "this-weekend",
+      "stop": 34,
+      "replies": [
+        {
+          "kind": "ordinary",
+          "text": "Mä oon täällä."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Mä ei ymmärrä"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Ei kiitos."
+        }
+      ]
+    },
+    {
+      "dialogue": "what-do-you-do",
+      "stop": 35,
+      "replies": [
+        {
+          "kind": "english",
+          "text": "I do not understand"
+        },
+        {
+          "kind": "short",
+          "text": "Joo"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Hei hei!"
+        }
+      ]
+    },
+    {
+      "dialogue": "an-ordinary-day",
+      "stop": 36,
+      "replies": [
+        {
+          "kind": "offtopic",
+          "text": "Tykkäätsä jalkapallosta?"
+        },
+        {
+          "kind": "unmet",
+          "text": "Mä asun Tampereella ja oon insinööri."
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, totta kai."
+        }
+      ]
+    },
+    {
+      "dialogue": "at-the-checkout",
+      "stop": 4,
+      "replies": [
+        {
+          "kind": "mistakes",
+          "text": "Sinä on kiva"
+        },
+        {
+          "kind": "ordinary",
+          "text": "Joo, kiitos."
+        },
+        {
+          "kind": "mistakes",
+          "text": "Minä olla hyvä kiitos"
+        }
+      ]
+    }
+  ]
+}

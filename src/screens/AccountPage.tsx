@@ -10,6 +10,7 @@ import { loadRoad } from '../lib/road-data.ts'
 import { accountLetter, currentIndex } from '../lib/road-state.ts'
 import type { RoadStop } from '../lib/road-types.ts'
 import { parseVoiceAnswer } from '../lib/voice-api.ts'
+import { TutorRow } from '../tutor/TutorRow.tsx'
 import styles from './Account.module.css'
 
 // The account page, at /account (factory/jobs/11-accounts/spec.md, "Done
@@ -245,6 +246,8 @@ export function AccountPage() {
               {voiceOn !== null && <span className={styles.value}>{voiceOn ? 'On' : 'Off'}</span>}
             </a>
           </li>
+          {/* Otso, the AI tutor (job 16-tutor-step): on or off, as easy to withdraw as to give. Email accounts only. */}
+          {view.kind === 'email' && <TutorRow rowClass={styles.row} valueClass={styles.value} />}
           <li>
             <button
               type="button"

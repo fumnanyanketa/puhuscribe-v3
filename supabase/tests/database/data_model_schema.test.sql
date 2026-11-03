@@ -23,16 +23,17 @@ select tables_are(
     'speaking_attempts', 'kept_recordings', 'speech_checks',
     'feedback',
     'road_parts', 'road_stops',
-    'island_lines'
+    'island_lines',
+    'tutor_calls'
   ],
-  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] [a1-road 1] [islands lock] public holds exactly the content, learner, reference and usage event tables, the speaking tables, feedback, the two road tables and the island lines, and nothing else (visits dropped in job 8)'
+  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] [a1-road 1] [islands lock] [tutor 22] public holds exactly the content, learner, reference and usage event tables, the speaking tables, feedback, the two road tables, the island lines and the tutor calls, and nothing else (visits dropped in job 8)'
 );
 
 select enums_are(
   'public',
   array['content_status', 'finnish_register', 'card_state', 'review_mode', 'loop_step', 'consent_kind',
-        'usage_event_name', 'speech_feedback_class'],
-  '[data 1] [session 17] [speak 16] public has exactly the six enum types of the data model plus usage_event_name and speech_feedback_class'
+        'usage_event_name', 'speech_feedback_class', 'tutor_call_outcome'],
+  '[data 1] [session 17] [speak 16] [tutor 22] public has exactly the six enum types of the data model plus usage_event_name, speech_feedback_class and tutor_call_outcome'
 );
 select enum_has_labels('public', 'content_status', array['draft', 'approved', 'retired'],
   '[data 1] content_status is draft, approved, retired');
@@ -44,8 +45,8 @@ select enum_has_labels('public', 'review_mode', array['typed', 'spoken'],
   '[data 3] review_mode is typed, spoken');
 select enum_has_labels('public', 'loop_step', array['hear', 'understand', 'say', 'keep', 'use'],
   '[data 10] loop_step is hear, understand, say, keep, use, in that order');
-select enum_has_labels('public', 'consent_kind', array['voice_processing', 'voice_recording_retention'],
-  '[data 11] consent_kind is voice_processing, voice_recording_retention');
+select enum_has_labels('public', 'consent_kind', array['voice_processing', 'voice_recording_retention', 'ai_tutor'],
+  '[data 11] [tutor 22] consent_kind is voice_processing, voice_recording_retention, ai_tutor');
 
 -- [data 1] [data 13] Exact columns. No content or reference table has a column
 -- that identifies a learner or the reviewer.
