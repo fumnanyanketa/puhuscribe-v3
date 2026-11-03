@@ -30,27 +30,29 @@ async function finiteAnimations(page: Page) {
 }
 
 test.describe('the home screen is the road', () => {
-  test('[redesign 10] shows one hidden h1 "Your road to A1" and none of the old front door', async ({
-    page,
-  }) => {
-    await openRoad(page, { today: SIGNED_IN, done: MID })
-    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
-    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-    const text = await page.locator('main').innerText()
-    for (const gone of [
-      "Today's session",
-      'A session is one short Finnish dialogue',
-      'Unit goal',
-      'Voice settings',
-      'Privacy notice',
-      'Send feedback',
-      'Your account',
-      'Welcome',
-    ]) {
-      expect(text, gone).not.toContain(gone)
-    }
-    await expect(page.getByRole('img', { name: 'PuhuScribe' })).toHaveCount(0)
-  })
+  test(
+    '[redesign 10] shows one hidden h1 "Your road to A1" and none of the old front door',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await openRoad(page, { today: SIGNED_IN, done: MID })
+      await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
+      await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+      const text = await page.locator('main').innerText()
+      for (const gone of [
+        "Today's session",
+        'A session is one short Finnish dialogue',
+        'Unit goal',
+        'Voice settings',
+        'Privacy notice',
+        'Send feedback',
+        'Your account',
+        'Welcome',
+      ]) {
+        expect(text, gone).not.toContain(gone)
+      }
+      await expect(page.getByRole('img', { name: 'PuhuScribe' })).toHaveCount(0)
+    },
+  )
 
   test('[redesign 11] shows the sprout mark and a loading sentence while the road loads', async ({
     page,
@@ -93,25 +95,27 @@ test.describe('the home screen is the road', () => {
     await expect(none.locator('svg g[style*="land-travelled"]')).toHaveCount(0)
   })
 
-  test('[redesign 13] five signs in one ordered list, each read like "Stop 3, At the grocery store, current"', async ({
-    page,
-  }) => {
-    await openRoad(page, { today: SIGNED_IN, done: MID })
-    const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
-    await expect(signs).toHaveCount(5)
-    await expect(signs).toHaveText([
-      /Stop 1, Meeting people, done/,
-      /Stop 2, At the café, done/,
-      /Stop 3, At the grocery store, current/,
-      /Stop 4, Numbers, prices and paying, later/,
-      /Stop 5, Getting around by bus and tram, later/,
-    ])
-    // A sign is not a button, and pressing one does nothing.
-    await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('button')).toHaveCount(0)
-    const before = page.url()
-    await signs.nth(3).click({ force: true })
-    expect(page.url()).toBe(before)
-  })
+  test(
+    '[redesign 13] five signs in one ordered list, each read like "Stop 3, At the grocery store, current"',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await openRoad(page, { today: SIGNED_IN, done: MID })
+      const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
+      await expect(signs).toHaveCount(5)
+      await expect(signs).toHaveText([
+        /Stop 1, Meeting people, done/,
+        /Stop 2, At the café, done/,
+        /Stop 3, At the grocery store, current/,
+        /Stop 4, Numbers, prices and paying, later/,
+        /Stop 5, Getting around by bus and tram, later/,
+      ])
+      // A sign is not a button, and pressing one does nothing.
+      await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('button')).toHaveCount(0)
+      const before = page.url()
+      await signs.nth(3).click({ force: true })
+      expect(page.url()).toBe(before)
+    },
+  )
 
   test('[redesign 13] a stop name is rendered as text, never as markup', async ({ page }) => {
     await mockHome(page, { today: SIGNED_IN })
@@ -195,23 +199,25 @@ test.describe('the home screen is the road', () => {
     await expect(failing.getByRole('link', { name: 'Your account' }).locator('svg')).toBeVisible()
   })
 
-  test('[redesign 15] day one: the stop, Start, Sign in, the guest line in full and the privacy link', async ({
-    page,
-  }) => {
-    await openRoad(page)
-    const card = page.getByRole('region', { name: 'Today' })
-    await expect(card.getByRole('heading', { level: 2, name: 'Meeting people' })).toBeVisible()
-    await expect(card.getByText('Stop 1 · 4 short lessons')).toBeVisible()
-    await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-    await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
-    await expect(
-      card.getByText(
-        'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
-        { exact: true },
-      ),
-    ).toBeVisible()
-    await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', /privacy$/)
-  })
+  test(
+    '[redesign 15] day one: the stop, Start, Sign in, the guest line in full and the privacy link',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await openRoad(page)
+      const card = page.getByRole('region', { name: 'Today' })
+      await expect(card.getByRole('heading', { level: 2, name: 'Meeting people' })).toBeVisible()
+      await expect(card.getByText('Stop 1 · 4 short lessons')).toBeVisible()
+      await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+      await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
+      await expect(
+        card.getByText(
+          'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
+          { exact: true },
+        ),
+      ).toBeVisible()
+      await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', /privacy$/)
+    },
+  )
 
   test('[redesign 15] start or continue shows the stop, its lesson and its pieces', async ({ page }) => {
     await openRoad(page, { today: { signedIn: true, today: 'start' }, done: MID })
@@ -269,21 +275,23 @@ test.describe('the home screen is the road', () => {
     await expect(allDone.getByRole('status')).toHaveText('You have finished every dialogue that is ready.')
   })
 
-  test('[redesign 16] loading the road creates nothing: no call to /api/guest before Start is pressed', async ({
-    page,
-  }) => {
-    const calls = await openRoad(page)
-    await page.waitForLoadState('networkidle')
-    await page.reload()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-    expect(calls.guest).toBe(0)
-    await page
-      .getByRole('button', { name: 'Skip' })
-      .click({ timeout: 1000 })
-      .catch(() => undefined)
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
-    await expect.poll(() => calls.guest).toBe(1)
-  })
+  test(
+    '[redesign 16] loading the road creates nothing: no call to /api/guest before Start is pressed',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const calls = await openRoad(page)
+      await page.waitForLoadState('networkidle')
+      await page.reload()
+      await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+      expect(calls.guest).toBe(0)
+      await page
+        .getByRole('button', { name: 'Skip' })
+        .click({ timeout: 1000 })
+        .catch(() => undefined)
+      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await expect.poll(() => calls.guest).toBe(1)
+    },
+  )
 
   test('[redesign 19] when the road cannot be read the page says "No connection", and no sign or stop is invented', async ({
     page,

@@ -18,7 +18,7 @@ The full decision, with the runner up for each choice and why it lost, is in [fa
 | Finnish content pipeline        | Python 3.12, Voikko, pytest, ruff (runs in the GitHub check on Linux)                     |
 | Secret scan                     | gitleaks                                                                                  |
 | Dependency check                | `npm audit`, `pip-audit`, Dependabot                                                      |
-| Automatic checks                | GitHub Actions, on every pull request                                                     |
+| Automatic checks                | GitHub Actions: until the MVP launch a secret scan per change, one full run before launch |
 
 Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, made at liftoff on a paid plan, can pick a specific EU region.
 
@@ -35,7 +35,7 @@ npm run dev
 
 Open the address it prints (usually http://localhost:5173). The front door shows today's session; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/session` (job 8-first-session). `http://localhost:5173/api/health` answers from the Worker.
 
-`npm ci` also installs the commit check (lefthook, `lefthook.yml`). Before every commit it formats the staged files and checks them with ESLint, the type check, ruff and gitleaks. It needs two free tools, installed once:
+`npm ci` also installs the commit check (lefthook, `lefthook.yml`). Before every commit it formats the staged files and scans them for secrets with gitleaks. Until the MVP launch it runs no ESLint, type check or ruff (owner's decision of 3 November 2026). It needs two free tools, installed once:
 
 | Tool                                 | One time install                                               |
 | ------------------------------------ | -------------------------------------------------------------- |
@@ -70,16 +70,27 @@ The database is defined in code in `supabase/`, made by the Supabase CLI. The CL
 
 - **Add a change:** `npx supabase migration new <short_name>` creates a timestamped SQL file in `supabase/migrations/`. Write the change there. Every new table gets its permissions written out (remove all, then grant only what is needed), row level security, and its access rules in the same migration.
 - **Tests:** pgTAP tests (SQL tests) live in `supabase/tests/database/`. Each one runs in a transaction that is rolled back. They prove what each role can and cannot do. With Docker installed, `npx supabase db start` followed by `npx supabase test db` runs them on a throwaway local database. The GitHub check "Database tests (local Supabase, pgTAP)" is the reference.
-- **Browser tests:** on a pull request, the check "Browser tests (Playwright, local Supabase)" starts its own throwaway Supabase in the runner (Postgres, the API gateway, the REST API and sign in), applies every migration, loads `supabase/seeds/browser/*.sql`, and runs every browser test against the app pointed at it. It holds no secret, and parallel pull requests never share a database. After a merge, "Browser tests against the test project (after merge)" runs them against the test project, without tests tagged `@seed`.
+- **Browser tests:** the check "Browser tests (Playwright, local Supabase)" starts its own throwaway Supabase in the runner (Postgres, the API gateway, the REST API and sign in), applies every migration, loads `supabase/seeds/browser/*.sql`, and runs the browser tests against the app pointed at it. It holds no secret, and parallel pull requests never share a database. Until the MVP launch both browser test checks run only in the full run (see "Tests until the MVP launch" below).
 - **Seed rows for browser tests:** put them in `supabase/seeds/browser/` as numbered `.sql` files. They are made-up rows, loaded only into that throwaway database, and never reach a hosted database. Tag a test that needs them `@seed`.
 - **Applying:** migrations reach the test project only through the workflow, and only after the owner approves a job (owner's rule from job 3-data-model). On a pull request the job "Apply database changes to the test project" is skipped. On the push to main that the merge makes, it runs `supabase db push` and then the same tests against the test project. Nobody applies migrations by hand, and no agent uses `supabase link`, a personal access token or a secret key.
 - **Types:** `src/lib/database.types.ts` is made by the Supabase CLI from the migrated database (`npx supabase gen types --lang typescript --local --schema public`, which needs Docker). The database check regenerates it and fails if the committed file differs; when it does, the check keeps the new file as the `database-types` download on the run page.
 
+## Tests until the MVP launch
+
+The owner decided on 3 November 2026 that no tests run until every requirement for the MVP is done. Then the full run happens once, as the general test before launch. The workflow is `.github/workflows/checks.yml`.
+
+- **Every pull request:** only the secret scan (gitleaks, because the repository is public), then the preview link is uploaded and posted. No browser test runs against it, and its comment says so.
+- **Every push to main:** the secret scan, and "Apply database changes to the test project", which applies new migrations with no database test in front of it (content publishing depends on it). A push with no new migration applies nothing. If an apply fails, re-run the failed jobs of that run from its Actions page.
+- **Before every commit:** lefthook runs only the Prettier fix and the secret scan.
+- **The full run** (by hand, once before the MVP launch): on GitHub, open Actions, then Checks, then "Run workflow", pick `main`, tick "full" and run it. It runs the type check, lint and format, the unit tests, the Python tests, the dependency check, every database test, every browser test (about 720) on Chromium and WebKit, the `@empty-content` tests, and the browser tests against the test project. It takes about 30 minutes. A manual run without "full" runs only the secret scan, over the full git history.
+
+No test is deleted. After the launch, a fast run is ready to switch on: removing the full-run `if:` lines from the test jobs gives every change the type check, unit, Python and dependency checks, the 29 browser tests tagged `@smoke` on Chromium (the road, one whole lesson, the word card, sign in, the account page and privacy), and the database tests only when `scripts/ci/checks-plan.ts` says the change needs them. That run took 5 minutes 19 seconds on pull request 16. To put a browser test in that set, give it the tag: `test('[label N] title', { tag: '@smoke' }, async ({ page }) => { ... })`.
+
 ## Preview links
 
-When every check passes on a pull request, the workflow uploads a version of the `puhuscribe-preview` Worker with an alias made from the branch name (`factory/1-stack` becomes `factory-1-stack`), runs the browser tests against it (without tests tagged `@seed`), and posts the link on the pull request.
+When every check passes on a pull request, the workflow uploads a version of the `puhuscribe-preview` Worker with an alias made from the branch name (`factory/1-stack` becomes `factory-1-stack`) and posts the link on the pull request. Until the MVP launch no browser test runs against it, and the comment says so. Without the `CLOUDFLARE_ACCOUNT_ID` secret, wrangler finds the account from the Cloudflare API token.
 
-The preview uses the shared test project, which gets a pull request's database changes only after the owner approves the job. So when a pull request adds, changes or deletes a file in `supabase/migrations/`, only the Cloudflare Access lock tests (tag `@preview`) run on the preview, and the comment says that screens needing the new database parts do not work on the link yet. The full browser tests for that pull request ran on its throwaway database; their videos and screenshots are in the `playwright-report` download of the run, linked in the comment.
+The preview uses the shared test project, which gets a pull request's database changes only after the owner approves the job. So when a pull request adds, changes or deletes a file in `supabase/migrations/`, the comment says that screens needing the new database parts do not work on the link yet.
 
 A push to main that changes only `factory/` or `recording/` files skips the checks and gets only a secret scan (`.github/workflows/secret-scan-notes.yml`). Cloudflare Access guards every preview link: a visitor sees a sign in page first. The evaluator gets in with an Access service token. The Supabase test project is kept awake by a daily workflow (`.github/workflows/keep-test-db-awake.yml`).
 

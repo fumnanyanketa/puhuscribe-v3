@@ -155,53 +155,55 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     expect(sessionsOf(userId)[0]?.step).toBe('say')
   })
 
-  test('[speak 5] [speak 6] [speak 15] [speak 17] a whole dialogue, one try per line: feedback, no transcript in any answer, attempts stored, no audio kept', async ({
-    page,
-  }) => {
-    await stubMicrophone(page, 'tone')
-    const bodies: string[] = []
-    page.on('response', (res) => {
-      if (new URL(res.url()).pathname === '/api/speech/say') {
-        void res.text().then(
-          (text) => bodies.push(text),
-          () => undefined,
+  test(
+    '[speak 5] [speak 6] [speak 15] [speak 17] a whole dialogue, one try per line: feedback, no transcript in any answer, attempts stored, no audio kept',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await stubMicrophone(page, 'tone')
+      const bodies: string[] = []
+      page.on('response', (res) => {
+        if (new URL(res.url()).pathname === '/api/speech/say') {
+          void res.text().then(
+            (text) => bodies.push(text),
+            () => undefined,
+          )
+        }
+      })
+      const { userId, lines } = await toSayIt(page)
+      await turnOn(page)
+      expect(sessionsOf(userId)[0]?.step).toBe('understand')
+      for (let i = 0; i < lines.length; i += 1) {
+        const line = lines[i]
+        await expect(page.locator('[data-say-line]')).toHaveAttribute('data-say-line', line?.id ?? '')
+        await expect(page.locator('[data-say-line] [lang="fi"]').first()).toHaveText(
+          (line?.puhe ?? '').replace(/\s+/g, ' '),
         )
+        // "Next line" comes only after a try.
+        await expect(
+          page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' }),
+        ).toHaveCount(0)
+        await recordOnce(page)
+        await expect(status(page)).toHaveText('Yes, that was clear.')
+        await expect(page.getByRole('button', { name: 'Try again' })).toBeVisible()
+        await page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' }).click()
       }
-    })
-    const { userId, lines } = await toSayIt(page)
-    await turnOn(page)
-    expect(sessionsOf(userId)[0]?.step).toBe('understand')
-    for (let i = 0; i < lines.length; i += 1) {
-      const line = lines[i]
-      await expect(page.locator('[data-say-line]')).toHaveAttribute('data-say-line', line?.id ?? '')
-      await expect(page.locator('[data-say-line] [lang="fi"]').first()).toHaveText(
-        (line?.puhe ?? '').replace(/\s+/g, ' '),
-      )
-      // "Next line" comes only after a try.
-      await expect(
-        page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' }),
-      ).toHaveCount(0)
-      await recordOnce(page)
-      await expect(status(page)).toHaveText('Yes, that was clear.')
-      await expect(page.getByRole('button', { name: 'Try again' })).toBeVisible()
-      await page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' }).click()
-    }
-    await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    expect(sessionsOf(userId)[0]?.step).toBe('say')
-    expect(await microphoneReleased(page)).toBe(true)
+      await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+      expect(sessionsOf(userId)[0]?.step).toBe('say')
+      expect(await microphoneReleased(page)).toBe(true)
 
-    expect(bodies).toHaveLength(lines.length)
-    for (const body of bodies) expect(Object.keys(JSON.parse(body) as object)).toEqual(['feedbackClass'])
-    const attempts = sql(
-      `select line_id, length(transcript) > 0, feedback_class, provider, audio_ms > 0 from public.speaking_attempts
+      expect(bodies).toHaveLength(lines.length)
+      for (const body of bodies) expect(Object.keys(JSON.parse(body) as object)).toEqual(['feedbackClass'])
+      const attempts = sql(
+        `select line_id, length(transcript) > 0, feedback_class, provider, audio_ms > 0 from public.speaking_attempts
         where user_id = :'uid' order by created_at`,
-      { uid: userId },
-    )
-    expect(attempts).toEqual(lines.map((line) => [line.id, 't', 'clear', 'fake', 't']))
-    expect(one(`select count(*) from public.kept_recordings where user_id = :'uid'`, { uid: userId })).toBe(
-      '0',
-    )
-  })
+        { uid: userId },
+      )
+      expect(attempts).toEqual(lines.map((line) => [line.id, 't', 'clear', 'fake', 't']))
+      expect(one(`select count(*) from public.kept_recordings where user_id = :'uid'`, { uid: userId })).toBe(
+        '0',
+      )
+    },
+  )
 
   test('[speak 5] leaving at Say it resumes there, and after Say it resumes at the finish screen', async ({
     page,
