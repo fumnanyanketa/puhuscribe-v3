@@ -51,17 +51,20 @@ describe('previewComment', () => {
     expect(body.endsWith(`\n\n${NOTE}`)).toBe(true)
   })
 
-  it('[fast 4] without the Access service token the comment says no browser test ran on the link, and still gives it', () => {
+  // Changed when the owner paused every test until the MVP launch (3 November 2026).
+  it('[fast 4] with no tests on pull requests the comment says no browser test ran, and still gives the link', () => {
     const body = previewComment({ ...base, databaseChanged: false, testsRan: false })
     expect(body).toBe(
-      'Preview for abcdef1: https://x-puhuscribe-preview.a.workers.dev\n\nPrivate: opening it shows a Cloudflare Access sign in first. No browser test ran against this link, because the Access service token secrets (CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET) are not set in this repository. The other checks of this run passed.',
+      "Preview for abcdef1: https://x-puhuscribe-preview.a.workers.dev\n\nPrivate: opening it shows a Cloudflare Access sign in first. No browser test ran against this link or on this pull request. Until the MVP launch, by the owner's decision of 3 November 2026, only the secret scan runs on each change; the full run happens once before launch.",
     )
     expect(body).not.toContain('already ran')
   })
 
-  it('[fast 4] without the token and with a database change, the database note is still added', () => {
+  it('[fast 4] with no tests and a database change, the database note is added without claiming tests ran', () => {
     const body = previewComment({ ...base, databaseChanged: true, testsRan: false })
     expect(body).toContain('No browser test ran against this link')
-    expect(body.endsWith(`\n\n${NOTE}`)).toBe(true)
+    expect(body).toContain('This pull request changes the database.')
+    expect(body).not.toContain('The browser tests ran on a throwaway database')
+    expect(body).not.toContain('playwright-report')
   })
 })

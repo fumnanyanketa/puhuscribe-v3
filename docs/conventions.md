@@ -140,25 +140,25 @@ The builder's notes, `factory/jobs/<job-id>/build.md`, are rewritten each round.
 
 ## Checks and where they run
 
-| Check | Before a commit (lefthook) | When a builder agent stops | On GitHub: fast run (every pull request and push to main) | On GitHub: full run (by hand, once before the MVP launch) |
+| Check | Before a commit (lefthook) | When a builder agent stops | On GitHub: every pull request and push to main, until the MVP launch | On GitHub: full run (by hand, once before the MVP launch) |
 | --- | --- | --- | --- | --- |
-| Type check (`tsc -b`) | When a staged file is `.ts`, `.tsx`, `.json` or `.jsonc` | When a changed app file is one of those | Yes | Yes |
-| Lint (ESLint) | Staged `.ts`, `.tsx`, `.js` files | Changed `.ts`, `.tsx`, `.js` app files | Yes | Yes |
-| Format (Prettier) | Fixes staged files and adds the fixes | Changed app files (check only) | Yes (check only) | Yes (check only) |
-| Python lint and format (ruff) | Staged `.py` files | No | Yes | Yes |
-| Secret scan (gitleaks) | The staged changes, output redacted | Changed app files, output redacted | Pull request commits; pushes to main | Full history |
-| Unit tests (Vitest) | No | No | Yes | Yes |
-| Python tests (pytest, Voikko) and the content checks on committed drafts | No | No | Yes, all of them | Yes, all of them |
-| Database tests (pgTAP) | No | No | Only when the change touches `supabase/`, a `scripts/generate/` file that writes SQL, or another file they depend on (`scripts/ci/checks-plan.ts`); otherwise a notice says they were skipped | Yes |
-| Browser tests (Playwright) | No | No | Chromium only, the tests tagged `@smoke`, on a throwaway local Supabase in the runner, no secret | Every test on Chromium and WebKit on the throwaway Supabase, then the `@empty-content` tests; on main also against the test project, without `@seed` and `@email` tests |
-| Dependency check (`npm audit`, `pip-audit`) | No | No | Yes | Yes |
+| Type check (`tsc -b`) | No, until the MVP launch | When a changed app file is `.ts`, `.tsx`, `.json` or `.jsonc` | No | Yes |
+| Lint (ESLint) | No, until the MVP launch | Changed `.ts`, `.tsx`, `.js` app files | No | Yes |
+| Format (Prettier) | Fixes staged files and adds the fixes | Changed app files (check only) | No | Yes (check only) |
+| Python lint and format (ruff) | No, until the MVP launch | No | No | Yes |
+| Secret scan (gitleaks) | The staged changes, output redacted | Changed app files, output redacted | Yes: pull request commits; pushes to main | Full history |
+| Unit tests (Vitest) | No | No | No | Yes |
+| Python tests (pytest, Voikko) and the content checks on committed drafts | No | No | No | Yes, all of them |
+| Database tests (pgTAP) | No | No | No. A push to main still applies new migrations to the test project | Yes |
+| Browser tests (Playwright) | No | No | No. A pull request still gets its preview link | Every test on Chromium and WebKit on the throwaway Supabase, then the `@empty-content` tests; on main also against the test project, without `@seed` and `@email` tests |
+| Dependency check (`npm audit`, `pip-audit`) | No | No | No | Yes |
 
 - **Before a commit:** `lefthook.yml`. lefthook installs its git hook during `npm ci` (not on GitHub, where `CI=true`). The one time installs for gitleaks and ruff are in the README.
 - **When a builder agent stops:** `scripts/hooks/stop-checks.ts`, started by the `SubagentStop` hook in `.claude/settings.json` for the `factory-builder` agent only. It checks the app files changed in each factory worktree since it left main. Files under `factory/`, `docs/` and `.claude/`, and the private recording folder, do not count. A builder whose `build.md` ends with `Result: blocked:` may stop.
-- **On GitHub:** `.github/workflows/checks.yml`. Every pull request and push to main gets the fast run, aimed at under 10 minutes (owner's decision of 3 November 2026). The full run is started by hand: Actions, Checks, "Run workflow" on `main`, with "full" ticked. The owner runs it once, when everything is set for the MVP launch. A push to main still applies new migrations to the test project after the database tests pass. A push to main that changes only `factory/` files or the private recording folder skips the workflow and runs only the secret scan in `.github/workflows/secret-scan-notes.yml`. Pull requests are never filtered by path.
-- **The fast set of browser tests:** a test is in it when it carries the tag `@smoke` (`test('[label N] title', { tag: '@smoke' }, async ...)`). Add the tag to a test that guards the road, the lesson, the word card, sign in, the account page or privacy, and keep the set small. Tests only move between the fast set and the full set; none is deleted or weakened to save time.
+- **On GitHub:** `.github/workflows/checks.yml`. Until the MVP launch (owner's decision of 3 November 2026) only the secret scan runs on each pull request and push; a pull request also gets its preview link, and a push to main applies new migrations to the test project with no test in front. The full run is started by hand: Actions, Checks, "Run workflow" on `main`, with "full" ticked. The owner runs it once, when everything is set for the MVP launch. A push to main that changes only `factory/` files or the private recording folder skips the workflow and runs only the secret scan in `.github/workflows/secret-scan-notes.yml`. Pull requests are never filtered by path.
+- **The fast set of browser tests**, for after the launch: a test is in it when it carries the tag `@smoke` (`test('[label N] title', { tag: '@smoke' }, async ...)`). Until the launch it runs only inside the full run. Tests only move between the fast set and the full set; none is deleted or weakened to save time.
 - **By hand:** `npm run check:code` runs the type check, lint and format check, in that order.
 
-Never skip a check (`git commit --no-verify`, `LEFTHOOK=0`) and never edit one to make it pass. If a check is wrong, say so in the job notes.
+Never skip a check (`git commit --no-verify`, `LEFTHOOK=0`) and never edit one to make it pass. Until the MVP launch, by the owner's decision of 3 November 2026, only the secret scan runs on each change; the full run happens once before launch. If a check is wrong, say so in the job notes.
 
 Do not run `npx lefthook uninstall`. lefthook 2.2.2 rewrites `.claude/settings.json` when it uninstalls (it reorders the keys), which changes a file only the owner decides on. Git keeps one hooks folder for the main checkout and every worktree, so the last `npm ci` decides which copy of lefthook the hook starts; after a factory worktree is removed, run `npm ci` in the main checkout. Until then the hook cannot find lefthook and refuses every commit there (`assert_lefthook_installed` in `lefthook.yml`), so nothing is committed unchecked.

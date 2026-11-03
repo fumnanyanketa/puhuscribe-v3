@@ -96,8 +96,12 @@ describe('applying migrations to the test project', () => {
     expect(apply).toContain('    name: Apply database changes to the test project\n')
   })
 
-  it('[smoke 11] runs only after the database tests passed', () => {
-    expect(needsOf('apply-test-db')).toEqual(['database'])
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): the apply job no longer waits for the database tests, which run in
+  // the full run only. It still runs only on a push to main ([data 18]).
+  it('[smoke 11] [fast 2] waits for no other job, so content publishing reaches the test project with no test in front', () => {
+    expect(needsOf('apply-test-db')).toEqual([])
+    expect(job('apply-test-db')).not.toMatch(/^ {4}needs:/m)
   })
 
   it('[smoke 11] pushes migrations with the test connection string and then runs the security tests on the test project', () => {
@@ -223,19 +227,11 @@ describe('order of the checks', () => {
     expect(ifLine('browser-test-project')).toContain("needs.database.result == 'success'")
   })
 
-  it('[smoke 11] the preview waits for the database tests and the test project update', () => {
-    expect(needsOf('preview')).toEqual(
-      expect.arrayContaining([
-        'code',
-        'unit',
-        'python',
-        'database',
-        'apply-test-db',
-        'browser',
-        'secrets',
-        'dependencies',
-      ]),
-    )
+  // Changed when the owner paused every test until the MVP launch: the other
+  // checks do not run on a pull request, so the preview waits for the secret
+  // scan and still checks the test project was not changed.
+  it('[smoke 11] [fast 4] the preview waits for the secret scan and the test project update', () => {
+    expect(needsOf('preview')).toEqual(['secrets', 'apply-test-db'])
   })
 })
 
@@ -360,10 +356,10 @@ describe('pull request browser tests on a throwaway database', () => {
     expect(local()).toContain('    name: Browser tests (Playwright, local Supabase)\n')
   })
 
-  // Changed by job fast-checks: pushes to main now get the fast browser run
-  // too, since the browser tests against the test project moved to the full run.
-  it('[prdb 1] [fast 1] runs on every pull request (Dependabot included), push to main and manual run', () => {
-    expect(local()).not.toMatch(/^ {4}if:/m)
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): the browser tests run in the manual full run only.
+  it('[prdb 1] [fast 3] runs only in the manual full run', () => {
+    expect(ifLine('browser')).toBe("github.event_name == 'workflow_dispatch' && inputs.full")
     expect(local()).not.toContain('dependabot')
   })
 
@@ -570,16 +566,14 @@ describe('preview links on pull requests that change the database', () => {
     )
   })
 
-  // Changed by job fast-checks: without a database change the preview runs
-  // the fast set (Chromium, @smoke) with the lock tests, not the whole suite.
-  it('[prdb 10] [accounts 28] [fast 4] a database change runs only @preview tests on the preview, otherwise the fast set and the lock tests without @seed and @email', () => {
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): no browser test runs against the preview, with or without a
+  // database change, and it receives no Access service token.
+  it('[prdb 10] [accounts 28] [fast 4] no browser test runs against the preview until the MVP launch', () => {
     const run = runText('preview')
-    expect(run).toContain('if [ "$DB_CHANGED" = true ]; then')
-    expect(run).toMatch(/^npx playwright test --grep @preview$/m)
-    expect(run).toMatch(
-      /^npx playwright test --project=chromium --grep "@smoke\|@preview" --grep-invert "@seed\|@email"$/m,
-    )
-    expect(run).not.toMatch(/^npx playwright test$/m)
+    expect(run).not.toMatch(/\bplaywright\b/)
+    expect(job('preview')).not.toContain('CF_ACCESS_CLIENT')
+    expect(job('preview')).not.toContain('actions/upload-artifact')
   })
 
   it('[prdb 10] the preview is still uploaded and the link still posted either way', () => {
@@ -693,25 +687,30 @@ describe('jobs that fetch the private fonts upload no trace and no report', () =
     }
   })
 
-  it.each(['browser-test-project', 'preview'])(
-    '[public 1] %s uploads only .png and .webm files from test-results, never a report folder',
-    (id) => {
-      const paths = uploadPaths(id)
-      expect(paths.length, id).toBeGreaterThan(0)
-      for (const path of paths) {
-        expect(path, id).not.toMatch(/playwright-report/)
-        expect(path, id).toMatch(/^test-results\/\*\*\/\*\.(png|webm)$/)
-      }
-    },
-  )
+  // Until the MVP launch the preview runs no browser test and uploads nothing
+  // (owner's decision of 3 November 2026), so it has no upload to check.
+  it('[public 1] [fast 4] the preview, which has the font files, uploads no artifact at all', () => {
+    expect(uploadPaths('preview')).toEqual([])
+    expect(job('preview')).not.toContain('actions/upload-artifact')
+  })
+
+  it('[public 1] browser-test-project uploads only .png and .webm files from test-results, never a report folder', () => {
+    const paths = uploadPaths('browser-test-project')
+    expect(paths.length).toBeGreaterThan(0)
+    for (const path of paths) {
+      expect(path).not.toMatch(/playwright-report/)
+      expect(path).toMatch(/^test-results\/\*\*\/\*\.(png|webm)$/)
+    }
+  })
 
   it.each(['browser-test-project', 'preview'])(
-    '[public 1] %s sets PUHUSCRIBE_NO_TRACE on the step that runs Playwright, so no trace or HTML report is written',
+    '[public 1] %s sets PUHUSCRIBE_NO_TRACE on every step that runs Playwright, so no trace or HTML report is written',
     (id) => {
       const playwrightSteps = job(id)
         .split(/\n(?= {6}- )/)
         .filter((step) => /\bnpx playwright test\b/.test(step))
-      expect(playwrightSteps.length, id).toBeGreaterThan(0)
+      // The preview has no Playwright step until the MVP launch.
+      expect(playwrightSteps.length, id).toBe(id === 'preview' ? 0 : 1)
       for (const step of playwrightSteps) {
         expect(step, id).toContain("PUHUSCRIBE_NO_TRACE: '1'")
         expect(step, id).not.toMatch(/--trace|--reporter=html/)
@@ -879,19 +878,40 @@ describe('the fast run on every pull request and push', () => {
     expect(job('changes')).toContain('persist-credentials: false')
   })
 
-  it('[fast 1] the checks that always ran still run on every event: no job-level condition', () => {
-    for (const id of ['code', 'unit', 'python', 'secrets', 'dependencies', 'changes']) {
-      expect(job(id), id).not.toMatch(/^ {4}if:/m)
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): only the secret scan runs on every event; the test jobs run in the
+  // manual full run only.
+  it('[fast 1] [fast 3] the secret scan runs on every event, and every test job only in the full run', () => {
+    expect(job('secrets')).not.toMatch(/^ {4}if:/m)
+    for (const id of ['changes', 'code', 'unit', 'python', 'dependencies', 'browser']) {
+      expect(ifLine(id), id).toBe("github.event_name == 'workflow_dispatch' && inputs.full")
     }
+  })
+
+  it('[fast 1] on a pull request or a push only the secret scan, the preview and the apply job can run', () => {
+    const FULL = "github.event_name == 'workflow_dispatch' && inputs.full"
+    for (const id of all.keys()) {
+      if (['secrets', 'preview', 'apply-test-db'].includes(id)) continue
+      // Either the job itself runs only in the full run, or it waits for the
+      // plan job, which does (the database tests).
+      const own = ifLine(id).includes(FULL)
+      const viaPlan = needsOf(id).includes('changes') && ifLine('changes') === FULL
+      expect(own || viaPlan, id).toBe(true)
+    }
+    const preview = job('preview')
+    expect(preview.slice(preview.indexOf('    if: >-'), preview.indexOf('    runs-on:'))).toContain(
+      "github.event_name == 'pull_request'",
+    )
+    expect(ifLine('apply-test-db')).toContain("github.event_name == 'push'")
   })
 })
 
 describe('pushes to main and the manual full run', () => {
-  it('[fast 2] the apply job still runs on a push to main once the database tests passed', () => {
+  it('[fast 2] the apply job still runs on every push to main, with no test in front of it', () => {
     expect(ifLine('apply-test-db')).toBe(
       "github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'",
     )
-    expect(needsOf('apply-test-db')).toEqual(['database'])
+    expect(needsOf('apply-test-db')).toEqual([])
   })
 
   it('[fast 3] the manual run has one input, "full", a boolean that is off by default', () => {
@@ -902,45 +922,24 @@ describe('pushes to main and the manual full run', () => {
   })
 })
 
-describe('the preview link without the Access service token', () => {
+// Changed when the owner paused every test until the MVP launch (3 November
+// 2026): the preview runs no browser test, so the Access token check, the
+// browser steps and the upload are gone; the link is still posted.
+describe('the preview link with no tests until the MVP launch', () => {
   const preview = () => job('preview')
 
-  it('[fast 4] a step reports whether both Access secrets are set, printing only true or false', () => {
-    const step = stepNamed('preview', 'Are the Access service token secrets set?')
-    expect(step).toContain('        id: access\n')
-    expect(step).toContain('if [ -n "$CF_ACCESS_CLIENT_ID" ] && [ -n "$CF_ACCESS_CLIENT_SECRET" ]; then')
-    expect(step).toContain('echo "set=$set" >> "$GITHUB_OUTPUT"')
-    expect(step).toMatch(/echo "::notice title=Preview browser tests skipped::/)
-    expect(step).not.toMatch(/echo .*\$CF_ACCESS/)
-  })
-
-  it('[fast 4] the browser install and the browser tests run only when they are set', () => {
-    for (const name of [
-      'Install Chromium and WebKit',
-      "Browser tests against the preview, with the evaluator's service token",
-    ]) {
-      expect(stepNamed('preview', name), name).toContain("        if: steps.access.outputs.set == 'true'\n")
-    }
-  })
-
-  it('[fast 4] the upload guard runs whenever the tests ran, and the upload still needs the guard', () => {
-    expect(stepNamed('preview', 'Check the files to upload hold no secret value')).toContain(
-      "        if: (success() || failure()) && steps.access.outputs.set == 'true'\n",
-    )
-    expect(stepNamed('preview', 'Keep the preview screenshots and videos')).toContain(
-      "if: (success() || failure()) && steps.upload-guard.outcome == 'success'",
-    )
-  })
-
-  it('[fast 4] the preview is still uploaded and the link still posted, saying whether tests ran', () => {
+  it('[fast 4] the preview is still uploaded and the link still posted, with no condition on either', () => {
     for (const name of [
       'Upload a preview version of puhuscribe-preview',
       'Post the preview link on the pull request',
     ]) {
       expect(stepNamed('preview', name), name).not.toMatch(/^ {8}if:/m)
     }
+  })
+
+  it('[fast 4] the comment is told no test ran', () => {
     expect(stepNamed('preview', 'Post the preview link on the pull request')).toContain(
-      '          TESTS_RAN: ${{ steps.access.outputs.set }}\n',
+      "          TESTS_RAN: 'false'\n",
     )
   })
 
@@ -950,15 +949,12 @@ describe('the preview link without the Access service token', () => {
     )
   })
 
-  it('[fast 1] [fast 5] the preview accepts skipped database tests only when the plan job succeeded and said they were not needed', () => {
+  it('[fast 4] [fast 5] the preview runs only after the secret scan passed, and only while the test project is untouched', () => {
     const condition = preview().slice(preview().indexOf('    if: >-'), preview().indexOf('    runs-on:'))
-    expect(condition).toContain("needs.changes.result == 'success'")
-    expect(condition).toContain(
-      "(needs.database.result == 'success' ||\n      (needs.database.result == 'skipped' && needs.changes.outputs.database == 'false'))",
-    )
-    expect(condition).not.toMatch(
-      /needs\.(changes|code|unit|python|browser|secrets|dependencies)\.result == 'skipped'/,
-    )
+    expect(condition).toContain('!cancelled()')
+    expect(condition).toContain("needs.secrets.result == 'success'")
+    expect(condition).toContain("needs.apply-test-db.result == 'skipped'")
+    expect(condition).not.toMatch(/needs\.secrets\.result == 'skipped'/)
   })
 })
 

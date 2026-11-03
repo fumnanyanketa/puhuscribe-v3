@@ -11,9 +11,9 @@
 //   HEAD_SHA=... URL=... DB_CHANGED=true|false TESTS_RAN=true|false RUN_URL=... node scripts/ci/preview-plan.ts comment
 //     -> prints the pull request comment
 //
-// TESTS_RAN is false when the Cloudflare Access service token secrets are not
-// set in the repository (owner's decision of 3 November 2026): the preview is
-// still uploaded and its link posted, and the comment says no test ran on it.
+// TESTS_RAN is false until the MVP launch: by the owner's decision of 3
+// November 2026 no test runs on a pull request. The preview is still uploaded
+// and its link posted, and the comment says no test ran on it.
 import { readFileSync } from 'node:fs'
 
 const MIGRATIONS = 'supabase/migrations/'
@@ -33,13 +33,19 @@ export interface CommentInput {
 const TESTS_RAN =
   "Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token."
 const NO_TESTS =
-  'Private: opening it shows a Cloudflare Access sign in first. No browser test ran against this link, because the Access service token secrets (CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET) are not set in this repository. The other checks of this run passed.'
+  "Private: opening it shows a Cloudflare Access sign in first. No browser test ran against this link or on this pull request. Until the MVP launch, by the owner's decision of 3 November 2026, only the secret scan runs on each change; the full run happens once before launch."
+
+const DATABASE_NOTE =
+  'This pull request changes the database. The preview uses the shared test project, which gets these changes only after you approve the job, so screens that need them do not work on this link yet.'
 
 export function previewComment({ sha, url, databaseChanged, testsRan, runUrl }: CommentInput): string {
   const parts = [`Preview for ${sha.slice(0, 7)}: ${url}`, testsRan ? TESTS_RAN : NO_TESTS]
   if (databaseChanged) {
+    // The sentence about the throwaway database is true only when its browser tests ran.
     parts.push(
-      `This pull request changes the database. The preview uses the shared test project, which gets these changes only after you approve the job, so screens that need them do not work on this link yet. The browser tests ran on a throwaway database with the changes; their videos and screenshots are in the playwright-report download of this run: ${runUrl}`,
+      testsRan
+        ? `${DATABASE_NOTE} The browser tests ran on a throwaway database with the changes; their videos and screenshots are in the playwright-report download of this run: ${runUrl}`
+        : DATABASE_NOTE,
     )
   }
   return parts.join('\n\n')

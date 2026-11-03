@@ -78,8 +78,8 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
 - **Secrets.** Only in `.env.local` and GitHub secrets. Never read, search or print `.env*` files; use `git grep`.
 - **Fonts.** The Switzer font files are not in git (the licence forbids public repositories). `scripts/ci/fetch-private-fonts.ts` fetches them when a key is set, and tests that need them skip with a reason when they are absent (`docs/fonts.md`). Never commit the files.
 - **v2 files** stay unchanged and hash checked (`docs/v2-imports.md`).
-- **Checks.** `npm run check:code` runs the type check, lint and format check. Pull requests get fast checks; the full run is manual, before launch.
-- **Before every commit**, lefthook (a git hook manager, configured in `lefthook.yml`) runs those checks on the staged files, plus ruff (Python lint) and gitleaks (a secret scanner).
+- **Checks.** Until the MVP launch (owner, 3 November 2026) only the secret scan runs on each change; the full run happens once before launch.
+- **Before every commit**, lefthook (`lefthook.yml`) runs Prettier and gitleaks.
 - **When a builder agent stops**, `scripts/hooks/stop-checks.ts` checks the factory worktrees.
 
 ## Project rules
@@ -91,7 +91,7 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
   - **A confused session.** Stop and start a fresh one.
   - **A wrong earlier decision.** Stop and send it back to the spec. Do not patch around it.
 - **Output style.** Plain short sentences. Explain a technical term the first time you use it. Report in a few lines. The writing rules below apply.
-- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. If a check is wrong, say so in the job notes.
+- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. Until the MVP launch only the secret scan runs on each change; the full run happens once before launch. If a check is wrong, say so in the job notes.
 
 ## Writing rules (app text, docs, summaries)
 
