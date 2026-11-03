@@ -126,7 +126,7 @@ describe('the word card button', () => {
 
 describe('one way in', () => {
   it('[units 9] the panel is not a step: the step list holds loop steps only', () => {
-    const loop = ['Hear it', 'Understand it', 'Say it', 'Keep it', 'Use it']
+    const loop = ['Hear it, say it', 'Understand it', 'Recap', 'Keep it', 'Use it']
     for (const step of SESSION_STEPS) expect(loop).toContain(step.name)
     expect(SESSION_STEPS.map((s) => s.name).join(' ')).not.toMatch(/pattern/i)
   })

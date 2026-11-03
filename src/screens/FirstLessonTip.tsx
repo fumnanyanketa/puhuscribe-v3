@@ -5,7 +5,9 @@ import styles from './FirstLessonTip.module.css'
 // Hear it is finished, the line card stays lit, the rest of the screen dims
 // (the frame draws the scrim), and three short lines say what the card shows:
 // "How people say it" (mint dot), "How it's written" (slate dot) and "Tap any
-// word to learn it" (peach ring), with a "Got it" button. Whether it shows
+// word to learn it" (peach ring). Since Hear it, say it (fast route
+// hear-and-say, 3 November 2026) one plain sentence follows, "After each line,
+// say it back.", then the "Got it" button. Whether it shows
 // comes from the session answer (firstLesson); nothing is kept on the phone.
 //
 // It follows the dialog rules of the word card (job 5): focus moves to "Got it"
@@ -17,10 +19,13 @@ import styles from './FirstLessonTip.module.css'
 interface FirstLessonTipProps {
   /** The lit card and this tip: the only place Tab may go while it is open. */
   region: RefObject<HTMLElement | null>
-  /** Where focus goes when the tip closes: the screen's "Next line" button. */
+  /** Where focus goes when the tip closes: "Next line", or "I can't speak right now" before a try. */
   restoreFocusTo: RefObject<HTMLElement | null>
   onClose: () => void
 }
+
+/** The tip's one sentence on Hear it, say it (fast route hear-and-say, 3 November 2026). */
+export const TIP_SAY_BACK = 'After each line, say it back.'
 
 const FOCUSABLE = 'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
 
@@ -70,14 +75,16 @@ export function FirstLessonTip({ region, restoreFocusTo, onClose }: FirstLessonT
     }
     document.addEventListener('keydown', onKey, true)
     document.addEventListener('focusin', onFocusIn)
-    const back = restoreFocusTo.current
+    // The ref itself, read when the tip closes (see below).
+    const back = restoreFocusTo
     return () => {
       document.removeEventListener('keydown', onKey, true)
       document.removeEventListener('focusin', onFocusIn)
       root.style.overflow = before
-      // Back to "Next line", once the tip has gone.
+      // Back to what the screen names, once the tip has gone. Read now, not when the tip opened: in
+      // Hear it, say it that button appears only after speaking feedback has loaded.
       setTimeout(() => {
-        back?.focus()
+        back.current?.focus()
       }, 0)
     }
   }, [region, restoreFocusTo])
@@ -98,6 +105,7 @@ export function FirstLessonTip({ region, restoreFocusTo, onClose }: FirstLessonT
           Tap any word to learn it
         </li>
       </ul>
+      <p className={styles.sayBack}>{TIP_SAY_BACK}</p>
       <button type="button" className={styles.gotIt} ref={gotIt} onClick={onClose}>
         Got it
       </button>

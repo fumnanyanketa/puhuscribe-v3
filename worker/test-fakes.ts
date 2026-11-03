@@ -287,6 +287,7 @@ export function fakeDb(
       if (db.newCardsFail) return Promise.reject(new Error('down'))
       return Promise.resolve([...db.newCards])
     },
+    cardFormIds: () => Promise.resolve(db.cards.map((card) => card.formId)),
     reviewQueue: (limit) => Promise.resolve(db.queue.slice(0, Math.max(0, Math.min(limit, 15)))),
     nextReviewDay: () => Promise.resolve(db.next),
     // As the database does it: the approved lines of the given dialogues that

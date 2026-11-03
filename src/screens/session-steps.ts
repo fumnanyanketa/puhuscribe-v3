@@ -11,7 +11,10 @@ import { UnderstandIt } from './UnderstandIt.tsx'
 // The steps of a session, in order, in one list
 // (factory/jobs/8-first-session/spec.md, "Done when" 8). The finish screen
 // always follows the last one. Say it (job 10-speaking-feedback) is added
-// here, after Understand it. Keep it (job 9-daily-review) comes after every
+// here, after Understand it. Since the owner's fast route hear-and-say
+// (3 November 2026) the first step is "Hear it, say it" (each line heard, then
+// said back) and Say it is the short "Recap" of the key lines; the stored ids
+// stay "hear" and "say". Keep it (job 9-daily-review) comes after every
 // step of this list, and only in a session that has words to review
 // (stepsFor below).
 
@@ -27,9 +30,9 @@ export interface SessionStep {
 }
 
 export const SESSION_STEPS: readonly SessionStep[] = [
-  { id: 'hear', name: 'Hear it', Screen: HearIt },
+  { id: 'hear', name: 'Hear it, say it', Screen: HearIt },
   { id: 'understand', name: 'Understand it', Screen: UnderstandIt },
-  { id: 'say', name: 'Say it', Screen: SayIt },
+  { id: 'say', name: 'Recap', Screen: SayIt },
 ]
 
 /**
