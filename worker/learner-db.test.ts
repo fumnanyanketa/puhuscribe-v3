@@ -134,3 +134,85 @@ describe('reading content as the learner', () => {
     expect(calls[0]?.headers.get('authorization')).toBe(`Bearer ${accessToken}`)
   })
 })
+
+// Labels [word-meanings N] are this quick-lane fix (3 November 2026): the word
+// card's two English meanings, which job 20-a1-road stored on every road form
+// (forms.meaning_en and forms.lemma_meaning_en), reach the session answer.
+// 1: a form with both meanings sends both. 2: a form with none sends neither.
+//
+// This fake answers like PostgREST: it returns only the columns the Worker
+// asked for, so a query that leaves the meanings out gets none back.
+const FORM_RECORDS: Record<string, unknown>[] = [
+  {
+    id: 1,
+    lemma: 'kiva',
+    surface_kirja: 'kiva',
+    surface_puhe: 'kiva',
+    form_name_en: 'Nice',
+    why_en: 'Why.',
+    meaning_en: 'nice',
+    lemma_meaning_en: 'nice, pleasant',
+  },
+  {
+    // An older form (job 12) with no meanings.
+    id: 2,
+    lemma: 'hauska',
+    surface_kirja: 'hauska',
+    surface_puhe: 'hauska',
+    form_name_en: 'Nice',
+    why_en: 'Why.',
+    meaning_en: null,
+    lemma_meaning_en: null,
+  },
+]
+
+function selectedColumns(request: RecordedRequest, records: Record<string, unknown>[]): Response {
+  const wanted = (request.url.searchParams.get('select') ?? '').split(',').map((name) => name.trim())
+  return rows(records.map((record) => Object.fromEntries(wanted.map((name) => [name, record[name]]))))
+}
+
+async function learnerWithMeanings() {
+  const supabase = fakeSupabase()
+  supabase.rest = (request) =>
+    request.url.pathname === '/rest/v1/forms' ? selectedColumns(request, FORM_RECORDS) : restAnswers(request)
+  const res = await handleApi(post('/api/guest'), ENV, { fetch: supabase.fetch })
+  return { supabase, cookie: cookieHeader(res) }
+}
+
+interface MeaningAnswer {
+  lines: {
+    spoken: { text: string; form?: Record<string, unknown> }[]
+    written: { form?: Record<string, unknown> }[]
+  }[]
+}
+
+describe('word meanings on the word card', () => {
+  it('[word-meanings 1] a road form sends what it means in the line and what its dictionary form means', async () => {
+    const { supabase, cookie } = await learnerWithMeanings()
+    const res = await handleApi(post('/api/sessions/today', { cookie }), ENV, { fetch: supabase.fetch })
+    expect(res.status).toBe(200)
+    const body = await res.json<MeaningAnswer>()
+    expect(body.lines[0]?.spoken[0]?.form).toEqual({
+      lemma: 'kiva',
+      formName: 'Nice',
+      why: 'Why.',
+      spoken: 'kiva',
+      written: 'kiva',
+      meaning: 'nice',
+      baseMeaning: 'nice, pleasant',
+    })
+    const forms = supabase.requests.find((r) => r.url.pathname === '/rest/v1/forms')
+    const columns = (forms?.url.searchParams.get('select') ?? '').split(',').map((name) => name.trim())
+    expect(columns).toEqual(expect.arrayContaining(['meaning_en', 'lemma_meaning_en']))
+  })
+
+  it('[word-meanings 2] a form with no meanings sends neither field, so the card shows no empty line', async () => {
+    const { supabase, cookie } = await learnerWithMeanings()
+    const res = await handleApi(post('/api/sessions/today', { cookie }), ENV, { fetch: supabase.fetch })
+    const body = await res.json<MeaningAnswer>()
+    const form = body.lines[0]?.written[0]?.form
+    expect(form?.lemma).toBe('hauska')
+    expect(form).not.toHaveProperty('meaning')
+    expect(form).not.toHaveProperty('baseMeaning')
+  })
+})

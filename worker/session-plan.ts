@@ -6,7 +6,14 @@ import type {
   SessionWord,
   WordForm,
 } from '../src/lib/session-types.ts'
-import type { DialogueContent, LearnerDb, ReadableDialogue, SessionRow, TokenRow } from './learner-db.ts'
+import type {
+  DialogueContent,
+  FormRow,
+  LearnerDb,
+  ReadableDialogue,
+  SessionRow,
+  TokenRow,
+} from './learner-db.ts'
 
 // Which dialogue is today's, and the session screen's content
 // (factory/jobs/8-first-session/spec.md, "Done when" 6, 7, 9 and 12).
@@ -127,13 +134,21 @@ function wordsOf(
     })
 }
 
+/** A form as the word card shows it. A meaning the form does not have is left out. */
+function wordForm(f: FormRow): WordForm {
+  return {
+    lemma: f.lemma,
+    formName: f.formName,
+    why: f.why,
+    spoken: f.surfacePuhe,
+    written: f.surfaceKirja,
+    ...(f.meaning ? { meaning: f.meaning } : {}),
+    ...(f.baseMeaning ? { baseMeaning: f.baseMeaning } : {}),
+  }
+}
+
 export function sessionLines(content: DialogueContent): SessionLine[] {
-  const forms = new Map<number, WordForm>(
-    content.forms.map((f) => [
-      f.id,
-      { lemma: f.lemma, formName: f.formName, why: f.why, spoken: f.surfacePuhe, written: f.surfaceKirja },
-    ]),
-  )
+  const forms = new Map<number, WordForm>(content.forms.map((f) => [f.id, wordForm(f)]))
   return [...content.lines]
     .sort((a, b) => a.position - b.position)
     .map((line) => {
@@ -210,13 +225,7 @@ export function newWordsOf(content: DialogueContent, formIds: readonly number[])
     if (!spokenAudio || !writtenAudio) continue
     seen.add(id)
     words.push({
-      form: {
-        lemma: form.lemma,
-        formName: form.formName,
-        why: form.why,
-        spoken: form.surfacePuhe,
-        written: form.surfaceKirja,
-      },
+      form: wordForm(form),
       spokenAudio,
       writtenAudio,
     })

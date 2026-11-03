@@ -20,9 +20,9 @@ export interface WordForm {
   spoken: string
   /** The written form (forms.surface_kirja). */
   written: string
-  /** What the word means in this line, in plain English. Optional until job 20-a1-road adds the content. */
+  /** What the word means in this line, in plain English (forms.meaning_en). Missing when the form has none. */
   meaning?: string
-  /** What the dictionary form means, in plain English. Optional in the same way. */
+  /** What the dictionary form means, in plain English (forms.lemma_meaning_en). Missing in the same way. */
   baseMeaning?: string
 }
 
