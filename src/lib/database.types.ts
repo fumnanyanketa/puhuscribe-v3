@@ -321,6 +321,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"tutor_calls": {
+                  Row: {
+                    "attempt": number,"cost_usd": number,"created_at": string,"id": string,"input_tokens": number,"model": string | null,"outcome": Database["public"]['Enums']["tutor_call_outcome"],"output_tokens": number,"provider": string | null,"reserved_usd": number,"session_id": string,"turn": number,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "attempt": number,"cost_usd"?: number,"created_at"?: string,"id"?: string,"input_tokens"?: number,"model"?: string | null,"outcome"?: Database["public"]['Enums']["tutor_call_outcome"],"output_tokens"?: number,"provider"?: string | null,"reserved_usd": number,"session_id": string,"turn": number,"user_id"?: string
+                  }
+                  Update: {
+                    "attempt"?: number,"cost_usd"?: number,"created_at"?: string,"id"?: string,"input_tokens"?: number,"model"?: string | null,"outcome"?: Database["public"]['Enums']["tutor_call_outcome"],"output_tokens"?: number,"provider"?: string | null,"reserved_usd"?: number,"session_id"?: string,"turn"?: number,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "tutor_calls_session_id_fkey"
+      columns: ["session_id"]
+isOneToOne: false
+      referencedRelation: "sessions"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"units": {
                   Row: {
                     "approval_ref": string | null,"approved_at": string | null,"can_do_en": string,"id": number,"position": number,"slug": string,"status": Database["public"]['Enums']["content_status"],"stop_number": number | null,"title_en": string
@@ -407,6 +427,9 @@ isOneToOne: false
 "reserve_speech_check":
 { Args: { "max_checks": number,"window_minutes": number }; Returns: boolean
                            },
+"reserve_tutor_call":
+{ Args: { "p_attempt": number,"p_session_id": string,"p_turn": number }; Returns: string
+                           },
 "review_queue":
 { Args: { "p_limit": number }; Returns: {
               "due": string,"form_id": number,"reps": number
@@ -429,10 +452,13 @@ isOneToOne: false
 { Args: { "p_stop_number": number }; Returns: {
               "form_id": number
             }[]
+                           },
+"tutor_allowance":
+{ Args: Record<PropertyKey, never>; Returns: boolean
                            }
           }
           Enums: {
-            "card_state": "new"|"learning"|"review"|"relearning","consent_kind": "voice_processing"|"voice_recording_retention","content_status": "draft"|"approved"|"retired","finnish_register": "puhe"|"kirja","loop_step": "hear"|"understand"|"say"|"keep"|"use","review_mode": "typed"|"spoken","speech_feedback_class": "clear"|"close"|"try_again"|"not_heard","usage_event_name": "first_session_completed"
+            "card_state": "new"|"learning"|"review"|"relearning","consent_kind": "voice_processing"|"voice_recording_retention"|"ai_tutor","content_status": "draft"|"approved"|"retired","finnish_register": "puhe"|"kirja","loop_step": "hear"|"understand"|"say"|"keep"|"use","review_mode": "typed"|"spoken","speech_feedback_class": "clear"|"close"|"try_again"|"not_heard","tutor_call_outcome": "reserved"|"served"|"failed_check"|"provider_error","usage_event_name": "first_session_completed"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -548,7 +574,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "card_state": ["new", "learning", "review", "relearning"],"consent_kind": ["voice_processing", "voice_recording_retention"],"content_status": ["draft", "approved", "retired"],"finnish_register": ["puhe", "kirja"],"loop_step": ["hear", "understand", "say", "keep", "use"],"review_mode": ["typed", "spoken"],"speech_feedback_class": ["clear", "close", "try_again", "not_heard"],"usage_event_name": ["first_session_completed"]
+            "card_state": ["new", "learning", "review", "relearning"],"consent_kind": ["voice_processing", "voice_recording_retention", "ai_tutor"],"content_status": ["draft", "approved", "retired"],"finnish_register": ["puhe", "kirja"],"loop_step": ["hear", "understand", "say", "keep", "use"],"review_mode": ["typed", "spoken"],"speech_feedback_class": ["clear", "close", "try_again", "not_heard"],"tutor_call_outcome": ["reserved", "served", "failed_check", "provider_error"],"usage_event_name": ["first_session_completed"]
           }
         }
 } as const

@@ -42,6 +42,16 @@ import {
 } from './learner-db.ts'
 import { islandRoute, islandStopFor, supabaseIslandDb, type IslandDb } from './island.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
+import {
+  tutorConsent,
+  tutorState,
+  tutorStop,
+  tutorTranscribe,
+  tutorTurn,
+  type TutorDeps,
+  type TutorKit,
+} from './tutor.ts'
+import type { AiEnv } from './providers/ai.ts'
 import { roadFor, supabaseRoadDb, supabaseVisitorRoadDb, visitorRoadFor, type RoadDb } from './road.ts'
 import {
   answer as answerReview,
@@ -70,9 +80,10 @@ import {
   type SpeechDeps,
 } from './speech.ts'
 
-export type ApiEnv = SupabaseEnv & SpeechEnv
+export type ApiEnv = SupabaseEnv & SpeechEnv & AiEnv
 
-export interface ApiDeps extends AccountDeps, SpeechDeps {
+export interface ApiDeps
+  extends AccountDeps, SpeechDeps, Omit<TutorDeps, 'fetch' | 'speechDb' | 'speechProvider'> {
   fetch: Fetch
   /** Tests pass a fake database; normally it is Supabase, as the learner. */
   learnerDb?: (context: LearnerContext) => LearnerDb
@@ -308,10 +319,14 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
     // Language islands: the stop's last lesson ends with its island step. Worked out from the readable
     // dialogues, which the pick has already read; stored nowhere.
     const islandStop = islandStopFor(pick.dialogue, await db.readableDialogues())
+    // The tutor step, Otso (job 16-tutor-step): the session's road stop tells the app whether to ask
+    // about Otso's step at all. Stops 1 to 3 never have it.
+    const stop = pick.dialogue.stopNumber
     const body = {
       ...ready,
       ...(first ? { firstLesson: true as const } : {}),
       ...(islandStop === undefined ? {} : { islandStop }),
+      ...(tutorStop(stop) && typeof stop === 'number' ? { stop } : {}),
     }
     return withCookies(json(body), context.setCookies())
   } catch (error) {
@@ -583,6 +598,14 @@ export async function handleApi(
       islandDb: (context) => (deps.islandDb ? deps.islandDb(context) : supabaseIslandDb(context.client)),
       learnerDb: (context) => databaseFor(context, deps),
     })
+  }
+  // The tutor, Otso (job 16-tutor-step): worker/tutor.ts.
+  if (pathname.startsWith('/api/tutor')) {
+    const tutorKit: TutorKit = { signedIn: (r) => signedIn(r, env, deps) }
+    if (pathname === '/api/tutor') return tutorState(request, env, deps, tutorKit)
+    if (pathname === '/api/tutor/consent') return tutorConsent(request, deps, tutorKit)
+    if (pathname === '/api/tutor/turn') return tutorTurn(request, env, deps, tutorKit)
+    if (pathname === '/api/tutor/transcribe') return tutorTranscribe(request, env, deps, tutorKit)
   }
   // Accounts and personal data (job 11-accounts): worker/account.ts.
   const account = await handleAccountApi(request, env, deps)

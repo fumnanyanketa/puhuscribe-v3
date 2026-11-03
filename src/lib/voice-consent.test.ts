@@ -10,6 +10,8 @@ import { VOICE_NOTICE_VERSION, voiceNotice } from './voice-consent.ts'
 // ones, so every stored consents row still names the text that was shown.
 const FINGERPRINTS: Record<string, string> = {
   'voice-2026-10.1': 'a09e4ccaeaa7d74ff542be8cad2c28d250cd90489ada91b21bbc4eb670b2b440',
+  // Job 16-tutor-step: the paragraph on spoken answers to Otso was added.
+  'voice-2026-11.1': 'f493d2b55dfd9dee3d643fa638e76be89fc427b95a89450f49d58bdaf1abbd7a',
 }
 
 async function fingerprint(): Promise<string> {

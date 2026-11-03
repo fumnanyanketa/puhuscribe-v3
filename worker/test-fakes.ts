@@ -594,6 +594,9 @@ export function countingProvider(
       provider.calls.push({ bytes: wav.length, reference, fixture })
       return answer()
     },
+    transcribe() {
+      return Promise.resolve({ status: 'heard' as const, text: 'Moi, mä oon Alex.' })
+    },
   }
   return provider
 }

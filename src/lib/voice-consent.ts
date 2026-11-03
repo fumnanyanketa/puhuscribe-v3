@@ -8,7 +8,14 @@
 // Draft wording for the owner to approve at the end of the job (owner's call
 // 2, answered A: transcripts kept 90 days).
 
-export const VOICE_NOTICE_VERSION = 'voice-2026-10.1'
+export const VOICE_NOTICE_VERSION = 'voice-2026-11.1'
+
+/**
+ * The versions of this text that name Otso's use of a spoken answer (job 16-tutor-step, owner's
+ * call 3: typed or spoken answers). Only a voice consent given under one of them lets the Worker
+ * transcribe an answer to Otso; consents given under voice-2026-10.1 still cover Say it and review.
+ */
+export const TUTOR_VOICE_VERSIONS: readonly string[] = ['voice-2026-11.1']
 
 export interface VoiceNotice {
   heading: string
@@ -33,6 +40,7 @@ export function voiceNotice(region: string | null): VoiceNotice {
       `The recording goes from this phone through PuhuScribe's server to Microsoft's speech service ${where}. The service turns it into text, and PuhuScribe compares that text with the line.`,
       'Microsoft does not keep your recording, and PuhuScribe deletes it as soon as your feedback is ready.',
       'PuhuScribe keeps the text the service heard and how close it was, to check that the feedback works. That text is deleted after 90 days.',
+      'When you speak an answer to Otso, the AI tutor, the service turns your recording into text in the same way. That text goes to Anthropic in the United States so Otso can answer, and PuhuScribe keeps neither the recording nor the text.',
     ],
     keepBox:
       'Keep my recordings so I can hear my progress. We keep your first and latest try of each line for 90 days. You can delete them at any time.',
