@@ -2,7 +2,7 @@ import { GapLine } from '../components/GapLine.tsx'
 import { PlayControl } from '../components/PlayControl.tsx'
 import type { ReviewItem, TypedAnswer } from '../lib/review-types.ts'
 import { ANSWER_METHODS, methodFormId, type AnswerMethod, type RecordedResult } from './answer-methods.ts'
-import { LINE_AUDIO } from './LineCard.tsx'
+import { LINE_AUDIO, Meaning } from './LineCard.tsx'
 import styles from './Screens.module.css'
 
 // One review item before it is answered (factory/jobs/9-daily-review/spec.md,
@@ -57,7 +57,7 @@ export function ReviewItemView({
             />
           }
         />
-        <p className={styles.gloss}>{item.gloss}</p>
+        <Meaning english={item.gloss} />
       </div>
       <div className={styles.answerArea} data-answer-area="">
         {methods.map(({ kind, Answer }) => (
