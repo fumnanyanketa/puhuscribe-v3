@@ -81,7 +81,11 @@ describe('the road fixture', () => {
       (file) =>
         file.text.includes('road-fixture') && !isTest(file.path) && file.path !== 'src/road/road-fixture.ts',
     ).map((file) => file.path)
-    expect(importers.every((path) => path.startsWith('src/design-reference/'))).toBe(true)
+    // The island design page (src/sample/IslandSample.tsx, fast route "islands") shows the road with
+    // the fixture too. Like the reference page it is built only with VITE_DESIGN_REFERENCE=1
+    // (src/main.tsx), and tests/design-build.test.ts proves a normal build holds neither.
+    expect(importers.length).toBeGreaterThan(0)
+    expect(importers.filter((path) => !/^src\/(design-reference|sample)\//.test(path))).toEqual([])
   })
 
   it('[redesign 19] the road screen reads stops only through loadRoad()', () => {
@@ -100,9 +104,16 @@ describe('what the road must not hold', () => {
       expect(text, path).not.toContain('dangerouslySetInnerHTML')
       expect(text, path).not.toContain('innerHTML')
     }
+    // Fast route go-back (3 November 2026, owner): a finished stop's sign can be pressed to practise
+    // its lessons again, storing nothing. So exactly one button remains, drawn only for a done sign
+    // when the road offers practice, and it does nothing but name the stop to onPick. Every other
+    // sign is still not a button.
     const picture = readFileSync('src/road/RoadPicture.tsx', 'utf8')
-    expect(picture).not.toMatch(/<button/)
-    expect(picture).not.toMatch(/onClick/)
+    expect(picture.match(/<button/g)).toHaveLength(1)
+    expect(picture.match(/onClick/g)).toHaveLength(1)
+    expect(picture).toMatch(
+      /\{onPick && sign\.state === 'done' \? \(\s*<button[^>]*?onClick=\{\(\) => \{\s*onPick\(sign\.stop\.number\)\s*\}\}/s,
+    )
   })
 
   it('[redesign 44] the road never stores anything on the phone', () => {

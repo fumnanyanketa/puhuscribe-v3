@@ -76,8 +76,18 @@ describe('design tokens', () => {
 
   it('[design 3] no file in src/ other than tokens.css holds a raw colour value', () => {
     const raw = /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/
+    // The landing page exception (design.md, owner's approval of 3 November 2026, job
+    // 17-landing-page): its soft panel colours and shadows are named once, as --landing-*
+    // properties in Landing.module.css, and its hero picture (Landing.tsx) is drawn art with SVG
+    // fill, stroke and stop colours. Those two places only; the app keeps the rule.
+    const allowed = (path: string, text: string) => {
+      if (path === 'src/landing/Landing.module.css') return text.replace(/^\s*--landing-[\w-]+:[^;]*;/gm, '')
+      if (path === 'src/landing/Landing.tsx')
+        return text.replace(/\b(fill|stroke|stopColor)="#[0-9a-fA-F]{3,8}"/g, '')
+      return text
+    }
     const offenders = srcFiles('src', /\.(css|tsx?)$/)
-      .filter((file) => file.path !== 'src/styles/tokens.css' && raw.test(file.text))
+      .filter((file) => file.path !== 'src/styles/tokens.css' && raw.test(allowed(file.path, file.text)))
       .map((file) => file.path)
     expect(offenders).toEqual([])
   })
@@ -163,6 +173,9 @@ describe('type scale', () => {
     const offenders: string[] = []
     for (const file of srcFiles('src', /\.css$/)) {
       if (file.path === 'src/styles/tokens.css') continue
+      // The landing page exception (design.md, 3 November 2026): the public landing page keeps the
+      // type sizes of the owner's approved design, in rem (tests/design-rules.test.ts [design 5]).
+      if (file.path === 'src/landing/Landing.module.css') continue
       for (const match of file.text.matchAll(/font-size:\s*([^;]+);/g)) {
         const value = (match[1] ?? '').trim()
         if (!/^(var\(--text-[a-z-]+\)|inherit|100%|1em|0)$/.test(value))
@@ -187,6 +200,10 @@ describe('colour roles', () => {
         'src/components/PatternsPanel.module.css',
         'src/components/WordCard.module.css',
         'src/sample/HearItSample.module.css',
+        // The landing page's spoken examples (job 17-landing-page).
+        'src/landing/Landing.module.css',
+        // The recap's cover box, drawn like the spoken line's box (fast route hear-and-say).
+        'src/screens/Screens.module.css',
       ],
     },
     written: {
@@ -201,6 +218,9 @@ describe('colour roles', () => {
         'src/sample/HearItSample.module.css',
         // The finish screen's written line (job 8, statement 14), drawn small under the spoken one in round 6.
         'src/screens/Screens.module.css',
+        // The island card's written lines (fast route islands) and the landing page's written examples.
+        'src/island/Island.module.css',
+        'src/landing/Landing.module.css',
       ],
     },
     changed: {
@@ -209,6 +229,8 @@ describe('colour roles', () => {
         'src/components/FinnishLine.module.css',
         'src/road/RoadPicture.module.css',
         'src/sample/HearItSample.module.css',
+        // The landing page's examples mark the words that change (job 17-landing-page).
+        'src/landing/Landing.module.css',
       ],
     },
   }

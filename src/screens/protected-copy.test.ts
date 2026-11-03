@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { voiceNotice } from '../lib/voice-consent.ts'
+import { VOICE_NOTICE_VERSION, voiceNotice } from '../lib/voice-consent.ts'
 import { DELETE_TEXT } from './DeletePage.tsx'
 import { CODE_WORKS, GUEST_WARNING, SENDS_CODE, SIGN_IN_SENT, TAKEN_WARNING } from './EmailFlow.tsx'
 import { FEEDBACK_INTRO } from './FeedbackPage.tsx'
@@ -66,7 +66,11 @@ describe('protected copy', () => {
       where(region),
       'Microsoft does not keep your recording, and PuhuScribe deletes it as soon as your feedback is ready.',
       'PuhuScribe keeps the text the service heard and how close it was, to check that the feedback works. That text is deleted after 90 days.',
+      // Job 16-tutor-step (owner's call 3 of 3 November 2026, spoken answers to Otso) added this
+      // paragraph and moved the label from voice-2026-10.1 to voice-2026-11.1.
+      'When you speak an answer to Otso, the AI tutor, the service turns your recording into text in the same way. That text goes to Anthropic in the United States so Otso can answer, and PuhuScribe keeps neither the recording nor the text.',
     ]
+    expect(VOICE_NOTICE_VERSION).toBe('voice-2026-11.1')
     expect(voiceNotice('Italy')).toEqual({ ...common, paragraphs: paragraphs('in the EU, in Italy') })
     expect(voiceNotice(null)).toEqual({ ...common, paragraphs: paragraphs('in the EU') })
   })

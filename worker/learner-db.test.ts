@@ -88,13 +88,19 @@ describe('reading content as the learner', () => {
     const res = await handleApi(post('/api/sessions/today', { cookie }), ENV, { fetch: supabase.fetch })
     expect(res.status).toBe(200)
     const rest = supabase.requests.filter((r) => r.url.pathname.startsWith('/rest/v1/'))
-    // The first reads run side by side, so the list is compared in sorted order.
+    // The first reads run side by side, so the list is compared in sorted order. Fast route
+    // hear-and-say added the learner's cards (they pick the recap's key lines), and fast route
+    // islands reads the readable dialogues (units and dialogues) a second time to find the stop's
+    // island step.
     expect(rest.map((r) => `${r.method} ${r.url.pathname}`).sort()).toEqual([
+      'GET /rest/v1/cards',
       'GET /rest/v1/dialogue_lines',
+      'GET /rest/v1/dialogues',
       'GET /rest/v1/dialogues',
       'GET /rest/v1/forms',
       'GET /rest/v1/sessions',
       'GET /rest/v1/tokens',
+      'GET /rest/v1/units',
       'GET /rest/v1/units',
       'POST /rest/v1/sessions',
     ])

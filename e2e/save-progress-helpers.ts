@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, type Locator, type Page } from '@playwright/test'
+import { PATHS } from '../src/lib/app-paths.ts'
 import { INTRO_KEY } from '../src/lib/intro-answers.ts'
 import * as copy from '../src/screens/save-note-copy.ts'
 import { startGuest } from './account-helpers.ts'
@@ -98,7 +99,7 @@ export async function walkToFinish(page: Page): Promise<string> {
 
 /** The next session of a learner who has no open session: front door, Start, the whole loop. */
 export async function walkNextSession(page: Page, userId: string): Promise<void> {
-  await page.goto('/learn')
+  await page.goto(PATHS.home)
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
@@ -107,7 +108,7 @@ export async function walkNextSession(page: Page, userId: string): Promise<void>
 
 /** The learner's open session, from the front door's "Continue" button. */
 export async function walkContinuedSession(page: Page, userId: string): Promise<void> {
-  await page.goto('/learn')
+  await page.goto(PATHS.home)
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()

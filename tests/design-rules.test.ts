@@ -160,6 +160,9 @@ describe('motion', () => {
   it('[design 14] durations and easings in component CSS come from tokens', () => {
     for (const file of files('src', /\.css$/)) {
       if (file.endsWith('tokens.css')) continue
+      // The landing page exception (design.md, 3 November 2026): its sections fade in on scroll at
+      // the approved design's own pace, and are still under the reduce motion rule below.
+      if (file.replace(/\\/g, '/') === 'src/landing/Landing.module.css') continue
       const text = readFileSync(file, 'utf8')
       for (const match of text.matchAll(/(?:transition|animation)\s*:\s*([^;]+);/g)) {
         const value = match[1] ?? ''

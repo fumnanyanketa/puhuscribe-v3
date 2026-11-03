@@ -56,8 +56,13 @@ const MARKERS = [
   'sample/hear-it',
   'Sample, not reviewed',
   'Alex meets Sanna.',
-  'kotoisin',
+  // The sample dialogue's spoken "Mist" (src/sample/sample-dialogue.ts). The word "kotoisin" was the
+  // marker until the owner approved it as real content (the island line "Mä oon kotoisin ..." and the
+  // landing page's example, 3 November 2026), so the sample's own spoken word is used instead.
+  '"Mist"',
   'maahanmuuttovirasto',
+  // The island design page (src/sample/IslandSample.tsx) and its example learner.
+  'sample/island',
   // Round 3: text only the design pages hold. The shared controls' own words
   // ("Could not play", "Stop recording") will be in the learner app from job 6.
   'Try the states',
@@ -78,6 +83,6 @@ describe('a normal build', () => {
       for (const marker of MARKERS) if (text.includes(marker)) found.push(`${marker} in ${file}`)
     }
     expect(found).toEqual([])
-    expect(client.filter((file) => /HearItSample|DesignReference/.test(file))).toEqual([])
+    expect(client.filter((file) => /HearItSample|IslandSample|DesignReference/.test(file))).toEqual([])
   })
 })

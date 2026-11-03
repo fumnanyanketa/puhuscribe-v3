@@ -134,8 +134,8 @@ function expectPrivate(res: Response) {
 }
 
 describe('the owner host answers only its own routes', () => {
-  it('[analytics 13] serves /owner and /sign-in from the built page', async () => {
-    for (const path of ['/owner', '/sign-in']) {
+  it('[analytics 13] serves /learn/owner and /learn/sign-in from the built page', async () => {
+    for (const path of ['/learn/owner', '/learn/sign-in']) {
       const res = await handleRequest(await ownerRequest(path), env, deps)
       expect(res.status, path).toBe(200)
       expect(await res.text()).toBe(MARKED_HTML)
@@ -157,7 +157,7 @@ describe('the owner host answers only its own routes', () => {
         }),
       ),
     )
-    for (const path of ['/owner', '/sign-in']) {
+    for (const path of ['/learn/owner', '/learn/sign-in']) {
       const res = await handleRequest(await ownerRequest(path), env, deps)
       expect(res.status, path).toBe(200)
       const body = await res.text()
@@ -171,32 +171,39 @@ describe('the owner host answers only its own routes', () => {
 
   it('[analytics 27] leaves an answer that is not a page untouched', async () => {
     assetsFetch.mockImplementation(() => Promise.resolve(new Response(null, { status: 304 })))
-    const res = await handleRequest(await ownerRequest('/owner'), env, deps)
+    const res = await handleRequest(await ownerRequest('/learn/owner'), env, deps)
     expect(res.status).toBe(304)
     expect(await res.text()).toBe('')
   })
 
-  it('[analytics 4] [analytics 27] the app host serves /owner byte for byte, without the owner host mark', async () => {
-    const res = await handleRequest(new Request(`${ORIGIN}/owner`), env, deps)
+  it('[analytics 4] [analytics 27] the app host serves /learn/owner byte for byte, without the owner host mark', async () => {
+    const res = await handleRequest(new Request(`${ORIGIN}/learn/owner`), env, deps)
     expect(res.status).toBe(200)
     expect(await res.text()).toBe(PAGE_HTML)
   })
 
-  it('[analytics 13] sends every other page route to /owner', async () => {
+  // Since job 17-landing-page the app's pages live under /learn (src/lib/app-paths.ts). The landing
+  // page at "/" is never served on the owner host, and the old /owner and /sign-in forward too.
+  it('[analytics 13] sends every other page route to /learn/owner', async () => {
     for (const path of [
       '/',
-      '/session',
-      '/voice',
-      '/account',
-      '/account/email',
-      '/account/delete',
-      '/privacy',
-      '/feedback',
+      '/learn',
+      '/learn/session',
+      '/learn/voice',
+      '/learn/account',
+      '/learn/account/email',
+      '/learn/account/delete',
+      '/learn/privacy',
+      '/learn/feedback',
+      '/owner',
     ]) {
       const res = await handleRequest(await ownerRequest(path), env, deps)
       expect(res.status, path).toBe(302)
-      expect(res.headers.get('location'), path).toBe('/owner')
+      expect(res.headers.get('location'), path).toBe('/learn/owner')
     }
+    const signIn = await handleRequest(await ownerRequest('/sign-in'), env, deps)
+    expect(signIn.status).toBe(302)
+    expect(signIn.headers.get('location')).toBe('/learn/sign-in')
   })
 
   it('[analytics 13] answers 404 to every /api route that is not on its list', async () => {
@@ -245,7 +252,13 @@ describe('the owner host answers only its own routes', () => {
     const crash = await handleRequest(
       await ownerRequest('/api/crash', {
         method: 'POST',
-        body: JSON.stringify({ source: 'browser', name: 'Error', message: 'm', frames: [], path: '/owner' }),
+        body: JSON.stringify({
+          source: 'browser',
+          name: 'Error',
+          message: 'm',
+          frames: [],
+          path: '/learn/owner',
+        }),
       }),
       env,
       deps,
@@ -292,7 +305,7 @@ describe('lock two: the Worker checks the Access token on every request', () => 
 
   for (const { name, jwt } of refusals) {
     it(`[analytics 14] ${name} gets 403 with one plain line, for pages and /api alike`, async () => {
-      for (const path of ['/owner', '/api/owner/dashboard', '/api/me', '/session']) {
+      for (const path of ['/learn/owner', '/api/owner/dashboard', '/api/me', '/learn/session']) {
         const res = await handleRequest(await ownerRequest(path, { jwt: await jwt() }), env, deps)
         expect(res.status, path).toBe(403)
         expect(res.headers.get('content-type')).toBe('text/plain; charset=utf-8')
@@ -304,7 +317,7 @@ describe('lock two: the Worker checks the Access token on every request', () => 
   }
 
   it('[analytics 14] a valid token goes on', async () => {
-    const res = await handleRequest(await ownerRequest('/owner'), env, deps)
+    const res = await handleRequest(await ownerRequest('/learn/owner'), env, deps)
     expect(res.status).toBe(200)
   })
 
@@ -320,13 +333,15 @@ describe('lock two: the Worker checks the Access token on every request', () => 
       OWNER_HOSTNAME: '127.0.0.1',
       OWNER_ACCESS_LOCAL_JWKS: JSON.stringify({ keys: [jwk] }),
     }
-    const request = new Request('https://127.0.0.1:4173/owner', {
+    const request = new Request('https://127.0.0.1:4173/learn/owner', {
       headers: { 'Cf-Access-Jwt-Assertion': await token() },
     })
     const res = await handleRequest(request, local, { fetch: supabase.fetch })
     expect(res.status).toBe(200)
     const broken = await handleRequest(
-      new Request('https://127.0.0.1:4173/owner', { headers: { 'Cf-Access-Jwt-Assertion': await token() } }),
+      new Request('https://127.0.0.1:4173/learn/owner', {
+        headers: { 'Cf-Access-Jwt-Assertion': await token() },
+      }),
       { ...local, OWNER_ACCESS_LOCAL_JWKS: 'not json' },
       { fetch: supabase.fetch },
     )
@@ -372,12 +387,12 @@ describe('owner host answers are private', () => {
   it('[analytics 18] every kind of answer carries the private headers', async () => {
     const cookie = await signedInCookie()
     const answers = [
-      await handleRequest(await ownerRequest('/owner'), env, deps),
-      await handleRequest(await ownerRequest('/session'), env, deps),
+      await handleRequest(await ownerRequest('/learn/owner'), env, deps),
+      await handleRequest(await ownerRequest('/learn/session'), env, deps),
       await handleRequest(await ownerRequest('/api/today'), env, deps),
       await handleRequest(await ownerRequest('/api/health'), env, deps),
       await handleRequest(await ownerRequest('/api/owner/dashboard', { cookie }), env, deps),
-      await handleRequest(await ownerRequest('/owner', { jwt: null }), env, deps),
+      await handleRequest(await ownerRequest('/learn/owner', { jwt: null }), env, deps),
     ]
     for (const res of answers) expectPrivate(res)
   })
@@ -425,7 +440,7 @@ describe('owner host answers are private', () => {
 describe('the owner host is not counted', () => {
   it('[analytics 7] requests to the owner host never call count_visit, even when served', async () => {
     const { waits, ctx } = context()
-    for (const path of ['/owner', '/sign-in', '/', '/session']) {
+    for (const path of ['/learn/owner', '/learn/sign-in', '/', '/learn/session', '/owner']) {
       const request = await ownerRequest(path, {
         extra: {
           accept: 'text/html',

@@ -499,8 +499,11 @@ describe("the front door and today's session", () => {
     const plain = await body<Record<string, unknown>>(
       await handleApi(post('/api/sessions/today', { cookie: without.cookie }), ENV, without.deps),
     )
-    expect(Object.keys(ready).sort()).toEqual(['dialogue', 'lines', 'session', 'state', 'unit'])
-    expect({ ...ready, session: null }).toEqual({ ...plain, session: null })
+    // Fast route hear-and-say added keyLines: the recap's key lines, which the learner's cards pick on
+    // purpose (worker/session-plan.ts keyLinesOf). Everything else is answered exactly as in job 8.
+    expect(Object.keys(ready).sort()).toEqual(['dialogue', 'keyLines', 'lines', 'session', 'state', 'unit'])
+    expect(Object.keys(plain).sort()).toEqual(Object.keys(ready).sort())
+    expect({ ...ready, session: null, keyLines: null }).toEqual({ ...plain, session: null, keyLines: null })
   })
 })
 
