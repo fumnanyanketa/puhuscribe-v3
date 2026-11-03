@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -237,6 +238,26 @@
         "reason": "Only register differences (sä/sinä, tehä/tehdä, ens/ensi); same question.",
         "fingerprint": "9fd7c0fc07e3fac83e974da69625b13bbdeb2fd6c42509652a952ee7459b7ac3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a723a20710bf5504a50052b242091b2a535b37b75175254eea6ada613f688b54",
+          "text": "Mitä sä aiot tehä ens vuonna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a45dec558f178d91ce0c42c551a8123234653fcedfc7981e3530be260bd5af81"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "47db7e63cfb7e26bb6f31face33b9cc3e137e22af9a17cb6959b2592ebee8908",
+          "text": "Mitä sinä aiot tehdä ensi vuonna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "63bbe072130155a9d873fdd08eb27007759acdc265c5a9af16a813c128cf84d6"
+        }
       }
     },
     {
@@ -437,6 +458,26 @@
         "reason": "Same content: study more Finnish and apply for jobs at schools; only spoken forms differ.",
         "fingerprint": "b33c74209ae7034e93a3584aaa642757d267f2aac8f1e77e74f3a1edf287edbb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "f1ccf0d090725e38c4492c5a434a6d26ee504907b1183e88705fc34fb83f0d1a",
+          "text": "Mä aion opiskella lisää suomee ja hakee töitä kouluist.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ef1e261dd0ef0e50d0341c75d8809a341166f2015be85d44baff1492fb32cbe5"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "d533d150b8ac8d9a3b601890222858389253cbeace29b85bb903f8ddcec5a006",
+          "text": "Minä aion opiskella lisää suomea ja hakea töitä kouluista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "45c37e774639ef7fbf55a1d684761123bea0d361602ac7be1f387529eba6458a"
+        }
       }
     },
     {
@@ -474,6 +515,26 @@
         "reason": "Opettajaks is the spoken form of opettajaksi; same meaning.",
         "fingerprint": "afec1b46e222afd34cc00eb974e8f2fa5083eaf5b6475d048d58bb9976b1bdf3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "f20163b164487389eea8ea9bf062ce6a342276f2e38e790ae5a3b98b44230fd1",
+          "text": "Opettajaks?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "866c9c0bd5441aad2e27e5505a730b919f900c977ab7a8e954e4d0e9ff7af656"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "6316470719d921c337222b9b2e409923fb7a3f3b9a12a0ecd6b235b421885803",
+          "text": "Opettajaksi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7486d38cae5eaf8113f797778f01a1d5ba92ce15bdf2ce1293c39ca91fd3e660"
+        }
       }
     },
     {
@@ -647,6 +708,26 @@
         "reason": "Joo/kyllä, mut/mutta, mun/minun are register differences; same meaning.",
         "fingerprint": "2a89201ce8739a98f6ed6c90b59eff4e2b9daf12ce8d2758c5e0f528c2dc492e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f0870e99a136254ce38fb0aa1c1772d330097add0fcacfcd0a88f390ddcb478e",
+          "text": "Joo, mut ensin mun pitää osata suomee paremmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fef1e3f4ca43be7dde35eeee7d3d298991d11b2cf60925ee80ff0e0ad89c8fd0"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "784ee4f1cab5cc4a935d921424b9b2c3304b6af25a83b38d9b2fadab62750e90",
+          "text": "Kyllä, mutta ensin minun pitää osata suomea paremmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b560b02179ede735e022a2097b0af9716785472b28cb12238fd62f100b97e253"
+        }
       }
     },
     {
@@ -766,6 +847,26 @@
         "reason": "Only sä/sinä differs; otherwise identical.",
         "fingerprint": "71886148c05d93f51573f96bccfbbc8d4514898db254252add3f246044f46c27",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "60ff63ce5a841cecb50fc2592b69dc5888422fedf20585297d21a38e6161cda6",
+          "text": "Sä pystyt siihen. Entä kesällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0e3a15822a62192543f6853d4a23842f9968e1d7349241e5d5bf3da35d5bec04"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "048947ec2507acd21e65d206bc600331237b682f20ff7922b1c1a422dfcde908",
+          "text": "Sinä pystyt siihen. Entä kesällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "cc79a4056d0d50e4774c9756003810e9fd971757a8cb258cf83e4d2578941b52"
+        }
       }
     },
     {
@@ -866,6 +967,26 @@
         "reason": "Spoken 'lennetään' is the colloquial first-person plural, same as 'lennämme'; same place and time.",
         "fingerprint": "2795fb659ca3ce41205e96bf764cc53fd8b8ab998db4a8a3a88186fc2df15b83",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "33e6d389340e86d5ccb0e59c77f5107f211f7470f86a3908b5ed1016e6e75451",
+          "text": "Kesäl me lennetään Brasiliaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2333eaa214d7cd1ffc74fbc1e95f54e1233e62d335a958dc42b446e89f4cab21"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "ca67c153f1611d75f8d191d7cf9370f743928380cbf79b3f66573020c4a12aa2",
+          "text": "Kesällä me lennämme Brasiliaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "56902b3f555077a729902d377acc284f537695733f601ee467d68175628ec5c8"
+        }
       }
     },
     {
@@ -963,6 +1084,26 @@
         "reason": "Kauanks/kauanko, ootte/olette, siel/siellä are register variants; same question.",
         "fingerprint": "33aa41ea8cecb51f171683ac21bd450a16e1e792b2f00f5807cd155ae00a3550",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "55e35aad0662859930ea8f03d15a98e0dc68aa14cb9050f2e14ed3a047021b1f",
+          "text": "Kauanks te ootte siel?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f8b0825280c8efee454879090857d69e44e37fedb34547c3b9a36324640d07c5"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "0408fe9f1229840530f7f1d51a3b25c756089f43b6a4c62a601e9b11049e4e83",
+          "text": "Kauanko te olette siellä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "fb11702b5cbdf5f9b7204f182ffdd3392b0c01e052a0cd65814210de1c6bbaf1"
+        }
       }
     },
     {
@@ -1100,6 +1241,26 @@
         "reason": "Same number (three weeks) and same negation; only register differs.",
         "fingerprint": "182fa89218800cbba30cb93d2a0ac320f5eb334e8aa3e91a9e5b923ed7aa6420",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "188414cc9b9062f7ccd34f48a1571d8100b12ee0278fafdbb7d667c5900e557c",
+          "text": "Kolme viikkoo. Mä en malta odottaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1bb8d0b61c0719d2c2f7cf762fae0f0a7360073515e289c09c7502c4584e7f84"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "4be1eb7c4991ea6268c034c0e9dee1871dfd8c43e0cee518b0e1fb64c198c91b",
+          "text": "Kolme viikkoa. Minä en malta odottaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f416b2268d815f2eab00324f44f859f5f0c6f96a9f8858343485de9024bf08f0"
+        }
       }
     }
   ],

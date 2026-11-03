@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -216,6 +217,26 @@
         "reason": "sul = sinulla; same question about tomorrow.",
         "fingerprint": "3e1698b6858f3103e815fdb716a348baf87e4fe44b3b6fbf51438e54fcf167f1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "7db1a85bb29d9a69c5c51cfed877e55ccc4d4d915f0826eec47aa3eee9062815",
+          "text": "Maria, mitä sul on huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f2e93ef98c462c3c1807646541f115e93f618378bd2bfaa4d95d26c01731fb35"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "948891e6afee6d9c89b6b3d622e7600d40c9486371777632fead6885ba1405ed",
+          "text": "Maria, mitä sinulla on huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3aeff0e92dd3c2975212ab84b80aab800bbc4534d87312413802266fc496f7d6"
+        }
       }
     },
     {
@@ -354,6 +375,26 @@
         "reason": "Only register differences: aamul/aamulla, mul/minulla, kaa/kanssa.",
         "fingerprint": "0eabf812103b0bd310e1692b172109d4ae7a2a61a50bfa409ce4362d55a92ee3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "639001a0bd739d9a6b774df88508b6caacff0267b9050f382b8a83d24cc9c43f",
+          "text": "Aamul mul on palaveri asiakkaan kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b6ce344acb6cfa817c6d6c0ace667361fd97af18f5339e947a37120ef62ef3ae"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "04cdb40cb076e3b0da1724a53575503b1b93d21682bf537d10bab512c765f46c",
+          "text": "Aamulla minulla on palaveri asiakkaan kanssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b6c27fbc468102d53785e67746cac8fd2377c0def5ab56d5aabe617b81484112"
+        }
       }
     },
     {
@@ -409,6 +450,26 @@
         "reason": "iltapäiväl = iltapäivällä; identical meaning.",
         "fingerprint": "7523f05197ff691e596f02737ace58ec75376a0ec391eb7e510e85b736e0460d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "a2c13c8360e21746832ef65bb14eb28d0570de77449928b03f1b259bbc518491",
+          "text": "Ja iltapäiväl?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ba58ffae22e54c3d64c7b73f5b5229144df2520f9a08b954516f33c97a39f84d"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f5c5234ac34eb591d230e0864a3dfc6eff862e701c2ba67e4daef9e019fae8f7",
+          "text": "Ja iltapäivällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1b0dafe0ca6e41432211b7650ef210859926b57028a8b75a5cf6795a2494c881"
+        }
       }
     },
     {
@@ -509,6 +570,26 @@
         "reason": "Same: I'll write the report in the afternoon; mä/minä, spoken ending drop.",
         "fingerprint": "2812c9799d6e8b9be533d7919baf24a84a6144ab7fd808d690a0c5033c276e51",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "972d84493a93330a7ebf3b55d788c7cd3ada53e65e9bc2ed17187b800c00d9ab",
+          "text": "Iltapäiväl mä teen raportin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8bf0d587e756979404ef83b4808442b01819899e090a0fb88460166bca88c20c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "66f0797143e407a1f21015f86743f1a8fefca507da834af7115751f31c72a4b3",
+          "text": "Iltapäivällä minä teen raportin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4506eaa803c5d4260f8df5c2d229c1bcf4578354d85ffc0f541d4e5e81d1a2a1"
+        }
       }
     },
     {
@@ -651,6 +732,26 @@
         "reason": "Ehit sä tehä = Ehditkö sinä tehdä; same question.",
         "fingerprint": "bcc9e51796e98eb38b125433452cced1ad44e47e44879f8d9e5a8446977becd6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "d40ecadcca981d400b3efef29038ae615f93997336b3d57bacb6c1dd363a5b2d",
+          "text": "Hyvä. Ehitsä tehä sen huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "49df1cce3dea3697951d1e213caa2423c6397f83056f7114be330610aeb967e1"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "3c4becaba119fb07b9d58255686b9b6b4f87ceb691c255cfa0455039d468d6e6",
+          "text": "Hyvä. Ehditkö sinä tehdä sen huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1940b06ee764c2a89f254c9402ffa4c3a227194b375371264c0db3c0354b3af2"
+        }
       }
     },
     {
@@ -808,6 +909,26 @@
         "reason": "Joo/kyllä, sulle/sinulle, mennes/mennessä are register variants; same content and deadline.",
         "fingerprint": "ee9dd23dcbe562e85cf26c359d54d5f797c138b6818efed1d920049622777b31",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "05b71bab992def0c55820c9fa3f812140d434eedb5e0aadd9f493864403b0a6d",
+          "text": "Joo, mä lähetän sen sulle neljään mennes.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a302345989be6b823e4535906aa7ad1876c761e85717974a9dd6c7d33aff5120"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "cc3e0b2256d94a5cec3a6f509d35b57c6f46f4979aaffb67307544f0d0fae2d5",
+          "text": "Kyllä, minä lähetän sen sinulle neljään mennessä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6deaa6c43ee0ba4da3c20b85ed229eda5b8c8e896e1c325628d1a7afd57af114"
+        }
       }
     },
     {
@@ -866,6 +987,26 @@
         "reason": "Kiitti is colloquial for kiitos.",
         "fingerprint": "79a98503a971a362b8254bcc1dc9dc0b545933f3183c89e8d39d130c2eeaf555",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "c783bc45a2ba6b56ca63649893d9191303f9d1a2fc481730f73f76acbe847f1c",
+          "text": "Täydellistä. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4126d83c55f3e6702809e2d36504a2c34f6c4f7636d060989d7bd333cade38b0"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "7f9a60a9b6c0b595dfe180d190b80552b9af0e6eceec90b6a02992311efa0054",
+          "text": "Täydellistä. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c67da959ed421eeaf636da8654951c59012b637053cb72f0c1cf764ed2484b9e"
+        }
       }
     },
     {
@@ -923,6 +1064,26 @@
         "reason": "Both are 'you're welcome'/'no problem' responses; idiomatic equivalents.",
         "fingerprint": "19bc97471baf8f74a05dbc5d83696d90237accb28477612feb1a22f391af0107",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a841ed2aee12967b8cb540d5f3a7ac388cb37528e151f6899c8845d93f446b1a",
+          "text": "Ei mitään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d25a766cc6e524944d194f2e8ed71c92b508f4ca1dd588a93c68fc9ccd6019b7"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "95cb2c48a5d5a84b02a74e486599f5c950ba4beabd59cba2f84bc938d144b5ed",
+          "text": "Ei kestä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b46034466fbf956a83fd7bac4e89228eb6d0d0c7085eaaa3fcb6ff6279bc4a3b"
+        }
       }
     }
   ],

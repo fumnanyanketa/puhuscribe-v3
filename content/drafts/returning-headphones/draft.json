@@ -102,7 +102,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -245,6 +246,26 @@
         "reason": "Only register differences: moi/hei, mä/minä, haluun/haluan, nää/nämä.",
         "fingerprint": "507f3c2fe24b372e20339c4f425a1bbc47f80266d45d5874623d17f075562a58",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "1ca647a42ff0a483e788fba299109122c8b15ac504b4c38db41c7728c47c657e",
+          "text": "Moi! Mä haluun palauttaa nää kuulokkeet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8b3bd66800f11f34c24f5d61d15092aa95ca541ba5fdaacc8ab511afd3769b8a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "503ea4af526c44296b80e169544092d991d426fdd51066c2789f648d32854250",
+          "text": "Hei! Minä haluan palauttaa nämä kuulokkeet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f5ffc8cd5b22edcb37a74b703b03a756da2061696cd05d2b1d1d49b6781308e4"
+        }
       }
     },
     {
@@ -366,6 +387,26 @@
         "reason": "Okei/selvä and niis/niissä are register variants; same question.",
         "fingerprint": "651d7a400da7c61395d1247929976ec8d88ad2274c7c1bc8e3ea464ac74a7c47",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "6f81a06773121555888327d34c240dba7ef9bdf55cecdea8bf09bf577a7db4d7",
+          "text": "Okei. Mikä niis on vikana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "125b97696aa32fbfda07a509468d037e887ef1b1360bc9bb429c5287a97852e8"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a545dc926a64eebfe4ec8f1c3b7759411f7c96cacee8f281a2b790b84b26eb0a",
+          "text": "Selvä. Mikä niissä on vikana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "78cdba84ecb87a6030e92850a98a08bea16b1b4ece6bbf4c8a7ac0eb084922e0"
+        }
       }
     },
     {
@@ -480,6 +521,26 @@
         "reason": "The two versions are identical.",
         "fingerprint": "b40678a6ac25973692092aea743528999027178d6864d383a302a14cdc4d3a57",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7cfa9204f8fffafe0f89af72e2395c2fb40e67983af189cee6bd701b3389807d",
+          "text": "Vasen puoli ei toimi ollenkaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1f3f65946cd0f564603e2739c8817ae2a9f611aaabd06fff03785d83f2d0eeb7"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "740c2694c19a12dc94a9e26d451ecc9e4e60c431a9598e37e2f95134da974f52",
+          "text": "Vasen puoli ei toimi ollenkaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1f3f65946cd0f564603e2739c8817ae2a9f611aaabd06fff03785d83f2d0eeb7"
+        }
       }
     },
     {
@@ -561,6 +622,26 @@
         "reason": "Onks sul/onko sinulla is a register difference; same question about a receipt.",
         "fingerprint": "99a50cae76653a9d0d117522359ed7df0b3d3dedf5a788426681374bc1094292",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6f4879f7a3ad3bfd8af19cc2c33a7c37ed6a83d4b152de669bf4d46739662779",
+          "text": "Onks sul kuitti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "af2633ed41208d3ca046b40d9cf92a6aee3283497267298c316a1da01a645f0f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "ec53ce36a074b963bb7c6ddd50b62efe3e37dc883071691027580f55c71f2e4f",
+          "text": "Onko sinulla kuitti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c03b96357815f7d743855a2367c090c7191ebc7d26188477ffd6f21dbeb25692"
+        }
       }
     },
     {
@@ -725,6 +806,26 @@
         "reason": "täs/tässä and mä/minä are register variants; same time (last week) and content.",
         "fingerprint": "3e7b4946f48a66c7c3351d0d5464724ea60b8becff5b2a2c1acdd055b2029c01",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "741ea1711e093b7df7161b54e1c16da7a97b55745b1f9baba1f63bbd42ad157b",
+          "text": "On, täs. Mä ostin ne viime viikolla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "966108e1f3ff3d9283ddf7f4faded92cb512096e59f7075a150044c6a1d02ea1"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "9e33915f67790547da73cd1fc32b2d805cd511262c2335def40015e49e29f6b3",
+          "text": "On, tässä. Minä ostin ne viime viikolla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5e09f320995fe38c54f80d668481fa6b968b48298b1786c553196ab39303f8fe"
+        }
       }
     },
     {
@@ -864,6 +965,26 @@
         "reason": "Haluuk sä/haluatko sinä and takas/takaisin are register differences; same options.",
         "fingerprint": "064587dfcbbe721230ec94f78c40c83ef7a682a6bf1d62baf9fb6779303f5b5f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "a7613110167a3e8580b03eab0ff881d99a9c9dbc930f792aac9a8a0d8521b25c",
+          "text": "Haluuksä uudet vai rahat takas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f0118b5317702958e3ef71672273b5025e7a7481ec29f1ad0ac362ff0272300e"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "d7cd5d0f7c088caa6c114ac1fddff5045ff6324c28f560f2dc42b8f874e3c425",
+          "text": "Haluatko sinä uudet vai rahat takaisin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "768b3a83a49110d872b6afce2904a86d244bc2cba3145630e4b151ecf9ff5bcb"
+        }
       }
     },
     {
@@ -922,6 +1043,26 @@
         "reason": "The two versions are identical.",
         "fingerprint": "d94ece50b98d9cd1d431739e1fda87b4f7a27cb0b3bb3dbd7357a572752517bc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "499ede8ce1c2c1517314970222d10006e68c2e7d576c703b3863fafd7cd08f75",
+          "text": "Uudet, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a145fc715e1ee4c5a37c205606c5c309fa232a027fc33a9cb9600b1828d5e2a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "a2782979654a9933ead408e74524c200f6b181e0c3c4cb0a7da8cc7ad9e5d68b",
+          "text": "Uudet, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a145fc715e1ee4c5a37c205606c5c309fa232a027fc33a9cb9600b1828d5e2a"
+        }
       }
     },
     {
@@ -1063,6 +1204,26 @@
         "reason": "Okei/selvä, mä/minä, varastost/varastosta are register differences; same place (storeroom).",
         "fingerprint": "eb63f11ea2e786312be8a38fb16599c7dab1e869ae16141ceba91869f7f8f54b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "e1b1d335ad909b10cfea9afa922705a6eaefd78a8d2bee01cc48b3c1f7438df4",
+          "text": "Okei, hetki. Mä haen ne varastost.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "134e8997716ab6e3e54daf36bcd653c8a1d3f6e62d0407227ae1207cd5172ca4"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "db2dfceb464980aeab1e1230580744862176b0cb80afd533950e1d437360e264",
+          "text": "Selvä, hetki. Minä haen ne varastosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c7caedbac570ae26cec8a5eae6c33d7f4ef1af1010cf5d9a63978b4708d4d8dd"
+        }
       }
     }
   ],

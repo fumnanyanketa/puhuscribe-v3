@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -183,6 +184,26 @@
         "reason": "itsestäs is the spoken form of itsestäsi (about yourself); same meaning.",
         "fingerprint": "a374ccdb55fbe12cbbc2bddf00356378051aca15748f2c5ba874e76637ed7ecc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "9111eff01e87ff00be46c8f8a5ec0d088f2d4ed770bd4a62a3304239adac6e2b",
+          "text": "Kerro vähän itsestäs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "85e0ad311e5de7d2aeeb23257406835e364fd51d02734d2c71e187b2ec699b38"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "85fe288a4ce31d0947d0d28575238686982c5dc8839e3234aa0d7a5116670965",
+          "text": "Kerro vähän itsestäsi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "832b7b1c5b0a19bf03eabbd649c0a3c9671e89bb8990f440f2c07e02b9eadbe0"
+        }
       }
     },
     {
@@ -344,6 +365,26 @@
         "reason": "Mä oon/minä olen are register variants; same name and origin.",
         "fingerprint": "722bcdd83fb8c43191abe3ff212042877a464f8373a8d24e30c5323cd3888e15",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "552167465b7122850bb8b5f2b6a9240a67dfda4cc01da345b5b586634d82bdc7",
+          "text": "Mä oon Maria ja mä oon Brasiliasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0a401691822c7fbbbaf4da1eac294d679ad272a5209d8b3a2abcbd634ee95298"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "64ca1ae08b69ba9d3bab4fce5873f74804d222317f6d02ed420b01c6cc8931a4",
+          "text": "Minä olen Maria ja minä olen Brasiliasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bbdf1856d5580c7bd9a958fc2ec3c4a8f58e0bed82ff1aff4f36a1688fcd871b"
+        }
       }
     },
     {
@@ -442,6 +483,26 @@
         "reason": "sä/sinä only register difference; same question.",
         "fingerprint": "d523339e2737bb7dad6cd35ffd8c615d6c9629762e09909b33e3ee91743a866a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "329823fac95aa81aa12e062c1af6ae4ac60a775313febe31f5b9d80cfdfb6ec3",
+          "text": "Missä sä asut nyt?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e569dd7a0e90a355a385b08d19d85fe35a8e89084e04fc48ef88534202984205"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "c269bc53f8b7d6159193d03b91828fed516f5306bdf8f91a26539f25b1fa62cf",
+          "text": "Missä sinä asut nyt?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e7ff2ac7d7231e5a289c7ed4a5e782262ae8614af36aaad102f45705d3e93f9a"
+        }
       }
     },
     {
@@ -594,6 +655,26 @@
         "reason": "mun miehen/minun mieheni, kahen/kahden, kaa/kanssa are register variants; husband and two children in both.",
         "fingerprint": "488b1dd387ce7416a0ca8a9a54dcb0a5c79a0daf00356dfbfd4a7f41d8d3b053",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "acf584f1c897346765fc8f1fd9dc094f9d48fc0e30d4a8e58c8754a927f421d3",
+          "text": "Kalliossa, mun miehen ja kahen lapsen kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ee0223946b37c55077d743b0ea3e84e4ac38a71f7c9a68f32017d93ebc130fcc"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5199b095de56d31f8e3af905bdbb6612a9ec3e33b8dbf6530e711855366e04d7",
+          "text": "Kalliossa, minun mieheni ja kahden lapseni kanssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0de13624f6823dfe4ce7ef5eea4f65b8ee6db59e189f4aef986a44656d1892b4"
+        }
       }
     },
     {
@@ -674,6 +755,26 @@
         "reason": "Mitä sä teet/Mitä sinä teet are the same question.",
         "fingerprint": "60b224c757797ca6064e6a524ac443568fabb0d910ef279dc51236d8b053c904",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "dd211e09a6a8d3fead6ea263a66813e043e8a57da76795e03f25ee064ee928a4",
+          "text": "Mitä sä teet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c33847d57eb8f376eb8b7d489585eed66bbaa0e8031258ae68aaae8d5e78e7f7"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "03790fc1eb84ca2c13f1bfbc057baeea31c611b1cec66a2c6cda02de01c63da0",
+          "text": "Mitä sinä teet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "bc13c794725005183cdc550dc219918e75e08f089fbbb0568b7479592c8190e4"
+        }
       }
     },
     {
@@ -856,6 +957,26 @@
         "reason": "asiakaspalvelus/asiakaspalvelussa, mut/mutta, haluun/haluan are register variants; same facts.",
         "fingerprint": "7151a68f22ec640b24a2710d157147eaf174abf6545a9bd98951943453f65e24",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "33beebe322cc0e17bd1e23b5f014e6029c1f0d0e1dccdc1ac368c5a39e4496a7",
+          "text": "Mä oon asiakaspalvelus, mut mä haluun olla opettaja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "301caa80f104632599360751d4ccb4e796e0b7619a8c759f248e2976f7cd320c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "e347e2c61724ba73b2903eaf18c93499f1857735e02146956b3adc3b58737694",
+          "text": "Minä olen asiakaspalvelussa, mutta minä haluan olla opettaja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "625b2f3d9c0d5c9dcdc7391dcc5f2e20782cace51f2669aaf045e41558eac33c"
+        }
       }
     },
     {
@@ -974,6 +1095,26 @@
         "reason": "tehä/tehdä and sä/sinä are register differences only.",
         "fingerprint": "9608bb2d9437c38b51d4a344eff0ba0494d32d48c10422c0876aaca533f12bcf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "d3affad6d38684633b225043b5ca9d6c600bb9f9b36eae761cf0ca6115e9eb0f",
+          "text": "Ja mitä sä tykkäät tehä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f688dc699160730e80eab4f8a041a807c9222c13bfa43df1aba650f1f3319533"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "e807265d9d4d297168890dc0efc914db1083e0ea92697dc1e7d7f144cff0e7d9",
+          "text": "Ja mitä sinä tykkäät tehdä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a8f117c0490484116238372d14be0319ec8bac0feff3acd7a1e2c7cde09970b4"
+        }
       }
     },
     {
@@ -1238,6 +1379,26 @@
         "reason": "kuoros/kuorossa, saunas/saunassa, suomee/suomea, ku/kun are register variants; same content.",
         "fingerprint": "7f6e0a85c703ac4bd800397bb1a12d5da0890c591cb87ecef010740cba622ef6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "0a058b54eb7adc0d32bebdc8eb90a0d55760a2d38c009cdea24fec1137ee5a36",
+          "text": "Mä laulan kuoros, käyn saunas ja puhun suomee aina ku mä voin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2ec01e9bfebf011d595bec360ee22caf43dba6ecf9840bacfda82555deda9d20"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "bce5f9dffcf452312a38311a5733914369db6ed7bf615eacf97f8cf49521d9ac",
+          "text": "Minä laulan kuorossa, käyn saunassa ja puhun suomea aina kun minä voin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "96a2bd5c5ce67a4b518bb0d7e40465e414ee43efdca2b63d0618a7a71674b3fa"
+        }
       }
     }
   ],

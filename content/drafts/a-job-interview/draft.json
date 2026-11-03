@@ -101,7 +101,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -184,6 +185,26 @@
         "reason": "itsestäs is the spoken form of itsestäsi; same meaning.",
         "fingerprint": "01d50dc60ae4f5f1c407b6fca7bf5fe17957be7dc23947919ccbf603fd640bb0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "9346dd73bab48d201bd1feb380df5bcc05e4e65f36e5c962cff2dfde7cd37d99",
+          "text": "Kerro vähän itsestäs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5f939feb31ab1ab83720d2dedd5035adeb71ed48fa1f3583bae8f8ca1e93a4eb"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "d8495ce151de103ceb6948eac01ddf07ed56721da03934e5d4ca0283a621c97d",
+          "text": "Kerro vähän itsestäsi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1f5fad4a6b147b3753821c96f6274a27437aa6a76a56309ac65c2e84a6da5cef"
+        }
       }
     },
     {
@@ -428,6 +449,26 @@
         "reason": "Only mä/minä and oon/olen differ; same facts.",
         "fingerprint": "4a15e593626b70dd874305b527724db9dda98cf631da3a54b820d7f3514cf1ba",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "86dd97e33e39a2e7419cff22859ca1324dfc8888633310e6d2cc89d9a2896999",
+          "text": "Mä oon Maria. Mä oon opettaja ja mä osaan neljää kieltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ed980a3cc88c67ea04b57962c3bc1056e9777ead283b6b574c4f322d9733b6ef"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "63474df8fed5c58af4d9dfe963fff604b22c32a27cf193ca316115b3104010eb",
+          "text": "Minä olen Maria. Minä olen opettaja ja minä osaan neljää kieltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d5ffbbbc78c2a00109ede7910b74b8b78e95be17f4c926505dd8061129fa3641"
+        }
       }
     },
     {
@@ -485,6 +526,26 @@
         "reason": "Identical lines.",
         "fingerprint": "4495058c4bb4455d9131d31b3a6b81cf32d50bfbb2006c4eb2a91c8253a9c01f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "8a41a3a3e8a6b74869ff07279f7f25b0c32452935285c13089824057930916a9",
+          "text": "Mitä kieliä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "65d0fe7e4a513ba8a7f99b493768beaae38f63483d3d4b0894263be43d7d20f6"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "fad835defc89a1a4324c0346151ba1bb5ffe91a2f5fc4cc775b6e704c304878c",
+          "text": "Mitä kieliä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "65d0fe7e4a513ba8a7f99b493768beaae38f63483d3d4b0894263be43d7d20f6"
+        }
       }
     },
     {
@@ -618,6 +679,26 @@
         "reason": "Same languages listed; only spoken partitive endings differ.",
         "fingerprint": "63a8fbe041e822ce8eff3e27037f64461db943ddb236b6a2ccbbc6b5bac5ef0e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6a81a05ad6b246ab30adca2ed703dbfeda1844a3f395f5a05329dfc15be71a37",
+          "text": "Portugalia, englantii, espanjaa ja vähän suomee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2159730c4c5e39782a679609cc7b093966165b27de2c393431946dd8a1768cab"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "a3448b4ccc59b0e1ede218c613c477c17741b204c74538ebe347a7d006385940",
+          "text": "Portugalia, englantia, espanjaa ja vähän suomea.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "988a347d468cd0c50d367da34feb7882a5a3b5d668516c51f764ccafbba9bb8c"
+        }
       }
     },
     {
@@ -760,6 +841,26 @@
         "reason": "Osaat sä is the spoken question form of osaatko sinä; Hienoo/Hienoa is the same.",
         "fingerprint": "fc442810ceb58bda2d30808ffc3bcb4c36647e0918128f8e950c02c28ee53e12",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "bf920de661832ecb82553b50bcec0bb6661ea7a67142ba3922b5cb80298b96e7",
+          "text": "Hienoo. Osaatsä käyttää tietokonetta hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9f88670c1cdce3aed2841b8e4fd65a7d42d700db14c7ceb186c84477b7f8babf"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "3422b0e0aabf4751ddba505e099805a61dd6972a0dc1394ee1954510e02f1e1d",
+          "text": "Hienoa. Osaatko sinä käyttää tietokonetta hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "11fc996ecead00ed2ea51983f4cddd21a3e71c64f11039808cc38cb4915716f7"
+        }
       }
     },
     {
@@ -896,6 +997,26 @@
         "reason": "Joo/Kyllä both mean yes; tiimis is tiimissä, same meaning.",
         "fingerprint": "28f5c12b4dfdf4c3a33137e7ee4f49d756ba92b295305a178656660d40fc4ef7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "d0b8775e3d64be14c2ffc77a6d103494d9a6c4bd14e95be1f1d61c0982382bce",
+          "text": "Joo. Ja mä osaan työskennellä tiimis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "447ddfcf840c2b5703b562339d9dbd5441e4c0e69e3bb8716672fea87e28769b"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "d0aa9967d5f7465ba7d6b645ab40be86befa8f11835240ec3cb0b130771767df",
+          "text": "Kyllä. Ja minä osaan työskennellä tiimissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bffc1207ab512b668ff1e7a99b3abe5fda3f7ad012038605884eab7f7fba0888"
+        }
       }
     },
     {
@@ -1017,6 +1138,26 @@
         "reason": "Miks/miksi, sä/sinä, haluut/haluat, tän/tämän are register variants only.",
         "fingerprint": "6256adf189c50f1c8060fe59b061a56bfcde0c12864dc8b55d0cbca5f1c951d4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "55f443cb856c05bd16d83f997ebfd7a314a1603b2f63bb686094f069e4b251df",
+          "text": "Miks sä haluut tän työn?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2f9dfe16d831709335c4058292d9c8ee970a7779ee7f1013fe821dead16dd50b"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "eafa4cad5a94a374c28eb3102ae5bf64f05ec47ac280e1ad4116646e427f1fe1",
+          "text": "Miksi sinä haluat tämän työn?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a0fea0b74fa9c4b0d8dbba0acb9c7db6c8dcac01c7d7e75371c756ea1bb1a369"
+        }
       }
     },
     {
@@ -1176,6 +1317,26 @@
         "reason": "ihmisii/ihmisiä and oppii/oppia are spoken variants; same meaning.",
         "fingerprint": "55cdbc37ff8546d48c281b53719282c0c49b54cfb953b6c8311171eeea0bb542",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "094067d2532c4f934375200a29e81cb0df235dab76bdab0229b81da59ae45e14",
+          "text": "Mä tykkään auttaa ihmisii ja oppii uutta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "506e0d4e1f92f86d79ef2e70774050e4b4b43a267af906d682185a6fe8f94826"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "343cfc7191330344aacc9567019478569867aeb716adb98568e4a0089f6f2195",
+          "text": "Minä tykkään auttaa ihmisiä ja oppia uutta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7cbb9c9930727ebcc79fa32271be3d04f1d4f46b91e0acea3bdd34928218b757"
+        }
       }
     }
   ],

@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -216,6 +217,26 @@
         "reason": "Only register differences (sä/sinä, Suomee/Suomea); same question.",
         "fingerprint": "610e6dee7eee290aed767ac5fdeb8dd86d6eb347a03bce2ef4b4e0838e48ba23",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a005112966cc4126072ec4012ad7a621696ccfa8de176bd5da6c60f3b8349976",
+          "text": "Missä sä asuit ennen Suomee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f6e4b678128a7f75b335cd0306607b2b6783e0f6b4e816de91fd24977c443f3a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b5f270176b226ac7a9582a729ed69f8d27bf38a1a316f057547aa8ab5f039660",
+          "text": "Missä sinä asuit ennen Suomea?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1eb7770422a74c9cebcfca28b216bb53b2cdabe66d897455a0db8eef6cfe611f"
+        }
       }
     },
     {
@@ -296,6 +317,26 @@
         "reason": "Brasilias/Brasiliassa and mä/minä are register variants; same statement.",
         "fingerprint": "bbecf1a77a376cc907a6d1926ebc10322c65727d4350fa17d33bb30c9a95e028",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "60d5b6590878bfef42739072f51871405db099a265d596f4468e92180e2e9455",
+          "text": "Mä asuin Brasilias.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3e689be0a058a54f244713e94df05d49ee4a4379a4bf33e1751c4dc35eae6c7e"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "975626a68e20c219f6390a82dd6868cd44cf66b7d2fd2e0525e9e8059c5d925a",
+          "text": "Minä asuin Brasiliassa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3b1da11e791ac44c2a24250b565fd62399f1b2e556900372e53169d1f1131a02"
+        }
       }
     },
     {
@@ -397,6 +438,26 @@
         "reason": "Identical sentences.",
         "fingerprint": "c8e2bb7c4ecd3bc1d709901be4b23e5b0d63a9a4756c16d098cb40b74b5cade4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "1e4f9e588feef13a63c7fb720c1efca7c31462b74f359c953a7bb577c8815f75",
+          "text": "Se on iso kaupunki!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "92fbafbde626930e4232f849cf0569cd017fb74b5a7c2d52005cf1d6bd0ab14f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "878bcf14b25cf93c1f7652d7ceffa822f3e6e0d97a2f6629771ea5ff4dab8c99",
+          "text": "Se on iso kaupunki!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "92fbafbde626930e4232f849cf0569cd017fb74b5a7c2d52005cf1d6bd0ab14f"
+        }
       }
     },
     {
@@ -588,6 +649,26 @@
         "reason": "Joo/kyllä, tosi/todella, kakskyt/kaksikymmentä are register variants; same number (over 20 million).",
         "fingerprint": "df75b46f95c2a0d304deded471fcfa93a7d3fc383c2d90a212b0ab54d122ce25",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6d90896726fbccdf94cb928fe9d8f06bbd9d903863b1f99a3449d3b0b42e752e",
+          "text": "Joo, tosi iso. Siel asuu yli kakskyt miljoonaa ihmistä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "94043a50f404b9fb7da46ba14c43aed599499f8bc9535f96027c57c95651c4bf"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "13dd9e5f66c516210bdbd913f7185bf7899d1e688935f67ada101a684763f583",
+          "text": "Kyllä, todella iso. Siellä asuu yli kaksikymmentä miljoonaa ihmistä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "81851603a600d7b00aff38b02b13a3b2dadabda62d7f58a8ecb33067c2e21ce4"
+        }
       }
     },
     {
@@ -686,6 +767,26 @@
         "reason": "Only register differences (sä/sinä, siel/siellä); same question.",
         "fingerprint": "fc5d7b74a9717bca7f7385e50ffeeb0b0f1ad6cb173989dd0070fbef56ca933c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8bc81b74a7beb08aaee065377a21b25dc310eeab60e4334d1d7bd4b61e5e368a",
+          "text": "Mitä sä teit siel?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "66c0836be4755daa4c00ccf834e2d7020af574e15b962a81ed9df7bc871554f8"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "87a67bb8ec4e0893556f5007e2c25937fca01041b8d27df702db37df3b58e2e1",
+          "text": "Mitä sinä teit siellä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "80ba41478bd6f95e65d511f33ff30a5cd20c26d663437861d6fbb374cdf2d98d"
+        }
       }
     },
     {
@@ -787,6 +888,26 @@
         "reason": "Register variants only; same meaning (I was a teacher at school).",
         "fingerprint": "808719440ca9e52574b490f62ccd2b123475518e7b97eed076b0ca3ccb1d5175",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "289eee7b4788e0b7a7c991f8eff2d0b57dd44427164bccdb041ce78a7226c653",
+          "text": "Mä olin opettajana koulus.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "dc87478bbf0e5022eda9d455f419879df11d2259edb660cb8a71fc0c74d0252f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "2b7b1f57be02d5b1397633c5e24e38775fccf4c0c805b9a2f63598907f0a3ec8",
+          "text": "Minä olin opettajana koulussa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "038622775728a1192b17987049d7738b79fbbfa307376a3b7010703bd9c31486"
+        }
       }
     },
     {
@@ -905,6 +1026,26 @@
         "reason": "miks/miksi and sä/sinä are register variants; same question.",
         "fingerprint": "c88f89bf465e5c457830f5a58f7d9f612ee58fe0573b71b084fdb0916049f9a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7283e66be5b4e848cac32a9a828b04138aa0e7b023aa935888b1e512bb1c6a8f",
+          "text": "Ja miks sä muutit Suomeen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "da587a20f8d40cef5f9d2d1633a91598072fa1088cfc669757c1b7238027af2f"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "ada1b558a465d9e28faf86d1f9049711db1e2488cdcde3baa29bca59aec80740",
+          "text": "Ja miksi sinä muutit Suomeen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ee6b452a16a4835edcbbade42e5589ee36e9c54492acd1bc8080a6fcfc7e1937"
+        }
       }
     },
     {
@@ -1024,6 +1165,26 @@
         "reason": "Mun mies and minun mieheni both mean 'my husband'; same statement.",
         "fingerprint": "02c6fd6ab970d88583899f5a8924f5222a03cb65b54af78dc6fd8fb4d0d13de0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "cbb6fc1a01e555d653c8f5ba4863deeb73292e63f1efd71fc3d690fa6025f2fa",
+          "text": "Mun mies sai töitä täältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4c5edd6d2511294280c10724d3c1674b53eaa814a219acb3b85a6deca30697cb"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "74ff953ed9e9fac96594b988cd82ac826c5edd64f0ee0a23200b7c0e8eb4fed5",
+          "text": "Minun mieheni sai töitä täältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3c1c89e1939ef608f3261109a7c69578dc934d5a7df7a87dac5ba26bb0f005b8"
+        }
       }
     }
   ],

@@ -102,7 +102,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -224,6 +225,26 @@
         "reason": "Only register differences: anteeks/anteeksi, täs laskus/tässä laskussa. Same meaning.",
         "fingerprint": "a8a688ddd119c97dd06f8923f4b5205cd60dcd0f83064e462f6bfd98f246ca31",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "023fcd1663ef57b90950bb5c577e4c36cb135427ede269c6f00a6bc809a0d88e",
+          "text": "Anteeks, täs laskus on virhe.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e7b21d761a2f66a6cf1c4617138af9adad4d295b23b51eda0e02be85cc9c8dc3"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6514284895b7e2f3369d6242f991add3bb6764877f01f949b9ecec558a159390",
+          "text": "Anteeksi, tässä laskussa on virhe.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "16c7b8e98c74c392dd45611fc4a4a0261addb7b67ae94e90ece83de657493044"
+        }
       }
     },
     {
@@ -279,6 +300,26 @@
         "reason": "Identical lines.",
         "fingerprint": "e39454ac6aab8e0cb6f7e33d966f4cfed2cf1f7fee0804eb8046d96538633690",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "4ba54da0dedc5cbb22f7c6e2e0f09ef2a46910a6a385e19abbefa69a4f24f7f6",
+          "text": "Ai, mikä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "793f7b2748e87cdeccd7aaae7643e062dee4f70fd75c3ea13c4beca7bbe1a431"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "fc41d8d085c6ed71a7e373a0b3122d421a2310d1fa03ead235d4a7e02b0d30ee",
+          "text": "Ai, mikä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "793f7b2748e87cdeccd7aaae7643e062dee4f70fd75c3ea13c4beca7bbe1a431"
+        }
       }
     },
     {
@@ -478,6 +519,26 @@
         "reason": "Same: one soup eaten, two on the bill; mä/minä, vaan/vain, yhen/yhden, kaks/kaksi are register variants.",
         "fingerprint": "8a6b28457c2e20a8d47380e6eaeb03c25ae5fd3882c79d5834cc6b5d232efe63",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "842e962cb78842bdcb8a33e4c607b1225f31d762c6f4cf1372d4c8920d696fd1",
+          "text": "Mä söin vaan yhen keiton, mut täs on kaks.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f93801fe61a9fca13bb081bbd79532960ea9c94b9d24358691aa2fa134d5289e"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "cc349511fecca4401019805d63f8c97745df5424a4e5417393e34145c5996fbb",
+          "text": "Minä söin vain yhden keiton, mutta tässä on kaksi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8b68e1b83963f8beaf2fefe3356f8c740a2c2d894f384c034dba8f3c81fccbf9"
+        }
       }
     },
     {
@@ -612,6 +673,26 @@
         "reason": "Only register differences: anteeks/anteeksi, mä/minä. Same meaning.",
         "fingerprint": "63ee3a7283d17c445d74c81caca7fde92595a587fe25bbd830a22d9556b08d0f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "32cb04f3eb2076798ff0556ed074a462bd2fef28b789473a0290b43e57270576",
+          "text": "Voi anteeks! Mä korjaan sen heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "78a0de41370ea1672556acbc58b9e37929a5784acc9e560c06a643e9c728f49f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "ef2450b4c9cb909997cb329cd9392797920d7b878629a3a3ae4cdcb7cc3f83b2",
+          "text": "Voi anteeksi! Minä korjaan sen heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "de416bd39f209b0a1c357baab517bc1487f7f5826d47e7820b64ff55b320d4e8"
+        }
       }
     },
     {
@@ -690,6 +771,26 @@
         "reason": "Identical lines.",
         "fingerprint": "5418d7fae73728c75a59f093a49aea6148ed00b6066bd248b279b889f21511e0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "0602bb6aba842113022d5c0ba5fbf668a5d6485a6ed8b03dad308d3e3121a691",
+          "text": "Ei se mitään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3abc34923d8895777dcb3f557c660d8f8e4a32d8abb75e5fde18bb7cc06e8524"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "1fc0ed9a718f16a699f806fb5e6657ef9e70c003917a35512fed1f48d09c5c53",
+          "text": "Ei se mitään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3abc34923d8895777dcb3f557c660d8f8e4a32d8abb75e5fde18bb7cc06e8524"
+        }
       }
     },
     {
@@ -831,6 +932,26 @@
         "reason": "Same: new bill, twelve euros; spoken forms of uusi, kaksitoista, euroa.",
         "fingerprint": "a6cc0a16d6e2dfeb3420e9101a5cc3541733fe5f693b87196bb674f122985879",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "617bba2c101003b1b93fb5b6a804fdafc66af1d920090ba3cc9c86420b98d883",
+          "text": "Täs on uus lasku. Kakstoist euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c089391220ed1301edbf38cd8d82da561eece85309ab16891f3699e354fc304a"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "ec3f3ebdab86dedf6d7754f0b8c30ea8335f93f35462e54f47125169cf75d266",
+          "text": "Tässä on uusi lasku. Kaksitoista euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1a5e4acbbee1be69c367d48b59bb5a66cc8a588d0b3793ad4e23849392bebea8"
+        }
       }
     },
     {
@@ -947,6 +1068,26 @@
         "reason": "Kiitti is colloquial for kiitos; otherwise identical.",
         "fingerprint": "de23bdca781e50741ba8531204544bdf42d17d34113ddeb43934205e3c5218c6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "54bc963cdd6e74ddee7663138f2e446177f1dc5348dab93c8be8c7f0dcf25de1",
+          "text": "Nyt se on oikein. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d61bd01eea99e4d41be880d837edef5c4cbae1fabfb4ad56e74f6f9d8dadbea1"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "83cd918309e1a3f8bebcc58ff6f460681b71ba1d4a9de9e228f236847a14fbff",
+          "text": "Nyt se on oikein. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9e434cb4cab529fd2477394f1f4b015c8b6618dca2cb6b6c710bbca5db327e50"
+        }
       }
     },
     {
@@ -1065,6 +1206,26 @@
         "reason": "Same: thanks to you for noticing; kiitti/kiitos, sulle/sinulle, et/että, sä/sinä are register variants.",
         "fingerprint": "2bb7bd84daa83ec6060ba9d616a2a8daf7b8f3bf444e654e8852e51ed4ef25ad",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a9ad4e257a2bc127fc76b26c1b8a5aee4e555d6e5d19d617d08f4a3d3793fdeb",
+          "text": "Kiitti sulle, et sä huomasit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6dd9315c3fedc93f710561e76b2474b4a410c2ab8c9a2ab8a24d76ae1477a88d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "87cfcb57db06f8d4119afc13fa132cdf734d0fe72db8c6c6d91ce758793c1aab",
+          "text": "Kiitos sinulle, että sinä huomasit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "aa70c0b1dab293e22d2aba3d15e63ab39a8519f7c1842dddccbcbf14c19bcd30"
+        }
       }
     }
   ],

@@ -101,7 +101,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -206,6 +207,26 @@
         "reason": "Only register differences (sä/sinä, työks/työksesi); same question.",
         "fingerprint": "7215fb1ca3d1680bbe192f70eca446e35d83747f0c534c4fa68985b50abeb02d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "8f6ac744437eb4194583f65b6c75b7f7f97e8888173d58bd8c64a61eaad4ea21",
+          "text": "Mitä sä teet työks?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8b0e2623930b3045da8c2b515c8eaf5e8446b08f94c63c26719f6e30d3f99d58"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "f5ecfaab74214ec69a9badc0249bdacf55392f2813e438ae49888def6ed2411f",
+          "text": "Mitä sinä teet työksesi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0ebb0dcb672c62a9b0914e3524f7a81b42ff98cdce15918cd9ee49e92fc1b69d"
+        }
       }
     },
     {
@@ -388,6 +409,26 @@
         "reason": "Same content: works in customer service, profession is teacher; only register differences.",
         "fingerprint": "26139f957056935db6a82537fa8149ae39416074f93d6690de351da119cc8efa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "f2ce179211b595e79f4bbb5c00662099a74c3addcb5c5972e68a5d5b0771484d",
+          "text": "Mä oon asiakaspalvelus. Mut ammatiltani mä oon opettaja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "05893487dd466937f04dbc68cc013213dd659a7a14050eb8786e7388cb3f2025"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "44a7c0b3774daf2a407c9bb8db836f6f6055a6ab8b642ee40ac86746e512692f",
+          "text": "Minä olen asiakaspalvelussa. Mutta ammatiltani minä olen opettaja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d180945d45b889074f0c91db00c5b38b6c57bb8ebf9038532264d078cc02ba44"
+        }
       }
     },
     {
@@ -468,6 +509,26 @@
         "reason": "Identical meaning; sä vs sinä.",
         "fingerprint": "af5b73c78bb0a64cebc960cf94ae6ad709e122c18b00073c46c604fcba386dee",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7b15486dc6ad53fee923c0926044a6d78f1bf0840044e46ab4c58e30e8ce9151",
+          "text": "Mitä sä opetit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0567c6f1c0f489bb62f8004dd8a3c0f430b1b7db10eaeaf4cba13f17ebf37770"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "be62890b6c471c45e835190afe912ae109e0527faa272b1e094a55adce0fcbb9",
+          "text": "Mitä sinä opetit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6ae6662ed2b746c366b58b1ec91b0db4a59f6cfeeba541896aff21daec883d0e"
+        }
       }
     },
     {
@@ -543,6 +604,26 @@
         "reason": "Matikkaa/matematiikkaa and englantii/englantia are colloquial vs standard forms of same words.",
         "fingerprint": "5257b071b3f7be6b52f5ddfa18bedc3da4b7efc1bb5118d47d4c76ed47e91c2d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c6d8206a714a1c95d73593008e70766fe5c0a26978040a6e950f1687e3c7556d",
+          "text": "Matikkaa ja englantii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5e3ebce756ab2656d87654310e607a0948a1a1963154a7f880d321c2075080ae"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "a3dc4b729557a0ab3a36f0b1b733f46b2fdbfae42cc6736b0f9e222bf90e48d7",
+          "text": "Matematiikkaa ja englantia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "59df3a8234d99a84bf59e387c7fa27c50b5e269aa34c63ce6c49e32a27caf7b4"
+        }
       }
     },
     {
@@ -669,6 +750,26 @@
         "reason": "Same exclamation and question; haluuk sä = haluatko sinä.",
         "fingerprint": "ab683be60b4ac141fd472598f40e5bb82e20a2105466023f7dbd4963fe2c8d89",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "455ea38b056b0aedb1c14e291d8fd776176d50a7e177f4bd16a91db81d4b97b0",
+          "text": "Hienoo! Haluuksä opettaa Suomessakin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8718f10afdd1930e5dc2a47bc1a91677d85884eb628c6752a54aea418aefb773"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "7167176f317e91159b69bdde420444a9986da0dcbf3ecd5ab5626639a4bcd0eb",
+          "text": "Hienoa! Haluatko sinä opettaa Suomessakin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d662138cb1f726bd288c295ac81c9d1783f6e6aa2dd3e85aa8caf1195f259757"
+        }
       }
     },
     {
@@ -788,6 +889,26 @@
         "reason": "Joo = kyllä, mun = minun; same meaning.",
         "fingerprint": "e0c44851182894f86d6867db580b2c8216a77a779babe3c5aa61a6d8380419e1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "dd890b8a231332f38654eb7feb5134e0cb2c8bfe257e74c2e6fa673856e28863",
+          "text": "Joo, se on mun unelma.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fb407bde37c01c2c38ea9ad46fee0cdfa90c5c7ba72e228ebab5ba570c0c8796"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "55ff0bb55b3ecd8d3803f8175c0cbbb8526fcd12305d03720bc7677d5fb951c0",
+          "text": "Kyllä, se on minun unelmani.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0df7051c03b91ac3e8b60bc7defeea8d53b54f25545989cc3886ea5831350aaf"
+        }
       }
     },
     {
@@ -868,6 +989,26 @@
         "reason": "Kouluis = kouluissa, opettajii = opettajia; same statement.",
         "fingerprint": "c4d5c29b3e887d1a56e7087ec31ead0782b8cef8b7c2a2c53e960f014c690477",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "ee616cc94c644f7be447e1d74cab2d1fb1efd31938d1ff686ebc600f4e62f2ce",
+          "text": "Kouluis tarvitaan opettajii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "1610836298b0b692357a829475e55572b9860601da46ad5c63237e62e481619d"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "a72aed382d8bcb109a996b4efb99a7c8a574168f31ed744d4c947a7115f65746",
+          "text": "Kouluissa tarvitaan opettajia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "40e8540ad7fe07bec0bbb40e87c50ba4cb703bd8b42f5ca3a168c26c005f8a46"
+        }
       }
     },
     {
@@ -906,6 +1047,26 @@
         "reason": "Identical lines.",
         "fingerprint": "a817fe5bc9f3422a9519ff04ef0298360e6e24a4bca43f3d0849c2a002286d84",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "10de4ac2c645a6791fe5731c0825edd8dd7fe20aa8606d4156ac1c6c44060760",
+          "text": "Toivottavasti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2d05154da1630fb2218cbccab55febf59125c6e5a2b3962ebc0fc06f89cd7a2b"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7aefe64da48b784e19db302a1c5e0c9b3ef946f7314563bc4fe4f7203df2e9a2",
+          "text": "Toivottavasti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2d05154da1630fb2218cbccab55febf59125c6e5a2b3962ebc0fc06f89cd7a2b"
+        }
       }
     }
   ],

@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -196,6 +197,26 @@
         "reason": "sä/sinä is only a register difference; same question.",
         "fingerprint": "4f27b0e03cd166176f843a641bc059af968fec54dd79c5d82611be71edbfc2f8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "0baff0adb353f7773c9f95840415f747619c55021217e50051c8b83d971fc9bf",
+          "text": "Mitä sä teit eilen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c863e7c0fc32a7a427edf9294dd3debbf54defb094f93a73ddf3b2aaaa406756"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "e119d6434ba5f739daaf70d2f18756e780bd86c619320dfef5514832572df61c",
+          "text": "Mitä sinä teit eilen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0d13e2e54fb65faa1b2a3913f19db72a0aea232b09860c152ca6c5f1e6c488bb"
+        }
       }
     },
     {
@@ -338,6 +359,26 @@
         "reason": "Only register differences (mä/minä, aikasin/aikaisin); same content.",
         "fingerprint": "a53308d71447f77750e94472ce3624b8be30ecf94a261d2bca7e2f8c4df229c2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "38e49606201c345166e55d66894bcc4c7eeca1f44d10fbe6cea4d91a66ddaf0e",
+          "text": "Mä heräsin aikasin ja kävin lenkillä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4ebeb764db736a426c9b8f6a8768af6443d3b47bf14cdd60d83699c0f15f1dcd"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "b12bcc2b8d4ce908ba21e8e04e31f68a5ec6070296f586ff154caadba5d9de1f",
+          "text": "Minä heräsin aikaisin ja kävin lenkillä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f485bb7b7cce18ec6ac2b749ce409da69434ae43afff3ed3fa56302357a1e2ef"
+        }
       }
     },
     {
@@ -413,6 +454,26 @@
         "reason": "Identical lines.",
         "fingerprint": "3d8d4d96d2a1f30a130c0b5ee03245470f87b328c8c1ce4142feb45e58c10093",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "cb3b982b6d7fb1e369b444d3a039d4c6229df8c9d4a5e2a6cdf20eaa2fd3f509",
+          "text": "Aamulla? Ennen töitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ff613691e89e82502ab63c026f2a3f407cf489a06a63d15b7cc413a9ad5854e9"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "5021080365a7b9a5c20bc117f8a63dfa0ed32ce13a4deaa336f009aeb2c08ecc",
+          "text": "Aamulla? Ennen töitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ff613691e89e82502ab63c026f2a3f407cf489a06a63d15b7cc413a9ad5854e9"
+        }
       }
     },
     {
@@ -590,6 +651,26 @@
         "reason": "joo/kyllä, sit/sitten, mä/minä are register variants; same events.",
         "fingerprint": "3488796b19574cee358d432cff9495a7ab112a6b6e0950f4fc2b9b324e1432b9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "471d7d7fe4b4db69ebf7ba0903d50bd86384e6fbb514fa365406ce3b6339fc9e",
+          "text": "Joo. Sit mä söin aamupalaa ja tulin töihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ddca246f32b051345f48dbbbf79c44f4a85cbf8183e08a74ea6cf8f0ccd0b04f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "13507aa87eb3a513eae607ba47946a9e735bd7d37731cb177fcd716793a2d452",
+          "text": "Kyllä. Sitten minä söin aamupalaa ja tulin töihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4506d78b76e60000f0b04acdbca5b074e0b421661c8be0a9fa1dcfaf79228e1d"
+        }
       }
     },
     {
@@ -645,6 +726,26 @@
         "reason": "illal is the spoken form of illalla; same meaning.",
         "fingerprint": "336804d028e7698aadc06d46986620b9bfd6fc38c05ab347c6aeaf43801d65cf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f358970c24dbb9b8a732ae808532fb170a32d550108890ba703335c3aea20a99",
+          "text": "Entä illal?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "88f19e904f4988153e7254421cf25074ddb337c02fc761d7f6f38282d9996ce7"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "81835e979bad77d2e66be0ce4b54e11ca4b47a48fcb5ce1fb06c72caaf4a6ab8",
+          "text": "Entä illalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7ed1aa6d6d9a75a41732a18ef112c8c520398ebeb4b993cb1be3c568ddfe3fed"
+        }
       }
     },
     {
@@ -786,6 +887,26 @@
         "reason": "katoin/katsoin and uutisii/uutisia are spoken variants; same meaning.",
         "fingerprint": "bf8472dc661ca70f220ba591f2426c3706935409466ad0e8536dfeca46048cbb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e609f27c69ac42e64708c0342a92ce08f4e9aff3cd7ab662437830f74a8582aa",
+          "text": "Mä tein ruokaa ja katoin uutisii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4bf48bcff564047ceb1da24c1c8b0f1f32685f2d18ce6000c48bcd939e59d7c0"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "08245c3f8b4f12c0e4f108d972d7588b7d902f917b0fcf81d2632244d1539cc4",
+          "text": "Minä tein ruokaa ja katsoin uutisia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0dbe5aca6af57e7bba96f0ab3f91026794154ef16fee64b1f33ce707ebaf5e49"
+        }
       }
     },
     {
@@ -823,6 +944,26 @@
         "reason": "Suomeks is the spoken form of suomeksi.",
         "fingerprint": "0d81ce76393630e3b2785c45cc53665974408ff48a404f87c5dacff08682d67e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "49d1fcbba46611b34d403d617c0de5639db540aa9c78b1196743e23453c5d258",
+          "text": "Suomeks?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8deeb9afe7a9d0a82e28a0a83929f44d9107401de77b5b50cead38e954344e94"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "b23ff1aefcc32395910f71625d01df613d30fda23ae358ff5547f4e6e5d09323",
+          "text": "Suomeksi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6afa8dcd5557cfd3355497eaeb0acdc4bf48dd6ad17d13b6a64d46f3a61ebf23"
+        }
       }
     },
     {
@@ -959,6 +1100,26 @@
         "reason": "selkouutisii/selkouutisia and joo/kyllä are register variants; same content.",
         "fingerprint": "dace77693bf67bd48508911cb47077db0ccbdd73475a585c4f3e5d373d8e5e0d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a6a5bd5eb46225ca7e97c4084515c7bc0d6d2eca97df5f7283ea58cce22f32ad",
+          "text": "Joo, selkouutisii. Mä ymmärsin melkein kaiken!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c591e16ea45c8e93cfeded48e27b270b311bb51c678f9f00af34459178697d6e"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "927e4b8f410a00af93a3f7f20639661c4fe9bc2332112852f3eddfa6122b6253",
+          "text": "Kyllä, selkouutisia. Minä ymmärsin melkein kaiken!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f5be3a692b2d111f4b224ebdab6be4e6b980d5eff9adfa4080b516234e2e87fa"
+        }
       }
     }
   ],

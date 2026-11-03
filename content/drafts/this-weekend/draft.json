@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -198,6 +199,26 @@
         "reason": "Only register differs (sä/sinä); same question about weekend plans.",
         "fingerprint": "f3fb774661f66c08c074f2663189b21621d14cc9b508bd4bf392de83032498c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "6e1a5ab0a3f806ecaf507f2cc65249e29faaf9747ebeb83c71c03559b715b13d",
+          "text": "Mitä sä teet viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b347beb60858d0af7a642e3d6e262e4d9185e4a177dc68c91135bc80d1b4b2d1"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "95aa4c450f4cf7ae7cc3542c41cd644cee21e89f996754b9132f1aca117c21a6",
+          "text": "Mitä sinä teet viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "91ba78d556dccf81107497b9b2afe4253a08abbd21ab8edc00961cfbb57c266e"
+        }
       }
     },
     {
@@ -299,6 +320,26 @@
         "reason": "mä meen/minä menen and kirpparille/kirpputorille are register variants; same meaning (Saturday, flea market).",
         "fingerprint": "8c8f388fe90745e4a9ea34c6fc776c4f4b18e5421fd0b116d33b03fe24410324",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "8fe709ab194a9d1a685b3e7b042d8b968cdeabd9c6f199851dd96472e09eb440",
+          "text": "Lauantaina mä meen kirpparille.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5ec05f1a4c47f8df2bce454bd758941824108daa077c1fd9c712967c0b50bbb2"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "473ca9c55ff58f1bfa327cd900e200da6167f5a9a64bfb6d370845befa1eaa26",
+          "text": "Lauantaina minä menen kirpputorille.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "090f8880db82d820def46c07d1a5a18b36ff16878a6aecc7464cf0cd56f10365"
+        }
       }
     },
     {
@@ -400,6 +441,26 @@
         "reason": "etit/etsit and sä/sinä are register variants; same question.",
         "fingerprint": "1d796837e4f47d7adba05731072b4614102e1b6078e626dbef43af0aa6cc5433",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "18d317c8ffa286aba2ff84f72ec47e3e11c705e1413094a85458abd7e7235d0c",
+          "text": "Kiva! Mitä sä etit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0632935e5e3a80d46e30f8f89e88ab7f5a522653f5ad1f0ed4eca9a7fa79e215"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "be16f5ba48182b7ccd9cf757c4f27591382f5fec50743c3bb648a521e3eac09b",
+          "text": "Kiva! Mitä sinä etsit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "746cacdb2f7a26a72c4d46125992f2efa60db562e7fc13175bf2b22d284a07cb"
+        }
       }
     },
     {
@@ -579,6 +640,26 @@
         "reason": "tarviin/tarvitsen is a register difference; same content: tables and chairs for the new apartment.",
         "fingerprint": "a0776b707c032c0a72001b70e75c43685f30133bd8049a3a716eb5594b60b81e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "3eb072da5a846ee33e032c8d82bb4f701e64008f1fa509dcb7ce2d9679c17797",
+          "text": "Pöytää ja tuoleja. Mä tarviin niitä uuteen asuntoon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c0d79db1b00408e5a9574a9ee6997f460cc1d6e2e9537d68c840d9211b689a5d"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "72eb353e1216575c4f173bddef1ee51ee5a046ec12be52350c10cb1c756fb70d",
+          "text": "Pöytää ja tuoleja. Minä tarvitsen niitä uuteen asuntoon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bf34ba6d384eb3b12f06348331138a7883be3e3fecc4b51f9f6bfd26e6518ba0"
+        }
       }
     },
     {
@@ -657,6 +738,26 @@
         "reason": "Only sä/sinä differs; same question about moving.",
         "fingerprint": "65223529ed6c92625b51d9f200acb187db5c2c63b0c4f00583aed147a8a59bb2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "85fbdef1a2ce4903ee60ac1f659fe45230a02d37bc0df63a1d6cbf1603fd982f",
+          "text": "Ai, sä muutat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "823b0b0b51bddb4c5ed68af476ce10ea736052ea629167d75f4e42fbd8c19504"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "430bc6c96b4f6d0955829e91693288bfbf938574ed12384018c5e3ae5131d888",
+          "text": "Ai, sinä muutat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "eec853a847249639108a66368938776615bc1746374fbdf300e3af082f9a103c"
+        }
       }
     },
     {
@@ -771,6 +872,26 @@
         "reason": "Joo/kyllä and ens kuus/ensi kuussa are register variants; same time (next month) and bigger apartment.",
         "fingerprint": "3cc7d9754024f5444b13633ca44696236d7804a855a62ce891b15ca2eb408352",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "8658c8a7f17587da141218e1e9e68f1a454832d810930ca9de326b923f973a51",
+          "text": "Joo, ens kuus. Isompaan asuntoon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ccc196f52c5775da0c9a10ecab5fa8276bf7a3a3fac5fa31f3f540e96b0438c5"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "1834677132cb7a50ce8bfeeb661e7366dac995f48e6b5cd9c397876266732e2a",
+          "text": "Kyllä, ensi kuussa. Isompaan asuntoon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9db3b1787532cbc6a31938a883966bbc284d6c375f2ae78bd2565898dcb6bc01"
+        }
       }
     },
     {
@@ -874,6 +995,26 @@
         "reason": "Tarviik sä apuu muutos is colloquial for Tarvitsetko sinä apua muutossa; same question about needing help with the move.",
         "fingerprint": "ab019191666b500a2936866398aa9974f094fb68eb5fe00c78a685ebc69df452",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "6e021cd2cd8dd89823f7da666820aba2ca0043942e0468b13bbd3bb8a06a10c0",
+          "text": "Tarviiksä apuu muutos?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "728dd9918f58f022b743d55d0bdebf61a2d2d8b9499f3e34efcfddece011d6ee"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "23b9b84399b6dc31397f5497b74f8a421f00ebdc6a6493f8e33e7405719e2744",
+          "text": "Tarvitsetko sinä apua muutossa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5a5abccd7cf865cdb5cec27597486da5bffb19029944b4043aec61f0516af5a5"
+        }
       }
     },
     {
@@ -973,6 +1114,26 @@
         "reason": "Joo/kyllä and ois/olisi are register differences; same meaning.",
         "fingerprint": "00639f508cd3740279731121c811bb0e8974e12991c3d12d18abd6b35f76c6c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "f3d65400120bb84eeeb713ba0fba097b9715ab6079fa5c6b1184f3303e1c2c5b",
+          "text": "Joo, se ois ihanaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "96e7ea785593a129074d0d004823713908eea15913e3d7ea67db5ceb623032ef"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7e7f309a0cef51dba04971070c993533e47739f8654c995c0258f775f0374533",
+          "text": "Kyllä, se olisi ihanaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "48a37fbc300422efa1e3e7d84b38fe87c0a2ffc879cafbd51acb7809045d07a1"
+        }
       }
     }
   ],

@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -180,6 +181,26 @@
         "reason": "'Mihin päin' and 'mihin suuntaan' both mean 'in which direction'; 'mennään' is the spoken form of 'menemme'.",
         "fingerprint": "c4d9f6ee19389054ac0acc0fcb0bbec46d3cfdc57149cfcd0712e728ed36bbc2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "dc9c21be758d32bdf4ed02d461ec96bfda2783566dd4f8c8670e8f118e99d43e",
+          "text": "Mihin päin mennään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "95bd64545d658a0ceebc54d68afdf46e2a9b8ba350311fbc0b9b2193fb747fe4"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "dd970d3153eaf56b1cde4d60a3e5b185fe5beb2063620ec74d0094da5b28578f",
+          "text": "Mihin suuntaan menemme?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "47595ffea67869bf669dcc53377829d2c6c3392591940256551b42f69ae9737c"
+        }
       }
     },
     {
@@ -256,6 +277,26 @@
         "reason": "'Oikeelle' is the spoken form of 'oikealle' (to the right); the rest is identical.",
         "fingerprint": "752f1e2395efc5ba74efcd2091d5a35b2df5b1ed671c41e06f0a9675f89c8b77",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ee2bd533a936a1c0ed1b9c33a583538d2379bd6e32aee02f3cb5d7b367a8d17a",
+          "text": "Kartan mukaan oikeelle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "04a7541dc1ba22512c1ca913def68564b3cbc80d35c0571327c501f6a274779d"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "afd9ccc84a1d230785223606c4cc963203b6d716e7cba1b0eab133e0b9d6c791",
+          "text": "Kartan mukaan oikealle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5db193173867db1c872626d5802ce51af82582c1bf9defb7353d783c5b31d8ed"
+        }
       }
     },
     {
@@ -350,6 +391,26 @@
         "reason": "'Ton' is the spoken form of 'tuon'; 'that bridge' in both.",
         "fingerprint": "699eb4cca48c8e0f50a3089906dd797cc5cf9e3510ac4b581b6f7c05b8954de4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "f85951e7c595e252f78380a91222fb077a81d447a09d453f62d7f83f95b4278d",
+          "text": "Ja ton sillan yli?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "56dc238ecac704c07d39a4ed359a8451dc11330438100254bc3726e7e505e857"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "d726a001093f420d860fb6bcee940bc932a5d4fa91d79da7e4eac85c5c150cfa",
+          "text": "Ja tuon sillan yli?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a95b94c8086c83fc314cfd4d38e0b0bbba14ab4ebe777b45340c4ceb8bd5f4bc"
+        }
       }
     },
     {
@@ -481,6 +542,26 @@
         "reason": "'Joo' is spoken for 'kyllä' and 'sit' for 'sitten'; same content: over the bridge and then straight.",
         "fingerprint": "20a2a0e9b4c714b86d718a31cf9bfc7f233d815f6cb27033121c36dd01d57881",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6cc124b8c865f4928590f8e25f06f6989b1152b5530b2a7e27f4ba396b4c1d61",
+          "text": "Joo, sillan yli ja sit suoraan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c8e4922414b5e2da7bfd2c287433930d413cffcee2703ea1f6cb1a8eea4fd26e"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5c802d1a2714538a9de3173392d3a287c289369522c1d49327a885fd437b800f",
+          "text": "Kyllä, sillan yli ja sitten suoraan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9669cce3f0993fcc00343491d3504016f1d28fec3bd62906a859994f19b2dfa5"
+        }
       }
     },
     {
@@ -552,6 +633,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "ad7694cf367580e940bfa7bbf54b0cdb785f3fecb7edbd8ee7c858799e17b22a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "577c04a93d9952774efde7a9110b777e8855943e755cd994a63ac805164ef55b",
+          "text": "Kuinka kauan vielä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b18c33ec27807e160f133abf5e033ff4f3cd73ab2aaeaa96b7342d318a21cbea"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "cf6352e0ddb4dc5bfc6151c4f9b6328604279a40ed1426e42b8505a0439d0c95",
+          "text": "Kuinka kauan vielä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b18c33ec27807e160f133abf5e033ff4f3cd73ab2aaeaa96b7342d318a21cbea"
+        }
       }
     },
     {
@@ -691,6 +792,26 @@
         "reason": "'Viis minuuttii' is the spoken form of 'viisi minuuttia'; both say five minutes, behind the park.",
         "fingerprint": "bdf6ce17e4ec84644d6822eab4bb7b5f02f26cb4ea29965020596c3ec3030187",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "428b8269b0ba0beda8a8327d5637d247bb2d64269a094eba126e59f5ae545219",
+          "text": "Viis minuuttii. Se on puiston takana.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "11aea12ae89a50624d8baa74ecbf80404b2a44e9343e852d971739d352964034"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "8d5620d174fba9be9f8275fc6cf9afce850134578a7d3dafef3b142c25c67900",
+          "text": "Viisi minuuttia. Se on puiston takana.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "437aeec1430d9a409a605b68e2b880326b003219c03f8eaa35007c98e121c235"
+        }
       }
     },
     {
@@ -849,6 +970,26 @@
         "reason": "'Toi' and 'punanen' are spoken forms of 'tuo' and 'punainen'; same meaning: that red house.",
         "fingerprint": "b279a109119c2364e78db4d093234a9398ca094990de6dfe7ed0530691b2c086",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "b535f697330cf0ddfb8f589d16ffeb115035fad567c30445e2a52ae168a7d6f4",
+          "text": "Toi on varmaan se. Toi punanen talo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "83acaab4658ac6e3c8ca3e505aa4275bb07e23a955f62c8355af3977732d299d"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c813c08dce462408c07316a58bf8911bb9279e08040fef2efdc53fa99ff4d167",
+          "text": "Tuo on varmaan se. Tuo punainen talo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "268fcb90f15348271eabb01889f4f0dfe0dba9624143d1a8ad901167dabbfde2"
+        }
       }
     },
     {
@@ -963,6 +1104,26 @@
         "reason": "'Just' is spoken for 'juuri' and 'ollaan' for 'olemme'; both say 'Exactly! We are there.'",
         "fingerprint": "5cf5748cbd9f69e3befd717ed804dc624bd134833a5a136b3c88c50b24378a01",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "c9fdfe3f92bf68b939e55e997ff6eabcfe9d34310e9b7660d12e181a77aa9951",
+          "text": "Just niin! Me ollaan perillä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1dd18c626dff665b87da9c0a57b9c326c4315ae69bf41c316051f1a18404b685"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "a56e3809f02349336c137905f9fbcb6f5d41cac60cecf1235d6c9816de03ede1",
+          "text": "Juuri niin! Me olemme perillä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "330c8d7536acfc237dd66868e1ed79396330486e449207ae45bef638f1771859"
+        }
       }
     }
   ],

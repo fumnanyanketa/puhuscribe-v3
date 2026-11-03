@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -199,6 +200,26 @@
         "reason": "Anteeks is just spoken for anteeksi; the question is the same.",
         "fingerprint": "62146ff12504122b441487c2dafd0099d8d98501e099939ac874530d186cba14",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "713eb69294daf462bd381db594f2f6c0a5581bdb4f64a96f9203e8c9916f07f2",
+          "text": "Anteeks, missä on kauppatori?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c12f222078fa3fbad838c39f5a2c23127457942724be3ff51e7c890bb14cf87b"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "33380e04fcd1b8ed080a2299af52bab13c47cfb1022e357f25aad2d09356ff8f",
+          "text": "Anteeksi, missä on kauppatori?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f78cbfc462eedfdb7e08bfeafe1aca1adeca79e49054855714cc79c91aa59979"
+        }
       }
     },
     {
@@ -319,6 +340,26 @@
         "reason": "Mee/mene and katuu/katua are register variants; same instruction.",
         "fingerprint": "8e796f16a4c87d22541915cfbf759b0b9f0de31910abff39f70efc51bf7b4625",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "4a37ae7113439204aa6d7f27194e133b8d19d87ba7a3d3ee806495c6abe50d3b",
+          "text": "Mee suoraan alas tätä katuu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f41d5c99c95a7332da7a7d624b185214d26839050a3cf30f717696c0f65ab82c"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "969d00b714146299dc813583d426407ac9100e12cfaca72fa4f3723ac261151c",
+          "text": "Mene suoraan alas tätä katua.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "eb3d921357fee9f18fa15a839eae8fcc0a119e758fdbe5de5df79e12e0167401"
+        }
       }
     },
     {
@@ -377,6 +418,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "a48c43e6c1fc29237b0b8f6afa32ec30ce0c0351fc60de1e4982c78096085559",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "74521c954c91283a8aa18875d65ba23849be56ed9bae59ee05ee72f16901f43d",
+          "text": "Meren suuntaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4adc541f3a2a5bfec6b4b76af5e5db89b808311d58a488e6fa744fcabaa68e36"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b55cb5535719a9a303c63e746b754d7c7d72ec2d04ca0c46a318cc80129b6f60",
+          "text": "Meren suuntaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4adc541f3a2a5bfec6b4b76af5e5db89b808311d58a488e6fa744fcabaa68e36"
+        }
       }
     },
     {
@@ -516,6 +577,26 @@
         "reason": "Joo/kyllä, ihan/aivan and rannal/rannalla are register variants; same statement.",
         "fingerprint": "bcd742c87f54c9afae4b9fa7292c434d87b8d19bf737b55199591997c6b7cc73",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c976a86c96b314d569e1f4e4ca0341fe5f68f33ce4b94818f74d8f1156d3ceba",
+          "text": "Joo. Tori on ihan meren rannal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5b7b3da4305de7e2efdef0f1bb579aab25aff6cb9f0057809699e59dd64c36ca"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "dd53c222df1ae9af45d1982391078f9e1f9a00d58429ee6b666968303a6cbd51",
+          "text": "Kyllä. Tori on aivan meren rannalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "300b12114af3d2ae89672b19cc84ab4af567def7a6afc9c2a80e2b17c27dbf21"
+        }
       }
     },
     {
@@ -717,6 +798,26 @@
         "reason": "Kiitti/kiitos, sä/sinä, tosi/todella, suomee/suomea and oot sä/oletko sinä are register variants; same content.",
         "fingerprint": "46b5dba99c13c5cc23a75103db4d0956abaff9a8522f674936a94ff8a4a19f9e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "7eb5c5a6b314bb567200d0e81527a34d18fe671bc5b0e887e29efb456c1e2f60",
+          "text": "Kiitti! Sä puhut tosi hyvin suomee. Ootsä suomalainen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8dfc207e708578360e41c73adadf8bab2add890f986c919d4a47cfb52a488b05"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "5bc291238c80fce4a93f9732225a6b44ded8435beb2196dc2424ecd11571a595",
+          "text": "Kiitos! Sinä puhut todella hyvin suomea. Oletko sinä suomalainen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1177c616f0cfa0eb49cc87d35d687a408c4d6c977da00adc045a656f18902c9c"
+        }
       }
     },
     {
@@ -919,6 +1020,26 @@
         "reason": "Mä oon/minä olen and asunu/asunut are register variants; same facts (Brazil, one year).",
         "fingerprint": "11b9b417a49e3c84a2f0661341befd7c6fa8dabae921eb7951d54ccfdf441974",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e41f68f2c8c89baa752e8fee873ddb93b0800786537a1e913cdd6f7133d60e75",
+          "text": "En, mä oon Brasiliasta. Mä oon asunu täällä vuoden.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a9d145a05318bb9df1c7c7d9dc50a751630aec6bc73cd58dba5ddaf5a00c4294"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "abec8ae6db28555639370df4629b692ab507031b0ea11382b891f44698f17e2c",
+          "text": "En, minä olen Brasiliasta. Minä olen asunut täällä vuoden.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "58a981a255ddd2241f40e5861858720c98226c9add3efec3e4b1d2916b567c1e"
+        }
       }
     },
     {
@@ -1055,6 +1176,26 @@
         "reason": "Oon ollu/olen ollut and vaan/vain are register variants; same one month.",
         "fingerprint": "bd4920bea0871bc2c7a2c6720ef5e55a3b3483d57775d0cfe59bea4c25fc4293",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "a8afc5b59e9695a497696a20283b0dfcfc3c882673758948bd823a7b415cbb10",
+          "text": "Mä oon ollu täällä vaan kuukauden.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "610e19a8b2506d4f5d1d08f279102a4f552c842da0f7e87b630cae7d8c894a94"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "483722ed933231293c9268b22a5b8476d1c4dfac78a22468ece336452e572f29",
+          "text": "Minä olen ollut täällä vain kuukauden.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0584b267b990178ce0aceed4182d3128c08e4ead619cb19f03aed9a07541f7cc"
+        }
       }
     },
     {
@@ -1155,6 +1296,26 @@
         "reason": "Nopeesti/nopeasti and onnee/onnea are register variants; same meaning.",
         "fingerprint": "ef054167776db001bf6de368ca8b33639fabce22e6ae692cf5574e4a6cb0c3bf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "82097a5430b8d7b48f852e62d2d78a11ff40121851908396b77f0a7f237f2b6a",
+          "text": "Sä opit nopeesti. Onnee!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e6e41012527dfa24f2cdb101cdc595b766092421a38f669f6abf7db59cedb4c4"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "22109966dc1beb7ccc0407d7c38db829e848fcce8ec9fbfefae28203de7c9c07",
+          "text": "Sinä opit nopeasti. Onnea!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1ea1717ef8e5c72e616a9a033a0d198940b816adddbb395de2104c932216b4ec"
+        }
       }
     }
   ],

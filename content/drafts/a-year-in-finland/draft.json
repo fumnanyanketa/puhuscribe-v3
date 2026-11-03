@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -285,6 +286,26 @@
         "reason": "Only register differences (sä/sinä, oot/olet, asunu/asunut, Suomes/Suomessa); same meaning.",
         "fingerprint": "28094a92c21ac3c80fe8c1a503a46ae5a9d9ab4af40286627f43ec29ebed0eb1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "85644af06a0fb40b719cc123507897f3080e894c3bd856651fcd74d06b8496d2",
+          "text": "Nyt sä oot asunu Suomes vuoden. Miltä tuntuu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "75d72fd54fd6740d3b27519ea52ff4e1f7fb903e96bdeb0e25277b5502c6621c"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b4d74c062c45d4d32b741053ef2dc3a7939b542123487ef58efec9d9a4702f22",
+          "text": "Nyt sinä olet asunut Suomessa vuoden. Miltä tuntuu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "de6df7532fac74e1f076caaf84574ea36b7bb166e14f073f91f6748ba6a4cf2a"
+        }
       }
     },
     {
@@ -407,6 +428,26 @@
         "reason": "Alus/alussa and vaikeeta/vaikeaa are just spoken forms; same meaning.",
         "fingerprint": "d8f3165840aaeac322ca636782f161ddb785f537a2ae6df48b1b99d8bb65a760",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "a6b648f6eb083715350df9337d3e00594f62e178155736db2be198fcda75e4f6",
+          "text": "Hyvältä! Alus kaikki oli vaikeeta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6a689498f093402871cd00e5721f26093a5f586823124f74e219df3d841302ad"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "2e67eb80f483681c30f0017b9f478c8c87b545421fc5d445d8b9e00bdcf8f385",
+          "text": "Hyvältä! Alussa kaikki oli vaikeaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "30437d554e6002632791c152eddc96b54eccc0668c82add85a5742b2a2d1d38a"
+        }
       }
     },
     {
@@ -488,6 +529,26 @@
         "reason": "Identical lines.",
         "fingerprint": "63d0f7bf9a539019c85eb45c14a07da2cd901ed1578cfb7059bd04c916ce3f57",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "39ac2a2291c508891b2b3f71651288b1306e14ab2759da59b723db2dcab74c3c",
+          "text": "Mikä oli vaikeinta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "453bc7226a6efa089cec4c5b7c11ef73c07c25b604a1b8f0c06feda580120bdd"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "06bd1ec8b1adf6498853200109986d9fa5dabe8ac62ccd9c05b6af85d04f6aa4",
+          "text": "Mikä oli vaikeinta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "453bc7226a6efa089cec4c5b7c11ef73c07c25b604a1b8f0c06feda580120bdd"
+        }
       }
     },
     {
@@ -663,6 +724,26 @@
         "reason": "Mut/mutta, mä/minä, tykkään/pidän are register variants; same meaning, both things liked.",
         "fingerprint": "5ba7827bcc477b734d4b9bf69300785071ad70d8f665a4a84caf7a127d560169",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "69c2c44a0620159ad7c2e11d55845e0bd5266c4e61f0c4201038f7d8d3cfbe3c",
+          "text": "Kieli ja pimeys. Mut nyt mä tykkään molemmist.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a28ac49b14fd250844913db66c2a9a11e26cda5fe430d42b394f145edffa76f6"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "3ca8fb44042183478f4e7edff46f16f44d013ae8ba7cf101209e55d4b1a047a6",
+          "text": "Kieli ja pimeys. Mutta nyt minä pidän molemmista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b94f7e48e65d953eef7358eacb9c118a5ec0862aa0f4b573d9862dd7abbde3aa"
+        }
       }
     },
     {
@@ -721,6 +802,26 @@
         "reason": "Molemmist/molemmista is just a spoken form; same question.",
         "fingerprint": "c120f6f81fcf0a20c0f15cd33388d82ff8471eda579e99950cd7798877486a48",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "acb2ee2125b159010dbb0f3a44c3979b6571dccc11001e46930241a6a0b237e2",
+          "text": "Molemmist? Pimeydestäkin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4199587f961e85bd9fd959d9617fe02eb075ce58b5af3044da15f2156b9f9754"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "1838cb06491727fe934b62eca8d35361a124761893af48f919db4b58b8d30f58",
+          "text": "Molemmista? Pimeydestäkin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "573007e45657fa1b686f85ee6e873d85797f1b45284ff60dee48bb3f55d72420"
+        }
       }
     },
     {
@@ -914,6 +1015,26 @@
         "reason": "Joo/kyllä and tosi/todella are register differences; same items and meaning.",
         "fingerprint": "34777ff379d2ca1b4400322f2b97d8e2d8c035fc1e22041b5cdfd13ccc4b6922",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9bc9533c32eea23ca28ae1aae026b041badda2e70263cda91d8ed7d7eb27c0ad",
+          "text": "Joo! Kynttilät, sauna ja kaakao. Se on tosi kodikasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0250c06cd5e58828b2566ae9aca5cdc5fdcc68121d6ceaa05366bf64d0fe2eb0"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "7b3a794e853ce329c39fc1420589dd3c9e8309efe36e150fa651d1ff7ee3df32",
+          "text": "Kyllä! Kynttilät, sauna ja kaakao. Se on todella kodikasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "31a280a097a663ba3ef9409ffa18374878d629d3a4369081f328c091e331e3d1"
+        }
       }
     },
     {
@@ -1031,6 +1152,26 @@
         "reason": "Sä oot/sinä olet and ihan/aivan are register variants; same meaning.",
         "fingerprint": "e0d73355f9e17a7e95acfef86af325f1315e441d0958d90d639e5da63ccd8ad7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "92052af599edfde0643da888a6b598d7ac6626103f37176a53004fe7e9392ddb",
+          "text": "Sä oot nyt ihan suomalainen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d0a85313bab0729ed1260fada2ec68dd2da5716fda2e59130c9329eea8ff9efe"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "20c065864d698a8dc80d9469d369dd9ef172dfebc588ef3f4e713270b36a73b0",
+          "text": "Sinä olet nyt aivan suomalainen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d24dba372192cd69cd9d8dd7ca8347a87d91e233cb54445db1cfaee654c6aea9"
+        }
       }
     },
     {
@@ -1220,6 +1361,26 @@
         "reason": "Mut/mutta, mä/minä, ku/kuin are register differences; same comparison.",
         "fingerprint": "916d27d6c285c6066e1a1f549a651d80b9ebfd88d1105b209870e69133b07e8b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "02cd99f6bafc568cb064e4760730cb89c19858f7853fad0b2dfdc869c784b52d",
+          "text": "Melkein! Mut mä juon vielä vähemmän kahvia ku sä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "59cda051836795d0ed1c77ab5cf4a17e9a54dfe8ca4704c550da59beed0f5405"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "fb749e4b73a7adbd115b26d4463ab84115d77e1e10adbe9d9be1a0d3d7a3aab6",
+          "text": "Melkein! Mutta minä juon vielä vähemmän kahvia kuin sinä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6bce4c11cef65f552b3044bc2c4e9148c739a7a34cde2e0bf038b5184ef6799e"
+        }
       }
     }
   ],

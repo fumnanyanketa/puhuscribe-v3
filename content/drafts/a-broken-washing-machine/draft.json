@@ -102,7 +102,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -225,6 +226,26 @@
         "reason": "Identical lines.",
         "fingerprint": "43b96e0b83a3b9feb6456513d91ac4078df757adaad4df17453b088de72045f1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "72bec8749c665e805a2ef1d58f96218cadfa8a5dd93a0de5fc992886b696b79a",
+          "text": "Asiakaspalvelu, Juho. Miten voin auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c016cd2cc2936c49aff1ec239736a4425dd34f15985bc5118b77bc4bc0929897"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "a4b443546f0f9772c5ebf1f534372c24457f9f7070800f6b981e64b39f61cf23",
+          "text": "Asiakaspalvelu, Juho. Miten voin auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c016cd2cc2936c49aff1ec239736a4425dd34f15985bc5118b77bc4bc0929897"
+        }
       }
     },
     {
@@ -362,6 +383,26 @@
         "reason": "Moi/hei, mun/minun, uus/uusi are register differences; same meaning.",
         "fingerprint": "f0f50646f9ea9fede9364f775a3db29644083337e1f85a3a9631a38878a7b5ab",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "eb3c8e36089e93adfe01067a76727f947d751109474b7b659f2e18f904ce42a7",
+          "text": "Moi! Mun uus pesukone ei käynnisty.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d9a12568303f1a3de77815b2c6b6429e5eae9461229497116ecb81994f0e62db"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "da31cb2bde0ca0723606a69f72fa20ccebd5118d78db898cf4fa2a60907f2c3e",
+          "text": "Hei! Minun uusi pesukoneeni ei käynnisty.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "214953aa2be41eb353ee90b207dadf274757f36317c0820e9d04c694f8cbaaad"
+        }
       }
     },
     {
@@ -481,6 +522,26 @@
         "reason": "Millon/milloin and sä/sinä are register variants; same meaning.",
         "fingerprint": "c0f65af89a7dafc32eb1199254e6df634a82ad42e1a877671021fd2fba06a0ab",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "c43b3bf01fb187b4da8eff8bad836683cef2e50767a24714a9b2d3561b9c1126",
+          "text": "Ikävää. Millon sä ostit sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d558771fbc81e9f47cd52501caed2088cb3d48e27330205729039e8a9bacd811"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ce986dfb48d17a408a0c0ec9699ae51e5bd11662f7b67ffade1a9ef6d4897720",
+          "text": "Ikävää. Milloin sinä ostit sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f3fcf56495a26cba0b015b36898379bbe4365bf619cc4993710c43f28eda35f4"
+        }
       }
     },
     {
@@ -556,6 +617,26 @@
         "reason": "Kaks viikkoo is spoken for kaksi viikkoa; same number and time.",
         "fingerprint": "2a3638ec3d5d9e8ccc62437030bc8f7df081c34f1e3de88efff2d41d12996564",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d9f007eb683b760d1637865aeb9f184a40be7b52e34cc4c3eb271951f48c4fa7",
+          "text": "Kaks viikkoo sitten.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "12f2957e368c46ad5ba124892232daa63efa0ad2389131bb9407447b7fad25dd"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8714f0c496cb6cfd41be09530a21821ad40fb9a97946d59fa6161ecdd85c8f9f",
+          "text": "Kaksi viikkoa sitten.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6abfa184e55ab2317383a9a6ace377350488f7b283c80d787308811dd6b2bf71"
+        }
       }
     },
     {
@@ -717,6 +798,26 @@
         "reason": "Sit/sitten, siin/siinä, lähetetään/lähetämme are register variants; same meaning.",
         "fingerprint": "226e6de16d2735d6cc905fa1aef2d5434644b3caa0142e4dd0fe0f7b09df1f62",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "3d803c2cb2b8d0691b635b60bb1c930fc1ca8248bbe46087d6629735f4ca4aa5",
+          "text": "Sit siin on takuu. Me lähetetään huoltomies.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f317a1fb0b0c159d00a6dabd23d44ecfbce3a9644e0caa275fddd8e68c2d27e0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "27bc3525964ced36cf328c56a7d9ed9018ce59b2d999017341106cc6facb7e9c",
+          "text": "Sitten siinä on takuu. Me lähetämme huoltomiehen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ad22b7a0488d0fbd17c5469b078a80f966fb7bf301ce2fa46f0572ec8e77ba83"
+        }
       }
     },
     {
@@ -837,6 +938,26 @@
         "reason": "Spoken se refers to a person in speech, equals written hän; same meaning.",
         "fingerprint": "0ffd6576ab3ad5461ed816bae017cfe4a9262e3f4328306231891a16b9f77faf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "a04b6ed9b2b2438b26ec263c731ddf1f622da5870c57e84b48fa7cb6ab924f6f",
+          "text": "Hyvä. Millon se voi tulla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "dc512ed27f5413d5e2d0ec05ed08a34dccdcb583f2dd1109693ffcd0073eec20"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "fb073e6d8efa1adbc156f3003faf27b736ef33ac3057bb970c0653249aa59204",
+          "text": "Hyvä. Milloin hän voi tulla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a92dad6c2341679c706de3659276d3a383bbbbec695a614e326ac42f011f9a4"
+        }
       }
     },
     {
@@ -938,6 +1059,26 @@
         "reason": "Aamupäiväl/aamupäivällä and sopiiks/sopiiko are register variants; same meaning.",
         "fingerprint": "ea39c62c35b11f99cb84c5ba4bd24fed08b057de353d3dc4989c95def578d73d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "5ebe99b19549c2e507e8f92a40c442be24119aafbbd3457f0837a9c587b34e83",
+          "text": "Torstaina aamupäiväl. Sopiiks se?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c136f335ddc50c1d67e4f4a7164bd7acff02ea69a693f78e0b057987fc009246"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "bbcdc1b3de023abb6b6026817acbf10ad44778dd70dc801d6d5eec628525569a",
+          "text": "Torstaina aamupäivällä. Sopiiko se?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9ac91600eaeea93e7fe8aaecc5483a4ba91a52fd8728ea4576fdf31e2c7c31ef"
+        }
       }
     },
     {
@@ -1018,6 +1159,26 @@
         "reason": "Kiitti is colloquial for kiitos; same meaning.",
         "fingerprint": "d2f11edc09979fa1a2df687a453228f6e96d3179af9fbd258804dd81f707d528",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "7cdc8ce297e003835442f284fe2f59486981ff1e9c1ac3a6c6b05005d32ff973",
+          "text": "Sopii. Kiitti avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e1ba527c1c0caa0dd5e221b28af3653e17a83277e9bf2ded0af3e6b87c89ce50"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "09dabf163fb8d248df46a493912558e22d50e1ef6b4ddd1dd2cf2ce91bfce112",
+          "text": "Sopii. Kiitos avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2988f84ca96cc11b7f58ac12b8b70e9fbf8cc5176178cf33632da780d5b3a03e"
+        }
       }
     }
   ],

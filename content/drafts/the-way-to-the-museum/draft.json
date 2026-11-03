@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -216,6 +217,26 @@
         "reason": "Only register differences (anteeks/anteeksi, mä/minä); same question.",
         "fingerprint": "a52f29b6b4ccab67abad3bb190d4d505eb96636c5aa6b2628afda20bc5a826b9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "2e4868354f2d7ab4bd84a51e855c84c3bc868c66ed8e67a5e2b91a39421e645a",
+          "text": "Anteeks, miten mä pääsen Ateneumiin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f40fa8dd4ad80d731cf7538b349950858175dba3d6af288c93e44836e4e86f31"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "0519a5795ab1e31c603030002239d7ef199736c2af9a193d52d45ad80d34330d",
+          "text": "Anteeksi, miten minä pääsen Ateneumiin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1384d5a6506ec3942bea2894a2c28252ead389f6eb6942e18a607afa11de62f2"
+        }
       }
     },
     {
@@ -318,6 +339,26 @@
         "reason": "Mee/mene and katuu/katua are spoken variants; same instruction.",
         "fingerprint": "2c7dce0854323ae229ecc1267ddd2c2c008876517a580d74a3c09d14561da33b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "6315feb4ba0844e50cbfaf72940d9cf485ba85c1872ad386042a6217e5c6e636",
+          "text": "Mee suoraan tätä katuu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ee930020c9ddd0780330f91d679a9c18ba6d038a3f057e63d728f9f1f6d07c51"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a08ffd6d9ef561f5ef5c1839d5ef92515e3346991812b7415c96a8fbc79016dc",
+          "text": "Mene suoraan tätä katua.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7d4b1757d6e9183767d7309c56f1c333b216863d61ce5b21fff5d51858b182e3"
+        }
       }
     },
     {
@@ -374,6 +415,26 @@
         "reason": "Identical lines.",
         "fingerprint": "12d9c9ee0c5b915d2547d887485ba20d96a3ede61bbd3326f7eebd98144e1d40",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "71dda4c96ede7336aac35731ab88e4c553ff89c3a709482d1b7fc3388a7e0be2",
+          "text": "Kuinka pitkälle?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "395d5ab2c753e7e66595dad471d97cded4e5ab643e7d6ab1117eea82087df25a"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "2f63a023ae96186557bbbabf5b5f19b629c015040b6d792a02cca7f137fd4372",
+          "text": "Kuinka pitkälle?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "395d5ab2c753e7e66595dad471d97cded4e5ab643e7d6ab1117eea82087df25a"
+        }
       }
     },
     {
@@ -511,6 +572,26 @@
         "reason": "Sit/sitten only differs in register; same directions.",
         "fingerprint": "872478a54a95f59e8b8a18fcf01601562af20abd8cdb041ea442a796585653e9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f84cadf0558288685ec8ebaf20e5459656d48ac219048ee1b49e7b939440a4e0",
+          "text": "Toiseen risteykseen asti. Sit käänny vasemmalle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "df64c7e87b5e2e860f91431d41d1c0f33209980b511e145977a2ab5edb1427a2"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "bbcdae5d2be6fb300f5044bc7a76fa4cb51655060e143ca7faa1008f48cd1d79",
+          "text": "Toiseen risteykseen asti. Sitten käänny vasemmalle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "65436eaafbbfedf1076c42193550be9091dace3cab9acc2d8c85e58032e4419d"
+        }
       }
     },
     {
@@ -606,6 +687,26 @@
         "reason": "Okei/selvä are both acknowledgments; sit/sitten is register only.",
         "fingerprint": "cd10c587a210347376406579349350e588046e37f2eb71f04876b784e17b5adc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "05cce26484bf7a99c7705f4acaf7279179d74604de48d4aaa2425da008be0341",
+          "text": "Vasemmalle, okei. Ja sit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b7738cfd83592fc7aa5906404297fa1022e78f79df8baf7d6e89598bda357ae2"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "3c1b0cba22ca339a51310284110d97559efcb7bb7c0d00a10179b93c3c1aa0bd",
+          "text": "Vasemmalle, selvä. Ja sitten?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8baecc7273c51108cce4b0b72365aec36f09a9b1dd5186435b56b595f29e48c8"
+        }
       }
     },
     {
@@ -747,6 +848,26 @@
         "reason": "Spoken oikeel puolel, vieres equal written oikealla puolella, vieressä; same location.",
         "fingerprint": "4bf12c23e1d2b9c6c952e4bcccd3c85be1c2ce1614b7f7899b98e5555b306469",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "d46496cc29350987382bd0354de731157c9b8ec87f050f5edcdcca9b3c15521f",
+          "text": "Ateneum on oikeel puolel, rautatieaseman vieres.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8e76ae6729dba63fb009f81384c62ef0b936ef5b3545006a8c9254c618ea4a8c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "53a032d2eda2cddea0eb176229499e50da536f00b981f4d0d90b2e25d3d1c847",
+          "text": "Ateneum on oikealla puolella, rautatieaseman vieressä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0cef95ddef0d8694f6af5b677241a069cdd7639d00c053a81b8d889ac1252246"
+        }
       }
     },
     {
@@ -826,6 +947,26 @@
         "reason": "Onks/onko is register only; same question.",
         "fingerprint": "9857e809d2be82039e18eefce5899fc4f898bc4a9a0b77299d31c74eb3d5e4c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "384e571d34964e9ee00548eb561791339f0883b154fabbdf6e5019e0c6fba65e",
+          "text": "Onks se kaukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d35616141256fc0a4352b1cfff89efaa9e941cdde27bf43f1f00ba9352e22ca6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1186027d37ee91598104df2922915b2f2475267afe6111883c33832fb5e7a3e2",
+          "text": "Onko se kaukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a1e54f522e7595557671a9cc30940faafe107103956b88fc459e7695ecd98ccd"
+        }
       }
     },
     {
@@ -923,6 +1064,26 @@
         "reason": "Minuuttii/minuuttia is a spoken variant; same number and meaning.",
         "fingerprint": "b4e5f9c276b77b1760e69ee7197c28a789deed8b254a0b73464f2c02c68ca358",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "27c6abb153a44039b319bff1662df887aa3cba6580ef2e5b78e1b7637fe77e93",
+          "text": "Ei, kymmenen minuuttii kävellen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "11ce3a11ce2ad01f9ad65f6eed05e925c4a382b58e42d9346caf5d4b77aa5804"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "0a323c0dc7f4641a96b8f6b2884a3a40c4feca997502ee15edf94b80eb887ecb",
+          "text": "Ei, kymmenen minuuttia kävellen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "585de432ca0c2885c29e6b65a6de2437aeb6061027ad32f03c81c8eff0bdc323"
+        }
       }
     }
   ],

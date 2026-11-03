@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -227,6 +228,26 @@
         "reason": "sun = sinun, päivä on = päiväsi on; same question about your usual day.",
         "fingerprint": "140af95b340125bf3c3a0b8ae8ff37d17264d995781206946c15e5884e46c7fc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "688b56886993875b9e970f0d22be7afdce4ec60c1c5e9c6caf514177d15ab6d8",
+          "text": "Millanen sun tavallinen päivä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9d9911d4478083aff09f7717b78ef183e2ebd6353c04a890e216a216a955b4c4"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "c66e13a9bc2f4e30741fa758a56116d47fe03c7b7085ab6c8f6168b8b9cc8bea",
+          "text": "Millainen sinun tavallinen päiväsi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "de51578efedfc3e83a1f8d74ec31e5a318f89aff701dc0fc45d7fa48a93cb1ac"
+        }
       }
     },
     {
@@ -386,6 +407,26 @@
         "reason": "mä = minä; same content, wake at six and drink coffee.",
         "fingerprint": "2ede8e9f72386d3fc89ac7bfedad84784b43b804f41462350d976d2185663ef6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0122e169c732a82b19f006bebef6c132f5b1618336b6c759e4c11812f126c535",
+          "text": "Ensin mä herään kuudelta ja juon kahvia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d79a699734321f4509053ce16aa533f7dd26707ae334524584a7fcb5f9ac42ae"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "045e3030e6db08c01149d23e004c91b8ec47ae9d4459cd290d505ed586101325",
+          "text": "Ensin minä herään kuudelta ja juon kahvia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8877ba76351e7bd2953dd0f8083b099e8c2658c6d3fac8f715b97972e04a3b3c"
+        }
       }
     },
     {
@@ -424,6 +465,26 @@
         "reason": "Aikasin is the spoken form of aikaisin (early).",
         "fingerprint": "022ff8a4d641b09f66fd2944146934c46766b0589991072c9db2cf2043b95005",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "0c67e09f56dd4c95825fcbf1c6e5eb9338b2559afc5d5a2d77e51b6a1cd9a499",
+          "text": "Aikasin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4281783564ca63669ec1035e2559acdb736f1a1b2b2950ad9423e9c98a65c322"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "985a53162d9597a7be7ae788e2ae40071254dd1022af62757a479202ae851749",
+          "text": "Aikaisin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c64c31515c2979cf69d4abb56898d46fb78c7d4dd7fec2391840ff3b19d16ea8"
+        }
       }
     },
     {
@@ -599,6 +660,26 @@
         "reason": "Joo = kyllä, sit = sitten; same statement about taking kids to daycare and school.",
         "fingerprint": "1b3306a48f54a24d5cbc1d6f983de1d03025843eb5fa6e3ceb423d5e1f5c3940",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "69e9d3b54d7c790a38d9d7ff7887ad67b2a05f54b66e67103b22008cf864c5b2",
+          "text": "Joo. Sit mä vien lapset päiväkotiin ja kouluun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "88a6d240b0bb60525dadfd41a0229e291647971fd0cbf9663b9dedc30f96a87d"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6603defebd487ffcb4276ec277352c2b51419da7efd47eeb7447c7cbcf777b8c",
+          "text": "Kyllä. Sitten minä vien lapset päiväkotiin ja kouluun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4bbe4372ed4ff46a5fa3c05a0d4efbcd5717b37c0c2886c73440747291eeddbf"
+        }
       }
     },
     {
@@ -672,6 +753,26 @@
         "reason": "sit = sitten; same question.",
         "fingerprint": "16961e7c793576031cd54a494423dbc291ad4a7622da2c0af5e1e2279f081da6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "715bea4482cae9de9b1f9b76649157df497f9bd4c52116617f3e27bcd0cfe5ad",
+          "text": "Ja sit töihin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9d5cf1925ab6f99c00ab06a0a4d57695d60d211896c816368fa934922cd62b52"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "66ca11eb88e6bf457792bfec3a0c011dc3515b3617d02f79c62d966c73a6c63e",
+          "text": "Ja sitten töihin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6d79358091458234b45f46a43539fa059abe59692f134bf8075aaff33d9905b5"
+        }
       }
     },
     {
@@ -828,6 +929,26 @@
         "reason": "Just niin = juuri niin; töis = töissä; kaheksast = kahdeksasta; same times 8 to 4.",
         "fingerprint": "95b9f35349cad0a544f6ab5cfa6fd5e7c605455e74f09e73c9003a941fb71d7a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e542f0790cb2de024d751d98ecece5b77d9c3cf1bbb61ccd1c1ecb003a07d915",
+          "text": "Just niin. Mä oon töis kaheksast neljään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2e7f509daa703489731c73bee56fe953278fb12f8c6842233ffab42b7c6cd5fe"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "ba477989e6b42bc09a144216a77a7b37079687656e3f473204acc944a4882b67",
+          "text": "Juuri niin. Minä olen töissä kahdeksasta neljään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fb9a724a4837357176e7de3a2ebd44a3593a7ffb3f3149ea7c6888fe50e8dea5"
+        }
       }
     },
     {
@@ -883,6 +1004,26 @@
         "reason": "illal = illalla; same question about the evening.",
         "fingerprint": "fade4e7a93c2655224618e01b2db1e0c76020830a5ac455061a8d7eadb529b81",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "f6389e3741c6eaf22ab8874bd360eb8c39176d6b23404e861bd690a558e956e9",
+          "text": "Entä illal?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c0b690f84fd483f4df6e6b2b2227e0a46d39b7065c9a7b5d0925a8f54c375349"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "730664c461c9bb199e2f99713f77bbcfe83c01ccec7c295e08eb493fd81765eb",
+          "text": "Entä illalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7443ed979d7f23f6f5009610a51c33e56d7d45668703680894145661268e3e26"
+        }
       }
     },
     {
@@ -1104,6 +1245,26 @@
         "reason": "Spoken forms of syömme, lopuksi, suomea, puoli tuntia; same meaning, half an hour.",
         "fingerprint": "96a5e7a9c68614d3be0f6d0bd15f45734b1b3e81bc0b1e011ab4624cf8ad2926",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "070efac3a700fbc6963315a5d57c0b4c1ceceef5e14f1be075209103bd81c563",
+          "text": "Me syödään yhdessä, ja lopuks mä opiskelen suomee puol tuntii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cbae587c21884957275363908016d169bc1aeb018d5c9513b70a306b632b0809"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "e8baaee8d9ea06789d6d206207f07f541d0e88ced36453150b6b90675cb318ae",
+          "text": "Me syömme yhdessä, ja lopuksi minä opiskelen suomea puoli tuntia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5075ab9826c1f9180d0d37b1ae9f89f44169ea0b156f4d7b2a8a32be102a8184"
+        }
       }
     }
   ],

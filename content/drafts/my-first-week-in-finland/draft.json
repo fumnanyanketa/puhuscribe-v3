@@ -94,7 +94,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -240,6 +241,26 @@
         "reason": "Same question: do you remember your first week in Finland; only register differences (sä/sinä, sun/sinun, ekan/ensimmäisen, Suomes/Suomessa).",
         "fingerprint": "6f92e883572f1a9883cf7b5f58ab7005d9264c535b716c7b91dfe064f9472555",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "db48105cb835e3f99e844c41f87ed401cf830a43372d41fe05b2a863a014b1e3",
+          "text": "Muistatsä sun ekan viikon Suomes?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "db73b1021c1ce6abfcb0f6ae8e44736a069d5c0332d30c275af0f3268c495f99"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "fc6679529f79154d917e351d801016d972393de7869e6e915e519cdb5efba1b7",
+          "text": "Muistatko sinä sinun ensimmäisen viikkosi Suomessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8ec50c07db638fd9ba476749f860494a520eefeee6a274fdf1a54d34c41a7a79"
+        }
       }
     },
     {
@@ -416,6 +437,26 @@
         "reason": "Joo/Kyllä, tammikuus/tammikuussa, tosi/todella are register variants; same meaning.",
         "fingerprint": "fb2b13396274a70240695ed79c9feb41da4e460ae2c733bbd7061f1c796f795f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "f1236435c3a3c62195ca41094bbf5a9523bf4d4c7a27d3009724765e1b5b140d",
+          "text": "Joo! Se oli tammikuus ja oli tosi kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5f11fa1f8287809b8531f834f7590cdd91879929b0cebcde2eb2de8dbdae1f65"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "66cb1340cc4af0c737295853efc8c2099a4902774ba336f9d8446fc95a67d009",
+          "text": "Kyllä! Se oli tammikuussa ja oli todella kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "10fb9d4d17a04ddd7d270ef7d4d9abbf8ae7564874de451b315e434dfd3bb640"
+        }
       }
     },
     {
@@ -496,6 +537,26 @@
         "reason": "Same question 'What did you do?'; only sä/sinä differs.",
         "fingerprint": "75f7829ef853744b8fefccfde5b0856637473fe57d27c34f385413216e6f8042",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "cbdaee1bb467c711fc94890565bf77c98621813cae56600558f16a618a368675",
+          "text": "Mitä sä teit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b7cea95354ac1b40af8438ed88012038d009808944c373d83d453e72d99a95c3"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "de80f8aef7d43dd030e5d6da061a5cace62619baea86bf8c140c0de6896edd3e",
+          "text": "Mitä sinä teit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c95a29d1f56e573d8a30aa90f4fc4d5a6d2351b9bb6151f6ef476a9a85c9df60"
+        }
       }
     },
     {
@@ -658,6 +719,26 @@
         "reason": "Same content: bought a winter coat and learned to use the bus; käyttää/käyttämään is a register or form variation.",
         "fingerprint": "e93af19c1f69ade48bfa0352e5a076fbabe9c9aa1584cf7a7c7e72a27dda1aeb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f9cc66eda026a7ea53ff7cf75c3810da615d040de5238ae0eb218f188535d656",
+          "text": "Mä ostin talvitakin ja opettelin käyttää bussia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e653ba603dd1ca06654e6e46689360c96107132bc8080f53a2a6779d852edcd6"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c05c5cf92b54f9b4c732e8ed5688ec667f83da211ad8bdacd926aa4e5c2ed94c",
+          "text": "Minä ostin talvitakin ja opettelin käyttämään bussia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "83d694e22f67df0a350873ebe85b9304229a943136f3262bb7eefbcefed815ab"
+        }
       }
     },
     {
@@ -759,6 +840,26 @@
         "reason": "Same question: did you already speak Finnish; only register differences.",
         "fingerprint": "59eb0fafef0231aa672222bafeb7fb3cffacfd77104583b5934b2c021388adcb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8a8def1709c81309d263fd1968ec29fea57a77523a1da5b81f0d067f4d339d46",
+          "text": "Puhuitsä jo suomee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "1b5aee92d114f95f1578274af4a108bceb97982bbe2d5a3f3c5c563bb06e4166"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "ef0a56ba1be8e5ceec9b93a9173a5c3358a6ded11ac7df3beb732e9def8939ea",
+          "text": "Puhuitko sinä jo suomea?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5f8a17497be8a3e6e62cc79945837ec175a61f2afa919ee64e812b3241371b8a"
+        }
       }
     },
     {
@@ -916,6 +1017,26 @@
         "reason": "Same: not at all, only knew how to say 'kiitos'; sanoo/sanoa and vaan/vain are register variants.",
         "fingerprint": "b06f956def78dd1d358889bb3d1ffc44de7cf18f5451d0e66c869c540a1873d0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "65a731d418580f8020479508e1425a74d9f42dba499c812a13085e1f44374f69",
+          "text": "En yhtään! Mä osasin sanoo vaan \"kiitos\".",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "37ba0567bc06fa5a2747e57d0a6e41a3ec70b4fe3162dd8504b6788a36895287"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "0de2a02c774db45d924ab895e5a1171d9c65452974310119f3f1c72a65b91bb5",
+          "text": "En yhtään! Minä osasin sanoa vain \"kiitos\".",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9ad299e8e12c82fe836a510e96517adf03ba5e6e0eb4c75e2c6b4beec978ad25"
+        }
       }
     },
     {
@@ -1046,6 +1167,26 @@
         "reason": "Same statement: now you speak very well; register differences only.",
         "fingerprint": "45b273c8110a5bfe4213e71b6778d26c58e79c414a88c80855624bbd3a84d663",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "9b1182c6c0d39142b8ef24432b399144faa924518f4c43a162d1b73b699d47f5",
+          "text": "Ja nyt sä puhut tosi hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9c6b65f405ae2d40b8045a77884d049bac381006adc3768d192e863676e36104"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "06504b8b7125b86f610af608c9e24a43df3cfe428cb58d191f986f615e000a74",
+          "text": "Ja nyt sinä puhut todella hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b43201a7f5d1ddd0aabd22b7534a80fcf88d87d53904fe4cd9e72918b3b2b1d4"
+        }
       }
     },
     {
@@ -1166,6 +1307,26 @@
         "reason": "Kiitti/Kiitos are register variants; same statement about studying every day.",
         "fingerprint": "49c9122cbdb594504ccdc3a5ca5fcb3e5a696a2660c1a7a52697477b9c223979",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "edc5c2362110f2dc2cd3ae87fbc16ca986bc25f002580a7eaf7f7db886867558",
+          "text": "Kiitti! Mä opiskelin joka päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "553de89d9364df2f8f330692c746a9fc05c13b03d4efe07baf08c981cb39948f"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "ea5cf1b75889f040e5921c3fc1f2c0039a1e92a6d9f4280608bc562f463e9671",
+          "text": "Kiitos! Minä opiskelin joka päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6aaec755f9d67dd580413eb962eb4f9ac2b0ab2c041db978314e984277e91ec0"
+        }
       }
     }
   ],
