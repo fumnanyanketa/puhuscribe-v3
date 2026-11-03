@@ -11,7 +11,8 @@ import { accountKindOf } from './save-note.ts'
 import { noticeFrom } from '../lib/account-notice.ts'
 import { SCENE_HEIGHT, SCENE_WIDTH, SUN_BOX } from '../components/landscape-geometry.ts'
 import { accountLetter, fitSigns } from '../lib/road-state.ts'
-import { callApi, isRecord } from '../lib/api.ts'
+import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
+import { loadHumanCheck, runHumanCheck } from '../lib/human-check.ts'
 import { loadRoad } from '../lib/road-data.ts'
 import { offersIntro, readIntro, REASONS, saveIntro, TIMES, type IntroAnswers } from '../lib/intro-answers.ts'
 import { FIRST_LINE_AUDIO } from '../lib/intro-first-line.ts'
@@ -24,7 +25,7 @@ import { namesWrap, PIN_TEXT_PX, rootTextPx } from '../road/sign-pins.ts'
 import { RoadTop } from '../road/RoadTop.tsx'
 import { REASON_QUESTION, TIME_QUESTION } from './intro-copy.ts'
 import { IntroQuestion } from './IntroQuestion.tsx'
-import { LOADING, NOT_STARTED } from './road-copy.ts'
+import { CHECK_FAILED, CHECK_UNAVAILABLE, LOADING, NOT_STARTED } from './road-copy.ts'
 import { OfflineScreen } from './OfflineScreen.tsx'
 import styles from './RoadScreen.module.css'
 
@@ -55,6 +56,26 @@ async function loadHome(): Promise<Home> {
   return { kind: 'ready', road, today }
 }
 
+/** The public Turnstile site key when POST /api/guest asks for the bot check first (job turnstile). */
+function checkSiteKeyOf(answer: ApiAnswer | null): string | null {
+  if (answer?.status !== 403 || !isRecord(answer.body)) return null
+  const { error, siteKey } = answer.body
+  return (error === 'check_needed' || error === 'check_failed') &&
+    typeof siteKey === 'string' &&
+    siteKey !== ''
+    ? siteKey
+    : null
+}
+
+/** What to say when Start did not work. */
+function startProblemOf(answer: ApiAnswer | null): string {
+  if (isRecord(answer?.body)) {
+    if (answer.body.error === 'check_failed') return CHECK_FAILED
+    if (answer.body.error === 'check_unavailable') return CHECK_UNAVAILABLE
+  }
+  return NOT_STARTED
+}
+
 /** The phone asks for reduced motion. Old browsers without matchMedia count as "no". */
 function reducedMotion(): boolean {
   try {
@@ -73,6 +94,9 @@ export function RoadScreen() {
   const [home, setHome] = useState<Home>({ kind: 'loading' })
   const [playing, setPlaying] = useState(false)
   const [starting, setStarting] = useState(false)
+  /** Cloudflare's bot check is asking the learner to act (job turnstile). */
+  const [asking, setAsking] = useState(false)
+  const checkSlot = useRef<HTMLDivElement>(null)
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
   const [stage, setStage] = useState<IntroStage>('road')
@@ -286,16 +310,36 @@ export function RoadScreen() {
     if (stage === 'recap') recapHeading.current?.focus({ preventScroll: true })
   }, [stage])
 
+  // "Start": makes or finds the guest account, then opens the session. A new
+  // guest first passes Cloudflare Turnstile (job turnstile): the Worker answers
+  // check_needed with the site key, the check runs in the card, and Start is
+  // sent again with the token. A signed in learner goes straight through, and
+  // Turnstile's script is never loaded for them.
   async function start() {
     setStarting(true)
     setProblem(null)
-    const answer = await callApi('/api/guest', 'POST')
+    // A new guest will need the check, so its script starts loading now, beside the first request.
+    if (!signedIn) void loadHumanCheck()
+    let answer = await callApi('/api/guest', 'POST')
+    const siteKey = checkSiteKeyOf(answer)
+    if (siteKey) {
+      const slot = checkSlot.current
+      const result = slot
+        ? await runHumanCheck(slot, siteKey, setAsking)
+        : ({ problem: 'unavailable' } as const)
+      if ('problem' in result) {
+        setStarting(false)
+        setProblem(result.problem === 'failed' ? CHECK_FAILED : CHECK_UNAVAILABLE)
+        return
+      }
+      answer = await callApi('/api/guest', 'POST', { turnstileToken: result.token })
+    }
     if (answer && (answer.status === 200 || answer.status === 201)) {
       window.location.assign(PATHS.session)
       return
     }
     setStarting(false)
-    setProblem(NOT_STARTED)
+    setProblem(startProblemOf(answer))
   }
 
   /** Day one's Start: a new visitor answers the two questions first; everyone else starts at once. */
@@ -464,6 +508,8 @@ export function RoadScreen() {
           problem={problem}
           startRef={startRef}
           headingRef={recapHeading}
+          checkRef={checkSlot}
+          asking={asking}
           onStart={() => {
             if (view.card.kind === 'day-one') begin(ended)
             else void start()

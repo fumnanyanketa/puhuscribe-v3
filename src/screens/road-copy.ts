@@ -11,3 +11,11 @@ export const NOT_READY = "Today's session is not ready yet. Please come back lat
 export const NOT_STARTED = 'Could not start your session. Check your internet connection, then try again.'
 export const EMPTY_DAY = 'That is all for today.'
 export const LOADING = 'Loading your road.'
+
+// The bot check on the guest Start (Cloudflare Turnstile, job turnstile). Kind and plain: a failed check is
+// never the learner's fault, and the way forward is always to press Start again.
+export const CHECK_ASKING =
+  'Cloudflare needs one quick check that you are a person before your guest account is made.'
+export const CHECK_FAILED = 'The quick safety check did not go through. Press Start to try again.'
+export const CHECK_UNAVAILABLE =
+  'The quick safety check could not load. Check your internet connection, then press Start again.'

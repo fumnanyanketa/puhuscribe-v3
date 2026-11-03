@@ -171,3 +171,33 @@
   font-weight: var(--weight-medium);
   color: var(--color-text);
 }
+
+/* Start and the bot check above it (job turnstile) are one grid item, so the check adds no gap while it is
+   hidden. Turnstile's managed widget is 65 px tall and at least 300 px wide ("flexible" size); it shows only
+   when Cloudflare asks the learner to act. */
+.startArea {
+  display: grid;
+  min-width: 0;
+}
+
+.check[data-asking] {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: 13px;
+}
+
+.checkNote {
+  margin: 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+.checkWidget {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
