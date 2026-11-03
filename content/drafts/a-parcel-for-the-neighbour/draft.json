@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -228,6 +229,26 @@
         "reason": "Moi/hei and onks/onko are register differences; same question about Leena Virtanen's apartment.",
         "fingerprint": "cf29f8dc1792525aa0a07c289036f185fd8bce50b73d5e42add0fab969bdffd1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "2bb523f0c99b7ddc257a08f982b8da9733252a3d6a1d7476e4032aa3f297c2a4",
+          "text": "Moi! Onks tää Leena Virtasen asunto?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "46a6255c116a42fbc86c5c2959267074170a07df7a0ca6212b5f0bd3d0cd478b"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "76b5702ebe80328a94fec53e2edc08bcdf17e06262bc32c4b7bc9e15fb202b55",
+          "text": "Hei! Onko tämä Leena Virtasen asunto?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7787b37ecef71d2a42f95e3bce11d99e69d88403c76e06a4c313fd7654a04afd"
+        }
       }
     },
     {
@@ -350,6 +371,26 @@
         "reason": "Spoken 'se' refers to a person, equal to written 'hän'; same meaning.",
         "fingerprint": "80a1a4361ac8626245829ef9acb4c221ed5706e0e81885c50a397aa774d05a72",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "42ef78de7572ba4249775a92dcb4b2414c6d90acffe90ccbc2230da71c2929bc",
+          "text": "Ei, se asuu viereisessä asunnossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5403290fb4d880deac190e27041061d1fabcb9d4f0dccfb7082b1b84827896ac"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "71803ddcacf4944d4c774f6421666eafa75036353c8512a609cc3b4fc3d479b4",
+          "text": "Ei, hän asuu viereisessä asunnossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f37aebfd61cb299c824319d0dc4f7312bc3dde5a94e26e8d785c8608730bb0e0"
+        }
       }
     },
     {
@@ -532,6 +573,26 @@
         "reason": "Spoken 'se' is the colloquial form of 'hän' for a person, 'oo' is 'ole', and 'voit sä' is 'voitko sinä'. Negation, place and the request are the same.",
         "fingerprint": "e55a4da6075858eb1cbdff16e8666255fe4ff63f4c4f8aa94ce5fedc65469509",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7453afac3633d2a950c511ad0e705b127950637d99d73eebe9af8f0f06912bfe",
+          "text": "Se ei oo kotona. Voitsä ottaa paketin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8750ef6309e8fc7138de59db43e08eb4e2809032938351caa0295faba0487667"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "1ab58954dcc5e3a9c294ec8a43e9b0f703bad2e5d43f085e0322fa40e9f3081b",
+          "text": "Hän ei ole kotona. Voitko sinä ottaa paketin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "126090845406cf13bb635df772475b401438c41e1e215190727931efd997ce73"
+        }
       }
     },
     {
@@ -606,6 +667,26 @@
         "reason": "Joo and kyllä both mean yes; same reply.",
         "fingerprint": "7d259a26a873d80dca60f5cb04da67b4a579ff0376cf2adef0887fee8acbcad6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "7514a9392511692fa478640f82c7d904b3c19d78d8d04c9ecb2a4577a6682266",
+          "text": "Joo, totta kai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2338b84b1580b915cb9e5df83f304960b03ba2978bd18b0b632928630527817e"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8ecfe346263cef4a144cd8f0457928e9843404a691e786291be0580bb64bb06c",
+          "text": "Kyllä, totta kai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7ef322b5caa7a3778b3a68751fd1b761b3642eedc20baf72402341adbf809a01"
+        }
       }
     },
     {
@@ -728,6 +809,26 @@
         "reason": "Kiitti/kiitos and sun nimi/sinun nimesi are register variants; same request to write your name.",
         "fingerprint": "5db30304a9304e0a351385500dccc0cfd0111252604e89b4a8ddfc796b25bbe6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "c5079b477fe90474365bc25c5121c5b27ed4f14e8ef945b83bf26dd078f6415c",
+          "text": "Kiitti. Kirjota sun nimi tähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "cc079ef70eb58fa604c477d15d0fd37b43761de929229f0f951e6445b041677b"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "4a3c68769b40aa10ec5938d5743248ff2ad1ba0ffb1008b1dd64fef51ac3a5cb",
+          "text": "Kiitos. Kirjoita sinun nimesi tähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e0aaab586ded1c399f86c46ddb3b7d50a6ad3e175c602b6886cc3f4aa3700ddd"
+        }
       }
     },
     {
@@ -832,6 +933,26 @@
         "reason": "Okei/selvä and onks/onko are register differences; same question about whether it is heavy.",
         "fingerprint": "ebe8cf3a70840fd20104c1bc4590d7ac8af06c3060fe3f56dd51321175f6ac20",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "ed10b76c32245324dd036fb46d8fc6d73c4a45c071dc51cdc99d92b2cf286e51",
+          "text": "Okei. Onks se painava?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "52fefee67dc19ac8d649313bca39276e944071af90a95a6963141f66960d24f6"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "eb7c2c0efeead139f4de844e65f78fcb93f4af7accceac734cb111c883260a76",
+          "text": "Selvä. Onko se painava?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "699fcc93a1ac80f83287bc58e5ef209ccbb592567508d17b4d7094fccefecab0"
+        }
       }
     },
     {
@@ -930,6 +1051,26 @@
         "reason": "Siin/siinä is a dropped ending; same statement that there are books in it.",
         "fingerprint": "b27dd5393bb6c21d319dabcc8bac7f67ed558015f40e6f2d8d21597ee1478e21",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "c1d95ba8fdcb4e322bc811d1413c76329a023eefe739a6efae9df0779c625d51",
+          "text": "Vähän. Siin on kirjoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9b0e3e05e92fe284caf1bf1f6500b79438adafc1dec4873b324fc47d8f808fa6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "83bfad03d5c7a00c094d7362bbc700f0487a36d9bffb00fd67069fdef4893f52",
+          "text": "Vähän. Siinä on kirjoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d97d3624d71a0c6e96851e2edbc14e4667c599631c395ae7a71e811a4e9b5ea2"
+        }
       }
     },
     {
@@ -1091,6 +1232,26 @@
         "reason": "Mä/minä and illal/illalla are register differences; same promise to give it to Leena in the evening.",
         "fingerprint": "3748597d8008466f4e9e404c66c5ef109877cd6d88a1013e3f098c334bca6032",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "94f1c75ad660c933418639efbf0e98beddfa8907a0e2183393d19dbfeda1a578",
+          "text": "Ei hätää. Mä annan sen Leenalle illal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "752c3b03d03a6d59330151e155f4bfdfc4595c68f0fd5a4f09ac1a89243afcc6"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c86643ec02d1b46fcb1e117918300a03ac010ac66e4debfb4e8cd9cd58a2af0f",
+          "text": "Ei hätää. Minä annan sen Leenalle illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f98b339207ddf36cb7d1845c3b33f070162af0194e1f253d44620fedaf38532a"
+        }
       }
     }
   ],

@@ -97,7 +97,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -226,6 +227,26 @@
         "reason": "Identical lines.",
         "fingerprint": "18f41666527ae2be956ff6124a137bc0933a6cabd511df9431a6657cd1aa5ecd",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "09182b6f87cf1e4feb22f75a3192e0f33022f2b2054d0229a15c7382534bfec6",
+          "text": "Ruoka on valmis! Tulkaa syömään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "276485c2cc2f64a75234d735a3ebae6beaeed8214154cba803dcae6d9a1e4565"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "2bf436f9ab5b817386ca3ea7c155c85cdd165eec4b6bbe921c9915da2d5fb523",
+          "text": "Ruoka on valmis! Tulkaa syömään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "276485c2cc2f64a75234d735a3ebae6beaeed8214154cba803dcae6d9a1e4565"
+        }
       }
     },
     {
@@ -307,6 +328,26 @@
         "reason": "Only register differences (tää/tämä, hyvält/hyvältä); same meaning.",
         "fingerprint": "5fb9f00430964eb5c2f22c4dce0162aa130de9f08e829013b9c0ba6842e88e70",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ac39aefc2a56a6e25b3bcb7a27dd5672c6e826bb6ffbf1b1301a840e03566f22",
+          "text": "Tää tuoksuu hyvält!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0b066ee00f9a1e4a9cca7e4fb696743c5e41003f211cf1168e7b29f8e286c9da"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5c58b4e261a0f4e554ebc49b5077d1e83ced45643aab7e1b2a10a572aaeb6fdd",
+          "text": "Tämä tuoksuu hyvältä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "482c12591e0083b4c7d4fc9926a54c31dce0e1902ee019bbbc357c9092698004"
+        }
       }
     },
     {
@@ -431,6 +472,26 @@
         "reason": "Onks/onko, siin/siinä, tarpeeks/tarpeeksi are register differences only.",
         "fingerprint": "17de4084be1013a783cce968fcbe34a8ec526406a39c1da15c99eb142817da1d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "6f5084cd8dbf3d7f6c7af2e86fa79f164934b308320f609e98b6d5b1bd3ae9be",
+          "text": "Maista. Onks siin tarpeeks suolaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d4f27dac84a5e78096d201cd95856de8f336d3936afd221e01557a2bca5888a4"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ded596bb3f5e9a1e3c1721f38eb94c69ba393a07456ce73fb55be6b6948ec85c",
+          "text": "Maista. Onko siinä tarpeeksi suolaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9bef14338f9d882ab7467dab719339ace4786f5afcb05f034998c3321e2e0982"
+        }
       }
     },
     {
@@ -551,6 +612,26 @@
         "reason": "Tosi and todella both mean 'really'; tää/tämä is register.",
         "fingerprint": "b545945ad438a6d461939ffa96549dedb6e12518f051d8c327eb16fd793e4187",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "bc07b72fd48a46b9b1422aea40207fb6a92c2aaa2a402bda1bcf99fbe37639c0",
+          "text": "On! Tää on tosi hyvää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "045281d79ab6fdad9167c9dc05f9ac026b5b3102da17751a3b0d89fad9c9ddc2"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5b1a8fc2544b42c175935a5aba6f03bde0e1cd5f071afc8f7282daf6a985da0b",
+          "text": "On! Tämä on todella hyvää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8ab1250988c1cc66ff7c952c4e81709ee26c86b182ae8e0ae0fd9eb884038b23"
+        }
       }
     },
     {
@@ -655,6 +736,26 @@
         "reason": "Kiitti/kiitos and haluuk sä/haluatko sinä are register variants; same question.",
         "fingerprint": "1795acef520cc1d2623be46fb455fed90a4b1a074cb0f48479fa1a4f743f5970",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "17863d4e6d0c2f5736ca06dcf07687c5e1d50bfee8328f4b36e89a1388e3c8b7",
+          "text": "Kiitti! Haluuksä lisää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "10a739b7f278d55e5cd29a393398eeafe747abed2f65c703c921cc5ad0754f26"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "1d6a21d00e9c592ea7490aca17c84891e492933a88b7e58ae46e54a564bffa7e",
+          "text": "Kiitos! Haluatko sinä lisää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2542a9387d2ca38f863ca36c614f13b95a32527bd83e8573030ef8d649fd85ad"
+        }
       }
     },
     {
@@ -766,6 +867,26 @@
         "reason": "Joo and kyllä both mean 'yes'; rest identical.",
         "fingerprint": "12b5ac0ee5d468ab082925711f228c0e7328f122273c126c44143b5534a7b318",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "2455488523e5af31c6cd58943e485b9f837fadc07fa911f10f0b2878f746e6db",
+          "text": "Joo, kiitos. Ja vähän leipää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ede142785819cd3144676297d9432a4dd5f2a216b91ee7930370f917fa99b322"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "dfd7ddd36c5aab05689e11260a256d713a6f7c5ee508ff290648433317b4aa64",
+          "text": "Kyllä, kiitos. Ja vähän leipää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d4f04dcb0b9d61657d5482c760e681f2236547f86864f16529d637934aad7165"
+        }
       }
     },
     {
@@ -949,6 +1070,26 @@
         "reason": "Ens kerral/ensi kerralla and mä/minä are register differences; same meaning.",
         "fingerprint": "9984675cfcf1153bc72dc718139d783f48ac9d54e5dcd5b0c344f50c609c1549",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3cee3d2b95961a63740ec247a0cd5163fbaf78ab7eedf01587809cdbb56644d8",
+          "text": "Ole hyvä. Ens kerral mä teen brasilialaista ruokaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "00ba893461ee1e6d641d3c63ec1c16128f3a51c2f2310041153b1d962ac100b6"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "889c2070dd4f2a3d408200497378577ef9acab9c773ef0939119a0fdec0c4558",
+          "text": "Ole hyvä. Ensi kerralla minä teen brasilialaista ruokaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0d838c391cdb3e7388205c5c88d38bd68eccd246b8850129a519410dddadf762"
+        }
       }
     },
     {
@@ -1068,6 +1209,26 @@
         "reason": "Mä tuun/minä tulen is register only; same meaning.",
         "fingerprint": "2281feea52a07d2cf3a4caac9f668b7e3327df46c0a7bd1eeea0de645433da46",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d886e29380bf1eb6f7aef491150ad92fba90266e873d5b9c203627cdc7a4d72e",
+          "text": "Ihanaa! Mä tuun ilman muuta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "26dcd6cae4d1f8eb46f45e4b23f59d73b8e81100e229cce1b49cbd357dc80567"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "af33727a90a926a45d8b03e20cd7358f78bfbd29ee0baab31919ca9218af4ea5",
+          "text": "Ihanaa! Minä tulen ilman muuta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6af08404d9ff9fab013ea3d3ecba77528793b483b03fd7900ca14f1fb9d72ce8"
+        }
       }
     }
   ],

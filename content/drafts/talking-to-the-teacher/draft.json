@@ -86,7 +86,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -211,6 +212,26 @@
         "reason": "Same greeting and question; only register differs (moi/hei, oot sä/oletko sinä).",
         "fingerprint": "0b53f50076fe8b40fa30608bff3b9e412d2a63119b618ea08313b57d5a25ea72",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "d6b1f1d66b318c048b86cebd5b98203a88c576101246dd5b5335541857ed10a2",
+          "text": "Moi! Ootsä Annan äiti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d4c653a961f319c85186d6e4ca119c3f68b1d6f5d42e0e0ba5361e59eccffec3"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "88765bafc74fc111a053e216e50d8d4106cf2c1bc2089351d1c26b1f1bbfa555",
+          "text": "Hei! Oletko sinä Annan äiti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c3d4e97815c6b04ff6ee1d86091572a27f88c8df9d759faced061537e7f53388"
+        }
       }
     },
     {
@@ -328,6 +349,26 @@
         "reason": "Joo/kyllä and koulus/koulussa are register variants; same question about Anna at school.",
         "fingerprint": "ad65f99be69271fa7daa275f5f473bc804a34c2699b88d3faeef50795756ca85",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "1fa57129674c5dc23342d2f105c3c19182ed2171f525908e58ab1027b944a5cf",
+          "text": "Joo. Miten Anna pärjää koulus?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cd53bd1b18ff22ac22506cae974df6ee785eb397fba72f406a08efa3d6687a49"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5e3d78f26a502791d083e3498e5cf563b94bcc43d0630fae2f4051e6866e88db",
+          "text": "Kyllä. Miten Anna pärjää koulussa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bc24509c8145eb61b69c9795323f34675fcd28ddfd74f1559a8139cc9d287c70"
+        }
       }
     },
     {
@@ -463,6 +504,26 @@
         "reason": "Tosi/todella, se/hän, matikas/matematiikassa are register differences; same meaning.",
         "fingerprint": "62bfe8f716b095f1b6d1ef4cba835f7c03b03a404bda9037d7a3b65a4f10bcbc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "6e72dd001e9a9ca99b7d3828ac6df3d29ef99c30d7326bb6b50c729d0e1fdc94",
+          "text": "Tosi hyvin. Se on hyvä matikas.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ca95ba1ae2da120a73df3d3dd36b1d0a007a71ecbdd25853f597acf9047b677b"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "2d13a2502b2b50ce3557bb1b84b5f2152bace59e31c8046b2fafc00779ba6778",
+          "text": "Todella hyvin. Hän on hyvä matematiikassa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ff48a9270ced068874e89becb236ae0ff9d6fca93000f40fff1e0d6236488ad8"
+        }
       }
     },
     {
@@ -538,6 +599,26 @@
         "reason": "Identical lines.",
         "fingerprint": "3faaedd3f70f3165e35a471e2ce765fdba00918a5d66b9e0fab6c29030c6cb00",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "1cb570c72f10d8d1eec3063c49bfef6cc6ba2adf720ec799b8c3677ba8e25918",
+          "text": "Entä suomen kieli?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "447402c2b1e5266a822dd6e61b870d769f93ef1d3871e7eb048d50acfeed2583"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8eea1d33765609084be31ffac27ffd39f787c89f17cf10eb6d371be8b8734bdd",
+          "text": "Entä suomen kieli?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "447402c2b1e5266a822dd6e61b870d769f93ef1d3871e7eb048d50acfeed2583"
+        }
       }
     },
     {
@@ -737,6 +818,26 @@
         "reason": "Se/hän, nopeesti/nopeasti, kaa/kanssa, suomee/suomea are spoken forms; same meaning.",
         "fingerprint": "baab8144ed6e3a941b46f9a760aac2f4e1145850aac1c6409e513cca08b126d8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "de799b4ee717ea098e697bf44df3241cf3859726b8f5da10a172367f0c1f89b0",
+          "text": "Se oppii nopeesti. Se puhuu jo kavereiden kaa suomee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a1f7295131f18bea40da7669262c713400a88be091d294a741e51de3728c4ee0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "dc1a445075244841f25404516f08de00ab38323fb93518fec568bae58436b8a0",
+          "text": "Hän oppii nopeasti. Hän puhuu jo kavereiden kanssa suomea.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a969c0fca564ea09c0c1b00a79def5654f7144aa812eee7122912fff082f9493"
+        }
       }
     },
     {
@@ -856,6 +957,26 @@
         "reason": "Puhutaan is the spoken form of puhumme; same fact about speaking Portuguese at home.",
         "fingerprint": "f4b1080f76026493b4e547584b5279ccb49c9adde825b26b0007b59db35ac1d6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "cd863a336c6c43034f2941bfd28fcb04e51f2e60a9180e8b722a2bafe6128c90",
+          "text": "Ihanaa! Kotona me puhutaan portugalia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5d31534e14ac00d5ca578593ac0b2a359735040d590b8be6fd5dc70631117f60"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "3c25401ff310700f4c061fb71de82e4a8946d600bf1e46ec4ce89a28cfd48b6a",
+          "text": "Ihanaa! Kotona me puhumme portugalia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "460ce1e3530b792e7d0765c0bd6a5de1d55ae12eb7fdb3ed949e65869097cbb4"
+        }
       }
     },
     {
@@ -1020,6 +1141,26 @@
         "reason": "Kaks/kaksi is the same number two; same statement.",
         "fingerprint": "23f77d1ea021e5df09850d542abd0ca10e4254608a2966067d3280e1297e8a84",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "0d2313e7a4d7871cafdff9a680430b0a92d70e44ca2ae1ace64e755c07d5ac98",
+          "text": "Se on hyvä. Kaks kieltä on rikkaus.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "df2ea47d5a68666015259140b384b17a6545f400747d2586743d007a761d88f5"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "f660268356591b06ca2343ccf06274066b2ed6ddcef1aada64c66b6adaec2132",
+          "text": "Se on hyvä. Kaksi kieltä on rikkaus.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d38d2fc1932410969e3bfecc6e258e901addd9422b21adf5a19f2947e9692e5f"
+        }
       }
     },
     {
@@ -1073,6 +1214,26 @@
         "reason": "Kiitti/kiitos are register variants of thanks.",
         "fingerprint": "dc199ae4f1a29e064fa42ab7980129f6f06af6539835d24ec737caaa4130773c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "4b86e8c1f41f4d28e856f7834d6eaffea3818f6d6ec4945666206a9c001485ff",
+          "text": "Kiitti paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1414872fb461fdd14caee7b14c3e8697dd1aa45024f9248a8ee5e4c142636282"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "ef6b83565b1b0e3fda352708c7db11511e324835cd5ef1871a23af98b448421b",
+          "text": "Kiitos paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b464ba8d0c03c8e190f5b71af7e3cabdc1d22299b5348fbeeb45af2b6b61cb72"
+        }
       }
     }
   ],

@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -180,6 +181,26 @@
         "reason": "Moi/Hei and Mul/Minulla are register differences; same meaning.",
         "fingerprint": "0040b1d372c89224fc4292cce115774c36678841719fa8dd7854f5dc898c694d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c6259267023f820c591aeabf0a578c42fcea9183c29a7ada2a3cd93686883d94",
+          "text": "Moi! Mul on resepti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5620dfef6add29c755ad918b3db6148424ae2d3035492de189bd23d3e3514d3b"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "cdc7bebc89c932e251551800d67b9d5851f53de94888ad9c62dbf0c1e90944af",
+          "text": "Hei! Minulla on resepti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9b3920591a63e175fbd8535f0040a7fae573baed6170c5e769755231caa60fd1"
+        }
       }
     },
     {
@@ -282,6 +303,26 @@
         "reason": "Okei/Selvä, onks sul/onko sinulla: same question about a Kela card.",
         "fingerprint": "13a56483015e2ed74df5de2386c0b52dc900742834ddd52085a609e1c4f25347",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "8f52512278f5465c9ee9f6f6b0e541d4ad5debed398111eb8445001754865676",
+          "text": "Okei. Onks sul Kelakortti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6370d00e12492f9b0efaac87eb5b8ea34b1ca331a6dff96f656d216d716b26b8"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "d88aca6e71907639a513ace4157c786ce19d48304ae6e0373bdd6521cbe25731",
+          "text": "Selvä. Onko sinulla Kelakortti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6c8e8a4810f6467298f58482c77f34ff2fb6d0b966c1863e6cc221d68e42469e"
+        }
       }
     },
     {
@@ -342,6 +383,26 @@
         "reason": "Identical lines.",
         "fingerprint": "787f3288a0e1676a96ff4be62cef7ca41c771eae260bebc8df093c4beb19e1e2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "b64c318536c4e4dfaf0d9205675708653a132eedcd78413999f31de984d6cc6e",
+          "text": "On, tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2fc07f3a9c1729dc00dd5e02f3d5de3aa19d1e64a6421465555ab2fdf1d4e417"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "265a7a4d95c899bbafd2259009cbfad452df47c19cca3f27de477795f3459ebe",
+          "text": "On, tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2fc07f3a9c1729dc00dd5e02f3d5de3aa19d1e64a6421465555ab2fdf1d4e417"
+        }
       }
     },
     {
@@ -544,6 +605,26 @@
         "reason": "Kiitti/Kiitos, aamul/aamulla, illal/illalla are only register differences; same content.",
         "fingerprint": "bfcd827f5342e9798ea7d007602badf1a8d1ab1856da3941f4b5be224c5214be",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "bae8decb03a28823c9af7dc688679f7769e63ef1a4270b663608991d71e21879",
+          "text": "Kiitti. Lääke on valmiina. Ota sitä aamul ja illal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c2a77ad0613a6394ee2539d7c7c34995e3205a6f597bd6cbc9c24b22a46325e6"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "d34f57da3feb5148569f87a276b8e32cc4699a1291fbef31747d893e550685f1",
+          "text": "Kiitos. Lääke on valmiina. Ota sitä aamulla ja illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ab639da073b0891c3e3d64cfaf151d9e03356b4a446a67e23d42515407be8456"
+        }
       }
     },
     {
@@ -635,6 +716,26 @@
         "reason": "Ruuan kaa/Ruoan kanssa: same, with food or without.",
         "fingerprint": "774d2e8a1d3e10e6c99e48ccd15851e61b88a52b9fb74370689d769422253218",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b5e498a8f6be1c56b3e3b61bcf461a81cbca9face7829bfa4f734b42f9a45e0e",
+          "text": "Ruuan kaa vai ilman?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4cb81ea69e763d2589460c54a6651d9c20519e05e71eddf18719c22f1e7238e8"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "84f342089115dd09d7ef8ea2e35b7b3763a9f5aab65a2fe24b0949eb642da84f",
+          "text": "Ruoan kanssa vai ilman?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cf78fea1c431c1ad0b0a349f833fb8db52adaba3e73aa8590e7eb8830da6eb7c"
+        }
       }
     },
     {
@@ -690,6 +791,26 @@
         "reason": "Same answer: with food.",
         "fingerprint": "5f6b164ceb2645c7c5bf7f56ce5c6286586612b1eae91357fb24b958feb50fe6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "ad710efa654f82beb39a7c8f4834d14f46c71057f9b5b63cbe3155879d86dbce",
+          "text": "Ruuan kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "be5d9c629f48bbe10753ca6d43e9c9ae8c581deaca32e66aafa9f2d1663912b7"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "28b3dc89beaf31a16bb9b60e13e158fd38a4fc37ad550f005e3095201c21f225",
+          "text": "Ruoan kanssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f4425fe3a5bbf456a544e5d01be2b79c3e3f86f56b2df806ad0504ef693e2ee1"
+        }
       }
     },
     {
@@ -767,6 +888,26 @@
         "reason": "Paljonks/Paljonko: same question about the price.",
         "fingerprint": "bd1b48ebd663445ebf717ff9e9e531c7bb33e82933f544914fddde20410ed232",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "fc2ab76851598c11b71a9c1486c924f2d2efc07321ad3eb5d62848c04fd836cb",
+          "text": "Paljonks se maksaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cd60a2ee8828b9f0828b92e2f605ea63b3eb7629a1906ab664970db601e859b1"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1f981158cd709f3a02dc798b48435cdb472622853025be987cfaac6ddfaac958",
+          "text": "Paljonko se maksaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "55c03f8a30627c56f95cac031c1e7edd779dfc5253cdd4cb54309c1e7707a5a3"
+        }
       }
     },
     {
@@ -882,6 +1023,26 @@
         "reason": "Kaks euroo/kaksi euroa: same amount, two euros, with the Kela reimbursement.",
         "fingerprint": "55d225191f7e1ffe3e68497e17c0b892116f015364ddb8ff0b9aa63c0e2ce36c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "6aef6923b3ba6a7c36ed2e131da864fe7c5828f29725695bf72802c55a645867",
+          "text": "Kelan korvauksen kaa kaks euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b5cadb5d2794183e9bbb3405f0d70b75b0fbe645689aed0a9c167dd3e176caf6"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "d8270745a574aabf41fdb35400fc50a99a6f6129ff3ca4335a66eddc81769708",
+          "text": "Kelan korvauksen kanssa kaksi euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c3c18187101f447de360ee29a834300ad311797e871ac944b8d5f7c1a0c5e671"
+        }
       }
     }
   ],

@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -207,6 +208,26 @@
         "reason": "Moi/Hei and mun/minun are register differences; same meaning.",
         "fingerprint": "a48407dd379d66f29ae9e239b29a7c5d40c8e12a81291771eb1176e948730ec4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "6c3efc3664d086985f9cfbe2e52610793f341901377d9c28384d927dac7d66f5",
+          "text": "Moi! Mun suihku ei toimi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1b28189fd4a70e5af2cfafb3d6889fd5794e82b1c1d441884cda24ddf7e47f6f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "911d6d281ab6c26bcef52f467d3defbf69ea8d4814b2b909c338d3ec083dd052",
+          "text": "Hei! Minun suihkuni ei toimi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e4e802abbb49db60dd4e88b9493e42748764143586b7a21f8f9fdf32be456ede"
+        }
       }
     },
     {
@@ -328,6 +349,26 @@
         "reason": "Okei/Selvä and tuleeks siit/tuleeko siitä are register variants; same question.",
         "fingerprint": "211d4e113d7e200eff34205454510cd69aac164aca8fb32c3c1e52c771f047c7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2e0452e2831b565c7ae135ad672528ec279a2976b4fbd81f10c41ea0180a489a",
+          "text": "Okei. Tuleeks siit yhtään vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ccf015f5886fe78c11ccdbb0e7fc91e330653a712b2b9b3c015470bf3837e624"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "2ee90d1e3e645c70d6dbb53f662d5e8b5db8e2cf054656d4dcac000debc9e364",
+          "text": "Selvä. Tuleeko siitä yhtään vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "158445da4e1dcfb051d0204c0dceefb67144f677ad83607cb992d2c86ae40e21"
+        }
       }
     },
     {
@@ -423,6 +464,26 @@
         "reason": "Vaan/Vain both mean 'only'; same meaning.",
         "fingerprint": "96b543e44928335f768a7a55a4f23230283b014136d4e4a5648ff6e5ffc298b4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "3bd019e9e940816b724a014ee5dba12e0539be36c9748cc4482d2680517bc720",
+          "text": "Vaan vähän kylmää vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a5095ead8e9729a210c0296c606b91079d2c5a891cc72e2589305664e9c96f54"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "e04f21be4943c098a4771fb2c6998db6d16aa0c413e7b018fa058f975ddf5a87",
+          "text": "Vain vähän kylmää vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "282a07cfd39520a24c117dcfceee48e647304bac8ac90ac037f1365b5aacb73b"
+        }
       }
     },
     {
@@ -542,6 +603,26 @@
         "reason": "Mä tuun kattoo = minä tulen katsomaan; same meaning, same time (tomorrow).",
         "fingerprint": "c5e09cf5af40d12a24f4d2f9ca066f2cbd72db6998390f705229d3b38c8a47d6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "33fbe1c6957cfd0c4c9a6e05dc5ce154fc85e6974ab1f1aef4992eb1df992c4d",
+          "text": "Mä tuun kattoo sitä huomenna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5aa87b6a90f52a7ae0dcce6a4b1881a58356c7e7c688c1dd49915e8e09b1c9c4"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "eeb49ff27fbb255069488700de184a1f62204de2101700253c7542b8867a213d",
+          "text": "Minä tulen katsomaan sitä huomenna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6bcb52fe7c305546fb202655127a876704b05a84075179223c05640d62675670"
+        }
       }
     },
     {
@@ -702,6 +783,26 @@
         "reason": "Töis/töissä and kaheksast/kahdeksasta are spoken forms; same hours 8 to 4.",
         "fingerprint": "f0854d6eeacf0a48c1d2e5b90311a38cadceafc2eb0bb6c9789bb35bb3308676",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "77e1ed365f1d9818e1095635ad4c4788c065eab9dce4f3050ef8898ddf60b1af",
+          "text": "Mihin aikaan? Mä oon töis kaheksast neljään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ae5030ec00ae3a260fef00906fafbaba1f49fdc4834935113a40c9286effee85"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "076558d4131fa5b6d0acde94a68af1d26dfa6e7f23f37602b4311da1d830ec89",
+          "text": "Mihin aikaan? Minä olen töissä kahdeksasta neljään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d6c440df8b171efc59b8c3c8df54bb05b29251346cc28c7c6bf89e5d0ad43922"
+        }
       }
     },
     {
@@ -803,6 +904,26 @@
         "reason": "Identical content, only mä/minä differs.",
         "fingerprint": "cd1a77a4c3abb365aed702c4ba1e65383ad4f071b87118e443fb7487728a5165",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "968f6cea9e9c0ea21fbeb0da67774717aebcc67eab9de55d490153c475d7a1e6",
+          "text": "Mä voin tulla yleisavaimella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "df2410b54f66aaa6861aeca08e9971f3918064b27efe939c1d09044f5241651b"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "eff61f020ec038c12b715f3cdd412ae6439510ac737fa8b50bcdfb7ec263eba7",
+          "text": "Minä voin tulla yleisavaimella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c0aab1b521c6aa7a09ca68bb65a079fe12ba2ef94add79a14fe0d12b8410fa6a"
+        }
       }
     },
     {
@@ -884,6 +1005,26 @@
         "reason": "Okei/Selvä is a register difference; same meaning.",
         "fingerprint": "c0c0fd80678198d7184d3614ad924ce9a60051fe3b80bb491c946e37a76061de",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "b2a66160a4e3d1e249c2c9d127a276d67641ef9941b69e7c2e630db14037ccea",
+          "text": "Okei, se sopii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cc83152ff854fa1bd23afa06eb389240ae5116fa5c8b4b4260a202148fbe5460"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "873f9590247a72da44b64b833ec388af6009d9561704aeeeb5e1fe2ded133cf9",
+          "text": "Selvä, se sopii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "362bd26cc4b6c44eafbbdd4d48830f81c8d475585650d1c21a367573475d96f7"
+        }
       }
     },
     {
@@ -1086,6 +1227,26 @@
         "reason": "Käyny/käynyt and mä/minä are spoken forms; same meaning.",
         "fingerprint": "241e9aac958412dccee15d0410be7e543ad02160330736afc7ce1bac77f068a6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "06da8760539ecbb2af76f323e6506ac9b93d7cc628b350cd7200063de488ccc0",
+          "text": "Hyvä. Mä laitan lapun oveen, kun mä oon käyny.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c84d70318133994fe49534759b87da33ce06c6e82a92708b92eea0e796d84ff8"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "318b701b6df89550b2fcf1742803a32093480f6f5d580b3c16ee507f931fec15",
+          "text": "Hyvä. Minä laitan lapun oveen, kun minä olen käynyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d8dd3ba232fedc2fd9f9da93f4918ca61f9be8430cf02152c4a8332e74528536"
+        }
       }
     }
   ],

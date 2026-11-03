@@ -66,7 +66,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -206,6 +207,26 @@
         "reason": "Moi/hei and mä/minä are register differences; meaning is identical.",
         "fingerprint": "ac5f41ce15651b7c20a9d2abfb8faed75982a58631b63eae9d7831905482f59f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a0742ef26a403f594262ed4619c22950424d6c5669c21af84a625aef0da9fb5b",
+          "text": "Moi Aino! Mä en pääsekään lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b2ef7b1e8b15224eb1d6841676be5baccc98dfb1cf7655ee843fa6aec954369a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "020e8441cd73881ae2bb5a8fb67e076da08a372c6be773b3ca2a2c6b96f1d9ea",
+          "text": "Hei Aino! Minä en pääsekään lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "005bee19ee2523220029351b642653ac41b18ed65bde04ce33221bd0b464b62d"
+        }
       }
     },
     {
@@ -304,6 +325,26 @@
         "reason": "tapahtu is a spoken form of tapahtui; same meaning.",
         "fingerprint": "135acc4f95644ed17fd9b506d87b7345b467e47a5fb5f1d85782993379b7c93b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0e812697fc77ec35a0aa278cd4afe09dbe75fc77c6aafff6c214b06248d2a976",
+          "text": "Voi harmi! Mitä tapahtu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9398fb72ca04ee8d9ebda9140650afc67dbc8c112653940543a35719b6cfbd20"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "88029efc36038391faa123fc0ca179d3c91424c2b7042c758c29ffb0d26ebd84",
+          "text": "Voi harmi! Mitä tapahtui?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "19afc7795bd05b914d1f27e33cb652df63c9a98db38d5e347df15a77daf0c7dc"
+        }
       }
     },
     {
@@ -406,6 +447,26 @@
         "reason": "Mun lapsi/minun lapseni and kipee/kipeä are register variants; same meaning.",
         "fingerprint": "29dcc89dcad120eace32954ce5462f3aa7fda0a5e46f2e9db9aaec5fa5b3da05",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "33432c8568d4f3ce89c35443802192f6d845bfcc9acd4d5d5315063e2e7cb7cd",
+          "text": "Mun lapsi on kipee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "780d9c5e9890b88674463aad3b9b1e64e660fe84da2777bb60350e94c90d6435"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "973a51f4a93b3a4213ae3b0c9b1700b5dc18770080ab2b1b568972be5bb46b87",
+          "text": "Minun lapseni on kipeä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0cb82ef0d1841fc0ae208b01b47f231e709c9c466fa50479762b60631bbf94eb"
+        }
       }
     },
     {
@@ -544,6 +605,26 @@
         "reason": "In spoken Finnish 'se' is commonly used for a person; it corresponds to 'hän' (the child). Same meaning.",
         "fingerprint": "a3fc58216852ea7344c7bc17f81fc97dce4656d673a20c20ac4c34c907cbbdee",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "bac96e437ec95195a7c09b529ed06ebba64a7fad890a8120e36667df5820a1b2",
+          "text": "Voi ei. Toivottavasti se paranee pian.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "086eb57fe6b043bfdd40aaad9dde8184b1bfd79200de41217a09ec3b7d52184a"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "ece85b008647b7a6866831404cb9dc6c446426f399a242f2532d340d9c2aecaf",
+          "text": "Voi ei. Toivottavasti hän paranee pian.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "db966bcf310e2415b2635ffd0fec0a0ac3845421d4eaf535c7c32764065bc1f4"
+        }
       }
     },
     {
@@ -643,6 +724,26 @@
         "reason": "Kiitti/kiitos, sopiiks/sopiiko, ens/ensi are register differences only.",
         "fingerprint": "374174e077aee656f01e9d692f4cf25ee23e0190803d2af2308d4ec778a7e0d4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "acf9837a25aca1bfc17e82ff1a8892c71316309d2b8488328d89623a45f4d64c",
+          "text": "Kiitti. Sopiiks ens viikko?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e9ef8754f5d796711672d9335c749afed727ebe6ddffe9ea407f65c342570ffb"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "552ee5e450669f67e6cd8449e3d5d41e991d722344bcada7d7470cd8eb83110b",
+          "text": "Kiitos. Sopiiko ensi viikko?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7f49724a3e0bbb557019c62dae014fe847cc14666ab40fcd9a957914a9a94cfe"
+        }
       }
     },
     {
@@ -779,6 +880,26 @@
         "reason": "Joo/kyllä and mulle/minulle are register differences; same options tiistai or keskiviikko.",
         "fingerprint": "f4f16d522d1bc13586e4626e37bee3803970349cd4a201933955a260ace2b8a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "5f039914b44b1459df68b482b67dcacabccf1e77b899542d41aab33101b3a696",
+          "text": "Joo. Tiistai tai keskiviikko käy mulle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6a863534bc36500bdfc7457d4664f565c834690f4df7593ab53c3b012c30ca2e"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "7a26d4f5013405848bcea5097fa3910a80c17e5ccfe87b75696a95fecf6c17f3",
+          "text": "Kyllä. Tiistai tai keskiviikko käy minulle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a1ebe549fb89acf06412bd089758cec91a985d4c85a9b0cf1df7516f1688354c"
+        }
       }
     },
     {
@@ -860,6 +981,26 @@
         "reason": "Identical lines.",
         "fingerprint": "db28d293cf0de0d6200abe784eeab22c399d61a1445d87bcc041129831c1b9bb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "bf71efeb5540af298bbb3f72cc4da94c5511d490abaabf2576abf439592fb07d",
+          "text": "Keskiviikko on paras.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "38ce9086f2c56843676bab1fe050a508a8d7a36e489f96ef428454496b57eca0"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "3eac58255d79dd537e5c4a1b832fdc2050dc7c3fc3182ca11b34420fc195e7a2",
+          "text": "Keskiviikko on paras.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "38ce9086f2c56843676bab1fe050a508a8d7a36e489f96ef428454496b57eca0"
+        }
       }
     },
     {
@@ -936,6 +1077,26 @@
         "reason": "Okei/selvä and sit/sitten are register differences; same day, Wednesday.",
         "fingerprint": "fda1058d2527c625c73813838c09186c46168782351fe4cea432e6a04b38c202",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d00b6ad8bccec9462612bc9e77b1881042ca4e275df695e3f79948626bb8a81e",
+          "text": "Okei, keskiviikkona sit!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9eeb6944a0f1998e7001b441267a053ea88e74e5f72f65c25f3bee8403c4fdf3"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "486ad6da42c359419d54c9b912387a47be6a70d436a820427bd76b3a3430b3ee",
+          "text": "Selvä, keskiviikkona sitten!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "42740aaab0c7625dc631272b82b60e69058c2584b93ad8eb9e596690000df05d"
+        }
       }
     }
   ],

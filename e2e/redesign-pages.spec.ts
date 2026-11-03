@@ -93,33 +93,35 @@ async function mockAccount(page: Page, mocks: PageMocks = {}) {
 }
 
 test.describe('the account page', () => {
-  test('[redesign 34] a guest sees the avatar, the journey, the add note and four settings rows, and no Sign out', async ({
-    page,
-  }) => {
-    await mockAccount(page)
-    await page.goto('/account')
-    await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeAttached()
-    await expect(page.getByText('Guest', { exact: true })).toBeVisible()
-    await expect(page.getByText('Saved on this device')).toBeVisible()
-    await expect(page.getByText('Stop 3 of 36')).toBeVisible()
-    await expect(page.getByText('Now: At the grocery store')).toBeVisible()
-    await expect(page.getByText('A1', { exact: true })).toBeVisible()
-    // Round 6 (owner, item 29): the owner's words of 1 November and a plain "Create", named in full.
-    await expect(page.getByText('Create an account to save your progress.')).toBeVisible()
-    const create = page.getByRole('button', { name: 'Create an account' })
-    await expect(create).toHaveText('Create')
-    for (const row of ['Speaking feedback', 'Download my data', 'Privacy notice', 'Send feedback']) {
-      await expect(page.getByRole('list').getByText(row)).toBeVisible()
-    }
-    await expect(page.getByText('On', { exact: true })).toBeVisible()
-    // "Speaking feedback" shows its value and no chevron, as drawn; the other rows keep theirs.
-    await expect(page.getByRole('link', { name: /Speaking feedback/ }).locator('svg')).toHaveCount(0)
-    await expect(page.getByRole('link', { name: 'Privacy notice' }).locator('svg')).toHaveCount(1)
-    await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
-    await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
-    await create.click()
-    await page.waitForURL('**/account/email')
-  })
+  test(
+    '[redesign 34] a guest sees the avatar, the journey, the add note and four settings rows, and no Sign out',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await mockAccount(page)
+      await page.goto('/account')
+      await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeAttached()
+      await expect(page.getByText('Guest', { exact: true })).toBeVisible()
+      await expect(page.getByText('Saved on this device')).toBeVisible()
+      await expect(page.getByText('Stop 3 of 36')).toBeVisible()
+      await expect(page.getByText('Now: At the grocery store')).toBeVisible()
+      await expect(page.getByText('A1', { exact: true })).toBeVisible()
+      // Round 6 (owner, item 29): the owner's words of 1 November and a plain "Create", named in full.
+      await expect(page.getByText('Create an account to save your progress.')).toBeVisible()
+      const create = page.getByRole('button', { name: 'Create an account' })
+      await expect(create).toHaveText('Create')
+      for (const row of ['Speaking feedback', 'Download my data', 'Privacy notice', 'Send feedback']) {
+        await expect(page.getByRole('list').getByText(row)).toBeVisible()
+      }
+      await expect(page.getByText('On', { exact: true })).toBeVisible()
+      // "Speaking feedback" shows its value and no chevron, as drawn; the other rows keep theirs.
+      await expect(page.getByRole('link', { name: /Speaking feedback/ }).locator('svg')).toHaveCount(0)
+      await expect(page.getByRole('link', { name: 'Privacy notice' }).locator('svg')).toHaveCount(1)
+      await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
+      await expect(page.getByRole('link', { name: 'Delete my account' })).toBeVisible()
+      await create.click()
+      await page.waitForURL('**/account/email')
+    },
+  )
 
   test('[redesign 34] an email account sees its address, "Saved to your email", Sign out and Delete, and no add note', async ({
     page,
@@ -224,34 +226,36 @@ test.describe('the email screens', () => {
     await expect(page.getByText('The code works for one hour.')).toBeVisible()
   })
 
-  test('[redesign 35] Sign in: the guest warning in full when this device has a guest, and "Start as a guest instead"', async ({
-    page,
-  }) => {
-    await mockAccount(page, { me: { kind: 'guest' } })
-    await page.goto('/sign-in')
-    await expect(
-      page.getByText(
-        'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
-        { exact: true },
-      ),
-    ).toBeVisible()
-    await page.getByRole('button', { name: 'Sign in anyway' }).click()
-    await expect(page.getByRole('link', { name: 'Start as a guest instead' })).toHaveAttribute('href', '/')
-    const none = await page.context().newPage()
-    await mockAccount(none, { me: { kind: 'none' } })
-    await none.goto('/sign-in')
-    // Round 6 (item 32): the drawing's title and subtitle.
-    await expect(none.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
-    await expect(none.getByText('Enter your email for a code.', { exact: true })).toBeVisible()
-    await expect(none.getByRole('link', { name: 'Start as a guest instead' })).toBeVisible()
-    // "Start as a guest instead" sits small under Send code, at the bottom of the screen.
-    const send = await none.getByRole('button', { name: 'Send code' }).boundingBox()
-    const guest = await none.getByRole('link', { name: 'Start as a guest instead' }).boundingBox()
-    expect((guest?.y ?? 0) > (send?.y ?? 0)).toBe(true)
-    expect(await styleOf(none.getByRole('link', { name: 'Start as a guest instead' }), 'fontSize')).toBe(
-      '12.5px',
-    )
-  })
+  test(
+    '[redesign 35] Sign in: the guest warning in full when this device has a guest, and "Start as a guest instead"',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await mockAccount(page, { me: { kind: 'guest' } })
+      await page.goto('/sign-in')
+      await expect(
+        page.getByText(
+          'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
+          { exact: true },
+        ),
+      ).toBeVisible()
+      await page.getByRole('button', { name: 'Sign in anyway' }).click()
+      await expect(page.getByRole('link', { name: 'Start as a guest instead' })).toHaveAttribute('href', '/')
+      const none = await page.context().newPage()
+      await mockAccount(none, { me: { kind: 'none' } })
+      await none.goto('/sign-in')
+      // Round 6 (item 32): the drawing's title and subtitle.
+      await expect(none.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
+      await expect(none.getByText('Enter your email for a code.', { exact: true })).toBeVisible()
+      await expect(none.getByRole('link', { name: 'Start as a guest instead' })).toBeVisible()
+      // "Start as a guest instead" sits small under Send code, at the bottom of the screen.
+      const send = await none.getByRole('button', { name: 'Send code' }).boundingBox()
+      const guest = await none.getByRole('link', { name: 'Start as a guest instead' }).boundingBox()
+      expect((guest?.y ?? 0) > (send?.y ?? 0)).toBe(true)
+      expect(await styleOf(none.getByRole('link', { name: 'Start as a guest instead' }), 'fontSize')).toBe(
+        '12.5px',
+      )
+    },
+  )
 
   // Round 6 (owner, items 3 and 30): the drawn field. Its words are the placeholder, its label is for screen
   // readers, the protected sentences sit small (12 px) and quiet under it, and Send code is at the bottom.
@@ -454,41 +458,49 @@ test.describe('delete, feedback and the privacy notice', () => {
     expect(calls.deleted).toBe(0)
   })
 
-  test('[redesign 39] the privacy notice has the readable first layer, the owner’s sentence, and the whole notice behind one control, and it calls no /api route', async ({
-    page,
-  }) => {
-    const requests = recordRequests(page)
-    await page.goto('/privacy')
-    await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
-    for (const heading of ['What we keep', 'Your voice', 'How long', 'Your rights', 'Who runs PuhuScribe']) {
-      await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible()
-    }
-    await expect(
-      page.getByText('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.'),
-    ).toBeVisible()
-    await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
-    // Round 6 (item 36): "Updated 1 November 2026" small at the bottom, as drawn (no full stop).
-    await expect(page.getByText('Updated 1 November 2026', { exact: true })).toBeVisible()
-    await expect(
-      page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
-    ).toBeHidden()
-    await page.getByRole('button', { name: 'Read the full notice' }).click()
-    await expect(
-      page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
-    ).toBeVisible()
-    await expect(page.getByText('Fumnanya Nketa is responsible for your data in PuhuScribe.')).toBeVisible()
-    await expect(
-      page
-        .locator('#full-notice')
-        .getByRole('heading', { level: 2, name: 'Where it is kept and who processes it' }),
-    ).toBeVisible()
-    // The only /api call is the one read that names the speech service's country (round 2).
-    expect(
-      requests
-        .filter((request) => new URL(request.url()).pathname.startsWith('/api/'))
-        .map((request) => `${request.method()} ${new URL(request.url()).pathname}`),
-    ).toEqual(['GET /api/voice'])
-  })
+  test(
+    '[redesign 39] the privacy notice has the readable first layer, the owner’s sentence, and the whole notice behind one control, and it calls no /api route',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const requests = recordRequests(page)
+      await page.goto('/privacy')
+      await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
+      for (const heading of [
+        'What we keep',
+        'Your voice',
+        'How long',
+        'Your rights',
+        'Who runs PuhuScribe',
+      ]) {
+        await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible()
+      }
+      await expect(
+        page.getByText('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.'),
+      ).toBeVisible()
+      await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
+      // Round 6 (item 36): "Updated 1 November 2026" small at the bottom, as drawn (no full stop).
+      await expect(page.getByText('Updated 1 November 2026', { exact: true })).toBeVisible()
+      await expect(
+        page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
+      ).toBeHidden()
+      await page.getByRole('button', { name: 'Read the full notice' }).click()
+      await expect(
+        page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
+      ).toBeVisible()
+      await expect(page.getByText('Fumnanya Nketa is responsible for your data in PuhuScribe.')).toBeVisible()
+      await expect(
+        page
+          .locator('#full-notice')
+          .getByRole('heading', { level: 2, name: 'Where it is kept and who processes it' }),
+      ).toBeVisible()
+      // The only /api call is the one read that names the speech service's country (round 2).
+      expect(
+        requests
+          .filter((request) => new URL(request.url()).pathname.startsWith('/api/'))
+          .map((request) => `${request.method()} ${new URL(request.url()).pathname}`),
+      ).toEqual(['GET /api/voice'])
+    },
+  )
 
   test('[redesign 29] [redesign 39] "How it works" opens the privacy page at its voice section, with the Keep sentence and the country', async ({
     page,

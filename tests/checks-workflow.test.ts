@@ -96,8 +96,12 @@ describe('applying migrations to the test project', () => {
     expect(apply).toContain('    name: Apply database changes to the test project\n')
   })
 
-  it('[smoke 11] runs only after the database tests passed', () => {
-    expect(needsOf('apply-test-db')).toEqual(['database'])
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): the apply job no longer waits for the database tests, which run in
+  // the full run only. It still runs only on a push to main ([data 18]).
+  it('[smoke 11] [fast 2] waits for no other job, so content publishing reaches the test project with no test in front', () => {
+    expect(needsOf('apply-test-db')).toEqual([])
+    expect(job('apply-test-db')).not.toMatch(/^ {4}needs:/m)
   })
 
   it('[smoke 11] pushes migrations with the test connection string and then runs the security tests on the test project', () => {
@@ -213,24 +217,21 @@ describe('database check for the data model', () => {
 describe('order of the checks', () => {
   // Moved by job 6-pr-local-db (statement 11): the browser tests against the
   // test project now run only after merge, in their own job. Same substance.
-  it('[smoke 11] [prdb 11] the browser tests against the test project wait for the test project to be updated', () => {
+  // Changed by job fast-checks (owner's decision of 3 November 2026): the
+  // browser tests against the test project run only in the manual full run,
+  // where the apply job never runs. They still wait for it, and run only when
+  // it did not run, so they never test the test project while it changes.
+  it('[smoke 11] [prdb 11] [fast 3] the browser tests against the test project wait for the apply job and run only when it did not run in that run', () => {
     expect(needsOf('browser-test-project')).toEqual(expect.arrayContaining(['database', 'apply-test-db']))
-    expect(job('browser-test-project')).toContain("needs.apply-test-db.result == 'success'")
+    expect(ifLine('browser-test-project')).toContain("needs.apply-test-db.result == 'skipped'")
+    expect(ifLine('browser-test-project')).toContain("needs.database.result == 'success'")
   })
 
-  it('[smoke 11] the preview waits for the database tests and the test project update', () => {
-    expect(needsOf('preview')).toEqual(
-      expect.arrayContaining([
-        'code',
-        'unit',
-        'python',
-        'database',
-        'apply-test-db',
-        'browser',
-        'secrets',
-        'dependencies',
-      ]),
-    )
+  // Changed when the owner paused every test until the MVP launch: the other
+  // checks do not run on a pull request, so the preview waits for the secret
+  // scan and still checks the test project was not changed.
+  it('[smoke 11] [fast 4] the preview waits for the secret scan and the test project update', () => {
+    expect(needsOf('preview')).toEqual(['secrets', 'apply-test-db'])
   })
 })
 
@@ -355,8 +356,10 @@ describe('pull request browser tests on a throwaway database', () => {
     expect(local()).toContain('    name: Browser tests (Playwright, local Supabase)\n')
   })
 
-  it('[prdb 1] runs on pull requests (Dependabot included) and manual runs, never on pushes to main', () => {
-    expect(ifLine('browser')).toBe("github.event_name != 'push'")
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): the browser tests run in the manual full run only.
+  it('[prdb 1] [fast 3] runs only in the manual full run', () => {
+    expect(ifLine('browser')).toBe("github.event_name == 'workflow_dispatch' && inputs.full")
     expect(local()).not.toContain('dependabot')
   })
 
@@ -524,10 +527,12 @@ describe('browser tests against the test project after merge', () => {
     expect(after()).toContain('    name: Browser tests against the test project (after merge)\n')
   })
 
-  it('[prdb 8] runs only on a push to main once the apply job succeeded', () => {
+  // Changed by job fast-checks: no longer after every merge, only in the
+  // manual full run on main.
+  it('[prdb 8] [fast 2] [fast 3] runs only in a manual full run on main, never on a push or a pull request', () => {
     expect(needsOf('browser-test-project')).toEqual(['database', 'apply-test-db'])
     expect(ifLine('browser-test-project')).toBe(
-      "github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.apply-test-db.result == 'success'",
+      "${{ !cancelled() && github.event_name == 'workflow_dispatch' && inputs.full && github.ref == 'refs/heads/main' && needs.database.result == 'success' && needs.apply-test-db.result == 'skipped' }}",
     )
   })
 
@@ -561,12 +566,14 @@ describe('preview links on pull requests that change the database', () => {
     )
   })
 
-  it('[prdb 10] [accounts 28] a database change runs only @preview tests on the preview, otherwise the suite without @seed and @email', () => {
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): no browser test runs against the preview, with or without a
+  // database change, and it receives no Access service token.
+  it('[prdb 10] [accounts 28] [fast 4] no browser test runs against the preview until the MVP launch', () => {
     const run = runText('preview')
-    expect(run).toContain('if [ "$DB_CHANGED" = true ]; then')
-    expect(run).toMatch(/^npx playwright test --grep @preview$/m)
-    expect(run).toMatch(/^npx playwright test --grep-invert "@seed\|@email"$/m)
-    expect(run).not.toMatch(/^npx playwright test$/m)
+    expect(run).not.toMatch(/\bplaywright\b/)
+    expect(job('preview')).not.toContain('CF_ACCESS_CLIENT')
+    expect(job('preview')).not.toContain('actions/upload-artifact')
   })
 
   it('[prdb 10] the preview is still uploaded and the link still posted either way', () => {
@@ -615,11 +622,13 @@ describe('pushes to main that change only factory notes or recordings', () => {
     expect(push).not.toMatch(/^ {4}paths:$/m)
   })
 
-  it('[prdb 13] pull requests and manual runs are never filtered by path', () => {
+  it('[prdb 13] [fast 3] pull requests and manual runs are never filtered by path', () => {
     expect(on).toMatch(/\n {2}pull_request:\n {2}push:\n/)
-    // Nothing is indented under workflow_dispatch, and the only path filter
-    // is the one under push.
-    expect(on).toMatch(/\n {2}workflow_dispatch:\n(?! {4})/)
+    // Job fast-checks added the "full" input under workflow_dispatch; it is
+    // the only thing there. The only path filter is the one under push.
+    const dispatch = on.slice(on.indexOf('\n  workflow_dispatch:\n') + '\n  workflow_dispatch:\n'.length)
+    expect([...dispatch.matchAll(/^ {4}(\S+):/gm)].map((m) => m[1])).toEqual(['inputs'])
+    expect([...dispatch.matchAll(/^ {6}(\S+):/gm)].map((m) => m[1])).toEqual(['full'])
     expect(on.match(/^ +paths(-ignore)?:/gm)).toEqual(['    paths-ignore:'])
   })
 
@@ -678,25 +687,30 @@ describe('jobs that fetch the private fonts upload no trace and no report', () =
     }
   })
 
-  it.each(['browser-test-project', 'preview'])(
-    '[public 1] %s uploads only .png and .webm files from test-results, never a report folder',
-    (id) => {
-      const paths = uploadPaths(id)
-      expect(paths.length, id).toBeGreaterThan(0)
-      for (const path of paths) {
-        expect(path, id).not.toMatch(/playwright-report/)
-        expect(path, id).toMatch(/^test-results\/\*\*\/\*\.(png|webm)$/)
-      }
-    },
-  )
+  // Until the MVP launch the preview runs no browser test and uploads nothing
+  // (owner's decision of 3 November 2026), so it has no upload to check.
+  it('[public 1] [fast 4] the preview, which has the font files, uploads no artifact at all', () => {
+    expect(uploadPaths('preview')).toEqual([])
+    expect(job('preview')).not.toContain('actions/upload-artifact')
+  })
+
+  it('[public 1] browser-test-project uploads only .png and .webm files from test-results, never a report folder', () => {
+    const paths = uploadPaths('browser-test-project')
+    expect(paths.length).toBeGreaterThan(0)
+    for (const path of paths) {
+      expect(path).not.toMatch(/playwright-report/)
+      expect(path).toMatch(/^test-results\/\*\*\/\*\.(png|webm)$/)
+    }
+  })
 
   it.each(['browser-test-project', 'preview'])(
-    '[public 1] %s sets PUHUSCRIBE_NO_TRACE on the step that runs Playwright, so no trace or HTML report is written',
+    '[public 1] %s sets PUHUSCRIBE_NO_TRACE on every step that runs Playwright, so no trace or HTML report is written',
     (id) => {
       const playwrightSteps = job(id)
         .split(/\n(?= {6}- )/)
         .filter((step) => /\bnpx playwright test\b/.test(step))
-      expect(playwrightSteps.length, id).toBeGreaterThan(0)
+      // The preview has no Playwright step until the MVP launch.
+      expect(playwrightSteps.length, id).toBe(id === 'preview' ? 0 : 1)
       for (const step of playwrightSteps) {
         expect(step, id).toContain("PUHUSCRIBE_NO_TRACE: '1'")
         expect(step, id).not.toMatch(/--trace|--reporter=html/)
@@ -730,5 +744,237 @@ describe('pull requests from forks never run the jobs that hold secrets', () => 
     expect(condition).toContain("github.actor != 'dependabot[bot]'")
     expect(condition).toContain("github.event_name != 'pull_request' ||")
     expect(condition).toContain(head)
+  })
+})
+
+// Labels [fast N] are the numbered parts of the owner's decision of 3 November
+// 2026, as the factory manager wrote them down for job fast-checks: every
+// change gets a fast run (aimed at under 10 minutes), and the full run of every
+// browser test happens once, by hand, when everything is set for the MVP.
+// [fast 1] the fast run on pull requests and pushes; [fast 2] pushes to main
+// keep the apply job and run no browser tests against the test project;
+// [fast 3] the manual full run; [fast 4] the preview link without the Access
+// service token; [fast 5] every earlier guard is kept and no test is removed.
+
+// The steps of a job, each as its own text block.
+function stepsOf(id: string): string[] {
+  return job(id)
+    .split(/\n(?= {6}- )/)
+    .filter((step) => step.trim().startsWith('- '))
+}
+
+function stepNamed(id: string, name: string): string {
+  const found = stepsOf(id).find((step) => step.includes(`- name: ${name}\n`))
+  if (!found) throw new Error(`No step "${name}" in job ${id}`)
+  return found
+}
+
+// A test call with its title and an options object holding a tag.
+const TAGGED_TEST = /test\(\s*(['"`])((?:\\.|(?!\1)[\s\S])*)\1,\s*\{ tag: ([^}]*)\}/g
+
+// Every e2e test tagged @smoke, by its title.
+function smokeTitles(): string[] {
+  const titles: string[] = []
+  for (const file of readdirSync('e2e').filter((name) => name.endsWith('.spec.ts'))) {
+    const text = readFileSync(join('e2e', file), 'utf8')
+    for (const m of text.matchAll(TAGGED_TEST)) {
+      if (m[3]?.includes("'@smoke'")) titles.push(m[2] ?? '')
+    }
+  }
+  return titles
+}
+
+describe('the fast run on every pull request and push', () => {
+  it('[fast 1] the workflow has the FULL_RUN switch, true only in a manual run with "full" ticked', () => {
+    const top = workflow.slice(workflow.indexOf('\nenv:\n'), workflow.indexOf('\njobs:\n'))
+    expect(top).toContain("\n  FULL_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.full }}\n")
+  })
+
+  it('[fast 1] the browser job installs only Chromium and runs only the @smoke tests unless it is the full run', () => {
+    const install = stepNamed('browser', 'Install Chromium (and WebKit in the full run)')
+    expect(install).toMatch(
+      /if \[ "\$FULL_RUN" = true \]; then\n\s+npx playwright install --with-deps chromium webkit\n\s+else\n\s+npx playwright install --with-deps chromium\n\s+fi/,
+    )
+    const tests = stepNamed('browser', 'Browser tests at 375 x 812 against the built app')
+    expect(tests).toMatch(
+      /if \[ "\$FULL_RUN" = true \]; then\n\s+npx playwright test\n\s+else\n\s+npx playwright test --project=chromium --grep @smoke\n\s+fi/,
+    )
+  })
+
+  it('[fast 1] the @empty-content tests run in the full run only', () => {
+    expect(stepNamed('browser', 'Browser tests with no readable dialogue')).toContain(
+      "        if: env.FULL_RUN == 'true'\n",
+    )
+  })
+
+  it('[fast 1] the guest account proof still runs after the fast browser tests', () => {
+    expect(stepNamed('browser', 'The app made guest accounts in the throwaway database')).not.toMatch(
+      /^ {8}if:/m,
+    )
+  })
+
+  it('[fast 1] the @smoke set covers the road, a whole lesson, the word card, sign in, the account page and privacy', () => {
+    const titles = smokeTitles()
+    const has = (label: string) => titles.some((title) => title.includes(label))
+    // The road.
+    expect(has('[redesign 10]') && has('[redesign 15]'), 'the road').toBe(true)
+    // One whole lesson through Hear it, Understand it, Say it and Keep it, and each step on its own.
+    expect(has('a day later the session ends with Keep it'), 'a whole lesson').toBe(true)
+    expect(
+      has('[session 9]') && has('[session 13]') && has('[redesign 30]') && has('[speak 5]'),
+      'the steps',
+    ).toBe(true)
+    // The word card.
+    expect(has('[session 12]') && has('[redesign 26]'), 'the word card').toBe(true)
+    // Sign in: the screen and a real sign in with a code.
+    expect(has('[accounts 4] [accounts 10]') && has('two devices: the second signs in'), 'sign in').toBe(true)
+    // The account page.
+    expect(has('[redesign 34]') && has('[accounts 2]'), 'the account page').toBe(true)
+    // Privacy: the notice, the data download and deletion.
+    expect(has('[accounts 16]') && has('[redesign 39]'), 'the privacy notice').toBe(true)
+    expect(
+      has('[accounts 18] [accounts 17]') && has('a guest deletes their account'),
+      'export and deletion',
+    ).toBe(true)
+    expect(titles).toHaveLength(29)
+  })
+
+  it('[fast 1] the smoke list reader also finds a tag written as an array, and not another tag', () => {
+    const read = (text: string) => [...text.matchAll(TAGGED_TEST)].map((m) => m[3] ?? '')
+    expect(read("test('[x] a', { tag: ['@seed', '@smoke'] }, async () => {})")[0]).toContain("'@smoke'")
+    expect(read("test('[x] a', { tag: '@seed' }, async () => {})")[0]).not.toContain("'@smoke'")
+  })
+
+  it('[fast 1] the database tests wait for the "Which checks this change needs" job and run only when it says so', () => {
+    expect(needsOf('database')).toEqual(['changes'])
+    expect(ifLine('database')).toBe("needs.changes.outputs.database == 'true'")
+    expect(job('changes')).toContain('    name: Which checks this change needs\n')
+    expect(job('changes')).toContain('      database: ${{ steps.plan.outputs.database }}\n')
+  })
+
+  it('[fast 1] [fast 3] a manual run, or a change whose files cannot be listed, always runs the database tests', () => {
+    const run = runText('changes')
+    const lines = run.split('\n')
+    const dispatch = lines.indexOf('if [ "$EVENT" = workflow_dispatch ]; then')
+    expect(dispatch).toBeGreaterThanOrEqual(0)
+    expect(lines[dispatch + 1]).toBe('database=true')
+    const unlisted = lines.indexOf(
+      'elif [ -z "$BASE_SHA" ] || ! changed=$(git diff --name-only --no-renames "$BASE_SHA...HEAD"); then',
+    )
+    expect(unlisted).toBeGreaterThan(dispatch)
+    expect(lines[unlisted + 1]).toBe('database=true')
+    expect(run).toContain(
+      `database=$(printf '%s\\n' "$changed" | node scripts/ci/checks-plan.ts database-tests)`,
+    )
+  })
+
+  it('[fast 1] a skipped database check is announced with a notice', () => {
+    expect(runText('changes')).toMatch(/^echo "::notice title=Database tests skipped::.+"$/m)
+  })
+
+  it('[fast 1] the plan job holds no secret and installs no branch packages', () => {
+    expect(job('changes')).not.toMatch(/\bsecrets\./)
+    expect(runText('changes')).not.toMatch(/\bnpm\b|\bnpx\b/)
+    expect(job('changes')).toContain('persist-credentials: false')
+  })
+
+  // Changed when the owner paused every test until the MVP launch (3 November
+  // 2026): only the secret scan runs on every event; the test jobs run in the
+  // manual full run only.
+  it('[fast 1] [fast 3] the secret scan runs on every event, and every test job only in the full run', () => {
+    expect(job('secrets')).not.toMatch(/^ {4}if:/m)
+    for (const id of ['changes', 'code', 'unit', 'python', 'dependencies', 'browser']) {
+      expect(ifLine(id), id).toBe("github.event_name == 'workflow_dispatch' && inputs.full")
+    }
+  })
+
+  it('[fast 1] on a pull request or a push only the secret scan, the preview and the apply job can run', () => {
+    const FULL = "github.event_name == 'workflow_dispatch' && inputs.full"
+    for (const id of all.keys()) {
+      if (['secrets', 'preview', 'apply-test-db'].includes(id)) continue
+      // Either the job itself runs only in the full run, or it waits for the
+      // plan job, which does (the database tests).
+      const own = ifLine(id).includes(FULL)
+      const viaPlan = needsOf(id).includes('changes') && ifLine('changes') === FULL
+      expect(own || viaPlan, id).toBe(true)
+    }
+    const preview = job('preview')
+    expect(preview.slice(preview.indexOf('    if: >-'), preview.indexOf('    runs-on:'))).toContain(
+      "github.event_name == 'pull_request'",
+    )
+    expect(ifLine('apply-test-db')).toContain("github.event_name == 'push'")
+  })
+})
+
+describe('pushes to main and the manual full run', () => {
+  it('[fast 2] the apply job still runs on every push to main, with no test in front of it', () => {
+    expect(ifLine('apply-test-db')).toBe(
+      "github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'",
+    )
+    expect(needsOf('apply-test-db')).toEqual([])
+  })
+
+  it('[fast 3] the manual run has one input, "full", a boolean that is off by default', () => {
+    const on = workflow.slice(workflow.indexOf('\non:\n'), workflow.indexOf('\nconcurrency:'))
+    expect(on).toMatch(
+      /\n {2}workflow_dispatch:\n {4}inputs:\n {6}full:\n {8}description: '.+'\n {8}type: boolean\n {8}default: false\n/,
+    )
+  })
+})
+
+// Changed when the owner paused every test until the MVP launch (3 November
+// 2026): the preview runs no browser test, so the Access token check, the
+// browser steps and the upload are gone; the link is still posted.
+describe('the preview link with no tests until the MVP launch', () => {
+  const preview = () => job('preview')
+
+  it('[fast 4] the preview is still uploaded and the link still posted, with no condition on either', () => {
+    for (const name of [
+      'Upload a preview version of puhuscribe-preview',
+      'Post the preview link on the pull request',
+    ]) {
+      expect(stepNamed('preview', name), name).not.toMatch(/^ {8}if:/m)
+    }
+  })
+
+  it('[fast 4] the comment is told no test ran', () => {
+    expect(stepNamed('preview', 'Post the preview link on the pull request')).toContain(
+      "          TESTS_RAN: 'false'\n",
+    )
+  })
+
+  it('[fast 4] an empty Cloudflare account id is removed so wrangler finds the account from the token', () => {
+    expect(runText('preview')).toContain(
+      'if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then unset CLOUDFLARE_ACCOUNT_ID; fi',
+    )
+  })
+
+  it('[fast 4] [fast 5] the preview runs only after the secret scan passed, and only while the test project is untouched', () => {
+    const condition = preview().slice(preview().indexOf('    if: >-'), preview().indexOf('    runs-on:'))
+    expect(condition).toContain('!cancelled()')
+    expect(condition).toContain("needs.secrets.result == 'success'")
+    expect(condition).toContain("needs.apply-test-db.result == 'skipped'")
+    expect(condition).not.toMatch(/needs\.secrets\.result == 'skipped'/)
+  })
+})
+
+describe('every guard is kept', () => {
+  it('[fast 5] the full run still runs every browser test, both browsers, with no filter', () => {
+    expect(runText('browser')).toMatch(/^npx playwright test$/m)
+    expect(runText('browser')).toContain('npx playwright install --with-deps chromium webkit')
+    expect(runText('browser-test-project')).toMatch(/^npx playwright test --grep-invert "@seed\|@email"$/m)
+  })
+
+  it('[fast 5] the Playwright config still runs both browsers and the journey', () => {
+    const config = readFileSync('playwright.config.ts', 'utf8')
+    for (const name of ["name: 'chromium'", "name: 'webkit'", "name: 'journey'"]) {
+      expect(config, name).toContain(name)
+    }
+  })
+
+  it('[fast 5] no browser test reads the run kind: the fast set only selects tests by tag', () => {
+    for (const file of readdirSync('e2e').filter((name) => name.endsWith('.ts'))) {
+      expect(readFileSync(join('e2e', file), 'utf8'), file).not.toMatch(/FULL_RUN|@full/)
+    }
   })
 })

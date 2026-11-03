@@ -65,67 +65,71 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  test('[review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 4 of 4, then the finish screen saves as in job 8', async ({
-    page,
-  }) => {
-    const { userId } = await finishFirstSession(page)
+  test(
+    '[review 4] [review 6] [review 12] [review 13] a day later the session ends with Keep it, step 4 of 4, then the finish screen saves as in job 8',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const { userId } = await finishFirstSession(page)
 
-    // First day, after dialogue 1: job 8's front door for the next dialogue, no word of review.
-    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-    await expect(page.getByRole('button', START)).toBeVisible()
-    const firstDay = await frontDoorText(page)
-    expect(firstDay).not.toMatch(/review/i)
-    expect(firstDay).not.toMatch(NO_COUNTS)
+      // First day, after dialogue 1: job 8's front door for the next dialogue, no word of review.
+      await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+      await expect(page.getByRole('button', START)).toBeVisible()
+      const firstDay = await frontDoorText(page)
+      expect(firstDay).not.toMatch(/review/i)
+      expect(firstDay).not.toMatch(NO_COUNTS)
 
-    // A day later, a dialogue ready and words reviewable: one sentence added, one Start.
-    dayLater(userId)
-    await page.reload()
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-    await expect(todayCard(page).getByRole('button')).toHaveCount(1)
-    expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
+      // A day later, a dialogue ready and words reviewable: one sentence added, one Start.
+      dayLater(userId)
+      await page.reload()
+      await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+      await expect(todayCard(page).getByRole('button')).toHaveCount(1)
+      expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
 
-    await page.getByRole('button', START).click()
-    await page.waitForURL('**/session')
-    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
-    await throughUnderstandIt(page, userId)
-    await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
-    await expect(page.getByRole('progressbar', { name: 'Keep it, step 4 of 4' })).toBeVisible()
-    await expect(page.getByText(/^Word 1 of \d+\.$/)).toBeVisible()
-    const session = sessionsOf(userId).find((s) => !s.ended)
-    expect(session?.step).toBe('say')
+      await page.getByRole('button', START).click()
+      await page.waitForURL('**/session')
+      await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
+      await throughUnderstandIt(page, userId)
+      await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
+      await expect(page.getByRole('progressbar', { name: 'Keep it, step 4 of 4' })).toBeVisible()
+      await expect(page.getByText(/^Word 1 of \d+\.$/)).toBeVisible()
+      const session = sessionsOf(userId).find((s) => !s.ended)
+      expect(session?.step).toBe('say')
 
-    // One item close, one missed, the rest right. Both come back once more at the end.
-    const answered = await runKeepIt(page, (_formId, retry, index) => {
-      if (retry) return 'right'
-      if (index === 0) return 'close'
-      if (index === 1) return 'wrong'
-      return 'right'
-    })
-    const firstPass = answered.filter((a) => !a.retry)
-    const retries = answered.filter((a) => a.retry)
-    expect(firstPass[0]?.status).toBe('Close. Check the spelling above.')
-    expect(firstPass[1]?.status).toBe('Here is the word. It will come back soon.')
-    for (const a of firstPass.slice(2)) expect(a.status).toBe('Yes, that is right.')
-    // [review 13] The two missed items came back once each, after the others, and no third time.
-    expect(retries.map((a) => a.formId)).toEqual([firstPass[0]?.formId, firstPass[1]?.formId])
-    expect(answered.slice(firstPass.length).every((a) => a.retry)).toBe(true)
+      // One item close, one missed, the rest right. Both come back once more at the end.
+      const answered = await runKeepIt(page, (_formId, retry, index) => {
+        if (retry) return 'right'
+        if (index === 0) return 'close'
+        if (index === 1) return 'wrong'
+        return 'right'
+      })
+      const firstPass = answered.filter((a) => !a.retry)
+      const retries = answered.filter((a) => a.retry)
+      expect(firstPass[0]?.status).toBe('Close. Check the spelling above.')
+      expect(firstPass[1]?.status).toBe('Here is the word. It will come back soon.')
+      for (const a of firstPass.slice(2)) expect(a.status).toBe('Yes, that is right.')
+      // [review 13] The two missed items came back once each, after the others, and no third time.
+      expect(retries.map((a) => a.formId)).toEqual([firstPass[0]?.formId, firstPass[1]?.formId])
+      expect(answered.slice(firstPass.length).every((a) => a.retry)).toBe(true)
 
-    // The finish screen as in job 8.
-    await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
-    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
-    const row = sessionsOf(userId).find((s) => s.id === session?.id)
-    expect(row?.step).toBe('keep')
-    expect(row?.ended).toBe(true)
-    expect(one(`select count(*) from public.usage_events where user_id = :'uid'`, { uid: userId })).toBe('1')
+      // The finish screen as in job 8.
+      await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
+      // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+      await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+      const row = sessionsOf(userId).find((s) => s.id === session?.id)
+      expect(row?.step).toBe('keep')
+      expect(row?.ended).toBe(true)
+      expect(one(`select count(*) from public.usage_events where user_id = :'uid'`, { uid: userId })).toBe(
+        '1',
+      )
 
-    // [review 13] One log per answer: a second log row for each retried word.
-    expect(logCount(userId)).toBe(answered.length)
-    for (const formId of [firstPass[0]?.formId, firstPass[1]?.formId]) {
-      expect(logsOf(userId).filter((l) => l.formId === formId)).toHaveLength(2)
-    }
-  })
+      // [review 13] One log per answer: a second log row for each retried word.
+      expect(logCount(userId)).toBe(answered.length)
+      for (const formId of [firstPass[0]?.formId, firstPass[1]?.formId]) {
+        expect(logsOf(userId).filter((l) => l.formId === formId)).toHaveLength(2)
+      }
+    },
+  )
 
   test("[review 11] [review 14] one item right and one wrong are saved at once with the same engine's values; leaving keeps them, and Continue restarts Keep it with what is still due", async ({
     page,

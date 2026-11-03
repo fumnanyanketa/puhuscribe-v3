@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -255,6 +256,26 @@
         "reason": "Same question; moi/hei, sä/sinä, haluut/haluat are register differences only.",
         "fingerprint": "fd2d48bf885df6117e081c822101f6417d54561c96a8412ced5019698953af98",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "86328907b05f9e12117d7aadf5a03df4718e3b65f9db16ad4842b8aa13e01ce9",
+          "text": "Moi! Tiiätsä jo, mitä sä haluut?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9b4b08eac0954c836d18060b792fcfb6edabab30c2962edd0d50b1aba570377b"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "7776399c328b637f27d07ca46d00176403c675f58e41cff487232995db83fdcb",
+          "text": "Hei! Tiedätkö sinä jo, mitä sinä haluat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "22288b45dfc7a366de7a30a12bf208749f8eea59ae2925522efea00488d1342e"
+        }
       }
     },
     {
@@ -355,6 +376,26 @@
         "reason": "Identical sentences.",
         "fingerprint": "00aa3b80abea84ceb8762b9d6bfb90fdd5d4cf970f2b6ca393efe946ac4e92ab",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "bdb51ee26817cabe02097af8755e6d9991653ab87d6ec077152dadbe52cbca67",
+          "text": "Mikä on päivän lounas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a2f6f450ec156fdc1bd71a41444235187f6b1be0c138ab9033f17fe13d263967"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "f6dee3e61aef0f49216586c4f999b6df3f678b819080d2b0d86ca645bf64ad15",
+          "text": "Mikä on päivän lounas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a2f6f450ec156fdc1bd71a41444235187f6b1be0c138ab9033f17fe13d263967"
+        }
       }
     },
     {
@@ -430,6 +471,26 @@
         "reason": "Lohikeittoo/lohikeittoa is a spoken variant; same options.",
         "fingerprint": "d64511d76074a41e72b9f08493b49c672cc9cfb177c83cfd0ded2092efa0b73a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "b958d462679e86df9713363e961a8c5ae0ce03f7dd9925be6f650f1a3bff4fda",
+          "text": "Lohikeittoo tai kanapastaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c342ea2b1d4b5adbf9051c4f19f25825b94b7118bfc5526f2a2eb62871a725ed"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "00c96c586572febe9a5ada5829295e856d867ffdddc947af3a2f291088bd3b58",
+          "text": "Lohikeittoa tai kanapastaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cfa6fbbd3c569e9f8ac56c87587d30c90af97d3a9b25bd5cae4b6515da5da1ef"
+        }
       }
     },
     {
@@ -510,6 +571,26 @@
         "reason": "Mä/minä only; same order of lohikeitto.",
         "fingerprint": "d117408cfaa29b37c8be6703a027ec4edef5f5bfb35e7ab859857f72990a05d6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "859d8e49fac52890d0b32d3da0c4f1ef1c397eeebfdb1577ed524bd2af36a0c7",
+          "text": "Mä ottaisin lohikeiton.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7b84e1030a2bc2c55816649aba2a726b7977355531435f030625fb7d811a0240"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "ab7ef179dbe29eb0dd63cf7b066cc32d3f969da112442d256bcb493c3413296a",
+          "text": "Minä ottaisin lohikeiton.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c52271917fb22cc3374c61947830f0ed7fbef7f349a32dd76683873876cb1426"
+        }
       }
     },
     {
@@ -689,6 +770,26 @@
         "reason": "on/ovat with plural subject is a colloquial agreement difference; same content.",
         "fingerprint": "63b850fbac9c695a6b8484c91a620631c353360e3f688d4bb4ee33b2eb209480",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "52a821c0834f7fecfea4414e4d0a9169f8bad1f6e3e0e1139ca1a395cd3e6834",
+          "text": "Hyvä valinta. Leipä ja salaatti on tuolla pöydällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cc60a63b96c8fdb9594670551cb5b38a53e7ad4635f10a8eae92aab98890e4e4"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "730bac35a2da5de94cef87271d10495a176c06df61a5b40749cb81990f90b7e5",
+          "text": "Hyvä valinta. Leipä ja salaatti ovat tuolla pöydällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "819d5ace030c23b79c611a8d160910a6a5492fd543b2198dbb4563ae386049d0"
+        }
       }
     },
     {
@@ -809,6 +910,26 @@
         "reason": "Kiitti/kiitos and saisinks mä/saisinko minä are register variants; same request.",
         "fingerprint": "8e88f80d1545b19cc7d73ecdcd813839d2c70258354cc6b13502c938283234b6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "1138dc11ff5b6a0352fa7c71710fa0a68cc63950fe90562e7e90af489745842f",
+          "text": "Kiitti. Saisinks mä myös vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6626381c85893df35c3e262e45972b1ef4c12a8f628b4950340bed071a51f4f9"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "08a109779991be80e4e2a74d24643ae2bca5881712aad065b2948050b49337d7",
+          "text": "Kiitos. Saisinko minä myös vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8ee915b02132467cec5cbe25698dd8ba998f50981010aae30e2a06f2312632a1"
+        }
       }
     },
     {
@@ -954,6 +1075,26 @@
         "reason": "Ilmasta/ilmaista (free), tosta/tuosta are spoken forms; same meaning.",
         "fingerprint": "9c50bd45aa2319bf8e97618845c6353c1f639f1c5e2bfad9ab03da62e53081a7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7f8caf75e5437ac8b0e1a6175c8eb9d0e6303721d1b34c453711ef596caeaaf8",
+          "text": "Vesi on ilmasta. Ota tosta kannusta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b34ef571c565ec39f601c934ca9c034d3c492e1119b9a87e2eaf5f52e0fd2a2b"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "ca5c07bca58e2e84830bef1876007a772c9522ef89f4c59711879b3fa837e8d8",
+          "text": "Vesi on ilmaista. Ota tuosta kannusta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e3e7c02561cfb736514a813f3e794f21f650c8e45f973153d4a1d8a02a32f1ec"
+        }
       }
     },
     {
@@ -1012,6 +1153,26 @@
         "reason": "Kiitti/kiitos only register difference.",
         "fingerprint": "e943e188e6bbbb1d64e1eff855fae1409a1be0ca35fb84e7d2f9e31822224cf4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "225900da43c04847dc3cc72eab03c7cc0481ba900ae45000aeb425366fdf119c",
+          "text": "Ihanaa. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2ae1d9cbe65aa6dc2927d4e35cfd239d90dd459f8432e9db521130e955115385"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "1d7796a404111336c2f016cda61ca932a8b100ae8e245296c440fe29218c5581",
+          "text": "Ihanaa. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7402176a84eb1d9d0a2e11303d1c3e769d82f6fbcddd9d6be4b47a6cc6ea3d88"
+        }
       }
     }
   ],

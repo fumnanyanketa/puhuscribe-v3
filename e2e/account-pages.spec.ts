@@ -86,36 +86,38 @@ test('[accounts 1] the road shows the privacy notice link, the account button an
   await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
 })
 
-test('[accounts 16] the privacy notice loads without an account, makes no /api call, and has every section', async ({
-  page,
-}) => {
-  const requests = recordRequests(page)
-  await page.goto('/privacy')
-  await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
-  // The whole notice is behind "Read the full notice" (job 19-redesign, statement 39).
-  await page.getByRole('button', { name: 'Read the full notice' }).click()
-  for (const heading of SECTIONS) {
+test(
+  '[accounts 16] the privacy notice loads without an account, makes no /api call, and has every section',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    const requests = recordRequests(page)
+    await page.goto('/privacy')
+    await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
+    // The whole notice is behind "Read the full notice" (job 19-redesign, statement 39).
+    await page.getByRole('button', { name: 'Read the full notice' }).click()
+    for (const heading of SECTIONS) {
+      await expect(
+        page.locator('#full-notice').getByRole('heading', { level: 2, name: heading, exact: true }),
+      ).toBeVisible()
+    }
+    await expect(page.getByText('PuhuScribe is for adults, 18 and over.')).toBeVisible()
     await expect(
-      page.locator('#full-notice').getByRole('heading', { level: 2, name: heading, exact: true }),
+      page.getByText(/A guest account is deleted after 90 days with no learning activity/),
     ).toBeVisible()
-  }
-  await expect(page.getByText('PuhuScribe is for adults, 18 and over.')).toBeVisible()
-  await expect(
-    page.getByText(/A guest account is deleted after 90 days with no learning activity/),
-  ).toBeVisible()
-  await page.waitForLoadState('networkidle')
-  const origin = new URL(page.url()).origin
-  for (const request of requests) expect(new URL(request.url()).origin, request.url()).toBe(origin)
-  // Round 2 of job 19-redesign: the voice section names the speech service's country, which only the
-  // Worker knows, so the page makes the one read of the voice settings and no other /api call. With no
-  // account it is a 401 and the page says "in the EU" without the country.
-  const calls = requests.filter((r) => new URL(r.url()).pathname.startsWith('/api/'))
-  expect(calls.map((r) => `${r.method()} ${new URL(r.url()).pathname}`)).toEqual(['GET /api/voice'])
-  // Round 6 of job 19-redesign: the voice details sit behind "More about your voice", as drawn.
-  await page.getByRole('button', { name: 'More about your voice' }).click()
-  await expect(page.getByText(/service in the EU\./).first()).toBeVisible()
-  expect(await page.evaluate<string>('document.cookie')).toBe('')
-})
+    await page.waitForLoadState('networkidle')
+    const origin = new URL(page.url()).origin
+    for (const request of requests) expect(new URL(request.url()).origin, request.url()).toBe(origin)
+    // Round 2 of job 19-redesign: the voice section names the speech service's country, which only the
+    // Worker knows, so the page makes the one read of the voice settings and no other /api call. With no
+    // account it is a 401 and the page says "in the EU" without the country.
+    const calls = requests.filter((r) => new URL(r.url()).pathname.startsWith('/api/'))
+    expect(calls.map((r) => `${r.method()} ${new URL(r.url()).pathname}`)).toEqual(['GET /api/voice'])
+    // Round 6 of job 19-redesign: the voice details sit behind "More about your voice", as drawn.
+    await page.getByRole('button', { name: 'More about your voice' }).click()
+    await expect(page.getByText(/service in the EU\./).first()).toBeVisible()
+    expect(await page.evaluate<string>('document.cookie')).toBe('')
+  },
+)
 
 test('[accounts 16] the privacy notice names who is responsible, with a mailto link that fits at 320 px', async ({
   page,
@@ -146,45 +148,49 @@ test('[accounts 16] the privacy notice is linked from the front door, the accoun
   }
 })
 
-test('[accounts 2] with no account on this device the account page says so and offers sign in only', async ({
-  page,
-}) => {
-  await page.goto('/account')
-  await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeVisible()
-  await expect(page.getByText('There is no account on this device.', { exact: true })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Download my data' })).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'Delete my account' })).toHaveCount(0)
-  await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeVisible()
-  await page.getByRole('button', { name: 'Sign in with your email' }).click()
-  await page.waitForURL('**/sign-in')
-})
+test(
+  '[accounts 2] with no account on this device the account page says so and offers sign in only',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    await page.goto('/account')
+    await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeVisible()
+    await expect(page.getByText('There is no account on this device.', { exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Download my data' })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Delete my account' })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Sign out' })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeVisible()
+    await page.getByRole('button', { name: 'Sign in with your email' }).click()
+    await page.waitForURL('**/sign-in')
+  },
+)
 
-test('[accounts 4] [accounts 10] the sign in email screen: one email field, the text, and a gentle line for a bad address with no request', async ({
-  page,
-}) => {
-  const requests = recordRequests(page)
-  await page.goto('/sign-in')
-  await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
-  await expect(
-    page.getByText(
-      'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
-    ),
-  ).toBeVisible()
-  const field = page.getByLabel('Email address')
-  await expect(field).toHaveAttribute('type', 'email')
-  await expect(field).toHaveAttribute('autocomplete', 'email')
-  for (const bad of ['', 'learner', 'learner@example', `${'a'.repeat(250)}@example.com`]) {
-    await field.fill(bad)
-    await page.getByRole('button', { name: 'Send code' }).click()
-    await expect(page.getByRole('status')).toHaveText('Please check the email address.')
-    await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
-  }
-  expect(requests.filter((r) => /\/api\/(sign-in|account\/email)/.test(new URL(r.url()).pathname))).toEqual(
-    [],
-  )
-})
+test(
+  '[accounts 4] [accounts 10] the sign in email screen: one email field, the text, and a gentle line for a bad address with no request',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    const requests = recordRequests(page)
+    await page.goto('/sign-in')
+    await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
+    await expect(
+      page.getByText(
+        'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
+      ),
+    ).toBeVisible()
+    const field = page.getByLabel('Email address')
+    await expect(field).toHaveAttribute('type', 'email')
+    await expect(field).toHaveAttribute('autocomplete', 'email')
+    for (const bad of ['', 'learner', 'learner@example', `${'a'.repeat(250)}@example.com`]) {
+      await field.fill(bad)
+      await page.getByRole('button', { name: 'Send code' }).click()
+      await expect(page.getByRole('status')).toHaveText('Please check the email address.')
+      await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
+    }
+    expect(requests.filter((r) => /\/api\/(sign-in|account\/email)/.test(new URL(r.url()).pathname))).toEqual(
+      [],
+    )
+  },
+)
 
 test('[accounts 27] the privacy notice, the account page and the sign in screen fit 320 px and 200 percent text, with 44 px controls', async ({
   page,
@@ -253,14 +259,16 @@ test.describe('the API from outside the page', () => {
     }
   })
 
-  test('[accounts 3] GET /api/me with no sign in answers kind none, and the export needs a sign in', async ({
-    request,
-  }) => {
-    const me = await request.get('/api/me')
-    expect(me.status()).toBe(200)
-    expect(await me.json()).toEqual({ kind: 'none' })
-    expect(me.headers()['access-control-allow-origin']).toBeUndefined()
-    const file = await request.get('/api/account/export')
-    expect(file.status()).toBe(401)
-  })
+  test(
+    '[accounts 3] GET /api/me with no sign in answers kind none, and the export needs a sign in',
+    { tag: '@smoke' },
+    async ({ request }) => {
+      const me = await request.get('/api/me')
+      expect(me.status()).toBe(200)
+      expect(await me.json()).toEqual({ kind: 'none' })
+      expect(me.headers()['access-control-allow-origin']).toBeUndefined()
+      const file = await request.get('/api/account/export')
+      expect(file.status()).toBe(401)
+    },
+  )
 })

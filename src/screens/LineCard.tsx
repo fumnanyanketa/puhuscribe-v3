@@ -9,7 +9,7 @@ import styles from './Screens.module.css'
 // One dialogue line in a session (factory/jobs/8-first-session/spec.md, "Done
 // when" 9, 10 and 12; redrawn in job 19-redesign, statement 23): the speaker's
 // name, "Line 2 of 8", the spoken line and the written line joined by two dots,
-// a play button on each line, and the English gloss under a dashed line. Every
+// a play button on each line, and the English meaning under a dashed line. Every
 // word with a readable form opens its word card; the card's play buttons play
 // the whole line in each register (Decision 6). While either of the line's
 // controls plays, the card is ringed and says "Playing" in words, so colour is
@@ -52,6 +52,25 @@ export function lineWords(
         : undefined,
     }
   })
+}
+
+/**
+ * The line's English meaning under the card's dashed line, with a small quiet "Meaning" in front
+ * (owner's call, 3 November 2026: the English looked hidden). Screen readers hear "Meaning: ..."
+ * through a colon that only they get. Hear it and the review card of Keep it share it.
+ */
+export function Meaning({ english }: { english: string }) {
+  return (
+    <p className={styles.gloss} data-meaning="">
+      <span className={styles.meaningLabel} data-meaning-label="">
+        <span data-meaning-word="">Meaning</span>
+        <span className={styles.visuallyHidden}>:</span>
+      </span>{' '}
+      <span className={styles.meaningText} data-meaning-text="">
+        {english}
+      </span>
+    </p>
+  )
 }
 
 /** True when any word of the line is shown as changed. */
@@ -159,7 +178,7 @@ export function LineCard({
         cardAudioCaption={CARD_AUDIO_CAPTION}
         cardOnPatterns={openPatterns ?? undefined}
       />
-      {showGloss && <p className={styles.gloss}>{line.gloss}</p>}
+      {showGloss && <Meaning english={line.gloss} />}
     </div>
   )
 }

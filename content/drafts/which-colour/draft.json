@@ -77,7 +77,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -222,6 +223,26 @@
         "reason": "Identical lines.",
         "fingerprint": "72758fd6b49e9bab996af7374a849e441d1b22c17664c71cca08d44ccdb7ae17",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a9cd1685eb9cb15810feee211492b91c90b79ba700be6b2e2cefd5722237267d",
+          "text": "Kumpi on parempi, sininen vai musta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2febc8725fb6e43105bbc6d89db3239e168a24e9a8499c6e627dcb82d379938c"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "4154001aee390435c1e3b422f278decb8654aed17db6c86b22f41e2b0c250ca6",
+          "text": "Kumpi on parempi, sininen vai musta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2febc8725fb6e43105bbc6d89db3239e168a24e9a8499c6e627dcb82d379938c"
+        }
       }
     },
     {
@@ -357,6 +378,26 @@
         "reason": "sulle/sinulle and tosi/todella are register differences only; same meaning.",
         "fingerprint": "a5cfb0bf6ffdc9a8390f23e030ba06f1eea7566050d93ffb57355fea274cfda3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0fe9bfaf940073159988b50df14832c1c2ddf198e516a79e5ed283cc8d8be482",
+          "text": "Sininen! Se sopii sulle tosi hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5f8f4197c5c85921b6120145a352e21fd857c9fb7edae1811e548c24c185e0e2"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "7d79e9b3d7d61e25d305f955d2bf74d7113b3acf53b1f3c1f92e0cee19adef8c",
+          "text": "Sininen! Se sopii sinulle todella hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e649282bcd09f8b84f973f85ca5c8b86ca812a18927a0065e739c331b31cb478"
+        }
       }
     },
     {
@@ -457,6 +498,26 @@
         "reason": "mut/mutta is a register difference; same meaning.",
         "fingerprint": "78514fc5cae4fe6ed63ea4e2d65a08b1d349a2f430845adac6b6866726a4c5b6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "3d586a4b93f5f314946302bb3fd1484d9bd61730e9472f546f3e8a3157aeda83",
+          "text": "Mut musta on käytännöllisempi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8972feefeeba76156251488edf4439353b9a3008ff9e484e706717d46c743cc3"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "650911d203a421c6e55ba2c10f49a132ae61d0a292e7aeb20dabe5f27037b444",
+          "text": "Mutta musta on käytännöllisempi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6703c2914ed474861257be77d4de86fca6d66a8282274f1064077ce9f1ebb6a3"
+        }
       }
     },
     {
@@ -559,6 +620,26 @@
         "reason": "Onks/onko and alessa/alennuksessa both ask whether it is on sale; only register differs.",
         "fingerprint": "0817cb56c535819f649fbc99b8ba04aa79934ab16127948d0b05cc75f2974867",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b5d9135af4320ccb8080780c9c8f4181e741860388c3b4344264c8b6d05f84cc",
+          "text": "Totta. Onks se alessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6d301abc5bab4240d7e7aa53da8d8b910ef738215161c274dc5eeea37c1ad456"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "cbac432cd441d2557d8f43a8ae6eca159f5f55779464a3efecdb39bf96a0ed0b",
+          "text": "Totta. Onko se alennuksessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7f1ac3d1186ca3c14be51a0bd095d1562487f8e62a8f185a743ca2082aff5254"
+        }
       }
     },
     {
@@ -654,6 +735,26 @@
         "reason": "Joo/kyllä and kakskyt prosenttii/kaksikymmentä prosenttia: same answer and same number (20%).",
         "fingerprint": "7612d9330ade30789f35bc733aa9f109e254afd86571929f281335d6d3d2cced",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b155f045856eb1c0a8a399a2eb76eb5bedf1c02d5ab0ef793ac0832a070d919d",
+          "text": "Joo, kakskyt prosenttii alennusta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "08a44cb47cb8a8a99325ff6e49aa5a0bdd754c062b065060a8cc092370cbd846"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "8e9163b1159a2808b59095b4622a84b2e5aafbd00a974958e19846a33c6609fc",
+          "text": "Kyllä, kaksikymmentä prosenttia alennusta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0d7598cad022e6dca1732164d41577f77a00657d9f2b8f6bfa45bd5ea96cfed6"
+        }
       }
     },
     {
@@ -732,6 +833,26 @@
         "reason": "sit/sitten is a register difference; same command.",
         "fingerprint": "5b23cb2076853e2831c9e6f1199d6ed20efc363ed9b5a4abb312aec515e77897",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9b7fd4d52d01c1c18f5e8dded48620ec223b863d90bb4f13123f174002b0ba93",
+          "text": "Ota sit molemmat!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "535fabe6234f9dd727860a0e1cb3921e39def48552b44b0fdde12f2f91e500d8"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "691baaca1af692c0b4c8460ffd039ea2073ee0610a0dba6fb14c3733d7b7f569",
+          "text": "Ota sitten molemmat!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "77084d62b8ffa81ef0f108583e37460d4175ff626215a0c9c9b0010ad1331290"
+        }
       }
     },
     {
@@ -863,6 +984,26 @@
         "reason": "Mul ei oo/minulla ei ole: same negation and person; only register differs.",
         "fingerprint": "f017cafb9e9ee1a2ac66844173bcea929d99ed6ad6eb29763b12f90ebae4689e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "2ca1ce48f322e067dd3a0d3f33ba7f42af8ac443727e673cdbcfe5c8d3d570a6",
+          "text": "Mul ei oo niin paljon rahaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3cd5f610ce7b59c454053380850460649e6cdb7cf67583af6be821dfd143c79c"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c0a31272c2e93ea0817d7647534968c86f9398caa1fcb9603c43c449143fd0d3",
+          "text": "Minulla ei ole niin paljon rahaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e2d47587bb255c33b71ef581842df1ddecbe69fb9633f9d30ad1ca02ed0ee7d5"
+        }
       }
     },
     {
@@ -942,6 +1083,26 @@
         "reason": "Identical lines.",
         "fingerprint": "bf54b11d6e39cb910cdb6664671aa403b5f5bc676aa9a5ace4cc52676136b01c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "b1ceea8c2c20b01808ea0f1988d99752a173cb905f9e534962daea042f4cbc9c",
+          "text": "No, ota sininen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "49da4acfda0c5316c9c0ffc1b22dc9b97beaf4da293383ec2dc080c07030a007"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "ab74e350dc30ac6ba4a637848a3c0e775dd6f4b8b430c9c1659d17af8bc37c5a",
+          "text": "No, ota sininen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "49da4acfda0c5316c9c0ffc1b22dc9b97beaf4da293383ec2dc080c07030a007"
+        }
       }
     }
   ],

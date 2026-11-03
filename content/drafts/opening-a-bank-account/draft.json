@@ -82,7 +82,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -169,6 +170,26 @@
         "reason": "Ole hyvä (singular/informal) vs olkaa hyvä (plural/formal) is only a register/politeness difference; the meaning 'next, please' is the same.",
         "fingerprint": "db9ffc2f89f2ef1f7859679aed4968c2fffdef1f3a141fdeeba232c6369e0326",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f6277cb7aded355987dbe1331c2d53c7d78a9bf795342b7bea3a103488983e23",
+          "text": "Seuraava, ole hyvä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "300d078f2edecfa6dffa1c7576a3a6c67998b665097cff4eb836744089c87885"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "567117f6681585efcbbd5d88a40894bafcd323787559e2380e486baad23de0f6",
+          "text": "Seuraava, olkaa hyvä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "185b4392c36292268f4f71dfd87d302de6cb03665afb183658375d426e5be822"
+        }
       }
     },
     {
@@ -288,6 +309,26 @@
         "reason": "Moi/Hei, mä/minä, haluun/haluan are register variants; same meaning.",
         "fingerprint": "08d944c5922f407637088c323e8fd41e4c625fc542b3ac96c84414a73fb2925e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "8a4cc862894fece182e3487c447a8434964142bd8176eafffd7dc0b7cb57a4b2",
+          "text": "Moi! Mä haluun avata pankkitilin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "032c29238b39fe1e9bdcca99d8c46b2d5fad0d19602e22123c328bbedb7cfd38"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "be46d86c8fa77c50acd0d1124dead4a2c01e1ede6446ea3fcec77a8dc342745c",
+          "text": "Hei! Minä haluan avata pankkitilin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a721c28c9c23b5bd2abd8aa1b3fe3aff201996db1f1d7203e8dc7b00dc661287"
+        }
       }
     },
     {
@@ -406,6 +447,26 @@
         "reason": "Okei/Selvä, onks sul/onko sinulla are register variants; same question about having a passport.",
         "fingerprint": "7dc6de77f9eb32810804810189f71e98cf6c6a014f71cd1cddbeee8780bfb6c9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "c306d66c7b00a5e8ee2e2140f179b60fdc22a13d6ac302df936a122b8089931e",
+          "text": "Okei. Onks sul passi mukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2bc324943a3ab3b315c557823e9dfeb8d97ade175ba41480eedacf2219a74dd5"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "d6006a4cc64e074d21b53233af0755b4d9ef1393adf24dd059e4959b3ef77d30",
+          "text": "Selvä. Onko sinulla passi mukana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b43ddd15deb3217e04bd392d5ed5a0796917d2e2114649bcb85e50727f7e886d"
+        }
       }
     },
     {
@@ -527,6 +588,26 @@
         "reason": "Mul/minulla is a register variant; same statement.",
         "fingerprint": "bc91bbab1d0bff53bf087aa093a6a7d8c0f2ed8ed111723a191817581a16b90c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "982a1e401c5d3f6d8bdd74046e01636b5960447870767f8507f1eed031fb460e",
+          "text": "On. Ja mul on oleskelulupa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9a28418ae9ae6b3ddda22c49ae4c85d39a26893290f8b743160b8e3b530bb4b3"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b9f7210094c4c4d5a5d4da6946045c8fc3b50aaab04d9af7c5d7ced6029c20ad",
+          "text": "On. Ja minulla on oleskelulupa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "34a4a7435e1b75c96c26f08c19f95d8216b30a5bd6f3282db9aac5810575b2a2"
+        }
       }
     },
     {
@@ -667,6 +748,26 @@
         "reason": "Sä/sinä, tarviit/tarvitset, osotteen/osoitteen are register variants; same meaning.",
         "fingerprint": "3488ea03027dc0d0ade73102370131d30c02b661b31eee617e268f40459dc22b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "0e2301cee3cbb29b661488025558b807523d69040bddbf03a8f5daba4fdadb84",
+          "text": "Hyvä. Sä tarviit myös suomalaisen osotteen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9fa41a483747397bf0ccd2fd4361bc10127e69ecf53567f5c2ac088f826fe4eb"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "78f6f8863f7a5d117f82a58fce50c21b70e01fb2819ab55c4c22faac12f8e21d",
+          "text": "Hyvä. Sinä tarvitset myös suomalaisen osoitteen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9c439eaedbae880766a816e854b1f9a432a11e7463567a4befc4dd254c09eb6d"
+        }
       }
     },
     {
@@ -767,6 +868,26 @@
         "reason": "Mul/minulla and osote/osoite are register variants; same address in Kallio.",
         "fingerprint": "bc92ad09df6294c947ee3f3fe6bd1570024d2da6e4b93cb7a9126a29f839a722",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "72083d9e45807691ef8ca783c5bce90528e927798a163ecf5832f2d03e1f127e",
+          "text": "Mul on osote Kalliossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ac6c53aa2c8bab47a009792e60bf90e1a56319d0e7bb69d5e61826daf5a6131b"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "e080a6637f7629bb54c376a8191241b5bb936568eb2d9a27ae52fde753a32d8c",
+          "text": "Minulla on osoite Kalliossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ad9eb8b35b74b3f6980711a60f2cd372ed71b04e123db04227712859369ce233"
+        }
       }
     },
     {
@@ -949,6 +1070,26 @@
         "reason": "Tää/tämä and avataan/avaamme are register variants; tili/tilin is just case form of the object; same meaning.",
         "fingerprint": "3843dda5b936efb3f05b79c0410cd9586bd230a80ab74a50b2e97b9ecc214d32",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "92227795ae0dbfbeb970c52b53ae779bdf70f56f2defa71905c77c8a42592aa7",
+          "text": "Täydellistä. Täytä tää lomake, niin me avataan tili.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "54921c94ae2664f564e7874867e0f77ef1e31f84dfc68400828eb9957330b0b5"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "5433470843b61d42e8198a3ed243dac81f2c5c3df8b8b567c751757e926f2ddd",
+          "text": "Täydellistä. Täytä tämä lomake, niin me avaamme tilin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "585a22b48040d2f7446355a950fde3b7e45a9f030b300de0f457ff2f082e18ec"
+        }
       }
     },
     {
@@ -1067,6 +1208,26 @@
         "reason": "Kiitti/Kiitos and mä/minä are register variants; same meaning.",
         "fingerprint": "99cd478e8260bebd00763e36f0226fb29f9bab78cd1a5f38a4ead1e6b0f37852",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "490427de643bbeffb335070535a10d699f5c02173737eb932d04bb44096b38ec",
+          "text": "Kiitti! Mä täytän sen heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "20b55d70486b76d782664a6c3d02aeb4a72cfcc343ae6e21b3d4f98b4d832f49"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "a07e97f9ea5547a48cc2be14935137d65be5646d2a87dec46377154d01af9208",
+          "text": "Kiitos! Minä täytän sen heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8ee983ee1696ba61f495a629111a2b1b83b96f82ff0d26204990bce2618513cd"
+        }
       }
     }
   ],

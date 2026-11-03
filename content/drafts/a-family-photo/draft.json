@@ -81,7 +81,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -209,6 +210,26 @@
         "reason": "Same meaning; kato/katso, tää/tämä, mun/minun perheeni are register differences.",
         "fingerprint": "c5fb3367fe82b5232f783f66e7c01fa0507623b708d299e201c1afbefda199ea",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "028185f42bab889d5d18dde6d956dbb526463435e12a755b862c572c2e58ac3d",
+          "text": "Kato, tää on mun perhe.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d9245b649866abf01dc4d6fb35bae8147ff8ab4e46443eab7c717b1e47bd2de9"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "992e9676b2339432422ed21a24b34ee2bb384ccdbaaa164b0b9f6776dab2e55a",
+          "text": "Katso, tämä on minun perheeni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "35728d70e21d7b4ce3bfd90fc6a0fb293d5d3e37e1e0a63822c5c7d733231db1"
+        }
       }
     },
     {
@@ -330,6 +351,26 @@
         "reason": "Identical meaning; tää/tämä is only a register difference.",
         "fingerprint": "4c31d3237d112c8dce046c762bd2906e0030fd1c7c05dcf4b8a89d21aa51ce3f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "a150101fda9b41a3d9eec65eba785f4d10e271e4eee63e5fc31dd337e946010f",
+          "text": "Ihana kuva! Kuka tää on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "97d0b33128cee4bddc6844ae14f0952b351d842c560140e4cab5cac6eccc86a2"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "bfce0bd001ec44a7f9368057dc7174084a1ff72660f558540595d9bddf166df4",
+          "text": "Ihana kuva! Kuka tämä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b7c2d15f2d6eca2032d2724170e91f16d9f1d3af19b188698e6d891e35d7a6c1"
+        }
       }
     },
     {
@@ -451,6 +492,26 @@
         "reason": "se/hän referring to a person and mun mies/minun mieheni are equivalent in meaning.",
         "fingerprint": "3127d20cab77920adeb70d8fc5bee08c2464f652c96951327c711ac5e06f4ee4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "9146d39d87cee4eea59194643aa18c64d13b2949eae0a355a3aea38731d765cf",
+          "text": "Se on mun mies, Pauli.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "647669c846528cef143182bff214b9f84aa89c6c41be8ed303d46e67fa7e28aa"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "4de2072f1a28cabbfd6af13fa50bbfaba11413680d128b826c09d4275bb03893",
+          "text": "Hän on minun mieheni, Pauli.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d4fb29232ea924075efd56695b2f9a9250faadca90923a3d9908da6283b00fc2"
+        }
       }
     },
     {
@@ -526,6 +587,26 @@
         "reason": "nää kaks = nämä kaksi, same meaning.",
         "fingerprint": "4a17660c34390ffaac8ca13468efc3d18337aa8037959cddfdf04edb8f958a89",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "ab1856cdba78fae678e3a4f81a6d9a819ef6641046a3dd770566f44d559f508a",
+          "text": "Ja nää kaks?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "08a8a0ee7da8deebd183074f4a638739ce1473d38d2b88e396662362efe8c88a"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "e6375fb48ea42ad27267d34ebbec67b9522099ed1b0ef6bb2f66416f0b5233cf",
+          "text": "Ja nämä kaksi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5195bb072ad4cf66ecb94f23c35f881d05d9853fa7e3088d6e1b50136049da13"
+        }
       }
     },
     {
@@ -640,6 +721,26 @@
         "reason": "Mun lapset = minun lapseni, same names listed.",
         "fingerprint": "2b63473a23a5774a6080b9008a11f3ef572a430d4ebfb6217682e7705a993174",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "1bb73c9823281ec0cd24334f9b9aa91ba682e90599e54d323fe7f6368613a373",
+          "text": "Mun lapset, Lucas ja Anna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f916ad378337a79f2be16d498671b51ceeab040a8842862c2b23c9d4f9b24be8"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "f0044dcc7505df82710586148d081e08c544cf3a8eda2df8aca1865bb9d952ec",
+          "text": "Minun lapseni, Lucas ja Anna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a85473a3e553fd4e5f3d27a54637516bbacd2c79d510c4e95e219b679b0baa85"
+        }
       }
     },
     {
@@ -800,6 +901,26 @@
         "reason": "ne/he, näyttää/näyttävät, toi/tuo are register differences; meaning is the same.",
         "fingerprint": "23ecd4d3a76a410d27edecfeeaefa4f32cba7e67be100d608d8482a00f30eef0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "efc420b09264cd82e566969e819d697003ea54a56213dadf1b43b7d9974741a2",
+          "text": "Ne näyttää iloisilta. Entä toi vanha nainen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9b872dbb076da684d440e290bbc1d1376b436e32e70b9197a287cd711a4f8ffb"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "8b9bcb9696732127e8909b58e0c090673fd453915324fe854aa90002caf59d0f",
+          "text": "He näyttävät iloisilta. Entä tuo vanha nainen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5c2eeee257fe8b7da58c32ce224078990da6a940ba4d97e2e2d027ee8c2b8d89"
+        }
       }
     },
     {
@@ -964,6 +1085,26 @@
         "reason": "mummo = isoäiti (grandmother), yheksänkyt = yhdeksänkymmentä (90); same meaning.",
         "fingerprint": "200879f67e387cbe7fa2ea5718938ad8a03f495c96d24d07015e8a4238f6bcbe",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "a5c088aec788c41ecfbdfd6c2c280c272ec841cb98b545910433c1fb5950e929",
+          "text": "Se on mun mummo. Se on yheksänkyt!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1ddb381d575948605f4f3be2991fc5204b832b5e7fda23a202c46fb0bab3eafc"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "26d89a519d6f4ca651d41bf9dd0b4a488009e37c6ec210fb2e689c2e491a75a6",
+          "text": "Hän on minun isoäitini. Hän on yhdeksänkymmentä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0e8683d1b7e2b1e14d9b8a463f27c89af24551c43cd382eb83525d94f2085208"
+        }
       }
     },
     {
@@ -1022,6 +1163,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "5224e4906512fbea40040bea4fa792d80b0fc2ca48aef79e76ad91fae473e7a1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "2839037d0ef493316b31f148007c8d7893e236b257f359d0e0c2d34edd17a669",
+          "text": "Hieno kuva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2c1638d62f93cc27fc5b8b005a9b3872588db862d523e778ce927bb2da398f06"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b3a9a6a9a4de467483a8da38f5478b961a1acc364fe89251f8908fc5eec0edac",
+          "text": "Hieno kuva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2c1638d62f93cc27fc5b8b005a9b3872588db862d523e778ce927bb2da398f06"
+        }
       }
     }
   ],

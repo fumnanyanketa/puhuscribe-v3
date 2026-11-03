@@ -76,7 +76,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -197,6 +198,26 @@
         "reason": "täs is just spoken tässä; same meaning.",
         "fingerprint": "859d47385097bf81b90d07889119828b5fe10d96c810ecbffa0cc3b12141345c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "84fc1d5bcd51afbb776976177322945d02fe429170780f4aed782a48fca8d1e6",
+          "text": "Asunto Oy Kallio, Kalle täs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e4e98b9f5de89b3a7b1b3a9ccbaf2387ec9d1d8f282fb1e92f97a72d78b82c88"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "94d03ced73e35009c2c4d5fe9fa849e7c4c917d9bd328e9c250dfd6612816595",
+          "text": "Asunto Oy Kallio, Kalle tässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "db6bb65d2fa984c884e6f3c99abec80eccdb8f5d0ec6882556316cb4d23b7dd5"
+        }
       }
     },
     {
@@ -335,6 +356,26 @@
         "reason": "Moi/Hei, voinks/voinko, mä/minä, kaa/kanssa are register differences only.",
         "fingerprint": "f6b2b7d724746a9d36398b5e65935e8673779c3c4ab45d210fe25aa44f4f2fb9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "21e994d5e69ae491e14bd2b1b546b78b1608834f12bddba51471b6fed9fb6a95",
+          "text": "Moi! Voinks mä puhuu isännöitsijän kaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "048c22f136914ae4407af0e8413d37c8e4fe565acaa7cec905b96a366549c9ce"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "8e760999c2443df77ddd1b556978c380ca5f395dbb1a97470d1e2c9491c32408",
+          "text": "Hei! Voinko minä puhua isännöitsijän kanssa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2673fa4b094e52478976fcb1a6ac909a51f2b59c5a1501394f42c2a3566be22b"
+        }
       }
     },
     {
@@ -498,6 +539,26 @@
         "reason": "Spoken se for a person equals written hän; the rest is register variation.",
         "fingerprint": "0f2f6d02b6b9207b4d35e009a63d69aa124f3fc2d4065ad1c675fa270fcb4fd4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "a5ec398e25887e0d35ee6d9a5b23fe88549d6dc4eb4bc726e86bd347b1accdc8",
+          "text": "Se on nyt palaverissa. Voinks mä auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c465cff779831c3854da1ca2b644aac9e76f02f6ad2f8506721e0b46e71a5040"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f964b9cad3e2270ee5e5954716d048016488dac8889e412fdc2b7f820f659c8d",
+          "text": "Hän on nyt palaverissa. Voinko minä auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "794e870aca72b4879a08b5e55793ca8aeb30076a5aa27f7344a09359385b72f7"
+        }
       }
     },
     {
@@ -598,6 +659,26 @@
         "reason": "Mul on is spoken for minulla on; same content.",
         "fingerprint": "aa717648dd6f09b8e4d9c81aa996eeed748c5f3effd23d4712f82ba5721f8211",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "90a19c6592ad5e7596faf2381bb6528f5108824a0d5d4201c6c7fe18c8f75394",
+          "text": "Mul on kysymys saunavuorosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7ef36e1df34194901a4e2cdcc65b510937c7ae1d39e9007331bb93963f798d75"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "42a1cf7884acd7812c633bb7f64c60680e61e8b475480ef9feaf9a80d530a1e8",
+          "text": "Minulla on kysymys saunavuorosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c0ac3f07e5089e962ab61b05948dbe758f9e9408d2eeb76b4b51a18e2d346ea1"
+        }
       }
     },
     {
@@ -795,6 +876,26 @@
         "reason": "sulle/sinulle, takas/takaisin, iltapäiväl/iltapäivällä, sun numero/sinun numerosi are register differences only.",
         "fingerprint": "6da1e008c7595cf45ace4e6138c95e28377810a7506d5b9c75fa6cca4455ac13",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "a27c8f7c01ea3ee17539365283a4e51cf368c047bcf7d25ea9b7173ff7b75850",
+          "text": "Se soittaa sulle takas iltapäiväl. Mikä sun numero on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b1b7f9eb2da781e4a77973862f46cf538a2a8acbc6c9962203cbacbccee4ca29"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "17027350442f5d7eaec43a3bcb2afb8ec00abc476d8f74d5c3ad1ce58d571416",
+          "text": "Hän soittaa sinulle takaisin iltapäivällä. Mikä sinun numerosi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "cefd8bb9390b2fa812ee8337d4bec17ff29f9ae789c9ab8bd3991080b22a78c5"
+        }
       }
     },
     {
@@ -1012,6 +1113,26 @@
         "reason": "Same digits in both: 045 123 4567; only spoken forms of numerals differ.",
         "fingerprint": "57747a2e13c0213d8fac244d9cfb7ea185b26826f91c0861a78660f9afa12106",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "916ae632c043693dc9f444ba105d83579f47c0eaca3bf6c8938012d6d71713ab",
+          "text": "Nolla neljä viis, yks kaks kolme, neljä viis kuus seittemän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "062643045d5242eb6cf56d21067abfbeaacee6c673ae8619ef532120c19598b0"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "d438d349a23c5a20d4a6710c0268555119bbc6ddf98596709872cf57d814fae5",
+          "text": "Nolla neljä viisi, yksi kaksi kolme, neljä viisi kuusi seitsemän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "715bd065e20b66746da4b0e6782e570d5e1d049dfd4d8aee3d7812574eaa0fb7"
+        }
       }
     },
     {
@@ -1130,6 +1251,26 @@
         "reason": "Kiitti/kiitos and kirjotin/kirjoitin are register differences only.",
         "fingerprint": "bfe909fd0fc2489f8b48d8fdee6c534d42e3e9a5a374896c0fa40cd01d5b4fec",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "40225179e7f52575f1af43573928394c4df3dc7b2e80a17121fbe5983977f08a",
+          "text": "Kiitti, mä kirjotin sen ylös.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0634da5f764454526f87908ed63a72e8535c21398c31cf94bb088d2d5f8596b2"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1bc2ff66785f09f2cdf59393e103916042a408921ab7cc56cf200c35edd108fe",
+          "text": "Kiitos, minä kirjoitin sen ylös.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "078ad9385ffd49bc3fe3f3ee03129a3043711e1bc0dbc49680b327354f6d7506"
+        }
       }
     },
     {
@@ -1183,6 +1324,26 @@
         "reason": "Kiitti vs kiitos is a register difference only.",
         "fingerprint": "d0baf932919730d24a97b814fdabd322d6a21a771952bfec5e49e62a2de75cd5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "8c97d6ae7065fa50a382ca7edc0cd5380885c63e7f3e24388b5b02963ca6984a",
+          "text": "Kiitti, kuulemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9fa88d7187de604aa616c2d3d9f54782827ec938237726833d10ade5e360ea36"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b5d97480046d631d9dab0091edcc0298153c7efe64837dcdf5ce7c2f2d494ab7",
+          "text": "Kiitos, kuulemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "97d440e10e923ba554bbd06a762c1ff75c0a9bf7e1e0aaf10e431650da7d7f13"
+        }
       }
     }
   ],

@@ -68,7 +68,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -214,6 +215,26 @@
         "reason": "Same question; sä/sinä and voit sä/voitko sinä are register differences.",
         "fingerprint": "8fcafcdbe944396b5371927e9aeb70c11580c66ae6eba30fee80f8f9f8ddc58e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "802abdaeace6526f22a38dff112716cae5fb71c0ae2224080d12e35a11c07e95",
+          "text": "Maria, voitsä tulla huomenna aamulla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4ed04ff5440e08f53142beeee87a0318937ff0106ac7aa7e5b9aaaca4b305a5f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "27758b8d5acc250312a4ba609104e209e68c20c16685a72fa3ce87cc5de0f5d1",
+          "text": "Maria, voitko sinä tulla huomenna aamulla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d98b5dd4a008a6031a1c33ba484f55a3a2762b7e722be378615210e4d4df61e1"
+        }
       }
     },
     {
@@ -291,6 +312,26 @@
         "reason": "Identical lines.",
         "fingerprint": "79eeed9707bae463ab95c13001c9fdd7f5e0fc462de529cbdf47bf4ea4e3ad4f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "4b60ce469459b11bfa36f9f32494ab5bf1dfd5e8f542489bf3553aaa12137433",
+          "text": "Aamulla? Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fcc98668f63264efd766e0c40902507e89f71d1fa815eb9f431e1437e275d233"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "fa5631fc5f79623033f4804cc9b9f6128a6305b018e88a781d0bcf798966e357",
+          "text": "Aamulla? Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fcc98668f63264efd766e0c40902507e89f71d1fa815eb9f431e1437e275d233"
+        }
       }
     },
     {
@@ -391,6 +432,26 @@
         "reason": "Seittemältä is spoken for seitsemältä (seven); shift ends at three in both.",
         "fingerprint": "d017bb5c8708de0615c60e1e64f2354202bf813ad567bc464ead65b0ce6bd2cd",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "33e90f1b44221d0cfb26816850d8f77e61f220c486ed6e5b29f9ef8f56580313",
+          "text": "Seittemältä. Vuoro loppuu kolmelta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "87b46fd7b24bc675c74613b8660be81fb5d68840afd98980b2a6479182ff30ca"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b272f13c1e4c00862f9ae5b9219ade97ab8a277a384390a6e5d557965070c565",
+          "text": "Seitsemältä. Vuoro loppuu kolmelta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "69cc56ba01e3188f6c275af9f5127b65bbe5d2fc0b979ee653672657a8e6ea41"
+        }
       }
     },
     {
@@ -508,6 +569,26 @@
         "reason": "aikasin/aikaisin and mut okei/mutta selvä are register variants; same meaning.",
         "fingerprint": "2def45dba1e7b20254b81463c2399702fb2038b74ce34e5d94f3b738fc21b103",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "968929423bd1a29891c53fc32f9b80029144f89e706f5a013515190142c33fa4",
+          "text": "Se on aikasin, mut okei.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5a7cf68bd9df1a6b6052945d9f8305948d84e30db30e062e9162eae73eb211bb"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "f722382a438da16727a04c939e11dfaea4d68db1198a6c0a1d4db25dc86ec58f",
+          "text": "Se on aikaisin, mutta selvä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e1aadbab0305a6d587289eec174424b6f75bfbf3e24b173bedbf64df6e5c1d64"
+        }
       }
     },
     {
@@ -646,6 +727,26 @@
         "reason": "Kiitti/kiitos and sul/sinulla are register differences; Friday evening shift in both.",
         "fingerprint": "16fde145c074975d98e21cd222fd3b14cb0bab89be63a7612b9f84a42d18ce8a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e27a35b87de47e9c1c65344027e9321a7e9cb0f008941b18c922fd4fd14a2c80",
+          "text": "Kiitti! Ja perjantaina sul on iltavuoro.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1613f77054e3ffd4a85794117ba78cc2ddaa0d18474659688e8debd8c62cf55e"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "7e98c6337b2a218ac0cc4437583b33067bf5881b5ee8abef6a73f82f5f02485b",
+          "text": "Kiitos! Ja perjantaina sinulla on iltavuoro.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6dc9891d86626ae2370057fc0fa40823e839ac8993718e81b149f8379b2e919a"
+        }
       }
     },
     {
@@ -744,6 +845,26 @@
         "reason": "Identical lines.",
         "fingerprint": "9a6902a8ce2e50021002a56307d3e288bdb971e472c94fb57dc7c061f1a76a7e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e4fc81bfdfe284ff301ee049af5b1f40c555736e1ef8e120956957b76a175d0d",
+          "text": "Mihin asti se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "22589d27e2f3b205d26c36cc567c3f1ae12645962cfa1583c35c4f3379d3c2e1"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "274dbe09c19590168c73a48f1f0bb89f6875154141403abde0977b675279bc56",
+          "text": "Mihin asti se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "22589d27e2f3b205d26c36cc567c3f1ae12645962cfa1583c35c4f3379d3c2e1"
+        }
       }
     },
     {
@@ -801,6 +922,26 @@
         "reason": "illal is a clipped form of illalla; until ten in the evening in both.",
         "fingerprint": "7cc1b968bc285f979b5931d53f55ebe20131466bdf92d78a7e55b95827975521",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "977762f2ccd6eb3214618b38ac7d0b95d6d3660435bdbe515d141bc2a124494f",
+          "text": "Kymmeneen illal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d13e15ff3dc7cee0d1c6b07ff18905d4158754c2dcbfe10caca46516734bb1f5"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "9038621bf7ae23e2ec93a46403ff4886c06b81ac798a1427a4edccb304b8eac0",
+          "text": "Kymmeneen illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a958706e4e9304c932516e62447c43260812a04078415330ac1a9de30faefa35"
+        }
       }
     },
     {
@@ -920,6 +1061,26 @@
         "reason": "Okei/selvä, mä/minä, kirjotan/kirjoitan are register differences; same statement.",
         "fingerprint": "ed16c0bcf5f537478cca0c7b0d53a91134c39ea75dce55ef15efafa1a1ec57ed",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a0423d181af03ff15a9c71b485fc577efbb25206ec124e26e397d35ddfc9b9ec",
+          "text": "Okei, mä kirjotan sen ylös.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3fe0811bc488b27c4b42b431a9453b0c8db1ddcd04418fbbc54c84ca0b55ebf1"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "23f98f3f511986d4e14606bed3007c12aa2bf126c610ea5502a4c92aa6f78883",
+          "text": "Selvä, minä kirjoitan sen ylös.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "24eafbe77c783db355f5cb2865e9d4d350e65e033ad9c3273e8bf772b920a93f"
+        }
       }
     }
   ],

@@ -97,7 +97,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -217,6 +218,26 @@
         "reason": "'Eka' is the spoken form of 'ensin' (first); the rest is identical.",
         "fingerprint": "e0a22d3e050e990fc837fc6a42169e646ab77d75cc7be081fc3bec1d5b9068a1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "0384b720e6aaaa6068c552a7ebf3876c815a89a782ec3bb67f0f6f5fbebacbfe",
+          "text": "Eka kuori perunat ja porkkanat.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9c2054ddb5644d5325159f20af244d22203b4dc54f2815e230d60b9cabe68d59"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "bf8134f30ffea1b1eb8435f2d6ab01c3acb445a7a266a0d5d334fe4ee7ec55d9",
+          "text": "Ensin kuori perunat ja porkkanat.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "766932df68596047b1899cf972cbc53ac300e6583de75cd9965833f119a291b0"
+        }
       }
     },
     {
@@ -291,6 +312,26 @@
         "reason": "Okei/selvä are both acknowledgements, and sit/sitten both mean 'then'.",
         "fingerprint": "f237767bc1e47986b1ef309b418dd72339440bf5ae44e955a7affaaae91e0f99",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "a43c2ccc696ab82853fab6621e99667cc52107e2dbef5469c12d755f013f8aaa",
+          "text": "Okei. Ja sit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "250f535238d84c8cdd2d15bb9fca00d3f656d27d002ce36921812c6229779520"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "56fea480c356ef03451c424f9c978547e6be9cd30f447ffcf5b5b590d818c786",
+          "text": "Selvä. Ja sitten?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "858858faad6f4773d7c84c7191b046d1d7ffba2acedb2ac0ce7f7250e83b2f42"
+        }
       }
     },
     {
@@ -390,6 +431,26 @@
         "reason": "The spoken pieniks paloiks is the same as the written pieniksi paloiksi (into small pieces).",
         "fingerprint": "a319fb90abbdd97f463bfeb84291618bcc5431161fba10dffd5f804353c08c4e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "3e449fb9e4134ab2915e9daf7a40e12e7a029074f701de73dc9381ec7fd8b8c0",
+          "text": "Leikkaa ne pieniks paloiks.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "66b9ccf06b1505af45cca6660e7876afaeb02f98b7ab07b23df54c756298e029"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ccebfd382a3b23f117db040bb3ce3266a89c9338e4ab4bd2b9b0d7141129ad88",
+          "text": "Leikkaa ne pieniksi paloiksi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "628340c0c0b73b6034127927b1007f29bc208a5c475d4bf451de99de3ffa374c"
+        }
       }
     },
     {
@@ -425,6 +486,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "1e77a1a7930600d29d947f679ffce8d43c57c5b2334b4c76957b1996662d7860",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "3694c87813e437e9fbd9fa8d28202e776ad204cca751902f330111955914e552",
+          "text": "Näin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7fd96b3130d8b673d764b484a09055573b5f38369ae1aea346024ed5cdcbae0f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c4395d0fdc1a5a10c725a03d05344d500946cacbf63396c57ad4a5c37eef48f8",
+          "text": "Näin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7fd96b3130d8b673d764b484a09055573b5f38369ae1aea346024ed5cdcbae0f"
+        }
       }
     },
     {
@@ -604,6 +685,26 @@
         "reason": "Joo and kyllä both mean 'yes'; the instructions are the same.",
         "fingerprint": "ba1535a1979517b9334741d0d2a7a5bcb75cb660239c164d8501e839c4ea66e8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "dbdf234629815c761b2add2a94de2bc25b57b94125f87eff59d1bb22c4a46065",
+          "text": "Joo, hyvä. Laita ne kattilaan ja lisää vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7cfb465e9379ee14f323ef5f7d39fb2380538563fc3620ee1f7c0dfcc80256a3"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "0de43d6d7cae2bceb91bb1b181e9a6a18e12c6fff8e93bb042331fdd6e952815",
+          "text": "Kyllä, hyvä. Laita ne kattilaan ja lisää vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a285a4bfa87f0743b63040d218050ea50510242ee2560a61760c9d4692d0e8e5"
+        }
       }
     },
     {
@@ -676,6 +777,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "7569d5990f3ab7e26672f2a98902bfe1c36f0a6789f6f4679a3ddfbcab900f74",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "d09578f8650c39cb38815546e832f391327412f711e824d286b738afd734dd9d",
+          "text": "Kuinka paljon vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "15654ca97cdffbd0ddeb989454c241758cd22398671590eefda8830729806d7c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "1bb22abef53ec0f07d2b88e052139f781a48579dd71d2ef5b8ba32bae665b19d",
+          "text": "Kuinka paljon vettä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "15654ca97cdffbd0ddeb989454c241758cd22398671590eefda8830729806d7c"
+        }
       }
     },
     {
@@ -776,6 +897,26 @@
         "reason": "Kakskyt minuuttii is the spoken form of kaksikymmentä minuuttia (twenty minutes); litra is unchanged.",
         "fingerprint": "1f6e3f4664ff79707e36d86c71ff808ac80dd1a7cd06a81c6561eac1f7813770",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "69e0c88d98b2e0366018973ce4ced32454ba7996bdd211dd3905e9d0466c3f39",
+          "text": "Litra. Keitä kakskyt minuuttii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b9746ecbc9003613e8cd01d586169ead1dfce95fc39b6e0b44e082227c5e9c5e"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "ca3adc5c404ff697938913582d87f769a274582f7b734eee24e6bed1f008c8c0",
+          "text": "Litra. Keitä kaksikymmentä minuuttia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9c635e2232ec506ce417ec8f6987017bb5b93eba8aa7c4d08e74591a97cb61cf"
+        }
       }
     },
     {
@@ -875,6 +1016,26 @@
         "reason": "Vikana is the spoken form of viimeisenä (last); the meaning is unchanged.",
         "fingerprint": "367fd035c59e8dd6e2a0ad5cbed801cd68ef496a20102e17de36be73f5828ed6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "1e5d7af2f4239b649b454f1614e48d9675ee4a5d8915e049b948f1f0d018d521",
+          "text": "Ja lohi tulee vikana?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b7b4696b2d0ad2433e8767e5975ede13d12f3a44abcd6c8a2a80b2b75a4cf017"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "e6e82c98972483ba98d4078a6cd976c0932fe82eeac54457847e559868b25445",
+          "text": "Ja lohi tulee viimeisenä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "678b3863e4e514844349baf3ee07ce72fd690aa311e0ae717b9f6fc2c49d8529"
+        }
       }
     }
   ],

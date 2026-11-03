@@ -121,60 +121,64 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     await expect(page.locator('main')).not.toContainText(/streak|score|\d+ (words|sessions|cards)/i)
   })
 
-  test('[accounts 18] [accounts 17] a guest downloads one file holding the account and every user table, matching the database', async ({
-    page,
-  }) => {
-    const userId = await finishTodaysSession(page)
-    let preparing = false
-    await page.route('**/api/account/export', async (route) => {
-      preparing = (await page.getByRole('status').innerText()) === 'Preparing your file.'
-      await route.continue()
-    })
-    const { name, file } = await downloadFile(page)
-    expect(preparing).toBe(true)
-    expect(name).toMatch(/^puhuscribe-data-\d{4}-\d{2}-\d{2}\.json$/)
-    expect(Object.keys(file)).toEqual(['about', 'exported_at', 'account', 'tables', 'files'])
-    expect(file.account).toMatchObject({ id: userId, is_anonymous: true, email: null })
-    const tables = file.tables as Record<string, Record<string, unknown>[]>
-    // The file's table names and the inventory's must be the same list (statement 17).
-    expect(Object.keys(tables).sort()).toEqual([...USER_TABLE_NAMES].sort())
-    const counts = rowsOf(userId)
-    for (const table of USER_TABLE_NAMES) {
-      expect(tables[table]?.length ?? -1, table).toBe(counts[table] ?? 0)
-      for (const row of tables[table] ?? []) expect(row.user_id, table).toBe(userId)
-    }
-    expect((tables.sessions ?? []).map((s) => s.id).sort()).toEqual(
-      sessionsOf(userId)
-        .map((s) => s.id)
-        .sort(),
-    )
-    expect(file.files).toEqual({})
-    const text = JSON.stringify(file)
-    for (const cookie of await page.context().cookies()) expect(text).not.toContain(cookie.value.slice(0, 40))
-  })
+  test(
+    '[accounts 18] [accounts 17] a guest downloads one file holding the account and every user table, matching the database',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const userId = await finishTodaysSession(page)
+      let preparing = false
+      await page.route('**/api/account/export', async (route) => {
+        preparing = (await page.getByRole('status').innerText()) === 'Preparing your file.'
+        await route.continue()
+      })
+      const { name, file } = await downloadFile(page)
+      expect(preparing).toBe(true)
+      expect(name).toMatch(/^puhuscribe-data-\d{4}-\d{2}-\d{2}\.json$/)
+      expect(Object.keys(file)).toEqual(['about', 'exported_at', 'account', 'tables', 'files'])
+      expect(file.account).toMatchObject({ id: userId, is_anonymous: true, email: null })
+      const tables = file.tables as Record<string, Record<string, unknown>[]>
+      // The file's table names and the inventory's must be the same list (statement 17).
+      expect(Object.keys(tables).sort()).toEqual([...USER_TABLE_NAMES].sort())
+      const counts = rowsOf(userId)
+      for (const table of USER_TABLE_NAMES) {
+        expect(tables[table]?.length ?? -1, table).toBe(counts[table] ?? 0)
+        for (const row of tables[table] ?? []) expect(row.user_id, table).toBe(userId)
+      }
+      expect((tables.sessions ?? []).map((s) => s.id).sort()).toEqual(
+        sessionsOf(userId)
+          .map((s) => s.id)
+          .sort(),
+      )
+      expect(file.files).toEqual({})
+      const text = JSON.stringify(file)
+      for (const cookie of await page.context().cookies())
+        expect(text).not.toContain(cookie.value.slice(0, 40))
+    },
+  )
 
-  test('[accounts 20] a guest deletes their account: the confirmation, then every row is gone and the front door says so', async ({
-    page,
-    context,
-  }) => {
-    const userId = await finishTodaysSession(page)
-    await page.goto('/account')
-    await page.getByRole('link', { name: 'Delete my account' }).click()
-    await page.waitForURL('**/account/delete')
-    await expect(
-      page.getByText(
-        'This deletes your account and everything saved with it, including your progress and any recordings. It cannot be undone. Download your data first if you want a copy.',
-      ),
-    ).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
-    await page.getByRole('button', { name: 'Delete for good' }).click()
-    await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
-    expect(authUser(userId).exists).toBe(false)
-    expect(allZero(rowsOf(userId))).toEqual([])
-    expect((await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-  })
+  test(
+    '[accounts 20] a guest deletes their account: the confirmation, then every row is gone and the front door says so',
+    { tag: '@smoke' },
+    async ({ page, context }) => {
+      const userId = await finishTodaysSession(page)
+      await page.goto('/account')
+      await page.getByRole('link', { name: 'Delete my account' }).click()
+      await page.waitForURL('**/account/delete')
+      await expect(
+        page.getByText(
+          'This deletes your account and everything saved with it, including your progress and any recordings. It cannot be undone. Download your data first if you want a copy.',
+        ),
+      ).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
+      await page.getByRole('button', { name: 'Delete for good' }).click()
+      await page.waitForURL((url) => url.pathname === '/')
+      await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
+      expect(authUser(userId).exists).toBe(false)
+      expect(allZero(rowsOf(userId))).toEqual([])
+      expect((await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
+      await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    },
+  )
 
   test('[accounts 20] "Keep my account" goes back and deletes nothing', async ({ page }) => {
     const userId = await startGuest(page)
@@ -321,80 +325,82 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await other.close()
     })
 
-    test('[accounts 10] [accounts 11] [accounts 9] signing in with an unknown address shows the same text, sends nothing and makes no account', async ({
-      page,
-    }, testInfo) => {
-      const address = testAddress('nobody', testInfo)
-      // Counted by this test's own address prefix: other tests run at the same
-      // time and make guests, so a count of every user is not stable.
-      const prefix = `nobody-${testInfo.project.name}-%`
-      const ownUsers = () => one(`select count(*) from auth.users where email like :'prefix'`, { prefix })
-      const users = ownUsers()
-      await page.goto('/sign-in')
-      await sendCodeTo(page, address)
-      await expect(
-        page.getByText('If this email has a PuhuScribe account, we sent it a 6 digit code.'),
-      ).toBeVisible()
-      await expect(
-        page.getByText('No code after a few minutes? Check the address, or go back and start as a guest.'),
-      ).toBeVisible()
-      await page.waitForTimeout(3_000)
-      expect(await mailCount(address)).toBe(0)
-      expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('0')
-      expect(ownUsers()).toBe(users)
-    })
+    test(
+      '[accounts 10] [accounts 11] [accounts 9] signing in with an unknown address shows the same text, sends nothing and makes no account',
+      { tag: '@smoke' },
+      async ({ page }, testInfo) => {
+        const address = testAddress('nobody', testInfo)
+        // Counted by this test's own address prefix: other tests run at the same
+        // time and make guests, so a count of every user is not stable.
+        const prefix = `nobody-${testInfo.project.name}-%`
+        const ownUsers = () => one(`select count(*) from auth.users where email like :'prefix'`, { prefix })
+        const users = ownUsers()
+        await page.goto('/sign-in')
+        await sendCodeTo(page, address)
+        await expect(
+          page.getByText('If this email has a PuhuScribe account, we sent it a 6 digit code.'),
+        ).toBeVisible()
+        await expect(
+          page.getByText('No code after a few minutes? Check the address, or go back and start as a guest.'),
+        ).toBeVisible()
+        await page.waitForTimeout(3_000)
+        expect(await mailCount(address)).toBe(0)
+        expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('0')
+        expect(ownUsers()).toBe(users)
+      },
+    )
 
-    test('[accounts 12] [accounts 10] [accounts 15] two devices: the second signs in and sees the same progress, and progress made there shows on the first', async ({
-      page,
-      browser,
-      baseURL,
-    }, testInfo) => {
-      const address = testAddress('learner-a', testInfo)
-      const userId = await finishTodaysSession(page)
-      await addEmail(page, address)
-      await expect(page.getByRole('status')).toHaveText(
-        'Your email is added. Your progress is saved to your account.',
-      )
+    test(
+      '[accounts 12] [accounts 10] [accounts 15] two devices: the second signs in and sees the same progress, and progress made there shows on the first',
+      { tag: '@smoke' },
+      async ({ page, browser, baseURL }, testInfo) => {
+        const address = testAddress('learner-a', testInfo)
+        const userId = await finishTodaysSession(page)
+        await addEmail(page, address)
+        await expect(page.getByRole('status')).toHaveText(
+          'Your email is added. Your progress is saved to your account.',
+        )
 
-      const deviceB = await secondDevice(browser, testInfo, baseURL)
-      const pageB = await deviceB.newPage()
-      await serveTone(pageB)
-      const seen = await mailIds(address)
-      await pageB.goto('/sign-in')
-      await sendCodeTo(pageB, address)
-      const mail = await nextMail(address, seen)
-      // Statement 15: the sign in email shows a 6 digit code and no link.
-      expect(mail.subject).toBe('Your PuhuScribe code')
-      expect(mail.code).toMatch(/^\d{6}$/)
-      expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
-      await confirmCode(pageB, mail.code)
-      await expect(pageB.getByRole('status')).toHaveText('You are signed in to your account.')
-      const cookies = await deviceB.cookies()
-      for (const cookie of cookies.filter((c) => c.name.startsWith('puhuscribe-auth'))) {
-        expect(cookie.httpOnly).toBe(true)
-        expect(cookie.secure).toBe(true)
-        expect(cookie.sameSite).toBe('Lax')
-      }
-      expect(await userIdOf(deviceB)).toBe(userId)
+        const deviceB = await secondDevice(browser, testInfo, baseURL)
+        const pageB = await deviceB.newPage()
+        await serveTone(pageB)
+        const seen = await mailIds(address)
+        await pageB.goto('/sign-in')
+        await sendCodeTo(pageB, address)
+        const mail = await nextMail(address, seen)
+        // Statement 15: the sign in email shows a 6 digit code and no link.
+        expect(mail.subject).toBe('Your PuhuScribe code')
+        expect(mail.code).toMatch(/^\d{6}$/)
+        expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
+        await confirmCode(pageB, mail.code)
+        await expect(pageB.getByRole('status')).toHaveText('You are signed in to your account.')
+        const cookies = await deviceB.cookies()
+        for (const cookie of cookies.filter((c) => c.name.startsWith('puhuscribe-auth'))) {
+          expect(cookie.httpOnly).toBe(true)
+          expect(cookie.secure).toBe(true)
+          expect(cookie.sameSite).toBe('Lax')
+        }
+        expect(await userIdOf(deviceB)).toBe(userId)
 
-      expect(await frontDoorState(pageB)).toBe(await frontDoorState(page))
-      const fileA = (await downloadFile(page)).file.tables as Record<
-        string,
-        { id?: string; form_id?: number }[]
-      >
-      const fileB = (await downloadFile(pageB)).file.tables as Record<
-        string,
-        { id?: string; form_id?: number }[]
-      >
-      expect(fileB.sessions?.map((s) => s.id)).toEqual(fileA.sessions?.map((s) => s.id))
-      expect(fileB.cards?.map((c) => c.form_id)).toEqual(fileA.cards?.map((c) => c.form_id))
+        expect(await frontDoorState(pageB)).toBe(await frontDoorState(page))
+        const fileA = (await downloadFile(page)).file.tables as Record<
+          string,
+          { id?: string; form_id?: number }[]
+        >
+        const fileB = (await downloadFile(pageB)).file.tables as Record<
+          string,
+          { id?: string; form_id?: number }[]
+        >
+        expect(fileB.sessions?.map((s) => s.id)).toEqual(fileA.sessions?.map((s) => s.id))
+        expect(fileB.cards?.map((c) => c.form_id)).toEqual(fileA.cards?.map((c) => c.form_id))
 
-      const endedBefore = sessionsOf(userId).filter((s) => s.ended).length
-      await finishTodaysSession(pageB, 'email')
-      expect(sessionsOf(userId).filter((s) => s.ended).length).toBe(endedBefore + 1)
-      expect(await frontDoorState(page)).toBe(await frontDoorState(pageB))
-      await deviceB.close()
-    })
+        const endedBefore = sessionsOf(userId).filter((s) => s.ended).length
+        await finishTodaysSession(pageB, 'email')
+        expect(sessionsOf(userId).filter((s) => s.ended).length).toBe(endedBefore + 1)
+        expect(await frontDoorState(page)).toBe(await frontDoorState(pageB))
+        await deviceB.close()
+      },
+    )
 
     test('[accounts 13] a guest on the second device is warned, then signing in deletes the guest', async ({
       page,

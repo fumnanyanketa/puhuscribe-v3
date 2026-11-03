@@ -76,7 +76,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -198,6 +199,26 @@
         "reason": "Moi/Hei greeting, sä/sinä, mulle/minulle are only register differences.",
         "fingerprint": "776c981e52ecf84eead17a788a2c3b9f7d43e218226fc3b13fabd43049e4e587",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "d4d98279abe569f93689d20d968dfd9a5efcd97fea4bc3b96adf10efbe18dbeb",
+          "text": "Moi Maria! Sä soitit mulle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f94c5c211b8e1ec0b276f9696113ea2221e9ba0086213c87fe1957f7aca27a63"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "5ec1b82022ef8a982aba9307c287d93657468a07eeeb5c84aa288c4f7533474e",
+          "text": "Hei Maria! Sinä soitit minulle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3ec1c8dd5c754e87fafeeb2c9520ad73bb2efa1b6c286a0a1c97032a61a7ea0f"
+        }
       }
     },
     {
@@ -362,6 +383,26 @@
         "reason": "Joo/Kyllä, mä/minä, and 'Kuulit sä' vs 'Kuulitko sinä' are the same question and meaning.",
         "fingerprint": "ee0758f5e5bf7d0f8ad8c99383daab49d90016eae8c5e00814a3a649467c7926",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "6f49b7930c96158cacdc98cb6ab44a2b30b15d83896adce7323168019922ff94",
+          "text": "Joo! Mä jätin viestin. Kuulitsä sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "197b592ca558475e01c76253930d62c6503167a89aa12fe09a741094cd18f8c7"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "55441853b7b4a745e814864fb7ffd9fc2c2d7bbaee5c4925cb77705644199bab",
+          "text": "Kyllä! Minä jätin viestin. Kuulitko sinä sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cefb4863a4dc72ed7fd0287b94c39b9923765917560c713b08ee459f9ebd3e4f"
+        }
       }
     },
     {
@@ -458,6 +499,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "0b636634499afc71341c2626ccab61fd2c25098f168ee40fd1bd25434b976083",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "33ab91a808c49af00b29c6a0eb96344270e5584a860dd9549aadaf3ef15378d7",
+          "text": "En vielä. Mitä asiaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8cc020c3f38429c0301c2d0e6dd27b4087dfd349ce9c2433b6cc629d3d754d6f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "34b89f3b4c48d1fe0c28df7d1e42a0c95ae58b0b7eb0a2c77fa2cbe18705cf6b",
+          "text": "En vielä. Mitä asiaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8cc020c3f38429c0301c2d0e6dd27b4087dfd349ce9c2433b6cc629d3d754d6f"
+        }
       }
     },
     {
@@ -600,6 +661,26 @@
         "reason": "Both ask whether you can pick me up from the station tomorrow; hakee/hakea and mut/minut are register differences.",
         "fingerprint": "aa3efbaea4e155c5095ca67d18ef0e045bcb7d1a9b6234847e69d2f855e3ba5b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "73e596809dc762c8815383e67576ca7311e1a10880ae78f6db8da2e03b2c0385",
+          "text": "Voitsä hakee mut asemalta huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1fb600cde4448becaeeab3e734dd14dadda729488f8c3e891c20b9a406385e6a"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "2dc9eb220eeb2a45932e0e6bb4909bafbdfc0dd626a9a61cee6d9bf829807fb6",
+          "text": "Voitko sinä hakea minut asemalta huomenna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b76328369d46b93ba00c6e78a3a1a53f80262a223183e375f6558835541406fa"
+        }
       }
     },
     {
@@ -739,6 +820,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "30b413ffe3177f6573320dfa2c8047e909fba4b8ba05481fffdb74f29a3ed85c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "59ab92be71273e8bede5ddb73d04b5b734ba2b84db100e4e3b77b043ab7fac08",
+          "text": "Totta kai. Mihin aikaan juna tulee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0152818706de51dadab97b64d707f51ad50ec3ba610ddeed1d770738ade26062"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "c1e4b5c000870b948e5f543e22274bc43bd9f21f3897e4c992a7f57910fdf233",
+          "text": "Totta kai. Mihin aikaan juna tulee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0152818706de51dadab97b64d707f51ad50ec3ba610ddeed1d770738ade26062"
+        }
       }
     },
     {
@@ -796,6 +897,26 @@
         "reason": "Puol is spoken for puoli; both mean half past three.",
         "fingerprint": "7c2059116761ce6b2354606d8ae0958cb4459f261495cbbc9f422f8477be3985",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "abb289647c6d90370bfd7514558a4b7e33ef862f4fd418227ecff0f08edaead2",
+          "text": "Puol neljä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7eba42833059f5038e7071f1075e5643ea90ac6063e377b1a050c187ff6443d6"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "cf0a7cfb22ca186bcb4827f4377a2ad31afa843c3420b39584d2fcb5f4f53630",
+          "text": "Puoli neljä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d5130a7a52d81bf4c631c98e9b6d051319015054465d497bf3aea0eb7c84d897"
+        }
       }
     },
     {
@@ -1020,6 +1141,26 @@
         "reason": "Okei/Selvä, siel/siellä, myöhäs/myöhässä are register differences; 'laita viesti' and 'lähetä viesti' both mean send a message.",
         "fingerprint": "e8da8a832712010e0e1a65dd757a6dd82e26896482185784dde6266e3bb6fc04",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "ead5c5a9fd38144adeaa3ba52b166388d3a0765e588cb66507064cdecd013b4f",
+          "text": "Okei, mä oon siel. Laita viesti, jos juna on myöhäs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "30c3946ea62839d86e969c7b01cab287e03829364a6813a3ab2a49b800e9bb64"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "f18899ed1dffbf0166b209f01dd491a7870451f9f142465e74da0c64e0916f1d",
+          "text": "Selvä, minä olen siellä. Lähetä viesti, jos juna on myöhässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cc97ff681fd6b0a48f9bb201df11ac3ee9e0a389513b962d984c78a69bb9151c"
+        }
       }
     },
     {
@@ -1114,6 +1255,26 @@
         "reason": "Moikka and Kuulemiin are both goodbyes, and the rest is the same.",
         "fingerprint": "f029bc8b96da390fe1e4e71bfd6ba9f3ac246b0ae6aa47c47d06aebc967667c0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "42f2f5916f890fc931077c9cffb45a4e30f4d367ccf1e0218dbf4ab680b1907c",
+          "text": "Mä teen niin. Moikka!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e6d27c4eb63e998dead044bcc6188eeee35e18712e008ff6ea55542795c0aaab"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "2c3315825437490aac9114b886f5468525382fab7a49dd76e55554e9bce67e04",
+          "text": "Minä teen niin. Kuulemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0bdcbd517eb6d0c976a54c23c726c8a2502ef593bd1eb05cd5f7f9a05a494f2a"
+        }
       }
     }
   ],

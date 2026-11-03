@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -199,6 +200,26 @@
         "reason": "Moi/hei and mä/minä are only register differences.",
         "fingerprint": "1ce157a448329f91876b3460e2cda1d0a250d143027fd9d999953aca9e07972c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "49ebe155cebb28ba9f444b5c0ac7a2f649256a960a0c783cb900e077a0b1aefa",
+          "text": "Moi, miten mä voin auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ff6ae05b44709229cfb8d4f9541d08574d088e712718f40b06304f31a54ae88a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b2836f34648a56eacbaa954978e558db5eb6598bd9bd5bdaa3f0c509caf0d2f0",
+          "text": "Hei, miten minä voin auttaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0198e753b6ca4d133ac25e8d5e5898e2ff3368a6d1fb4481cd9e85ffa80fa2f1"
+        }
       }
     },
     {
@@ -363,6 +384,26 @@
         "reason": "Same content: headache and asking if they have something for it; only spoken forms differ.",
         "fingerprint": "e1ab8ff876d324ced79a310f96ef18e59a1a6343a09ebf0f779eecee9e787f78",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "896767597e4c098ce2cf696daf89146348861ea2a156c7e18182572991895453",
+          "text": "Mul on päänsärkyy. Onks teil jotain siihen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d91a5078e25e1ad70d6b1bbcfbbf20fd7695554040c30dadf649ea476c506a94"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "fd9379ee23e8c60878e093e30529a7f4e2bba5bbca310c5476e4d13e46c17ffa",
+          "text": "Minulla on päänsärkyä. Onko teillä jotain siihen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "34c97fbf62c7b8623ba881f24707c38805b67b600297c298a8b9065da5b56ab5"
+        }
       }
     },
     {
@@ -487,6 +528,26 @@
         "reason": "Tää/tämä is a register difference; same statement.",
         "fingerprint": "e9e4b072e1cb4ce19dc2fa64a3928c2ff485569e37aa0dd5421a6a0666c9c9ad",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7f443b8c60c1bee1204dd284d4854b2af3c23c476cbe81980cb2e864f1fc0e4f",
+          "text": "On. Tää on hyvä särkylääke.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5fc8734eeac3c0aadd86e4389cff731cfb5b4d0ecf8e2b172ad791e8829c3ba3"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "57aea4b3b27dae203e21aea6c423c4d1c23d0606000613ca1aa6e0c1031e168f",
+          "text": "On. Tämä on hyvä särkylääke.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "56dae6c5153262d2bdebbffbfe1fe609da07c4230c3d00f8e81e509370b66d58"
+        }
       }
     },
     {
@@ -606,6 +667,26 @@
         "reason": "Mä/minä only; same question.",
         "fingerprint": "1692e466ad0a78f61f7cc30d1f5b99bdc0e63b9874cb9d8a386cc7acb5bb432b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "3e9d39eca953900a4beb9bc520b74337642bb0d9223ae838c5cc148c20d96800",
+          "text": "Kuinka monta mä voin ottaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4e745041bcf50f6c29bad95fc877e45ebd662535157fa65de330991ec9f69503"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "d4643086f03e8027646a8c577a3aa18a4faab7bbaccc10783cac7d5d20280d0b",
+          "text": "Kuinka monta minä voin ottaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6064dc864cb612160ddcad5abf9354cce5697555cccdd1dda848fdb7d8575d0b"
+        }
       }
     },
     {
@@ -723,6 +804,26 @@
         "reason": "Yks/yksi; same number and frequency.",
         "fingerprint": "a4e60a6e3b9777bcea6fdce6a1a7b1cb6bad80a24432e9170c69e33dd5b74751",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "3d486c584bdaf541f44aec068170fe26649a40f03af0ec9277c880d331d4298c",
+          "text": "Yks tabletti kolme kertaa päivässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2544d508a87cf996d1fe400757a57bb97c0783f26065c40486edca93a8158959"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "844e3951c56a48547cee242f7b5de5e3fbd06643f35aa15eaa7ac8de7c4777a6",
+          "text": "Yksi tabletti kolme kertaa päivässä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f236822c1fe7ccb5da2ffbf18f30027aed910045626c07a3972ca68ac351037a"
+        }
       }
     },
     {
@@ -803,6 +904,26 @@
         "reason": "Tarviiks siihen reseptii and Tarvitaanko siihen reseptiä both ask whether a prescription is needed; the written form is passive but means the same.",
         "fingerprint": "ea01244fe7793c4e798d21c6d9dc395d720852bb7fa1970ac69c99411fd27347",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "d88538ca92cc3cc6b6ab70e57363648766839870b360e1833cea305e1b6a7127",
+          "text": "Tarviiks siihen reseptii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a4e3c05654be51b128beef0ab30ebdb4c87958c34cf9daf6a0d025420bfa67f8"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "15b69f51229176e323fe252a9efa6b6f9dc96fa1e9b4d343711e8f8ee4d94445",
+          "text": "Tarvitaanko siihen reseptiä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d521c1522deaebc788d2f6e470a5519c28e1680277d8da18e93ab1099dcf23c1"
+        }
       }
     },
     {
@@ -946,6 +1067,26 @@
         "reason": "Ei tarvii/ei tarvita both mean not needed; kuus euroo/kuusi euroa is six euros in both.",
         "fingerprint": "66fa6294a08c3e9794a6a2d1d84adccd6a186ed897cb34b7ac5be392ed4c2df4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3519ec94a65e3b3a8744b56632b942978037484440b86837960a2bb33803a512",
+          "text": "Ei tarvii. Se maksaa kuus euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a211e83b5ff2efd6695a816f0642f33928bef57f298a1b0995fff041833893ed"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "3b664f4c67dff72b43266cf96ed4fdeb45942da31e3f75c29ce61420c60db38e",
+          "text": "Ei tarvita. Se maksaa kuusi euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6ff0fc1de259b79946eadaf3dad51023fec6c56097540abce598f1f4a05380f8"
+        }
       }
     },
     {
@@ -1067,6 +1208,26 @@
         "reason": "Mä/minä and kiitti/kiitos are register differences.",
         "fingerprint": "f222ac51586ba86291e888b98043d4f434be9137c40b5431e228a20f3f052e6a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "dfe0cd6cc91840fd39c1544f59b333811057080ecf9bbda6fe00a27bd8dcbf6a",
+          "text": "Hyvä, mä otan sen. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fed0740fa87cb86e9a74479e5295d543470cf7752269b1f1fdbf0da3e0358c9d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "e28854c5f55e59f38ccfccd7a98b4860e5a4a063456a05cd28ed67060434e327",
+          "text": "Hyvä, minä otan sen. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8c5e767ecbc554edbe7c07ae1d6d70309b0d2138fc1608cd2dc523ede70c5c3b"
+        }
       }
     }
   ],

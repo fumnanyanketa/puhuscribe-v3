@@ -80,7 +80,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -159,6 +160,26 @@
         "reason": "Identical lines.",
         "fingerprint": "2d45558fdaa9bd48744c4a47260bd7d1ac5c5f053a425eea1791866a0973ed2e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f97f06f170cbe632d3288c63cf57fbeb2ddcd4853ca381a35a9e53e040d7309f",
+          "text": "Terveysasema, Satu täällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ab5ccc7087a564c353cd80ed67aebb066a9e1ee497192a79e17c15e549fc34b8"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "7d4c5606f908fcd14c22b6894264f3ba4e48c5499cba106f2c96a50f4722e684",
+          "text": "Terveysasema, Satu täällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ab5ccc7087a564c353cd80ed67aebb066a9e1ee497192a79e17c15e549fc34b8"
+        }
       }
     },
     {
@@ -322,6 +343,26 @@
         "reason": "Only register differences (moi/hei, mä/minä, tarviin/tarvitsen, mun/minun); same meaning.",
         "fingerprint": "585c0285d9be8aca23ac2fdc3b7a540cbf9f02a7dcd8335cd32239d5a8a7eb67",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "c5bd29cda5e98e5d1399bda8de1dfbf7034afbade4764a1b2c7f508c2be0ecd5",
+          "text": "Moi! Mä tarviin lääkärin. Mun kurkkuun sattuu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b61a4e4bf2221bb3e6613c4ed7e06883dc7fcf38f6fc523b5c799eeb31e5cb92"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "05a4268cde1e5b4fe5b67e128027c82f46ad42024d3ad794f8284795d9ac364d",
+          "text": "Hei! Minä tarvitsen lääkärin. Minun kurkkuuni sattuu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f592d7adeca4adc3895973d398a0652c909eb5c9f98dd2d82f674c8ab84396c2"
+        }
       }
     },
     {
@@ -421,6 +462,26 @@
         "reason": "Kauanks/kauanko and sattunu/sattunut are register variants; same question.",
         "fingerprint": "2a5c1930d9d4b66d9c5a15cff1efff65a511d18b681ad6be0575c969654326a3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "ee4679d0899bc152cedccea055d2d4210fdee88871c404a317f2a7d5fb137221",
+          "text": "Kauanks siihen on sattunu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5af42705a241febca1fecb49a3ef27edbede052bec5b5f62106c670e2df2b20d"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "8080f228b6c091f4898f668f9aa140e158fb818eda85765bb2f0ef81ce5d6393",
+          "text": "Kauanko siihen on sattunut?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "967e4c1f431dd5003141d7fa62cc668859465d811d53c22adb4cb20354af6d05"
+        }
       }
     },
     {
@@ -559,6 +620,26 @@
         "reason": "Mul/minulla is a register difference; three days and fever are the same.",
         "fingerprint": "f0666c5c6b769aac217cc63ffe251d481a22744740996d2c2cad86f8a581db5e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "4b7a51030515075f78935abc4c786d64d489cbaa08a5020a33bae0e3557c6648",
+          "text": "Kolme päivää. Ja mul on kuumetta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0ed2293a1daf7cc7d5b06b833342b627424d1ce0fd808e69d8357ee6e994e41c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c0ed3ef4104208098e1bc6dd29db8e404770039515f717d2ba31deb746b09a2a",
+          "text": "Kolme päivää. Ja minulla on kuumetta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3badb9928c511b71c95765a19ebd4fd8e3925f32b840b44b28d88282bf446c3a"
+        }
       }
     },
     {
@@ -661,6 +742,26 @@
         "reason": "Onks sun/onko sinun are register variants; same question about difficulty swallowing.",
         "fingerprint": "bcb7efb5346af90fcb79eb197dc275fa4a8bac6b65e77c8921812ac15b2676ee",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "512070a22a4b5e41edd4535e48ab39e1b5fd351aab148e6ceaf06fb1696a5563",
+          "text": "Onks sun vaikee niellä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "11901595bd28036fc5bc9b7d8d1cca172e029465b8e449ba4bac0d03b80deda0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "d8c54c38ca223c9cacdc8e2d4403be81abd1199fe7279fd55fcf44dbf59e900a",
+          "text": "Onko sinun vaikea niellä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9a445a539b1582bfebca7c0ca2f6919f1ab61bf7848fcd97250816a22e047089"
+        }
       }
     },
     {
@@ -714,6 +815,26 @@
         "reason": "Joo and kyllä both mean yes; 'a little' is kept.",
         "fingerprint": "c8e8299d078f95f32ec81230ff706c7c50245f5021327424851c36c438575db4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "bfd50d20dc58a66cf814b038e044f1a9d2caafb679a4b94c0114e6dc1c4273d5",
+          "text": "Joo, vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6e914f9cc65837b6184eb511084632ad007224c7db03973a4c1a43caea7188d6"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "33f82c69389dedf6a113f7d50b8ca8a1a82876c91116f0c48d34c922f6dfa8e8",
+          "text": "Kyllä, vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "228e3b20002cf098d22681b27cf09aca5545d0e0b0f66a4d23968e45ee3c16e5"
+        }
       }
     },
     {
@@ -874,6 +995,26 @@
         "reason": "Okei/selvä, nähä/nähdä, sut/sinut are register differences; tomorrow at ten is unchanged.",
         "fingerprint": "fee1cdb9972cda5bc7b5846634468379b2a6b42b3ed7b047531824f6541aa2a3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3bb8b0f96d5ff7e95105ca8a4d97842be63ff068b21fd3b830de09f2e22aac1a",
+          "text": "Okei. Lääkäri voi nähä sut huomenna kymmeneltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c9598097ae31deab6dfb18055bccee3697aba830b2664d1e9bb89563826f7864"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "4e02f7d483375ca049afea7a6cd9285ff0cb206c9ed5e594c0295fd976083883",
+          "text": "Selvä. Lääkäri voi nähdä sinut huomenna kymmeneltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "19e79845859c9ac721c04325253ffcd8f0d4ff7e26f6c546b77df9e1a7ccf793"
+        }
       }
     },
     {
@@ -932,6 +1073,26 @@
         "reason": "Kiitti/kiitos are register variants of thanks.",
         "fingerprint": "f3227ac2f4bace2426248de8b46ce964de5ab94ff8259f4895e2767b9b8e5b59",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "927f61f84e010f0e029c3f3d7884219f11a93499519d75eafded40c3dd25f580",
+          "text": "Hyvä. Kiitti!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c6846f1fee1c1bde2c25a3760bd9dce859e17029fbeb60306e236dbeb17e6212"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "2edf4a9876cbbd4af36111458c631c87f8757678581494a776859ffc8e38b338",
+          "text": "Hyvä. Kiitos!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4b0b8ec7597aa61c1641740015c952e6d37dc5b6a54e07e781b7bcde5911f424"
+        }
       }
     }
   ],

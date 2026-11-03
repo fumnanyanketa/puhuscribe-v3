@@ -81,7 +81,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -166,6 +167,26 @@
         "reason": "Both ask 'Do you have children?' Only register differs.",
         "fingerprint": "fa6317c0f39c4c1447f95092e8273c9e51b7ee9dc4e51f886a6ba8e9bcadf7ac",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "861174705fe671a40c62406cf43aec503ea01fc86644d9b1e9c4d67345b3ef07",
+          "text": "Onks sul lapsii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "df40f301edf4f3c51e8c8733d30b84adee549c0bc6562178a5f5946d1f52f9ca"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "0761bb2e414db315594e6de6c1738a7f02532631f7c322571d48862fdc76dd60",
+          "text": "Onko sinulla lapsia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f7917468c8061c695fb83dba5b6faf4a059d5c8fdab2c4cb91f855f4fcd6bc6f"
+        }
       }
     },
     {
@@ -289,6 +310,26 @@
         "reason": "Both say 'Yes, I have two children.' Spoken kaks equals kaksi.",
         "fingerprint": "2de93361bd85770eb3d8bbae87f6734bf44ad45d5ccae3a91bce89eebfd32eca",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "f2db43347952d37590d864d767e41b9961c6a759c99799fc82c3e97ddbfcad14",
+          "text": "On, mul on kaks lasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "08d3a8922f842a608d1ef06267d801fbdc64e38656f8555da9aed73949970f97"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "72ec2f46dfb80eb200c3e2ca13856012629421faf440c166bfb3f4a790e01aa7",
+          "text": "On, minulla on kaksi lasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9e034cb5a02363cac7cba8e92d31a8e8ee50a732befff9815f2fa58fb1eb3c6c"
+        }
       }
     },
     {
@@ -388,6 +429,26 @@
         "reason": "Both ask how old they are. Spoken ne means they, same as he; the number and subject are unchanged.",
         "fingerprint": "4084f60faa7914d65aed33c256c726e219b6c7f280cd4953003074ee21dbae46",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "cb46aed46ff55da0c3a12d328b7d3bdf95fd49a90fe4412d4c2bae80d0ebe3c7",
+          "text": "Kuinka vanhoja ne on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b8a1df0e6c894a9aafc5cb863d4800f629d55d9d9bfdca4f59ed5105d8124d36"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f92d028bf56389c57559f47955bff1cb82d85496e313694f4697a6325112c8c6",
+          "text": "Kuinka vanhoja he ovat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0a8639dce98a2a4231d35dc629cb4c5fd3fc17efa739352c43c776412d7248db"
+        }
       }
     },
     {
@@ -526,6 +587,26 @@
         "reason": "Boy is five and girl eight in both. Only the spoken forms of the numbers differ.",
         "fingerprint": "ba5887e320e70d242de9823c77524a2f84a3ad0a35ec71838f7dcb92390ce29b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b7122e140d25e52c608a30575ff4e65073f2968be514cc66eced168f9f86d542",
+          "text": "Poika on viis ja tyttö kaheksan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "945e051183b9e15895bb63ebf33f2043115fba96bb24420b3474d1f11480a785"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "cd4a1c8cd3a1994764e10666c03919264e8e072b33f62fba58232a1e5d0cee3b",
+          "text": "Poika on viisi ja tyttö kahdeksan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6a00538052a6c00eb76f3f74c0e2dc93beaef1f529d986c90ad043833a7eff0b"
+        }
       }
     },
     {
@@ -730,6 +811,26 @@
         "reason": "Both say 'I have one daughter. She is three.' Spoken se equals hän.",
         "fingerprint": "d7e82ec3cbf5279f9ec43a435d7a38801bb578ec859cd9a72f1cf2ff76e91864",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "54105917cfe0702d82131fcd90d41d6c09d4c6adf75787521f343867369dd937",
+          "text": "Kiva ikä! Mul on yks tytär. Se on kolme.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "66c2ea01f6302f864392b3982ef7cd7ea0fec4ec05fac0bb2d994897dbfe6fdc"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "06561ff1cc77b7c063f86ddba7efab9658a16124aed299ec9a3d99999cef7e9a",
+          "text": "Kiva ikä! Minulla on yksi tytär. Hän on kolme.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "389494cb8a0007984859440d4169b89060a50c5b9ff2c7444702ed74c6318f19"
+        }
       }
     },
     {
@@ -853,6 +954,26 @@
         "reason": "Both ask 'What is her name?' Spoken sen nimi equals hänen nimensä.",
         "fingerprint": "808e43a781b4124b92951d229ebbb11c6217ab0f22ea0d88dee5555715bcbd1b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "4de4b1db335622e480b4501982b380d370780424acb5210478143127d70e6f95",
+          "text": "Söpö! Mikä sen nimi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c8a1d76d96db0cad17cb962b36da80f50b15807fd224113ae8bc11e4b778dd12"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "e37145463dd95ae943375d0b0cabe3d4ca32ad1f0805f3c8c48da50a504787c5",
+          "text": "Söpö! Mikä hänen nimensä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6b9a846a8effbbce8bc13ddbedc8d24e98bc8831f666798e91fbd15f5b16bac7"
+        }
       }
     },
     {
@@ -983,6 +1104,26 @@
         "reason": "Both say the girl is called Ella and already talks a lot. Spoken tosi equals todella.",
         "fingerprint": "9bec08ea6066792e9cefc3b21d4d3007790c931a012fc80072029c760a20b0a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "ea2f803e1c7439477d407c77557895b0317f6b99d01596c022143c25cf869c04",
+          "text": "Ella. Se puhuu jo tosi paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "acff00d8de8419f4adc3fa73e2c60ff50a9c5b77cf08e63ca0de4baa9273e928"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "69c0846ddfc84041f1c2701e89e9e00857970d7b2486c2ddedead1492633c00c",
+          "text": "Ella. Hän puhuu jo todella paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "71011ebede6f81ee4a031d06725c87bb8859741f31bb474e1088586876377254"
+        }
       }
     },
     {
@@ -1057,6 +1198,26 @@
         "reason": "Both mean 'My children too.' Spoken kans equals myös.",
         "fingerprint": "39c875ce94799b01c5c5f66ba60f93852c04ae922246d82d6501f00a30094937",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "1b8b14299e9cdcc41aa00e71fc548ae8c78987da70943b8986f0f2a74ba2d3a0",
+          "text": "Mun lapset kans!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cbca53b831171443a76392e1381c87ce38a91be3cdca7ebcf86c0af991f7d1af"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "d7a58ac7b9597e4316405e42eb3b341d1cf7f513ac846ee98db1d9e84e92dd89",
+          "text": "Minun lapseni myös!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b6cd563d9ca59d0ac34dbaabc505f07687ff2a35ea3e0db5d48782d8674c4514"
+        }
       }
     }
   ],

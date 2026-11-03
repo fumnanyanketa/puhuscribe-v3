@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -209,6 +210,26 @@
         "reason": "Only register differences: sä/sinä, tehä/tehdä.",
         "fingerprint": "c501dab6585f1e0cc632a969d71dc0ffd32eff4adeae0d66839beb62135fee2f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a4d0718e68acaaa12e16b415033708b9585bdc1b8be2da85bbc0b304624d5104",
+          "text": "Mitä sä tykkäät tehä vapaa-ajalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "972a5c995d801da66b534aa5caa2a8b898b13b632a7e3233a96b1bd51a5b8527"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6c4218d36501b7b4b50ef4d5b90219f61e2e0a413c09836e0b5ff3d6f8640391",
+          "text": "Mitä sinä tykkäät tehdä vapaa-ajalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9cdba8982d6e436d31fafee5db800916a0fe99ba60c5f1ec86dd35229b63e56e"
+        }
       }
     },
     {
@@ -327,6 +348,26 @@
         "reason": "Mä/minä and lukee/lukea are register variants; same content.",
         "fingerprint": "8359f5fb398c8c8550aca5583e0e78e2078ea288c48908a494614ce0974d5db8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "92a8a603852caabad80283ae96b834bf90514b4dd1b4b759a1555f41af81357b",
+          "text": "Mä tykkään uida ja lukee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "656b1fd988d1aefcc7cf5cbdda773c7699795026abff4d763a5aaaa4a33404ee"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0357b5c340454a417ca44d977f7ede5365f91fd1fecbcb6a012c0d66c23005ae",
+          "text": "Minä tykkään uida ja lukea.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "28090486eeefea6e5906d075a37c4485e92cec36b5519ab2ff2c4d6c298478c1"
+        }
       }
     },
     {
@@ -407,6 +448,26 @@
         "reason": "Sä/sinä only; same question.",
         "fingerprint": "1858d489ee767a47c96514fcf21405a6f6bddd9d800f61ca499e1beceb7bb9b6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "4e14049b3e58aae3282f722a503ef8c1cb5a21335f0ec46213c50e80a30fbde0",
+          "text": "Missä sä uit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a6f3aebc1874e87e4f606e2f0f40081f5e6cb6eb1f01eea2363f442675717a36"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "c816dbfeb12b8eaabae81f92932bfdb52303ec851012b8305e653f06f49eefaf",
+          "text": "Missä sinä uit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6a19580dd7326cf87a9d5e6c6af0eb178d8e9c8fb9b213000264f1a55c012e1b"
+        }
       }
     },
     {
@@ -483,6 +544,26 @@
         "reason": "Uimahallis/uimahallissa and sä/sinä are register variants.",
         "fingerprint": "37a170750e064a3a5df5dbadabbb736c847244ff74d9ba6e04f11033eefb056c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "2164194f529b67f392901436dd5c3336163cfc25ff5c1cbd9c6e3bdcae0bbba8",
+          "text": "Uimahallis. Entä sä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3fca42e16cceb2fb31cbee3e69ee781003383b77320e695d2442bd8fc9b860f5"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "98e559a89cbcdb3b7cf5d2f41cecf3cd10f11229f56fe19bd6adb165998eb666",
+          "text": "Uimahallissa. Entä sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "390109d8b7752e81ed2510288d28538ef8d6e041abf38598eb36a91ccbf56daa"
+        }
       }
     },
     {
@@ -624,6 +705,26 @@
         "reason": "Sulkapalloo/sulkapalloa and salilla/kuntosalilla (salilla is colloquial shortening of kuntosali) mean the same.",
         "fingerprint": "70a54f8b8331110597f62617b33469a895f3b534a9d381c8be1d33c7986f4bb0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "3c56a0037df1dfc654eeed12696751a291be6c5e6fafde72e5383a790ecbe3b3",
+          "text": "Mä pelaan sulkapalloo ja käyn salilla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "095ac76251b9a9b55d268a090c59f086a0c11066213b058527cfb3f99458ce6c"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "152e506f6bb7a62be76e56ef83871a56a59586e338c59984392b0ee5bfcec4ff",
+          "text": "Minä pelaan sulkapalloa ja käyn kuntosalilla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5b7f258c367a822593d4fd67a83dccf95bf786a56a14e3577c3def5cb4465c30"
+        }
       }
     },
     {
@@ -675,6 +776,26 @@
         "reason": "Identical lines.",
         "fingerprint": "e2e99b2ffc3b9bebbac90a3974a2667eadec8902dd49dd02a12c70ef45bcf78b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9091922c187f8589d387e08c5dc9a22d32f57fa1ff1a093c9d5427d7186a195d",
+          "text": "Kuinka usein?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cf2b485f096f670b39ea4e84f91f979f3b38356e702a288808fd96043d55811e"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "da278195c2be49076a01b453289494834d9a9efd1822018a0d1e25aea4f060b1",
+          "text": "Kuinka usein?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cf2b485f096f670b39ea4e84f91f979f3b38356e702a288808fd96043d55811e"
+        }
       }
     },
     {
@@ -752,6 +873,26 @@
         "reason": "Kaks/kaksi and viikos/viikossa are register variants; same number and time.",
         "fingerprint": "3c291730afc117087f0d074767e6cb4a1b2beafb78bd9419540b1d7baa6cde33",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "dbd26240c4127d0bd1cdca153a7acaf47e0da221a023765fdc0f54c178bd2769",
+          "text": "Kaks kertaa viikos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "be7f1ede62162fe4f2d5ddc9fbcfeb070345ad012478b87f9394b15d32ad1e84"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "0c0d1596308d12315fa5b6e0215010964224f91bcfa988725332ee569ba0a943",
+          "text": "Kaksi kertaa viikossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d0064cb5035be09afa4c17f78613ec267f3c45e2284bcafc09476f349b6cb1db"
+        }
       }
     },
     {
@@ -892,6 +1033,26 @@
         "reason": "Haluun/haluan, kans/myös, pelaa/pelata are register variants; same meaning.",
         "fingerprint": "8209c75bb7113b6ce5290fb98d08ec446078e8a0887aa61c80cd69790963c97c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "34a30f5e843bb425b72f58846f780f24a4da82835008b100e12ff961f0448b8b",
+          "text": "Hyvä! Mä haluun kans alkaa pelaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b9c51b760a3fca31879c51b931be4b65e711311dcd2a3823a3b3928c156cd3bf"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b95bcf595a4397cc400996b7ec8150c44930cebfabf53aacc7a7903d013d7d90",
+          "text": "Hyvä! Minä haluan myös alkaa pelata.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2bff539b3e75507b136b759bc2ce995b0ea3dd03567db0259582ec42b221b274"
+        }
       }
     }
   ],

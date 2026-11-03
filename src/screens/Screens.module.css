@@ -203,14 +203,44 @@
   text-align: center;
 }
 
-/* The English gloss, inside the card under a dashed line. */
+/* The English meaning, inside the card under a dashed line: a small quiet "Meaning", then the English
+   in ink (owner's call, 3 November 2026). The English sits beside "Meaning" while it has room for about
+   ten of its letters' widths a row; with less (a narrow phone, large text) it moves under "Meaning" and
+   uses the card's full width, so no word is split. */
 .gloss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
   margin: var(--space-3) 0 0;
   padding-top: var(--space-3);
   border-top: 1px dashed var(--color-track);
-  text-align: center;
-  font-size: var(--text-reading);
+  text-align: left;
+}
+
+.meaningLabel {
+  font-size: var(--text-small);
   color: var(--color-text-quiet);
+}
+
+.meaningText {
+  flex: 1 1 10em;
+  min-width: 0;
+  font-size: var(--text-meaning);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-line);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+/* Words for screen readers only, such as the colon after "Meaning". */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .question {

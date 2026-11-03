@@ -80,7 +80,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -182,6 +183,26 @@
         "reason": "Moi/hei and sua/sinua are register differences; meaning is the same.",
         "fingerprint": "7a1032c7a4639939588df92b3653ab8ed7c34cedcbc248d216eb1ec30b66a2f2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "0b861486ed5375d015c8095b0f1935cfdbf9cd27d21e7ead5cf3afa5b59b1e25",
+          "text": "Moi. Mikä sua vaivaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "83b19e5320ec1984b0f1323feb1142abc5b1e6ea88ce98b5bd9a5fe51e8d57fc"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "146f008f5cd6f48adff9bb923d9fea4e4fdc8800c7a05c066be0f842992ae594",
+          "text": "Hei. Mikä sinua vaivaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3bd613a1f149494a40ec244cb8def8e4ae3652bc683a55a6df21e1c4d9ab3e6c"
+        }
       }
     },
     {
@@ -264,6 +285,26 @@
         "reason": "Mun selkää = minun selkääni; both say 'my back aches'.",
         "fingerprint": "c4604a6570ee6c04ac46cf835324db77205dc6adab0c7383d669b222111654e7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ae103ab689f75c8a53a3ccbe36a66bb6988e0583d88edbf75571386c1552c5fd",
+          "text": "Mun selkää särkee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4b223c4d672c357558c61964785489895bfde947e6e262fab1f4b5a127442895"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "f322c178a1e9e69322928b30568882ff1a1190fba616d7ddbc8c9d35c2bbe8b2",
+          "text": "Minun selkääni särkee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6c465821875c44521e342091312d8ef76052d7d3e19a942955ae6f7b739427f8"
+        }
       }
     },
     {
@@ -344,6 +385,26 @@
         "reason": "Kohtaa/kohdassa are spoken and written forms of 'at which spot'; same meaning.",
         "fingerprint": "70ce2d16d482cf3c0e898287640ac44600bfb923c3036a51d6f81e5974021c10",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "4e03cdaf16540b783605032d4776e2374db051c079c052a9b2273e4c6d3166eb",
+          "text": "Missä kohtaa? Näytä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9e664dce10097966fc9722ccb67ab8102a9039601e16923f4ac53f6cae0bfd25"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "8954b8d7a9127b24741f46550b5db33cf380c5a1c13da0142a175dd222d4ac61",
+          "text": "Missä kohdassa? Näytä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "817956c6cbbf085e3f882daa18d44b98581187fd2894e91075d76148dbc1634d"
+        }
       }
     },
     {
@@ -401,6 +462,26 @@
         "reason": "Täs = tässä; 'here, low down' in both.",
         "fingerprint": "d3516e548754607d53d3df9ca18f8fcb0d48cbfb8027bac7d2964d98b96d872b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c657a868897c5ecc4abfe4135d93836ef5b6184b17c5ab2c129f9da153889b78",
+          "text": "Täs, alhaalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "573297baefdb77770b4b482e4c7b02a768b6ade8a5518badf936c821b497c78c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "7b0cb7fface0b48edae4a59844abf150d211778ebe6cc8b96baeac48141aaac3",
+          "text": "Tässä, alhaalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f49b93cc9b449dca11348587404a0c5d53c66c32410319bc1b335eda3427e3d4"
+        }
       }
     },
     {
@@ -463,6 +544,26 @@
         "reason": "Sattuuks tää = sattuuko tämä; 'does this hurt?'",
         "fingerprint": "2497077642318787737f8a250341e79c5c4b775eefba8ba8be7b3c74e8c2d394",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b49128c42c0249f6ea4e86632253066bfe6d44bb7af298797e9ce8a5d84b04d9",
+          "text": "Sattuuks tää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b02e6fee998ce70f5fc1ecf0b2491053550d4ffadc2731eee0c165df3855ab2d"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "72fa2d9fe53539554b98b5273d13a060f9700395ff5d098a166bd60babfda2fa",
+          "text": "Sattuuko tämä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "38cde62c0aa18313094615809c67613e5efc7e21919c231b578ab046168151a8"
+        }
       }
     },
     {
@@ -540,6 +641,26 @@
         "reason": "Joo and kyllä both mean 'yes'; same meaning.",
         "fingerprint": "8a8797afc663bce18e94e5d3e5b3f55a6f858cc03dd29df11295648d433eb09f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "902e59c3e3e77f06207e263449f3c5d786818e9cb8f88a9f8d93f48e2f64d532",
+          "text": "Ai, joo, sattuu!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d5d4b725c9bdab615dbeac0620570bd247959c97e94a6a31b291872bd7dc1c23"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "402106021dba394fd3a499ca613f7dd4915b23b5b0a503c27da99f9fa32d0486",
+          "text": "Ai, kyllä, sattuu!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "13e4c1ef143e86990f42ec57d7bfde693e41f15d4eca68f168399d4c75f1ce44"
+        }
       }
     },
     {
@@ -757,6 +878,26 @@
         "reason": "Sä tarviit lepoo = sinä tarvitset lepoa; same advice, including walking a little every day.",
         "fingerprint": "708e777ffece13c9f31174f21c74cd66248eb77d0fc09c5731799330decd15b2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "21d787d531ba59132b0cbfe5eced065ae8bab358dcab98b58c6b7d87c97d2d50",
+          "text": "Sä tarviit lepoo ja kipulääkettä. Ja kävele vähän joka päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "deb06b24c192629371cdf9b2ddae0631c08505649301102b36505607fedaa040"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "e04924320ff9eb2f76d9cc3304d062e7b6bd2b65caff47f522e264e93646de47",
+          "text": "Sinä tarvitset lepoa ja kipulääkettä. Ja kävele vähän joka päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "143eae462fec7996e5f9dfffb9ee5a51c45a428ea70ac4d4984cf1bb6d0a5dd6"
+        }
       }
     },
     {
@@ -835,6 +976,26 @@
         "reason": "Okei/selvä are both 'okay', and kiitti/kiitos both 'thanks'; same meaning.",
         "fingerprint": "f0caeb239ae4142cf9fff0191231f64bafc14241457636bf87692a2f37b07913",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "f58ec4b0ad2a69bdea36a71feb34125debef4fdc42a2adde47a72522d7916535",
+          "text": "Okei. Kiitti, tohtori.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0c5f98d21e896117fa9ed2cb1ab6765005c87ce069f7e8ec9e59a0daedf14ec1"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "7a6c16f47769d40d62cff1a10202b47bfbcb6986522835ba9bf9d9bcc1ce55e5",
+          "text": "Selvä. Kiitos, tohtori.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7164fe0ba3b92a9fd28a2f43a6b3c276f01f46d5e214beaeec35183bfe964547"
+        }
       }
     }
   ],

@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -190,6 +191,26 @@
         "reason": "Both ask whether you watched football yesterday; only register differs.",
         "fingerprint": "f58c94ee5898cdb7d3931e9ca7fcc8471d31afcef84dec7dbca6b3ce50f46b0d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "e37e5fe9711e4cd0cf885a73199582d350f7ccdcbc86fd5bf69763a2fa012132",
+          "text": "Katoitsä eilen jalkapalloo?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ee13d20af5075cba2eb37daf936d15f21f628ec6cf456e6f1918bf322d42265d"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "f30b72c8c1e040b047f1b4955c3321202fd7905f3ca6d85f30154430a084b7d5",
+          "text": "Katsoitko sinä eilen jalkapalloa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "bdb61193f018984b8fa9a9b5a930a0c5900d91a3a6efdfe53933a93903b0e847"
+        }
       }
     },
     {
@@ -289,6 +310,26 @@
         "reason": "'pelas' is spoken for 'pelasi'; both say Brazil played.",
         "fingerprint": "2708887ab3246a24ae7ed306ea58da0381f8d77c885e7a80c52e68aa58772444",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "750e99344ced309589e1a17b8b0555ea5076c1731ce09a80bce3e5799a01dc42",
+          "text": "Totta kai! Brasilia pelas.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f390817f6626adeacaf8d10b2fde53faab159ea2be56e0d73103027277c8a7a3"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5e2cf5c1bf7566b684d8f3aa2f8dd8d5f481a40f69d0b31b660a1d371c0b26cf",
+          "text": "Totta kai! Brasilia pelasi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cb02b4fedd262ddc39ae5d920c397355fd8a15710b58f4ffa688f230f9e64739"
+        }
       }
     },
     {
@@ -350,6 +391,26 @@
         "reason": "'ne' is spoken for 'he'; both ask whether they won.",
         "fingerprint": "aca3834e7607518614591443df5c0cb0fb88bcc64d8f2a9aa7fe1e8b3f58143d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "fb06e1425678b3ba0567d11bb2d3fa5aa868f05d6d180d00ba7c48aa7372e6d9",
+          "text": "Voittiks ne?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "29083862ad5d82119c4286da5dfd727943e31418df625d1b3fcc889d036986c0"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "3d10cd6f6321cc069a7dcf883734d4e52f0bbdc425165712177249b9473edd67",
+          "text": "Voittivatko he?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f598f47aee25fa4f83af971dbff98dd7676a3cddd019c6a6cafabbeab8cfd95b"
+        }
       }
     },
     {
@@ -425,6 +486,26 @@
         "reason": "Yes, two-one in both; joo/kyllä and kaks/kaksi are register variants.",
         "fingerprint": "56b2af6fa6f7c5c298bb3f2473faa656db8df424542ed87eb6668b0bdbd3d372",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f00827001d22290c2c3a6831f69e396badc8b252f43426701e903dc656f18775",
+          "text": "Joo! Kaks yks.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fb3de9bebf24e3fbf48be8d25e55a808398f98fd57404d4a36ba89bc8387d022"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5219d717638e5c2e335f15b5024dfea3b77a63a48a0e688fe43826ab6e1aa5d7",
+          "text": "Kyllä! Kaksi yksi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "22d6938920938c44a501a116df70ee850faeecb54a8554eb83b933aa64054b48"
+        }
       }
     },
     {
@@ -589,6 +670,26 @@
         "reason": "Congratulations and asking whether you have always liked football; tykänny/pitänyt are equivalent.",
         "fingerprint": "75636ba4d3b1ec4f473d92ffd9ab2a863e45c32aeffdcec30ff0fdef8d93a7ea",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "3791672262613e45181de8d3f5013639071cd0205fb610d7b7380d12b803ddfb",
+          "text": "Onneks olkoon! Ootsä aina tykänny jalkapallost?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dbfea787a315d0a718221e795262a40f60d17a341ba0974aea4dcde5df520606"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "f58be6a3de778a4709e01de6d455cf3410c725016d0318cf86dcc8c400a4a198",
+          "text": "Onneksi olkoon! Oletko sinä aina pitänyt jalkapallosta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "966a28140638e33dab8efa6532241a8f70328eca742c995a71b0a66280d3e740"
+        }
       }
     },
     {
@@ -723,6 +824,26 @@
         "reason": "Yes, my whole life, and you? Same content in both.",
         "fingerprint": "cc06fad9df85586d99ec86c1ff2ef294fb5e7f433a353b459b24132a4ec850ba",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3d124cb39431de47f64d3b17e27d09a1659f6a90f81c707dc3d073a5e3237309",
+          "text": "Joo, koko mun elämän. Entä sä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "efdebbd4e3314bbd569b265fba740a4aa069b04c16fb2903ea4aca7059110f62"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "5f021ed244c392b831ef2fdca0797ac554e565eea7f1f2a07573c0dcc75400c5",
+          "text": "Kyllä, koko minun elämäni. Entä sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "76e37265ed9524419a855d2997055873e4393639fc604b6fb4fb1c1c2512daac"
+        }
       }
     },
     {
@@ -822,6 +943,26 @@
         "reason": "Both say I like ice hockey more; only register differs.",
         "fingerprint": "3fa7bb1c279fab64941a77928063a067d7ae2d34dd84c67bdcc2f9da91c72275",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "4aa6c40e204e87c397bb934eb651d13baccea647e84b43c3757d1de100fb5c49",
+          "text": "Mä tykkään enemmän jääkiekost.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dbeabe0c7843108a0f8f7b903f747cef0ad33c6144a2aea1b2b874c923f8af24"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "421f79f352c1747d2f508877571c6542986338f580b2de484738327e66484749",
+          "text": "Minä pidän enemmän jääkiekosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "69ee63a61a2dd1c53d972e1f27a5e04d89c04420fa98e01da890b20bc765fda5"
+        }
       }
     },
     {
@@ -937,6 +1078,26 @@
         "reason": "Both say 'Ah, of course. You are Finnish!'; aa/ai is just an interjection variant.",
         "fingerprint": "9aadadc8036da612363c98a06f85160c2e12aa095336917c7200f447b364eca4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "1a8fb4bb03a6288bfb56624e20677a01ba04665789db8c5dea9875c04fc9b15d",
+          "text": "Aa, tietysti. Sä oot suomalainen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "410ef80003c8ab58de8386318e982dde87e39254ef884799107bbc03747c3ae7"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "8cf8ccfe387ff6a277ccdc51d27605d7de3a92844453067f267abb621b6c8d3c",
+          "text": "Ai, tietysti. Sinä olet suomalainen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "494c7e97742d295ec73a38f224b8b0e177a8b501775ed70951ff853e5e79ac9c"
+        }
       }
     }
   ],

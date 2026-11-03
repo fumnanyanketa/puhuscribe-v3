@@ -68,7 +68,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -259,6 +260,26 @@
         "reason": "Same question: plastic bag or own bag; only register differs (haluuk, onks, sul).",
         "fingerprint": "23ac47b745e077622a1ed589c7062b6fb50f1a990e7adbf87c84bd49c64297b8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "fbb1ea5e3a562e41ae35cf1951d504e17b8a216877ab164efb3ea990b34a9b96",
+          "text": "Haluuksä muovipussin vai onks sul oma kassi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f7cda8ea0d73736fdbed39d3025e393af6ce6847146d5112288cef0bb6b22b2f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "1f2227739b5f2a6d23b3b97966687061963fc04eef6c05dc1324c6ae2b8790bc",
+          "text": "Haluatko sinä muovipussin vai onko sinulla oma kassi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "dc3c29f1191a5ae639fb56bf9534c9ec30dfca07fc6f7404ceaab6398b3abae4"
+        }
       }
     },
     {
@@ -355,6 +376,26 @@
         "reason": "Same: sorry, I didn't understand; spoken forms only.",
         "fingerprint": "3bcebf955360000e988f8f48960ae0667b694b9df2b3690c5cfeb1ff422d852b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "61a84e6d137108c051727bd7128d56956882ab25eb6f58644bda162a0534d7dd",
+          "text": "Anteeks, mä en ymmärtäny.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "acb0e71975a39721e78d6446294c15cc22dc69f67c2e9d6d0d46f14397b8e902"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "9981a215bb1f0df93f9729f306db130eb0d9f3f48911f0f306c897efb47e87db",
+          "text": "Anteeksi, minä en ymmärtänyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5893049fb16ab9f47dd88e40913c81fadeca0ba7db7976025e95d60c97021e26"
+        }
       }
     },
     {
@@ -439,6 +480,26 @@
         "reason": "Same question: do you want a bag; register difference only.",
         "fingerprint": "9b9929fe2c0709e3201afa734376196bd9db11f4d90122b61efd0eaba893e2b4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "03e1b34ff9a57e1f1c302c37676ae8696a45a589281731503fade1d40db37d82",
+          "text": "Haluuksä pussin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "69abed17e5cff294e96a0f5c21ce477e3f128dfee577e8dad3003d0f7655c602"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "cfb86d422bf8df767c01d11f30b07f48ec9ae727b0ecd3942e77b60bffc5edd7",
+          "text": "Haluatko sinä pussin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0da7ba58398b6e1f13aa7c4b3a15c315779f1dcc678611ac15739017f0bc8e20"
+        }
       }
     },
     {
@@ -558,6 +619,26 @@
         "reason": "Same: can you speak a bit slower; spoken 'voit sä puhuu' equals 'voitko sinä puhua'.",
         "fingerprint": "149dd4d66d78860711a313a11c485661766948dc60591881c7c695b13aa81153",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "621651e8cffc04a06b4e0fec03e7f34de5188609b512af7969c81243aa93ee5e",
+          "text": "Voitsä puhuu vähän hitaammin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4d16cdd4add16c1f6c3bbbc20d3c86cfd0f1db4c196e10bcd8a4f87c1f87d6d6"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "7705c3964cd3dc89a9b29c94195d779ca411bda4f3b2f118ad51440b4fa6a0c5",
+          "text": "Voitko sinä puhua vähän hitaammin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "573d038eb14adbe55f98d932d77a81665d11085f3af5f3af4c47d97b3fc43226"
+        }
       }
     },
     {
@@ -658,6 +739,26 @@
         "reason": "Same: do you need a bag; tarviitko is spoken form of tarvitsetko.",
         "fingerprint": "f35ce55d9001ceae5455af5391b832bfd57c4efdf0e434a333c3e99c279abdad",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f5497cf87498835873000b1ccca9ce7acf993dbc7b92c09aca845be5b71a9a32",
+          "text": "Totta kai. Tarviitko pussin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "395a307b8a3229316ad5e29d2f95d40af5a38a879b3de7fcdb4ff7278e972a94"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "9b879ea93255b76cdaca93bbeef8047b90d267cdaf64a3ee633ce4d7c1d6fce4",
+          "text": "Totta kai. Tarvitsetko pussin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d428eda6c04222fa84ba307b1b763bcc9e786cf2f1ec0013fbcc6822df850d13"
+        }
       }
     },
     {
@@ -818,6 +919,26 @@
         "reason": "Same: no thanks, I have my own; mul = minulla.",
         "fingerprint": "de99915016b82747317b8c4cf7d792941a3b7b0dd30806c13a6a3c168ce094f6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "5e87dd0188106cf311303713f697ef5f1756179de379122e0d5773d3f31abeb1",
+          "text": "Ai, pussin! Ei kiitos, mul on oma.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "28f5b0c423a8d9c1574a4aed3abef3de6e8e3e03fc42e7b08724cf334fcaad81"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "569fb6bfc1fd119beaf87674e7062b9e5034e88cf6df2ec1d10ba477ba8baab8",
+          "text": "Ai, pussin! Ei kiitos, minulla on oma.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "18b12e564c511d65e231a87838e798df5363006cf00d065538247fd03289f206"
+        }
       }
     },
     {
@@ -955,6 +1076,26 @@
         "reason": "Same: you already speak Finnish well; suomee = suomea.",
         "fingerprint": "80fc16a5336c3beade2550d029a7e92a340732fca7d128fa9ca71626a23ffd91",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "46351a91bedf4f3e2cd3e38a52b1f3d78dc91f35cda8b47f9714e1c58b5cc5c3",
+          "text": "Hyvä. Sä puhut jo hyvin suomee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "18e2f8e647e69dec7c082eb0854e6d5f64d5186ea4a5f3def6cc6de2854032c3"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "a6c5c72a314d2871a6b8986fa139ec33974e9642a0f7f35235c782cb836b3a4d",
+          "text": "Hyvä. Sinä puhut jo hyvin suomea.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "225f1564c4e049b78b353a51c89bca68963eef371a88109761841cf737c273c6"
+        }
       }
     },
     {
@@ -1053,6 +1194,26 @@
         "reason": "Same: thanks, I'm still learning; kiitti = kiitos, mä = minä.",
         "fingerprint": "c3fa099fec818a0500e5fe95c758b968dbfcb02a656e1dcc223f4790380389c1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "0036afcaa7dd104136c34c2f52d31d14547d19a7e96b31d0f232b26371441759",
+          "text": "Kiitti! Mä opettelen vielä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "675839fffd455d9f6718253d413a5a6fbbefc83f62e00bb504b4f0e8b835783c"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "5af45f211d24e1c29b8e2b160186cc5ab09506be39885a2aa1f15a859aeb3d90",
+          "text": "Kiitos! Minä opettelen vielä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "12c720d906b8bf26c6483fb2ea5aed9acd2260b382205173bf7bfe734ec109d9"
+        }
       }
     }
   ],

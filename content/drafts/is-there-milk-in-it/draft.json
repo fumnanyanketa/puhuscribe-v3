@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -210,6 +211,26 @@
         "reason": "Only register differences: anteeks/anteeksi, onks/onko, täs keitos/tässä keitossa, maitoo/maitoa. Same question.",
         "fingerprint": "55b0b2a09b7042c131dbd87a3d9fa4140710c8a2c3b08071a0b5336bcf8047cb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "ffb48da8779f74b8826bad759b870b8a34f7fc2c7ca9b5be7e2c0853889f2f9d",
+          "text": "Anteeks, onks täs keitos maitoo?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8a7f67324b02dcf00ee8aa0f6a0dcd5075c99bc20284682cb30a396859bfd9b3"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6cee012fa6fdddef9ecad815a9875278da48e1fe011b3d6ae54cdb24d1247e73",
+          "text": "Anteeksi, onko tässä keitossa maitoa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e613ddc0c239862d5ed6747d3640ce17722779012fefaa56fef5b424b781496f"
+        }
       }
     },
     {
@@ -313,6 +334,26 @@
         "reason": "siin/siinä is just register; same content.",
         "fingerprint": "a3a4c9a74d18af32f7d44a6722cc03cb0da63534b6914e2cc5ed2101313e078e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "6d58fe47cd15d663ed89a36159e06cb15af2d7ea0112e35c9379fa656c8d8d2a",
+          "text": "On, siin on kermaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c7bd32098786415e86679030e3f03f5d7108c5230f93db6d81f032058ebbaffc"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0160d48da5678877582253fb42fb6af710687686e69477d82c447db6a2d1c214",
+          "text": "On, siinä on kermaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "68fc2cd510638acac2dd7cd0b62a2f657d6e14e51b6735b23056c88775c5ca01"
+        }
       }
     },
     {
@@ -430,6 +471,26 @@
         "reason": "mä/minä only; same statement.",
         "fingerprint": "053b7d63de0b3fe1780bd3c4f6e4eea30e15149cead371f5e0098dd54084b68b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "79b9197477a72d7cfb04b7e00ba872367509e33953fd191ffd6471e6d0bba2b6",
+          "text": "Mä en voi syödä maitotuotteita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4b5f45a4678effb1a3f048cd6a7c23b036a8030375ebdb038f0e425d745515c1"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "d97c94bdecacf7e2606f715b0cf666c4ce492003a5bb88dde2e6af68ea049fa7",
+          "text": "Minä en voi syödä maitotuotteita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f01898c4bed61c99fc6c85873aad63165a29a8526c6e5a41a179b3f41aef59e2"
+        }
       }
     },
     {
@@ -529,6 +590,26 @@
         "reason": "onks sul/onko sinulla is register only; same question.",
         "fingerprint": "7bc67b1bd5db605b0ed9c612e6d62d8ccfae44a76963335e8071817272378acb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "8bab4bbf3ccd5981f907256066b88ae3dd8034142c003056e7327b731242140e",
+          "text": "Ai. Onks sul allergia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "64c79ffe5b65c6625ff4c927b6eb29b9557a8a8f6fecfc7608584ed8a0950f2a"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8c0ea12c0869f8cc6abd6030d8fdcf0c25b58e65f91cc3939cf79869a0312f0a",
+          "text": "Ai. Onko sinulla allergia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6dd0c5a5b8385fc79d8c8fdc119d62579dd67fddfa21970d18ae68ff25d83802"
+        }
       }
     },
     {
@@ -627,6 +708,26 @@
         "reason": "joo/kyllä and mul/minulla are register; same meaning.",
         "fingerprint": "cd85cd3f82ab2617f54e31c0582013854f7dfcaedf4d9f4c73e00c34c7623c6d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "5290d12b3c5be46e46b525025bd203e984d6f557b6361c8b5fa12eaafe5a8976",
+          "text": "Joo, mul on laktoosi-intoleranssi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b9d6f764fdc8d49d83a5115ffdbad19ffbc22ca0b2bf35198a9c644be00d17fe"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "5e30ea269fe3b67ccaa5e66a0ef9eee866da8ccc1b87124c27499e5e9ca4ba9c",
+          "text": "Kyllä, minulla on laktoosi-intoleranssi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7b1b7b0f231b4bd4a9f8a3b4d2826c9776f4f687ad4a2d8be78086987c6dea02"
+        }
       }
     },
     {
@@ -789,6 +890,26 @@
         "reason": "sit/sitten, mä/minä, kasviskeittoo/kasviskeittoa are register; same recommendation and fact.",
         "fingerprint": "04635c39f26391f0065305bc15db04b88fce11ce3f4ee2628357f56f12a6f538",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "cc51baebfe1a3fb46ca4a91f459fcfb33c140b90c6a2ef8742da9caa12ee0346",
+          "text": "Sit mä suosittelen kasviskeittoo. Se on maidoton.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0dbbae0d824773dc57ea682a88b2359361cecbc02c146e04b5c4af55bfbf941c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "38b3d9827584cfdcbc5a50aa9a77b0bc9b0879644e8951dfa3a0691b4b679e59",
+          "text": "Sitten minä suosittelen kasviskeittoa. Se on maidoton.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1a60046f6c9977636580290a57a5997c5b90d55d3b0f3274886ae98ffba03da8"
+        }
       }
     },
     {
@@ -890,6 +1011,26 @@
         "reason": "mä/minä only; same meaning.",
         "fingerprint": "606aeb134d609c5170a4eba8612aea8cdefb9cbe5d533660d05f6f6c8716b628",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "38d155d39b3e395db85d186ea2cfbbfeb5454681b3cf743c5201d3ecf2e4ba02",
+          "text": "Hyvä, mä ottaisin sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8d12782fe0094b5dc96a8ec2839a3c8c3d05ccec8597d15287db2c3a58354fd0"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c678a3012e522282dd4b0c330f65d431fbdb1068cdf9077b05f07296a766ef78",
+          "text": "Hyvä, minä ottaisin sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bc213d11fd27558389869e310bcb33ce70021e7ce5342801a5a2f84ac7928daf"
+        }
       }
     },
     {
@@ -948,6 +1089,26 @@
         "reason": "Identical lines.",
         "fingerprint": "56c25b6291eaaa828abb4a248e8c17569a8b9776b4f5721686f07378dec38d3a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "39e686bd333291a1ca88857494ca1548be9dea28d96b717da6efca65c6ba22bc",
+          "text": "Selvä, tulossa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "33cef0c27ead1951d417ef7f79746c9e571086890ac0f43528995e9eb9d5eede"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "476da88908940c78c1a676370beb5e2fc8916c3d0c5ee0d76d1373551169806f",
+          "text": "Selvä, tulossa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "33cef0c27ead1951d417ef7f79746c9e571086890ac0f43528995e9eb9d5eede"
+        }
       }
     }
   ],

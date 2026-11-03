@@ -78,7 +78,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -201,6 +202,26 @@
         "reason": "Same: I live below you; only register differs (mä/minä, alapuolella/alapuolellanne).",
         "fingerprint": "da703b469d66b0685a6e5ac1d64440ae5e33f39368539b78c704582eb15bbf90",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "8bdfd5106fdb1cf88cf0ec2e9befc4bead3beef73d5415cac5cbfe0eca43dabd",
+          "text": "Moi! Mä asun teidän alapuolella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "45d240f1e60bff6c2018ea70ac4ddf701434945048f5e021d704640f54680893"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "daf0d5c244d1fe69bfc6cc5b882cc065a0506666625b030027ef5b45ce7a70f8",
+          "text": "Hei! Minä asun teidän alapuolellanne.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a91ad080d3a6d45040b6ed6c990f71fd38745c59c7aa4f5692fbce2bd69e05ef"
+        }
       }
     },
     {
@@ -298,6 +319,26 @@
         "reason": "Same greeting and question; onks/onko is register.",
         "fingerprint": "3a4b00a33ef0e77e48c97c423c8c487be7bd084b455f32b47d9161680c3c4315",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "da61d60f3d830d92dbbbeed763162313e21c0a66cf94c3f5dd23b2b511c5d9ab",
+          "text": "Moi! Onks kaikki hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "86160aa18ff20eb5384885e166f3058518a7f90a4e9d7ddb9ebd47775427604b"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "44bb149b7ad55a311df81be640198f0bf116a6cd7caafc8be7c423c236a673ef",
+          "text": "Hei! Onko kaikki hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6493e2f4a71096b3f53124d64c6c40b0efe744023cf900edf034728602e6329f"
+        }
       }
     },
     {
@@ -419,6 +460,26 @@
         "reason": "Same: music is heard from your place late in the evening; dropped endings only.",
         "fingerprint": "19d02a9b1245ff723daccac24947a3796e1653b0a8949720394d5d0e80a4c93b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "918058f253daf34de6eed3b769f63ddf2dfc2d688045fb476a83f9c2595dcfb1",
+          "text": "Teilt kuuluu musiikkii myöhään illal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cc21d9c11f6cf63a40dacf277bdcd1700b4459af341f264be494744daff34fc2"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "872ad645c647c26cf94a02628420c79ec20c513bc2178914cac6cc3689500197",
+          "text": "Teiltä kuuluu musiikkia myöhään illalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3102bb6f0832000dbe02dd7aac6f580fd3ec647ae47ed47e2afa525406a983f6"
+        }
       }
     },
     {
@@ -533,6 +594,26 @@
         "reason": "Same: sorry, I didn't know; only register differences.",
         "fingerprint": "eebb37592a72c1c7604bb3fc4e018215c24f71691bc1f34be16cce35890da427",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d65c787692152a0055a6de957539dc453258da67defbf1182f9a1292e24714ee",
+          "text": "Voi anteeks! Mä en tienny.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ffc112f237418c3e61fb10e582501dba8420b8d73a438f5c0b39ee80bc54eae9"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "7ceeb6d43e963cfc06fc066bbb89479fb232744a503eb2584324121c7ec86b2d",
+          "text": "Voi anteeksi! Minä en tiennyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "623d7bdfba5fcd16ac962366409f38b38af71706dc2a1ba8fa0bb3e15812a4e1"
+        }
       }
     },
     {
@@ -695,6 +776,26 @@
         "reason": "Same: it's nothing, I go to sleep at ten; meen/menen, nukkuu/nukkumaan are register.",
         "fingerprint": "02e5c5838c16eae8fd06d599e0aeed9cb73a2df338d8758ff0e3bfc017bf53db",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b8719c473a2150cac80595b452befe68367dbab6e1bc1963b200fe504e318213",
+          "text": "Ei se mitään. Mä meen nukkuu kymmeneltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "76843cbd2f2b455dee2ed3771e2688babf9ea2eedeecf521356c6a12f65c9257"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "e73fc2d839c6805e3f35662f188c80508dc032004d567738128c64488602cd0c",
+          "text": "Ei se mitään. Minä menen nukkumaan kymmeneltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2a5ad436713b4accc7d962801115b148388d9697a7cfce9bd3330a933f0ab867"
+        }
       }
     },
     {
@@ -814,6 +915,26 @@
         "reason": "Same: I'll put the music on quietly; only mä/minä differs.",
         "fingerprint": "f582a2a9068b9fd24210ea35f93bed8afd7000a4e2bd1c920a31594b92dcd3f9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9775988af8b3cd7d9bca3d7984b6735f6d8b9bcfcd25f15ed6d3dbb67c84373b",
+          "text": "Selvä. Mä laitan musiikin hiljaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "167507e10ad1fcda92036342d4d676ae193128ee186bb2cb8ee826d9bd84933a"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "4786515d2088b33c8ee2ed1a7b923c9ea0a757759bdaa95d9cbf527228fd5494",
+          "text": "Selvä. Minä laitan musiikin hiljaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "edf11ac58d1fd5b1631306129af1ff420d560d6cf4137a890d07a6dffc2c3e98"
+        }
       }
     },
     {
@@ -867,6 +988,26 @@
         "reason": "Same: thanks a lot; kiitti/kiitos is register.",
         "fingerprint": "2b196369acaf49574e01731505ec13446e970d5e460db122256af127607df74f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "69c939aaf7e2d72c53af74c34f9412a3521b40a9d430b004f1743d95dafe860d",
+          "text": "Kiitti paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1414872fb461fdd14caee7b14c3e8697dd1aa45024f9248a8ee5e4c142636282"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "7410b36c2d6cf2bbfda487470c27e937179bf9d5c9b5aca93d0af759ba609bb7",
+          "text": "Kiitos paljon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b464ba8d0c03c8e190f5b71af7e3cabdc1d22299b5348fbeeb45af2b6b61cb72"
+        }
       }
     },
     {
@@ -965,6 +1106,26 @@
         "reason": "Same: thanks for telling; et/että and sä/sinä are register.",
         "fingerprint": "2c1a1ecf2c33d3c9a26dd050b106cbf1f1ef5620d1291f81350a1b88da8bc104",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "4dcd4218b8d30ce29e4cf2df3aae333ca3f69dc9c061fa7d8de7a503a711d708",
+          "text": "Kiitti et sä sanoit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5c49fd22bf92f6443cd258ea1694edc838176c3fc5961bb5922faa016a02ca4c"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "73ea1d2a3daeb26a7312954280d7a30816922dbcadfd8f5e682ef92ecaf2b5d7",
+          "text": "Kiitos, että sinä sanoit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "564048e7932a56223e1e70d6a90cff43add2d2de75bad1182000f6a6f94d75b6"
+        }
       }
     }
   ],

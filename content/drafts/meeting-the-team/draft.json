@@ -93,7 +93,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -276,6 +277,26 @@
         "reason": "Only register differences: tää/tämä, sun/sinun, eiks/eikö; same meaning.",
         "fingerprint": "15aa8ffd2a029835ff6e5f2dd98ac29030e3764cf64c16c54dd93a842ebfeeff",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "64c16e5fcd8e2dd1adc58ff41e8ba6f061aa4ddf427754e542d656ca2548882c",
+          "text": "Tervetuloo! Tää on sun eka päivä, eiks niin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bd2ad7aef5f3fea58ac518ab10e42214a9f50617c40e608101bb52803afcb574"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6e5f66c071708696ac208572f110bb06a068665eb1fad3a02f362dc28a623572",
+          "text": "Tervetuloa! Tämä on sinun ensimmäinen päiväsi, eikö niin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "44213f0af41cf1b1435654831d21cabc9d9dbf03478b02e51abb0bef961a6e90"
+        }
       }
     },
     {
@@ -394,6 +415,26 @@
         "reason": "Joo/kyllä, mä oon/minä olen, jännittyny/jännittynyt are register variants.",
         "fingerprint": "e669d6f17870d29f39618669f98f7773ac71473cb8f317b1af329adf11b83c1b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "7c887472705358cfca7957cd8ae98255232d24aa954cf74e05e1de75b9b9c514",
+          "text": "Joo! Mä oon vähän jännittyny.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "12cf06eeab356d30fdb05790acc1f3ca882d85a0bdc39c5a70f6677bf1e5d177"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a8178fcadd3880ff395618bd7a2c57d4a75a158c15f23e7fba52e73d0d0e7caa",
+          "text": "Kyllä! Minä olen vähän jännittynyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4d9bc6c794689f9b3a96c30ece4357070d0329c6838122f5c2f00c17827909ee"
+        }
       }
     },
     {
@@ -637,6 +678,26 @@
         "reason": "Täs/tässä, ne on/he ovat, sun/sinun are register differences; same people and place.",
         "fingerprint": "9fb5cb1daaf575dcb2231b52c379f4a68d5aca6c306c64ef816fe7bf18c59a53",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "48ad1ffd57a5005a35a9d68e2d478a8b8ed1c9f3a74579677d7b3ff75fe1f2f3",
+          "text": "Ei hätää. Täs on Ville ja Aino. Ne on sun tiimissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6bda8e08deb42984e96faddefa17f3b57273f2d1321c9642231a1d711b14808c"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "c9c41ff2cb410ac494a6659cb4387d0d9db20045679b8d3a2f42b2cba16412d3",
+          "text": "Ei hätää. Tässä ovat Ville ja Aino. He ovat sinun tiimissäsi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4c8b0a08f07c9ce1fa3c1985b0f83c595a1532a89dbd0c29724db7a4dbfefabb"
+        }
       }
     },
     {
@@ -774,6 +835,26 @@
         "reason": "Moi/hei, et/että, sä/sinä; same meaning.",
         "fingerprint": "8c476492f36a8bfad914e4fc7883f6bd12aa30d4d1f97f58b0e9bf89a34a4f7b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "07656cd6c21b5dc5d69d13366d03e021fb70eb175e3989b9a0a1974126d1b505",
+          "text": "Moi Maria! Kiva et sä tulit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "16b07960d0f39203922592939a28ff96ab5952d75131b5a6a863cec285ebd9e9"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b9d040cd52548f8f684d479e0fe3ea6311aec351e77f62a197a3c8e39cf1f870",
+          "text": "Hei Maria! Kiva, että sinä tulit.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f2bbc13c1f22282f09c2b4c4aec7eb66e6328a962c299a5ce9a17dc4f46f1940"
+        }
       }
     },
     {
@@ -890,6 +971,26 @@
         "reason": "Moi/Hei only; the question is identical.",
         "fingerprint": "fc206ed3302fa539f1f314122fdf149bffc22e1c16067fc6502c8c688e803fea",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "41f2254c09b866f4cb11981997aa3b0423c8809985f557a8b28602a6222cba62",
+          "text": "Moi! Mitä te teette täällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1c8a08da5326939b75e8576e1091a88911634b636a7ec7a95e1626a58388cdce"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "24c491be9a33ed5c1f684871d081197903079b4caf3c3c40d6b8f36b7c9617a8",
+          "text": "Hei! Mitä te teette täällä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5e6fe7795b0a2a91a80cfd83131a097f099be8ad2608a5e1e403ee21486b9dc4"
+        }
       }
     },
     {
@@ -970,6 +1071,26 @@
         "reason": "Tehään is spoken form of teemme (we do); same meaning.",
         "fingerprint": "2ea6ff436a094afe5ba1e74fb8bd2f7e4f81a8d7d749f18db52a14dc3a8d089d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9d3337353cca22530bccfcb58559d0d1418de7a1f7d56ce1f5e7fc1aaf671cde",
+          "text": "Me tehään asiakaspalvelua.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "12bf3c946e7cdd1ca8dd8d42cc47e8f615c4956ea739c58461434a0660979797"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "357d28b3eb18098efe120dc71c0e1fd737486de85fdcc6613b7d616d774978db",
+          "text": "Me teemme asiakaspalvelua.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b697c0b6c1637664eb9b5eeb062c6298ceadb9f943ecfc4e8efc748c4cd123ba"
+        }
       }
     },
     {
@@ -1111,6 +1232,26 @@
         "reason": "Sun/sinun, vieres/vieressä; same workstation by the window.",
         "fingerprint": "1b93ed59e6e146938f512a9bfaf49686fc91d8692a0b331e1cd02b723e983595",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "45abe4c6fb2b552f8b6295650a4c75c70efbe3f04c4020ccf7998af65027d5a8",
+          "text": "Sun työpiste on tuolla ikkunan vieres.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "93ef7f6b99a7cef7e309ff5d074e5d8b2daf21a27a03b6c15fbdbd995bf57d2f"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "b5243022e8785caa863801fbd07e5f742595880c461c9cf9a766452f15a0ee3f",
+          "text": "Sinun työpisteesi on tuolla ikkunan vieressä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1dd2cd7f0c7ad25aa4cb6ad886886e78325f90c84b7304a8ea4239e09e7af245"
+        }
       }
     },
     {
@@ -1232,6 +1373,26 @@
         "reason": "Kiitti/kiitos and tää/tämä are register differences; same meaning.",
         "fingerprint": "e0cff2bac90fd3838ef11b6a97005d67bcfd5f939cd2855540b1152badae7753",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "fa663e79655007a7960b9f4ea72714aa7a34a82fc819c683a9d52cb4aba1feb0",
+          "text": "Kiitti! Tää on kiva paikka.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c690de934ec0e02b9842e4de4c66982cfe20e518fcd3558457dda93a9b87e551"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c2e3a95f0644a01917fb70ed1d1622b1c944aa1e269313bc3bda50fe05521dfc",
+          "text": "Kiitos! Tämä on kiva paikka.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2892eaed03f29440609d2fef302befd6ec219e556612876fd7835c3bfaabb1ec"
+        }
       }
     }
   ],

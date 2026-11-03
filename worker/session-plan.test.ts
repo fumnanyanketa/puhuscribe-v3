@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { SessionRow } from './learner-db.ts'
-import { audioPath, pickToday, sessionLines, splitLine } from './session-plan.ts'
+import { audioPath, newWordsOf, pickToday, sessionLines, splitLine } from './session-plan.ts'
 import { sampleContent, sampleDialogue } from './test-fakes.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -88,5 +88,33 @@ describe('audio paths', () => {
     ]) {
       expect(audioPath(key), key).toBeNull()
     }
+  })
+})
+
+// [word-meanings 1] and [word-meanings 2]: this quick-lane fix (3 November 2026).
+describe('word meanings', () => {
+  function withMeanings() {
+    const content = sampleContent()
+    return {
+      ...content,
+      forms: content.forms.map((form) =>
+        form.id === 2 ? { ...form, meaning: 'I', baseMeaning: 'I, me' } : form,
+      ),
+    }
+  }
+
+  it('[word-meanings 1] a line word and a new word carry the form meaning and the dictionary meaning', () => {
+    const content = withMeanings()
+    const mä = sessionLines(content)[0]?.spoken.find((word) => word.text === 'Mä')
+    expect(mä?.form).toMatchObject({ lemma: 'minä', meaning: 'I', baseMeaning: 'I, me' })
+    const fresh = newWordsOf(content, [2]).find((word) => word.form.lemma === 'minä')
+    expect(fresh?.form).toMatchObject({ meaning: 'I', baseMeaning: 'I, me' })
+  })
+
+  it('[word-meanings 2] a form with no meanings has neither field', () => {
+    const moi = sessionLines(withMeanings())[0]?.spoken.find((word) => word.text === 'Moi')
+    expect(moi?.form).toBeDefined()
+    expect(moi?.form).not.toHaveProperty('meaning')
+    expect(moi?.form).not.toHaveProperty('baseMeaning')
   })
 })

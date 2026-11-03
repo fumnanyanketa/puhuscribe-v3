@@ -89,7 +89,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -193,6 +194,26 @@
         "reason": "mis is a colloquial form of missä (where); same question.",
         "fingerprint": "345468ac066b1ce8f0388ec9c27ddca5ed766701668a79225e4b5ee4b895b375",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "7bbfc763433245e2732863adec38a02bfbc8afff0f6cec5eceb8ec5dad64b2e4",
+          "text": "Aino, mis on kahvihuone?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0cab2333d9742cc391be5e95e0678d665d62301a9a6d9741afeca5492fe7cf44"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "53b49f8bd94b56ee83057ff423a04a59edbe5ed36d8f4e95d67b302866018a05",
+          "text": "Aino, missä on kahvihuone?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ed1984efd6b2cf0fd0ea5e1b45ab8398f41146fe6a9ea6ad3a629730ff664c49"
+        }
       }
     },
     {
@@ -272,6 +293,26 @@
         "reason": "pääs/päässä and vasemmal/vasemmalla are only register differences; same location.",
         "fingerprint": "d9d60e2127780ffe907cd531a3712c1aedf53d3d13d8eeaac9eb8bce74ad5a32",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "09f3af6876d46b77406c304dc807ec8252bccfefaefa01666f7131044efe142d",
+          "text": "Käytävän pääs, vasemmal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "dcfa22458807061c2312d61db7ed1aebc99dbd3e567580f349ecb95b88016c3a"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "8f1384fdad45ae0f10ebcf0cd96730bdf8dbceb75ccb5742e8a2060e7e80538c",
+          "text": "Käytävän päässä, vasemmalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f0f4482e82bcd4ec8b28e23e37fb16af2c8f73e6d932a50b4fff3bf1559ff7dc"
+        }
       }
     },
     {
@@ -351,6 +392,26 @@
         "reason": "Onks siel is colloquial for Onko siellä; same question about a coffee maker there.",
         "fingerprint": "a81900528b7af836df36e30e1960c1e0326b4b5288a0bf1c0c1c9016cdae862c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "5d53408e133e656b113507da1667c1a931ac7a3a7d9fded7178eac316c3f2a95",
+          "text": "Onks siel kahvinkeitin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "21934b121b39463971e852f6d4eece7c9eb8b62d3174b16615ab744232a80291"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "aed2ee4f5afc60d838775a2aa56b7622f9a24bd3e8b8869189dd0338f224689b",
+          "text": "Onko siellä kahvinkeitin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c76fc44bdecc83ef78c0d296e6ffc641cc8a2a9eb5efa94dc25efa455d7a16ff"
+        }
       }
     },
     {
@@ -467,6 +528,26 @@
         "reason": "mikro is the colloquial short form of mikroaaltouuni (microwave oven); same items.",
         "fingerprint": "99bcbecb3ccda0da5f4cd5e162d5c66bc0025564f83fa941302ecda46b4da34e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c2d544136a5da7549f90082fa3dd238e2d81b530fabeb1abb7e917912992fc90",
+          "text": "On, ja jääkaappi ja mikro.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9f4681055b3a06f77d718e35488bfc95c3f4a42456f79564293b58745b3aaebe"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "e4f68b50bbc11d96eec2430a977305619e79924edaec4cf4f61680097e6d1eb5",
+          "text": "On, ja jääkaappi ja mikroaaltouuni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7e3ba99974945a5e4b16d67c855b8667fef1d34196fc452c8d5e3f7b71619b3a"
+        }
       }
     },
     {
@@ -545,6 +626,26 @@
         "reason": "Millon is colloquial for milloin (when); same question.",
         "fingerprint": "620f725839a804a78150b6c2f3c55e59d65597adbe2efab90555c4d5a2226181",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "16c0119fe051fb2dd7bdc4a3bbfc25614361277d096b3b772d1fe737428072bf",
+          "text": "Millon on kahvitauko?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6ecca8e78360e8911773fb97ce608580ba978fe3a5d66533ddab69ec15762bd6"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "53315cd9220b35f046d7082e4751e3109cc1bd6786eefe4318fa0c7045afd59c",
+          "text": "Milloin on kahvitauko?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4023e53b37113f4bbaad240a5e94201ce60efb4541c3332a907bb9048f2150b2"
+        }
       }
     },
     {
@@ -638,6 +739,26 @@
         "reason": "kahelta is colloquial for kahdelta (at two); times are the same.",
         "fingerprint": "4dc694c6be9baa49efb4bf3d396d6b2c34004853056afe6b700de82853b70c21",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "53648bfd6b12d8f1a6157de853807bcf230b0ded5d0234eb98013fa39fc517b7",
+          "text": "Yleensä kymmeneltä ja kahelta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ddf9b740ddb0faff493d15c6d7dc6a3cb3649f49d9ae38bd207311c1906e2d78"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "84de76fd9de0ddc3d005d31849260e8090038a3fe8681f4c0e5ff3e0758cce8c",
+          "text": "Yleensä kymmeneltä ja kahdelta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "21a6b4e1803af02967969246edfef9ff3a9e86e04a0203ff2dc098fa27c523cd"
+        }
       }
     },
     {
@@ -693,6 +814,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "f59a6a5b0a405797eb005633207cf9fd354270eb0a114a284e4902b0eecb5199",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "9f819d4f631480e58195a2da2900ea7ca4491902e06928b818ba9893e260702b",
+          "text": "Entä lounas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4a5cfba98f1418f4861651a9f992cdd0fa1d1334bdaba9a980af58d591e0b899"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "e5b537723a3c1cbfed6456578e0686528849d5232c95e19b94840e6eef04e46d",
+          "text": "Entä lounas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4a5cfba98f1418f4861651a9f992cdd0fa1d1334bdaba9a980af58d591e0b899"
+        }
       }
     },
     {
@@ -792,6 +933,26 @@
         "reason": "Puol kakstoist is colloquial for puoli kaksitoista (half past eleven, i.e. 11:30); the same time, and the invitation to go together is the same.",
         "fingerprint": "d692b3e47f9ecf30034250c6f89e70293324a4260c6511bc00a427f95eda4929",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "6176b1793a7691ae0cf46c19514f7ccec0f52860f0057b5877e0533022bc8de6",
+          "text": "Puol kakstoist. Mennään yhdessä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8e71c093a3cc9527287d9f0041898fdecd34b6f709cea03f6aa20323b8e61873"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b637a9a7a2d8a38740b6ca7787f72fcc05edcb824dbd24b6eeb353df56766024",
+          "text": "Puoli kaksitoista. Mennään yhdessä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2161cf44a6d126b7505b060be2bf50dad1a61540609789637e7a034ff0a3f00e"
+        }
       }
     }
   ],

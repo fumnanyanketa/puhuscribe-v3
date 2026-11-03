@@ -11,10 +11,24 @@
 # only). Never live values. The pull request browser tests hold no secret.
 # Owner's rule from job 3-data-model (20 October 2026): database changes reach
 # the shared test project only after the owner approves a job, which is when it
-# is merged to main. Pull requests test every migration, and run every browser
-# test, on a throwaway local database and never change the test project.
+# is merged to main. Pull requests test their migrations, and run the browser
+# tests, on a throwaway local database and never change the test project.
 # Actions not made by GitHub are pinned to a full commit, with the version in a
 # comment, so a moved tag cannot change code that receives a secret.
+#
+# Until the MVP launch (owner's decision of 3 November 2026, job fast-checks):
+# no test runs on a pull request or a push. Each change gets only the secret
+# scan (the repository is public), a pull request also gets its preview link
+# (no browser test against it), and a push to main applies new migrations to
+# the test project. Every test runs in the full run, started by hand (Actions,
+# Checks, Run workflow, tick "full"): the type check, lint and format, the unit
+# tests, the Python tests, the dependency check, every database test, every
+# browser test on Chromium and WebKit, and on main the browser tests against the
+# test project. The owner runs it once, when everything is set for the MVP
+# launch. No test is deleted. After the launch, removing the full-run `if:`
+# lines from the test jobs brings back the fast run (the @smoke browser tests
+# on Chromium, and the database tests only when scripts/ci/checks-plan.ts says
+# the change needs them).
 name: Checks
 
 on:
@@ -22,17 +36,22 @@ on:
   push:
     branches: [main]
     # A push to main that changes only factory notes or recording files runs
-    # none of these checks (about 14 minutes each time, job 6-pr-local-db).
-    # Such a push holds no app code and no migration, so the apply job has
-    # nothing to do. GitHub requires no check on this repository (branch
-    # protection is not available on its plan). Those pushes still get a
-    # secret scan from secret-scan-notes.yml. Pull requests always run
-    # everything.
+    # none of these checks. Such a push holds no app code and no migration, so
+    # the apply job has nothing to do. GitHub requires no check on this
+    # repository (branch protection is not available on its plan). Those
+    # pushes still get a secret scan from secret-scan-notes.yml. Pull requests
+    # are never filtered by path.
     paths-ignore:
       - 'factory/**'
       - 'recording/**'
-  # Manual run. The secret scan then reads the full git history.
+  # Manual run. The secret scan then reads the full git history. Tick "full"
+  # for the one full run before the MVP launch.
   workflow_dispatch:
+    inputs:
+      full:
+        description: 'Full run: every browser test on Chromium and WebKit, every database test, and on main the browser tests against the test project (about 30 minutes)'
+        type: boolean
+        default: false
 
 # Pull requests: a newer push to the same pull request cancels the older run
 # (saves check minutes). Pushes to main and manual runs: each run is its own
@@ -49,10 +68,60 @@ permissions:
 env:
   NODE_VERSION: '24'
   PYTHON_VERSION: '3.12'
+  # 'true' only in a manual run with "full" ticked. Steps read it as $FULL_RUN.
+  FULL_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.full }}
 
 jobs:
+  changes:
+    name: Which checks this change needs
+    # Decides whether the database tests run. A manual run always runs them.
+    # Otherwise they run when the change touches supabase/, a scripts/generate/
+    # file that writes SQL tests or migrations, or another file the database
+    # job reads (scripts/ci/checks-plan.ts lists them). When the changed files
+    # cannot be listed, they run. No secret, no npm ci, no branch packages.
+    # Until the MVP launch it runs in the full run only (see the top).
+    if: github.event_name == 'workflow_dispatch' && inputs.full
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      database: ${{ steps.plan.outputs.database }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          # The base of the pull request, or the commit before the push, for the diff.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Do the database tests need to run?
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -o pipefail
+          if [ "$EVENT" = workflow_dispatch ]; then
+            database=true
+            echo "A manual run: the database tests run."
+          elif [ -z "$BASE_SHA" ] || ! changed=$(git diff --name-only --no-renames "$BASE_SHA...HEAD"); then
+            database=true
+            echo "The changed files could not be listed, so the database tests run."
+          else
+            echo "Changed files:"
+            printf '%s\n' "$changed"
+            database=$(printf '%s\n' "$changed" | node scripts/ci/checks-plan.ts database-tests)
+          fi
+          if [ "$database" = false ]; then
+            echo "::notice title=Database tests skipped::This change touches no file under supabase/, no scripts/generate/ file that writes SQL, and no other file the database tests depend on (scripts/ci/checks-plan.ts), so the database tests (pgTAP) were skipped. A manual run of this workflow runs them."
+          fi
+          echo "Database tests needed: $database"
+          echo "database=$database" >> "$GITHUB_OUTPUT"
+
   code:
     name: Type check, lint, format
+    # Until the MVP launch: the full run only (see the top).
+    if: github.event_name == 'workflow_dispatch' && inputs.full
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -77,6 +146,8 @@ jobs:
 
   unit:
     name: Unit tests (Vitest)
+    # Until the MVP launch: the full run only (see the top).
+    if: github.event_name == 'workflow_dispatch' && inputs.full
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -100,6 +171,8 @@ jobs:
 
   python:
     name: Python tests and lint (pytest, ruff)
+    # Until the MVP launch: the full run only (see the top).
+    if: github.event_name == 'workflow_dispatch' && inputs.full
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -131,8 +204,12 @@ jobs:
           sudo unshare --net -- sudo -u "$USER" env -u ANTHROPIC_API_KEY -u AZURE_SPEECH_KEY "PATH=$PATH" \
             python -m pytest scripts/generate --junitxml=pytest-results.xml
       - name: All 318 Python tests ran and passed (the 9 Voikko gate tests among them)
-        # Raised from 9 by job 7-content-pipeline (138 after its round 2) ("Done when" 12), then to 193 by job 12-units-1-3 (scripts/generate/test_units_1_3.py), and later to 308 by job 20-a1-road (the road tests: 11 in round 2, 5 in round 3, 9 in round 5 and 6 in round 6), then 317 after later rounds, and 318 when part 1 was published (the publish task test). No test is
-        # removed: v2's 9 Voikko gate tests must still be in the results.
+        # Every Python test runs in the fast run and in the full run; none is
+        # left for the full run only. The count only ever goes up: 9 at first,
+        # 138 after job 7-content-pipeline ("Done when" 12), 193 after job
+        # 12-units-1-3, 308 after job 20-a1-road, 317 after its later rounds and
+        # 318 when part 1 was published. No test is removed: v2's 9 Voikko gate
+        # tests must still be in the results.
         if: success() || failure()
         run: |
           python - <<'PY'
@@ -159,6 +236,11 @@ jobs:
     # A throwaway Supabase database inside the runner: Postgres only, started
     # empty, with every migration in supabase/migrations applied in order. Then
     # the pgTAP security tests in supabase/tests run against it. No secrets.
+    # Runs when the "Which checks this change needs" job says the change needs
+    # it. Until the MVP launch that job runs in the full run only, so this job
+    # does too, and always says yes there.
+    needs: [changes]
+    if: needs.changes.outputs.database == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -238,13 +320,15 @@ jobs:
     name: Apply database changes to the test project
     # Runs only on a push to main, which happens when the owner approves a job
     # and it is merged (owner's rule from job 3-data-model). Never on a pull
-    # request, another branch or a manual run. It also waits for the database
-    # tests to pass on the throwaway database.
+    # request, another branch or a manual run. Until the MVP launch (owner's
+    # decision of 3 November 2026) no database test runs before it: it runs on
+    # every push to main, so content publishing reaches the test project. A
+    # push with no new migration applies nothing. If an apply fails, re-run
+    # the failed jobs of that run from its Actions page.
     # The test database password (SUPABASE_TEST_DB_URL) is used here and nowhere
     # else. This job runs no npm ci and no project code, so the password is
     # never present while branch packages run, and it is passed only to the two
     # steps that need it. Dependabot never pushes to main and gets no secrets.
-    needs: [database]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
     # Two applies never run at once, and none is dropped: a second main run's
     # apply waits in this queue until the first one has finished.
@@ -273,7 +357,14 @@ jobs:
 
   browser:
     name: Browser tests (Playwright, local Supabase)
-    # Pull requests (Dependabot included) and manual runs. A throwaway Supabase
+    # Until the MVP launch: the full run only (see the top). After the launch,
+    # without the if line below, every pull request (Dependabot included),
+    # push to main and manual run. The fast run tests Chromium only, with the
+    # tests tagged @smoke: the road,
+    # one whole lesson through Hear it, Understand it, Say it and Keep it, the
+    # word card, sign in, the account page and privacy. The full run (a manual
+    # run with "full" ticked) runs every test on Chromium and WebKit, then the
+    # @empty-content tests. A throwaway Supabase
     # inside this runner, started empty with every migration in
     # supabase/migrations applied, so a pull request that adds a table can test
     # it before the owner approves it. Nothing is shared with any other run, so
@@ -283,9 +374,9 @@ jobs:
     # job 11-accounts); a job that needs another removes its name from -x.
     # This job holds no secret. The local stack makes its own keys, which work
     # only on this runner, and the database is never opened to the internet.
-    # It starts at the same time as the database check and waits for nothing.
+    # It waits for no other job.
     # Spec: factory/jobs/6-pr-local-db/spec.md.
-    if: github.event_name != 'push'
+    if: github.event_name == 'workflow_dispatch' && inputs.full
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -360,10 +451,21 @@ jobs:
         env:
           VITE_DESIGN_REFERENCE: '1'
         run: npm run build
-      - name: Install Chromium and WebKit
-        run: npx playwright install --with-deps chromium webkit
+      - name: Install Chromium (and WebKit in the full run)
+        run: |
+          if [ "$FULL_RUN" = true ]; then
+            npx playwright install --with-deps chromium webkit
+          else
+            npx playwright install --with-deps chromium
+          fi
       - name: Browser tests at 375 x 812 against the built app
-        run: npx playwright test
+        # Fast run: Chromium, the @smoke tests. Full run: every test, both browsers.
+        run: |
+          if [ "$FULL_RUN" = true ]; then
+            npx playwright test
+          else
+            npx playwright test --project=chromium --grep @smoke
+          fi
       - name: The app made guest accounts in the throwaway database
         # Proves the app talked to this runner's database, not another one.
         # Job 8-first-session dropped the visits table this step used to
@@ -381,7 +483,9 @@ jobs:
         # the session screen says it is not ready. Every unit is set back to
         # draft in this throwaway database (which hides every dialogue), then
         # only the tests tagged @empty-content run. Each first proves nothing
-        # is readable. Their files go to their own folder, kept below.
+        # is readable. Their files go to their own folder, kept below. Full run
+        # only: these tests are not in the fast set.
+        if: env.FULL_RUN == 'true'
         run: |
           psql "$LOCAL_DB_URL" --no-psqlrc --quiet -v ON_ERROR_STOP=1 -c "update public.units set status = 'draft' where status = 'approved'"
           PUHUSCRIBE_EMPTY_CONTENT=1 npx playwright test --grep @empty-content --reporter=list --output=test-results-empty-content
@@ -399,13 +503,15 @@ jobs:
 
   browser-test-project:
     name: Browser tests against the test project (after merge)
-    # Pushes to main only, once the owner-approved migrations are applied to
-    # the test project. Skipped on pull requests and manual runs, where the
-    # apply job is skipped. Tests tagged @seed need rows that exist only in the
-    # throwaway database, so they are left out here.
+    # The full run only: a manual run on main with "full" ticked (owner's
+    # decision of 3 November 2026). Pushes to main no longer run it. The test
+    # project already holds main's migrations, applied by the merge run's apply
+    # job; in a manual run that job is skipped, so this job checks it was not
+    # run here and that the database tests passed. Tests tagged @seed need rows
+    # that exist only in the throwaway database, so they are left out here.
     # The only browser test job that receives the test project settings.
     needs: [database, apply-test-db]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.apply-test-db.result == 'success'
+    if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && inputs.full && github.ref == 'refs/heads/main' && needs.database.result == 'success' && needs.apply-test-db.result == 'skipped' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -497,6 +603,8 @@ jobs:
 
   dependencies:
     name: Dependency check (npm audit, pip-audit)
+    # Until the MVP launch: the full run only (see the top).
+    if: github.event_name == 'workflow_dispatch' && inputs.full
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -522,19 +630,20 @@ jobs:
 
   preview:
     name: Preview link (Cloudflare Worker behind Access)
-    # Only after every check above passed, and only on pull requests in this
+    # Only after the secret scan passed, and only on pull requests in this
     # repository. Dependabot pull requests get no secrets, so they skip it.
-    # On a pull request the apply job is always skipped (owner's rule), so each
-    # result is checked by name: every other check must have succeeded, and the
-    # test project must not have been changed.
-    needs: [code, unit, python, database, apply-test-db, browser, secrets, dependencies]
+    # On a pull request the apply job is always skipped (owner's rule), so it
+    # is checked by name: the secret scan must have succeeded, and the test
+    # project must not have been changed. Until the MVP launch (owner's
+    # decision of 3 November 2026) no test runs on a pull request, so the
+    # preview waits for nothing else, runs no browser test, and its comment
+    # says so. Before this decision the preview also ran the fast browser
+    # tests when the Access service token secrets were set (see git history).
+    needs: [secrets, apply-test-db]
     if: >-
       !cancelled() && github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
-      needs.code.result == 'success' && needs.unit.result == 'success' &&
-      needs.python.result == 'success' && needs.database.result == 'success' &&
-      needs.apply-test-db.result == 'skipped' && needs.browser.result == 'success' &&
-      needs.secrets.result == 'success' && needs.dependencies.result == 'success'
+      needs.secrets.result == 'success' && needs.apply-test-db.result == 'skipped'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
@@ -605,6 +714,10 @@ jobs:
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
           ALIAS: ${{ steps.alias.outputs.alias }}
         run: |
+          # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the
+          # account from the API token itself. An empty value is removed so
+          # wrangler does not read it as an account.
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then unset CLOUDFLARE_ACCOUNT_ID; fi
           secrets_file="$RUNNER_TEMP/worker-secrets.json"
           trap 'rm -f "$secrets_file"' EXIT
           node scripts/ci/write-test-settings.ts json "$secrets_file"
@@ -616,58 +729,13 @@ jobs:
           url=$(grep -oE "https://$ALIAS-puhuscribe-preview[.][a-z0-9-]+[.]workers[.]dev" "$RUNNER_TEMP/upload.log" | head -1)
           if [ -z "$url" ]; then echo "No preview alias address in the upload output"; exit 1; fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
-      - name: Install Chromium and WebKit
-        run: npx playwright install --with-deps chromium webkit
-      - name: Browser tests against the preview, with the evaluator's service token
-        env:
-          PLAYWRIGHT_BASE_URL: ${{ steps.upload.outputs.url }}
-          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-          DB_CHANGED: ${{ steps.database.outputs.changed }}
-          # No trace and no HTML report, even if the token were missing.
-          PUHUSCRIBE_NO_TRACE: '1'
-        # With a database change, screens that need it cannot work on the
-        # preview yet, so only the Cloudflare Access lock tests (@preview) run
-        # here; the full suite ran on the throwaway database. Otherwise the
-        # suite runs, without tests that need browser seed rows (@seed) or the
-        # local mail catcher (@email, job 11-accounts).
-        run: |
-          if [ "$DB_CHANGED" = true ]; then
-            npx playwright test --grep @preview
-          else
-            npx playwright test --grep-invert "@seed|@email"
-          fi
-      # Playwright ran with the service token headers, so it wrote no trace, HAR
-      # or HTML report (playwright.config.ts). Only screenshots and videos are
-      # uploaded, and only after the guard finds no secret value in any file.
-      - name: Check the files to upload hold no secret value
-        id: upload-guard
-        if: success() || failure()
-        env:
-          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
-          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
-        run: >-
-          node scripts/ci/check-files-for-secrets.ts
-          --env CF_ACCESS_CLIENT_ID --env CF_ACCESS_CLIENT_SECRET --env SUPABASE_PUBLISHABLE_KEY
-          --env AZURE_SPEECH_KEY
-          playwright-report test-results
-      - name: Keep the preview screenshots and videos
-        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
-        uses: actions/upload-artifact@v7
-        with:
-          name: preview-screenshots-and-videos
-          path: |
-            test-results/**/*.png
-            test-results/**/*.webm
-          if-no-files-found: ignore
-          retention-days: 14
       - name: Post the preview link on the pull request
         env:
           GH_TOKEN: ${{ github.token }}
           URL: ${{ steps.upload.outputs.url }}
           DB_CHANGED: ${{ steps.database.outputs.changed }}
+          # No browser test runs on a pull request until the MVP launch.
+          TESTS_RAN: 'false'
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           body=$(node scripts/ci/preview-plan.ts comment)

@@ -86,7 +86,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -203,6 +204,26 @@
         "reason": "Moi and Hei are both greetings; the rest is identical.",
         "fingerprint": "3d5c9bc6b2954ffb670be3710bed442491cd6ec5843931e9612a601d672167de",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f5d8a1c1a43180fbd7424bf0bebf0dfa6d37c069b1f5171f17f8f3e14edbd1fa",
+          "text": "Moi, täällä Maria, Lucasin äiti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f0a6d52b9b53dcdcca2aab8a41c38238ef84a4db279033f381799f4750056450"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "9ffbe43d233b5e5c566868108ecb6146d9958b8e72c9aa293b252bd96d2346a6",
+          "text": "Hei, täällä Maria, Lucasin äiti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0fed528ea1eb6ca1d50f0fb991a0a8c1256752081ac99c79fcafc573c18ddcae"
+        }
       }
     },
     {
@@ -258,6 +279,26 @@
         "reason": "Moi and Hei are register variants of the same greeting.",
         "fingerprint": "b145b6e52c459896333039f3a4e38e464715ab2b9a0d17cbc8bf5cf18c8163d4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "39a2ae122c3797fe734e74cb3ae4d8e24314986cfb05e549361b766dd9a97a4b",
+          "text": "Moi Maria!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "74d1a961e643f6b0fd884c507e1c9905e1ee0fe240b466dd81182edbef1e86a8"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "2dacd61d9db2b95552eb3051624b55c96967fd69535db871d84627aec9ffe711",
+          "text": "Hei Maria!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1704d95c5a552b542bcc7e9865fafd7745dd8f13a50eb9ee8120cb9baa931ece"
+        }
       }
     },
     {
@@ -437,6 +478,26 @@
         "reason": "Kipee and sairas both mean sick; se and hän both refer to Lucas; tuu is the spoken form of tule.",
         "fingerprint": "9974a8b4afacaf215007eeb5726aa33226d1bda33b5ba85ccde7566531cfa600",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "ca05ac68705e159b0436966226a1300796a348f99a97645b74d1aa5c96f12f15",
+          "text": "Lucas on kipee tänään. Se ei tuu päiväkotiin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e2ce9d98cfceda0ca186cc213f30cf30593bb235dd1b565d8edb511743414826"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "0c2f1d1140814e91c8d603dee0aa290520ba481e430637e6c6e3044593f38eb8",
+          "text": "Lucas on sairas tänään. Hän ei tule päiväkotiin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8758d267849f022a9b2e6d2562b3d2f853c592c8da04e1e71a507fff3b78898e"
+        }
       }
     },
     {
@@ -557,6 +618,26 @@
         "reason": "Onks sil is the spoken form of onko hänellä; both ask whether he has a fever.",
         "fingerprint": "2cb3f6c6db12bc3f9a46674e8dba2824f951223c10046f30b50956c38ce77147",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e568207e22a4453f994a70ccf867ba0ace88a57fb21c7b01d482dfc6f365fc82",
+          "text": "Voi ei. Onks sil kuumetta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "18f0175b2f0790bf37e92917727542206fd2064d03733ef7f34bf66095bb860b"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8ad2ebfc3548a7fb4bb88a8621418abb6a484ca45eea297a1d22c9dc9b4de4c0",
+          "text": "Voi ei. Onko hänellä kuumetta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d5f6a24cc203305cf3ce32b8e4428d83df6c1d12997d37d0a0a8e005a6fa8b34"
+        }
       }
     },
     {
@@ -648,6 +729,26 @@
         "reason": "Joo and kyllä both mean yes; the content is the same.",
         "fingerprint": "399335766c949be9034f26c26590c441d359266ceae33bd76a606f443c3feb6a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "5342fdd0abe5ad0ae202281b84d7babf9afc3f22395985c2afbe4fda1b71f117",
+          "text": "Joo, vähän. Ja nuha.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "995bd73c5e7cde8a70a73c9df007a39025db3a95b82656f37ccfda659969f595"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "41772cf0e62a3f1f2dcefdfc71d9fb6e78eb77a477d4ddb1ad160ea17effcea2",
+          "text": "Kyllä, vähän. Ja nuha.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1a0a5cb3ae40ab493745b80d387f27a8881c830e3a19f4c9dd7205bfc63dc07f"
+        }
       }
     },
     {
@@ -768,6 +869,26 @@
         "reason": "Kiitti and kiitos both mean thanks; pikasta and pikaista both mean quick; same wish.",
         "fingerprint": "11281c97eaba3d20da5c810232c3d513744a3e91e5e71a41594e5a71b40d3383",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "4799a90499b1ecb1e3b7fec67dfa032e438efe78ca0caba4610daebdfc2094e0",
+          "text": "Selvä, kiitti tiedosta. Pikasta paranemista!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "069453b986a333452f8a1f4d89096b9da6a46fecc7d37413573736d825a51ea3"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "448c8cc9f24fee612ef5aeb814ed7670cf9c86aa94cb3f7a580eadd64f6371a4",
+          "text": "Selvä, kiitos tiedosta. Pikaista paranemista!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "834afdc6ca3f0b261f8d15940ac3ad53b47b4a83dbbf89cad1b961107c6f93b8"
+        }
       }
     },
     {
@@ -930,6 +1051,26 @@
         "reason": "Same meaning: I will let you know when he is well; only the register differs.",
         "fingerprint": "d011abab26a5afee8e1d2cacba896b29a658cae4d304d575b721e301c2507402",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "ca3bd6dc0e56e2ba7963b86f860888cd5926141fee7a7f54aaee638e83e42846",
+          "text": "Kiitti. Mä ilmotan, kun se on terve.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2ec0bd3235b9a022087c36c3c2e71fbd729c26d67d71679738f480f10413d959"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "5d3e1c40d88264bd1449cae8b5e308e8a57c359fcf283d016616c9c6fcb2e08c",
+          "text": "Kiitos. Minä ilmoitan, kun hän on terve.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3e034bf772e4e941fdc563942bac431c71ddf94d0795a06717bd57c903fe57ff"
+        }
       }
     },
     {
@@ -984,6 +1125,26 @@
         "reason": "Moikka and Näkemiin are both farewells that differ only in register.",
         "fingerprint": "7567f4b9952645b0245f9fd3efa92bd4f028f366f647fd835fd883626f23abaa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "9d62aea85a2ff1bb47164d1289861754cdbec8a1eec4df5b9111ef3a7c85003d",
+          "text": "Hyvä. Moikka!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c4e7fa5ef86c06cda73698df57e297a2085462aa72e0a39cb32c4f559aa460f4"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c5fe56b5af6e3161ef53899354661028c860c0b6661490e573264465381485af",
+          "text": "Hyvä. Näkemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2b459349f5207c9029f2de7f927a48fc37a482a4cb1b466aff18e5967d7a9a47"
+        }
       }
     }
   ],

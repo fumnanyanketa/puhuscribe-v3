@@ -66,7 +66,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -131,6 +132,26 @@
         "reason": "Same question 'shall we go eat?'; spoken Lähetäänks is a register variant of Lähdetäänkö.",
         "fingerprint": "512a0d3f5d26b9d8d01f809164995a02c524c3af3b51c21fc59e8ef383850daa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "1ae6ae1fce58bbf0b284a54e8bd8a113120fbb6e28b6c5a60251e10ab2acf119",
+          "text": "Lähetäänks syömään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "da779c90fdaaa2816456b5c521368bcdd2e84c9c6f823e8093d010d7ab422bdd"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "9d6b15ea767e6d26ec3afd4cd50c0aeed20dc1e56a103f1af5fe693af118013e",
+          "text": "Lähdetäänkö syömään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "aa150aea761c7acc5331aa0b70647293daa85083897264ca1f4f972e32b22548"
+        }
       }
     },
     {
@@ -208,6 +229,26 @@
         "reason": "Joo and Kyllä both mean 'yes'; the question 'where are we going?' is identical.",
         "fingerprint": "763a13927d624f56a20867dac3895ca806da335c3e991af1ad9547041cc8359c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ce16f727adedd15fde771b271572bbb535b4b767b06f70ce4b5d7c54716e1320",
+          "text": "Joo! Mihin mennään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4547612a6f3f90dbbec54fbd0a0cfa8de695a24cd0da2aaca01f8687a4491502"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "419cc1cd606ae6153e51a15cdf9434d48a936f7c2e698add3f871e76a0adcde2",
+          "text": "Kyllä! Mihin mennään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a3440def332a7ff63b81e6bc913ddbcca5ae8e7d8fa2a473542ebf4e97555ca9"
+        }
       }
     },
     {
@@ -330,6 +371,26 @@
         "reason": "Tos kulmas is spoken for tuossa kulmassa; same place and fact.",
         "fingerprint": "eb23b41d3cd7dfae73539cdd29bc11c4caffe2dac71ed6f02933004d7eadcabe",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "f2ea0de9b11873401a8289e265ab2b6d4905970e9470457577dcb82b3a882720",
+          "text": "Tos kulmas on hyvä lounaspaikka.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ed1c6879133983199191bc2a5ed89b8ab922de6dc77aef85970dd70e0280ee3c"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b350d2b371480f3065f7e95a373d272a3b90ea8bbda93a025ec192f2c1c05ff5",
+          "text": "Tuossa kulmassa on hyvä lounaspaikka.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f88318966e88ef7bbfee7a44bf18300cdf434e9b120699c23d5b79b168c1a966"
+        }
       }
     },
     {
@@ -409,6 +470,26 @@
         "reason": "Okei and Selvä both mean 'okay'; same question about leaving right away.",
         "fingerprint": "64b9cd741c8a94f9c42ce1f80b308e54d206e2e483d0533cefabe3153bbc2829",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "cb36d01267073d9c588cfc189d0b0ac2ceedc7dfdd3e404a2b6f344f2b3bf228",
+          "text": "Okei. Lähetäänks heti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "521f105220668a0164f591d70bd3f78ce4e452be888a5cad80e8471c0cff35bc"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "4c77544dec3f70d6c09f1e4154139a71060e4598396f90723c673cf7c74c0b6e",
+          "text": "Selvä. Lähdetäänkö heti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b160f4a0a6c1dbf7c521ce043406118101ae48c7fa00b310958739e9337cad4a"
+        }
       }
     },
     {
@@ -591,6 +672,26 @@
         "reason": "Mul/minulla, yks juttu/yksi asia ('one thing'), käyks/käykö are register variants; same meaning and time (in a quarter hour).",
         "fingerprint": "9dae8a8d5bd50245fdd5757f0e81127e9129e1e4e23b78447a0f6f861d71ed34",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "5f62b52bae7f2b2ad4bc43bfc3e1509ce00fa668e13618ecfd078e84e8341a6c",
+          "text": "Mul on vielä yks juttu. Käyks vartin päästä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3199fedac8f330e87b6edb646a94c255d218ae4c64df47a71adf221df8612475"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "018fce6e9dec7f8ced69e2ffdfdad37ec05c3cae5bc97537b43661c211e47375",
+          "text": "Minulla on vielä yksi asia. Käykö vartin päästä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "70f877bf3674731ba28b735761caaee63dd8867d9db722122dc41967bfd2fd2c"
+        }
       }
     },
     {
@@ -694,6 +795,26 @@
         "reason": "Mä/minä only a register difference; same waiting place (downstairs door).",
         "fingerprint": "58a3637a97b4976be341eea2c0ffd6d89868ef56b698c9d662c2473a919b18fc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "4e57a81ad5583bd8ef3078c58f055deb0ee112499cdde2f7579007a804361f7c",
+          "text": "Käy. Mä odotan alaovella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8dfc10689ddd435d4b705c99d88a06bcdfff40816c3d34af4896f887f26a598c"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "5d4023bf30b992f8a030ecd21e9643b16d72e49e00ca7a305d521bf59c92f37f",
+          "text": "Käy. Minä odotan alaovella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "421374991b293acf54e5b411577293e2d68f17515eee3f9082cc5bb13a1feb95"
+        }
       }
     },
     {
@@ -794,6 +915,26 @@
         "reason": "Pyydetäänks/pyydetäänkö are the same question about inviting Aino too.",
         "fingerprint": "a6d9db783c2b6f31acfa188efac95b4f595e31646eb4f171d25eec3a93a294ab",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "21d32a94ef9217ffc977eaf92f92a147f44d741b8a94a43bf59725dc7b4ae1f7",
+          "text": "Hyvä. Pyydetäänks Ainokin mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d7fee115297e92a373a7293f04c0e055f5b4580ee5ad0fd3cd694a589dc5fc44"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "b1984a7cc33b9c99a88804aeffac302babcb7b48a980c3ed8e6df9a5efa91b8b",
+          "text": "Hyvä. Pyydetäänkö Ainokin mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "66776f492eac0119ec71d1eec964878b97d70c6a2af4bde7c9f04ae241c8dd78"
+        }
       }
     },
     {
@@ -892,6 +1033,26 @@
         "reason": "Joo/Kyllä, mä/minä, siltä/häneltä (spoken 'se' for a person) all refer to Aino; same meaning.",
         "fingerprint": "4aafd67710ae22353aa912838053f3bca7106a20d0763fc534e6f4f04ed20a1c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "755adb6acac732aca16e6eceda4f2daa65765ce3db489565602d75439c9d3d4b",
+          "text": "Joo, mä kysyn siltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "69a994ec86bd10765172e664832bdeac46aee91648cd0d86dcb1ae41880f0839"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "fcae83dfe76fff905c38aa3913cb31f3994ee19e6bda28c91cea18150529c09c",
+          "text": "Kyllä, minä kysyn häneltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4c12476681ffb222fa8633521a1bcf9edf0810a32c86f9a36e9551d8c12aa927"
+        }
       }
     }
   ],
