@@ -279,7 +279,7 @@ export function RoadScreen() {
       setPins(true)
       setSignCount(MOST_SIGNS)
     }
-  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, onQuestions])
+  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, onQuestions, island])
 
   // The recap card's title takes focus when the road comes back with it.
   useEffect(() => {

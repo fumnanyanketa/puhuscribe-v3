@@ -191,6 +191,20 @@ A stop's new forms are the forms whose first readable line, ordered by stop, dia
 
 `content/approvals/part-<n>.json` (format `puhuscribe-owner-approval-1`) is the approval reference of the road's content. Only the manager adds it, on the owner's written line. It holds the owner's own approval line word for word with its date, the part, the register judge's state (`off` or `on`) and, for each dialogue of the part, a SHA-256 fingerprint of every line's three texts and every form's texts. Each `approval_ref` in the database is the file's path plus `#<dialogue-slug>/<item id>`, so every reference is new. A changed line changes its dialogue's fingerprint and so voids its approval. A reviewer's fix writes new references of the form `content/reviews/<slug>/round-<n>.json#line-<k>` (see [content-pipeline.md](content-pipeline.md#the-a1-road)).
 
+## Language islands (fast route, 3 November 2026)
+
+The island lines and fill-in lists are content, not database rows: `content/islands/islands.md`, approved by the owner (`content/approvals/islands.json` holds its SHA-256), turned into `src/lib/islands-data.json` by `scripts/generate/islands.py build`. Only what the learner chose is stored, in `public.island_lines` (migration `20261103120000_island_lines.sql`):
+
+| Column | What it holds |
+|---|---|
+| `user_id` | The learner, from the token (links to `auth.users`, deleted with the account) |
+| `stop_number` | A stop that has an island line (10, 13 and 32 have none) |
+| `choice` | The number of the choice in that stop's list, from 0; empty for the four lines with no list. A check holds each list's size |
+| `first_name` | Stop 1 only: the first name the learner typed, at most 30 characters, letters with a space, hyphen or apostrophe between them. No other free text |
+| `created_at`, `updated_at` | Set by the database |
+
+One row per learner per stop. Everything is revoked from the API roles; a learner may read their own rows, add one (user, stop, choice, name) and change its choice or name, under row level security on their own user id. Nobody deletes a row: rows go with the account. `public.export_my_data()` lists the table. The Worker reads and writes it with the learner's own token through `GET` and `POST /api/island` (`worker/island.ts`), and stores only a line the approved data can make. A guest's island is on the guest account, and adding an email keeps the same account, so the island moves with it. The test is `supabase/tests/database/island_lines.test.sql`.
+
 
 ## Reference data
 
