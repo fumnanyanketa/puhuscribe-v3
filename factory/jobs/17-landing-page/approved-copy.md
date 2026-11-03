@@ -31,7 +31,7 @@ No menu links. The page asks for one action only.
 | Element | Copy |
 | --- | --- |
 | Heading | You live here, yet the small talk happens without you |
-| Text | You practise a sentence on the way to the shop. The answer comes back fast, nothing like your course book, and you switch to English. So you smile at the daycare door and nod along at the coffee break, like a guest in your own neighbourhood. |
+| Text | You practise a sentence on the way to the shop. The answer comes back fast and sounds nothing like what you heard in class, so you switch to English and smile at the attendant, or just nod along at the coffee break, like a guest in your own neighbourhood. |
 
 ## 4. The reason
 
