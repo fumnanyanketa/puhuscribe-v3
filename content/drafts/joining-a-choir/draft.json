@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -254,6 +255,26 @@
         "reason": "Only register differences (mä/minä, kuoros/kuorossa, haluuk/haluatko); same meaning.",
         "fingerprint": "7d8597ddf3e8057797f3bcc6d512167df0dd5c25b4ef493e7245a71dff94027b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "49e5263fb08108ac510466d2d78474270029c86f86ed62aa9e15b124039f296c",
+          "text": "Mä laulan kuoros. Haluuksä tulla mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "45a9353d97c3026a687d852f05628f1dea2809fe591c92398625210307f1f08d"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "02244b8ea418b403a626508c3a52ca8b95d78404342f2d1c8c917c6a352af510",
+          "text": "Minä laulan kuorossa. Haluatko sinä tulla mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b7ed0a0ecf9710e4761667ae5265c78025a4fb8f378394c9bff10e9ff0dc1869"
+        }
       }
     },
     {
@@ -470,6 +491,26 @@
         "reason": "Same content; mä/minä, mut/mutta, suomeks/suomeksi are register variants.",
         "fingerprint": "ec74ad298df401b7af917fd3030dd60014e07fe44bb401f2209d5344c439d74a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "66752fa43945f31735cdf84c8131695cd73b691023e7a6c67ba7eacad9630b6a",
+          "text": "Mä tykkään laulaa, mut mä en osaa laulaa suomeks hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "87e6c32eadb277f21bef78c4389319c9bacd3a1170f351191eed7646dc520782"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "dfcb4f9cc813934f784d53a7b3229f11975bc3124a05f25d856239880a10f83c",
+          "text": "Minä tykkään laulaa, mutta minä en osaa laulaa suomeksi hyvin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "24a23b6584efd24df211801e4ebcde110ba60401ce52bcebf953581b6d3e2330"
+        }
       }
     },
     {
@@ -632,6 +673,26 @@
         "reason": "Spoken passive 'lauletaan' is the colloquial 'we sing', equal to 'laulamme'; englanniks/englanniksi is register only.",
         "fingerprint": "ee76345f1ccc7c81e4f226885380ec29542e71591e42783429d34c4b7d76882f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "24708951ca01fd75b30c1e98c00626d57e20da8d007d6cdbf7b22fb05dfeb0ff",
+          "text": "Ei se haittaa. Me lauletaan myös englanniks.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0261b82b869b9e194e40413a4851c111a868e408b55280b50fe41293c4b203fd"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "4d0a039e3239c0da8b46c21f389e04393230a68c231096ee46e8cd7dbad96afa",
+          "text": "Ei se haittaa. Me laulamme myös englanniksi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "015b92c3a83d6df0c722347fe0bcf4d2903f3a2853c1223f66984fb1273df12e"
+        }
       }
     },
     {
@@ -710,6 +771,26 @@
         "reason": "Same question 'when do you rehearse'; millon/harjottelette are spoken forms.",
         "fingerprint": "8fe6412478c64b40b4819fc35a8a006b49db40ba32371d4cbb721c36b63bc85d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6d2fb3770d039dadc0088b2d836b245dfd9833f46929fe0c0e472895d331db41",
+          "text": "Millon te harjottelette?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4f1ee31cfab5874a0761d53ab8573cee7922b090c16efa3eda0b3441537365f0"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "0c54f1640330716b70f64fe8993afe6bc949e3efe802643d42d7e3c865d12ac1",
+          "text": "Milloin te harjoittelette?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ba1cb253df25994943edebdb90d02ab5652412857c0056b9d3056354e65d47fd"
+        }
       }
     },
     {
@@ -765,6 +846,26 @@
         "reason": "Tiistaisin at seven; seittemältä is the spoken form of seitsemältä.",
         "fingerprint": "a8d2857dae226222d8c1e6da7d76e11425b2810e3fe991f9549c8edf82d30e63",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e36182a0834bbcc4b5736059354938e8223f1abbb9187fc3b9d062f8354539b3",
+          "text": "Tiistaisin seittemältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "34e74c769a27d6e17e760ef9a64a127cb9096150aa260df781946422a84caed6"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "65e65620e2a0f3f2f8ca55bdc18bf27a373d21ff7ba6e19d2aca0a640f1a1e57",
+          "text": "Tiistaisin seitsemältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d22e9b0131ed4b3d31201f732601b90b05db5115e0a5b6649c5adbdc095d9b5a"
+        }
       }
     },
     {
@@ -802,6 +903,26 @@
         "reason": "Identical 'Where?'.",
         "fingerprint": "1c3157e4b83d7c6be8ff29b33bc90c6835e75bf2d61e39ef0861cce49bb58950",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e135a01d62ef70432f57eb50d591fd4b286ef1abab3ced0945dcefc4cd594fa0",
+          "text": "Missä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a20d1541f62c917b732bcc5c27ccc4ae2b259704453dde8496d8af5812746900"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "55c878c1f690b472cace82ac7f7bdc89884f298e6ce4dfe1c616d13ea20fd2e1",
+          "text": "Missä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a20d1541f62c917b732bcc5c27ccc4ae2b259704453dde8496d8af5812746900"
+        }
       }
     },
     {
@@ -898,6 +1019,26 @@
         "reason": "Church hall, very close; salis/salissa and ihan/aivan are register differences.",
         "fingerprint": "986dcb1d42d59b54ef04539d2e5a71f1cf7179c36be125d8ea8c16aca35f5f3a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "702b9a402b5d216dbcbeab4de5c9509763d20b1571230aac9db18b0d1775aee4",
+          "text": "Kirkon salis, ihan lähellä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0620aa9fff2c43179b29ba582fd299d745cea42c18c01fb1f8f7c6a5f18635f9"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "e437c56b2f9f730e618956f2bf4d8c8b43b1e073b7da0629e468393a0be9740f",
+          "text": "Kirkon salissa, aivan lähellä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e5a7ef11d3c19dc956ef1883bc5763269e0e157625cbac3a9928180a4bc0a2b2"
+        }
       }
     },
     {
@@ -1017,6 +1158,26 @@
         "reason": "Okei/Selvä both mean okay, tuun/tulen and ens/ensi are register variants; still 'I'll come next Tuesday'.",
         "fingerprint": "d6ea185d098d51f3bfa4275667353442937ec84438495778790ab95afbc9f04d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "7c13636449c792b504cdd39dab138c91dad730f9066da9b4c857c3ef64b4cf24",
+          "text": "Okei, mä tuun ens tiistaina!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "68052dd3c55e40c435dd975801c8a1f47f3a59f473f3d51697b99332660ca157"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b4a89876697fb8bee662efd20b39cb29c623fa70d3f79edccc0efe86df8e7a2b",
+          "text": "Selvä, minä tulen ensi tiistaina!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "152a9e9cae8a9d8a8a8bfb43f9d96c27a117568f9325cfece6fd53bda30be343"
+        }
       }
     }
   ],

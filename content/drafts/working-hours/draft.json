@@ -89,7 +89,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -231,6 +232,26 @@
         "reason": "Only register differences (mun/minun, työpäiväni possessive); same question about start time.",
         "fingerprint": "fc918d28ba7aee1ffb162eee91424cd09ee287ffb2f7609873c380153b1e2e6b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "98be88933e7089dfc99edc92d63e3066284145434f290f897c9c7083725bbd30",
+          "text": "Hanna, mihin aikaan mun työpäivä alkaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9cae24eb0939930dd80819dad527a6285486ac42001efac09d130a19b2368f4a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "20bbb01cedfeae656da3fdb38dd9a4aa87ac7b74779356ec9c552a96a0e60197",
+          "text": "Hanna, mihin aikaan minun työpäiväni alkaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6df0612a6d5542bfd0b811d02b6a7e6c15ee7151746ee6fccae7ea36f770170d"
+        }
       }
     },
     {
@@ -349,6 +370,26 @@
         "reason": "Kaheksalta is the spoken form of kahdeksalta; same times (eight, four).",
         "fingerprint": "aef3c3a8e397b1d375eb4bdb2206456b02d31c131cae57e1f9ff8acd6ae9c320",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "1d46f17e0545acd147a7835ce8e20c01caac398989bd53f1a2e752f9b29dc31e",
+          "text": "Kaheksalta. Ja se loppuu neljältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "79a9dba538b4d1e0a17e486ee79111f4a1f3c0a19eae5ee38ab5238854ac6bde"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5acfa0e32183d4e0fc9e6b20006fe08e7332765d08e43e132d3918d213727185",
+          "text": "Kahdeksalta. Ja se loppuu neljältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "be8809c2f496135e28e1c4353a336972db33ee4b2fe68782d29391135a126c7f"
+        }
       }
     },
     {
@@ -468,6 +509,26 @@
         "reason": "Teenks mä/Teenkö minä: same question about working on Saturday.",
         "fingerprint": "2914690370bc1c97ed7f153cd1cbaa31377f0840ac47f22a0b0646b0f0cdc529",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "7de3bd60e06b9ab8b545a8c56a6721328158a7f96cde9fee8948202e4219a38c",
+          "text": "Teenks mä töitä myös lauantaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c4a2249dc002285cb2cea21196192adba9ad982fe57f26f971d5d6469400c92e"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "3656af2de73d10a89968d8af19b30feef3d0a726679296ceebf9216653b6253f",
+          "text": "Teenkö minä töitä myös lauantaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "db810a346decdea81832cc32fe7799aaed0549f7d1dd77f2027c71f93dc4e805"
+        }
       }
     },
     {
@@ -609,6 +670,26 @@
         "reason": "Same negation and same days, Monday to Friday; only register differs.",
         "fingerprint": "ded10e221fecabbc5a0c429be06c3feab11b3bfa533f405831346cdfa604b246",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "7d75748d00b2d2b9dcf2cb2b6d741fe4d32aaba5b456b3a3b7bdc6737e101fcc",
+          "text": "Et. Sä teet töitä maanantaist perjantaihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "df8c2344ce0efbd6fd42638e7a1e185c8a506cec778c9ec5109173ffea9e3965"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "5877dd90063dd614875e6997a606cabf181a9139161dfe676de07df0336098b1",
+          "text": "Et. Sinä teet töitä maanantaista perjantaihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "854a9c52cbec37eabf17dc3f695b05d2e28eb8091043841373fb48a65188b090"
+        }
       }
     },
     {
@@ -732,6 +813,26 @@
         "reason": "Voinks mä tehä/Voinko minä tehdä: same question about remote work.",
         "fingerprint": "2f74b6c867d1db3fb40a583f36086e2839c37acd04a900b8dd65198aefb47b5c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8d659fad87d346478e61f3d34f12747fd4931ad6d3f038ca2358d4f7a6808ec3",
+          "text": "Hyvä. Voinks mä tehä etätöitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ba87cc01626be771a31182fcd0b363c37f0c1a87d5633af7facd4bb70943fb60"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "89f3306b1d900178f4940e493e7c9bf0322e9001b051f3475f58ea99edd5b58d",
+          "text": "Hyvä. Voinko minä tehdä etätöitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "02be8772d63a283b3661e64ad3658b39140db5962d3e5b5ad7e1f12c25b94a02"
+        }
       }
     },
     {
@@ -785,6 +886,26 @@
         "reason": "Joo and kyllä both mean yes; perjantaisin is the same.",
         "fingerprint": "2edcbea3bd57a4ae0b3933de97f689e7aab95e11969a0e3279b88f37395bf223",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "63bd5f086ffaf4f32151d74db0704b387aaa929e50157de4fd71b2b9218132e4",
+          "text": "Joo, perjantaisin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8dba98ade5aff06c361065cd8ca8dc4e596b4e51512e5d66e1e372fd4c0ed5ed"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "faec96aa263cfde63d90414cb90a6986978dcbce390e871253386187409c076a",
+          "text": "Kyllä, perjantaisin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f7428c5600566bcd91485cc875cf5492db3d0f1d0f348b2a98ad16960717a36e"
+        }
       }
     },
     {
@@ -906,6 +1027,26 @@
         "reason": "Mist mä/Mistä minä: same question about where to get the key card.",
         "fingerprint": "78fffe8ffd2f5cb4b270eea6088ae54fbdbdc18ad3efcc7dc4b61579e1468a80",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "e9f5d120168997b203640f996a836cd20a049b553282ce6666e0b6f55e84a874",
+          "text": "Kiva! Mist mä saan avainkortin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b2cbfbc8f6cc387a372ea9d96441a9b63e110e77de8b3840399e6bd83d425499"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "7b9d4d229f495f47df5154d57fc54f70c09312599bdf0adebcdcc9f93cbc75b1",
+          "text": "Kiva! Mistä minä saan avainkortin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "177529e220113fa28311d1f95f73643b9e7d392b65637c37aa6d8f1aab812d3a"
+        }
       }
     },
     {
@@ -1025,6 +1166,26 @@
         "reason": "Mä tuun sun kaa = Minä tulen sinun kanssasi; same meaning, 'I'll come with you'.",
         "fingerprint": "db6c43a5dfa3193dc58981c040136f87a5d402fd0b71354d8f2621df080bad2b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "829fbd7eb8dd7c70879a76a2893b0f5a6bd326bf0d88f5cb75b5c5f38f53c0a9",
+          "text": "Aulasta. Mä tuun sun kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4fee85019abbc7d6b5adb096429548969733e77ae41e89b050dbbf5c8c5d6520"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "e7d3bde4fa5d90130770772479bcf01dcb02d0512b6b1ccdb78ea2e63f7b7fd9",
+          "text": "Aulasta. Minä tulen sinun kanssasi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0a70980c4e98d153daa1d134c4d29830ec963057dd39e1d343045cb9eba4414e"
+        }
       }
     }
   ],

@@ -91,7 +91,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -191,6 +192,26 @@
         "reason": "Moi and hei are both greetings; only register differs.",
         "fingerprint": "a512cd7b55e485a8848c35ab3da3b9a80666347d2103989b98c4192155fc3f4c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a38033d9f2f0649002cb8cd97ff2314b62a6d38dd001f265c14ffd0d730da5ec",
+          "text": "Moi Maria! Miten menee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "28198cc0d57f56c3afb34a99a9631f2c24ec0bf8687c910f853f0b4c54c2dfae"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "e540bbc6d390210c10bf5b52341a861812822911f696bcc3977bf85ef58b98d8",
+          "text": "Hei Maria! Miten menee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "fbcec7168faed945b299dd106b175ed0edee3cbfd6ed3b81809cbd284c61802e"
+        }
       }
     },
     {
@@ -282,6 +303,26 @@
         "reason": "Only register differs: 'ok' vs 'okei' are the same word; 'Vähän väsyttää' is identical in both, so the meaning is unchanged.",
         "fingerprint": "8eb792a35d88ad68e14b6f69f13662d0ff03f013bc2f0b083cf9d9bb18083154",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "1da0503fca92fb19c78f8fce0b41b78fe841d2a0f5c485a067e15c2b123d0d7d",
+          "text": "Ihan ok. Vähän väsyttää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "52c1b2e4ea72a538c8f98e3236d4854eda473aa5f828b3931f7120958a50c0f7"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "87ded18adc4c3ba6eb9c265384cc1bcfae1cc6b1fe62dc1b297f7f9edcbe9e2a",
+          "text": "Ihan okei. Vähän väsyttää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fb3d872c16d385f0e2af0f38062ab24512c6a5dc272ce1b857ab98ee179f8fa4"
+        }
       }
     },
     {
@@ -385,6 +426,26 @@
         "reason": "Miks/miksi and sä/sinä are register differences; both ask why and whether you slept badly.",
         "fingerprint": "e11fd955eb2c5251c4afcb875e7cd55d0a833c2466b831f75214789814143c79",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "be6c746988780af958b286943dec3a089803b37ed93310dcfbc6c38a4a958777",
+          "text": "Miks? Nukuitsä huonosti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "79b0a4f02786dd8a4366a89e573528efc3b62d2fb5d7ea86ca647ad8d66ced2f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "730c243cbb50ced1c4db467880efbfd3f385ac249414e93b632a3e0def2a4858",
+          "text": "Miksi? Nukuitko sinä huonosti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "18e1e4f9b4bd6b0fda9ba7adbd6235d72bc6ba3c34d47af34df679aea78f0506"
+        }
       }
     },
     {
@@ -483,6 +544,26 @@
         "reason": "Joo/kyllä are both 'yes'; bileet/juhlat both mean party.",
         "fingerprint": "3f408992a8acd4f30f44237e9749c1afb9b44dae2f577fefaff3ecc7e2d719fe",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "670e2466644c4d32fd3a6769cd09a3013e9af8895b2683bd1101a590a4c9221e",
+          "text": "Joo. Naapureilla oli bileet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "45376f7dca8beee5dc5ce163955b314e0458f8868d4913c8a0b204eb47f81dfe"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "a5380542701500bbe03ed31a38f7f0d1290c4e325846a82a6c49f2a1e80d48ff",
+          "text": "Kyllä. Naapureilla oli juhlat.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "07a93d83bc8b6501c9fd3cbc8df4adcbcaf08b89613c049bb6edc85ad1d35e20"
+        }
       }
     },
     {
@@ -575,6 +656,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "bb7e207c34efa66c2f77a51044ae14a1300ba93f98689f7a0974433e318f8911",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "4d166a19ab0aca7194854cd89880e9adda3a5f4a91a77366cd28b31dd838869b",
+          "text": "Voi ei. Entä muuten?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8acd9585be7a6ea8b5c657806d948816379af56b058d4603b77454ee4991e2b5"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "ac7a0ac4f0eaa37e97285c51a8579d0c8d399f857538e186eab188f55db8c9af",
+          "text": "Voi ei. Entä muuten?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8acd9585be7a6ea8b5c657806d948816379af56b058d4603b77454ee4991e2b5"
+        }
       }
     },
     {
@@ -712,6 +813,26 @@
         "reason": "Mä/minä are the same pronoun; the rest is identical.",
         "fingerprint": "06750bf4b50008ed3e3ead4432a7104c79b2256969584881a3028e6829b99a9e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "ded224554cf18c48b62f5f20b861ed27d27fae2024335174cea45f0f4081e2c2",
+          "text": "Muuten hyvin! Mä sain uuden työpaikan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c45ab701859444071b176a6d6aab4ac178e0be20c7fa22dff51ffacf39272e18"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "38f9c0c10280efd3253c6a74e6e022d154a5b0e7af66a4cbfa6fbc5e2c92632e",
+          "text": "Muuten hyvin! Minä sain uuden työpaikan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c04b88dc3c9b7a8f8ee24afbc05f5429e31d3b977b648af6bd087f5f8fee5f04"
+        }
       }
     },
     {
@@ -791,6 +912,26 @@
         "reason": "Onneks/onneksi is a dropped ending; both mean congratulations.",
         "fingerprint": "673e76cdb2f96f3b4228fa38a019d8d90ff069c97d6bf891e355880139eeac07",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "640d8b05accf2e6fc1f76578b6f25040c795e7752c5edf0f678b59be297b0240",
+          "text": "Mahtavaa! Onneks olkoon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c03db02e4ccfb9c4a77f9277c16eaf41aa8c20f1ef848f21664c17a0a5e97866"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "bc3463714100403bc2e4a7a232af21476416c0051adc58716d51f5ab15515819",
+          "text": "Mahtavaa! Onneksi olkoon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7837f7e1ccbb231e5fd72784af46b69ee7452aac1203d927acd1f27b272ebe28"
+        }
       }
     },
     {
@@ -908,6 +1049,26 @@
         "reason": "Kiitti/kiitos, oon/olen, tosi/todella are all register variants with the same meaning.",
         "fingerprint": "37d72b828323983647cea80a1ba3a70f1a099e68eab80be26a5c5ac2bd6fa14a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d846b6e05c5739665f84ca360d47ee6d9cb1f6f59985a34b9900361b5abcb65c",
+          "text": "Kiitti! Mä oon tosi iloinen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a2058d7223a6282f5ca7cc2dfe2c3d60c95753b9c8feb6d5c50d093edbd464c0"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b4ba988f262c8286e279121f2cdf63cdc40dfd586bab9ba6c90f166f5d69bd76",
+          "text": "Kiitos! Minä olen todella iloinen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fc7ca38a44a55e840010f9bafe98c59cc2a7b98450f4c4f73fdedbbfd29cebf2"
+        }
       }
     }
   ],

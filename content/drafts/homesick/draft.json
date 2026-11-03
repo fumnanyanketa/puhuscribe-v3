@@ -91,7 +91,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -256,6 +257,26 @@
         "reason": "Only register differences (sä/sinä, onks/onko); same meaning.",
         "fingerprint": "525b1d5371002f62f7777a7724567c1814b69486f6270c81018e7d26a765b890",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f0aaa56e4b29cf31bcb2c1d73bad19eb208e94a5430332edfd87e92ab151a6fb",
+          "text": "Sä näytät vähän surulliselta. Onks kaikki hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "abdc83fcb3c1d8edc201ec46630c13611eaddf83a4b2d93067c71a2c79a95e8f"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "9429b48ea646903fee736e4b2e7fab310b85771455271a7c500ea5faa30c5e70",
+          "text": "Sinä näytät vähän surulliselta. Onko kaikki hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5d9dc97193f18985426978a526a1fe49d63855eb4c942c8953d04da8f1e5c039"
+        }
       }
     },
     {
@@ -336,6 +357,26 @@
         "reason": "Mul/minulla is the same; both say 'I am homesick'.",
         "fingerprint": "dcc0bb83e90c511b59272013ae5a5fbb5b6033d890f11e5637de57f3bcecf3c4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ab26d4858767952475bd3cb99f882399fa191c6f1f09a38881fc79b59d4c5071",
+          "text": "Mul on koti-ikävä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "10c7d7fe4e08d67fa2c6ff6156b6163a99fffacd3806bb3c7d78fde8aa4f090e"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "4ce2da195965b9c1220bc47a22d837740ec2046d61578503532041e962d8dbe2",
+          "text": "Minulla on koti-ikävä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3c6dc469b28698c39c687e66db868bda3b3b3977f08f6abc41635cc028a4a211"
+        }
       }
     },
     {
@@ -478,6 +519,26 @@
         "reason": "Mä/minä, ihan/aivan, normaalii/normaalia are register variants; same meaning.",
         "fingerprint": "ebfd4627c7f481fe9704f8458f04adcc994753de11ca6dce47233b6147061c74",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "cd953d39515dd1d5cb7e640ed3a63b4fc58a15ac257110ff7dce1324489b0b79",
+          "text": "Mä ymmärrän. Se on ihan normaalii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cd40fd55cdaa3a995c8ca4e7aa32212540cca88d8b63cb78345f168ae91a0371"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "02c4219564acf60433192e6d869616a5067c9f4caf415628f88a74f6beb48dd3",
+          "text": "Minä ymmärrän. Se on aivan normaalia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "dd2eed64480af744be816f1326aa72f961cd4075d68a66563107135620d8c222"
+        }
       }
     },
     {
@@ -614,6 +675,26 @@
         "reason": "pimeetä/pimeää is a spoken variant; same meaning.",
         "fingerprint": "476e40041b8abc81775007890d431b42e5a8bf8001715baf5788df50024bd151",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "585c33a55db85710a96652d4da55b88a1b4f3eae985c280700f33bc81bc520c6",
+          "text": "Täällä on niin pimeetä ja kylmää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1ff055f8b6a58a4b17b984602d7829653ebd9090dfd21236dc4b9e28844f0d7c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "de6da6da365479b1c373dac53670230edabcc776e1bfa8690d0ca32136713bde",
+          "text": "Täällä on niin pimeää ja kylmää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "afaf1956a8e11685b1adc87051ffe4c0905b6c41cc72553778e3240ba7979742"
+        }
       }
     },
     {
@@ -758,6 +839,26 @@
         "reason": "vaikee/vaikea and mennäänks/mennäänkö are register variants; same meaning.",
         "fingerprint": "7f429ed04bc268bc1ce7eda6adccbcf38c89883ea39c53ea092c8f7ff24fa7a1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "2ceb88f6e328a8d96a3df1a89058212ed0909112ef366464ed031b79bbf4606f",
+          "text": "Talvi on vaikee. Mennäänks kävelylle yhdessä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2b6288ebdb5c7d09f124a631e92e47ac7e97df07850ec700f2507cf556e60924"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "4341c2fe42e30f0158554b300279d28805abae8dda55aeafec91941bdd53b56a",
+          "text": "Talvi on vaikea. Mennäänkö kävelylle yhdessä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a998efb6dfb65feada35678d1dff647c38d53b4e08e98cdce661bd53cedbc8d5"
+        }
       }
     },
     {
@@ -857,6 +958,26 @@
         "reason": "Joo/kyllä and ois/olisi are register differences; same meaning.",
         "fingerprint": "bcd54fb63588ff7afa892688461e2925142567a339b8e60580e7b09de739c98c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "7a24ebdd678965345f06352b4c68a3634d6c6f780230aff24e2914a77fc61ba9",
+          "text": "Joo, se ois kiva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "eeaade3c84498a1b2e34730afa0f788e3de79baa92324ae7c6853d399f3fb366"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "5b98043d6329cfe4e6214946945d678b2945c2660dbcf1c0e1aa604b397a2859",
+          "text": "Kyllä, se olisi kiva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ad316bba53c90f77f6d571813673f5a82216e1b5ee5fc983286172b29408825f"
+        }
       }
     },
     {
@@ -987,6 +1108,26 @@
         "reason": "Mun luona/minun luonani both mean 'at my place'; same meaning.",
         "fingerprint": "655f64ca35a67b1721defefceaff757799fb9427c083a7a2b5395a37882caa05",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3fa0b6e7a3b25473a525a730c30f407654407ad02a5da48b1f6b6dfab5ff9671",
+          "text": "Ja sen jälkeen kaakaota mun luona!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8644742d7dcdb3811a756d7f62296350c7114a978fdcba9a06928de5b8b7b0a4"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "b9c46fb8efa5c6068ce21907a96eb71d1d23b18dc2ba86c96f19b63aa44d831d",
+          "text": "Ja sen jälkeen kaakaota minun luonani!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "07ccc687ce21cd356ef7122a6eb99f2f0fbd539c36e58dd12dc15f93f46795c1"
+        }
       }
     },
     {
@@ -1128,6 +1269,26 @@
         "reason": "Kiitti/kiitos, sä oot/sinä olet are register variants; same meaning.",
         "fingerprint": "3e385bd9efe67db400cfc999c5b2f0dc9d62ded48d9e8b860e3dc04daa077087",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "9073a365d7eec54ea2bcd1fd68e0ec80016eeba79ac8426248a41a69b2af8a5a",
+          "text": "Kiitti, Leena. Sä oot hyvä ystävä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "48665b826efe0e73098af25051d96371a0ba6d1fc73941720fc332dd2f563682"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "48354741abcddb0d4318b72ae20cbcb0e7119170853f96b014cf4130f832e43f",
+          "text": "Kiitos, Leena. Sinä olet hyvä ystävä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "39a9ceda7acab133e1965c1fe682a7480c97d723957bbabace71d66c831a3fbe"
+        }
       }
     }
   ],

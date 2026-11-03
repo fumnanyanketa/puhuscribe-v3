@@ -97,7 +97,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -201,6 +202,26 @@
         "reason": "Same question about what we are making for food; only register differs (tehään/teemme, ruuaks/ruoaksi).",
         "fingerprint": "4efd501ba7960c126c446b337e01be92ad5f843a043a4cf4f3f6ceb41dadf029",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "3927486dfa15015cd95ea9aa1e3fa0a11fe1ca9b469bb977124460bba7532b1d",
+          "text": "Mitä me tehään ruuaks?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ac4c4b58d141a04fb2fe964dee2460728cf3f9af2d3a2cff649990f9fce94200"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8c34e16bba181ea07110aa8153c2a3d57b712129570bdb02f9f0da19c3b6bde7",
+          "text": "Mitä me teemme ruoaksi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "51b29154a590986afb8d84af97fd1cb9e50922ae79e8ec93ebcc47c7fe76f2aa"
+        }
       }
     },
     {
@@ -322,6 +343,26 @@
         "reason": "Same: salmon soup, I am learning Finnish food; only register differences.",
         "fingerprint": "8c4793124b99e4dac60def3b5aaca7e356ae752d743c518a700ec6c78cf7ebb9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "31875ae70fb74ef80d596fef7f2f42f440c16c662d07d4be0c8487e47e1ba698",
+          "text": "Lohikeittoo! Mä opettelen suomalaista ruokaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ade19ab6da4031e8ea78b4aed10d503b5fece55e2d2cd176818b0bb91111a1b4"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "aab3a258edf445775ee9bd29184d265db162367a4184bd136135bb3293ae5189",
+          "text": "Lohikeittoa! Minä opettelen suomalaista ruokaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "15e60eeededad39255db44a930547fcdcb8ec2773800ab3e4be5e07dd41e625d"
+        }
       }
     },
     {
@@ -443,6 +484,26 @@
         "reason": "Same: good idea, what do we need; tarvitaan/tarvitsemme is register.",
         "fingerprint": "ba90cd7030b51e00baee7b5fc8ea6c3d9bb7432ffb7a246ce3df49dbd5a8bf42",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "721ba74978057e54f66490f8630a4c7700e36e48f89093d703ef7bf5241b513f",
+          "text": "Hyvä idea. Mitä me tarvitaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "75dea2bfc23526a0c4aa99f739ed530d087a13044f64e14160faeec3fcfd8777"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "54f50528d243bec2428a4b1799ac55566667df6d5cc5c9cd4d8e56ac1747ead9",
+          "text": "Hyvä idea. Mitä me tarvitsemme?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "82a81894648bb2c4bd1ba96f87473a809fcf402fd5669b9d3ba2e8814bdcc26e"
+        }
       }
     },
     {
@@ -538,6 +599,26 @@
         "reason": "Identical lines.",
         "fingerprint": "69854a47005321aa599b9bde61f783f40ab728fea4e77dde72311ad299b4308c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "39608e04ec9e184d0fd1e6ff2f973f478d123ba1b194ae43944133bfe71b4ee0",
+          "text": "Lohta, perunoita ja porkkanoita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1d1f9b78b288e1ee9f1752286b2b86e62156b56c2b92c139d1a8e330c22d6876"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "3871506b4149283d668a1b8b855dbd5ff997c76951acccadf08fec1fdfe13930",
+          "text": "Lohta, perunoita ja porkkanoita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1d1f9b78b288e1ee9f1752286b2b86e62156b56c2b92c139d1a8e330c22d6876"
+        }
       }
     },
     {
@@ -631,6 +712,26 @@
         "reason": "Identical lines.",
         "fingerprint": "0347fe082ae58ce65f0eca56a2a5c2e8e756d2798be93ee82e98255dd74dc402",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "2fae619d87d8b31a85afff3ab7ac25579292e784ef4773ab7bb95f6bf5602746",
+          "text": "Ja kermaa ja tilliä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "22ce44f49b1848630dd36fbdd6bc18a59612b648156f01c2f85bfd6dcfc5517b"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "76cb50032c85bbcced8d4504c734dd378d29fb3c2582cfa2c8d409680ce25941",
+          "text": "Ja kermaa ja tilliä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "22ce44f49b1848630dd36fbdd6bc18a59612b648156f01c2f85bfd6dcfc5517b"
+        }
       }
     },
     {
@@ -712,6 +813,26 @@
         "reason": "Same question: do we have onion; onks/onko, meil/meillä, sipulii/sipulia are register.",
         "fingerprint": "78a32c41a1e0c7c492550ad91314c78c328d45c75cf2bb84e85d675da958b210",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3969386db2a8c6e7eae0636577474fc2c06f66f7d9189064f57b60f0a429cee9",
+          "text": "Onks meil sipulii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b9748816196917593ae9bc0cb642b90796d17632f4cc4d6267145a5f54799ecd"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "dd9df8e77c15e2507ee6d9994daa5dd4fa7af408a084d8700612191f6fb9b937",
+          "text": "Onko meillä sipulia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "24f00fb3bc6fe1bc6dc486da34d8b4d5102ee7bfc5bfc2ea40fd8753cb40c50a"
+        }
       }
     },
     {
@@ -832,6 +953,26 @@
         "reason": "Same: we don't have any; write it on the list. Only register differences.",
         "fingerprint": "24a0b021deb044f0c225687b4fbd809fa05f402585036b109c880d121d63db83",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "4badf961486bb8eeaaf2180354083d0d4239482972e411971907cfeee965c9c5",
+          "text": "Ei oo. Kirjota se listaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f50ffdb47ead3e9c0014b844881a2ad3cbbf357d58446dd698f2cfbd81450a2c"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "28fdddf77a19f131575f283c50d6389a3b6fd01bc43a0882f6ee3108361304da",
+          "text": "Ei ole. Kirjoita se listaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1a61cea2cb98dd84ed592ae5285263ec3d395be8fcb39d29cf244d266bf3977c"
+        }
       }
     },
     {
@@ -912,6 +1053,26 @@
         "reason": "Okei and Selvä are both 'OK'; same suggestion to go to the store.",
         "fingerprint": "6637fa7a73addbc921d15e8a209363d26aa4ffb6728eeac94ccd5fc9f5e3072b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "461bd9f4e026525f060f840533717b46d56ff2d43111c8c9b1f515b49b5cec16",
+          "text": "Okei. Mennään kauppaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "75d6083a8a422a4602a310e8a01fe906a24a2e67c47a077e8fc25f8a1442a745"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c01ac19e35ee84b48a82ade2aa4d27042861c393e7585f327f9546b1ff04e076",
+          "text": "Selvä. Mennään kauppaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "199c14071e733c02c392b0c55f6ed9bf60a91745c7624c0f9d4364246c5120ee"
+        }
       }
     }
   ],

@@ -91,7 +91,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -214,6 +215,26 @@
         "reason": "Only register differences: mä/minä, oon/olen.",
         "fingerprint": "e43098ef02d4662f97deb624909f2ec0388ce1ac160424ea892714a9efa9e547",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "5879b1820723f9b9274ee93bc5d6a07e1db3b794d1f5948fff87c46ff935eaff",
+          "text": "Aino! Mä oon niin onnellinen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c16e27a17ef75a85649c25fd46dbd83f88c55bf3a38f45776b59906273917b98"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "3ddaeae05d2212afb702f38960cd0f83fcaef50488337a6e8cdd4bc36b36c371",
+          "text": "Aino! Minä olen niin onnellinen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7a16620f20a3f3f3e04e8f662bbb64575fbc833dce4f25b97c485841308c4575"
+        }
       }
     },
     {
@@ -274,6 +295,26 @@
         "reason": "tapahtu is the spoken form of tapahtui; same meaning.",
         "fingerprint": "4ea0578cf9e36445f26cea6155d8b63e778d3c95cb72fc658d83d8b1086e63e3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0bde65bdce8c89f92b87230d4248d9b37c433d02671e39e4e5fc417a0c1182c0",
+          "text": "Mitä tapahtu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d2cda5050209141268c39bf81fb60cd0d68b448e87fad4534159d439e6f0177d"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "18e0b288a9b407e6290fc28d7e70cff9fa6afea51313be2f19dfc429981822f9",
+          "text": "Mitä tapahtui?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0b5d74425e5e5f511cd316daf9b17aa0e74a07d7b39732d5766f7577ebb23f75"
+        }
       }
     },
     {
@@ -374,6 +415,26 @@
         "reason": "mä/minä and läpäsin/läpäisin are register variants; same meaning.",
         "fingerprint": "bbf88b5cef4d96a8b5bc8d81aef17a7a75b4bc026fe3c794ae8808d34fac3c11",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "60d18e6f49515b06679dfba4245cabb8d17973ed9b63c4f0256b8ca8fd9e7d81",
+          "text": "Mä läpäsin suomen kokeen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c6ef85531145943e52e123fb810359ade48c9a2dbec70fe173a4b64003e87f6f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "9c87c981449f2e519553a96d5a901e6bc2b5a4c1229f86672da8d4b8b157fffc",
+          "text": "Minä läpäisin suomen kokeen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "eac2f422f8308a87827c3b413a7f22de424e1c3bb4037cf64aad8a6be4a7f9ed"
+        }
       }
     },
     {
@@ -516,6 +577,26 @@
         "reason": "et/että and sä/sinä are colloquial variants; same meaning.",
         "fingerprint": "f20099e13f09591559f0813ea1d54b09b4f22b5e6ba1a9055ca26d1551a6757e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "879719cadaa7845b99047a50bfd8bb7ac2f712f80f22bf5e06c4b9f76f2453e6",
+          "text": "Mä tiesin, et sä pystyt siihen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "085413dbe0cdaeeda9353bf878172a502ad9fffeb289d20bf6db5cb7c21a1301"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8c3e3c937fad3b1fe631b6a01c1bddd49a551e50391c59bf8098c63777611917",
+          "text": "Minä tiesin, että sinä pystyt siihen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4bd9b787aa9ad072b49687440020c0fa672ab5341764477dc78dacc6492f143a"
+        }
       }
     },
     {
@@ -614,6 +695,26 @@
         "reason": "tosi/todella and hermostunu/hermostunut are register variants.",
         "fingerprint": "a7f4f01baed6877be14b5c0848ac008064db373f996061a605c6ead651e0fd41",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "6bd9c1552a2c4ab65132791f0b2a801e8fe26ba27a92906dc194db8652ced41f",
+          "text": "Mä olin tosi hermostunu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d2192daf2a9e9d5d3383dd92e98f650be9c558841c9ab296b2baa60065938aa3"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "0cc32ff5a8e41e7ddf228d4e554d6cfc38afa79678b5313b45436f5c01bc8de1",
+          "text": "Minä olin todella hermostunut.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fb3e6b85778cbe70527653b1d15f1fabefe3545dbeffaa699818e0825c4008cd"
+        }
       }
     },
     {
@@ -773,6 +874,26 @@
         "reason": "mut/mutta, sä/sinä, ylpee/ylpeä, itsestäs/itsestäsi are all register variants.",
         "fingerprint": "c46ab3063d93585ded753bb16498f075f060329bcd137281e6bb97de1d0b9272",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "82da5cf4515b26cab5e400418ad803451fa04231c2ab84ee1f7588a3af5e74bd",
+          "text": "Mut nyt sä voit olla ylpee itsestäs.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "61feca2a095b7582855f7ea5a40cc16370014a0021f3bbac6f98724eaf08e9cc"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "ecfe8f6e090016494b70454522173db166dc51d26e670501b2f6792fa819547b",
+          "text": "Mutta nyt sinä voit olla ylpeä itsestäsi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e45bebf20afda4e28b38209376b6eb8a069185717e4416fbd9b7878e40799b5a"
+        }
       }
     },
     {
@@ -851,6 +972,26 @@
         "reason": "Joo and Kyllä both mean yes; juhlitaanks/juhlitaanko and illal/illalla are register variants.",
         "fingerprint": "f09c619b5185354888fb6ef29cb14db96c777fed5cd852e718a24e8b40682b3b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "dca04d37945ca85ee36074efa009220766b32c30ff37894dfc6fa20f1bec9835",
+          "text": "Joo! Juhlitaanks illal?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a4c281ee8ef7d72bacd4b9f2350c3259a6d33428af0076ce24f3decee33ecc87"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "cbbce4a4c505365f7a9e4987e104d466545d872b9e5881303152cc83f081e954",
+          "text": "Kyllä! Juhlitaanko illalla?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6bbfac472b549d0be27d614adca328342b06706b5b554774b59e0b163853a515"
+        }
       }
     },
     {
@@ -906,6 +1047,26 @@
         "reason": "Identical lines.",
         "fingerprint": "dd86ae464375284c6ee68719469a3cd2d70e275ad35cb63296de1998f2784a35",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "f43308338e1f8ca39568f7039b0dfad8d42fe20c2c5ecaf4232b7890c8dacbfb",
+          "text": "Ilman muuta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e355f1abce5b04bf2bcc1b47dfd49614ec02d33643a0348f2588c12ca31e1c9b"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "d6d7c121ce786e1bf856e7db0345648f7a7c3312134ddef4a5755b42c43dac2b",
+          "text": "Ilman muuta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e355f1abce5b04bf2bcc1b47dfd49614ec02d33643a0348f2588c12ca31e1c9b"
+        }
       }
     }
   ],

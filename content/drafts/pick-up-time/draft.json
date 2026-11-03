@@ -86,7 +86,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -209,6 +210,26 @@
         "reason": "Only register differences: Moi/Hei, mä/minä, 'hakee' vs 'hakemaan'. Same meaning.",
         "fingerprint": "197e48bd6788e1639153d87acd62b43ef725e3c00188c313581b936482078ce9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "6755298b155601a498d4d32584d7346777b7dfa0ab63c2ca8a3aaa313ef8f523",
+          "text": "Moi! Mä tulin hakee Lucasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f0360157abfe146d6ec733d50b176deef3eac0c7e27eb9f3f8931565428ffc15"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "e3b77d81f8bf19ef5fdda615bf3699d54eb9c213a95370fadd703250dbaa937a",
+          "text": "Hei! Minä tulin hakemaan Lucasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0128bbe7e0c848b66bf3f06838ba536b057e55e58b1c46b7b972f88bbccbec82"
+        }
       }
     },
     {
@@ -308,6 +329,26 @@
         "reason": "se/hän is a register difference for a person; pihal/pihalla is a dropped ending. Same meaning.",
         "fingerprint": "fd2806200004ec6f1777518ffd65d74143272cfe5a8e17b168667299386eba58",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "00509b6b1e34673baff78dd6fc07338d031f37ca26e3e8dcd26d6ef7a2b0be9f",
+          "text": "Moi! Se leikkii pihal.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cda7f9150092b22b0713cfea7d080ac1542383cd3772621c6064996ea416c7c1"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "d7eb5fe95cbd6aad0f5662f42d03d20e29f61ab2474e1c7dd5a809705880de9b",
+          "text": "Hei! Hän leikkii pihalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1d4c306f718c9ee8c95acda86e21c55df31d2fbb2afcb5a92b2a24b805295656"
+        }
       }
     },
     {
@@ -386,6 +427,26 @@
         "reason": "Identical lines.",
         "fingerprint": "fcc36bbbd7a08f5c5412e54ffa94e6cec4aa3bcf4ed1feb0f4587ba33d9b03d0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "340214fdfebbc787c64dd8ff73b70e16da8bc7fd5766794fba6dbdc01f600f2b",
+          "text": "Miten päivä meni?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2e3e58061aa43553419a79755aaf4a8ab21affc2e6770bcd3da62c9ca8207b04"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "986406b4292709bfc66d26fcb540dcacbf2775a9955973b88d7c3e69eba80402",
+          "text": "Miten päivä meni?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2e3e58061aa43553419a79755aaf4a8ab21affc2e6770bcd3da62c9ca8207b04"
+        }
       }
     },
     {
@@ -543,6 +604,26 @@
         "reason": "se/hän and nukku/nukkui are register differences; same content.",
         "fingerprint": "b836b77caa83569d7a36634ae752867db8096bca7b744a948e2f7927a4a66d1f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "13928331f8ac4e47e883eadcb9946241b95a8556a03030983e14f6b896daa2d9",
+          "text": "Hyvin! Se söi hyvin ja nukku päiväunet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f9d968938909b815d9fd65f0da1262e2b032de693bd7fd1f7e8d8234c38dc5aa"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "9d09f4d7ad8cc8551a8bc9d8ae807f3dddfe3b40be3c069cb7e0c2ed23375e05",
+          "text": "Hyvin! Hän söi hyvin ja nukkui päiväunet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e39cea48e3f1c0524dc9139cf45930db22371e7d55fd467579429f6267940a9e"
+        }
       }
     },
     {
@@ -698,6 +779,26 @@
         "reason": "mä/minä and sen/hänet are register differences; same time and action.",
         "fingerprint": "62d26a1cda274c29fe1dd8a867e8f8068de28586c2be7652886e5eafa5823900",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "9d0ad1a801c4f7257ed1d96dcd58cc6b9935641092a2c23d5a17706cd456d396",
+          "text": "Hyvä. Huomenna mä haen sen vähän myöhemmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ba512bfa6af8e697d136e2ece657a6ce4d43a4390da0204b5d7f6af3d7e1aa04"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "c9ecf312a5a3e1185b1a0a204081522b8a6c61f77774d8257a5344f3d02dbc49",
+          "text": "Hyvä. Huomenna minä haen hänet vähän myöhemmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "59f1a864f4fdff2351e0a533021e7bb931ae9781d77c063385144a3c756428c3"
+        }
       }
     },
     {
@@ -755,6 +856,26 @@
         "reason": "Identical lines.",
         "fingerprint": "b70e17fa8b101d03baa669163d75721caa2c973f86682bcb8123efd2aa85d8ec",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "d49f57f4234209d07ceb4d6ccf16bc19c1af800c6e7d7bae8702bf5e1ce14bc5",
+          "text": "Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "50c9026b3afba53f62ab4fa0f0dd90c9a92ba89e6c5749009a7e0a7901069882"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "67c114f2a35c15589b3ae3f6236f4e914c17a575e82d9d495de3a6dd89d17ad3",
+          "text": "Mihin aikaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "50c9026b3afba53f62ab4fa0f0dd90c9a92ba89e6c5749009a7e0a7901069882"
+        }
       }
     },
     {
@@ -854,6 +975,26 @@
         "reason": "Onks/onko is a register difference; same time and question.",
         "fingerprint": "782e999632e7fb5c18201407908387cda01c83e696495f23100f2e58a26e61af",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "338bcb1e176ad578249ddfc509d9dd8daa2b41e7b005139249973a9329ce3947",
+          "text": "Viideltä. Onks se okei?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "650aa9cba0de97c7f0a82cc08b2fe5d823906af54538ce4c868597cca359d42a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "eaf9af06db76b80c6e41f767ce615b36ab42cbea783be1a917d6d856a89623f2",
+          "text": "Viideltä. Onko se okei?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c5de5929ab8e801873350f7631623c4caeeb355c24736522660923f88fc62544"
+        }
       }
     },
     {
@@ -990,6 +1131,26 @@
         "reason": "Joo/kyllä, ollaan/olemme and puol/puoli are register differences; same meaning, open until half past five.",
         "fingerprint": "06ff15f84b6ed3e9b3ae54a08e2347d6dec30f328717cd0b2c8144708ae08d75",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "b75e95c5b798d700802462c6ad5c89787ffab206d8a598b213cdad2c6b29ee0f",
+          "text": "Joo, me ollaan auki puol kuuteen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9ec8b7196385285a0b98ea6542df0f5781521a11dcba73ad2ce98833f6b6842e"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "11b58f519361d3663cac410296acec9aae6db2239e0ae21d328adc6be505ecf7",
+          "text": "Kyllä, me olemme auki puoli kuuteen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2dbbc21dc770d6ef6aa5c2c27408bd12d9a4731faa0445f8b032cee38cd199d8"
+        }
       }
     }
   ],

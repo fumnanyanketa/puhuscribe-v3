@@ -81,7 +81,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -187,6 +188,26 @@
         "reason": "Same question: is your family in Brazil; only register differs.",
         "fingerprint": "f390d2ea6fbe8551180302eb85a999fee638e7ba887a88d63a9bfb9e426b671d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "0ed05b978b8e33617134de7811a9538d8b4804008036aeab7f2dcc027c528504",
+          "text": "Onks sun perhe Brasilias?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2ad1ded5971a33831d7c3dedaca0cee11e5218487964fe60c83ff3368a35ce55"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b6256d0faad89a00aadd56df2b21762f66026840d0ae84ed951db5d64f7494de",
+          "text": "Onko sinun perheesi Brasiliassa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "77f3c41c749aa386fae8aec69edb5b199becc7fd9999e0012bb87937b86eb547"
+        }
       }
     },
     {
@@ -323,6 +344,26 @@
         "reason": "Parents and brother live there in both; spoken uses colloquial verb agreement.",
         "fingerprint": "f188ef7a6f7ac949b666dd4e4e42369cdc9339a1fbac334ed36715d412e20eb7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "06fe430b82031326542e2315d027ba3d65853c8dbdbc7538701d779944f714c6",
+          "text": "Mun vanhemmat ja veli asuu siel.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7b416664ab5e944c3354010b3de7b053789982f55115eac5da4c2fcabba2e7ee"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "411b9ea10e9aa38fae3ae2ba32f7328dae50ce1ebfb7167a6920c8a488f60537",
+          "text": "Minun vanhempani ja veljeni asuvat siellä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "51532f3cfe05fc88b1e9b00f32eb62be36277e22785c54e22815d487eeb242dc"
+        }
       }
     },
     {
@@ -425,6 +466,26 @@
         "reason": "Both ask whether you miss them; 'niitä' vs 'heitä' is register.",
         "fingerprint": "334959c76e15655ab001d032c4c19280176c68b66c31ef3a2fa1e383efcfe485",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "077766c9bc58b09c065cd3d0eb15d0362ab650d60ed51747fb178761f9bb46b3",
+          "text": "Onks sul ikävä niitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "504a760f2a46a4c54499863aed07791360cc940d066a8cd5f55dd5ab9b824b1a"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ad91df691217b4e1485d0072e00fea38f6da4a712b76015bd943518cfcd5842c",
+          "text": "Onko sinulla ikävä heitä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d6b76357c4d24f4b24b01e8be96c41560333070c1a818af4831d9df1bd3c21fa"
+        }
       }
     },
     {
@@ -575,6 +636,26 @@
         "reason": "Yes, very much; we call every Sunday in both; spoken passive 'soitetaan' means 'we call'.",
         "fingerprint": "2c99900edbd22f7d527275f40d1d9c62841adb4ef5f5dd72fbc07abdb9812e94",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "756ccf122196b44582581dab9121816759054de96726772533da68861fcfecfe",
+          "text": "Joo, tosi paljon. Me soitetaan joka sunnuntai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fd74435a2010228efc48dbde149a081c50667e1d624a3aab3e3ab7c902d7b86b"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c8187d2d851927f2e69cb267459543ed0a0334f56ec086bbc4ea0e69f4f63d8a",
+          "text": "Kyllä, todella paljon. Me soitamme joka sunnuntai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ff621ea63dc3b2372a9e29a2e8c3d89f426d852a101ad37cdedaf39afc25a3db"
+        }
       }
     },
     {
@@ -677,6 +758,26 @@
         "reason": "Both ask whether they come to visit Finland.",
         "fingerprint": "da623e4d34b66e20cdbdb7ddb96d5ef1312f7789d8d7a2f257be364bfdeb93de",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "5d19e7f8f490c2424d6d99e7f5cd6376af136e8819cda55ca6d7ce8c87d69b2c",
+          "text": "Tuleeks ne käymään Suomes?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "98d31071cb5f81da51d504ce13d6960ba5c812b22a03fc354e7c0beb99accf82"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "cab430f2fb4c39956f99f2a01ae0dc2444bcf2f768a71eebf24cc722faa511b7",
+          "text": "Tulevatko he käymään Suomessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f76c7cdca6e8a217a11ff5d04c3b4d041cc8a46a673c669c38ab45287a5dc148"
+        }
       }
     },
     {
@@ -837,6 +938,26 @@
         "reason": "Yes, in summer; my mother wants to see snow in both.",
         "fingerprint": "29f06d477443db5e3c60991d4f0023d59b2bf03c11afd3b25dd01251ef91c0cf",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "447ec3a51ddeba577815987d0918d2ada85ec532c50e8fc0df4b32f29eeeef46",
+          "text": "Joo, kesällä! Mun äiti haluu nähä lunta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6bb558a5c0202884e8a2cbc910587c14ebdf6463aaa529ca7165f7e859c420dc"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "5957f08cc29bb70daf0b47bbfe1ef541f10893d9eb28bee4097c6ecb0871483e",
+          "text": "Kyllä, kesällä! Minun äitini haluaa nähdä lunta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5b213f2a2d7e2c3e25857eb5470f12f421233daa35a18449b79c70af39bd91fa"
+        }
       }
     },
     {
@@ -953,6 +1074,26 @@
         "reason": "Both say they must then come in winter; 'niitten' vs 'heidän' is register.",
         "fingerprint": "7c824bcd4bc4cb5509fef1856369e8aa045aedb8cc558c171957b887f62e55ee",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "f63af919a5109ff3e62e5e1797f0357d206587001c28b3c29e067b1f43f03f6f",
+          "text": "Sit niitten pitää tulla talvella!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "72b7d8ba34ee1272d798a97518ded13ae03386d045e4e0c16479330e90417600"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "81b45795a3485fcf72f8684047a193dc777c7eb92ca31ee01be2d1de4af274e0",
+          "text": "Sitten heidän pitää tulla talvella!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c04acf46bbbad8cae857d620670337eb766eae233a8046449640ec1b0538535d"
+        }
       }
     },
     {
@@ -991,6 +1132,26 @@
         "reason": "Identical: 'True!'",
         "fingerprint": "e65cdcccf3108a5679d43f39509f201a8ae9ecff6b0275bae90db00258a8558b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "9a847ac13638b1e52bdbf8200a001216dea0bbb289161329b54502625fae86dc",
+          "text": "Totta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d3ae18d6e3b6bb722e08d6e9540a53c7cf4dd6bb97cfc101b81deb459676d629"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "d43b2514026e0b293ad5d31ab0b2b0592301a7ea9471fae431c706f847712c8a",
+          "text": "Totta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d3ae18d6e3b6bb722e08d6e9540a53c7cf4dd6bb97cfc101b81deb459676d629"
+        }
       }
     }
   ],
