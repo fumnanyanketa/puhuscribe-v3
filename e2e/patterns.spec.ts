@@ -199,7 +199,7 @@ async function finishTodaysSession(page: Page): Promise<void> {
   await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
   await page.getByRole('button', { name: 'Done' }).click()
-  await page.waitForURL((url) => url.pathname === '/')
+  await page.waitForURL((url) => url.pathname === '/learn')
 }
 
 async function startNext(page: Page): Promise<void> {
@@ -254,7 +254,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
       await expect(form.getByRole('button', { name: 'Play the written line' })).toHaveCount(1)
     }
     // The panel has no address of its own.
-    expect(new URL(page.url()).pathname).toBe('/session')
+    expect(new URL(page.url()).pathname).toBe('/learn/session')
   })
 
   test('[units 10] Close, Escape and a tap outside each return to the word card with focus on the button', async ({
@@ -467,7 +467,7 @@ test.describe('Patterns you have seen', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
       await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
       await page.getByRole('button', { name: 'Done' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
     }
     // The four dialogues cover units 1, 2 and 3 in order.
     expect(met.map(unitOf)).toEqual([

@@ -38,12 +38,12 @@ test.describe('feedback', { tag: '@seed' }, () => {
   test('[analytics 19] without an account the page says to start first, links to the front door, and the front door shows no feedback link', async ({
     page,
   }) => {
-    await page.goto('/feedback')
+    await page.goto('/learn/feedback')
     await expect(page.getByRole('heading', { level: 1, name: 'Send feedback' })).toBeVisible()
     await expect(page.getByText('Start your first session, then you can send feedback.')).toBeVisible()
     await expect(page.getByRole('link', { name: 'Back to the road' }).first()).toHaveAttribute('href', '/')
     await expect(page.getByLabel('What should we know?')).toHaveCount(0)
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Send feedback' })).toHaveCount(0)
   })
@@ -54,7 +54,7 @@ test.describe('feedback', { tag: '@seed' }, () => {
     const userId = await startGuest(page)
     // The redrawn road has no feedback link (job 19-redesign, statement 15); the address still
     // works and is stored with the screen it names.
-    await page.goto('/feedback?from=front_door')
+    await page.goto('/learn/feedback?from=front_door')
     await expect(page.getByRole('heading', { level: 1, name: 'Send feedback' })).toBeVisible()
     await expect(page.getByText(INTRO)).toBeVisible()
     const box = page.getByLabel('What should we know?')
@@ -65,9 +65,9 @@ test.describe('feedback', { tag: '@seed' }, () => {
     await page.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(page.getByRole('status')).toHaveText('Thank you. Your message is sent.')
 
-    await page.goto('/account')
+    await page.goto('/learn/account')
     const fromAccount = page.getByRole('link', { name: 'Send feedback' })
-    await expect(fromAccount).toHaveAttribute('href', '/feedback?from=account')
+    await expect(fromAccount).toHaveAttribute('href', '/learn/feedback?from=account')
     await fromAccount.click()
     await page.getByLabel('What should we know?').fill('The account page works.')
     await page.getByRole('button', { name: 'Send', exact: true }).click()
@@ -86,7 +86,7 @@ test.describe('feedback', { tag: '@seed' }, () => {
     // The finish screen: one heading, the Done button, and the quiet link.
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
     const link = page.getByRole('link', { name: 'Send feedback' })
-    await expect(link).toHaveAttribute('href', '/feedback?from=finish')
+    await expect(link).toHaveAttribute('href', '/learn/feedback?from=finish')
     await link.click()
     await page.getByLabel('What should we know?').fill('Hear it was fun.')
     await page.getByRole('button', { name: 'Send', exact: true }).click()
@@ -100,7 +100,7 @@ test.describe('feedback', { tag: '@seed' }, () => {
     page,
   }) => {
     const userId = await startGuest(page)
-    await page.goto('/feedback?from=account')
+    await page.goto('/learn/feedback?from=account')
     const isFeedbackPost = (request: Request) =>
       request.method() === 'POST' && new URL(request.url()).pathname === '/api/feedback'
     const posts: (string | null)[] = []
@@ -135,7 +135,7 @@ test.describe('feedback', { tag: '@seed' }, () => {
     page,
   }) => {
     const userId = await startGuest(page)
-    await page.goto('/feedback?from=account')
+    await page.goto('/learn/feedback?from=account')
     await page.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(page.getByRole('status')).toHaveText('Please write your message first.')
     expect(feedbackOf(userId)).toEqual([])
@@ -157,7 +157,7 @@ test.describe('feedback', { tag: '@seed' }, () => {
     page,
   }, testInfo) => {
     const userId = await startGuest(page)
-    await page.goto('/feedback?from=account')
+    await page.goto('/learn/feedback?from=account')
     const box = page.getByLabel('What should we know?')
     await expect(box).toBeVisible()
     await expect(page.locator('label', { hasText: 'What should we know?' })).toBeVisible()
@@ -191,16 +191,16 @@ test.describe('feedback', { tag: '@seed' }, () => {
       page,
     }) => {
       await page.emulateMedia({ colorScheme: scheme })
-      await page.goto('/feedback')
+      await page.goto('/learn/feedback')
       await expect(page.getByText('Start your first session, then you can send feedback.')).toBeVisible()
-      await axe(page, '/feedback, no account')
+      await axe(page, '/learn/feedback, no account')
       await startGuest(page)
-      await page.goto('/feedback?from=account')
+      await page.goto('/learn/feedback?from=account')
       await expect(page.getByLabel('What should we know?')).toBeVisible()
-      await axe(page, '/feedback, form')
+      await axe(page, '/learn/feedback, form')
       await page.getByRole('button', { name: 'Send', exact: true }).click()
       await expect(page.getByRole('status')).toHaveText('Please write your message first.')
-      await axe(page, '/feedback, gentle line')
+      await axe(page, '/learn/feedback, gentle line')
     })
   }
 })
@@ -216,7 +216,7 @@ test.describe('no outside request', { tag: '@seed' }, () => {
     await page.getByLabel('What should we know?').fill('Walking through the whole app.')
     await page.getByRole('button', { name: 'Send', exact: true }).click()
     await expect(page.getByRole('status')).toHaveText('Thank you. Your message is sent.')
-    await page.goto('/account')
+    await page.goto('/learn/account')
     await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeVisible()
     await page.waitForLoadState('networkidle')
     const origin = new URL(page.url()).origin
@@ -236,7 +236,7 @@ test.describe('a crash on a screen with a typed answer', { tag: '@seed' }, () =>
     // Keep it needs a day to pass and nothing new to learn (job 9's own steps).
     dayLater(userId)
     finishEveryOtherDialogue(userId)
-    await page.goto('/')
+    await page.goto('/learn')
     // A day with only a review says "Start review" on the road.
     await page.getByRole('button', { name: /^Start( review)?$/ }).click()
     await page.waitForURL('**/session')

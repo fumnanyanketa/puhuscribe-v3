@@ -20,21 +20,25 @@
   "assets": {
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    // Every /api/* route, and the app's page routes so the Worker can count an
-    // arrival (factory/jobs/14-analytics/spec.md, "Done when" 3). Exactly the
+    // Every /api/* route, the landing page "/" and the app's page routes under
+    // /learn so the Worker can count an arrival, and /landing, the landing
+    // file's own address, which redirects to "/" (job 17-landing-page). Counting is
+    // factory/jobs/14-analytics/spec.md, "Done when" 3. Exactly the
     // list in worker/page-routes.ts (tests/analytics-rules.test.ts). Files are
     // never listed: they are served without running the Worker.
     "run_worker_first": [
       "/api/*",
       "/",
-      "/session",
-      "/voice",
-      "/account",
-      "/account/*",
-      "/sign-in",
-      "/privacy",
-      "/feedback",
-      "/owner",
+      "/learn",
+      "/learn/session",
+      "/learn/voice",
+      "/learn/account",
+      "/learn/account/*",
+      "/learn/sign-in",
+      "/learn/privacy",
+      "/learn/feedback",
+      "/learn/owner",
+      "/landing",
     ],
   },
   // The owner page (job 14-analytics) needs OWNER_HOSTNAME,

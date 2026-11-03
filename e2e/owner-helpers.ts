@@ -156,7 +156,7 @@ export async function dashboard(page: Page): Promise<Dashboard> {
 
 /** Waits until the owner page has drawn its numbers. */
 export async function openOwnerPage(page: Page): Promise<void> {
-  await page.goto('/owner')
+  await page.goto('/learn/owner')
   await expect(page.getByRole('heading', { level: 1, name: 'Owner page' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Crashes' })).toBeVisible()
 }

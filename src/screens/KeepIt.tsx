@@ -210,7 +210,7 @@ export function KeepIt({ sessionId, items, frame, onDone, practiceAnswers }: Kee
     const reply = await recallForm(sessionId, item.formId, result.recording.wav)
     setChecking(false)
     if (reply.kind === 'signed_out') {
-      window.location.replace('/')
+      window.location.replace(PATHS.home)
     } else if (reply.kind === 'graded' && isFeedback(reply.body)) {
       const feedback = reply.body
       setShown({ feedback, typed: '', spoken: true })

@@ -234,7 +234,9 @@ test(
     await expect(newest).toContainText(`${SCREEN_NAMES.finish ?? ''}. ${ACCOUNT_NAMES.guest ?? ''}.`)
 
     // The crash list: the learner's error.
-    expect(after.crashes.some((c) => c.name === 'JourneyTestError' && c.path === '/feedback')).toBe(true)
+    expect(after.crashes.some((c) => c.name === 'JourneyTestError' && c.path === '/learn/feedback')).toBe(
+      true,
+    )
     await expect(
       owner.locator('[data-owner="crashes"] > li').filter({ hasText: 'JourneyTestError' }),
     ).toBeVisible()

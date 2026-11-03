@@ -98,7 +98,7 @@ test.describe('the account page', () => {
     { tag: '@smoke' },
     async ({ page }) => {
       await mockAccount(page)
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeAttached()
       await expect(page.getByText('Guest', { exact: true })).toBeVisible()
       await expect(page.getByText('Saved on this device')).toBeVisible()
@@ -127,7 +127,7 @@ test.describe('the account page', () => {
     page,
   }) => {
     await mockAccount(page, { me: { kind: 'email', email: 'alex@example.com' } })
-    await page.goto('/account')
+    await page.goto('/learn/account')
     await expect(page.getByText('alex@example.com')).toBeVisible()
     await expect(page.getByText('Saved to your email')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
@@ -140,7 +140,7 @@ test.describe('the account page', () => {
 
   test('[redesign 34] with no account it says so and offers "Sign in with your email"', async ({ page }) => {
     await mockAccount(page, { me: { kind: 'none' } })
-    await page.goto('/account')
+    await page.goto('/learn/account')
     await expect(page.getByText('There is no account on this device.')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
     await expect(page.getByText('Your journey')).toHaveCount(0)
@@ -150,7 +150,7 @@ test.describe('the account page', () => {
     page,
   }) => {
     const calls = await mockAccount(page)
-    await page.goto('/account')
+    await page.goto('/learn/account')
     const downloading = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download my data' }).click()
     expect((await downloading).suggestedFilename()).toBe('puhuscribe-data.json')
@@ -174,7 +174,7 @@ test.describe('the account page', () => {
     const title = await page.getByRole('heading', { level: 2 }).boundingBox()
     expect(Math.abs((title?.x ?? 0) + (title?.width ?? 0) / 2 - 187.5)).toBeLessThan(3)
     await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeVisible()
-    expect(new URL(page.url()).pathname).toBe('/account')
+    expect(new URL(page.url()).pathname).toBe('/learn/account')
     const again = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download', exact: true }).click()
     await again
@@ -187,7 +187,7 @@ test.describe('the email screens', () => {
     page,
   }) => {
     const calls = await mockAccount(page)
-    await page.goto('/account/email')
+    await page.goto('/learn/account/email')
     await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
     await expect(
       page.getByText(
@@ -211,7 +211,7 @@ test.describe('the email screens', () => {
     page,
   }) => {
     await mockAccount(page)
-    await page.goto('/account/email')
+    await page.goto('/learn/account/email')
     await page.getByLabel('Email address').fill('alex@example.com')
     await page.getByRole('button', { name: 'Send code' }).click()
     const field = page.getByLabel('6 digit code')
@@ -231,7 +231,7 @@ test.describe('the email screens', () => {
     { tag: '@smoke' },
     async ({ page }) => {
       await mockAccount(page, { me: { kind: 'guest' } })
-      await page.goto('/sign-in')
+      await page.goto('/learn/sign-in')
       await expect(
         page.getByText(
           'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
@@ -242,7 +242,7 @@ test.describe('the email screens', () => {
       await expect(page.getByRole('link', { name: 'Start as a guest instead' })).toHaveAttribute('href', '/')
       const none = await page.context().newPage()
       await mockAccount(none, { me: { kind: 'none' } })
-      await none.goto('/sign-in')
+      await none.goto('/learn/sign-in')
       // Round 6 (item 32): the drawing's title and subtitle.
       await expect(none.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
       await expect(none.getByText('Enter your email for a code.', { exact: true })).toBeVisible()
@@ -263,7 +263,7 @@ test.describe('the email screens', () => {
     page,
   }) => {
     await mockAccount(page)
-    await page.goto('/account/email')
+    await page.goto('/learn/account/email')
     const field = page.getByLabel('Email address')
     await expect(field).toHaveAttribute('placeholder', 'Your email')
     const label = await page.locator('label[for="email"]').boundingBox()
@@ -290,7 +290,7 @@ test.describe('the email screens', () => {
   }) => {
     await page.clock.install()
     const calls = await mockAccount(page)
-    await page.goto('/account/email')
+    await page.goto('/learn/account/email')
     await page.getByLabel('Email address').fill('alex@example.com')
     await page.getByRole('button', { name: 'Send code' }).click()
     await expect(page.getByRole('heading', { level: 1, name: 'Enter the code' })).toBeVisible()
@@ -327,7 +327,7 @@ test.describe('Voice settings', () => {
     page,
   }) => {
     await mockAccount(page, { processing: 'granted', retention: true })
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
     await expect(speaking).toBeVisible()
     await expect(page.getByText('So I can hear my progress. 90 days.', { exact: true })).toBeVisible()
@@ -347,7 +347,7 @@ test.describe('Voice settings', () => {
       retention: true,
       recordings: [{ id: 'r1', line: 'Moi.', slot: 'first', createdAt: '2026-11-01T10:00:00Z' }],
     })
-    await kept.goto('/voice')
+    await kept.goto('/learn/voice')
     await expect(kept.getByRole('heading', { name: 'My recordings' })).toBeVisible()
     const remove = kept.getByRole('button', { name: 'Delete my recordings' })
     await expect(remove).toBeVisible()
@@ -358,7 +358,7 @@ test.describe('Voice settings', () => {
     page,
   }) => {
     const calls = await mockAccount(page, { processing: 'granted', retention: false })
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
     const keep = page.getByRole('switch', { name: 'Keep my recordings' })
     await expect(speaking).toHaveAttribute('aria-checked', 'true')
@@ -373,7 +373,7 @@ test.describe('Voice settings', () => {
     page,
   }) => {
     await mockAccount(page, { processing: 'granted', retention: false })
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const keep = page.getByRole('switch', { name: 'Keep my recordings' })
     await expect(keep).toHaveAccessibleDescription(
       /Off\. Keep my recordings so I can hear my progress\. We keep your first and latest try of each line for 90 days\. You can delete them at any time\./,
@@ -396,7 +396,7 @@ test.describe('Voice settings', () => {
     page,
   }) => {
     await mockAccount(page, { processing: 'not_asked' })
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
     await expect(speaking).toHaveAttribute('aria-checked', 'false')
     await page.evaluate("document.addEventListener('mousedown', (event) => event.preventDefault(), true)")
@@ -416,7 +416,7 @@ test.describe('Voice settings', () => {
     page,
   }) => {
     const calls = await mockAccount(page, { processing: 'not_asked' })
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const speaking = page.getByRole('switch', { name: 'Speaking feedback' })
     await expect(speaking).toHaveAttribute('aria-checked', 'false')
     await expect(page.getByRole('switch', { name: 'Keep my recordings' })).toBeDisabled()
@@ -434,7 +434,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     page,
   }) => {
     const calls = await mockAccount(page)
-    await page.goto('/account/delete')
+    await page.goto('/learn/account/delete')
     await expect(page.getByRole('heading', { level: 1, name: 'Delete your account?' })).toBeVisible()
     await expect(
       page.getByText(
@@ -452,7 +452,7 @@ test.describe('delete, feedback and the privacy notice', () => {
 
   test('[redesign 38] "Keep my account" goes back without deleting', async ({ page }) => {
     const calls = await mockAccount(page)
-    await page.goto('/account/delete')
+    await page.goto('/learn/account/delete')
     await page.getByRole('button', { name: 'Keep my account' }).click()
     await page.waitForURL('**/account')
     expect(calls.deleted).toBe(0)
@@ -463,7 +463,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     { tag: '@smoke' },
     async ({ page }) => {
       const requests = recordRequests(page)
-      await page.goto('/privacy')
+      await page.goto('/learn/privacy')
       await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
       for (const heading of [
         'What we keep',
@@ -506,7 +506,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     page,
   }) => {
     await mockAccount(page, { region: 'Italy' })
-    await page.goto('/privacy#privacy-voice')
+    await page.goto('/learn/privacy#privacy-voice')
     const section = page.getByRole('heading', { level: 2, name: 'Your voice' })
     await expect(section).toBeInViewport()
     await expect(page.getByText('Microsoft does not keep your recording', { exact: false })).toBeVisible()
@@ -527,7 +527,7 @@ test.describe('delete, feedback and the privacy notice', () => {
   test('[redesign 39] the title is in the page, the section headings are mint as drawn, and the voice details sit behind one tap', async ({
     page,
   }) => {
-    await page.goto('/privacy')
+    await page.goto('/learn/privacy')
     await expect(page.getByRole('heading', { level: 2, name: 'Who runs PuhuScribe' })).toBeVisible()
     const look = await page.evaluate<{ colours: string[]; titleInHeader: boolean }>(`({
       colours: [...document.querySelectorAll('[class*="firstLayer"] section h2')].map((h) => getComputedStyle(h).color),
@@ -549,7 +549,7 @@ test.describe('delete, feedback and the privacy notice', () => {
   }) => {
     await mockHome(page, { me: { kind: 'none' } })
     await page.route('**/api/voice', (route) => json(route, { error: 'not_signed_in' }, 401))
-    await page.goto('/privacy#privacy-voice')
+    await page.goto('/learn/privacy#privacy-voice')
     await expect(page.getByText('speech service in the EU. The service', { exact: false })).toBeVisible()
     await expect(page.getByText(/in the EU, in /)).toHaveCount(0)
   })
@@ -558,7 +558,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     page,
   }) => {
     const calls = await mockAccount(page)
-    await page.goto('/feedback?from=account')
+    await page.goto('/learn/feedback?from=account')
     await expect(page.getByRole('heading', { level: 1, name: 'Send feedback' })).toBeVisible()
     await expect(
       page.getByText(
@@ -596,7 +596,7 @@ test.describe('errors and offline', () => {
     page,
   }) => {
     await mockHome(page, { roadFails: 0 })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'No connection' })).toBeVisible()
     await expect(page.getByText("Your progress is safe. Try again when you're online.")).toBeVisible()
     await expect(page.getByRole('button', { name: 'Try again' })).toBeVisible()
@@ -606,7 +606,7 @@ test.describe('errors and offline', () => {
     page,
   }) => {
     await page.route('**/api/sessions/today', (route) => route.abort('failed'))
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await expect(page.getByRole('status')).toContainText('Check your internet connection, then try again.')
     await expect(page.getByText('Your progress is safe.')).toHaveCount(0)
   })
@@ -628,7 +628,7 @@ test.describe('every page at phone size', () => {
       page,
     }) => {
       await mockAccount(page, mocks)
-      await page.goto(`/${path}`)
+      await page.goto(`/learn/${path}`)
       await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
       await page.evaluate('document.fonts.ready')
       await page.waitForTimeout(400)
@@ -693,7 +693,7 @@ test.describe('every page at phone size', () => {
       }) => {
         await page.setViewportSize({ width, height })
         await mockAccount(page, mocks)
-        await page.goto(`/${path}`)
+        await page.goto(`/learn/${path}`)
         await page.addStyleTag({ content: `html { font-size: ${size} !important; }` })
         await page.waitForLoadState('networkidle')
         await page.evaluate('document.fonts.ready')

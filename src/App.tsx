@@ -1,3 +1,4 @@
+import { PATHS } from './lib/app-paths.ts'
 import { AccountPage } from './screens/AccountPage.tsx'
 import { DeletePage } from './screens/DeletePage.tsx'
 import { EmailFlow } from './screens/EmailFlow.tsx'
@@ -14,19 +15,21 @@ import { VoiceSettings } from './screens/VoiceSettings.tsx'
 // pages and the privacy notice come from factory/jobs/11-accounts/spec.md;
 // /feedback and the owner page /owner from factory/jobs/14-analytics/spec.md.
 // Every page here is listed in worker/page-routes.ts (tests/analytics-rules.test.ts).
+// Since job 17-landing-page every page lives under /learn (src/lib/app-paths.ts)
+// and the main address "/" is the public landing page (landing.html).
 // Every other path, deep links included, shows the road, the home screen
 // (job 19-redesign). The "Hei!"
 // smoke test page of job 2-smoke is retired (job 8, statement 21).
 
 export function App({ path }: { path: string }) {
-  if (path === '/session') return <SessionPage />
-  if (path === '/voice') return <VoiceSettings />
-  if (path === '/account') return <AccountPage />
-  if (path === '/account/email') return <EmailFlow mode="add" />
-  if (path === '/account/delete') return <DeletePage />
-  if (path === '/sign-in') return <EmailFlow mode="sign-in" />
-  if (path === '/privacy') return <PrivacyPage />
-  if (path === '/feedback') return <FeedbackPage />
-  if (path === '/owner') return <OwnerPage />
+  if (path === PATHS.session) return <SessionPage />
+  if (path === PATHS.voice) return <VoiceSettings />
+  if (path === PATHS.account) return <AccountPage />
+  if (path === PATHS.accountEmail) return <EmailFlow mode="add" />
+  if (path === PATHS.accountDelete) return <DeletePage />
+  if (path === PATHS.signIn) return <EmailFlow mode="sign-in" />
+  if (path === PATHS.privacy) return <PrivacyPage />
+  if (path === PATHS.feedback) return <FeedbackPage />
+  if (path === PATHS.owner) return <OwnerPage />
   return <RoadScreen />
 }

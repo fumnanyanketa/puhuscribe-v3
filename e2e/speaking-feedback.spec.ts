@@ -51,11 +51,11 @@ async function turnOn(page: Page, keep = false) {
   await expect(consentHeading(page)).toBeHidden()
   await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
   if (keep) {
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const keepSwitch = page.getByRole('switch', { name: 'Keep my recordings' })
     await keepSwitch.click()
     await expect(keepSwitch).toBeChecked()
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
   }
 }
@@ -211,7 +211,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     const { userId, lines } = await toSayIt(page)
     const leave = async () => {
       await leaveLesson(page)
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
       await page.waitForURL('**/session')
     }
@@ -421,8 +421,11 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     ).toEqual(['first', 'latest'])
 
     // Voice settings is linked from Your account (job 19-redesign, statement 36); Say it has no link of its own.
-    await page.goto('/account')
-    await expect(page.getByRole('link', { name: /^Speaking feedback/ })).toHaveAttribute('href', '/voice')
+    await page.goto('/learn/account')
+    await expect(page.getByRole('link', { name: /^Speaking feedback/ })).toHaveAttribute(
+      'href',
+      '/learn/voice',
+    )
     await page.getByRole('link', { name: /^Speaking feedback/ }).click()
     await page.waitForURL('**/voice')
     await expect(page.getByRole('heading', { level: 1, name: 'Voice settings' })).toBeVisible()
@@ -494,11 +497,11 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await stubMicrophone(page, 'tone')
     await toSayIt(page)
     await turnOn(page)
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     const speakingSwitch = page.getByRole('switch', { name: 'Speaking feedback' })
     await speakingSwitch.click()
     await expect(speakingSwitch).not.toBeChecked()
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await expect(page.getByText('Say the line out loud after the voice.', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: RECORD })).toHaveCount(0)
   })
@@ -522,7 +525,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     })
     await installRoad(other)
     const b = await other.newPage()
-    await b.goto('/')
+    await b.goto('/learn')
     await b.getByRole('button', { name: 'Start', exact: true }).click()
     await b.waitForURL('**/session')
     const theirs = await b.request.get(`/api/voice/recordings/${id}`)
@@ -563,7 +566,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await turnOn(page, true)
     await recordOnce(page)
     await check('Say it after a try')
-    await page.goto('/voice')
+    await page.goto('/learn/voice')
     await expect(page.locator('[data-recording-id]')).toHaveCount(1)
     await check('Voice settings')
   })
@@ -617,7 +620,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
       await recordOnce(page)
       await expect(status(page)).toHaveAttribute('data-tone', 'gentle')
       await scan('Say it, gentle feedback')
-      await page.goto('/voice')
+      await page.goto('/learn/voice')
       await expect(page.locator('[data-recording-id]')).toHaveCount(1)
       await scan('Voice settings')
     })

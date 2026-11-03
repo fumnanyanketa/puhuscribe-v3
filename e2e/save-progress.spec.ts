@@ -236,7 +236,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
 
     // [12] It never blocks: one tap on Done reaches the front door.
     await done.click()
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   })
 
@@ -245,7 +245,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
   test('[save-progress 2] the note is on none of the front door, Hear it, Understand it and Say it', async ({
     page,
   }) => {
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expectNoNote(page, 'front door')
     const userId = await startGuest(page)
@@ -385,7 +385,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     await page.reload()
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     await expectNoNote(page, 'after reload')
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expectNoNote(page, 'front door')
     await walkContinuedSession(page, userId)
@@ -433,11 +433,11 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     }
     await expect(page.getByRole('link', { name: 'Send feedback' })).toHaveAttribute(
       'href',
-      '/feedback?from=finish',
+      '/learn/feedback?from=finish',
     )
     await expect(noteOf(page)).toBeVisible()
     await page.getByRole('link', { name: 'Leave session' }).click()
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
   })
 
@@ -627,7 +627,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
       await expect.poll(() => answers.length).toBe(1)
       expect(answers[0]).toEqual({ status: 200, body: { saved: true, saveNote: 'reminder' } })
       await page.getByRole('button', { name: 'Done', exact: true }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await walkNextSession(page, userId)
       await expect(page.getByRole('status')).toHaveText(SAVED)
       await expectNoNote(page, 'fourth session')

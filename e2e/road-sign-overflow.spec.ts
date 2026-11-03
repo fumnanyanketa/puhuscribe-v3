@@ -118,7 +118,7 @@ test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
       }) => {
         await page.setViewportSize({ width, height })
         await realRoad(page, done)
-        await page.goto('/')
+        await page.goto('/learn')
         const list = page.getByRole('list', { name: 'Stops on your road' })
         await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
         await page.waitForTimeout(500)
@@ -133,7 +133,7 @@ test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
         await page.setViewportSize({ width, height })
         await page.addInitScript(LARGE_TEXT_FROM_THE_START)
         await realRoad(page, done)
-        await page.goto('/')
+        await page.goto('/learn')
         // Watch from the first frame the signs are on the page.
         await page.waitForSelector('ol[aria-label="Stops on your road"] > li', { state: 'attached' })
         const frames = await page.evaluate<Frame[]>(`${WATCH}(false)`)
@@ -154,7 +154,7 @@ test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
   }) => {
     await page.setViewportSize({ width: 375, height: 812 })
     await realRoad(page, { 1: 4, 2: 4, 3: 2 })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')).toHaveCount(5)
     await page.waitForTimeout(500)
     const signs = await page.evaluate<
@@ -272,7 +272,7 @@ test.describe('number pins when the text is too large for the drawn signs', () =
         await page.setViewportSize({ width, height })
         await page.addInitScript(LARGE_TEXT_FROM_THE_START)
         await realRoad(page, done)
-        await page.goto('/')
+        await page.goto('/learn')
         const list = page.getByRole('list', { name: 'Stops on your road' })
         await expect(list.locator('li[data-state="current"]')).toHaveCount(1)
         await page.waitForTimeout(700)
@@ -309,7 +309,7 @@ test.describe('number pins when the text is too large for the drawn signs', () =
     }) => {
       await page.setViewportSize({ width, height })
       await realRoad(page, currentAt(LONGEST[0]))
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(
         page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem'),
       ).not.toHaveCount(0)
@@ -328,7 +328,7 @@ test.describe('number pins when the text is too large for the drawn signs', () =
     }) => {
       await page.setViewportSize({ width, height })
       await realRoad(page, currentAt(LONGEST[0]))
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(
         page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem'),
       ).not.toHaveCount(0)

@@ -151,7 +151,7 @@ export function userCount(): number {
  */
 export async function finishTodaysSession(page: Page, account: 'guest' | 'email' = 'guest'): Promise<string> {
   await serveTone(page)
-  await page.goto('/')
+  await page.goto('/learn')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
@@ -172,7 +172,7 @@ export async function finishTodaysSession(page: Page, account: 'guest' | 'email'
 /** A new guest: Start on the front door, then back to the front door. */
 export async function startGuest(page: Page): Promise<string> {
   await serveTone(page)
-  await page.goto('/')
+  await page.goto('/learn')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   // Wait for the session screen to finish loading. A test that deletes the
@@ -199,7 +199,7 @@ export async function confirmCode(page: Page, code: string): Promise<void> {
 /** Adds an email to this device's guest account, through the screens and Mailpit. */
 export async function addEmail(page: Page, address: string): Promise<Mail> {
   const seen = await mailIds(address)
-  await page.goto('/account/email')
+  await page.goto('/learn/account/email')
   await sendCodeTo(page, address)
   const mail = await nextMail(address, seen)
   await confirmCode(page, mail.code)
@@ -214,7 +214,7 @@ export async function addEmail(page: Page, address: string): Promise<Mail> {
 /** Signs this device in with an email, through the screens and Mailpit. */
 export async function signIn(page: Page, address: string, { anyway = false } = {}): Promise<Mail> {
   const seen = await mailIds(address)
-  await page.goto('/sign-in')
+  await page.goto('/learn/sign-in')
   if (anyway) await page.getByRole('button', { name: 'Sign in anyway' }).click()
   await sendCodeTo(page, address)
   const mail = await nextMail(address, seen)
@@ -246,7 +246,7 @@ export async function secondDevice(
 
 /** What the front door offers: its status line and its main buttons. */
 export async function frontDoorState(page: Page): Promise<string> {
-  await page.goto('/')
+  await page.goto('/learn')
   // The front door is the road since job 19-redesign: wait for its signs, and for the opening
   // animation (a crossfade with reduced motion) to be over, so Skip is not one of the buttons.
   await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()

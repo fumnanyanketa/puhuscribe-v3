@@ -9,7 +9,7 @@ import {
   type OwnerDeps,
   type OwnerEnv,
 } from './owner.ts'
-import { isPageRoute } from './page-routes.ts'
+import { isPageRoute, LANDING_FILE_ROUTES } from './page-routes.ts'
 import { countsAsVisit, countVisit, visitCountry } from './visits.ts'
 
 // The single Cloudflare Worker for PuhuScribe. wrangler.jsonc sends every
@@ -17,6 +17,8 @@ import { countsAsVisit, countVisit, visitCountry } from './visits.ts'
 // files are served by Cloudflare without running this code.
 //
 // - /api/* goes to worker/api.ts, on the same address as the page.
+// - "/" is the public landing page (landing.html, job 17-landing-page), and the
+//   app's pages live under /learn.
 // - A page route is answered with the built page itself (env.ASSETS), byte for
 //   byte, and an arrival is counted after the answer (worker/visits.ts,
 //   factory/jobs/14-analytics/spec.md, "Done when" 1 to 4).
@@ -44,6 +46,20 @@ function isApi(pathname: string): boolean {
   return pathname === '/api' || pathname.startsWith('/api/')
 }
 
+/**
+ * The public landing page at "/" (job 17-landing-page): the built file
+ * landing.html, answered unchanged. The app shell stays index.html, so every
+ * address under /learn keeps working as Cloudflare's single page app fallback.
+ * Only GET and HEAD reach it.
+ */
+async function landingPage(request: Request, assets: Fetcher): Promise<Response> {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    await readBody(request)
+    return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } })
+  }
+  return assets.fetch(new Request(new URL('/landing', request.url), request))
+}
+
 async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: WaitUntil): Promise<Response> {
   const url = new URL(request.url)
   const owner = ownerHostname(env)
@@ -56,9 +72,14 @@ async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: Wai
     }
     return handleApi(request, env, deps)
   }
+  // The built landing file has one public address, "/" (job 17-landing-page).
+  if ((LANDING_FILE_ROUTES as readonly string[]).includes(url.pathname) || url.pathname === '/landing.html') {
+    await readBody(request)
+    return new Response(null, { status: 301, headers: { Location: '/' } })
+  }
   if (!isPageRoute(url.pathname)) return new Response('Not found', { status: 404 })
   if (!env.ASSETS) throw new Error('The ASSETS binding is missing.')
-  const page = await env.ASSETS.fetch(request)
+  const page = url.pathname === '/' ? await landingPage(request, env.ASSETS) : await env.ASSETS.fetch(request)
   if (page.status < 400 && countsAsVisit(request)) {
     ctx.waitUntil(countVisit(env, deps.fetch, visitCountry(request)))
   }

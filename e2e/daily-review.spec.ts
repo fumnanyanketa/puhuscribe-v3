@@ -171,7 +171,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     // [review 14] Leave, then continue: Keep it again, without the two answered words.
     await leaveLesson(page)
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     await page.getByRole('button', { name: 'Continue', exact: true }).click()
     await page.waitForURL('**/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
@@ -209,7 +209,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     // [review 4] Leaving shows "Continue", which reuses the same row.
     await leaveLesson(page)
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     await page.getByRole('button', { name: 'Continue', exact: true }).click()
     await page.waitForURL('**/session')
     expect(sessionsOf(userId).filter((s) => s.dialogueId === '')).toHaveLength(1)
@@ -234,7 +234,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
     // [review 5] Nothing ready and nothing due: plain words and the day of the next review.
     await page.getByRole('button', { name: 'Done' }).click()
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     // The road's card says "Done for today" with the day of the next review (statement 15).
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
@@ -558,7 +558,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Review finished.' })).toBeVisible()
     await tabTo(page, page.getByRole('button', { name: 'Done' }), testInfo)
     await page.keyboard.press('Enter')
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
     expect(logCount(userId)).toBe(answered)
   })
 

@@ -28,8 +28,8 @@ import { isPageRoute } from './page-routes.ts'
 //    function owner_dashboard() answers only for an account on the owner list
 //    with a live sign in. No stronger key exists here.
 //
-// On the owner host only /owner, /sign-in and a few /api routes are
-// answered; other pages go to /owner and other /api routes get 404. Every
+// On the owner host only /learn/owner, /learn/sign-in and a few /api routes are
+// answered; other pages go to /learn/owner and other /api routes get 404. Every
 // answer is kept out of search engines, caches and frames, and sends no
 // Referer. Visits to this host are never counted. Its pages are marked as the
 // owner host's (src/lib/owner-host.ts), so their crash reports carry the
@@ -227,12 +227,15 @@ export async function handleOwnerRequest(
     await readBody(request)
     return privately(json({ error: 'not_found' }, 404), OWNER_API_CSP)
   }
-  if (pathname === '/owner' || pathname === '/sign-in') {
+  if (pathname === '/learn/owner' || pathname === '/learn/sign-in') {
     return privately(await markedAsOwnerHost(await assets(env).fetch(request)), OWNER_PAGE_CSP)
   }
   await readBody(request)
-  if (isPageRoute(pathname)) {
-    return privately(new Response(null, { status: 302, headers: { Location: '/owner' } }), OWNER_PAGE_CSP)
+  // Every other page, the landing page and the old /owner and /sign-in included, goes to the owner
+  // page (job 17-landing-page): the landing page is never served on the owner host.
+  if (isPageRoute(pathname) || pathname === '/owner' || pathname === '/sign-in') {
+    const to = pathname === '/sign-in' ? '/learn/sign-in' : '/learn/owner'
+    return privately(new Response(null, { status: 302, headers: { Location: to } }), OWNER_PAGE_CSP)
   }
   return privately(new Response('Not found', { status: 404 }), OWNER_PAGE_CSP)
 }

@@ -43,7 +43,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     baseURL,
   }) => {
     const origin = ownerOrigin(baseURL)
-    for (const path of ['/owner', '/api/owner/dashboard', '/api/me', '/']) {
+    for (const path of ['/learn/owner', '/api/owner/dashboard', '/api/me', '/']) {
       const res = await request.get(`${origin}${path}`, { headers: {}, maxRedirects: 0 })
       expect(res.status(), path).toBe(403)
       expect(await res.text()).toBe(
@@ -58,12 +58,12 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     baseURL,
   }, testInfo) => {
     const { page, userId, context } = await ownerAccount(browser, testInfo, baseURL)
-    await page.goto('/owner')
+    await page.goto('/learn/owner')
     await expect(page.getByRole('status')).toHaveText('This account cannot open the owner page.')
     await expect(page.getByRole('heading', { level: 2, name: 'Learners' })).toHaveCount(0)
 
     addToOwnerList(userId)
-    const answer = await page.goto('/owner')
+    const answer = await page.goto('/learn/owner')
     const headers = answer?.headers() ?? {}
     expect(headers['x-robots-tag']).toBe('noindex, nofollow')
     expect(headers['cache-control']).toBe('private, no-store')
@@ -97,7 +97,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     await expect(page.locator('canvas, select, input[type="date"]')).toHaveCount(0)
 
     // Other page routes on the owner host go to /owner; the app's routes are not there.
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await page.waitForURL('**/owner')
     const today = await page.request.get('/api/today')
     expect(today.status()).toBe(404)
@@ -175,7 +175,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     expect(
       one(
         `select count(*) from private.crash_reports
-          where error_name = 'OwnerPageTestError' and path = '/owner' and browser like :'label'`,
+          where error_name = 'OwnerPageTestError' and path = '/learn/owner' and browser like :'label'`,
         { label },
       ),
     ).not.toBe('0')
@@ -193,7 +193,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
   }, testInfo) => {
     const context = await ownerBrowser(browser, testInfo, baseURL)
     const page = await context.newPage()
-    await page.goto('/owner')
+    await page.goto('/learn/owner')
     await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
     await expect(page.locator('html')).toHaveAttribute('data-puhuscribe-host', 'owner')
     // What Access sets in the browser after its login. Locally the Worker
@@ -225,7 +225,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     addToOwnerList(userId)
     const learnerContext = await appBrowser(browser, testInfo, baseURL)
     const learner = await learnerContext.newPage()
-    await learner.goto('/')
+    await learner.goto('/learn')
     await expect(learner.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     const name = `FrontDoorTestError${testInfo.project.name === 'webkit' ? 'Webkit' : 'Chromium'}`
     const sent = learner.waitForResponse((res) => res.url().endsWith('/api/crash'))
@@ -281,7 +281,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     for (const scheme of ['light', 'dark'] as const) {
       await page.emulateMedia({ colorScheme: scheme })
       await openOwnerPage(page)
-      await axe(page, `/owner ${scheme}`)
+      await axe(page, `/learn/owner ${scheme}`)
     }
     await context.close()
     // The sign in screen on the owner host, as the owner sees it before signing in.
@@ -289,9 +289,9 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     const signIn = await fresh.newPage()
     for (const scheme of ['light', 'dark'] as const) {
       await signIn.emulateMedia({ colorScheme: scheme })
-      await signIn.goto('/sign-in')
+      await signIn.goto('/learn/sign-in')
       await expect(signIn.getByLabel('Email address')).toBeVisible()
-      await axe(signIn, `/sign-in on the owner host ${scheme}`)
+      await axe(signIn, `/learn/sign-in on the owner host ${scheme}`)
     }
     await fresh.close()
   })
