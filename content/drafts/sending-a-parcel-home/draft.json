@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -248,6 +249,26 @@
         "reason": "Only register differences (moi/hei, mä/minä, haluun/haluan, tän/tämän); same meaning.",
         "fingerprint": "bb3c368c8b4179bcc203326e88b3b54878106e9416a11fa0651aa9106d3a82a8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "4a212cdcc6219a1531701386cd4d3ae63776e58c72063ede5f5af631f839610d",
+          "text": "Moi! Mä haluun lähettää tän paketin Brasiliaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "18852f20c62161c5e70dfeafc07de4133e7f133b93df639b33a377d5c6616818"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "13876eb96e544c3ddd702749cee4358c813167182ca144363e1310bcf3a618d6",
+          "text": "Hei! Minä haluan lähettää tämän paketin Brasiliaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "950c89821d1e392d4271898ed6b522e23c7a81563b2e55df59e712fdb3fd10c3"
+        }
       }
     },
     {
@@ -348,6 +369,26 @@
         "reason": "Okei vs selvä is just register; the rest is identical.",
         "fingerprint": "4a5af5e13b8cce234821cdc68e48f90a808115ca4b0671f0815a2d4876678fed",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "bdb1db3af00ad5b9dc0a66cfdc3420b68e27b4fa60562a6a3f9170d86a03a1bb",
+          "text": "Okei. Laitetaan se vaa'alle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d097ff02d54a8b5db3fc8a7d7e7fa7eec2929a7c3748c996bfc1da2a412068cb"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "18a20cc25dc4ff06fb8759f234b72854ed5fcfdae32916fc9e77dc1650adfceb",
+          "text": "Selvä. Laitetaan se vaa'alle.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "65a9593473a803dda04b228af103a68bf705f7114c446da87bcbeaf01f3e2f20"
+        }
       }
     },
     {
@@ -439,6 +480,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "07cb5103b39ddcdcd13a7c4dd14dae9ff264816158038f77df22711562f0e64e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "52d7424c569de8e4c76d9bf141ad8b062e9898fb07410e912ab15c72e3147863",
+          "text": "Kuinka paljon se painaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6feedee8c6f090501141ed79b99b6a3cdd0110e8bfd6a0b1a4fdc855017a462b"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "9784b76cfb34897abea216512e6676de0e02a38fcc49f83321fd1eb891c1db7b",
+          "text": "Kuinka paljon se painaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6feedee8c6f090501141ed79b99b6a3cdd0110e8bfd6a0b1a4fdc855017a462b"
+        }
       }
     },
     {
@@ -599,6 +660,26 @@
         "reason": "Same numbers (2 kg, 35 euros) and same content, only spoken forms differ.",
         "fingerprint": "997965316d473afca03f4d4a678e301456bed4f95177cee77feadb78a96f1cb9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e7750cf41718c8ed4f300c46ecb3bc7e7627c2c0bd28dc1e11748730d02a41a5",
+          "text": "Kaks kiloo. Lentopostina se maksaa kolkytviis euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b908753faf53b4a6a97778b42b32ee959fc2ee211fafd07b888eb3c68e713143"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "ecc854638bfe27b719458bb38d514050eebd872fbf56dc0ca11de393c1b2bf46",
+          "text": "Kaksi kiloa. Lentopostina se maksaa kolmekymmentäviisi euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7913a3e87be5d1c0019df42dc75128e33cccf0f368241588c99114db38e5294b"
+        }
       }
     },
     {
@@ -675,6 +756,26 @@
         "reason": "Kauanks and kauanko are the same question, differing only in register.",
         "fingerprint": "916e8ec989cd0532f9a6cb6aa6211aa961c2f7629035f5a144656d3163c128c6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e64feafa1d7ab9951caf11af71041b62401a950d3d51013ea6fe1fbffda8afb5",
+          "text": "Kauanks se kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4bca20443a8a3bf6badf98640e60fc0c832287ffe16dd9f78ba36f330ae3843a"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "ed8c0573a1594a347010507d7b27f97205ef8438080a1ebfee773af62547617a",
+          "text": "Kauanko se kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8e648cfdd5ab340d43a2beb03f865a250cc77bf0752be2bdf6ec525091a1fee5"
+        }
       }
     },
     {
@@ -750,6 +851,26 @@
         "reason": "Same: about two weeks.",
         "fingerprint": "51fdb243ac8291919f38733747cd76fd2e7e1bbdd1cdc9a42e4cf3ce977dd1e6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3d4ee7729b24d4e423b4a7d62fd875d7cd270e849aaafadab76faabd7875d921",
+          "text": "Noin kaks viikkoo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7fdf793f9638a3a24886c8ad4ad24a5aa51c4d1ef073e8d834858c148440a903"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "66250f5202fb017e9abbec7408c95f9a085550b479cd9649ec1b35c872fdeaaf",
+          "text": "Noin kaksi viikkoa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9777b59ce1a209d77177bd41a603a550e68b1271c21457954cc92078b0fcc3fa"
+        }
       }
     },
     {
@@ -892,6 +1013,26 @@
         "reason": "Same: it's my mother's birthday present; synttäri is the spoken form of syntymäpäivä.",
         "fingerprint": "b985b55b65d7f185dadda51847f39382a54855966cc666de9b89b7efcdaa2628",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3370782155b5f5014c2c516e70efccabaf1283d99b5dbf96c46e35f99f554ee9",
+          "text": "Okei. Se on mun äidin synttärilahja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e6079a9c31ad5af7dcc4e2819da82741c31cbd1116233ff24e628541bd63e654"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "7a3141d3f1c77508581ea71612f49fc0abe3e098decb5fce62a95014c6e701e5",
+          "text": "Selvä. Se on minun äitini syntymäpäivälahja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "478bf09d758cd705a9698307be2f8535bc44c409521ed82b0aa1889c89646db7"
+        }
       }
     },
     {
@@ -1013,6 +1154,26 @@
         "reason": "Same request to write the address on this note; only spoken spelling differs.",
         "fingerprint": "04011f09bb3c51fe133376dce1cdfb5ce2aa793cb6f5d87e8c12c9b6ef48b314",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "72e0afb72133ad696834e4bae4236faa2da7f038d81473fc1ca084e302ec7780",
+          "text": "Kiva! Kirjota osote tähän lappuun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6797c029e8fd18e56aba986d3bd984b4198463e1a95716e0896fabdbd15cbc1a"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "1f77414a9b3019ceaaa03df6fbda0725635e5fc0be9378e138515c6159641069",
+          "text": "Kiva! Kirjoita osoite tähän lappuun.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "de3d9cb46d066adfd74f69b019713ea5c4e6299c71fe5e47ebf8e5dd8a38f8f6"
+        }
       }
     }
   ],

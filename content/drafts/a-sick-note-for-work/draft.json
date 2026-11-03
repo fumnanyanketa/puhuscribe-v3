@@ -80,7 +80,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -202,6 +203,26 @@
         "reason": "Only register differences (moi/hei, mä/minä, tarviin/tarvitsen); same meaning.",
         "fingerprint": "8384ccc5bfd1a44b8d9c1d057771f9aa12c263b862576968d47ddbe36c6dba0f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "b7a053a6d8c7d52c5e0b97f737245cbadc5dcaaa630e2052bbadb662bcba52de",
+          "text": "Moi! Mä tarviin sairauslomatodistuksen töihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ce7c3fd281e780244d65f80dc705d690a27441199018d61b63a5530fda7e1b73"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6185bdf8516b67a9852382f1f252401f204ee39035272a240d3943bb9fe6fab6",
+          "text": "Hei! Minä tarvitsen sairauslomatodistuksen töihin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7253708f7c6c6b9cc4f8632d43b4b24eb6b09376f169d23a2d67aded087a7982"
+        }
       }
     },
     {
@@ -343,6 +364,26 @@
         "reason": "Kauanks/kauanko, sä/sinä, oot/olet, kipee/kipeä are register variants; same question.",
         "fingerprint": "642a1048a9bfcb8dd09e04b36470909df8b2bc61bb99cb0ecadb5ebe8008377e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ff36083a541027e4f56a877889129f3c7fa03be0f40523ee2c6eb0cd593199a3",
+          "text": "Okei. Kauanks sä oot ollu kipee?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "fe75ce24c84f1785bd763a1a0f441e9db439748ae1b7ad4ea2d49239f0735f44"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "bf4e8545036f6a3b00c7ee78f3d865728a90dd7bd92ccb1eeb7e4ccc91e1cf91",
+          "text": "Selvä. Kauanko sinä olet ollut kipeä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0926238bffcd1232198502b7031f53b9d1af3855cff83ed4ba4d6023b65562f8"
+        }
       }
     },
     {
@@ -398,6 +439,26 @@
         "reason": "Maanantaist is the dropped-ending form of maanantaista; same meaning.",
         "fingerprint": "e91b1251eb4d2a4bf36ac25007c5af2dccb14f261d540eca18b60c1fc079c6a9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "45076f0ff5dc446ace49b804b5f0f3402c8356add32dd950632489b4605dc52e",
+          "text": "Maanantaist asti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "69561b55b450ad6b9dd386188a4caa763b6449ab780a5b6a5dffeccb54ff8928"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ef1b96906306f572928558ebd0eae4faf650c80b92eb836f2ea0542445de8974",
+          "text": "Maanantaista asti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "910c20ecef3f42944c21f4e384e42484eb8e02aacac45573611ad53264b5c91b"
+        }
       }
     },
     {
@@ -481,6 +542,26 @@
         "reason": "Kävit sä is spoken form of kävitkö sinä; same question about visiting a doctor.",
         "fingerprint": "82e1966fcac6519a44a714e2e4740dc8836e7437ba80d3c15e897bd01b88abc2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "6d3be74e160a4352a281785b61744f2a53162184efb7c8117ccec3117f6a9d47",
+          "text": "Kävitsä lääkärillä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cdb7e4f3d795827aea671273e37de4af0b8ea0e8b0885e273c0d7e78f3b49db0"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "309e463db1bec7f666ced0e9f642078305c1f15ed32d3d948287403a0899265e",
+          "text": "Kävitkö sinä lääkärillä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3ddd82c887442154ef688a47c3754a052c77a0337d18e113dbb140d4fe846543"
+        }
       }
     },
     {
@@ -534,6 +615,26 @@
         "reason": "Joo and kyllä both mean yes; eilen (yesterday) is the same in both.",
         "fingerprint": "948ca78a0ec1481fff1e636da29dfd8609361bcf511232617430f46166574f7b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "986f9eefc6c3d311d136c0a1e8b67733a57eb6fb9105a42846a60731727cd6f8",
+          "text": "Joo, eilen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2bcd31c3b75418a4b16388c1b7914fda080dade82727f2fd434c632b2a9167cf"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "4da36875f9897ccec0b535f1096982d706bdde93fbd74f8db038cfefd5ff16c0",
+          "text": "Kyllä, eilen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "52960ab1150930e8c6c95d2022af9f9a7a2cf433e66b454311900e8dd5110726"
+        }
       }
     },
     {
@@ -693,6 +794,26 @@
         "reason": "Only register differences (mä/minä, sulle/sinulle, vaan/vain); same meaning.",
         "fingerprint": "8ed78ecd506bd0146e79eb2d499391d9259d8631aa3709be8cb2f2ce358d6369",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "f7f1f0d78dd72027aa598b4d65ddb7f77d04db5e4ba454f9711d88faeb8152f3",
+          "text": "Hyvä. Mä tulostan sen sulle. Hetki vaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "30c54071650b631e373ad61f515a83c102b7960e38cfe82710221b0b5a66714f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "b37088bbb7439764b88d0c0bac59c2d0a358b042d7ae0388f7356522320f55f0",
+          "text": "Hyvä. Minä tulostan sen sinulle. Hetki vain.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ca20dd274c500d40912449779322a830a828516fe50f826e434899c6eb8edd08"
+        }
       }
     },
     {
@@ -832,6 +953,26 @@
         "reason": "Kiitti/kiitos and saanks mä/saanko minä are register variants; same request.",
         "fingerprint": "ad708615ee596965483b9a0d4d3357848828d12c2d78c22310240674a20c9924",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "62920c61df115de1d27434b17f484af9775ef695e070eabcd09ac9029335d161",
+          "text": "Kiitti. Saanks mä sen myös sähköpostiin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2359c209b70e77232d4905a19e2ddfc8f1a366d049c67487d1ad0b5aa82c1fdc"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c6c16d10c5118aeae34dd3c36441b045764e67543e3451154171ddbe2b1fb2ec",
+          "text": "Kiitos. Saanko minä sen myös sähköpostiin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0b27a878294d7f73421181f504b16a4f5c4f10d2917a267245141c565e09d5f8"
+        }
       }
     },
     {
@@ -912,6 +1053,26 @@
         "reason": "Omakannast is the spoken form of Omakannasta; same meaning.",
         "fingerprint": "5a708ac50ab935a80a8af7e29aee07c520ac5609a621d961fca07d54e6f6c139",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "a2a04d31df0a372efc7ade62354af81b89381ded5de36ce8896eed51e32613a9",
+          "text": "Se löytyy Omakannast.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5251d833c49c2cd9a3c2bad68e5cc9556642fbd4df37baeeb4e0f74b8900ccff"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "86c0926684aa889f807228f9aef3864dfba3e9791b1294441729b5051aa50a7a",
+          "text": "Se löytyy Omakannasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "058c5bcb6019ed5e4a5a60c3c1c41c7e1d9c3a92ea431cc8e3f4c90719cb4842"
+        }
       }
     }
   ],

@@ -76,7 +76,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -179,6 +180,26 @@
         "reason": "Moi/hei greeting, onks/onko, tää/tämä are only register differences.",
         "fingerprint": "378f0b42cef1251d5d0b14c0f8dcf4ab6de5b0549200ac284321f8e25217b26b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "33bf0213880f74c3780708e2e079e694800faa6395d39b0d242cc7e28ca5c04a",
+          "text": "Moi, onks tää Jari?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4978e8eedd23099fde27e7b5124e96017ab75dfaa2c792277c8a4b35e30047f9"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "752c8e8eb26025bc4b7497fd31f484f4ac1235e4d60cfb865e48c2229eab9c16",
+          "text": "Hei, onko tämä Jari?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c96b7a3e218d5f2342b20a56aeb44f858a4b1c5294370efb5800d1eced30cfe7"
+        }
       }
     },
     {
@@ -274,6 +295,26 @@
         "reason": "Ei oo/Ei ole is the same negation; the rest is identical.",
         "fingerprint": "4bc75676b554d19652662546023f2db46c8084c8670104c340e701c7152093c3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "9548416882929474bd297090c96ee0b2b213b137675b691c1cf16322a9a862bb",
+          "text": "Ei oo. Täällä Esa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6472979251bebf8e85805f6675ba7cda73d8040207eacc1833827d5820e3d335"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5ef0ed9e00b9f08f6ba1a7b1506489383871977ab28d1b4683331c7ccdbc93dc",
+          "text": "Ei ole. Täällä Esa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8f54e24401e671a5c84f0e229e8d3f159b6419516342fe147c16d6e7b7cf4204"
+        }
       }
     },
     {
@@ -411,6 +452,26 @@
         "reason": "anteeks/anteeksi and mul/minulla are register variants; same meaning.",
         "fingerprint": "f50012b4662e77322aee25e63993ddb68173645cbff14619c9706b5fe4bc7f7d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "a162a7415815b15becba7c2c6e1032d3ffcaa834caf8164b567583b9570cc699",
+          "text": "Voi anteeks! Mul on väärä numero.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e9cf76c4441e912afefa22aca85a942868e4eec136ec226236d211ea69c07929"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "cdfce8c0be69938ce1bb56e10d304725ecc83738bd4c69ecf14ec75b9dd0a9a3",
+          "text": "Voi anteeksi! Minulla on väärä numero.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c354a6a0bf872acb2a61389164bde21a7828f720081bb4da9260610843ebe7a3"
+        }
       }
     },
     {
@@ -572,6 +633,26 @@
         "reason": "sä/sinä is only a register difference; the rest is identical.",
         "fingerprint": "ec4c2418a3094887ee45c62287e3536fa930610dfbefbfe9940e87a4c40a7e7f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "86d454b16fffa9419000d7ac4eed1461792eb2f711352b0e8e5b5bd6f0d4864e",
+          "text": "Ei se mitään. Mihin numeroon sä soitit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a4147bd29c77f2a9f4a5b0e0e305317c40d6534a2cbb66de4ea68e951b66a967"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "97c64ac55a601c4ddea9e16410891e99c75194b910e4885e1df6311bf5b9ff95",
+          "text": "Ei se mitään. Mihin numeroon sinä soitit?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "19d3a66441c19dd0fd65174d6a9d3ca46f66c5bec7e9c880044f2e425d4d25ba"
+        }
       }
     },
     {
@@ -709,6 +790,26 @@
         "reason": "kuus/kuusi is the spoken form of six; the digits are the same.",
         "fingerprint": "0b934509dcf4760e5ed163e7f28c88fde97305cd9226d33c6ce8cbddeae69340",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b98024e73e0899d53daf6638f2e768dcca4e8e2fe1d016d65413f02683f42a1d",
+          "text": "Nolla neljä nolla, kuus kuus kuus...",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7ad2a7fa2d854d133b86a6bf7ef9a998f2ebaf4c03d5201990b5ebcde264d2ae"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "637fb1077e907d9fce672d93c670561e238a38b9aa3cc91062ad8ec014fdc793",
+          "text": "Nolla neljä nolla, kuusi kuusi kuusi...",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "73ee79a4cbfb35086aa26d40ed0d81498ef0c3638e9ef0398cda4defd9e1a389"
+        }
       }
     },
     {
@@ -847,6 +948,26 @@
         "reason": "Mun numero/minun numeroni and viis/viisi are register variants; the digits are the same.",
         "fingerprint": "5101c244f4ad8dafd6ce965707b023cd0c509bab6a92235c64b79e5b8a25cbf0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "1943467c82c8d0b8990e3878b51c80f0d70f6aacdeeeab151b902bc5be8ad4a4",
+          "text": "Mun numero alkaa nolla neljä viis.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a813ac086274704bf7e6397f3a2c8eef641d67d5f35c14e9f4ad4c1795dbb680"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "183c40bd84e5d40f7b7501aa3ded0998907e467667578021113927f7113b9f0e",
+          "text": "Minun numeroni alkaa nolla neljä viisi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3554856f69d8af2283d9930eb0ffd4dec370d765f6aeeb9e557542b876b2ae31"
+        }
       }
     },
     {
@@ -943,6 +1064,26 @@
         "reason": "Aa/Ai, okei/selvä and kiitti/kiitos are interjections and register variants; the thanks for the help is the same.",
         "fingerprint": "89834e517a18aeea33b044a3cafc128decb66d8e491f280edebc1b46637da7c6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7e4095bcb31d1bb8e2c89634dda8e76f585dac863a3687eb5d001f5ce6fd5532",
+          "text": "Aa, okei. Kiitti avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5e4b29c7706fe59640181ebaae4e4f9d95370b7e14af7351edbab1fd51e3c9d4"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "a474517332dee059498849495960dfb9530b2b2e5b395b3c53c2c48f64d81b36",
+          "text": "Ai, selvä. Kiitos avusta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "34531ca33e997a6a40b0becd85f2558988654220d755298d50c91a78c2ba45b5"
+        }
       }
     },
     {
@@ -1020,6 +1161,26 @@
         "reason": "Moikka and Kuulemiin are both goodbyes, a difference of register only; Ole hyvä is the same.",
         "fingerprint": "c68731394283ffb5d95cca88d1e1a64844cd06a494dfba300fc4369c5d38c9ba",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "c6ca42f25705fdb570b2a38507e054d7695d0e74cfd304be8af25176411e7749",
+          "text": "Ole hyvä. Moikka!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "49d4de37921d268370156608623cd1834134c25f477fbabe8589e5b9ed466895"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "10ac3f58ea2bcbe0c5e4ee2b67ade5bc29ce24eddf7455330fc68eb2baf40e27",
+          "text": "Ole hyvä. Kuulemiin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0f2b50147e3ecb8b7b6d92d08221854c2f01f73c8deab9c21eb21931172a0225"
+        }
       }
     }
   ],

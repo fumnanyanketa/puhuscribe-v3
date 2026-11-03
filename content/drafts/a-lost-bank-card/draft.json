@@ -82,7 +82,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -185,6 +186,26 @@
         "reason": "Same greeting and same statement: my bank card disappeared; only register differences (moi/hei, mun/minun, katos/katosi).",
         "fingerprint": "7c92dcc9f22277d5494311498b6037ae656567c03b11e97bb799ba569b79ef94",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "1b61108a8e70ab0fddc078ca5bf1d47c844a80cfaa749f8eee72426c61f89c6b",
+          "text": "Moi! Mun pankkikortti katos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f25d79aa04d8d649b2b5281ee7a8b9ce1d9e8ea91de19a7446125073105da119"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "a2fa33277b4df6d5eddfa9a0e74347bea2a71156c1e40d3af0f083a70a990331",
+          "text": "Hei! Minun pankkikorttini katosi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e609de1369c6739fba5bb288c244eec12d237120a09f7df9584e34a9c5cfa7ed"
+        }
       }
     },
     {
@@ -407,6 +428,26 @@
         "reason": "Same: I'll close it right away, what is your name; only pronoun register differences.",
         "fingerprint": "bb30f53a775a50c171fccebe32a526d6f8c911c4d3a6315f949f256e08c95d23",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "389c4d8484f60de124df1abeadec87b8d880234a30e43b7e6d7bc31e318f973c",
+          "text": "Voi ei. Mä suljen sen heti. Mikä sun nimi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8d577c54910e9f50bc7e5af2fea8e32d662fe8e1de8ee0a8663badf583541370"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "4f537744fe907aed9256486c9200e79302457225963f8cc536ec0e339b98d66f",
+          "text": "Voi ei. Minä suljen sen heti. Mikä sinun nimesi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3622590b4cbc5c680a66ae0cffdf7d44997f690c9b80946d00493dffded194c8"
+        }
       }
     },
     {
@@ -464,6 +505,26 @@
         "reason": "Identical name.",
         "fingerprint": "98d48a6a17e66d9786a83045f9c337b2c948a42f6063a2db4a2d29e4a949f7c2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "abc0fbfe2233fe7a100cb81983f0cd14d44d2c1282ce180e51a3d810bb21a8f7",
+          "text": "Maria Silva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "43bf08b886efd203267dd177e764c9b109e92cd4f8fc44de9c20f944f02fbec4"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "60c7d80fde429194b4e358ac22105bd8f3c845d164896d55b48a2692f92ea3e3",
+          "text": "Maria Silva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "43bf08b886efd203267dd177e764c9b109e92cd4f8fc44de9c20f944f02fbec4"
+        }
       }
     },
     {
@@ -583,6 +644,26 @@
         "reason": "Okei/selvä are register variants; the card is now closed in both.",
         "fingerprint": "0aff641a67f89b8861c000a2bbab4dd8fc3d75f7491a049b824d36b313d01758",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f3a72b8ef4002b4c7aad406f25059d61ef876957e9e4a58dbf7e2cd04ba0bd38",
+          "text": "Okei, kortti on nyt suljettu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0990917102dfb6ef9e509b180c4d0453dc2b2b60bb9ab2bcbcb143ac5b77d2a4"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "c75c029a14d33cf651be89819a4d738724665a3c36ae6c88518f6a60b405430d",
+          "text": "Selvä, kortti on nyt suljettu.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b96275184bf8838dfb00a95733b059fd4780d1ed305170f9ef92448aa7e32419"
+        }
       }
     },
     {
@@ -706,6 +787,26 @@
         "reason": "Both ask whether I can get a new card; saanks mä = saanko minä.",
         "fingerprint": "e2f4099ee218b1dfbb505ad2bd4b7a38e70fe59795f131f2227ed4ae9e22cdfe",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "fc06b40138666f4cd7922e65693962fa7cedead622833101eb53e6290840530d",
+          "text": "Hyvä. Saanks mä uuden kortin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "72b5b4f4eec83a2553ab362c9c4ba28278b8c1cd8e5f887d037d5f2c449feeb4"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "21ce711852474b16287f5d930150f1524158696c6cbfafe2019ed3b03e742e1b",
+          "text": "Hyvä. Saanko minä uuden kortin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "eb1607f932f7b55eb296d627ae6debc3901e73220719ee1962e69100c1f33f53"
+        }
       }
     },
     {
@@ -844,6 +945,26 @@
         "reason": "Joo/kyllä are equivalent; it arrives by post in a week in both; postis = postissa.",
         "fingerprint": "a9e3d01a4a4befd49be42fe3fd618e2b7271ec79836e7761314a3012ba51c9a6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3f8fe9cbf6ac3e698167a1a01f12b2ac0310f4237b1397da8e0a6f0c6391ad08",
+          "text": "Joo. Se tulee postis viikon päästä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4ede6b85ff0024ad6393789ececc0102bb7351ff15430bfe085145ff8ab4abbc"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "92c27cbbcf7dfe385705f40b9a695d73c253bf56e3cf522c06490a05014da318",
+          "text": "Kyllä. Se tulee postissa viikon päästä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e5e004dce83005e3989728ab05236109bf8832a13fd732c1b42d8d8f628853b6"
+        }
       }
     },
     {
@@ -925,6 +1046,26 @@
         "reason": "Both ask whether it costs anything; maksaaks = maksaako.",
         "fingerprint": "a006836e3b74bc086d97921c4446708b417dab086ca5ef4de9577fe3512133e2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3d333b0952b0c71df1cb1e642f1a7667c4c706ea917f2c415ca882c105545500",
+          "text": "Maksaaks se jotain?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a470688d97f8b53ff02a976e2d84bda2581327e74d533f4b2fa9f6d060b88039"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "31d8518aded4d8dc09c3daed66bf3961c729af2bb2bd1a0c1072db37d11ed7b7",
+          "text": "Maksaako se jotain?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "66bde251bf59609951d4a55bdf7f3717c0fb750f7359504a360ba35cd9180d48"
+        }
       }
     },
     {
@@ -1048,6 +1189,26 @@
         "reason": "Both say no, the new card is free; uus/uusi and ilmanen/ilmainen are spoken variants.",
         "fingerprint": "2b5241869043e69e16a656b2187a3261fcb05006e0076ca7ce7323e696695e08",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "22d536b3e7f544176015dd0b2ab4a274907d189bed4cd2a162150d0de7f2f744",
+          "text": "Ei, uus kortti on ilmanen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "acb3eb0c582792a09aa4b551360e6fb777626c46555dcd5952a711d3cd46c3cb"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "79384d30d7648798e86165342f472acf828435cfb84295e1d67d8739b88bc6d4",
+          "text": "Ei, uusi kortti on ilmainen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "457c47dfe117794dbdf759578d9e7bf0890538ef4a39ddb1412f2b53e1b13638"
+        }
       }
     }
   ],

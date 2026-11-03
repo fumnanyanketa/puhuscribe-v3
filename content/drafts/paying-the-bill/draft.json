@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -190,6 +191,26 @@
         "reason": "Only register differences (anteeks/anteeksi, saisinks mä/saisinko minä); same request for the bill.",
         "fingerprint": "d0205b300c061923f4dc71176c8a47e6097d320ef112616a192a1a7ac3db61f7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "d6ae1acf51598493b8383cdd8eb166c2dbc4f40741dbad07c003aa3847d1cbf6",
+          "text": "Anteeks, saisinks mä laskun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fd618ba3608a1d108cc9b7227d28ebac579af09c6e197fb5a5096c278689a9d8"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "93b397f8bd3539436228733adf86e279e9c8de88e74f381168d878b730b55fe0",
+          "text": "Anteeksi, saisinko minä laskun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "592f679c9b267a9dd216a233cad1a9073e0d7594c567baa4152c0ae2a9b5cbad"
+        }
       }
     },
     {
@@ -324,6 +345,26 @@
         "reason": "maksatteks/maksatteko is just spoken vs written; same question.",
         "fingerprint": "2b5382064a274caafef4fa8bb7c5537207c52f7964ab7313fa0341e4981eb73b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2b6282a98a5c4a85d61af984b0db303af81567d49ad9e8e0989bfa266d1de33f",
+          "text": "Totta kai. Maksatteks yhdessä vai erikseen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1ed9bbec8c3d4f8c681f563017ea1669b656f0e3b570c232b0d2ed4ee14fb4ed"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "d472878fa346fc57e1cc8e02729450c67501a7e91293f1c522c5afd3b844e11a",
+          "text": "Totta kai. Maksatteko yhdessä vai erikseen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b772a40047ee889166a6115d4a38af3d285e5a476db37b903b3c57fc15b8e621"
+        }
       }
     },
     {
@@ -441,6 +482,26 @@
         "reason": "mä/mun are spoken forms of minä/minun; same meaning.",
         "fingerprint": "0f41838aaf01acaad27f4ee81da0c80d405ce280f41b3f95f2632b6e3d108d1e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "d5553bead7cc3318ed8bcc38444c8a29eef4e0e6dd2a226795c3e74c4558aea6",
+          "text": "Erikseen. Mä maksan mun osuuden.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bd8599d8511c99c4e3690d97516cdfb4b060ca20015f1aa2858241667e8bc9aa"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "559f67c5d01028908219ef69b785062cd52ccf441d3a1d9f7f13a27792d9672e",
+          "text": "Erikseen. Minä maksan minun osuuteni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e9330525d2763318a3ec0977873292bd90f84a02fa15cec619584303c67317f8"
+        }
       }
     },
     {
@@ -583,6 +644,26 @@
         "reason": "Okei/Selvä both mean okay; sun/sinun, kakstoist euroo/kaksitoista euroa are the same amount (12 euros).",
         "fingerprint": "6f80721473268821f87580e70d12d9afef37e7361a01d904d9ab01115e12657b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "e2b18f43c94db20f68cc1ce13e12761b79303747da9e08f178f0c9bacfd5da87",
+          "text": "Okei. Sun lounas on kakstoist euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "333bfe29fac491af600a9c2361ae7950f2e7ac81b0c7b9cad8b319f675f8c35c"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b663ec137ccf1821be30e90e589191cc61117530f32674eb56f962d36d302852",
+          "text": "Selvä. Sinun lounaasi on kaksitoista euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2767a04d4eb862886dc04289bd418eabe62da589f26ec47b14a814f73a6cd8bb"
+        }
       }
     },
     {
@@ -638,6 +719,26 @@
         "reason": "Identical lines.",
         "fingerprint": "6d520f8bcabe08ba307dbb34ca631611782f4af9f25cb50761a7f90e824153b0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "e4adbba34a2871344cb5593ff7fa3c37206f32b3ad09de368614d8d840d8eff8",
+          "text": "Ja kahvi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7d562bf61f3dd27dff722a12ff7bc9ca1f1a33c9ed1cfdc90bc1aac7fcf6de83"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "6db795532fd0842e8428d3f6d19dd37cc92b51c075108b64726cbd1314c64090",
+          "text": "Ja kahvi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7d562bf61f3dd27dff722a12ff7bc9ca1f1a33c9ed1cfdc90bc1aac7fcf6de83"
+        }
       }
     },
     {
@@ -718,6 +819,26 @@
         "reason": "Identical lines.",
         "fingerprint": "4490bfcb15c0ae5bf9172e459514cc70c3df1797efd478fbc3792f1f01dc3c63",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "1adb241a8c7561a5a983efc31413575707c0f45e9e7022926f14d8eb9093059c",
+          "text": "Kahvi kuuluu lounaaseen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e9070f74a341c97a9e4118b7d13cf16d0286422dc2d32dcb9efc244c04b07a61"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "3d9eb5e3ad9d21374bf3ee0fffd00b0e8380226f09d82972b8ae3608293b74bb",
+          "text": "Kahvi kuuluu lounaaseen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e9070f74a341c97a9e4118b7d13cf16d0286422dc2d32dcb9efc244c04b07a61"
+        }
       }
     },
     {
@@ -814,6 +935,26 @@
         "reason": "Kortil is a spoken form of kortilla; both mean by card.",
         "fingerprint": "455077deb897c3c474962cdca9183ee81447e3ba3b6f789122562fb8df864b1d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "6c2e9dafb46b70f9918275a09884472089a36de11b6a1d8fc95017886c516275",
+          "text": "Ai, kiva! Kortil, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7acb7b5fd1eef670c6656d2b2c28ed842ca65834d1f7c06d19c8be4367c6d810"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "414682e1fd58b412e6aeb3a5dfc23712acf221edd6bdaec2aa2756aac37be1c4",
+          "text": "Ai, kiva! Kortilla, kiitos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cdffb56f60d602aec703ed2199ea263481363d359c85e81ae2ecc5fb5312fd06"
+        }
       }
     },
     {
@@ -887,6 +1028,26 @@
         "reason": "Tervetuloo is a spoken form of tervetuloa; same meaning.",
         "fingerprint": "3de829c44d9f27f1a6e96b4e5d9dbfbc1d541df0d4cb768493ee3d2f4e24cce5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "fe726dd6b32018e780ad2ac2a877505ea10ee38ee337ffd9ff707abb3d3f63a9",
+          "text": "Kiitos. Tervetuloo uudestaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2d12020e97343707b0592e5d54b8fed37338b6dad887d99fe28469c3fa410c83"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "4d8298cb889675d6747dfc0006e81badf2499bee1a8d97fa50714a1b52b57142",
+          "text": "Kiitos. Tervetuloa uudestaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b4e511039fdcc728512c8cf0b3704a3ee27409a8eb6045a03266f69adb2199ba"
+        }
       }
     }
   ],

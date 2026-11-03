@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -231,6 +232,26 @@
         "reason": "Makkari is colloquial for makuuhuone (bedroom); mun/minun, moi/hei are register differences. Same meaning.",
         "fingerprint": "8443d5b9954b4a9d80a37166fdbf4b234cac09552e5a80f64b6f8d28432c642e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "25a3a72f87c8d5516828af2e7292855b8cefade92364c4e6f213a0faecb19f5f",
+          "text": "Moi! Mun makkarin patteri on kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2fd0b6de4aef90f329f44303f5bdf4c9899cb7f1ab3d7dc1cb875ea6bfc5431c"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "b786ce32dbf1d3800a36ea17a8b41991bc00c452c191dc1cce6b41a7a1985933",
+          "text": "Hei! Minun makuuhuoneeni patteri on kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7d02c3ad79666329a5e4b321b85a8065deb7ed9dfc99c20b84311d89007623aa"
+        }
       }
     },
     {
@@ -286,6 +307,26 @@
         "reason": "Olkkari is colloquial for olohuone (living room); the spoken form is just a short nominative form, same meaning.",
         "fingerprint": "64e4184543a892487e2fbad8d81652d33d404847ef8337dca0db6dbf13a86bc5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "fbef4c5b76282e4dd676094e38e22002f50ce22bdaabc061be720cf86371d3fe",
+          "text": "Entä olkkaris?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a52cb8a51bd8180a332c5346a03fe230bee9285c5763bb9b653cca68930ef9c3"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "ec0bcab93592684fbdff9d10f9d1ecfee2765e6cc63a7d4d6a2785c8482a950b",
+          "text": "Entä olohuoneessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f76f2c2a9beedf3e2e8fd476f85a3dabe20e90f52f62d5c31191717c0c16bf49"
+        }
       }
     },
     {
@@ -385,6 +426,26 @@
         "reason": "Siel is a dropped-ending form of siellä; same meaning.",
         "fingerprint": "064380c734d77f9af7757f2a30ae6e56f5b7623f1c438d39664d3f3b0e23b42a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "8fade97a201a66be7d2fc09d8b93054ffe882b3c4b72f0fa11ba466d3ff26e06",
+          "text": "Siel se on lämmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2cbb8972e4d40003d4231bb98deb8a3d4b5d76000fb17c4470fa642851a05b74"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f8c74da76f38a0ea093dae1cd97c8aa45c82e72791ac74915cd603a9fba001a6",
+          "text": "Siellä se on lämmin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1504909680fb0749a99b381dec025831a1ab733467899b4252144d9b1276ec42"
+        }
       }
     },
     {
@@ -587,6 +648,26 @@
         "reason": "Sit/sitten, patteris/patterissa, mä tuun/minä tulen are register variants; same content.",
         "fingerprint": "83c04fd93b6021c9d40265d297eefa92c57b23c546ffdecfa5dbfb1214e3b623",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "9c18948aa231273aa7a0332b3ca24b151b6e8473150dcc5d7987540c9a4d825f",
+          "text": "Sit patteris on ilmaa. Mä tuun ja ilmaan sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a5b561dcac74bc1a99c5d69750cdff80bc3ae8bfb2a45bdf78454d047681b6b5"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "4276d9e1313e7a0168ba206ef361f4982f1a771e3f934926bea78ded3acd0ca0",
+          "text": "Sitten patterissa on ilmaa. Minä tulen ja ilmaan sen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2ee5740eb065267b9897cf1046cbf73f9b6673d71b6137556a6a9d039e607c94"
+        }
       }
     },
     {
@@ -663,6 +744,26 @@
         "reason": "Kauanks is colloquial kauanko; same question.",
         "fingerprint": "916e8ec989cd0532f9a6cb6aa6211aa961c2f7629035f5a144656d3163c128c6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8646173efabf50f57fe5be7732b61fb7e82fa40f5cb76d2e00c10e928b83b0e2",
+          "text": "Kauanks se kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4bca20443a8a3bf6badf98640e60fc0c832287ffe16dd9f78ba36f330ae3843a"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "76ecce952493e8e87111650f50743dea5d03a7c1d5142d3c4efbb02c6f65aef4",
+          "text": "Kauanko se kestää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8e648cfdd5ab340d43a2beb03f865a250cc77bf0752be2bdf6ec525091a1fee5"
+        }
       }
     },
     {
@@ -738,6 +839,26 @@
         "reason": "Vaan/vain, viis/viisi, minuuttii/minuuttia; same meaning, five minutes.",
         "fingerprint": "7f4100d5b77ce54f1f43129ea16fdb0b079e66918306a38893f8c0c002b1069e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "ee9a8e784036aa77ce63e71a190965156ed27a7638bf760b08e65a363c40b545",
+          "text": "Vaan viis minuuttii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "25b48c7a3291bb51ad2c1791c804f825a429e6a64acb8ce45c3d33baca21dcd3"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "60b648d594b497e6e5bf6560fd6ffc2979d92b51f64f5f4072cd6a8eaaea1141",
+          "text": "Vain viisi minuuttia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b38592615f54cc9dd6ba33ac327229dc9e625172a9c640a115243de305e18449"
+        }
       }
     },
     {
@@ -856,6 +977,26 @@
         "reason": "Huonees/huoneessa and tosi/todella are register differences; same meaning.",
         "fingerprint": "a9938d43497227e6de93ac12929d7f741ace2d997ab58899eb21845e4cae5587",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "20ca0da7b46201c46e5334d4e2343431d047aa16f6caa002828b5d6fa0b61867",
+          "text": "Hyvä! Huonees on tosi kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "620a9a2134aca6d8ad9abc58902d6350458cf7a1067be50b03dea08a262957b0"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "208fe819df788149a858a6e94a1f5d68dd7bcfacc6c9139d24a5409c1b417eeb",
+          "text": "Hyvä! Huoneessa on todella kylmä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c5f0502289e9537d9b4dba79cf8f4a70a522ae4e1d56147cbe4037e246e4c8cd"
+        }
       }
     },
     {
@@ -996,6 +1137,26 @@
         "reason": "Kohta and pian both mean soon; mä tuun/minä tulen heti is the same. Same meaning.",
         "fingerprint": "e7378f5ca2b1301052f62463dfcf79b156ea09117aaab02e7ee6bd2f3e2c46a3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "f1dcde23ae8df94263171c5b22b4b706a5b8fabcc6c6ce4e44c837621aa7207f",
+          "text": "Kohta on lämmin. Mä tuun heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "220d6e7efcc29bc6c58d8364b3babb6a892cabb3beee6c794a8ae5da8a31fbdb"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "77741d9cf36f62da1fb17d16289cb0c85faca14ad0a012b0c2079d2163b69d9c",
+          "text": "Pian on lämmin. Minä tulen heti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "27eed956805e2a9c761579ff5e075c7c520c16c5568c21a4bc513ae8c2eba38b"
+        }
       }
     }
   ],

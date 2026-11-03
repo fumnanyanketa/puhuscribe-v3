@@ -85,7 +85,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -208,6 +209,26 @@
         "reason": "Same: I came to pick up a package; only register differences.",
         "fingerprint": "a0c7a7b6a0644be33628ed823c7d379fa810a703148d4b761777eac5c23edf2c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f3acb77a264be890d8f650ef28c718915ad6e2de5e71f1814d08aaaeb4be2d8b",
+          "text": "Moi! Mä tulin hakee pakettii.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a009af98312d8c857930ef7c3ed94ce011c029610dccef43204d45ac5746b160"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8997a60bb92b8bb10d13e1bd54b813b3e6a46c22b303a86d11989e2235dc40c0",
+          "text": "Hei! Minä tulin hakemaan pakettia.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f82a0a78c2bf6458df6601e079da9e1b0d2cfe34195280ec3043d8f75f492394"
+        }
       }
     },
     {
@@ -310,6 +331,26 @@
         "reason": "Same question about having a tracking code; okei/selvä and onks/onko are register differences.",
         "fingerprint": "f60ea7a0a20f1c2535fed608cf15009476c6a7bd72bcc74c7819be4e4b7907ae",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0cd8b747b8bac2fdf615776d6ea13679838f4797ff6827a1a3855a07a3680e40",
+          "text": "Okei. Onks sul seurantakoodi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8c23e4ee1e0ba5681947a0e2f54cd7aea142270759599e7ebb38483ac3ff7cb7"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "ddd1882cdfd0f5ebcad11aec777f7b02afd31fc6f649e89bf7e501ebae85d21e",
+          "text": "Selvä. Onko sinulla seurantakoodi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "18eb70636433857567f6a11cd46c4bc561bbc13420689f60db2bc6fdd0b55208"
+        }
       }
     },
     {
@@ -385,6 +426,26 @@
         "reason": "'Joo' is the spoken equivalent of 'kyllä'; the rest is identical (in this phone).",
         "fingerprint": "7f1662033ebc93db018e42a979ce42a2d79e4c6e4da12d1b6799665f4972ad05",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "9956642cfa5fc71409ffa318df6bc49358c3a0f53174432396813201ca447866",
+          "text": "Joo, tässä puhelimessa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "721d083053768aa0009ce03c974dc1c474c53d23faccd8e95548abbfb6c9cb75"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f414de6eb88d573e5c0642d8fc89d7f0b7d85f127dc54b9674afa71293a63087",
+          "text": "Kyllä, tässä puhelimessa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "31e48dd4e007420c224c62d7cda5c869855e47fdb1ebbed8831f157dc7991737"
+        }
       }
     },
     {
@@ -507,6 +568,26 @@
         "reason": "Same: what is your last name; only register differences.",
         "fingerprint": "c5c442841a90ba385aefffdf757e1c981052bd1d74e2d7e5b5f5d0aa74dad619",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "0a6f8089b00bfdb7076fac621b859ce2d10c03ec9feae79c96069ba105449d54",
+          "text": "Kiitti. Mikä sun sukunimi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f1dd56a705741692b78446ecf7b0536900f9492182a175594f7f85287cd9f8ee"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "30ec478cdc42aa749684b5ee103d84771439803878907feb4b4e7c745d30812f",
+          "text": "Kiitos. Mikä sinun sukunimesi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bc3338058d736f64021a74a8e7c5486bb6af0f7c2b45865e3445ac056fb1ea01"
+        }
       }
     },
     {
@@ -644,6 +725,26 @@
         "reason": "Both spell the name S-I-L-V-A; the spoken version writes out the Finnish letter names phonetically, which is only a difference in register/notation.",
         "fingerprint": "95755e4ee9c20985523b11fdc51a56fe1b5337ef8aa7ce59856b4030b27ce8a3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "320afc59e4bd1de5135bb39301922c4de1d9602936c75655666e7e2aa1728405",
+          "text": "Silva. Äs, ii, äl, vee, aa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a36c327a1fb1a3dee4e6503337205edbd5c24e7df629fe134469f78e547480f2"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "5ea609017479aa9335ddd733947a154b0125869ac624839433ddf218e719bf67",
+          "text": "Silva. S, I, L, V, A.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f08b53b9668c1541e10b7396f2210c0cf2f750258437bd6e50543bf2cbb02731"
+        }
       }
     },
     {
@@ -699,6 +800,26 @@
         "reason": "Identical lines asking for ID.",
         "fingerprint": "b05bd17d7ca38f1a60e7fa3ffab5d79e0d4d99619c1082b0baa96c0f0571d87f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "b288faf5a631377420168ded2c4ad155f0b1769f62856fdb1a1d23fed15d96a6",
+          "text": "Ja henkilöllisyystodistus?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "17c2ee6dccb0e9a7bcf8ff7441cb86c9d0ec768abcc40c89fe253dbd106643c0"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "4144cbffacec2dd7122fd4d097c9b7983c36eb6ee0bc5f2408569421c25ccf00",
+          "text": "Ja henkilöllisyystodistus?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "17c2ee6dccb0e9a7bcf8ff7441cb86c9d0ec768abcc40c89fe253dbd106643c0"
+        }
       }
     },
     {
@@ -800,6 +921,26 @@
         "reason": "Same: here is my driver's license; mun/minun and ajokortti/ajokorttini are register differences.",
         "fingerprint": "d38b1176a2b94a3771af8216703b06bd6f2a15ae06bf88d8ca6ae24d50a9de3b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "be4a2244505d41e0e301c4992c78946f76c506895e1717ce0a785cd762b81701",
+          "text": "Tässä on mun ajokortti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "480abedb57397bcd2a7dade4e137d828ee2db8cc22e4c51988a3fb2b17ddab81"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "adca683b947f15b442f7763715fcd9dbc121fc0b7e3b970b78f55278b78d88a0",
+          "text": "Tässä on minun ajokorttini.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cfe5a0b9e68dc7f7aafbadb521debf5a6d62f2d6790a281753d5fdc3a841fd5c"
+        }
       }
     },
     {
@@ -921,6 +1062,26 @@
         "reason": "Same: here is your package; only register differences.",
         "fingerprint": "a9bc9e35f3e04937f1c47b7ea624855d5e5fdff76462e49e71dc75d8cb346087",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "58f43ecd05ce10ed65d547eb83ac2581eada768817b3fc3ad327cf52e9609337",
+          "text": "Kiitti. Tässä on sun paketti.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "67699384692a9e9116505fdccfde26ccb938303e95b653f9bc65f56ecdd9a74e"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "bec6f24e385061a6802205bbdcedf5156a79ec6a5abdee72db4ab47fcfe3e8d9",
+          "text": "Kiitos. Tässä on sinun pakettisi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7a176016360692695347fbdb23b05359cbead107b9b24865022d19cdd63d59ea"
+        }
       }
     }
   ],

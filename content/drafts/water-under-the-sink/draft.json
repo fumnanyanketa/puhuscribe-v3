@@ -87,7 +87,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -230,6 +231,26 @@
         "reason": "Moi and hei are both greetings; the rest is identical.",
         "fingerprint": "98d64edadb200e1c69238650745b07cbd94cd14d87a19598b33a9a4a07f8eb14",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "de73bc694b766f2bec221cc3ad87f07e8ec0e46dbc908960862c00a716f30bf0",
+          "text": "Moi! Keittiön tiskialtaan alla on vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "25a0a0615a0427815d743dce5a0b42d8a3e6cd4469aa38217ff19f7a4650caf9"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "7f092880cc1dd0aa6e1bff5961e76ac1634ee7d1e86924904ea98299e43c7819",
+          "text": "Hei! Keittiön tiskialtaan alla on vettä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5fdfd6f8162a8e5cd64bcbb4f19552a7a40f3bf3148b6254f1422a1934525b8c"
+        }
       }
     },
     {
@@ -346,6 +367,26 @@
         "reason": "Paljonks is the spoken form of paljonko; same question.",
         "fingerprint": "76d1b30ab06cb47524cb26ff092c389e6d6c88f0d6920dcfd13839c30ab77946",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ca742482d629505f34ff40733f8ecccfa4e01a87277a0d618f70161dce39102a",
+          "text": "Voi ei. Paljonks sitä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "16e04d97b51b6aae3f13d4b06a0284d136f5b4a293ff0642a53f4cce18c6b2b9"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a200c5bb79cfd048a58dd4e817cfd3808a60bb4a301d3e8e75f83ea6d553979b",
+          "text": "Voi ei. Paljonko sitä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "47cc20b23b6327c714e4b9073f75831c1b0256a8220d829d07af3fcdd9d22b06"
+        }
       }
     },
     {
@@ -467,6 +508,26 @@
         "reason": "Putkest is the spoken form of putkesta; same meaning.",
         "fingerprint": "94eaa52a1f9d95b4f243b2c9eee20d67150299a91225cde4e1318ce42a0a40be",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "bd00789007dd13b523830653ad75192ca2ff7d5dae2d4eda46d88389eb853a41",
+          "text": "Pieni lätäkkö. Se tippuu putkest.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "93926510823597d1ac489d984194807b43d866655e097ff5880c5d71411e688f"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "2fb7f0df2df8cf2379b7519beab3bd1b6b9ce1e1e6f33aa0d2c0a621459621d6",
+          "text": "Pieni lätäkkö. Se tippuu putkesta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8a8c14eebd02d30312020cf437bb828fd90737c2c84b0601d899eb6de4c08af9"
+        }
       }
     },
     {
@@ -630,6 +691,26 @@
         "reason": "Mä tuun is the spoken form of minä tulen; both say 'in an hour'.",
         "fingerprint": "dc73210b88343c7141070a3cfac1b9bf9d9705117f9a3eb67841a7aaec2dc136",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "645684107577feea2ad32ae67db955642157ced32a873c5156f0fe9dadb22114",
+          "text": "Laita ämpäri alle. Mä tuun tunnin päästä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3f768c510848d9902a4a6ab3475ebc211d18df2fb02b2eee6200def96f4260d4"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "1ae6caa0fcc4ec2135be1dd7ab9eb26a20563f6763be6dd669b6ecee7446ea2b",
+          "text": "Laita ämpäri alle. Minä tulen tunnin päästä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "94d78c92fa17466b1f7d3f352754a8a4595ca819154a267f78fd9fac3edfc375"
+        }
       }
     },
     {
@@ -753,6 +834,26 @@
         "reason": "Kiitti/kiitos and pitääks mun/pitääkö minun are register differences only.",
         "fingerprint": "975ae6f6f0552cf49ad519b2dadef00d412d0234dfac6431b9af64f62c3f2bf5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "b020c81f6fb273fb21d4a4b0c9c57a79b42e90e7b290a1f6b48e260eb6ede0fe",
+          "text": "Kiitti. Pitääks mun sulkee vesi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "774c6bf7540b91e5e13936ee37b0d4a3ffba0cc8414ed8aba59fb7998294461d"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "5565b655164d7505900f850f41fa640e670695d35ff41c0e635f8b934f1cae45",
+          "text": "Kiitos. Pitääkö minun sulkea vesi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ad555c4561ba24f5ca0f345fb459cb8dc4d4c65e2a7dfa8f6ee4e6625a9f1f87"
+        }
       }
     },
     {
@@ -907,6 +1008,26 @@
         "reason": "Tarvii/tarvitse and vaan/vain are register variants; the negation and condition are unchanged.",
         "fingerprint": "0116b9979c57e6e71fe63ce41f3e001b19e2b4885ffae4a6327c63162d4b945e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "a5110096a44ec4da9ca736be177d548a2d2312053cb7d823ef8853214afe12b1",
+          "text": "Ei tarvii, jos se tippuu vaan vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f373f2fe5f6b2682ed1cee2863fd5cd35e2e51b55684c248233d580fea12cb99"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "0f92a742df045f3c8a8fd871bd7f11f217cbacc8ba45d48bdd34587d714fb5ef",
+          "text": "Ei tarvitse, jos se tippuu vain vähän.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2055549806682c5846412375c6fca68f96f2de4ef98a3d1aa7434830a793d19a"
+        }
       }
     },
     {
@@ -1006,6 +1127,26 @@
         "reason": "Okei and selvä both mean 'OK'; mä oon is the spoken form of minä olen.",
         "fingerprint": "84754fcb7bcdb128c79eb96615eaea8b305da5093df8edb6f45636972ea7380c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "446b4b0bf7a68fe318300b4d048c6ebf843c0d4c0a89cc6ffbf4c01b2477c49c",
+          "text": "Okei. Mä oon kotona.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6948459d0beb511145fd1ae506ff5a61fe12e25a9ff0a7d08fa3fafa91c35aee"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "96aeaf6fffde14b83824a73910b8a78186775f5ba00eda0faf923775b891b451",
+          "text": "Selvä. Minä olen kotona.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4e1b9e34806eb7a9ca33f6169bb4f5a72f269a08626bb329c61e8e8373d36f4f"
+        }
       }
     },
     {
@@ -1084,6 +1225,26 @@
         "reason": "Nähään is the spoken form of nähdään; kohta and pian both mean 'soon'.",
         "fingerprint": "1ff5a90a67c94dbb0172125cea2f908997695015f3e244081c9c80f9fe464204",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "f273b5cfa2c68b072c2b1de02115ab42f0fa2c29a8ee215f83d3651f7a0ee1b7",
+          "text": "Hyvä. Nähään kohta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9bcb114e810096ad0d96ed4a07f40d7ad419096952e55194baceb8451554a646"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "9d5cfba42f180797c42120c2c7d807b417c72ee0329513ffd93a4569ea0f9256",
+          "text": "Hyvä. Nähdään pian.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7b93ed721a0c964f60d3977b0447785d4ddc7f8396770459e43052dc44eb515b"
+        }
       }
     }
   ],

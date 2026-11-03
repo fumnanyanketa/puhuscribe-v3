@@ -82,7 +82,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -242,6 +243,26 @@
         "reason": "Only register differences (moi/hei, mä/minä, apuu/apua, kaa/kanssa); same meaning.",
         "fingerprint": "41a357a33b01e3fbf23a90a83d0e64fcb6d61077756be76be0b4c5d45e9b4dc1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "18411cfa54e5ede743b7fe960b43a776f1e31363bd0010b20c70500121358554",
+          "text": "Moi! Mä tarviin apuu tän lomakkeen kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "927f78e2314e24b70b075159853942d6c61c05ff426218cb5926cfdb42ee2804"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "a6a33aa03badf0a5c8cc69df38ce20dd22a55817ff3ae1a08b41752c48a991d4",
+          "text": "Hei! Minä tarvitsen apua tämän lomakkeen kanssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8e861c154dc4dc6e920add09bfbda63cb28ff9797d3f99f6e4a3c986d4dd7d5d"
+        }
       }
     },
     {
@@ -381,6 +402,26 @@
         "reason": "Lines are identical.",
         "fingerprint": "b3c46d2f2f280f026c67a787aa245d5199690861b9aea8cdd445c656e50fc1a4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "583ffd2ee5eeb9e0d087abacfa4b5936cbec3194dca6e372f2fb21037aa4063b",
+          "text": "Totta kai. Mikä lomake se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "59f8250f7503eefcb8f60d5e26096ded0ba16dcb44bf70a73128f41c9c872ded"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "b8a9179f6f53361e883db82784b9ac0c8fb17e9f203c500932335f307e0399bd",
+          "text": "Totta kai. Mikä lomake se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "59f8250f7503eefcb8f60d5e26096ded0ba16dcb44bf70a73128f41c9c872ded"
+        }
       }
     },
     {
@@ -518,6 +559,26 @@
         "reason": "Only mä/minä differs; same meaning.",
         "fingerprint": "3575b1768229c3197517b9d9499a776e1a081eb5fa2050f65c7639f70ed87993",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "61d60ee4a4e5ed718da806cd7d06a2fd4780a4d6b6f8c0337c4c23a6f8e53d8c",
+          "text": "Asumistuki. Mä en ymmärrä tätä kohtaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "027fc1154b09d860b7b6634f7f299c2184b22c6ece934c304455961a89ba20b8"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "ca030f5bc5ab93c059026c5619f3df2c198773fae6130b34b887cf6676b611c5",
+          "text": "Asumistuki. Minä en ymmärrä tätä kohtaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "04d6019310656ce53c3931d10036272718852f943e9939f732f09c8e59825764"
+        }
       }
     },
     {
@@ -639,6 +700,26 @@
         "reason": "Colloquial sä/sun/kirjotat vs standard sinä/sinun/kirjoitat; both mean 'you write your rent here'.",
         "fingerprint": "56de1a6fe1e0ac2d792fdf0fa85f9281f5351d251293cee4b95b28036270e07c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d719184d44a96258e5a1468b131a52f81748cb95272676df951452cd807e3bd8",
+          "text": "Tähän sä kirjotat sun vuokran.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b97166ea9462ea1e369a281ce014435c750aaca0c4c83725a1a74e785a5283fa"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6e7ec0d9ca9897e7cca0be1050160af7cb41e5d1ef463fc9ce4853ded8841249",
+          "text": "Tähän sinä kirjoitat sinun vuokrasi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6310e314fe1dc329217f61216136497a7f5f2b25cc215cfdfbdac771f4c1cad4"
+        }
       }
     },
     {
@@ -760,6 +841,26 @@
         "reason": "Spoken 'kuussataa euroo' is just the colloquial form of 'kuusisataa euroa' (600 euros). 'Okei' and 'Selvä' are both acknowledgements, a register difference only. The rent amount is the same.",
         "fingerprint": "b04008678a1125f12e68c6ee5893062b66156361d9d0c5e6c69c0bacb21e3319",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "9262b928f6f7a3167162aebcab9182d5f56743bfa6ef84e4b448c2494a25e0e3",
+          "text": "Okei. Vuokra on kuussataa euroo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9f38069f55e410f99651dfa1e589c1dfcbc5c368adc18f4f41e88a0abd3bbaaa"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "12287aaf7e09b2ed0e2ae70580a2914dc18bd1eccfcd747281d79be75de30002",
+          "text": "Selvä. Vuokra on kuusisataa euroa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "7683b352f43f4b46e39f752ca251bf5c59c9fb3a54e937c6f24ab629d85824e4"
+        }
       }
     },
     {
@@ -937,6 +1038,26 @@
         "reason": "Register differences only (sun/sinun, tulot/tulosi, tarviit/tarvitset); same content.",
         "fingerprint": "83283d654951279e125e59ba5666b4cc80eac755baba595314b0733add59de88",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "eb0f372dbb4b500289eb1ab2a66d81b2b2a949d8dae19d667757047d0b180fc2",
+          "text": "Ja tähän sun tulot. Sä tarviit myös vuokrasopimuksen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7177bdb9e8a8da904f1a7beb9b514b969dcc1324454c5467f4a894a3240ac616"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "9c0918db606cb79218854e2f1f3b140a9270c28c325fa0c4b21f7e2e9f9d2944",
+          "text": "Ja tähän sinun tulosi. Sinä tarvitset myös vuokrasopimuksen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4ddf117031a2191d127281e36d52570f04ccb1dcca09e34cb6da372001333e6f"
+        }
       }
     },
     {
@@ -1059,6 +1180,26 @@
         "reason": "Voinks mä = voinko minä; 'OmaKelas' is a clipped form of OmaKelassa; same meaning.",
         "fingerprint": "ac9bcdd3ee20a20cce080985f0c7f386696ec33cb615a9d5d6be3d843831b505",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "41582a9aed9abae31f92f7d465f92bb6edb0197f0ed19a42aca4081306a15a56",
+          "text": "Voinks mä lähettää sen OmaKelas?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b8cba4eb542e24ee52c6cc6fdd2bd6163fdc992dbc343d0a8ee6e0e2639efe39"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "c0206b5a908940288a7131f5c5dd13b545a527e858bfd5c4e533de1421ab5971",
+          "text": "Voinko minä lähettää sen OmaKelassa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3315e07d49201a0406e63ae2c8368f488ece49eb5f86a68b17a5a9c0e6ea4c0c"
+        }
       }
     },
     {
@@ -1178,6 +1319,26 @@
         "reason": "Joo vs kyllä is a register difference; same meaning.",
         "fingerprint": "de3745e4ff1497182d7823d578f2f9e07b60f9814096d8df33bf6de3a51b6ca4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "86e57420757ee0b0b78b2ba70e1a24eebf40b98684ad892160d6e932ec0b350d",
+          "text": "Joo, se on helpoin tapa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f94749dbd7f611c508c736a98c01b42fe7c572b82514b08c6003e53afb784931"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "333008e7c6bee7654783a7eb724437d38ad5091aa9ffa76009e3dde26fac6e09",
+          "text": "Kyllä, se on helpoin tapa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "49b7a1179a7eda937e4cb0a23fd0948d4183f3e349460b10f45493d4ff26ad0b"
+        }
       }
     }
   ],
