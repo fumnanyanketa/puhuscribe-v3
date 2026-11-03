@@ -45,6 +45,7 @@ const TEXT_SIZES = [
   ['--text-line', 'The spoken line on the line card, 19 px'],
   ['--text-heading', 'Card and section headings, 17 px'],
   ['--text-written', 'The written line, 17 px'],
+  ['--text-meaning', 'The English meaning on a line card, 16 px'],
   ['--text-body', 'Body and sheet text, 15 px'],
   ['--text-button', 'Button text, 14.5 px'],
   ['--text-reading', 'The least size of a sentence of reading text, 14 px'],

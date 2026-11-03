@@ -40,6 +40,7 @@ Sizes, all in `rem` so a phone's larger text setting scales every line. They are
 | `--text-line`       | 19 px   | the spoken line on the line card               |
 | `--text-heading`    | 17 px   | card and section headings                      |
 | `--text-written`    | 17 px   | the written line                               |
+| `--text-meaning`    | 16 px   | the English meaning on a line card             |
 | `--text-body`       | 15 px   | body text, sheet text, privacy paragraphs      |
 | `--text-button`     | 14.5 px | button text                                    |
 | `--text-reading`    | 14 px   | the least size of a sentence of reading text   |
@@ -283,7 +284,7 @@ It plays when this device has no account, and never for a signed in learner. Abo
 
 ### Line card and word card (`LineCard`, `FinnishLine`, `WordCard`)
 
-A dialogue line as drawn on 1 November 2026. A milky panel with the speaker's name (12 px, quiet) and "Line 2 of 8" at its top right. Inside, the spoken line in a soft box with a mint play button at its end, and under it the written line in slate with a slate play button. Two dots at the left, mint for spoken and slate for written, are joined by a dotted line. There are no "Spoken" and "Written" labels: each group is named for screen readers ("How people say it", "How it is written"). Both lines carry `lang="fi"`. The English gloss sits inside the card under a dashed line.
+A dialogue line as drawn on 1 November 2026. A milky panel with the speaker's name (12 px, quiet) and "Line 2 of 8" at its top right. Inside, the spoken line in a soft box with a mint play button at its end, and under it the written line in slate with a slate play button. Two dots at the left, mint for spoken and slate for written, are joined by a dotted line. There are no "Spoken" and "Written" labels: each group is named for screen readers ("How people say it", "How it is written"). Both lines carry `lang="fi"`. The English meaning sits inside the card under a dashed line, left aligned: a small quiet "Meaning" (12 px, no capitals or letter spacing), then the English in ink at 16 px, medium weight, wrapping under itself. Screen readers hear "Meaning:" before it. The review card of Keep it shows it the same way; the finish screen keeps its own small quiet English.
 
 - The words that change between spoken and written are peach on a peach wash, in both lines, with the drawn thin peach ring (`--color-peach`, 1 px, inside). Peach there means only that (`--color-changed-text`, `--color-changed-wash`). The text colour is darker than drawn to keep 7 to 1; the ring and the bold weight carry the look.
 - The 44 px tap area of a word is padding inside its button that a negative block margin cancels, so a word that wraps onto several rows keeps its text on the line's rows (no overlap with the row above) and its pieces start at the left. The tap area of a word overlaps the next row's by a few pixels, so the rows stay about 1.4 apart as drawn and every word is still a 44 px target.
