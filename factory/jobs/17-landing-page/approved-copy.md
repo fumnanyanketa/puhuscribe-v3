@@ -56,7 +56,7 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | 1 | Hear it the way Finns say it | Every line comes as people say it and as it’s written, with audio for both. The words that change are marked, so you see how “Paljonko” becomes “Paljonks”. | A line in both Finnishes |
 | 2 | Practise out loud before the real moment | You hear each line and say it straight back, with gentle feedback on how clear you were. By the time you reach the pharmacy counter, the words feel familiar. | Saying a line back |
 | 3 | Build sentences about your own life | At each stop you add one sentence about your own life. We call it your language island. By the end of the journey, you can talk about yourself fluently for about a minute. | The language island |
-| 4 | Practise a real chat without the nerves | From stop 4, each stop ends with a short chat with Otso, your AI tutor. Otso only uses words you’ve already met, so you can keep up. Type your answer or say it out loud. | Chatting with Otso |
+| 4 | Practise a real chat without the nerves | Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud. | Chatting with Otso |
 | 5 | Keep the words you learn | Review brings each word back on the right day, so it stays with you. You type the missing word, then see it as people say it and as it’s written. | A review card |
 
 ## 7. The journey
