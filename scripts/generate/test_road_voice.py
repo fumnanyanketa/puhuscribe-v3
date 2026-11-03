@@ -391,7 +391,8 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     assert "check-files-for-secrets.ts" in text
     for task in ("import", "voice", "review-pages"):
         assert task in text
-    # The Azure key is in the voice step (and the upload guard that looks for it), nowhere else.
+    # The Azure key is in the voice step, the word clip voice step (job word-audio) and the upload guard
+    # that looks for it, nowhere else.
     steps = re.split(r"\n      - ", text)
     holders = {
         name: [s.split("\n")[0] for s in steps if name in s]
@@ -399,6 +400,7 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     }
     assert holders["AZURE_SPEECH_KEY"] == [
         "name: Voice the part (the Azure key is here and nowhere else)",
+        "name: Voice the part's word clips (the Azure key is here and in the voice step, nowhere else)",
         "name: Check the files to upload hold no secret value",
     ]
     assert holders["ANTHROPIC_API_KEY"] == [
@@ -426,7 +428,7 @@ def test_a1_road_19_a1_road_21_the_publish_task_holds_no_key_and_uploads_only_wh
     # "all" is refused for publish: only these tasks accept it.
     check = steps["name: Check the inputs"]
     accept_all = set(re.findall(r'"\$TASK" != ([a-z-]+)', check))
-    assert accept_all == {"count-characters", "judge", "import", "analyse"}
+    assert accept_all == {"count-characters", "judge", "import", "analyse", "count-words"}
     gather = steps["name: Gather what the run changed"]
     block = gather.split('if [ "$TASK" = publish ]; then', 1)[1].split("\n          fi", 1)[0]
     assert "git ls-files --others --modified --exclude-standard -- supabase public" in block

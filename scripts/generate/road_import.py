@@ -20,6 +20,11 @@ python scripts/generate/road_import.py voice --part N [--only <slug>]
 
 python scripts/generate/road_import.py judge [--part N]
     Runs the register judge on the lines, after the golden set. Needs the Anthropic key.
+
+python scripts/generate/road_import.py voice-words --part N [--limit 600]
+python scripts/generate/road_import.py count-words | list-words | review-words | publish-words ...
+    The word clips (job word-audio): one clip in one voice for every distinct word text of the road.
+    road_words.py holds them and documents each; it needs no Voikko, so it also runs on its own.
 """
 
 from __future__ import annotations
@@ -53,6 +58,9 @@ from road_extras import register_road_extras
 from road_mapping import SpokenForms, map_line, tokenize
 from road_markdown import token_spans
 from road_parse import REPO, Road, RoadDialogue, RoadStop, parse_road
+from road_words import COMMANDS as WORD_COMMANDS
+from road_words import add_commands as add_word_commands
+from road_words import run as run_word_command
 
 DRAFTS = REPO / "content" / "drafts"
 BRIEFS = REPO / "content" / "briefs"
@@ -1033,7 +1041,10 @@ def main(argv: list[str]) -> int:
     vo.add_argument("--only", help="voice only this dialogue slug (a sample)")
     ju = sub.add_parser("judge")
     ju.add_argument("--part", type=int)
+    add_word_commands(sub)
     args = parser.parse_args(argv)
+    if args.command in WORD_COMMANDS:
+        return run_word_command(args)
     commands = {
         "import": cmd_import,
         "analyse": cmd_analyse,

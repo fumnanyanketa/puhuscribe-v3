@@ -13,6 +13,12 @@
 # - judge: the register judge on the lines of the part (or the road), after its golden set. Only this
 #   step holds the Anthropic key. Used only when the owner turned the judge on.
 # - review-pages: round 1 review pages for the part's dialogues. No key.
+# - count-words: the dry count of the word clips (job word-audio): clips and exact characters per part,
+#   still to make. No key.
+# - voice-words: the Azure voice (Selma) reads every word clip of the part still missing, at most 600 in
+#   one run (30 minutes at 20 a minute); the run says how many remain. Only this step and the voice step
+#   hold the Azure key. The clips come back under content/word-audio/ with the voice log.
+# - review-words: the owner's listening page of the part's word clips (words-part-<n>.html). No key.
 # - publish: publishes one part the owner approved in writing (content/approvals/part-<n>.json on the
 #   branch it runs on): its migrations, its clips under public/audio/ and the regenerated
 #   supabase/tests/database/a1_road_published.test.sql come back as an artifact. No key.
@@ -20,7 +26,7 @@
 # The manager commits the voice log (content/logs/ai-calls.jsonl) after every voice run and
 # before the next one, because the character guard reads the log from the checkout: characters of a
 # run whose log was not committed would be forgotten. The voice task refuses to start when that log
-# has uncommitted changes.
+# has uncommitted changes, and so does the voice-words task.
 # Voiced clips and changed drafts go up as an artifact; the manager commits them once, under
 # content/drafts/<slug>/audio/. They reach public/audio/ only when a part is published.
 #
@@ -35,9 +41,21 @@ on:
         description: What to do
         required: true
         type: choice
-        options: [import, analyse, count-characters, voice, judge, review-pages, publish]
+        options:
+          [
+            import,
+            analyse,
+            count-characters,
+            voice,
+            judge,
+            review-pages,
+            count-words,
+            voice-words,
+            review-words,
+            publish,
+          ]
       part:
-        description: The part, 1 to 6, or all (only count-characters and judge accept all)
+        description: The part, 1 to 6, or all (only count-characters, count-words and judge accept all)
         required: true
         type: choice
         default: '1'
@@ -84,11 +102,11 @@ jobs:
           if [ -n "$ONLY" ] && ! [[ "$ONLY" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "The dialogue slug must be lower case letters, digits and hyphens"; exit 1
           fi
-          if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ]; then
+          if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ] && [ "$TASK" != count-words ]; then
             echo "The task $TASK needs one part, 1 to 6"; exit 1
           fi
       - name: Import, analyse, count or make review pages (no key)
-        if: inputs.task == 'import' || inputs.task == 'analyse' || inputs.task == 'count-characters' || inputs.task == 'review-pages'
+        if: inputs.task == 'import' || inputs.task == 'analyse' || inputs.task == 'count-characters' || inputs.task == 'review-pages' || inputs.task == 'count-words' || inputs.task == 'review-words'
         env:
           TASK: ${{ inputs.task }}
           PART: ${{ inputs.part }}
@@ -100,6 +118,8 @@ jobs:
             analyse) python scripts/generate/road_import.py analyse --out "$RUNNER_TEMP/road-out" ;;
             count-characters) python scripts/generate/road_import.py count-characters "${part_args[@]}" ;;
             review-pages) python scripts/generate/pipeline.py review-pages --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
+            count-words) python scripts/generate/road_import.py count-words --part "$PART" ;;
+            review-words) python scripts/generate/road_import.py review-words --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
           esac
       - name: Publish one approved part (no key)
         # Needs the owner's approval file content/approvals/part-<n>.json on main. Writes the part's
@@ -124,6 +144,15 @@ jobs:
           only_args=()
           if [ -n "$ONLY" ]; then only_args=(--only "$ONLY"); fi
           python scripts/generate/road_import.py voice --part "$PART" "${only_args[@]}"
+      - name: Voice the part's word clips (the Azure key is here and in the voice step, nowhere else)
+        if: inputs.task == 'voice-words'
+        env:
+          PART: ${{ inputs.part }}
+          VOICE_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: python scripts/generate/road_import.py voice-words --part "$PART"
       - name: Run the register judge (the Anthropic key is here and nowhere else)
         if: inputs.task == 'judge'
         env:
@@ -142,6 +171,10 @@ jobs:
           mkdir -p "$RUNNER_TEMP/road-out"
           if [ "$TASK" = voice ] || [ "$TASK" = judge ]; then
             cp -r content/drafts "$RUNNER_TEMP/road-out/drafts"
+            cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+          if [ "$TASK" = voice-words ]; then
+            if [ -d content/word-audio ]; then cp -r content/word-audio "$RUNNER_TEMP/road-out/word-audio"; fi
             cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
           fi
           if [ "$TASK" = publish ]; then
