@@ -345,10 +345,13 @@ jobs:
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
       - name: Apply new migrations to the test project
         # Applies only migrations the test project has not had yet; a second
-        # run on an unchanged branch applies nothing.
+        # run on an unchanged branch applies nothing. --include-all applies a
+        # road part's publish migrations even when a later dated migration (the
+        # islands, 3 November 2026) is already there; each publish migration
+        # does nothing when its dialogue is already published.
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
-        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes
+        run: supabase db push --db-url "$SUPABASE_DB_URL" --yes --include-all
       - name: Database security tests against the test project (pgTAP)
         # The same tests as above, now on the test project itself. They run in
         # one transaction that is rolled back, so they leave no rows. Until the
