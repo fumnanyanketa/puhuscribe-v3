@@ -16,17 +16,32 @@ export interface Processor {
   where: string
   /** The worker/providers/ files (file names) that send data to them. */
   modules: readonly string[]
+  /** More detail, one paragraph each, shown under `where` in the full notice (and for Anthropic, under "More about Otso"). */
+  details?: readonly string[]
+  /** A page of the processor's own, linked at the end of its entry. */
+  link?: { label: string; href: string }
 }
 
 /**
  * Otso, the AI tutor (job 16-tutor-step, owner's call 1 of 3 November 2026: Anthropic's own API,
- * processed in the United States). Before real learners arrive the manager checks Anthropic's data
- * processing terms and transfer basis and reports to the owner.
+ * processed in the United States). The terms below are Anthropic's own pages as the manager read them
+ * on 3 November 2026 (factory/todo.md, "Before real learners: Otso and Anthropic"): the Data
+ * Processing Addendum with Anthropic Ireland, Limited for EEA customers, the EU Standard Contractual
+ * Clauses, deletion within 30 days with flagged content kept up to 2 years, and no training on API
+ * content. worker/tutor-prompt.ts builds the request from approved lesson content and the chat text
+ * only; worker/providers/ai.ts adds no metadata, and the Worker, not the browser, makes the call.
  */
 export const ANTHROPIC: Processor = {
   name: 'Anthropic',
-  role: "Writes Otso's replies, only if you turned Otso on. It receives what you type or say in the chat, Otso's earlier lines and the list of Finnish words you have met, never your name, email or account. PuhuScribe does not store the chat.",
+  role: "Writes Otso's replies, only if you turned Otso on. It receives your chats with Otso as text: what you type, the text of what you say and Otso's earlier lines, with Otso's instructions and the Finnish words and lesson lines you have met. PuhuScribe does not save the chat.",
   where: 'In the United States.',
+  details: [
+    'Anthropic Ireland, Limited processes the chats for PuhuScribe, as our processor, in the United States. The transfer is covered by the EU Standard Contractual Clauses.',
+    'Anthropic deletes them within 30 days. Content its safety checks flag may be kept for up to 2 years.',
+    'Anthropic does not use them to train its models.',
+    'PuhuScribe adds nothing that identifies you, such as your email, account or guest id, or your IP address.',
+  ],
+  link: { label: "Anthropic's list of sub-processors", href: 'https://trust.anthropic.com/subprocessors' },
   modules: ['ai.ts', 'fixtures/ai/index.ts'],
 }
 

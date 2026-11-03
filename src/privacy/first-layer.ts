@@ -27,10 +27,11 @@ export const FIRST_LAYER = {
       text: 'Only if you turn on speaking feedback. Your recording is checked, then deleted, unless you choose to keep it.',
     },
     {
-      // Job 16-tutor-step, the owner's line of 3 November 2026.
+      // Job 16-tutor-step; reworded on 3 November 2026 (fast route otso-privacy) after the manager's
+      // check of Anthropic's terms. The detail sits behind "More about Otso" (processors.ts, Anthropic).
       id: 'privacy-tutor',
       heading: 'Talking with Otso',
-      text: "Only if you turn Otso on. The tutor's text and your spoken answers are processed by Anthropic in the United States and are not stored by PuhuScribe.",
+      text: 'Only if you turn Otso on. Your chats with Otso, typed or spoken, go as text to Anthropic in the United States. PuhuScribe does not save them.',
     },
     {
       id: 'privacy-time',
@@ -91,8 +92,12 @@ export const CLAIMS: readonly Claim[] = [
       'data-inventory.ts LEARNER_TABLES: Kept recordings, "Only if you chose"; Speaking feedback results, "No audio"',
   },
   {
-    claim: "The tutor's text and spoken answers go to Anthropic in the United States and are not stored",
-    source: 'processors.ts, Anthropic; data-inventory.ts LEARNER_TABLES: Calls to Otso, "No text"',
+    claim: 'Chats with Otso, typed or spoken, go as text to Anthropic in the United States',
+    source: 'processors.ts, Anthropic: role and where; worker/tutor-prompt.ts builds the request',
+  },
+  {
+    claim: 'PuhuScribe does not save the chats',
+    source: 'data-inventory.ts LEARNER_TABLES: Calls to Otso, "No text"',
   },
   {
     claim: 'A guest account is deleted after 90 days without use, an email account after 24 months',

@@ -15,7 +15,7 @@ import {
 } from '../privacy/data-inventory.ts'
 import { FIRST_LAYER } from '../privacy/first-layer.ts'
 import { NOTICE_UPDATED, RESPONSIBLE, type Responsible } from '../privacy/notice-settings.ts'
-import { PROCESSORS, PROVIDER_LOGS } from '../privacy/processors.ts'
+import { ANTHROPIC, PROCESSORS, PROVIDER_LOGS } from '../privacy/processors.ts'
 import styles from './Account.module.css'
 
 // The privacy notice, at /privacy (factory/jobs/11-accounts/spec.md, "Done
@@ -31,6 +31,7 @@ import styles from './Account.module.css'
 // src/privacy/notice-settings.ts, which holds the owner's answer.
 
 const VOICE_ID = 'privacy-voice'
+const TUTOR_ID = 'privacy-tutor'
 
 export const COMPLAINT_URL = 'https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman'
 
@@ -90,6 +91,10 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
   const [voiceOpen, setVoiceOpen] = useState(
     () => typeof window !== 'undefined' && window.location.hash === `#${VOICE_ID}`,
   )
+  // Anthropic's terms for Otso's chats sit behind "More about Otso", in the same way (fast route otso-privacy).
+  const [tutorOpen, setTutorOpen] = useState(
+    () => typeof window !== 'undefined' && window.location.hash === `#${TUTOR_ID}`,
+  )
   // The country of the speech service comes from the one read of the voice settings (GET /api/voice),
   // because it is set where the Worker runs and not in the page. Someone with no account gets a 401 and
   // sees "in the EU" without the country. Nothing is sent and nothing is stored.
@@ -141,6 +146,35 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                   ))}
                   <p className={styles.shortText}>{notice.keepBox}</p>
                   <p className={styles.shortText}>{notice.changeLater}</p>
+                </div>
+              </>
+            )}
+            {section.id === TUTOR_ID && (
+              <>
+                <Button
+                  variant="mint"
+                  className={styles.more}
+                  aria-expanded={tutorOpen}
+                  aria-controls="tutor-details"
+                  onClick={() => {
+                    setTutorOpen(!tutorOpen)
+                  }}
+                >
+                  More about Otso
+                </Button>
+                <div id="tutor-details" className={styles.voiceDetails} hidden={!tutorOpen}>
+                  {ANTHROPIC.details?.map((detail) => (
+                    <p key={detail} className={styles.shortText}>
+                      {detail}
+                    </p>
+                  ))}
+                  {ANTHROPIC.link && (
+                    <p className={styles.shortText}>
+                      <a className={styles.inlineLink} href={ANTHROPIC.link.href} rel="noreferrer">
+                        {ANTHROPIC.link.label}
+                      </a>
+                    </p>
+                  )}
                 </div>
               </>
             )}
@@ -227,6 +261,18 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                   <h3 className={styles.itemName}>{processor.name}</h3>
                   <p className={styles.text}>{processor.role}</p>
                   <p className={styles.quietText}>{processor.where}</p>
+                  {processor.details?.map((detail) => (
+                    <p key={detail} className={styles.quietText}>
+                      {detail}
+                    </p>
+                  ))}
+                  {processor.link && (
+                    <p className={styles.quietText}>
+                      <a className={styles.inlineLink} href={processor.link.href} rel="noreferrer">
+                        {processor.link.label}
+                      </a>
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
