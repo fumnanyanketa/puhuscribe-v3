@@ -101,7 +101,7 @@ test.describe('the Hear it sample', () => {
     await openSample(page)
     // Round 3: the top bar is the shared SessionFrame's, which names the step
     // in words. Unit 1 has no Use it step, so it is step 1 of 4.
-    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 4' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Leave session' })).toBeVisible()
     const play = page.getByRole('button', { name: 'Play the dialogue' })
     await expect(play).toBeInViewport()

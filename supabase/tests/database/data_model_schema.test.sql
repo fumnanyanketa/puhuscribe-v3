@@ -263,11 +263,17 @@ select results_eq(
       'speaking_attempts.transcript authenticated UPDATE',
       'speaking_attempts.user_id authenticated INSERT',
       'speech_checks.user_id authenticated INSERT',
+      'tutor_calls.cost_usd authenticated UPDATE',
+      'tutor_calls.input_tokens authenticated UPDATE',
+      'tutor_calls.model authenticated UPDATE',
+      'tutor_calls.outcome authenticated UPDATE',
+      'tutor_calls.output_tokens authenticated UPDATE',
+      'tutor_calls.provider authenticated UPDATE',
       'usage_events.name authenticated INSERT',
       'usage_events.session_id authenticated INSERT',
       'usage_events.user_id authenticated INSERT'
     ]) as x(g) order by g collate "C"$$,
-  '[data 2] [session 17] [speak 16] [analytics 21] [islands lock] the only column-level grants in public are the 67 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables, 3 on feedback, 6 on island_lines), all to authenticated; anon, service_role and PUBLIC have none'
+  '[data 2] [session 17] [speak 16] [analytics 21] [islands lock] the only column-level grants in public are the 73 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables, 3 on feedback, 6 on island_lines, 6 on tutor_calls), all to authenticated; anon, service_role and PUBLIC have none'
 );
 
 -- [data 6] The history of withdrawn content approvals is closed to every API role.

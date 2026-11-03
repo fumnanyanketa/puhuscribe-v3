@@ -54,14 +54,38 @@ export function isGuestPost(request: Request): boolean {
   return request.method() === 'POST' && new URL(request.url()).pathname === '/api/guest'
 }
 
-/** Opens the front door, presses Start, and waits for Hear it. */
-export async function startSession(page: Page): Promise<void> {
+/**
+ * The first step's name. Since the owner's fast route hear-and-say (3 November 2026) the session opens on
+ * "Hear it, say it" (each line heard, then said back), and the old Say it is the short "Recap".
+ */
+export const FIRST_STEP = 'Hear it, say it'
+export const RECAP_STEP = 'Recap'
+
+/**
+ * Opens the front door, presses Start, and waits for Hear it, say it. The tip on a first lesson has its own
+ * tests (e2e/redesign-lesson.spec.ts) and so has the speaking consent sheet (e2e/speaking-feedback.spec.ts);
+ * the others start with the tip closed and "Not now" answered, unless `consent: 'open'` keeps the sheet.
+ */
+export async function startSession(
+  page: Page,
+  options: { consent?: 'not now' | 'open' } = {},
+): Promise<void> {
   await page.goto('/learn')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
-  await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
-  // The tip on a first lesson has its own tests (e2e/redesign-lesson.spec.ts); the others start without it.
+  await expect(page.getByRole('heading', { level: 1, name: FIRST_STEP })).toBeVisible()
   await dismissTip(page)
+  if (options.consent !== 'open') await declineConsent(page)
+}
+
+/** "Not now" on the speaking consent sheet when it is open (job 10-speaking-feedback, "Done when" 3). */
+export async function declineConsent(page: Page): Promise<void> {
+  await sheetsSettled(page)
+  const consent = page.getByRole('dialog', { name: 'Say it out loud' })
+  if (await consent.isVisible()) {
+    await consent.getByRole('button', { name: 'Not now', exact: true }).click()
+    await expect(consent).toBeHidden()
+  }
 }
 
 /**
@@ -113,15 +137,25 @@ export async function leaveLesson(page: Page): Promise<void> {
     .click()
 }
 
-/** Shows every line of Hear it and presses Continue. */
+/**
+ * Goes through every line of Hear it, say it without recording and presses Continue: "Not now" on the
+ * consent sheet, or "I can't speak right now" when speaking feedback is on, then "Next line" on each line.
+ */
 export async function finishHearIt(page: Page): Promise<void> {
+  await expect(page.getByRole('heading', { level: 1, name: FIRST_STEP })).toBeVisible()
   await dismissTip(page)
+  await declineConsent(page)
+  const next = page.getByRole('button', { name: 'Next line', exact: true })
+  const cont = page.getByRole('button', { name: 'Continue', exact: true })
+  const cantSpeak = page.getByRole('button', { name: "I can't speak right now", exact: true })
+  await expect(next.or(cont).or(cantSpeak).first()).toBeVisible()
+  if (await cantSpeak.isVisible()) await cantSpeak.click()
   for (;;) {
-    const next = page.getByRole('button', { name: 'Next line' })
-    if ((await next.count()) === 0) break
+    await expect(next.or(cont).first()).toBeVisible()
+    if (await cont.isVisible()) break
     await next.click()
   }
-  await page.getByRole('button', { name: 'Continue' }).click()
+  await cont.click()
   await expect(page.getByRole('heading', { level: 1, name: 'Understand it' })).toBeVisible()
 }
 
@@ -148,14 +182,14 @@ export async function finishLineId(page: Page): Promise<string> {
 /** Answers every question right, using each line's meaning from the database. */
 /**
  * After "Next" in Understand it: waits for the next question (a different
- * line) or, after the last one, for the next step (Say it, job
- * 10-speaking-feedback, which opens on its consent screen for a new learner).
+ * line) or, after the last one, for the next step (the Recap, which may open
+ * on the speaking consent sheet when it was not answered on this page).
  * The last "Next" first saves the step, so the old question stays on screen
  * for a moment.
  */
 export async function afterNext(page: Page, previousLineId: string): Promise<'done' | 'question'> {
   const done = page
-    .getByRole('heading', { level: 1, name: 'Say it' })
+    .getByRole('heading', { level: 1, name: RECAP_STEP })
     .or(page.getByRole('dialog', { name: 'Say it out loud' }))
     .first()
   const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
@@ -237,9 +271,10 @@ export async function settleAnimations(page: Page) {
 }
 
 /**
- * Say it for a learner who has not turned on speaking feedback (job
- * 10-speaking-feedback, "Done when" 3): "Not now" on the consent screen, then
- * each line out loud with "Next line", and "Continue" to the finish screen.
+ * The Recap (once Say it) for a learner who has not turned on speaking feedback (job
+ * 10-speaking-feedback, "Done when" 3): "Not now" on the consent screen when it asks again, then
+ * each key line out loud with "Next line", and "Continue" to the finish screen. With speaking
+ * feedback on, "I can't speak right now" ends the recap.
  */
 export async function passSayIt(page: Page, after = 'Now you can say this.'): Promise<void> {
   const notNow = page.getByRole('button', { name: 'Not now', exact: true })
@@ -247,7 +282,7 @@ export async function passSayIt(page: Page, after = 'Now you can say this.'): Pr
   const cont = page.getByRole('button', { name: 'Continue', exact: true })
   // Waits until Say it has loaded the learner's voice choices.
   const cantSpeak = page.getByRole('button', { name: "I can't speak right now", exact: true })
-  await expect(notNow.or(next).or(cont).or(cantSpeak)).toBeVisible()
+  await expect(notNow.or(next).or(cont).or(cantSpeak).first()).toBeVisible()
   if (await cantSpeak.isVisible()) {
     // Speaking feedback is already on: the quiet exit skips Say it.
     await cantSpeak.click()
@@ -255,9 +290,9 @@ export async function passSayIt(page: Page, after = 'Now you can say this.'): Pr
     return
   }
   if (await notNow.isVisible()) await notNow.click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: RECAP_STEP })).toBeVisible()
   for (;;) {
-    await expect(next.or(cont)).toBeVisible()
+    await expect(next.or(cont).first()).toBeVisible()
     if (await cont.isVisible()) break
     await next.click()
   }

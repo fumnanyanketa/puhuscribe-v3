@@ -8,6 +8,7 @@ import {
   finishUnderstandIt,
   passSayIt,
   questionLineId,
+  RECAP_STEP,
   startSession,
 } from './session-helpers.ts'
 
@@ -77,9 +78,10 @@ export async function throughUnderstandIt(page: Page, userId: string): Promise<v
   await finishHearIt(page)
   const dialogueId = sessionsOf(userId).find((s) => !s.ended && s.dialogueId !== '')?.dialogueId ?? ''
   const lines = linesOf(dialogueId)
-  // Say it (job 10) follows Understand it; its consent screen or its own heading ends the loop.
+  // The Recap (once Say it, job 10; fast route hear-and-say) follows Understand it; its consent screen or
+  // its own heading ends the loop.
   const sayIt = page
-    .getByRole('heading', { level: 1, name: 'Say it' })
+    .getByRole('heading', { level: 1, name: RECAP_STEP })
     .or(page.getByRole('dialog', { name: 'Say it out loud' }))
     .first()
   for (;;) {
