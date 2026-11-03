@@ -78,7 +78,7 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
 - **Secrets.** Only in `.env.local` and GitHub secrets. Never read, search or print `.env*` files; use `git grep`.
 - **Fonts.** The Switzer font files are not in git (the licence forbids public repositories). `scripts/ci/fetch-private-fonts.ts` fetches them when a key is set, and tests that need them skip with a reason when they are absent (`docs/fonts.md`). Never commit the files.
 - **v2 files** stay unchanged and hash checked (`docs/v2-imports.md`).
-- **Checks.** `npm run check:code` runs the type check, lint and format check. GitHub runs every check on every pull request.
+- **Checks.** `npm run check:code` runs the type check, lint and format check. Pull requests get fast checks; the full run is manual, before launch.
 - **Before every commit**, lefthook (a git hook manager, configured in `lefthook.yml`) runs those checks on the staged files, plus ruff (Python lint) and gitleaks (a secret scanner).
 - **When a builder agent stops**, `scripts/hooks/stop-checks.ts` checks the factory worktrees.
 
