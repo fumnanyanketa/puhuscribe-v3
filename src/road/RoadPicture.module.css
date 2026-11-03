@@ -115,6 +115,43 @@
   overflow-wrap: anywhere;
 }
 
+/* The number an upcoming sign shows only as a pin. */
+.num.pinOnly {
+  display: none;
+}
+
+/* Number pins (the owner's choice of 2 November, "Number pins only"): when the text is too large for the
+   drawn signs, every sign is a small round pin on its pole with its stop number, or its tick when done, and
+   no visible name. The colours are the drawn signs' own: done is mint with a white tick, current a mint
+   ring with the number in deep mint, next a peach ring, later milky. The full name stays in the list for
+   screen readers, and the card below keeps the current stop's name. */
+.box[data-pins='on'] .board {
+  justify-content: center;
+  gap: 0;
+  width: 1.9em;
+  height: 1.9em;
+  padding: 0;
+  border-radius: 50%;
+  font-size: var(--text-small);
+  line-height: 1;
+}
+
+.box[data-pins='on'] .name {
+  display: none;
+}
+
+.box[data-pins='on'] .pinOnly {
+  display: grid;
+}
+
+.box[data-pins='on'] .num {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+}
+
 /* Every sign stays inside the picture, 8 px from its edges, at every text size and in every frame
    (follow up 19-sign-overflow). The script that nudges a board back inside the screen runs a frame after
    the text grows, so for a frame or two a board stood past the edge. Here the browser keeps it inside
