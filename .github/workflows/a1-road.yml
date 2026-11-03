@@ -22,11 +22,20 @@
 # - publish: publishes one part the owner approved in writing (content/approvals/part-<n>.json on the
 #   branch it runs on): its migrations, its clips under public/audio/ and the regenerated
 #   supabase/tests/database/a1_road_published.test.sql come back as an artifact. No key.
+# - check-islands: the language island lines (content/islands/islands.md, owner approved on 3 November
+#   2026): Voikko on every written word of every line each stop can make, the spoken to written word
+#   mapping, and the words not met in the road by that stop. Reports only. No key. The part is ignored.
+# - count-islands: the dry count of the island clips: clips and exact characters still to make. No key.
+# - voice-islands: Selma reads every island line once per choice in its list, spoken and written, at
+#   most 600 clips in one run. Only this step, the voice step and the voice-words step hold the Azure
+#   key. The clips come back under content/island-audio/ with the voice log; the manager commits them,
+#   then runs `python scripts/generate/islands.py publish-islands` to copy them to public/audio/islands/.
+#   The part is ignored. The stop 1 name sentence is never voiced.
 #
 # The manager commits the voice log (content/logs/ai-calls.jsonl) after every voice run and
 # before the next one, because the character guard reads the log from the checkout: characters of a
 # run whose log was not committed would be forgotten. The voice task refuses to start when that log
-# has uncommitted changes, and so does the voice-words task.
+# has uncommitted changes, and so do the voice-words and voice-islands tasks.
 # Voiced clips and changed drafts go up as an artifact; the manager commits them once, under
 # content/drafts/<slug>/audio/. They reach public/audio/ only when a part is published.
 #
@@ -53,6 +62,9 @@ on:
             voice-words,
             review-words,
             publish,
+            check-islands,
+            count-islands,
+            voice-islands,
           ]
       part:
         description: The part, 1 to 6, or all (only count-characters, count-words and judge accept all)
@@ -102,6 +114,7 @@ jobs:
           if [ -n "$ONLY" ] && ! [[ "$ONLY" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "The dialogue slug must be lower case letters, digits and hyphens"; exit 1
           fi
+          case "$TASK" in check-islands|count-islands|voice-islands) exit 0 ;; esac
           if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ] && [ "$TASK" != count-words ]; then
             echo "The task $TASK needs one part, 1 to 6"; exit 1
           fi
@@ -120,6 +133,17 @@ jobs:
             review-pages) python scripts/generate/pipeline.py review-pages --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
             count-words) python scripts/generate/road_import.py count-words --part "$PART" ;;
             review-words) python scripts/generate/road_import.py review-words --part "$PART" --out "$RUNNER_TEMP/road-out" ;;
+          esac
+      - name: Check or count the island lines (no key)
+        # check-islands needs Voikko, installed above. It refuses to start when content/islands/islands.md
+        # is not the file the owner approved (content/approvals/islands.json).
+        if: inputs.task == 'check-islands' || inputs.task == 'count-islands'
+        env:
+          TASK: ${{ inputs.task }}
+        run: |
+          case "$TASK" in
+            check-islands) python scripts/generate/islands.py check-islands --out "$RUNNER_TEMP/road-out" ;;
+            count-islands) python scripts/generate/islands.py count-islands ;;
           esac
       - name: Publish one approved part (no key)
         # Needs the owner's approval file content/approvals/part-<n>.json on main. Writes the part's
@@ -153,6 +177,14 @@ jobs:
           AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
         run: python scripts/generate/road_import.py voice-words --part "$PART"
+      - name: Voice the island lines (the Azure key is here, in the voice step and in the voice-words step, nowhere else)
+        if: inputs.task == 'voice-islands'
+        env:
+          VOICE_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: python scripts/generate/islands.py voice-islands
       - name: Run the register judge (the Anthropic key is here and nowhere else)
         if: inputs.task == 'judge'
         env:
@@ -175,6 +207,10 @@ jobs:
           fi
           if [ "$TASK" = voice-words ]; then
             if [ -d content/word-audio ]; then cp -r content/word-audio "$RUNNER_TEMP/road-out/word-audio"; fi
+            cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+          if [ "$TASK" = voice-islands ]; then
+            if [ -d content/island-audio ]; then cp -r content/island-audio "$RUNNER_TEMP/road-out/island-audio"; fi
             cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
           fi
           if [ "$TASK" = publish ]; then
