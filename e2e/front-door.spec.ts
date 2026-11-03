@@ -17,41 +17,45 @@ test.beforeEach(({ page }, testInfo) => {
 
 // Job 19-redesign: the front door is the road. The wordmark, "Today's session" and
 // the lead sentence are gone on purpose (statement 10); the guest line stays.
-test('[session 1] [redesign 10] [redesign 15] the road shows Start and the guest line, and loading it makes no account', async ({
-  page,
-}) => {
-  const requests = recordRequests(page)
-  await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-  await expect(
-    page.getByText(
-      'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
-      { exact: true },
-    ),
-  ).toBeVisible()
-  await page.waitForLoadState('networkidle')
-  await page.reload()
-  await page.waitForLoadState('networkidle')
-  expect(requests.filter(isGuestPost)).toHaveLength(0)
-  await expect(page).toHaveTitle('PuhuScribe')
-})
+test(
+  '[session 1] [redesign 10] [redesign 15] the road shows Start and the guest line, and loading it makes no account',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    const requests = recordRequests(page)
+    await page.goto('/')
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await expect(
+      page.getByText(
+        'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
+        { exact: true },
+      ),
+    ).toBeVisible()
+    await page.waitForLoadState('networkidle')
+    await page.reload()
+    await page.waitForLoadState('networkidle')
+    expect(requests.filter(isGuestPost)).toHaveLength(0)
+    await expect(page).toHaveTitle('PuhuScribe')
+  },
+)
 
-test('[smoke 2] [smoke 6] [session 3] every request the road makes goes to its own address, never to Supabase', async ({
-  page,
-}) => {
-  const requests = recordRequests(page)
-  await page.goto('/')
-  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-  await page.waitForLoadState('networkidle')
-  const origin = new URL(page.url()).origin
-  expect(requests.length).toBeGreaterThan(0)
-  for (const request of requests) {
-    expect(new URL(request.url()).origin, request.url()).toBe(origin)
-    expect(new URL(request.url()).hostname, request.url()).not.toMatch(/supabase\.co$/)
-  }
-  expect(await page.evaluate<string>('document.cookie')).toBe('')
-})
+test(
+  '[smoke 2] [smoke 6] [session 3] every request the road makes goes to its own address, never to Supabase',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    const requests = recordRequests(page)
+    await page.goto('/')
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await page.waitForLoadState('networkidle')
+    const origin = new URL(page.url()).origin
+    expect(requests.length).toBeGreaterThan(0)
+    for (const request of requests) {
+      expect(new URL(request.url()).origin, request.url()).toBe(origin)
+      expect(new URL(request.url()).hostname, request.url()).not.toMatch(/supabase\.co$/)
+    }
+    expect(await page.evaluate<string>('document.cookie')).toBe('')
+  },
+)
 
 // Replaces "[smoke 1] [design 19] loads only its own stylesheet and font
 // files ... no images, icons or media". The front door now has component

@@ -68,57 +68,58 @@ test.describe('the first session', { tag: '@seed' }, () => {
     return { userId, dialogueId, lines, glossOf }
   }
 
-  test('[session 1] [session 2] Start makes exactly one guest, and Start again, a reload or a new tab makes no second one', async ({
-    page,
-    context,
-  }) => {
-    const requests = recordRequests(page)
-    await page.goto('/')
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-    expect(requests.filter(isGuestPost)).toHaveLength(0)
+  test(
+    '[session 1] [session 2] Start makes exactly one guest, and Start again, a reload or a new tab makes no second one',
+    { tag: '@smoke' },
+    async ({ page, context }) => {
+      const requests = recordRequests(page)
+      await page.goto('/')
+      await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+      expect(requests.filter(isGuestPost)).toHaveLength(0)
 
-    const answer = page.waitForResponse((res) => isGuestPost(res.request()))
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
-    // The page leaves for /session at once, so only the status is read here;
-    // the answer body (no token, no user id) is checked by the unit tests and
-    // by the second Start below.
-    expect((await answer).status()).toBe(201)
-    await page.waitForURL('**/session')
+      const answer = page.waitForResponse((res) => isGuestPost(res.request()))
+      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      // The page leaves for /session at once, so only the status is read here;
+      // the answer body (no token, no user id) is checked by the unit tests and
+      // by the second Start below.
+      expect((await answer).status()).toBe(201)
+      await page.waitForURL('**/session')
 
-    const userId = await userIdOf(context)
-    expect(one(`select count(*) from auth.users where id = :'uid' and is_anonymous`, { uid: userId })).toBe(
-      '1',
-    )
+      const userId = await userIdOf(context)
+      expect(one(`select count(*) from auth.users where id = :'uid' and is_anonymous`, { uid: userId })).toBe(
+        '1',
+      )
 
-    const cookies = (await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))
-    expect(cookies.length).toBeGreaterThan(0)
-    const host = new URL(page.url()).hostname
-    for (const cookie of cookies) {
-      expect(cookie.httpOnly).toBe(true)
-      expect(cookie.secure).toBe(true)
-      expect(cookie.sameSite).toBe('Lax')
-      expect(cookie.path).toBe('/')
-      // A host-only cookie: no Domain attribute was sent.
-      expect(cookie.domain).toBe(host)
-      const days = (cookie.expires - Date.now() / 1000) / (24 * 60 * 60)
-      expect(days).toBeGreaterThan(89)
-      expect(days).toBeLessThanOrEqual(90)
-    }
+      const cookies = (await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))
+      expect(cookies.length).toBeGreaterThan(0)
+      const host = new URL(page.url()).hostname
+      for (const cookie of cookies) {
+        expect(cookie.httpOnly).toBe(true)
+        expect(cookie.secure).toBe(true)
+        expect(cookie.sameSite).toBe('Lax')
+        expect(cookie.path).toBe('/')
+        // A host-only cookie: no Domain attribute was sent.
+        expect(cookie.domain).toBe(host)
+        const days = (cookie.expires - Date.now() / 1000) / (24 * 60 * 60)
+        expect(days).toBeGreaterThan(89)
+        expect(days).toBeLessThanOrEqual(90)
+      }
 
-    await page.reload()
-    await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
-    const second = await context.newPage()
-    await second.goto('/')
-    await expect(second.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
-    const again = await page.request.post('/api/guest', {
-      headers: { 'content-type': 'application/json' },
-      data: {},
-    })
-    expect(again.status()).toBe(200)
-    expect(await again.json()).toEqual({ guest: 'existing' })
-    expect(await userIdOf(context)).toBe(userId)
-    expect(requests.filter(isGuestPost)).toHaveLength(1)
-  })
+      await page.reload()
+      await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+      const second = await context.newPage()
+      await second.goto('/')
+      await expect(second.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
+      const again = await page.request.post('/api/guest', {
+        headers: { 'content-type': 'application/json' },
+        data: {},
+      })
+      expect(again.status()).toBe(200)
+      expect(await again.json()).toEqual({ guest: 'existing' })
+      expect(await userIdOf(context)).toBe(userId)
+      expect(requests.filter(isGuestPost)).toHaveLength(1)
+    },
+  )
 
   test('[session 3] [session 7] every request stays on the page address, the browser holds no token, and no draft content appears', async ({
     page,
@@ -186,37 +187,39 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
   // Redrawn in job 19-redesign (statements 21 to 24): one line card at a time, no labels, the bar named
   // by its step, no unit goal on this screen.
-  test('[session 9] [redesign 24] Hear it shows the lines one at a time, spoken first and written, and Continue stores hear', async ({
-    page,
-  }) => {
-    const { userId, lines } = await startAndLoad(page)
-    const shown = page.locator('[data-line-id]')
-    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })).toBeVisible()
-    await expect(page.getByText(/^Unit goal\./)).toHaveCount(0)
-    for (let i = 0; i < lines.length; i += 1) {
-      const line = firstOf(lines.slice(i))
-      await expect(shown).toHaveCount(1)
-      // The status line says which line of how many, so each new line is announced.
-      await expect(page.getByRole('status')).toHaveText(`Line ${String(i + 1)} of ${String(lines.length)}.`)
-      const card = shown.first()
-      await expect(card.getByText(line.speaker, { exact: true }).first()).toBeVisible()
-      await expect(
-        card.getByText(`Line ${String(i + 1)} of ${String(lines.length)}`, { exact: true }),
-      ).toBeVisible()
-      const finnish = card.locator('[lang="fi"]')
-      await expect(finnish.nth(0)).toHaveText(line.puhe.replace(/\s+/g, ' '))
-      await expect(finnish.nth(1)).toHaveText(line.kirja.replace(/\s+/g, ' '))
-      await expect(card.getByText('Written', { exact: true })).toHaveCount(0)
-      await expect(card.getByText(line.gloss, { exact: true })).toBeVisible()
-      const button = page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' })
-      await expect(button).toBeVisible()
-      if (i < lines.length - 1) await button.click()
-    }
-    expect(sessionsOf(userId)[0]?.step).toBe('')
-    await page.getByRole('button', { name: 'Continue' }).click()
-    await expect(page.getByRole('progressbar', { name: 'Understand it, step 2 of 3' })).toBeVisible()
-    expect(sessionsOf(userId)[0]?.step).toBe('hear')
-  })
+  test(
+    '[session 9] [redesign 24] Hear it shows the lines one at a time, spoken first and written, and Continue stores hear',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const { userId, lines } = await startAndLoad(page)
+      const shown = page.locator('[data-line-id]')
+      await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })).toBeVisible()
+      await expect(page.getByText(/^Unit goal\./)).toHaveCount(0)
+      for (let i = 0; i < lines.length; i += 1) {
+        const line = firstOf(lines.slice(i))
+        await expect(shown).toHaveCount(1)
+        // The status line says which line of how many, so each new line is announced.
+        await expect(page.getByRole('status')).toHaveText(`Line ${String(i + 1)} of ${String(lines.length)}.`)
+        const card = shown.first()
+        await expect(card.getByText(line.speaker, { exact: true }).first()).toBeVisible()
+        await expect(
+          card.getByText(`Line ${String(i + 1)} of ${String(lines.length)}`, { exact: true }),
+        ).toBeVisible()
+        const finnish = card.locator('[lang="fi"]')
+        await expect(finnish.nth(0)).toHaveText(line.puhe.replace(/\s+/g, ' '))
+        await expect(finnish.nth(1)).toHaveText(line.kirja.replace(/\s+/g, ' '))
+        await expect(card.getByText('Written', { exact: true })).toHaveCount(0)
+        await expect(card.getByText(line.gloss, { exact: true })).toBeVisible()
+        const button = page.getByRole('button', { name: i === lines.length - 1 ? 'Continue' : 'Next line' })
+        await expect(button).toBeVisible()
+        if (i < lines.length - 1) await button.click()
+      }
+      expect(sessionsOf(userId)[0]?.step).toBe('')
+      await page.getByRole('button', { name: 'Continue' }).click()
+      await expect(page.getByRole('progressbar', { name: 'Understand it, step 2 of 3' })).toBeVisible()
+      expect(sessionsOf(userId)[0]?.step).toBe('hear')
+    },
+  )
 
   test('[session 9] [redesign 2] changed words are peach on a peach wash, and the old hint line is gone', async ({
     page,
@@ -306,40 +309,42 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await expect(card.getByRole('button', { name: 'Pause the spoken line' })).toBeVisible()
   })
 
-  test('[session 12] tapping a spoken and a written word opens its card with every field from the database', async ({
-    page,
-  }) => {
-    const { lines } = await startAndLoad(page)
-    const first = firstOf(lines)
-    const card = page.locator('[data-line-id]').first()
-    for (const register of ['puhe', 'kirja'] as const) {
-      const word = firstWordWithForm(first.id, register)
-      expect(word).not.toBeNull()
-      if (!word) return
-      const band = card.locator('[lang="fi"]').nth(register === 'puhe' ? 0 : 1)
-      const button = band.getByRole('button', { name: word.surface, exact: true }).first()
-      await button.click()
-      const dialog = page.getByRole('dialog', { name: word.surface })
-      await expect(dialog).toBeVisible()
-      await expect(dialog.getByRole('heading', { name: word.surface })).toBeFocused()
-      // The facts of the redesigned card (job 19-redesign, statement 26): both registers and the
-      // dictionary form first, the form name and the reason behind "Why does it change?".
-      for (const text of [word.lemma, word.puhe, word.kirja]) {
-        await expect(dialog.getByText(text, { exact: true }).first()).toBeVisible()
+  test(
+    '[session 12] tapping a spoken and a written word opens its card with every field from the database',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const { lines } = await startAndLoad(page)
+      const first = firstOf(lines)
+      const card = page.locator('[data-line-id]').first()
+      for (const register of ['puhe', 'kirja'] as const) {
+        const word = firstWordWithForm(first.id, register)
+        expect(word).not.toBeNull()
+        if (!word) return
+        const band = card.locator('[lang="fi"]').nth(register === 'puhe' ? 0 : 1)
+        const button = band.getByRole('button', { name: word.surface, exact: true }).first()
+        await button.click()
+        const dialog = page.getByRole('dialog', { name: word.surface })
+        await expect(dialog).toBeVisible()
+        await expect(dialog.getByRole('heading', { name: word.surface })).toBeFocused()
+        // The facts of the redesigned card (job 19-redesign, statement 26): both registers and the
+        // dictionary form first, the form name and the reason behind "Why does it change?".
+        for (const text of [word.lemma, word.puhe, word.kirja]) {
+          await expect(dialog.getByText(text, { exact: true }).first()).toBeVisible()
+        }
+        await dialog.getByRole('button', { name: 'Why does it change?' }).click()
+        for (const text of [word.formName, word.why]) {
+          await expect(dialog.getByText(text).first()).toBeVisible()
+        }
+        await expect(dialog.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
+        await expect(dialog.getByRole('button', { name: 'Play the written line' })).toBeVisible()
+        // Round 6 (job 19-redesign): not drawn; the play buttons' names say it, and screen readers hear it.
+        await expect(dialog.getByText('Plays the whole line.', { exact: true })).toBeAttached()
+        await page.keyboard.press('Escape')
+        await expect(dialog).toBeHidden()
+        await expect(button).toBeFocused()
       }
-      await dialog.getByRole('button', { name: 'Why does it change?' }).click()
-      for (const text of [word.formName, word.why]) {
-        await expect(dialog.getByText(text).first()).toBeVisible()
-      }
-      await expect(dialog.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
-      await expect(dialog.getByRole('button', { name: 'Play the written line' })).toBeVisible()
-      // Round 6 (job 19-redesign): not drawn; the play buttons' names say it, and screen readers hear it.
-      await expect(dialog.getByText('Plays the whole line.', { exact: true })).toBeAttached()
-      await page.keyboard.press('Escape')
-      await expect(dialog).toBeHidden()
-      await expect(button).toBeFocused()
-    }
-  })
+    },
+  )
 
   test('[session 12] a word with no readable form is plain text, not a button', async ({ page }) => {
     const { dialogueId } = await startAndLoad(page)
@@ -367,108 +372,112 @@ test.describe('the first session', { tag: '@seed' }, () => {
     test.skip(checked === 0, 'Every word of this dialogue has a readable form')
   })
 
-  test('[session 13] Understand it: a wrong answer is gently refused and unavailable, a right one says so, the order survives a reload, and nothing is stored', async ({
-    page,
-  }) => {
-    const { userId, glossOf } = await startAndLoad(page)
-    await finishHearIt(page)
-    const choices = async () => answerChoices(page).getByRole('button').allTextContents()
-    const before = { line: await questionLineId(page), choices: await choices() }
-    await page.reload()
-    await expect(page.getByRole('heading', { level: 1, name: 'Understand it' })).toBeVisible()
-    expect({ line: await questionLineId(page), choices: await choices() }).toEqual(before)
+  test(
+    '[session 13] Understand it: a wrong answer is gently refused and unavailable, a right one says so, the order survives a reload, and nothing is stored',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const { userId, glossOf } = await startAndLoad(page)
+      await finishHearIt(page)
+      const choices = async () => answerChoices(page).getByRole('button').allTextContents()
+      const before = { line: await questionLineId(page), choices: await choices() }
+      await page.reload()
+      await expect(page.getByRole('heading', { level: 1, name: 'Understand it' })).toBeVisible()
+      expect({ line: await questionLineId(page), choices: await choices() }).toEqual(before)
 
-    const right = glossOf(before.line)
-    const wrong = before.choices.find((choice) => choice !== right)
-    expect(before.choices).toContain(right)
-    expect(before.choices.length).toBeLessThanOrEqual(3)
-    if (wrong) {
-      const wrongButton = answerChoices(page).getByRole('button', { name: wrong })
-      await wrongButton.click()
-      const status = page.getByRole('status')
-      await expect(status).toHaveText('Not this one. Listen again and try another.')
-      await expect(status).toHaveAttribute('data-tone', 'gentle')
-      await expect(wrongButton).toHaveAttribute('aria-disabled', 'true')
-      await wrongButton.click({ force: true })
-      await expect(status).toHaveText('Not this one. Listen again and try another.')
-      // The bottom pill is unavailable until the answer is right (job 19-redesign, statement 28).
-      await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeDisabled()
-      // Never red, never a score.
-      const colour = await status.evaluate('(element) => getComputedStyle(element).backgroundColor')
-      expect(String(colour)).not.toMatch(/rgb\(2[0-5]\d, [0-6]?\d, [0-6]?\d\)/)
-      await expect(page.getByText(/score|mistake|\d+ (of|\/) \d+ (right|correct)/i)).toHaveCount(0)
-    }
-    await answerChoices(page).getByRole('button', { name: right, exact: true }).click()
-    await expect(page.getByRole('status')).toHaveText('Yes, that is right.')
-    await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeEnabled()
-    expect(sessionsOf(userId)[0]?.step).toBe('hear')
+      const right = glossOf(before.line)
+      const wrong = before.choices.find((choice) => choice !== right)
+      expect(before.choices).toContain(right)
+      expect(before.choices.length).toBeLessThanOrEqual(3)
+      if (wrong) {
+        const wrongButton = answerChoices(page).getByRole('button', { name: wrong })
+        await wrongButton.click()
+        const status = page.getByRole('status')
+        await expect(status).toHaveText('Not this one. Listen again and try another.')
+        await expect(status).toHaveAttribute('data-tone', 'gentle')
+        await expect(wrongButton).toHaveAttribute('aria-disabled', 'true')
+        await wrongButton.click({ force: true })
+        await expect(status).toHaveText('Not this one. Listen again and try another.')
+        // The bottom pill is unavailable until the answer is right (job 19-redesign, statement 28).
+        await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeDisabled()
+        // Never red, never a score.
+        const colour = await status.evaluate('(element) => getComputedStyle(element).backgroundColor')
+        expect(String(colour)).not.toMatch(/rgb\(2[0-5]\d, [0-6]?\d, [0-6]?\d\)/)
+        await expect(page.getByText(/score|mistake|\d+ (of|\/) \d+ (right|correct)/i)).toHaveCount(0)
+      }
+      await answerChoices(page).getByRole('button', { name: right, exact: true }).click()
+      await expect(page.getByRole('status')).toHaveText('Yes, that is right.')
+      await expect(page.getByRole('button', { name: 'Next', exact: true })).toBeEnabled()
+      expect(sessionsOf(userId)[0]?.step).toBe('hear')
 
-    // The rest of the questions, then the step is stored.
-    await page.getByRole('button', { name: 'Next', exact: true }).click()
-    const done = page.getByRole('heading', { level: 1, name: 'Say it' })
-    if ((await afterNext(page, before.line)) === 'question') await finishUnderstandIt(page, glossOf)
-    await expect(done).toBeVisible()
-    expect(sessionsOf(userId)[0]?.step).toBe('understand')
-    // Nothing about the answers is stored anywhere: no learner table has a column for them.
-    expect(
-      one(
-        `select count(*) from information_schema.columns where table_schema = 'public'
+      // The rest of the questions, then the step is stored.
+      await page.getByRole('button', { name: 'Next', exact: true }).click()
+      const done = page.getByRole('heading', { level: 1, name: 'Say it' })
+      if ((await afterNext(page, before.line)) === 'question') await finishUnderstandIt(page, glossOf)
+      await expect(done).toBeVisible()
+      expect(sessionsOf(userId)[0]?.step).toBe('understand')
+      // Nothing about the answers is stored anywhere: no learner table has a column for them.
+      expect(
+        one(
+          `select count(*) from information_schema.columns where table_schema = 'public'
            and table_name in ('sessions', 'cards', 'review_logs', 'consents', 'usage_events')
            and column_name ~ '(answer|choice|correct|score|mistake)'`,
-      ),
-    ).toBe('0')
-  })
+        ),
+      ).toBe('0')
+    },
+  )
 
-  test('[session 14] [session 15] [session 16] the finish screen gives one sentence, and the end is saved once with cards and one event', async ({
-    page,
-  }) => {
-    const { userId, dialogueId, lines, glossOf } = await startAndLoad(page)
-    await finishHearIt(page)
-    await finishUnderstandIt(page, glossOf)
-    await passSayIt(page)
-    // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
-    await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
-    await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
-    // The old line "The words you met will come back in your review." is not on the redrawn screen.
-    await expect(page.getByText('The words you met will come back in your review.')).toHaveCount(0)
-    const shownId = await finishLineId(page)
-    const shown = lines.find((line) => line.id === shownId)
-    expect(shown).toBeDefined()
-    await expect(page.getByText(shown?.gloss ?? '', { exact: true })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Play the written line' })).toBeVisible()
-    await expect(page.getByText(/streak|badge|score|points|congratulations/i)).toHaveCount(0)
+  test(
+    '[session 14] [session 15] [session 16] the finish screen gives one sentence, and the end is saved once with cards and one event',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      const { userId, dialogueId, lines, glossOf } = await startAndLoad(page)
+      await finishHearIt(page)
+      await finishUnderstandIt(page, glossOf)
+      await passSayIt(page)
+      // Round 6 (job 19-redesign): no top bar on the finish screen; the full bar is for screen readers.
+      await expect(page.getByRole('progressbar', { name: 'Session finished' })).toBeAttached()
+      await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+      // The old line "The words you met will come back in your review." is not on the redrawn screen.
+      await expect(page.getByText('The words you met will come back in your review.')).toHaveCount(0)
+      const shownId = await finishLineId(page)
+      const shown = lines.find((line) => line.id === shownId)
+      expect(shown).toBeDefined()
+      await expect(page.getByText(shown?.gloss ?? '', { exact: true })).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Play the written line' })).toBeVisible()
+      await expect(page.getByText(/streak|badge|score|points|congratulations/i)).toHaveCount(0)
 
-    const [row] = sessionsOf(userId)
-    expect(row?.step).toBe('say')
-    expect(row?.ended).toBe(true)
-    expect(sessionsOf(userId)).toHaveLength(1)
-    const forms = approvedFormsOf(dialogueId)
-    expect(forms).toBeGreaterThan(0)
-    expect(one(`select count(*) from public.cards where user_id = :'uid'`, { uid: userId })).toBe(
-      String(forms),
-    )
-    expect(
-      one(
-        `select count(*) from public.cards c where c.user_id = :'uid' and not exists (
+      const [row] = sessionsOf(userId)
+      expect(row?.step).toBe('say')
+      expect(row?.ended).toBe(true)
+      expect(sessionsOf(userId)).toHaveLength(1)
+      const forms = approvedFormsOf(dialogueId)
+      expect(forms).toBeGreaterThan(0)
+      expect(one(`select count(*) from public.cards where user_id = :'uid'`, { uid: userId })).toBe(
+        String(forms),
+      )
+      expect(
+        one(
+          `select count(*) from public.cards c where c.user_id = :'uid' and not exists (
            select 1 from public.dialogue_lines l join public.tokens t on t.line_id = l.id
             where l.dialogue_id = :did and t.form_id = c.form_id)`,
-        { uid: userId, did: dialogueId },
-      ),
-    ).toBe('0')
-    expect(
-      one(
-        `select count(*) from public.usage_events where user_id = :'uid' and name = 'first_session_completed'`,
-        {
-          uid: userId,
-        },
-      ),
-    ).toBe('1')
+          { uid: userId, did: dialogueId },
+        ),
+      ).toBe('0')
+      expect(
+        one(
+          `select count(*) from public.usage_events where user_id = :'uid' and name = 'first_session_completed'`,
+          {
+            uid: userId,
+          },
+        ),
+      ).toBe('1')
 
-    await page.getByRole('button', { name: 'Done' }).click()
-    await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-  })
+      await page.getByRole('button', { name: 'Done' }).click()
+      await page.waitForURL((url) => url.pathname === '/')
+      await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    },
+  )
 
   test('[session 9] [session 22] a word and its punctuation never wrap apart, at 375 and 320 px', async ({
     page,

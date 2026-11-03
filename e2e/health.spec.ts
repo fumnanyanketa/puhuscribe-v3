@@ -19,23 +19,27 @@ test.beforeEach(({ page }, testInfo) => {
   recordApiTimings(page, testInfo)
 })
 
-test('[2] [10] the page loads with no console errors and reaches the Worker', async ({ page }) => {
-  const problems: string[] = []
-  page.on('console', (message) => {
-    if (message.type() === 'error') problems.push(message.text())
-  })
-  page.on('pageerror', (error) => problems.push(error.message))
+test(
+  '[2] [10] the page loads with no console errors and reaches the Worker',
+  { tag: '@smoke' },
+  async ({ page }) => {
+    const problems: string[] = []
+    page.on('console', (message) => {
+      if (message.type() === 'error') problems.push(message.text())
+    })
+    page.on('pageerror', (error) => problems.push(error.message))
 
-  const today = page.waitForResponse((res) => new URL(res.url()).pathname === '/api/today')
-  await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-  // The front door asks the Worker what to show and gets its answer.
-  expect((await today).status()).toBe(200)
-  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-  expect(problems).toEqual([])
-})
+    const today = page.waitForResponse((res) => new URL(res.url()).pathname === '/api/today')
+    await page.goto('/')
+    await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
+    // The front door asks the Worker what to show and gets its answer.
+    expect((await today).status()).toBe(200)
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    expect(problems).toEqual([])
+  },
+)
 
-test('[2] [10] /api/health answers with JSON from the Worker', async ({ request }) => {
+test('[2] [10] /api/health answers with JSON from the Worker', { tag: '@smoke' }, async ({ request }) => {
   const res = await request.get('/api/health')
   expect(res.status()).toBe(200)
   expect(res.headers()['content-type']).toMatch(/^application\/json/)

@@ -480,32 +480,34 @@ test.describe('the tip on the first lesson', () => {
 })
 
 test.describe('the word card', () => {
-  test('[redesign 26] [redesign 27] shows the word, its meaning, both registers, the dictionary form and the reason behind a tap', async ({
-    page,
-  }) => {
-    await open(page)
-    await hearIt(page)
-    const opener = page.locator('[data-line-id]').getByRole('button', { name: 'noi', exact: true })
-    await opener.click()
-    const card = page.getByRole('dialog', { name: 'noi' })
-    await expect(card).toBeVisible()
-    await expect(card.getByText('those', { exact: true })).toBeVisible()
-    await expect(card.getByText('People say')).toBeVisible()
-    await expect(card.getByText('Books write')).toBeVisible()
-    await expect(card.getByText('Dictionary form')).toBeVisible()
-    await expect(card.getByText('that', { exact: true })).toBeVisible()
-    // Round 6 (item 21): "Plays the whole line." is not drawn; the play buttons' names say it.
-    const caption = card.getByText('Plays the whole line.')
-    expect((await caption.boundingBox())?.width ?? 0).toBeLessThan(3)
-    await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toHaveCount(0)
-    await card.getByRole('button', { name: 'Why does it change?' }).click()
-    await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toBeVisible()
-    await expect(card.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
-    await expect(card.getByRole('button', { name: 'Play the written line' })).toBeVisible()
-    await card.getByRole('button', { name: 'Close' }).click()
-    await expect(card).toBeHidden()
-    await expect(opener).toBeFocused()
-  })
+  test(
+    '[redesign 26] [redesign 27] shows the word, its meaning, both registers, the dictionary form and the reason behind a tap',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await open(page)
+      await hearIt(page)
+      const opener = page.locator('[data-line-id]').getByRole('button', { name: 'noi', exact: true })
+      await opener.click()
+      const card = page.getByRole('dialog', { name: 'noi' })
+      await expect(card).toBeVisible()
+      await expect(card.getByText('those', { exact: true })).toBeVisible()
+      await expect(card.getByText('People say')).toBeVisible()
+      await expect(card.getByText('Books write')).toBeVisible()
+      await expect(card.getByText('Dictionary form')).toBeVisible()
+      await expect(card.getByText('that', { exact: true })).toBeVisible()
+      // Round 6 (item 21): "Plays the whole line." is not drawn; the play buttons' names say it.
+      const caption = card.getByText('Plays the whole line.')
+      expect((await caption.boundingBox())?.width ?? 0).toBeLessThan(3)
+      await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toHaveCount(0)
+      await card.getByRole('button', { name: 'Why does it change?' }).click()
+      await expect(card.getByText('Spoken Finnish says noi where books write nuo.')).toBeVisible()
+      await expect(card.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
+      await expect(card.getByRole('button', { name: 'Play the written line' })).toBeVisible()
+      await card.getByRole('button', { name: 'Close' }).click()
+      await expect(card).toBeHidden()
+      await expect(opener).toBeFocused()
+    },
+  )
 
   test('[redesign 27] a form with no meanings shows no invented meaning line', async ({ page }) => {
     await open(page)
@@ -630,22 +632,24 @@ test.describe('the speaking consent sheet', () => {
     await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
   })
 
-  test('[redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out', async ({
-    page,
-  }) => {
-    await noMicrophone(page)
-    await open(page, { step: 'understand' })
-    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
-    await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)
-    const record = page.getByRole('button', { name: 'Record yourself saying the line' })
-    const box = await record.boundingBox()
-    expect(box?.width ?? 0).toBeGreaterThanOrEqual(80)
-    // Round 6 (item 23): the drawing's hint, and "Line 1 of 3." is for screen readers only.
-    await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
-    await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
-    expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
-  })
+  test(
+    '[redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await noMicrophone(page)
+      await open(page, { step: 'understand' })
+      await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+      await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)
+      const record = page.getByRole('button', { name: 'Record yourself saying the line' })
+      const box = await record.boundingBox()
+      expect(box?.width ?? 0).toBeGreaterThanOrEqual(80)
+      // Round 6 (item 23): the drawing's hint, and "Line 1 of 3." is for screen readers only.
+      await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
+      await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeVisible()
+      await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
+      expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
+    },
+  )
 })
 
 test.describe('the finished lesson', () => {
@@ -668,19 +672,21 @@ test.describe('the finished lesson', () => {
     await expect(page.getByRole('link', { name: 'Send feedback' })).toBeVisible()
   })
 
-  test('[redesign 31] Keep it says "Type the missing word" once to the eye, and the status line carries it for screen readers', async ({
-    page,
-  }) => {
-    await open(page, { step: 'say', review: true })
-    await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeAttached()
-    await expect(page.getByLabel('Type the missing word', { exact: true })).toBeVisible()
-    const seen = await page.evaluate<number>(`[...document.querySelectorAll('body *')]
+  test(
+    '[redesign 31] Keep it says "Type the missing word" once to the eye, and the status line carries it for screen readers',
+    { tag: '@smoke' },
+    async ({ page }) => {
+      await open(page, { step: 'say', review: true })
+      await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeAttached()
+      await expect(page.getByLabel('Type the missing word', { exact: true })).toBeVisible()
+      const seen = await page.evaluate<number>(`[...document.querySelectorAll('body *')]
       .filter((el) => el.children.length === 0 && el.textContent.trim().startsWith('Type the missing word'))
       .filter((el) => { const box = el.getBoundingClientRect(); return box.width > 2 && box.height > 2 })
       .length`)
-    expect(seen).toBe(1)
-    await expect(page.getByRole('status')).toHaveText('Type the missing word.')
-  })
+      expect(seen).toBe(1)
+      await expect(page.getByRole('status')).toHaveText('Type the missing word.')
+    },
+  )
 
   test('[redesign 33] the Done dock is a milky bar with a soft edge over the new words, not a hard cut', async ({
     page,
