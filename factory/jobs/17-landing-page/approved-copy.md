@@ -65,7 +65,7 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | --- | --- |
 | Picture | The 36-stop journey to the A1 sun |
 | Heading | A journey made for life in Finland |
-| Text | It has 36 short stops and 108 everyday conversations, each one a moment you’ll meet here. Take them one at a time, and you’ll reach A1. |
+| Text | It has 36 short stops, each one a moment you’ll meet here. Take them one at a time, and you’ll reach A1. |
 
 ## 8. Questions
 
