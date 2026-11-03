@@ -1162,6 +1162,125 @@
       padding-block: 48px 32px !important;
     }
   }
+  .roadart {
+    position: relative;
+    width: 100%;
+  }
+  .roadart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 32px;
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.04),
+      0 20px 44px rgba(30, 60, 50, 0.1);
+  }
+  .roadart .signs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .roadart .signs li {
+    position: absolute;
+    background: #ffffffeb;
+    border-radius: 999px;
+    padding: 6px 13px;
+    font-size: 13px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(30, 60, 50, 0.1);
+  }
+  .roadart .signs li b {
+    font-weight: 500;
+  }
+  .roadart .signs li.last {
+    background: #1e856f;
+    color: #fff;
+  }
+  @media (max-width: 480px) {
+    .roadart .signs li {
+      font-size: 11px;
+      padding: 4px 9px;
+    }
+  }
+  .roadart .signs li {
+    transform: translate(-50%, -135%);
+  }
+  .roadart .signs li.below {
+    transform: translate(-50%, 35%);
+  }
+  .roadart .signs li.last {
+    transform: translate(-80%, -135%);
+  }
+  .roadart .signs li::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 10px;
+    background: #9bbfb2;
+    transform: translateX(-50%);
+  }
+  .roadart .signs li.above::after {
+    top: 100%;
+  }
+  .roadart .signs li.below::after {
+    bottom: 100%;
+  }
+  .roadart .signs li.last::after {
+    left: 80%;
+  }
+  .roadart .signs li,
+  .roadart .signs li.below,
+  .roadart .signs li.above,
+  .roadart .signs li.last {
+    transform: none;
+  }
+  .roadart .signs li::after {
+    display: none;
+  }
+  .roadart .signs li.r {
+    transform: translate(18px, -50%) !important;
+  }
+  .roadart .signs li.l {
+    transform: translate(calc(-100% - 18px), -50%) !important;
+  }
+  /* The Mä oon / Minä olen example also shows on phones (owner: an important picture) */
+  @media (max-width: 979px) {
+    .compare {
+      display: block !important;
+      position: static;
+      margin-top: 8px;
+      background: linear-gradient(165deg, var(--wash-top) 0%, var(--wash-mid) 55%, var(--wash-bottom) 100%);
+      border-radius: 30px;
+      padding: 22px 18px;
+    }
+    .compare .card {
+      background: #fbfdfc;
+      border-radius: 20px;
+      padding: 16px 18px;
+      display: grid;
+      gap: 8px;
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 8px 22px rgba(30, 60, 50, 0.07);
+    }
+    .compare .card + .card {
+      margin-top: 12px;
+    }
+    .compare .big {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .compare .big.w {
+      color: #38527a;
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .compare .lab {
+      font-size: 12.5px;
+      color: var(--quiet);
+    }
+  }
 </style>
 <nav class="pad">
   <div class="inner">
@@ -1402,18 +1521,79 @@
       <div class="jcopy">
         <h2>A journey made for life in Finland</h2>
         <p>
-          It has 36 short stops, each one a moment you’ll meet here. Take them one at a time, and you’ll reach
-          A1.
+          It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and
+          you’ll reach A1, the first everyday level of Finnish.
         </p>
       </div>
-      <ol class="parts" aria-label="The six parts of the journey">
-        <li><b>First words</b><span>Hello, the café, the shop, paying</span></li>
-        <li><b>Daily life</b><span>Times, plans, the pharmacy, your home</span></li>
-        <li><b>Services</b><span>The health centre, Kela, a parcel, lunch</span></li>
-        <li><b>Work and people</b><span>Your first day, family, daycare, hobbies</span></li>
-        <li><b>Finnish life</b><span>Sauna, Midsummer, the dark winter</span></li>
-        <li><b>Getting things done</b><span>Directions, returns, your plans and skills</span></li>
-      </ol>
+      <div
+        class="roadart"
+        role="img"
+        aria-label="A road through six parts, from first words to getting things done, ending at the A1 sun"
+      >
+        <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e6f4ee" />
+              <stop offset="1" stop-color="#fbf1ea" />
+            </linearGradient>
+            <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#fde4d8" />
+              <stop offset="1" stop-color="#f4b496" />
+            </radialGradient>
+          </defs>
+          <rect width="560" height="460" rx="32" fill="url(#sky)" />
+          <circle cx="505" cy="62" r="52" fill="#fbe2d1" opacity=".7" />
+          <circle cx="505" cy="62" r="30" fill="url(#sun)" />
+          <text
+            x="505"
+            y="69"
+            text-anchor="middle"
+            font-family="Poppins, sans-serif"
+            font-weight="600"
+            font-size="18"
+            fill="#7f3618"
+          >
+            A1
+          </text>
+          <path d="M0 130 C 90 105, 170 122, 250 112 S 420 100, 560 114 V460 H0Z" fill="#d6efe7" />
+          <path d="M0 175 C 120 155, 240 180, 340 166 S 480 156, 560 170 V460 H0Z" fill="#c9e9dc" />
+          <g fill="#9fd3c0">
+            <path d="M40 136 l7 -16 l7 16z" />
+            <path d="M60 138 l6 -13 l6 13z" />
+            <path d="M300 118 l6 -14 l6 14z" />
+            <path d="M318 119 l5 -11 l5 11z" />
+            <path d="M380 116 l6 -14 l6 14z" />
+          </g>
+          <path
+            d="M70 455 C 70 400, 330 410, 330 350 S 90 300, 120 240 S 420 230, 430 170 S 470 100, 498 92"
+            fill="none"
+            stroke="#3d4a47"
+            stroke-width="26"
+            stroke-linecap="round"
+          />
+          <path
+            d="M70 455 C 70 400, 330 410, 330 350 S 90 300, 120 240 S 420 230, 430 170 S 470 100, 498 92"
+            fill="none"
+            stroke="#8ce6cb"
+            stroke-width="3"
+            stroke-dasharray="9 9"
+          />
+          <circle cx="117" cy="422" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+          <circle cx="291" cy="383" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+          <circle cx="226" cy="298" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+          <circle cx="157" cy="217" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+          <circle cx="335" cy="203" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+          <circle cx="443" cy="130" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4" />
+        </svg>
+        <ul class="signs">
+          <li class="r" style="left: 20.9%; top: 91.7%"><b>First words</b></li>
+          <li class="r" style="left: 52%; top: 83.3%"><b>Daily life</b></li>
+          <li class="r" style="left: 40.4%; top: 64.8%"><b>Services</b></li>
+          <li class="r" style="left: 28%; top: 47.2%"><b>Work and people</b></li>
+          <li class="r" style="left: 59.8%; top: 44.1%"><b>Finnish life</b></li>
+          <li class="l last" style="left: 79.1%; top: 28.3%"><b>Getting things done</b></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
