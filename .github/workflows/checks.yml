@@ -358,6 +358,14 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
         run: supabase test db --db-url "$SUPABASE_DB_URL"
+      - name: Island lock test against the test project (pgTAP)
+        # The one test kept during the pause (owner, 3 November 2026): only a
+        # learner can read and write their own island lines. Rolled back, so it
+        # leaves no rows.
+        if: env.FULL_RUN != 'true'
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
+        run: supabase test db --db-url "$SUPABASE_DB_URL" supabase/tests/database/island_lines.test.sql
 
   browser:
     name: Browser tests (Playwright, local Supabase)
