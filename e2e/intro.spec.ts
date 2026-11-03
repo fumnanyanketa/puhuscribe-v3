@@ -20,7 +20,7 @@ const SKIP = { name: 'Skip this question' }
 
 async function openRoad(page: Page, mocks: HomeMocks = {}) {
   const calls = await mockHome(page, mocks)
-  await page.goto('/')
+  await page.goto('/learn')
   await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
   return calls
 }
@@ -55,7 +55,7 @@ test.describe('the first-open questions', () => {
     await expect(card.getByText(stop1?.canDo ?? '-', { exact: true })).toBeVisible()
     await expect(card.getByRole('button', { name: 'Play your first line' })).toBeVisible()
     await expect(card.getByText(GUEST_LINE)).toBeVisible()
-    await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/privacy')
+    await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/learn/privacy')
     expect(calls.guest).toBe(0)
 
     await card.getByRole('button', { name: 'Start', exact: true }).click()
@@ -286,7 +286,7 @@ test.describe('accessibility of the three screens', () => {
     )
     for (const width of [375, 320]) {
       await page.setViewportSize({ width, height: 812 })
-      await page.goto('/')
+      await page.goto('/learn')
       await page.evaluate(`localStorage.removeItem(${JSON.stringify(INTRO_KEY)})`)
       await start(page).click()
       await page.getByRole('button', SKIP).click()

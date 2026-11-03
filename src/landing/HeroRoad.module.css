@@ -1,0 +1,23 @@
+/* The road screen inside the hero phone (job 17-landing-page). The screen is drawn at the app's
+   own phone size and scaled to the frame by --phone-scale, which the landing page sets for each
+   frame size. */
+
+.viewport {
+  width: 375px;
+  height: 812px;
+  transform: scale(var(--phone-scale, 0.6));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+/* The app's road screen fills the phone's height (100dvh); here the phone is the frame. */
+.screen {
+  width: 375px;
+  max-width: none;
+  height: 812px;
+}
+
+.card {
+  max-height: none;
+  overflow: visible;
+}

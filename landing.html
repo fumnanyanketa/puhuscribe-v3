@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#cbede1" />
+    <!--
+      The public landing page (job 17-landing-page). It loads only files from its own address,
+      runs no inline script, sends no form and makes no request of its own: the policy below
+      says so to the browser.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"
+    />
+    <title>PuhuScribe | Learn the Finnish people actually speak</title>
+    <meta
+      name="description"
+      content="Learn the Finnish people actually speak, puhekieli, alongside the written Finnish courses teach. Short everyday lessons on your phone, all the way to A1."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="/landing/icon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PuhuScribe" />
+    <meta property="og:url" content="https://puhuscribe.exentrik.co/" />
+    <meta property="og:title" content="PuhuScribe | Learn the Finnish people actually speak" />
+    <meta
+      property="og:description"
+      content="Short everyday lessons in spoken and written Finnish, on your phone, all the way to A1."
+    />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <div id="root"><!--landing--></div>
+    <script type="module" src="/src/landing/main.tsx"></script>
+  </body>
+</html>

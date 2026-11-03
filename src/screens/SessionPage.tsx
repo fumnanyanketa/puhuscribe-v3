@@ -1,3 +1,4 @@
+import { PATHS } from '../lib/app-paths.ts'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import type { LoopStep } from '../components/SessionFrame.tsx'
@@ -121,7 +122,7 @@ function show(next: Loaded, setPage: (page: Page) => void) {
     return
   }
   if (next === 'signed_out') {
-    window.location.replace('/')
+    window.location.replace(PATHS.home)
     return
   }
   setPage(next)
@@ -228,7 +229,7 @@ export function SessionPage() {
         <Button
           variant="quiet"
           onClick={() => {
-            window.location.assign('/')
+            window.location.assign(PATHS.home)
           }}
         >
           Back to the start

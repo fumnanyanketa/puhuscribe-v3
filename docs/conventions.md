@@ -12,6 +12,7 @@ Written in job 4-tooling (`factory/jobs/4-tooling/spec.md`), from what jobs 1 to
 | `src/lib/` | Shared app code, including the engines imported from v2 | `src/lib/grade.ts` |
 | `src/styles/` | The design values (`tokens.css`), the fonts and the base styles every page gets | `src/styles/tokens.css` |
 | `src/components/` | The screen parts: one PascalCase .tsx file with a CSS Module (.module.css) beside it | `src/components/FinnishLine.tsx` |
+| `src/landing/` | The public landing page at `/` (job 17-landing-page): its React components, its CSS Module and the server render entry; the HTML page is `landing.html` at the root | `src/landing/Landing.tsx` |
 | `src/design-reference/` | The reference page, built only in development and preview builds | `src/design-reference/DesignReference.tsx` |
 | `design/` | The design brief, brand assets and v2's design handoff; the design guide is `design.md` at the root | `design/brief.md` |
 | `worker/` | The one Cloudflare Worker: serves the built app and every `/api/*` route | `worker/api.ts` |
@@ -22,6 +23,7 @@ Written in job 4-tooling (`factory/jobs/4-tooling/spec.md`), from what jobs 1 to
 | `scripts/ci/` | Helpers the GitHub checks run, also run directly by Node 24 | `scripts/ci/preview-alias.ts` |
 | `scripts/v2-import/` | Turns copied v2 files into load SQL, run directly by Node 24 | `scripts/v2-import/build.ts` |
 | `scripts/hooks/` | The agent stop check, run directly by Node 24 | `scripts/hooks/stop-checks.ts` |
+| `scripts/landing/` | Draws the landing page into its built HTML after `vite build`, run directly by Node 24 (job 17-landing-page) | `scripts/landing/prerender.ts` |
 | `scripts/review-site/` | Builds the private review site into `dist-review/`, run directly by Node 24 (job 13-review-site) | `scripts/review-site/build.ts` |
 | `scripts/generate/` | The Python content pipeline: v2's imported files and the pipeline built in job 7-content-pipeline ([docs/content-pipeline.md](content-pipeline.md)) | `scripts/generate/pipeline.py` |
 | `supabase/migrations/` | Database changes, in order | `supabase/migrations/20261020090100_learner_model.sql` |
@@ -33,6 +35,10 @@ Written in job 4-tooling (`factory/jobs/4-tooling/spec.md`), from what jobs 1 to
 | `spikes/` | Throwaway experiments, not app code | `spikes/ios-mic/index.html` |
 
 `docs/`, `factory/`, `spikes/` and `.claude/` are not app code: Prettier, ESLint and ruff leave them alone. The owner's private recording folder (video material) is not in the public copy, but the checks still ignore it if it exists.
+
+## App addresses
+
+The landing page has the main address `/` and the learner app lives under `/learn` (job 17-landing-page). Every link, redirect and `window.location` call takes its address from `PATHS` in `src/lib/app-paths.ts`; no other file writes an app address as a string. Old addresses forward through the fixed `OLD_PATHS` map in the same file. A new page adds its address there, to `src/App.tsx`, to `worker/page-routes.ts` and to `run_worker_first` in `wrangler.jsonc`.
 
 ## Naming
 
@@ -65,6 +71,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 14-analytics | `[analytics N]` | `worker/visits.test.ts`; pgTAP `supabase/tests/database/analytics.test.sql` |
 | 18-save-progress | `[save-progress N]` | `worker/save-progress.test.ts`; pgTAP `supabase/tests/database/save_progress.test.sql` |
 | 20-a1-road | `[a1-road N]` | `worker/road.test.ts`; pgTAP `supabase/tests/database/a1_road.test.sql`; in pytest `scripts/generate/test_road_parse.py`, `scripts/generate/test_road_import.py`, `scripts/generate/test_road_voice.py` and `scripts/generate/test_road_publish.py` |
+| 17-landing-page | `[landing N]` | `e2e/landing-shots.spec.ts` (makes the landing page's pictures) |
 | 19-redesign | `[redesign N]` | `tests/design-tokens.test.ts`, `tests/redesign-rules.test.ts`, `src/road/*.test.ts`, `src/lib/road-*.test.ts`, `worker/lesson-facts.test.ts`, `e2e/redesign-*.spec.ts` |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.

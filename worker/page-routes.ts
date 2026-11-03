@@ -7,19 +7,32 @@
 //
 // A pattern is a path, or a path ending in /* for everything under it.
 
+// Since job 17-landing-page, "/" is the public landing page (the built file
+// landing.html, answered by worker/index.ts) and the app lives under /learn.
+// The old addresses (/session, /account ...) are no longer routes: Cloudflare
+// answers them with the app shell, which forwards each to its new address
+// (src/lib/app-paths.ts). /landing runs the Worker only so it can send it to
+// "/", and the landing page has one address: Cloudflare sends /landing.html to
+// /landing itself (html_handling), and no built file may match a pattern here
+// (scripts/security/check-built-files.ts), so the file's own name is not listed.
+
 export const PAGE_ROUTES = [
   '/',
-  '/session',
-  '/voice',
-  '/account',
-  '/account/*',
-  '/sign-in',
-  '/privacy',
-  '/feedback',
-  '/owner',
+  '/learn',
+  '/learn/session',
+  '/learn/voice',
+  '/learn/account',
+  '/learn/account/*',
+  '/learn/sign-in',
+  '/learn/privacy',
+  '/learn/feedback',
+  '/learn/owner',
 ] as const
 
-export const RUN_WORKER_FIRST: readonly string[] = ['/api/*', ...PAGE_ROUTES]
+/** The built landing file's own address, which only ever redirects to "/". */
+export const LANDING_FILE_ROUTES = ['/landing'] as const
+
+export const RUN_WORKER_FIRST: readonly string[] = ['/api/*', ...PAGE_ROUTES, ...LANDING_FILE_ROUTES]
 
 /** True when the path matches one of the patterns. */
 export function matchesPattern(pathname: string, patterns: readonly string[]): boolean {

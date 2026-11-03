@@ -22,7 +22,7 @@ test(
   { tag: '@smoke' },
   async ({ page }) => {
     const requests = recordRequests(page)
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expect(
@@ -44,7 +44,7 @@ test(
   { tag: '@smoke' },
   async ({ page }) => {
     const requests = recordRequests(page)
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await page.waitForLoadState('networkidle')
     const origin = new URL(page.url()).origin
@@ -69,7 +69,7 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
   page.on('request', (request) => {
     if (!request.url().startsWith('data:')) loaded.push({ type: request.resourceType(), url: request.url() })
   })
-  await page.goto('/')
+  await page.goto('/learn')
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await page.evaluate('document.fonts.ready')
   await page.waitForLoadState('networkidle')
@@ -85,7 +85,7 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
 test('[session 22] the road fits 320 px and 200 percent text without sideways scrolling', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('/learn')
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await page.setViewportSize({ width: 320, height: 640 })
   expect(await scrollsSideways(page)).toBe(false)
@@ -100,8 +100,8 @@ test('[session 6] [session 18] /session without a sign in goes back to the front
   page,
 }) => {
   const requests = recordRequests(page)
-  await page.goto('/session')
-  await page.waitForURL((url) => url.pathname === '/')
+  await page.goto('/learn/session')
+  await page.waitForURL((url) => url.pathname === '/learn')
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   expect(requests.filter(isGuestPost)).toHaveLength(0)
 })
@@ -145,7 +145,7 @@ test.describe('older browsers', () => {
       'Object.defineProperty(AbortSignal, "timeout", { value: undefined, configurable: true })',
     )
     const today = page.waitForResponse((res) => new URL(res.url()).pathname === '/api/today')
-    await page.goto('/')
+    await page.goto('/learn')
     expect(await page.evaluate<string>('typeof AbortSignal.timeout')).toBe('undefined')
     expect((await today).status()).toBe(200)
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
@@ -160,7 +160,7 @@ test.describe('older browsers', () => {
     // The request is held and never answered.
     await page.route('**/api/guest', () => undefined)
     await page.clock.install()
-    await page.goto('/')
+    await page.goto('/learn')
     const start = page.getByRole('button', { name: 'Start', exact: true })
     await start.click()
     const status = page.getByRole('status')

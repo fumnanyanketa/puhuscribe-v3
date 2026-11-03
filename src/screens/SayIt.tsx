@@ -203,7 +203,7 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
     void firstLoad.current.then((load) => {
       if (!active) return
       if (load.kind === 'signed_out') {
-        window.location.replace('/')
+        window.location.replace(PATHS.home)
         return
       }
       if (load.kind === 'failed') {
@@ -293,7 +293,7 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
     const load = await chooseVoice('turn_on', false)
     setChoosing(false)
     if (load.kind === 'signed_out') {
-      window.location.replace('/')
+      window.location.replace(PATHS.home)
       return
     }
     if (load.kind !== 'ok') {
@@ -332,7 +332,7 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
         setMessage(feedbackMessage(answer.feedback))
         return
       case 'signed_out':
-        window.location.replace('/')
+        window.location.replace(PATHS.home)
         return
       case 'no_consent':
         letGoOfLine()

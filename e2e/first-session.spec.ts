@@ -73,7 +73,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     { tag: '@smoke' },
     async ({ page, context }) => {
       const requests = recordRequests(page)
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       expect(requests.filter(isGuestPost)).toHaveLength(0)
 
@@ -108,7 +108,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await page.reload()
       await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
       const second = await context.newPage()
-      await second.goto('/')
+      await second.goto('/learn')
       await expect(second.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
       const again = await page.request.post('/api/guest', {
         headers: { 'content-type': 'application/json' },
@@ -138,7 +138,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       page.evaluate<string>(
         'document.cookie + "|" + JSON.stringify(Object.assign({}, localStorage)) + "|" + JSON.stringify(Object.assign({}, sessionStorage))',
       )
-    const seen: string[] = [await page.goto('/').then(storage)]
+    const seen: string[] = [await page.goto('/learn').then(storage)]
 
     const { glossOf } = await startAndLoad(page)
     seen.push(await storage())
@@ -474,7 +474,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       ).toBe('1')
 
       await page.getByRole('button', { name: 'Done' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     },
   )
@@ -575,7 +575,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     const { userId, glossOf } = await startAndLoad(page)
     const leave = async () => {
       await leaveLesson(page)
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
       await page.waitForURL('**/session')
     }
@@ -604,7 +604,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
   }) => {
     const { userId } = await startAndLoad(page)
     sql(`delete from auth.users where id = :'uid'`, { uid: userId })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('status')).toHaveText(
       'Your guest session ended on this device. Press Start to begin again.',
     )
@@ -645,7 +645,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       { uid: userId },
     )
     expect(todaysDialogue(userId)).toBe('')
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('status')).toHaveText('You have finished every dialogue that is ready.')
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toHaveCount(0)
   })
@@ -727,7 +727,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     }
     await tabTo(page, page.getByRole('button', { name: 'Done' }), testInfo)
     await page.keyboard.press('Enter')
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
   })
 
   test('[session 22] keyboard focus follows reading order on Hear it', async ({ page }, testInfo) => {
@@ -768,7 +768,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
           ),
         ).toEqual([])
       }
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       await scan('front door')
       const { glossOf } = await startAndLoad(page)
@@ -796,7 +796,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await passSayIt(page)
       await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
       await scan('finish')
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(
         page
           .getByRole('button', { name: 'Continue', exact: true })
@@ -819,7 +819,7 @@ test.describe('with no readable dialogue', { tag: ['@seed', '@empty-content'] },
       one(`select count(*) from public.dialogues d join public.units u on u.id = d.unit_id
             where d.status = 'approved' and u.status = 'approved'`),
     ).toBe('0')
-    await page.goto('/')
+    await page.goto('/learn')
     await page.getByRole('button', { name: 'Start', exact: true }).click()
     await page.waitForURL('**/session')
     await expect(page.getByRole('status')).toHaveText(
@@ -828,7 +828,7 @@ test.describe('with no readable dialogue', { tag: ['@seed', '@empty-content'] },
     await expect(page.locator('[lang="fi"]')).toHaveCount(0)
     const userId = await userIdOf(page.context())
     expect(sessionsOf(userId)).toEqual([])
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('status')).toHaveText(
       "Today's session is not ready yet. Please come back later.",
     )

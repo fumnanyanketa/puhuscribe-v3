@@ -1,3 +1,4 @@
+import { PATHS } from '../lib/app-paths.ts'
 import { Button } from '../components/Button.tsx'
 import { SessionFrame, type LoopStep } from '../components/SessionFrame.tsx'
 import styles from './Screens.module.css'
@@ -15,14 +16,14 @@ export function ReviewFinish({ steps }: { steps: readonly LoopStep[] }) {
     <Button
       block
       onClick={() => {
-        window.location.assign('/')
+        window.location.assign(PATHS.home)
       }}
     >
       Done
     </Button>
   )
   return (
-    <SessionFrame step={lastStep} steps={steps} finished leaveHref="/" actions={actions}>
+    <SessionFrame step={lastStep} steps={steps} finished leaveHref={PATHS.home} actions={actions}>
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1 className={styles.title}>{REVIEW_FINISHED}</h1>

@@ -580,7 +580,7 @@ test.describe('automatic accessibility check', () => {
           body: JSON.stringify({ error: 'guest_not_created' }),
         }),
       )
-      await page.goto('/')
+      await page.goto('/learn')
       await page.getByRole('button', { name: 'Start', exact: true }).click()
       await expect(page.getByRole('status')).toHaveText(
         'Could not start your session. Check your internet connection, then try again.',
@@ -606,7 +606,7 @@ test.describe('automatic accessibility check', () => {
       })
       await installRoad(context)
       const page = await context.newPage()
-      await page.goto('/')
+      await page.goto('/learn')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible({ timeout: 11_000 })
       await page.evaluate('document.fonts.ready')
       await settleAnimations(page)

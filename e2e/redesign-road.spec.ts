@@ -14,7 +14,7 @@ const MID = { 1: 4, 2: 4, 3: 2 }
 
 async function openRoad(page: Page, mocks: HomeMocks = {}) {
   const calls = await mockHome(page, mocks)
-  await page.goto('/')
+  await page.goto('/learn')
   await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
   return calls
 }
@@ -58,7 +58,7 @@ test.describe('the home screen is the road', () => {
     page,
   }) => {
     await mockHome(page, { roadDelayMs: 1500 })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('status')).toHaveText('Loading your road.')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await expect(page.getByRole('status')).toHaveCount(0)
@@ -137,7 +137,7 @@ test.describe('the home screen is the road', () => {
         }),
       }),
     )
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     // This name wraps on a drawn sign, so the sign is a number pin (follow up 19-sign-overflow, the owner's
     // "Number pins only"): the name is shown as text in the card and kept as text in the sign for screen readers.
@@ -309,7 +309,7 @@ test.describe('the home screen is the road', () => {
     page,
   }) => {
     await mockHome(page, { roadFails: 503 })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'No connection' })).toBeVisible()
     await expect(page.getByText('Your progress is safe.')).toBeVisible()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)

@@ -66,11 +66,11 @@ test('[accounts 1] the road shows the privacy notice link, the account button an
   page,
 }) => {
   const requests = recordRequests(page)
-  await page.goto('/')
+  await page.goto('/learn')
   const start = page.getByRole('button', { name: 'Start', exact: true })
   await expect(start).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/privacy')
-  await expect(page.getByRole('link', { name: 'Your account' })).toHaveAttribute('href', '/account')
+  await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/learn/privacy')
+  await expect(page.getByRole('link', { name: 'Your account' })).toHaveAttribute('href', '/learn/account')
   const already = page.getByRole('link', { name: 'Sign in', exact: true })
   await expect(already).toBeVisible()
   await expect(page.getByText('Have an account?')).toBeVisible()
@@ -91,7 +91,7 @@ test(
   { tag: '@smoke' },
   async ({ page }) => {
     const requests = recordRequests(page)
-    await page.goto('/privacy')
+    await page.goto('/learn/privacy')
     await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
     // The whole notice is behind "Read the full notice" (job 19-redesign, statement 39).
     await page.getByRole('button', { name: 'Read the full notice' }).click()
@@ -123,7 +123,7 @@ test('[accounts 16] the privacy notice names who is responsible, with a mailto l
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 640 })
-  await page.goto('/privacy')
+  await page.goto('/learn/privacy')
   await page.getByRole('button', { name: 'Read the full notice' }).click()
   await expect(page.getByText(/ is responsible for your data in PuhuScribe\./)).toBeVisible()
   const contact = page.locator('a[href^="mailto:"]')
@@ -138,7 +138,7 @@ test('[accounts 16] the privacy notice names who is responsible, with a mailto l
 test('[accounts 16] the privacy notice is linked from the front door, the account page and the email screen', async ({
   page,
 }) => {
-  for (const path of ['/', '/account', '/sign-in']) {
+  for (const path of ['/learn', '/learn/account', '/learn/sign-in']) {
     await page.goto(path)
     const link = page.getByRole('link', { name: 'Privacy notice' })
     await expect(link, path).toBeVisible()
@@ -152,7 +152,7 @@ test(
   '[accounts 2] with no account on this device the account page says so and offers sign in only',
   { tag: '@smoke' },
   async ({ page }) => {
-    await page.goto('/account')
+    await page.goto('/learn/account')
     await expect(page.getByRole('heading', { level: 1, name: 'Your account' })).toBeVisible()
     await expect(page.getByText('There is no account on this device.', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Sign in with your email' })).toBeVisible()
@@ -170,7 +170,7 @@ test(
   { tag: '@smoke' },
   async ({ page }) => {
     const requests = recordRequests(page)
-    await page.goto('/sign-in')
+    await page.goto('/learn/sign-in')
     await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
     await expect(
       page.getByText(
@@ -195,7 +195,7 @@ test(
 test('[accounts 27] the privacy notice, the account page and the sign in screen fit 320 px and 200 percent text, with 44 px controls', async ({
   page,
 }) => {
-  for (const path of ['/privacy', '/account', '/sign-in', '/']) {
+  for (const path of ['/learn/privacy', '/learn/account', '/learn/sign-in', '/learn']) {
     await page.goto(path)
     await page.waitForLoadState('networkidle')
     await checkFits(page, path)
@@ -204,7 +204,7 @@ test('[accounts 27] the privacy notice, the account page and the sign in screen 
 
 test('[accounts 27] the sign in screen works with the keyboard alone', async ({ page }, testInfo) => {
   const requests = recordRequests(page)
-  await page.goto('/')
+  await page.goto('/learn')
   await tabTo(page, page.getByRole('link', { name: 'Sign in', exact: true }), testInfo)
   await page.keyboard.press('Enter')
   await page.waitForURL('**/sign-in')
@@ -220,16 +220,16 @@ for (const scheme of ['light', 'dark'] as const) {
     page,
   }) => {
     await page.emulateMedia({ colorScheme: scheme })
-    for (const path of ['/', '/privacy', '/account', '/sign-in']) {
+    for (const path of ['/learn', '/learn/privacy', '/learn/account', '/learn/sign-in']) {
       await page.goto(path)
       await page.waitForLoadState('networkidle')
       await axe(page, path)
     }
-    await page.goto('/sign-in')
+    await page.goto('/learn/sign-in')
     await page.getByLabel('Email address').fill('x')
     await page.getByRole('button', { name: 'Send code' }).click()
     await expect(page.getByRole('status')).toHaveText('Please check the email address.')
-    await axe(page, '/sign-in, gentle line')
+    await axe(page, '/learn/sign-in, gentle line')
   })
 }
 

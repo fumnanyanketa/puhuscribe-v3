@@ -22,7 +22,7 @@ const styleOf = (locator: Locator, property: string): Promise<string> =>
 
 async function open(page: Page, mocks: LessonMocks = {}) {
   const calls = await mockLesson(page, mocks)
-  await page.goto('/session')
+  await page.goto('/learn/session')
   return calls
 }
 
@@ -176,7 +176,7 @@ test.describe('the lesson frame and the leave sheet', () => {
     expect(Date.now() - started).toBeGreaterThan(300)
     await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
     await leaveLesson(page)
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
   })
 
   test('[redesign 25] closing the first lesson tip by the helper works when the tip is drawn a moment after the screen', async ({
@@ -242,7 +242,7 @@ test.describe('the lesson frame and the leave sheet', () => {
       .getByRole('dialog', { name: 'Leave this lesson?' })
       .getByRole('button', { name: 'Leave' })
       .click()
-    await page.waitForURL((url) => url.pathname === '/')
+    await page.waitForURL((url) => url.pathname === '/learn')
   })
 
   // Round 6 (owner, item 26): no bar and no "Lesson finished" on the finish screen, as drawn (the bar stays
@@ -795,7 +795,7 @@ test.describe('phone size, keyboard and screen reader', () => {
         }),
       }),
     )
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await expect(
       page.getByRole('heading', { level: 1, name: step === null ? 'Hear it' : 'Say it' }),
     ).toBeVisible()

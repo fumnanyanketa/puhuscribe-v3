@@ -98,7 +98,7 @@ export async function walkToFinish(page: Page): Promise<string> {
 
 /** The next session of a learner who has no open session: front door, Start, the whole loop. */
 export async function walkNextSession(page: Page, userId: string): Promise<void> {
-  await page.goto('/')
+  await page.goto('/learn')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
@@ -107,7 +107,7 @@ export async function walkNextSession(page: Page, userId: string): Promise<void>
 
 /** The learner's open session, from the front door's "Continue" button. */
 export async function walkContinuedSession(page: Page, userId: string): Promise<void> {
-  await page.goto('/')
+  await page.goto('/learn')
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()

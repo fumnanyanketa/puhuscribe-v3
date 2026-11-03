@@ -1,3 +1,4 @@
+import { PATHS } from '../lib/app-paths.ts'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
@@ -286,7 +287,7 @@ export function OwnerPage() {
           <Button
             block
             onClick={() => {
-              window.location.assign('/sign-in')
+              window.location.assign(PATHS.signIn)
             }}
           >
             Sign in with your email
