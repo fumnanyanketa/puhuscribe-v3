@@ -15,6 +15,9 @@ const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render
 const SCRIPT_TIMEOUT_MS = 15_000
 /** How long to wait for a token while nothing is shown. Once the learner is asked to act, there is no limit. */
 const QUIET_TIMEOUT_MS = 20_000
+/** Turnstile's "flexible" widget is at least 300 px wide; below that, or on a phone under 360 px, the 150 px "compact" one is used. */
+const FLEXIBLE_MIN_WIDTH = 300
+const NARROW_SCREEN = 360
 /** Named on the widget; the Worker checks it on real keys (worker/providers/human-check.ts). */
 const GUEST_ACTION = 'guest'
 
@@ -122,7 +125,8 @@ export async function runHumanCheck(
         sitekey: siteKey,
         action: GUEST_ACTION,
         appearance: 'interaction-only',
-        size: 'flexible',
+        size:
+          slot.clientWidth < FLEXIBLE_MIN_WIDTH || window.innerWidth < NARROW_SCREEN ? 'compact' : 'flexible',
         // The app is light only (design.md); the widget's own words follow the app's English.
         theme: 'light',
         language: 'en',

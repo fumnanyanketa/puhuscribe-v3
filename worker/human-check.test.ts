@@ -59,7 +59,7 @@ describe('POST /api/guest and the Turnstile token', () => {
     expect(check?.method).toBe('POST')
     expect(check?.url.href).toBe(SITEVERIFY_URL)
     expect(JSON.parse(check?.body ?? '{}')).toEqual({
-      secret: TEST_KEYS.TURNSTILE_SECRET_KEY,
+      secret: TEST_KEYS.TURNSTILE_SECRET,
       response: DUMMY_TURNSTILE_TOKEN,
     })
   })
@@ -93,7 +93,7 @@ describe('POST /api/guest and the Turnstile token', () => {
     const real = {
       ...ENV,
       TURNSTILE_SITE_KEY: 'real-site-key-for-test',
-      TURNSTILE_SECRET_KEY: 'real-secret-for-test',
+      TURNSTILE_SECRET: 'real-secret-for-test',
     }
     for (const [hostname, action, status] of [
       ['puhuscribe.example', GUEST_ACTION, 201],
@@ -126,7 +126,7 @@ describe('which keys an address uses', () => {
     for (const hostname of ['localhost', '127.0.0.1', 'main-puhuscribe-preview.fumnanya.workers.dev']) {
       expect(humanCheckKeys({}, hostname), hostname).toEqual({
         siteKey: TEST_KEYS.TURNSTILE_SITE_KEY,
-        secret: TEST_KEYS.TURNSTILE_SECRET_KEY,
+        secret: TEST_KEYS.TURNSTILE_SECRET,
         test: true,
       })
     }
@@ -146,7 +146,7 @@ describe('which keys an address uses', () => {
   })
 
   it('[turnstile 4] the real pair wins everywhere, and is not treated as a test key', () => {
-    const keys = humanCheckKeys({ TURNSTILE_SITE_KEY: 'site', TURNSTILE_SECRET_KEY: 'secret' }, 'localhost')
+    const keys = humanCheckKeys({ TURNSTILE_SITE_KEY: 'site', TURNSTILE_SECRET: 'secret' }, 'localhost')
     expect(keys).toEqual({ siteKey: 'site', secret: 'secret', test: false })
   })
 })

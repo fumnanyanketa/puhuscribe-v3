@@ -19,7 +19,7 @@ The code is in `worker/providers/human-check.ts` (the only file that talks to Tu
 | Name | What it is | Where it lives |
 | --- | --- | --- |
 | `TURNSTILE_SITE_KEY` | The widget's site key. Public: every visitor's browser receives it. | GitHub secret, written to the Worker at each upload. The Worker hands it to the browser when a new guest presses Start. |
-| `TURNSTILE_SECRET_KEY` | The widget's secret key. Never leaves the Worker. | GitHub secret, written to the Worker at each upload. |
+| `TURNSTILE_SECRET` | The widget's secret key. Never leaves the Worker. | GitHub secret, written to the Worker at each upload. |
 
 The two are used only as a pair. Until both exist, local runs and the `*.fumnanya.workers.dev` previews use Cloudflare's published test keys, which always pass, so nothing breaks before the widget exists. On any other address (the future live domain), a Worker without the pair makes no new guests at all, so a live app can never run with a check that always passes.
 
@@ -46,7 +46,7 @@ In a terminal in the project folder, run each command. Each one asks for the val
 
 ```
 gh secret set TURNSTILE_SITE_KEY --repo fumnanyanketa/puhuscribe-v3
-gh secret set TURNSTILE_SECRET_KEY --repo fumnanyanketa/puhuscribe-v3
+gh secret set TURNSTILE_SECRET --repo fumnanyanketa/puhuscribe-v3
 ```
 
 Paste the **Site key** at the first prompt and the **Secret key** at the second, pressing Enter after each. To check they exist (names only, never values):
@@ -59,7 +59,7 @@ The next push to main writes both into the main link's Worker version, and every
 
 ## At go live
 
-The production Worker is created separately at liftoff. It needs the same pair, set once with `npx wrangler secret put TURNSTILE_SITE_KEY` and `npx wrangler secret put TURNSTILE_SECRET_KEY` (each asks for the value and hides it), and the live domain must be in the widget's hostnames. Without the pair the live app refuses to make guests, on purpose.
+The production Worker is created separately at liftoff. It needs the same pair, set once with `npx wrangler secret put TURNSTILE_SITE_KEY` and `npx wrangler secret put TURNSTILE_SECRET` (each asks for the value and hides it), and the live domain must be in the widget's hostnames. Without the pair the live app refuses to make guests, on purpose.
 
 ## Content Security Policy
 

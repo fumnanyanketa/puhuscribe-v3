@@ -7,7 +7,7 @@
 // changing this module (AGENTS.md, "Providers"). Docs:
 // https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
 //
-// Keys. TURNSTILE_SITE_KEY (public) and TURNSTILE_SECRET_KEY (secret) are
+// Keys. TURNSTILE_SITE_KEY (public) and TURNSTILE_SECRET (secret) are
 // Worker settings, written from GitHub secrets (docs/turnstile.md). They are
 // used only as a pair. Without the pair, local and workers.dev preview
 // addresses use Cloudflare's published test keys, which always pass, so
@@ -22,7 +22,7 @@ import type { Fetch } from '../learner-auth.ts'
 
 export interface HumanCheckEnv {
   TURNSTILE_SITE_KEY?: string
-  TURNSTILE_SECRET_KEY?: string
+  TURNSTILE_SECRET?: string
 }
 
 export const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
@@ -33,7 +33,7 @@ export const TEST_SECRET = '1x0000000000000000000000000000000AA'
 /** Both test keys as Worker settings, for unit tests and for describing the local setup. */
 export const TEST_KEYS: Required<HumanCheckEnv> = {
   TURNSTILE_SITE_KEY: TEST_SITE_KEY,
-  TURNSTILE_SECRET_KEY: TEST_SECRET,
+  TURNSTILE_SECRET: TEST_SECRET,
 }
 /** Every published test secret (always passes, always fails, "already spent"). Their answers carry sample hostnames. */
 const TEST_SECRETS = new Set([
@@ -78,7 +78,7 @@ export function mayUseTestKeys(hostname: string): boolean {
 /** The key pair for this address, or null when this address has none (the check is then unavailable). */
 export function humanCheckKeys(env: HumanCheckEnv, hostname: string): HumanCheckKeys | null {
   const siteKey = env.TURNSTILE_SITE_KEY?.trim()
-  const secret = env.TURNSTILE_SECRET_KEY?.trim()
+  const secret = env.TURNSTILE_SECRET?.trim()
   if (siteKey && secret) return { siteKey, secret, test: TEST_SECRETS.has(secret) }
   if (mayUseTestKeys(hostname)) return { siteKey: TEST_SITE_KEY, secret: TEST_SECRET, test: true }
   return null

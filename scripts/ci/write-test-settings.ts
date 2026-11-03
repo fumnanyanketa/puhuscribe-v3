@@ -14,7 +14,7 @@
 // The Anthropic key (job 16-tutor-step) is added the same way: the preview Worker gets it as a
 // secret, read only by worker/providers/ai.ts. Without it Otso's step is left out of sessions.
 // The Cloudflare Turnstile pair (job turnstile) is added the same way, only when both GitHub secrets
-// exist: TURNSTILE_SITE_KEY (public) and TURNSTILE_SECRET_KEY. Without them the preview Worker uses
+// exist: TURNSTILE_SITE_KEY (public) and TURNSTILE_SECRET. Without them the preview Worker uses
 // Cloudflare's test keys on its workers.dev addresses (worker/providers/human-check.ts).
 // Prints only the names and the path, never a value.
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -27,7 +27,7 @@ const OPTIONAL_NAMES = [
   'AZURE_SPEECH_TIER',
   'ANTHROPIC_API_KEY',
   'TURNSTILE_SITE_KEY',
-  'TURNSTILE_SECRET_KEY',
+  'TURNSTILE_SECRET',
 ] as const
 
 const [format, path, source, ...rest] = process.argv.slice(2)

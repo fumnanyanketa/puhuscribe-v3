@@ -751,7 +751,7 @@ jobs:
           # and its secret become Worker settings when both GitHub secrets exist. Without them the preview
           # uses Cloudflare's test keys.
           TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
-          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
           ALIAS: ${{ steps.alias.outputs.alias }}
         run: |
           # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the
@@ -856,7 +856,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           # The bot check on the guest Start (job turnstile), as on the pull request preview.
           TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
-          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
           ALIAS: main
         run: |
           # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the
