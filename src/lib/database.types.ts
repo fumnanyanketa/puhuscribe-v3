@@ -107,6 +107,20 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"island_lines": {
+                  Row: {
+                    "choice": number | null,"created_at": string,"first_name": string | null,"stop_number": number,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "choice"?: number | null,"created_at"?: string,"first_name"?: string | null,"stop_number": number,"updated_at"?: string,"user_id"?: string
+                  }
+                  Update: {
+                    "choice"?: number | null,"created_at"?: string,"first_name"?: string | null,"stop_number"?: number,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"kept_recordings": {
                   Row: {
                     "audio": string,"created_at": string,"id": string,"line_id": number,"slot": string,"user_id": string

@@ -22,9 +22,10 @@ select tables_are(
     'usage_events',
     'speaking_attempts', 'kept_recordings', 'speech_checks',
     'feedback',
-    'road_parts', 'road_stops'
+    'road_parts', 'road_stops',
+    'island_lines'
   ],
-  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] [a1-road 1] public holds exactly the content, learner, reference and usage event tables, the speaking tables, feedback and the two road tables, and nothing else (visits dropped in job 8)'
+  '[data 1] [session 17] [session 21] [speak 16] [analytics 21] [a1-road 1] [islands lock] public holds exactly the content, learner, reference and usage event tables, the speaking tables, feedback, the two road tables and the island lines, and nothing else (visits dropped in job 8)'
 );
 
 select enums_are(
@@ -226,6 +227,10 @@ select results_eq(
       'feedback.message authenticated INSERT',
       'feedback.screen authenticated INSERT',
       'feedback.user_id authenticated INSERT',
+      'island_lines.choice authenticated INSERT', 'island_lines.choice authenticated UPDATE',
+      'island_lines.first_name authenticated INSERT', 'island_lines.first_name authenticated UPDATE',
+      'island_lines.stop_number authenticated INSERT',
+      'island_lines.user_id authenticated INSERT',
       'kept_recordings.audio authenticated INSERT',
       'kept_recordings.line_id authenticated INSERT',
       'kept_recordings.slot authenticated INSERT',
@@ -261,7 +266,7 @@ select results_eq(
       'usage_events.session_id authenticated INSERT',
       'usage_events.user_id authenticated INSERT'
     ]) as x(g) order by g collate "C"$$,
-  '[data 2] [session 17] [speak 16] [analytics 21] the only column-level grants in public are the 61 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables, 3 on feedback), all to authenticated; anon, service_role and PUBLIC have none'
+  '[data 2] [session 17] [speak 16] [analytics 21] [islands lock] the only column-level grants in public are the 67 learner write grants (40 from job 3, 3 on usage_events, 15 on the speaking tables, 3 on feedback, 6 on island_lines), all to authenticated; anon, service_role and PUBLIC have none'
 );
 
 -- [data 6] The history of withdrawn content approvals is closed to every API role.

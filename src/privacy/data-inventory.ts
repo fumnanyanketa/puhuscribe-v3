@@ -137,6 +137,15 @@ export const LEARNER_TABLES: readonly TableItem[] = [
     legal: SERVICE_REASON,
     keep: 'Stored with your account and deleted with it, including when an unused account is deleted automatically.',
   },
+  {
+    // Language islands (fast route "islands", 3 November 2026). The "what" is the owner's sentence.
+    table: 'island_lines',
+    name: 'Your island',
+    what: 'Your island sentences are saved with your account, so they follow you to a new phone.',
+    why: 'To show your island on the road. For each stop it keeps the choice you picked, and at stop 1 the first name you typed.',
+    legal: SERVICE_REASON,
+    keep: WHILE_ACCOUNT,
+  },
 ]
 
 /**
