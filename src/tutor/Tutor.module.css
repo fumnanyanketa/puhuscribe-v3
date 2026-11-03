@@ -393,3 +393,17 @@
 .sheetBody .sheetTitle {
   margin: 0;
 }
+
+/* Inside Otso's bubble the line is plain text, as the mockup draws it: the line card's own soft box
+   would be a box inside a box. The words still open their cards. */
+.otso [role='group'] {
+  gap: var(--space-2);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.otso [role='group'] p {
+  font-size: var(--text-heading);
+}

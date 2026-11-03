@@ -11,12 +11,19 @@
 // environment when they are set: the preview Worker gets the key as a secret,
 // beside its EU region and price tier. Without them speaking feedback says it
 // is not available.
+// The Anthropic key (job 16-tutor-step) is added the same way: the preview Worker gets it as a
+// secret, read only by worker/providers/ai.ts. Without it Otso's step is left out of sessions.
 // Prints only the names and the path, never a value.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { localSettingsFromStatus } from './supabase-status.ts'
 
 const NAMES = ['SUPABASE_URL', 'SUPABASE_PUBLISHABLE_KEY'] as const
-const OPTIONAL_NAMES = ['AZURE_SPEECH_KEY', 'AZURE_SPEECH_REGION', 'AZURE_SPEECH_TIER'] as const
+const OPTIONAL_NAMES = [
+  'AZURE_SPEECH_KEY',
+  'AZURE_SPEECH_REGION',
+  'AZURE_SPEECH_TIER',
+  'ANTHROPIC_API_KEY',
+] as const
 
 const [format, path, source, ...rest] = process.argv.slice(2)
 if (

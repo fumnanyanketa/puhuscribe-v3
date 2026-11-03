@@ -1,0 +1,54 @@
+# Tutor eval (job 16-tutor-step, "Done when" 28 and 29): runs Otso's 102 scripted replies through the
+# live model and the real word check, and keeps the numbers. Manual start only. A full run costs about
+# $0.05 to $0.20 with Claude Haiku 5.5 (the script stops at $5).
+#
+# The Anthropic key reaches only the one step that runs the check, and the files it writes are
+# scanned for the key's value before they are kept. Third party actions are pinned to full commit
+# SHAs, with the version in a comment.
+
+name: Tutor eval
+
+on:
+  workflow_dispatch:
+  # TEMPORARY, removed before review: a manual workflow can be started only once it is on main, so
+  # the builder's first run starts from a push to this job's own branch.
+  push:
+    branches: [factory/16-tutor-step]
+    paths: [.github/workflows/tutor-eval.yml, scripts/tutor-eval/**]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tutor-eval
+
+jobs:
+  eval:
+    name: Run Otso's quality check on the live model
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Run the 102 replies against Claude Haiku 5.5
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/tutor-eval/run.ts | tee "$RUNNER_TEMP/tutor-eval.txt"
+      - name: Check the results hold no secret value
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/ci/check-files-for-secrets.ts --env ANTHROPIC_API_KEY factory/jobs/16-tutor-step/evidence
+      - name: Write the numbers on the run's summary page
+        run: cat "$RUNNER_TEMP/tutor-eval.txt" >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the results
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: tutor-eval-results
+          path: factory/jobs/16-tutor-step/evidence/tutor-eval-results-anthropic.json
+          retention-days: 14

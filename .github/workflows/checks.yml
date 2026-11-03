@@ -369,6 +369,14 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
         run: supabase test db --db-url "$SUPABASE_DB_URL" supabase/tests/database/island_lines.test.sql
+      - name: Tutor calls lock test against the test project (pgTAP)
+        # Job 16-tutor-step, the one database test kept during the pause for a new table: only a
+        # learner can read and finish their own tutor_calls rows, and reserve_tutor_call keeps the
+        # caps. Rolled back, so it leaves no rows.
+        if: env.FULL_RUN != 'true'
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
+        run: supabase test db --db-url "$SUPABASE_DB_URL" supabase/tests/database/tutor_calls.test.sql
 
   browser:
     name: Browser tests (Playwright, local Supabase)
@@ -736,6 +744,9 @@ jobs:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+          # The tutor, Otso (job 16-tutor-step): the Anthropic key becomes a Worker secret, read only
+          # by worker/providers/ai.ts. It never reaches the browser files.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ALIAS: ${{ steps.alias.outputs.alias }}
         run: |
           # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the
@@ -835,6 +846,9 @@ jobs:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+          # The tutor, Otso (job 16-tutor-step): the Anthropic key becomes a Worker secret, read only
+          # by worker/providers/ai.ts. It never reaches the browser files.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ALIAS: main
         run: |
           # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the

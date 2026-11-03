@@ -449,7 +449,8 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
   const actions: ReactNode =
     closed || stopped ? (
       <>
-        {stopped && <StatusLine tone="problem">{status}</StatusLine>}
+        {/* The cap is a kind note, not a fault; trouble with the service is in the problem style (statement 4). */}
+        {stopped && <StatusLine tone={phase === 'cap' ? 'gentle' : 'problem'}>{status}</StatusLine>}
         <Button block onClick={() => void onDone()}>
           Continue
         </Button>
