@@ -10,11 +10,6 @@ name: Tutor eval
 
 on:
   workflow_dispatch:
-  # TEMPORARY, removed before review: a manual workflow can be started only once it is on main, so
-  # the builder's first run starts from a push to this job's own branch.
-  push:
-    branches: [factory/16-tutor-step]
-    paths: [.github/workflows/tutor-eval.yml, scripts/tutor-eval/**]
 
 permissions:
   contents: read
