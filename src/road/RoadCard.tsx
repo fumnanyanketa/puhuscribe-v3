@@ -40,6 +40,10 @@ interface RoadCardProps {
   checkRef?: RefObject<HTMLDivElement | null>
   /** Cloudflare is showing the learner a check to do. */
   asking?: boolean
+  /** The "stop done" card's quiet "Practise again": opens the finished stop's lessons (fast route go-back). */
+  onPractise?: (stop: number) => void
+  /** The "Practise again" button, so focus can go back to it when the sheet closes. */
+  practiseRef?: RefObject<HTMLButtonElement | null>
 }
 
 function Pieces({ stop }: { stop: RoadStop }) {
@@ -94,6 +98,8 @@ export function RoadCard({
   headingRef,
   checkRef,
   asking = false,
+  onPractise,
+  practiseRef,
 }: RoadCardProps) {
   const tone: StatusTone = 'problem'
   return (
@@ -228,6 +234,18 @@ export function RoadCard({
           <Button block ref={startRef} onClick={onContinue}>
             Continue
           </Button>
+          {onPractise && (
+            <Button
+              variant="quiet"
+              ref={practiseRef}
+              aria-haspopup="dialog"
+              onClick={() => {
+                onPractise(view.done.number)
+              }}
+            >
+              Practise {view.done.name} again
+            </Button>
+          )}
         </>
       )}
       {view.kind === 'done' && (

@@ -12,6 +12,11 @@ export interface StepScreenProps {
   onDone: () => Promise<boolean>
   /** The review items loaded with the session, for Keep it (job 9-daily-review). */
   review?: readonly ReviewItem[]
+  /**
+   * A practice replay of a finished lesson (fast route go-back): onDone stores nothing, and speaking
+   * feedback checks name the finished session as practice.
+   */
+  practice?: boolean
 }
 
 export const NOT_SAVED = 'Your progress was not saved. Check your internet connection, then try again.'

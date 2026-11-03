@@ -506,3 +506,34 @@
     animation: crossfade var(--motion-fade) ease both;
   }
 }
+
+/* A done sign the learner can tap to practise its lessons (fast route go-back). The button draws nothing
+   of its own: the sign looks as drawn. Its tap area reaches at least 44 x 44 px round the board. */
+.pick {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pick::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, var(--tap-min));
+  height: max(100%, var(--tap-min));
+  transform: translate(-50%, -50%);
+}
+
+.pick:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+  border-radius: 0.82em;
+}

@@ -20,8 +20,10 @@ import { namesWrap, PIN_TEXT_PX, rootTextPx } from './sign-pins.ts'
 // large text sizes and screen readers read them. Every position is a share of
 // the 280 x 620 scene box, so the picture scales with the screen width.
 //
-// A sign is a list item, not a button: no drawing shows one doing anything,
-// and tapping one does nothing. Names are rendered as text, never as HTML.
+// A sign is a list item. A done sign is also a button when the road screen
+// gives `onPick` (fast route go-back, 3 November 2026): tapping it opens that
+// stop's finished lessons to practise. Other signs do nothing when tapped.
+// Names are rendered as text, never as HTML.
 
 interface RoadPictureProps {
   signs: readonly SignView[]
@@ -47,6 +49,8 @@ interface RoadPictureProps {
    * more, or a name that would wrap.
    */
   pins?: boolean
+  /** Given, a done sign is a button that opens its stop's lessons to practise (fast route go-back). */
+  onPick?: (stop: number) => void
 }
 
 const percentX = (x: number) => `${String((x / SCENE_WIDTH) * 100)}%`
@@ -86,6 +90,7 @@ export function RoadPicture({
   intro = false,
   sampleLine,
   pins: givenPins,
+  onPick,
 }: RoadPictureProps) {
   const spots = signSpots(signs.length, lowest, 1, signGap)
   // Without nudges from the road screen (the reference page), the picture nudges its own boards back
@@ -159,6 +164,29 @@ export function RoadPicture({
         {signs.map((sign, index) => {
           const spot = spots.at(index)
           if (!spot) return null
+          const face = (
+            <span className={styles.pop}>
+              <span className={styles.board} aria-hidden="true">
+                {/* As drawn: a done sign has its tick in a small white square, the current sign its
+                    number; the next and later signs show the name only (round 6). As a pin, every
+                    sign shows its number (a tick when done) and no name. */}
+                <span
+                  className={
+                    sign.state === 'done' || sign.state === 'current'
+                      ? styles.num
+                      : `${styles.num} ${styles.pinOnly}`
+                  }
+                >
+                  {sign.state === 'done' ? <Tick /> : sign.stop.number}
+                </span>
+                <span className={styles.name} data-sign-name="">
+                  {sign.stop.name}
+                </span>
+              </span>
+              <span className={styles.pole} aria-hidden="true" />
+              <span className={styles.foot} aria-hidden="true" />
+            </span>
+          )
           return (
             <li
               key={sign.stop.number}
@@ -176,30 +204,23 @@ export function RoadPicture({
               data-state={sign.state}
               data-stop={sign.stop.number}
             >
-              <span className={styles.size}>
-                <span className={styles.pop}>
-                  <span className={styles.board} aria-hidden="true">
-                    {/* As drawn: a done sign has its tick in a small white square, the current sign its
-                        number; the next and later signs show the name only (round 6). As a pin, every
-                        sign shows its number (a tick when done) and no name. */}
-                    <span
-                      className={
-                        sign.state === 'done' || sign.state === 'current'
-                          ? styles.num
-                          : `${styles.num} ${styles.pinOnly}`
-                      }
-                    >
-                      {sign.state === 'done' ? <Tick /> : sign.stop.number}
-                    </span>
-                    <span className={styles.name} data-sign-name="">
-                      {sign.stop.name}
-                    </span>
-                  </span>
-                  <span className={styles.pole} aria-hidden="true" />
-                  <span className={styles.foot} aria-hidden="true" />
-                </span>
-              </span>
-              <span className={styles.hidden}>{sign.label}</span>
+              {onPick && sign.state === 'done' ? (
+                <button
+                  type="button"
+                  className={`${styles.size} ${styles.pick}`}
+                  aria-label={`${sign.label}. Practise its lessons`}
+                  onClick={() => {
+                    onPick(sign.stop.number)
+                  }}
+                >
+                  {face}
+                </button>
+              ) : (
+                <>
+                  <span className={styles.size}>{face}</span>
+                  <span className={styles.hidden}>{sign.label}</span>
+                </>
+              )}
             </li>
           )
         })}

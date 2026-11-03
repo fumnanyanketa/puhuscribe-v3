@@ -5,6 +5,7 @@ import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { callApi, isRecord } from '../lib/api.ts'
 import { NOT_HEARD_LIMIT, answerModeFor } from '../lib/answer-mode.ts'
 import { recordingSupported } from '../lib/recorder.ts'
+import { gradeReview } from '../lib/review-grade.ts'
 import { afterResult, placeOf, startRun } from '../lib/review-run.ts'
 import type { ReviewFeedback, ReviewItem, ReviewResult, TypedAnswer } from '../lib/review-types.ts'
 import { MIN_RECORDING_MS } from '../lib/speech-types.ts'
@@ -73,9 +74,15 @@ interface KeepItProps {
   frame: { step: LoopStep; steps: readonly LoopStep[] }
   /** Stores Keep it as done, then moves on. Resolves false when it could not be saved. */
   onDone: () => Promise<boolean>
+  /**
+   * A practice replay of a finished lesson (fast route go-back): each item's answer, by form id. Answers
+   * are then checked here in the browser with the same grader and never sent, so the review schedule
+   * does not change. Every item is typed: a spoken answer would be saved by the Worker.
+   */
+  practiceAnswers?: ReadonlyMap<number, Omit<ReviewFeedback, 'result'>>
 }
 
-export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
+export function KeepIt({ sessionId, items, frame, onDone, practiceAnswers }: KeepItProps) {
   const [run, setRun] = useState(() => startRun(items.length))
   const [at, setAt] = useState(0)
   const [ready, setReady] = useState(false)
@@ -110,7 +117,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
   // Whether speaking feedback is on is asked once, when there is a second item
   // that could be spoken. Until it is known, every item is typed.
   useEffect(() => {
-    if (items.length < 2) return
+    if (items.length < 2 || practiceAnswers) return
     let active = true
     void loadVoice().then((load) => {
       if (active && load.kind === 'ok')
@@ -119,7 +126,7 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
     return () => {
       active = false
     }
-  }, [items.length])
+  }, [items.length, practiceAnswers])
 
   // A new item puts the cursor in its field, except when the screen first
   // opens (the learner first sees the line and its meaning).
@@ -140,9 +147,21 @@ export function KeepIt({ sessionId, items, frame, onDone }: KeepItProps) {
 
   async function check(answer: TypedAnswer) {
     if (!item || checking) return
-    setChecking(true)
     setProblem(false)
     setNote(null)
+    const known = practiceAnswers?.get(item.formId)
+    if (practiceAnswers) {
+      // Practice: graded here, against both shapes, with the grader the Worker uses. Nothing is sent.
+      if (!known) {
+        setProblem(true)
+        return
+      }
+      const { result } = gradeReview(answer, known.form)
+      setShown({ feedback: { ...known, result }, typed: answer.text, spoken: false })
+      setRun(afterResult(run, at, result))
+      return
+    }
+    setChecking(true)
     const reply = await callApi('/api/review/answer', 'POST', {
       sessionId,
       formId: item.formId,

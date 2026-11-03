@@ -216,3 +216,71 @@ button.danger {
   box-shadow: var(--panel-shadow);
   color: var(--color-danger-ink);
 }
+
+/* "Previous line" beside "Next line" (fast route go-back): the secondary white round, as tall as the pill
+   beside it, with a back arrow. It keeps its place on the first line, unavailable there. */
+.lineNav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.lineNavMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.previous {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--button-height);
+  height: var(--button-height);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-button-secondary);
+  color: var(--color-mint-deep);
+  box-shadow:
+    inset 0 0 0 1px var(--color-control-edge-soft),
+    var(--shadow-1);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--motion-ease);
+}
+
+.previous:hover {
+  background: var(--color-button-secondary-hover);
+}
+
+.previous:active {
+  background: var(--color-button-secondary-pressed);
+  transform: translateY(1px);
+}
+
+.previous:disabled {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.previous svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previous {
+    transition: none;
+  }
+
+  .previous:active {
+    transform: none;
+  }
+}

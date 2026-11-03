@@ -1,0 +1,11 @@
+/* The practice finish screen's note (fast route go-back): centred under the title, as the finish screen
+   centres its words. Values from src/styles/tokens.css. */
+.note {
+  margin: 0;
+  max-width: 32ch;
+  justify-self: center;
+  text-align: center;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+}
