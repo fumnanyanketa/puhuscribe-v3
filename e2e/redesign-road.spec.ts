@@ -281,6 +281,11 @@ test.describe('the home screen is the road', () => {
       .getByRole('button', { name: 'Skip' })
       .click({ timeout: 1000 })
       .catch(() => undefined)
+    // A new phone answers the two first-open questions first (fast route "intro"); they create nothing either.
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.getByRole('button', { name: 'Skip this question' }).click()
+    await page.getByRole('button', { name: 'Skip this question' }).click()
+    expect(calls.guest).toBe(0)
     await page.getByRole('button', { name: 'Start', exact: true }).click()
     await expect.poll(() => calls.guest).toBe(1)
   })
@@ -347,36 +352,57 @@ test.describe('the opening animation', () => {
     expect(await page.evaluate<number>('localStorage.length + sessionStorage.length')).toBe(0)
   })
 
-  test('[redesign 18] a signed in learner has no animation but the marker pulse', async ({ page }) => {
+  // Owner, 3 November 2026: the animation plays every time the road opens, also for a learner who
+  // comes back, and ends on the learner's own stop. This replaces "a signed in learner has no animation".
+  test('[redesign 18] [intro animation] a signed in learner sees the animation too, can skip it, and it ends on their current stop', async ({
+    page,
+  }) => {
     await openRoad(page, { today: SIGNED_IN, done: MID })
+    const longest = Math.max(...(await finiteAnimations(page)).map((a) => a.end))
+    expect(longest).toBeGreaterThanOrEqual(4000)
+    await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
+    await page.getByRole('button', { name: 'Skip' }).click()
+    await page.waitForTimeout(300)
     expect(await finiteAnimations(page)).toEqual([])
+    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toBeFocused()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toContainText(
+      'Stop 3, At the grocery store, current',
+    )
+  })
+
+  test('[intro animation] it plays again for a returning learner after a refresh', async ({ page }) => {
+    await openRoad(page, { today: SIGNED_IN, done: MID })
+    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toBeVisible({ timeout: 8000 })
     await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0)
+    await page.reload()
+    await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
+    expect((await finiteAnimations(page)).length).toBeGreaterThan(0)
   })
 })
 
 test.describe('with reduced motion', () => {
   test.use({ reducedMotion: 'reduce' })
 
-  test('[redesign 17] [redesign 18] the animation is a crossfade of 600 ms or less and nothing slides, scales, draws or pulses', async ({
-    page,
-  }) => {
-    await openRoad(page)
-    const animations = await page.evaluate<{ end: number; props: string[]; infinite: boolean }[]>(
-      `document.getAnimations().map((a) => {
-        const t = a.effect.getComputedTiming()
-        const props = new Set()
-        for (const frame of a.effect.getKeyframes()) for (const key of Object.keys(frame)) if (!['offset','easing','composite','computedOffset'].includes(key)) props.add(key)
-        return { end: t.endTime, props: [...props], infinite: !Number.isFinite(t.endTime) }
-      })`,
-    )
-    expect(animations.length).toBeGreaterThan(0)
-    for (const animation of animations) {
-      expect(animation.infinite).toBe(false)
-      expect(animation.end).toBeLessThanOrEqual(600)
-      expect(animation.props).toEqual(['opacity'])
-    }
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-  })
+  // Owner, 3 November 2026 (via the manager): with reduced motion there is no animation at all, the
+  // road opens straight on its end state. This replaces the 600 ms crossfade of job 19.
+  for (const [who, mocks, button] of [
+    ['a visitor', {}, 'Start'],
+    ['a signed in learner', { today: SIGNED_IN, done: MID }, 'Continue'],
+  ] as const) {
+    test(`[redesign 17] [redesign 18] [intro animation] no animation and no Skip, straight to the end state, for ${who}`, async ({
+      page,
+    }) => {
+      await openRoad(page, mocks)
+      expect(await finiteAnimations(page)).toEqual([])
+      await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0)
+      await expect(page.getByRole('button', { name: button, exact: true })).toBeVisible()
+      expect(
+        await page.evaluate<string>(
+          `getComputedStyle(document.querySelector('section[aria-label="Today"]')).visibility`,
+        ),
+      ).toBe('visible')
+    })
+  }
 
   test('[redesign 12] [redesign 47] no marker pulse with reduced motion on', async ({ page }) => {
     await openRoad(page, { today: SIGNED_IN, done: MID })
