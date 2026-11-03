@@ -29,15 +29,15 @@ export const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/si
 
 /** Cloudflare's published test keys: a visible widget that always passes, and a secret that always passes. */
 export const TEST_SITE_KEY = '1x00000000000000000000AA'
-export const TEST_SECRET_KEY = '1x0000000000000000000000000000000AA'
+export const TEST_SECRET = '1x0000000000000000000000000000000AA'
 /** Both test keys as Worker settings, for unit tests and for describing the local setup. */
 export const TEST_KEYS: Required<HumanCheckEnv> = {
   TURNSTILE_SITE_KEY: TEST_SITE_KEY,
-  TURNSTILE_SECRET_KEY: TEST_SECRET_KEY,
+  TURNSTILE_SECRET_KEY: TEST_SECRET,
 }
 /** Every published test secret (always passes, always fails, "already spent"). Their answers carry sample hostnames. */
 const TEST_SECRETS = new Set([
-  TEST_SECRET_KEY,
+  TEST_SECRET,
   '2x0000000000000000000000000000000AA',
   '3x0000000000000000000000000000000AA',
 ])
@@ -80,7 +80,7 @@ export function humanCheckKeys(env: HumanCheckEnv, hostname: string): HumanCheck
   const siteKey = env.TURNSTILE_SITE_KEY?.trim()
   const secret = env.TURNSTILE_SECRET_KEY?.trim()
   if (siteKey && secret) return { siteKey, secret, test: TEST_SECRETS.has(secret) }
-  if (mayUseTestKeys(hostname)) return { siteKey: TEST_SITE_KEY, secret: TEST_SECRET_KEY, test: true }
+  if (mayUseTestKeys(hostname)) return { siteKey: TEST_SITE_KEY, secret: TEST_SECRET, test: true }
   return null
 }
 
