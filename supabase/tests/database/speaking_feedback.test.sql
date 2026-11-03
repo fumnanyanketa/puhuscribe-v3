@@ -16,7 +16,7 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 
-select plan(101);
+select plan(103);
 
 -- [speak 16] The tables, their permissions and their rules ------------------------
 
@@ -491,6 +491,37 @@ select is_empty($$select 1 from public.speaking_attempts where user_id = '000000
   '[speak 16] deleting B removed B''s attempts');
 select is_empty($$select 1 from public.kept_recordings where user_id = '00000000-0000-4000-8000-0000000010b1'$$,
   '[speak 16] deleting B removed B''s kept recordings');
+
+-- [hear-and-say] Hear it, say it (owner's fast route, 3 November 2026) -------------
+-- Learner C says each line back while hearing it, before any step is stored.
+-- C has consent, an own session at no step yet and an own session at "hear"
+-- (in Understand it), both of the dialogue whose line is said, so only the
+-- step part of the rule decides each case.
+
+insert into auth.users (id) values ('00000000-0000-4000-8000-0000000010c1');
+insert into public.sessions (id, user_id, dialogue_id, step_reached, started_at)
+select s.id::uuid, '00000000-0000-4000-8000-0000000010c1', d.id, s.step::public.loop_step, now() - interval '1 hour'
+  from (values
+    ('00000000-0000-4000-8000-00000010c001', null),
+    ('00000000-0000-4000-8000-00000010c002', 'hear')
+  ) as s(id, step)
+  join public.dialogues d on d.slug = 'pgtap-speak-1';
+insert into public.consents (user_id, kind, granted, notice_version) values
+  ('00000000-0000-4000-8000-0000000010c1', 'voice_processing', true, 'pgtap');
+
+select set_config('request.jwt.claims',
+  '{"sub": "00000000-0000-4000-8000-0000000010c1", "role": "authenticated", "is_anonymous": true}', true);
+set local role authenticated;
+select lives_ok(
+  $$insert into public.speaking_attempts (session_id, line_id, feedback_class, provider, audio_ms, cost_usd)
+    select '00000000-0000-4000-8000-00000010c001', 910030001, 'clear', 'fake', 1500, 0$$,
+  '[hear-and-say] with consent, C can add an attempt for a line of C''s own session at no step yet');
+select throws_ok(
+  $$insert into public.speaking_attempts (session_id, line_id, feedback_class, provider, audio_ms, cost_usd)
+    select '00000000-0000-4000-8000-00000010c002', 910030001, 'clear', 'fake', 1500, 0$$,
+  '42501', 'new row violates row-level security policy for table "speaking_attempts"',
+  '[hear-and-say] C still cannot add a line attempt while the session is at hear (Understand it)');
+reset role;
 
 select * from finish();
 

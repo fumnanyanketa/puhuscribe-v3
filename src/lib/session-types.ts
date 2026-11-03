@@ -65,6 +65,11 @@ export interface ReadySession {
    * stop that has an island line, so the session can end with the "Use it" island step for that stop.
    */
   islandStop?: number
+  /**
+   * The recap's key lines (fast route hear-and-say, 3 November 2026): at most three line ids, in line
+   * order, chosen by worker/session-plan.ts (keyLinesOf). Missing, the recap takes the first three lines.
+   */
+  keyLines?: number[]
 }
 
 /** The answer of GET /api/island: the learner's own island lines and the stops they may fill. */

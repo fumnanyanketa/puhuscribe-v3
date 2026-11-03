@@ -227,7 +227,7 @@ A small landscape drawn in inline SVG from fixed shapes and numbers: no image fi
 
 ### Session frame (`SessionFrame`)
 
-Every lesson screen sits in it. The landscape band, a 44 px cross in a milky round, a progress bar and the step name at the right. The bar fills by the share of the lesson done: finished steps plus the share of the current step. Its accessible name is the old words, for example "Hear it, step 1 of 5". The cross opens the sheet "Leave this lesson?" with "Keep going" and "Leave". On the finish screen it leaves at once. Only the content area scrolls. The action area at the bottom stays in view and keeps clear of the iPhone home bar with `env(safe-area-inset-bottom)`. The learner never picks a mode.
+Every lesson screen sits in it. The landscape band, a 44 px cross in a milky round, a progress bar and the step name at the right. The bar fills by the share of the lesson done: finished steps plus the share of the current step. "Hear it, say it" counts as three steps' worth of the bar and every other step as one (`STEP_SHARES`), because it holds both the listening and the speaking of every line. Its accessible name is the old words, for example "Hear it, say it, step 1 of 5". The cross opens the sheet "Leave this lesson?" with "Keep going" and "Leave". On the finish screen it leaves at once. Only the content area scrolls. The action area at the bottom stays in view and keeps clear of the iPhone home bar with `env(safe-area-inset-bottom)`. The learner never picks a mode.
 
 Options: `steps` gives the session's own list of steps; `finished` is for the finish screen (the bar is full); `progress` is the share of the current step that is done; `stepHeading` makes the step name the screen's `h1`, and `hideStepName` hides it from the eye where the drawing shows only the question.
 
@@ -235,7 +235,7 @@ Options: `steps` gives the session's own list of steps; `finished` is for the fi
 
 A bottom sheet is a native `<dialog>` opened with `showModal()`, so the page behind cannot be used and Tab stays inside. It rises from the bottom (fades with reduced motion), has a small handle, closes with Escape and with a tap on the dimmed page unless it must not, moves focus in when it opens and gives it back to what had it before. While it is open the page behind cannot scroll. The leave sheet, the word card, the speaking consent sheet and the first lesson tip use the same rules.
 
-A sheet opened by a button gives that button as `returnFocus`, so focus goes back to it when the sheet closes. The leave sheet gives the cross, the consent sheet in Voice settings gives the Speaking feedback switch, and in Say it focus goes back to the quiet "Turn on speaking feedback" button once the sheet has closed. The word card and the patterns panel give focus back to their word and button themselves. Safari does not focus a button that is tapped, so without it focus would land on the page.
+A sheet opened by a button gives that button as `returnFocus`, so focus goes back to it when the sheet closes. The leave sheet gives the cross, the consent sheet in Voice settings gives the Speaking feedback switch, and in Hear it, say it and the recap focus goes back to the quiet "Turn on speaking feedback" button once the sheet has closed. The word card and the patterns panel give focus back to their word and button themselves. Safari does not focus a button that is tapped, so without it focus would land on the page.
 
 ### Buttons (`Button`)
 
@@ -296,11 +296,13 @@ A dialogue line as drawn on 1 November 2026. A milky panel with the speaker's na
 - The word being spoken is an ink block with light text. Each word's button is the 44 px tap area and stays invisible; the wash and the ink block are drawn on the word itself at text height.
 - Every word with word data is a button. A word without data (a name) is plain text, never a dead button. A word and the punctuation after it never wrap apart, but a word too long for its line (a 44 letter compound) wraps inside the line instead of running past the card: the punctuation sits inside the word's button, hidden from screen readers so the button's name stays the word.
 - While a line plays the card shows a ring and the word "Playing" next to the speaker's name, so colour is never the only sign.
-- Understand it shows only the spoken line, larger (21 px), with one play button. Say it and Keep it show the card without play buttons.
+- Understand it shows only the spoken line, larger (21 px), with one play button. The recap and Keep it show the card without play buttons.
+- **Hear it, say it** (owner's fast route, 3 November 2026) shows Hear it's card with its play buttons and "Line 2 of 8", and under it the record button of Say it, its gentle note or clear card and "I can't speak right now". "Next line" appears after a try. Without speaking feedback, or after "I can't speak right now", the screen is Hear it's card and "Next line".
+- **The recap** asks for at most three key lines from memory: the card shows the speaker and the Meaning, and where the Finnish lines go a soft white box with a dashed spoken-soft edge holds the quiet "Show the Finnish". The Finnish shows after a try or on that tap. The hint under the record button reads "Tap and say it in Finnish".
 
 #### The tip on a learner's first lesson (`FirstLessonTip`)
 
-On the learner's first lesson only, before Hear it is finished, the line card stays lit and the rest of the screen dims with a real scrim. Three short lines: "How people say it" (mint dot), "How it's written" (slate dot) and "Tap any word to learn it" (peach ring), and a "Got it" button. Focus moves to "Got it" when it opens and back to "Next line" when it closes. Escape closes it. Tab cannot leave the lit card and the tip, and the page behind cannot be used or scrolled. Whether it shows comes from the session answer (`firstLesson`), never from the phone.
+On the learner's first lesson only, before Hear it is finished, the line card stays lit and the rest of the screen dims with a real scrim. Three short lines: "How people say it" (mint dot), "How it's written" (slate dot) and "Tap any word to learn it" (peach ring), then one plain sentence with no marker, "After each line, say it back.", and a "Got it" button. The record button and the speaking consent sheet wait until the tip is closed. Focus moves to "Got it" when it opens and back to "Next line" (or "I can't speak right now" before a try) when it closes. Escape closes it. Tab cannot leave the lit card and the tip, and the page behind cannot be used or scrolled. Whether it shows comes from the session answer (`firstLesson`), never from the phone.
 
 #### The word card (`WordCard`)
 

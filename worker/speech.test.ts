@@ -48,7 +48,7 @@ interface Learner {
 }
 
 async function learner(
-  options: { step?: 'hear' | 'understand' | 'say'; consent?: boolean; keep?: boolean } = {},
+  options: { step?: 'hear' | 'understand' | 'say' | null; consent?: boolean; keep?: boolean } = {},
 ) {
   const supabase = fakeSupabase()
   const db = fakeDb([sampleDialogue(1, 10, 1)], new Map([[1, sampleContent()]]))
@@ -67,7 +67,7 @@ async function learner(
   const today = await handleApi(post('/api/sessions/today', { cookie }), ENV, deps)
   const sessionId = (await today.json<ReadySession>()).session.id
   const session = db.sessions[0]
-  if (session) session.step = options.step ?? 'understand'
+  if (session) session.step = options.step === undefined ? 'understand' : options.step
   if (options.consent !== false)
     speech.consentRows.push({ kind: 'voice_processing', granted: true, noticeVersion: 'x' })
   if (options.keep)
@@ -111,6 +111,14 @@ describe('POST /api/speech/say', () => {
       costUsd: l.provider.costUsd(1500),
     })
     expect(JSON.stringify(body)).not.toContain('moi mä oon alex')
+  })
+
+  it('[hear-and-say] checks a line while the session has reached no step yet (Hear it, say it)', async () => {
+    const l = await learner({ step: null })
+    const res = await handleApi(sayRequest(l), ENV, l.deps)
+    expect(res.status).toBe(200)
+    expect(await res.json<Record<string, unknown>>()).toEqual({ feedbackClass: 'clear' })
+    expect(l.speech.attempts).toHaveLength(1)
   })
 
   it('[speak 15] a close try answers its hint with the word from the line, and still no transcript', async () => {

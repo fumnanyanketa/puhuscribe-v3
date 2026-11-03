@@ -288,6 +288,15 @@ function parseSay(body: string): SayRequest | null {
 
 const TOO_MANY = 'You have recorded a lot in the last few minutes. Take a short break, then try again.'
 
+/**
+ * The steps at which a learner says a line of the session's dialogue (fast route hear-and-say,
+ * 3 November 2026): no step yet, while "Hear it, say it" has each line said back as it is heard, and
+ * Understand it reached, during the recap. Nothing in between (Understand it itself) or after.
+ */
+function canSayLines(step: string | null): boolean {
+  return step === null || step === 'understand'
+}
+
 /** POST /api/speech/say with {"sessionId", "lineId", "audio"} (the WAV as base64). */
 export async function say(
   request: Request,
@@ -309,7 +318,7 @@ export async function say(
     const consents = await db.consents()
     if (consents.processing !== 'granted') return done({ error: 'no_voice_consent' }, 403)
     const session = await kit.learnerDb(context).session(asked.sessionId)
-    if (session?.step !== 'understand' || session.endedAt !== null) {
+    if (!session || !canSayLines(session.step) || session.endedAt !== null) {
       return done({ error: 'not_found' }, 404)
     }
     const line = await db.line(asked.lineId)

@@ -128,7 +128,7 @@ export function FinishScreen({ session, steps }: FinishScreenProps) {
   const savedLine = guest ? SAVED_ON_THIS_DEVICE : SAVED
   const message = state === 'saving' ? SAVING : state === 'saved' ? savedLine : NOT_SAVED
   const tone: StatusTone = state === 'not_saved' ? 'problem' : 'neutral'
-  const lastStep = steps[steps.length - 1] ?? 'Hear it'
+  const lastStep = steps[steps.length - 1] ?? 'Hear it, say it'
 
   // The line sits above the buttons while the save is unfinished or failed, and under "Done" once saved, as drawn.
   const statusAbove = state !== 'saved' || retried
