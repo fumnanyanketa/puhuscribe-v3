@@ -22,11 +22,14 @@ if (!root) throw new Error('The page is missing its #root element.')
 const designPagesOn = import.meta.env.DEV || import.meta.env.VITE_DESIGN_REFERENCE === '1'
 const HearItSample = designPagesOn ? lazy(() => import('./sample/HearItSample.tsx')) : null
 const DesignReference = designPagesOn ? lazy(() => import('./design-reference/DesignReference.tsx')) : null
+// The island step and card with the approved lines and no database (language islands).
+const IslandSample = designPagesOn ? lazy(() => import('./sample/IslandSample.tsx')) : null
 
 const path = window.location.pathname.replace(/\/+$/, '')
 let page = <App path={path} />
 if (HearItSample && path === '/sample/hear-it') page = <HearItSample />
 if (DesignReference && path === '/design-reference') page = <DesignReference />
+if (IslandSample && path === '/sample/island') page = <IslandSample />
 
 createRoot(root).render(
   <StrictMode>

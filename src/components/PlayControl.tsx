@@ -14,7 +14,8 @@ interface PlayControlProps {
   src: string
   /** What it plays, as in "the spoken line". */
   what: string
-  size?: 'regular' | 'small'
+  /** "mini" is the island card's small pale round (language islands). */
+  size?: 'regular' | 'small' | 'mini'
   /** Mint for the spoken line, slate for the written line (job 19-redesign). */
   tone?: 'spoken' | 'written'
   /** Reference page only: shows a state without playing anything. */
@@ -23,7 +24,8 @@ interface PlayControlProps {
   onPlayingChange?: (playing: boolean) => void
 }
 
-function PlayIcon() {
+/** The play triangle. The island card's "Play all" uses it too. */
+export function PlayIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />
@@ -122,7 +124,7 @@ export function PlayControl({
         : `Play ${what}`
   const look = failed
     ? styles.retry
-    : `${styles.play} ${size === 'small' ? styles.small : ''} ${tone === 'written' ? styles.written : ''}`
+    : `${styles.play} ${size === 'small' ? styles.small : size === 'mini' ? styles.mini : ''} ${tone === 'written' ? styles.written : ''}`
   return (
     <span className={failed ? styles.errorRow : styles.wrap}>
       {failed && <span className={styles.errorText}>Could not play.</span>}

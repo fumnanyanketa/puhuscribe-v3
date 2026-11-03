@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import type { StepReached } from '../lib/session-types.ts'
+import { IslandUseIt } from '../island/IslandUseIt.tsx'
 import { HearIt } from './HearIt.tsx'
 import { SayIt } from './SayIt.tsx'
 import { KeepItStep } from './KeepIt.tsx'
@@ -37,12 +38,21 @@ export const KEEP_IT_STEP: SessionStep = { id: 'keep', name: 'Keep it', Screen: 
 
 /**
  * The steps of one session: the list above, then Keep it when the learner had
- * a word to review as the session screen loaded. Without one, the session is
- * exactly the list above.
+ * a word to review as the session screen loaded, then Use it when the session
+ * ends a stop whose island line the learner has not added. Without either, the
+ * session is exactly the list above.
  */
-export function stepsFor(review: boolean): readonly SessionStep[] {
-  return review ? [...SESSION_STEPS, KEEP_IT_STEP] : SESSION_STEPS
+export function stepsFor(review: boolean, island = false): readonly SessionStep[] {
+  const steps = review ? [...SESSION_STEPS, KEEP_IT_STEP] : SESSION_STEPS
+  return island ? [...steps, USE_IT_STEP] : steps
 }
+
+/**
+ * Use it, the island step (language islands, fast route of 3 November 2026): last, in the session of
+ * a stop's last lesson, when the stop has an island line and the learner has not added it yet. Its line
+ * is stored by POST /api/island; the session's step route never stores "use".
+ */
+export const USE_IT_STEP: SessionStep = { id: 'use', name: 'Use it', Screen: IslandUseIt }
 
 /** Where a session stands: one of its steps, or the finish screen. */
 export type SessionPosition = { kind: 'step'; index: number } | { kind: 'finish' }

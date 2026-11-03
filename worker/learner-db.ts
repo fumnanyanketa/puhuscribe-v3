@@ -41,6 +41,8 @@ export interface ReadableDialogue {
   unitPosition: number
   unitTitle: string
   canDo: string
+  /** The road stop of the dialogue's unit (units.stop_number), null outside the road (language islands). */
+  stopNumber?: number | null
 }
 
 export interface SessionRow {
@@ -262,7 +264,11 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
     async readableDialogues() {
       const units = await readAll(
         (from, to) =>
-          client.from('units').select('id, position, title_en, can_do_en').order('id').range(from, to),
+          client
+            .from('units')
+            .select('id, position, title_en, can_do_en, stop_number')
+            .order('id')
+            .range(from, to),
         unavailable,
       )
       const dialogues = await readAll(
@@ -282,6 +288,7 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
             unitPosition: unit.position,
             unitTitle: unit.title_en,
             canDo: unit.can_do_en,
+            stopNumber: unit.stop_number,
           },
         ]
       })

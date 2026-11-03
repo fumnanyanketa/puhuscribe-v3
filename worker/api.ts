@@ -40,6 +40,7 @@ import {
   type SaveNote,
   type SaveNoteDb,
 } from './learner-db.ts'
+import { islandRoute, islandStopFor, supabaseIslandDb, type IslandDb } from './island.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
 import { roadFor, supabaseRoadDb, supabaseVisitorRoadDb, visitorRoadFor, type RoadDb } from './road.ts'
 import {
@@ -83,6 +84,8 @@ export interface ApiDeps extends AccountDeps, SpeechDeps {
   roadDb?: (context: LearnerContext) => RoadDb
   /** Tests pass a fake for the visitors' road (statement 29); normally Supabase, with no sign in. */
   roadVisitorDb?: () => RoadDb
+  /** Tests pass a fake for the island (language islands); normally Supabase, as the learner. */
+  islandDb?: (context: LearnerContext) => IslandDb
 }
 
 const defaultDeps: ApiDeps = { fetch: (input, init) => fetch(input, init) }
@@ -302,7 +305,15 @@ async function sessionsToday(request: Request, env: ApiEnv, deps: ApiDeps): Prom
     // Job 19-redesign, statement 25: the first lesson's tip. Worked out from the
     // learner's own session rows, and stored nowhere.
     const first = isFirstLesson(pick)
-    return withCookies(json(first ? { ...ready, firstLesson: true } : ready), context.setCookies())
+    // Language islands: the stop's last lesson ends with its island step. Worked out from the readable
+    // dialogues, which the pick has already read; stored nowhere.
+    const islandStop = islandStopFor(pick.dialogue, await db.readableDialogues())
+    const body = {
+      ...ready,
+      ...(first ? { firstLesson: true as const } : {}),
+      ...(islandStop === undefined ? {} : { islandStop }),
+    }
+    return withCookies(json(body), context.setCookies())
   } catch (error) {
     if (error instanceof AccountGone) return accountGone(request, context)
     return withCookies(faultAnswer(error), context.setCookies())
@@ -565,6 +576,14 @@ export async function handleApi(
     })
   }
   if (pathname === '/api/crash') return crashRoute(request, env, deps)
+  // The learner's island (language islands): worker/island.ts.
+  if (pathname === '/api/island') {
+    return islandRoute(request, {
+      signedIn: (r) => signedIn(r, env, deps),
+      islandDb: (context) => (deps.islandDb ? deps.islandDb(context) : supabaseIslandDb(context.client)),
+      learnerDb: (context) => databaseFor(context, deps),
+    })
+  }
   // Accounts and personal data (job 11-accounts): worker/account.ts.
   const account = await handleAccountApi(request, env, deps)
   if (account) return account

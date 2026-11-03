@@ -31,8 +31,8 @@ interface RecordControlProps {
   readyHint?: boolean
 }
 
-/** The drawing's microphone: a filled capsule in a cup (round 6). */
-function MicIcon() {
+/** The drawing's microphone: a filled capsule in a cup (round 6). The island card's "Say it all" uses it too. */
+export function MicIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.line}>
       <rect className={styles.capsule} x="8.6" y="2.5" width="6.8" height="11.5" rx="3.4" />
