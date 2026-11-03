@@ -77,6 +77,10 @@ export interface FormRow {
   why: string
   surfacePuhe: string
   surfaceKirja: string
+  /** What the form means in its line (forms.meaning_en). Missing when the form has none. */
+  meaning?: string
+  /** What the dictionary form means (forms.lemma_meaning_en). Missing when the form has none. */
+  baseMeaning?: string
 }
 
 export interface DialogueContent {
@@ -209,6 +213,45 @@ function toSession(row: SessionRecord): SessionRow {
 
 const unavailable = (): Error => new DatabaseUnavailable()
 
+// The word card's facts of a form. Both meanings were added by job 20-a1-road;
+// older forms may have none, and then the field is left out, never sent empty.
+const FORM_COLUMNS =
+  'id, lemma, surface_kirja, surface_puhe, form_name_en, why_en, meaning_en, lemma_meaning_en'
+
+type FormRecord = Pick<
+  Database['public']['Tables']['forms']['Row'],
+  | 'id'
+  | 'lemma'
+  | 'surface_kirja'
+  | 'surface_puhe'
+  | 'form_name_en'
+  | 'why_en'
+  | 'meaning_en'
+  | 'lemma_meaning_en'
+>
+
+/** Text with something in it, or undefined for null, empty or blank. */
+function present(text: string | null): string | undefined {
+  const trimmed = text?.trim() ?? ''
+  if (trimmed === '') return undefined
+  return trimmed
+}
+
+function toFormRow(form: FormRecord): FormRow {
+  const meaning = present(form.meaning_en)
+  const baseMeaning = present(form.lemma_meaning_en)
+  return {
+    id: form.id,
+    lemma: form.lemma,
+    formName: form.form_name_en ?? '',
+    why: form.why_en ?? '',
+    surfacePuhe: form.surface_puhe,
+    surfaceKirja: form.surface_kirja,
+    ...(meaning ? { meaning } : {}),
+    ...(baseMeaning ? { baseMeaning } : {}),
+  }
+}
+
 function must<T>(result: { data: T | null; error: unknown }): T {
   if (result.error || result.data === null) throw new DatabaseUnavailable()
   return result.data
@@ -289,14 +332,7 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
             )
       const formIds = [...new Set(tokens.flatMap((token) => (token.form_id === null ? [] : [token.form_id])))]
       const forms =
-        formIds.length === 0
-          ? []
-          : must(
-              await client
-                .from('forms')
-                .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
-                .in('id', formIds),
-            )
+        formIds.length === 0 ? [] : must(await client.from('forms').select(FORM_COLUMNS).in('id', formIds))
       return {
         // An approved line always has both texts, its meaning and both audio
         // keys (the database refuses to approve it otherwise).
@@ -317,14 +353,7 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
           surface: token.surface,
           formId: token.form_id,
         })),
-        forms: forms.map((form) => ({
-          id: form.id,
-          lemma: form.lemma,
-          formName: form.form_name_en ?? '',
-          why: form.why_en ?? '',
-          surfacePuhe: form.surface_puhe,
-          surfaceKirja: form.surface_kirja,
-        })),
+        forms: forms.map(toFormRow),
       }
     },
 
@@ -420,12 +449,7 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
       const forms = await readAllIn(
         linked,
         (chunk) => (from, to) =>
-          client
-            .from('forms')
-            .select('id, lemma, surface_kirja, surface_puhe, form_name_en, why_en')
-            .in('id', chunk)
-            .order('id')
-            .range(from, to),
+          client.from('forms').select(FORM_COLUMNS).in('id', chunk).order('id').range(from, to),
         unavailable,
       )
       return {
@@ -448,14 +472,7 @@ export function supabaseLearnerDb(client: LearnerClient): LearnerDb & ReviewDb &
           surface: token.surface,
           formId: token.form_id,
         })),
-        forms: forms.map((form) => ({
-          id: form.id,
-          lemma: form.lemma,
-          formName: form.form_name_en ?? '',
-          why: form.why_en ?? '',
-          surfacePuhe: form.surface_puhe,
-          surfaceKirja: form.surface_kirja,
-        })),
+        forms: forms.map(toFormRow),
       }
     },
 
