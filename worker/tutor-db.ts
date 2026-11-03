@@ -1,3 +1,4 @@
+import { TUTOR_NOTICE_VERSION } from '../src/lib/tutor-consent.ts'
 import type { TutorConsent } from '../src/lib/tutor-types.ts'
 import type { LearnerClient } from './learner-auth.ts'
 import {
@@ -92,7 +93,15 @@ export function supabaseTutorDb(client: LearnerClient): TutorDb {
       const tutor = rows.find((row) => row.kind === 'ai_tutor')
       const voice = rows.find((row) => row.kind === 'voice_processing')
       return {
-        tutor: tutor ? (tutor.granted ? 'granted' : 'withdrawn') : 'not_asked',
+        // A grant given under an older consent text counts as not asked, so the learner sees the
+        // current text once (owner, 3 November 2026: the text now says chat text is sent as typed).
+        tutor: tutor
+          ? tutor.granted
+            ? tutor.notice_version === TUTOR_NOTICE_VERSION
+              ? 'granted'
+              : 'not_asked'
+            : 'withdrawn'
+          : 'not_asked',
         voice: voice ? { granted: voice.granted, version: voice.notice_version } : null,
       }
     },

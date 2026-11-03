@@ -6,7 +6,7 @@
 //
 // Draft wording for the owner to approve at the end of the job.
 
-export const TUTOR_NOTICE_VERSION = 'tutor-2026-11.1'
+export const TUTOR_NOTICE_VERSION = 'tutor-2026-11.2'
 
 /** The sentence the consent screen and the privacy notice share about what is kept. */
 export const TUTOR_KEEPS =
@@ -16,7 +16,7 @@ export const TUTOR_NOTICE = {
   heading: 'Talk with Otso',
   paragraphs: [
     'Otso is an AI tutor. At the end of a lesson he has a short chat with you, using only Finnish words you have met.',
-    'What you type or say in the chat, Otso’s earlier lines and the list of Finnish words you have met go to Anthropic, the AI company, in the United States. We never send your name, email or account.',
+    'What you type or say in the chat, Otso’s earlier lines and the list of Finnish words you have met go to Anthropic, the AI company, in the United States. We never send your email or account. What you type or say to Otso is sent as text, so leave out personal details.',
     TUTOR_KEEPS,
     'You can turn Otso off at any time on your account page.',
   ],
