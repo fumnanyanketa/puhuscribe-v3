@@ -95,7 +95,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -200,6 +201,26 @@
         "reason": "Same question; only register differences (heitänks/mä vs heitänkö/minä).",
         "fingerprint": "d9866234347119afeaddf93f6cfe753fb757f27cd645ce7ab007cfd7eead23c5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "84de7cd00e142d258ac1ab9fbf925ace63de88b6e023cdcb7cded4151ae097af",
+          "text": "Heitänks mä lisää löylyä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "3ec544f3870036b6151bd833cc7de7f675d1fc94698dcc9253fa0e00333b7972"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "808ad6dcae53ba13dc56578127eb6224811643c8c6b2ff97b171eafb7d469ab6",
+          "text": "Heitänkö minä lisää löylyä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d70e5e15d8bde64835d21d0ed70acad944548fc323c137e31433e6ce455e0330"
+        }
       }
     },
     {
@@ -253,6 +274,26 @@
         "reason": "vaan/vain are register variants of 'just'; same meaning.",
         "fingerprint": "c42b68a17e70dcd8e271c729a8b3523d74fee8f6fbe9f057bbeeda01b1a63b1e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "b3cc551b49c7bf121a56089716144e1339f5526df55bc11baaeaf0d957787de5",
+          "text": "Vähän vaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "197823693e404f08550f7c5c64c35fcd5f799a286830539188be5e7aeaac3398"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "61f2dff87edf93bbc17e426b554f03b58559b922b5b22178dc883b60b46fc95d",
+          "text": "Vähän vain!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "307f3793bfd35508cddbdcb570a5bcb93d33e09037762c680b23606f6fa814a6"
+        }
       }
     },
     {
@@ -336,6 +377,26 @@
         "reason": "Okei and selvä both mean 'okay'; onks/onko is register only.",
         "fingerprint": "77def014cd5995d4bd3578429142055e9ac5d8e81d6f988e8ee41c6f89229d5d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "07bf8c6943092ffacdf66135c0beaa276c0f62932c23c671b526e7a2282f61cd",
+          "text": "Okei. Onks hyvä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "10e09899ef68533350a6a18539031ac4c04e4e20c404267f985a3d42143ab525"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "e49f1992d946873370ab050015984dac970da5c91f6fed2c1d88bcbe3cb2a302",
+          "text": "Selvä. Onko hyvä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e98e19f56ae32ecd77c61f5d6c144f669cf63e9ec1252e5837cc893ea0e70277"
+        }
       }
     },
     {
@@ -557,6 +618,26 @@
         "reason": "Joo/kyllä both 'yes'; tykkäätte saunast and pidätte saunasta both mean 'like the sauna'; same meaning.",
         "fingerprint": "bae3f1721f3fdefebfabb55b641ff296496882052276f70b6c7011710070cb23",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "fcc7857267e532e2783e4040d74e32dcdd74b8c7fe6523e262cf2dadf9ce3584",
+          "text": "Joo, ihana lämpö. Nyt mä ymmärrän, miks te tykkäätte saunast.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "27f0b50821a7674f76cb51083770a0680c77b17562c929f8f3711d88870bf59f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6ca58a9894bcdff2318296091e8bc4b91f3cb9050a9f8cce52af15b14e844430",
+          "text": "Kyllä, ihana lämpö. Nyt minä ymmärrän, miksi te pidätte saunasta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1b94878f027a9bf996914398d2af15821b992435c32f99c1a7abca070a6d9e09"
+        }
       }
     },
     {
@@ -700,6 +781,26 @@
         "reason": "Kohta/pian both 'soon'; tos/tuossa 'over there'; same meaning.",
         "fingerprint": "a8951c20c9c7d0f94e09a0bc2cd07f85c56117b24ac3e1024680d45c50209871",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "9319e0b49d84af9f55f5fffde2b2d74838d03f370e70e6b938e66ea41d9493b9",
+          "text": "Mennäänks kohta uimaan? Järvi on tos.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "47ffed363ba01042c65b011b0d82813d2ad0363d376da332375c0cb66dc13aa5"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "ae88ae3d1c3fdde7d06be28c2127c289343647435fbee85c9fadca4d6e6243e4",
+          "text": "Mennäänkö pian uimaan? Järvi on tuossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5521d4f0969ebd70b68f666a518d1b735e1cec634a299c589af3e29206310aaa"
+        }
       }
     },
     {
@@ -816,6 +917,26 @@
         "reason": "Eiks/eikö, oo/ole, tosi/todella all register variants; same question.",
         "fingerprint": "c7a6ee35d42df5c5c0cd11c1b24a3acadb6f43731a8711d7cae129693b1b9896",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "4b612a83ec0d081807ef75fe33662b5464ee83db84ba79d8f45567792e092416",
+          "text": "Eiks vesi oo tosi kylmää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d5d492f6cba01e1417993a370e5fddfad03ff4b9244af51b339088d6b696591f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "6f14e4bdc600ffd2761b63bbcfb5e2f20b53c40f14cd91703f0b65fcfb41edf5",
+          "text": "Eikö vesi ole todella kylmää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6e73f0b137a3d13a889358f05624bd9258152394d7159cdcf324c705e7ed69ce"
+        }
       }
     },
     {
@@ -936,6 +1057,26 @@
         "reason": "mut/mutta is register only.",
         "fingerprint": "d22ecf493ddf775006a4ed01311a924dd0679fa40ff2e793720dff12df6fcb8d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "edd746cdc9e9511a4862e1b11ec5e72520f8417dcf691a8fe2c4b21439100af1",
+          "text": "On, mut se on parasta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b6700769d48a8e66b5243496919a5a5c9ac6dbe3755983fdfdff00e16b87ca96"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "ed8a2e165de66e6a04d6c475b5d7c7dbd310ffd19ee37527ff011bfaa7ff4ead",
+          "text": "On, mutta se on parasta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "178b01e25e995ccd7a4c5f463e20f3f1f571ca112cf31d3dc17fb31fa54c4e9f"
+        }
       }
     },
     {
@@ -1017,6 +1158,26 @@
         "reason": "Okei/selvä both 'okay'; mä/minä; same statement.",
         "fingerprint": "e40c6c7a1c674ca3e41ff24b45abdb3b8e6b809647a8dcb569d68a24be61b4bb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "1580c040bc4c4f73ba6c2fb635f3c247debfe9f07c0f517609ee32b7ebd8d01c",
+          "text": "Okei, mä uskallan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2b867d3f39060ddd6c104202f19b31a9777ac9435e14d45729983238c089af2d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "3b5bf9e4a4cbc3f90ca3d7d171c6788e1b9d71398ac48dfdd0cf8bcb1424aa12",
+          "text": "Selvä, minä uskallan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e970a39923b67947137712d352779a2f1fe3a9b6e86374ac139be776da049993"
+        }
       }
     }
   ],

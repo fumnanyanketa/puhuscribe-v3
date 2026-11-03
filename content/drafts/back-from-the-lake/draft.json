@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -200,6 +201,26 @@
         "reason": "sä/sinä is only a register difference; the question is the same.",
         "fingerprint": "daa04d45c3e7867234615a7e2f11b488de0ecfca6fafcab68b99dcbd27d3e36b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "f2c79969dce356483ff11b86f3f69b60b773fe7d075c2b31b26a33c2662bfe5c",
+          "text": "Missä sä olit viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "4468320983e463e19c813539a8ea72489afd7d325935c8a8d245ccde32e6c28a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "7732eddd599823083bcf89d21fb45c6be9e3591430dc9fd9a8963a8ea7e1e06f",
+          "text": "Missä sinä olit viikonloppuna?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "88f6132a6d3cbf17a8a34d4cc524d6ebc1f7bad821caf6144f53a0a590919d99"
+        }
       }
     },
     {
@@ -322,6 +343,26 @@
         "reason": "mä/minä is only a register difference; place and facts are the same.",
         "fingerprint": "2405d0fcf34fceefd119003a82b1878125c7178e346e42b9e83e15626b3dea75",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "cf213c114eaf010ebffd734913622453e03a3463396942a219c1694d2b8856b7",
+          "text": "Mä olin mökillä järven rannalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a3060193a750f0f17cc7d947a2af5e32da5b33b5d4a0cd46e9e84ffa89d90e7c"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "770ca8fdaf64956e400a2fe0d20c1b226b59c4076df97a7f18569404ff552c70",
+          "text": "Minä olin mökillä järven rannalla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "11bd3d3752f6726314775d9039e9b3d6cef3be75eb679e20bddac199deeb0c41"
+        }
       }
     },
     {
@@ -377,6 +418,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "fc6a8ffed79c284c42c3ebe596d726398d772c9d4674dde4fa7f465156a2ca50",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "178d71afe8ae78e9fe3d5665b068b2f3550266acb68475a0286be3b7ddd2b89e",
+          "text": "Kenen mökillä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "72cba0bcbfb14724887809e26b314ede040b5bee848aa9307d771ffc26ec398c"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "391ad8cb77f9f7f6c3a61915e2d38a4704a2e923102053539b5ebd68d2010924",
+          "text": "Kenen mökillä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "72cba0bcbfb14724887809e26b314ede040b5bee848aa9307d771ffc26ec398c"
+        }
       }
     },
     {
@@ -511,6 +572,26 @@
         "reason": "tultiin takas is the colloquial form of tulimme takaisin; both say 'we came back yesterday'.",
         "fingerprint": "caadb664c5b525a5bd2678060e20a27189051c9763031deeb47ee2722d39d800",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "18df7f337f4093af45b522a40c30d50ff12bf15ca125a435a03a77d7d510ed32",
+          "text": "Ainon perheen. Me tultiin takas eilen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8bf1f660aa2ab33115e90ac8c30ab1127cf513c23d419d395607a6e71fa65b50"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "51ecab9b7d0f61f48c08c1ed48e2ab6bc8dd646350a39417f62a4f405a498234",
+          "text": "Ainon perheen. Me tulimme takaisin eilen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "175f8dcedb5d56de9cbb56ecc436b8173563aa09325039327dcc7b2f46c5f430"
+        }
       }
     },
     {
@@ -593,6 +674,26 @@
         "reason": "Uitteks/järves are colloquial forms of uitteko/järvessä; both ask 'did you swim in the lake?'.",
         "fingerprint": "129e122b954496befe86363a964bce4b87a663a417b60b993f4c4e5cfc7dc0e4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "2d994c0a0bb1c9f279f9eb5b78528e92d183d8ef6aabada06c58fd9aef69ce8f",
+          "text": "Uitteks te järves?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "ec641ef038fc26ce9cdb6341e1e9549d21a105416a167b6f136b2daf4efd91de"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "cb3b105fa7f7a6a67b6abde3df8729938df8b59e3092e7ac861c312bfc37289d",
+          "text": "Uitteko te järvessä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d4425e0ce74bd260b58238d9b34ff9a3805bba3116af556a256dd59d981aa092"
+        }
       }
     },
     {
@@ -730,6 +831,26 @@
         "reason": "Joo/kyllä both mean yes; mentiin soutuveneel is the colloquial form of menimme soutuveneellä; the island and rowboat are unchanged.",
         "fingerprint": "68c158cd4095d96c8158afbe5f9be245369461a69c5439e69d357b7153193c32",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "e7ae4d5003d327cfe7afcbf0f1e485a66059ac948beaefa4f3465e616e12f626",
+          "text": "Joo! Ja me mentiin soutuveneel saareen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3a230dc511852881d1ef03fae7e954390629da1a761c0cee898e6621d9af24d1"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "80ed4568d1628c9519e03262c266816ef212117f74f92ef2353a231480fcc062",
+          "text": "Kyllä! Ja me menimme soutuveneellä saareen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1295fd0ffe796c68110b36a71b5bfa1470fd0da914d38bccf88447cb4d8af244"
+        }
       }
     },
     {
@@ -826,6 +947,26 @@
         "reason": "ihan and aivan are synonyms meaning 'quite/totally'; the rest is identical.",
         "fingerprint": "9dcb862796b5602feec79c2d737a7c256bd11a10d56c75df5b833a4dd7592471",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "695822867ef4fb53192650534b0263497a1f75972f2857aa9e7ae90e061768b4",
+          "text": "Kuulostaa ihan suomalaiselta kesältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "1f3cd59d717849f0c476db416038bffe32fb1d508d76ad3cc496124fa8b2494e"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "63f82472ae9803740dd2809eef77d1f837dbdbd7f7618ae0cd878a7f9bca6f25",
+          "text": "Kuulostaa aivan suomalaiselta kesältä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "987163ff55a75181bbe8527e95e9a2c0cfbfd44d413481be80458ec9296cc1aa"
+        }
       }
     },
     {
@@ -945,6 +1086,26 @@
         "reason": "ikinä and koskaan both mean 'ever' in this context; the meaning is the same.",
         "fingerprint": "643c3e4d63286f10089a17612b4e4dccee3dfa7d3bff5db2fb2c4102882d3702",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "32ad2bcb3a8b77230d7ba20c729c9e655961d0c066ddb0643c05657e39ab2035",
+          "text": "Se oli paras viikonloppu ikinä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3f15ba85c4bd02f901e502c01629e61e6f71d8744a9d4d2ab734823149bdf20f"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c2ba86931cdbe291ba39de6c673bdb8422f211c653a84d35456dd2304c91efc6",
+          "text": "Se oli paras viikonloppu koskaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "fda62cfb4e15fec544edfe4e1e5c33874297c5606cc0caf6a34136ecdbb89b24"
+        }
       }
     }
   ],

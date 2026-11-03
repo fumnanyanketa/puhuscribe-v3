@@ -99,7 +99,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -204,6 +205,26 @@
         "reason": "sun = sinun; lempivuodenaikasi is the written possessive form. Same meaning: 'What is your favourite season?'",
         "fingerprint": "a3631f4ae1038f99b73ca1b89bd36dd8b0c5b997f0af3e70415f569eca0d0005",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "49a562afafbabaf961049dc8888e94f3498648144a03cc9cb9bc6454e995639b",
+          "text": "Mikä on sun lempivuodenaika?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8bc2d05ab017c6b751b67ca677e28fbd025ef7de2b5c8643f71e58c517c2bc1c"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "3f228458b5e9336c1c48c1ed89a34a0dca01e0974dcba89cfee16b2b685628c3",
+          "text": "Mikä on sinun lempivuodenaikasi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9d6b502d8e389158b3b51d6264cc6e32b28d4d9a9fed59fab3991e930fca62db"
+        }
       }
     },
     {
@@ -295,6 +316,26 @@
         "reason": "sun = sinun; both mean 'And yours?'",
         "fingerprint": "ee57559e31c2294e4d2ce3aa3179557b13cd9bf5c1846f320de97d7974e4f58e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "03095622b44834beb1c964caa981f8c998d4b29179c53825fafd29993d4c75e2",
+          "text": "Kesä tietysti! Entä sun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "57058ce96d2eea81518185278fbd5b1fb24b5bb107018909b1247681951b2bc9"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0ff2fbedd6840ee3d3bbe734e66ea3bd804552b65ffa638a4f9d94b4109108fe",
+          "text": "Kesä tietysti! Entä sinun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8e9f361a076c80dddce6d4240cdd75f875509862053b3036470f5a58dd2b5a1a"
+        }
       }
     },
     {
@@ -458,6 +499,26 @@
         "reason": "mä/minä, tykkään/pidän (both 'like'), syksyst/syksystä, on/ovat; same meaning.",
         "fingerprint": "efa9f3a199a120c4f9d6dd411629157a5c5a66b518ed671fb43431d00d0fb062",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "169a5af1d0a341a399ed90ad07ae90ef61287b597d2ef1e5c9973043e4b590ac",
+          "text": "Mä tykkään syksyst. Puut on niin värikkäitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "09b292efdaba8d9ca960e1059b99ff4385a4d4aafb3588e263119e7c52060682"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "1b584c6b7be3839f5859c2e2c88214406327e9ff3db5bacd8d9a4017f5e6346e",
+          "text": "Minä pidän syksystä. Puut ovat niin värikkäitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "00f5397f84770d528bd53969cf7dc878e748d35c70a4c8391109c19107d4c452"
+        }
       }
     },
     {
@@ -573,6 +634,26 @@
         "reason": "mut/mutta, syksyl/syksyllä; both say it rains a lot in autumn.",
         "fingerprint": "ac35cda7c1101c8b05dd6f3824c4a54457c49258fef6a2f9101ceb7ee5caa2f6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "7caed3435489f716ddc6ecb6ee7f3006f7d70a5f7aa54045ca5dadd38e65093e",
+          "text": "Totta. Mut syksyl sataa paljon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d6fcff3a3d4e4a045fd5651f89a8e0c2efa7bb8b1b02fe56e609b3e41b284103"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "fff7e7ca7e6ad55ff84b90cf83b0c057380a1acce288413ce18709940547783c",
+          "text": "Totta. Mutta syksyllä sataa paljon.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "37d40cd9ff37f279d777d4b840c9a63206946aaa01cd426939a176348b07ef27"
+        }
       }
     },
     {
@@ -715,6 +796,26 @@
         "reason": "kans/myös, pitenee/pitenevät; same meaning.",
         "fingerprint": "da040ec621781f0983e09d770d45fa9b99e01dd9ac4aac262d2878868b7d5159",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "6e4d5a82a485fdeca2b47bfd3496e979c2d2e40dad1bda4d06743b6002ba74d5",
+          "text": "Kevät on kans kiva. Päivät pitenee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "84280b766b103be32c48d7082450b6aadc1dd99488f7b5c003338f7410264d60"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "47cfac01926750eeac47092be619358c7fa8cfd3b3cedc28a470c1f3f62295a8",
+          "text": "Kevät on myös kiva. Päivät pitenevät.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "fd148045dbc25643ba6cb8b9c01bb491eea5985ecaa2f52511e95ded8b7bdcd3"
+        }
       }
     },
     {
@@ -793,6 +894,26 @@
         "reason": "Identical lines.",
         "fingerprint": "02bc8112912850707b43a8284b34ebccfe25c0d96ef85ab723935a741da7be81",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "b8a85d6096f83f83bc177caa2bafd8992cbcac993f83daf64f0e0a2044b9b8e2",
+          "text": "Ja lumi sulaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "90c8d34d3a424b73b8d0e4db631044df32a6d00d4fcdd22d3a03a5ea2cb9f852"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "f766bf7a421549e02ce30cae504ed9087cc81f25f624c761b398b4527e9a0895",
+          "text": "Ja lumi sulaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "90c8d34d3a424b73b8d0e4db631044df32a6d00d4fcdd22d3a03a5ea2cb9f852"
+        }
       }
     },
     {
@@ -892,6 +1013,26 @@
         "reason": "kyl/kyllä is only a register difference; same meaning.",
         "fingerprint": "f175ad22e26cd2a9a1f86101d672617eaa2e51ead98b56be659c4e48437d489b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "165872ce9728940f78233e151b8201288238bcbaf4ac162fac4cca8b4d3712fe",
+          "text": "Talvi on kyl pisin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5102c8719da5b18fc5d2092e712f78bcba62f6e37326fd6b58b1307a291607ef"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "49eb6a7fa31169209cc08c1f9464e8d927a1de5941aba20361557f587cecbf5f",
+          "text": "Talvi on kyllä pisin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "5ebeee46598838b2a5255d3598c551a3dd407d6baa57b276583e0f599339267a"
+        }
       }
     },
     {
@@ -948,6 +1089,26 @@
         "reason": "Identical lines.",
         "fingerprint": "1b248b798f7f0c44015b21b4cee562cbdb3740857ca9e3d163e734718aac5c9a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "d33222a2bbcf52775b4bd23e6eb56415aa07db6ec4ee26558c8cb24e438bc8c6",
+          "text": "Ja kylmin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2abcb53202195e4e2bb44634e185c74cfb18c51fb2cfe5202c737ce99c9f77d0"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "1e7497ec50d51a0fabc2f133bda98ec137673b8fb0ad7407a5f60d81779d2328",
+          "text": "Ja kylmin!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2abcb53202195e4e2bb44634e185c74cfb18c51fb2cfe5202c737ce99c9f77d0"
+        }
       }
     }
   ],

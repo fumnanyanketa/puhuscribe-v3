@@ -95,7 +95,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -177,6 +178,26 @@
         "reason": "Only register differences (tervetuloo/tervetuloa, tuu/tule); same welcome and invitation.",
         "fingerprint": "70bfca1fe96904f3df4dde531a7ee818a751f2cd3e59588136f08834e9da2d72",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "e314e1880d3c7944a9168d2bb02a7aeca1f869db0f6a38adb87b3861e007aebc",
+          "text": "Tervetuloo! Tuu sisään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "cc7aa1d7d0055d2dbc5d2b3fe6a3e0da1b846d62890ceb85d53864e643f7cc2a"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6c0a569be6993673b02f05db86198b98b0512bc8f9221634aacd8f54c084188f",
+          "text": "Tervetuloa! Tule sisään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "600ca0a0c2859c944481867ea92355722c2dae5e46138429f58a7b0e2a97c2bc"
+        }
       }
     },
     {
@@ -270,6 +291,26 @@
         "reason": "Kiitti/kiitos, onnee/onnea, synttäri/syntymäpäivä are register variants; same meaning.",
         "fingerprint": "e59f227411de11c916bd3f2cc34ee9d0590fa5573d0087fd7cb907787f24c2cc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "9faa6bec4480be02fd2f0ece2618ba96f054d64a3307c53521278037ca621f21",
+          "text": "Kiitti! Paljon onnee synttärisankarille!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "59e23875b11c0ab1009c442d6b945473997f4d241ed2970dc07d8198e0516c45"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "c40c5024fa0f68670b1913fb8a7aa54eceafa3221ad52fb6d2a3e5454f58fde6",
+          "text": "Kiitos! Paljon onnea syntymäpäiväsankarille!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "806f2ab132d91485eb49e2344447204771e66c52922d0266a4468b455f867f05"
+        }
       }
     },
     {
@@ -365,6 +406,26 @@
         "reason": "Kiitti/kiitos and suklaapalloist/suklaapalloista are register variants; same thanks for chocolates.",
         "fingerprint": "d0e926def9c1fc78eb39fd0250e75d0d1f9201acb5408a9fc092a2345037592d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "82738deafa40fac86309fd31d1588de7f79b69a7efb95904ee55410c10a26025",
+          "text": "Kiitti! Ja kiitti suklaapalloist.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "015ebbb76d77ed19f3f886ac92e25163892a7d0754f9a6ead409279c18c4a5a0"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "b4f6ee1b4ed79eec82be93774b1fc7308474fe5bb6bd129332a2746c93353f18",
+          "text": "Kiitos! Ja kiitos suklaapalloista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "cb57935d53f64391cb586a37011829469cde87de351ce66969c0c6f7e8a45195"
+        }
       }
     },
     {
@@ -528,6 +589,26 @@
         "reason": "Täs/tässä is a register difference; same content.",
         "fingerprint": "5024d55cf4781b566d7e1804c4b4fb22522c5f6695ba5cdd9d40909804a79ec1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b821e7bb0d3e3d0d7e898ac05bd57576f95fdef0f215e95b38a99d648ee2792d",
+          "text": "Ole hyvä. Täs on myös pieni lahja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2334948c8063a294321323ef9942c26af2521a3af2294cdccbc2f90c002eb034"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b77539f65b48ed69a2d8205eaaba7cf8f17ecf2ac1f4c15186a3e8fd34f7f419",
+          "text": "Ole hyvä. Tässä on myös pieni lahja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "21056c88fc446210a58373c0f66b5f17f89a21eb949f1130c84f6cc451f2605b"
+        }
       }
     },
     {
@@ -711,6 +792,26 @@
         "reason": "Spoken contractions (ois tarvinnu, saanks mä) match written forms; same meaning.",
         "fingerprint": "4fa9bf6c0837e3bc7a031c2b1edfd1341405225f916f4afce838d35b0b5c846e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "d5d4878a225956dd00c85142d1f0c54145d3f85a0f4dcb1669f6321b56cabbb0",
+          "text": "Ei ois tarvinnu! Saanks mä avata sen nyt?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a65d789db43fccea71943ae08d8d10144899a9a226907d07855a5a050273bb7e"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "2892399c0504c5b1c36b7c5d939f68039ccc1a980b95d51d3fe25bd6e6b54243",
+          "text": "Ei olisi tarvinnut! Saanko minä avata sen nyt?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "3f5de574a9789cea57e46bed7db97aacee30a610d09770790534de612ee99e5c"
+        }
       }
     },
     {
@@ -767,6 +868,26 @@
         "reason": "Identical lines.",
         "fingerprint": "bcc7198fc57fe96df25735e9deda70d89125426e40e360fd3113bf8ecfc3169c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "9b3fbaf6f3720a2df0de8071f7dfea032388d10d483a878199dc49203e10fdae",
+          "text": "Totta kai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1efa5b6f4c42b32f5d9a5170c5729205808268388650904124cb3660801ccc9f"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "88a0247776e353cab5b2bdb761187905d5eeecbf1d3b774de1b0ab923b7d20b2",
+          "text": "Totta kai.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1efa5b6f4c42b32f5d9a5170c5729205808268388650904124cb3660801ccc9f"
+        }
       }
     },
     {
@@ -865,6 +986,26 @@
         "reason": "Kielest/kielestä is only a dropped ending; same meaning.",
         "fingerprint": "a277d586af72f998df15d5490afad2fcc63026b04be2c6cdd3578b348715e6f0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "fa23bfcd88f54ff9d638c9a50ca4d60c394aa834eb16e27654215eba27f1655a",
+          "text": "Kirja suomen kielest! Täydellinen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "26f46874814ea7c4cf0e24544a14c6badbc010c61349ded19abfa45d1a6bb0e1"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d6887d62b7a4426fd17da4761e5b57e68f0283084b523429468ed05f78ec1f8b",
+          "text": "Kirja suomen kielestä! Täydellinen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "56e51cad18839e374792f043c3b49a3da25f56572fca68175cf3c627efd05081"
+        }
       }
     },
     {
@@ -963,6 +1104,26 @@
         "reason": "Spoken passive opiskellaan is used for 'we study'; written opiskelemme is the same meaning.",
         "fingerprint": "9b692b63bf4830995a387799e941b11ae114f0eacab026b1112ec71fd1bfde44",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "3ba2ae53921b6467b6b635007b01c10688dc9cfc6ee324a27292cc3fda762542",
+          "text": "Nyt me molemmat opiskellaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ac8914227944e39ca3185bb50861bfc03ef990bc03d3b9d4f4ebf41ebf472b1b"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "c6003beebe16812aa542cd5bea248befdfc33242144250d6999483ba334c6f53",
+          "text": "Nyt me molemmat opiskelemme!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8010e233bd8731747bc1eb857bbdde3cad1096366d0e93e6a5e2965db46e08c5"
+        }
       }
     }
   ],

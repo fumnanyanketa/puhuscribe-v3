@@ -98,7 +98,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -202,6 +203,26 @@
         "reason": "Only register difference: sä vs sinä.",
         "fingerprint": "6a4f366e7b361ba48bc216acefe2da42f5fcfb6d0e3593c8798aaa869fe86b29",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "926d0e0a2b42c01a3c4c82adbf35dccc50d7e32f403fc29d79ad66c155928c4c",
+          "text": "Mitä sä teet juhannuksena?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ed785513f5d1a63b256555a39fa930c266c5fb60c3c25eead46c2cda0d8e7237"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8af8971c262d05344cc4ff72a3aa512723dd520f158fafd9803f77ba8421cc1c",
+          "text": "Mitä sinä teet juhannuksena?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "09dd46e9f1f0b3e302136924521475fd892c235943ee92705e0e9371a2cd6087"
+        }
       }
     },
     {
@@ -338,6 +359,26 @@
         "reason": "tiiä/tiedä and millon/milloin are register variants; negation and meaning are the same.",
         "fingerprint": "6bdbe3a750834e16bebb7268138c0f063596a053395a266af8a5e618edf10580",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "4b653a696c74c74da4c011703615d08b3e9c0d27d11a799677a5a0a76927d3e5",
+          "text": "En tiiä vielä. Millon se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f6ac2e301e7848808df0907fa21b77c0203da0e880365ed0677051a85844c7d9"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5eb7ff5421dec7b84b95e9d33be57f73b2db78d805820d8f0c5c834182e028d4",
+          "text": "En tiedä vielä. Milloin se on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a453f83313228dd4bea848d4413d5efa00ae46439e984c75aaf4bdfdd736d8d6"
+        }
       }
     },
     {
@@ -476,6 +517,26 @@
         "reason": "lopus/lopussa is a register variant; the rest is identical.",
         "fingerprint": "194c315e7098634629b13786dbfbecabaf43727434d2d8c48ca23ee8129eb741",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "e02f9ed48c5a62692d1b20e61e0187f693dcba57a736ba23d68361b40cbde564",
+          "text": "Kesäkuun lopus. Se on aina lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4dff790bf33a6b1e0e598010c31bb53ec3db6edc7653375990a1ae7fc979a64e"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "4b233e248e400806b13ea1e52121cf4360495b13bda12b8b80d78b96bb12da7a",
+          "text": "Kesäkuun lopussa. Se on aina lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8c74d4d0b6365cb353eea6c8c3c68b0cdd811d7cddbba500d4c971dba3d972ca"
+        }
       }
     },
     {
@@ -577,6 +638,26 @@
         "reason": "Spoken 'tekee' with a plural subject is normal colloquial usage for 'tekevät'.",
         "fingerprint": "40283180af82fda2986d7c2775410a2dae632ff87690d8f10b261eefbabced0d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "400df546c7c9dc511fadec1c03b3e88c3d5e8d8f2589dd03cfdc4da195a82af5",
+          "text": "Mitä suomalaiset tekee juhannuksena?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1adfb7610410d06960c1bab2cd9ee6f96e4bc776474277d6e5c8c69d1d27656f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "33bf3c7c34b19513cfe89bf4df3a53b6d2adc00465447c6e9952bd4140a0537a",
+          "text": "Mitä suomalaiset tekevät juhannuksena?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8c9b135c2e7bf13ed05692d2ded56f33718efce9bc86e3c4de3f11b6bdcac83a"
+        }
       }
     },
     {
@@ -741,6 +822,26 @@
         "reason": "Ne/he and the dropped plural verb endings are register differences; the actions are the same.",
         "fingerprint": "eaff42e834438ea577e930c60b22fea1ce38607e746324a9f42b6373891f739e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8e52f815dd5acfaf3692eaf1b19f8a4fd778678e0988a86f51577ade1424145f",
+          "text": "Ne menee mökille, saunoo ja polttaa kokkoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "59feed36f89f0b4ac50d8b49045d266cf502f9af99a05eeb0ef5dbcd1866ab54"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "91995491a4e4262cd21e412d1fd8e55fe67306c21a36e35db7dd35a20718db67",
+          "text": "He menevät mökille, saunovat ja polttavat kokkoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "637064f278bcfa038dc969bf982f5e1701c74964de450b160d5f6561c9d978e2"
+        }
       }
     },
     {
@@ -799,6 +900,26 @@
         "reason": "The lines are identical.",
         "fingerprint": "90a4756141d3e149bac48b3bf66795a1ce35ef4904dec97ff294a4479d08788f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "a3b08778112add3667f07b0ab5b54e5d6009a62e5e5b53e19eb5d63ce86f7365",
+          "text": "Kuulostaa kivalta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5b86971fae66085136a16ca2e788c59c0bfaf5fe7b3d6b91aa48f66600128087"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "bc011ec94af8fc8b12a3de6e2c88f257ffb003325782afeaef396e1295c4210e",
+          "text": "Kuulostaa kivalta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5b86971fae66085136a16ca2e788c59c0bfaf5fe7b3d6b91aa48f66600128087"
+        }
       }
     },
     {
@@ -941,6 +1062,26 @@
         "reason": "Tuu/tule, siel/siellä and meidän mökille/mökillemme are register variants; the same invitation and place.",
         "fingerprint": "ea83e22050d6ccdd4805654dc97f38f58398166a04640e4dec36604a61eb12c0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "f9deac34b1977d32536bb740e2a701b55d0f38698f5772752351e2659849c57a",
+          "text": "Tuu meidän mökille! Siel on tilaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5fd4578304c2aeba7562d3802dabd33f26e769255cc03019d2a85db30abf4957"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d1987a322c5be825d8bbf61a52a5e3431fd7df243c9de539f8255797e91a7f15",
+          "text": "Tule meidän mökillemme! Siellä on tilaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2b1b39bb9dacc81088a992f30e5a494072aa8f49627f6917894ef3e157762b38"
+        }
       }
     },
     {
@@ -1019,6 +1160,26 @@
         "reason": "Oikeesti/oikeasti, kiitti/kiitos and mielellään/mielelläni are register variants; the meaning is the same.",
         "fingerprint": "f41a671d7b791ff4a8daeb76e671c5351089012e7eaa24ff239b04835ee9909e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "51dc854945979dc3dc2e594cfd73fd5463401ac06bdd5fec3e8fabbc4a5fc030",
+          "text": "Oikeesti? Kiitti, mielellään!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e4aa080b09a54193dfa3fbbc3c37c2fd24be85e733bb090cefbcf451cf2fd19d"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "b51f3cbad4800047b2f51c050406bbfa63ede626ab2abd8f0d0fc0dbdbdc96ba",
+          "text": "Oikeasti? Kiitos, mielelläni!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f4f3a54f335c76cbd2dfb4e1501c0fbeb03c89aa0626d816f9adc78a0a7a0d50"
+        }
       }
     }
   ],

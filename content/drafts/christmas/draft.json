@@ -98,7 +98,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -288,6 +289,26 @@
         "reason": "Same: Christmas in two weeks, are you in Finland; only register differences.",
         "fingerprint": "f549bed4bfae437b7efdc99e6b9366b5c476f703cf34d1f49b8a465a18ba7a2c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "863407537eb5f0c232b37bd60c24b29ffa38e6b70d22e7c8843840158f1b159c",
+          "text": "Joulu on kahen viikon päästä. Ootsä Suomes?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b88b3c45b6a8e3e86d593094c25a6ec6d44b4bca856a4cf8b9f5db83fb030b00"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "58a3d9d6dcf5b0c68e2027687be08a74b312c08bb84e34fc214f8ce27d242051",
+          "text": "Joulu on kahden viikon päästä. Oletko sinä Suomessa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "5a1ac5c96359976dc71b9a7b183e3edee447885d1962c3106f8076514277168f"
+        }
       }
     },
     {
@@ -443,6 +464,26 @@
         "reason": "Joo/kyllä both mean yes; same statement about not flying to Brazil this year.",
         "fingerprint": "e161dbbe34f762c51016f070903cb43383199fd4ecce2a241d395bcde946e5a5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "9f865fe846a131766e79f1db4771c263efabc796259ebcb1e3e3497a13d3547c",
+          "text": "Joo. Mä en lennä Brasiliaan tänä vuonna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a9f05e5766c9977c4d88524ddbc397bcc7222fc75c19f81bd2f8cd1de3a1db06"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "e064482afafb9d26f0972b230d56c09909085b9394f6f6570e2f52f701090161",
+          "text": "Kyllä. Minä en lennä Brasiliaan tänä vuonna.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "77fd783043d1964831215747c6c68ae87c9d718a7a9917dae348d2b4aaac835b"
+        }
       }
     },
     {
@@ -564,6 +605,26 @@
         "reason": "Only the spoken Suomes vs Suomessa differs; same meaning.",
         "fingerprint": "a7a7a79b2de0dfd6ad5fdd49ba3c55a5265e0c88aa8d6b60a3b17e8295571b56",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "10928328e0eafad0fb6990cb22bdb20cb7d6f543b1a200d9c94c9458bec81c22",
+          "text": "Suomes jouluaatto on tärkein päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bd61556c4e1c94174e4fff9868790b4c7b1799789497f6efe5f3ff5698aa37f1"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f3ee4c5538fac9ef109599886b871c2f639b9c5474a4d60b266bf8279147a2a8",
+          "text": "Suomessa jouluaatto on tärkein päivä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6a9a4d92c1cad9a04bb46749531d7a60aa5e228df6b523bdc12d10c0543f6d87"
+        }
       }
     },
     {
@@ -639,6 +700,26 @@
         "reason": "Both say 24th of December; the number is spelled in spoken vs written form.",
         "fingerprint": "cfd24f901fe641a3798c58b2df49afe252acd553983a17dbb30a762c5cf772ad",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "d72533fd60a3a1f90e8166e3b0a666650bc2f7bb85b314fecad941f31362291d",
+          "text": "Siis kakskytneljäs joulukuuta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c86a755561a19504bd424dd0efa1ace047c0e251896a05f0db6b7603ea045a96"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "f6c85ad71086f34ebc46cba1e63b8c84f88442f8b31d4c22fca8d36974ba09df",
+          "text": "Siis kahdeskymmenesneljäs joulukuuta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "feffb2d5fc2485412d5317a945d46d157202467252fd34d4eaf275216a4b1aaf"
+        }
       }
     },
     {
@@ -793,6 +874,26 @@
         "reason": "Same: we eat ham and casseroles; spoken forms only.",
         "fingerprint": "6211df91d05cd5675ee71fba4f4b5cb03318b3223261b0cae6b877c3595f53e3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "7f66947f5b0b539b1e9c6b4e8255e3186e3ca99856e2d15d215c082bc4151736",
+          "text": "Just niin. Me syödään kinkkuu ja laatikoita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7b78c4e72c85f1bfd7d96181e3a420f941163332ad65b3ee9e1bdb4f2e8f5c8c"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "c49612ade9c06d3710a07eb867271671f06f069d1469f501957672b6d1abf3f0",
+          "text": "Juuri niin. Me syömme kinkkua ja laatikoita.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6f718839772038ad6906e3d94da14c3316b82d904b2261872548a8b4c1cb9a03"
+        }
       }
     },
     {
@@ -848,6 +949,26 @@
         "reason": "Identical lines.",
         "fingerprint": "ff81ad8e945bb44ecb0f2243255cf1870b8facf3dee1f09e04c2d1867a4b0fe7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "967f33b8cba630086299584c31b8501015919608c6e39039d0fda3ce938ae643",
+          "text": "Entä joulupukki?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4f67365dc30ec7d966d401d1c1a484dedd39447f55def4186ef8523219b806e0"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "e8d0333dba3281aa985e3dbd7a68280440fd94a799ac03dbefc362c33948f49d",
+          "text": "Entä joulupukki?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4f67365dc30ec7d966d401d1c1a484dedd39447f55def4186ef8523219b806e0"
+        }
       }
     },
     {
@@ -1052,6 +1173,26 @@
         "reason": "Se vs hän both refer to Santa in speech; same evening visit and question.",
         "fingerprint": "f9d2e7ed0038d4edd26efdd8d8a2e902cfb26197f2aa535d6856fccea4556c5f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "8320520965363ed75629ff29c0aec23666794503ec5b7b64d333d4ab62ce18fa",
+          "text": "Se tulee illal ja kysyy: \"Onks täällä kilttejä lapsii?\"",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d26831ed029026dd82d208ced8c9d1b96ad189178c813d2e2c3cbe295a2065de"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1c1e8b5441bfc8991de4e0acb25feb36576855cb6da53e152be0c8361b60e7f5",
+          "text": "Hän tulee illalla ja kysyy: \"Onko täällä kilttejä lapsia?\"",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "822f95e8f0da8e8ad266607a64e6087adf14d4807f5ac89323ff1efd5cfe2c1f"
+        }
       }
     },
     {
@@ -1151,6 +1292,26 @@
         "reason": "My children like it; spoken mun/lapset tykkää vs written minun lapseni tykkäävät, same meaning.",
         "fingerprint": "6f7f968e1f597d987897d311e75290b2ec8484b37244162d44ee5c205d06485f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "965d517dcad20a37ca147a2d8d5623540be106e39141ff624c2618e9297e4686",
+          "text": "Mun lapset tykkää siitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bf4b3ea2a82c0a030e5c5d3a4a378a8e6053439df94bf10bb2a9547fa46ca8fd"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "a05cba4bbd4d067fbbf3100a93f21d269049fd6b6a7bac14c4551df62aa60046",
+          "text": "Minun lapseni tykkäävät siitä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6329a952a12a8ed363874502ec7587ee880b7548e176051cc2d6ee5daae600b7"
+        }
       }
     }
   ],

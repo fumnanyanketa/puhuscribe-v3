@@ -95,7 +95,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -254,6 +255,26 @@
         "reason": "Only register differences (mun/minun, lähtee/lähteä, kiitti/kiitos, tosi/todella, kivast/mukavasta); same meaning.",
         "fingerprint": "c073210c3392d2e32f925218bfaf42a5d0fa29b133388076d642faea757f7d34",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a8407a3858b36e3409125db41f5e770d960b34a398d5bed8948df4f738cb72ab",
+          "text": "Mun pitää lähtee. Kiitti tosi kivast illast!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "27af5d429d4dc255160dc5c06d6429e0ec4a425cf65e7f83da271df781f1b5cd"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "48f3691618afcd70fcb0f5722c0df65e4f0c0a66a9ff865bd06536ca1943dc75",
+          "text": "Minun pitää lähteä. Kiitos todella mukavasta illasta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1bd6b48b6c1cc8bd50bf39eb9b05a7e401475af88a0363ebac30d8bc31a408cd"
+        }
       }
     },
     {
@@ -352,6 +373,26 @@
         "reason": "Kiitti et sä tulit = Kiitos, että sinä tulit; same meaning.",
         "fingerprint": "8f9340a80d85a46900f939dcef0aaaaa67013171cdf993bb9cf8ac700f1b79d4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5837ba5beaaf6f90c77d3bfb1322fa8c4b3c2a0a717672915ecb2509bb9409ef",
+          "text": "Kiitti et sä tulit!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0b6deb557e15c2c1d545f1c95b3184e834ee4a7a0285aed774278672043c8124"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "68e7b6f9e98df1a3170a4a333287985144e57eaada57ce88749fe7a7155bf857",
+          "text": "Kiitos, että sinä tulit!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "4ce146ea77bfe6d886b9032687ea6046781af014bce660e02fd4c4be4091d81f"
+        }
       }
     },
     {
@@ -512,6 +553,26 @@
         "reason": "Tosi vs todella is only register; rest identical.",
         "fingerprint": "23c8e9da7fe578ecbb602b5c620bbb7c6267a8ebacddfb2d1c99c736c50bf065",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "0a87df14b1e19e3fa8e5c801479d2ce257b23a0e63bb07fa02275920281c1f05",
+          "text": "Ruoka oli tosi hyvää. Kuka sen teki?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f5ef752e54d0853bda7b3511cf4001aae1af66989c9ae95447f1820beb99c022"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "723ccebd493d9d061704fa9c1ccebbb8aeca21f3abd4d4b9724871bdf4c54921",
+          "text": "Ruoka oli todella hyvää. Kuka sen teki?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "92043aa6b001ae95b81895132407efe53d2b2cb5c69acf1b3e6a7eb0f45a4c8c"
+        }
       }
     },
     {
@@ -654,6 +715,26 @@
         "reason": "Mun äiti/minun äitini, se/hän, Somaliast/Somaliasta are register variants; same facts.",
         "fingerprint": "41c953cdb0b057aa51669dfe1e3365547fb346577db271233959269e82b846ed",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "c270907fd9ad6527f1517c3179bad14473ea22915a9f11d150216bcc13faec27",
+          "text": "Mun äiti. Se tuli Somaliast käymään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "809259f73c91f99d0211537b7c75715e9b08a4e3ee2d05d5603df1a238b41980"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "080e095739e4540158a02363445290f6cc153e3a195540728d9e722963a4f572",
+          "text": "Minun äitini. Hän tuli Somaliasta käymään.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e4ad3bd70e4f8e8b27db0e3aef9ebb0b81a2c83884dea1131b96dc2dfd10b72a"
+        }
       }
     },
     {
@@ -754,6 +835,26 @@
         "reason": "Sille/hänelle and multa/minulta are colloquial vs standard forms; same meaning.",
         "fingerprint": "78ec7ce847a04220bcef35222f1fb4b7ed322c2234812d14a0f66d81ae8c42db",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "5c59ae475214a6a12c915bab7e5677c3ef10c16bfc059fc65fe62224b03a3f91",
+          "text": "Sano sille kiitos multa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "5de7a793febe105f765ef6934c76dc9c60022d4618317cac234e9bfc4b67488c"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "d708789e273a88a69f7a424174bbf764144682c40c4543c3db8564ec20428eb4",
+          "text": "Sano hänelle kiitos minulta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d478d2f31f7244ec36ce33023cf48e78c8333460a60de233e7a1352b20a73478"
+        }
       }
     },
     {
@@ -898,6 +999,26 @@
         "reason": "Pääsek sä = Pääsetkö sinä; mä = minä; same meaning.",
         "fingerprint": "4f4c26868b89f5f9ac02f1004f0d09011781bd9cdae368f78de8042eeef58d2f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "1293a22f21e8d1dc04074ff9dd282a14e07c96e313cce37257caeb714263385f",
+          "text": "Mä sanon. Pääseksä kotiin hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "710c1515e2d4e7a2372e86f5eeef26e5f87e96af776c086ec5525b770f1838d3"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "af312739214addb9baa203254fa0c9a945e3d141339bb6df831c27233de8a80c",
+          "text": "Minä sanon. Pääsetkö sinä kotiin hyvin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b47e33a1eb1978dcd59c50a7320872836e3c310d2e82b98586c49cd8004667f2"
+        }
       }
     },
     {
@@ -1014,6 +1135,26 @@
         "reason": "Joo/kyllä, ratikka/raitiovaunu, ihan/aivan, tosta/tuosta are register variants; same meaning.",
         "fingerprint": "2458feaac8c869389d29b98b447da5f08e08c1cc970dca8ec2594bcd5c1bd4ac",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "954a407db7dd2900ba0a2152f296d2dce9d252a7c00ad0d64d7545397fa50ac8",
+          "text": "Joo, ratikka menee ihan tosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "232d28726e24b0e8aa70571a9e2d8ddd06d03758cd70a80a883cf2c37e187dc5"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d72dc3fee906bd621bae32ef402c3761197aef9746621ca21e90ac92619d6348",
+          "text": "Kyllä, raitiovaunu menee aivan tuosta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "259a064d8a8a7ebea748fe7ac0ec2ae85933f2ef52b26928d0acb8c9ef6bfe11"
+        }
       }
     },
     {
@@ -1093,6 +1234,26 @@
         "reason": "Lines are identical.",
         "fingerprint": "258409e3225ddd4f37facdba62e8de5365d217fafa0d8c3e82db8f8312995d25",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "50981e2df928150681ce93f39adbe5df4374b5f88cbd943ee64488dd850c4c42",
+          "text": "Hyvä. Hyvää yötä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "deba09d8ab819b4ee68596bd00fafdd9b88a9f360654dc952e5a4ce82460b57b"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "888674ee50b586a23d0850a8ccf7da7955a1fa8157d05cd4968d7884e3a8546d",
+          "text": "Hyvä. Hyvää yötä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "deba09d8ab819b4ee68596bd00fafdd9b88a9f360654dc952e5a4ce82460b57b"
+        }
       }
     }
   ],

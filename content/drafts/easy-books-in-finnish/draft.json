@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -245,6 +246,26 @@
         "reason": "Same question; only register differences (anteeks/anteeksi, onks/onko, teil/teillä).",
         "fingerprint": "d55d784e02933c9c9bab70a767ec7a980cef14347680e8a6ac03eb35732e162e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "e4d7d60e7823ae65c794316be627b4d24e259a413cf67bec7a992babd63fb6a9",
+          "text": "Anteeks, onks teil helppoja suomenkielisiä kirjoja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f60e6d7bc82870b83447085d31e38885f6241918a67bd8564fe7a5871fceb32e"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "7a31f7eac28e87eb2bb900064c2b1602da026ded8d19582b66192e1f6a064704",
+          "text": "Anteeksi, onko teillä helppoja suomenkielisiä kirjoja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0eb4014b8e88c0ce571ea9a69a3cab1e15550942537ec95c8b96e990927f2ecb"
+        }
       }
     },
     {
@@ -368,6 +389,26 @@
         "reason": "Same content: yes, easy-reading books are over there on the shelf; on/ovat and hyllys/hyllyssä are register differences.",
         "fingerprint": "b3082b873c73e7cf906b71aa27ccaf1f4e9045844a71f6df7e62151deadee419",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "e832826ee77210fd58ddf0b9b1df443987f9123f98fb5e5fd406b52d9fd3b985",
+          "text": "On. Selkokirjat on tuolla hyllys.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b9750468fac7cdc9ead4ec9be36bbf50e6408f2dc28c5468b70a19ff07c9b141"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0ce0577664789b4f11471dff2dff09dd0253574f818cbc857b490b2b1a9744c6",
+          "text": "On. Selkokirjat ovat tuolla hyllyssä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c945e10b4fd28b2539ec72413ec0becf30b7d2699d6c6fcfcc855b02e2b0bbb1"
+        }
       }
     },
     {
@@ -448,6 +489,26 @@
         "reason": "Identical lines.",
         "fingerprint": "83a3a0af3f36ae3b7c9724f9a4daa8fe6d382d00b2fb85330e86f4d0357a372f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "895e6e072154d3d8fc97930b970dd0cd18da2b4b0f79b6168c6dda7177a489df",
+          "text": "Mikä on selkokirja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "562c9ea9210358db40c07b570ee42470eafabb79c9544f7d256144b230ca58db"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "f0168cfd18c02a90f22722612170edc9e12065f3ea136ffea212ef12c1876826",
+          "text": "Mikä on selkokirja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "562c9ea9210358db40c07b570ee42470eafabb79c9544f7d256144b230ca58db"
+        }
       }
     },
     {
@@ -612,6 +673,26 @@
         "reason": "Same meaning; helppoo suomee is spoken for helppoa suomea.",
         "fingerprint": "00eda695c7b4ce8b76d24c9bb2f8947098dcd91aeefff48cc3520b0df9a6bb6a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "9a081382c5e1f6bf3522bffaab6c9fa8b11d461c93a45a55078e249cddbc1b63",
+          "text": "Se on kirja, jossa on helppoo suomee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "8b4fc6292720719a84e08358cdeb5d5e86299469e6729b0f66bc7c22f5d8703e"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "92b154a3a5819863d536ce09a5472b8ff4fe9bc88c2d6b977a4fcad58e000aa4",
+          "text": "Se on kirja, jossa on helppoa suomea.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f981a7599cdda13cd1b81e375aff06bb2a01eaf21d1821598ffd8339978e71e4"
+        }
       }
     },
     {
@@ -753,6 +834,26 @@
         "reason": "Same question about how long I may keep it; kauanks/mä vs kauanko/minä.",
         "fingerprint": "be470211804a962eb420ad093a6f29c65d707287ac7f15cd5dcfea9733c4ff21",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "41998bc25f07170e24d1bbcbeab7b4f42bfb4916142a1730f6dfaf4da3de74cc",
+          "text": "Täydellistä! Kauanks mä saan pitää sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b2a4b57d28f11cd97fb7ce50f7f86b5f8d8a13a3c1170b80255c17caf25d482f"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "a577fdda72fa37d4827275f8f0e2c795613f81a10eb2a95c78724abdca649f06",
+          "text": "Täydellistä! Kauanko minä saan pitää sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0c1bb97f43322f5294f325a780f88447986c86f93c8798e9df982729b7c75ca3"
+        }
       }
     },
     {
@@ -914,6 +1015,26 @@
         "reason": "Same: four weeks, you can renew the loan online; netissä and verkossa both mean online.",
         "fingerprint": "1d6023e70c25a04433721c6f0280292ca8e60aa2eb0022c1acc70123ce31c16b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "c929ddd7f18953a07d48f78d690c34f7b8d37912d8cb33d79d16dc1b8ef89bf5",
+          "text": "Neljä viikkoo. Sä voit uusii lainan netissä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "10baeffefe0565214ffa276ae9933abf0d2b3ed246533a4bd61e9b96d62519bd"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "1b94b2c0698faa925ab6248db8554a5948fa6dd29a15da3a0785170d7b3cecaf",
+          "text": "Neljä viikkoa. Sinä voit uusia lainan verkossa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "50f075fd084fe72a9d7b1a4b1a32c56fdb38870c7fc57863e2dd2c4e5de64878"
+        }
       }
     },
     {
@@ -1035,6 +1156,26 @@
         "reason": "Same question: where do I borrow it from; mist/mä vs mistä/minä.",
         "fingerprint": "a412d1901bca2e05eed72c1a5ccc9277498a103db8b4a1aa4e132122de702910",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "0640528894db25c1c3e257545d83254776880ead2bb2c81ae956bb0318cde734",
+          "text": "Hyvä. Mist mä lainaan sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bf9f1b981c3dc4283de73ba25bf27a7f0ad4425273ff19af43cf562841917240"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "1f1450271d171e4314b3d3461e2be2b486e19bbbe0ee8a8a465f28f383c4b3a8",
+          "text": "Hyvä. Mistä minä lainaan sen?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d39bab432912bad7ad2f3a45004bf432792f14f595131b24e22dc7f27df38c17"
+        }
       }
     },
     {
@@ -1173,6 +1314,26 @@
         "reason": "Same: from that machine over there, just put the card in; spoken forms only.",
         "fingerprint": "d9bc37bbcb32358fe3646adafafcb31123d6b3812b340c442fc660c368ab7c0b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "aff9073749a3c9a69314d3633443f8a134a1eb6d5644fa9dcd6b6171f520ace6",
+          "text": "Tost automaatist. Laita vaan kortti siihen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "957f3af58ac42b89044594d2e5fcd0c06b18b1f4506cfa868e7bbb7af430a1c3"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "324265b4a83198bd7e0a758e5e103cb1b8ad38961108f155a96b72f830d1a9ea",
+          "text": "Tuosta automaatista. Laita vain kortti siihen.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "09fa41f8f1ea11b6944572191173cfcef426789bc277b2363f161416f24692cd"
+        }
       }
     }
   ],

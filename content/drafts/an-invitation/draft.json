@@ -95,7 +95,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -246,6 +247,26 @@
         "reason": "Only register differences (synttärit/syntymäpäiväjuhlat, mä/minä, sä/sinä, dropped -ko); same meaning.",
         "fingerprint": "d515685aad88e7f016012f5165356978bb0d817bcc64e8598bcf5fddf73db186",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "2a0279e0b80467b209d1dd7823ae2017c425c6b95c90389e52fc092d0a133111",
+          "text": "Mä pidän synttärit lauantaina. Tulisitsä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "69e4a0ed9c7f1d34cef0a121adf995dedd9d704a992344752d032b20b0058e32"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "1685ae0f05db0b43ca2ec56d4cc73d68d099898d035182375ceed5298a66175a",
+          "text": "Minä pidän syntymäpäiväjuhlat lauantaina. Tulisitko sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0d0d42af26d8ea8f4aa5da69c9fa9889f1f7f7197346e69ebee1c859f895e684"
+        }
       }
     },
     {
@@ -347,6 +368,26 @@
         "reason": "Kiitti is colloquial for kiitos; rest identical.",
         "fingerprint": "2fdf635b66a358f0298787a54523e681001a07c960a6fb8f4f1becb96d2736b4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2473a9f4c4d340b4c12659b536a96c873fe4f72360cb66acf2d0745ebcdcab90",
+          "text": "Kiitti kutsusta! Tulisin mielelläni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "437aab4259a72d6fdfec073c1df1ec70a13c878fdc89f6c77842a3bfbdbffab2"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "ba274211c5f0f8f8d547cf9c3f6471d0f69c50cd7c2de514dcca1d6beb7811bb",
+          "text": "Kiitos kutsusta! Tulisin mielelläni.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f62af68248bd1c3bba40f2ff3861193612a316722320eb78ba70ee1b2f71ffbe"
+        }
       }
     },
     {
@@ -482,6 +523,26 @@
         "reason": "Hienoo/hienoa and mun luona/minun luonani are register variants; same time and place.",
         "fingerprint": "c9b53d37884e52ce5a04fb3eff4b3a1c721bc813db3553400dd27cd938b3debb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "48caecca25225af666f02b1e3cd2c9d8cdb8bd28e651488f508a7b6959c60567",
+          "text": "Hienoo! Se alkaa kuudelta mun luona.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "08178b5d70240acb32355fddbb71b7ef448122094abe73bf8219284106fab9e7"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "9be7a50ecedf2970ce348bcf4bb53aacb49d7d61504083721eed1a05874a1c74",
+          "text": "Hienoa! Se alkaa kuudelta minun luonani.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "c8a55883acf006b3ce42f727929de1d3d6b06d7f687e6f3cd7fb5a2035498887"
+        }
       }
     },
     {
@@ -584,6 +645,26 @@
         "reason": "Voinks mä is spoken for voinko minä; same question.",
         "fingerprint": "6835b3a77bedbf8e531cceee06aa884bbf2070c765ddeff851fa0b886487cf48",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "b6a4a80967ce5acd6246fa106fcd0e0c879b0d39bc8b6580b0d736c79f2f0df6",
+          "text": "Voinks mä tuoda jotain?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "04daf6f77c69b3769075259ee62640ee88237b1582e9e8a0dd6f10177cb7f256"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "88e902b871b5c046822bdf29b0898ffabc7f6e8ca8109660c5b17830383e5904",
+          "text": "Voinko minä tuoda jotain?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "87c953263e57a3a8a6ba0428744f45ed6305a038e936f9c330d4eb015d360560"
+        }
       }
     },
     {
@@ -765,6 +846,26 @@
         "reason": "Ei tarvii/tarvitse, mut/mutta, haluut/haluat, jälkkäri/jälkiruoka, ois/olisi are all register variants.",
         "fingerprint": "da0a36689e852e4d74d21bf1c6240af2f6ad166eb1a8dcd663ed58a1956caf8f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "16e11b0bf2272283649cc30ae55d6d03dccfd87a3f513d6e88028d1df6bc3a5b",
+          "text": "Ei tarvii. Mut jos haluut, jälkkäri ois kiva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "a2ec0408ac12823e40cea718d2ce13ce4d4da1af699f0ffd349f59d95fbeefd0"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "faf64b23696129551e517ca69701e14211bf2f4176bd3f2e0ac54428c684cedb",
+          "text": "Ei tarvitse. Mutta jos haluat, jälkiruoka olisi kiva.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "9216e5232e2c13334a62b3b1bf1c19ca34740e62eccbaedbaa85ea590361dc15"
+        }
       }
     },
     {
@@ -845,6 +946,26 @@
         "reason": "Mä/minä only; same statement about chocolate balls.",
         "fingerprint": "92f0049b4e362c36a53b0268cc231e2b3fd2ff40a244fefe0349a25e9a2b745b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "220c68a89b5d251dc76988c438ce505570edcb6c3d27c3aab5e3f4d2c794974a",
+          "text": "Mä teen suklaapalloja!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b090f6e5f9bbf923d279f5b81b0a8dc1ffb2f839a81c58333370322c148fdbf3"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "f2018b1c9230de1f0f54b00186d14591d4cd48a814985586e74bd40f32448e55",
+          "text": "Minä teen suklaapalloja!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "a2b06eafa5eec930c7c3b20aace43f63ecc1258003db5a6293559c56eb9912e9"
+        }
       }
     },
     {
@@ -925,6 +1046,26 @@
         "reason": "Ne on is spoken for ne ovat; same question.",
         "fingerprint": "c6d405a89b162dec86bda130bb38b84d15a882335ef2735ff21d9fcdb4337b9b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "1a65bc96d730375785e5779e8c8de9ea97abdfc00655b9b91eed6d0f7db43ef3",
+          "text": "Mitä ne on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "93da9f1336bdda62906678e5d29c26650ac22f07351313a9d7591dfadac88312"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "aef77fbe6cf4e6b9c739e949b4536b6abe29a35a1d79668474933c23852c26d0",
+          "text": "Mitä ne ovat?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "0dab59a9d3f86273b936021cc21acceb5f9ff509a09186a7d6f7cb171978dc42"
+        }
       }
     },
     {
@@ -1026,6 +1167,26 @@
         "reason": "Brasilialaisii/brasilialaisia and sä/sinä are register variants; same content.",
         "fingerprint": "229ab379f08f30a451dfae414935262cf7c3792a0a7bb683a93bc649bb62c781",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "64cd9cf13c8abe48ef09eda8eb9237dd374d2cfe3d7b7ebfb98030e99e7c9b81",
+          "text": "Brasilialaisii suklaapalloja. Sä tykkäät!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0e5adbe79c29157646fda8ad45655cb852e3ad93f57a4b829de46d2c9e5165e4"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "523ac872b32dd502e6f3d880f9307500e51163307f8cbd2ae635d58caeac9c4a",
+          "text": "Brasilialaisia suklaapalloja. Sinä tykkäät!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d7e48a2f326bceb4cd29708463db9f64c982319d5f0e6f2674fbf83e40da55de"
+        }
       }
     }
   ],

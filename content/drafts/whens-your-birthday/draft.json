@@ -98,7 +98,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -201,6 +202,26 @@
         "reason": "Millon/Milloin and sun/sinun are only register differences; both ask when your birthday is.",
         "fingerprint": "e7291d79ee152eaf8f287141af60bb93b680c26bc824a098c9794c9583aa2dbc",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "57bedba68dfdc20510d18984d4f0610b27936057bbf0ff68de5a48f27b144d70",
+          "text": "Millon sun synttärit on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "621ab4395bc2859c5190d3d1f67ac9055a4f7c5dc56e1d81601430e3cb808327"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "3c07577d32e91f6b736d976faf1bbaff48869962a71b344e858378470c9318b8",
+          "text": "Milloin sinun syntymäpäiväsi on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "71bab855385f439afd89f62bb7dfea2b591538354b8970c8c40fb33f03afab30"
+        }
       }
     },
     {
@@ -296,6 +317,26 @@
         "reason": "Same date and question; sun/sinun is a register difference.",
         "fingerprint": "a8c99abebc5eabc8449c422cd144f18e15cc5127f6494ee93ce1d38361c1f855",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "c9dcbfcfbc1a9155d5bb762b49ab7e41ef7054f98b15843a353d67432e845fbd",
+          "text": "Toukokuun viides. Entä sun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "91f65a159ceecd1b5efefc047320332cc7e9f787a5311f4c6ac2f32a92648df9"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "4f7aae232d661c0ba5d1e476cb28c8e46ec6c4557b03d128ea827cef9897d42b",
+          "text": "Toukokuun viides. Entä sinun?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ea30df5dd154303ff05a9f5774431a14bf9f9ab077fea195ad2bd3b656d97cd7"
+        }
       }
     },
     {
@@ -432,6 +473,26 @@
         "reason": "Mun/Minun is a register difference; same date and 'day after tomorrow'.",
         "fingerprint": "1bb1e662e0ede94d255011f5cbd8805ece6a56cb599724f4447cbc7a03ce8e50",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "453c91eee198de5c4de06fe757352197372e950f62c14a9c9a0e33f0744371c8",
+          "text": "Mun on lokakuun kolmas. Eli ylihuomenna!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "f648e031b826d9e1e991b2cc224b8fadac02739b797cad885e087a6068c70fce"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "854f2f83857b6969865ad8e1b608fcdc6c76887b166189505d7577ad1e0d8dc6",
+          "text": "Minun on lokakuun kolmas. Eli ylihuomenna!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "7139652ce644a8add24ee43b63cf6a22ac114d1178ef434c4d2a2300c68044da"
+        }
       }
     },
     {
@@ -528,6 +589,26 @@
         "reason": "Oikeesti/Oikeasti and Onneks/Onneksi are only register variants; same meaning.",
         "fingerprint": "10636a12b1bfce435d671f779effd93fd443d62760af6b8c10100397b4e38c73",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "f18173039cdd7ed0b90d27251fd5e100908b6ebd284100fb8d8d0174dfd6b407",
+          "text": "Oikeesti? Onneks olkoon etukäteen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d8654501c886bf4d6083405227c89ba3ac52b3a607a843d230df6f9848e97e7f"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "4d935a691ff56ddfdfd25ee203772fd9e22761966687b282569c2ca9a9ea1ef2",
+          "text": "Oikeasti? Onneksi olkoon etukäteen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "127aaf5b7cbca83f620882a57aaaa6eca99c89f756dc868eea8defb7cef9450f"
+        }
       }
     },
     {
@@ -670,6 +751,26 @@
         "reason": "Kiitti/Kiitos and mä/minä are register variants; same party plan on Saturday.",
         "fingerprint": "bfe22e66245d959a9a04ca1a041c910bebc1c2763eb63d827906598a0b6b1b0a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "0a69cec8067ae9b3397ecbad9a7b8ad9e4beedcf31b99365f1c148b428119366",
+          "text": "Kiitti! Mä pidän pienet juhlat lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "84757c42c4c29cb699fdea7f6428f5b4b69b7e3188b800dc79594c023fcea652"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "cd945c903c059c31fa31a7903cdcb852b33b429cd7ebe974158064b08ba584cd",
+          "text": "Kiitos! Minä pidän pienet juhlat lauantaina.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6fe4715871e8e5705ebc22a18b56d9a2b98dd58cda95e638863362e1628c13c8"
+        }
       }
     },
     {
@@ -790,6 +891,26 @@
         "reason": "Vanhaks/vanhaksi and sä/sinä are register variants; same question.",
         "fingerprint": "0fb9289da4f9ed37c9b4d8d37d40ae3db7f04079e13cafddfab74dc90395393c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "6c700346f134d2fb2528551cbc27458d6ce71f762cca23c887e94b62cf3094a2",
+          "text": "Kiva! Kuinka vanhaks sä täytät?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "faae6cc25eefc86f70c6a235f2e064dc2a3afbdd5dfb386dd9cdd6de8219751b"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "b2daa1a5df93c26fec61c5b8ed4a139ff35b5fa703fcb776a722af56c2f0921d",
+          "text": "Kiva! Kuinka vanhaksi sinä täytät?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9b8413d77c7ae1dcda9b0c886c00620318b1222c3fd99df2d0d2efa70b02f13f"
+        }
       }
     },
     {
@@ -827,6 +948,26 @@
         "reason": "Kolkyt is the spoken form of kolmekymmentä; both mean thirty.",
         "fingerprint": "4321ed5ee8c8d406f90dc0aed445abaa3bdf1f117874adc1da444dc30a136791",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "75fa4d830ef6bd8f4e84a3e0519feda041ee94efbb8d820a81e99ff132890a4f",
+          "text": "Kolkyt.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "4a7609143acff6e36c8464a98e366bf99d0d9de35b313ac9ea721f95db0a03dd"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "64e90fd7bbe2ced3ff3b2d35f4cb1e18339ef709f701fca5585a30b854dc1c2e",
+          "text": "Kolmekymmentä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "fca99799b101f373863fe789165744633e29f034a0221053ab708fdcba55e3d2"
+        }
       }
     },
     {
@@ -946,6 +1087,26 @@
         "reason": "Pyöreet/Pyöreät is a register variant; same meaning.",
         "fingerprint": "b0a0b306494b4c3d4ec10a89ea0f4af8c0dcc2a2979b9e07be459c71f8c283f8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "e7f4288a492da682883c4ac3f2911fd3e4297af742c80caff3aa454a623bffd9",
+          "text": "Pyöreet vuodet! Pitää juhlia kunnolla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1112729bb62245365cba41acbf37031b5d3fe061a35862efb1d3b47ed0ceb460"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "aeb5ce416f93a059c6ea8b2e26fd71ad74230c7374128303d290498e8eda12af",
+          "text": "Pyöreät vuodet! Pitää juhlia kunnolla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f2103db712b2809993395e0d5d087a40f883dfd7e037d2e90c2204bda289c1c6"
+        }
       }
     }
   ],

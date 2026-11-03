@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -269,6 +270,26 @@
         "reason": "Same question: do you know that Oodi has free language cafés; only register differs (Oodis/Oodissa, ilmasii/ilmaisia).",
         "fingerprint": "950380d63d464e484f0e53030b46c492fc2ae8b1a97dec706fa0c351d81869a2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "a575ae68b4c7fa695f7e258716c08f84d92f3062681b4a36ae25c36f38311ac6",
+          "text": "Tiiätsä, et Oodis on ilmasii kielikahviloita?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "6afbc36ae5c9f1b5ea1578475bd7612d8131d8ed3a63f96d0f0b7d3b3def4705"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "af2552cafd64abe70c1df9a191786dc5a94e89da332b88e3c36d7819abf1ed37",
+          "text": "Tiedätkö sinä, että Oodissa on ilmaisia kielikahviloita?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "216b68e71fb908ac1c7adee80098673a9fdcd88dcd8fd561a2a7bed866972733"
+        }
       }
     },
     {
@@ -325,6 +346,26 @@
         "reason": "Same: 'No! When?' Millon is just spoken for milloin.",
         "fingerprint": "1e46cda3954a69e1c37affc1b052db7fdfc9a1b0f501aa5903a668defa07c8b4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "7325f78229ba9a80d39db0d77d388bb96fbb0f2063f434e42f18a7d1857f8f89",
+          "text": "En! Millon?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c0690eb224f402492f7f71d2d198bb54c057eb36fd72ed2fe2bea44cc8b96240"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "7c3ea9438e515d789b7d616f7f3257b13d2b22d61b2c9ca2b731ac6292bede29",
+          "text": "En! Milloin?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "bf77dd8b2813a30b567119eb220c1cd9a86597e69307bb8219115c7b74f838a9"
+        }
       }
     },
     {
@@ -402,6 +443,26 @@
         "reason": "Identical lines: every Wednesday at five.",
         "fingerprint": "ce8261677c9084b38e284cdc5e574201b6f0e5e3f0f4078884602a9b88aabebe",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "1b3949cb86d0c7b5d9a198e9f79d8815b7aec23e9ea79365d5a92ed63f544239",
+          "text": "Joka keskiviikko viideltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b5d8a3a150ff8e868d901af3616d7b8fbf4dea4c4f512a4a582e0d7c7de5f9bb"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "60252063dddadfc99f9ec88cfe13a2eae8aea7f2d248cf5f372017f36e28b56b",
+          "text": "Joka keskiviikko viideltä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "b5d8a3a150ff8e868d901af3616d7b8fbf4dea4c4f512a4a582e0d7c7de5f9bb"
+        }
       }
     },
     {
@@ -479,6 +540,26 @@
         "reason": "Same question 'What is done there?'; siel/tehään are spoken forms.",
         "fingerprint": "b37432907fb3561496b3ee00c1bacd7cae275c194e17e4ba85d9de55688d6de2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "4ec02298efeaff70f9b24765cdd834cd72c4c2b736f3067d3671378e2181dd10",
+          "text": "Mitä siel tehään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2cdfb71941288de8f63eea67f17b171023bab7deaea55f27d10495041fb896fe"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "b015c865387b1b5db7373dad098f6b0a9d8c72f67725bb85beb3df33b841325a",
+          "text": "Mitä siellä tehdään?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c8388c27de00650bc020957ead410e87489bd6d76ed16af483820d453b98e28e"
+        }
       }
     },
     {
@@ -595,6 +676,26 @@
         "reason": "Same: Finnish is spoken there with volunteers; kaa is spoken for kanssa.",
         "fingerprint": "47b606e0ffb5c50a58588adf8ed55021e5a5bfcb726d23cd826e71f7976daaa5",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "8282ab0be82de30083a4b4a8ab988b5fb3c11821d821a77a86dd5de0255a4cd9",
+          "text": "Siel puhutaan suomee vapaaehtosten kaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "866f6a5b3f44aa34a59f7593bb92a3dc84179f702c2114037a315cf7bbc1b976"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "53fe5ab5b135811be2702d60bee07d3bbffdd9cbd33339bc9ba28772027724da",
+          "text": "Siellä puhutaan suomea vapaaehtoisten kanssa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d7f35564603f4faad49b7265bc64488539b270579abce655689621a5b90a9060"
+        }
       }
     },
     {
@@ -657,6 +758,26 @@
         "reason": "Same question: do you have to register? Spoken forms of pitääkö ilmoittautua.",
         "fingerprint": "13ea22ce51abb9e77fd7d71f82937532b6eb863d880ae9e55a4f3512ff48e501",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "43daa110217debe30fcb3bea5f8e554d1016ead9cb0fd8ab38f539458dffaff5",
+          "text": "Pitääks ilmottautuu?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8e5bea6efb479859f8f7486c166c0f571114921a6f6966b59457cd9ac2b04660"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "41d62a2af99f94098f1c396dde2c00c61057d130f901b1c817ab3c6de8481663",
+          "text": "Pitääkö ilmoittautua?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f149050e3565b4396ceb059d16fd2b1ff0e51f67891506d87a27dd15dde4d147"
+        }
       }
     },
     {
@@ -755,6 +876,26 @@
         "reason": "Same: no need, just come; tarvii/tuu/vaan are spoken forms.",
         "fingerprint": "27f9da2957ef6d5b94b3ae3f6ac6c7f2acb75a398919c7df0a9a9385b6480666",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7c203fe5e2272e21836af0330f16fc7f6375f0e6b4fc108568708d4eb6768aff",
+          "text": "Ei tarvii. Tuu vaan.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2ceed8c923f106279a20e96cee24576836503eed4f05d8a46f89a0fe8913a893"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "3a080a33a7e8a0543eceb2f801061ab67a184b747de56c1e8e1a70d2f730609e",
+          "text": "Ei tarvitse. Tule vain.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "e2645788227edcade8687543b99259ac1240c03e2d70721c8fd143ee9c97e5cc"
+        }
       }
     },
     {
@@ -852,6 +993,26 @@
         "reason": "Same: let's go together next week; ens viikol is spoken for ensi viikolla.",
         "fingerprint": "c0edec47b255ee3974a4ccb30eb4465153984ac4b623fd03ce2596ffa37d7c12",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "71d022933457410b3adbdfca5fabbdef004dd7812b38e091380cbae98b7d60bb",
+          "text": "Mennään yhdessä ens viikol!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8392d58150a9f7d9b968252951231755550062b21803b04fe9e9bd99f7358718"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "46fb5d92845d4e71bcfeb685d7653949bdb78d2049bc8075f636b46eaf5a4d31",
+          "text": "Mennään yhdessä ensi viikolla!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "562f2c7748b64df642b5a0b188653692ef5179d717466fe37d42775cdc98c976"
+        }
       }
     }
   ],

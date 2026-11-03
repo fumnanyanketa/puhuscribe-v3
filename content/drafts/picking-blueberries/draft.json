@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -160,6 +161,26 @@
         "reason": "Kato/katso is only a register difference; same meaning.",
         "fingerprint": "1952b4245d7a9d2c4a5bf2e8f56a6b2dd4de3b7f5584b111f5781688579cc8b9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "e6a9dd3f9d48490eb5a3fdb209b95c9fcf056367f3a61cd1df56865c1a7ae1de",
+          "text": "Kato, mustikoita!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "34726dec4bb883ddc0a67cc7af98cc42da0fb543e2d94775a7ac6a2ec5415a4e"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "cfd6f3194b1ed68cd7e3ddcfd9134ca967b4b26ac7796cd62a3eb3fec32ad14d",
+          "text": "Katso, mustikoita!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "21501537b0a3cc73e9088875aafe46b695d5b1f85105dcb870ef72a7364463c8"
+        }
       }
     },
     {
@@ -241,6 +262,26 @@
         "reason": "Saaks/saako and poimii/poimia are colloquial forms; same question.",
         "fingerprint": "86c1fc4a4f2f20c18722700d3a0b71e0b8197854dfacc975cebb80c5b2681731",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "5ed5429baecbed898986bf0c667129c2dff5cefaf06f7218649323a659a41ab0",
+          "text": "Saaks niitä poimii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b8bb4b9594fb83b4b947f934ef0f6ca606eb622ec10b1a2475c35ee4ca05ae12"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "99543807c53f5eb9f7b15a7eac7077ba7d8e18f5ce5b91f47f62379e0648679b",
+          "text": "Saako niitä poimia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "2f9e88525db1f58709449c8e739ee1a0b22449419fc6dacbd3d267c4227cc752"
+        }
       }
     },
     {
@@ -344,6 +385,26 @@
         "reason": "Suomes/Suomessa is a dropped ending; same statement.",
         "fingerprint": "eff5a8a1c9cbec116d8b08ff1b09339e8a490c6883f67d8f8c4cacecee1c41aa",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "04aa343018468903bb88b82374caf627d94d84a7621e4b9260c2fa529756d101",
+          "text": "Saa. Suomes on jokamiehenoikeudet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b85b455a46afffd6fa1bd79812192ede6da4aa7e9b60690cfea404bd78fbf436"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "000eaba9e87126731e49459f05043ebb00627041b086441065522a2309737c98",
+          "text": "Saa. Suomessa on jokamiehenoikeudet.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1f312fcd5919f2cede3f39a5647265af1cfd05203c8d6e12fa40fb2465a822d4"
+        }
       }
     },
     {
@@ -424,6 +485,26 @@
         "reason": "Tarkottaa/tarkoittaa is a spelling variant; same question.",
         "fingerprint": "b0706067d54be8b77e4337df37090da395913934c7c1d77d898c14a5cf0a1f48",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "bbd162e2c5d5bbf47a069811ff1ce8c9c0a43e03b65591fb644138a472a7050d",
+          "text": "Mitä se tarkottaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1b2cee0a0ae47b6bff1b62d8515b5737034565e2c85833db89c843fbd8862726"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "a9fafadfd8ada2804efd4f9981ce1199e7dd07ecfa14c9a009b9275cf8dc949f",
+          "text": "Mitä se tarkoittaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "027b829320ba6402f8a6229fd79a714f937a18cf051569e71741af0ab971150d"
+        }
       }
     },
     {
@@ -582,6 +663,26 @@
         "reason": "Colloquial singular agreement (saa) and dropped endings; same meaning.",
         "fingerprint": "038b72e926d6d3699a7e6a317aa03ad7f47d14085cae0adfd5539037be20b356",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f6d87392a9d8d35e6030ec77fca1375de5d91876adf17ad8fe08d04a1673c75d",
+          "text": "Kaikki saa liikkuu luonnos ja poimii marjoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ec0ee92bb6eba6aa3e429dd3bb30e6a12bf0369f6d41f6f5bc52f992274255c2"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "633cd5138d2532dc434553983030d394fb654c272403dc2b80eb2b61a306d06d",
+          "text": "Kaikki saavat liikkua luonnossa ja poimia marjoja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9eb9592ccaed3ded5e8f8dc5894787fa6ec74b597d2b25b20a9a6a4f136cc0ca"
+        }
       }
     },
     {
@@ -656,6 +757,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "5e06961cffaf39c9c92bec647fa3e67a7eaef2183ab6d4dc6faa7908df95651b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "86c8971507ae9facfd705330d315d4ddc11fa32be397f48188092208c1569646",
+          "text": "Mahtavaa! Entä sienet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "10cc8a8bff41b01a85e3728a526196b5400db9e0f8287415e4d9c9f72d2c3b67"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "027e0fc7b2b4636d7f729443858cd1b7bd0e19226dc8e5cea52dcfc63f1ff090",
+          "text": "Mahtavaa! Entä sienet?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "10cc8a8bff41b01a85e3728a526196b5400db9e0f8287415e4d9c9f72d2c3b67"
+        }
       }
     },
     {
@@ -818,6 +939,26 @@
         "reason": "Mut/mutta is a register difference; the rest is identical.",
         "fingerprint": "c9649e1ba48fdedda0c14cdcde77f33fa66f6a4a3baadcf1ecdbe381aed0a5ed",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "10b8ad455d4584b708655fac3918aaf7b06c4b01650026741ba31d43a2dcb237",
+          "text": "Niitäkin, mut ole varovainen. Osa on myrkyllisiä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "86f8e94066c2714ea6157421f8c57abfef3e567e9fdcb6d96dff0565c37c9c2a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "f54205fb6e704464a2f819aa9bf6059639ac7cf4b46c1a0c09938f282255fce0",
+          "text": "Niitäkin, mutta ole varovainen. Osa on myrkyllisiä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c0f5c4eee642c21ae4f5ae9008dee631741055e8696ba632316ece92f4c314ab"
+        }
       }
     },
     {
@@ -916,6 +1057,26 @@
         "reason": "Mä/minä and vaan/vain are register differences; same meaning.",
         "fingerprint": "e427963d09e6778b6e24b8887c6c186e847f70b0fe2e3e3d7058ea87d99d2a67",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "21c43f990b082b69f218b0fd2d558ff25f853e005a6b0ed1fe2016e9d9ccbf8f",
+          "text": "Mä poimin vaan mustikoita!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f8aed09899f898f1b6f2e65d2703f4564d6ce4f1693a705a1e768819e19bdf75"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "de55bf16ed95e4a5c3649b56f670f9a07126bc7013f20d6a8f2a4d19e8560603",
+          "text": "Minä poimin vain mustikoita!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0a8d16eb6aa3f8e9e1171de128769c1f8b77c427d2fa876238aa176b443dff03"
+        }
       }
     }
   ],

@@ -100,7 +100,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -203,6 +204,26 @@
         "reason": "Moi/Hei, mä/minä, haluisin/haluaisin are register differences only; same request.",
         "fingerprint": "62b476c927dc22a7650cd93141f3bef1baa4f1046e8744bae0ce86342557e367",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "c5dc7b7c33f236fd5f3e8f974b995808f90ac6598842c5bff7151aafec800d88",
+          "text": "Moi! Mä haluisin kirjastokortin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "138ec52bd7395d0d4c418e76f41a17c44b70e429eee8711b3313b37564340cc7"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "24e647e5286c554b585b2590b559f4b32a5ba4a97831b3aa063ce303f4d138ce",
+          "text": "Hei! Minä haluaisin kirjastokortin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b72e8e3a99b0d9078d578bfda7bc1ad21f3c6ddae9005b649139e045b422b0aa"
+        }
       }
     },
     {
@@ -323,6 +344,26 @@
         "reason": "Onks sul/Onko sinulla is just register; same question about an ID card.",
         "fingerprint": "e6f8ed8db710c0c8c4a34bfc141ad2191ac794b3446f050f614ebae12e3eaac9",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "71733589e473827ebe7766cdc99bd99fdfc9f1824f5c4bdd2338a34a7ceaf829",
+          "text": "Totta kai. Onks sul henkilökortti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d5e66eab1c670826787ff6a91ebf7d9a97b99f947d7404fd553ec9cd79dfeb27"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "5edc75f614b20eb7ab83ee9cf31c5e169d0c4ad99bb6330c872deef5f6b601d3",
+          "text": "Totta kai. Onko sinulla henkilökortti?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "b5e12d21c3414148bf729a944e4be35d12537b363c6b955ebf7fe98a9f86a202"
+        }
       }
     },
     {
@@ -447,6 +488,26 @@
         "reason": "Mul/Minulla and Käyks/Käykö are register differences; same content.",
         "fingerprint": "1bd4794c13a01863cf2dc7a76410da11edd529c942a138ac47407e0000d95937",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "6061f31a83fdc9318811e1bf7f8776474c704c1060fd0833268bb2eafce1ff70",
+          "text": "Mul on oleskelulupakortti. Käyks se?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9441e60f86d8501cf8b83b23478ac9769bdf67a46b70e01d82ef2d403cb14212"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "fb837b6ae61b78937773cc58083f0a77b81b94b8c02fff9e3e8e5d67c81d53b3",
+          "text": "Minulla on oleskelulupakortti. Käykö se?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "8173f924d19ae488571c33ac284ea34412d9adcdd147db6f258b98dad80018bc"
+        }
       }
     },
     {
@@ -586,6 +647,26 @@
         "reason": "sun osote/sinun osoitteesi is a spoken form of 'your address'; same meaning.",
         "fingerprint": "14a2e3e2fc11c35ce7a3c8e8d0504de2c48c6f694040e07fc5df5ec5f785aadb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "5a18d7821b8f523350261a11cfc8322bd48390fb03d0df404f1943dd6a74c76a",
+          "text": "Käy hyvin. Ja tarvitaan sun osote.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "84e0ed385e16362abdb45802fec67ddd683f9dcc1f6827ad9159d52f9d175fc0"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "1b32a6f70369341353b9c8603267f58a48ba28191249ebd53ba4968fc3f7309d",
+          "text": "Käy hyvin. Ja tarvitaan sinun osoitteesi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c4701fb99a1af9dd31a4ae9be3a3517342d529e285dd19cc5ac646bc7071dc69"
+        }
       }
     },
     {
@@ -684,6 +765,26 @@
         "reason": "viis/viisi and kakstoist/kaksitoista are the same numbers (5 A 12).",
         "fingerprint": "831e08ae9969ff2b2f860899dbbab01014397fcbd10316ca71fcf25d4b65bc1e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "7bbe2a68857db53af0472a183263efb127d114d0a4601ff9ac64959b7571ebb2",
+          "text": "Fleminginkatu viis A kakstoist.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cc812b8bc25b3579d2f26030b4c748e194e3ff39d64e275cabba4e2a02957fbf"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "40b7c725ac0ab44c767fc5de8ea8d1706efb2e5281a759d852345c8f677a3bb7",
+          "text": "Fleminginkatu viisi A kaksitoista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "773569a1ae6db9212b4d5367b214d6dd462e594ba38f765b8bf697be28c4869d"
+        }
       }
     },
     {
@@ -828,6 +929,26 @@
         "reason": "ilmanen/ilmainen is a spoken form of 'free'; rest identical.",
         "fingerprint": "2d34c9ec9075f8af9a871bf53443ca2526eff45a67333beb32e5ed74dba84965",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "566a24dc528b7c3ec215e7125568e38e7b14522e775b57a344634dac8eca9c65",
+          "text": "Kiitos. Kortti on ilmanen. Keksi PIN-koodi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "c2286f9888ba857d1a8b2ecc5943f6dd8544365f3c8267bad1b88008cea69331"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "79c7a6efe44094946f2e9d3f00bb56e12c2f3832833466be5b30d6f479680e50",
+          "text": "Kiitos. Kortti on ilmainen. Keksi PIN-koodi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "be9a3d9558987f5877f8de2fe783ab85ff82b49ccd92dc981761f9744627408e"
+        }
       }
     },
     {
@@ -971,6 +1092,26 @@
         "reason": "Okei/Selvä, Montaks/Montako, mä/minä are register differences; same question.",
         "fingerprint": "2ed29322ad1f76076a1050cd4bb047c31b19420bc16ef718b49def305529078b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "69686700eab9d595dd641280cf787f892419460f8497d69e9311f2ab2c367517",
+          "text": "Okei. Montaks kirjaa mä voin lainata?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "47d8fcde06ba4adfee2d39ef44dc5627e8d52ef0d890238edb286ba666eb1957"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "9b1098bc86f27e50be5a40197f0411188b5695d67da063188dc1c5022ddc481d",
+          "text": "Selvä. Montako kirjaa minä voin lainata?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "4654db0369b330e53bb393c30c5a4066af7d809c2fc8cd1b0df2efd86b0e7203"
+        }
       }
     },
     {
@@ -1026,6 +1167,26 @@
         "reason": "viiskyt/viisikymmentä both mean fifty.",
         "fingerprint": "3ef82ae091fae95897b427a219dfabe26fe42f783ec8bb995418b1d9d993f44b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "502bf7064748cf57b29f3a7fe16296b0434194b320437a89aef955a90f4ade30",
+          "text": "Vaikka viiskyt!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1175bdead0c86645e754d2a1cfb991ac813906573dba8d3fbef65c440581521e"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "559ed029e0bc55e4be21de3d0adc8ff11c98a90b6f4b4040848cb450aed9b5e9",
+          "text": "Vaikka viisikymmentä!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "f0ce1123b655a6d41f06fbe6da1728a1bd864c3fc85e855fa83d33dd83ea95b5"
+        }
       }
     }
   ],

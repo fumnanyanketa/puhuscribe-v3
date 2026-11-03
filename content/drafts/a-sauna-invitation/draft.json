@@ -95,7 +95,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -265,6 +266,26 @@
         "reason": "Meil/Meillä and tuuk sä/tuletko sinä are register differences; same meaning.",
         "fingerprint": "5aee44a39391e3e5485f393315b41068f5b2fd6b86bd5a7a7901cb172d70b6b2",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "e02d3e71be616f1748b36628b3dc1bd1491d77d63f3afd94aa379ffd8c8860ed",
+          "text": "Meil on saunavuoro lauantaina. Tuuksä saunaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "2725e1f56436075b348ee9a8eb4c97531efb0941c4d241ba0ae6d271065021ba"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "511173b6a4d1448b144dcf7651d58ed5b63d32a4b46963d399cf4adc99d83e7f",
+          "text": "Meillä on saunavuoro lauantaina. Tuletko sinä saunaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e353acbc7614a08516325fca837093bbe46883089b7d93ffc38c613758d50f2c"
+        }
       }
     },
     {
@@ -460,6 +481,26 @@
         "reason": "Mielellään/mielelläni, ikinä/koskaan, and käyny/käynyt are register variants; the meaning is the same.",
         "fingerprint": "969e897996db642ea4c8f6a3e27387d30a5f8e4f5e4f6c78d749afd69932a14f",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "ba618d8f59ab78fad45601886ad931af584e1adb71dec4bba49aac496954042b",
+          "text": "Mielellään! Mut mä en oo ikinä käyny suomalaises saunas.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d166cec6d201159109bd6e86cf42175fed57e6743ba1253d2bf09daf66f18339"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0686be6ef007e7de3a7411bee62d535513df40761fd80e9506fb338943e49114",
+          "text": "Mielelläni! Mutta minä en ole koskaan käynyt suomalaisessa saunassa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "defa183f9f79fe54ae5bcb8e63d347fb426794aa615933554c49187bc0996239"
+        }
       }
     },
     {
@@ -581,6 +622,26 @@
         "reason": "Only mä/minä differs; same meaning.",
         "fingerprint": "1464e4f0a4be49709b10e3ba6d47570333558ebd235bb2be707be7c8ffeada2a",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "61ed2071f43713c35085129128e293b5b62c8d7f8a4192a40ffb8a3476e98db7",
+          "text": "Ei hätää. Mä kerron kaiken.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7726b9d15df6024ff7bcd8e5f24a5877151641255bb668cf26c5fc19c4b93280"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "fd22f7634c4aef1b2a172c7e8f8dec8910274c0843b150c5c8016f97d70c86b7",
+          "text": "Ei hätää. Minä kerron kaiken.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a90a335586717b3092546f21026cc2ca2c37b014db7e6fcc3493850ff1d3cc34"
+        }
       }
     },
     {
@@ -697,6 +758,26 @@
         "reason": "mun/minun is a register difference; same question.",
         "fingerprint": "46b8e31de7bd47905caf5e6757fbbf46d769d5a7741cf662444c4af6a4f14a6b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "2783b0a99a32f3dae0bf13709139a97f8a539ef78823e7b6ce26873ae2a1836f",
+          "text": "Mitä mun pitää ottaa mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3cd48183cebaaaae91baeb6cd826b030d40fa95bc26808c6c43f883537f27510"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "8f56ef69a345740651a9e9c207c1a9566dbed25ff290948d2aa937a99a264295",
+          "text": "Mitä minun pitää ottaa mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cc87b357801d41dbe192be0c7365582f6cd14dce8d9fba96b18b5adc28142a30"
+        }
       }
     },
     {
@@ -774,6 +855,26 @@
         "reason": "Identical lines.",
         "fingerprint": "ca55dda8d081d54099742b48284d6e8eed405ef44fd972785f2d8aaaf57b088e",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f8ecd66554dfcd6679736d880925d27f829168434db9d0a82d4c59fb46b2a19b",
+          "text": "Pyyhe ja juotavaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0c5cfe306df846f2eaeb1bf632c4cd90fdeb7873f8cb66ac737b23828fd344a8"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "da22b53407145bff4665ce9eec08b5c4e2682c9ac08f5a7f95f93fc89a5ba4f9",
+          "text": "Pyyhe ja juotavaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0c5cfe306df846f2eaeb1bf632c4cd90fdeb7873f8cb66ac737b23828fd344a8"
+        }
       }
     },
     {
@@ -871,6 +972,26 @@
         "reason": "siel/siellä is a register difference; same question.",
         "fingerprint": "3896f30c58ecb43c8647b78cf422166f6da47306ce211182915a94086f1b1e39",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "b66bcc653ccc495dc8e30cc30ef3038ac49bee1fd22f86291f4e14b082001409",
+          "text": "Kuinka kuuma siel on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "75f805b7081a2b8328c2fbbc2fe09f5ab2b81aca47d0171cd338a4f9d43c3bff"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "695f34535e2f115c199b1432fd556db6a5aa370f0b9812ce609001d93cea2ece",
+          "text": "Kuinka kuuma siellä on?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "e124ed6d68fe8da078602c169a0433f7b7b687dc4c81a75f91f8566bfbd21f02"
+        }
       }
     },
     {
@@ -1048,6 +1169,26 @@
         "reason": "Kaheksankyt is spoken for kahdeksankymmentä (80), and alalauteel is spoken for alalauteella; same meaning.",
         "fingerprint": "1b9d7a3b00a6891420984671c4e391c5b515cf1bc69f67041fbaf1c1843ea2ab",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "7a86fa8d6ba4cff35639be7880bcea768f72e5bf5c7751d357c54d8f590be053",
+          "text": "Noin kaheksankyt astetta. Mut sä voit istuu alalauteel.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7aaec0797bee6112df8be629ee98375dcaf5cb81af0aa47df59a9f8b276083ba"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "ead6c712e64f31a2898d2b1e38dd9eddbd13cc819c2561e561f82e3bd7aff0fb",
+          "text": "Noin kahdeksankymmentä astetta. Mutta sinä voit istua alalauteella.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0f75b7e6598b3de20dd101a34a88453c7e87982b2a947da6cb4eff6ffaa16544"
+        }
       }
     },
     {
@@ -1129,6 +1270,26 @@
         "reason": "Okei and selvä both mean okay, and mä tuun is minä tulen; same meaning.",
         "fingerprint": "6e1718652b156b7ec768c9b8fd0832478cb18c820b7da7851a33d6fc09d2116b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "2ae9c2da238b571aa19efc1ca7cf29831b9401a5ac8e60ce530c795e8048dc03",
+          "text": "Okei, mä tuun!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1c2bf654e975cad2d8defb4bfbfba6ed7f33d61f31d3502760397d3c40cbbaaa"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "42680ba7a0fb0b27be0365e0e59540ee6e66a73ff93ccd8f492e3b18962cd915",
+          "text": "Selvä, minä tulen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "9ebdf3527bc67bf4d765e7108154cff3306fd227de33686db3d270eb6051caf1"
+        }
       }
     }
   ],

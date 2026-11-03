@@ -99,7 +99,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -186,6 +187,26 @@
         "reason": "Tuuk sä = Tuletko sinä; same question.",
         "fingerprint": "43c2da77d51af5e50bcb759f7e1756135a51b669fd0214b3659a094508c56a68",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "21c605677255a0e3ddc13d09baa59e6796a55c613765d9e9a88dc78d78233de0",
+          "text": "Kahvitauko! Tuuksä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "d4a0442bbece3d3e4e57540445ec38aa703595cf855181eee55df1763ecb1012"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "fc3b8d55ed013b78778fd85df9ce1846b2b138c18273a8746deec84ffb3f24b4",
+          "text": "Kahvitauko! Tuletko sinä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8d9c09925d1b283f4fa8eb1f5dc1e8fa43ef91e4b2c4571c4d4d8435ce961af0"
+        }
       }
     },
     {
@@ -308,6 +329,26 @@
         "reason": "Joo/kyllä, mä tuun/minä tulen, onks/onko are only register differences.",
         "fingerprint": "46043d126bafadad1b666bde829949bb5c0619902918a4c6fe60aef9e3dec4b3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "38669395f9fc08c1ae4afb7b711413cb8312d14c7f7badb6992862f7dd55ef02",
+          "text": "Joo, mä tuun. Onks pullaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "18effacfa2a2beafa7499972abb8ea8e890613c62e8fc5cccb1e074b859b4058"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "dcecdb9d2f5909018bc96ec02e3925984b28f1b63d4b0d49ba72a7a6961283c5",
+          "text": "Kyllä, minä tulen. Onko pullaa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "0d7ff2b98bbb725c86b0b9ed047916470042c05db3124ea66f95acb3abbb45c8"
+        }
       }
     },
     {
@@ -411,6 +452,26 @@
         "reason": "Identical lines.",
         "fingerprint": "c4940c0007e274ca4fef539f7ec99279d80f1b0434a657df5c328017f0ce8c12",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "525f8f609172a70f43ea96e8f2e8bc7ec1999356486d28e57602527f859a6880",
+          "text": "On! Aino toi korvapuusteja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2409d7f850e6f5a19b50940a1e4f238a2861df578174d3f851af7322ac78e524"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "a1f477d1450d188e1f329c6967f0eff73797619c816b8a8a746d55d49ea0b596",
+          "text": "On! Aino toi korvapuusteja.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "2409d7f850e6f5a19b50940a1e4f238a2861df578174d3f851af7322ac78e524"
+        }
       }
     },
     {
@@ -532,6 +593,26 @@
         "reason": "Mä/minä only register difference; content is the same.",
         "fingerprint": "c907b2efc4b8e121de169739e82443ad86e1fb0d5aff1550a0606ea3db0b3b6d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "08826c185007b981b3a2cb222b85c5851bca05f8e79f4c0d2e54ad4fb2ab2c1d",
+          "text": "Mä leivoin ne eilen. Ottakaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "7cbb3d86a8b2e1675cf657a52512993b23b54ab9b5d05423383016d18ae642b9"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "bd1f5db32119b6608e6c2e7652f6109e7cff2b5dfa505a59d150b6bb47546e59",
+          "text": "Minä leivoin ne eilen. Ottakaa!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "104f200a64e38de88e6c0c733a893b8559e053fae6b3e9da05eadb387685c9d3"
+        }
       }
     },
     {
@@ -702,6 +783,26 @@
         "reason": "Tosi/todella and juotteks/juotteko are register variants.",
         "fingerprint": "f4b50d549a57c0fac5fac5846e825d1885df5035383d23df3923127f2851f87c",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "dfd5383fa22997281dbba851825c09e4f61cdc1ae7f90a3c77ae877ff0d4e539",
+          "text": "Tosi hyviä! Juotteks te aina näin paljon kahvia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "eaf0b251fd9b1192731032807b5c492b4c6062394d8c1462d57d6e06c7da03c8"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "611817439a8c23a121128adc231abdc5488e574ce850b76c15d59ac07fbfc320",
+          "text": "Todella hyviä! Juotteko te aina näin paljon kahvia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "99818f6318fd221ec781a4bc98c938678cccf93cc2eb0b963a66b4368f007519"
+        }
       }
     },
     {
@@ -839,6 +940,26 @@
         "reason": "Juo/juovat and maailmas/maailmassa are register differences; same claim.",
         "fingerprint": "c994ca2a5d621efbbdf664b8d1629f9b297f8a05676d431b7f745ce09130c1f8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3074b3b77448dbb989d51147dc4446a1d236304553587672d025138c49e1561c",
+          "text": "Joo. Suomalaiset juo eniten kahvia maailmas.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8dbd32b9f3f1c5c8af5c8b76b88fda82f66426de47a3be2403dfd939b09644b6"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "15560a0ee0a6a90637958c6dd479f06b48d36b827a03d7511bdae9ac1df39237",
+          "text": "Kyllä. Suomalaiset juovat eniten kahvia maailmassa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-HarriNeural",
+          "request_sha256": "8e4d1cb1824572e6cd0483c39680b4d1b375b18d22f9637be6d74778f7c66e64"
+        }
       }
     },
     {
@@ -918,6 +1039,26 @@
         "reason": "Sit/sitten and mäkin/minäkin are register variants.",
         "fingerprint": "b2a08ebcfd3810ec6882b5be28c38d2a6ae6a78703fabd0f842b46a97390b40d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "5f77c01cdb63ac5fff3183f3cabb769c2c09b2bd15b45e82f8d63c776e2cce2c",
+          "text": "Sit mäkin opettelen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "de6dd0e2094ffde29810a5e0bf2080e2efd09f49d7e5e34caed1284d74a82806"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "863d5f922a9f4dcb2d902196ed0b15e83697c91419064a9b2e3350b912d7dfcd",
+          "text": "Sitten minäkin opettelen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "088d85a0d3ed0009b991f46ea1fd54770a84094630aa76ae3f417e46798e61d7"
+        }
       }
     },
     {
@@ -976,6 +1117,26 @@
         "reason": "Santsia is spoken for 'more/seconds', equal to lisää.",
         "fingerprint": "448599f973e7ea44a08ef62e2d27781e1777c54199f350b1c8f909133049e9a6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "9291eb9df42a03bd89a907cd82dcd11e2636f26c36b711b5645ac983425f961f",
+          "text": "Hyvä! Santsia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "9500a68f38d6c1c1c9ea5b0bd7a4d32d180d58668d73eb33aa3fef4339c0a605"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "edc78118da5924252bbd94045761a0c86746f0c0f598fb8d4292705d36de94be",
+          "text": "Hyvä! Lisää?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "cbc3c0a298129cebb7106c09523aa8fc3ff7c10cc5cb107a2c9b54512854e0dc"
+        }
       }
     }
   ],

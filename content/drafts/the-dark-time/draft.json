@@ -99,7 +99,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -284,6 +285,26 @@
         "reason": "Same content: dark in the morning and again in the afternoon; only spoken forms differ.",
         "fingerprint": "a0d66d2d6a9db6183c3b60475a499d7351d89a57849a395c3acf5d9637a4cb03",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "cd5c686a5a069d2d453158afef6ee9e94e7c58d9abf720a84618d2f1ca09470b",
+          "text": "Aamul on pimeetä ja iltapäiväl on taas pimeetä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3f4f073e068e5097fcbbdd054f1410aad0ee9fa6f6270a86cccd803853c4a606"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "6d6c04c37858601312dc123e451229fa564c2ee2f2018d008c7296d940bac291",
+          "text": "Aamulla on pimeää ja iltapäivällä on taas pimeää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "40c8a0cdad0f406a1a4b50e2b3086f7102b81ef3ae643e9ddf067cd8cb748d02"
+        }
       }
     },
     {
@@ -403,6 +424,26 @@
         "reason": "Joo vs kyllä is register; November is the darkest month in both.",
         "fingerprint": "08d4f3f8d1f6a017b215027633a312e49e52b64c900b8a1af90f3014e2cfdc58",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "2f5e7d39a443991b3234955efb4315a36ffed68bac1e4b4c27e43319ad604203",
+          "text": "Joo, marraskuu on pimein kuukausi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "00b870d7c686b0c8671508436e359a84f28d7dd60bd22e494490ac550299c0e6"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "0c038f9d22cb923d7eb1377a9a533489f0f20ea75c9435d9ada38a2dc8ab0dfc",
+          "text": "Kyllä, marraskuu on pimein kuukausi.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e19eacf9d27029d2651575d95b335f2bfa3bf3c92e19940caafcca329313baac"
+        }
       }
     },
     {
@@ -482,6 +523,26 @@
         "reason": "Identical lines.",
         "fingerprint": "9291087338b3db9e07dc31902290cb65a171ac9bbb3ca0f53b947d0386f973c6",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "38c94e4dca9649e9a4c6649465159e954cd0cd4ccc2f9411b0a2852a1d73272f",
+          "text": "Miten te jaksatte?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f67888f266792539d2a9afc3e3538282bbbe103462e38341eeaf32a1219c146e"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "1b57139e62e00fc8c7fb9dbd9c6798d03d980c3c3d570eeb7a78a4a2215272ab",
+          "text": "Miten te jaksatte?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f67888f266792539d2a9afc3e3538282bbbe103462e38341eeaf32a1219c146e"
+        }
       }
     },
     {
@@ -623,6 +684,26 @@
         "reason": "Spoken passive 'sytytetään' stands for 'we light' and 'päiväl' means 'during the day'; same meaning.",
         "fingerprint": "7d3f436aac95a24a9181d9781ad499f37a3d49c49d116b52cf55d316830c706b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "0fe79ec33200f3d877e913ab8ebc208acd9db83213a57ab007f03ab6674d0518",
+          "text": "Me sytytetään kynttilöitä ja ulkoillaan päiväl.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "85308d2d1c702da751e72404c817a9ff841c4a9eb4c2e49b5c4a775d0c54d67e"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "d45eb5f41c409dcb24ee9ba2a111e106709c46d9acb2c3f7d56f9500a0d97365",
+          "text": "Me sytytämme kynttilöitä ja ulkoilemme päivällä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0f692e982a127fd57e57e368ff4c72cb5f387b85bc21b1339756aecb1a21e04f"
+        }
       }
     },
     {
@@ -678,6 +759,26 @@
         "reason": "Only the partitive spelling differs (vitamiinii vs vitamiinia); same question.",
         "fingerprint": "27c929099a43b01856bc9eafa6c983800978fbceecc58ba6d389029115f44692",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "160676db26aa5cfa03a758403a8edfe4914df9bd23a25c8ed1ee8fc8a7775a4a",
+          "text": "Ja D-vitamiinii?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "838da6c9c1a74ed0ccfb4b70075accefa20d7aad428a4552abdc831e5e4c7026"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "da54ccb62010a63cda14ef79d6917ae24571e51b03d5d8dcbde7908008cf59c8",
+          "text": "Ja D-vitamiinia?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b5d66e74e9466a517e52187a2d91fddca34142bc6bd101f53a4f8dae8e6f4d84"
+        }
       }
     },
     {
@@ -777,6 +878,26 @@
         "reason": "Same statement that it is important; joo/kyllä and tärkee/tärkeä are register differences.",
         "fingerprint": "2c7ed049140a0ca04ee943327290ddafa25e494cf9a270116cc0fd3fa55e3e65",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "386775de679924cc0e8cde4f88a78e6fe45b90187639fbdf9fec5eb3e51560f5",
+          "text": "Joo, se on tärkee.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "aeb0381cfade66f41d3bfc0f55821a5311a6029a3badc535a8fd05447015db0e"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "8577b0d765833802d5b521d6354f2e3ee5e5c06a107346c34e73b9f168d9057b",
+          "text": "Kyllä, se on tärkeä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "06d1f5e8aef17ff2eeca22cbbc8182ea38857dc512dfe8e1f3d6ac4ee45639ac"
+        }
       }
     },
     {
@@ -878,6 +999,26 @@
         "reason": "Onneks/onneksi and kesäl/kesällä are register differences; same meaning.",
         "fingerprint": "f9e8310f8f340f299f1ddbdb30197c4e8175e4e2187f0fe2511c401b75855881",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "066662d1e7f7f0813fdb3046c63aa5ba392de1e00a60a71f3a77e090ba5ae035",
+          "text": "Onneks kesäl on valoisaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d9b45938114a02d27f6e296416ed0fa76beae3ff7cb4b5393f0e135c3dacdf8d"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "58ecf243ce58da4a07030d0405a3f84a9bc64d1e29876ed6cdc7f12727ed6d61",
+          "text": "Onneksi kesällä on valoisaa.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "85aa6bba952c4a0394caf55a70487e89024f1e20b93a4fdb6e375722fa92b88f"
+        }
       }
     },
     {
@@ -1009,6 +1150,26 @@
         "reason": "Same statement that the sun hardly sets in summer; only the spoken form kesäl differs.",
         "fingerprint": "cb2fd416eaf50899bed1307971981915071180871175580bd91da7a35d86ac85",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "205011ee5a196885b76f62c3ccb466cda017507ee0515c7043336c348e808bf8",
+          "text": "Kesäl aurinko ei laske melkein ollenkaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4b89b3b8b7f2188a708cab2b51d1d406b41e38739f56723fba3069a776affbaf"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "5e47907814592cfd1e54b5d1a2be3996d875790c755426973ffc9e62e80cb8d4",
+          "text": "Kesällä aurinko ei laske melkein ollenkaan!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "0e4f11227fc430cc0d62a2670148e9a0706928a0330d46d58aba5cabbb115116"
+        }
       }
     }
   ],

@@ -96,7 +96,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -181,6 +182,26 @@
         "reason": "Both ask 'Shall we go to the forest on Sunday?'; only register differs.",
         "fingerprint": "f8e90951955c44ed7f0a2ffdd2b4bf5515eafa989b32aea49bc66ed6911621f3",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "344a1bec7adff571fafaf172170bbfa745a2357f5df20a2acd46f70cc94c7cf3",
+          "text": "Lähetäänks metsään sunnuntaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "e2df41cf4c85cab8250bc638bd167721d514486b2a12d97031bfe51f79c316cf"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "8edb2165e7a9ad41cd0917af4e11e72ee6ecf705c3598c679e867dfd4eeb4c63",
+          "text": "Lähdetäänkö metsään sunnuntaina?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6de39feead73d0754d50467cb093f06d48b0c00ef12e2efb7c7e59401e7285c8"
+        }
       }
     },
     {
@@ -301,6 +322,26 @@
         "reason": "Joo and Kyllä both mean 'yes'; the question is identical.",
         "fingerprint": "2621b33d9a8a25c8bcb505bcf136555d1a5fa0cb2dfc3a9b7a7c312b7d0407ed",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "d5cab55120fa6a7fade0f6ea1212ce1e174f7bdc24e881db22b409d0139e2822",
+          "text": "Joo! Missä on hyvä metsä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "f86f2128d9ca0fb0b2b750be7f38d68abca799f8701dc567919b54ee3fba48ff"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "3c6ed6bfcd4c8a3ae5af12d59c3616ac16dee20cfde25d500591a48f49e734b9",
+          "text": "Kyllä! Missä on hyvä metsä?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d763402d7005c9e4a9606782e8f5468e6dfc4e403e199f122969aeac372be841"
+        }
       }
     },
     {
@@ -399,6 +440,26 @@
         "reason": "Nuuksios/Nuuksiossa and bussil/bussilla are the same place and means of transport.",
         "fingerprint": "4237c3975fa961a2de5825ed529d4c6f62a509af3faf9fa9c6667501e473dea4",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "620eb799b91764c24d318f4c3a6463f2a01b23ae8a6a8439f274ae8bb80ce4d3",
+          "text": "Nuuksios. Sinne pääsee bussil.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "1fc47b4f1f233647e1e9fdde470806784cd09fe8d0f5d3cfc3dd8d65b83b9223"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "1f587343bf3be76d40afd929bfcc16d7b4b0479d374e3d22561f8d9e4c5dbff0",
+          "text": "Nuuksiossa. Sinne pääsee bussilla.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "01c1c367f6098fa27ef8500ee0bbca8315f10f7fbad1dfa30758d95f1654f132"
+        }
       }
     },
     {
@@ -515,6 +576,26 @@
         "reason": "mun/minun both mean 'my/I'; same question.",
         "fingerprint": "4e34711fbea526c79bd18f082fe8446478548e3b5c82ef6c4985e531bf0c3d0d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "4f0f36a0dd1ebcaa5fd6dec0982f637d61b5af809c4892aeb7a15053c6797908",
+          "text": "Mitä mun pitää ottaa mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "3cd48183cebaaaae91baeb6cd826b030d40fa95bc26808c6c43f883537f27510"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "fe5605e4f15fa53ec5aaff0de7292212471a2cf0875e3adc7edfe5c7bb09c424",
+          "text": "Mitä minun pitää ottaa mukaan?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "cc87b357801d41dbe192be0c7365582f6cd14dce8d9fba96b18b5adc28142a30"
+        }
       }
     },
     {
@@ -631,6 +712,26 @@
         "reason": "termari is the colloquial form of termospullo (thermos); same list.",
         "fingerprint": "b07e71b73ba2b464905ad957a2cabdec20eb403c0220be45a259209fb1755412",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "ef3fbcf86dcc085ad6ee582b55dc426ef498f793bbec2ac9e9db740c27157ed3",
+          "text": "Hyvät kengät, eväät ja termari.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "d4869880199c3baa098fe856d234d85392e27129d5af112525eb3a1346eed7ee"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "a4376f2bbb25d1fcc2cdf2d400daf2e6c70d4f9273769d7c6910173fafafb1ce",
+          "text": "Hyvät kengät, eväät ja termospullo.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "43b1eef0f7bd0ada5d2d74d52e1d39725dad338fc723d31be98e9a83ca377f3b"
+        }
       }
     },
     {
@@ -710,6 +811,26 @@
         "reason": "Both ask 'Are there bears there?'; only register differs.",
         "fingerprint": "0eb852ef8c7a568ad415009d9a8c4aa77eb61f8a725703bab7418fcaf8ad2fa8",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "3ff751397e1a8199ccc9ba2e3ffe8b139eaccd70e1651db9cb438f1e1d09d9c2",
+          "text": "Onks siel karhuja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "c29aea4c4f468f6c622d0b1ad1601fc6dbc4c9f928514507ef0f869b823cc0ac"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "dd4d9a73502e23f2b1b24321106f9b7f2f0b433fc807d25b2245ef037c60fc68",
+          "text": "Onko siellä karhuja?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "6f3c71a4e839ea88ffcf8f28f7fc99c997f892149eef2a3408a3084776f3b7e8"
+        }
       }
     },
     {
@@ -869,6 +990,26 @@
         "reason": "Same negation, place and statement about beautiful lakes; mut/mutta and siel/siellä are register variants.",
         "fingerprint": "3d93d017ac022dd89122810803465451ba93bf5a2afc6e727bb9d5a391b82ef0",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "4ebc4dd03f04686c3c8d9ab7d841d052b71734f3afbbf140513da02a28c0b4b1",
+          "text": "Ei Nuuksios. Mut siel on kauniita järviä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "6d03d86387456a0734aebba348d4e2b6befd196e7fe015a8d7baf060a2182bea"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "e12b6e98d02a578714bfdc0d067781fdab0482f3664819baf218703ce5699572",
+          "text": "Ei Nuuksiossa. Mutta siellä on kauniita järviä.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "46a044c5639058c56eaa0c4931059dd946cc5c8b8abeb1fc7e5d6619e9ef57dd"
+        }
       }
     },
     {
@@ -950,6 +1091,26 @@
         "reason": "Both say 'Lovely. I'm coming!'; mä tuun and minä tulen are the same.",
         "fingerprint": "886936eea538de859551c2d8e70c171f02b85382b9321f9be09a15f568b5d7c1",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "3ab5aaaa93567c45a7453d3e2fed750f203cc8034e25c75a15bd00a412d9ae64",
+          "text": "Ihanaa. Mä tuun!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "26ef6458baa696081566c88c3dc23e709892e329614eceb90fbfc867d8a6ab8f"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "2ebcc8492047951193f17e713e218f59b30a480185a456349130c5d6dc4ea57c",
+          "text": "Ihanaa. Minä tulen!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "782722a4d651f59b7c592dc6ab4d0e9a033ba9a96fc8dc59186e9a45b4acf264"
+        }
       }
     }
   ],

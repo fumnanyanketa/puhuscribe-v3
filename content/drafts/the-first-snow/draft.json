@@ -99,7 +99,8 @@
   },
   "providers": {
     "ai": "written",
-    "judge": "on"
+    "judge": "on",
+    "voice": "azure"
   },
   "notes": {
     "status": "complete"
@@ -206,6 +207,26 @@
         "reason": "kato/katso is only a register difference; the content is the same.",
         "fingerprint": "a13587eff39219323f2bdf1f0437d61308a3dc473e5196d78ccc25e3d723cfc7",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/1-puhe.mp3",
+          "sha256": "fb3051429557d965676c1174bdefdea85a2755d258b4a30c43867731563b011a",
+          "text": "Leena, kato! Sataa lunta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "477b844d49d4b7f63434eb24a66e82db54e9585a2ad24a659bef8571eb6d5316"
+        },
+        "kirja": {
+          "file": "audio/1-kirja.mp3",
+          "sha256": "ae5f777e1591f05941d247f75dc4d1aac6e3205ff2a8c3192e9a8ddcee9f8c59",
+          "text": "Leena, katso! Sataa lunta!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ed4f5715504b09d7e9bf84573921c32799274ec2af60fad6b429037ee752a575"
+        }
       }
     },
     {
@@ -386,6 +407,26 @@
         "reason": "Joo/kyllä, eka/ensimmäinen, tää/tämä and sun/sinun are all register variants; the meaning is identical.",
         "fingerprint": "6c8b941d177f2bf902f2aad353b4ad9578ec6e1e23fbccf32cf73b9297c2f382",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/2-puhe.mp3",
+          "sha256": "0bd1499d2328e96cd5d5f6d2938af327f7421e7d0a64f8d985ccfea89ca92e8d",
+          "text": "Joo, eka lumi! Onks tää sun eka kerta?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bba563d30c8ba1f4dae08cacdeeb0964974bc9246b99f5676ee0a5300de9ae1f"
+        },
+        "kirja": {
+          "file": "audio/2-kirja.mp3",
+          "sha256": "a33970cbd19bf392744f42cca79f986196181e5b73088bf0ebc14e3c73dad3a1",
+          "text": "Kyllä, ensimmäinen lumi! Onko tämä sinun ensimmäinen kertasi?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "398f86e8c7feec58b800dd51df55726c4f6297e26b12043670dca9e7d596bea1"
+        }
       }
     },
     {
@@ -508,6 +549,26 @@
         "reason": "The two lines are identical.",
         "fingerprint": "cf5e8df9e1951cb3f9b35177ea087e67da302ba6e889374e30b7dd5541397185",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/3-puhe.mp3",
+          "sha256": "517cc7085708b83a2f2fea26042fb6867479acae8212933559ddc1b44581e11d",
+          "text": "On! Se on niin kaunista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "47e652bc0e03fd150c212b6b75f933b309e9abf65c892351909fc5692ccb2584"
+        },
+        "kirja": {
+          "file": "audio/3-kirja.mp3",
+          "sha256": "257652e89e1509fa40285227ae7260236da22510ad6a13ba19c93ff9dfd1900a",
+          "text": "On! Se on niin kaunista.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "47e652bc0e03fd150c212b6b75f933b309e9abf65c892351909fc5692ccb2584"
+        }
       }
     },
     {
@@ -665,6 +726,26 @@
         "reason": "talvel is spoken for talvella (in winter); vaan/vain is the same word in a different register.",
         "fingerprint": "965fbf982beccc42ac851ed90e33a9ed3d418f6d541fa2aa8e4dda105640bf17",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/4-puhe.mp3",
+          "sha256": "05cc75a73eb415b168d2d8ca5540e9ae8301e9d45e91ebee639d2bf5a393cc46",
+          "text": "Odota vaan, talvel on vielä enemmän lunta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "ca3fe7655f9ece6235a8db54be82fbffbbbb24693f4a7ec44c1800eed84c076e"
+        },
+        "kirja": {
+          "file": "audio/4-kirja.mp3",
+          "sha256": "6b13a9e16347fd60f3616a5f6cee3e4722f02ac6c1e26bfda5630836724fb0fe",
+          "text": "Odota vain, talvella on vielä enemmän lunta.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a065712c2533d1a7ef15c1b6ac96e72fee62893aa21055a87a0d80d7ab46dd52"
+        }
       }
     },
     {
@@ -783,6 +864,26 @@
         "reason": "Lapis is colloquial for Lapissa (in Lapland); ku/kuin is a register difference. The question is the same.",
         "fingerprint": "9d6bf14c46e972819648918df063dcae96bf5b2391a9e6fe785972f6335f5e7b",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/5-puhe.mp3",
+          "sha256": "f79eeee78b91baa57e98a8026f750aa29056dd8c6a93d7beb3a62ebf50c88956",
+          "text": "Onks täällä kylmempää ku Lapis?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "d1aae1af862414d262b05245cc72b38170d4c347aa0660e7e7d78f100f1d99ec"
+        },
+        "kirja": {
+          "file": "audio/5-kirja.mp3",
+          "sha256": "39a4539bf25f79721115a2e63b1a8fb513506248199da570384395185bf8ab5a",
+          "text": "Onko täällä kylmempää kuin Lapissa?",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "1d58954eea8ee0935ca0e6ce71072fce1a4c83a7a107218230b239b3e2b9361a"
+        }
       }
     },
     {
@@ -901,6 +1002,26 @@
         "reason": "Both say no, Lapland is much colder; Lapis/Lapissa is a register difference.",
         "fingerprint": "8ec39be12d35ae02febd8e2b91f7b5a5f3179ed1e8a57a3931b6b449a6dea9eb",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/6-puhe.mp3",
+          "sha256": "7a476706f54c6a3c20f5f92117fda1ade73c3a2b0a847300f3b63eb9c47e6e2c",
+          "text": "Ei, Lapis on paljon kylmempää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "88e17f5d80293f134942597637b1dcb1192163afb0e938993d190bdac3c5ce22"
+        },
+        "kirja": {
+          "file": "audio/6-kirja.mp3",
+          "sha256": "41a29150c00101774e0f54d5f4bc958618bd65325589f414884820cb7078e951",
+          "text": "Ei, Lapissa on paljon kylmempää.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "4b2701ed0a67046f78ef7a1b46fae6b2d585dfa8d74eb2e993360c36b691628c"
+        }
       }
     },
     {
@@ -1002,6 +1123,26 @@
         "reason": "mä/minä and tarviin/tarvitsen are register differences; the warmer coat is the same.",
         "fingerprint": "a8cdec1753ab9826b6ad9df5cfc814354c8e7eed2829d53a7915ab38e613ee3d",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/7-puhe.mp3",
+          "sha256": "3f9410bbc9fca763bc3c1c47b905c3d4bbe52144342521e7d1d950a010a6b679",
+          "text": "Mä tarviin lämpimämmän takin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "ceec1972c59f85a536f6b781b79905977dde5cd5b9c941bcf09ebab3c0afac8a"
+        },
+        "kirja": {
+          "file": "audio/7-kirja.mp3",
+          "sha256": "d4dbae0b92f87453039d102b5aa3b4744d98d1d4244660d017c2c825ca46793f",
+          "text": "Minä tarvitsen lämpimämmän takin.",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-SelmaNeural",
+          "request_sha256": "b3a4d0718e23c738895c80afba9028d0dec1d2dd38486d4f424231bee3029080"
+        }
       }
     },
     {
@@ -1095,6 +1236,26 @@
         "reason": "hanskat and käsineet both mean gloves or hand coverings; this is a register or vocabulary difference, and the pipon (hat) is the same.",
         "fingerprint": "022dfa43a0f76aa6b056b73dc97e6f21d0bc9cb76c815a6a9a64a88268f8af41",
         "model": "claude-sonnet-5-5"
+      },
+      "audio": {
+        "puhe": {
+          "file": "audio/8-puhe.mp3",
+          "sha256": "b936aedb5d3951d92bf376421ce814211dd91d3178e04aa3d50b505e83a1acc4",
+          "text": "Ja hanskat ja pipon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "bf7e3d95045246b98f6e3184bcc3b1465ba6554b6b528faf44884603546f53df"
+        },
+        "kirja": {
+          "file": "audio/8-kirja.mp3",
+          "sha256": "ae7e30fe4362e053c7b1520dba4909cdbe8de4490e578a1c174754faf3cd71c2",
+          "text": "Ja käsineet ja pipon!",
+          "source": "synthetic",
+          "provider": "azure",
+          "voice": "fi-FI-NooraNeural",
+          "request_sha256": "a68cc81344b984134d8d0e8b0f00cf44afb94b82fb29c2e297b04e2098520a51"
+        }
       }
     }
   ],
