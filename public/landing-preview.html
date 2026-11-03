@@ -1139,6 +1139,29 @@
       grid-template-columns: 1fr;
     }
   }
+  /* Owner, 3 November: the section after the hero goes back to plain, with no washed panel */
+  .story {
+    background: #f7f8f6 !important;
+    padding-block: 72px 48px !important;
+  }
+  .story .storygrid {
+    background: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+  .story .compare {
+    background: linear-gradient(
+      165deg,
+      var(--wash-top) 0%,
+      var(--wash-mid) 55%,
+      var(--wash-bottom) 100%
+    ) !important;
+  }
+  @media (max-width: 760px) {
+    .story {
+      padding-block: 48px 32px !important;
+    }
+  }
 </style>
 <nav class="pad">
   <div class="inner">
