@@ -1,0 +1,53 @@
+/* The practice sheet (fast route go-back): a done stop's lessons, to play one again. Values from
+   src/styles/tokens.css. */
+
+.box {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+.lessons {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A lesson is the secondary white pill, its words left aligned and free to wrap. */
+.lessons .lesson {
+  justify-content: flex-start;
+  height: auto;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.lessonNumber {
+  color: var(--color-text-quiet);
+  font-weight: var(--weight-regular);
+}

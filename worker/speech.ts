@@ -274,16 +274,19 @@ interface SayRequest {
   sessionId: string
   lineId: number
   audio: string
+  /** A practice replay of a finished lesson (fast route go-back): the session named has ended. */
+  practice?: true
 }
 
 function parseSay(body: string): SayRequest | null {
   const value = parseObject(body)
-  if (!value || !onlyKeys(value, ['sessionId', 'lineId', 'audio'])) return null
-  const { sessionId, lineId, audio } = value
+  if (!value || !onlyKeys(value, ['sessionId', 'lineId', 'audio', 'practice'])) return null
+  const { sessionId, lineId, audio, practice } = value
   if (typeof sessionId !== 'string' || !UUID.test(sessionId)) return null
   if (typeof lineId !== 'number' || !Number.isSafeInteger(lineId) || lineId < 1) return null
   if (typeof audio !== 'string' || audio.length === 0) return null
-  return { sessionId, lineId, audio }
+  if (practice !== undefined && practice !== true) return null
+  return { sessionId, lineId, audio, ...(practice ? { practice } : {}) }
 }
 
 const TOO_MANY = 'You have recorded a lot in the last few minutes. Take a short break, then try again.'
@@ -297,7 +300,11 @@ function canSayLines(step: string | null): boolean {
   return step === null || step === 'understand'
 }
 
-/** POST /api/speech/say with {"sessionId", "lineId", "audio"} (the WAV as base64). */
+/**
+ * POST /api/speech/say with {"sessionId", "lineId", "audio"} (the WAV as base64), and "practice": true
+ * for a practice replay of a finished lesson. Practice checks are checked, limited, logged with their
+ * cost and kept or not exactly like any other; only the session they name is a finished one.
+ */
 export async function say(
   request: Request,
   env: SpeechEnv,
@@ -318,7 +325,12 @@ export async function say(
     const consents = await db.consents()
     if (consents.processing !== 'granted') return done({ error: 'no_voice_consent' }, 403)
     const session = await kit.learnerDb(context).session(asked.sessionId)
-    if (!session || !canSayLines(session.step) || session.endedAt !== null) {
+    // A practice replay (fast route go-back) says the lines of a lesson the learner has finished: its
+    // session must have ended. Otherwise the session must be open, at a step where lines are said.
+    const allowed = asked.practice
+      ? session !== null && session.endedAt !== null
+      : session !== null && canSayLines(session.step) && session.endedAt === null
+    if (!session || !allowed) {
       return done({ error: 'not_found' }, 404)
     }
     const line = await db.line(asked.lineId)

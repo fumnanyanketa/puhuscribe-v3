@@ -91,6 +91,21 @@ interface Message {
   parts: MessagePart[]
 }
 
+/**
+ * What the learner did on one line, kept while the step is open so "Previous line" brings it back (fast
+ * route go-back): the try, its feedback and whether the Finnish was shown. The recording stays in this
+ * page's memory only and is let go when the step ends or the learner leaves.
+ */
+interface LineMemory {
+  recording: Recording | null
+  message: Message | null
+  clear: boolean
+  attempted: boolean
+  askedFinnish: boolean
+}
+
+export const PREVIOUS_LINE = 'Previous line'
+
 function plain(tone: StatusTone, text: string): Message {
   return { tone, parts: [text] }
 }
@@ -148,7 +163,13 @@ export function SayIt(props: StepScreenProps) {
   return <SpeakLines {...props} variant="recap" />
 }
 
-export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps & { variant: SpeakVariant }) {
+export function SpeakLines({
+  session,
+  frame,
+  onDone,
+  variant,
+  practice = false,
+}: StepScreenProps & { variant: SpeakVariant }) {
   const hear = variant === 'hear'
   const [lines] = useState(() => (hear ? session.lines : recapLines(session.lines, session.keyLines)))
   const sessionId = session.session.id
@@ -182,6 +203,10 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
   const reopened = useRef(false)
   const line = lines.at(index)
   const last = index + 1 >= lines.length
+  // Each line's try, kept for "Previous line"; the line on screen now, so a late result is not shown on another.
+  const kept = useRef(new Map<number, LineMemory>())
+  const onLine = useRef(0)
+  const focusAfterBack = useRef(false)
 
   const enterRecording = useCallback((answer: VoiceAnswer) => {
     setMode('record')
@@ -234,6 +259,14 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
     }
   }, [mode])
 
+  // Back on the first line, "Previous line" is unavailable, so focus moves to the line's next action.
+  useEffect(() => {
+    if (focusAfterBack.current) {
+      focusAfterBack.current = false
+      afterTip.current?.focus()
+    }
+  }, [index])
+
   // Leaving the screen throws away a recording in progress.
   useEffect(
     () => () => {
@@ -256,7 +289,38 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
     setRec((now) => (now === 'unavailable' ? now : 'ready'))
   }
 
+  /** Moves to another line, keeping this line's try and bringing back the other line's. */
+  function goTo(target: number) {
+    handle.current?.cancel()
+    handle.current = null
+    playback.release()
+    kept.current.set(index, {
+      recording,
+      message,
+      clear,
+      attempted,
+      askedFinnish,
+    })
+    const back = kept.current.get(target)
+    setRecording(back?.recording ?? null)
+    setMessage(back?.message ?? null)
+    setClear(back?.clear ?? false)
+    setAttempted(back?.attempted ?? false)
+    setAskedFinnish(back?.askedFinnish ?? false)
+    setSeconds(0)
+    setRec((now) => (now === 'unavailable' ? now : 'ready'))
+    onLine.current = target
+    setIndex(target)
+  }
+
+  function previous() {
+    if (index === 0) return
+    if (index === 1) focusAfterBack.current = true
+    goTo(index - 1)
+  }
+
   async function finishStep() {
+    kept.current.clear()
     letGoOfLine()
     setSaving(true)
     const saved = await onDone()
@@ -272,8 +336,7 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
       void finishStep()
       return
     }
-    letGoOfLine()
-    setIndex(index + 1)
+    goTo(index + 1)
   }
 
   function cantSpeak() {
@@ -308,15 +371,18 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
   async function checked(result: Promise<Recording>) {
     handle.current = null
     setRec('working')
+    const mine = onLine.current
     let made: Recording
     try {
       made = await result
     } catch {
+      if (onLine.current !== mine) return
       setRec('ready')
       setAttempted(true)
       setMessage(plain('problem', NOT_CHECKED))
       return
     }
+    if (onLine.current !== mine) return
     setRecording(made)
     setAttempted(true)
     if (made.durationMs < MIN_RECORDING_MS || !line) {
@@ -324,7 +390,9 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
       setMessage(NOT_HEARD)
       return
     }
-    const answer = await sayLine(sessionId, line.id, made.wav)
+    const answer = await sayLine(sessionId, line.id, made.wav, practice)
+    // The learner moved to another line while this one was checked: the result belongs to that line only.
+    if (onLine.current !== mine) return
     switch (answer.kind) {
       case 'feedback':
         setRec('ready')
@@ -441,17 +509,38 @@ export function SpeakLines({ session, frame, onDone, variant }: StepScreenProps 
       )}
       {mode !== 'loading' && mode !== 'consent' && (
         <div className={voice.buttons}>
-          {canMoveOn && (
-            <Button
-              block
-              ref={afterTip}
-              busy={saving}
-              busyLabel="Saving your progress."
-              onPointerDown={steady.onPointerDown}
-              onClick={next}
-            >
-              {last ? 'Continue' : 'Next line'}
-            </Button>
+          {(canMoveOn || index > 0) && (
+            <div className={voice.lineNav}>
+              {/* Back to the line before, with what was said on it (fast route go-back). Beside "Next line"
+                  it keeps its place on the first line, unavailable there. */}
+              {lines.length > 1 && (
+                <button
+                  type="button"
+                  className={voice.previous}
+                  aria-label={PREVIOUS_LINE}
+                  disabled={index === 0 || saving}
+                  onClick={previous}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M19 12H5M11 6l-6 6 6 6" />
+                  </svg>
+                </button>
+              )}
+              {canMoveOn && (
+                <div className={voice.lineNavMain}>
+                  <Button
+                    block
+                    ref={afterTip}
+                    busy={saving}
+                    busyLabel={practice ? 'Moving on.' : 'Saving your progress.'}
+                    onPointerDown={steady.onPointerDown}
+                    onClick={next}
+                  >
+                    {last ? 'Continue' : 'Next line'}
+                  </Button>
+                </div>
+              )}
+            </div>
           )}
           {mode === 'record' && (
             <Button variant="quiet" ref={canMoveOn ? undefined : afterTip} onClick={cantSpeak}>

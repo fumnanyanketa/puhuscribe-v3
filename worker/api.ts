@@ -42,6 +42,7 @@ import {
 } from './learner-db.ts'
 import { islandRoute, islandStopFor, supabaseIslandDb, type IslandDb } from './island.ts'
 import { patternsFor, supabasePatternsDb, type PatternsDb } from './patterns.ts'
+import { practiceRoute } from './practice.ts'
 import {
   tutorConsent,
   tutorState,
@@ -601,6 +602,14 @@ export async function handleApi(
   if (pathname === '/api/sessions/today') return sessionsToday(request, env, deps)
   if (pathname === '/api/patterns') return patterns(request, env, deps)
   if (pathname === '/api/road') return road(request, env, deps)
+  // Practice replays of finished lessons (fast route go-back): reads only, worker/practice.ts.
+  if (pathname === '/api/practice') {
+    return practiceRoute(request, {
+      signedIn: (r) => signedIn(r, env, deps),
+      learnerDb: (context) => databaseFor(context, deps),
+      factsDb: (context, db) => factsDatabaseFor(context, db),
+    })
+  }
   const match = SESSION_ROUTE.exec(pathname)
   if (match?.[1] && match[2] === 'step') return recordStep(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'complete') return complete(request, env, deps, match[1])

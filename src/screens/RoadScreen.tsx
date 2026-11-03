@@ -20,6 +20,8 @@ import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
 import { RoadCard } from '../road/RoadCard.tsx'
+import { PracticeSheet, type PracticeList } from '../road/PracticeSheet.tsx'
+import { practiceQuery, type PracticeListAnswer } from '../lib/practice-types.ts'
 import { RoadPicture } from '../road/RoadPicture.tsx'
 import { namesWrap, PIN_TEXT_PX, rootTextPx } from '../road/sign-pins.ts'
 import { RoadTop } from '../road/RoadTop.tsx'
@@ -85,6 +87,18 @@ function reducedMotion(): boolean {
   }
 }
 
+function isPracticeList(body: unknown): body is PracticeListAnswer {
+  return isRecord(body) && Array.isArray(body.lessons)
+}
+
+/** The learner's finished lessons, for the practice sheet (fast route go-back). */
+async function loadPracticeList(): Promise<PracticeList> {
+  const answer = await callApi('/api/practice', 'GET')
+  return answer?.status === 200 && isPracticeList(answer.body)
+    ? { kind: 'ready', lessons: answer.body.lessons }
+    : { kind: 'problem' }
+}
+
 /** The card's room at the bottom, in px, until it is measured. */
 const CARD_ESTIMATE = 230
 
@@ -129,6 +143,12 @@ export function RoadScreen() {
   const [editing, setEditing] = useState<number | null>(null)
   const islandTag = useRef<HTMLButtonElement>(null)
   const islandTitle = useId()
+  // Practice replays (fast route go-back): the done stop whose lessons the sheet shows, and the list.
+  const [practiceStop, setPracticeStop] = useState<number | null>(null)
+  const [practiceList, setPracticeList] = useState<PracticeList>({ kind: 'loading' })
+  const practiceOpener = useRef<HTMLElement | null>(null)
+  const practiseButton = useRef<HTMLButtonElement>(null)
+  const practiceTitleId = useId()
 
   // One load per page load, also under React's strict mode.
   useEffect(() => {
@@ -360,6 +380,19 @@ export function RoadScreen() {
     setStage('recap')
   }
 
+  /** Opens the practice sheet for a done stop, loading the finished lessons the first time. */
+  function openPractice(stop: number) {
+    // Safari does not focus a tapped button: focus then goes back to the card's "Practise again", if shown.
+    const active = document.activeElement
+    practiceOpener.current =
+      active instanceof HTMLElement && active !== document.body ? active : practiseButton.current
+    setPracticeStop(stop)
+    if (practiceList.kind !== 'ready') {
+      setPracticeList({ kind: 'loading' })
+      void loadPracticeList().then(setPracticeList)
+    }
+  }
+
   function skip() {
     focusAfterSkip.current = true
     setPlaying(false)
@@ -444,6 +477,8 @@ export function RoadScreen() {
   // The speech bubble is stop 1's line, so it shows only when the animation ends on stop 1 (day one).
   const sampleLine = playing && view.card.kind === 'day-one' ? view.firstStop?.sampleLine : undefined
   const shown = fitSigns(view.signs, view.markerAt, signCount)
+  const shownPractice =
+    practiceStop === null ? undefined : home.road.stops.find((stop) => stop.number === practiceStop)
   // The "Your island" tag: for a learner with a line, or a finished stop whose line waits.
   const showTag = signedIn && !playing && stage === 'road'
 
@@ -473,6 +508,7 @@ export function RoadScreen() {
             evening={view.evening}
             intro={playing}
             sampleLine={sampleLine}
+            onPick={signedIn && !playing && stage === 'road' ? openPractice : undefined}
           />
         </div>
       </div>
@@ -517,8 +553,36 @@ export function RoadScreen() {
           onContinue={() => {
             window.location.assign(PATHS.session)
           }}
+          onPractise={signedIn ? openPractice : undefined}
+          practiseRef={practiseButton}
         />
       </div>
+      <Sheet
+        open={shownPractice !== undefined}
+        labelledBy={practiceTitleId}
+        returnFocus={practiceOpener}
+        onClose={() => {
+          setPracticeStop(null)
+        }}
+      >
+        {shownPractice && (
+          <PracticeSheet
+            titleId={practiceTitleId}
+            stop={shownPractice}
+            list={practiceList}
+            onPick={(lesson) => {
+              window.location.assign(`${PATHS.session}${practiceQuery(lesson.dialogueId)}`)
+            }}
+            onRetry={() => {
+              setPracticeList({ kind: 'loading' })
+              void loadPracticeList().then(setPracticeList)
+            }}
+            onClose={() => {
+              setPracticeStop(null)
+            }}
+          />
+        )}
+      </Sheet>
       <Sheet
         open={islandOpen && island !== null}
         labelledBy={islandTitle}

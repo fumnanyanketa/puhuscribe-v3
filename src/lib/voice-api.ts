@@ -104,12 +104,20 @@ export type SayResult =
 /** How long the app waits for a check: the service's own 10 seconds, one retry and the upload. */
 const SAY_TIMEOUT_MS = 30_000
 
-/** Sends one recording to be checked against a line of the session. */
-export async function sayLine(sessionId: string, lineId: number, wav: Uint8Array): Promise<SayResult> {
+/**
+ * Sends one recording to be checked against a line of the session. In a practice replay (fast route
+ * go-back) the session is the learner's finished one for the lesson, and the request says so.
+ */
+export async function sayLine(
+  sessionId: string,
+  lineId: number,
+  wav: Uint8Array,
+  practice = false,
+): Promise<SayResult> {
   const answer = await callApi(
     '/api/speech/say',
     'POST',
-    { sessionId, lineId, audio: toBase64(wav) },
+    { sessionId, lineId, audio: toBase64(wav), ...(practice ? { practice: true } : {}) },
     SAY_TIMEOUT_MS,
   )
   if (!answer) return { kind: 'failed' }

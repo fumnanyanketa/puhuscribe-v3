@@ -11,7 +11,9 @@ import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession, ReviewSession } from '../lib/session-types.ts'
 import { tutorStepFor } from '../tutor/TutorStep.tsx'
 import { loadTutor } from '../tutor/tutor-api.ts'
+import { practiceIdFrom } from '../lib/practice-types.ts'
 import { ALL_DONE, NOT_READY } from './road-copy.ts'
+import { PracticePage } from './PracticePage.tsx'
 import { KeepIt } from './KeepIt.tsx'
 import { ReviewFinish } from './ReviewFinish.tsx'
 import { after, resumeAt, stepsFor, type SessionPosition, type SessionStep } from './session-steps.ts'
@@ -148,7 +150,16 @@ async function saveStep(sessionId: string, step: SessionStep): Promise<boolean> 
   return answer?.status === 200
 }
 
+/**
+ * /session: today's session, or with ?practice=<dialogue id> a practice replay of a finished lesson
+ * (fast route go-back, src/screens/PracticePage.tsx), which stores nothing.
+ */
 export function SessionPage() {
+  const practice = practiceIdFrom(window.location.search)
+  return practice === null ? <TodaySession /> : <PracticePage dialogueId={practice} />
+}
+
+function TodaySession() {
   const [page, setPage] = useState<Page>({ kind: 'loading' })
   const status = useRef<HTMLParagraphElement>(null)
   // One request per page load, also under React's strict mode.
