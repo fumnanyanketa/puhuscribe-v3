@@ -40,16 +40,17 @@
   --landing-mint-hint: #e2f2ea;
   --landing-questions: #fbf3ee;
   --landing-screen: #dff1ea;
-  --landing-card: #ffffffd9;
+  --landing-sign: #ffffffeb;
   --landing-arrow: #ffffff30;
   --landing-badge: #f1f5f3;
-  --landing-on-mint-quiet: #e8f5f0;
   --landing-device: var(--color-text);
   --landing-shadow-panel: 0 1px 2px #0000000a, 0 10px 28px #1e3c3214;
   --landing-shadow-piece: 0 2px 4px #0000000d, 0 18px 40px #1e3c3229;
   --landing-shadow-phone: 0 2px 4px #0000000d, 0 30px 60px #1e3c322e;
   --landing-shadow-device: 0 2px 6px #00000014, 0 40px 80px #1e3c3238;
   --landing-shadow-row: 0 1px 2px #0000000a, 0 6px 18px #1e3c320f;
+  --landing-shadow-art: 0 2px 4px #0000000a, 0 20px 44px #1e3c321a;
+  --landing-shadow-sign: 0 2px 8px #1e3c321a;
 
   overflow-x: clip;
   background: var(--color-wash-middle);
@@ -323,21 +324,31 @@
   line-height: 1.7;
 }
 
+/* The example: below the three blocks on a phone, beside them on a wide screen (owner, 3 November 2026). */
 .compare {
-  display: none;
+  display: block;
+  margin: 8px 0 0;
+  padding: 22px 18px;
+  border-radius: 30px;
+  background: linear-gradient(
+    165deg,
+    var(--color-wash-top) 0%,
+    var(--color-wash-middle) 55%,
+    var(--color-wash-bottom) 100%
+  );
 }
 
 .compareCard {
   display: grid;
-  gap: 14px;
-  padding: 22px;
-  border-radius: 24px;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 20px;
   background: var(--color-panel);
   box-shadow: var(--landing-shadow-panel);
 }
 
 .compareCard + .compareCard {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .compareLabel {
@@ -346,7 +357,7 @@
 }
 
 .compareSpoken {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -354,7 +365,7 @@
 
 .compareWritten {
   color: var(--color-written);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: var(--weight-medium);
   line-height: 1.3;
 }
@@ -579,41 +590,86 @@
   font-size: 17px;
 }
 
-.parts {
-  display: grid;
+/* The drawn road of the journey, with the six parts as signs on poles, smaller toward the sun. */
+.roadArt {
+  position: relative;
+  width: 100%;
+}
+
+.roadArt svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 32px;
+  box-shadow: var(--landing-shadow-art);
+}
+
+.roadSigns {
   margin: 0;
   padding: 0;
-  gap: 12px;
-  grid-template-columns: 1fr 1fr;
   list-style: none;
 }
 
-.parts li {
-  display: grid;
-  gap: 2px;
-  padding: 14px 18px;
-  border-radius: 20px;
-  background: var(--landing-card);
-  box-shadow: var(--landing-shadow-row);
+.roadSigns li {
+  position: absolute;
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  background: var(--landing-sign);
+  box-shadow: var(--landing-shadow-sign);
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
-.parts b {
-  font-size: 16px;
-  font-weight: var(--weight-semibold);
+/* A sign on the left of the road hangs left of its pole, a sign on the right hangs right. */
+.partFirst,
+.partServices,
+.partFinnish {
+  transform: translate(-80%, -100%);
 }
 
-.parts span {
-  color: var(--color-text-quiet);
-  font-size: 14px;
+.partDaily,
+.partWork,
+.roadSigns .partDone {
+  transform: translate(-20%, -100%);
 }
 
-.parts li:last-child {
+.partFirst {
+  top: 91%;
+  left: 26.6%;
+  font-size: 12.5px;
+}
+
+.partDaily {
+  top: 82%;
+  left: 70.4%;
+  font-size: 12px;
+}
+
+.partServices {
+  top: 73%;
+  left: 32.6%;
+  font-size: 11.5px;
+}
+
+.partWork {
+  top: 65.3%;
+  left: 64.9%;
+  font-size: 11px;
+}
+
+.partFinnish {
+  top: 58.2%;
+  left: 37.5%;
+  font-size: 10.6px;
+}
+
+.roadSigns .partDone {
+  top: 51.8%;
+  left: 60.4%;
   background: var(--color-mint);
   color: var(--color-button-text);
-}
-
-.parts li:last-child span {
-  color: var(--landing-on-mint-quiet);
+  font-size: 10.3px;
 }
 
 /* Questions */
@@ -760,7 +816,7 @@
   .compare {
     position: sticky;
     top: 40px;
-    display: block;
+    margin-top: 0;
     padding: 44px 36px;
     border-radius: 36px;
     background: linear-gradient(
@@ -769,6 +825,24 @@
       var(--color-wash-middle) 55%,
       var(--color-wash-bottom) 100%
     );
+  }
+
+  .compareCard {
+    gap: 14px;
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .compareCard + .compareCard {
+    margin-top: 16px;
+  }
+
+  .compareSpoken {
+    font-size: 30px;
+  }
+
+  .compareWritten {
+    font-size: 24px;
   }
 
   .h3 {
@@ -916,8 +990,8 @@
 }
 
 @media (max-width: 480px) {
-  .parts {
-    grid-template-columns: 1fr;
+  .roadSigns li {
+    padding: 4px 9px;
   }
 }
 

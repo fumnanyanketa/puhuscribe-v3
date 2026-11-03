@@ -134,7 +134,11 @@ function Story() {
               </p>
             </div>
           </div>
-          <div className={styles.compare} aria-hidden="true" data-reveal="">
+          <figure
+            className={styles.compare}
+            aria-label="An example sentence as people say it and as it’s written"
+            data-reveal=""
+          >
             <div className={styles.compareCard}>
               <span className={styles.compareLabel}>As people say it</span>
               <span className={styles.compareSpoken} lang="fi">
@@ -151,7 +155,7 @@ function Story() {
               <span className={styles.compareLabel}>Meaning</span>
               <span className={styles.compareMeaning}>I’m from Nigeria.</span>
             </div>
-          </div>
+          </figure>
         </div>
       </div>
     </section>
@@ -313,14 +317,102 @@ function Features() {
   )
 }
 
+// The six parts of the road as signs on poles beside a straight road to the A1 sun, smaller toward
+// the horizon (owner's design of 3 November 2026). The places are shares of the drawing, set in
+// Landing.module.css.
 const PARTS: readonly (readonly [string, string])[] = [
-  ['First words', 'Hello, the café, the shop, paying'],
-  ['Daily life', 'Times, plans, the pharmacy, your home'],
-  ['Services', 'The health centre, Kela, a parcel, lunch'],
-  ['Work and people', 'Your first day, family, daycare, hobbies'],
-  ['Finnish life', 'Sauna, Midsummer, the dark winter'],
-  ['Getting things done', 'Directions, returns, your plans and skills'],
+  ['First words', 'partFirst'],
+  ['Daily life', 'partDaily'],
+  ['Services', 'partServices'],
+  ['Work and people', 'partWork'],
+  ['Finnish life', 'partFinnish'],
+  ['Getting things done', 'partDone'],
 ]
+
+/** The six poles: x, top, bottom and stroke width, from the near sign to the far one. */
+const POLES: readonly (readonly [number, number, number, number])[] = [
+  [149, 382, 407, 2.4],
+  [394, 344, 368, 2.3],
+  [182, 307, 330, 2.2],
+  [363, 274, 296, 2.1],
+  [210, 244, 266, 2.0],
+  [338, 218, 238, 2.0],
+]
+
+function JourneyRoad() {
+  return (
+    <div
+      className={styles.roadArt}
+      role="img"
+      aria-label="A road leading to the A1 sun, through six parts: first words, daily life, services, work and people, Finnish life, getting things done"
+    >
+      <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <defs>
+          <linearGradient id="journey-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#e3f3ed" />
+            <stop offset="1" stopColor="#fbefe6" />
+          </linearGradient>
+          <radialGradient id="journey-sun" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#fde4d8" />
+            <stop offset="1" stopColor="#f4b496" />
+          </radialGradient>
+          <linearGradient id="journey-road" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stopColor="#3d4a47" />
+            <stop offset="1" stopColor="#6f7d79" />
+          </linearGradient>
+        </defs>
+        <rect width="560" height="420" rx="32" fill="url(#journey-sky)" />
+        <path
+          d="M0 132 C 80 96, 150 100, 220 122 C 300 70, 380 72, 440 112 C 490 96, 530 100, 560 116 V420 H0Z"
+          fill="#d3ebe2"
+        />
+        <circle cx="280" cy="150" r="62" fill="#fbe2d1" opacity=".75" />
+        <path d="M240 150 A40 40 0 0 1 320 150 Z" fill="url(#journey-sun)" />
+        <text
+          x="280"
+          y="138"
+          textAnchor="middle"
+          fontFamily="Poppins, sans-serif"
+          fontWeight="600"
+          fontSize="17"
+          fill="#7f3618"
+        >
+          A1
+        </text>
+        <path d="M0 150 H560 V420 H0Z" fill="#cfeadf" />
+        <g fill="#9fd3c0">
+          <path d="M30 150 l8 -18 l8 18z" />
+          <path d="M54 150 l7 -15 l7 15z" />
+          <path d="M470 150 l8 -18 l8 18z" />
+          <path d="M494 150 l7 -15 l7 15z" />
+          <path d="M200 150 l5 -11 l5 11z" />
+          <path d="M350 150 l5 -11 l5 11z" />
+        </g>
+        <path d="M150 420 L270 150 L290 150 L410 420 Z" fill="url(#journey-road)" />
+        <path d="M280 154 L280 420" stroke="#ffffff" strokeWidth="3" strokeDasharray="14 12" opacity=".85" />
+        {POLES.map(([x, top, bottom, width]) => (
+          <line
+            key={top}
+            x1={x}
+            y1={top}
+            x2={x}
+            y2={bottom}
+            stroke="#9bbfb2"
+            strokeWidth={width}
+            strokeLinecap="round"
+          />
+        ))}
+      </svg>
+      <ul className={styles.roadSigns}>
+        {PARTS.map(([name, place]) => (
+          <li key={name} className={styles[place]}>
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 function Journey() {
   return (
@@ -332,18 +424,11 @@ function Journey() {
               A journey made for life in Finland
             </h2>
             <p className={styles.journeyP}>
-              It has 36 short stops, each one a moment you’ll meet here. Take them one at a time, and you’ll
-              reach A1.
+              It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time,
+              and you’ll reach A1, the first everyday level of Finnish.
             </p>
           </div>
-          <ol className={styles.parts} aria-label="The six parts of the journey">
-            {PARTS.map(([name, examples]) => (
-              <li key={name}>
-                <b>{name}</b>
-                <span>{examples}</span>
-              </li>
-            ))}
-          </ol>
+          <JourneyRoad />
         </div>
       </div>
     </section>
