@@ -50,7 +50,7 @@ interface IslandStepProps {
   stop: IslandStop
   /** The line the learner already has, when it is changed from the island card. */
   initial?: IslandEntry
-  frame: { step: LoopStep; steps: readonly LoopStep[] }
+  frame: { step: LoopStep; steps: readonly LoopStep[]; index?: number }
   leaveHref: string
   /** Stores the line. Resolves false when it could not be saved. */
   onSave: (entry: IslandEntry) => Promise<boolean>
@@ -239,6 +239,7 @@ export function IslandStep({ stop, initial, frame, leaveHref, onSave, onSkip }: 
       <SessionFrame
         step={frame.step}
         steps={frame.steps}
+        index={frame.index}
         progress={0.3}
         leaveHref={leaveHref}
         actions={actions}
@@ -346,6 +347,7 @@ export function IslandStep({ stop, initial, frame, leaveHref, onSave, onSkip }: 
     <SessionFrame
       step={frame.step}
       steps={frame.steps}
+      index={frame.index}
       progress={0.7}
       leaveHref={leaveHref}
       actions={actions}

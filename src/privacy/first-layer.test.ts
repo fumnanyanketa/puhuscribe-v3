@@ -13,11 +13,12 @@ const item = (name: string) => LEARNER_TABLES.find((entry) => entry.name === nam
 const account = (name: string) => ACCOUNT_ITEMS.find((entry) => entry.name === name)
 
 describe('the first layer of the privacy notice', () => {
-  it('[redesign 39] has the title, a two line summary and the five sections, in order', () => {
+  it('[redesign 39] [tutor 25] has the title, a two line summary and the six sections, in order', () => {
     expect(FIRST_LAYER.title).toBe('Privacy notice')
     expect(FIRST_LAYER.sections.map((section) => section.heading)).toEqual([
       'What we keep',
       'Your voice',
+      'Talking with Otso',
       'How long',
       'Your rights',
       'Who runs PuhuScribe',
@@ -25,7 +26,7 @@ describe('the first layer of the privacy notice', () => {
   })
 
   it('[redesign 39] keeps the owner’s sentence about who runs PuhuScribe word for word, and not the old one', () => {
-    const who = FIRST_LAYER.sections.at(4)?.text
+    const who = FIRST_LAYER.sections.at(5)?.text
     expect(who).toBe('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.')
     const all = JSON.stringify(FIRST_LAYER)
     expect(all).not.toContain('Exentrik looks after your data')

@@ -138,6 +138,15 @@ export const LEARNER_TABLES: readonly TableItem[] = [
     keep: 'Stored with your account and deleted with it, including when an unused account is deleted automatically.',
   },
   {
+    // Job 16-tutor-step.
+    table: 'tutor_calls',
+    name: 'Calls to Otso',
+    what: 'One line for each time Otso, the AI tutor, was asked for a reply: which session, when, which model, how many tokens and what it cost. No text: not your messages and not Otso’s answers.',
+    why: 'To keep the tutor within its daily and monthly limits, and to know what it costs.',
+    legal: 'Your consent (GDPR Article 6(1)(a)). You can turn Otso off at any time on the account page.',
+    keep: WHILE_ACCOUNT,
+  },
+  {
     // Language islands (fast route "islands", 3 November 2026). The "what" is the owner's sentence.
     table: 'island_lines',
     name: 'Your island',

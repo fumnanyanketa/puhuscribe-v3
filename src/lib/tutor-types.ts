@@ -48,7 +48,7 @@ export type TutorReply =
   /** A line made by AI, checked by code: every word is one the learner met. No audio. */
   | { kind: 'ai'; text: string; words: SessionWord[]; meaning?: string }
   /** An approved line of today's dialogue, served when the AI's tries failed. */
-  | { kind: 'line'; lineId: number }
+  | { kind: 'line'; lineId: number; text: string }
   /** No approved line was left: Otso ends kindly. */
   | { kind: 'end' }
 

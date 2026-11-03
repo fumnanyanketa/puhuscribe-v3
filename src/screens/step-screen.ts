@@ -7,7 +7,7 @@ import type { ReadySession } from '../lib/session-types.ts'
 export interface StepScreenProps {
   session: ReadySession
   /** The step's name and the session's steps, for the top bar. */
-  frame: { step: LoopStep; steps: readonly LoopStep[] }
+  frame: { step: LoopStep; steps: readonly LoopStep[]; index?: number }
   /** Stores the step as reached, then moves on. Resolves false when it could not be saved. */
   onDone: () => Promise<boolean>
   /** The review items loaded with the session, for Keep it (job 9-daily-review). */

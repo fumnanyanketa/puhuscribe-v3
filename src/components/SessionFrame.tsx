@@ -25,6 +25,11 @@ interface SessionFrameProps {
    * (src/screens/session-steps.ts).
    */
   steps?: readonly LoopStep[]
+  /**
+   * Where this step sits in `steps`, from 0. Given when two steps share a name: Otso's chat and the
+   * island step are both "Use it" (job 16-tutor-step). Without it the first step of that name counts.
+   */
+  index?: number
   /** The share of the current step that is done, from 0 to 1 (lines shown, questions answered, words done). */
   progress?: number
   /** The finish screen after the last step: the bar is full. */
@@ -50,6 +55,7 @@ export function SessionFrame({
   step,
   hasUseIt = false,
   steps: given,
+  index,
   progress = 0,
   finished = false,
   stepHeading = false,
@@ -61,7 +67,7 @@ export function SessionFrame({
   contained = false,
 }: SessionFrameProps) {
   const steps = given ?? (hasUseIt ? LOOP_STEPS : LOOP_STEPS.slice(0, 4))
-  const number = finished ? steps.length + 1 : steps.indexOf(step) + 1
+  const number = finished ? steps.length + 1 : (index ?? steps.indexOf(step)) + 1
   const share = finished ? 1 : clamp((number - 1 + clamp(progress)) / steps.length)
   const name = finished ? 'Session finished' : `${step}, step ${String(number)} of ${String(steps.length)}`
   const [leaving, setLeaving] = useState(false)

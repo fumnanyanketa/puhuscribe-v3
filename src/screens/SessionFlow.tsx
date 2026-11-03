@@ -36,7 +36,7 @@ export function SessionFlow({ steps, session, position, onStepDone, review }: Se
       <Screen
         key={current.id}
         session={session}
-        frame={{ step: current.name, steps: names }}
+        frame={{ step: current.name, steps: names, index }}
         onDone={() => onStepDone(index)}
         review={review}
       />

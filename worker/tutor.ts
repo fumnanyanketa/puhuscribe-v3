@@ -463,7 +463,9 @@ export async function tutorTurn(
       ...material.lines.filter((l) => asked.history.some((h) => h.otso === l.spoken)).map((l) => l.id),
     ]
     const fallback = pickFallback(material.lines, used)
-    const otso: TutorReply = fallback ? { kind: 'line', lineId: fallback.id } : { kind: 'end' }
+    const otso: TutorReply = fallback
+      ? { kind: 'line', lineId: fallback.id, text: fallback.spoken }
+      : { kind: 'end' }
     const answerBody: TutorTurnAnswer = { turn, otso, closing: closing || !fallback }
     return done(answerBody)
   } catch (error) {

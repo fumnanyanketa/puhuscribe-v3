@@ -16,8 +16,11 @@ import { UnderstandIt } from './UnderstandIt.tsx'
 // (stepsFor below).
 
 export interface SessionStep {
-  /** The value stored in sessions.step_reached when the step is done. */
-  id: NonNullable<StepReached>
+  /**
+   * The value stored in sessions.step_reached when the step is done. "tutor" is Otso's chat (job
+   * 16-tutor-step), which stores no step: it sits between Keep it and the island step.
+   */
+  id: NonNullable<StepReached> | 'tutor'
   /** The step's name in the top bar. */
   name: LoopStep
   Screen: ComponentType<StepScreenProps>
@@ -38,13 +41,19 @@ export const KEEP_IT_STEP: SessionStep = { id: 'keep', name: 'Keep it', Screen: 
 
 /**
  * The steps of one session: the list above, then Keep it when the learner had
- * a word to review as the session screen loaded, then Use it when the session
- * ends a stop whose island line the learner has not added. Without either, the
+ * a word to review as the session screen loaded, then Otso's chat when the
+ * session is in stop 4 or later and the learner may have it (job 16-tutor-step),
+ * then Use it when the session ends a stop whose island line the learner has not
+ * added. Otso comes before the island step: the chat warms the learner up, and
+ * the island line is what the stop leaves them with. Without any of these, the
  * session is exactly the list above.
  */
-export function stepsFor(review: boolean, island = false): readonly SessionStep[] {
-  const steps = review ? [...SESSION_STEPS, KEEP_IT_STEP] : SESSION_STEPS
-  return island ? [...steps, USE_IT_STEP] : steps
+export function stepsFor(review: boolean, island = false, tutor?: SessionStep): readonly SessionStep[] {
+  if (!review && !island && !tutor) return SESSION_STEPS
+  const steps: SessionStep[] = review ? [...SESSION_STEPS, KEEP_IT_STEP] : [...SESSION_STEPS]
+  if (tutor) steps.push(tutor)
+  if (island) steps.push(USE_IT_STEP)
+  return steps
 }
 
 /**
@@ -57,15 +66,23 @@ export const USE_IT_STEP: SessionStep = { id: 'use', name: 'Use it', Screen: Isl
 /** Where a session stands: one of its steps, or the finish screen. */
 export type SessionPosition = { kind: 'step'; index: number } | { kind: 'finish' }
 
-const LOOP_ORDER = ['hear', 'understand', 'say', 'keep', 'use'] as const
+/** The order of the steps; Otso's chat sits between Keep it and the island step. */
+const LOOP_ORDER: Readonly<Record<SessionStep['id'], number>> = {
+  hear: 0,
+  understand: 1,
+  say: 2,
+  keep: 3,
+  tutor: 3.5,
+  use: 4,
+}
 
 /**
  * Where to resume a session that has reached `reached`: the first step of the
  * list after it, or the finish screen when none is left.
  */
 export function resumeAt(steps: readonly SessionStep[], reached: StepReached): SessionPosition {
-  const done = reached === null ? -1 : LOOP_ORDER.indexOf(reached)
-  const index = steps.findIndex((step) => LOOP_ORDER.indexOf(step.id) > done)
+  const done = reached === null ? -1 : LOOP_ORDER[reached]
+  const index = steps.findIndex((step) => LOOP_ORDER[step.id] > done)
   return index === -1 ? { kind: 'finish' } : { kind: 'step', index }
 }
 
