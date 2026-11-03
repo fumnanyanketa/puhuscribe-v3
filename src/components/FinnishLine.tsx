@@ -65,6 +65,10 @@ function Words({
     if (word.changes) face.push(styles.changed)
     if (i === current) face.push(styles.current)
     if (word.marked) face.push(styles.marked)
+    // Punctuation sits tight against its word: on the side where a "!" or a
+    // quote touches the word, the face keeps almost no padding and the target
+    // drops its negative margin, so "Hei!" never reads as "Hei !".
+    const tight = [word.before ? styles.withBefore : '', word.after ? styles.withAfter : '']
     // The answer word after a review is underlined and also named in words,
     // so colour or line is never the only sign.
     const marker = word.marked ? (
@@ -81,7 +85,10 @@ function Words({
           {i > 0 && ' '}
           <span className={styles.keep} data-word="">
             {word.before}
-            <span className={styles.plain} aria-current={i === current ? 'true' : undefined}>
+            <span
+              className={[styles.plain, ...tight].join(' ').trim()}
+              aria-current={i === current ? 'true' : undefined}
+            >
               <span className={face.join(' ')}>{word.text}</span>
               {marker}
             </span>
@@ -96,7 +103,7 @@ function Words({
         <span className={styles.keep} data-word="">
           <button
             type="button"
-            className={styles.word}
+            className={[styles.word, ...tight].join(' ').trim()}
             aria-current={i === current ? 'true' : undefined}
             aria-haspopup="dialog"
             ref={(element) => {
