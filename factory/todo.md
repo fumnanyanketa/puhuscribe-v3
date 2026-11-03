@@ -109,3 +109,6 @@ Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is pa
 - (owner) Ask a GDPR lawyer whether a transfer impact assessment is needed.
 - (manager) Privacy notice, the Otso line: name Anthropic as processor, US processing, Standard Contractual Clauses, 30 day retention plus the 2 year flagged content exception, no training, link to the sub-processor list.
 - (manager) Make sure only the chat text is sent to Anthropic: no names, emails or account ids.
+
+## Owner reminder (3 November 2026)
+- (manager) Remind the owner to look again at the landing page hero on phones: they felt it has too much text and left it for now ("remind me later to see if my feelings have changed"). Two versions were made: A, side by side as on desktop; B, picture first with the subline hidden on phones. Pictures: scratchpad landing/optA.png and optB.png; the CSS for each is in the session's landing/optA.html and optB.html. Ask before launch.
