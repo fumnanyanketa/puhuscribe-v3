@@ -44,6 +44,7 @@ Rules for waves:
   - Full factory only for sign-in, personal data, database access rules and payments.
   - Finnish content: voiced automatically, the owner judges it by using it and approves each part in writing before it is served.
   - At most one rework round; if it misses, re-plan.
+- Language islands in the MVP (owner, 3 November 2026: "Yes, build it this way"; overrides the PRD's "Not in v3.0" line for islands, which stays out only as a separate top-level surface). From stop 1 the learner fills gaps in approved Finnish patterns, hears the line and says it back; each later stop adds one personal line built from Finnish met in that stop; a "Your island" card on the road gathers the lines with play and record, ending with a question back. Island details are saved in the learner's account (owner: "people change devices"), with the lock copied from the existing learner tables, one security check on that part, its own database test, export and deletion, and one privacy notice line. The manager writes the patterns and lists; the owner approves them.
   - All tests are paused until the MVP is done (owner, 3 November 2026: "I want all tests paused till we are done"). Only the secret scan runs on each change, plus the database apply on main. Builders check their work by looking at it, not by running tests. The full run of every test, in both browsers, happens once, when everything is set for MVP.
 
 ## Speed rules
