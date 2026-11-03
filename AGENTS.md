@@ -55,7 +55,7 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
 ## Privacy rules
 
 - GDPR applies. Collect the minimum, explain why, allow export and deletion. No users under 18.
-- Learner data and voice recordings stay in the EU, except the tutor's text, which Anthropic processes in the US (owner, 3 November 2026). Audio is discarded by default.
+- Learner data stays in the EU; only tutor text goes to Anthropic, US (owner, 3 Nov 2026). Audio is discarded by default.
 - Agents only ever use the test database. Never the live one.
 - No keys, tokens or passwords in code, commits, logs or chat. They live in `.env.local` (git ignored) and GitHub secrets.
 
@@ -91,7 +91,7 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
   - **A confused session.** Stop and start a fresh one.
   - **A wrong earlier decision.** Stop and send it back to the spec. Do not patch around it.
 - **Output style.** Plain short sentences. Explain a technical term the first time you use it. Report in a few lines. The writing rules below apply.
-- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. Until the MVP launch only the secret scan runs on each change; the full run happens once before launch. If a check is wrong, say so in the job notes.
+- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. If a check is wrong, say so in the job notes.
 
 ## Writing rules (app text, docs, summaries)
 
