@@ -100,3 +100,12 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 - (14-analytics evaluator) Paths that are not app pages are served by Cloudflare without the Worker, so they are never counted and on the owner host are guarded only by Access. Country code `ZZ` shows as "Unknown Region" on the owner page. `owner_dashboard()` assumes every future AI cost table has `user_id` and `created_at`. The error boundary screen has no CI test; the evaluator checked it by hand.
 - (14-analytics design re-check) "any text typed into a box on the screen" in the privacy notice could say "a field"; the owner may also want a time limit on visit totals (for example 25 months), which is a small migration.
 - (14-analytics builder, round 3) The stop hook reports type and format errors in the old worktree .worktrees/10-speaking-feedback (worker/speech-db.ts, many staged changes from before the move to the public repo). Decide whether to rebuild job 10 there or remove that worktree.
+
+## Before real learners: Otso and Anthropic (manager check, 3 November 2026)
+
+Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is part of the Commercial Terms and applies from the first API use; EEA customers contract with Anthropic Ireland, Limited; EU Standard Contractual Clauses Modules 2 and 3 are the transfer basis; API inputs and outputs are deleted within 30 days by default (flagged content up to 2 years); no training on customer content; zero data retention only on request through Anthropic sales; no EU processing option (only "us" or "global"). The Data Privacy Framework listing and the official sub-processor list could not be read. Not legal advice.
+- (owner) In the Claude Console, check the account's contracting entity is Anthropic Ireland, Limited, and save dated copies of the Commercial Terms and the DPA.
+- (owner) Decide whether to ask Anthropic sales for zero data retention.
+- (owner) Ask a GDPR lawyer whether a transfer impact assessment is needed.
+- (manager) Privacy notice, the Otso line: name Anthropic as processor, US processing, Standard Contractual Clauses, 30 day retention plus the 2 year flagged content exception, no training, link to the sub-processor list.
+- (manager) Make sure only the chat text is sent to Anthropic: no names, emails or account ids.
