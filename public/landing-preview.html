@@ -1043,6 +1043,28 @@
     border: 2px solid #db7249;
     flex: none;
   }
+  /* The story section gets the same panel treatment as the feature sections */
+  .story {
+    background: #f7f8f6 !important;
+    padding-block: 28px !important;
+  }
+  .story .inner {
+    max-width: 1180px;
+  }
+  .story .storygrid {
+    background: linear-gradient(150deg, #fbe6da 0%, #f8f1ec 45%, #e2f2ea 100%);
+    border-radius: 44px;
+    padding: 64px;
+  }
+  .story .compare {
+    background: #ffffffb3 !important;
+  }
+  @media (max-width: 760px) {
+    .story .storygrid {
+      border-radius: 30px;
+      padding: 32px 22px;
+    }
+  }
 </style>
 <nav class="pad">
   <div class="inner">
