@@ -89,7 +89,7 @@ describe('the first layer of the privacy notice', () => {
       expect(claim.claim.length, claim.claim).toBeGreaterThan(10)
       expect(claim.source.length, claim.claim).toBeGreaterThan(10)
     }
-    expect(NOTICE_UPDATED).toBe('2026-11-01')
+    expect(NOTICE_UPDATED).toBe('2026-11-03')
     expect(Number.isNaN(new Date(`${NOTICE_UPDATED}T12:00:00Z`).getTime())).toBe(false)
   })
 })
