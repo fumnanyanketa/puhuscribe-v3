@@ -351,7 +351,10 @@ jobs:
         run: supabase db push --db-url "$SUPABASE_DB_URL" --yes
       - name: Database security tests against the test project (pgTAP)
         # The same tests as above, now on the test project itself. They run in
-        # one transaction that is rolled back, so they leave no rows.
+        # one transaction that is rolled back, so they leave no rows. Until the
+        # MVP launch they run only in the full run (owner, 3 November 2026: "I
+        # want all tests paused till we are done").
+        if: env.FULL_RUN == 'true'
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}
         run: supabase test db --db-url "$SUPABASE_DB_URL"
