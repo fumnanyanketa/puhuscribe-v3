@@ -199,6 +199,29 @@
   white-space: nowrap;
 }
 
+/* Punctuation right against its word (3 November 2026). The face's side padding and the target's negative
+   side margin left a gap of about 0.14em between a word and its "!" or "?", so "Hei!" read as "Hei !". On
+   the side that touches punctuation the face keeps only a sliver of padding and the target keeps its own
+   width, so the mark sits where it would in plain text. The 44 px height, the 24 px width floor and the
+   nowrap span around word and mark are unchanged. */
+.word.withAfter,
+.plain.withAfter {
+  margin-inline-end: 0;
+}
+
+.word.withBefore,
+.plain.withBefore {
+  margin-inline-start: 0;
+}
+
+.withAfter .face {
+  padding-inline-end: 0.02em;
+}
+
+.withBefore .face {
+  padding-inline-start: 0.02em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .face {
     transition: none;
