@@ -1,6 +1,55 @@
 # Follow up: road signs past the screen edge at 320 px (19-sign-overflow)
 
-Quick lane follow up to job 19-redesign, merged at 2ad3d9f. Branch `factory/19-sign-overflow`, rebased onto origin/main 7bd4e8c (part 1 of the road published, Keep it fix 2d568c8), pushed, not merged.
+Quick lane follow up to job 19-redesign, merged at 2ad3d9f. Branch `factory/19-sign-overflow`, rebased onto origin/main 7bd4e8c (part 1 of the road published, Keep it fix 2d568c8), pull request [#14](https://github.com/fumnanyanketa/puhuscribe-v3/pull/14), not merged.
+
+## Round 2: number pins (the owner's choice, 2 November)
+
+The owner saw round 1's picture at 200 percent and said it "doesn't look good at all": the signs covered the sun and the fells. The owner chose "Number pins only".
+
+### What changed
+
+When the text is too large for the drawn signs, every sign becomes a small round pin on its pole. A pin shows the stop number, or a tick when the stop is done, and no visible name. The colours are the drawn signs' own: done is mint with a white tick, current a mint ring with the number in deep mint, next a peach ring, later milky. Code: `src/road/sign-pins.ts` (new), `src/road/RoadPicture.tsx`, `src/road/RoadPicture.module.css`, `src/screens/RoadScreen.tsx`.
+
+- The road switches to pins when the text is at 200 percent or more, when any name would wrap onto a second line, or when the signs still cover the sun or a fell label after the road has dropped to two signs. When the text size or the screen changes, the road tries the drawn signs again and decides once more.
+- Each pin keeps its full stop name for screen readers. The list reads, for example, "Stop 6, Small talk: weather and the weekend, current", as before. The card below keeps the current stop's full name.
+- Pins stay inside the picture in every frame, through the same clamp as round 1.
+- At normal text size nothing changes from round 6. I recorded every board's place in 15 road states (5 progress states at 320 x 640, 375 x 812 and 390 x 844) in both browsers, before and after pins: all 15 are identical in both.
+- One case to know about: on a 320 x 568 phone (the first iPhone SE size) at normal text, with stop 5 or 6 current, the road now shows pins. There, even two drawn signs still covered the sun or a fell label, which is the owner's rule for pins (`sign-overflow-320x568-100-pins.png`). No other state I measured shows pins at normal text.
+- The reference page decides by itself with the same rules (200 percent, or a name that wraps), so its road pictures are pins at 200 percent too.
+
+### Tests (written first, red before pins)
+
+Added to `e2e/road-sign-overflow.spec.ts`, each in Chromium and WebKit:
+
+| Test | Statement | Before pins | With pins |
+|---|---|---|---|
+| 320 and 375 px, text at 200 percent, four road states (longest name current, longest name upcoming, stop 3 current, first stop): every sign is a round pin under a quarter of the screen wide, shows only its number or tick, no name; none overlaps the sun with its A1 or the B1, B2 and A2 labels; none passes the edge; the list's accessibility tree has each stop's full name; the card's heading is the current stop's full name | redesign 13, 46 | red (8 per browser) | pass |
+| 320 and 375 px: when the text grows to 200 percent the signs become pins, and no pin passes the edge in any frame | redesign 13, 46 | red | pass |
+| 320 and 375 px, normal text: no pins, done signs show a tick and the name, the current sign its number and the name, upcoming signs the name only, each a wide one line pill | redesign 13 | pass | pass |
+| The reference page shows pins at 320 px with text at 200 percent | design 7, redesign 46 | red | pass |
+
+Two earlier tests changed, with the reason:
+
+- My round 1 test "text at 200 percent from the start" looked for the long name in the sign's text. With pins it checks that the current sign and the one after it show, and the name is checked by the new accessibility tree test instead. My round 1 normal text test counted the board's parts to find a number; the board now always holds the pin number (hidden as a drawn sign), so it counts only the parts shown.
+- `e2e/redesign-road.spec.ts`, "[redesign 13] a stop name is rendered as text, never as markup". Its 40 letter made up name wraps on a drawn sign, so by the owner's rule the sign is a pin and the name is not shown on it. The test now finds the name as plain text in the card's heading and in the sign's list item. It still checks that no image was made and no script ran.
+
+### Checks
+
+- `npm run check:code`: pass. Unit tests: 1186 passed, 2 skipped, with 2 timeouts under load in `scripts/hooks/commit-tool.test.ts` (as in round 1); that file passed alone (13 of 13). This change does not touch it.
+- Local browser tests against this branch's build: `e2e/road-sign-overflow.spec.ts`, `e2e/redesign-road.spec.ts` and `e2e/design-reference.spec.ts`: all pass except the WebKit "[design 9] Tab reaches every control" test, which fails the same way on main on this computer (see round 1).
+- Pull request checks on 4d65fda, run [41595674122](https://github.com/fumnanyanketa/puhuscribe-v3/actions/runs/41595674122): every job that tests the code passed, including "Browser tests (Playwright, local Supabase)" with all the new pin tests in both browsers. The "Preview link" job did not pass: every test it ran against the deployed preview failed after about 5 seconds waiting for the page (pages this change does not touch too, such as the privacy notice and the Hear it sample), and GitHub cancelled the job at its time limit. The same job was cancelled the same way on this pull request's round 1 head (0760b9b, run 41591514346) and failed on the other recent pull requests, so it is a problem with the preview, separate from this change. Someone with access should look at the preview link and its Access token.
+
+### Evidence
+
+In `factory/jobs/19-redesign/evidence/`, Chromium, stop 5 current:
+
+- `sign-overflow-320-200-pins.png`: 320 x 640 at 200 percent. Left, round 1 (signs over the sun and the fell labels). Right, number pins.
+- `sign-overflow-375-200-pins.png`: 375 x 812 at 200 percent, number pins.
+- `sign-overflow-320x568-100-pins.png`: 320 x 568 at normal text, the one small phone case that now shows pins.
+
+Round 1 follows, kept for the record. Its two "worth a look" items are settled by the pins: at 200 percent no sign covers the A2 label any more. The road still shows drawn signs for a frame or two after the text grows, until it switches to pins; they stay inside the screen in those frames.
+
+# Round 1: signs kept inside the screen
 
 ## What failed
 
