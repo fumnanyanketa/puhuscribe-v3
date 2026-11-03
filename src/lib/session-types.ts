@@ -60,6 +60,18 @@ export interface ReadySession {
    * own session rows; nothing is stored for it.
    */
   firstLesson?: true
+  /**
+   * Language islands (fast route "islands", 3 November 2026): this dialogue is the last lesson of a
+   * stop that has an island line, so the session can end with the "Use it" island step for that stop.
+   */
+  islandStop?: number
+}
+
+/** The answer of GET /api/island: the learner's own island lines and the stops they may fill. */
+export interface IslandAnswer {
+  lines: import('./islands.ts').IslandEntry[]
+  /** The stops whose line the learner may add or change now. */
+  open: number[]
 }
 
 /** A word the learner met for the first time in a lesson, for the chips on the finish screen. */

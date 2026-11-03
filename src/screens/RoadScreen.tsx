@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { Sheet } from '../components/Sheet.tsx'
+import { IslandCard, shownLines, tagText } from '../island/IslandCard.tsx'
+import { loadIsland, saveIslandLine } from '../island/island-api.ts'
+import { IslandStep } from '../island/IslandStep.tsx'
+import islandStyles from '../island/Island.module.css'
+import { islandStop } from '../lib/islands.ts'
+import type { IslandAnswer } from '../lib/session-types.ts'
 import { PATHS } from '../lib/app-paths.ts'
 import { accountKindOf } from './save-note.ts'
 import { noticeFrom } from '../lib/account-notice.ts'
@@ -92,6 +99,12 @@ export function RoadScreen() {
   const picture = useRef<HTMLDivElement>(null)
   const topBox = useRef<HTMLDivElement>(null)
   const textProbe = useRef<HTMLSpanElement>(null)
+  // Language islands: the learner's island, the card's sheet and the line being changed.
+  const [island, setIsland] = useState<IslandAnswer | null>(null)
+  const [islandOpen, setIslandOpen] = useState(false)
+  const [editing, setEditing] = useState<number | null>(null)
+  const islandTag = useRef<HTMLButtonElement>(null)
+  const islandTitle = useId()
 
   // One load per page load, also under React's strict mode.
   useEffect(() => {
@@ -139,6 +152,18 @@ export function RoadScreen() {
       if (kind === 'other' || !answer || !isRecord(answer.body)) return
       const email = typeof answer.body.email === 'string' ? answer.body.email : undefined
       setLetter(accountLetter(kind, email))
+    })
+    return () => {
+      active = false
+    }
+  }, [signedIn])
+
+  // The learner's island, once, after the road is drawn, only for a learner (language islands).
+  useEffect(() => {
+    if (!signedIn) return undefined
+    let active = true
+    void loadIsland().then((answer) => {
+      if (active) setIsland(answer)
     })
     return () => {
       active = false
@@ -254,7 +279,7 @@ export function RoadScreen() {
       setPins(true)
       setSignCount(MOST_SIGNS)
     }
-  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, onQuestions])
+  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, onQuestions, island])
 
   // The recap card's title takes focus when the road comes back with it.
   useEffect(() => {
@@ -294,6 +319,33 @@ export function RoadScreen() {
   function skip() {
     focusAfterSkip.current = true
     setPlaying(false)
+  }
+
+  // Changing or adding an island line from the island card (language islands): the island step,
+  // then the road again with the card open.
+  const editStop = editing === null ? undefined : islandStop(editing)
+  if (editStop) {
+    const initial = island?.lines.find((line) => line.stop === editStop.stop)
+    return (
+      <IslandStep
+        stop={editStop}
+        initial={initial}
+        frame={{ step: 'Use it', steps: ['Use it'] }}
+        leaveHref={PATHS.home}
+        onSave={async (entry) => {
+          const result = await saveIslandLine(entry)
+          if (result === 'signed_out') {
+            window.location.replace(PATHS.home)
+            return false
+          }
+          if (result !== 'saved') return false
+          setIsland(await loadIsland())
+          setEditing(null)
+          setIslandOpen(true)
+          return true
+        }}
+      />
+    )
   }
 
   if (home.kind === 'loading') return <LoadingMark label={LOADING} />
@@ -348,6 +400,8 @@ export function RoadScreen() {
   // The speech bubble is stop 1's line, so it shows only when the animation ends on stop 1 (day one).
   const sampleLine = playing && view.card.kind === 'day-one' ? view.firstStop?.sampleLine : undefined
   const shown = fitSigns(view.signs, view.markerAt, signCount)
+  // The "Your island" tag: for a learner with a line, or a finished stop whose line waits.
+  const showTag = signedIn && !playing && stage === 'road'
 
   return (
     <main
@@ -380,6 +434,21 @@ export function RoadScreen() {
       </div>
       <div className={styles.top} ref={topBox}>
         <RoadTop pieces={view.pieces} letter={signedIn ? letter : null} />
+        {showTag && island && (island.lines.length > 0 || island.open.length > 0) && (
+          <div className={islandStyles.tagRow}>
+            <button
+              ref={islandTag}
+              type="button"
+              className={islandStyles.tag}
+              aria-haspopup="dialog"
+              onClick={() => {
+                setIslandOpen(true)
+              }}
+            >
+              {tagText(shownLines(island.lines).length)}
+            </button>
+          </div>
+        )}
       </div>
       <div
         className={styles.card}
@@ -404,6 +473,26 @@ export function RoadScreen() {
           }}
         />
       </div>
+      <Sheet
+        open={islandOpen && island !== null}
+        labelledBy={islandTitle}
+        returnFocus={islandTag}
+        onClose={() => {
+          setIslandOpen(false)
+        }}
+      >
+        {island && (
+          <IslandCard
+            titleId={islandTitle}
+            lines={island.lines}
+            open={island.open}
+            onChange={(stop) => {
+              setIslandOpen(false)
+              setEditing(stop)
+            }}
+          />
+        )}
+      </Sheet>
     </main>
   )
 }

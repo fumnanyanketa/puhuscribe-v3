@@ -41,6 +41,39 @@
   box-shadow: var(--shadow-1);
 }
 
+/* The island card's mini control (language islands, as in the approved mockup): a small pale mint
+   round with a mint triangle, inside the full 44 px tap area. */
+.mini,
+.mini:hover,
+.mini:active {
+  position: relative;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin: -8px -8px -8px 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-mint);
+}
+
+.mini::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--color-mint-soft);
+}
+
+.mini:hover::before {
+  background: var(--color-button-secondary-pressed);
+}
+
+.mini svg,
+.mini .loading {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
 /* The written line's control is slate (written-colour.html, option A). */
 .written,
 .written:hover,

@@ -3,7 +3,9 @@ import { Button } from '../components/Button.tsx'
 import type { LoopStep } from '../components/SessionFrame.tsx'
 import { StatusLine } from '../components/StatusLine.tsx'
 import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
+import { loadIsland } from '../island/island-api.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
+import { islandStop } from '../lib/islands.ts'
 import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession, ReviewSession } from '../lib/session-types.ts'
 import { ALL_DONE, NOT_READY } from './road-copy.ts'
@@ -53,6 +55,18 @@ async function loadReview(sessionId: string): Promise<ReviewItem[] | null> {
   return answer?.status === 200 && isItems(answer.body) ? answer.body.items : null
 }
 
+/**
+ * True when the session ends a stop whose island line the learner has not added yet (language
+ * islands). When the island cannot be read, the step is left out: the learner can add the line later
+ * from the island card on the road.
+ */
+async function needsIsland(session: ReadySession): Promise<boolean> {
+  const stop = session.islandStop
+  if (stop === undefined || !islandStop(stop)) return false
+  const island = await loadIsland()
+  return island !== null && !island.lines.some((line) => line.stop === stop)
+}
+
 async function pageFrom(answer: ApiAnswer | null): Promise<Page | 'signed_out'> {
   if (!answer) return PROBLEM
   if (answer.status === 401) return 'signed_out'
@@ -72,7 +86,7 @@ async function pageFrom(answer: ApiAnswer | null): Promise<Page | 'signed_out'> 
   const session = body as unknown as ReadySession
   const review = await loadReview(session.session.id)
   if (!review) return PROBLEM
-  const steps = stepsFor(review.length > 0)
+  const steps = stepsFor(review.length > 0, await needsIsland(session))
   return { kind: 'ready', session, steps, review, position: resumeAt(steps, session.session.step) }
 }
 
@@ -97,8 +111,13 @@ function show(next: Loaded, setPage: (page: Page) => void) {
   setPage(next)
 }
 
-/** Stores a step as done: Keep it through its own route, the others through the step route. */
+/**
+ * Stores a step as done: Keep it through its own route, the others through the step route. Use it,
+ * the island step, has already stored its line through POST /api/island, and the session's step is not
+ * stored for it.
+ */
 async function saveStep(sessionId: string, step: SessionStep): Promise<boolean> {
+  if (step.id === 'use') return true
   const answer =
     step.id === 'keep'
       ? await callApi(`/api/sessions/${sessionId}/review/done`, 'POST')
