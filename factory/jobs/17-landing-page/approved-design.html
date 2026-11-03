@@ -268,6 +268,8 @@ details { background:#ffffff; }
   .compare .big.w { color:#38527a; font-weight:500; font-size:20px; }
   .compare .lab { font-size:12.5px; color:var(--quiet); }
 }
+.roadart .signs li.r { transform:translate(-20%, -100%) !important; }
+.roadart .signs li.l { transform:translate(-80%, -100%) !important; }
 </style>
 <nav class="pad"><div class="inner"><span class="brand"><i></i>PuhuScribe</span><a class="btn" href="#">Start your journey now <span>→</span></a></div></nav>
 <header class="hero pad"><div class="inner">
@@ -298,22 +300,21 @@ details { background:#ffffff; }
 <section class="journey pad"><div class="inner"><div class="jpanel">
 <div class="jcopy"><h2>A journey made for life in Finland</h2>
 <p>It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and you’ll reach A1, the first everyday level of Finnish.</p></div>
-<div class="roadart" role="img" aria-label="A road through six parts, from first words to getting things done, ending at the A1 sun">
-<svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
-<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f4ee"/><stop offset="1" stop-color="#fbf1ea"/></linearGradient>
-<radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fde4d8"/><stop offset="1" stop-color="#f4b496"/></radialGradient></defs>
-<rect width="560" height="460" rx="32" fill="url(#sky)"/>
-<circle cx="505" cy="62" r="52" fill="#fbe2d1" opacity=".7"/>
-<circle cx="505" cy="62" r="30" fill="url(#sun)"/>
-<text x="505" y="69" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="600" font-size="18" fill="#7f3618">A1</text>
-<path d="M0 130 C 90 105, 170 122, 250 112 S 420 100, 560 114 V460 H0Z" fill="#d6efe7"/>
-<path d="M0 175 C 120 155, 240 180, 340 166 S 480 156, 560 170 V460 H0Z" fill="#c9e9dc"/>
-<g fill="#9fd3c0"><path d="M40 136 l7 -16 l7 16z"/><path d="M60 138 l6 -13 l6 13z"/><path d="M300 118 l6 -14 l6 14z"/><path d="M318 119 l5 -11 l5 11z"/><path d="M380 116 l6 -14 l6 14z"/></g>
-<path d="M70 455 C 70 400, 330 410, 330 350 S 90 300, 120 240 S 420 230, 430 170 S 470 100, 498 92" fill="none" stroke="#3d4a47" stroke-width="26" stroke-linecap="round"/>
-<path d="M70 455 C 70 400, 330 410, 330 350 S 90 300, 120 240 S 420 230, 430 170 S 470 100, 498 92" fill="none" stroke="#8ce6cb" stroke-width="3" stroke-dasharray="9 9"/>
-<circle cx="117" cy="422" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/><circle cx="291" cy="383" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/><circle cx="226" cy="298" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/><circle cx="157" cy="217" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/><circle cx="335" cy="203" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/><circle cx="443" cy="130" r="9" fill="#ffffff" stroke="#1e856f" stroke-width="4"/>
+<div class="roadart" role="img" aria-label="A road leading to the A1 sun, through six parts: first words, daily life, services, work and people, Finnish life, getting things done">
+<svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3f3ed"/><stop offset="1" stop-color="#fbefe6"/></linearGradient><radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fde4d8"/><stop offset="1" stop-color="#f4b496"/></radialGradient><linearGradient id="rd" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3d4a47"/><stop offset="1" stop-color="#6f7d79"/></linearGradient></defs>
+<rect width="560" height="420" rx="32" fill="url(#sky)"/>
+<path d="M0 132 C 80 96, 150 100, 220 122 C 300 70, 380 72, 440 112 C 490 96, 530 100, 560 116 V420 H0Z" fill="#d3ebe2"/>
+<circle cx="280" cy="150" r="62" fill="#fbe2d1" opacity=".75"/>
+<path d="M240 150 A40 40 0 0 1 320 150 Z" fill="url(#sun)"/>
+<text x="280" y="138" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="600" font-size="17" fill="#7f3618">A1</text>
+<path d="M0 150 H560 V420 H0Z" fill="#cfeadf"/>
+<g fill="#9fd3c0"><path d="M30 150 l8 -18 l8 18z"/><path d="M54 150 l7 -15 l7 15z"/><path d="M470 150 l8 -18 l8 18z"/><path d="M494 150 l7 -15 l7 15z"/><path d="M200 150 l5 -11 l5 11z"/><path d="M350 150 l5 -11 l5 11z"/></g>
+<path d="M150 420 L270 150 L290 150 L410 420 Z" fill="url(#rd)"/>
+<path d="M280 154 L280 420" stroke="#ffffff" stroke-width="3" stroke-dasharray="14 12" opacity=".85"/>
+<line x1="149" y1="382" x2="149" y2="407" stroke="#9bbfb2" stroke-width="2.4" stroke-linecap="round"/><line x1="394" y1="344" x2="394" y2="368" stroke="#9bbfb2" stroke-width="2.3" stroke-linecap="round"/><line x1="182" y1="307" x2="182" y2="330" stroke="#9bbfb2" stroke-width="2.2" stroke-linecap="round"/><line x1="363" y1="274" x2="363" y2="296" stroke="#9bbfb2" stroke-width="2.1" stroke-linecap="round"/><line x1="210" y1="244" x2="210" y2="266" stroke="#9bbfb2" stroke-width="2.0" stroke-linecap="round"/><line x1="338" y1="218" x2="338" y2="238" stroke="#9bbfb2" stroke-width="2.0" stroke-linecap="round"/>
 </svg>
-<ul class="signs"><li class="r" style="left:20.9%;top:91.7%"><b>First words</b></li><li class="r" style="left:52.0%;top:83.3%"><b>Daily life</b></li><li class="r" style="left:40.4%;top:64.8%"><b>Services</b></li><li class="r" style="left:28.0%;top:47.2%"><b>Work and people</b></li><li class="r" style="left:59.8%;top:44.1%"><b>Finnish life</b></li><li class="l last" style="left:79.1%;top:28.3%"><b>Getting things done</b></li></ul>
+<ul class="signs"><li class="l" style="left:26.6%;top:91.0%;font-size:12.5px"><b>First words</b></li><li class="r" style="left:70.4%;top:82.0%;font-size:12.0px"><b>Daily life</b></li><li class="l" style="left:32.6%;top:73.0%;font-size:11.5px"><b>Services</b></li><li class="r" style="left:64.9%;top:65.3%;font-size:11.0px"><b>Work and people</b></li><li class="l" style="left:37.5%;top:58.2%;font-size:10.6px"><b>Finnish life</b></li><li class="r last" style="left:60.4%;top:51.8%;font-size:10.3px"><b>Getting things done</b></li></ul>
 </div>
 </div></div></section>
 <section class="faq pad"><div class="inner"><div class="faqgrid"><div><h2>Questions</h2></div><div class="list"><details><summary>I already took a course. Is this for me?</summary><p>Yes. What you learned still counts. The early stops will feel familiar, and you’ll start to hear how Finns really say it.</p></details><details><summary>How long does it take?</summary><p>One lesson takes about 10 to 15 minutes. With one a day, you reach A1 in about three and a half months. Two a day takes about eight weeks, and a whole stop a day about five. These are our estimates, since we haven’t measured them on real learners yet.</p></details><details><summary>What level will I reach?</summary><p>Right now, the journey takes you from zero to A1, the first everyday level. That’s enough for simple everyday moments and for talking about yourself. The full journey is planned to go all the way to B2.</p></details><details><summary>Do I need to sign up?</summary><p>No. Open it in your phone’s browser and start. Your progress is kept on your phone, and you can add an email later to keep it across devices.</p></details><details><summary>What happens to my voice and data?</summary><p>Speech feedback is optional, and recordings aren’t kept by default. What PuhuScribe keeps is stored in the EU, and you can download or delete it any time. Chats with Otso are handled by an AI provider in the US and aren’t saved.</p></details></div></div></div></section>
