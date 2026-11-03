@@ -20,7 +20,8 @@
 # no test runs on a pull request or a push. Each change gets only the secret
 # scan (the repository is public), a pull request also gets its preview link
 # (no browser test against it), and a push to main applies new migrations to
-# the test project. Every test runs in the full run, started by hand (Actions,
+# the test project and then uploads the main preview link (job main-link,
+# https://main-puhuscribe-preview.fumnanya.workers.dev). Every test runs in the full run, started by hand (Actions,
 # Checks, Run workflow, tick "full"): the type check, lint and format, the unit
 # tests, the Python tests, the dependency check, every database test, every
 # browser test on Chromium and WebKit, and on main the browser tests against the
@@ -696,7 +697,16 @@ jobs:
         run: npm run build
       - name: Make a readable alias from the branch name
         id: alias
-        run: echo "alias=$(node scripts/ci/preview-alias.ts)" >> "$GITHUB_OUTPUT"
+        # The alias `main` belongs to the main-preview job below. A branch
+        # whose name turns into `main` would replace the owner's main link,
+        # so it is refused.
+        run: |
+          alias=$(node scripts/ci/preview-alias.ts)
+          if [ "$alias" = main ]; then
+            echo "::error title=Preview alias taken::The branch name $BRANCH turns into the alias main, which is kept for the main link. Rename the branch."
+            exit 1
+          fi
+          echo "alias=$alias" >> "$GITHUB_OUTPUT"
       - name: Upload a preview version of puhuscribe-preview
         id: upload
         # A version upload does not change what the Worker's main address
@@ -740,3 +750,96 @@ jobs:
         run: |
           body=$(node scripts/ci/preview-plan.ts comment)
           gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --edit-last --create-if-none --body "$body"
+
+  main-preview:
+    name: Main preview link (Cloudflare Worker behind Access)
+    # Job main-link (owner's fast route, 3 November 2026). Preview links exist
+    # only per pull request, so merged work had no address. On every push to
+    # main this job uploads a version of the same puhuscribe-preview Worker
+    # with the fixed alias `main`, so the owner always has
+    # https://main-puhuscribe-preview.fumnanya.workers.dev behind the same
+    # Cloudflare Access lock. Each push replaces what the alias serves.
+    # Only after the secret scan passed, and after "Apply database changes to
+    # the test project" succeeded, so the link never shows code ahead of its
+    # database. If the apply fails, this job is skipped; re-running the failed
+    # jobs of that run brings it back. Dependabot never pushes to main and gets
+    # no secrets. The build and upload are the pull request preview's, with
+    # the same secret guards. No browser test runs, nothing is uploaded as an
+    # artifact (the Switzer font files are in the build), and nothing is
+    # posted; the link is written to the run's summary page.
+    needs: [secrets, apply-test-db]
+    if: >-
+      !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+      github.actor != 'dependabot[bot]' &&
+      needs.secrets.result == 'success' && needs.apply-test-db.result == 'success'
+    # Two main uploads never run at once, and none is dropped: like the apply
+    # job, a newer push's upload waits in this queue, so uploads run in push
+    # order and the newest main is the one the link shows.
+    concurrency:
+      group: main-preview
+      queue: max
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      HEAD_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The GitHub token is not left in .git/config while branch code,
+          # npm install scripts and tools run.
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Fetch the Switzer font files (optional)
+        # As in the pull request preview: only this step sees the deploy key,
+        # the script never prints it, and without it the build uses the
+        # fallback fonts.
+        env:
+          FONTS_DEPLOY_KEY: ${{ secrets.FONTS_DEPLOY_KEY }}
+        run: node scripts/ci/fetch-private-fonts.ts
+      - name: Build the app and its Worker
+        # The design pages are built in, as on the pull request previews. They
+        # stay behind Cloudflare Access like the rest. Not a secret.
+        env:
+          VITE_DESIGN_REFERENCE: '1'
+        run: npm run build
+      - name: Upload the main version of puhuscribe-preview
+        id: upload
+        # A version upload does not change what the Worker's main address
+        # serves. Its secrets are the TEST project's, passed in a temporary
+        # file that is deleted straight after.
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+          ALIAS: main
+        run: |
+          # Without the CLOUDFLARE_ACCOUNT_ID secret, wrangler finds the
+          # account from the API token itself. An empty value is removed so
+          # wrangler does not read it as an account.
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then unset CLOUDFLARE_ACCOUNT_ID; fi
+          secrets_file="$RUNNER_TEMP/worker-secrets.json"
+          trap 'rm -f "$secrets_file"' EXIT
+          node scripts/ci/write-test-settings.ts json "$secrets_file"
+          npx wrangler versions upload \
+            --preview-alias "$ALIAS" \
+            --secrets-file "$secrets_file" \
+            --tag main \
+            --message "main at ${HEAD_SHA:0:7}" | tee "$RUNNER_TEMP/upload.log"
+          url=$(grep -oE "https://$ALIAS-puhuscribe-preview[.][a-z0-9-]+[.]workers[.]dev" "$RUNNER_TEMP/upload.log" | head -1)
+          if [ -z "$url" ]; then echo "No main alias address in the upload output"; exit 1; fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Write the main link on the run's summary page
+        env:
+          URL: ${{ steps.upload.outputs.url }}
+        run: |
+          echo "Main preview link, main at ${HEAD_SHA:0:7}, behind Cloudflare Access: $URL" >> "$GITHUB_STEP_SUMMARY"

@@ -80,7 +80,7 @@ The database is defined in code in `supabase/`, made by the Supabase CLI. The CL
 The owner decided on 3 November 2026 that no tests run until every requirement for the MVP is done. Then the full run happens once, as the general test before launch. The workflow is `.github/workflows/checks.yml`.
 
 - **Every pull request:** only the secret scan (gitleaks, because the repository is public), then the preview link is uploaded and posted. No browser test runs against it, and its comment says so.
-- **Every push to main:** the secret scan, and "Apply database changes to the test project", which applies new migrations with no database test in front of it (content publishing depends on it). A push with no new migration applies nothing. If an apply fails, re-run the failed jobs of that run from its Actions page.
+- **Every push to main:** the secret scan, and "Apply database changes to the test project", which applies new migrations with no database test in front of it (content publishing depends on it). A push with no new migration applies nothing. If an apply fails, re-run the failed jobs of that run from its Actions page. When the apply has succeeded, "Main preview link" updates the main link (see "Preview links" below).
 - **Before every commit:** lefthook runs only the Prettier fix and the secret scan.
 - **The full run** (by hand, once before the MVP launch): on GitHub, open Actions, then Checks, then "Run workflow", pick `main`, tick "full" and run it. It runs the type check, lint and format, the unit tests, the Python tests, the dependency check, every database test, every browser test (about 720) on Chromium and WebKit, the `@empty-content` tests, and the browser tests against the test project. It takes about 30 minutes. A manual run without "full" runs only the secret scan, over the full git history.
 
@@ -89,6 +89,8 @@ No test is deleted. After the launch, a fast run is ready to switch on: removing
 ## Preview links
 
 When every check passes on a pull request, the workflow uploads a version of the `puhuscribe-preview` Worker with an alias made from the branch name (`factory/1-stack` becomes `factory-1-stack`) and posts the link on the pull request. Until the MVP launch no browser test runs against it, and the comment says so. Without the `CLOUDFLARE_ACCOUNT_ID` secret, wrangler finds the account from the Cloudflare API token.
+
+**Main link.** Merged work is always at https://main-puhuscribe-preview.fumnanya.workers.dev, behind the same Cloudflare Access lock. On every push to main that runs the checks, once the secret scan has passed and "Apply database changes to the test project" has succeeded, the job "Main preview link" builds main and uploads it as a version of the same `puhuscribe-preview` Worker with the fixed alias `main` and the same test project settings. Each push replaces what the link shows, and the run's summary page names the commit. No browser test runs against it. A push that changes only `factory/` or `recording/` files leaves the link as it was. If the apply fails, the link is not updated until the failed jobs of that run are re-run. A pull request branch whose name would turn into the alias `main` gets no preview and is asked to rename the branch.
 
 The preview uses the shared test project, which gets a pull request's database changes only after the owner approves the job. So when a pull request adds, changes or deletes a file in `supabase/migrations/`, the comment says that screens needing the new database parts do not work on the link yet.
 
