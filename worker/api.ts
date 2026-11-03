@@ -52,6 +52,7 @@ import {
   type TutorKit,
 } from './tutor.ts'
 import type { AiEnv } from './providers/ai.ts'
+import { checkHuman, humanCheckKeys, type HumanCheckEnv } from './providers/human-check.ts'
 import { roadFor, supabaseRoadDb, supabaseVisitorRoadDb, visitorRoadFor, type RoadDb } from './road.ts'
 import {
   answer as answerReview,
@@ -80,7 +81,7 @@ import {
   type SpeechDeps,
 } from './speech.ts'
 
-export type ApiEnv = SupabaseEnv & SpeechEnv & AiEnv
+export type ApiEnv = SupabaseEnv & SpeechEnv & AiEnv & HumanCheckEnv
 
 export interface ApiDeps
   extends AccountDeps, SpeechDeps, Omit<TutorDeps, 'fetch' | 'speechDb' | 'speechProvider'> {
@@ -185,8 +186,13 @@ function faultAnswer(error: unknown): Response {
 // POST /api/guest: makes a guest account (Supabase anonymous sign in) when
 // the browser has no working sign in. Pressing Start again, reloading or a
 // second tab finds the existing sign in and makes nothing.
+// A new guest needs a Cloudflare Turnstile token ({"turnstileToken": "..."}),
+// checked before Supabase is asked (worker/providers/human-check.ts). Without
+// one the answer is 403 {"error":"check_needed","siteKey":...}: the browser
+// then runs the check and sends Start again. A learner who is already signed
+// in never needs a token, so the browser loads Turnstile only for new guests.
 async function guest(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Response> {
-  const { refused } = await refuseUnsafeWrite(request)
+  const { refused, body } = await refuseUnsafeWrite(request)
   if (refused) return refused
   const settings = supabaseSettings(env)
   if (!settings) return NOT_CONFIGURED()
@@ -194,6 +200,19 @@ async function guest(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Resp
   const state = await signInState(context)
   if (state === 'active') return withCookies(json({ guest: 'existing' }), context.setCookies())
   if (state === 'unavailable') return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
+  const hostname = new URL(request.url).hostname
+  const keys = humanCheckKeys(env, hostname)
+  if (!keys) return withCookies(json({ error: 'check_unavailable' }, 503), context.setCookies())
+  const token = turnstileTokenOf(body)
+  if (token === undefined) {
+    return withCookies(json({ error: 'check_needed', siteKey: keys.siteKey }, 403), context.setCookies())
+  }
+  const check = await checkHuman(token, keys, hostname, deps.fetch)
+  if (check === 'failed') {
+    return withCookies(json({ error: 'check_failed', siteKey: keys.siteKey }, 403), context.setCookies())
+  }
+  if (check === 'unavailable')
+    return withCookies(json({ error: 'check_unavailable' }, 503), context.setCookies())
   try {
     const { data, error } = await context.client.auth.signInAnonymously()
     // Only whether it worked goes back: no token and no user id.
@@ -204,6 +223,17 @@ async function guest(request: Request, env: ApiEnv, deps: ApiDeps): Promise<Resp
     return withCookies(json({ error: 'guest_not_created' }, 503), context.setCookies())
   }
   return withCookies(json({ guest: 'created' }, 201), context.setCookies())
+}
+
+/** The Turnstile token in the body, or undefined when none was sent. Anything else sent counts as a token, and fails. */
+function turnstileTokenOf(body: string): unknown {
+  try {
+    const parsed: unknown = JSON.parse(body)
+    if (typeof parsed !== 'object' || parsed === null) return undefined
+    return (parsed as Record<string, unknown>).turnstileToken
+  } catch {
+    return undefined
+  }
 }
 
 // GET /api/today: what the front door shows. Changes nothing (an expired
