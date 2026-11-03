@@ -33,7 +33,7 @@ npm ci
 npm run dev
 ```
 
-Open the address it prints (usually http://localhost:5173). The front door shows today's session; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/session` (job 8-first-session). `http://localhost:5173/api/health` answers from the Worker.
+Open the address it prints (usually http://localhost:5173). The front door shows today's session; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/session` (job 8-first-session). Before a new guest is made, Cloudflare Turnstile checks for bots; locally it uses Cloudflare's test keys, which always pass, so it needs no setting (docs/turnstile.md). `http://localhost:5173/api/health` answers from the Worker.
 
 `npm ci` also installs the commit check (lefthook, `lefthook.yml`). Before every commit it formats the staged files and scans them for secrets with gitleaks. Until the MVP launch it runs no ESLint, type check or ruff (owner's decision of 3 November 2026). It needs two free tools, installed once:
 

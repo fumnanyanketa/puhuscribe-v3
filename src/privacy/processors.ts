@@ -58,7 +58,17 @@ export const PROCESSORS: readonly Processor[] = [
     role: 'Runs the app and passes every request on to the database.',
     where:
       "Requests pass through Cloudflare's network, which may handle them outside the EU under its data processing terms (EU standard contractual clauses and the EU US Data Privacy Framework).",
-    modules: [],
+    // Job turnstile (owner's choice, 3 November 2026). The facts are Cloudflare's Turnstile Privacy
+    // Addendum (last updated 18 June 2025): the signals it lists, that Cloudflare cannot identify a
+    // person from them, and that it is a processor for the bot check and a controller for improving it.
+    details: [
+      "When you press Start without an account, Cloudflare Turnstile checks for bots before your guest account is made. It reads your internet address, your browser's User-Agent and TLS fingerprint and this site's key and address, which Cloudflare says cannot identify you directly, and Cloudflare also uses them to improve its bot detection.",
+    ],
+    link: {
+      label: "Cloudflare's Turnstile privacy addendum",
+      href: 'https://www.cloudflare.com/turnstile-privacy-policy/',
+    },
+    modules: ['human-check.ts'],
   },
   {
     name: 'Microsoft (Azure Speech)',

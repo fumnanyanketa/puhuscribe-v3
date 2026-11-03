@@ -28,10 +28,14 @@ import type {
   TokenRow,
 } from './learner-db.ts'
 import type { ReviewLineRow } from './review-plan.ts'
+import { SITEVERIFY_URL, TEST_KEYS } from './providers/human-check.ts'
 
 export const PROJECT = 'https://fake-ref.supabase.co'
 export const PUBLISHABLE = 'sb_publishable_fake_value_for_tests'
-export const ENV: ApiEnv = { SUPABASE_URL: PROJECT, SUPABASE_PUBLISHABLE_KEY: PUBLISHABLE }
+// With Cloudflare's published Turnstile test keys (the bot check on the guest Start).
+export const ENV: ApiEnv = { SUPABASE_URL: PROJECT, SUPABASE_PUBLISHABLE_KEY: PUBLISHABLE, ...TEST_KEYS }
+/** The token Turnstile's test site keys hand out. */
+export const DUMMY_TURNSTILE_TOKEN = 'XXXX.DUMMY.TOKEN.XXXX'
 export const ORIGIN = 'https://puhuscribe.example'
 
 export interface RecordedRequest {
@@ -54,6 +58,20 @@ export interface FakeSupabase {
   down: boolean
   /** Answers /rest/v1 requests; undefined means 404. */
   rest?: (request: RecordedRequest) => Response | undefined
+  /** Every call to Turnstile's siteverify, kept apart from the Supabase requests. */
+  humanChecks: RecordedRequest[]
+  /** What siteverify answers; by default a pass for the dummy token, as Cloudflare's test secret does. */
+  siteverify?: (request: RecordedRequest) => Response
+}
+
+/** Turnstile's siteverify as Cloudflare's always-pass test secret answers it: a pass for the dummy token only. */
+export function testSiteverify(recorded: RecordedRequest): Response {
+  const sent = JSON.parse(recorded.body || '{}') as { response?: string }
+  const body =
+    sent.response === DUMMY_TURNSTILE_TOKEN
+      ? { success: true, hostname: 'localhost', action: 'test', 'error-codes': [] }
+      : { success: false, 'error-codes': ['invalid-input-response'] }
+  return Response.json(body)
 }
 
 function base64url(value: unknown): string {
@@ -71,6 +89,7 @@ export function fakeSupabase(): FakeSupabase {
     issued: [],
     userIds: [],
     down: false,
+    humanChecks: [],
     fetch: async (input, init) => {
       const request = new Request(input, init)
       const recorded: RecordedRequest = {
@@ -79,9 +98,13 @@ export function fakeSupabase(): FakeSupabase {
         headers: new Headers(request.headers),
         body: request.body ? await request.text() : '',
       }
-      fake.requests.push(recorded)
       const answer = (status: number, body: unknown) =>
         new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } })
+      if (recorded.url.href === SITEVERIFY_URL) {
+        fake.humanChecks.push(recorded)
+        return fake.siteverify ? fake.siteverify(recorded) : testSiteverify(recorded)
+      }
+      fake.requests.push(recorded)
       const path = recorded.url.pathname
       if (path.startsWith('/rest/v1/')) return fake.rest?.(recorded) ?? answer(404, { message: 'not found' })
       if (fake.down) return answer(503, { message: 'unavailable' })
@@ -177,7 +200,9 @@ export function post(
   const headers = new Headers({ 'content-type': options.contentType ?? 'application/json' })
   if (options.cookie) headers.set('cookie', options.cookie)
   if (options.origin) headers.set('origin', options.origin)
-  return new Request(`${ORIGIN}${path}`, { method: 'POST', headers, body: options.body ?? '{}' })
+  // A guest Start carries the token Turnstile's test keys hand out, as the browser sends it.
+  const body = path === '/api/guest' ? JSON.stringify({ turnstileToken: DUMMY_TURNSTILE_TOKEN }) : '{}'
+  return new Request(`${ORIGIN}${path}`, { method: 'POST', headers, body: options.body ?? body })
 }
 
 export function get(path: string, cookie?: string) {

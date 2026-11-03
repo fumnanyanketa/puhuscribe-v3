@@ -8,7 +8,8 @@
 // deleted sign in is no longer live. Nothing here is used by the app.
 
 import type { Fetch } from './learner-auth.ts'
-import type { RecordedRequest } from './test-fakes.ts'
+import { SITEVERIFY_URL } from './providers/human-check.ts'
+import { testSiteverify, type RecordedRequest } from './test-fakes.ts'
 
 export interface FakeUser {
   id: string
@@ -150,6 +151,8 @@ export function accountFake(): AccountFake {
         headers: new Headers(request.headers),
         body: request.body ? await request.text() : '',
       }
+      // Turnstile's siteverify (the guest Start's bot check) is not Supabase: it is answered apart.
+      if (recorded.url.href === SITEVERIFY_URL) return testSiteverify(recorded)
       fake.requests.push(recorded)
       if (fake.down) return answer(503, { message: 'unavailable' })
       const path = recorded.url.pathname

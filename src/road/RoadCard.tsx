@@ -7,7 +7,7 @@ import { reviewMinutesLine } from '../lib/review-day.ts'
 import { dayOneLine, lessonLine, lessonSegments } from '../lib/road-state.ts'
 import type { RoadStop } from '../lib/road-types.ts'
 import { canDoSentence, FIRST_LINE_CAPTION, FIRST_LINE_WHAT } from '../screens/intro-copy.ts'
-import { GUEST_LINE } from '../screens/road-copy.ts'
+import { CHECK_ASKING, GUEST_LINE } from '../screens/road-copy.ts'
 import styles from './RoadCard.module.css'
 
 // The one milky card at the bottom of the road (job 19-redesign, statement
@@ -36,6 +36,10 @@ interface RoadCardProps {
   startRef: RefObject<HTMLButtonElement | null>
   /** The recap card's title, so focus can move to it when the card appears. */
   headingRef?: RefObject<HTMLHeadingElement | null>
+  /** Where Cloudflare Turnstile draws its check, above Start (src/lib/human-check.ts). */
+  checkRef?: RefObject<HTMLDivElement | null>
+  /** Cloudflare is showing the learner a check to do. */
+  asking?: boolean
 }
 
 function Pieces({ stop }: { stop: RoadStop }) {
@@ -53,6 +57,19 @@ function Tick() {
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className={styles.tickIcon}>
       <path d="M5 12.5l4.5 4.5L19 7.5" />
     </svg>
+  )
+}
+
+// The place for the bot check (job turnstile), right above Start. It takes no
+// room until Cloudflare decides the learner must act; then the widget shows
+// here, inside the card, with one quiet line above it.
+function CheckSlot({ checkRef, asking }: { checkRef?: RefObject<HTMLDivElement | null>; asking: boolean }) {
+  if (!checkRef) return null
+  return (
+    <div className={styles.check} data-asking={asking ? 'yes' : undefined}>
+      {asking && <p className={styles.checkNote}>{CHECK_ASKING}</p>}
+      <div ref={checkRef} className={styles.checkWidget} />
+    </div>
   )
 }
 
@@ -75,6 +92,8 @@ export function RoadCard({
   problem,
   startRef,
   headingRef,
+  checkRef,
+  asking = false,
 }: RoadCardProps) {
   const tone: StatusTone = 'problem'
   return (
@@ -91,9 +110,12 @@ export function RoadCard({
             </span>
           </div>
           {view.message && <StatusLine>{view.message}</StatusLine>}
-          <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
-            Start
-          </Button>
+          <div className={styles.startArea}>
+            <CheckSlot checkRef={checkRef} asking={asking} />
+            <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
+              Start
+            </Button>
+          </div>
           {/* As drawn, centred under Start; the guest line and the Privacy notice link sit under it, small,
               quiet and centred (owner's call 9, round 6). */}
           <p className={styles.account}>
@@ -124,9 +146,12 @@ export function RoadCard({
               {FIRST_LINE_CAPTION}
             </span>
           </div>
-          <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
-            Start
-          </Button>
+          <div className={styles.startArea}>
+            <CheckSlot checkRef={checkRef} asking={asking} />
+            <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
+              Start
+            </Button>
+          </div>
           {/* This Start makes the guest account, so the protected guest line sits under it too (job 15's rule:
               the line stays next to the Start that starts). */}
           <Legal />
@@ -145,9 +170,18 @@ export function RoadCard({
           </div>
           <Pieces stop={view.stop} />
           {view.action === 'Start' ? (
-            <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
-              Start
-            </Button>
+            <div className={styles.startArea}>
+              <CheckSlot checkRef={checkRef} asking={asking} />
+              <Button
+                block
+                ref={startRef}
+                busy={starting}
+                busyLabel="Starting your session."
+                onClick={onStart}
+              >
+                Start
+              </Button>
+            </div>
           ) : (
             <Button block ref={startRef} onClick={onContinue}>
               Continue
@@ -168,9 +202,12 @@ export function RoadCard({
               </span>
             )}
           </div>
-          <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
-            Start review
-          </Button>
+          <div className={styles.startArea}>
+            <CheckSlot checkRef={checkRef} asking={asking} />
+            <Button block ref={startRef} busy={starting} busyLabel="Starting your session." onClick={onStart}>
+              Start review
+            </Button>
+          </div>
         </>
       )}
       {view.kind === 'stop-finished' && (
