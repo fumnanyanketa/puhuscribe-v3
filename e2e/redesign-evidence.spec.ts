@@ -37,7 +37,7 @@ const SIGNED_IN = { signedIn: true, today: 'continue' }
 
 async function road(page: Page, mocks: HomeMocks, skip = true) {
   await mockHome(page, mocks)
-  await page.goto('/')
+  await page.goto('/learn')
   await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
   if (skip)
     await page
@@ -48,7 +48,7 @@ async function road(page: Page, mocks: HomeMocks, skip = true) {
   await page.waitForTimeout(900)
 }
 
-async function lesson(page: Page, mocks: LessonMocks, path = '/session') {
+async function lesson(page: Page, mocks: LessonMocks, path = '/learn/session') {
   await mockLesson(page, mocks)
   await page.goto(path)
   await page.evaluate('document.fonts.ready')
@@ -105,7 +105,7 @@ const SHOTS: Shot[] = [
     file: 'loading',
     run: async (page) => {
       await mockHome(page, { roadDelayMs: 4000 })
-      await page.goto('/')
+      await page.goto('/learn')
       await page.waitForTimeout(600)
     },
   },
@@ -171,18 +171,18 @@ const SHOTS: Shot[] = [
     run: (page) =>
       lesson(page, { step: 'say', newWords: 11, me: { kind: 'email', email: 'alex@example.com' } }),
   },
-  { drawing: 'Your account, guest', file: 'account-guest', run: (page) => pages(page, '/account') },
+  { drawing: 'Your account, guest', file: 'account-guest', run: (page) => pages(page, '/learn/account') },
   {
     drawing: 'Your account, signed in',
     file: 'account-signed-in',
-    run: (page) => pages(page, '/account', { kind: 'email', email: 'alex@example.com' }),
+    run: (page) => pages(page, '/learn/account', { kind: 'email', email: 'alex@example.com' }),
   },
-  { drawing: 'Create account', file: 'create-account', run: (page) => pages(page, '/account/email') },
+  { drawing: 'Create account', file: 'create-account', run: (page) => pages(page, '/learn/account/email') },
   {
     drawing: 'Enter the code',
     file: 'enter-the-code',
     run: async (page) => {
-      await pages(page, '/account/email')
+      await pages(page, '/learn/account/email')
       await page.route('**/api/account/email', (route) =>
         route.fulfill({ status: 200, contentType: 'application/json', body: '{"sent":true}' }),
       )
@@ -192,13 +192,13 @@ const SHOTS: Shot[] = [
       await page.waitForTimeout(300)
     },
   },
-  { drawing: 'Sign in', file: 'sign-in', run: (page) => pages(page, '/sign-in', { kind: 'none' }) },
-  { drawing: 'Voice settings', file: 'voice-settings', run: (page) => pages(page, '/voice') },
+  { drawing: 'Sign in', file: 'sign-in', run: (page) => pages(page, '/learn/sign-in', { kind: 'none' }) },
+  { drawing: 'Voice settings', file: 'voice-settings', run: (page) => pages(page, '/learn/voice') },
   {
     drawing: 'Download my data',
     file: 'download-ready',
     run: async (page) => {
-      await pages(page, '/account')
+      await pages(page, '/learn/account')
       await page.route('**/api/account/export', (route) =>
         route.fulfill({
           status: 200,
@@ -211,15 +211,23 @@ const SHOTS: Shot[] = [
       await page.waitForTimeout(600)
     },
   },
-  { drawing: 'Delete my account', file: 'delete-my-account', run: (page) => pages(page, '/account/delete') },
-  { drawing: 'Privacy notice', file: 'privacy-notice', run: (page) => pages(page, '/privacy') },
-  { drawing: 'Send feedback', file: 'send-feedback', run: (page) => pages(page, '/feedback?from=account') },
+  {
+    drawing: 'Delete my account',
+    file: 'delete-my-account',
+    run: (page) => pages(page, '/learn/account/delete'),
+  },
+  { drawing: 'Privacy notice', file: 'privacy-notice', run: (page) => pages(page, '/learn/privacy') },
+  {
+    drawing: 'Send feedback',
+    file: 'send-feedback',
+    run: (page) => pages(page, '/learn/feedback?from=account'),
+  },
   {
     drawing: 'No internet',
     file: 'no-connection',
     run: async (page) => {
       await mockHome(page, { roadFails: 0 })
-      await page.goto('/')
+      await page.goto('/learn')
       await page.waitForTimeout(500)
     },
   },
@@ -272,7 +280,7 @@ const SHOTS: Shot[] = [
           }),
         }),
       )
-      await page.goto('/session')
+      await page.goto('/learn/session')
       await page.evaluate('document.fonts.ready')
       await page.waitForTimeout(600)
     },
@@ -319,7 +327,7 @@ const SHOTS: Shot[] = [
           }),
         }),
       )
-      await page.goto('/session')
+      await page.goto('/learn/session')
       await page.evaluate('document.fonts.ready')
       await page.waitForTimeout(600)
     },

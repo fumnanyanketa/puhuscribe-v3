@@ -1,3 +1,4 @@
+import { PATHS } from '../lib/app-paths.ts'
 import { useEffect, useRef, useState } from 'react'
 import { SessionFrame } from '../components/SessionFrame.tsx'
 import { SAMPLE_DIALOGUE, type Word } from './sample-dialogue.ts'
@@ -146,7 +147,7 @@ export default function HearItSample() {
   // shared SessionFrame (job 5, round 3), so the sample and real screens
   // cannot drift apart. Unit 1 has no Use it step, so this is step 1 of 4.
   return (
-    <SessionFrame step="Hear it, say it" leaveHref="/" actions={actions}>
+    <SessionFrame step="Hear it, say it" leaveHref={PATHS.home} actions={actions}>
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1 className={styles.title}>Hear it</h1>

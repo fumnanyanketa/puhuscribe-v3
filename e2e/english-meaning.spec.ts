@@ -35,7 +35,7 @@ const tokenColour = (page: Page, token: string): Promise<string> =>
 
 async function open(page: Page, mocks: LessonMocks = {}) {
   await mockLesson(page, mocks)
-  await page.goto('/session')
+  await page.goto('/learn/session')
 }
 
 /** The meaning line of the one card on screen, with its label and its English. */
@@ -122,7 +122,7 @@ test.describe('the English meaning on the line card', () => {
         }),
       }),
     )
-    await page.goto('/session')
+    await page.goto('/learn/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
     await page.evaluate('document.fonts.ready')

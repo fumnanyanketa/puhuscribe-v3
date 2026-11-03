@@ -41,6 +41,15 @@ export default defineConfig({
     // "Browsers"). CSS is built so that Safari 15.4 understands it.
     cssTarget: ['safari15.4'],
   },
+  // Two pages in the browser build: the app shell (index.html, every address
+  // under /learn) and the public landing page (landing.html, answered at "/" by
+  // the Worker, job 17-landing-page). scripts/landing/prerender.ts then draws
+  // the landing page into its HTML.
+  environments: {
+    client: {
+      build: { rollupOptions: { input: { index: 'index.html', landing: 'landing.html' } } },
+    },
+  },
   // No CORS headers from the local preview server: the live Worker sends none,
   // and the owner page tests check that no answer allows another origin.
   preview: { https: testHttps, cors: false },

@@ -33,7 +33,7 @@ npm ci
 npm run dev
 ```
 
-Open the address it prints (usually http://localhost:5173). The front door shows today's session; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/session` (job 8-first-session). Before a new guest is made, Cloudflare Turnstile checks for bots; locally it uses Cloudflare's test keys, which always pass, so it needs no setting (docs/turnstile.md). `http://localhost:5173/api/health` answers from the Worker.
+Open the address it prints (usually http://localhost:5173). The main address `/` is the public landing page; the learner app lives under `/learn` (job 17-landing-page). The front door at `/learn` shows the road; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/learn/session` (job 8-first-session). Before a new guest is made, Cloudflare Turnstile checks for bots; locally it uses Cloudflare's test keys, which always pass, so it needs no setting (docs/turnstile.md). `http://localhost:5173/api/health` answers from the Worker.
 
 `npm ci` also installs the commit check (lefthook, `lefthook.yml`). Before every commit it formats the staged files and scans them for secrets with gitleaks. Until the MVP launch it runs no ESLint, type check or ruff (owner's decision of 3 November 2026). It needs two free tools, installed once:
 
@@ -63,6 +63,27 @@ Switzer, the body font, is not in this repository because its licence forbids pu
 Third party licences and attributions (the skills in `.claude/skills/` and some reference data) are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). The repository itself has no licence yet.
 
 Local settings go in `.env.local`, which git ignores. [.env.example](.env.example) lists every name. Without the Supabase test project settings, `/api/health` reports the database as `not_configured` and the browser tests fail on purpose.
+
+## Addresses (job 17-landing-page)
+
+| Address                                                                                                                                                                    | What it shows                                                                                                 |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `/`                                                                                                                                                                        | The public landing page (`landing.html`, drawn into its HTML at build time by `scripts/landing/prerender.ts`) |
+| `/learn`                                                                                                                                                                   | The road, the app's front door                                                                                |
+| `/learn/session`, `/learn/voice`, `/learn/account`, `/learn/account/email`, `/learn/account/delete`, `/learn/sign-in`, `/learn/privacy`, `/learn/feedback`, `/learn/owner` | The app's pages                                                                                               |
+| `/api/*`                                                                                                                                                                   | The Worker's routes, unchanged                                                                                |
+
+Every address is named once in `src/lib/app-paths.ts`. The old addresses (`/session`, `/account` and the rest) forward to their new ones from a fixed map in that file, so no bookmark breaks; any other unknown address outside `/learn` goes to `/`. `/landing` and `/landing.html` go to `/`.
+
+The landing page's pictures are real app screens in `public/landing/`, made at phone size and device scale 2 by `e2e/landing-shots.spec.ts` from the lesson mocks:
+
+```
+VITE_DESIGN_REFERENCE=1 npm run build
+PUHUSCRIBE_LANDING_SHOTS=1 npx playwright test e2e/landing-shots.spec.ts --project=chromium
+npm run build
+```
+
+The landing page costs nothing to run: it is static files served by the same Worker.
 
 ## Database changes
 

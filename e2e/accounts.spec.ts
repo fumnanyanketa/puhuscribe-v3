@@ -83,7 +83,7 @@ async function fits(page: Page, label: string) {
 }
 
 async function downloadFile(page: Page): Promise<{ name: string; file: Record<string, unknown> }> {
-  await page.goto('/account')
+  await page.goto('/learn/account')
   const button = page.getByRole('button', { name: 'Download my data' })
   await expect(button).toBeVisible()
   const waiting = page.waitForEvent('download')
@@ -110,7 +110,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     page,
   }) => {
     await startGuest(page)
-    await page.goto('/account')
+    await page.goto('/learn/account')
     await expect(page.getByText('Create an account to save your progress.', { exact: true })).toBeVisible()
     await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Create an account' })).toBeVisible()
@@ -161,7 +161,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     { tag: '@smoke' },
     async ({ page, context }) => {
       const userId = await finishTodaysSession(page)
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await page.getByRole('link', { name: 'Delete my account' }).click()
       await page.waitForURL('**/account/delete')
       await expect(
@@ -171,7 +171,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       ).toBeVisible()
       await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
       await page.getByRole('button', { name: 'Delete for good' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
       expect(authUser(userId).exists).toBe(false)
       expect(allZero(rowsOf(userId))).toEqual([])
@@ -182,7 +182,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
 
   test('[accounts 20] "Keep my account" goes back and deletes nothing', async ({ page }) => {
     const userId = await startGuest(page)
-    await page.goto('/account/delete')
+    await page.goto('/learn/account/delete')
     await page.getByRole('button', { name: 'Keep my account' }).click()
     await page.waitForURL('**/account')
     expect(authUser(userId).exists).toBe(true)
@@ -192,7 +192,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
     page,
   }) => {
     const userId = await startGuest(page)
-    await page.goto('/account/delete')
+    await page.goto('/learn/account/delete')
     await page.route('**/api/account/delete', (route) =>
       route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"not_deleted"}' }),
     )
@@ -212,7 +212,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const address = testAddress('learner-a', testInfo)
       const userId = await startGuest(page)
       await page.clock.install()
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await page.getByRole('button', { name: 'Create an account' }).click()
       await page.waitForURL('**/account/email')
       await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
@@ -279,7 +279,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       // the same time and make guests.)
       expect(one(`select count(*) from auth.users where email = :'email'`, { email: address })).toBe('1')
       expect(await userIdOf(page.context())).toBe(userId)
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await expect(page.getByText(address, { exact: true })).toBeVisible()
       await expect(page.getByText('Saved to your email', { exact: true })).toBeVisible()
       await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
@@ -305,7 +305,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const guestPage = await other.newPage()
       await serveTone(guestPage)
       const guestId = await startGuest(guestPage)
-      await guestPage.goto('/account/email')
+      await guestPage.goto('/learn/account/email')
       const seen = await mailIds(address)
       await sendCodeTo(guestPage, address)
       // The same screen as for a new address (statement 9).
@@ -335,7 +335,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         const prefix = `nobody-${testInfo.project.name}-%`
         const ownUsers = () => one(`select count(*) from auth.users where email like :'prefix'`, { prefix })
         const users = ownUsers()
-        await page.goto('/sign-in')
+        await page.goto('/learn/sign-in')
         await sendCodeTo(page, address)
         await expect(
           page.getByText('If this email has a PuhuScribe account, we sent it a 6 digit code.'),
@@ -365,7 +365,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         const pageB = await deviceB.newPage()
         await serveTone(pageB)
         const seen = await mailIds(address)
-        await pageB.goto('/sign-in')
+        await pageB.goto('/learn/sign-in')
         await sendCodeTo(pageB, address)
         const mail = await nextMail(address, seen)
         // Statement 15: the sign in email shows a 6 digit code and no link.
@@ -418,7 +418,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const guestPage = await other.newPage()
       await serveTone(guestPage)
       const guestId = await startGuest(guestPage)
-      await guestPage.goto('/sign-in')
+      await guestPage.goto('/learn/sign-in')
       await expect(
         guestPage.getByText(
           'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
@@ -432,7 +432,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(authUser(guestId).exists).toBe(false)
       expect(allZero(rowsOf(guestId))).toEqual([])
       expect(await userIdOf(other)).toBe(ownerId)
-      await guestPage.goto('/account')
+      await guestPage.goto('/learn/account')
       await expect(guestPage.getByText(address, { exact: true })).toBeVisible()
       await other.close()
     })
@@ -452,14 +452,14 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const pageB = await deviceB.newPage()
       await signIn(pageB, address)
 
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await page.getByRole('button', { name: 'Sign out' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('status')).toHaveText('You are signed out on this device.')
       await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible()
       expect((await page.context().cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
 
-      await pageB.goto('/account')
+      await pageB.goto('/learn/account')
       await expect(pageB.getByText(address, { exact: true })).toBeVisible()
       await deviceB.close()
     })
@@ -477,9 +477,9 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(file.account).toMatchObject({ id: userId, email: address, is_anonymous: false })
       expect(Object.keys(file.tables as object).sort()).toEqual([...USER_TABLE_NAMES].sort())
 
-      await page.goto('/account/delete')
+      await page.goto('/learn/account/delete')
       await page.getByRole('button', { name: 'Delete for good' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
       expect(authUser(userId).exists).toBe(false)
       expect(allZero(rowsOf(userId))).toEqual([])
@@ -502,12 +502,12 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       const pageB = await deviceB.newPage()
       await serveTone(pageB)
       await signIn(pageB, address)
-      await pageB.goto('/session')
+      await pageB.goto('/learn/session')
       await expect(pageB.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
 
-      await page.goto('/account/delete')
+      await page.goto('/learn/account/delete')
       await page.getByRole('button', { name: 'Delete for good' }).click()
-      await page.waitForURL((url) => url.pathname === '/')
+      await page.waitForURL((url) => url.pathname === '/learn')
       expect(authUser(userId).exists).toBe(false)
 
       await dismissTip(pageB)
@@ -517,7 +517,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         await next.click()
       }
       await pageB.getByRole('button', { name: 'Continue' }).click()
-      await pageB.waitForURL((url) => url.pathname === '/')
+      await pageB.waitForURL((url) => url.pathname === '/learn')
       const message = 'You are signed out on this device. Sign in with your email to continue.'
       await expect(pageB.getByRole('status')).toHaveText(message)
       await pageB.reload()
@@ -534,25 +534,25 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await startGuest(page)
       for (const scheme of ['light', 'dark'] as const) {
         await page.emulateMedia({ colorScheme: scheme })
-        await page.goto('/account')
+        await page.goto('/learn/account')
         await expect(page.getByRole('button', { name: 'Create an account' })).toBeVisible()
         await axe(page, `account, guest, ${scheme}`)
-        await page.goto('/account/delete')
+        await page.goto('/learn/account/delete')
         await expect(page.getByRole('button', { name: 'Keep my account' })).toBeVisible()
         await axe(page, `delete, ${scheme}`)
-        await page.goto('/sign-in')
+        await page.goto('/learn/sign-in')
         await expect(page.getByRole('button', { name: 'Sign in anyway' })).toBeVisible()
         await axe(page, `sign in warning, ${scheme}`)
       }
       await page.emulateMedia({ colorScheme: 'light' })
-      for (const path of ['/account', '/account/delete', '/sign-in']) {
+      for (const path of ['/learn/account', '/learn/account/delete', '/learn/sign-in']) {
         await page.goto(path)
         await page.waitForLoadState('networkidle')
         await fits(page, path)
       }
 
       // The whole add email flow by keyboard alone.
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await tabTo(page, page.getByRole('button', { name: 'Create an account' }), testInfo)
       await page.keyboard.press('Enter')
       await page.waitForURL('**/account/email')
@@ -588,7 +588,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         'Your email is added. Your progress is saved to your account.',
       )
       await axe(page, 'email added')
-      await page.goto('/account')
+      await page.goto('/learn/account')
       await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
       await axe(page, 'account, email')
       await fits(page, 'account, email')
@@ -600,7 +600,13 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
   }) => {
     const requests = recordRequests(page)
     await startGuest(page)
-    for (const path of ['/account', '/account/email', '/account/delete', '/sign-in', '/privacy']) {
+    for (const path of [
+      '/learn/account',
+      '/learn/account/email',
+      '/learn/account/delete',
+      '/learn/sign-in',
+      '/learn/privacy',
+    ]) {
       await page.goto(path)
       await page.waitForLoadState('networkidle')
     }
@@ -627,7 +633,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
   test("[accounts 22] a guest whose account was deleted keeps job 8's message", async ({ page }) => {
     const userId = await startGuest(page)
     one(`delete from auth.users where id = :'uid' returning 1`, { uid: userId })
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('status')).toHaveText(
       'Your guest session ended on this device. Press Start to begin again.',
     )

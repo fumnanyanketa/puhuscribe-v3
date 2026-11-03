@@ -62,7 +62,7 @@ export async function finishFirstSession(page: Page): Promise<{ userId: string; 
   await passSayIt(page)
   await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
   await page.getByRole('button', { name: 'Done' }).click()
-  await page.waitForURL((url) => url.pathname === '/')
+  await page.waitForURL((url) => url.pathname === '/learn')
   return { userId, dialogueId }
 }
 

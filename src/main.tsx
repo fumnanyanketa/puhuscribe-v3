@@ -2,6 +2,7 @@ import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './App.tsx'
 import { CrashBoundary } from './components/CrashBoundary.tsx'
+import { forwardFor } from './lib/app-paths.ts'
 import { installCrashReporter } from './lib/crash-reporter.ts'
 import './styles/tokens.css'
 import './styles/fonts.css'
@@ -30,11 +31,24 @@ let page = <App path={path} />
 if (HearItSample && path === '/sample/hear-it') page = <HearItSample />
 if (DesignReference && path === '/design-reference') page = <DesignReference />
 if (IslandSample && path === '/sample/island') page = <IslandSample />
+const designPage = page.type !== App
 
-createRoot(root).render(
-  <StrictMode>
-    <CrashBoundary>
-      <Suspense fallback={null}>{page}</Suspense>
-    </CrashBoundary>
-  </StrictMode>,
-)
+// The app lives under /learn (job 17-landing-page). An old address forwards to
+// its new one before anything is drawn, so the old page never flashes, and any
+// other address outside /learn goes to the landing page. The target comes from
+// a fixed map in src/lib/app-paths.ts, never from the address itself. The
+// Worker answers "/" with the landing page, so the shell meets "/" only on a
+// development server, where it stays put instead of reloading forever.
+const forward =
+  designPage || path === '' ? null : forwardFor(path, window.location.search, window.location.hash)
+if (forward !== null) {
+  window.location.replace(forward)
+} else {
+  createRoot(root).render(
+    <StrictMode>
+      <CrashBoundary>
+        <Suspense fallback={null}>{page}</Suspense>
+      </CrashBoundary>
+    </StrictMode>,
+  )
+}

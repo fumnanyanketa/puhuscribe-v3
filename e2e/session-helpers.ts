@@ -56,7 +56,7 @@ export function isGuestPost(request: Request): boolean {
 
 /** Opens the front door, presses Start, and waits for Hear it. */
 export async function startSession(page: Page): Promise<void> {
-  await page.goto('/')
+  await page.goto('/learn')
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()

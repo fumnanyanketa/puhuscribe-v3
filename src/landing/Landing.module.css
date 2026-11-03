@@ -1,0 +1,937 @@
+/* The landing page (job 17-landing-page), after the owner's approved design
+   (factory/jobs/17-landing-page/approved-design.html). Colours come from src/styles/tokens.css;
+   the few soft panel colours the design draws that have no token are named once below, on .page.
+   The washed panels and the hero's ground are the design's own gradients, approved by the owner
+   for this page on 3 November 2026. */
+
+:global(html) {
+  background: var(--color-wash-middle);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:global(body) {
+  margin: 0;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(*),
+:global(*::before),
+:global(*::after) {
+  box-sizing: border-box;
+}
+
+:global(:focus-visible) {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+.page {
+  /* As drawn in the approved design, with no token of their own. */
+  --landing-mint-wash: #d9f0e7;
+  --landing-mint-milk: #eef7f2;
+  --landing-peach-wash: #fbe6da;
+  --landing-peach-milk: #f8f1ec;
+  --landing-peach-hint: #fbefe6;
+  --landing-mint-hint: #e2f2ea;
+  --landing-questions: #fbf3ee;
+  --landing-screen: #dff1ea;
+  --landing-card: #ffffffd9;
+  --landing-arrow: #ffffff30;
+  --landing-badge: #f1f5f3;
+  --landing-on-mint-quiet: #e8f5f0;
+  --landing-device: var(--color-text);
+  --landing-shadow-panel: 0 1px 2px #0000000a, 0 10px 28px #1e3c3214;
+  --landing-shadow-piece: 0 2px 4px #0000000d, 0 18px 40px #1e3c3229;
+  --landing-shadow-phone: 0 2px 4px #0000000d, 0 30px 60px #1e3c322e;
+  --landing-shadow-device: 0 2px 6px #00000014, 0 40px 80px #1e3c3238;
+  --landing-shadow-row: 0 1px 2px #0000000a, 0 6px 18px #1e3c320f;
+
+  overflow-x: clip;
+  background: var(--color-wash-middle);
+}
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+}
+
+/* Buttons: the app's flat mint pill, with explicit token colours (job 5's lesson). */
+.button {
+  display: inline-flex;
+  min-height: var(--tap-min);
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px 14px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-button);
+  color: var(--color-button-text);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--color-button-hover);
+}
+
+.button:active {
+  background: var(--color-button-pressed);
+}
+
+.arrow {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--landing-arrow);
+}
+
+.arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.small {
+  gap: 10px;
+  padding: 8px 9px 8px 16px;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.small .arrow {
+  width: 24px;
+  height: 24px;
+}
+
+/* Navigation */
+.nav {
+  padding-block: 18px;
+}
+
+.nav .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+.brand i {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-mint);
+}
+
+/* Hero */
+.hero {
+  overflow: hidden;
+  padding-block: 36px 56px;
+  background: linear-gradient(
+    165deg,
+    var(--color-wash-top) 0%,
+    var(--color-wash-middle) 55%,
+    var(--color-wash-bottom) 100%
+  );
+}
+
+.heroInner {
+  display: grid;
+  align-items: center;
+  gap: 40px;
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.heroCopy {
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 18px;
+  font-size: clamp(34px, 5.2vw, 56px);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 38ch;
+  margin: 0 auto 28px;
+  color: var(--color-text-quiet);
+  font-size: 18px;
+}
+
+.note {
+  margin: 14px 0 0;
+  color: var(--color-text-quiet);
+  font-size: 13.5px;
+}
+
+.stage {
+  position: relative;
+  width: min(720px, 100%);
+  height: 580px;
+  justify-self: center;
+}
+
+.device {
+  --phone-scale: calc(226 / 375);
+
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  left: 50%;
+  width: 244px;
+  padding: 9px;
+  border-radius: 42px;
+  background: var(--landing-device);
+  box-shadow: var(--landing-shadow-device);
+  transform: translateX(-50%);
+}
+
+/* The phone's camera notch. */
+.device::before {
+  position: absolute;
+  z-index: 3;
+  top: 17px;
+  left: 50%;
+  width: 72px;
+  height: 21px;
+  border-radius: 14px;
+  background: var(--landing-device);
+  content: '';
+  transform: translateX(-50%);
+}
+
+.deviceScreen {
+  position: relative;
+  overflow: hidden;
+  height: calc(812px * var(--phone-scale) + 34px);
+  padding-top: 34px;
+  border-radius: 34px;
+  background: var(--landing-screen);
+}
+
+.heroCard {
+  position: absolute;
+  z-index: 1;
+  width: 250px;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: var(--color-surface);
+  box-shadow: var(--landing-shadow-piece);
+}
+
+.heroCard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.heroCardLeft {
+  top: 92px;
+  left: 0;
+  transform: rotate(-6deg);
+}
+
+.heroCardRight {
+  top: 110px;
+  right: 0;
+  transform: rotate(6deg);
+}
+
+/* Sections */
+.band {
+  padding-block: 28px;
+}
+
+.h2 {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 3.6vw, 38px);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.changed {
+  padding: 0 3px;
+  border-radius: 5px;
+  background: var(--color-changed-wash);
+  color: var(--color-changed-text);
+}
+
+/* The story */
+.story .inner,
+.features .inner {
+  max-width: 1180px;
+}
+
+/* The section after the hero sits on the plain page, with no panel (owner, 3 November 2026). */
+.story {
+  padding-block: 72px 48px;
+}
+
+.storyPanel {
+  display: grid;
+  gap: 56px;
+}
+
+.storyText {
+  display: grid;
+  gap: 64px;
+  padding-top: 8px;
+}
+
+.story .h2 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 2.6vw, 30px);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.storyP {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--color-text-quiet);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.compare {
+  display: none;
+}
+
+.compareCard {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--color-panel);
+  box-shadow: var(--landing-shadow-panel);
+}
+
+.compareCard + .compareCard {
+  margin-top: 16px;
+}
+
+.compareLabel {
+  color: var(--color-text-quiet);
+  font-size: 12.5px;
+}
+
+.compareSpoken {
+  font-size: 30px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.compareWritten {
+  color: var(--color-written);
+  font-size: 24px;
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+}
+
+.compareMeaning {
+  font-size: 18px;
+  font-weight: var(--weight-medium);
+}
+
+/* How it works: five panels, alternating mint and peach */
+.feature {
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: 64px;
+  padding: 56px 64px;
+  border-radius: 44px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mint {
+  background: linear-gradient(
+    150deg,
+    var(--landing-mint-wash) 0%,
+    var(--landing-mint-milk) 45%,
+    var(--landing-peach-hint) 100%
+  );
+}
+
+.peach {
+  background: linear-gradient(
+    150deg,
+    var(--landing-peach-wash) 0%,
+    var(--landing-peach-milk) 45%,
+    var(--landing-mint-hint) 100%
+  );
+}
+
+.flip .featureCopy {
+  order: 2;
+}
+
+.h3 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.featureP {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--color-text-quiet);
+  font-size: 17px;
+}
+
+.featureStage {
+  position: relative;
+  display: grid;
+  width: min(420px, 100%);
+  justify-self: center;
+  place-items: center;
+}
+
+.phone {
+  width: min(290px, 100%);
+  overflow: hidden;
+  border-radius: 34px;
+  background: var(--color-surface);
+  box-shadow: var(--landing-shadow-phone);
+}
+
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.floatPiece {
+  position: absolute;
+  z-index: 2;
+  bottom: 70px;
+  left: -70px;
+}
+
+.flip .floatPiece {
+  right: -70px;
+  left: auto;
+}
+
+.mini {
+  display: grid;
+  min-width: 200px;
+  max-width: 260px;
+  gap: 6px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: var(--color-surface);
+  box-shadow: var(--landing-shadow-piece);
+  font-size: 14px;
+}
+
+.miniFlat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.miniGentle {
+  background: var(--color-peach-soft);
+  color: var(--color-changed-text);
+}
+
+.miniRow {
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: 10px 1fr;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dotSpoken {
+  background: var(--color-spoken);
+}
+
+.dotWritten {
+  background: var(--color-written);
+}
+
+.miniSpoken {
+  font-size: 15px;
+  font-weight: var(--weight-semibold);
+}
+
+.miniWritten {
+  color: var(--color-written);
+}
+
+.miniLabel {
+  color: var(--color-text-quiet);
+  font-size: 12px;
+}
+
+.ring {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border: 2px solid var(--color-peach);
+  border-radius: 50%;
+}
+
+.tick {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-mint);
+}
+
+.tick svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--color-button-text);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-quiet);
+  font-size: 12px;
+}
+
+.who img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.who em {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: var(--landing-badge);
+  font-size: 10.5px;
+  font-style: normal;
+}
+
+/* The journey: the six parts of the road */
+.journeyPanel {
+  display: grid;
+  align-items: center;
+  gap: 56px;
+  padding: 60px 64px;
+  border-radius: 44px;
+  background: linear-gradient(
+    150deg,
+    var(--landing-mint-wash) 0%,
+    var(--landing-mint-milk) 45%,
+    var(--landing-peach-hint) 100%
+  );
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.journeyP {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--color-text-quiet);
+  font-size: 17px;
+}
+
+.parts {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+}
+
+.parts li {
+  display: grid;
+  gap: 2px;
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: var(--landing-card);
+  box-shadow: var(--landing-shadow-row);
+}
+
+.parts b {
+  font-size: 16px;
+  font-weight: var(--weight-semibold);
+}
+
+.parts span {
+  color: var(--color-text-quiet);
+  font-size: 14px;
+}
+
+.parts li:last-child {
+  background: var(--color-mint);
+  color: var(--color-button-text);
+}
+
+.parts li:last-child span {
+  color: var(--landing-on-mint-quiet);
+}
+
+/* Questions */
+.questions {
+  padding-block: 72px;
+  background: var(--landing-questions);
+}
+
+.questions .inner {
+  max-width: 760px;
+}
+
+.questionsGrid {
+  display: grid;
+  gap: 28px;
+}
+
+.questionsGrid .h2 {
+  margin: 0;
+}
+
+.questionList {
+  display: grid;
+  gap: 12px;
+}
+
+.question {
+  padding: 0 22px;
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: var(--landing-shadow-row);
+}
+
+.question summary {
+  display: flex;
+  min-height: var(--tap-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 18px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: var(--weight-medium);
+  list-style: none;
+}
+
+.question summary::-webkit-details-marker {
+  display: none;
+}
+
+.question summary::after {
+  color: var(--color-mint);
+  content: '+';
+  font-size: 20px;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.question[open] summary::after {
+  content: '\2013';
+}
+
+.question p {
+  margin: -6px 0 0;
+  padding-bottom: 18px;
+  color: var(--color-text-quiet);
+}
+
+/* The close */
+.close {
+  padding-block: 84px;
+  background: linear-gradient(180deg, var(--color-wash-middle) 0%, var(--color-wash-bottom) 100%);
+  text-align: center;
+}
+
+.closeTitle {
+  max-width: 22ch;
+  margin: 0 auto 26px;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* Footer */
+.footer {
+  padding-block: 20px 32px;
+  color: var(--color-text-quiet);
+  font-size: 13.5px;
+}
+
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer a {
+  display: inline-flex;
+  min-height: var(--tap-min);
+  align-items: center;
+  color: var(--color-mint-deep);
+}
+
+/* The scroll reveal (src/landing/use-reveal.ts). */
+:global([data-reveal='waiting']) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+:global([data-reveal='in']) {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-reveal]) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Wide screens */
+@media (min-width: 980px) {
+  .heroInner {
+    max-width: 1180px;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .storyPanel {
+    align-items: start;
+    gap: 72px;
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .compare {
+    position: sticky;
+    top: 40px;
+    display: block;
+    padding: 44px 36px;
+    border-radius: 36px;
+    background: linear-gradient(
+      165deg,
+      var(--color-wash-top) 0%,
+      var(--color-wash-middle) 55%,
+      var(--color-wash-bottom) 100%
+    );
+  }
+
+  .h3 {
+    font-size: 36px;
+  }
+
+  .featureP {
+    font-size: 18px;
+  }
+
+  .questions .inner {
+    max-width: 1180px;
+  }
+
+  .questionsGrid {
+    align-items: start;
+    gap: 72px;
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+
+  .journey .inner {
+    max-width: 1180px;
+  }
+}
+
+@media (max-width: 979px) {
+  .floatPiece {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .journeyPanel {
+    gap: 24px;
+    padding: 32px 22px;
+    border-radius: 30px;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phones */
+@media (max-width: 760px) {
+  .hero {
+    padding-block: 24px 40px;
+  }
+
+  .heroInner {
+    gap: 28px;
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .lead {
+    font-size: 17px;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 375px;
+    height: 390px;
+  }
+
+  .device {
+    --phone-scale: calc(154 / 375);
+
+    width: 168px;
+    padding: 7px;
+    border-radius: 32px;
+  }
+
+  .device::before {
+    top: 13px;
+    width: 52px;
+    height: 15px;
+  }
+
+  .deviceScreen {
+    height: calc(812px * var(--phone-scale) + 24px);
+    padding-top: 24px;
+    border-radius: 26px;
+  }
+
+  .heroCard {
+    width: 136px;
+    padding: 6px;
+    border-radius: 18px;
+  }
+
+  .heroCard img {
+    border-radius: 12px;
+  }
+
+  .heroCardLeft {
+    top: 64px;
+    left: -8px;
+  }
+
+  .heroCardRight {
+    top: 76px;
+    right: -8px;
+  }
+
+  .band {
+    padding-block: 12px;
+  }
+
+  .h2 {
+    font-size: 26px;
+  }
+
+  .story {
+    padding-block: 48px 32px;
+  }
+
+  .feature {
+    gap: 22px;
+    padding: 28px 20px;
+    border-radius: 30px;
+    grid-template-columns: 1fr;
+  }
+
+  /* On a phone the app screen sits above the text (approved copy, "How it works"). */
+  .featureStage {
+    order: -1;
+  }
+
+  .flip .featureCopy {
+    order: 0;
+  }
+
+  .h3 {
+    font-size: 24px;
+  }
+
+  .phone {
+    width: min(240px, 100%);
+  }
+
+  .closeTitle {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .parts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .small {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .small .arrow {
+    display: none;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+}

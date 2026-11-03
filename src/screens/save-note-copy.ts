@@ -1,3 +1,4 @@
+import { PATHS } from '../lib/app-paths.ts'
 // The words of the finish screen's note that asks a guest to add an email
 // (factory/jobs/18-save-progress/spec.md, "Done when" 9 and 17). They are all
 // here so the owner can edit them at one place and one test can check them
@@ -37,4 +38,4 @@ export const SAVE_NOTE_CLOSED = 'No problem. You can add your email later from Y
  * changes. tests/save-progress-rules.test.ts fails if another file of this job
  * holds such an address.
  */
-export const ADD_EMAIL_PATH = '/account/email'
+export const ADD_EMAIL_PATH = PATHS.accountEmail

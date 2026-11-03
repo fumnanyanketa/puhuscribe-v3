@@ -1,3 +1,4 @@
+import { PATHS } from './app-paths.ts'
 import { isRecord, type ApiAnswer } from './api.ts'
 
 // Messages the front door shows after the learner left another page
@@ -27,7 +28,7 @@ export function noticeFrom(search: string): string | null {
 
 /** Goes to the front door with a message. */
 export function leaveWith(key: NoticeKey): void {
-  window.location.assign(`/?notice=${key}`)
+  window.location.assign(`${PATHS.home}?notice=${key}`)
 }
 
 /**

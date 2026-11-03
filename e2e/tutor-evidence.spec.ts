@@ -106,7 +106,7 @@ async function lesson(page: Page, offer: string, turn: (route: Route, n: number)
     n += 1
     return turn(route, n)
   })
-  await page.goto('/session')
+  await page.goto('/learn/session')
   await page.evaluate('document.fonts.ready')
 }
 

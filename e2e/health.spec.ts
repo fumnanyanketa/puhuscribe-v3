@@ -30,7 +30,7 @@ test(
     page.on('pageerror', (error) => problems.push(error.message))
 
     const today = page.waitForResponse((res) => new URL(res.url()).pathname === '/api/today')
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     // The front door asks the Worker what to show and gets its answer.
     expect((await today).status()).toBe(200)
@@ -58,13 +58,13 @@ test('[8] /api/health sends no cross site header, even when another site asks', 
 
 test('[8] the page calls the API on its own address', async ({ page }) => {
   const todayCall = page.waitForRequest((req) => new URL(req.url()).pathname === '/api/today')
-  await page.goto('/')
+  await page.goto('/learn')
   const call = await todayCall
   expect(new URL(call.url()).origin).toBe(new URL(page.url()).origin)
 })
 
 test('[2] an unknown page still loads the app (single page app routing)', async ({ page }) => {
-  await page.goto('/some/deep/link')
+  await page.goto('/learn/some/deep/link')
   await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
 })
 

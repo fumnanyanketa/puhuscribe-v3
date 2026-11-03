@@ -46,7 +46,7 @@ test.describe('the road on the real route', { tag: '@seed' }, () => {
     page,
   }) => {
     const first = ((await (await page.request.get('/api/road')).json()) as { stops: Stop[] }).stops[0]
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0, { timeout: 8000 })
     await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')).toHaveCount(5)
@@ -62,7 +62,7 @@ test.describe('the road on the real route', { tag: '@seed' }, () => {
   }) => {
     await startGuest(page)
     const stops = ((await (await page.request.get('/api/road')).json()) as { stops: Stop[] }).stops
-    await page.goto('/')
+    await page.goto('/learn')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     const first = stops[0]
     const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
