@@ -8,8 +8,12 @@
 // In the workflow:
 //   git diff --name-only --no-renames "$BASE_SHA...HEAD" | node scripts/ci/preview-plan.ts database-changed
 //     -> prints true or false
-//   HEAD_SHA=... URL=... DB_CHANGED=true|false RUN_URL=... node scripts/ci/preview-plan.ts comment
+//   HEAD_SHA=... URL=... DB_CHANGED=true|false TESTS_RAN=true|false RUN_URL=... node scripts/ci/preview-plan.ts comment
 //     -> prints the pull request comment
+//
+// TESTS_RAN is false when the Cloudflare Access service token secrets are not
+// set in the repository (owner's decision of 3 November 2026): the preview is
+// still uploaded and its link posted, and the comment says no test ran on it.
 import { readFileSync } from 'node:fs'
 
 const MIGRATIONS = 'supabase/migrations/'
@@ -22,20 +26,32 @@ export interface CommentInput {
   sha: string
   url: string
   databaseChanged: boolean
+  testsRan: boolean
   runUrl: string
 }
 
-export function previewComment({ sha, url, databaseChanged, runUrl }: CommentInput): string {
-  const parts = [
-    `Preview for ${sha.slice(0, 7)}: ${url}`,
-    "Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token.",
-  ]
+const TESTS_RAN =
+  "Private: opening it shows a Cloudflare Access sign in first. The browser tests in this job already ran against it with the evaluator's service token."
+const NO_TESTS =
+  'Private: opening it shows a Cloudflare Access sign in first. No browser test ran against this link, because the Access service token secrets (CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET) are not set in this repository. The other checks of this run passed.'
+
+export function previewComment({ sha, url, databaseChanged, testsRan, runUrl }: CommentInput): string {
+  const parts = [`Preview for ${sha.slice(0, 7)}: ${url}`, testsRan ? TESTS_RAN : NO_TESTS]
   if (databaseChanged) {
     parts.push(
       `This pull request changes the database. The preview uses the shared test project, which gets these changes only after you approve the job, so screens that need them do not work on this link yet. The browser tests ran on a throwaway database with the changes; their videos and screenshots are in the playwright-report download of this run: ${runUrl}`,
     )
   }
   return parts.join('\n\n')
+}
+
+function trueOrFalse(name: string): boolean {
+  const value = required(name)
+  if (value !== 'true' && value !== 'false') {
+    console.error(`${name} must be true or false.`)
+    process.exit(1)
+  }
+  return value === 'true'
 }
 
 function required(name: string): string {
@@ -52,16 +68,12 @@ if (import.meta.main) {
   if (mode === 'database-changed') {
     console.log(String(changesDatabase(readFileSync(0, 'utf8').split(/\r?\n/))))
   } else if (mode === 'comment') {
-    const changed = required('DB_CHANGED')
-    if (changed !== 'true' && changed !== 'false') {
-      console.error('DB_CHANGED must be true or false.')
-      process.exit(1)
-    }
     console.log(
       previewComment({
         sha: required('HEAD_SHA'),
         url: required('URL'),
-        databaseChanged: changed === 'true',
+        databaseChanged: trueOrFalse('DB_CHANGED'),
+        testsRan: trueOrFalse('TESTS_RAN'),
         runUrl: required('RUN_URL'),
       }),
     )

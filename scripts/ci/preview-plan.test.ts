@@ -36,6 +36,7 @@ describe('previewComment', () => {
     sha: 'abcdef1234567',
     url: 'https://x-puhuscribe-preview.a.workers.dev',
     runUrl: 'https://github.com/o/r/actions/runs/42',
+    testsRan: true,
   }
 
   it('[prdb 10] without a database change the comment is the same as before this job', () => {
@@ -47,6 +48,20 @@ describe('previewComment', () => {
   it('[prdb 10] with a database change the comment adds the note with the run link', () => {
     const body = previewComment({ ...base, databaseChanged: true })
     expect(body.startsWith('Preview for abcdef1: https://x-puhuscribe-preview.a.workers.dev\n\n')).toBe(true)
+    expect(body.endsWith(`\n\n${NOTE}`)).toBe(true)
+  })
+
+  it('[fast 4] without the Access service token the comment says no browser test ran on the link, and still gives it', () => {
+    const body = previewComment({ ...base, databaseChanged: false, testsRan: false })
+    expect(body).toBe(
+      'Preview for abcdef1: https://x-puhuscribe-preview.a.workers.dev\n\nPrivate: opening it shows a Cloudflare Access sign in first. No browser test ran against this link, because the Access service token secrets (CF_ACCESS_CLIENT_ID and CF_ACCESS_CLIENT_SECRET) are not set in this repository. The other checks of this run passed.',
+    )
+    expect(body).not.toContain('already ran')
+  })
+
+  it('[fast 4] without the token and with a database change, the database note is still added', () => {
+    const body = previewComment({ ...base, databaseChanged: true, testsRan: false })
+    expect(body).toContain('No browser test ran against this link')
     expect(body.endsWith(`\n\n${NOTE}`)).toBe(true)
   })
 })
