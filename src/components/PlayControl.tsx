@@ -7,6 +7,9 @@ import styles from './PlayControl.module.css'
 // The accessible name says what it plays: "Play the spoken line".
 // Audio starts only from a tap or key press: the file is not even fetched
 // until the first press. Starting one control stops any other that plays.
+// One exception, Aleksi's greeting (fast route aleksi-intro): with tryOnOpen
+// the control tries once to play when it first appears. If the browser blocks
+// that (iPhones do without a tap), it quietly stays ready and a press plays it.
 
 export type PlayState = 'ready' | 'loading' | 'playing' | 'error'
 
@@ -22,6 +25,8 @@ interface PlayControlProps {
   showState?: PlayState
   /** Told when playback starts and when it stops, so a screen can mark what is playing. */
   onPlayingChange?: (playing: boolean) => void
+  /** Tries once to play when the control first appears; a blocked try leaves it ready (aleksi-intro). */
+  tryOnOpen?: boolean
 }
 
 /** The play triangle. The island card's "Play all" uses it too. */
@@ -49,6 +54,7 @@ export function PlayControl({
   tone = 'spoken',
   showState,
   onPlayingChange,
+  tryOnOpen = false,
 }: PlayControlProps) {
   const [liveState, setState] = useState<PlayState>('ready')
   const state = showState ?? liveState
@@ -76,40 +82,70 @@ export function PlayControl({
     [stop],
   )
 
+  // Counts the starts, so the answer of an older play() cannot change the state of a newer one.
+  const attempt = useRef(0)
+
+  /** The audio element, made on first use; the file is fetched only when it plays. */
+  const element = useCallback(() => {
+    if (audio.current) return audio.current
+    const made = new Audio()
+    made.preload = 'none'
+    made.addEventListener('playing', () => {
+      setState('playing')
+    })
+    made.addEventListener('ended', () => {
+      finished(stop)
+      setState('ready')
+    })
+    made.addEventListener('error', () => {
+      finished(stop)
+      setState('error')
+    })
+    made.src = src
+    audio.current = made
+    return made
+  }, [src, stop])
+
+  /** Starts playback. `unasked` is the one try when the control opens (tryOnOpen). */
+  const playFrom = useCallback(
+    (target: HTMLAudioElement, unasked: boolean) => {
+      const mine = ++attempt.current
+      startExclusive(stop)
+      target.play().catch(() => {
+        if (mine !== attempt.current) return
+        // A pause before playback started also rejects; only report real failures.
+        if (!target.paused) return
+        if (target.error) setState('error')
+        else if (unasked) {
+          // The browser would not play without a tap: the control stays ready, with nothing said.
+          finished(stop)
+          setState('ready')
+        }
+      })
+    },
+    [stop],
+  )
+
+  // The one unasked try, when the control first appears. Under React's strict mode the first mount is
+  // undone at once, which pauses it, so the try runs again on the real mount.
+  useEffect(() => {
+    if (!tryOnOpen || showState) return
+    playFrom(element(), true)
+  }, [tryOnOpen, showState, element, playFrom])
+
   function press() {
     if (showState) return
     if (state === 'playing' || state === 'loading') {
+      attempt.current += 1
       audio.current?.pause()
       finished(stop)
       setState('ready')
       return
     }
-    if (!audio.current) {
-      const element = new Audio()
-      element.preload = 'none'
-      element.addEventListener('playing', () => {
-        setState('playing')
-      })
-      element.addEventListener('ended', () => {
-        finished(stop)
-        setState('ready')
-      })
-      element.addEventListener('error', () => {
-        finished(stop)
-        setState('error')
-      })
-      element.src = src
-      audio.current = element
-    } else if (state === 'error') {
-      audio.current.load()
-    }
-    startExclusive(stop)
+    const target = element()
+    if (state === 'error') target.load()
     setState('loading')
-    audio.current.play().catch(() => {
-      // A pause before playback started also rejects; only report real failures.
-      if (audio.current && !audio.current.paused) return
-      if (audio.current?.error) setState('error')
-    })
+    playFrom(target, false)
   }
 
   // One button in every state, so keyboard focus stays on it when playback

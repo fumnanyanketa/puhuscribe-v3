@@ -21,6 +21,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import time
 import urllib.error
@@ -35,6 +36,13 @@ DEFAULT_LOG = REPO / "content" / "logs" / "ai-calls.jsonl"
 
 OUTPUT_FORMAT = "audio-24khz-48kbitrate-mono-mp3"
 VOICES = frozenset({"fi-FI-NooraNeural", "fi-FI-HarriNeural", "fi-FI-SelmaNeural"})
+# Azure's multilingual voices (such as en-US-AndrewMultilingualNeural) can read Finnish inside
+# <lang xml:lang='fi-FI'>. Only for voice samples the owner listens to (fast route aleksi-intro); the
+# content pipeline's briefs still allow only the three Finnish voices above.
+MULTILINGUAL_VOICE = re.compile(r"^[a-z]{2}-[A-Z]{2}-[A-Za-z]+MultilingualNeural$")
+# A prosody change, as SSML writes it: a signed whole percent, such as -8% or +6%.
+PROSODY = re.compile(r"^[+-]\d{1,2}%$")
+VOICES_LIST_PATH = "/cognitiveservices/voices/list"
 
 # Azure regions inside the EU that offer neural voices. Learner data and voice
 # work stay in the EU (AGENTS.md).
@@ -163,14 +171,25 @@ def refuse_over_allowance(
         )
 
 
-def ssml(text: str, voice: str) -> str:
-    """The request body. Text and voice name are XML escaped, quotes included."""
+def ssml(text: str, voice: str, rate: str | None = None, pitch: str | None = None) -> str:
+    """The request body. Text and voice name are XML escaped, quotes included.
+
+    A multilingual voice reads the text as Finnish inside <lang xml:lang='fi-FI'>. A rate or pitch (a
+    signed whole percent) wraps the text in <prosody>. Without them the body is as it always was."""
     quotes = {'"': "&quot;", "'": "&apos;"}
-    return (
-        "<speak version='1.0' xml:lang='fi-FI'>"
-        f"<voice name='{escape(voice, quotes)}'>{escape(text, quotes)}</voice>"
-        "</speak>"
-    )
+    body = escape(text, quotes)
+    settings = {name: value for name, value in (("rate", rate), ("pitch", pitch)) if value}
+    for value in settings.values():
+        if not PROSODY.match(value):
+            raise VoiceError(f"a prosody value must be a signed whole percent such as -8%, not '{value}'")
+    if settings:
+        attributes = " ".join(f"{name}='{value}'" for name, value in settings.items())
+        body = f"<prosody {attributes}>{body}</prosody>"
+    speak = "<speak version='1.0' xml:lang='fi-FI'>"
+    if MULTILINGUAL_VOICE.match(voice):
+        body = f"<lang xml:lang='fi-FI'>{body}</lang>"
+        speak = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='fi-FI'>"
+    return f"{speak}<voice name='{escape(voice, quotes)}'>{body}</voice></speak>"
 
 
 class _Provider:
@@ -184,12 +203,15 @@ class _Provider:
     def request_hash(text: str, voice: str) -> str:
         return request_hash(text, voice)
 
-    def synthesize(self, *, text: str, voice: str, dialogue: str) -> bytes:
-        if voice not in VOICES:
+    def synthesize(
+        self, *, text: str, voice: str, dialogue: str, rate: str | None = None, pitch: str | None = None
+    ) -> bytes:
+        if voice not in VOICES and not MULTILINGUAL_VOICE.match(voice):
             raise VoiceError(f"voice '{voice}' is not one of {', '.join(sorted(VOICES))}")
         if not text.strip():
             raise VoiceError("there is no text to read")
-        audio = self._synthesize(text, voice)
+        ssml(text, voice, rate, pitch)  # refuses a bad prosody value before any request
+        audio = self._synthesize(text, voice, rate=rate, pitch=pitch)
         self._log(len(text), voice, dialogue)
         return audio
 
@@ -209,7 +231,11 @@ class _Provider:
         with open(self.log_path, "a", encoding="utf-8", newline="\n") as fh:
             fh.write(json.dumps(line, ensure_ascii=False) + "\n")
 
-    def _synthesize(self, text: str, voice: str) -> bytes:
+    def _synthesize(self, text: str, voice: str, rate: str | None = None, pitch: str | None = None) -> bytes:
+        raise NotImplementedError
+
+    def list_voices(self) -> list[dict]:
+        """The voices the service offers, with their locales. Free: no characters are billed."""
         raise NotImplementedError
 
 
@@ -238,10 +264,12 @@ class AzureProvider(_Provider):
         self._sleep = sleep or time.sleep
         self.throttle = Throttle(clock=clock, sleep=self._sleep)
 
-    def request(self, text: str, voice: str) -> urllib.request.Request:
+    def request(
+        self, text: str, voice: str, rate: str | None = None, pitch: str | None = None
+    ) -> urllib.request.Request:
         return urllib.request.Request(
             self.url,
-            data=ssml(text, voice).encode("utf-8"),
+            data=ssml(text, voice, rate, pitch).encode("utf-8"),
             method="POST",
             headers={
                 "Ocp-Apim-Subscription-Key": self._key,
@@ -251,13 +279,31 @@ class AzureProvider(_Provider):
             },
         )
 
-    def _synthesize(self, text: str, voice: str) -> bytes:
+    def list_voices(self) -> list[dict]:
+        url = self.url.replace("/cognitiveservices/v1", VOICES_LIST_PATH)
+        request = urllib.request.Request(
+            url,
+            method="GET",
+            headers={"Ocp-Apim-Subscription-Key": self._key, "User-Agent": "puhuscribe-content-pipeline"},
+        )
+        try:
+            with self._open(request, timeout=TIMEOUT_SECONDS) as response:
+                voices = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as err:
+            raise VoiceError(f"Azure refused the voice list (HTTP {err.code})") from None
+        except urllib.error.URLError as err:
+            raise VoiceError(f"could not reach Azure ({err.reason})") from None
+        if not isinstance(voices, list):
+            raise VoiceError("Azure's voice list was not a list")
+        return [v for v in voices if isinstance(v, dict)]
+
+    def _synthesize(self, text: str, voice: str, rate: str | None = None, pitch: str | None = None) -> bytes:
         """At most 20 requests a minute. A busy answer (HTTP 429) or a server error waits and tries again."""
         wait = 2.0
         for attempt in range(1, MAX_ATTEMPTS + 1):
             self.throttle.wait()
             try:
-                with self._open(self.request(text, voice), timeout=TIMEOUT_SECONDS) as response:
+                with self._open(self.request(text, voice, rate, pitch), timeout=TIMEOUT_SECONDS) as response:
                     audio = response.read()
             except urllib.error.HTTPError as err:
                 busy = err.code == 429 or err.code >= 500
@@ -295,8 +341,33 @@ class FakeProvider(_Provider):
     name = "fake"
     tier = "F0"
 
-    def _synthesize(self, text: str, voice: str) -> bytes:
-        return fake_mp3(text, voice)
+    def _synthesize(self, text: str, voice: str, rate: str | None = None, pitch: str | None = None) -> bytes:
+        return fake_mp3(f"{text}|{rate}|{pitch}" if rate or pitch else text, voice)
+
+    def list_voices(self) -> list[dict]:
+        return [
+            {
+                "ShortName": "en-US-AndrewMultilingualNeural",
+                "Gender": "Male",
+                "SecondaryLocaleList": ["fi-FI"],
+            },
+            {
+                "ShortName": "en-US-BrianMultilingualNeural",
+                "Gender": "Male",
+                "SecondaryLocaleList": ["fi-FI"],
+            },
+            {
+                "ShortName": "de-DE-FlorianMultilingualNeural",
+                "Gender": "Male",
+                "SecondaryLocaleList": ["fi-FI"],
+            },
+            {"ShortName": "fr-FR-RemyMultilingualNeural", "Gender": "Male", "SecondaryLocaleList": ["fi-FI"]},
+            {
+                "ShortName": "en-US-AvaMultilingualNeural",
+                "Gender": "Female",
+                "SecondaryLocaleList": ["fi-FI"],
+            },
+        ]
 
 
 def get_provider(log_path: Path | str | None = None) -> _Provider:

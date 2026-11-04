@@ -1,0 +1,174 @@
+/* Meeting Aleksi (fast route aleksi-intro), the owner's "call card" mockup of 4 November 2026, with the
+   app's tokens only (src/styles/tokens.css). The page wash comes from base.css. The photo card takes
+   the room the words leave, between a floor and a ceiling, so large text keeps every word on screen
+   and the page scrolls only when even the smallest photo does not fit. */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: calc(var(--space-5) + env(safe-area-inset-top, 0px)) var(--space-4) 0;
+}
+
+.photo {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 240px;
+  max-height: 560px;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--color-mint-soft);
+}
+
+/* The soft shade at the foot of the photo, under the white name, as drawn. A shadow, not a gradient. */
+.photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 -150px 90px -60px var(--color-photo-shade);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+.nameRow {
+  position: absolute;
+  z-index: 1;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: calc(var(--space-7) + var(--space-3));
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-photo-name);
+}
+
+.name {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-line);
+}
+
+/* The small sound wave mark beside his name. It moves only while his greeting plays. */
+.wave {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+}
+
+.wave i {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-photo-name);
+  transform-origin: bottom;
+}
+
+.wave i:nth-child(1) {
+  height: 8px;
+}
+
+.wave i:nth-child(2) {
+  height: 16px;
+}
+
+.wave i:nth-child(3) {
+  height: 11px;
+}
+
+.wave i:nth-child(4) {
+  height: 6px;
+}
+
+.wave[data-speaking='yes'] i {
+  animation: speak var(--motion-turn) var(--motion-ease) infinite alternate;
+}
+
+.wave[data-speaking='yes'] i:nth-child(2) {
+  animation-delay: var(--motion-stagger);
+}
+
+.wave[data-speaking='yes'] i:nth-child(4) {
+  animation-delay: var(--motion-stagger);
+}
+
+@keyframes speak {
+  to {
+    transform: scaleY(0.45);
+  }
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--space-7));
+  padding: 0 var(--space-1);
+}
+
+/* The white bubble that overlaps the photo, with its tail corner at the bottom left as drawn. */
+.bubble {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-radius) var(--bubble-tail);
+  background: var(--color-surface);
+  box-shadow: var(--panel-shadow);
+}
+
+.bubbleText {
+  min-width: 0;
+}
+
+.finnish {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-line-large);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-line);
+  overflow-wrap: anywhere;
+}
+
+.english {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-reading);
+  color: var(--color-text-quiet);
+  overflow-wrap: anywhere;
+}
+
+.line {
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-heading);
+  line-height: var(--leading-body);
+}
+
+.actions {
+  padding: var(--space-6) var(--space-1) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+}
+
+.note {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-small-plus);
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave[data-speaking='yes'] i {
+    animation: none;
+  }
+}

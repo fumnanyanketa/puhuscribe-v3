@@ -31,6 +31,14 @@
 #   key. The clips come back under content/island-audio/ with the voice log; the manager commits them,
 #   then runs `python scripts/generate/islands.py publish-islands` to copy them to public/audio/islands/.
 #   The part is ignored. The stop 1 name sentence is never voiced.
+# - voice-aleksi: Harri (the male Finnish voice) reads Aleksi's one greeting on the intro screen,
+#   "Moi! Mä oon Aleksi." (fast route aleksi-intro, 4 November 2026), into public/audio/aleksi/. One clip,
+#   19 characters. Only this step and the other voice steps hold the Azure key. The clip comes back with
+#   the voice log; the builder commits both. The part is ignored.
+# - voice-aleksi-samples: voice samples of the same greeting for the owner to choose from (owner,
+#   4 November 2026): Harri as is, slower and warmer, brighter, and Azure's male multilingual voices
+#   that list fi-FI, reading it as Finnish. 19 characters each. They come back as the artifact only,
+#   with samples.txt and the voice log, and never go to public/. Same step and key as voice-aleksi.
 #
 # The manager commits the voice log (content/logs/ai-calls.jsonl) after every voice run and
 # before the next one, because the character guard reads the log from the checkout: characters of a
@@ -65,6 +73,8 @@ on:
             check-islands,
             count-islands,
             voice-islands,
+            voice-aleksi,
+            voice-aleksi-samples,
           ]
       part:
         description: The part, 1 to 6, or all (only count-characters, count-words and judge accept all)
@@ -114,7 +124,7 @@ jobs:
           if [ -n "$ONLY" ] && ! [[ "$ONLY" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "The dialogue slug must be lower case letters, digits and hyphens"; exit 1
           fi
-          case "$TASK" in check-islands|count-islands|voice-islands) exit 0 ;; esac
+          case "$TASK" in check-islands|count-islands|voice-islands|voice-aleksi|voice-aleksi-samples) exit 0 ;; esac
           if [ "$PART" = all ] && [ "$TASK" != count-characters ] && [ "$TASK" != judge ] && [ "$TASK" != import ] && [ "$TASK" != analyse ] && [ "$TASK" != count-words ]; then
             echo "The task $TASK needs one part, 1 to 6"; exit 1
           fi
@@ -185,6 +195,19 @@ jobs:
           AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
         run: python scripts/generate/islands.py voice-islands
+      - name: Voice Aleksi's greeting (the Azure key is here and in the other voice steps, nowhere else)
+        if: inputs.task == 'voice-aleksi' || inputs.task == 'voice-aleksi-samples'
+        env:
+          TASK: ${{ inputs.task }}
+          VOICE_PROVIDER: azure
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ vars.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_TIER: ${{ vars.AZURE_SPEECH_TIER }}
+        run: |
+          case "$TASK" in
+            voice-aleksi) python scripts/generate/aleksi_greeting.py voice-aleksi ;;
+            voice-aleksi-samples) python scripts/generate/aleksi_greeting.py samples --out "$RUNNER_TEMP/road-out/aleksi-voices" ;;
+          esac
       - name: Run the register judge (the Anthropic key is here and nowhere else)
         if: inputs.task == 'judge'
         env:
@@ -211,6 +234,13 @@ jobs:
           fi
           if [ "$TASK" = voice-islands ]; then
             if [ -d content/island-audio ]; then cp -r content/island-audio "$RUNNER_TEMP/road-out/island-audio"; fi
+            cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+          if [ "$TASK" = voice-aleksi-samples ]; then
+            cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
+          fi
+          if [ "$TASK" = voice-aleksi ]; then
+            if [ -d public/audio/aleksi ]; then cp -r public/audio/aleksi "$RUNNER_TEMP/road-out/aleksi"; fi
             cp content/logs/ai-calls.jsonl "$RUNNER_TEMP/road-out/ai-calls.jsonl" || true
           fi
           if [ "$TASK" = publish ]; then

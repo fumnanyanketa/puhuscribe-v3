@@ -7,8 +7,8 @@ import { installRoad } from './road-route.ts'
 export { expect } from '@playwright/test'
 export type { Page, Locator, BrowserContext } from '@playwright/test'
 
-// introSeen: the phone has been through the first-open questions (e2e/intro-seen.ts). A spec that
-// tests the questions sets test.use({ introSeen: false }).
+// introSeen: the phone has met Aleksi (e2e/intro-seen.ts). A spec that tests his intro screen sets
+// test.use({ introSeen: false }).
 export const test = base.extend<{ introSeen: boolean }>({
   introSeen: [true, { option: true }],
   context: async ({ context, introSeen }, use) => {

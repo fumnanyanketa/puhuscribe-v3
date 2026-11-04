@@ -1,11 +1,14 @@
 import type { Page, Route } from '@playwright/test'
 import { roadFixture } from '../src/road/road-fixture.ts'
+import { markIntroSeen } from './intro-seen.ts'
 
 // Answers for the home screen's three reads, so the road can be tested in every
 // state without a database: GET /api/road (the fixture, until job 20-a1-road is
 // merged), GET /api/today and GET /api/me. Nothing here reaches a real server.
 
 export interface HomeMocks {
+  /** False for a phone that has not met Aleksi yet (fast route aleksi-intro). Default: met. */
+  met?: boolean
   /** The body of GET /api/today. Default: no account on this device. */
   today?: Record<string, unknown>
   /** The body of GET /api/me, or a status number for a failure. Default: a guest. */
@@ -30,6 +33,8 @@ const json = (route: Route, body: unknown, status = 200) =>
 
 export async function mockHome(page: Page, mocks: HomeMocks = {}): Promise<HomeCalls> {
   const calls: HomeCalls = { road: 0, today: 0, me: 0, guest: 0 }
+  // The phone has met Aleksi unless the test says it has not (fast route aleksi-intro).
+  if (mocks.met !== false) await markIntroSeen(page)
   await page.route('**/api/road', async (route) => {
     calls.road += 1
     if (mocks.roadDelayMs) await new Promise((resolve) => setTimeout(resolve, mocks.roadDelayMs))

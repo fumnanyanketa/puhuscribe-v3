@@ -30,6 +30,17 @@
 //   - an island clip whose bytes differ from content/island-audio/<key>.mp3,
 //   - an approved island key with no file.
 // Without them every file under islands/ fails.
+//
+// Aleksi's greeting (fast route aleksi-intro, 4 November 2026) lives at
+// public/audio/aleksi/greeting-<12 hex>.mp3, read by the male voice Harri. It is
+// approved only by content/approvals/aleksi-greeting.json, which the manager
+// adds on the owner's own written line: {"format":
+// "puhuscribe-owner-approval-aleksi-greeting-1", "approval": "<the owner's line>",
+// "date": "YYYY-MM-DD", "file": "aleksi/greeting-<12 hex>.mp3", "sha256": "<64 hex>"}.
+// This check finds:
+//   - a file under aleksi/ that the approval does not name, or no approval at all,
+//   - a greeting whose SHA-256 differs from the approved one,
+//   - an approved greeting with no file.
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
@@ -37,6 +48,22 @@ import { join, relative } from 'node:path'
 const WORD_FILE = /^words\/([0-9a-f]{64})\.mp3$/
 const ISLAND_FILE = /^islands\/([0-9a-f]{64})\.mp3$/
 const WORD_KEY = /^[0-9a-f]{64}$/
+const GREETING_FILE = /^aleksi\/greeting-[0-9a-f]{12}\.mp3$/
+
+/** The greeting clip the owner approved, with its SHA-256, or null without a complete approval. */
+export function approvedGreeting(approvalsDir: string | undefined): { file: string; sha256: string } | null {
+  if (!approvalsDir) return null
+  const path = join(approvalsDir, 'aleksi-greeting.json')
+  if (!existsSync(path)) return null
+  const approval = JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>
+  const { format, approval: line, date, file, sha256 } = approval
+  if (format !== 'puhuscribe-owner-approval-aleksi-greeting-1') return null
+  if (typeof line !== 'string' || line.trim() === '') return null
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null
+  if (typeof file !== 'string' || !GREETING_FILE.test(file)) return null
+  if (typeof sha256 !== 'string' || !WORD_KEY.test(sha256)) return null
+  return { file, sha256 }
+}
 
 /** The word clip keys the owner approved, from every content/approvals/part-<n>-words.json. */
 export function approvedWordKeys(approvalsDir: string | undefined): Set<string> {
@@ -115,11 +142,25 @@ export function checkPublishedAudio(
   const keys = publishedKeys(migrationsDir)
   const wordKeys = approvedWordKeys(approvalsDir)
   const islandKeys = approvedIslandKeys(approvalsDir, islands?.data)
+  const greeting = approvedGreeting(approvalsDir)
+  let foundGreeting = false
   const found = new Set<string>()
   const foundWords = new Set<string>()
   const foundIslands = new Set<string>()
   for (const path of filesUnder(audioDir)) {
     const key = relative(audioDir, path).split('\\').join('/')
+    if (key.startsWith('aleksi/')) {
+      if (key !== greeting?.file) {
+        problems.push(
+          `${key} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`,
+        )
+        continue
+      }
+      foundGreeting = true
+      if (createHash('sha256').update(readFileSync(path)).digest('hex') !== greeting.sha256)
+        problems.push(`${key} differs from the approved greeting (its SHA-256 differs)`)
+      continue
+    }
     if (key.startsWith('islands/')) {
       const islandKey = ISLAND_FILE.exec(key)?.[1]
       if (!islandKey || !islandKeys.has(islandKey)) {
@@ -163,6 +204,7 @@ export function checkPublishedAudio(
   for (const key of islandKeys) {
     if (!foundIslands.has(key)) problems.push(`islands/${key}.mp3 is approved but its file is missing`)
   }
+  if (greeting && !foundGreeting) problems.push(`${greeting.file} is approved but its file is missing`)
   return problems
 }
 

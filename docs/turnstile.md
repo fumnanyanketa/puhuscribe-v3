@@ -4,7 +4,7 @@ Owner's choice, 3 November 2026. Every guest account is made through `POST /api/
 
 ## What happens
 
-1. A learner who is not signed in presses Start (on the day one card, or Start on the recap card after the two first-open questions).
+1. A learner who is not signed in presses Start on the day one card.
 2. The browser loads Turnstile's script from `challenges.cloudflare.com`. It is never loaded on page load, and never for a learner who is already signed in.
 3. Turnstile runs out of sight. Most learners see nothing except the busy Start button. When Cloudflare decides a learner must act, its "Verify you are human" box appears inside the road card, above Start, with one quiet line saying why.
 4. The browser sends Start again with the token. The Worker checks the token with Cloudflare (siteverify) and only then makes the guest.

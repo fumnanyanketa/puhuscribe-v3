@@ -65,6 +65,56 @@ describe('audio exists only for approved lines', () => {
     ])
   })
 
+  // Fast route aleksi-intro (4 November 2026): Aleksi's greeting is served only with the owner's written
+  // approval in content/approvals/aleksi-greeting.json, which names the file and its SHA-256.
+  describe("Aleksi's greeting", () => {
+    const file = 'aleksi/greeting-0123456789ab.mp3'
+    const refused = `${file} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`
+    const approved = {
+      format: 'puhuscribe-owner-approval-aleksi-greeting-1',
+      approval: 'approved',
+      date: '2026-11-04',
+      file,
+      sha256: sha('greeting'),
+    }
+
+    function greetingSandbox(opts: { files?: Record<string, string>; approval?: object | null }) {
+      const { audio, migrations } = sandbox({}, [])
+      const approvals = join(audio, '..', '..', 'content', 'approvals')
+      mkdirSync(approvals, { recursive: true })
+      mkdirSync(join(audio, 'aleksi'), { recursive: true })
+      const approval = opts.approval === undefined ? approved : opts.approval
+      if (approval) writeFileSync(join(approvals, 'aleksi-greeting.json'), JSON.stringify(approval))
+      for (const [name, bytes] of Object.entries(opts.files ?? { [file]: 'greeting' }))
+        writeFileSync(join(audio, name), bytes)
+      return checkPublishedAudio(audio, migrations, approvals)
+    }
+
+    it('[aleksi-intro 3] the approved greeting with its approved bytes passes', () => {
+      expect(greetingSandbox({})).toEqual([])
+    })
+
+    it('[aleksi-intro 3] without the owner approval the greeting fails', () => {
+      expect(greetingSandbox({ approval: null })).toEqual([refused])
+    })
+
+    it('[aleksi-intro 3] an approval with no owner line, or no date, approves nothing', () => {
+      expect(greetingSandbox({ approval: { ...approved, approval: ' ' } })).toEqual([refused])
+      expect(greetingSandbox({ approval: { ...approved, date: 'today' } })).toEqual([refused])
+    })
+
+    it('[aleksi-intro 3] swapped bytes, a second clip and a missing file each fail', () => {
+      expect(greetingSandbox({ files: { [file]: 'another voice' } })).toEqual([
+        `${file} differs from the approved greeting (its SHA-256 differs)`,
+      ])
+      const other = 'aleksi/greeting-ba9876543210.mp3'
+      expect(greetingSandbox({ files: { [file]: 'greeting', [other]: 'x' } })).toEqual([
+        `${other} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`,
+      ])
+      expect(greetingSandbox({ files: {} })).toEqual([`${file} is approved but its file is missing`])
+    })
+  })
+
   // Fast route "islands" (3 November 2026): island clips are approved through the island data, and
   // only while that data was made from the islands.md the owner approved. Before this full run the
   // check did not know the islands/ folder, so every island clip failed it.
@@ -173,11 +223,17 @@ describe('audio exists only for approved lines', () => {
       )
     }
     // public/ holds only the published audio, and since jobs 16-tutor-step and 17-landing-page
-    // Otso's picture (otso/), the landing page's pictures (landing/) and robots.txt. Those two
-    // folders hold images only, so no text from content/ can travel through them.
+    // Otso's picture (otso/), the landing page's pictures (landing/) and robots.txt, and since fast
+    // route aleksi-intro Aleksi's portrait (aleksi/). Those folders hold images only, so no text from
+    // content/ can travel through them.
     const publicEntries = existsSync('public') ? readdirSync('public') : []
-    expect(publicEntries.filter((name) => name !== 'audio').sort()).toEqual(['landing', 'otso', 'robots.txt'])
-    for (const dir of ['landing', 'otso'])
+    expect(publicEntries.filter((name) => name !== 'audio').sort()).toEqual([
+      'aleksi',
+      'landing',
+      'otso',
+      'robots.txt',
+    ])
+    for (const dir of ['aleksi', 'landing', 'otso'])
       for (const name of readdirSync(join('public', dir))) expect(name, dir).toMatch(/\.(webp|svg)$/)
   })
 })
