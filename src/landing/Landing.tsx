@@ -11,7 +11,7 @@ import { useReveal } from './use-reveal.ts'
 // stores nothing, calls no /api route and loads nothing from another address. Every button opens
 // the app at /learn.
 
-const START = 'Start your journey now'
+const START = 'Meet Aleksi'
 
 function Arrow() {
   return (

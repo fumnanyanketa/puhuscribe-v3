@@ -4,7 +4,7 @@ import { expect, test } from './test-base.ts'
 import { installRoad } from './road-route.ts'
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import { microphoneCalls, microphoneReleased, stubMicrophone, useSpeechFixture } from './microphone.ts'
-import { INTRO_KEY } from '../src/lib/intro-answers.ts'
+import { MET_KEY } from '../src/lib/aleksi-intro.ts'
 import {
   dismissTip,
   FIRST_STEP,
@@ -322,10 +322,10 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     const play = page.getByRole('button', { name: 'Play mine' })
     await expect(play).toBeVisible()
     await play.click()
-    // The one key the browser tests set themselves, the first-open questions marked as seen
-    // (e2e/intro-seen.ts), is left out.
+    // The one key the browser tests set themselves, Aleksi's intro marked as seen
+    // (e2e/intro-seen.ts), is left out: this phone has met Aleksi.
     const stores = await page.evaluate<Record<string, number>>(`(async () => ({
-      local: Object.keys(localStorage).filter((key) => key !== ${JSON.stringify(INTRO_KEY)}).length,
+      local: Object.keys(localStorage).filter((key) => key !== ${JSON.stringify(MET_KEY)}).length,
       session: sessionStorage.length,
       indexed: 'databases' in indexedDB ? (await indexedDB.databases()).length : 0,
       caches: (await caches.keys()).length,

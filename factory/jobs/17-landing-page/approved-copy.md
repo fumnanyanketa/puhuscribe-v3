@@ -6,14 +6,14 @@ Nov 3, 2026 · @Fumnanya Nketa
 
 This is the final, approved copy for the Aleksi landing page, in page order from top to bottom. The owner renamed the app and the AI tutor from PuhuScribe and Otso to Aleksi on 4 November 2026 (job rename-aleksi); the sentences that changed with the name keep their old wording after “was:”. Use the words exactly as written, including the curly apostrophes and quotation marks.
 
-Every button on the page says the same thing, **Start your journey now**, and opens the app. Image and screen spaces are marked in each section, and the full list is in the builder notes at the end.
+Every button on the page says the same thing, **Meet Aleksi**, and opens the app. (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) Image and screen spaces are marked in each section, and the full list is in the builder notes at the end.
 
 ## 1. Navigation
 
 | Element | Copy |
 | --- | --- |
 | Brand name | Aleksi |
-| Small button | Start your journey now |
+| Small button | Meet Aleksi (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) |
 
 No menu links. The page asks for one action only.
 
@@ -23,7 +23,7 @@ No menu links. The page asks for one action only.
 | --- | --- |
 | Headline | You took a Finnish course, but you still feel lost at the café. |
 | Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli. But Aleksi is here to help you learn both, all the way to A1. (Owner, 4 November 2026, after the rename. Was: “… But we are here to help you learn both, all the way to A1.”) |
-| Main button | Start your journey now |
+| Main button | Meet Aleksi (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) |
 | Small line under the button | No need to download any app. Works on iPhone and Android. |
 
 ## 3. The problem
@@ -84,7 +84,7 @@ Section heading: **Questions**. Keep the questions in this order.
 | Element | Copy |
 | --- | --- |
 | Heading | Your first fluent Finnish conversation is about ten minutes away |
-| Main button | Start your journey now |
+| Main button | Meet Aleksi (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) |
 
 ## 10. Footer
 
@@ -95,7 +95,7 @@ Section heading: **Questions**. Keep the questions in this order.
 
 ## Notes for the builder
 
-- **Buttons.** All three buttons (navigation, hero, close) say “Start your journey now” and open the app in the browser. No sign up step before the first lesson.
+- **Buttons.** All three buttons (navigation, hero, close) say “Meet Aleksi” and open the app in the browser. (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) No sign up step before the first lesson.
 - **Images needed.** Five real app screens for section 6, and the picture of the 36-stop journey to the A1 sun for section 7.
 - **Privacy notice.** The footer link goes to the privacy notice page.
 - **Punctuation.** Keep the curly apostrophes and quotation marks. Don’t add exclamation marks, em dashes or labels above headings.
