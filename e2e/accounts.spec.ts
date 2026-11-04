@@ -339,9 +339,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         const users = ownUsers()
         await page.goto('/learn/sign-in')
         await sendCodeTo(page, address)
-        await expect(
-          page.getByText('If this email has an Aleksi account, we sent it a 6 digit code.'),
-        ).toBeVisible()
+        // The owner's words of 4 November 2026 (job signin-center); the known address in [accounts 12] sees the same.
+        await expect(page.getByText('You will receive a 6 digit code.', { exact: true })).toBeVisible()
         await expect(
           page.getByText('No code after a few minutes? Check the address, or go back and start as a guest.'),
         ).toBeVisible()
@@ -369,6 +368,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         const seen = await mailIds(address)
         await pageB.goto('/learn/sign-in')
         await sendCodeTo(pageB, address)
+        // [signin-center 2] An address with an account sees the very sentence an unknown address sees in [accounts 10].
+        await expect(pageB.getByText('You will receive a 6 digit code.', { exact: true })).toBeVisible()
         const mail = await nextMail(address, seen)
         // Statement 15: the sign in email shows a 6 digit code and no link.
         expect(mail.subject).toBe('Your Aleksi code')

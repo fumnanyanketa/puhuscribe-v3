@@ -22,7 +22,9 @@ export const TAKEN_WARNING =
   'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.'
 export const GUEST_WARNING =
   'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.'
-export const SIGN_IN_SENT = 'If this email has an Aleksi account, we sent it a 6 digit code.'
+// The same sentence for every address, so the screen never says which emails have accounts (owner's
+// words, 4 November 2026, job signin-center).
+export const SIGN_IN_SENT = 'You will receive a 6 digit code.'
 export const SIGN_IN_NO_CODE =
   'No code after a few minutes? Check the address, or go back and start as a guest.'
 export const CODE_WORKS = 'The code works for one hour.'
@@ -283,7 +285,8 @@ export function EmailFlow({ mode }: { mode: Mode }) {
 
       {step === 'email' && (
         <form id={EMAIL_FORM} className={styles.form} noValidate onSubmit={(event) => void sendCode(event)}>
-          <div className={styles.intro}>
+          {/* Sign in centres its title, subtitle and the line under the field (owner, 4 November 2026). */}
+          <div className={mode === 'sign-in' ? `${styles.intro} ${styles.introCentre}` : styles.intro}>
             <h1 className={styles.title}>{heading}</h1>
             {mode === 'sign-in' && <p className={styles.subtitle}>Enter your email for a code.</p>}
           </div>
@@ -304,7 +307,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
               }}
             />
             {/* The protected sentences stay word for word, small and quiet under the field (round 6). */}
-            <p className={styles.quietText}>{SENDS_CODE}</p>
+            <p className={mode === 'sign-in' ? styles.quietCentre : styles.quietText}>{SENDS_CODE}</p>
             {mode === 'add' && <p className={styles.quietText}>{TAKEN_WARNING}</p>}
           </div>
         </form>
@@ -312,7 +315,8 @@ export function EmailFlow({ mode }: { mode: Mode }) {
 
       {step === 'code' && (
         <form id={CODE_FORM} className={styles.form} noValidate onSubmit={(event) => void confirm(event)}>
-          <div className={styles.intro}>
+          {/* Both paths centre the code screen's title and subtitle, so they look alike. */}
+          <div className={`${styles.intro} ${styles.introCentre}`}>
             <h1 className={styles.title}>Enter the code</h1>
             {mode === 'add' ? (
               <p className={styles.subtitle}>Sent to {sentTo}</p>
