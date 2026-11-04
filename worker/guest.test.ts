@@ -132,7 +132,12 @@ describe('renewing and losing the sign in', () => {
       }),
     })
     expect(res.status).toBe(200)
-    expect(await res.json()).toEqual({ signedIn: true, today: 'not_ready' })
+    expect(await res.json()).toEqual({
+      signedIn: true,
+      today: 'not_ready',
+      account: 'guest',
+      finishedLesson: false,
+    })
     expect(supabase.requests.filter((r) => r.url.pathname === '/auth/v1/token')).toHaveLength(1)
     const renewed = cookieHeader(res, cookie)
     expect(renewed).not.toBe(cookie)

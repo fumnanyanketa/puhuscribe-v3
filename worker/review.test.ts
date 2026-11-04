@@ -446,6 +446,8 @@ describe("the front door and today's session", () => {
       today: 'start',
       canDo: 'Can do of unit 10.',
       review: true,
+      account: 'guest',
+      finishedLesson: true,
     })
   })
 
@@ -453,7 +455,13 @@ describe("the front door and today's session", () => {
     const l = await learner([], [sampleDialogue(1, 10, 1), sampleDialogue(2, 10, 2)])
     l.db.content.set(2, sampleContent())
     const res = await handleApi(get('/api/today', l.cookie), ENV, l.deps)
-    expect(await body<unknown>(res)).toEqual({ signedIn: true, today: 'start', canDo: 'Can do of unit 10.' })
+    expect(await body<unknown>(res)).toEqual({
+      signedIn: true,
+      today: 'start',
+      canDo: 'Can do of unit 10.',
+      account: 'guest',
+      finishedLesson: true,
+    })
   })
 
   it('[review 4] [review 7] no new dialogue but cards reviewable: review, then continue for the unfinished review session', async () => {
@@ -463,12 +471,16 @@ describe("the front door and today's session", () => {
       signedIn: true,
       today: 'review',
       reviewCount: 1,
+      account: 'guest',
+      finishedLesson: true,
     })
     const id = await reviewOnly(l)
     expect(l.db.sessions.filter((s) => s.dialogueId === null)).toHaveLength(1)
     expect(await body<unknown>(await handleApi(get('/api/today', l.cookie), ENV, l.deps))).toEqual({
       signedIn: true,
       today: 'continue',
+      account: 'guest',
+      finishedLesson: true,
     })
     // Start again reuses the unfinished review only session.
     expect(await reviewOnly(l)).toBe(id)
@@ -482,6 +494,8 @@ describe("the front door and today's session", () => {
       signedIn: true,
       today: 'all_done',
       nextReview: { today: '2026-10-22', day: '2026-10-24' },
+      account: 'guest',
+      finishedLesson: true,
     })
     const res = await handleApi(post('/api/sessions/today', { cookie: l.cookie }), ENV, l.deps)
     expect(await body<unknown>(res)).toEqual({ state: 'all_done' })

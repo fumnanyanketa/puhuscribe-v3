@@ -83,7 +83,12 @@ describe('POST /api/sessions/today', () => {
     const { body } = await today(cookie, deps)
     expect(body).toEqual({ state: 'all_done' })
     const front = await handleApi(get('/api/today', cookie), ENV, deps)
-    expect(await front.json()).toEqual({ signedIn: true, today: 'all_done' })
+    expect(await front.json()).toEqual({
+      signedIn: true,
+      today: 'all_done',
+      account: 'guest',
+      finishedLesson: true,
+    })
   })
 
   it('[session 6] says not_ready, with no Finnish, when nothing is readable', async () => {
@@ -198,11 +203,23 @@ describe('GET /api/today', () => {
     const db = twoUnits()
     const { cookie, deps } = await learner(db)
     const before = await handleApi(get('/api/today', cookie), ENV, deps)
-    expect(await before.json()).toEqual({ signedIn: true, today: 'start', canDo: 'Can do of unit 10.' })
+    expect(await before.json()).toEqual({
+      signedIn: true,
+      today: 'start',
+      canDo: 'Can do of unit 10.',
+      account: 'guest',
+      finishedLesson: false,
+    })
     expect(db.sessions).toEqual([])
     await today(cookie, deps)
     const after = await handleApi(get('/api/today', cookie), ENV, deps)
-    expect(await after.json()).toEqual({ signedIn: true, today: 'continue', canDo: 'Can do of unit 10.' })
+    expect(await after.json()).toEqual({
+      signedIn: true,
+      today: 'continue',
+      canDo: 'Can do of unit 10.',
+      account: 'guest',
+      finishedLesson: false,
+    })
     expect(db.sessions).toHaveLength(1)
   })
 

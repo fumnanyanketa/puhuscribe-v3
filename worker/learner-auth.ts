@@ -191,11 +191,28 @@ export type SignInState = 'active' | 'none' | 'ended' | 'unavailable'
  * "ended". A network fault answers "unavailable" and keeps the cookies.
  */
 export async function signInState(context: LearnerContext): Promise<SignInState> {
-  if (!context.hadAuthCookie) return 'none'
+  return (await signInCheck(context)).state
+}
+
+/**
+ * The same check, which also says whether the live sign in is a guest (Supabase's
+ * anonymous sign in) or an email account. It is read from the user Supabase Auth
+ * returns for the learner's own token, so it costs no extra call. A user whose
+ * is_anonymous is anything but false counts as a guest (fast route intro-rule).
+ */
+export type SignInCheck =
+  | { state: 'active'; account: 'email' | 'guest' }
+  | { state: 'none' }
+  | { state: 'ended' }
+  | { state: 'unavailable' }
+
+export async function signInCheck(context: LearnerContext): Promise<SignInCheck> {
+  if (!context.hadAuthCookie) return { state: 'none' }
   let error: unknown
   try {
     const result = await context.client.auth.getUser()
-    if (result.data.user) return 'active'
+    const user = result.data.user
+    if (user) return { state: 'active', account: user.is_anonymous === false ? 'email' : 'guest' }
     error = result.error
   } catch (thrown) {
     error = thrown
@@ -206,7 +223,7 @@ export async function signInState(context: LearnerContext): Promise<SignInState>
   const refused = isAuthApiError(error) && error.status >= 400 && error.status < 500 && error.status !== 429
   if (isAuthSessionMissingError(error) || refused) {
     context.clearCookies()
-    return 'ended'
+    return { state: 'ended' }
   }
-  return 'unavailable'
+  return { state: 'unavailable' }
 }

@@ -132,6 +132,10 @@ export type FrontDoorAnswer =
       nextReview?: NextReview
       /** With "review": how many words wait. The review card on the road shows it (job 19-redesign, owner's call 7). */
       reviewCount?: number
+      /** A guest (anonymous sign in) or an email account, as Supabase Auth reports it (fast route intro-rule). */
+      account: 'email' | 'guest'
+      /** At least one lesson (a dialogue session) of this learner has ended. Aleksi's intro reads it (fast route intro-rule). */
+      finishedLesson: boolean
     }
 
 /**

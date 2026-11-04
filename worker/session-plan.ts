@@ -62,6 +62,16 @@ export async function todayFor(db: LearnerDb): Promise<TodayPick> {
   return pickToday(dialogues, sessions)
 }
 
+/**
+ * Whether the learner has finished at least one lesson: one of their own sessions
+ * of a dialogue has its end time (fast route intro-rule). A review only session has
+ * no dialogue and does not count. The rows come from LearnerDb.mySessions, which
+ * reads only the learner's own sessions.
+ */
+export function finishedALesson(sessions: readonly SessionRow[]): boolean {
+  return sessions.some((s) => s.endedAt !== null && s.dialogueId !== null)
+}
+
 export function frontDoorState(pick: TodayPick): FrontDoorState {
   if (pick.kind !== 'dialogue') return pick.kind
   return pick.open ? 'continue' : 'start'

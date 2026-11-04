@@ -22,8 +22,10 @@ export interface TodayInfo {
   signedIn: boolean
   /** The sign in ended (a guest session or an email sign in). */
   ended: boolean
-  /** The ended account was an email account. */
+  /** An email account (not a guest): the signed in one, or the one whose sign in ended. */
   email: boolean
+  /** Signed in, and at least one of the learner's lessons has finished (fast route intro-rule). */
+  finishedLesson?: true
   today?: TodayState
   /** The sentence about the next review, already worded. */
   nextReview?: string
@@ -56,7 +58,8 @@ export function todayInfoFrom(body: unknown): TodayInfo {
   return {
     signedIn: true,
     ended: false,
-    email: false,
+    email: body.account === 'email',
+    ...(body.finishedLesson === true ? { finishedLesson: true as const } : {}),
     today,
     ...(nextReview ? { nextReview } : {}),
     ...(typeof count === 'number' && Number.isInteger(count) && count > 0 ? { reviewCount: count } : {}),

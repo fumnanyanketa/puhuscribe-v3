@@ -14,7 +14,7 @@ import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { loadHumanCheck, runHumanCheck } from '../lib/human-check.ts'
 import { loadRoad } from '../lib/road-data.ts'
-import { clearOldIntro, hasMetAleksi, markMetAleksi, showsAleksiIntro } from '../lib/aleksi-intro.ts'
+import { clearOldIntroKeys, showsAleksiIntro } from '../lib/aleksi-intro.ts'
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
@@ -146,15 +146,16 @@ export function RoadScreen() {
   // One load per page load, also under React's strict mode.
   useEffect(() => {
     let active = true
-    // The answers of the old first-open questions leave the phone (fast route aleksi-intro).
-    clearOldIntro()
+    // The keys of earlier versions leave the phone: the old first-open answers and the old "met" flag.
+    clearOldIntroKeys()
     first.current ??= loadHome()
     void first.current.then((next) => {
       if (!active) return
       setHome(next)
       if (next.kind !== 'ready') return
-      // A new visitor meets Aleksi first; the road and its animation open after "Nice to meet you".
-      if (showsAleksiIntro(next.today.signedIn, next.today.ended, hasMetAleksi())) {
+      // Aleksi's intro comes first for everyone except a signed in email account with a finished lesson
+      // (owner, 4 November 2026); the road and its animation open after "Nice to meet you".
+      if (showsAleksiIntro(next.today)) {
         setMeeting(true)
         return
       }
@@ -356,9 +357,8 @@ export function RoadScreen() {
     setProblem(startProblemOf(answer))
   }
 
-  /** "Nice to meet you": this phone has met Aleksi, and the road opens with its animation. */
+  /** "Nice to meet you": the road opens with its animation. Nothing is kept on the phone. */
   function meet() {
-    markMetAleksi()
     setMeeting(false)
     if (!reducedMotion()) setPlaying(true)
   }
