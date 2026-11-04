@@ -52,6 +52,20 @@ These files only covered the removed questions and recap card: `src/lib/intro-an
 5. The privacy notice's cookies section mentions sign in cookies only. The phone now keeps one flag ("met Aleksi"), never sent, in place of the two stored answers. Same open point as job intro.
 6. Small differences from the mockup, from using the app's own parts: the bubble's corners are the app's 18 px with a 6 px tail corner (the mockup drew 20 px), and "Nice to meet you" is the app's 52 px primary button (the mockup drew 58 px).
 
+## Round 2: voice samples (owner: "Change the voice")
+
+The served clip is unchanged until the owner picks. New `samples` mode in `scripts/generate/aleksi_greeting.py` and task `voice-aleksi-samples` (same workflow step and key as `voice-aleksi`). `providers/voice.py` now takes an optional SSML rate and pitch (a signed whole percent, checked) and Azure's multilingual voices, which read the text inside `<lang xml:lang='fi-FI'>`; it also reads Azure's free voice list. Without those options the request is the same as before. Run 41854407253 on this branch, artifact `road-voice-aleksi-samples-1`, 7 clips of 19 characters, 133 in all (free tier; November's voice total is now 74,448 of the 450,000 guard). The voice log is committed; the clips are not.
+
+- `1-harri.mp3`: fi-FI-HarriNeural, as is.
+- `2-harri-warmer.mp3`: fi-FI-HarriNeural, rate -8%, pitch -4%.
+- `3-harri-brighter.mp3`: fi-FI-HarriNeural, rate -3%, pitch +6%.
+- `4-andrew.mp3`: en-US-AndrewMultilingualNeural, Finnish through `<lang xml:lang='fi-FI'>`.
+- `5-brian.mp3`: en-US-BrianMultilingualNeural, the same way.
+- `6-florian.mp3`: de-DE-FlorianMultilingualNeural, the same way.
+- `7-william.mp3`: en-AU-WilliamMultilingualNeural, the same way (first in name order of the other male multilingual voices that list fi-FI).
+
+None was skipped: all named voices list fi-FI. The voice list also names these male multilingual voices with fi-FI: en-GB-Ollie, en-US-Adam, Brandon, Christopher, Davis, Derek, Dustin, Lewis, Ryan, Samuel, Steffan, es-ES-Tristan, es-MX-Jorge, fr-FR-Lucien, Remy, it-IT-Alessio, Giuseppe, Marcello, ko-KR-Hyunsu, pt-BR-Macerio, zh-CN-Yunfan, Yunxiao, Yunyi, and the Turbo voices Alloy, Echo and Onyx. New tests in `scripts/generate/test_aleksi_greeting.py` ([aleksi-intro 3]): the sample plan and its report, a voice without fi-FI skipped, the SSML for prosody and a multilingual voice, a bad prosody value refused. `pytest scripts/generate/test_aleksi_greeting.py test_content_providers.py test_road_voice.py` passes; ruff passes.
+
 ## Run it locally
 
 `npm ci`, `npm run build`, `npx vite preview`, open `/learn` at 375 px in a fresh browser profile. To see it again, clear the site's storage.
