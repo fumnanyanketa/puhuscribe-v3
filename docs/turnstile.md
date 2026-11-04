@@ -59,7 +59,7 @@ The next push to main writes both into the main link's Worker version, and every
 
 ## At go live
 
-The live Worker, `aleksi` on `meetaleksi.com` (job go-live), gets the same pair from the same two GitHub secrets: the "app" task of `.github/workflows/live.yml` writes them into each deploy and refuses to deploy when either is missing. `meetaleksi.com` must be in the widget's hostnames. The Worker checks that every token was made on the address the request came to, so a token from a preview, or from `www.meetaleksi.com`, is refused on `meetaleksi.com`; the live Worker sends every `www` page to `meetaleksi.com` first, so learners only ever get tokens made there. Without the pair the live app refuses to make guests, on purpose.
+The live Worker, `aleksi` on `meetaleksi.com` (job go-live), gets the pair from the secrets `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET`: the "app" task of `.github/workflows/live.yml` runs in the GitHub environment `live`, so secrets of those names stored in that environment are used instead of the preview ones. A separate live widget, with only `meetaleksi.com` in its hostnames, can be stored there later. The task refuses to deploy when either is missing, and the Worker refuses Cloudflare's test secrets on `meetaleksi.com`, so the live check can never pass every token. `meetaleksi.com` must be in the widget's hostnames. The Worker checks that every token was made on the address the request came to, so a token from a preview, or from `www.meetaleksi.com`, is refused on `meetaleksi.com`; the live Worker sends every `www` page to `meetaleksi.com` first, so learners only ever get tokens made there. Without the pair the live app refuses to make guests, on purpose.
 
 ## Content Security Policy
 

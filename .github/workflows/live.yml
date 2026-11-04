@@ -21,13 +21,25 @@
 # and every file under public/audio/ is approved. Then it checks the live settings name the live
 # project and not the test project (scripts/ci/check-live-settings.ts).
 #
-# Secrets: SUPABASE_LIVE_DB_URL (the live database password) only in the steps of "migrations" and
-# "content" that call the Supabase CLI. Those jobs run no npm ci and no project package, so the
-# password is never present while package code runs. SUPABASE_LIVE_URL and
-# SUPABASE_LIVE_PUBLISHABLE_KEY, the Azure, Anthropic and Turnstile keys and the Cloudflare token reach
-# only the deploy step of "app", through a temporary file that is deleted straight after. Actions
-# not made by GitHub are pinned to a full commit, with the version in a comment; GitHub's own are
-# pinned the same way here.
+# The GitHub environment "live" (security review of job go-live, owner's decision of 4 November
+# 2026). The jobs migrations, content and app run in it, so they wait for the owner's approval and
+# get its secrets only on main (the environment allows main only). The live secrets live there, not
+# in the repository: SUPABASE_LIVE_DB_URL, SUPABASE_LIVE_URL, SUPABASE_LIVE_PUBLISHABLE_KEY, and for
+# the app CLOUDFLARE_LIVE_API_TOKEN and CLOUDFLARE_LIVE_ACCOUNT_ID, a token of the separate Exentrik
+# Cloudflare account that holds the zone meetaleksi.com and the Worker aleksi. The preview token
+# (CLOUDFLARE_API_TOKEN, the preview account) is never used here. An environment secret overrides a
+# repository secret of the same name, so live Anthropic, Azure and Turnstile keys stored in "live"
+# are used instead of the preview ones as soon as the owner adds them.
+#
+# Where each secret goes. SUPABASE_LIVE_DB_URL (the live database password): the settings check and
+# the Supabase CLI steps of "migrations" and "content". Those jobs install no project package, so the
+# password is never present while package code runs. The "app" job installs packages and builds
+# before its deploy step; only the deploy step holds the Cloudflare token, the live project's address
+# and key and the provider keys, passed to wrangler through a temporary file that is deleted straight
+# after. Package code that ran earlier in that job could have changed files the deploy step runs; the
+# lockfile's integrity hashes are the guard there, as on every Worker deploy. Actions not made by
+# GitHub are pinned to a full commit, with the version in a comment; GitHub's own are pinned the same
+# way here.
 name: Live
 
 on:
@@ -74,6 +86,7 @@ jobs:
     name: Apply migrations to the live project
     needs: [approved]
     if: github.ref == 'refs/heads/main' && inputs.task == 'migrations'
+    environment: live
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -104,6 +117,7 @@ jobs:
     name: Check the approved content is in the live project
     needs: [approved]
     if: github.ref == 'refs/heads/main' && inputs.task == 'content'
+    environment: live
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -132,6 +146,7 @@ jobs:
     name: Build and deploy the live Worker (aleksi on meetaleksi.com)
     needs: [approved]
     if: github.ref == 'refs/heads/main' && inputs.task == 'app'
+    environment: live
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
@@ -169,10 +184,13 @@ jobs:
       - name: Deploy the live Worker
         # The live project's settings and the provider keys become Worker secrets, passed in a
         # temporary file that is deleted straight after. The Turnstile pair is required: without it
-        # the live Worker would refuse to make any guest (worker/providers/human-check.ts).
+        # the live Worker would refuse to make any guest (worker/providers/human-check.ts), and a
+        # Cloudflare test secret is refused on meetaleksi.com. wrangler reads the token and account
+        # from CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; here they hold the live account's
+        # token and id from the "live" environment, never the preview account's.
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_LIVE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_LIVE_ACCOUNT_ID }}
           SUPABASE_URL: ${{ secrets.SUPABASE_LIVE_URL }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_LIVE_PUBLISHABLE_KEY }}
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
@@ -186,7 +204,10 @@ jobs:
             echo "::error title=Turnstile keys missing::TURNSTILE_SITE_KEY and TURNSTILE_SECRET must both be GitHub secrets. Nothing was deployed."
             exit 1
           fi
-          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then unset CLOUDFLARE_ACCOUNT_ID; fi
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error title=Live Cloudflare token missing::CLOUDFLARE_LIVE_API_TOKEN and CLOUDFLARE_LIVE_ACCOUNT_ID must both be secrets of the live environment. Nothing was deployed."
+            exit 1
+          fi
           secrets_file="$RUNNER_TEMP/worker-secrets.json"
           trap 'rm -f "$secrets_file"' EXIT
           node scripts/ci/write-test-settings.ts json "$secrets_file"

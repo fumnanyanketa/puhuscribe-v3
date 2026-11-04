@@ -32,7 +32,7 @@ describe('the first layer of the privacy notice', () => {
     expect(all).not.toContain('Exentrik looks after your data')
   })
 
-  it('[redesign 39] claim: we keep it in the EU (the database is in Ireland)', () => {
+  it('[redesign 39] claim: we keep it in the EU (the live database is in Germany)', () => {
     const supabase = PROCESSORS.find((processor) => processor.name === 'Supabase')
     expect(supabase?.where).toMatch(/^In the EU/)
   })

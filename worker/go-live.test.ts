@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { handleApi } from './api.ts'
 import { canonicalRedirect } from './canonical-host.ts'
 import { handleRequest } from './index.ts'
-import { GUEST_ACTION, humanCheckKeys } from './providers/human-check.ts'
-import { ENV, fakeSupabase } from './test-fakes.ts'
+import { GUEST_ACTION, humanCheckKeys, TEST_KEYS } from './providers/human-check.ts'
+import { DUMMY_TURNSTILE_TOKEN, ENV, fakeSupabase } from './test-fakes.ts'
 
 // Job go-live: the app on https://meetaleksi.com. Labels are the numbered items
 // of the manager's brief, recorded in factory/jobs/go-live/build.md:
@@ -99,5 +99,50 @@ describe('Turnstile on meetaleksi.com', () => {
   it('[go-live 3] meetaleksi.com never falls back to the always passing test keys', () => {
     expect(humanCheckKeys({}, 'meetaleksi.com')).toBeNull()
     expect(humanCheckKeys({}, 'www.meetaleksi.com')).toBeNull()
+  })
+
+  it('[go-live 3] a Cloudflare test secret set on the live Worker is refused there: no check, so no guest', async () => {
+    // Security review finding 4: previews and live share the secret names, so a test secret could be
+    // stored for live by mistake. It must turn the check off loudly (503), never pass every token.
+    for (const secret of [
+      TEST_KEYS.TURNSTILE_SECRET,
+      '2x0000000000000000000000000000000AA',
+      '3x0000000000000000000000000000000AA',
+    ]) {
+      expect(
+        humanCheckKeys(
+          { TURNSTILE_SITE_KEY: 'real-site-key-for-test', TURNSTILE_SECRET: secret },
+          'meetaleksi.com',
+        ),
+        secret,
+      ).toBeNull()
+    }
+    const supabase = fakeSupabase()
+    const res = await handleApi(
+      guestOnLive(DUMMY_TURNSTILE_TOKEN),
+      { ...LIVE, ...TEST_KEYS },
+      { fetch: supabase.fetch },
+    )
+    expect(res.status).toBe(503)
+    expect(await res.json()).toEqual({ error: 'check_unavailable' })
+    expect(supabase.humanChecks).toHaveLength(0)
+    expect(supabase.requests.filter((r) => r.url.pathname === '/auth/v1/signup')).toHaveLength(0)
+  })
+
+  it('[go-live 3] the test secret still works on local, preview and reserved test names', () => {
+    for (const hostname of [
+      'localhost',
+      '127.0.0.1',
+      'puhuscribe.localhost',
+      'main-puhuscribe-preview.fumnanya.workers.dev',
+      'puhuscribe.example',
+      'app.test',
+    ]) {
+      expect(humanCheckKeys(TEST_KEYS, hostname), hostname).toEqual({
+        siteKey: TEST_KEYS.TURNSTILE_SITE_KEY,
+        secret: TEST_KEYS.TURNSTILE_SECRET,
+        test: true,
+      })
+    }
   })
 })

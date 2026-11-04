@@ -154,8 +154,60 @@ describe('the live workflow', () => {
   })
 
   it('[go-live 1] no other workflow receives a live secret', () => {
-    for (const name of readdirSync('.github/workflows').filter((file) => file !== 'live.yml'))
-      expect(read(join('.github/workflows', name)), name).not.toContain('SUPABASE_LIVE_')
+    for (const name of readdirSync('.github/workflows').filter((file) => file !== 'live.yml')) {
+      const other = read(join('.github/workflows', name))
+      expect(other, name).not.toContain('SUPABASE_LIVE_')
+      expect(other, name).not.toContain('CLOUDFLARE_LIVE_')
+      expect(other, name).not.toMatch(/environment:\s*live\b/)
+    }
+  })
+
+  it('[go-live 1] every job that holds a secret runs in the GitHub environment "live"; the check job holds none', () => {
+    // Security review finding 1: environment secrets reach only runs on main that the owner approved.
+    for (const id of ['migrations', 'content', 'app'])
+      expect(all.get(id), id).toMatch(/\n {4}environment: live\n/)
+    for (const [id, job] of all) {
+      if (job.includes('secrets.')) expect(job, id).toMatch(/\n {4}environment: live\n/)
+    }
+    expect(all.get('approved')).not.toContain('secrets.')
+    expect(all.get('approved')).not.toContain('environment:')
+  })
+
+  it('[go-live 1] the app job deploys with the live Cloudflare account, never with the preview token', () => {
+    // Security review finding 2: the zone meetaleksi.com and the Worker aleksi are in the separate
+    // Exentrik Cloudflare account. The preview token puhuscribe-ci must never reach this workflow.
+    const app = all.get('app') ?? ''
+    expect(app).toContain('CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_LIVE_API_TOKEN }}')
+    expect(app).toContain('CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_LIVE_ACCOUNT_ID }}')
+    expect(text).not.toMatch(/secrets\.CLOUDFLARE_(API_TOKEN|ACCOUNT_ID|REVIEW_API_TOKEN)\b/)
+    expect(text.match(/secrets\.CLOUDFLARE_LIVE_/g)).toHaveLength(2)
+    // Without both, nothing is deployed (no fall back to an account found from some other token).
+    expect(app).toContain('[ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]')
+    expect(app).not.toContain('unset CLOUDFLARE_ACCOUNT_ID')
+  })
+})
+
+describe('the review site deploy, in the same Cloudflare account as the live Worker', () => {
+  // The Exentrik account holds the live Worker aleksi and the review site. CLOUDFLARE_REVIEW_API_TOKEN
+  // can edit every Worker in that account, so it may only reach a job in the GitHub environment
+  // "review" (main only, the owner approves), never a job any branch could run with repository secrets.
+  const text = read('.github/workflows/review-site.yml')
+  const all = jobs(text)
+
+  it('[go-live 1] the deploy job runs in the environment "review", and only it holds a secret', () => {
+    expect(all.get('deploy')).toMatch(/\n {4}environment: review\n/)
+    for (const [id, job] of all) {
+      if (job.includes('secrets.')) expect(job, id).toMatch(/\n {4}environment: review\n/)
+    }
+    expect(all.get('build')).not.toContain('secrets.')
+    expect(text.slice(0, text.indexOf('\njobs:\n'))).not.toContain('secrets.')
+  })
+
+  it('[go-live 1] the review token reaches no other workflow, and the live workflow never names it', () => {
+    for (const name of readdirSync('.github/workflows').filter((file) => file !== 'review-site.yml'))
+      expect(read(join('.github/workflows', name)), name).not.toMatch(
+        /CLOUDFLARE_REVIEW_(API_TOKEN|ACCOUNT_ID)/,
+      )
   })
 })
 

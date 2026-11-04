@@ -20,7 +20,7 @@ The full decision, with the runner up for each choice and why it lost, is in [fa
 | Dependency check                | `npm audit`, `pip-audit`, Dependabot                                                      |
 | Automatic checks                | GitHub Actions: until the MVP launch a secret scan per change, one full run before launch |
 
-Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, made at liftoff on a paid plan, can pick a specific EU region.
+Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, `aleksi-live` (job go-live), is in Frankfurt, Germany (`eu-central-1`), also in the EU; the privacy notice names Germany.
 
 Engines copied from PuhuScribe v2 are listed, with the v2 commit they came from, in [docs/v2-imports.md](docs/v2-imports.md).
 
@@ -142,7 +142,7 @@ Sign in code emails go through Brevo (owner's choice of 4 November 2026, job go-
 
 ## Going live (job go-live)
 
-The live app is the Worker `aleksi` at https://meetaleksi.com, with its own Supabase project `aleksi-live` in Frankfurt. Nothing reaches it on a push or a pull request. The manual workflow `.github/workflows/live.yml` (Actions, Live, Run workflow, on `main`) has three tasks, run one at a time in this order:
+The live app is the Worker `aleksi` at https://meetaleksi.com, in the owner's separate Exentrik Cloudflare account (the previews stay on the preview account), with its own Supabase project `aleksi-live` in Frankfurt, Germany. Nothing reaches it on a push or a pull request. Its jobs run in the GitHub environment `live`, which holds the live secrets, allows only `main` and waits for the owner's approval. The manual workflow `.github/workflows/live.yml` (Actions, Live, Run workflow, on `main`) has three tasks, run one at a time in this order:
 
 1. `migrations` applies every migration in `supabase/migrations/` to the live project. The approved dialogues are published by their own migrations, so this also puts the approved content in. No seed or test fixture file is ever loaded.
 2. `content` checks that every migration in the repository, each publish migration included, is now in the live project's migration history. It reads only that history, never learner data.

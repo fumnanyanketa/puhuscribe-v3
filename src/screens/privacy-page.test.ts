@@ -79,7 +79,7 @@ describe('the privacy notice', () => {
       expect(page).toContain(processor.role)
       expect(page).toContain(processor.where)
     }
-    expect(page).toContain('In the EU (Ireland).')
+    expect(page).toContain('In the EU (Germany).')
     expect(page).toContain('Supabase keeps its API and database logs for 1 day')
   })
 
@@ -258,6 +258,9 @@ describe('the privacy notice, job 14-analytics', () => {
     // (src/privacy/notice-settings.ts keeps its name and contact).
     const supabase = PROCESSORS.find((p) => p.name === 'Supabase')
     expect(supabase?.role).toBe('Keeps the database and handles sign in.')
+    // Security review finding 3: the live project is in Frankfurt, not in Ireland like the test project.
+    expect(supabase?.where).toBe('In the EU (Germany).')
+    expect(page).not.toContain('In the EU (Ireland).')
     expect(page).not.toMatch(/Until Aleksi chooses its own email sender/)
   })
 })

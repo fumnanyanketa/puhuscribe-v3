@@ -49,7 +49,9 @@ export const PROCESSORS: readonly Processor[] = [
   {
     name: 'Supabase',
     role: 'Keeps the database and handles sign in.',
-    where: 'In the EU (Ireland).',
+    // The live project, aleksi-live, is in Frankfurt (eu-central-1), job go-live. The test project is in
+    // Ireland, but learners only ever use the live one.
+    where: 'In the EU (Germany).',
     // Crash reports go to PuhuScribe's own database (job 14-analytics).
     modules: ['crash-reports.ts'],
   },
