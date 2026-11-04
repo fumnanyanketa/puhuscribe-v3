@@ -1,6 +1,5 @@
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
-import { MET_KEY } from '../src/lib/aleksi-intro.ts'
 import { mockHome, type HomeMocks } from './road-mocks.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -11,8 +10,8 @@ import { mockHome, type HomeMocks } from './road-mocks.ts'
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
 
 const SIGNED_IN = { signedIn: true, today: 'continue' }
-/** Keys in both storages, leaving out the one e2e/road-mocks.ts sets before the page loads (fast route aleksi-intro). */
-const UNSET_STORAGE = `Object.keys(localStorage).filter((key) => key !== ${JSON.stringify(MET_KEY)}).length + sessionStorage.length`
+/** Keys in both storages. The tests set none themselves since fast route intro-rule removed the "met" flag. */
+const UNSET_STORAGE = 'localStorage.length + sessionStorage.length'
 const MID = { 1: 4, 2: 4, 3: 2 }
 
 async function openRoad(page: Page, mocks: HomeMocks = {}) {
@@ -366,7 +365,6 @@ test.describe('the opening animation', () => {
     expect(await page.locator('svg[aria-hidden="true"]').count()).toBeGreaterThan(1)
     // Nothing is stored for it: no storage and no cookie.
     expect(await page.evaluate<string>('document.cookie')).toBe('')
-    // The one key the test itself sets, "this phone has met Aleksi" (e2e/road-mocks.ts), is left out.
     expect(await page.evaluate<number>(UNSET_STORAGE)).toBe(0)
   })
 
@@ -573,7 +571,6 @@ test.describe('what the road asks for', () => {
     await page.waitForLoadState('networkidle')
     expect([...origins]).toEqual([new URL(page.url()).origin])
     expect(await page.evaluate<string>('document.cookie')).toBe('')
-    // The one key the test itself sets, "this phone has met Aleksi" (e2e/road-mocks.ts), is left out.
     expect(await page.evaluate<number>(UNSET_STORAGE)).toBe(0)
   })
 
