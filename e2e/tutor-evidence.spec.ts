@@ -123,7 +123,7 @@ async function reply(page: Page, text: string) {
 
 test('Otso: the opening, a reply, the end with the tip', async ({ page }) => {
   await lesson(page, 'ready', (route, n) => json(route, TURNS[n - 1]))
-  await expect(page.getByRole('heading', { name: 'Talk with Otso' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Talk with Aleksi' })).toBeVisible()
   await shot(page, '1-opening')
   await reply(page, 'Ne maksaa neljä euroo.')
   await expect(page.getByText('Yes, of course. Can I pay by card?')).toBeVisible()
@@ -145,12 +145,12 @@ test('Otso: the guest card', async ({ page }) => {
 test('Otso: the monthly cap stops the chat kindly', async ({ page }) => {
   await lesson(page, 'ready', (route) => json(route, { error: 'tutor_cap' }, 429))
   await reply(page, 'Ne maksaa neljä euroo.')
-  await expect(page.getByText('Otso has talked enough for today.', { exact: false })).toBeVisible()
+  await expect(page.getByText('Aleksi has talked enough for today.', { exact: false })).toBeVisible()
   await shot(page, '5-cap-message')
 })
 
 test('Otso: the consent screen', async ({ page }) => {
   await lesson(page, 'consent', (route, n) => json(route, TURNS[n - 1]))
-  await expect(page.getByRole('button', { name: 'Talk with Otso' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Talk with Aleksi' })).toBeVisible()
   await shot(page, '6-consent')
 })

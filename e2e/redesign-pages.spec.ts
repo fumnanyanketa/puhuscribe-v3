@@ -73,7 +73,7 @@ async function mockAccount(page: Page, mocks: PageMocks = {}) {
     return route.fulfill({
       status: 200,
       contentType: 'application/json',
-      headers: { 'content-disposition': 'attachment; filename="puhuscribe-data.json"' },
+      headers: { 'content-disposition': 'attachment; filename="aleksi-data.json"' },
       body: '{"about":"test"}',
     })
   })
@@ -153,7 +153,7 @@ test.describe('the account page', () => {
     await page.goto('/learn/account')
     const downloading = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download my data' }).click()
-    expect((await downloading).suggestedFilename()).toBe('puhuscribe-data.json')
+    expect((await downloading).suggestedFilename()).toBe('aleksi-data.json')
     // Round 6 (item 34): the page's title "Download my data" sits beside the back arrow, and "Your file is
     // ready" with no full stop is the title under the orb, as drawn. The only way back is the arrow.
     await expect(page.getByRole('heading', { level: 1, name: 'Download my data' })).toBeVisible()
@@ -197,7 +197,7 @@ test.describe('the email screens', () => {
     ).toBeVisible()
     await expect(
       page.getByText(
-        'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+        'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
         { exact: true },
       ),
     ).toBeVisible()
@@ -274,7 +274,7 @@ test.describe('the email screens', () => {
     expect(label?.width ?? 0).toBeLessThan(3)
     for (const sentence of [
       'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
-      'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+      'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
     ]) {
       const text = page.getByText(sentence, { exact: true })
       await expect(text).toBeVisible()
@@ -469,17 +469,11 @@ test.describe('delete, feedback and the privacy notice', () => {
       const requests = recordRequests(page)
       await page.goto('/learn/privacy')
       await expect(page.getByRole('heading', { level: 1, name: 'Privacy notice' })).toBeVisible()
-      for (const heading of [
-        'What we keep',
-        'Your voice',
-        'How long',
-        'Your rights',
-        'Who runs PuhuScribe',
-      ]) {
+      for (const heading of ['What we keep', 'Your voice', 'How long', 'Your rights', 'Who runs Aleksi']) {
         await expect(page.getByRole('heading', { level: 2, name: heading, exact: true })).toBeVisible()
       }
       await expect(
-        page.getByText('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.'),
+        page.getByText('Aleksi is part of the product family of Exentrik, a product studio in Finland.'),
       ).toBeVisible()
       await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
       // Round 6 (item 36): "Updated" and the date small at the bottom, as drawn (no full stop). The notice
@@ -492,7 +486,7 @@ test.describe('delete, feedback and the privacy notice', () => {
       await expect(
         page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
       ).toBeVisible()
-      await expect(page.getByText('Fumnanya Nketa is responsible for your data in PuhuScribe.')).toBeVisible()
+      await expect(page.getByText('Fumnanya Nketa is responsible for your data in Aleksi.')).toBeVisible()
       await expect(
         page
           .locator('#full-notice')
@@ -533,7 +527,7 @@ test.describe('delete, feedback and the privacy notice', () => {
     page,
   }) => {
     await page.goto('/learn/privacy')
-    await expect(page.getByRole('heading', { level: 2, name: 'Who runs PuhuScribe' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: 'Who runs Aleksi' })).toBeVisible()
     const look = await page.evaluate<{ colours: string[]; titleInHeader: boolean }>(`({
       colours: [...document.querySelectorAll('[class*="firstLayer"] section h2')].map((h) => getComputedStyle(h).color),
       titleInHeader: Boolean(document.querySelector('header h1')),

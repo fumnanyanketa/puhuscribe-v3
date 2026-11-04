@@ -160,7 +160,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                     setTutorOpen(!tutorOpen)
                   }}
                 >
-                  More about Otso
+                  More about Aleksi
                 </Button>
                 <div id="tutor-details" className={styles.voiceDetails} hidden={!tutorOpen}>
                   {ANTHROPIC.details?.map((detail) => (
@@ -195,8 +195,8 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
 
       <div id="full-notice" className={styles.full} hidden={!open}>
         <p className={styles.text}>
-          This notice explains what PuhuScribe keeps about you and why, how long it is kept, where it is kept,
-          and how to reach the person responsible.
+          This notice explains what Aleksi keeps about you and why, how long it is kept, where it is kept, and
+          how to reach the person responsible.
         </p>
         <div className={styles.notice}>
           <section className={styles.section} aria-labelledby="privacy-who">
@@ -204,7 +204,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               {who}
             </h2>
             <p className={styles.text}>
-              {responsible.responsibleName} is responsible for your data in PuhuScribe.
+              {responsible.responsibleName} is responsible for your data in Aleksi.
             </p>
             <p className={styles.text}>Send questions and privacy requests to:</p>
             <p className={styles.text}>
@@ -284,7 +284,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               {cookies}
             </h2>
             <p className={styles.text}>
-              PuhuScribe uses only the sign in cookies it needs to work. It uses no tracking or advertising
+              Aleksi uses only the sign in cookies it needs to work. It uses no tracking or advertising
               cookies.
             </p>
           </section>
@@ -322,7 +322,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
             <h2 id="privacy-age" className={styles.heading}>
               {age}
             </h2>
-            <p className={styles.text}>PuhuScribe is for adults, 18 and over.</p>
+            <p className={styles.text}>Aleksi is for adults, 18 and over.</p>
           </section>
 
           <section className={styles.section} aria-labelledby="privacy-updated">

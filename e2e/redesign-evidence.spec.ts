@@ -203,7 +203,7 @@ const SHOTS: Shot[] = [
         route.fulfill({
           status: 200,
           contentType: 'application/json',
-          headers: { 'content-disposition': 'attachment; filename="puhuscribe-data.json"' },
+          headers: { 'content-disposition': 'attachment; filename="aleksi-data.json"' },
           body: '{}',
         }),
       )

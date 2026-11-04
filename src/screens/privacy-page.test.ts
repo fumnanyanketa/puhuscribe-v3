@@ -48,13 +48,13 @@ describe('the privacy notice', () => {
   })
 
   it('[accounts 16] names who is responsible and how to reach them, from the settings file', () => {
-    expect(page).toContain('Probe Business Oy (1234567-8) is responsible for your data in PuhuScribe.')
+    expect(page).toContain('Probe Business Oy (1234567-8) is responsible for your data in Aleksi.')
     expect(html).toContain('href="mailto:privacy@probe.example"')
   })
 
   it('[accounts 16] shows the name and a mailto link taken from the settings file', () => {
     const live = renderToStaticMarkup(createElement(PrivacyPage))
-    expect(text(live)).toContain(`${RESPONSIBLE.responsibleName} is responsible for your data in PuhuScribe.`)
+    expect(text(live)).toContain(`${RESPONSIBLE.responsibleName} is responsible for your data in Aleksi.`)
     expect(live).toContain(`href="mailto:${RESPONSIBLE.contact}"`)
   })
 
@@ -84,7 +84,7 @@ describe('the privacy notice', () => {
   })
 
   it('[accounts 16] says only the sign in cookies are used', () => {
-    expect(page).toContain('PuhuScribe uses only the sign in cookies it needs to work.')
+    expect(page).toContain('Aleksi uses only the sign in cookies it needs to work.')
     expect(page).toContain('It uses no tracking or advertising cookies.')
   })
 
@@ -99,7 +99,7 @@ describe('the privacy notice', () => {
   })
 
   it('[accounts 16] says it is for adults 18 and over, and when it was last updated', () => {
-    expect(page).toContain('PuhuScribe is for adults, 18 and over.')
+    expect(page).toContain('Aleksi is for adults, 18 and over.')
     expect(page).toMatch(/This notice was last updated on \d{1,2} [A-Z][a-z]+ \d{4}\./)
   })
 
@@ -124,7 +124,7 @@ describe('the privacy notice, job 14-analytics', () => {
   it('[analytics 29] says what the visit count keeps, why, the legal reason and how long', () => {
     expect(page).toContain('Visit count')
     expect(page).toContain(
-      "When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address. Cloudflare, which runs the app, sees that address because it delivers the page to you. PuhuScribe's database does not keep it. We store no cookie, identifier or browser details for this.",
+      "When you open Aleksi, we add one to a count for your country and the day. The country comes from your internet address. Cloudflare, which runs the app, sees that address because it delivers the page to you. Aleksi's database does not keep it. We store no cookie, identifier or browser details for this.",
     )
     expect(page).toContain(
       'Legal reason: Our legitimate interest in knowing how many people use the app and from where (GDPR Article 6(1)(f)).',
@@ -139,7 +139,7 @@ describe('the privacy notice, job 14-analytics', () => {
   it('[analytics 29] says the internet address is not kept by PuhuScribe, without claiming nobody sees it', () => {
     expect(page).not.toContain('which we do not keep')
     const visit = NOT_LINKED_ITEMS.find((item) => item.name === 'Visit count')
-    expect(visit?.what).toContain("PuhuScribe's database does not keep it.")
+    expect(visit?.what).toContain("Aleksi's database does not keep it.")
     expect(visit?.what).toMatch(/Cloudflare, which runs the app, sees that address/)
   })
 

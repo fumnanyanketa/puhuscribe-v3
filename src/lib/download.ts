@@ -8,7 +8,7 @@ const DOWNLOAD_TIMEOUT_MS = 30_000
 
 function fileNameFrom(disposition: string | null): string {
   const match = /filename="([^"]+)"/.exec(disposition ?? '')
-  return match?.[1] ?? 'puhuscribe-data.json'
+  return match?.[1] ?? 'aleksi-data.json'
 }
 
 export type DownloadResult = 'ready' | 'signed_out' | 'failed'

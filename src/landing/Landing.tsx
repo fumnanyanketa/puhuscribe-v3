@@ -77,7 +77,7 @@ function Hero() {
           <div
             className={styles.device}
             role="img"
-            aria-label="The PuhuScribe app on a phone: the road to A1 opens with its first stop, Meeting people."
+            aria-label="The Aleksi app on a phone: the road to A1 opens with its first stop, Meeting people."
           >
             <div className={styles.deviceScreen}>{mounted && <HeroRoad />}</div>
           </div>
@@ -222,16 +222,16 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Practise a real chat without the nerves',
-    text: 'Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
+    text: 'Along the journey, you meet Aleksi, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
     image: '/landing/otso.webp',
-    alt: 'A short chat with Otso, the AI tutor, in the app, with the English meaning under each reply.',
+    alt: 'A short chat with Aleksi, the AI tutor, in the app, with the English meaning under each reply.',
     height: 1299,
     tone: 'peach',
     piece: (
       <div className={styles.mini}>
         <div className={styles.who}>
           <img src="/otso/avatar.webp" alt="" width={26} height={26} loading="lazy" />
-          <span>Otso</span>
+          <span>Aleksi</span>
           <em>AI</em>
         </div>
         <span className={styles.miniSpoken} lang="fi">
@@ -243,7 +243,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Remember the words you learn',
-    text: 'PuhuScribe brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
+    text: 'Each word comes back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
     image: '/landing/review.webp',
     alt: 'A review card in the app: the missing word typed in and marked right.',
     height: 1299,
@@ -439,7 +439,7 @@ const QUESTIONS: readonly (readonly [string, string])[] = [
   ],
   [
     'What happens to my voice and data?',
-    'Speech feedback is optional, and recordings aren’t kept by default. What PuhuScribe keeps is stored in the EU, and you can download or delete it any time. Chats with Otso are handled by an AI provider in the US and aren’t saved.',
+    'Speech feedback is optional, and recordings aren’t kept by default. What we keep is stored in the EU, and you can download or delete it any time. Chats with Aleksi are handled by an AI provider in the US and aren’t saved.',
   ],
 ]
 

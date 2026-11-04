@@ -125,7 +125,7 @@ describe('local Supabase settings', () => {
       ['auth.email.template.magic_link', './supabase/templates/magic-link.html'],
       ['auth.email.template.email_change', './supabase/templates/email-change.html'],
     ] as const) {
-      expect(tomlSection(section)).toContain('subject = "Your PuhuScribe code"')
+      expect(tomlSection(section)).toContain('subject = "Your Aleksi code"')
       expect(tomlSection(section)).toContain(`content_path = "${file}"`)
     }
   })

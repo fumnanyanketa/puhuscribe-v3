@@ -20,7 +20,7 @@ import * as note from './save-note-copy.ts'
 describe('protected copy', () => {
   it('[redesign 43] the guest line, with the adult line, is word for word', () => {
     expect(GUEST_LINE).toBe(
-      'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
+      'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
     )
   })
 
@@ -29,12 +29,12 @@ describe('protected copy', () => {
       'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
     )
     expect(TAKEN_WARNING).toBe(
-      'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+      'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
     )
     expect(GUEST_WARNING).toBe(
       'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
     )
-    expect(SIGN_IN_SENT).toBe('If this email has a PuhuScribe account, we sent it a 6 digit code.')
+    expect(SIGN_IN_SENT).toBe('If this email has an Aleksi account, we sent it a 6 digit code.')
     expect(CODE_WORKS).toBe('The code works for one hour.')
   })
 
@@ -52,7 +52,7 @@ describe('protected copy', () => {
 
   it('[redesign 43] [redesign 29] the whole speaking consent text is word for word, with its version label', () => {
     const where = (region: string) =>
-      `The recording goes from this phone through PuhuScribe's server to Microsoft's speech service ${region}. The service turns it into text, and PuhuScribe compares that text with the line.`
+      `The recording goes from this phone through Aleksi's server to Microsoft's speech service ${region}. The service turns it into text, and Aleksi compares that text with the line.`
     const common = {
       heading: 'Speaking feedback',
       keepBox:
@@ -62,15 +62,16 @@ describe('protected copy', () => {
       notNow: 'Not now',
     }
     const paragraphs = (region: string) => [
-      'To give you feedback, PuhuScribe records your voice only while the record button is on, for a few seconds per line.',
+      'To give you feedback, Aleksi records your voice only while the record button is on, for a few seconds per line.',
       where(region),
-      'Microsoft does not keep your recording, and PuhuScribe deletes it as soon as your feedback is ready.',
-      'PuhuScribe keeps the text the service heard and how close it was, to check that the feedback works. That text is deleted after 90 days.',
+      'Microsoft does not keep your recording, and Aleksi deletes it as soon as your feedback is ready.',
+      'Aleksi keeps the text the service heard and how close it was, to check that the feedback works. That text is deleted after 90 days.',
       // Job 16-tutor-step (owner's call 3 of 3 November 2026, spoken answers to Otso) added this
-      // paragraph and moved the label from voice-2026-10.1 to voice-2026-11.1.
-      'When you speak an answer to Otso, the AI tutor, the service turns your recording into text in the same way. That text goes to Anthropic in the United States so Otso can answer, and PuhuScribe keeps neither the recording nor the text.',
+      // paragraph and moved the label from voice-2026-10.1 to voice-2026-11.1. Job rename-aleksi (owner,
+      // 4 November 2026) renamed the app and the tutor Aleksi and moved it to voice-2026-11.2.
+      'When you speak an answer to Aleksi, the AI tutor, the service turns your recording into text in the same way. That text goes to Anthropic in the United States so Aleksi can answer, and we keep neither the recording nor the text.',
     ]
-    expect(VOICE_NOTICE_VERSION).toBe('voice-2026-11.1')
+    expect(VOICE_NOTICE_VERSION).toBe('voice-2026-11.2')
     expect(voiceNotice('Italy')).toEqual({ ...common, paragraphs: paragraphs('in the EU, in Italy') })
     expect(voiceNotice(null)).toEqual({ ...common, paragraphs: paragraphs('in the EU') })
   })

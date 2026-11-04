@@ -30,13 +30,13 @@ export const FIRST_LAYER = {
       // Job 16-tutor-step; reworded on 3 November 2026 (fast route otso-privacy) after the manager's
       // check of Anthropic's terms. The detail sits behind "More about Otso" (processors.ts, Anthropic).
       id: 'privacy-tutor',
-      heading: 'Talking with Otso',
-      text: 'Only if you turn Otso on. Your chats with Otso, typed or spoken, go as text to Anthropic in the United States. PuhuScribe does not save them.',
+      heading: 'Talking with Aleksi',
+      text: 'Only if you turn Aleksi on. Your chats with Aleksi, typed or spoken, go as text to Anthropic in the United States. We do not save them.',
     },
     {
       id: 'privacy-time',
       heading: 'How long',
-      text: 'While you use PuhuScribe. A guest account is deleted after 90 days without use, and an email account after 24 months.',
+      text: 'While you use Aleksi. A guest account is deleted after 90 days without use, and an email account after 24 months.',
     },
     {
       id: 'privacy-rights-short',
@@ -45,9 +45,9 @@ export const FIRST_LAYER = {
     },
     {
       id: 'privacy-who-short',
-      heading: 'Who runs PuhuScribe',
+      heading: 'Who runs Aleksi',
       // The owner's sentence, word for word (1 November 2026).
-      text: 'PuhuScribe is part of the product family of Exentrik, a product studio in Finland.',
+      text: 'Aleksi is part of the product family of Exentrik, a product studio in Finland.',
     },
   ],
   fullNotice: 'Read the full notice',
@@ -92,12 +92,12 @@ export const CLAIMS: readonly Claim[] = [
       'data-inventory.ts LEARNER_TABLES: Kept recordings, "Only if you chose"; Speaking feedback results, "No audio"',
   },
   {
-    claim: 'Chats with Otso, typed or spoken, go as text to Anthropic in the United States',
+    claim: 'Chats with Aleksi, typed or spoken, go as text to Anthropic in the United States',
     source: 'processors.ts, Anthropic: role and where; worker/tutor-prompt.ts builds the request',
   },
   {
-    claim: 'PuhuScribe does not save the chats',
-    source: 'data-inventory.ts LEARNER_TABLES: Calls to Otso, "No text"',
+    claim: 'We do not save the chats',
+    source: 'data-inventory.ts LEARNER_TABLES: Calls to Aleksi, "No text"',
   },
   {
     claim: 'A guest account is deleted after 90 days without use, an email account after 24 months',

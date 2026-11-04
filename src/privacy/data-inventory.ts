@@ -140,10 +140,10 @@ export const LEARNER_TABLES: readonly TableItem[] = [
   {
     // Job 16-tutor-step.
     table: 'tutor_calls',
-    name: 'Calls to Otso',
-    what: 'One line for each time Otso, the AI tutor, was asked for a reply: which session, when, which model, how many tokens and what it cost. No text: not your messages and not Otso’s answers.',
+    name: 'Calls to Aleksi',
+    what: 'One line for each time Aleksi, the AI tutor, was asked for a reply: which session, when, which model, how many tokens and what it cost. No text: not your messages and not Aleksi’s answers.',
     why: 'To keep the tutor within its daily and monthly limits, and to know what it costs.',
-    legal: 'Your consent (GDPR Article 6(1)(a)). You can turn Otso off at any time on the account page.',
+    legal: 'Your consent (GDPR Article 6(1)(a)). You can turn Aleksi off at any time on the account page.',
     keep: WHILE_ACCOUNT,
   },
   {
@@ -186,7 +186,7 @@ export const NOT_LINKED_ITEMS: readonly InventoryItem[] = [
     // Cloudflare delivers the page, so it handles the address; only
     // PuhuScribe's own database can be said not to keep it (worker/visits.ts
     // passes on the country alone).
-    what: "When you open PuhuScribe, we add one to a count for your country and the day. The country comes from your internet address. Cloudflare, which runs the app, sees that address because it delivers the page to you. PuhuScribe's database does not keep it. We store no cookie, identifier or browser details for this.",
+    what: "When you open Aleksi, we add one to a count for your country and the day. The country comes from your internet address. Cloudflare, which runs the app, sees that address because it delivers the page to you. Aleksi's database does not keep it. We store no cookie, identifier or browser details for this.",
     why: 'To know how many people use the app and from where.',
     legal:
       'Our legitimate interest in knowing how many people use the app and from where (GDPR Article 6(1)(f)).',
@@ -212,11 +212,11 @@ export const USER_TABLE_NAMES: readonly string[] = USER_TABLES.map((item) => ite
 /** The "about" part of the downloaded file: what each part is, in plain English. */
 export function aboutTheDownload(): Record<string, unknown> {
   return {
-    file: 'Everything PuhuScribe keeps about your account, as it was when you downloaded this file.',
+    file: 'Everything Aleksi keeps about your account, as it was when you downloaded this file.',
     exported_at: 'When this file was made.',
     account: ACCOUNT_ITEMS.map((item) => `${item.name}: ${item.what}`).join(' '),
     tables: Object.fromEntries(USER_TABLES.map((item) => [item.table, item.what])),
-    files: 'Files kept outside the database. PuhuScribe keeps none today, so this part is empty.',
+    files: 'Files kept outside the database. Aleksi keeps none today, so this part is empty.',
     how_long: HOW_LONG,
   }
 }

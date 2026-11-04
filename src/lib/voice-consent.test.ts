@@ -12,6 +12,8 @@ const FINGERPRINTS: Record<string, string> = {
   'voice-2026-10.1': 'a09e4ccaeaa7d74ff542be8cad2c28d250cd90489ada91b21bbc4eb670b2b440',
   // Job 16-tutor-step: the paragraph on spoken answers to Otso was added.
   'voice-2026-11.1': 'f493d2b55dfd9dee3d643fa638e76be89fc427b95a89450f49d58bdaf1abbd7a',
+  // Job rename-aleksi (owner, 4 November 2026): the app and the tutor are called Aleksi.
+  'voice-2026-11.2': '859a3b3340ebb6ce55b26e910435429fbaa7e5e6cb2e370ec7a073b3204e4634',
 }
 
 async function fingerprint(): Promise<string> {
@@ -34,10 +36,10 @@ describe('the voice consent text', () => {
     const notice = voiceNotice('Italy')
     const all = [...notice.paragraphs, notice.keepBox, notice.changeLater].join(' ')
     expect(all).toContain('records your voice only while the record button is on, for a few seconds per line')
-    expect(all).toContain("through PuhuScribe's server to Microsoft's speech service in the EU, in Italy")
-    expect(all).toContain('turns it into text, and PuhuScribe compares that text with the line')
+    expect(all).toContain("through Aleksi's server to Microsoft's speech service in the EU, in Italy")
+    expect(all).toContain('turns it into text, and Aleksi compares that text with the line')
     expect(all).toContain(
-      'Microsoft does not keep your recording, and PuhuScribe deletes it as soon as your feedback is ready',
+      'Microsoft does not keep your recording, and Aleksi deletes it as soon as your feedback is ready',
     )
     expect(all).toContain('keeps the text the service heard and how close it was')
     expect(all).toContain('deleted after 90 days')
