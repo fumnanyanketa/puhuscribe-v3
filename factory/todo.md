@@ -104,9 +104,7 @@ Should-fix items and notes from reviews and evaluations, for the owner to schedu
 ## Before real learners: Otso and Anthropic (manager check, 3 November 2026)
 
 Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is part of the Commercial Terms and applies from the first API use; EEA customers contract with Anthropic Ireland, Limited; EU Standard Contractual Clauses Modules 2 and 3 are the transfer basis; API inputs and outputs are deleted within 30 days by default (flagged content up to 2 years); no training on customer content; zero data retention only on request through Anthropic sales; no EU processing option (only "us" or "global"). The Data Privacy Framework listing and the official sub-processor list could not be read. Not legal advice.
-- (owner) In the Claude Console, check the account's contracting entity is Anthropic Ireland, Limited, and save dated copies of the Commercial Terms and the DPA.
-- (owner) Decide whether to ask Anthropic sales for zero data retention.
-- (owner) Ask a GDPR lawyer whether a transfer impact assessment is needed.
+- Owner's decision, 4 November 2026: the Console entity check, zero data retention and the lawyer question are dropped; not needed for the MVP.
 - (manager) Privacy notice, the Otso line: name Anthropic as processor, US processing, Standard Contractual Clauses, 30 day retention plus the 2 year flagged content exception, no training, link to the sub-processor list.
 - (manager) Make sure only the chat text is sent to Anthropic: no names, emails or account ids.
 
