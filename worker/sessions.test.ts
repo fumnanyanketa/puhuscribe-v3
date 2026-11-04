@@ -87,7 +87,7 @@ describe('POST /api/sessions/today', () => {
       signedIn: true,
       today: 'all_done',
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
   })
 
@@ -208,7 +208,7 @@ describe('GET /api/today', () => {
       today: 'start',
       canDo: 'Can do of unit 10.',
       account: 'guest',
-      finishedLesson: false,
+      finishedStop: false,
     })
     expect(db.sessions).toEqual([])
     await today(cookie, deps)
@@ -218,7 +218,7 @@ describe('GET /api/today', () => {
       today: 'continue',
       canDo: 'Can do of unit 10.',
       account: 'guest',
-      finishedLesson: false,
+      finishedStop: false,
     })
     expect(db.sessions).toHaveLength(1)
   })

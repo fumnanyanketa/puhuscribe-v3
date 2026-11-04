@@ -30,16 +30,16 @@ describe('reading what today holds', () => {
   })
 })
 
-describe('who is on this device (fast route intro-rule)', () => {
-  it('[intro-rule 2] reads the account kind and a finished lesson from a signed in answer', () => {
-    expect(signedIn('start', { account: 'email', finishedLesson: true })).toMatchObject({
+describe('who is on this device (fast route intro-stop)', () => {
+  it('[intro-stop 2] reads the account kind and a finished stop from a signed in answer', () => {
+    expect(signedIn('start', { account: 'email', finishedStop: true })).toMatchObject({
       email: true,
-      finishedLesson: true,
+      finishedStop: true,
     })
-    const guest = signedIn('start', { account: 'guest', finishedLesson: false })
+    const guest = signedIn('start', { account: 'guest', finishedStop: false })
     expect(guest.email).toBe(false)
-    expect(guest.finishedLesson).toBeUndefined()
-    expect(signedIn('start', { account: 'email', finishedLesson: 1 }).finishedLesson).toBeUndefined()
+    expect(guest.finishedStop).toBeUndefined()
+    expect(signedIn('start', { account: 'email', finishedStop: 1 }).finishedStop).toBeUndefined()
     expect(signedIn('start').email).toBe(false)
   })
 })

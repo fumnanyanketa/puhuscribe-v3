@@ -24,8 +24,8 @@ export interface TodayInfo {
   ended: boolean
   /** An email account (not a guest): the signed in one, or the one whose sign in ended. */
   email: boolean
-  /** Signed in, and at least one of the learner's lessons has finished (fast route intro-rule). */
-  finishedLesson?: true
+  /** Signed in, and the learner has finished every lesson of at least one stop (fast route intro-stop). */
+  finishedStop?: true
   today?: TodayState
   /** The sentence about the next review, already worded. */
   nextReview?: string
@@ -59,7 +59,7 @@ export function todayInfoFrom(body: unknown): TodayInfo {
     signedIn: true,
     ended: false,
     email: body.account === 'email',
-    ...(body.finishedLesson === true ? { finishedLesson: true as const } : {}),
+    ...(body.finishedStop === true ? { finishedStop: true as const } : {}),
     today,
     ...(nextReview ? { nextReview } : {}),
     ...(typeof count === 'number' && Number.isInteger(count) && count > 0 ? { reviewCount: count } : {}),

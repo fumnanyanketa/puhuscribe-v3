@@ -55,7 +55,14 @@ import {
 } from './tutor.ts'
 import type { AiEnv } from './providers/ai.ts'
 import { checkHuman, humanCheckKeys, type HumanCheckEnv } from './providers/human-check.ts'
-import { roadFor, supabaseRoadDb, supabaseVisitorRoadDb, visitorRoadFor, type RoadDb } from './road.ts'
+import {
+  finishedAStop,
+  roadFor,
+  supabaseRoadDb,
+  supabaseVisitorRoadDb,
+  visitorRoadFor,
+  type RoadDb,
+} from './road.ts'
 import {
   answer as answerReview,
   finishKeep,
@@ -66,7 +73,6 @@ import {
 } from './review.ts'
 import {
   ContentUnusable,
-  finishedALesson,
   frontDoorState,
   isFirstLesson,
   newWordsOf,
@@ -174,6 +180,14 @@ function noteDatabaseFor(context: LearnerContext, db: LearnerDb): SaveNoteDb {
   return 'saveProgressNote' in db ? (db as LearnerDb & SaveNoteDb) : supabaseLearnerDb(context.client)
 }
 
+// The road's database (job 20-a1-road), for the front door's "finished a stop" (fast route
+// intro-stop): the route's own fake when a test passes one, else the learner database's fake when it
+// has the call, else Supabase as the learner, as GET /api/road reads it.
+function roadDatabaseFor(context: LearnerContext, deps: ApiDeps, db: LearnerDb): RoadDb {
+  if (deps.roadDb) return deps.roadDb(context)
+  return 'road' in db ? (db as LearnerDb & RoadDb) : supabaseRoadDb(context.client)
+}
+
 /** Both databases of a signed in request: job 8's, then the review one. */
 function databasesFor(context: LearnerContext, deps: ApiDeps): [LearnerDb, ReviewDb] {
   const db = databaseFor(context, deps)
@@ -258,12 +272,17 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
     return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
   try {
     const [db, reviewDb] = databasesFor(context, deps)
-    const [dialogues, sessions] = await Promise.all([db.readableDialogues(), db.mySessions()])
+    const [dialogues, sessions, road] = await Promise.all([
+      db.readableDialogues(),
+      db.mySessions(),
+      roadFor(roadDatabaseFor(context, deps, db)),
+    ])
     const pick = pickToday(dialogues, sessions)
     const today = frontDoorState(pick)
-    // Whether Aleksi's intro is shown on the road (fast route intro-rule, owner, 4 November 2026):
-    // a guest or an email account, from Supabase Auth, and whether one of the learner's own lessons ended.
-    const learner = { account: check.account, finishedLesson: finishedALesson(sessions) }
+    // Whether Aleksi's intro is shown on the road (fast routes intro-rule and intro-stop, owner,
+    // 4 November 2026): a guest or an email account, from Supabase Auth, and whether the learner has
+    // finished a whole stop, from public.road() with their own token, as the road itself reads it.
+    const learner = { account: check.account, finishedStop: finishedAStop(road.stops) }
     if (pick.kind === 'dialogue') {
       // Job 9-daily-review, "Done when" 4: a new session that will end with Keep it says so.
       const review = today === 'start' && (await reviewItems(db, reviewDb)).length > 0

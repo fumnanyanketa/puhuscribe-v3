@@ -9,8 +9,8 @@ import {
 } from './aleksi-intro.ts'
 import { todayInfoFrom } from '../road/home-view.ts'
 
-// Fast route intro-rule (owner's rule of 4 November 2026). Labels: [intro-rule 1] who sees Aleksi's
-// intro; [intro-rule 3] the phone keeps no "met" flag and the old keys are cleared. Each case reads a
+// Fast routes intro-rule and intro-stop (owner's rules of 4 November 2026). Labels: [intro-stop 1] who
+// sees Aleksi's intro; [intro-rule 3] the phone keeps no "met" flag and the old keys are cleared. Each case reads a
 // GET /api/today body through todayInfoFrom, as the road does.
 
 function memory(start: Record<string, string> = {}): { store: KeyValueStore; data: Map<string, string> } {
@@ -38,38 +38,40 @@ const refusing: StorageSource = () => ({
 const shows = (body: unknown) => showsAleksiIntro(todayInfoFrom(body))
 
 describe('who meets Aleksi', () => {
-  it('[intro-rule 1] a new visitor, with nobody signed in, sees the intro', () => {
+  it('[intro-stop 1] a new visitor, with nobody signed in, sees the intro', () => {
     expect(shows({ signedIn: false, ended: false })).toBe(true)
   })
 
-  it('[intro-rule 1] a sign in that ended sees the intro, guest or email', () => {
+  it('[intro-stop 1] a sign in that ended sees the intro, guest or email', () => {
     expect(shows({ signedIn: false, ended: true })).toBe(true)
     expect(shows({ signedIn: false, ended: true, account: 'email' })).toBe(true)
   })
 
-  it('[intro-rule 1] a guest sees the intro, with or without a finished lesson', () => {
-    expect(shows({ signedIn: true, today: 'start', account: 'guest', finishedLesson: false })).toBe(true)
-    expect(shows({ signedIn: true, today: 'start', account: 'guest', finishedLesson: true })).toBe(true)
+  it('[intro-stop 1] a guest sees the intro, with or without a finished stop', () => {
+    expect(shows({ signedIn: true, today: 'start', account: 'guest', finishedStop: false })).toBe(true)
+    expect(shows({ signedIn: true, today: 'start', account: 'guest', finishedStop: true })).toBe(true)
   })
 
-  it('[intro-rule 1] an email account with no finished lesson sees the intro', () => {
-    expect(shows({ signedIn: true, today: 'continue', account: 'email', finishedLesson: false })).toBe(true)
+  it('[intro-stop 1] an email account that has not finished a stop sees the intro, even with lessons done', () => {
+    expect(shows({ signedIn: true, today: 'continue', account: 'email', finishedStop: false })).toBe(true)
   })
 
-  it('[intro-rule 1] an email account with a finished lesson never sees it', () => {
-    expect(shows({ signedIn: true, today: 'start', account: 'email', finishedLesson: true })).toBe(false)
-    expect(shows({ signedIn: true, today: 'all_done', account: 'email', finishedLesson: true })).toBe(false)
-    expect(shows({ signedIn: true, today: 'review', account: 'email', finishedLesson: true })).toBe(false)
+  it('[intro-stop 1] an email account that has finished a stop never sees it', () => {
+    expect(shows({ signedIn: true, today: 'start', account: 'email', finishedStop: true })).toBe(false)
+    expect(shows({ signedIn: true, today: 'all_done', account: 'email', finishedStop: true })).toBe(false)
+    expect(shows({ signedIn: true, today: 'review', account: 'email', finishedStop: true })).toBe(false)
   })
 
-  it('[intro-rule 1] anything unclear in the answer counts as "show the intro"', () => {
+  it('[intro-stop 1] anything unclear in the answer counts as "show the intro"', () => {
     expect(shows(null)).toBe(true)
     expect(shows({ signedIn: true, today: 'start', account: 'email' })).toBe(true)
-    expect(shows({ signedIn: true, today: 'start', account: 'email', finishedLesson: 'yes' })).toBe(true)
-    expect(shows({ signedIn: true, today: 'start', account: 'Email', finishedLesson: true })).toBe(true)
-    expect(shows({ signedIn: true, today: 'nonsense', account: 'email', finishedLesson: true })).toBe(true)
+    // The earlier fact, a finished lesson, no longer skips it.
+    expect(shows({ signedIn: true, today: 'start', account: 'email', finishedLesson: true })).toBe(true)
+    expect(shows({ signedIn: true, today: 'start', account: 'email', finishedStop: 'yes' })).toBe(true)
+    expect(shows({ signedIn: true, today: 'start', account: 'Email', finishedStop: true })).toBe(true)
+    expect(shows({ signedIn: true, today: 'nonsense', account: 'email', finishedStop: true })).toBe(true)
     // An ended sign in never skips it, whatever else the body says.
-    expect(shows({ signedIn: false, ended: true, account: 'email', finishedLesson: true })).toBe(true)
+    expect(shows({ signedIn: false, ended: true, account: 'email', finishedStop: true })).toBe(true)
   })
 })
 
