@@ -61,8 +61,8 @@ function Hero() {
         <div className={styles.heroCopy}>
           <h1 className={styles.title}>You took a Finnish course, but you still feel lost at the café.</h1>
           <p className={styles.lead}>
-            Finns speak <Fi>puhekieli</Fi>, but courses teach <Fi>kirjakieli</Fi>. We’ll help you learn both,
-            all the way to A1.
+            That’s because Finns speak <Fi>puhekieli</Fi>, and courses teach <Fi>kirjakieli</Fi>. But we are
+            here to help you learn both, all the way to A1.
           </p>
           <StartLink />
           <p className={styles.note}>No need to download any app. Works on iPhone and Android.</p>
