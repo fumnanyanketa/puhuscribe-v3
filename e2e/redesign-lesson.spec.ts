@@ -28,6 +28,15 @@ async function open(page: Page, mocks: LessonMocks = {}) {
 
 const hearIt = (page: Page) => expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
 
+/**
+ * Fast route hear-and-say: with speaking feedback on (the mocks' default), "Next line" comes only after a
+ * try or after "I can't speak right now", which lets the learner hear the rest of the lines.
+ */
+const cantSpeak = (page: Page) => page.getByRole('button', { name: "I can't speak right now" }).click()
+
+/** The Recap's hint without speaking feedback (src/screens/SayIt.tsx, RECAP_ALOUD). */
+const RECAP_ALOUD = 'Say it out loud from memory, then show the Finnish.'
+
 test.describe('the lesson frame and the leave sheet', () => {
   test('[redesign 21] the frame has the cross, a bar named by its step and the step name as the one h1', async ({
     page,
@@ -35,7 +44,7 @@ test.describe('the lesson frame and the leave sheet', () => {
     await open(page)
     await hearIt(page)
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
-    await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 3' })).toBeVisible()
     const cross = await page.getByRole('button', { name: 'Leave session' }).boundingBox()
     expect(cross?.width ?? 0).toBeGreaterThanOrEqual(44)
     expect(cross?.height ?? 0).toBeGreaterThanOrEqual(44)
@@ -82,7 +91,9 @@ test.describe('the lesson frame and the leave sheet', () => {
   }) => {
     await open(page)
     await hearIt(page)
-    const bar = page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })
+    const bar = page.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 3' })
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     const first = Number(await bar.getAttribute('aria-valuenow'))
     await page.getByRole('button', { name: 'Next line' }).click()
     const second = Number(await bar.getAttribute('aria-valuenow'))
@@ -149,7 +160,8 @@ test.describe('the lesson frame and the leave sheet', () => {
   // Round 4 (evaluator, statement 43): the helpers the browser tests use to leave a lesson looked once for the
   // tip and the consent sheet. When the voice settings arrive late, the consent sheet opens a moment after
   // Say it appears, and the helper pressed the cross under it. They now wait for the screen to settle.
-  test('[redesign 22] leaving Say it by the helper works when the voice settings arrive late and the consent sheet opens after the screen', async ({
+  // Fast route hear-and-say: the old Say it step is now the Recap (stored step "say"), named "Recap".
+  test('[redesign 22] leaving the Recap by the helper works when the voice settings arrive late and the consent sheet opens after the screen', async ({
     page,
   }) => {
     await open(page, { step: 'understand', processing: 'not_asked' })
@@ -168,7 +180,7 @@ test.describe('the lesson frame and the leave sheet', () => {
       })
     })
     await page.reload()
-    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeAttached()
+    await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeAttached()
     // The helper waits for the screen to settle: it does not come back while the voice settings are
     // still on their way, so it cannot look for the sheet a moment too early.
     const started = Date.now()
@@ -189,11 +201,12 @@ test.describe('the lesson frame and the leave sheet', () => {
 
   // Round 5 (evaluator, statement 47): every other place that opens a sheet is checked the same way, with a tap
   // that does not move focus. (The switch in Voice settings is in e2e/redesign-pages.spec.ts.)
-  test('[redesign 47] the quiet "Turn on speaking feedback" in Say it opens the consent sheet, and Not now, Escape and the dimmed page give focus back to it after a tap', async ({
+  // Fast route hear-and-say: Say it is now the Recap, whose hint without speaking feedback is its own.
+  test('[redesign 47] the quiet "Turn on speaking feedback" in the Recap opens the consent sheet, and Not now, Escape and the dimmed page give focus back to it after a tap', async ({
     page,
   }) => {
     await open(page, { step: 'understand', processing: 'withdrawn' })
-    await expect(page.getByText('Say the line out loud after the voice.')).toBeVisible()
+    await expect(page.getByText(RECAP_ALOUD)).toBeVisible()
     await page.evaluate(TAP_DOES_NOT_FOCUS)
     const opener = page.getByRole('button', { name: 'Turn on speaking feedback' })
     for (const how of ['Not now', 'Escape', 'the dimmed page'] as const) {
@@ -253,7 +266,8 @@ test.describe('the lesson frame and the leave sheet', () => {
     await open(page, { step: 'say' })
     await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
     const cross = page.getByRole('link', { name: 'Leave session' })
-    await expect(cross).toHaveAttribute('href', '/')
+    // The app moved under /learn (src/lib/app-paths.ts), so the cross leaves to the road there.
+    await expect(cross).toHaveAttribute('href', '/learn')
     await expect(page.getByRole('button', { name: 'Leave session' })).toHaveCount(0)
     const bar = page.getByRole('progressbar', { name: 'Session finished' })
     await expect(bar).toBeAttached()
@@ -278,6 +292,8 @@ test.describe('Hear it and its line card', () => {
     await expect(page.getByRole('button', { name: 'Play the written line' })).toBeVisible()
     // The status line says the same, for screen readers.
     await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     // The next line replaces the card; the last line says Continue. Nothing plays by itself.
     await page.getByRole('button', { name: 'Next line' }).click()
     await expect(page.locator('[data-line-id]')).toHaveCount(1)
@@ -385,6 +401,8 @@ test.describe('Hear it and its line card', () => {
   }) => {
     await open(page)
     await hearIt(page)
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     await page.getByRole('button', { name: 'Next line' }).dblclick()
     await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
     await page.waitForTimeout(600)
@@ -398,6 +416,8 @@ test.describe('Hear it and its line card', () => {
   }) => {
     await open(page)
     await hearIt(page)
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     const box = await page.getByRole('button', { name: 'Next line' }).boundingBox()
     const x = (box?.x ?? 0) + (box?.width ?? 0) / 2
     const y = (box?.y ?? 0) + (box?.height ?? 0) / 2
@@ -412,6 +432,8 @@ test.describe('Hear it and its line card', () => {
   test('[redesign 24] the last line says Continue and stores the step', async ({ page }) => {
     const calls = await open(page)
     await hearIt(page)
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     await page.getByRole('button', { name: 'Next line' }).click()
     await page.getByRole('button', { name: 'Next line' }).click()
     await page.getByRole('button', { name: 'Continue' }).click()
@@ -432,6 +454,8 @@ test.describe('the tip on the first lesson', () => {
     await expect(tip.getByText('How people say it')).toBeVisible()
     await expect(tip.getByText('How it’s written').or(tip.getByText("How it's written"))).toBeVisible()
     await expect(tip.getByText('Tap any word to learn it')).toBeVisible()
+    // Fast route hear-and-say: the tip also says the learner says each line back.
+    await expect(tip.getByText('After each line, say it back.')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Got it' })).toBeFocused()
     await expect(page.getByText('Blue words change')).toHaveCount(0)
     // Tab cannot reach the page behind: the focus stays in the lit card and the tip.
@@ -444,7 +468,9 @@ test.describe('the tip on the first lesson', () => {
     }
     await page.getByRole('button', { name: 'Got it' }).click()
     await expect(tip).toBeHidden()
-    await expect(page.getByRole('button', { name: 'Next line' })).toBeFocused()
+    // Fast route hear-and-say: before a try there is no "Next line" yet, so focus goes to the line's next
+    // action, "I can't speak right now" (src/screens/FirstLessonTip.tsx).
+    await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeFocused()
   })
 
   test('[redesign 25] Escape closes it, and a reload shows it again while the lesson is still at Hear it', async ({
@@ -485,6 +511,9 @@ test.describe('the word card', () => {
     { tag: '@smoke' },
     async ({ page }) => {
       await open(page)
+      // Fast route word-audio: the card asks for the word's own clip at /audio/words/, and the mocks answer
+      // every audio address. These words have no approved clip, so the card plays the whole line.
+      await page.route('**/audio/words/**', (route) => route.fulfill({ status: 404 }))
       await hearIt(page)
       const opener = page.locator('[data-line-id]').getByRole('button', { name: 'noi', exact: true })
       await opener.click()
@@ -512,6 +541,8 @@ test.describe('the word card', () => {
   test('[redesign 27] a form with no meanings shows no invented meaning line', async ({ page }) => {
     await open(page)
     await hearIt(page)
+    // Fast route hear-and-say: "Next line" waits for a try, so the learner chooses to only hear the lines.
+    await cantSpeak(page)
     await page.getByRole('button', { name: 'Next line' }).click()
     await page.locator('[data-line-id]').getByRole('button', { name: 'mä', exact: true }).click()
     const card = page.getByRole('dialog', { name: 'mä' })
@@ -604,7 +635,8 @@ test.describe('the speaking consent sheet', () => {
     await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
     expect(calls.consent).toEqual([{ choice: 'turn_on', keepRecordings: false }])
     await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
-    await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
+    // Fast route hear-and-say: this step is now the Recap, said from memory, so its hint is its own.
+    await expect(page.getByText('Tap and say it in Finnish', { exact: true })).toBeVisible()
     expect(await microphoneCalls(page)).toBe(0)
   })
 
@@ -613,41 +645,48 @@ test.describe('the speaking consent sheet', () => {
   }) => {
     const calls = await open(page, { step: 'understand', processing: 'not_asked' })
     await page.getByRole('button', { name: 'Not now' }).click()
-    await expect(page.getByText('Say the line out loud after the voice.')).toBeVisible()
+    // Fast route hear-and-say: this step is now the Recap, whose hint without speaking feedback is its own.
+    await expect(page.getByText(RECAP_ALOUD)).toBeVisible()
     expect(calls.consent).toEqual([])
     const escape = await page.context().newPage()
     const second = await open(escape, { step: 'understand', processing: 'not_asked' })
     await expect(escape.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
     await escape.keyboard.press('Escape')
-    await expect(escape.getByText('Say the line out loud after the voice.')).toBeVisible()
+    await expect(escape.getByText(RECAP_ALOUD)).toBeVisible()
     expect(second.consent).toEqual([])
   })
 
-  test('[redesign 30] a double click on "Next line" in Say it moves one line, so no line is skipped', async ({
+  // Fast route hear-and-say: Say it is now the Recap, which still has "Next line" without speaking feedback.
+  test('[redesign 30] a double click on "Next line" in the Recap moves one line, so no line is skipped', async ({
     page,
   }) => {
     await open(page, { step: 'understand', processing: 'withdrawn' })
-    await expect(page.getByText('Say the line out loud after the voice.')).toBeVisible()
+    await expect(page.getByText(RECAP_ALOUD)).toBeVisible()
     await page.getByRole('button', { name: 'Next line' }).dblclick()
     await expect(page.getByRole('status')).toHaveText('Line 2 of 3.')
   })
 
+  // Fast route hear-and-say: Say it is now the Recap. Its card covers the Finnish behind "Show the Finnish"
+  // until a try, so the play buttons are looked for again once the Finnish shows, and its hint is its own.
   test(
-    '[redesign 30] Say it: the card without play buttons, the large record button, the hint and a quiet way out',
+    '[redesign 30] the Recap: the card without play buttons, the large record button, the hint and a quiet way out',
     { tag: '@smoke' },
     async ({ page }) => {
       await noMicrophone(page)
       await open(page, { step: 'understand' })
-      await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+      await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeVisible()
       await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)
       const record = page.getByRole('button', { name: 'Record yourself saying the line' })
       const box = await record.boundingBox()
       expect(box?.width ?? 0).toBeGreaterThanOrEqual(80)
       // Round 6 (item 23): the drawing's hint, and "Line 1 of 3." is for screen readers only.
-      await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
+      await expect(page.getByText('Tap and say it in Finnish', { exact: true })).toBeVisible()
       await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeVisible()
       await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
       expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
+      await page.locator('[data-line-id]').getByRole('button', { name: 'Show the Finnish' }).click()
+      await expect(page.locator('[data-line-id] p[lang="fi"]').first()).toBeVisible()
+      await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)
     },
   )
 })
@@ -796,9 +835,12 @@ test.describe('phone size, keyboard and screen reader', () => {
       }),
     )
     await page.goto('/learn/session')
+    // Fast route hear-and-say: the step after Understand it is now the Recap. Its card covers the Finnish
+    // until a try, so the Finnish is shown here for the tests that measure it.
     await expect(
-      page.getByRole('heading', { level: 1, name: step === null ? 'Hear it' : 'Say it' }),
+      page.getByRole('heading', { level: 1, name: step === null ? 'Hear it' : 'Recap' }),
     ).toBeVisible()
+    if (step !== null) await page.getByRole('button', { name: 'Show the Finnish' }).click()
   }
 
   const lineOf = (id: number, spoken: unknown[], written: unknown[]) => ({
@@ -881,8 +923,8 @@ test.describe('phone size, keyboard and screen reader', () => {
   // puts it, and the pieces start at the left. These tests measure the text itself, not the buttons, with a
   // real 21 letter word after other words, in the spoken and in the written line, in Hear it and in Say it.
   const REAL = 'terveyskeskuslääkärin'
-  // A word that wraps in each screen: the 21 letter word in Hear it, a longer one in Say it, whose card has no play
-  // buttons and so a wider line.
+  // A word that wraps in each screen: the 21 letter word in Hear it, a longer one in the Recap (once Say it),
+  // whose card has no play buttons and so a wider line.
   const wordsWith = (word: string) => [
     { text: 'Missä' },
     { text: 'on' },
@@ -916,7 +958,7 @@ test.describe('phone size, keyboard and screen reader', () => {
 
   for (const [where, step, word] of [
     ['Hear it', null, REAL],
-    ['Say it', 'understand', REAL + 'vastaanottolääkäri'],
+    ['the Recap', 'understand', REAL + 'vastaanottolääkäri'],
   ] as const) {
     test(`[redesign 46] [redesign 5] a 21 letter tappable word after other words does not run into the row above and its pieces start at the left, in ${where}`, async ({
       page,

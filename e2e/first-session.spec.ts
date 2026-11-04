@@ -21,6 +21,7 @@ import {
   finishUnderstandIt,
   passSayIt,
   isGuestPost,
+  isTurnstileScript,
   leaveLesson,
   questionLineId,
   finishLineId,
@@ -73,11 +74,18 @@ test.describe('the first session', { tag: '@seed' }, () => {
     { tag: '@smoke' },
     async ({ page, context }) => {
       const requests = recordRequests(page)
+      // Since the turnstile job (owner's choice of 3 November 2026) Start first asks without a token and
+      // is answered 403 check_needed; after Cloudflare's check (e2e/road-route.ts) it asks again and the
+      // guest is made.
+      const guestAnswers: number[] = []
+      page.on('response', (res) => {
+        if (isGuestPost(res.request())) guestAnswers.push(res.status())
+      })
       await page.goto('/learn')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       expect(requests.filter(isGuestPost)).toHaveLength(0)
 
-      const answer = page.waitForResponse((res) => isGuestPost(res.request()))
+      const answer = page.waitForResponse((res) => isGuestPost(res.request()) && res.status() !== 403)
       await page.getByRole('button', { name: 'Start', exact: true }).click()
       // The page leaves for /session at once, so only the status is read here;
       // the answer body (no token, no user id) is checked by the unit tests and
@@ -117,7 +125,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       expect(again.status()).toBe(200)
       expect(await again.json()).toEqual({ guest: 'existing' })
       expect(await userIdOf(context)).toBe(userId)
-      expect(requests.filter(isGuestPost)).toHaveLength(1)
+      expect(requests.filter(isGuestPost)).toHaveLength(2)
+      expect(guestAnswers).toEqual([403, 201])
     },
   )
 
@@ -153,7 +162,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
     const origin = new URL(page.url()).origin
     expect(requests.length).toBeGreaterThan(5)
-    for (const request of requests) {
+    // Cloudflare Turnstile's script for the new guest's Start is the one outside request (job turnstile).
+    for (const request of requests.filter((r) => !isTurnstileScript(r.url()))) {
       expect(new URL(request.url()).origin, request.url()).toBe(origin)
       expect(new URL(request.url()).hostname, request.url()).not.toMatch(/supabase\.co$/)
     }
@@ -193,7 +203,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     async ({ page }) => {
       const { userId, lines } = await startAndLoad(page)
       const shown = page.locator('[data-line-id]')
-      await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 3' })).toBeVisible()
+      await expect(page.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 3' })).toBeVisible()
       await expect(page.getByText(/^Unit goal\./)).toHaveCount(0)
       for (let i = 0; i < lines.length; i += 1) {
         const line = firstOf(lines.slice(i))

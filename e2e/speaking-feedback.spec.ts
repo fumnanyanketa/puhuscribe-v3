@@ -98,7 +98,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     expect(one(`select count(*) from public.consents where user_id = :'uid'`, { uid: userId })).toBe('0')
 
     await turnOn(page)
-    await expect(page.getByRole('progressbar', { name: 'Say it, step 3 of 3' })).toBeVisible()
+    await expect(page.getByRole('progressbar', { name: 'Recap, step 3 of 3' })).toBeVisible()
     expect(await microphoneCalls(page)).toBe(0)
     expect(
       sql(`select kind, granted, notice_version from public.consents where user_id = :'uid'`, {

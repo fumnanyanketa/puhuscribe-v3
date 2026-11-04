@@ -4,7 +4,7 @@ import { expect, test } from './test-base.ts'
 import { finishTodaysSession, startGuest } from './account-helpers.ts'
 import { one, sql } from './db.ts'
 import { dayLater, finishEveryOtherDialogue, typeAnswer } from './review-helpers.ts'
-import { scrollsSideways, settleAnimations, tabTo } from './session-helpers.ts'
+import { isTurnstileScript, scrollsSideways, settleAnimations, tabTo } from './session-helpers.ts'
 
 // Labels [analytics N] are the "Done when" statement numbers from
 // factory/jobs/14-analytics/spec.md that each test protects.
@@ -41,7 +41,11 @@ test.describe('feedback', { tag: '@seed' }, () => {
     await page.goto('/learn/feedback')
     await expect(page.getByRole('heading', { level: 1, name: 'Send feedback' })).toBeVisible()
     await expect(page.getByText('Start your first session, then you can send feedback.')).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Back to the road' }).first()).toHaveAttribute('href', '/')
+    // Since job 17-landing-page the road, the app's front door, is at /learn (src/lib/app-paths.ts).
+    await expect(page.getByRole('link', { name: 'Back to the road' }).first()).toHaveAttribute(
+      'href',
+      '/learn',
+    )
     await expect(page.getByLabel('What should we know?')).toHaveCount(0)
     await page.goto('/learn')
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
@@ -223,6 +227,8 @@ test.describe('no outside request', { tag: '@seed' }, () => {
     const outside = requests
       .map((request) => request.url())
       .filter((url) => !url.startsWith('data:') && !url.startsWith('blob:') && new URL(url).origin !== origin)
+      // Cloudflare Turnstile's script for the new guest's Start is the one outside request (job turnstile).
+      .filter((url) => !isTurnstileScript(url))
     expect(requests.length).toBeGreaterThan(10)
     expect(outside).toEqual([])
   })
@@ -261,7 +267,7 @@ test.describe('a crash on a screen with a typed answer', { tag: '@seed' }, () =>
     })
     expect(stored.toLowerCase()).not.toContain(answer)
     expect(stored).toContain('Could not grade \\"[typed]\\" on this screen')
-    expect(stored).toContain('"path": "/session"')
+    expect(stored).toContain('"path": "/learn/session"')
   })
 
   // Round 2 (security note 1): only the owner host sends cookies with a crash

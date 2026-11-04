@@ -102,15 +102,16 @@ test.describe('the home screen is the road', () => {
       await openRoad(page, { today: SIGNED_IN, done: MID })
       const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
       await expect(signs).toHaveCount(5)
-      await expect(signs).toHaveText([
-        /Stop 1, Meeting people, done/,
-        /Stop 2, At the café, done/,
-        /Stop 3, At the grocery store, current/,
-        /Stop 4, Numbers, prices and paying, later/,
-        /Stop 5, Getting around by bus and tram, later/,
-      ])
-      // A sign is not a button, and pressing one does nothing.
-      await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('button')).toHaveCount(0)
+      // Fast route go-back (owner, 3 November 2026): a done stop's sign is a button that offers its lessons
+      // again as practice, and its name says so. Every other sign reads as before and is not a button.
+      const done = page.getByRole('list', { name: 'Stops on your road' }).getByRole('button')
+      await expect(done).toHaveCount(2)
+      await expect(done.nth(0)).toHaveAccessibleName('Stop 1, Meeting people, done. Practise its lessons')
+      await expect(done.nth(1)).toHaveAccessibleName('Stop 2, At the café, done. Practise its lessons')
+      await expect(signs.nth(2)).toHaveText(/Stop 3, At the grocery store, current/)
+      await expect(signs.nth(3)).toHaveText(/Stop 4, Numbers, prices and paying, later/)
+      await expect(signs.nth(4)).toHaveText(/Stop 5, Getting around by bus and tram, later/)
+      // A sign that is not done does nothing when pressed.
       const before = page.url()
       await signs.nth(3).click({ force: true })
       expect(page.url()).toBe(before)
@@ -260,7 +261,9 @@ test.describe('the home screen is the road', () => {
     await expect(page.locator('main[data-land="evening"]')).toHaveCount(1)
     const finished = await page.context().newPage()
     await openRoad(finished, { today: { signedIn: true, today: 'start' }, done: { 1: 4, 2: 4, 3: 4 } })
-    const next = finished.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').nth(3)
+    // Found by its stop: the Stop finished card now also offers "Practise ... again" (fast route go-back), so
+    // on a 812 px screen the road has room for four signs and the first one is left out.
+    const next = finished.getByRole('list', { name: 'Stops on your road' }).locator('[data-stop="4"]')
     await expect(next).toHaveText(/Stop 4, Numbers, prices and paying, next/)
     await expect(next).toHaveAttribute('data-state', 'next')
     await expect(finished.getByRole('region', { name: 'Today' }).getByText('Next stop')).toBeVisible()

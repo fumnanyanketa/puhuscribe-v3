@@ -20,6 +20,7 @@ import {
   recordRequests,
   serveTone,
   tabTo,
+  isTurnstileScript,
 } from './session-helpers.ts'
 import {
   COMES_BACK,
@@ -341,7 +342,8 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
 
     // [13] Only the app's own address and only requests that exist today: no request for the note.
     const origin = new URL(page.url()).origin
-    for (const request of requests) {
+    // Cloudflare Turnstile's script for the new guest's Start is the one outside request (job turnstile).
+    for (const request of requests.filter((r) => !isTurnstileScript(r.url()))) {
       const url = new URL(request.url())
       expect(url.origin, request.url()).toBe(origin)
       if (url.pathname.startsWith('/api/')) {

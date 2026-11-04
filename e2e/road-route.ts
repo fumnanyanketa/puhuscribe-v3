@@ -18,9 +18,26 @@ export const useRealRoad = setting === undefined ? Boolean(process.env.CI) : set
 export type Routable = Page | BrowserContext
 
 /**
+ * Cloudflare Turnstile's script address (src/lib/human-check.ts). Since the turnstile job (owner's choice
+ * of 3 November 2026) a new guest's Start loads it once the Worker answers check_needed.
+ */
+export const TURNSTILE_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+/** The host of that script: the one outside address a new guest's Start may reach. */
+export const TURNSTILE_HOST = 'challenges.cloudflare.com'
+
+// A stand-in for the script: it renders nothing and hands the widget Cloudflare's published dummy token at
+// once, as the test site key would after its quiet check. The Worker still checks the token with Cloudflare's
+// siteverify and the test secret (worker/providers/human-check.ts), which always passes. The request to the
+// script's address is still made by the page, so tests that list the page's requests see it.
+const FAKE_TURNSTILE = `window.turnstile = {
+  render: function (el, options) { setTimeout(function () { options.callback('XXXX.DUMMY.TOKEN.XXXX') }, 0); return 'test-widget' },
+  remove: function () {},
+};`
+
+/**
  * Answers GET /api/road with the fixture stops, as the list the route returns. Every browser context
  * of the tests is set up here, so it also marks the first-open questions as seen (e2e/intro-seen.ts)
- * unless `introSeen` is false.
+ * unless `introSeen` is false, and answers Turnstile's script with the stand-in above.
  */
 export async function installRoad(
   target: Routable,
@@ -28,6 +45,9 @@ export async function installRoad(
   { introSeen = true }: { introSeen?: boolean } = {},
 ): Promise<void> {
   if (introSeen) await markIntroSeen(target)
+  await target.route(`${TURNSTILE_SCRIPT}*`, (route) =>
+    route.fulfill({ status: 200, contentType: 'text/javascript', body: FAKE_TURNSTILE }),
+  )
   if (useRealRoad) return
   await target.route('**/api/road', (route) =>
     route.fulfill({

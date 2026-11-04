@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page, type Request, type TestInfo } from '@playwright/test'
+import { TURNSTILE_SCRIPT } from './road-route.ts'
 
 // Shared steps for the first session browser tests
 // (factory/jobs/8-first-session/spec.md). Expected content always comes from
@@ -298,4 +299,13 @@ export async function passSayIt(page: Page, after = 'Now you can say this.'): Pr
   }
   await page.getByRole('button', { name: 'Continue', exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: after })).toBeVisible()
+}
+
+/**
+ * Cloudflare Turnstile's script (e2e/road-route.ts): the one outside address a new guest's Start reaches,
+ * since the turnstile job (owner's choice of 3 November 2026). Tests of "every request stays on the app's
+ * address" leave out this one request.
+ */
+export function isTurnstileScript(url: string): boolean {
+  return url.startsWith(TURNSTILE_SCRIPT)
 }

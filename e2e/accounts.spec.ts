@@ -29,6 +29,7 @@ import {
   serveTone,
   settleAnimations,
   tabTo,
+  isTurnstileScript,
 } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -611,7 +612,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.waitForLoadState('networkidle')
     }
     const origin = new URL(page.url()).origin
-    for (const request of requests) {
+    // Cloudflare Turnstile's script for the new guest's Start is the one outside request (job turnstile).
+    for (const request of requests.filter((r) => !isTurnstileScript(r.url()))) {
       expect(new URL(request.url()).origin, request.url()).toBe(origin)
       expect(new URL(request.url()).hostname).not.toMatch(/supabase\.co$/)
     }
