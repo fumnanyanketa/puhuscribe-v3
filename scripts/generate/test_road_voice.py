@@ -392,7 +392,8 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     for task in ("import", "voice", "review-pages"):
         assert task in text
     # The Azure key is in the voice step, the word clip voice step (job word-audio), the island voice
-    # step (fast route islands, 3 November 2026) and the upload guard that looks for it, nowhere else.
+    # step (fast route islands, 3 November 2026), Aleksi's greeting step (fast route aleksi-intro,
+    # 4 November 2026) and the upload guard that looks for it, nowhere else.
     steps = re.split(r"\n      - ", text)
     holders = {
         name: [s.split("\n")[0] for s in steps if name in s]
@@ -403,6 +404,7 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
         "name: Voice the part's word clips (the Azure key is here and in the voice step, nowhere else)",
         "name: Voice the island lines (the Azure key is here, in the voice step and in the voice-words step,"
         " nowhere else)",
+        "name: Voice Aleksi's greeting (the Azure key is here and in the other voice steps, nowhere else)",
         "name: Check the files to upload hold no secret value",
     ]
     assert holders["ANTHROPIC_API_KEY"] == [
