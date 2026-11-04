@@ -31,6 +31,7 @@ import {
   settleAnimations,
   startSession,
   tabTo,
+  declineConsent,
 } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
@@ -60,8 +61,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await serveTone(page)
   })
 
-  async function startAndLoad(page: Page) {
-    await startSession(page)
+  async function startAndLoad(page: Page, options: { consent?: 'not now' | 'open' } = {}) {
+    await startSession(page, options)
     const userId = await userIdOf(page.context())
     const dialogueId = sessionsOf(userId)[0]?.dialogueId ?? ''
     const lines = linesOf(dialogueId)
@@ -345,10 +346,12 @@ test.describe('the first session', { tag: '@seed' }, () => {
         for (const text of [word.formName, word.why]) {
           await expect(dialog.getByText(text).first()).toBeVisible()
         }
-        await expect(dialog.getByRole('button', { name: 'Play the spoken line' })).toBeVisible()
-        await expect(dialog.getByRole('button', { name: 'Play the written line' })).toBeVisible()
-        // Round 6 (job 19-redesign): not drawn; the play buttons' names say it, and screen readers hear it.
-        await expect(dialog.getByText('Plays the whole line.', { exact: true })).toBeAttached()
+        // Job word-audio: when a word has its own clip, the tiles play the word and one more control plays the
+        // whole line. These tests answer every /audio/ request with the tone (serveTone), so every word has a
+        // clip here; the card without a clip, with its hidden caption, is tested in e2e/redesign-lesson.spec.ts.
+        await expect(dialog.getByRole('button', { name: 'Play the spoken word' })).toBeVisible()
+        await expect(dialog.getByRole('button', { name: 'Play the written word' })).toBeVisible()
+        await expect(dialog.getByRole('button', { name: 'Play the whole line' })).toBeVisible()
         await page.keyboard.press('Escape')
         await expect(dialog).toBeHidden()
         await expect(button).toBeFocused()
@@ -421,9 +424,10 @@ test.describe('the first session', { tag: '@seed' }, () => {
 
       // The rest of the questions, then the step is stored.
       await page.getByRole('button', { name: 'Next', exact: true }).click()
-      const done = page.getByRole('heading', { level: 1, name: 'Say it' })
+      // The Recap (once Say it, fast route hear-and-say) may open under its consent sheet after the reload.
+      const done = page.getByRole('heading', { level: 1, name: 'Recap' })
       if ((await afterNext(page, before.line)) === 'question') await finishUnderstandIt(page, glossOf)
-      await expect(done).toBeVisible()
+      await expect(done).toBeAttached()
       expect(sessionsOf(userId)[0]?.step).toBe('understand')
       // Nothing about the answers is stored anywhere: no learner table has a column for them.
       expect(
@@ -597,7 +601,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await page.route('**/api/sessions/*/complete', (route) => route.abort('failed'))
     await finishUnderstandIt(page, glossOf)
     await leave()
-    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+    // The Recap (once Say it); after a fresh load its consent sheet may cover it.
+    await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeAttached()
     expect(sessionsOf(userId)[0]?.step).toBe('understand')
     await passSayIt(page)
     await leave()
@@ -663,7 +668,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
   test('[session 22] every screen fits 320 px and 200 percent text without sideways scrolling, with large enough tap areas', async ({
     page,
   }) => {
-    const { glossOf } = await startAndLoad(page)
+    // Fast route hear-and-say: the consent sheet now opens in the first step, before the first line is said.
+    const { glossOf } = await startAndLoad(page, { consent: 'open' })
     const check = async (label: string) => {
       for (const [width, text] of [
         [320, '100%'],
@@ -685,18 +691,26 @@ test.describe('the first session', { tag: '@seed' }, () => {
         )
       }
     }
-    await check('Hear it')
+    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+    await check('Hear it, say it, consent')
+    await declineConsent(page)
+    await check('Hear it, say it')
     await finishHearIt(page)
     await check('Understand it')
     await finishUnderstandIt(page, glossOf)
-    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
-    await check('Say it, consent')
+    await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeVisible()
+    await check('Recap')
     await passSayIt(page)
     await check('Finish')
   })
 
   test('[session 22] the whole flow works with the keyboard alone', async ({ page }, testInfo) => {
-    const { glossOf } = await startAndLoad(page)
+    // Fast route hear-and-say: the consent sheet opens in the first step; "Not now" by keyboard first.
+    const { glossOf } = await startAndLoad(page, { consent: 'open' })
+    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+    await tabTo(page, page.getByRole('button', { name: 'Not now', exact: true }), testInfo)
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
     for (;;) {
       const next = page.getByRole('button', { name: 'Next line' })
       if ((await next.count()) === 0) break
@@ -724,10 +738,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       if ((await afterNext(page, lineId)) === 'done') break
       await expect(page.getByRole('heading', { level: 2, name: 'What does this mean?' })).toBeFocused()
     }
-    await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
-    await tabTo(page, page.getByRole('button', { name: 'Not now', exact: true }), testInfo)
-    await page.keyboard.press('Enter')
-    await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+    // The Recap (once Say it) does not ask again after "Not now" in the same lesson.
+    await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeVisible()
     for (;;) {
       const cont = page.getByRole('button', { name: 'Continue', exact: true })
       const last = await cont.isVisible()
@@ -755,9 +767,11 @@ test.describe('the first session', { tag: '@seed' }, () => {
         ),
       )
     }
+    // Focus may start inside the screen ("Not now" gives it back to the line's action), so the order is read
+    // from the first time Tab reaches the cross: then the line's play button, then its action.
     const leave = order.indexOf('Leave session')
-    const play = order.indexOf('Play the spoken line')
-    const next = order.findIndex((name) => name === 'Next line' || name === 'Continue')
+    const play = order.indexOf('Play the spoken line', leave)
+    const next = order.findIndex((name, i) => i > play && (name === 'Next line' || name === 'Continue'))
     expect(leave).toBeGreaterThanOrEqual(0)
     expect(play).toBeGreaterThan(leave)
     expect(next).toBeGreaterThan(play)
@@ -781,8 +795,12 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await page.goto('/learn')
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       await scan('front door')
-      const { glossOf } = await startAndLoad(page)
-      await scan('Hear it')
+      // Fast route hear-and-say: the consent sheet opens in the first step.
+      const { glossOf } = await startAndLoad(page, { consent: 'open' })
+      await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
+      await scan('Hear it, say it, consent')
+      await declineConsent(page)
+      await scan('Hear it, say it')
       await page.locator('[data-line-id] [lang="fi"] button').first().click()
       await expect(page.getByRole('dialog')).toBeVisible()
       await page.waitForTimeout(400)
@@ -801,8 +819,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await scan('Understand it, after the right answer')
       await page.getByRole('button', { name: 'Next', exact: true }).click()
       if ((await afterNext(page, firstLine)) === 'question') await finishUnderstandIt(page, glossOf)
-      await expect(page.getByRole('button', { name: 'Not now', exact: true })).toBeVisible()
-      await scan('Say it, consent')
+      await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeVisible()
+      await scan('Recap')
       await passSayIt(page)
       await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
       await scan('finish')

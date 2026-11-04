@@ -23,6 +23,7 @@ import {
 import { recordApiTimings } from './api-timing.ts'
 import { one, sessionsOf, userIdOf } from './db.ts'
 import {
+  declineConsent,
   dismissTip,
   recordRequests,
   scrollsSideways,
@@ -512,6 +513,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       expect(authUser(userId).exists).toBe(false)
 
       await dismissTip(pageB)
+      // Since fast route hear-and-say the speaking consent opens in this first step; "Not now" writes nothing.
+      await declineConsent(pageB)
       for (;;) {
         const next = pageB.getByRole('button', { name: 'Next line' })
         if ((await next.count()) === 0) break

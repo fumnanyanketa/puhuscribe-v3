@@ -37,6 +37,16 @@ const cantSpeak = (page: Page) => page.getByRole('button', { name: "I can't spea
 /** The Recap's hint without speaking feedback (src/screens/SayIt.tsx, RECAP_ALOUD). */
 const RECAP_ALOUD = 'Say it out loud from memory, then show the Finnish.'
 
+/**
+ * Playwright's Windows WebKit build has no Web Audio (no AudioContext), so the app's own support check
+ * (src/lib/recorder.ts, recordingSupported) rightly says "Recording is not available in this browser." and the
+ * microphone stand-ins of e2e/microphone.ts cannot help. A test that needs the record button skips there, with
+ * this reason; the Linux WebKit of the GitHub run has Web Audio and runs it.
+ */
+const NO_WEB_AUDIO = 'This WebKit build has no Web Audio, so the app cannot record here (Windows WebKit).'
+const hasWebAudio = (page: Page) =>
+  page.evaluate<boolean>("typeof AudioContext === 'function' || typeof webkitAudioContext === 'function'")
+
 test.describe('the lesson frame and the leave sheet', () => {
   test('[redesign 21] the frame has the cross, a bar named by its step and the step name as the one h1', async ({
     page,
@@ -447,6 +457,9 @@ test.describe('the tip on the first lesson', () => {
     page,
     browserName,
   }) => {
+    // Fast route hear-and-say: the record button comes after the tip, so the microphone stand-ins are added
+    // where a browser lacks them (Playwright's Linux WebKit), as for every recording test.
+    await stubMicrophone(page, 'tone')
     await open(page, { firstLesson: true })
     await hearIt(page)
     const tip = page.getByRole('dialog', { name: 'How this screen works' })
@@ -469,8 +482,15 @@ test.describe('the tip on the first lesson', () => {
     await page.getByRole('button', { name: 'Got it' }).click()
     await expect(tip).toBeHidden()
     // Fast route hear-and-say: before a try there is no "Next line" yet, so focus goes to the line's next
-    // action, "I can't speak right now" (src/screens/FirstLessonTip.tsx).
-    await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeFocused()
+    // action, "I can't speak right now" (src/screens/SayIt.tsx, afterTip). Where the browser cannot record
+    // (Windows WebKit has no Web Audio), "Next line" is there at once and focus goes to it, as before.
+    if (await hasWebAudio(page)) {
+      await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
+      await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeFocused()
+    } else {
+      await expect(page.getByRole('button', { name: 'Recording is not available' })).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Next line' })).toBeFocused()
+    }
   })
 
   test('[redesign 25] Escape closes it, and a reload shows it again while the lesson is still at Hear it', async ({
@@ -609,11 +629,14 @@ test.describe('the speaking consent sheet', () => {
     await stubMicrophone(page, 'tone')
   }
 
+  // Fast route hear-and-say: the learner now meets the consent sheet in the first step, "Hear it, say it",
+  // before the first line is said back, so these open the lesson there (they opened Say it before).
   test('[redesign 29] shows only the title, "How it works", "Turn on" and "Not now", with no box and no microphone request', async ({
     page,
   }) => {
     await noMicrophone(page)
-    await open(page, { step: 'understand', processing: 'not_asked' })
+    await open(page, { processing: 'not_asked' })
+    await hearIt(page)
     const sheet = page.getByRole('dialog', { name: 'Say it out loud' })
     await expect(sheet).toBeVisible()
     await expect(sheet.getByRole('link', { name: /How it works/ })).toHaveAttribute(
@@ -630,29 +653,43 @@ test.describe('the speaking consent sheet', () => {
     page,
   }) => {
     await noMicrophone(page)
-    const calls = await open(page, { step: 'understand', processing: 'not_asked' })
+    const calls = await open(page, { processing: 'not_asked' })
+    await hearIt(page)
     await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
     await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
     expect(calls.consent).toEqual([{ choice: 'turn_on', keepRecordings: false }])
-    await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
-    // Fast route hear-and-say: this step is now the Recap, said from memory, so its hint is its own.
-    await expect(page.getByText('Tap and say it in Finnish', { exact: true })).toBeVisible()
+    if (await hasWebAudio(page)) {
+      await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toBeVisible()
+      // Hear it, say it keeps Say it's drawn hint (RECORD_HINTS in src/screens/SayIt.tsx).
+      await expect(page.getByText('Tap and say the line', { exact: true })).toBeVisible()
+    } else {
+      // NO_WEB_AUDIO: the app says so instead of offering a button that cannot work.
+      await expect(page.getByRole('button', { name: 'Recording is not available' })).toBeVisible()
+    }
     expect(await microphoneCalls(page)).toBe(0)
   })
 
+  // Fast route hear-and-say: without feedback the first step is Hear it again: each line with its play
+  // buttons and "Next line", no record button, and the quiet way to turn feedback on.
   test('[redesign 29] "Not now" and Escape let the learner say each line without feedback and send nothing', async ({
     page,
   }) => {
-    const calls = await open(page, { step: 'understand', processing: 'not_asked' })
+    const calls = await open(page, { processing: 'not_asked' })
+    await hearIt(page)
     await page.getByRole('button', { name: 'Not now' }).click()
-    // Fast route hear-and-say: this step is now the Recap, whose hint without speaking feedback is its own.
-    await expect(page.getByText(RECAP_ALOUD)).toBeVisible()
+    await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
+    await expect(page.getByRole('button', { name: 'Next line' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Turn on speaking feedback' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Record yourself saying the line' })).toHaveCount(0)
     expect(calls.consent).toEqual([])
     const escape = await page.context().newPage()
-    const second = await open(escape, { step: 'understand', processing: 'not_asked' })
+    const second = await open(escape, { processing: 'not_asked' })
     await expect(escape.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
     await escape.keyboard.press('Escape')
-    await expect(escape.getByText(RECAP_ALOUD)).toBeVisible()
+    await expect(escape.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
+    await expect(escape.getByRole('button', { name: 'Next line' })).toBeVisible()
+    await expect(escape.getByRole('button', { name: 'Turn on speaking feedback' })).toBeVisible()
+    await expect(escape.getByRole('button', { name: 'Record yourself saying the line' })).toHaveCount(0)
     expect(second.consent).toEqual([])
   })
 
@@ -676,11 +713,24 @@ test.describe('the speaking consent sheet', () => {
       await open(page, { step: 'understand' })
       await expect(page.getByRole('heading', { level: 1, name: 'Recap' })).toBeVisible()
       await expect(page.locator('[data-line-id]').getByRole('button', { name: /^Play/ })).toHaveCount(0)
-      const record = page.getByRole('button', { name: 'Record yourself saying the line' })
+      // Where the browser cannot record (NO_WEB_AUDIO), the same large button says so, with its reason
+      // in place of the hint.
+      const canRecord = await hasWebAudio(page)
+      const record = page.getByRole('button', {
+        name: canRecord ? 'Record yourself saying the line' : 'Recording is not available',
+      })
+      await expect(record).toBeVisible()
       const box = await record.boundingBox()
       expect(box?.width ?? 0).toBeGreaterThanOrEqual(80)
       // Round 6 (item 23): the drawing's hint, and "Line 1 of 3." is for screen readers only.
-      await expect(page.getByText('Tap and say it in Finnish', { exact: true })).toBeVisible()
+      await expect(
+        page.getByText(
+          canRecord ? 'Tap and say it in Finnish' : 'Recording is not available in this browser.',
+          {
+            exact: true,
+          },
+        ),
+      ).toBeVisible()
       await expect(page.getByRole('button', { name: "I can't speak right now" })).toBeVisible()
       await expect(page.getByRole('status')).toHaveText('Line 1 of 3.')
       expect((await page.getByRole('status').boundingBox())?.width ?? 0).toBeLessThan(3)
@@ -781,8 +831,9 @@ test.describe('phone size, keyboard and screen reader', () => {
     ['Hear it', {}],
     ['Hear it with the tip', { firstLesson: true }],
     ['Understand it', { step: 'hear' }],
-    ['Say it', { step: 'understand' }],
-    ['Say it with the sheet', { step: 'understand', processing: 'not_asked' }],
+    // Fast route hear-and-say: the step after Understand it is now the Recap (it was Say it).
+    ['the Recap', { step: 'understand' }],
+    ['the Recap with the sheet', { step: 'understand', processing: 'not_asked' }],
     ['the finish screen', { step: 'say', newWords: 4, saveNote: 'first' }],
   ]
   for (const [name, mocks] of STEPS) {
@@ -1181,7 +1232,9 @@ test.describe('round 6, as drawn', () => {
     await expect(page.locator('[data-line-id] [lang="fi"] span[class*="changed"]').first()).toBeVisible()
   })
 
-  test('[redesign 30] Say it, try again: the peach note above the record button, which is now "Try again", "Play mine" small, and Next line stays (job 10)', async ({
+  // Fast route hear-and-say: each line is now said back in the first step, "Hear it, say it", so the try
+  // again result is checked there (it was Say it's). "Next line" comes with the try.
+  test('[redesign 30] Hear it, say it, try again: the peach note above the record button, which is now "Try again", "Play mine" small, and Next line stays (job 10)', async ({
     page,
     browserName,
   }) => {
@@ -1190,7 +1243,10 @@ test.describe('round 6, as drawn', () => {
       'WebKit records only on a secure page; the GitHub run serves HTTPS.',
     )
     await stubMicrophone(page, 'tone')
-    await open(page, { step: 'understand' })
+    await open(page)
+    await hearIt(page)
+    test.skip(!(await hasWebAudio(page)), NO_WEB_AUDIO)
+    await expect(page.getByRole('button', { name: 'Next line' })).toHaveCount(0)
     await page.route('**/api/speech/say', (route) =>
       route.fulfill({
         status: 200,
