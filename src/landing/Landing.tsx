@@ -23,9 +23,9 @@ function Arrow() {
   )
 }
 
-function StartLink({ small = false }: { small?: boolean }) {
+function StartLink() {
   return (
-    <a className={small ? `${styles.button} ${styles.small}` : styles.button} href={PATHS.home}>
+    <a className={styles.button} href={PATHS.home}>
       {START}
       <Arrow />
     </a>
@@ -39,20 +39,6 @@ function Changed({ children }: { children: ReactNode }) {
 
 function Fi({ children }: { children: ReactNode }) {
   return <span lang="fi">{children}</span>
-}
-
-function Nav() {
-  return (
-    <nav className={styles.nav} aria-label="PuhuScribe">
-      <div className={styles.inner}>
-        <span className={styles.brand}>
-          <i aria-hidden="true" />
-          PuhuScribe
-        </span>
-        <StartLink small />
-      </div>
-    </nav>
-  )
 }
 
 /** The hero phone shows the road only once the page runs, so the page's HTML holds the empty frame. */
@@ -508,7 +494,6 @@ export function Landing() {
   useReveal()
   return (
     <div className={styles.page}>
-      <Nav />
       <main>
         <Hero />
         <Story />
