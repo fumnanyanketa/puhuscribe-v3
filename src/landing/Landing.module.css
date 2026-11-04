@@ -33,6 +33,8 @@
 .page {
   /* As drawn in the approved design, with no token of their own. */
   --landing-mint-wash: #d9f0e7;
+  /* The hero heading in Poppins ExtraBold, like the old landing page (owner, 4 November 2026). */
+  --landing-weight-heavy: 800;
   --landing-mint-milk: #eef7f2;
   --landing-peach-wash: #fbe6da;
   --landing-peach-milk: #f8f1ec;
@@ -131,9 +133,9 @@
 .title {
   margin: 0 0 18px;
   font-size: clamp(2.125rem, 5.2vw, 3.5rem);
-  font-weight: var(--weight-semibold);
-  letter-spacing: -0.025em;
-  line-height: 1.08;
+  font-weight: var(--landing-weight-heavy);
+  letter-spacing: -0.035em;
+  line-height: 1.04;
   text-wrap: balance;
 }
 
