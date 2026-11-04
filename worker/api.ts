@@ -23,6 +23,7 @@ import {
   endedHint,
   hasAuthCookie,
   learnerContext,
+  signInCheck,
   signInState,
   supabaseSettings,
   type Fetch,
@@ -65,9 +66,11 @@ import {
 } from './review.ts'
 import {
   ContentUnusable,
+  finishedALesson,
   frontDoorState,
   isFirstLesson,
   newWordsOf,
+  pickToday,
   readySession,
   todayFor,
 } from './session-plan.ts'
@@ -247,15 +250,20 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
   const settings = supabaseSettings(env)
   if (!settings) return NOT_CONFIGURED()
   const context = learnerContext(request, settings, deps.fetch)
-  const state = await signInState(context)
+  const check = await signInCheck(context)
   const answer = (body: FrontDoorAnswer) => withCookies(json(body), context.setCookies())
-  if (state === 'none') return answer({ signedIn: false, ended: false })
-  if (state === 'ended') return answer({ signedIn: false, ended: true, ...(await endedHint(request)) })
-  if (state === 'unavailable') return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
+  if (check.state === 'none') return answer({ signedIn: false, ended: false })
+  if (check.state === 'ended') return answer({ signedIn: false, ended: true, ...(await endedHint(request)) })
+  if (check.state === 'unavailable')
+    return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
   try {
     const [db, reviewDb] = databasesFor(context, deps)
-    const pick = await todayFor(db)
+    const [dialogues, sessions] = await Promise.all([db.readableDialogues(), db.mySessions()])
+    const pick = pickToday(dialogues, sessions)
     const today = frontDoorState(pick)
+    // Whether Aleksi's intro is shown on the road (fast route intro-rule, owner, 4 November 2026):
+    // a guest or an email account, from Supabase Auth, and whether one of the learner's own lessons ended.
+    const learner = { account: check.account, finishedLesson: finishedALesson(sessions) }
     if (pick.kind === 'dialogue') {
       // Job 9-daily-review, "Done when" 4: a new session that will end with Keep it says so.
       const review = today === 'start' && (await reviewItems(db, reviewDb)).length > 0
@@ -263,7 +271,8 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
         signedIn: true,
         today,
         canDo: pick.dialogue.canDo,
-        ...(review ? { review: true } : {}),
+        ...(review ? { review: true as const } : {}),
+        ...learner,
       })
     }
     if (pick.kind === 'all_done') {
@@ -278,12 +287,13 @@ async function frontDoor(request: Request, env: ApiEnv, deps: ApiDeps): Promise<
           signedIn: true,
           today: open ? 'continue' : 'review',
           ...(open ? {} : { reviewCount: due.length }),
+          ...learner,
         })
       }
       const nextReview = await reviewDb.nextReviewDay()
-      return answer({ signedIn: true, today, ...(nextReview ? { nextReview } : {}) })
+      return answer({ signedIn: true, today, ...(nextReview ? { nextReview } : {}), ...learner })
     }
-    return answer({ signedIn: true, today })
+    return answer({ signedIn: true, today, ...learner })
   } catch (error) {
     return withCookies(faultAnswer(error), context.setCookies())
   }

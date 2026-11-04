@@ -30,6 +30,20 @@ describe('reading what today holds', () => {
   })
 })
 
+describe('who is on this device (fast route intro-rule)', () => {
+  it('[intro-rule 2] reads the account kind and a finished lesson from a signed in answer', () => {
+    expect(signedIn('start', { account: 'email', finishedLesson: true })).toMatchObject({
+      email: true,
+      finishedLesson: true,
+    })
+    const guest = signedIn('start', { account: 'guest', finishedLesson: false })
+    expect(guest.email).toBe(false)
+    expect(guest.finishedLesson).toBeUndefined()
+    expect(signedIn('start', { account: 'email', finishedLesson: 1 }).finishedLesson).toBeUndefined()
+    expect(signedIn('start').email).toBe(false)
+  })
+})
+
 describe('the card by state', () => {
   it('[redesign 15] day one: stop 1, Start and Sign in, with no account on this device', () => {
     const view = homeView(ROAD_DAY_ONE, visitor, null)

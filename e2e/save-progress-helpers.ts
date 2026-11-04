@@ -2,7 +2,6 @@ import { readFileSync } from 'node:fs'
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, type Locator, type Page } from '@playwright/test'
 import { PATHS } from '../src/lib/app-paths.ts'
-import { MET_KEY } from '../src/lib/aleksi-intro.ts'
 import * as copy from '../src/screens/save-note-copy.ts'
 import { startGuest } from './account-helpers.ts'
 import { linesOf, sessionsOf, sql } from './db.ts'
@@ -239,17 +238,14 @@ export interface Storage {
 }
 
 /**
- * What this page holds on the phone: cookie names and values, and the length of both storages. The
- * one localStorage key that says this phone has met Aleksi (fast route aleksi-intro, 4 November 2026)
- * is left out of the count; every other key counts.
+ * What this page holds on the phone: cookie names and values, and the length of both storages. Every
+ * key counts (fast route intro-rule removed the one "met Aleksi" key the tests used to set).
  */
 export async function storageOf(page: Page): Promise<Storage> {
   const cookies = (await page.context().cookies()).map((c) => `${c.name}=${c.value}`).sort()
   return {
     cookies,
-    localStorage: await page.evaluate<number>(
-      `Object.keys(localStorage).filter((key) => key !== ${JSON.stringify(MET_KEY)}).length`,
-    ),
+    localStorage: await page.evaluate<number>('localStorage.length'),
     sessionStorage: await page.evaluate<number>('sessionStorage.length'),
     documentCookie: await page.evaluate<string>('document.cookie'),
   }

@@ -2,11 +2,12 @@ import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
-import { GREETING_AUDIO, MET_KEY, OLD_INTRO_KEY } from '../src/lib/aleksi-intro.ts'
+import { GREETING_AUDIO, OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-intro.ts'
 import { mockHome } from './road-mocks.ts'
 
 // Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026). Labels name the item of the
-// owner's brief. The road answers from e2e/road-mocks.ts, so no database is needed. With
+// owner's brief; [intro-rule N] labels are the owner's rule of 4 November 2026 on who sees the intro
+// (factory/jobs/intro-rule/build.md). The road answers from e2e/road-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshots go to factory/jobs/aleksi-intro/evidence/ (Chromium only).
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
@@ -39,8 +40,12 @@ async function watchPlay(page: Page, blocked: boolean) {
 
 const plays = (page: Page) => page.evaluate<number>('window.__plays')
 
-async function openNew(page: Page, today: Record<string, unknown> = { signedIn: false, ended: false }) {
-  const calls = await mockHome(page, { met: false, today })
+async function openNew(
+  page: Page,
+  today: Record<string, unknown> = { signedIn: false, ended: false },
+  done: Record<number, number> = {},
+) {
+  const calls = await mockHome(page, { met: false, today, done })
   await page.goto('/learn')
   return calls
 }
@@ -99,44 +104,107 @@ test('[aleksi-intro 3] when the browser blocks the try, nothing breaks and the p
   await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeEnabled()
 })
 
-test('[aleksi-intro 4] "Nice to meet you" opens the road, marks the phone, and Start goes straight to the lesson', async ({
-  page,
-}) => {
-  await watchPlay(page, true)
-  const calls = await openNew(page)
-  await page.getByRole('button', { name: 'Nice to meet you' }).click()
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-  expect(await page.evaluate<string | null>(`localStorage.getItem(${JSON.stringify(MET_KEY)})`)).toBe('yes')
-  await shot(page, 'road-after-intro-375x812')
-  // The road keeps "Have an account? Sign in" on the day one card.
-  await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
-  expect(calls.guest).toBe(0)
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
-  await expect.poll(() => calls.guest).toBe(1)
-  await expect(page.getByText('Why are you learning Finnish?')).toHaveCount(0)
-})
-
-test('[aleksi-intro 4] a phone that met Aleksi goes straight to the road after a reload', async ({
+test('[intro-rule 1] [intro-rule 3] a new visitor meets Aleksi again after a reload: the phone keeps no flag', async ({
   page,
 }) => {
   await watchPlay(page, true)
   await openNew(page)
   await page.getByRole('button', { name: 'Nice to meet you' }).click()
-  await page.reload()
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  await page.reload()
+  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+  await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
 })
 
-test('[aleksi-intro 2] a signed in learner and a guest whose session ended never see the intro', async ({
+// Every case of the owner's rule, with the GET /api/today body the Worker gives for it.
+const MEETS_ALEKSI: [string, Record<string, unknown>][] = [
+  [
+    'a guest with no finished lesson',
+    { signedIn: true, today: 'start', account: 'guest', finishedLesson: false },
+  ],
+  [
+    'a guest with a finished lesson',
+    { signedIn: true, today: 'continue', account: 'guest', finishedLesson: true },
+  ],
+  [
+    'an email account with no finished lesson',
+    { signedIn: true, today: 'continue', account: 'email', finishedLesson: false },
+  ],
+  ['a guest whose sign in ended', { signedIn: false, ended: true }],
+  ['an email account whose sign in ended', { signedIn: false, ended: true, account: 'email' }],
+]
+
+for (const [who, today] of MEETS_ALEKSI) {
+  test(`[intro-rule 1] ${who} meets Aleksi each time the road opens`, async ({ page }) => {
+    await watchPlay(page, true)
+    await openNew(page, today)
+    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
+    await page.getByRole('button', { name: 'Nice to meet you' }).click()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    await page.reload()
+    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+  })
+}
+
+// The opening animation plays after the intro as on every road opening; the test config turns motion off,
+// so these two turn it back on to see it.
+test.describe('the road opens with its animation', () => {
+  test.use({ reducedMotion: 'no-preference' })
+
+  test('[aleksi-intro 4] [intro-rule 3] [intro-rule 4] "Nice to meet you" opens the road with its animation, keeps nothing on the phone, and Start goes straight to the lesson', async ({
+    page,
+  }) => {
+    await watchPlay(page, true)
+    const calls = await openNew(page)
+    await page.getByRole('button', { name: 'Nice to meet you' }).click()
+    // The opening animation plays, as on every road opening: Skip shows first.
+    await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    expect(await page.evaluate<number>('localStorage.length + sessionStorage.length')).toBe(0)
+    await page.getByRole('button', { name: 'Skip' }).click()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+    await shot(page, 'road-after-intro-375x812')
+    // The road keeps "Have an account? Sign in" on the day one card.
+    await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
+    expect(calls.guest).toBe(0)
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await expect.poll(() => calls.guest).toBe(1)
+    await expect(page.getByText('Why are you learning Finnish?')).toHaveCount(0)
+  })
+
+  test('[intro-rule 1] [intro-rule 4] an email account with a finished lesson never sees the intro: the road opens with its animation', async ({
+    page,
+  }) => {
+    await watchPlay(page, false)
+    await openNew(
+      page,
+      { signedIn: true, today: 'start', account: 'email', finishedLesson: true },
+      { 1: 4, 2: 1 },
+    )
+    await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+    // The greeting never tries to play for this learner.
+    expect(await plays(page)).toBe(0)
+    await page.reload()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  })
+})
+
+test('[intro-rule 3] the old "met Aleksi" flag is cleared from the phone and no longer skips the intro', async ({
   page,
 }) => {
-  await openNew(page, { signedIn: true, today: 'continue' })
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
-  const ended = await page.context().newPage()
-  await openNew(ended, { signedIn: false, ended: true })
-  await expect(ended.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-  await expect(ended.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  await page.addInitScript({
+    content: `try { localStorage.setItem(${JSON.stringify(OLD_MET_KEY)}, 'yes') } catch {}`,
+  })
+  await openNew(page)
+  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+  // The init script writes the key again on every load, so this reads it once the page has cleared it.
+  expect(
+    await page.evaluate<string | null>(`localStorage.getItem(${JSON.stringify(OLD_MET_KEY)})`),
+  ).toBeNull()
 })
 
 test('[aleksi-intro 4] the answers of the old first-open questions are cleared from the phone', async ({

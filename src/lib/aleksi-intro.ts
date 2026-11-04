@@ -1,15 +1,16 @@
-// Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026). A
-// new visitor meets Aleksi once on this phone before the road opens. The phone
-// keeps only "met" under one key in the browser's own storage; nothing is sent
-// to the Worker or the database. Every read and write is wrapped, so a phone
-// whose storage is blocked or full still gets past the intro; it simply meets
-// Aleksi again next time.
+// Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026).
+// Who sees him is the owner's rule of 4 November 2026 (fast route intro-rule):
+// everyone sees the intro each time the road opens, except a learner who is
+// signed in with an email account and has finished at least one lesson. Both
+// facts come from GET /api/today; the phone keeps no flag of its own.
 //
-// The two first-open questions of fast route "intro" are gone. Their key,
-// OLD_INTRO_KEY, is cleared from the phone when it is still there.
+// Two keys of earlier versions are cleared from the phone when they are still
+// there: the answers of the first-open questions of fast route "intro"
+// (OLD_INTRO_KEY) and the "met Aleksi" flag of fast route aleksi-intro
+// (OLD_MET_KEY). Every call is wrapped, so blocked storage breaks nothing.
 
-export const MET_KEY = 'puhuscribe-aleksi-met'
 export const OLD_INTRO_KEY = 'puhuscribe-intro'
+export const OLD_MET_KEY = 'puhuscribe-aleksi-met'
 
 /** Harri reads "Moi! Mä oon Aleksi." (scripts/generate/aleksi_greeting.py, workflow task voice-aleksi). */
 export const GREETING_AUDIO = '/audio/aleksi/greeting-d4688145c5ab.mp3'
@@ -22,14 +23,12 @@ export function portraitSrc(width: number): string {
   return `/aleksi/portrait-${String(width)}.webp`
 }
 
-/** The calls of the browser's storage that are used. */
+/** The one call of the browser's storage that is used. */
 export interface KeyValueStore {
-  getItem: (key: string) => string | null
-  setItem: (key: string, value: string) => void
   removeItem: (key: string) => void
 }
 
-/** Where the flag is kept: the browser's localStorage, or null when even reaching it throws. */
+/** Where the old keys are, the browser's localStorage, or null when even reaching it throws. */
 export type StorageSource = () => KeyValueStore | null
 
 export const browserStorage: StorageSource = () => {
@@ -40,40 +39,32 @@ export const browserStorage: StorageSource = () => {
   }
 }
 
-/** This phone has met Aleksi. Anything missing or unreadable counts as "not met". */
-export function hasMetAleksi(source: StorageSource = browserStorage): boolean {
-  try {
-    return source()?.getItem(MET_KEY) === 'yes'
-  } catch {
-    return false
+/** Removes the keys of earlier versions (the old first-open answers and the old "met" flag), if this phone still holds them. */
+export function clearOldIntroKeys(source: StorageSource = browserStorage): void {
+  for (const key of [OLD_INTRO_KEY, OLD_MET_KEY]) {
+    try {
+      source()?.removeItem(key)
+    } catch {
+      // Storage that cannot be reached holds nothing to clear.
+    }
   }
 }
 
-/** Keeps "met" on this phone. Returns false when storage refused; the road opens either way. */
-export function markMetAleksi(source: StorageSource = browserStorage): boolean {
-  try {
-    const storage = source()
-    if (!storage) return false
-    storage.setItem(MET_KEY, 'yes')
-    return true
-  } catch {
-    return false
-  }
-}
-
-/** Removes the answers of the old first-open questions, if this phone still holds them. */
-export function clearOldIntro(source: StorageSource = browserStorage): void {
-  try {
-    source()?.removeItem(OLD_INTRO_KEY)
-  } catch {
-    // Storage that cannot be reached holds nothing to clear.
-  }
+/** What the road knows about who is on this device, from GET /api/today (src/road/home-view.ts). */
+export interface IntroFacts {
+  signedIn: boolean
+  /** The account is an email account (not a guest). */
+  email: boolean
+  /** At least one lesson of this learner has finished. */
+  finishedLesson?: boolean
 }
 
 /**
- * Whether the road opens with Aleksi's intro first. Only a new visitor meets him: nobody is signed in
- * on this device (no guest session, no account), no sign in ended here, and this phone has not met him.
+ * Whether the road opens with Aleksi's intro first. Only a learner who is signed in with an email
+ * account and has finished at least one lesson goes straight to the road. Everyone else meets him:
+ * a new visitor, a guest (with or without a finished lesson), a sign in that ended, and an email
+ * account with no finished lesson.
  */
-export function showsAleksiIntro(signedIn: boolean, ended: boolean, met: boolean): boolean {
-  return !signedIn && !ended && !met
+export function showsAleksiIntro(facts: IntroFacts): boolean {
+  return !(facts.signedIn && facts.email && facts.finishedLesson === true)
 }

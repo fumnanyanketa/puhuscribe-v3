@@ -7,7 +7,7 @@ import { markIntroSeen } from './intro-seen.ts'
 // merged), GET /api/today and GET /api/me. Nothing here reaches a real server.
 
 export interface HomeMocks {
-  /** False for a phone that has not met Aleksi yet (fast route aleksi-intro). Default: met. */
+  /** False to leave Aleksi's intro for the test itself; by default the test presses "Nice to meet you" when it appears (e2e/intro-seen.ts). */
   met?: boolean
   /** The body of GET /api/today. Default: no account on this device. */
   today?: Record<string, unknown>
@@ -33,7 +33,7 @@ const json = (route: Route, body: unknown, status = 200) =>
 
 export async function mockHome(page: Page, mocks: HomeMocks = {}): Promise<HomeCalls> {
   const calls: HomeCalls = { road: 0, today: 0, me: 0, guest: 0 }
-  // The phone has met Aleksi unless the test says it has not (fast route aleksi-intro).
+  // "Nice to meet you" is pressed by itself unless the test says not (fast route intro-rule).
   if (mocks.met !== false) await markIntroSeen(page)
   await page.route('**/api/road', async (route) => {
     calls.road += 1
