@@ -231,15 +231,33 @@ describe('the privacy notice, job 14-analytics', () => {
 
   it('[analytics 29] adds no new processor: crash reports stay in the Supabase database in the EU', () => {
     // Anthropic came with Otso, the AI tutor (job 16-tutor-step and fast route otso-privacy, owner's
-    // call of 3 November 2026), not with crash reports, which still add no processor.
+    // call of 3 November 2026), and Brevo with the sign in code emails (job go-live, 4 November
+    // 2026), not with crash reports, which still add no processor.
     expect(PROCESSORS.map((p) => p.name)).toEqual([
       'Supabase',
       'Cloudflare',
+      'Brevo',
       'Microsoft (Azure Speech)',
       'Anthropic',
     ])
     expect(PROCESSORS.find((p) => p.name === 'Anthropic')?.modules).not.toContain('crash-reports.ts')
     expect(PROCESSORS.find((p) => p.name === 'Supabase')?.modules).toContain('crash-reports.ts')
     expect(NOT_LINKED_ITEMS.map((item) => item.name)).toEqual(['Visit count', 'Crash reports'])
+  })
+
+  it('[go-live 2] names Brevo (Sendinblue SAS, France) as the EU processor that sends the sign in codes', () => {
+    const brevo = PROCESSORS.find((p) => p.name === 'Brevo')
+    expect(brevo?.role).toMatch(/^Sends the sign in code emails/)
+    expect(brevo?.role).toMatch(/your email address/)
+    expect(brevo?.where).toBe('In the EU.')
+    expect(brevo?.details?.join(' ')).toMatch(/Sendinblue SAS, a company in France/)
+    expect(page).toContain('Brevo')
+    expect(page).toContain(brevo?.details?.[0] ?? 'missing')
+    expect(html).toContain('href="https://www.brevo.com/legal/privacypolicy/"')
+    // Supabase no longer claims to send the emails. Who is responsible is not part of this change
+    // (src/privacy/notice-settings.ts keeps its name and contact).
+    const supabase = PROCESSORS.find((p) => p.name === 'Supabase')
+    expect(supabase?.role).toBe('Keeps the database and handles sign in.')
+    expect(page).not.toMatch(/Until Aleksi chooses its own email sender/)
   })
 })

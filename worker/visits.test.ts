@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { handleRequest, type WorkerEnv } from './index.ts'
+import { AUTH_COOKIE } from './learner-auth.ts'
 import { ROBOT_PATTERNS, countsAsVisit, isRobot, visitCountry } from './visits.ts'
 import { ENV, ORIGIN, PUBLISHABLE, fakeSupabase, type FakeSupabase } from './test-fakes.ts'
 
@@ -263,7 +264,7 @@ describe('the Worker counts an arrival after answering the page', () => {
     const res = await handleRequest(
       page(
         '/',
-        { cookie: 'puhuscribe-auth=secret-looking-value', 'cf-connecting-ip': '203.0.113.9' },
+        { cookie: `${AUTH_COOKIE}=secret-looking-value`, 'cf-connecting-ip': '203.0.113.9' },
         {},
         'FI',
       ),

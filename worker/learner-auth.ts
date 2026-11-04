@@ -23,8 +23,14 @@ import type { Database } from '../src/lib/database.types.ts'
 // revoked guest), auth-js may write one short error line with no personal data
 // (worker/logs.test.ts checks no cookie, token, user id or address is logged).
 
-/** The name of the sign in cookie (long sessions are split into .0, .1 ...). */
-export const AUTH_COOKIE = 'puhuscribe-auth'
+/**
+ * The name of the sign in cookie (long sessions are split into .0, .1 ...).
+ * The __Host- prefix (job go-live, from the 8-first-session security review)
+ * makes the browser refuse the cookie unless it is Secure, has Path=/ and no
+ * Domain, so no other site under the same domain can set or replace it.
+ * cookieValue below already sets exactly that.
+ */
+export const AUTH_COOKIE = '__Host-puhuscribe-auth'
 /** 90 days, the owner's rule for unused guest accounts. */
 export const GUEST_MAX_AGE_SECONDS = 90 * 24 * 60 * 60
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { handleApi, type ApiDeps } from './api.ts'
+import { AUTH_COOKIE } from './learner-auth.ts'
 import { DatabaseUnavailable } from './learner-db.ts'
 import { roadStop, visitorStop, type RoadDb, type RoadStop } from './road.ts'
 import { ENV, PUBLISHABLE, cookieHeader, fakeSupabase, get, post } from './test-fakes.ts'
@@ -112,7 +113,7 @@ describe('GET /api/road', () => {
     const created = await handleApi(post('/api/guest'), ENV, { fetch: supabase.fetch })
     const cookie = cookieHeader(created)
     supabase.users.clear()
-    for (const header of ['puhuscribe-auth=not-a-session', cookie]) {
+    for (const header of [`${AUTH_COOKIE}=not-a-session`, cookie]) {
       const calls: string[] = []
       const res = await handleApi(get('/api/road', header), ENV, {
         fetch: supabase.fetch,

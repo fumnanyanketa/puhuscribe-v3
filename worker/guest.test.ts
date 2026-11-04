@@ -62,6 +62,29 @@ describe('POST /api/guest', () => {
     }
   })
 
+  it('[go-live 2] the sign in cookie has the __Host- name, so a browser keeps it only when Secure, Path=/ and no Domain', async () => {
+    expect(AUTH_COOKIE).toBe('__Host-puhuscribe-auth')
+    const { res } = await signUp()
+    const cookies = setCookies(res)
+    expect(cookies.length).toBeGreaterThan(0)
+    for (const cookie of cookies) {
+      // The name itself, or one chunk of a long session (.0, .1 ...).
+      expect(cookie).toMatch(/^__Host-puhuscribe-auth(\.\d+)?=/)
+      expect(cookie).toMatch(/;\s*Secure/i)
+      expect(cookie).toMatch(/;\s*Path=\/(;|$)/i)
+      expect(cookie).not.toMatch(/;\s*Domain=/i)
+    }
+  })
+
+  it('[go-live 2] a cookie with the old name is not a sign in: Start makes a new guest', async () => {
+    const supabase = fakeSupabase()
+    const res = await handleApi(post('/api/guest', { cookie: 'puhuscribe-auth=old-session' }), ENV, {
+      fetch: supabase.fetch,
+    })
+    expect(res.status).toBe(201)
+    expect(supabase.userIds).toHaveLength(1)
+  })
+
   it('[session 2] pressing Start again with the cookie makes no second account and answers 200', async () => {
     const { supabase, cookie } = await signUp()
     const again = await handleApi(post('/api/guest', { cookie }), ENV, { fetch: supabase.fetch })
