@@ -110,3 +110,6 @@ Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is pa
 
 ## Owner reminder (3 November 2026)
 - Done 4 November 2026: the owner looked at the phone hero again after the top bar went, the subline was shortened and the heading became ExtraBold, and said "I love the way it looks now". No reminder needed.
+
+## Go-live address (owner, 4 November 2026)
+- The MVP goes live only once the final name is chosen and its domain is bought, so there is one launch and no move later. No exentrik.co address for the learner app in the meantime.
