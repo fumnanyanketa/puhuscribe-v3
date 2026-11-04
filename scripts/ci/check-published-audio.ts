@@ -19,11 +19,23 @@
 //   - a word clip whose bytes differ from content/word-audio/<key>.mp3,
 //   - an approved word key with no file.
 // Without them every file under words/ fails, so nothing is served unapproved.
+//
+// Island clips (fast route "islands") live at public/audio/islands/<key>.mp3,
+// where the key is the same 64 hex request hash. They are approved through
+// src/lib/islands-data.json: its keys count only when the data was made from
+// the islands.md the owner approved (its source_sha256 equals the SHA-256 in
+// content/approvals/islands.json), as src/lib/islands.ts also requires. When the
+// island data file and its clip source folder are given, this check finds:
+//   - an island clip the approved island data does not list,
+//   - an island clip whose bytes differ from content/island-audio/<key>.mp3,
+//   - an approved island key with no file.
+// Without them every file under islands/ fails.
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const WORD_FILE = /^words\/([0-9a-f]{64})\.mp3$/
+const ISLAND_FILE = /^islands\/([0-9a-f]{64})\.mp3$/
 const WORD_KEY = /^[0-9a-f]{64}$/
 
 /** The word clip keys the owner approved, from every content/approvals/part-<n>-words.json. */
@@ -37,6 +49,37 @@ export function approvedWordKeys(approvalsDir: string | undefined): Set<string> 
     for (const key of approval.keys as unknown[])
       if (typeof key === 'string' && WORD_KEY.test(key)) keys.add(key)
   }
+  return keys
+}
+
+interface IslandData {
+  format?: unknown
+  source_sha256?: unknown
+  stops?: { audio?: { spoken?: unknown; written?: unknown }[] }[]
+  closing?: { audio?: { spoken?: unknown; written?: unknown } }
+}
+
+/**
+ * The island clip keys of the island data file, or none when the data was not
+ * made from the islands.md the owner approved (content/approvals/islands.json).
+ */
+export function approvedIslandKeys(
+  approvalsDir: string | undefined,
+  dataPath: string | undefined,
+): Set<string> {
+  const keys = new Set<string>()
+  if (!approvalsDir || !dataPath) return keys
+  const approvalPath = join(approvalsDir, 'islands.json')
+  if (!existsSync(approvalPath) || !existsSync(dataPath)) return keys
+  const approval = JSON.parse(readFileSync(approvalPath, 'utf8')) as { format?: unknown; sha256?: unknown }
+  const data = JSON.parse(readFileSync(dataPath, 'utf8')) as IslandData
+  if (approval.format !== 'puhuscribe-owner-approval-islands-1' || typeof approval.sha256 !== 'string')
+    return keys
+  if (data.format !== 'puhuscribe-islands-1' || data.source_sha256 !== approval.sha256) return keys
+  const pairs = [...(data.stops ?? []).flatMap((stop) => stop.audio ?? []), data.closing?.audio ?? {}]
+  for (const pair of pairs)
+    for (const key of [pair.spoken, pair.written])
+      if (typeof key === 'string' && WORD_KEY.test(key)) keys.add(key)
   return keys
 }
 
@@ -66,14 +109,29 @@ export function checkPublishedAudio(
   migrationsDir: string,
   approvalsDir?: string,
   wordSourceDir?: string,
+  islands?: { data: string; sourceDir: string },
 ): string[] {
   const problems: string[] = []
   const keys = publishedKeys(migrationsDir)
   const wordKeys = approvedWordKeys(approvalsDir)
+  const islandKeys = approvedIslandKeys(approvalsDir, islands?.data)
   const found = new Set<string>()
   const foundWords = new Set<string>()
+  const foundIslands = new Set<string>()
   for (const path of filesUnder(audioDir)) {
     const key = relative(audioDir, path).split('\\').join('/')
+    if (key.startsWith('islands/')) {
+      const islandKey = ISLAND_FILE.exec(key)?.[1]
+      if (!islandKey || !islandKeys.has(islandKey)) {
+        problems.push(`${key} is not an island clip of the approved island lines`)
+        continue
+      }
+      foundIslands.add(islandKey)
+      const source = islands ? join(islands.sourceDir, `${islandKey}.mp3`) : ''
+      if (!source || !existsSync(source) || !readFileSync(source).equals(readFileSync(path)))
+        problems.push(`${key} differs from its clip in content/island-audio/`)
+      continue
+    }
     if (key.startsWith('words/')) {
       const wordKey = WORD_FILE.exec(key)?.[1]
       if (!wordKey || !wordKeys.has(wordKey)) {
@@ -102,6 +160,9 @@ export function checkPublishedAudio(
   for (const key of wordKeys) {
     if (!foundWords.has(key)) problems.push(`words/${key}.mp3 is approved but its file is missing`)
   }
+  for (const key of islandKeys) {
+    if (!foundIslands.has(key)) problems.push(`islands/${key}.mp3 is approved but its file is missing`)
+  }
   return problems
 }
 
@@ -111,6 +172,7 @@ if (import.meta.main) {
     'supabase/migrations',
     'content/approvals',
     'content/word-audio',
+    { data: 'src/lib/islands-data.json', sourceDir: 'content/island-audio' },
   )
   for (const problem of problems) console.error(problem)
   if (problems.length === 0)

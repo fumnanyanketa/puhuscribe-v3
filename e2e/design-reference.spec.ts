@@ -119,7 +119,7 @@ test.describe('session frame', () => {
   }) => {
     await openReference(page)
     const frame = section(page, 'Session frame')
-    await expect(frame.getByRole('progressbar', { name: 'Hear it, step 1 of 5' })).toBeVisible()
+    await expect(frame.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 5' })).toBeVisible()
     await expect(frame.getByRole('button', { name: 'Leave session' })).toBeVisible()
     // The actions sit at the bottom of the frame, and stay there when the
     // content scrolls.

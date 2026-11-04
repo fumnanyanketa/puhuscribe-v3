@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { ADD_EMAIL_PATH } from '../src/screens/save-note-copy.ts'
 
 // Labels [save-progress N] are the "Done when" statement numbers from
 // factory/jobs/18-save-progress/spec.md that each test protects.
@@ -71,7 +72,9 @@ const THIS_JOBS_FILES = [
     .map((name) => `e2e/${name}`),
 ]
 
-const THE_CONSTANT = /^export const ADD_EMAIL_PATH = '\/account\/email'$/m
+// Since job 17-landing-page the app lives under /learn and every app address comes from
+// src/lib/app-paths.ts, so the note's one constant now names that file's add email address.
+const THE_CONSTANT = /^export const ADD_EMAIL_PATH = PATHS\.accountEmail$/m
 
 /** A quoted app path: '/account, "/session, `/learn and so on. */
 function quotedAppPaths(text: string): string[] {
@@ -88,6 +91,7 @@ describe('the note names no app path outside its one constant', () => {
 
   it('[save-progress 17] the constant is in save-note-copy.ts, and the screen uses it', () => {
     expect(readFileSync('src/screens/save-note-copy.ts', 'utf8')).toMatch(THE_CONSTANT)
+    expect(ADD_EMAIL_PATH).toBe('/learn/account/email')
     const screen = readFileSync('src/screens/SaveNote.tsx', 'utf8')
     expect(screen).toContain('window.location.assign(ADD_EMAIL_PATH)')
   })

@@ -115,6 +115,24 @@ function release(stream: MediaStream) {
 }
 
 /**
+ * Asks for the microphone. The one place in src/ that does (job 10-speaking-feedback, statement 1;
+ * tests/design-rules.test.ts): Say it's recorder below and the island card's longer recording
+ * (src/island/use-island-audio.ts) both open it here. A refusal is a RecorderFailed.
+ */
+export async function openMicrophone(): Promise<MediaStream> {
+  try {
+    return await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    })
+  } catch (error) {
+    const name = error instanceof DOMException ? error.name : ''
+    throw new RecorderFailed(
+      name === 'NotAllowedError' || name === 'SecurityError' ? 'denied' : 'unsupported',
+    )
+  }
+}
+
+/**
  * Asks for the microphone and starts recording. `onTick` gets the whole
  * seconds recorded so far; recording stops by itself after 10 seconds and
  * calls `onAutoStop` with the result. When the page goes to the background,
@@ -127,17 +145,7 @@ export async function startRecording(handlers: {
 }): Promise<RecorderHandle> {
   if (!recordingSupported()) throw new RecorderFailed('unsupported')
   const type = pickRecordingType((t) => MediaRecorder.isTypeSupported(t))
-  let stream: MediaStream
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
-    })
-  } catch (error) {
-    const name = error instanceof DOMException ? error.name : ''
-    throw new RecorderFailed(
-      name === 'NotAllowedError' || name === 'SecurityError' ? 'denied' : 'unsupported',
-    )
-  }
+  const stream = await openMicrophone()
   let recorder: MediaRecorder
   try {
     recorder = type ? new MediaRecorder(stream, { mimeType: type }) : new MediaRecorder(stream)

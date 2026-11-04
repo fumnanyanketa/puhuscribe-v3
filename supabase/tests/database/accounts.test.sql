@@ -218,6 +218,19 @@ select u::uuid
   from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
                     '00000000-0000-4000-8000-0000000011d1']) as u;
 
+-- The islands fast route's table and job 16-tutor-step's table (3 November 2026): an island line and
+-- one AI call for A, B and D. Both are in export_my_data and go with the account (on delete cascade);
+-- the full run of 3 November 2026 found this file had no row for them, so the checks below now cover them.
+insert into public.island_lines (user_id, stop_number, choice)
+select u::uuid, 2, 0
+  from unnest(array['00000000-0000-4000-8000-0000000011a1', '00000000-0000-4000-8000-0000000011b1',
+                    '00000000-0000-4000-8000-0000000011d1']) as u;
+insert into public.tutor_calls (user_id, session_id, turn, attempt, reserved_usd)
+select s.user_id, s.id, 1, 1, 0.002
+  from public.sessions s
+ where s.id in ('00000000-0000-4000-8000-0000000061a1', '00000000-0000-4000-8000-0000000061b1',
+                '00000000-0000-4000-8000-0000000061d1');
+
 select is_empty(
   $$ select tbl from pg_temp.rows_of('00000000-0000-4000-8000-0000000011a1') where n = 0 $$,
   '[accounts 19] A has a row in every user table, so the export check below covers every table');

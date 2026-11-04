@@ -204,7 +204,10 @@ describe('an exception inside the Worker', () => {
       } as unknown as Fetcher,
     }
     const { waits, ctx } = context()
-    const request = new Request(`${ORIGIN}/account/${SESSION_ID}?x=1`, { headers: { 'user-agent': SAFARI } })
+    // Since job 17-landing-page the app pages live under /learn (src/lib/app-paths.ts).
+    const request = new Request(`${ORIGIN}/learn/account/${SESSION_ID}?x=1`, {
+      headers: { 'user-agent': SAFARI },
+    })
     const res = await handleRequest(request, env, { fetch: supabase.fetch }, ctx)
     expect(res.status).toBe(500)
     expect(await res.json()).toEqual({ error: 'server_error' })
@@ -214,7 +217,7 @@ describe('an exception inside the Worker', () => {
       p_source: 'worker',
       p_name: 'TypeError',
       p_message: 'Cannot read the page for [email] [id]',
-      p_path: '/account/:id',
+      p_path: '/learn/account/:id',
       p_app_version: 'local',
       p_browser: 'Safari 17, iOS',
       p_frames: [

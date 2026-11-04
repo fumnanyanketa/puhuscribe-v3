@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -363,17 +364,35 @@ def test_a1_road_21_the_stop_is_approved_only_in_the_migration_of_its_last_dialo
     assert f"#{SLUG}/dialogue'" in sql
 
 
-def test_a1_road_21_the_migrations_are_ordered_by_stop_and_dialogue_and_later_than_main(draft):
-    """[a1-road 21] explicit timestamps, a minute apart, in stop and dialogue order, after main."""
+def test_a1_road_21_the_migrations_are_ordered_by_stop_and_dialogue_and_after_the_schema_they_use(draft):
+    """[a1-road 21] timestamps a minute apart, in stop and dialogue order, after the schema they use.
+
+    When the road was published (2 November 2026) its migrations sorted after every other migration on
+    main. Later jobs (islands, the tutor, hear-and-say, 3 November 2026) added migrations that sort after
+    them, so "after every migration on main" no longer holds and was never what the order needs. What it
+    needs: every migration that creates or changes a table or type the road's publish migrations use
+    sorts before the first of them, so a fresh database can apply them in order.
+    """
     names = [publish_timestamp(stop, position) for stop in range(1, 37) for position in (1, 2, 3)]
     assert names == sorted(names) and len(set(names)) == 108
     assert FIRST_PUBLISH_TIMESTAMP.strftime("%Y%m%d%H%M%S") == names[0]
-    latest_on_main = max(
-        p.name.split("_", 1)[0]
-        for p in (REPO / "supabase" / "migrations").glob("*.sql")
-        if "_publish_" not in p.name
+    migrations = REPO / "supabase" / "migrations"
+    used: set[str] = set()
+    for path in migrations.glob(f"*_publish_{SLUG.replace('-', '_')}*.sql"):
+        used |= set(re.findall(r"public\.([a-z_]+)", path.read_text(encoding="utf-8")))
+    assert {"road_stops", "units", "dialogues", "dialogue_lines", "forms", "tokens"} <= used
+    tables = "|".join(sorted(used))
+    changes = re.compile(
+        rf"\b(create|alter)\s+(table|type)\s+(if\s+not\s+exists\s+)?public\.({tables})\b",
+        re.IGNORECASE,
     )
-    assert names[0] > latest_on_main
+    schema = [
+        p.name
+        for p in migrations.glob("*.sql")
+        if "_publish_" not in p.name and changes.search(p.read_text(encoding="utf-8"))
+    ]
+    assert schema, "no migration creates the tables the road publishes into"
+    assert max(name.split("_", 1)[0] for name in schema) < names[0]
     assert migration_name(draft).startswith(publish_timestamp(1, 1))
 
 

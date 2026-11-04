@@ -121,10 +121,15 @@ describe('applying migrations to the test project', () => {
   })
 
   it('[smoke 11] passes the test database password only to the steps that need it', () => {
-    const secretLines = apply.split('\n').filter((line) => line.includes('SUPABASE_TEST_DB_URL }}'))
-    expect(secretLines).toHaveLength(2)
-    for (const line of secretLines) {
-      expect(line).toBe('          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}')
+    // Four steps: the migration push, the full run's security tests, and the island lock and tutor
+    // calls lock tests the owner kept running after each database update during the test pause
+    // (3 November 2026). Each step that holds it runs only a supabase command.
+    const lines = apply.split('\n')
+    const secretAt = lines.flatMap((line, i) => (line.includes('SUPABASE_TEST_DB_URL }}') ? [i] : []))
+    expect(secretAt).toHaveLength(4)
+    for (const i of secretAt) {
+      expect(lines[i]).toBe('          SUPABASE_DB_URL: ${{ secrets.SUPABASE_TEST_DB_URL }}')
+      expect(lines[i + 1]).toMatch(/^ {8}run: supabase (db push|test db) --db-url "\$SUPABASE_DB_URL"/)
     }
     // No job-level env block that would hand it to every step.
     expect(apply).not.toMatch(/^ {4}env:/m)

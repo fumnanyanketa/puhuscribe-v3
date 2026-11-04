@@ -95,7 +95,7 @@
   min-width: 0;
   padding: 10px 14px;
   border: var(--panel-edge);
-  border-radius: 18px 18px 18px 6px;
+  border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-radius) var(--bubble-tail);
   background: var(--panel-fill);
   box-shadow: var(--panel-shadow);
   color: var(--color-text);
@@ -124,7 +124,7 @@
   max-width: 80%;
   margin: 0;
   padding: 9px 14px;
-  border-radius: 18px 18px 6px 18px;
+  border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-tail) var(--bubble-radius);
   background: var(--color-button);
   color: var(--color-button-text);
   font-size: var(--text-body);

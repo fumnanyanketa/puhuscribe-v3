@@ -21,7 +21,14 @@ import {
   ownerHostMissing,
   type Dashboard,
 } from './owner-helpers.ts'
-import { finishHearIt, finishUnderstandIt, serveTone, startSession } from './session-helpers.ts'
+import {
+  FIRST_STEP,
+  finishHearIt,
+  finishUnderstandIt,
+  passSayIt,
+  serveTone,
+  startSession,
+} from './session-helpers.ts'
 
 // Label [analytics 12] is "Done when" 12 of factory/jobs/14-analytics/spec.md.
 //
@@ -63,11 +70,12 @@ function expectedMedian(): number | null {
 }
 
 async function sayOneLineAloud(page: Page): Promise<void> {
-  // The consent is a sheet over Say it since job 19-redesign (statement 29).
+  // The consent is a sheet over the step since job 19-redesign (statement 29). Since fast route
+  // hear-and-say (3 November 2026) each line is said back in the first step, Hear it, say it.
   await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeVisible()
   await page.getByRole('button', { name: 'Turn on speaking feedback' }).click()
   await expect(page.getByRole('dialog', { name: 'Say it out loud' })).toBeHidden()
-  await expect(page.getByRole('heading', { level: 1, name: 'Say it' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: FIRST_STEP })).toBeVisible()
   const record = page.getByRole('button', { name: 'Record yourself saying the line' })
   await record.click()
   await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
@@ -77,10 +85,10 @@ async function sayOneLineAloud(page: Page): Promise<void> {
   await expect(record.or(page.getByRole('button', { name: 'Try again' })).first()).toBeVisible({
     timeout: 20_000,
   })
-  // One check is enough; the quiet exit skips the other lines (job 10, "Done when" 6).
+  // One check is enough; the quiet exit lets the learner hear the other lines without recording (job 10,
+  // "Done when" 6), and the step ends with "Continue".
   await page.getByRole('button', { name: "I can't speak right now", exact: true }).click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Now you can say this.' })).toBeVisible()
-  await expect(page.getByRole('status')).toHaveText('Your progress is saved on this device.')
+  await finishHearIt(page)
 }
 
 function today(d: Dashboard) {
@@ -119,17 +127,19 @@ test(
     const learner = await learnerContext.newPage()
     await stubMicrophone(learner, 'tone')
     await serveTone(learner)
-    await startSession(learner)
+    await startSession(learner, { consent: 'open' })
     const learnerId = await userIdOf(learnerContext)
     const session = sessionsOf(learnerId)[0]
     const lines = linesOf(session?.dialogueId ?? '')
-    await finishHearIt(learner)
-    await finishUnderstandIt(learner, (lineId) => lines.find((line) => line.id === lineId)?.gloss ?? '')
     // One speech check with the fake provider. The fake provider records a
     // cost of 0, and "before + 0" could not show that the cost is counted, so
     // the attempt's cost is set to a known amount in the throwaway database
     // (round 3, evaluator failure 1).
     await sayOneLineAloud(learner)
+    await finishUnderstandIt(learner, (lineId) => lines.find((line) => line.id === lineId)?.gloss ?? '')
+    // The Recap: speaking feedback is on, so its quiet exit ends it without a second check.
+    await passSayIt(learner)
+    await expect(learner.getByRole('status')).toHaveText('Your progress is saved on this device.')
     expect(
       Number(one(`select count(*) from public.speaking_attempts where user_id = :'uid'`, { uid: learnerId })),
     ).toBe(1)

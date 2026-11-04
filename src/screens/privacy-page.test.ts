@@ -230,7 +230,15 @@ describe('the privacy notice, job 14-analytics', () => {
   })
 
   it('[analytics 29] adds no new processor: crash reports stay in the Supabase database in the EU', () => {
-    expect(PROCESSORS.map((p) => p.name)).toEqual(['Supabase', 'Cloudflare', 'Microsoft (Azure Speech)'])
+    // Anthropic came with Otso, the AI tutor (job 16-tutor-step and fast route otso-privacy, owner's
+    // call of 3 November 2026), not with crash reports, which still add no processor.
+    expect(PROCESSORS.map((p) => p.name)).toEqual([
+      'Supabase',
+      'Cloudflare',
+      'Microsoft (Azure Speech)',
+      'Anthropic',
+    ])
+    expect(PROCESSORS.find((p) => p.name === 'Anthropic')?.modules).not.toContain('crash-reports.ts')
     expect(PROCESSORS.find((p) => p.name === 'Supabase')?.modules).toContain('crash-reports.ts')
     expect(NOT_LINKED_ITEMS.map((item) => item.name)).toEqual(['Visit count', 'Crash reports'])
   })

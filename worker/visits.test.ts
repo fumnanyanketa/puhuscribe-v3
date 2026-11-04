@@ -50,12 +50,12 @@ const CASES: { name: string; request: () => Request; counts: boolean }[] = [
   },
   {
     name: 'a link from a sister site',
-    request: () => page('/session', { 'sec-fetch-site': 'same-site' }),
+    request: () => page('/learn/session', { 'sec-fetch-site': 'same-site' }),
     counts: true,
   },
   {
-    name: 'a move from / to /session inside the app',
-    request: () => page('/session', { 'sec-fetch-site': 'same-origin', referer: `${ORIGIN}/` }),
+    name: 'a move from / to /learn/session inside the app',
+    request: () => page('/learn/session', { 'sec-fetch-site': 'same-origin', referer: `${ORIGIN}/` }),
     counts: false,
   },
   {
@@ -78,7 +78,11 @@ const CASES: { name: string; request: () => Request; counts: boolean }[] = [
   {
     name: 'an old browser moving inside the app (Referer from this address)',
     request: () =>
-      page('/account', { 'sec-fetch-site': null, 'sec-fetch-dest': null, referer: `${ORIGIN}/session` }),
+      page('/learn/account', {
+        'sec-fetch-site': null,
+        'sec-fetch-dest': null,
+        referer: `${ORIGIN}/learn/session`,
+      }),
     counts: false,
   },
   { name: 'HEAD of /', request: () => page('/', {}, { method: 'HEAD' }), counts: false },
@@ -86,7 +90,14 @@ const CASES: { name: string; request: () => Request; counts: boolean }[] = [
   { name: '/api/today', request: () => page('/api/today'), counts: false },
   { name: 'a file, /assets/index.js', request: () => page('/assets/index.js'), counts: false },
   { name: 'a path that is not a page, /about', request: () => page('/about'), counts: false },
-  { name: 'every page route counts: /account/email', request: () => page('/account/email'), counts: true },
+  {
+    name: 'every page route counts: /learn/account/email',
+    request: () => page('/learn/account/email'),
+    counts: true,
+  },
+  // Since job 17-landing-page an old address is no page route: Cloudflare answers it with the app
+  // shell, which forwards it under /learn, and the Worker never sees it.
+  { name: 'an old address, /session', request: () => page('/session'), counts: false },
   { name: 'no text/html in Accept', request: () => page('/', { accept: 'application/json' }), counts: false },
   { name: 'no Accept header', request: () => page('/', { accept: null }), counts: false },
   { name: 'Sec-Fetch-Dest iframe', request: () => page('/', { 'sec-fetch-dest': 'iframe' }), counts: false },
@@ -277,7 +288,7 @@ describe('the Worker counts an arrival after answering the page', () => {
   it('[analytics 2] a page with no country data is counted as XX', async () => {
     const { waits, ctx } = context()
     await handleRequest(
-      page('/session', { 'sec-fetch-site': 'cross-site' }),
+      page('/learn/session', { 'sec-fetch-site': 'cross-site' }),
       env,
       { fetch: supabase.fetch },
       ctx,
@@ -289,7 +300,7 @@ describe('the Worker counts an arrival after answering the page', () => {
   it('[analytics 1] [analytics 3] a move inside the app, a file and an API call are not counted', async () => {
     const { waits, ctx } = context()
     await handleRequest(
-      page('/session', { 'sec-fetch-site': 'same-origin' }, {}, 'FI'),
+      page('/learn/session', { 'sec-fetch-site': 'same-origin' }, {}, 'FI'),
       env,
       { fetch: supabase.fetch },
       ctx,
@@ -308,7 +319,7 @@ describe('the Worker counts an arrival after answering the page', () => {
   })
 
   it('[analytics 3] answers a page route with the built page from env.ASSETS', async () => {
-    const res = await handleRequest(page('/privacy'), env, { fetch: supabase.fetch }, context().ctx)
+    const res = await handleRequest(page('/learn/privacy'), env, { fetch: supabase.fetch }, context().ctx)
     expect(await res.text()).toBe(PAGE_HTML)
     expect(assetAnswers).toHaveLength(1)
   })

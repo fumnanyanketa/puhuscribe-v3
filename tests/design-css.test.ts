@@ -7,7 +7,13 @@ import { describe, expect, it } from 'vitest'
 // One owner-approved exception (21 October 2026, summary.md; the name and the
 // colours changed in job 19-redesign): the page wash, declared once as
 // --ground-wash in tokens.css and used only as the page background in
-// base.css. Every other CSS gradient is refused.
+// base.css. Every other CSS gradient is refused in the app.
+//
+// A second owner-approved exception (3 November 2026, job 17-landing-page,
+// recorded in design.md): the public landing page's washed panels and hero
+// ground, in src/landing/Landing.module.css only. Each must be a
+// linear-gradient whose colours are all tokens or the landing page's named
+// panel colours (var(...)), never a written colour. The app keeps the rule.
 //
 // Each rule is proven by the "catches" tests below, which feed it a line that
 // breaks it and expect a finding.
@@ -34,8 +40,25 @@ function withoutComments(css: string): string {
 const TOKENS_PATH = 'src/styles/tokens.css'
 const BASE_PATH = 'src/styles/base.css'
 
-// The one allowed gradient: the --ground-wash declaration in tokens.css.
+const LANDING_CSS = 'src/landing/Landing.module.css'
+
+/** The landing page's washes: linear gradients whose colours are all var(...). */
+function landingWashes(css: string): number {
+  const bodies = [...css.matchAll(/linear-gradient\(((?:[^()]|\([^()]*\))*)\)/g)].map((m) => m[1] ?? '')
+  // Left after the var(...) colours, the angle, the direction and the stop positions: nothing.
+  const onlyVars = (body: string) =>
+    body
+      .replace(/var\([^()]*\)/g, '')
+      .replace(/-?\d*\.?\d+(deg|turn|%|px)?/g, '')
+      .replace(/\b(to|left|right|top|bottom)\b/g, '')
+      .replace(/[\s,]/g, '') === ''
+  return bodies.filter(onlyVars).length
+}
+
+// The allowed gradients: the --ground-wash declaration in tokens.css, and the
+// landing page's washes (see the top of this file).
 function allowedGradients(file: SourceFile): number {
+  if (file.path === LANDING_CSS) return landingWashes(withoutComments(file.text))
   if (file.path !== TOKENS_PATH) return 0
   return [...withoutComments(file.text).matchAll(/--ground-wash:\s*linear-gradient\(/g)].length
 }
@@ -204,6 +227,23 @@ describe('banned look and CSS for old phones', () => {
       expect(css(probe).length).toBeGreaterThan(0)
     })
   }
+
+  it('[design 18] the landing page washes pass only in the landing page, and only with var(...) colours', () => {
+    const wash =
+      '.mint { background: linear-gradient(150deg, var(--landing-mint-wash) 0%, var(--color-wash-top) 100%); }'
+    expect(css(wash, LANDING_CSS)).toEqual([])
+    expect(css(wash).length).toBeGreaterThan(0)
+    expect(css(wash, 'src/landing/Other.module.css').length).toBeGreaterThan(0)
+    expect(
+      css('.a { background: linear-gradient(150deg, #d9f0e7 0%, var(--x) 100%); }', LANDING_CSS).length,
+    ).toBeGreaterThan(0)
+    expect(
+      css('.a { background: radial-gradient(var(--x), var(--y)); }', LANDING_CSS).length,
+    ).toBeGreaterThan(0)
+    expect(
+      css('.a { background: linear-gradient(to right, red, var(--y)); }', LANDING_CSS).length,
+    ).toBeGreaterThan(0)
+  })
 
   it('[design 18] catches a second gradient in tokens.css', () => {
     const tokens = readFileSync(TOKENS_PATH, 'utf8')

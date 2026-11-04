@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { finished, startExclusive } from '../components/play-registry.ts'
-import { pickRecordingType, recordingSupported, RecorderFailed, toSpeechWav } from '../lib/recorder.ts'
+import {
+  openMicrophone,
+  pickRecordingType,
+  recordingSupported,
+  RecorderFailed,
+  toSpeechWav,
+} from '../lib/recorder.ts'
 import { louderForPlayback } from '../lib/wav.ts'
 
 // Sound for the island card (language islands): "Play all" plays the island's clips one after the
@@ -106,12 +112,9 @@ export function useLongRecording() {
     setProblem(null)
     let media: MediaStream
     try {
-      media = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
-      })
+      media = await openMicrophone()
     } catch (error) {
-      const name = error instanceof DOMException ? error.name : ''
-      setProblem(name === 'NotAllowedError' || name === 'SecurityError' ? 'denied' : 'unsupported')
+      setProblem(error instanceof RecorderFailed ? error.problem : 'unsupported')
       return
     }
     const type = pickRecordingType((t) => MediaRecorder.isTypeSupported(t))

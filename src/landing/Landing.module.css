@@ -15,7 +15,7 @@
 
 :global(body) {
   margin: 0;
-  font-size: 16px;
+  font-size: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -108,7 +108,7 @@
 .small {
   gap: 10px;
   padding: 8px 9px 8px 16px;
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   white-space: nowrap;
 }
 
@@ -133,7 +133,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;
 }
@@ -171,7 +171,7 @@
 
 .title {
   margin: 0 0 18px;
-  font-size: clamp(34px, 5.2vw, 56px);
+  font-size: clamp(2.125rem, 5.2vw, 3.5rem);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.025em;
   line-height: 1.08;
@@ -182,13 +182,13 @@
   max-width: 38ch;
   margin: 0 auto 28px;
   color: var(--color-text-quiet);
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .note {
   margin: 14px 0 0;
   color: var(--color-text-quiet);
-  font-size: 13.5px;
+  font-size: 0.84375rem;
 }
 
 .stage {
@@ -273,7 +273,7 @@
 
 .h2 {
   margin: 0 0 12px;
-  font-size: clamp(26px, 3.6vw, 38px);
+  font-size: clamp(1.625rem, 3.6vw, 2.375rem);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -311,7 +311,7 @@
 
 .story .h2 {
   margin: 0 0 10px;
-  font-size: clamp(24px, 2.6vw, 30px);
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
   letter-spacing: -0.015em;
   line-height: 1.2;
 }
@@ -320,7 +320,7 @@
   max-width: 46ch;
   margin: 0;
   color: var(--color-text-quiet);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.7;
 }
 
@@ -353,11 +353,11 @@
 
 .compareLabel {
   color: var(--color-text-quiet);
-  font-size: 12.5px;
+  font-size: 0.78125rem;
 }
 
 .compareSpoken {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;
   line-height: 1.3;
@@ -365,13 +365,13 @@
 
 .compareWritten {
   color: var(--color-written);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: var(--weight-medium);
   line-height: 1.3;
 }
 
 .compareMeaning {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: var(--weight-medium);
 }
 
@@ -410,7 +410,7 @@
 
 .h3 {
   margin: 0 0 12px;
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;
   line-height: 1.18;
@@ -421,7 +421,7 @@
   max-width: 42ch;
   margin: 0;
   color: var(--color-text-quiet);
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .featureStage {
@@ -467,7 +467,7 @@
   border-radius: 18px;
   background: var(--color-surface);
   box-shadow: var(--landing-shadow-piece);
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .miniFlat {
@@ -503,7 +503,7 @@
 }
 
 .miniSpoken {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: var(--weight-semibold);
 }
 
@@ -513,7 +513,7 @@
 
 .miniLabel {
   color: var(--color-text-quiet);
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .ring {
@@ -549,7 +549,7 @@
   align-items: center;
   gap: 8px;
   color: var(--color-text-quiet);
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .who img {
@@ -563,7 +563,7 @@
   padding: 0 5px;
   border-radius: 5px;
   background: var(--landing-badge);
-  font-size: 10.5px;
+  font-size: 0.65625rem;
   font-style: normal;
 }
 
@@ -587,7 +587,7 @@
   max-width: 52ch;
   margin: 0;
   color: var(--color-text-quiet);
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 /* The drawn road of the journey, with the six parts as signs on poles, smaller toward the sun. */
@@ -637,31 +637,31 @@
 .partFirst {
   top: 91%;
   left: 26.6%;
-  font-size: 12.5px;
+  font-size: 0.78125rem;
 }
 
 .partDaily {
   top: 82%;
   left: 70.4%;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .partServices {
   top: 73%;
   left: 32.6%;
-  font-size: 11.5px;
+  font-size: 0.71875rem;
 }
 
 .partWork {
   top: 65.3%;
   left: 64.9%;
-  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 .partFinnish {
   top: 58.2%;
   left: 37.5%;
-  font-size: 10.6px;
+  font-size: 0.6625rem;
 }
 
 .roadSigns .partDone {
@@ -669,7 +669,7 @@
   left: 60.4%;
   background: var(--color-mint);
   color: var(--color-button-text);
-  font-size: 10.3px;
+  font-size: 0.64375rem;
 }
 
 /* Questions */
@@ -711,7 +711,7 @@
   gap: 16px;
   padding-block: 18px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: var(--weight-medium);
   list-style: none;
 }
@@ -723,7 +723,7 @@
 .question summary::after {
   color: var(--color-mint);
   content: '+';
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: var(--weight-semibold);
   line-height: 1;
 }
@@ -748,7 +748,7 @@
 .closeTitle {
   max-width: 22ch;
   margin: 0 auto 26px;
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: clamp(1.75rem, 4vw, 2.625rem);
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -759,7 +759,7 @@
 .footer {
   padding-block: 20px 32px;
   color: var(--color-text-quiet);
-  font-size: 13.5px;
+  font-size: 0.84375rem;
 }
 
 .footerInner {
@@ -838,19 +838,19 @@
   }
 
   .compareSpoken {
-    font-size: 30px;
+    font-size: 1.875rem;
   }
 
   .compareWritten {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .h3 {
-    font-size: 36px;
+    font-size: 2.25rem;
   }
 
   .featureP {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .questions .inner {
@@ -895,11 +895,11 @@
   }
 
   .title {
-    font-size: 32px;
+    font-size: 2rem;
   }
 
   .lead {
-    font-size: 17px;
+    font-size: 1.0625rem;
   }
 
   .stage {
@@ -953,7 +953,7 @@
   }
 
   .h2 {
-    font-size: 26px;
+    font-size: 1.625rem;
   }
 
   .story {
@@ -977,7 +977,7 @@
   }
 
   .h3 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .phone {
@@ -985,7 +985,7 @@
   }
 
   .closeTitle {
-    font-size: 28px;
+    font-size: 1.75rem;
   }
 }
 
@@ -998,7 +998,7 @@
 @media (max-width: 420px) {
   .small {
     padding: 9px 14px;
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .small .arrow {
@@ -1006,6 +1006,6 @@
   }
 
   .brand {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }

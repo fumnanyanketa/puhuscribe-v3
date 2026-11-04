@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { filesThatRunTheWorker, outsideLoads, servedPaths } from '../scripts/security/check-built-files.ts'
+import { PATHS } from '../src/lib/app-paths.ts'
 import { PAGE_ROUTES, RUN_WORKER_FIRST, isPageRoute } from '../worker/page-routes.ts'
 
 // Labels [analytics N] are the "Done when" statement numbers from
@@ -26,10 +27,17 @@ function wrangler(): { assets?: { binding?: string; run_worker_first?: string[] 
   return JSON.parse(text) as { assets?: { binding?: string; run_worker_first?: string[] } }
 }
 
-/** Every path src/App.tsx picks a page for, read from its `path === '...'` checks. */
+/**
+ * Every path src/App.tsx picks a page for, read from its `path === PATHS.name`
+ * checks. Since job 17-landing-page the pages live under /learn and App.tsx
+ * names them through src/lib/app-paths.ts, so each name is looked up there.
+ */
 function appRoutes(): string[] {
   const app = readFileSync('src/App.tsx', 'utf8')
-  return [...app.matchAll(/path === '([^']+)'/g)].map((m) => m[1] ?? '')
+  const paths: Record<string, string> = PATHS
+  return [...app.matchAll(/path === PATHS\.(\w+)/g)].map(
+    (m) => paths[m[1] ?? ''] ?? `unknown PATHS.${m[1] ?? ''}`,
+  )
 }
 
 describe('only page requests reach the Worker', () => {
@@ -43,15 +51,18 @@ describe('only page requests reach the Worker', () => {
   it('[analytics 3] every page of src/App.tsx, and the front door at /, is a run_worker_first route', () => {
     const routes = appRoutes()
     expect(routes.length).toBeGreaterThanOrEqual(9)
-    for (const route of [...routes, '/']) expect(isPageRoute(route), route).toBe(true)
-    expect(routes).toContain('/feedback')
-    expect(routes).toContain('/owner')
+    // The landing page at "/" and the road at /learn, the app's front door, are
+    // the two pages App.tsx shows without a path check.
+    for (const route of [...routes, PATHS.landing, PATHS.home]) expect(isPageRoute(route), route).toBe(true)
+    expect(routes).toContain('/learn/feedback')
+    expect(routes).toContain('/learn/owner')
   })
 
   it('[analytics 3] every listed page route is a page of src/App.tsx', () => {
     const routes = appRoutes()
     for (const pattern of PAGE_ROUTES) {
-      if (pattern === '/') continue
+      // The landing page and the road are shown without a path check (see above).
+      if (pattern === PATHS.landing || pattern === PATHS.home) continue
       const page = pattern.endsWith('/*')
         ? routes.some((r) => r.startsWith(pattern.slice(0, -1)))
         : routes.includes(pattern)
@@ -71,11 +82,9 @@ describe('only page requests reach the Worker', () => {
       '/assets/fonts/poppins.woff2',
     ]
     expect(filesThatRunTheWorker(typical, RUN_WORKER_FIRST)).toEqual([])
-    expect(filesThatRunTheWorker(['/owner', '/account/photo.png', '/api/x.json'], RUN_WORKER_FIRST)).toEqual([
-      '/owner',
-      '/account/photo.png',
-      '/api/x.json',
-    ])
+    expect(
+      filesThatRunTheWorker(['/learn/owner', '/learn/account/photo.png', '/api/x.json'], RUN_WORKER_FIRST),
+    ).toEqual(['/learn/owner', '/learn/account/photo.png', '/api/x.json'])
   })
 
   it('[analytics 3] [analytics 7] every build runs the built files check', () => {

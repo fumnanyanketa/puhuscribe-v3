@@ -167,7 +167,7 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     await expect(crash).toBeVisible()
     await expect(crash).toContainText('A test error from the owner page.')
     await expect(crash).toContainText(/Seen (once|\d+ times) in the last 30 days, last on /)
-    await expect(crash).toContainText('Path /owner.')
+    await expect(crash).toContainText('Path /learn/owner.')
     await expect(crash).toContainText(/App version ([0-9a-f]{7,40}|local)\./)
     await expect(crash).toContainText(/(Chrome|Safari) \d+, /)
     await expect(crash.locator('ol li').first()).toContainText(/^\/assets\/[A-Za-z0-9_.-]+\.js:\d+:\d+/)
@@ -242,9 +242,12 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     const crash = page.locator('[data-owner="crashes"] > li').filter({ hasText: name })
     await expect(crash).toBeVisible()
     await expect(crash).toContainText('A test error on the front door.')
-    await expect(crash).toContainText('Path /.')
+    // The road, the learner front door, is at /learn since job 17-landing-page.
+    await expect(crash).toContainText('Path /learn.')
     expect(
-      one(`select count(*) from private.crash_reports where error_name = :'name' and path = '/'`, { name }),
+      one(`select count(*) from private.crash_reports where error_name = :'name' and path = '/learn'`, {
+        name,
+      }),
     ).toBe('1')
     await context.close()
   })

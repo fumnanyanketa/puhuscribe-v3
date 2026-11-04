@@ -207,6 +207,16 @@ The page background is the drawings' wash: `linear-gradient(165deg, #cbede1 0%, 
 
 The fine grain is an inline SVG noise (`--grain`, no gradient, no request) on `body::before` at 7 percent. It sits on the ground behind panels and text, so it cannot change a text contrast.
 
+### The landing page exception
+
+The public landing page at `/` (job 17-landing-page, `src/landing/`) follows the owner's own approved design of 3 November 2026 (`factory/jobs/17-landing-page/approved-design.html`), not the app's screen rules. The owner approved its look on that date, and the full test run of 3 November 2026 recorded it here. Inside `src/landing/Landing.module.css` only:
+
+- Its washed mint and peach panels and its hero ground are CSS linear gradients. Every colour in them is a token or one of the landing page's named panel colours (`var(...)`), never a written colour. Any other gradient there, and every gradient in the app, stays refused.
+- Its few soft panel colours and shadows that have no token are named once, as `--landing-*` properties on `.page`. Its hero picture in `Landing.tsx` is drawn SVG art with its own fill, stroke and stop colours.
+- It keeps the design's own type sizes instead of the `--text-*` tokens, written in rem so they follow the browser's text size, and its sections fade in on scroll at the design's own pace (0.7 s), which stops under reduce motion.
+
+The learner app under `/learn` keeps every rule in this file. `tests/design-css.test.ts`, `tests/design-tokens.test.ts` and `tests/design-rules.test.ts` allow these points for that one file and refuse them everywhere else.
+
 ### Panels
 
 Milky panels, sheets and cards take their fill, edge, shadow and corner from `--panel-fill`, `--panel-edge`, `--panel-shadow` and `--panel-radius` (sheets use `--sheet-radius`). No component sets its own. A panel is an opaque near white (`--color-panel`), so every contrast on it is exact; the drawings' 80 percent white is not reproduced, because see through panels would let the wash change text contrast.
@@ -214,7 +224,7 @@ Milky panels, sheets and cards take their fill, edge, shadow and corner from `--
 ## Spacing, corners and motion
 
 - **Spacing** follows a 4 px scale: `--space-1` 4 px up to `--space-9` 56 px. Spacing is in px on purpose: when a learner makes the text larger, the text grows and the margins stay, so lines keep their room.
-- **Corners**: `--radius-word` 6 px (a word's highlight), `--radius-sm` 14, `--radius-md` 20, `--radius-lg` 26, `--radius-xl` 32, `--radius-pill` (buttons); panels 22 px and sheets 28 px.
+- **Corners**: `--radius-word` 6 px (a word's highlight), `--radius-sm` 14, `--radius-md` 20, `--radius-lg` 26, `--radius-xl` 32, `--radius-pill` (buttons); panels 22 px and sheets 28 px. Otso's chat bubbles use `--bubble-radius` (18 px) with one tail corner of `--bubble-tail` (6 px).
 - **Tap targets** are at least `--tap-min` (44 px) both ways. Words inside a sentence are inline targets: at least 44 px tall and 24 px wide (`--word-min-width`).
 - **Motion** is quiet: colour and opacity change over `--motion-fast` (150 ms, `--motion-ease`), and sheets rise over `--motion-sheet` (220 ms, `--motion-ease-out`). No bounce. A button press moves 1 px down. The busy and loading rings turn once per `--motion-turn` (800 ms), the working dots fade over `--motion-pulse` (1.2 s), and the "you" marker on the road pulses over `--motion-marker` (2 s). The opening animation runs `--motion-intro` (4.5 s) and has a Skip button.
 - **Reduce motion.** When the phone's reduce motion setting is on, nothing slides, scales, draws or pulses: sheets fade in instead of rising, the opening animation becomes a crossfade of `--motion-fade` (600 ms) or less, transitions stop, and the busy and loading marks stand still. Every component file that moves has a `prefers-reduced-motion: reduce` block (`tests/design-rules.test.ts`).
@@ -394,7 +404,7 @@ Style:
 
 - No stock AI colour schemes: cream with a serif and terracotta, near-black with one neon, purple to blue gradients.
 - No pills or badges scattered as decoration. Buttons are pills because v2's buttons are; labels are plain text.
-- No glow or gloss: no gradient text (`background-clip: text` refused), no glowing clouds, no frosted glass (`backdrop-filter` refused), no glowing buttons, no gradient icon squares. The only CSS gradient is the page wash.
+- No glow or gloss: no gradient text (`background-clip: text` refused), no glowing clouds, no frosted glass (`backdrop-filter` refused), no glowing buttons, no gradient icon squares. The only CSS gradient in the app is the page wash (the landing page exception is above).
 - No emoji or icon in front of every heading or list item. Icons appear only inside controls.
 - Not the fonts Inter, Space Grotesk or Bricolage Grotesque (refused by test).
 

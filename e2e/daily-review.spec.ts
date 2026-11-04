@@ -87,7 +87,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
 
       await page.getByRole('button', START).click()
       await page.waitForURL('**/session')
-      await expect(page.getByRole('progressbar', { name: 'Hear it, step 1 of 4' })).toBeVisible()
+      await expect(page.getByRole('progressbar', { name: 'Hear it, say it, step 1 of 4' })).toBeVisible()
       await throughUnderstandIt(page, userId)
       await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
       await expect(page.getByRole('progressbar', { name: 'Keep it, step 4 of 4' })).toBeVisible()

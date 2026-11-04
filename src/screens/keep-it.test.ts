@@ -102,7 +102,8 @@ describe('Keep it in the step list', () => {
         onStepDone: () => Promise.resolve(true),
       }),
     )
-    expect(markup).toContain('Hear it, step 1 of 3')
+    // Fast route hear-and-say renamed the first step "Hear it, say it" (the first test above).
+    expect(markup).toContain('Hear it, say it, step 1 of 3')
   })
 
   it('[review 6] [review 14] "Continue" after Say it resumes at Keep it; after keep, the finish screen', () => {

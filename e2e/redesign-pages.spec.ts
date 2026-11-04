@@ -239,7 +239,11 @@ test.describe('the email screens', () => {
         ),
       ).toBeVisible()
       await page.getByRole('button', { name: 'Sign in anyway' }).click()
-      await expect(page.getByRole('link', { name: 'Start as a guest instead' })).toHaveAttribute('href', '/')
+      // The road is at /learn since job 17-landing-page.
+      await expect(page.getByRole('link', { name: 'Start as a guest instead' })).toHaveAttribute(
+        'href',
+        '/learn',
+      )
       const none = await page.context().newPage()
       await mockAccount(none, { me: { kind: 'none' } })
       await none.goto('/learn/sign-in')
@@ -478,8 +482,9 @@ test.describe('delete, feedback and the privacy notice', () => {
         page.getByText('PuhuScribe is part of the product family of Exentrik, a product studio in Finland.'),
       ).toBeVisible()
       await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
-      // Round 6 (item 36): "Updated 1 November 2026" small at the bottom, as drawn (no full stop).
-      await expect(page.getByText('Updated 1 November 2026', { exact: true })).toBeVisible()
+      // Round 6 (item 36): "Updated" and the date small at the bottom, as drawn (no full stop). The notice
+      // was updated on 3 November 2026 for Otso (job 16-tutor-step, fast route otso-privacy).
+      await expect(page.getByText('Updated 3 November 2026', { exact: true })).toBeVisible()
       await expect(
         page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
       ).toBeHidden()
@@ -533,7 +538,8 @@ test.describe('delete, feedback and the privacy notice', () => {
       colours: [...document.querySelectorAll('[class*="firstLayer"] section h2')].map((h) => getComputedStyle(h).color),
       titleInHeader: Boolean(document.querySelector('header h1')),
     })`)
-    expect(look.colours).toHaveLength(5)
+    // Six sections since "Talking with Otso" (job 16-tutor-step).
+    expect(look.colours).toHaveLength(6)
     for (const colour of look.colours) expect(colour).toBe('rgb(26, 111, 93)')
     expect(look.titleInHeader).toBe(false)
     const more = page.getByRole('button', { name: 'More about your voice' })

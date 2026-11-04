@@ -391,8 +391,8 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     assert "check-files-for-secrets.ts" in text
     for task in ("import", "voice", "review-pages"):
         assert task in text
-    # The Azure key is in the voice step, the word clip voice step (job word-audio) and the upload guard
-    # that looks for it, nowhere else.
+    # The Azure key is in the voice step, the word clip voice step (job word-audio), the island voice
+    # step (fast route islands, 3 November 2026) and the upload guard that looks for it, nowhere else.
     steps = re.split(r"\n      - ", text)
     holders = {
         name: [s.split("\n")[0] for s in steps if name in s]
@@ -401,6 +401,8 @@ def test_a1_road_19_the_workflow_follows_the_content_pipeline_shape():
     assert holders["AZURE_SPEECH_KEY"] == [
         "name: Voice the part (the Azure key is here and nowhere else)",
         "name: Voice the part's word clips (the Azure key is here and in the voice step, nowhere else)",
+        "name: Voice the island lines (the Azure key is here, in the voice step and in the voice-words step,"
+        " nowhere else)",
         "name: Check the files to upload hold no secret value",
     ]
     assert holders["ANTHROPIC_API_KEY"] == [
@@ -414,7 +416,8 @@ def test_a1_road_19_a1_road_21_the_publish_task_holds_no_key_and_uploads_only_wh
     with no key and no input written into its commands, and gathers only new or changed files under
     supabase/ and public/, which the secret check reads before the upload."""
     text = (REPO / ".github" / "workflows" / "a1-road.yml").read_text(encoding="utf-8")
-    assert re.search(r"options: \[[^\]]*\bpublish\]", text)
+    # One of the task choices (the list is written over several lines since the island tasks came).
+    assert re.search(r"options:\s*\[[^\]]*\bpublish\b,?[^\]]*\]", text)
     steps = {s.split("\n")[0]: s for s in re.split(r"\n      - ", text)}
     publish = steps["name: Publish one approved part (no key)"]
     assert "if: inputs.task == 'publish'" in publish
