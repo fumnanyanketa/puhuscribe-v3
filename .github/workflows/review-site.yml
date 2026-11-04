@@ -8,7 +8,11 @@
 # - Pushes to main that touch the site, and manual starts: the same, then the
 #   deploy job, which runs only on main and never for Dependabot.
 #
-# Secrets, all in the deploy job only:
+# Secrets, all in the deploy job only, which runs in the GitHub environment
+# "review" (job go-live, 4 November 2026): the Exentrik account now also holds the
+# live Worker aleksi, and CLOUDFLARE_REVIEW_API_TOKEN can edit every Worker there,
+# so it lives in that environment (main only, the owner approves each deploy)
+# and no longer as a repository secret any branch could read:
 #   CLOUDFLARE_REVIEW_API_TOKEN, CLOUDFLARE_REVIEW_ACCOUNT_ID  the deploy step
 #   REVIEW_CF_ACCESS_CLIENT_ID, REVIEW_CF_ACCESS_CLIENT_SECRET  the live test step
 # Variables (identifiers, not secret): REVIEW_ACCESS_TEAM_DOMAIN and
@@ -89,6 +93,7 @@ jobs:
     name: Deploy the review site (main only)
     needs: [build]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]'
+    environment: review
     # Deploys never run at the same time, and a running deploy is never
     # cancelled. A newer deploy waits for it.
     concurrency:

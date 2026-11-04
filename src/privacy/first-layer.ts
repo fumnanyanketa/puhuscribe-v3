@@ -64,7 +64,7 @@ export interface Claim {
 export const CLAIMS: readonly Claim[] = [
   {
     claim: 'We keep it in the EU',
-    source: 'processors.ts, Supabase: "In the EU (Ireland)."',
+    source: 'processors.ts, Supabase: "In the EU (Germany)."',
   },
   {
     claim: 'You can download it or delete it at any time',

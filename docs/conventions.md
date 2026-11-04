@@ -73,6 +73,7 @@ Every test name carries the label of the job whose spec it protects and the "Don
 | 20-a1-road | `[a1-road N]` | `worker/road.test.ts`; pgTAP `supabase/tests/database/a1_road.test.sql`; in pytest `scripts/generate/test_road_parse.py`, `scripts/generate/test_road_import.py`, `scripts/generate/test_road_voice.py` and `scripts/generate/test_road_publish.py` |
 | 17-landing-page | `[landing N]` | `e2e/landing-shots.spec.ts` (makes the landing page's pictures) |
 | 19-redesign | `[redesign N]` | `tests/design-tokens.test.ts`, `tests/redesign-rules.test.ts`, `src/road/*.test.ts`, `src/lib/road-*.test.ts`, `worker/lesson-facts.test.ts`, `e2e/redesign-*.spec.ts` |
+| go-live | `[go-live N]` | `worker/go-live.test.ts`, `worker/guest.test.ts`, `src/screens/privacy-page.test.ts`, `tests/go-live.test.ts`; the numbers are the items of the manager's brief, listed in the job's build notes |
 
 A test may carry two labels when it protects two statements. Never remove a label or a test to make a check pass.
 

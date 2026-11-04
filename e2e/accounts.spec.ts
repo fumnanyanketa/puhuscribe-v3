@@ -177,7 +177,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await expect(page.getByRole('status')).toHaveText('Your account and all its data are deleted.')
       expect(authUser(userId).exists).toBe(false)
       expect(allZero(rowsOf(userId))).toEqual([])
-      expect((await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
+      expect((await context.cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))).toEqual([])
       await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     },
   )
@@ -378,7 +378,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         await confirmCode(pageB, mail.code)
         await expect(pageB.getByRole('status')).toHaveText('You are signed in to your account.')
         const cookies = await deviceB.cookies()
-        for (const cookie of cookies.filter((c) => c.name.startsWith('puhuscribe-auth'))) {
+        for (const cookie of cookies.filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))) {
           expect(cookie.httpOnly).toBe(true)
           expect(cookie.secure).toBe(true)
           expect(cookie.sameSite).toBe('Lax')
@@ -460,7 +460,9 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('status')).toHaveText('You are signed out on this device.')
       await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible()
-      expect((await page.context().cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
+      expect(
+        (await page.context().cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth')),
+      ).toEqual([])
 
       await pageB.goto('/learn/account')
       await expect(pageB.getByText(address, { exact: true })).toBeVisible()
@@ -528,7 +530,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await pageB.reload()
       await expect(pageB.getByRole('status')).toHaveText(message)
       expect(allZero(rowsOf(userId))).toEqual([])
-      expect((await deviceB.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
+      expect((await deviceB.cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))).toEqual([])
       await deviceB.close()
     })
 

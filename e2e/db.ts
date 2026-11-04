@@ -55,7 +55,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
  */
 export async function userIdOf(context: BrowserContext): Promise<string> {
   const cookies = (await context.cookies()).filter(
-    (c) => c.name === 'puhuscribe-auth' || c.name.startsWith('puhuscribe-auth.'),
+    (c) => c.name === '__Host-puhuscribe-auth' || c.name.startsWith('__Host-puhuscribe-auth.'),
   )
   if (cookies.length === 0) return ''
   const value = cookies

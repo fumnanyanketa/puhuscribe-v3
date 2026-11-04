@@ -48,8 +48,10 @@ export const ANTHROPIC: Processor = {
 export const PROCESSORS: readonly Processor[] = [
   {
     name: 'Supabase',
-    role: 'Keeps the database and handles sign in. Until Aleksi chooses its own email sender, Supabase also sends the sign in code emails.',
-    where: 'In the EU (Ireland).',
+    role: 'Keeps the database and handles sign in.',
+    // The live project, aleksi-live, is in Frankfurt (eu-central-1), job go-live. The test project is in
+    // Ireland, but learners only ever use the live one.
+    where: 'In the EU (Germany).',
     // Crash reports go to PuhuScribe's own database (job 14-analytics).
     modules: ['crash-reports.ts'],
   },
@@ -69,6 +71,20 @@ export const PROCESSORS: readonly Processor[] = [
       href: 'https://www.cloudflare.com/turnstile-privacy-policy/',
     },
     modules: ['human-check.ts'],
+  },
+  {
+    // Job go-live (owner's choice of 4 November 2026, factory/todo.md "Go-live address"): sign in code
+    // emails go from Supabase Auth through Brevo's email servers (SMTP), from hello@meetaleksi.com. The
+    // Worker never talks to Brevo, so no worker/providers/ file names it. Brevo is the trading name of
+    // Sendinblue SAS, a company in France.
+    name: 'Brevo',
+    role: 'Sends the sign in code emails, only if you add your email. It receives your email address and the email with your code.',
+    where: 'In the EU.',
+    details: [
+      'Sendinblue SAS, a company in France that trades as Brevo, sends these emails as our processor.',
+    ],
+    link: { label: "Brevo's privacy policy", href: 'https://www.brevo.com/legal/privacypolicy/' },
+    modules: [],
   },
   {
     name: 'Microsoft (Azure Speech)',

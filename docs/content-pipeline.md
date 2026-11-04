@@ -48,8 +48,8 @@ The native reviewer reads each review page on a private website, `https://puhusc
 
 | Name | Where | What |
 | --- | --- | --- |
-| `CLOUDFLARE_REVIEW_API_TOKEN` | GitHub secret | A Cloudflare API token for the Exentrik account only, limited to editing Workers and the custom domain on exentrik.co. Only the deploy step reads it |
-| `CLOUDFLARE_REVIEW_ACCOUNT_ID` | GitHub secret | The Exentrik Cloudflare account ID. Only the deploy step reads it |
+| `CLOUDFLARE_REVIEW_API_TOKEN` | GitHub secret in the environment `review` (job go-live) | A Cloudflare API token for the Exentrik account only, limited to editing Workers and the custom domain on exentrik.co. Only the deploy step reads it. Workers edit covers every Worker in the account, the live Worker `aleksi` included, so it is kept in the `review` environment (main only, the owner approves each deploy), never as a repository secret |
+| `CLOUDFLARE_REVIEW_ACCOUNT_ID` | GitHub secret in the environment `review` | The Exentrik Cloudflare account ID. Only the deploy step reads it |
 | `REVIEW_CF_ACCESS_CLIENT_ID` | GitHub secret | Client ID of the review site's Access service token. Only the live test step reads it |
 | `REVIEW_CF_ACCESS_CLIENT_SECRET` | GitHub secret | Client secret of that service token. Only the live test step reads it |
 | `REVIEW_ACCESS_TEAM_DOMAIN` | GitHub variable | The Zero Trust team domain, `https://<team>.cloudflareaccess.com`. Reaches the Worker as `ACCESS_TEAM_DOMAIN` |

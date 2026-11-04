@@ -3,8 +3,11 @@
  * One Worker serves the built app as static files and runs every /api/* route.
  * Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
  *
- * This Worker is named puhuscribe-preview: it only ever holds test project
- * secrets. The production Worker is created separately at liftoff, by the owner.
+ * The top level is the Worker named puhuscribe-preview: it only ever holds test
+ * project secrets. The "production" environment below is the live Worker,
+ * "aleksi", on https://meetaleksi.com (job go-live). It is built only by the
+ * manual Live workflow (.github/workflows/live.yml), with CLOUDFLARE_ENV=production,
+ * and only that workflow gives it the live project's settings.
  * Secrets never go in this file. Locally they come from .env.local; on Cloudflare
  * they are Worker secrets.
  */
@@ -56,4 +59,26 @@
     },
   },
   "upload_source_maps": true,
+  "env": {
+    // The live Worker (job go-live). Everything above is inherited (main,
+    // compatibility_date, assets with run_worker_first, observability with the
+    // invocation logs off, source maps) except what is set here. It has no
+    // workers.dev address and no preview addresses, so meetaleksi.com is its
+    // only address, and it is not behind Cloudflare Access. www.meetaleksi.com
+    // is attached too, only so the Worker can send it to the apex
+    // (CANONICAL_HOST, worker/canonical-host.ts). No secret is set here; the
+    // live workflow passes them in a temporary file.
+    "production": {
+      "name": "aleksi",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [
+        { "pattern": "meetaleksi.com", "custom_domain": true },
+        { "pattern": "www.meetaleksi.com", "custom_domain": true },
+      ],
+      "vars": {
+        "CANONICAL_HOST": "meetaleksi.com",
+      },
+    },
+  },
 }

@@ -20,7 +20,7 @@ The full decision, with the runner up for each choice and why it lost, is in [fa
 | Dependency check                | `npm audit`, `pip-audit`, Dependabot                                                      |
 | Automatic checks                | GitHub Actions: until the MVP launch a secret scan per change, one full run before launch |
 
-Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, made at liftoff on a paid plan, can pick a specific EU region.
+Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, `aleksi-live` (job go-live), is in Frankfurt, Germany (`eu-central-1`), also in the EU; the privacy notice names Germany.
 
 Engines copied from PuhuScribe v2 are listed, with the v2 commit they came from, in [docs/v2-imports.md](docs/v2-imports.md).
 
@@ -127,7 +127,9 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 | Cloudflare Workers, Exentrik account (`puhuscribe-review`, the private review site)         | Workers Free                                                                                                                                                                                | €0                                                                          |
 | Cloudflare Zero Trust, Exentrik account (Access sign in for the review site, 2 of 50 seats) | Free (up to 50 users)                                                                                                                                                                       | €0                                                                          |
 | Supabase (test project `puhuscribe-test`)                                                   | Free                                                                                                                                                                                        | €0                                                                          |
-| Supabase built in email sender (sign in code emails)                                        | Included in Free (reaches only the Supabase team, 2 emails an hour)                                                                                                                         | €0                                                                          |
+| Supabase (live project `aleksi-live`, Frankfurt, job go-live)                               | Free                                                                                                                                                                                        | €0                                                                          |
+| Brevo (sign in code emails from hello@meetaleksi.com, job go-live)                          | Free: 300 emails a day, shared with Exentrik                                                                                                                                                | €0                                                                          |
+| Supabase built in email sender (sign in code emails)                                        | No longer used: both projects send through Brevo                                                                                                                                            | €0                                                                          |
 | Supabase Cron (daily clean up of unused accounts)                                           | Included in Free                                                                                                                                                                            | €0                                                                          |
 | Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                                                                                                                                           | €0 so far; about $0.25 per dialogue (estimate)                              |
 | Azure Speech (voices for both registers at build time)                                      | Free tier F0: 0.5 million characters a month, 20 requests a minute. The A1 road (job 20-a1-road) needs about 50,000 to 80,000 characters, and a guard refuses a run that would pass 450,000 | €0                                                                          |
@@ -136,7 +138,17 @@ A push to main that changes only `factory/` or `recording/` files skips the chec
 | Anthropic API (Otso, the AI tutor, job 16-tutor-step; Claude Haiku 5.5)                     | Pay per use, the same key; capped in the database at $10 a month and a thirtieth of it a day (`private.tutor_limits`)                                                                       | About $0.001 per Otso reply; the live quality check of 149 calls cost $0.10 |
 | Visit count, feedback and crash reports (job 14-analytics, in the Supabase database above)  | Included in Free; page loads now run the Worker and count toward Workers Free's 100,000 requests a day                                                                                      | €0                                                                          |
 
-Before real learners can add an email or sign in, the owner chooses an email sender (job 11-accounts, owner's call 1, decided at launch). That will be a new service and may cost money.
+Sign in code emails go through Brevo (owner's choice of 4 November 2026, job go-live), on both the test project and the live project. The privacy notice names Brevo as the processor that sends them.
+
+## Going live (job go-live)
+
+The live app is the Worker `aleksi` at https://meetaleksi.com, in the owner's separate Exentrik Cloudflare account (the previews stay on the preview account), with its own Supabase project `aleksi-live` in Frankfurt, Germany. Nothing reaches it on a push or a pull request. Its jobs run in the GitHub environment `live`, which holds the live secrets, allows only `main` and waits for the owner's approval. The manual workflow `.github/workflows/live.yml` (Actions, Live, Run workflow, on `main`) has three tasks, run one at a time in this order:
+
+1. `migrations` applies every migration in `supabase/migrations/` to the live project. The approved dialogues are published by their own migrations, so this also puts the approved content in. No seed or test fixture file is ever loaded.
+2. `content` checks that every migration in the repository, each publish migration included, is now in the live project's migration history. It reads only that history, never learner data.
+3. `app` builds the production app (no design pages) and deploys the Worker `aleksi` with the live project's settings, on `meetaleksi.com` and `www.meetaleksi.com` (which forwards to `meetaleksi.com`). It is not behind Cloudflare Access.
+
+Each task first checks, with no secret, that every approved dialogue has its publish migration and that only approved audio is in `public/audio/`. The full list of what each task needs and the launch day checklist are in the go-live job's build notes (factory jobs folder, go-live).
 
 ## Owner page setup (job 14-analytics)
 

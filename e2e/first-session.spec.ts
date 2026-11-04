@@ -99,7 +99,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
         '1',
       )
 
-      const cookies = (await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))
+      const cookies = (await context.cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))
       expect(cookies.length).toBeGreaterThan(0)
       const host = new URL(page.url()).hostname
       for (const cookie of cookies) {
@@ -623,7 +623,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
     await expect(page.getByRole('status')).toHaveText(
       'Your guest session ended on this device. Press Start to begin again.',
     )
-    expect((await context.cookies()).filter((c) => c.name.startsWith('puhuscribe-auth'))).toEqual([])
+    expect((await context.cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))).toEqual([])
     await page.getByRole('button', { name: 'Start', exact: true }).click()
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     expect(await userIdOf(context)).not.toBe(userId)

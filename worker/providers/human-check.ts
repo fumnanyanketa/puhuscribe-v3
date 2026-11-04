@@ -12,8 +12,10 @@
 // used only as a pair. Without the pair, local and workers.dev preview
 // addresses use Cloudflare's published test keys, which always pass, so
 // nothing breaks before the owner creates the widget. Any other address (the
-// future live domain) without the pair refuses to make guests: a live app must
-// never fall back to a check that always passes.
+// live domain) without the pair refuses to make guests: a live app must never
+// fall back to a check that always passes. For the same reason a published
+// test secret set on the Worker is refused on any address that is not local,
+// a preview or a reserved test name (job go-live).
 //
 // What is sent: the secret and the token only. The learner's internet address
 // is not added (it is optional), and this file writes nothing to the log.
@@ -75,11 +77,26 @@ export function mayUseTestKeys(hostname: string): boolean {
   )
 }
 
+/**
+ * Addresses where an explicitly set test secret is accepted (job go-live, security review finding 4):
+ * the local and preview addresses above, and the names reserved for tests that can never be a public
+ * site (.example, .test, .invalid; RFC 2606 and 6761), which the unit tests use. On any other
+ * address, such as meetaleksi.com, a test secret would make every token pass, so it is refused.
+ */
+export function mayUseTestSecret(hostname: string): boolean {
+  return mayUseTestKeys(hostname) || /\.(example|test|invalid)$/.test(hostname)
+}
+
 /** The key pair for this address, or null when this address has none (the check is then unavailable). */
 export function humanCheckKeys(env: HumanCheckEnv, hostname: string): HumanCheckKeys | null {
   const siteKey = env.TURNSTILE_SITE_KEY?.trim()
   const secret = env.TURNSTILE_SECRET?.trim()
-  if (siteKey && secret) return { siteKey, secret, test: TEST_SECRETS.has(secret) }
+  if (siteKey && secret) {
+    const test = TEST_SECRETS.has(secret)
+    // A test secret on a live address: no check at all (no guest is made), never one that always passes.
+    if (test && !mayUseTestSecret(hostname)) return null
+    return { siteKey, secret, test }
+  }
   if (mayUseTestKeys(hostname)) return { siteKey: TEST_SITE_KEY, secret: TEST_SECRET, test: true }
   return null
 }

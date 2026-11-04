@@ -361,8 +361,10 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     expect(before.localStorage).toBe(0)
     expect(before.sessionStorage).toBe(0)
     // At least one sign in cookie is held (the test must not pass with no cookie at all), and nothing else.
-    expect(before.cookies.filter((cookie) => cookie.startsWith('puhuscribe-auth')).length).toBeGreaterThan(0)
-    for (const cookie of before.cookies) expect(cookie).toMatch(/^puhuscribe-auth/)
+    expect(
+      before.cookies.filter((cookie) => cookie.startsWith('__Host-puhuscribe-auth')).length,
+    ).toBeGreaterThan(0)
+    for (const cookie of before.cookies) expect(cookie).toMatch(/^__Host-puhuscribe-auth/)
 
     // [11] [15] "Not now" by keyboard (Space): no request, nothing stored, one plain line, focus on it.
     const marker = requests.length

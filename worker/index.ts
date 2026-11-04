@@ -1,4 +1,5 @@
 import { handleApi, type ApiEnv } from './api.ts'
+import { canonicalRedirect, type CanonicalHostEnv } from './canonical-host.ts'
 import { reportWorkerCrash } from './crash.ts'
 import { json, readBody } from './http.ts'
 import {
@@ -22,11 +23,13 @@ import { countsAsVisit, countVisit, visitCountry } from './visits.ts'
 // - A page route is answered with the built page itself (env.ASSETS), byte for
 //   byte, and an arrival is counted after the answer (worker/visits.ts,
 //   factory/jobs/14-analytics/spec.md, "Done when" 1 to 4).
+// - On the live Worker, www.meetaleksi.com is sent to meetaleksi.com first
+//   (worker/canonical-host.ts, job go-live).
 // - The owner hostname, when it is configured, goes to worker/owner.ts.
 // - An exception nobody expected answers 500 {"error":"server_error"} and is
 //   reported as a crash ("Done when" 24).
 
-export interface WorkerEnv extends ApiEnv, OwnerEnv {
+export interface WorkerEnv extends ApiEnv, OwnerEnv, CanonicalHostEnv {
   ASSETS?: Fetcher
 }
 
@@ -62,6 +65,8 @@ async function landingPage(request: Request, assets: Fetcher): Promise<Response>
 
 async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: WaitUntil): Promise<Response> {
   const url = new URL(request.url)
+  const toApex = await canonicalRedirect(request, env)
+  if (toApex !== null) return toApex
   const owner = ownerHostname(env)
   if (owner !== null && url.hostname === owner) return handleOwnerRequest(request, env, deps)
   if (isApi(url.pathname)) {

@@ -32,7 +32,7 @@ describe('the first layer of the privacy notice', () => {
     expect(all).not.toContain('Exentrik looks after your data')
   })
 
-  it('[redesign 39] claim: we keep it in the EU (the database is in Ireland)', () => {
+  it('[redesign 39] claim: we keep it in the EU (the live database is in Germany)', () => {
     const supabase = PROCESSORS.find((processor) => processor.name === 'Supabase')
     expect(supabase?.where).toMatch(/^In the EU/)
   })
@@ -89,7 +89,8 @@ describe('the first layer of the privacy notice', () => {
       expect(claim.claim.length, claim.claim).toBeGreaterThan(10)
       expect(claim.source.length, claim.claim).toBeGreaterThan(10)
     }
-    expect(NOTICE_UPDATED).toBe('2026-11-03')
+    // 4 November 2026 (job go-live): Brevo named as the sender of the sign in code emails.
+    expect(NOTICE_UPDATED).toBe('2026-11-04')
     expect(Number.isNaN(new Date(`${NOTICE_UPDATED}T12:00:00Z`).getTime())).toBe(false)
   })
 })
