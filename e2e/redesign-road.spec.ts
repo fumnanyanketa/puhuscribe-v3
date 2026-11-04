@@ -50,7 +50,7 @@ test.describe('the home screen is the road', () => {
       ]) {
         expect(text, gone).not.toContain(gone)
       }
-      await expect(page.getByRole('img', { name: 'PuhuScribe' })).toHaveCount(0)
+      await expect(page.getByRole('img', { name: 'Aleksi', exact: true })).toHaveCount(0)
     },
   )
 
@@ -219,7 +219,7 @@ test.describe('the home screen is the road', () => {
       await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
       await expect(
         card.getByText(
-          'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
+          'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
           { exact: true },
         ),
       ).toBeVisible()

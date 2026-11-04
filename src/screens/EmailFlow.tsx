@@ -19,10 +19,10 @@ import styles from './Account.module.css'
 export const SENDS_CODE =
   'We send a 6 digit code to this address. We use your email only to send you sign in codes.'
 export const TAKEN_WARNING =
-  'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.'
+  'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.'
 export const GUEST_WARNING =
   'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.'
-export const SIGN_IN_SENT = 'If this email has a PuhuScribe account, we sent it a 6 digit code.'
+export const SIGN_IN_SENT = 'If this email has an Aleksi account, we sent it a 6 digit code.'
 export const SIGN_IN_NO_CODE =
   'No code after a few minutes? Check the address, or go back and start as a guest.'
 export const CODE_WORKS = 'The code works for one hour.'

@@ -100,7 +100,7 @@ test(
         page.locator('#full-notice').getByRole('heading', { level: 2, name: heading, exact: true }),
       ).toBeVisible()
     }
-    await expect(page.getByText('PuhuScribe is for adults, 18 and over.')).toBeVisible()
+    await expect(page.getByText('Aleksi is for adults, 18 and over.')).toBeVisible()
     await expect(
       page.getByText(/A guest account is deleted after 90 days with no learning activity/),
     ).toBeVisible()
@@ -125,7 +125,7 @@ test('[accounts 16] the privacy notice names who is responsible, with a mailto l
   await page.setViewportSize({ width: 320, height: 640 })
   await page.goto('/learn/privacy')
   await page.getByRole('button', { name: 'Read the full notice' }).click()
-  await expect(page.getByText(/ is responsible for your data in PuhuScribe\./)).toBeVisible()
+  await expect(page.getByText(/ is responsible for your data in Aleksi\./)).toBeVisible()
   const contact = page.locator('a[href^="mailto:"]')
   await expect(contact).toHaveCount(1)
   const address = ((await contact.getAttribute('href')) ?? '').replace('mailto:', '')

@@ -28,7 +28,7 @@ import {
 // fake answers each check from a recorded fixture picked with a test header;
 // with no fixture named it answers as if it heard the line exactly.
 
-const NOTICE_VERSION = 'voice-2026-11.1'
+const NOTICE_VERSION = 'voice-2026-11.2'
 const RECORD = 'Record yourself saying the line'
 
 // Since the owner's fast route hear-and-say (3 November 2026) each line is said back in the session's

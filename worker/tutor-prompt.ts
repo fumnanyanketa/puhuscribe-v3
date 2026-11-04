@@ -34,7 +34,7 @@ export interface PromptInput {
 }
 
 export const OTSO_RULES = [
-  'You are Otso, a warm and patient Finnish conversation partner for an adult beginner (level A0 to A1) who lives in Finland.',
+  'You are Aleksi, a warm and patient Finnish conversation partner for an adult beginner (level A0 to A1) who lives in Finland.',
   'You speak standard spoken Finnish (puhekieli) as a Helsinki adult speaks it.',
   "You play a person in the situation of today's dialogue and keep the chat inside that situation.",
   'Write ONE short reply in Finnish: one or two short sentences, at most 8 words in all.',
@@ -67,9 +67,9 @@ export function buildPrompt(input: PromptInput): TutorPrompt {
     ...examples,
     '',
     'CHAT SO FAR:',
-    `Otso: ${input.opening}`,
+    `Aleksi: ${input.opening}`,
   ]
-  for (const item of input.history) parts.push(`Learner: ${tagged(item.you)}`, `Otso: ${item.otso}`)
+  for (const item of input.history) parts.push(`Learner: ${tagged(item.you)}`, `Aleksi: ${item.otso}`)
   parts.push(`Learner: ${tagged(input.reply)}`, '')
   if (closing) {
     parts.push('This is the closing turn: say a short, friendly closing line in the situation.')

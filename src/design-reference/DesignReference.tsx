@@ -163,8 +163,8 @@ export default function DesignReference() {
         <Wordmark height={36} />
         <h1 className={styles.title}>Design reference</h1>
         <p className={styles.lead}>
-          Every design value and screen part of PuhuScribe, in every state, for the owner, the reviewers and
-          the evaluator. Learners never see this page. The rules behind each part are in design.md.
+          Every design value and screen part of Aleksi, in every state, for the owner, the reviewers and the
+          evaluator. Learners never see this page. The rules behind each part are in design.md.
         </p>
         <p className={styles.lead}>
           The look is light only. Where a drawn colour failed a contrast floor it is a little darker, and the

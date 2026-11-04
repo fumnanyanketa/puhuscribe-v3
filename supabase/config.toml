@@ -272,11 +272,11 @@ otp_expiry = 3600
 # (factory/jobs/11-accounts/spec.md, "Done when" 15). The hosted test project
 # gets the same text by hand (owner setup steps in the README).
 [auth.email.template.magic_link]
-subject = "Your PuhuScribe code"
+subject = "Your Aleksi code"
 content_path = "./supabase/templates/magic-link.html"
 
 [auth.email.template.email_change]
-subject = "Your PuhuScribe code"
+subject = "Your Aleksi code"
 content_path = "./supabase/templates/email-change.html"
 
 # Uncomment to customize notification email template

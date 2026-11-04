@@ -60,7 +60,7 @@ export function TutorRow({ rowClass, valueClass }: { rowClass: string; valueClas
           else setAsking(true)
         }}
       >
-        <span>Talk with Otso</span>
+        <span>Talk with Aleksi</span>
         <span className={valueClass}>{on ? 'On' : 'Off'}</span>
       </button>
       {problem && !asking && (

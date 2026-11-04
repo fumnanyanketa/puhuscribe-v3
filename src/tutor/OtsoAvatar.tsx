@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import styles from './Tutor.module.css'
 
-// Otso's face (owner's change, 3 November 2026): a small round portrait beside his name, as in a chat
+// The tutor's face (owner's change, 3 November 2026; the tutor was called Otso until the owner renamed
+// the app and the tutor Aleksi on 4 November 2026, job rename-aleksi): a small round portrait beside his name, as in a chat
 // app. The owner supplies the picture later as one file, public/otso/avatar.webp. Until it is there,
-// or when it cannot load, a plain mint round with the letter O stands in. The picture shows a person
+// or when it cannot load, a plain mint round with the letter A stands in. The picture shows a person
 // who does not exist, made by AI; the note next to Otso's name says he is an AI.
 
 /** The one place the picture is read from. */
 export const OTSO_AVATAR_PATH = '/otso/avatar.webp'
-export const OTSO_AVATAR_ALT = 'Otso, your AI tutor'
+export const OTSO_AVATAR_ALT = 'Aleksi, your AI tutor'
 
 export function OtsoAvatar() {
   const [failed, setFailed] = useState(false)
   if (failed) {
     return (
       <span className={styles.avatarFallback} role="img" aria-label={OTSO_AVATAR_ALT}>
-        <span aria-hidden="true">O</span>
+        <span aria-hidden="true">A</span>
       </span>
     )
   }
@@ -39,7 +40,7 @@ export function OtsoName({ face = false, as: Tag = 'p' }: { face?: boolean; as?:
   return (
     <Tag className={styles.name}>
       {face && <OtsoAvatar />}
-      <span className={styles.nameText}>Otso</span>
+      <span className={styles.nameText}>Aleksi</span>
       <span className={styles.aiNote}>AI</span>
     </Tag>
   )

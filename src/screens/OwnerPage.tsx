@@ -29,7 +29,7 @@ import own from './Owner.module.css'
 
 export const NOT_OWNER = 'This account cannot open the owner page.'
 const LOADING = 'Loading the numbers.'
-const SIGN_IN = 'Sign in with your PuhuScribe account to see the numbers.'
+const SIGN_IN = 'Sign in with your Aleksi account to see the numbers.'
 const WRONG_ADDRESS = 'The owner page opens only at its own address.'
 const NOT_LOADED = 'The numbers could not be loaded. Check your internet connection, then try again.'
 export const TEST_ERROR_SENT = 'A test error was thrown. Reload the page to see it under Crashes.'

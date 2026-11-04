@@ -73,5 +73,5 @@ export interface TutorTurnAnswer {
 export type TutorTranscript = { status: 'heard'; text: string } | { status: 'not_heard' }
 
 export const OTSO_ENDS = 'That is enough Finnish for now. Nice work.'
-export const OTSO_UNAVAILABLE = 'Otso is not available right now.'
-export const OTSO_CAP = 'Otso has talked enough for today. You can talk to him again tomorrow.'
+export const OTSO_UNAVAILABLE = 'Aleksi is not available right now.'
+export const OTSO_CAP = 'Aleksi has talked enough for today. You can talk to him again tomorrow.'

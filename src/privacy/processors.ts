@@ -33,13 +33,13 @@ export interface Processor {
  */
 export const ANTHROPIC: Processor = {
   name: 'Anthropic',
-  role: "Writes Otso's replies, only if you turned Otso on. It receives your chats with Otso as text: what you type, the text of what you say and Otso's earlier lines, with Otso's instructions and the Finnish words and lesson lines you have met. PuhuScribe does not save the chat.",
+  role: "Writes Aleksi's replies, only if you turned Aleksi on. It receives your chats with Aleksi as text: what you type, the text of what you say and Aleksi's earlier lines, with Aleksi's instructions and the Finnish words and lesson lines you have met. We do not save the chat.",
   where: 'In the United States.',
   details: [
-    'Anthropic Ireland, Limited processes the chats for PuhuScribe, as our processor, in the United States. The transfer is covered by the EU Standard Contractual Clauses.',
+    'Anthropic Ireland, Limited processes the chats as our processor, in the United States. The transfer is covered by the EU Standard Contractual Clauses.',
     'Anthropic deletes them within 30 days. Content its safety checks flag may be kept for up to 2 years.',
     'Anthropic does not use them to train its models.',
-    'PuhuScribe adds nothing that identifies you, such as your email, account or guest id, or your IP address.',
+    'We add nothing that identifies you, such as your email, account or guest id, or your IP address.',
   ],
   link: { label: "Anthropic's list of sub-processors", href: 'https://trust.anthropic.com/subprocessors' },
   modules: ['ai.ts', 'fixtures/ai/index.ts'],
@@ -48,7 +48,7 @@ export const ANTHROPIC: Processor = {
 export const PROCESSORS: readonly Processor[] = [
   {
     name: 'Supabase',
-    role: 'Keeps the database and handles sign in. Until PuhuScribe chooses its own email sender, Supabase also sends the sign in code emails.',
+    role: 'Keeps the database and handles sign in. Until Aleksi chooses its own email sender, Supabase also sends the sign in code emails.',
     where: 'In the EU (Ireland).',
     // Crash reports go to PuhuScribe's own database (job 14-analytics).
     modules: ['crash-reports.ts'],
@@ -82,4 +82,4 @@ export const PROCESSORS: readonly Processor[] = [
 
 /** How long the providers keep their own logs. */
 export const PROVIDER_LOGS =
-  "On the free plan PuhuScribe uses, Supabase keeps its API and database logs for 1 day and its sign in audit logs for 1 hour. The app's own request logs at Cloudflare are turned off."
+  "On the free plan Aleksi uses, Supabase keeps its API and database logs for 1 day and its sign in audit logs for 1 hour. The app's own request logs at Cloudflare are turned off."

@@ -456,9 +456,7 @@ describe('download my data', () => {
     const res = await call(fake, get('/api/account/export', cookie), { fileStores: [store] })
     expect(res.status).toBe(200)
     expect(res.headers.get('content-type')).toMatch(/^application\/json/)
-    expect(res.headers.get('content-disposition')).toBe(
-      'attachment; filename="puhuscribe-data-2026-10-22.json"',
-    )
+    expect(res.headers.get('content-disposition')).toBe('attachment; filename="aleksi-data-2026-10-22.json"')
     expect(res.headers.get('cache-control')).toBe('no-store')
     expect(res.headers.get('access-control-allow-origin')).toBeNull()
     const text = await res.text()

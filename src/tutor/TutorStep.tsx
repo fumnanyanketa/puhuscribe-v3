@@ -40,15 +40,15 @@ import styles from './Tutor.module.css'
 // says whether the learner's Finnish was right. The step stores no session step either: "Continue",
 // "Stop here" and every problem move on to the next step or the finish screen.
 
-export const TUTOR_TITLE = 'Talk with Otso'
+export const TUTOR_TITLE = 'Talk with Aleksi'
 export const TUTOR_SUB = 'Three short turns. Answer in your own words.'
 export const TUTOR_DONE = 'Nicely done'
-export const AI_NOTE = "Otso's replies are written by AI and checked to use only words you know."
+export const AI_NOTE = "Aleksi's replies are written by AI and checked to use only words you know."
 export const GUEST_TEXT =
-  'Otso is a short chat at the end of each lesson from stop 4. Add your email to talk with him, so your progress stays with your account.'
-export const VOICE_TITLE = 'Speak to Otso'
+  'Aleksi is a short chat at the end of each lesson from stop 4. Add your email to talk with him, so your progress stays with your account.'
+export const VOICE_TITLE = 'Speak to Aleksi'
 export const VOICE_TEXT =
-  "Your recording goes to Microsoft's speech service in the EU, which turns it into text. That text goes to Anthropic in the United States so Otso can answer. PuhuScribe keeps neither the recording nor the text. Turning this on also turns on speaking feedback in your lessons."
+  "Your recording goes to Microsoft's speech service in the EU, which turns it into text. That text goes to Anthropic in the United States so Aleksi can answer. We keep neither the recording nor the text. Turning this on also turns on speaking feedback in your lessons."
 
 /** Otso's step for a session, with the state the session screen read as it loaded. */
 export function tutorStepFor(state: TutorState): SessionStep {
@@ -252,7 +252,7 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
     if (sending.current || phase !== 'typing' || text === '') return
     sending.current = true
     setPhase('sending')
-    setStatus('Otso is answering.')
+    setStatus('Aleksi is answering.')
     const nextId = items.length
     setItems((now) => [...now, { id: nextId, who: 'you', text }])
     setReply('')
@@ -296,10 +296,10 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
     if (closing || shown.who === 'end') {
       setTip(result.answer.tip)
       setPhase('closed')
-      setStatus('Otso answered. The chat is finished.')
+      setStatus('Aleksi answered. The chat is finished.')
     } else {
       setPhase('typing')
-      setStatus('Otso answered.')
+      setStatus('Aleksi answered.')
     }
   }
 
@@ -349,7 +349,7 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
         setStatus('Check the text, then send it.')
         field.current?.focus()
       } else if (heard.kind === 'not_heard') {
-        setStatus('Otso did not catch that. Try again, or type your answer.')
+        setStatus('Aleksi did not catch that. Try again, or type your answer.')
       } else if (heard.kind === 'no_voice_consent') {
         setVoiceReady(false)
         setVoiceOpen(true)
@@ -457,7 +457,7 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
       </>
     ) : (
       <>
-        <StatusLine visuallyHidden>{status || 'Otso is waiting for your answer.'}</StatusLine>
+        <StatusLine visuallyHidden>{status || 'Aleksi is waiting for your answer.'}</StatusLine>
         {composer}
       </>
     )
@@ -496,7 +496,7 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
                   ref={last ? lastOtso : undefined}
                   tabIndex={last ? -1 : undefined}
                   className={styles.otso}
-                  aria-label={face ? undefined : item.who === 'ai' ? 'Otso, AI' : 'Otso'}
+                  aria-label={face ? undefined : item.who === 'ai' ? 'Aleksi, AI' : 'Aleksi'}
                   role="group"
                 >
                   {item.who === 'line' && <ApprovedLine line={item.line} />}
@@ -519,7 +519,7 @@ function TutorChat({ session, frame, onDone, initial }: TutorStepProps) {
           })}
           {phase === 'sending' && (
             <p className={styles.waiting} aria-hidden="true">
-              Otso is answering
+              Aleksi is answering
             </p>
           )}
           {!closed && !stopped && (

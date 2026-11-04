@@ -124,7 +124,7 @@ async function otso(page: Page) {
     }),
   )
   await page.goto('/learn/session')
-  await expect(page.getByRole('heading', { name: 'Talk with Otso' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Talk with Aleksi' })).toBeVisible()
   await page.getByLabel('Your reply').fill('Ne maksaa neljä euroo.')
   await page.getByRole('button', { name: 'Send' }).click()
   await expect(page.getByText('Yes, of course. Can I pay by card?')).toBeVisible()
@@ -176,7 +176,7 @@ test('[landing] Talk with Otso', async ({ page }) => {
 
 test('[landing] Talk with Otso (hero card)', async ({ page }) => {
   await otso(page)
-  const heading = await page.getByRole('heading', { name: 'Talk with Otso' }).boundingBox()
+  const heading = await page.getByRole('heading', { name: 'Talk with Aleksi' }).boundingBox()
   await shoot(page, 'hero-otso.webp', 500, cardClip(heading?.y ?? 80))
 })
 

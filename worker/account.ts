@@ -496,7 +496,7 @@ async function exportData(request: Request, deps: AccountDeps, context: LearnerC
   headers.set('content-type', 'application/json; charset=utf-8')
   headers.set(
     'content-disposition',
-    `attachment; filename="puhuscribe-data-${now.toISOString().slice(0, 10)}.json"`,
+    `attachment; filename="aleksi-data-${now.toISOString().slice(0, 10)}.json"`,
   )
   return withCookies(
     new Response(JSON.stringify(file, null, 2), { status: 200, headers }),

@@ -135,7 +135,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       })
       const { name, file } = await downloadFile(page)
       expect(preparing).toBe(true)
-      expect(name).toMatch(/^puhuscribe-data-\d{4}-\d{2}-\d{2}\.json$/)
+      expect(name).toMatch(/^aleksi-data-\d{4}-\d{2}-\d{2}\.json$/)
       expect(Object.keys(file)).toEqual(['about', 'exported_at', 'account', 'tables', 'files'])
       expect(file.account).toMatchObject({ id: userId, is_anonymous: true, email: null })
       const tables = file.tables as Record<string, Record<string, unknown>[]>
@@ -225,7 +225,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       ).toBeVisible()
       await expect(
         page.getByText(
-          'If this email already has a PuhuScribe account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+          'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
         ),
       ).toBeVisible()
       await sendCodeTo(page, address)
@@ -246,7 +246,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
 
       // Statement 15: the email change email shows a 6 digit code and no link.
       const mail = await nextMail(address)
-      expect(mail.subject).toBe('Your PuhuScribe code')
+      expect(mail.subject).toBe('Your Aleksi code')
       expect(mail.code).toMatch(/^\d{6}$/)
       expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
       expect(mail.text).toContain('Enter it in the app. It works for one hour.')
@@ -314,7 +314,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await expect(guestPage.getByText(`Sent to ${address}`, { exact: true })).toBeVisible()
       await expect(guestPage.getByText('The code works for one hour.', { exact: true })).toBeVisible()
       const mail = await nextMail(address, seen)
-      expect(mail.subject).toBe('Your PuhuScribe code')
+      expect(mail.subject).toBe('Your Aleksi code')
       expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
       await confirmCode(guestPage, mail.code)
       await expect(guestPage.getByRole('status')).toHaveText(
@@ -340,7 +340,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         await page.goto('/learn/sign-in')
         await sendCodeTo(page, address)
         await expect(
-          page.getByText('If this email has a PuhuScribe account, we sent it a 6 digit code.'),
+          page.getByText('If this email has an Aleksi account, we sent it a 6 digit code.'),
         ).toBeVisible()
         await expect(
           page.getByText('No code after a few minutes? Check the address, or go back and start as a guest.'),
@@ -371,7 +371,7 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
         await sendCodeTo(pageB, address)
         const mail = await nextMail(address, seen)
         // Statement 15: the sign in email shows a 6 digit code and no link.
-        expect(mail.subject).toBe('Your PuhuScribe code')
+        expect(mail.subject).toBe('Your Aleksi code')
         expect(mail.code).toMatch(/^\d{6}$/)
         expect(`${mail.text} ${mail.html}`).not.toMatch(/http/i)
         await confirmCode(pageB, mail.code)

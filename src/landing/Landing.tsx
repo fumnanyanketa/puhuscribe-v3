@@ -61,8 +61,8 @@ function Hero() {
         <div className={styles.heroCopy}>
           <h1 className={styles.title}>You took a Finnish course, but you still feel lost at the café.</h1>
           <p className={styles.lead}>
-            That’s because Finns speak <Fi>puhekieli</Fi>, and courses teach <Fi>kirjakieli</Fi>. But we are
-            here to help you learn both, all the way to A1.
+            That’s because Finns speak <Fi>puhekieli</Fi>, and courses teach <Fi>kirjakieli</Fi>. But Aleksi
+            is here to help you learn both, all the way to A1.
           </p>
           <StartLink />
           <p className={styles.note}>No need to download any app. Works on iPhone and Android.</p>
@@ -77,7 +77,7 @@ function Hero() {
           <div
             className={styles.device}
             role="img"
-            aria-label="The PuhuScribe app on a phone: the road to A1 opens with its first stop, Meeting people."
+            aria-label="The Aleksi app on a phone: the road to A1 opens with its first stop, Meeting people."
           >
             <div className={styles.deviceScreen}>{mounted && <HeroRoad />}</div>
           </div>
@@ -222,16 +222,16 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Practise a real chat without the nerves',
-    text: 'Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
+    text: 'Aleksi goes with you all along the journey. From stop 4, he has short chats with you, using only words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
     image: '/landing/otso.webp',
-    alt: 'A short chat with Otso, the AI tutor, in the app, with the English meaning under each reply.',
+    alt: 'A short chat with Aleksi, the AI tutor, in the app, with the English meaning under each reply.',
     height: 1299,
     tone: 'peach',
     piece: (
       <div className={styles.mini}>
         <div className={styles.who}>
           <img src="/otso/avatar.webp" alt="" width={26} height={26} loading="lazy" />
-          <span>Otso</span>
+          <span>Aleksi</span>
           <em>AI</em>
         </div>
         <span className={styles.miniSpoken} lang="fi">
@@ -243,7 +243,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Remember the words you learn',
-    text: 'PuhuScribe brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
+    text: 'Aleksi brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
     image: '/landing/review.webp',
     alt: 'A review card in the app: the missing word typed in and marked right.',
     height: 1299,
@@ -409,8 +409,8 @@ function Journey() {
               A journey made for life in Finland
             </h2>
             <p className={styles.journeyP}>
-              It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time,
-              and you’ll reach A1, the first everyday level of Finnish.
+              Aleksi takes you through 36 short stops, each one a moment you’ll meet here in Finland. Take
+              them one at a time, and you’ll reach A1, the first everyday level of Finnish.
             </p>
           </div>
           <JourneyRoad />
@@ -439,7 +439,7 @@ const QUESTIONS: readonly (readonly [string, string])[] = [
   ],
   [
     'What happens to my voice and data?',
-    'Speech feedback is optional, and recordings aren’t kept by default. What PuhuScribe keeps is stored in the EU, and you can download or delete it any time. Chats with Otso are handled by an AI provider in the US and aren’t saved.',
+    'Speech feedback is optional, and recordings aren’t kept by default. What we keep is stored in the EU, and you can download or delete it any time. Chats with Aleksi are handled by an AI provider in the US and aren’t saved.',
   ],
 ]
 

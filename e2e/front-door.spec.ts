@@ -27,7 +27,7 @@ test(
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expect(
       page.getByText(
-        'Starting creates a guest account on this device so your progress is saved. PuhuScribe is for adults, 18 and over.',
+        'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
         { exact: true },
       ),
     ).toBeVisible()
@@ -35,7 +35,7 @@ test(
     await page.reload()
     await page.waitForLoadState('networkidle')
     expect(requests.filter(isGuestPost)).toHaveLength(0)
-    await expect(page).toHaveTitle('PuhuScribe')
+    await expect(page).toHaveTitle('Aleksi')
   },
 )
 

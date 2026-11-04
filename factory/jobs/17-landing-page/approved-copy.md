@@ -1,10 +1,10 @@
-# PuhuScribe landing page copy
+# Aleksi landing page copy
 
 Nov 3, 2026 · @Fumnanya Nketa
 
 ## How to use this doc
 
-This is the final, approved copy for the PuhuScribe landing page, in page order from top to bottom. Use the words exactly as written, including the curly apostrophes and quotation marks.
+This is the final, approved copy for the Aleksi landing page, in page order from top to bottom. The owner renamed the app and the AI tutor from PuhuScribe and Otso to Aleksi on 4 November 2026 (job rename-aleksi); the sentences that changed with the name keep their old wording after “was:”. Use the words exactly as written, including the curly apostrophes and quotation marks.
 
 Every button on the page says the same thing, **Start your journey now**, and opens the app. Image and screen spaces are marked in each section, and the full list is in the builder notes at the end.
 
@@ -12,7 +12,7 @@ Every button on the page says the same thing, **Start your journey now**, and op
 
 | Element | Copy |
 | --- | --- |
-| Brand name | PuhuScribe |
+| Brand name | Aleksi |
 | Small button | Start your journey now |
 
 No menu links. The page asks for one action only.
@@ -22,7 +22,7 @@ No menu links. The page asks for one action only.
 | Element | Copy |
 | --- | --- |
 | Headline | You took a Finnish course, but you still feel lost at the café. |
-| Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli. But we are here to help you learn both, all the way to A1. (Owner’s final copy, 4 November 2026. Earlier the same day: “Finns speak puhekieli, but courses teach kirjakieli. We’ll help you learn both, all the way to A1.”) |
+| Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli. But Aleksi is here to help you learn both, all the way to A1. (Owner, 4 November 2026, after the rename. Was: “… But we are here to help you learn both, all the way to A1.”) |
 | Main button | Start your journey now |
 | Small line under the button | No need to download any app. Works on iPhone and Android. |
 
@@ -56,8 +56,8 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | 1 | Hear it the way Finns say it | Every line comes as people say it and as it’s written, with audio for both. The words that change are marked, so you see how “Paljonko” becomes “Paljonks”. | A line in both Finnishes |
 | 2 | Practise out loud before the real moment | You hear each line and say it straight back, with gentle feedback on how clear you were. By the time you reach the pharmacy counter, the words feel familiar. | Saying a line back |
 | 3 | Build sentences about your own life | At each stop you add one sentence about your own life. We call it your language island. By the end of the journey, you can talk about yourself fluently for about a minute. | The language island |
-| 4 | Practise a real chat without the nerves | Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud. | Chatting with Otso |
-| 5 | Remember the words you learn | PuhuScribe brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time. | A review card |
+| 4 | Practise a real chat without the nerves | Aleksi goes with you all along the journey. From stop 4, he has short chats with you, using only words you’ve already learned, so you can keep up. Type your answer or say it out loud. (Owner, 4 November 2026. Was: “Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.”) | Chatting with Aleksi |
+| 5 | Remember the words you learn | Aleksi brings each word back just before you would forget it, so it stays with you. (Owner, 4 November 2026. Was: “PuhuScribe brings each word back just before you would forget it, so it stays with you.”) You fill in the missing word in a line you’ve learned, and it sticks a little more each time. | A review card |
 
 ## 7. The journey
 
@@ -65,7 +65,7 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | --- | --- |
 | Picture | The 36-stop journey to the A1 sun |
 | Heading | A journey made for life in Finland |
-| Text | It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and you’ll reach A1, the first everyday level of Finnish. |
+| Text | Aleksi takes you through 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and you’ll reach A1, the first everyday level of Finnish. (Owner, 4 November 2026. Was: “It has 36 short stops, …”) |
 
 ## 8. Questions
 
@@ -77,7 +77,7 @@ Section heading: **Questions**. Keep the questions in this order.
 | How long does it take? | One lesson takes about 10 to 15 minutes. With one a day, you reach A1 in about three and a half months. Two a day takes about eight weeks, and a whole stop a day about five. These are our estimates, since we haven’t measured them on real learners yet. |
 | What level will I reach? | Right now, the journey takes you from zero to A1, the first everyday level. That’s enough for simple everyday moments and for talking about yourself. The full journey is planned to go all the way to B2. |
 | Do I need to sign up? | No. Open it in your phone’s browser and start. Your progress is kept on your phone, and you can add an email later to keep it across devices. |
-| What happens to my voice and data? | Speech feedback is optional, and recordings aren’t kept by default. What PuhuScribe keeps is stored in the EU, and you can download or delete it any time. Chats with Otso are handled by an AI provider in the US and aren’t saved. |
+| What happens to my voice and data? | Speech feedback is optional, and recordings aren’t kept by default. What we keep is stored in the EU, and you can download or delete it any time. Chats with Aleksi are handled by an AI provider in the US and aren’t saved. (Was: “What PuhuScribe keeps is stored in the EU … Chats with Otso are handled …”.) |
 
 ## 9. The close
 
