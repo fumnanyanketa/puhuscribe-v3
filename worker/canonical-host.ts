@@ -20,7 +20,7 @@ export interface CanonicalHostEnv {
 /** The apex hostname to send www requests to, or null when none is set. */
 export function canonicalHost(env: CanonicalHostEnv): string | null {
   const host = env.CANONICAL_HOST?.trim().toLowerCase()
-  return host ? host : null
+  return host === undefined || host === '' ? null : host
 }
 
 /**

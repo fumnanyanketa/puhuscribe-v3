@@ -33,7 +33,7 @@ The site key is not baked into the browser build. The build's secret check refus
 4. **Widget name**: `PuhuScribe Start`.
 5. **Hostname management**: click **Add hostnames** and add these, one at a time, without `https://`:
    - `fumnanya.workers.dev` (this covers `main-puhuscribe-preview.fumnanya.workers.dev` and every pull request preview, because a hostname covers its subdomains)
-   - the live domain, when you have chosen it (for example `puhuscribe.fi`); you can add it later in the widget's **Settings**
+   - the live domain, `meetaleksi.com` (job go-live); you can add it later in the widget's **Settings**
    If Cloudflare refuses `fumnanya.workers.dev`, add `main-puhuscribe-preview.fumnanya.workers.dev` instead; pull request previews would then fail the check once the real keys are set, so tell the manager.
 6. **Widget mode**: choose **Managed**. The app already asks Cloudflare to stay hidden unless a learner must act.
 7. **Pre-clearance**: leave it off (choose **No**).
@@ -59,7 +59,7 @@ The next push to main writes both into the main link's Worker version, and every
 
 ## At go live
 
-The production Worker is created separately at liftoff. It needs the same pair, set once with `npx wrangler secret put TURNSTILE_SITE_KEY` and `npx wrangler secret put TURNSTILE_SECRET` (each asks for the value and hides it), and the live domain must be in the widget's hostnames. Without the pair the live app refuses to make guests, on purpose.
+The live Worker, `aleksi` on `meetaleksi.com` (job go-live), gets the same pair from the same two GitHub secrets: the "app" task of `.github/workflows/live.yml` writes them into each deploy and refuses to deploy when either is missing. `meetaleksi.com` must be in the widget's hostnames. The Worker checks that every token was made on the address the request came to, so a token from a preview, or from `www.meetaleksi.com`, is refused on `meetaleksi.com`; the live Worker sends every `www` page to `meetaleksi.com` first, so learners only ever get tokens made there. Without the pair the live app refuses to make guests, on purpose.
 
 ## Content Security Policy
 
