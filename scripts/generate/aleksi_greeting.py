@@ -8,6 +8,13 @@ python scripts/generate/aleksi_greeting.py voice-aleksi [--out <folder>]
     Harri reads GREETING into <folder>/<clip name> (default public/audio/aleksi/). A clip that exists is
     kept. The voice log's two guards (an uncommitted log, the monthly allowance) are voice.py's own.
 
+python scripts/generate/aleksi_greeting.py samples --out <folder>
+    Voice samples of GREETING for the owner to choose from (owner, 4 November 2026: "Change the
+    voice"): Harri as he is, Harri slower and warmer, Harri brighter, and Azure's male multilingual
+    voices reading Finnish. The voice list (free) says which multilingual voices speak fi-FI; any that do
+    not are skipped. The clips go to <folder> with samples.txt, which names each voice, its settings and
+    its characters. Samples never go to public/.
+
 The clip's name holds the first 12 characters of voice.py's request_hash(text, voice), so a changed text
 gets a new name and no phone plays an old copy. src/lib/aleksi-greeting.ts names the same file.
 """
@@ -55,6 +62,81 @@ def cmd_voice(args, voice=None) -> int:
     return 0
 
 
+# The owner's samples: (file name, voice, rate, pitch). Harri's settings are the manager's brief.
+HARRI_SAMPLES = [
+    ("1-harri", GREETING_VOICE, None, None),
+    ("2-harri-warmer", GREETING_VOICE, "-8%", "-4%"),
+    ("3-harri-brighter", GREETING_VOICE, "-3%", "+6%"),
+]
+NAMED_MULTILINGUAL = [
+    ("4-andrew", "en-US-AndrewMultilingualNeural"),
+    ("5-brian", "en-US-BrianMultilingualNeural"),
+    ("6-florian", "de-DE-FlorianMultilingualNeural"),
+]
+
+
+def speaks_finnish(entry: dict) -> bool:
+    locales = entry.get("SecondaryLocaleList") or []
+    return entry.get("Locale") == "fi-FI" or "fi-FI" in locales
+
+
+def plan_samples(voices: list[dict]) -> tuple[list[tuple[str, str, str | None, str | None]], list[str]]:
+    """The samples to make, and a line for each multilingual voice that was skipped or found."""
+    by_name = {str(v.get("ShortName", "")): v for v in voices}
+    plan: list[tuple[str, str, str | None, str | None]] = list(HARRI_SAMPLES)
+    notes: list[str] = []
+    for name, voice in NAMED_MULTILINGUAL:
+        entry = by_name.get(voice)
+        if entry is None:
+            notes.append(f"skipped {voice}: not in the region's voice list")
+        elif not speaks_finnish(entry):
+            notes.append(f"skipped {voice}: its locales do not include fi-FI")
+        else:
+            plan.append((name, voice, None, None))
+    named = {voice for _, voice in NAMED_MULTILINGUAL}
+    others = sorted(
+        name
+        for name, entry in by_name.items()
+        if "Multilingual" in name
+        and entry.get("Gender") == "Male"
+        and speaks_finnish(entry)
+        and name not in named
+    )
+    notes.append(f"other male multilingual voices that list fi-FI: {', '.join(others) or 'none'}")
+    if others:
+        extra = others[0]
+        short = extra.split("-")[2].replace("MultilingualNeural", "").lower()
+        plan.append((f"{len(plan) + 1}-{short}", extra, None, None))
+    return plan, notes
+
+
+def cmd_samples(args, voice=None) -> int:
+    from providers import voice as voice_module
+
+    folder = Path(args.out)
+    voice = voice or voice_module.get_provider()
+    plan, notes = plan_samples(voice.list_voices())
+    need = len(GREETING) * len(plan)
+    voice_module.refuse_uncommitted_log(voice.log_path)
+    voice_module.refuse_over_allowance(voice.log_path, need)
+    folder.mkdir(parents=True, exist_ok=True)
+    lines = [f'Voice samples of "{GREETING}", {len(GREETING)} characters each, {need} in all.']
+    for name, speaker, rate, pitch in plan:
+        audio = voice.synthesize(
+            text=GREETING, voice=speaker, dialogue="aleksi-voice-sample", rate=rate, pitch=pitch
+        )
+        (folder / f"{name}.mp3").write_bytes(audio)
+        settings = ", ".join(f"{k} {v}" for k, v in (("rate", rate), ("pitch", pitch)) if v) or "as is"
+        multilingual = voice_module.MULTILINGUAL_VOICE.match(speaker)
+        lingual = " (Finnish through <lang xml:lang='fi-FI'>)" if multilingual else ""
+        lines.append(f"{name}.mp3: {speaker}, {settings}{lingual}, {len(GREETING)} characters")
+    lines.extend(notes)
+    report = "\n".join(lines) + "\n"
+    (folder / "samples.txt").write_text(report, encoding="utf-8")
+    print(report, end="")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -62,7 +144,13 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     voice_cmd = sub.add_parser("voice-aleksi", help="Harri reads Aleksi's greeting")
     voice_cmd.add_argument("--out", help="the folder for the clip (default public/audio/aleksi/)")
+    samples_cmd = sub.add_parser("samples", help="voice samples of the greeting for the owner")
+    samples_cmd.add_argument("--out", required=True, help="the folder for the samples (never public/)")
     args = parser.parse_args(argv)
+    if args.command == "samples":
+        if Path(args.out).resolve().is_relative_to((REPO / "public").resolve()):
+            parser.error("samples never go to public/")
+        return cmd_samples(args)
     return cmd_voice(args)
 
 
