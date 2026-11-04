@@ -34,7 +34,8 @@ describe('protected copy', () => {
     expect(GUEST_WARNING).toBe(
       'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',
     )
-    expect(SIGN_IN_SENT).toBe('If this email has an Aleksi account, we sent it a 6 digit code.')
+    // The owner's new words of 4 November 2026 (job signin-center): still one sentence for every address.
+    expect(SIGN_IN_SENT).toBe('You will receive a 6 digit code.')
     expect(CODE_WORKS).toBe('The code works for one hour.')
   })
 
