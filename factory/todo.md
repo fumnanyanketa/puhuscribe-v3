@@ -111,4 +111,4 @@ Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is pa
 - (manager) Make sure only the chat text is sent to Anthropic: no names, emails or account ids.
 
 ## Owner reminder (3 November 2026)
-- (manager) Remind the owner to look again at the landing page hero on phones: they felt it has too much text and left it for now ("remind me later to see if my feelings have changed"). Two versions were made: A, side by side as on desktop; B, picture first with the subline hidden on phones. Pictures: scratchpad landing/optA.png and optB.png; the CSS for each is in the session's landing/optA.html and optB.html. Ask before launch.
+- Done 4 November 2026: the owner looked at the phone hero again after the top bar went, the subline was shortened and the heading became ExtraBold, and said "I love the way it looks now". No reminder needed.
