@@ -130,13 +130,15 @@ describe('renewing and losing the sign in', () => {
         setStep: () => Promise.resolve(false),
         completeSession: () => Promise.resolve('not_found'),
       }),
+      // The road, which GET /api/today reads for "finished a stop" (fast route intro-stop).
+      roadDb: () => ({ road: () => Promise.resolve([]) }),
     })
     expect(res.status).toBe(200)
     expect(await res.json()).toEqual({
       signedIn: true,
       today: 'not_ready',
       account: 'guest',
-      finishedLesson: false,
+      finishedStop: false,
     })
     expect(supabase.requests.filter((r) => r.url.pathname === '/auth/v1/token')).toHaveLength(1)
     const renewed = cookieHeader(res, cookie)

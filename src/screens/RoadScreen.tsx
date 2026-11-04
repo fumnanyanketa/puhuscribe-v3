@@ -153,8 +153,9 @@ export function RoadScreen() {
       if (!active) return
       setHome(next)
       if (next.kind !== 'ready') return
-      // Aleksi's intro comes first for everyone except a signed in email account with a finished lesson
-      // (owner, 4 November 2026); the road and its animation open after "Nice to meet you".
+      // Aleksi's intro comes first for everyone except a signed in email account that has finished a whole
+      // stop (owner, 4 November 2026); the road and its animation open after "Nice to meet you", at the
+      // learner's own place.
       if (showsAleksiIntro(next.today)) {
         setMeeting(true)
         return

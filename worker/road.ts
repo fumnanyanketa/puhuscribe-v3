@@ -90,6 +90,16 @@ export async function roadFor(db: RoadDb): Promise<RoadAnswer> {
   return { stops: (await db.road()).map(roadStop) }
 }
 
+/**
+ * Whether the learner has finished at least one whole stop, by the road's own rule: a stop is done
+ * when its lessons done reach its lessons (src/lib/road-state.ts, currentIndex and progressSegments).
+ * public.road() counts a stop's finished dialogues plus its review lesson against its 4 lessons, from
+ * the learner's own sessions and review logs. Aleksi's intro reads it (fast route intro-stop).
+ */
+export function finishedAStop(stops: readonly RoadStop[]): boolean {
+  return stops.some((stop) => stop.lessons_total > 0 && stop.lessons_done >= stop.lessons_total)
+}
+
 /** The same rows for a visitor: the three progress columns are always 0, whatever the database says. */
 export function visitorStop(row: unknown): RoadStop {
   return { ...roadStop(row), dialogues_done: 0, review_forms_reviewed: 0, lessons_done: 0 }

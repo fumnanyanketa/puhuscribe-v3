@@ -1,8 +1,10 @@
 // Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026).
-// Who sees him is the owner's rule of 4 November 2026 (fast route intro-rule):
-// everyone sees the intro each time the road opens, except a learner who is
-// signed in with an email account and has finished at least one lesson. Both
-// facts come from GET /api/today; the phone keeps no flag of its own.
+// Who sees him is the owner's rule of 4 November 2026 (fast routes intro-rule
+// and intro-stop): everyone sees the intro each time the road opens, except a
+// learner who is signed in with an email account and has finished at least one
+// whole stop of the road (every lesson of it). Both facts come from
+// GET /api/today; the phone keeps no flag of its own. After "Nice to meet you"
+// the road opens at the learner's own place.
 //
 // Two keys of earlier versions are cleared from the phone when they are still
 // there: the answers of the first-open questions of fast route "intro"
@@ -55,16 +57,16 @@ export interface IntroFacts {
   signedIn: boolean
   /** The account is an email account (not a guest). */
   email: boolean
-  /** At least one lesson of this learner has finished. */
-  finishedLesson?: boolean
+  /** The learner has finished every lesson of at least one stop. */
+  finishedStop?: boolean
 }
 
 /**
  * Whether the road opens with Aleksi's intro first. Only a learner who is signed in with an email
- * account and has finished at least one lesson goes straight to the road. Everyone else meets him:
- * a new visitor, a guest (with or without a finished lesson), a sign in that ended, and an email
- * account with no finished lesson.
+ * account and has finished at least one whole stop goes straight to the road. Everyone else meets him:
+ * a new visitor, a guest (whatever they finished), a sign in that ended, and an email account that has
+ * not finished a stop yet, even with some lessons done.
  */
 export function showsAleksiIntro(facts: IntroFacts): boolean {
-  return !(facts.signedIn && facts.email && facts.finishedLesson === true)
+  return !(facts.signedIn && facts.email && facts.finishedStop === true)
 }

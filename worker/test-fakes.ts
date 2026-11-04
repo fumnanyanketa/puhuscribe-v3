@@ -28,6 +28,7 @@ import type {
   TokenRow,
 } from './learner-db.ts'
 import type { ReviewLineRow } from './review-plan.ts'
+import type { RoadDb } from './road.ts'
 import { SITEVERIFY_URL, TEST_KEYS } from './providers/human-check.ts'
 
 export const PROJECT = 'https://fake-ref.supabase.co'
@@ -210,7 +211,7 @@ export function get(path: string, cookie?: string) {
 }
 
 /** A learner database in memory, standing in for Supabase as the learner. */
-export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb, LessonFactsDb {
+export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb, LessonFactsDb, RoadDb {
   dialogues: ReadableDialogue[]
   sessions: SessionRow[]
   content: Map<number, DialogueContent>
@@ -241,6 +242,28 @@ export interface FakeDb extends LearnerDb, ReviewDb, SaveNoteDb, LessonFactsDb {
   recorded: RecordReviewArgs[]
   /** Every finishKeep call, as [session id, end time]. */
   kept: [string, string | null][]
+  /** What public.road() returns (fast route intro-stop). Empty unless a test fills it, see roadRow. */
+  roadRows: unknown[]
+}
+
+/** One row of public.road() for a stop, with the given lessons done out of its lessons (4, as the database gives). */
+export function roadRow(stopNumber: number, lessonsDone: number, lessonsTotal = 4): Record<string, unknown> {
+  return {
+    stop_number: stopNumber,
+    stop_slug: `stop-${String(stopNumber)}`,
+    title_en: `Stop ${String(stopNumber)}`,
+    can_do_en: `Can do of stop ${String(stopNumber)}.`,
+    part_number: 1,
+    part_title_en: 'Part 1',
+    dialogues_total: 3,
+    dialogues_ready: 3,
+    dialogues_done: Math.min(lessonsDone, 3),
+    review_forms_total: 1,
+    review_forms_reviewed: lessonsDone > 3 ? 1 : 0,
+    lessons_total: lessonsTotal,
+    lessons_done: lessonsDone,
+    live: true,
+  }
 }
 
 export function fakeDb(
@@ -265,6 +288,8 @@ export function fakeDb(
     next: null,
     recorded: [],
     kept: [],
+    roadRows: [],
+    road: () => Promise.resolve([...db.roadRows]),
     readableDialogues: () => Promise.resolve([...db.dialogues]),
     mySessions: () => Promise.resolve(db.sessions.map((s) => ({ ...s }))),
     startSession: (dialogueId) => {

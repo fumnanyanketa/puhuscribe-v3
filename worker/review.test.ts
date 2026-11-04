@@ -447,7 +447,7 @@ describe("the front door and today's session", () => {
       canDo: 'Can do of unit 10.',
       review: true,
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
   })
 
@@ -460,7 +460,7 @@ describe("the front door and today's session", () => {
       today: 'start',
       canDo: 'Can do of unit 10.',
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
   })
 
@@ -472,7 +472,7 @@ describe("the front door and today's session", () => {
       today: 'review',
       reviewCount: 1,
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
     const id = await reviewOnly(l)
     expect(l.db.sessions.filter((s) => s.dialogueId === null)).toHaveLength(1)
@@ -480,7 +480,7 @@ describe("the front door and today's session", () => {
       signedIn: true,
       today: 'continue',
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
     // Start again reuses the unfinished review only session.
     expect(await reviewOnly(l)).toBe(id)
@@ -495,7 +495,7 @@ describe("the front door and today's session", () => {
       today: 'all_done',
       nextReview: { today: '2026-10-22', day: '2026-10-24' },
       account: 'guest',
-      finishedLesson: true,
+      finishedStop: false,
     })
     const res = await handleApi(post('/api/sessions/today', { cookie: l.cookie }), ENV, l.deps)
     expect(await body<unknown>(res)).toEqual({ state: 'all_done' })
