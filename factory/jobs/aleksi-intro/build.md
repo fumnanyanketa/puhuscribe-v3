@@ -1,6 +1,6 @@
 # aleksi-intro: build notes (fast route, 4 November 2026)
 
-Branch `factory/aleksi-intro`. Pull request: see the end of this file. Not merged.
+Branch `factory/aleksi-intro`, pull request https://github.com/fumnanyanketa/puhuscribe-v3/pull/37. Not merged.
 
 ## What was built
 
