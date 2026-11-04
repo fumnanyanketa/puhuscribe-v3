@@ -12,6 +12,8 @@ import {
   throughUnderstandIt,
 } from './review-helpers.ts'
 import {
+  declineConsent,
+  dismissTip,
   finishHearIt,
   finishUnderstandIt,
   passSayIt,
@@ -206,6 +208,10 @@ async function startNext(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Start', exact: true }).click()
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
+  // Since fast route hear-and-say the speaking consent opens in this first step, over the line card;
+  // these tests open word cards, so they answer "Not now" first, as startSession does.
+  await dismissTip(page)
+  await declineConsent(page)
 }
 
 test.describe('Patterns you have seen', { tag: '@seed' }, () => {

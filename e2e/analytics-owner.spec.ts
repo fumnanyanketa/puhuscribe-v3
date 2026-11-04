@@ -245,7 +245,9 @@ test.describe('the owner page', { tag: ['@seed', '@email'] }, () => {
     // The road, the learner front door, is at /learn since job 17-landing-page.
     await expect(crash).toContainText('Path /learn.')
     expect(
-      one(`select count(*) from private.crash_reports where error_name = :'name' and path = '/'`, { name }),
+      one(`select count(*) from private.crash_reports where error_name = :'name' and path = '/learn'`, {
+        name,
+      }),
     ).toBe('1')
     await context.close()
   })
