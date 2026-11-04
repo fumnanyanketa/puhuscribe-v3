@@ -760,6 +760,10 @@
 
 /* Wide screens */
 @media (min-width: 980px) {
+  .hero {
+    padding-block: 64px 56px;
+  }
+
   .heroInner {
     max-width: 1180px;
     gap: 24px;
@@ -845,7 +849,7 @@
 /* Phones */
 @media (max-width: 760px) {
   .hero {
-    padding-block: 24px 40px;
+    padding-block: 40px 40px;
   }
 
   .heroInner {
