@@ -6,8 +6,8 @@ import { GREETING_AUDIO, OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-in
 import { mockHome } from './road-mocks.ts'
 
 // Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026). Labels name the item of the
-// owner's brief; [intro-rule N] labels are the owner's rule of 4 November 2026 on who sees the intro
-// (factory/jobs/intro-rule/build.md). The road answers from e2e/road-mocks.ts, so no database is needed. With
+// owner's brief; [intro-rule N] and [intro-stop N] labels are the owner's rules of 4 November 2026 on who
+// sees the intro (factory/jobs/intro-rule/build.md, factory/jobs/intro-stop/build.md). The road answers from e2e/road-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshots go to factory/jobs/aleksi-intro/evidence/ (Chromium only).
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
@@ -116,28 +116,37 @@ test('[intro-rule 1] [intro-rule 3] a new visitor meets Aleksi again after a rel
   await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
 })
 
-// Every case of the owner's rule, with the GET /api/today body the Worker gives for it.
-const MEETS_ALEKSI: [string, Record<string, unknown>][] = [
+// Every case of the owner's rule, with the GET /api/today body the Worker gives for it and the lessons done
+// on the road (stop 1, "Meeting people", has 4 lessons).
+const MEETS_ALEKSI: [string, Record<string, unknown>, Record<number, number>][] = [
   [
-    'a guest with no finished lesson',
-    { signedIn: true, today: 'start', account: 'guest', finishedLesson: false },
+    'a guest with nothing done',
+    { signedIn: true, today: 'start', account: 'guest', finishedStop: false },
+    {},
   ],
   [
-    'a guest with a finished lesson',
-    { signedIn: true, today: 'continue', account: 'guest', finishedLesson: true },
+    'a guest who finished stop 1',
+    { signedIn: true, today: 'start', account: 'guest', finishedStop: true },
+    { 1: 4 },
   ],
   [
-    'an email account with no finished lesson',
-    { signedIn: true, today: 'continue', account: 'email', finishedLesson: false },
+    'an email account with one lesson done and the stop not finished',
+    { signedIn: true, today: 'start', account: 'email', finishedStop: false },
+    { 1: 1 },
   ],
-  ['a guest whose sign in ended', { signedIn: false, ended: true }],
-  ['an email account whose sign in ended', { signedIn: false, ended: true, account: 'email' }],
+  [
+    'an email account with three of four lessons done',
+    { signedIn: true, today: 'start', account: 'email', finishedStop: false },
+    { 1: 3 },
+  ],
+  ['a guest whose sign in ended', { signedIn: false, ended: true }, {}],
+  ['an email account whose sign in ended', { signedIn: false, ended: true, account: 'email' }, {}],
 ]
 
-for (const [who, today] of MEETS_ALEKSI) {
-  test(`[intro-rule 1] ${who} meets Aleksi each time the road opens`, async ({ page }) => {
+for (const [who, today, done] of MEETS_ALEKSI) {
+  test(`[intro-stop 1] ${who} meets Aleksi each time the road opens`, async ({ page }) => {
     await watchPlay(page, true)
-    await openNew(page, today)
+    await openNew(page, today, done)
     await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
     await page.getByRole('button', { name: 'Nice to meet you' }).click()
@@ -146,6 +155,20 @@ for (const [who, today] of MEETS_ALEKSI) {
     await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
   })
 }
+
+test('[intro-stop 1] [intro-stop 4] an email account that did one lesson and left meets Aleksi again, then the road opens at their own place', async ({
+  page,
+}) => {
+  await watchPlay(page, true)
+  await openNew(page, { signedIn: true, today: 'start', account: 'email', finishedStop: false }, { 1: 1 })
+  await page.getByRole('button', { name: 'Nice to meet you' }).click()
+  // Their progress is kept: stop 1 is current with one of its four lessons done, and Start opens the next one.
+  const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
+  await expect(signs.first()).toHaveText(/Stop 1, Meeting people, current/)
+  await expect(page.getByRole('region', { name: 'Today' })).toContainText('Meeting people')
+  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0)
+})
 
 // The opening animation plays after the intro as on every road opening; the test config turns motion off,
 // so these two turn it back on to see it.
@@ -173,18 +196,21 @@ test.describe('the road opens with its animation', () => {
     await expect(page.getByText('Why are you learning Finnish?')).toHaveCount(0)
   })
 
-  test('[intro-rule 1] [intro-rule 4] an email account with a finished lesson never sees the intro: the road opens with its animation', async ({
+  test('[intro-stop 1] [intro-stop 4] an email account that finished stop 1 never sees the intro: the road opens at their place with its animation', async ({
     page,
   }) => {
     await watchPlay(page, false)
     await openNew(
       page,
-      { signedIn: true, today: 'start', account: 'email', finishedLesson: true },
+      { signedIn: true, today: 'start', account: 'email', finishedStop: true },
       { 1: 4, 2: 1 },
     )
     await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
     await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+    await expect(
+      page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').nth(1),
+    ).toHaveText(/Stop 2, .*current/)
     // The greeting never tries to play for this learner.
     expect(await plays(page)).toBe(0)
     await page.reload()
