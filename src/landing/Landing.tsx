@@ -222,7 +222,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Practise a real chat without the nerves',
-    text: 'Along the journey, you meet Aleksi, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
+    text: 'Aleksi goes with you all along the journey. From stop 4, he has short chats with you, using only words you’ve already learned, so you can keep up. Type your answer or say it out loud.',
     image: '/landing/otso.webp',
     alt: 'A short chat with Aleksi, the AI tutor, in the app, with the English meaning under each reply.',
     height: 1299,
@@ -243,7 +243,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Remember the words you learn',
-    text: 'Each word comes back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
+    text: 'Aleksi brings each word back just before you would forget it, so it stays with you. You fill in the missing word in a line you’ve learned, and it sticks a little more each time.',
     image: '/landing/review.webp',
     alt: 'A review card in the app: the missing word typed in and marked right.',
     height: 1299,
@@ -409,8 +409,8 @@ function Journey() {
               A journey made for life in Finland
             </h2>
             <p className={styles.journeyP}>
-              It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time,
-              and you’ll reach A1, the first everyday level of Finnish.
+              Aleksi takes you through 36 short stops, each one a moment you’ll meet here in Finland. Take
+              them one at a time, and you’ll reach A1, the first everyday level of Finnish.
             </p>
           </div>
           <JourneyRoad />

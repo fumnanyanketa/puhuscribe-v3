@@ -56,8 +56,8 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | 1 | Hear it the way Finns say it | Every line comes as people say it and as it’s written, with audio for both. The words that change are marked, so you see how “Paljonko” becomes “Paljonks”. | A line in both Finnishes |
 | 2 | Practise out loud before the real moment | You hear each line and say it straight back, with gentle feedback on how clear you were. By the time you reach the pharmacy counter, the words feel familiar. | Saying a line back |
 | 3 | Build sentences about your own life | At each stop you add one sentence about your own life. We call it your language island. By the end of the journey, you can talk about yourself fluently for about a minute. | The language island |
-| 4 | Practise a real chat without the nerves | Along the journey, you meet Aleksi, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud. (Was: “you meet Otso”.) | Chatting with Aleksi |
-| 5 | Remember the words you learn | Each word comes back just before you would forget it, so it stays with you. (Was: “PuhuScribe brings each word back just before you would forget it, so it stays with you.”) You fill in the missing word in a line you’ve learned, and it sticks a little more each time. | A review card |
+| 4 | Practise a real chat without the nerves | Aleksi goes with you all along the journey. From stop 4, he has short chats with you, using only words you’ve already learned, so you can keep up. Type your answer or say it out loud. (Owner, 4 November 2026. Was: “Along the journey, you meet Otso, your AI tutor, for short chats. He only uses words you’ve already learned, so you can keep up. Type your answer or say it out loud.”) | Chatting with Aleksi |
+| 5 | Remember the words you learn | Aleksi brings each word back just before you would forget it, so it stays with you. (Owner, 4 November 2026. Was: “PuhuScribe brings each word back just before you would forget it, so it stays with you.”) You fill in the missing word in a line you’ve learned, and it sticks a little more each time. | A review card |
 
 ## 7. The journey
 
@@ -65,7 +65,7 @@ Five blocks. Each sits next to a real app screen, with the screen alternating le
 | --- | --- |
 | Picture | The 36-stop journey to the A1 sun |
 | Heading | A journey made for life in Finland |
-| Text | It has 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and you’ll reach A1, the first everyday level of Finnish. |
+| Text | Aleksi takes you through 36 short stops, each one a moment you’ll meet here in Finland. Take them one at a time, and you’ll reach A1, the first everyday level of Finnish. (Owner, 4 November 2026. Was: “It has 36 short stops, …”) |
 
 ## 8. Questions
 
