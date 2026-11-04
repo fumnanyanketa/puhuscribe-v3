@@ -113,3 +113,4 @@ Anthropic's own pages (read 3 November 2026): the Data Processing Addendum is pa
 
 ## Go-live address (owner, 4 November 2026)
 - The MVP goes live only once the final name is chosen and its domain is bought, so there is one launch and no move later. No exentrik.co address for the learner app in the meantime.
+- Done 4 November 2026 (manager, owner's go): meetaleksi.com bought by the owner at Spaceship (renews 4 Nov 2027). Added to the Cloudflare account that holds the preview Workers, Free plan, nameservers andronicus and yolanda.ns.cloudflare.com set at Spaceship; DNSSEC is off at the registry. Two A records from Spaceship's parking page were imported; replace them with the Worker's custom domain at go live.
