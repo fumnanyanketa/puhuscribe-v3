@@ -634,7 +634,9 @@ export function fakeRecordingStore(db: FakeSpeechDb): RecordingStore & { kept: s
 
 /** A speech provider that answers from a queue and counts its calls. */
 export function countingProvider(
-  answer: () => Promise<HeardAnswer> = () => Promise.resolve({ status: 'heard', heard: 'moi mä oon alex' }),
+  /** The answer for one check; it gets the reference text, so a test can answer each reference its own way. */
+  answer: (reference: string) => Promise<HeardAnswer> = () =>
+    Promise.resolve({ status: 'heard', heard: 'moi mä oon alex' }),
 ): SpeechProvider & { calls: { bytes: number; reference: string; fixture: string | null }[] } {
   const provider = {
     name: 'fake' as const,
@@ -643,7 +645,7 @@ export function countingProvider(
     costUsd: (ms: number) => Math.round((ms / 3_600_000) * 1e8) / 1e8,
     check(wav: Uint8Array, reference: string, fixture: string | null) {
       provider.calls.push({ bytes: wav.length, reference, fixture })
-      return answer()
+      return answer(reference)
     },
     transcribe() {
       return Promise.resolve({ status: 'heard' as const, text: 'Moi, mä oon Alex.' })

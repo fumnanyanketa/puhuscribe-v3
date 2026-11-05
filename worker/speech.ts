@@ -1,4 +1,11 @@
-import { classifySpeech } from '../src/lib/speech-feedback.ts'
+import {
+  betterCheck,
+  classifySpeech,
+  classifyWritten,
+  needsWrittenCheck,
+  type CheckedAnswer,
+  type TargetLine,
+} from '../src/lib/speech-feedback.ts'
 import {
   MAX_RECORDING_MS,
   MAX_SAY_BODY_BYTES,
@@ -72,6 +79,33 @@ function speechDbFor(context: LearnerContext, deps: SpeechDeps): SpeechDb {
 
 function storeFor(context: LearnerContext, deps: SpeechDeps): RecordingStore {
   return deps.recordingStore ? deps.recordingStore(context) : supabaseRecordingStore(context.client)
+}
+
+/**
+ * Checks one recording of a line or form (fast route bug fix written-form-feedback, 5 November
+ * 2026). The first call sends the spoken line as the reference text. When that try was heard but
+ * was not clear, and the written line has other words, a second call sends the written line, and
+ * the better answer counts, so a learner who said the written form is judged against it. `calls`
+ * is how many calls answered, for the cost. A failed first call throws; a failed second call
+ * leaves the first answer.
+ */
+async function checkBothForms(
+  provider: SpeechProvider,
+  wav: Uint8Array,
+  target: TargetLine,
+  fixture: string | null,
+): Promise<CheckedAnswer & { calls: number }> {
+  const answer = await provider.check(wav, target.spoken, fixture)
+  const first: CheckedAnswer = { answer, feedback: classifySpeech(target, answer) }
+  if (!needsWrittenCheck(target, first.feedback)) return { ...first, calls: 1 }
+  let written
+  try {
+    written = await provider.check(wav, target.written, fixture)
+  } catch {
+    return { ...first, calls: 1 }
+  }
+  const second: CheckedAnswer = { answer: written, feedback: classifyWritten(target, written) }
+  return { ...betterCheck(first, second), calls: 2 }
 }
 
 function fault(error: unknown): Response {
@@ -347,23 +381,28 @@ export async function say(
       return done({ error: 'too_many', message: TOO_MANY }, 429)
     }
 
-    let heard
+    let checked
     try {
-      heard = await provider.check(wav, line.spoken, request.headers.get('x-test-speech-fixture'))
+      checked = await checkBothForms(
+        provider,
+        wav,
+        { spoken: line.spoken, written: line.written },
+        request.headers.get('x-test-speech-fixture'),
+      )
     } catch (error) {
       const busy = error instanceof SpeechCheckFailed && error.fault === 'busy'
       return done({ error: busy ? 'speech_busy' : 'speech_failed' }, 503)
     }
-    const feedback = classifySpeech({ spoken: line.spoken, written: line.written }, heard)
+    const { feedback } = checked
     const saved = await db.addAttempt({
       sessionId: session.id,
       lineId: line.id,
       formId: null,
-      transcript: heard.heard,
+      transcript: checked.answer.heard,
       feedbackClass: feedback.feedbackClass,
       provider: provider.name,
       audioMs: info.durationMs,
-      costUsd: provider.costUsd(info.durationMs),
+      costUsd: checked.calls * provider.costUsd(info.durationMs),
     })
     if (!saved) return done({ error: 'no_voice_consent' }, 403)
     if (consents.retention) {
@@ -403,8 +442,8 @@ function parseRecall(body: string): RecallRequest | null {
 /**
  * POST /api/speech/recall with {"sessionId", "formId", "audio"} (the WAV as
  * base64). The same checks as /api/speech/say, in the same order, before the
- * speech service is asked; the reference is the form's spoken shape and either
- * register is accepted. The class becomes the rating by a fixed table
+ * speech service is asked; the reference is the form's spoken shape, then its written
+ * shape when that try was not clear (checkBothForms). The class becomes the rating by a fixed table
  * (src/lib/review-grade.ts) and goes through job 9's own answer path with mode
  * spoken. A recording that was not heard grades nothing: the answer says so
  * and the card is untouched. The answer holds no transcript.
@@ -444,23 +483,23 @@ export async function recall(
     if (!(await db.reserveCheck(SPEECH_RATE_LIMIT.checks, SPEECH_RATE_LIMIT.minutes))) {
       return done({ error: 'too_many', message: TOO_MANY }, 429)
     }
-    let heard
+    let checked
     try {
-      heard = await provider.check(wav, target.form.spoken, request.headers.get('x-test-speech-fixture'))
+      checked = await checkBothForms(provider, wav, target.form, request.headers.get('x-test-speech-fixture'))
     } catch (error) {
       const busy = error instanceof SpeechCheckFailed && error.fault === 'busy'
       return done({ error: busy ? 'speech_busy' : 'speech_failed' }, 503)
     }
-    const feedback = classifySpeech(target.form, heard)
+    const { feedback } = checked
     const saved = await db.addAttempt({
       sessionId: null,
       lineId: null,
       formId: asked.formId,
-      transcript: heard.heard,
+      transcript: checked.answer.heard,
       feedbackClass: feedback.feedbackClass,
       provider: provider.name,
       audioMs: info.durationMs,
-      costUsd: provider.costUsd(info.durationMs),
+      costUsd: checked.calls * provider.costUsd(info.durationMs),
     })
     if (!saved) return done({ error: 'no_voice_consent' }, 403)
     if (feedback.feedbackClass === 'not_heard') return done({ status: 'not_heard' })

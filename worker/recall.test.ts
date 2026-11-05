@@ -215,3 +215,26 @@ describe('POST /api/speech/recall', () => {
     expect(l.db.recorded).toEqual([])
   })
 })
+
+describe('POST /api/speech/recall with the written form', () => {
+  it('[written-form-feedback 1] the written form said well is graded Good, checked a second time against minä', async () => {
+    const l = await learner()
+    // Azure leans its transcript to the reference text: sent "mä", a well said "minä" came back low.
+    l.provider.check = (wav: Uint8Array, reference: string, fixture: string | null) => {
+      l.provider.calls.push({ bytes: wav.length, reference, fixture })
+      return Promise.resolve(
+        reference === 'mä'
+          ? { status: 'heard', heard: 'mä', words: [{ word: 'mä', accuracy: 25, error: 'mispronunciation' }] }
+          : { status: 'heard', heard: 'minä', words: [{ word: 'minä', accuracy: 94, error: 'none' }] },
+      )
+    }
+    const body = await (await handleApi(recallRequest(l), ENV, l.deps)).json<{ feedback: ReviewFeedback }>()
+    expect(body.feedback.result).toBe('correct')
+    expect(l.db.recorded[0]).toMatchObject({ p_form_id: MINÄ, p_rating: Rating.Good, p_mode: 'spoken' })
+    expect(l.provider.calls.map((call) => call.reference)).toEqual(['mä', 'minä'])
+    expect(l.speech.attempts[0]).toMatchObject({
+      transcript: 'minä',
+      costUsd: 2 * l.provider.costUsd(1000),
+    })
+  })
+})

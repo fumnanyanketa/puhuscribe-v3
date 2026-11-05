@@ -240,7 +240,7 @@ export function classifySpeech(
   if (answer.status !== 'heard' || heard.length === 0) return { feedbackClass: 'not_heard' }
   const lines = candidates(target)
   if (lines.length === 0) return { feedbackClass: 'try_again' }
-  let best: { feedback: Feedback; cost: number } | null = null
+  let best: { feedback: Feedback; cost: number; slots: Slot[] } | null = null
   for (const slots of lines) {
     const feedback = judge(slots, heard, rules)
     const cost = align(slots, heard).cost
@@ -249,24 +249,86 @@ export function classifySpeech(
       RANK[feedback.feedbackClass] < RANK[best.feedback.feedbackClass] ||
       (RANK[feedback.feedbackClass] === RANK[best.feedback.feedbackClass] && cost < best.cost)
     ) {
-      best = { feedback, cost }
+      best = { feedback, cost, slots }
     }
   }
   const result = best?.feedback ?? { feedbackClass: 'try_again' }
   if (result.feedbackClass !== 'clear') return result
 
-  // A flagged word turns clear into close, with the hint on the line's own word.
-  const spoken = lineWords(target.spoken)
+  // A flagged word turns clear into close, with the hint on the word of the line the learner said
+  // (the spoken line, the written line, or both mixed), not only on the spoken line's words.
+  const said = (best?.slots ?? []).flat()
   const flags = [...(answer.words ?? [])]
     .filter((word) => flagged(word, rules))
     .sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0))
   for (const flag of flags) {
     const norm = normalizeAnswer(flag.word)
     if (!heard.includes(norm)) continue
-    const inLine = spoken.find((word) => word.norm === norm)
+    const inLine = said.find((word) => word.norm === norm)
     if (inLine) return { feedbackClass: 'close', hint: { kind: 'off', word: inLine.surface } }
   }
   return result
+}
+
+// The written line as its own reference (fast route bug fix written-form-feedback, 5 November
+// 2026). The speech service scores the audio against the reference text it is sent, and its
+// transcript leans towards that text. Sent only the spoken line, a well said "Hei! Minä olen
+// Aino." can come back as "hei mä oon aino" with mä and oon scored low, and the learner was told
+// to listen to "Mä". So a try that is not clear against the spoken line is checked once more with
+// the written line as the reference, and the better of the two answers counts.
+
+/** One answer from the speech service with the feedback it earned. */
+export interface CheckedAnswer {
+  answer: HeardAnswer
+  feedback: Feedback
+}
+
+function wordsOf(text: string): string {
+  return lineWords(text)
+    .map((word) => word.norm)
+    .join(' ')
+}
+
+/**
+ * Whether a try checked against the spoken line should be checked again with the written line as
+ * the reference: only when it was heard, was not clear, and the written line has other words.
+ */
+export function needsWrittenCheck(target: TargetLine, first: Feedback): boolean {
+  if (first.feedbackClass === 'clear' || first.feedbackClass === 'not_heard') return false
+  return wordsOf(target.spoken) !== wordsOf(target.written)
+}
+
+/**
+ * The feedback for an answer whose reference text was the written line. It is judged against the
+ * written line only, because the service scored no other words, so any hint names a written word.
+ */
+export function classifyWritten(
+  target: TargetLine,
+  answer: HeardAnswer,
+  rules: SpeechRules = SPEECH_RULES,
+): Feedback {
+  return classifySpeech({ spoken: target.written, written: target.written }, answer, rules)
+}
+
+/** The mean accuracy the service gave the words it scored, or null when it scored none. */
+function meanAccuracy(answer: HeardAnswer): number | null {
+  const scores = (answer.words ?? []).flatMap((word) => (word.accuracy === undefined ? [] : [word.accuracy]))
+  if (scores.length === 0) return null
+  return scores.reduce((sum, score) => sum + score, 0) / scores.length
+}
+
+/**
+ * The better of two checks of the same audio: the better feedback class; on a tie, the answer whose
+ * words the service scored higher on average (the reference the audio fits best); else the first.
+ */
+export function betterCheck(first: CheckedAnswer, second: CheckedAnswer): CheckedAnswer {
+  const a = RANK[first.feedback.feedbackClass]
+  const b = RANK[second.feedback.feedbackClass]
+  if (a !== b) return b < a ? second : first
+  const firstScore = meanAccuracy(first.answer)
+  const secondScore = meanAccuracy(second.answer)
+  if (firstScore !== null && secondScore !== null && secondScore > firstScore) return second
+  return first
 }
 
 /** A piece of a feedback message: English text, or a Finnish word or letter from the line. */
