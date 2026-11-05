@@ -486,9 +486,16 @@ test.describe('the opening animation with pictures', () => {
         )
         await page.screenshot({ path: `${OUT}/1-3-animation-frame-${name}-${String(at)}ms.png` })
       }
-      await page.evaluate(`document.getAnimations().forEach((a) => a.play())`)
-      await settled(page)
-      await page.screenshot({ path: `${OUT}/1-3-animation-frame-c-settled.png` })
+      // The end, in a fresh page that plays the whole opening untouched.
+      const whole = await page.context().newPage()
+      await mockHome(whole)
+      await whole.goto('/learn')
+      await settled(whole)
+      await expect(bubble(whole)).toBeVisible()
+      await whole.bringToFront()
+      await expect(bubble(whole)).toHaveCSS('opacity', '1')
+      await whole.waitForTimeout(400)
+      await whole.screenshot({ path: `${OUT}/1-3-animation-frame-c-settled.png` })
     }
   })
 })
@@ -499,10 +506,24 @@ test.describe('reduced motion', () => {
   test('[road-stops 9] the end state at once: no pop, no Skip, every picture and the bubble already there', async ({
     page,
   }) => {
+    // Watches the page from its first moment, so a Skip or an animation that shows only briefly is still
+    // caught (an assertion that waits would let a short animation end first and pass).
+    await page.addInitScript({
+      content: `window.__motion = { skip: false, animated: false }
+      new MutationObserver(() => {
+        for (const button of document.querySelectorAll('button'))
+          if ((button.textContent || '').trim() === 'Skip') window.__motion.skip = true
+        if (document.querySelector('main[data-intro="on"]')) window.__motion.animated = true
+      }).observe(document, { childList: true, subtree: true, attributes: true })`,
+    })
     await openRoad(page)
+    await expect(bubble(page)).toBeVisible()
+    expect(await page.evaluate<{ skip: boolean; animated: boolean }>('window.__motion')).toEqual({
+      skip: false,
+      animated: false,
+    })
     await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0)
     expect(await finiteAnimations(page)).toEqual([])
-    await expect(bubble(page)).toBeVisible()
     await page.waitForTimeout(400)
     for (const sign of await signPictures(page)) expect(sign.loaded, `stop ${sign.stop}`).toBe(true)
     expect(await finiteAnimations(page)).toEqual([])
