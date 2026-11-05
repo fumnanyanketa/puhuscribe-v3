@@ -107,6 +107,12 @@
   animation-name: cardStay;
 }
 
+/* On that visit the road does not zoom in: it fades in already settled, so the "you" marker stands clear of
+   his bubble from the moment the bubble shows (owner, 5 November 2026). */
+.screen[data-intro='on'][data-met='yes'] .pictureBox {
+  animation: crossfade var(--motion-fade) ease both;
+}
+
 @keyframes cardStay {
   from,
   to {

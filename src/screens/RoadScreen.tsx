@@ -390,10 +390,11 @@ export function RoadScreen() {
 
   // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
   // sign of the "you" marker and the next one are always kept. It waits for the opening animation,
-  // whose scaling would make the boxes look smaller than they end up.
+  // whose scaling would make the boxes look smaller than they end up. On the intro visit the road does not
+  // zoom, so it runs as the road comes in (fast route intro-logo).
   // A sign's box is its board with its picture above it (fast route road-stops).
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing || meeting || stopOpen) return
+    if (home.kind !== 'ready' || !measureNow || meeting || stopOpen) return
     if (!pins && (rootTextPx() >= PIN_TEXT_PX || namesWrap(picture.current))) {
       setPins(true)
       setSignCount(MOST_SIGNS)
@@ -494,7 +495,7 @@ export function RoadScreen() {
     }
   }, [
     home,
-    playing,
+    measureNow,
     signCount,
     signGap,
     lowest,
@@ -705,7 +706,9 @@ export function RoadScreen() {
               shifts={shifts}
               pins={pins}
               evening={view.evening}
-              intro={playing}
+              // On the intro visit the road does not zoom in: it fades in already settled (RoadScreen.module.css),
+              // so the "you" marker is clear of Aleksi's bubble from the moment it shows (owner, 5 November 2026).
+              intro={playing && !justMet}
               sampleLine={sampleLine}
               onPick={signedIn && !playing ? openPractice : undefined}
               pictures={!pins || pinPictures}
