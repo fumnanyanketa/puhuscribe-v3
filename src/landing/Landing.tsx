@@ -59,7 +59,9 @@ function Hero() {
     <header className={styles.hero}>
       <div className={`${styles.inner} ${styles.heroInner}`}>
         <div className={styles.heroCopy}>
-          <h1 className={styles.title}>You took a Finnish course, but you still feel lost at the café.</h1>
+          <h1 className={styles.title}>
+            So you took a Finnish course. But you still can’t speak confidently.
+          </h1>
           <p className={styles.lead}>
             That’s because Finns speak <Fi>puhekieli</Fi>, and courses teach <Fi>kirjakieli</Fi>. But Aleksi
             is here to help you learn both, all the way to A1.
