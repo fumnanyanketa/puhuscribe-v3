@@ -4,6 +4,7 @@
   display: block;
 }
 
+/* The sprout mark (SproutMark). */
 .tile {
   fill: var(--color-brand);
 }
@@ -23,7 +24,11 @@
   fill: var(--color-brand-leaf-back);
 }
 
-/* The name in one colour, the ink of "Puhu" in the old wordmark. */
-.name {
+/* The Aleksi wordmark (W4): the letters in ink, the speech bubble that dots the i in mint. */
+.letters {
   fill: var(--color-text);
+}
+
+.bubble {
+  fill: var(--color-mint);
 }
