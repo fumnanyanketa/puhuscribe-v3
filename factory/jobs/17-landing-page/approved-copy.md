@@ -21,7 +21,7 @@ No menu links. The page asks for one action only.
 
 | Element | Copy |
 | --- | --- |
-| Headline | You took a Finnish course, but you still feel lost at the café. |
+| Headline | So you took a Finnish course. But you still can’t speak confidently. |
 | Subline | That’s because Finns speak puhekieli, and courses teach kirjakieli. But Aleksi is here to help you learn both, all the way to A1. (Owner, 4 November 2026, after the rename. Was: “… But we are here to help you learn both, all the way to A1.”) |
 | Main button | Meet Aleksi (Owner, 4 November 2026, job aleksi-intro. Was: “Start your journey now”.) |
 | Small line under the button | No need to download any app. Works on iPhone and Android. |
