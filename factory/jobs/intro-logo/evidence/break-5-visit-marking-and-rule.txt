@@ -1,0 +1,27 @@
+Break: the intro's end and Skip no longer mark the visit, Start no longer marks it, and everyone meets the intro, a returning learner too (src/screens/RoadScreen.tsx, src/lib/aleksi-intro.ts).
+Command: npx playwright test e2e/intro-logo.spec.ts --workers=4 -g "intro-logo 5\]"
+
+  x   2 [chromium] › e2e\intro-logo.spec.ts:139:3 › with motion on › [intro-logo 3] [intro-logo 5] after the tap: the card, the greeting spoken then written, the road, the journey line, then Start; each clip after the last has ended (21.6s)
+  x   1 [webkit] › e2e\intro-logo.spec.ts:139:3 › with motion on › [intro-logo 3] [intro-logo 5] after the tap: the card, the greeting spoken then written, the road, the journey line, then Start; each clip after the last has ended (22.5s)
+  x   3 [chromium] › e2e\intro-logo.spec.ts:257:3 › with motion on › [intro-logo 4] [intro-logo 5] Skip on the first screen: the end state at once, no sound, the visit marked (1.3s)
+  x   4 [webkit] › e2e\intro-logo.spec.ts:257:3 › with motion on › [intro-logo 4] [intro-logo 5] Skip on the first screen: the end state at once, no sound, the visit marked (2.2s)
+  x   5 [chromium] › e2e\intro-logo.spec.ts:312:3 › with motion on › [intro-logo 5] the rule: a returning learner never sees the intro, nor does a visit under way (6.0s)
+  x   6 [webkit] › e2e\intro-logo.spec.ts:312:3 › with motion on › [intro-logo 5] the rule: a returning learner never sees the intro, nor does a visit under way (6.6s)
+  ok  7 [chromium] › e2e\intro-logo.spec.ts:338:3 › with motion on › [intro-logo 5] a new visitor meets the intro; leaving before it ends does not mark the visit (1.1s)
+  ok  8 [chromium] › e2e\intro-logo.spec.ts:401:3 › reduced motion › [intro-logo 4] [intro-logo 5] with reduced motion the intro is its end state at once: no first screen, no animation, no sound (2.5s)
+  ok  9 [webkit] › e2e\intro-logo.spec.ts:338:3 › with motion on › [intro-logo 5] a new visitor meets the intro; leaving before it ends does not mark the visit (1.9s)
+  x  10 [chromium] › e2e\intro-logo.spec.ts:429:3 › reduced motion › [intro-logo 5] Start marks the visit too (1.5s)
+  ok 11 [webkit] › e2e\intro-logo.spec.ts:401:3 › reduced motion › [intro-logo 4] [intro-logo 5] with reduced motion the intro is its end state at once: no first screen, no animation, no sound (3.8s)
+  x  12 [webkit] › e2e\intro-logo.spec.ts:429:3 › reduced motion › [intro-logo 5] Start marks the visit too (2.2s)
+    TypeError: expect(received).toMatch(expected)
+    TypeError: expect(received).toMatch(expected)
+    Error: expect(locator).toBeAttached() failed
+    Error: element(s) not found
+    TypeError: expect(received).toMatch(expected)
+    TypeError: expect(received).toMatch(expected)
+    TypeError: expect(received).toMatch(expected)
+    Error: expect(locator).toBeAttached() failed
+    Error: element(s) not found
+    TypeError: expect(received).toMatch(expected)
+  8 failed
+  4 passed (53.5s)

@@ -1,0 +1,13 @@
+Command: npm run check:code (type check, lint, format check)
+[[33mwarn[39m] design-drafts/opening-animation-1.html
+[[33mwarn[39m] design-drafts/README.md
+[[33mwarn[39m] design-drafts/road-journey.html
+[[33mwarn[39m] design-drafts/v1-screens.html
+[[33mwarn[39m] design-drafts/written-colour.html
+[[33mwarn[39m] Code style issues found in 13 files. Run Prettier with --write to fix.
+exit: 1
+
+The type check and lint passed (check:code runs them first; the format check runs last).
+The 13 files the format check flags are all old design-drafts/ files, unchanged on main since 9f1f48d; this job does not touch them.
+Command: npx prettier --check on every file this branch changes (git diff --name-only origin/main, skipping .mp3 and .svg)
+All matched files use Prettier code style!

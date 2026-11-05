@@ -1,0 +1,5 @@
+Break: the intro voice makes and plays its audio element as soon as it exists, before any tap (src/lib/intro-voice.ts).
+Command: npx vitest run src/lib/intro-voice.test.ts
+     × [intro-logo 2] makes and plays nothing until the tap unlocks it 31ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 6 passed (7)

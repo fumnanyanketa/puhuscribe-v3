@@ -161,7 +161,7 @@ function page() {
 }
 
 describe('a visit', () => {
-  it('[intro-visit 1] once "Nice to meet you" marks the visit, the road opens without the intro for the rest of the visit', () => {
+  it('[intro-visit 1] once the intro marks the visit (its end, Skip or Start; until fast route intro-logo, "Nice to meet you"), the road opens without the intro for the rest of the visit', () => {
     const t = tab()
     const c = clock()
     expect(introDue(GUEST, t.source, c.now)).toBe(true)

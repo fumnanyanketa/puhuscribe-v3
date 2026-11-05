@@ -1,0 +1,21 @@
+Local run of every browser test that needs no local database, on this branch (5 November 2026).
+Command: npm run build, then npx playwright test --project=chromium --project=webkit --grep-invert "@seed|@email" --workers=6
+Docker is not running on this computer, so the local Supabase is not available.
+
+  97 failed
+  204 skipped
+  611 passed (12.2m)
+
+Failed tests per file:
+     59 [chromium] › e2e\design-reference.spec.ts
+     24 [chromium] › e2e\design-sample.spec.ts
+     12 [chromium] › e2e\road-sign-overflow.spec.ts
+      2 [chromium] › e2e\road-stops.spec.ts
+     60 [webkit] › e2e\design-reference.spec.ts
+     24 [webkit] › e2e\design-sample.spec.ts
+     12 [webkit] › e2e\road-sign-overflow.spec.ts
+
+Why:
+- design-reference.spec.ts, design-sample.spec.ts and the reference page tests in road-sign-overflow.spec.ts open /design-reference and the Hear it sample, which a plain npm run build leaves out (built only with VITE_DESIGN_REFERENCE=1). Not related to this job.
+- road-stops.spec.ts [road-stops 7] (one case, Chromium) failed under the 6 worker load and passed when the file ran again with 2 workers (110 passed, see local-e2e-road-specs-rerun.txt).
+- road-sign-overflow.spec.ts: six tests at 320 px ([redesign 20] 320 px done sign, [redesign 13] 320 px pins and normal text) fail. They fail the same way on unchanged main (9713e8c) once the road opens without Aleksi's bubble, see local-e2e-baseline-sign-tests.txt. Before this job the test helper pressed "Nice to meet you", so these tests always ran with the old one line bubble above Start; that bubble is gone. The helper now opens the road as later in a visit, with no bubble, which is how most learners see the road.

@@ -1,0 +1,8 @@
+Break: the card goes on to the written line and its clip without waiting for the greeting clip to end (src/lib/intro-voice.ts, playCard).
+Command: npx playwright test e2e/intro-logo.spec.ts --workers=4 -g "after the tap: the card"
+
+  x  2 [chromium] › e2e\intro-logo.spec.ts:139:3 › with motion on › [intro-logo 3] [intro-logo 5] after the tap: the card, the greeting spoken then written, the road, the journey line, then Start; each clip after the last has ended (6.6s)
+  x  1 [webkit] › e2e\intro-logo.spec.ts:139:3 › with motion on › [intro-logo 3] [intro-logo 5] after the tap: the card, the greeting spoken then written, the road, the journey line, then Start; each clip after the last has ended (18.0s)
+    Error: expect(received).toBe(expected) // Object.is equality
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+  2 failed

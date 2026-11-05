@@ -1,0 +1,12 @@
+Command: npx vitest run
+     × [content 17] the repository: every file under public/audio is a published key with a matching hash, and every key has its file 18580ms
+     × [tooling 13] a clean change passes with no advice 6603ms
+     × [tooling 13] a gitleaks failure that is not a finding gets no advice 6134ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed | 104 passed (106)
+      Tests  3 failed | 1394 passed | 2 skipped (1399)
+
+Rerun of the two [tooling 13] tests on their own (they time out at 5 s under the full parallel load):
+      Tests  13 passed (13)
+
+[content 17] fails until content/approvals/aleksi-intro.json holds the owner's written approval of the two new clips (see build.md). With a local trial approval (not committed) it passed.

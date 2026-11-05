@@ -1,0 +1,11 @@
+The outlined logo against the approved drawing (design-drafts/wordmark/w4-refined.html, "After" column).
+
+Method: the drawing was opened in headless Chromium with the self-hosted Poppins ExtraBold (the drawing
+asks Google Fonts for the same font). Its fell A, the letter positions of "leksı" and its bubble were read
+from the page. The outlined logo (src/components/wordmark-paths.ts) was drawn in the same frame at the same
+size (860 px wide, about 5 times the 167 unit width) and both were compared pixel by pixel.
+
+Result: 181 pixels differ by more than a faint anti-aliasing shade, out of 89,712 ink pixels (0.2 percent),
+all along the letters' edges. 1-logo-difference.png shows them in red over a faint copy of the drawing.
+
+Files: 1-logo-draft-w4-after.png (the drawing), 1-logo-outlined.png (the outlines), 1-logo-difference.png.
