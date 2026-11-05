@@ -227,16 +227,18 @@
   transform: rotate(6deg);
 }
 
-/* Aleksi greets the visitor from the top of the phone (owner's choice A, 5 November 2026). His round
+/* Aleksi greets the visitor from the foot of the phone, centred (owner's choice A, 5 November 2026; moved
+   down so it does not cover the screen). His round
    photo uses the same crop as the road bubble, so his whole head shows. */
 .greeting {
   position: absolute;
   z-index: 3;
-  top: 86px;
-  left: 64px;
+  bottom: 28px;
+  left: 50%;
   display: flex;
   align-items: flex-end;
   gap: 10px;
+  transform: translateX(-50%);
 }
 
 .greetingFace {
@@ -956,10 +958,8 @@
   }
 
   .greeting {
-    top: 30px;
-    left: 50%;
+    bottom: 18px;
     gap: 8px;
-    transform: translateX(-134px);
   }
 
   .greetingFace {
