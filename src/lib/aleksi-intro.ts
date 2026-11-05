@@ -5,8 +5,11 @@
 // it). Both facts come from GET /api/today. When he shows is the owner's rule of
 // 5 November 2026 (fast route intro-visit): only at the start of a visit, kept
 // as one time stamp in this tab's sessionStorage (see "A visit" below). The
-// phone keeps no "met" flag. After "Nice to meet you" the road opens at the
-// learner's own place.
+// phone keeps no "met" flag. What he shows is the owner's new intro of
+// 5 November 2026 (fast route intro-logo, src/screens/AleksiIntro.tsx): the
+// logo and "Play with sound", his greeting spoken and written on a lesson card,
+// then the road and his journey line. The visit is marked when that ends, on
+// Skip, or on Start.
 //
 // Two keys of earlier versions are cleared from the phone when they are still
 // there: the answers of the first-open questions of fast route "intro"
@@ -18,6 +21,23 @@ export const OLD_MET_KEY = 'puhuscribe-aleksi-met'
 
 /** Harri reads "Moi! Mä oon Aleksi." (scripts/generate/aleksi_greeting.py, workflow task voice-aleksi). */
 export const GREETING_AUDIO = '/audio/aleksi/greeting-d4688145c5ab.mp3'
+
+/** Harri reads "Moi! Minä olen Aleksi.", the greeting in written Finnish (a draft for the native reviewer). */
+export const GREETING_WRITTEN_AUDIO = '/audio/aleksi/greeting-written-8a9e4f43bbd0.mp3'
+
+/** Harri reads "Ja mä vien sut tälle matkalle." when the road opens (a draft for the native reviewer). */
+export const JOURNEY_AUDIO = '/audio/aleksi/journey-998cf808bc4f.mp3'
+
+/**
+ * How long each clip lasts, in milliseconds, measured with ffprobe on 5 November 2026 (4.008 s, 3.960 s
+ * and 2.832 s). The intro waits for each clip's end; these lengths only pace the scenes when a clip cannot
+ * play, and set how long a clip may take before the intro moves on without it.
+ */
+export const CLIP_MS: Readonly<Record<string, number>> = {
+  [GREETING_AUDIO]: 4008,
+  [GREETING_WRITTEN_AUDIO]: 3960,
+  [JOURNEY_AUDIO]: 2832,
+}
 
 /** The portrait at three widths (public/aleksi/), for the photo card's srcset. */
 export const PORTRAIT_WIDTHS = [360, 720, 1080] as const
@@ -129,7 +149,7 @@ export function visitIsLive(source: VisitSource = browserSessionStorage, now: Cl
   return gap >= 0 && gap < VISIT_GAP_MS
 }
 
-/** Starts the visit, or carries it on: the road opened, or the learner pressed "Nice to meet you". */
+/** Starts the visit, or carries it on: the road opened, or the intro ended, was skipped, or Start was pressed. */
 export function markVisit(source: VisitSource = browserSessionStorage, now: Clock = systemClock): void {
   try {
     source()?.setItem(VISIT_KEY, String(now()))

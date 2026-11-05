@@ -44,6 +44,13 @@
   padding: var(--space-2) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
 }
 
+/* On the visit Aleksi introduced himself, his bubble with his journey line and its meaning sits above Start
+   (fast route intro-logo). With large text the two need a little more of the screen to stay whole together. */
+.card[data-bubble='yes'] {
+  max-height: 52vh;
+  max-height: 52dvh;
+}
+
 .probe {
   position: absolute;
   width: 1rem;

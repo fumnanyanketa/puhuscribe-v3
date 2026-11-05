@@ -1,74 +1,175 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { Button } from '../components/Button.tsx'
-import { PlayControl } from '../components/PlayControl.tsx'
-import { GREETING_AUDIO, PORTRAIT_RATIO, PORTRAIT_WIDTHS, portraitSrc } from '../lib/aleksi-intro.ts'
+import { Wordmark } from '../components/Wordmark.tsx'
+import { GREETING_AUDIO } from '../lib/aleksi-intro.ts'
+import { playCard, type CardScene, type IntroVoice } from '../lib/intro-voice.ts'
+import { AleksiFace } from '../road/AleksiFace.tsx'
 import styles from './AleksiIntro.module.css'
 
-// Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026): the
-// "call card" mockup's left phone, built with the app's tokens. A tall photo
-// card with his name, the white bubble with his greeting in Finnish and English
-// and a play button, one line, then "Nice to meet you". The greeting tries once
-// to play when the screen opens; when the browser blocks that (iPhones do), the
-// play button plays it. Nothing here sends anything or makes an account.
+// Aleksi's intro (fast route intro-logo, owner approved 5 November 2026), the owner's prototype version D
+// (design-drafts/intro-flow/intro-flow-d-aleksi.html), built with the app's tokens. It replaces the "Nice
+// to meet you" screen of fast route aleksi-intro. The logo stays at the top. Browsers allow sound only after
+// a tap, so it opens on one "Play with sound" button and a quiet Skip, and nothing plays before the tap.
+// The tap plays the lesson card: Aleksi's photo and name, his greeting in spoken Finnish (Puhekieli) while
+// the greeting clip plays, then a dotted line down to the same greeting in written Finnish (Kirjakieli)
+// while its clip plays, then the meaning. The card then leaves and the road takes over (RoadScreen: the
+// opening animation, his journey line, then Start). Skip goes straight to the road's end state. With
+// reduced motion this screen is not shown at all. Nothing here is sent or kept.
 
-/** Aleksi's spoken greeting, the one Finnish line on this screen (listed for the native reviewer). */
-export const GREETING_FI = 'Moi! Mä oon Aleksi.'
-export const GREETING_EN = 'Hi! I’m Aleksi.'
-export const INTRO_LINE = 'I’ll be with you on your Finnish journey.'
-export const PORTRAIT_ALT = 'Aleksi, your Finnish tutor'
+/** Aleksi's greeting in spoken Finnish, with the words that change marked. */
+export const GREETING_SPOKEN = { before: 'Moi! ', changed: 'Mä oon', after: ' Aleksi.' } as const
+/** The same greeting in written Finnish (a draft for the native reviewer). */
+export const GREETING_WRITTEN = { before: 'Moi! ', changed: 'Minä olen', after: ' Aleksi.' } as const
+export const GREETING_MEANING = 'Hi! I’m Aleksi.'
+export const PLAY_WITH_SOUND = 'Play with sound'
 
-const middle = PORTRAIT_WIDTHS[1]
+/** Where the dotted line runs: from under the spoken dot to above the written dot, in px. */
+interface Rail {
+  top: number
+  height: number
+}
 
-export function AleksiIntro({ onMeet }: { onMeet: () => void }) {
-  const [speaking, setSpeaking] = useState(false)
+function Greeting({ line }: { line: { before: string; changed: string; after: string } }) {
   return (
-    <main className={styles.screen}>
-      <div className={styles.photo}>
-        <img
-          className={styles.image}
-          src={portraitSrc(middle)}
-          srcSet={PORTRAIT_WIDTHS.map((width) => `${portraitSrc(width)} ${String(width)}w`).join(', ')}
-          sizes="(min-width: 30rem) 448px, calc(100vw - 32px)"
-          width={middle}
-          height={Math.round((middle * PORTRAIT_RATIO.height) / PORTRAIT_RATIO.width)}
-          alt={PORTRAIT_ALT}
-          decoding="async"
-          fetchPriority="high"
-        />
-        <div className={styles.nameRow}>
-          <h1 className={styles.name}>Aleksi</h1>
-          <span className={styles.wave} data-speaking={speaking ? 'yes' : undefined} aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
+    <>
+      {line.before}
+      <span className={styles.changed}>{line.changed}</span>
+      {line.after}
+    </>
+  )
+}
+
+interface AleksiIntroProps {
+  /** The one audio element of the intro, shared with the road for Aleksi's journey line. */
+  voice: IntroVoice
+  /** Skip: the road's end state at once. */
+  onSkip: () => void
+  /** The card has left: the road opens with its animation. */
+  onCardDone: () => void
+}
+
+export function AleksiIntro({ voice, onSkip, onCardDone }: AleksiIntroProps) {
+  const [scene, setScene] = useState<CardScene | 'ask'>('ask')
+  const [rail, setRail] = useState<Rail | null>(null)
+  const live = useRef(true)
+  const skipRef = useRef<HTMLButtonElement>(null)
+  const pair = useRef<HTMLDivElement>(null)
+  const topDot = useRef<HTMLSpanElement>(null)
+  const bottomDot = useRef<HTMLSpanElement>(null)
+
+  // Leaving the page (or Skip) stops the voice; nothing more happens after that.
+  useEffect(() => {
+    live.current = true
+    return () => {
+      live.current = false
+      voice.stop()
+    }
+  }, [voice])
+
+  // The dotted line joins the two dots, whatever the text size makes the lines' heights.
+  const card = scene !== 'ask'
+  useLayoutEffect(() => {
+    if (!card) return undefined
+    const measure = () => {
+      const box = pair.current?.getBoundingClientRect()
+      const a = topDot.current?.getBoundingClientRect()
+      const b = bottomDot.current?.getBoundingClientRect()
+      if (!box || !a || !b) return
+      setRail({ top: a.bottom - box.top + 4, height: Math.max(0, b.top - a.bottom - 8) })
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
+    if (pair.current) observer?.observe(pair.current)
+    return () => {
+      window.removeEventListener('resize', measure)
+      observer?.disconnect()
+    }
+  }, [card])
+
+  /** "Play with sound": the tap that lets the browser play Aleksi's voice, and the start of the card. */
+  function play() {
+    voice.unlock(GREETING_AUDIO)
+    // The button leaves the page; focus moves to Skip, the one control left.
+    skipRef.current?.focus()
+    void playCard({
+      show: setScene,
+      say: (clip) => voice.say(clip),
+      wait: (ms) =>
+        new Promise((resolve) => {
+          window.setTimeout(resolve, ms)
+        }),
+      live: () => live.current,
+    }).then((left) => {
+      if (left) onCardDone()
+    })
+  }
+
+  function skip() {
+    live.current = false
+    voice.stop()
+    onSkip()
+  }
+
+  const railStyle = rail
+    ? ({
+        '--rail-top': `${String(rail.top)}px`,
+        '--rail-height': `${String(rail.height)}px`,
+      } as CSSProperties)
+    : undefined
+
+  return (
+    <main className={styles.screen} data-scene={scene}>
+      <h1 className={styles.logo}>
+        <Wordmark height={36} />
+      </h1>
+      <button ref={skipRef} type="button" className={styles.skip} data-intro-skip="" onClick={skip}>
+        Skip
+      </button>
+      {scene === 'ask' ? (
+        <div className={styles.ask}>
+          <Button className={styles.sound} arrow={false} onClick={play}>
+            {PLAY_WITH_SOUND}
+          </Button>
         </div>
-      </div>
-      <div className={styles.body}>
-        <div className={styles.bubble}>
-          <div className={styles.bubbleText}>
-            <p className={styles.finnish} lang="fi">
-              {GREETING_FI}
-            </p>
-            <p className={styles.english}>{GREETING_EN}</p>
+      ) : (
+        <div className={styles.stage}>
+          <div className={styles.leave}>
+            <section className={styles.card} aria-label="Aleksi says hello" data-testid="intro-card">
+              <div className={styles.head}>
+                <span className={styles.face}>
+                  <AleksiFace />
+                </span>
+                <span className={styles.name}>Aleksi</span>
+              </div>
+              <div className={styles.pair} ref={pair} style={railStyle}>
+                <p className={`${styles.tag} ${styles.spokenTag}`} lang="fi">
+                  Puhekieli
+                </p>
+                <div className={`${styles.line} ${styles.spokenPart}`}>
+                  <span className={styles.dotSpoken} ref={topDot} aria-hidden="true" />
+                  <p className={styles.spoken} lang="fi" data-testid="intro-spoken">
+                    <Greeting line={GREETING_SPOKEN} />
+                  </p>
+                </div>
+                <p className={`${styles.tag} ${styles.writtenTag} ${styles.writtenPart}`} lang="fi">
+                  Kirjakieli
+                </p>
+                <div className={`${styles.line} ${styles.writtenPart}`}>
+                  <span className={styles.dotWritten} ref={bottomDot} aria-hidden="true" />
+                  <p className={styles.written} lang="fi" data-testid="intro-written">
+                    <Greeting line={GREETING_WRITTEN} />
+                  </p>
+                </div>
+                <span className={styles.rail} aria-hidden="true" />
+              </div>
+              <p className={styles.meaning} data-testid="intro-meaning">
+                <span className={styles.meaningLabel}>Meaning</span> <span>{GREETING_MEANING}</span>
+              </p>
+            </section>
           </div>
-          <PlayControl
-            src={GREETING_AUDIO}
-            what="Aleksi’s greeting"
-            size="small"
-            tryOnOpen
-            onPlayingChange={setSpeaking}
-          />
         </div>
-        <p className={styles.line}>{INTRO_LINE}</p>
-      </div>
-      <div className={styles.actions}>
-        <Button block onClick={onMeet}>
-          Nice to meet you
-        </Button>
-        <p className={styles.note}>No account needed to start.</p>
-      </div>
+      )}
     </main>
   )
 }

@@ -204,6 +204,10 @@ describe('colour roles', () => {
         'src/landing/Landing.module.css',
         // The recap's cover box, drawn like the spoken line's box (fast route hear-and-say).
         'src/screens/Screens.module.css',
+        // Aleksi's intro card, his greeting spoken and written, and his journey line on the road (fast route
+        // intro-logo).
+        'src/screens/AleksiIntro.module.css',
+        'src/road/RoadStart.module.css',
       ],
     },
     written: {
@@ -221,6 +225,8 @@ describe('colour roles', () => {
         // The island card's written lines (fast route islands) and the landing page's written examples.
         'src/island/Island.module.css',
         'src/landing/Landing.module.css',
+        // Aleksi's intro card: his greeting in written Finnish (fast route intro-logo).
+        'src/screens/AleksiIntro.module.css',
       ],
     },
     changed: {
@@ -231,6 +237,8 @@ describe('colour roles', () => {
         'src/sample/HearItSample.module.css',
         // The landing page's examples mark the words that change (job 17-landing-page).
         'src/landing/Landing.module.css',
+        // Aleksi's intro card marks "Mä oon" and "Minä olen" (fast route intro-logo).
+        'src/screens/AleksiIntro.module.css',
       ],
     },
   }

@@ -115,6 +115,80 @@ describe('audio exists only for approved lines', () => {
     })
   })
 
+  // Fast route intro-logo (5 November 2026): Aleksi's written greeting and his journey line are served only
+  // with the owner's written approval in content/approvals/aleksi-intro.json, which names each file and its
+  // SHA-256. [intro-logo 3] protects that the intro's clips reach the learner only once approved.
+  describe("Aleksi's intro clips", () => {
+    const written = 'aleksi/greeting-written-0123456789ab.mp3'
+    const journey = 'aleksi/journey-0123456789ab.mp3'
+    const approved = {
+      format: 'puhuscribe-owner-approval-aleksi-intro-1',
+      approval: 'approved',
+      date: '2026-11-05',
+      clips: [
+        { file: written, sha256: sha('written') },
+        { file: journey, sha256: sha('journey') },
+      ],
+    }
+    const refused = (file: string) =>
+      `${file} is not an intro clip the owner approved (content/approvals/aleksi-intro.json)`
+
+    function introSandbox(opts: { files?: Record<string, string>; approval?: object | null }) {
+      const { audio, migrations } = sandbox({}, [])
+      const approvals = join(audio, '..', '..', 'content', 'approvals')
+      mkdirSync(approvals, { recursive: true })
+      mkdirSync(join(audio, 'aleksi'), { recursive: true })
+      const approval = opts.approval === undefined ? approved : opts.approval
+      if (approval) writeFileSync(join(approvals, 'aleksi-intro.json'), JSON.stringify(approval))
+      for (const [name, bytes] of Object.entries(
+        opts.files ?? { [written]: 'written', [journey]: 'journey' },
+      ))
+        writeFileSync(join(audio, name), bytes)
+      return checkPublishedAudio(audio, migrations, approvals)
+    }
+
+    it('[intro-logo 3] the approved clips with their approved bytes pass', () => {
+      expect(introSandbox({})).toEqual([])
+    })
+
+    it('[intro-logo 3] without the owner approval both clips fail', () => {
+      expect(introSandbox({ approval: null })).toEqual([refused(written), refused(journey)])
+    })
+
+    it('[intro-logo 3] an approval with no owner line, or no date, approves nothing', () => {
+      expect(introSandbox({ approval: { ...approved, approval: ' ' } })).toEqual([
+        refused(written),
+        refused(journey),
+      ])
+      expect(introSandbox({ approval: { ...approved, date: 'today' } })).toEqual([
+        refused(written),
+        refused(journey),
+      ])
+    })
+
+    it('[intro-logo 3] swapped bytes, an unnamed clip and a missing file each fail', () => {
+      expect(introSandbox({ files: { [written]: 'another voice', [journey]: 'journey' } })).toEqual([
+        `${written} differs from the approved intro clip (its SHA-256 differs)`,
+      ])
+      const other = 'aleksi/journey-ba9876543210.mp3'
+      expect(introSandbox({ files: { [written]: 'written', [journey]: 'journey', [other]: 'x' } })).toEqual([
+        refused(other),
+      ])
+      expect(introSandbox({ files: { [written]: 'written' } })).toEqual([
+        `${journey} is approved but its file is missing`,
+      ])
+    })
+
+    it('[intro-logo 3] the intro approval does not approve a greeting clip', () => {
+      const greetingFile = 'aleksi/greeting-0123456789ab.mp3'
+      expect(
+        introSandbox({ files: { [written]: 'written', [journey]: 'journey', [greetingFile]: 'x' } }),
+      ).toEqual([
+        `${greetingFile} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`,
+      ])
+    })
+  })
+
   // Fast route "islands" (3 November 2026): island clips are approved through the island data, and
   // only while that data was made from the islands.md the owner approved. Before this full run the
   // check did not know the islands/ folder, so every island clip failed it.

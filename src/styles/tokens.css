@@ -299,6 +299,22 @@
   --motion-sign-step: 280ms; /* between one sign popping up and the next, farther one */
   --motion-sign-pop: 450ms; /* one sign's pop */
   --motion-stagger: 0.2s; /* between the three loading dots */
+  /* Aleksi's intro card (fast route intro-logo), the owner's prototype version D of 5 November 2026. Each
+     "-at" is a delay from the start of its scene. */
+  --motion-card-at: 300ms; /* the card comes up */
+  --motion-card-in: 700ms;
+  --motion-face-at: 700ms; /* his photo pops */
+  --motion-face-pop: 450ms;
+  --motion-spoken-at: 1000ms; /* the spoken line comes in */
+  --motion-line-in: 500ms;
+  --motion-draw: 700ms; /* the dotted line draws down, as the written scene starts */
+  --motion-dot-at: 650ms; /* the written dot comes in */
+  --motion-dot-in: 300ms;
+  --motion-written-at: 750ms; /* the written line comes in */
+  --motion-meaning-at: 2400ms; /* the meaning comes in */
+  --motion-meaning-in: 500ms;
+  --motion-card-out: 600ms; /* the card leaves */
+  --motion-ease-pop: cubic-bezier(0.2, 1.4, 0.4, 1); /* his photo's pop, the prototype's */
 }
 
 /* The evening set of the landscape (Done for today, and the end of the road). */

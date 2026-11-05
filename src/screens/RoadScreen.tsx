@@ -14,7 +14,8 @@ import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { loadHumanCheck, runHumanCheck } from '../lib/human-check.ts'
 import { loadRoad } from '../lib/road-data.ts'
-import { clearOldIntroKeys, introDue, markVisit, watchVisit } from '../lib/aleksi-intro.ts'
+import { clearOldIntroKeys, introDue, JOURNEY_AUDIO, markVisit, watchVisit } from '../lib/aleksi-intro.ts'
+import { IntroVoice } from '../lib/intro-voice.ts'
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
@@ -39,12 +40,19 @@ import styles from './RoadScreen.module.css'
 // is drawn.
 //
 // Meeting Aleksi (fast route aleksi-intro, 4 November 2026): at the start of a visit, a learner who meets
-// him (everyone except a signed in email account with a finished stop) first sees Aleksi's intro screen.
-// "Nice to meet you" marks the visit (one time stamp kept for this tab by src/lib/aleksi-intro.ts) and
-// opens the road with its opening animation. Coming back to the road in the same visit, from a lesson
-// for example, opens the road straight away (fast route intro-visit, owner, 5 November 2026). The day one
-// card's Start then goes straight to the first lesson; the two first-open questions and the recap card of
-// fast route "intro" are gone.
+// him (everyone except a signed in email account with a finished stop) first sees Aleksi's intro. Coming
+// back to the road in the same visit, from a lesson for example, opens the road straight away (fast route
+// intro-visit, owner, 5 November 2026). The day one card's Start then goes straight to the first lesson;
+// the two first-open questions and the recap card of fast route "intro" are gone.
+//
+// The new intro (fast route intro-logo, owner approved 5 November 2026) replaces the "Nice to meet you"
+// screen. It opens on the logo and "Play with sound" (src/screens/AleksiIntro.tsx); the tap plays his
+// greeting on the lesson card, spoken then written. Then this page takes over: the road comes in with its
+// opening animation, his bubble shows his journey line while its clip plays, and only then Start shows.
+// Each clip starts only after the one before has ended, all on one audio element (src/lib/intro-voice.ts).
+// Skip, at any moment, or reduced motion, goes straight to the end state: the road, his bubble with its
+// play button, and Start, with no animation and no sound. The visit is marked (one time stamp kept for this
+// tab by src/lib/aleksi-intro.ts) when the intro ends, on Skip, or on Start.
 //
 // The clean road (fast route road-stops, owner approved 5 November 2026): the bottom card is gone for
 // everyone. The road shows its signs, each with its stop's picture, and one Start button. On the visit
@@ -55,6 +63,15 @@ import styles from './RoadScreen.module.css'
 // returns to the road, and it keeps nothing.
 
 type Home = { kind: 'loading' } | { kind: 'offline' } | { kind: 'ready'; road: RoadView; today: TodayInfo }
+
+/**
+ * Where Aleksi's intro is on this page: none (not due), the card screen (logo, "Play with sound", the lesson
+ * card), on the road (its opening animation, then his journey line), or over (the end state).
+ */
+type IntroStage = 'none' | 'card' | 'road' | 'over'
+
+/** After his bubble shows on the road, his journey line starts this many milliseconds later (the prototype's 0.7 s). */
+const JOURNEY_AT = 700
 
 /** The sign in cookie only exists after "Start"; without an answer the page offers Start, which finds a guest already on this device. */
 async function loadHome(): Promise<Home> {
@@ -119,8 +136,13 @@ export function RoadScreen() {
   const checkSlot = useRef<HTMLDivElement>(null)
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
-  /** Aleksi's intro screen shows instead of the road (at the start of a visit, until "Nice to meet you"). */
-  const [meeting, setMeeting] = useState(false)
+  /** Where Aleksi's intro is (fast route intro-logo). */
+  const [introStage, setIntroStage] = useState<IntroStage>('none')
+  const meeting = introStage === 'card'
+  // The intro's one audio element: unlocked by the tap on "Play with sound", used for all three clips.
+  const [voice] = useState(() => new IntroVoice())
+  // How the intro ended on this page: played to its end (Start then comes in), or skipped (all there at once).
+  const [introEnd, setIntroEnd] = useState<'played' | 'skipped' | null>(null)
   const [lowest, setLowest] = useState(400)
   // How many signs show. Five when there is room; fewer when the room above the card is short.
   const [signCount, setSignCount] = useState(MOST_SIGNS)
@@ -138,8 +160,15 @@ export function RoadScreen() {
   const [pinPictures, setPinPictures] = useState(true)
   // Aleksi's stop screen is open in place of the road (fast route road-stops).
   const [stopOpen, setStopOpen] = useState(false)
-  // The learner pressed "Nice to meet you" in this page: the road shows Aleksi's bubble until Start.
-  const [justMet, setJustMet] = useState(false)
+  // Aleksi introduced himself on this page: the road shows his bubble until Start.
+  const justMet = introStage === 'road' || introStage === 'over'
+  // The road's opening animation is over and the intro is still on: his bubble shows and he says his line.
+  const journey = introStage === 'road' && !playing
+  // Whether the road has a Start, so his bubble has its place (it has none when nothing is ready).
+  const bubbleRoom =
+    journey &&
+    home.kind === 'ready' &&
+    startPlan(homeView(home.road.stops, home.today, noticeFrom(window.location.search)).card).kind !== 'none'
   const [bubbleGone, setBubbleGone] = useState(false)
   // The stop screen's entry in the browser's history, so Back and the phone's back gesture both close it.
   const stopEntry = useRef(false)
@@ -175,10 +204,13 @@ export function RoadScreen() {
       setHome(next)
       if (next.kind !== 'ready') return
       // Aleksi's intro comes first for everyone except a signed in email account that has finished a whole
-      // stop (owner, 4 November 2026), and only at the start of a visit (owner, 5 November 2026). The road
-      // and its animation open after "Nice to meet you", at the learner's own place.
+      // stop (owner, 4 November 2026), and only at the start of a visit (owner, 5 November 2026). With
+      // reduced motion it is its end state at once, and the visit is marked (fast route intro-logo).
       if (introDue(next.today)) {
-        setMeeting(true)
+        if (reducedMotion()) {
+          markVisit()
+          setIntroStage('over')
+        } else setIntroStage('card')
         return
       }
       // The road is open: the visit starts here, or goes on.
@@ -194,15 +226,61 @@ export function RoadScreen() {
 
   const signedIn = home.kind === 'ready' && home.today.signedIn
 
+  // The intro's voice stops when the page goes.
+  useEffect(
+    () => () => {
+      voice.stop()
+    },
+    [voice],
+  )
+
+  /** The intro is over (its end, or Skip): its end state, and the visit is marked. */
+  const finishIntro = useCallback(
+    (skipped: boolean) => {
+      voice.stop()
+      markVisit()
+      if (skipped) focusAfterSkip.current = true
+      setIntroEnd(skipped ? 'skipped' : 'played')
+      setPlaying(false)
+      setIntroStage('over')
+    },
+    [voice],
+  )
+
+  // The road's opening animation is over: his bubble shows and, a moment later, he says his journey line.
+  // When the road has no Start (nothing ready) there is no bubble, and the intro ends here. Start shows only
+  // once his line has ended.
+  useEffect(() => {
+    if (!journey) return undefined
+    let live = true
+    const timer = window.setTimeout(
+      () => {
+        if (!bubbleRoom) {
+          finishIntro(false)
+          return
+        }
+        void voice.say(JOURNEY_AUDIO).then((result) => {
+          if (live && result !== 'stopped') finishIntro(false)
+        })
+      },
+      bubbleRoom ? JOURNEY_AT : 0,
+    )
+    return () => {
+      live = false
+      window.clearTimeout(timer)
+    }
+  }, [journey, bubbleRoom, voice, finishIntro])
+
   // While the app is in use (taps, keys, hiding or leaving the page) the visit goes on (fast route intro-visit).
   useEffect(() => watchVisit(window, document), [])
 
   useEffect(() => {
-    if (!playing && !stopOpen && focusAfterSkip.current) {
+    // Also after the intro's Skip, once the road and Start are in the page (introStage).
+    if (!playing && !stopOpen && introStage !== 'card' && focusAfterSkip.current) {
       focusAfterSkip.current = false
       startRef.current?.focus()
     }
-  }, [playing, stopOpen])
+  }, [playing, stopOpen, introStage])
 
   // The phone's back gesture (or the browser's Back) on the stop screen returns to the road.
   useEffect(() => {
@@ -443,14 +521,14 @@ export function RoadScreen() {
     setProblem(startProblemOf(answer))
   }
 
-  /** "Nice to meet you": the road opens with its animation. Nothing is kept on the phone. */
-  function meet() {
-    // The visit is marked, so the road opens straight away for the rest of it (fast route intro-visit).
-    markVisit()
-    setMeeting(false)
-    // Aleksi's bubble shows on this road, once the animation is over; a later road open is a new page.
-    setJustMet(true)
-    if (!reducedMotion()) setPlaying(true)
+  /** The intro's card has left: the road opens with its animation (a phone that turned motion off meanwhile gets the end state). */
+  function cardDone() {
+    if (reducedMotion()) {
+      finishIntro(false)
+      return
+    }
+    setIntroStage('road')
+    setPlaying(true)
   }
 
   /** Where Start or Continue goes: makes or finds the account first, or straight to the open session. */
@@ -496,6 +574,11 @@ export function RoadScreen() {
   }
 
   function skip() {
+    // During the intro, Skip goes to its end state and marks the visit.
+    if (introStage === 'road') {
+      finishIntro(true)
+      return
+    }
     focusAfterSkip.current = true
     setPlaying(false)
   }
@@ -530,7 +613,16 @@ export function RoadScreen() {
   if (home.kind === 'loading') return <LoadingMark label={LOADING} />
   if (home.kind === 'offline') return <OfflineScreen where="road" />
 
-  if (meeting) return <AleksiIntro onMeet={meet} />
+  if (meeting)
+    return (
+      <AleksiIntro
+        voice={voice}
+        onSkip={() => {
+          finishIntro(true)
+        }}
+        onCardDone={cardDone}
+      />
+    )
 
   const view = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
   const plan = startPlan(view.card)
@@ -568,7 +660,7 @@ export function RoadScreen() {
     >
       <h1 className={styles.hidden}>Your road to A1</h1>
       <span className={styles.probe} ref={textProbe} aria-hidden="true" />
-      {playing && (
+      {(playing || journey) && (
         <button type="button" className={styles.skip} onClick={skip}>
           Skip
         </button>
@@ -613,6 +705,7 @@ export function RoadScreen() {
         className={styles.card}
         ref={cardBox}
         data-testid="road-start"
+        data-bubble={justMet && !bubbleGone ? 'yes' : undefined}
         onAnimationEnd={(event) => {
           // Start is the last thing the opening animation brings in.
           if (event.target === event.currentTarget) setPlaying(false)
@@ -623,8 +716,14 @@ export function RoadScreen() {
           note={startNote(view.card)}
           bubble={justMet && !bubbleGone && plan.kind !== 'none'}
           bubbleShown={!playing}
+          bubblePlayable={introStage === 'over'}
+          bubbleEnters={introStage === 'road'}
+          startWaits={introStage === 'road'}
+          startEnters={introStage === 'over' && introEnd === 'played'}
           onStart={() => {
             setBubbleGone(true)
+            // Start marks the visit too (fast route intro-logo).
+            if (justMet) markVisit()
             if (plan.kind === 'stop-screen') openStop()
             else if (plan.kind === 'straight') go(plan.go)
           }}

@@ -36,8 +36,8 @@ const FAKE_TURNSTILE = `window.turnstile = {
 
 /**
  * Answers GET /api/road with the fixture stops, as the list the route returns. Every browser context
- * of the tests is set up here, so it also presses "Nice to meet you" when Aleksi's intro appears
- * (e2e/intro-seen.ts) unless `introSeen` is false, and answers Turnstile's script with the stand-in above.
+ * of the tests is set up here, so it also starts the tab's visit, which keeps Aleksi's intro out of
+ * the way (e2e/intro-seen.ts), unless `introSeen` is false, and answers Turnstile's script with the stand-in above.
  */
 export async function installRoad(
   target: Routable,

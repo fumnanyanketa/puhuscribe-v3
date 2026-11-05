@@ -1,9 +1,12 @@
-/* Meeting Aleksi (fast route aleksi-intro), the owner's "call card" mockup of 4 November 2026, with the
-   app's tokens only (src/styles/tokens.css). The page wash comes from base.css. The photo card takes
-   the room the words leave, between a floor and a ceiling, so large text keeps every word on screen
-   and the page scrolls only when even the smallest photo does not fit. */
+/* Aleksi's intro (fast route intro-logo), the owner's prototype version D of 5 November 2026, with the
+   app's tokens only (src/styles/tokens.css). The page wash comes from base.css. The times are the
+   prototype's, as --motion-* tokens: the card comes up at 0.3 s, his photo pops at 0.7 s and the spoken line comes in at 1.0 s;
+   when the greeting has ended the dotted line draws down, the written line comes in at 0.75 s and the
+   meaning at 2.4 s; the card leaves in 0.6 s. Under reduced motion this screen is not shown (RoadScreen);
+   the block at the end only covers a phone that changes the setting while it runs. */
 
 .screen {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -11,164 +14,299 @@
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: calc(var(--space-5) + env(safe-area-inset-top, 0px)) var(--space-4) 0;
+  padding: calc(var(--space-6) + env(safe-area-inset-top, 0px)) var(--space-4)
+    calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
 }
 
-.photo {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 240px;
-  max-height: 560px;
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  background: var(--color-mint-soft);
+/* The logo, at the top of the screen throughout. */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  /* Room for Skip on its right, so the two never meet. */
+  padding: var(--space-1) calc(var(--tap-min) + var(--space-5)) 0;
 }
 
-/* The soft shade at the foot of the photo, under the white name, as drawn. A shadow, not a gradient. */
-.photo::after {
-  content: '';
+/* Skip: quiet text at the top right, at least 44 px, as on the road. */
+.skip {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  box-shadow: inset 0 -150px 90px -60px var(--color-photo-shade);
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 22%;
-}
-
-.nameRow {
-  position: absolute;
+  top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+  right: var(--space-3);
   z-index: 1;
-  left: var(--space-5);
-  right: var(--space-5);
-  bottom: calc(var(--space-7) + var(--space-3));
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+/* "Play with sound", alone in the middle of the screen. */
+.ask {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) 0;
+}
+
+.ask .sound {
+  padding: 0 var(--space-7);
+  font-size: var(--text-meaning);
+  font-weight: var(--weight-semibold);
+  white-space: normal;
+}
+
+.stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-6) var(--space-1) var(--space-8);
+}
+
+/* The white lesson card. It slides up, and later leaves (the wrapper), so the two motions never restart each other. */
+.card {
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--panel-shadow);
+  animation: cardIn var(--motion-card-in) var(--motion-ease-out) var(--motion-card-at) backwards;
+}
+
+.screen[data-scene='leaving'] .leave {
+  animation: cardOut var(--motion-card-out) ease-in forwards;
+}
+
+.head {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  color: var(--color-photo-name);
+  margin: 0 0 var(--space-4);
+  color: var(--color-text);
+  font-size: var(--text-reading);
+  font-weight: var(--weight-semibold);
+}
+
+.face {
+  display: block;
+  flex: none;
+  animation: pop var(--motion-face-pop) var(--motion-ease-pop) var(--motion-face-at) backwards;
 }
 
 .name {
-  margin: 0;
-  font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-line);
-}
-
-/* The small sound wave mark beside his name. It moves only while his greeting plays. */
-.wave {
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 16px;
-}
-
-.wave i {
-  display: block;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--color-photo-name);
-  transform-origin: bottom;
-}
-
-.wave i:nth-child(1) {
-  height: 8px;
-}
-
-.wave i:nth-child(2) {
-  height: 16px;
-}
-
-.wave i:nth-child(3) {
-  height: 11px;
-}
-
-.wave i:nth-child(4) {
-  height: 6px;
-}
-
-.wave[data-speaking='yes'] i {
-  animation: speak var(--motion-turn) var(--motion-ease) infinite alternate;
-}
-
-.wave[data-speaking='yes'] i:nth-child(2) {
-  animation-delay: var(--motion-stagger);
-}
-
-.wave[data-speaking='yes'] i:nth-child(4) {
-  animation-delay: var(--motion-stagger);
-}
-
-@keyframes speak {
-  to {
-    transform: scaleY(0.45);
-  }
-}
-
-.body {
-  position: relative;
-  z-index: 1;
-  margin-top: calc(-1 * var(--space-7));
-  padding: 0 var(--space-1);
-}
-
-/* The white bubble that overlaps the photo, with its tail corner at the bottom left as drawn. */
-.bubble {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
-  border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-radius) var(--bubble-tail);
-  background: var(--color-surface);
-  box-shadow: var(--panel-shadow);
-}
-
-.bubbleText {
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-.finnish {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: var(--text-line-large);
+/* The two lines, with a dot each at the left and the dotted line between the dots. */
+.pair {
+  position: relative;
+}
+
+.tag {
+  margin: 0 0 var(--space-2) calc(10px + var(--space-3) + 2px);
+  font-size: var(--text-small-plus);
   font-weight: var(--weight-semibold);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-line);
   overflow-wrap: anywhere;
 }
 
-.english {
-  margin: var(--space-1) 0 0;
-  font-size: var(--text-reading);
-  color: var(--color-text-quiet);
-  overflow-wrap: anywhere;
+.spokenTag {
+  color: var(--color-spoken-text);
+}
+
+.writtenTag {
+  margin-top: var(--space-5);
+  color: var(--color-written);
 }
 
 .line {
-  margin: var(--space-4) 0 0;
-  font-size: var(--text-heading);
-  line-height: var(--leading-body);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
 }
 
-.actions {
-  padding: var(--space-6) var(--space-1) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+.dotSpoken,
+.dotWritten {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-left: 2px;
+  border-radius: 50%;
+  background: var(--color-spoken);
 }
 
-.note {
-  margin: var(--space-3) 0 0;
-  font-size: var(--text-small-plus);
+.dotWritten {
+  background: var(--color-written);
+}
+
+.spoken,
+.written {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.spoken {
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--color-spoken-soft);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-line-large);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-line);
+  letter-spacing: var(--tracking-line);
+}
+
+.written {
+  padding: 0 var(--space-4);
+  color: var(--color-written);
+  font-size: var(--text-line);
+  line-height: var(--leading-line);
+}
+
+/* The words that change between the two, peach on a peach wash in both lines, as on a lesson's line card. */
+.changed {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-word);
+  background: var(--color-changed-wash);
+  box-shadow: inset 0 0 0 1px var(--color-peach);
+  color: var(--color-changed-text);
+}
+
+/* The dotted line from the spoken dot down to the written dot. Its place is measured (AleksiIntro.tsx). */
+.rail {
+  position: absolute;
+  top: var(--rail-top, 0px);
+  left: 6px;
+  height: var(--rail-height, 0px);
+  border-left: 2px dotted var(--color-mint-mid);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.meaning {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--color-track);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  overflow-wrap: anywhere;
+  visibility: hidden;
+}
+
+.meaningLabel {
   color: var(--color-text-quiet);
-  text-align: center;
+  font-size: var(--text-small);
+}
+
+/* Scene "spoken": the spoken line comes in. */
+.spokenTag,
+.spokenPart {
+  animation: wordIn var(--motion-line-in) ease-out var(--motion-spoken-at) backwards;
+}
+
+/* The written half waits, hidden (also from screen readers), for the scene "written". */
+.writtenPart {
+  visibility: hidden;
+}
+
+.screen[data-scene='written'] .rail,
+.screen[data-scene='leaving'] .rail {
+  animation: drawDown var(--motion-draw) ease-in-out forwards;
+}
+
+.screen[data-scene='written'] .writtenPart,
+.screen[data-scene='leaving'] .writtenPart {
+  visibility: visible;
+  animation: wordIn var(--motion-line-in) ease-out var(--motion-written-at) backwards;
+}
+
+.screen[data-scene='written'] .dotWritten,
+.screen[data-scene='leaving'] .dotWritten {
+  animation: dotIn var(--motion-dot-in) ease-out var(--motion-dot-at) backwards;
+}
+
+.screen[data-scene='written'] .meaning,
+.screen[data-scene='leaving'] .meaning {
+  visibility: visible;
+  animation: fadeIn var(--motion-meaning-in) var(--motion-ease) var(--motion-meaning-at) backwards;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@keyframes cardOut {
+  to {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.94);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+}
+
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes drawDown {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes dotIn {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wave[data-speaking='yes'] i {
+  .card,
+  .face,
+  .spokenTag,
+  .spokenPart,
+  .screen[data-scene] .writtenPart,
+  .screen[data-scene] .dotWritten,
+  .screen[data-scene] .meaning,
+  .screen[data-scene='leaving'] .leave {
     animation: none;
+  }
+
+  .screen[data-scene='written'] .rail,
+  .screen[data-scene='leaving'] .rail {
+    animation: none;
+    transform: none;
   }
 }
