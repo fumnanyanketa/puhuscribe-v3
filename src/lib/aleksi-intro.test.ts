@@ -306,7 +306,20 @@ describe('a visit', () => {
   })
 
   it('[intro-visit 5] a marker that cannot be read counts as a new visit', () => {
-    for (const value of ['', 'yes', 'NaN', '-5', '1.5', `${String(START)}x`, '9'.repeat(400)]) {
+    const recent = START - MINUTE
+    for (const value of [
+      '',
+      'yes',
+      'NaN',
+      '-5',
+      '1.5',
+      `${String(START)}x`,
+      '9'.repeat(400),
+      // A recent time written in another form is refused too: only plain digits are read.
+      ` ${String(recent)}`,
+      `0x${recent.toString(16)}`,
+      `${String(recent / 1000)}e3`,
+    ]) {
       const t = tab({ [VISIT_KEY]: value })
       expect(
         introDue(GUEST, t.source, () => START),

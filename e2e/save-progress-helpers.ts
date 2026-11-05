@@ -4,6 +4,7 @@ import { expect, type Locator, type Page } from '@playwright/test'
 import { PATHS } from '../src/lib/app-paths.ts'
 import * as copy from '../src/screens/save-note-copy.ts'
 import { startGuest } from './account-helpers.ts'
+import { SESSION_BESIDES_VISIT } from './visit-marker.ts'
 import { linesOf, sessionsOf, sql } from './db.ts'
 import {
   finishHearIt,
@@ -239,14 +240,15 @@ export interface Storage {
 
 /**
  * What this page holds on the phone: cookie names and values, and the length of both storages. Every
- * key counts (fast route intro-rule removed the one "met Aleksi" key the tests used to set).
+ * key counts (fast route intro-rule removed the one "met Aleksi" key the tests used to set), except the
+ * road's visit marker when it holds only a time (fast route intro-visit, e2e/visit-marker.ts).
  */
 export async function storageOf(page: Page): Promise<Storage> {
   const cookies = (await page.context().cookies()).map((c) => `${c.name}=${c.value}`).sort()
   return {
     cookies,
     localStorage: await page.evaluate<number>('localStorage.length'),
-    sessionStorage: await page.evaluate<number>('sessionStorage.length'),
+    sessionStorage: await page.evaluate<number>(SESSION_BESIDES_VISIT),
     documentCookie: await page.evaluate<string>('document.cookie'),
   }
 }
