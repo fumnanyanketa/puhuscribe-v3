@@ -1,6 +1,5 @@
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { Wordmark } from './Wordmark.tsx'
 import { WORDMARK } from './wordmark-paths.ts'
@@ -8,6 +7,7 @@ import { WORDMARK } from './wordmark-paths.ts'
 // Labels in brackets are the numbered items of the owner's brief for fast route intro-logo
 // (factory/jobs/intro-logo/build.md lists them): [intro-logo 1] the Wordmark component draws the new
 // outlined logo, W4 of 5 November 2026, with no text element and the fell A and the bubble present.
+// Its colours and the brand files are checked in tests/wordmark-assets.test.ts.
 
 const markup = (height?: number) => renderToStaticMarkup(createElement(Wordmark, height ? { height } : {}))
 
@@ -72,25 +72,5 @@ describe('the Aleksi wordmark (W4)', () => {
     expect(html).toContain(`viewBox="0 0 ${String(WORDMARK.width)} ${String(WORDMARK.height)}"`)
     expect(html).toContain('height="40"')
     expect(html).toContain(`width="${String((40 * WORDMARK.width) / WORDMARK.height)}"`)
-  })
-
-  it('[intro-logo 1] takes its two colours from tokens: ink for the letters, mint for the bubble', () => {
-    const css = readFileSync('src/components/Wordmark.module.css', 'utf8')
-    expect(css).toMatch(/\.letters\s*\{\s*fill:\s*var\(--color-text\);/)
-    expect(css).toMatch(/\.bubble\s*\{\s*fill:\s*var\(--color-mint\);/)
-  })
-
-  it('[intro-logo 1] the brand files hold the same outlines, light and dark, with no text', () => {
-    const light = readFileSync('design/assets/wordmark.svg', 'utf8')
-    const dark = readFileSync('design/assets/wordmark-dark.svg', 'utf8')
-    for (const [file, ink, mint] of [
-      [light, '#1b2a26', '#1e856f'],
-      [dark, '#f4faf8', '#74bba9'],
-    ] as const) {
-      expect(file).not.toMatch(/<text|<tspan/)
-      expect(file).toContain(`<path fill="${ink}" d="${WORDMARK.fell}"/>`)
-      expect(file).toContain(`<path fill="${ink}" d="${WORDMARK.letters}"/>`)
-      expect(file).toContain(`<path fill="${mint}" d="${WORDMARK.bubble}"/>`)
-    }
   })
 })

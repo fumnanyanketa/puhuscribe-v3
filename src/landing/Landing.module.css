@@ -197,6 +197,34 @@
   background: var(--landing-screen);
 }
 
+/* The logo the hero phone opens on (useSplash in Landing.tsx). It is centred in the part of the
+   screen that Aleksi's greeting leaves clear: below the notch, above the greeting. */
+.splash {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 0 66px;
+  background: linear-gradient(
+    180deg,
+    var(--color-wash-top) 0%,
+    var(--color-wash-middle) 62%,
+    var(--color-wash-bottom) 100%
+  );
+  inset: 0;
+  transition: opacity 0.6s ease-in;
+}
+
+.splash[data-leaving] {
+  opacity: 0;
+}
+
+.splash svg {
+  width: 62%;
+  height: auto;
+}
+
 .heroCard {
   position: absolute;
   z-index: 1;
@@ -767,9 +795,19 @@
 
 /* Footer */
 .footer {
-  padding-block: 20px 32px;
+  padding-block: 56px 28px;
   color: var(--color-text-quiet);
   font-size: 0.84375rem;
+}
+
+/* The logo across the whole width of the page, the last thing a visitor sees. */
+.footerMark svg {
+  width: 100%;
+  height: auto;
+}
+
+.footerMark {
+  margin-bottom: 20px;
 }
 
 .footerInner {
@@ -955,6 +993,10 @@
   .heroCardLeft {
     top: 64px;
     left: -8px;
+  }
+
+  .splash {
+    padding: 24px 0 60px;
   }
 
   .greeting {

@@ -1,4 +1,5 @@
-import { useSyncExternalStore, type ReactNode } from 'react'
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { Wordmark } from '../components/Wordmark.tsx'
 import { PATHS } from '../lib/app-paths.ts'
 import { HeroRoad } from './HeroRoad.tsx'
 import styles from './Landing.module.css'
@@ -53,8 +54,44 @@ function useMounted(): boolean {
   )
 }
 
+/** How long the logo holds on the hero phone, and how long it takes to fade into the road. */
+const SPLASH_HOLD_MS = 1600
+const SPLASH_FADE_MS = 600
+
+function prefersReducedMotion(): boolean {
+  try {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    return false
+  }
+}
+
+/**
+ * The hero phone opens on the Aleksi logo, as the app's own first screen would, then the road
+ * fades in under it. The built HTML shows the logo. With reduced motion on, the road shows at once.
+ */
+function useSplash(): 'logo' | 'leaving' | 'road' {
+  const [phase, setPhase] = useState<'logo' | 'leaving' | 'road'>('logo')
+  useEffect(() => {
+    const hold = prefersReducedMotion() ? 0 : SPLASH_HOLD_MS
+    const fade = prefersReducedMotion() ? 0 : SPLASH_FADE_MS
+    const leave = setTimeout(() => {
+      setPhase('leaving')
+    }, hold)
+    const done = setTimeout(() => {
+      setPhase('road')
+    }, hold + fade)
+    return () => {
+      clearTimeout(leave)
+      clearTimeout(done)
+    }
+  }, [])
+  return phase
+}
+
 function Hero() {
   const mounted = useMounted()
+  const splash = useSplash()
   return (
     <header className={styles.hero}>
       <div className={`${styles.inner} ${styles.heroInner}`}>
@@ -97,7 +134,14 @@ function Hero() {
             role="img"
             aria-label="The Aleksi app on a phone: the road to A1 opens with its first stop, Meeting people."
           >
-            <div className={styles.deviceScreen}>{mounted && <HeroRoad />}</div>
+            <div className={styles.deviceScreen}>
+              {mounted && splash !== 'logo' && <HeroRoad />}
+              {splash !== 'road' && (
+                <div className={styles.splash} data-leaving={splash === 'leaving' ? '' : undefined}>
+                  <Wordmark />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -499,9 +543,14 @@ function Close() {
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={`${styles.inner} ${styles.footerInner}`}>
-        <span>© Exentrik</span>
-        <a href={PATHS.privacy}>Privacy notice</a>
+      <div className={styles.inner}>
+        <div className={styles.footerMark}>
+          <Wordmark />
+        </div>
+        <div className={styles.footerInner}>
+          <span>meetaleksi.com</span>
+          <a href={PATHS.privacy}>Privacy notice</a>
+        </div>
       </div>
     </footer>
   )
