@@ -370,7 +370,7 @@ See "The finished lesson". Its words are in `src/screens/save-note-copy.ts`: "Cr
 
 ### Wordmark (`Wordmark`)
 
-v2's sprout mark and "PuhuScribe" in Poppins Bold, flat with no gloss. Sources and licence in `design/assets/README.md`.
+W4, the owner's approval of 5 November 2026: "Aleksi" in Poppins ExtraBold as outlines, the A a fell with no crossbar, the dot of the i a small mint speech bubble with its tail toward the i. Ink `--color-text`, bubble `--color-mint`. No text inside the drawing. Sources, the dark version and licence in `design/assets/README.md`.
 
 ## Screen text
 
