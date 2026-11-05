@@ -25,7 +25,7 @@ These are not rows. They become acceptance criteria inside each spec and rules i
 - **AI at the edges:** AI drafts and explains. It never publishes unchecked content and never decides scheduling or grading. Every AI call is logged with its cost.
 - **Nothing unapproved is served:** every Finnish line a learner sees has passed the automatic checks and your native reviewer's approval. Tutor replies are a lower trust tier: shown, never stored as learnable content, never scheduled for review.
 - **Spoken Finnish scope:** standard spoken Finnish as a Helsinki adult speaks it in 2026. No regional dialects.
-- **Personal data:** GDPR applies. Collect the minimum, explain why, allow export and deletion. Under 18s are out of scope for v3.0.
+- **Personal data:** GDPR applies. Collect the minimum, explain why, allow export and deletion. No age limit (owner, 5 November 2026).
 
 ## At a glance
 
