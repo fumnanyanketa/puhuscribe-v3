@@ -4,7 +4,11 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { checkApprovedDialogues } from '../scripts/ci/check-approved-dialogues.ts'
 import { checkLiveBuild, LIVE_ROUTES } from '../scripts/ci/check-live-build.ts'
-import { checkLiveMigrations, remoteVersions } from '../scripts/ci/check-live-migrations.ts'
+import {
+  checkLiveMigrations,
+  remoteVersions,
+  withoutConnectionDetails,
+} from '../scripts/ci/check-live-migrations.ts'
 import { checkLiveSettings, dbUrlNamesProject, projectRef } from '../scripts/ci/check-live-settings.ts'
 
 // Job go-live: the app on https://meetaleksi.com with its own live Supabase project.
@@ -492,6 +496,21 @@ describe('the live migrations check', () => {
       const [problem = ''] = checkLiveMigrations(failed(message), migrations([])).problems
       expect(problem, message).not.toMatch(/hunter2|zzzz|pooler|supabase\.co|postgresql:/)
     }
+  })
+
+  it('[go-live 1] each shape of a connection detail is removed by its own rule', () => {
+    // One message per rule, with no database URL to compare with, so no other rule can remove
+    // the same detail (each case was seen to fail with only its own rule taken out).
+    const cases: [string, string][] = [
+      ['role "aleksi_owner" does not exist', 'role <removed> does not exist'],
+      ['dial tcp [2a05:d014::12]:5432: i/o timeout', 'dial tcp <host>: i/o timeout'],
+      ['connect to 2a05:d014:1c06:5f00:0:0:0:12 failed', 'connect to <host> failed'],
+      ['connect to 10.11.12.13:6543 failed', 'connect to <host> failed'],
+      ['lookup db-host.example.internal: no such host', 'lookup <host>: no such host'],
+      ['project zzzzzzzzzzzzzzzzzzzz is paused', 'project <removed> is paused'],
+      ['bad option dbname=aleksi_live', 'bad option dbname=<removed>'],
+    ]
+    for (const [message, shown] of cases) expect(withoutConnectionDetails(message), message).toBe(shown)
   })
 
   it('[go-live 1] a CLI error with an unexpected code or no message still fails, saying only what it knows', () => {
