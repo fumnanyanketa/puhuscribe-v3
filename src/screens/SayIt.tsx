@@ -53,9 +53,9 @@ import { louderForPlayback } from '../lib/wav.ts'
 export const SAY_HELP = 'Listen to the line, then record yourself saying it.'
 /** The hints under the record button (job 19-redesign, statement 30). */
 /** As drawn, with no full stop (round 6). */
-export const RECORD_HINTS = { ready: 'Tap and say the line', recording: 'Listening' }
+export const RECORD_HINTS = { ready: 'Tap and say the line' }
 /** The recap's hints: the Finnish is not shown yet, so the learner says it from memory. */
-export const RECAP_HINTS = { ready: 'Tap and say it in Finnish', recording: 'Listening' }
+export const RECAP_HINTS = { ready: 'Tap and say it in Finnish' }
 /** The recap without speaking feedback. */
 export const RECAP_ALOUD = 'Say it out loud from memory, then show the Finnish.'
 export const SHOW_FINNISH = 'Show the Finnish'

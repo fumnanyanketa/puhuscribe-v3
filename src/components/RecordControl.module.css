@@ -99,10 +99,13 @@
   color: var(--color-text-quiet);
 }
 
-.time {
-  font-variant-numeric: tabular-nums;
-  font-weight: var(--weight-semibold);
-  color: var(--color-text);
+/* The one stop line under the wave while recording: the secondary pill, set as far below the wave as
+   the ready hint sits, so the screen does not jump. Long words wrap inside the pill at large text. */
+.stop {
+  margin-top: var(--space-4);
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 /* A still sound wave: bars of the drawing's heights. */

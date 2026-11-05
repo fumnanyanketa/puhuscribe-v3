@@ -3,13 +3,19 @@ import { Button } from './Button.tsx'
 import styles from './RecordControl.module.css'
 
 // The record control (design.md, "Record control"): a large round button with
-// two soft rings. States: ready (mint), recording (peach, with a wave and a
-// quiet "Stop"), working (three fading dots) and unavailable with a one line
+// two soft rings. States: ready (mint), recording (peach, with a wave and one
+// white "Tap to stop listening" pill under it), working (three fading dots) and unavailable with a one line
 // reason. The accessible name changes with the state. It does not ask for the
 // microphone itself: the screen that uses it does, through src/lib/recorder.ts.
 // Colour is never the only sign: each state has its own words.
 
 export type RecordState = 'ready' | 'recording' | 'working' | 'unavailable'
+
+/**
+ * The one line under the wave while recording, on every screen (fast route stop-clearer, owner, 5 November
+ * 2026). It replaced a "Listening" caption and a small "Stop" link, which did not say what to do.
+ */
+export const STOP_LISTENING = 'Tap to stop listening'
 
 interface RecordControlProps {
   state: RecordState
@@ -20,11 +26,12 @@ interface RecordControlProps {
   onStart?: () => void
   onStop?: () => void
   /**
-   * The hints under the button, when the screen words them (Say it: "Tap and
-   * say the line." and "Listening."). Without them the control keeps its first
-   * wording, which the spoken answer in Keep it still uses.
+   * The hint under the ready button, when the screen words it (Say it: "Tap and
+   * say the line"). Without it the control keeps its first wording, which the
+   * spoken answer in Keep it still uses. While recording every screen shows the
+   * same stop line, STOP_LISTENING.
    */
-  hints?: { ready: string; recording: string }
+  hints?: { ready: string }
   /** The ready button's name, when the screen words it ("Try again, record yourself saying the line"). */
   readyName?: string
   /** The hint under the ready button. Off after a try, where the drawing shows the button alone. */
@@ -71,7 +78,6 @@ export function RecordControl({
   readyName,
   readyHint = true,
 }: RecordControlProps) {
-  const time = `${String(Math.floor(seconds / 60))}:${String(seconds % 60).padStart(2, '0')}`
   if (state === 'recording') {
     return (
       <div className={styles.column}>
@@ -85,18 +91,9 @@ export function RecordControl({
           <MicIcon />
         </button>
         <Wave tone="recording" />
-        {hints ? (
-          <Caption>{hints.recording}</Caption>
-        ) : (
-          <Caption>
-            Recording <span className={styles.time}>{time}</span>. Tap to stop.
-          </Caption>
-        )}
-        {hints && (
-          <Button variant="quiet" onClick={onStop}>
-            Stop
-          </Button>
-        )}
+        <Button variant="secondary" className={styles.stop} onClick={onStop}>
+          {STOP_LISTENING}
+        </Button>
       </div>
     )
   }
