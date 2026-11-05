@@ -255,8 +255,8 @@ export class IntroVoice {
 // The look and motion of each scene is in the CSS; these are the moments, in milliseconds from the moment the
 // intro opens. Aleksi starts speaking as the card comes in; the written line comes in while he speaks; the
 // card leaves as he finishes.
-// The greeting's words run from 0.25 s to 3.12 s of its 4.0 s file, the journey line's from 0.25 s to 1.95 s
-// of its 2.8 s file.
+// The greeting's words run from 0.25 s to 3.12 s of its 4.0 s file, the journey line's from 0.27 s to 1.76 s
+// of its 2.64 s file (measured with ffmpeg's silence detection, 6 November 2026).
 
 /** The scenes: the logo, the spoken line, the written line, the card leaving, then nothing (the road). */
 export type IntroScene = 'splash' | 'spoken' | 'written' | 'leaving' | 'gone'
@@ -280,8 +280,8 @@ export const GONE_AT = 4600
 export const BUBBLE_AFTER = 300
 /** His journey line (4.65 s). */
 export const JOURNEY_AFTER = 450
-/** Start comes in (6.75 s), after his words have ended. */
-export const START_AFTER = 2550
+/** Start comes in about 0.3 s after his words end (4.65 s + 1.76 s + 0.3 s, so about 6.71 s). */
+export const START_AFTER = 2510
 
 export interface IntroSteps {
   show: (scene: IntroScene) => void

@@ -188,7 +188,7 @@ test.describe('with motion on', () => {
       ['scene:leaving', 4150],
       ['road animation', 4200],
       ['bubble', 4500],
-      ['start', 6750],
+      ['start', 6710],
     ]
     for (const [name, ms] of moments) {
       const when = at(scenes, name) - zero

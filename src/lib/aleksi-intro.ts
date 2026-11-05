@@ -26,17 +26,18 @@ export const GREETING_AUDIO = '/audio/aleksi/greeting-d4688145c5ab.mp3'
  * Harri reads "Lähetään yhessä matkaan!" when the road opens (spoken Finnish; written form "Lähdetään yhdessä
  * matkaan!"). A draft for the native reviewer.
  */
-export const JOURNEY_AUDIO = '/audio/aleksi/journey-998cf808bc4f.mp3'
+export const JOURNEY_AUDIO = '/audio/aleksi/journey-d38a653db50d.mp3'
 
 /**
- * How long each clip lasts, in milliseconds, measured with ffprobe on 5 November 2026 (4.008 s and 2.832 s).
+ * How long each clip lasts, in milliseconds, measured with ffprobe (4.008 s, and 2.640 s for the journey line
+ * voiced again on 6 November 2026).
  * Aleksi says only these two (owner, 5 November 2026: he says the spoken form only; the written greeting is
  * shown, not said). With the sound off, or when a clip cannot play, a clip is waited out for its length; a
  * clip that never ends is given up after its length and five seconds.
  */
 export const CLIP_MS: Readonly<Record<string, number>> = {
   [GREETING_AUDIO]: 4008,
-  [JOURNEY_AUDIO]: 2832,
+  [JOURNEY_AUDIO]: 2640,
 }
 
 /** The portrait at three widths (public/aleksi/), for the photo card's srcset. */
