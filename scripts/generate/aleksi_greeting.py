@@ -33,9 +33,12 @@ GREETING = "Moi! Mä oon Aleksi."
 # His second line, when the road opens in the new intro (owner, 5 November 2026). A draft for the native
 # reviewer; the clip is made so the owner can hear the intro prototype.
 JOURNEY = "Ja mä vien sut tälle matkalle."
+# His greeting in written Finnish, beside the spoken one in the new intro (owner, 5 November 2026). A draft
+# for the native reviewer.
+GREETING_WRITTEN = "Moi! Minä olen Aleksi."
 GREETING_VOICE = "fi-FI-HarriNeural"
 # Each line Aleksi says, with the start of its clip name.
-LINES = [(GREETING, "greeting"), (JOURNEY, "journey")]
+LINES = [(GREETING, "greeting"), (GREETING_WRITTEN, "greeting-written"), (JOURNEY, "journey")]
 # voice.py's fake provider writes this marker into every clip it makes. A fake clip never reaches public/.
 FAKE_MARKER = b"puhuscribe-fake-voice\x00"
 

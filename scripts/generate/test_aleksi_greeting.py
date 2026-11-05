@@ -23,7 +23,7 @@ def test_greeting_is_harri_reading_the_approved_line(tmp_path):
 
 
 def test_voice_writes_one_clip_and_logs_it(tmp_path):
-    """[aleksi-intro 3] [aleksi-journey 1] one clip per line (greeting and journey), one log line each with
+    """[aleksi-intro 3] [aleksi-journey 1] one clip per line (greeting, written greeting and journey), one log line each with
     the voice name, and a second run voices nothing. Changed requirement: Aleksi has two lines now."""
     log = tmp_path / "ai-calls.jsonl"
     out = tmp_path / "audio"
@@ -38,10 +38,11 @@ def test_voice_writes_one_clip_and_logs_it(tmp_path):
     lines = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
     assert [(line["model"], line["characters"]) for line in lines] == [
         ("fi-FI-HarriNeural", 19),
+        ("fi-FI-HarriNeural", 22),
         ("fi-FI-HarriNeural", 30),
     ]
     assert aleksi_greeting.cmd_voice(args, voice=FakeProvider(log)) == 0
-    assert len(log.read_text(encoding="utf-8").splitlines()) == 2
+    assert len(log.read_text(encoding="utf-8").splitlines()) == 3
 
 
 def test_fake_clip_never_reaches_public_audio(tmp_path, monkeypatch):
