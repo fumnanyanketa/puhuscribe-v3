@@ -96,8 +96,12 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
-      # Installs the Supabase CLI version pinned in package-lock.json. No project package is installed.
+      # Installs the Supabase CLI at the version written here, the one in package-lock.json
+      # (tests/go-live.test.ts keeps the two equal), so a new CLI release changes nothing until the
+      # lockfile moves. No project package is installed.
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+        with:
+          version: 2.121.0
       - name: The settings name the live project, not the test project
         env:
           LIVE_SUPABASE_URL: ${{ secrets.SUPABASE_LIVE_URL }}
@@ -127,7 +131,10 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
+      # The same pinned Supabase CLI as the migrations task.
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+        with:
+          version: 2.121.0
       - name: The settings name the live project, not the test project
         env:
           LIVE_SUPABASE_URL: ${{ secrets.SUPABASE_LIVE_URL }}
@@ -135,12 +142,14 @@ jobs:
           TEST_SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
         run: node scripts/ci/check-live-settings.ts
       - name: Every migration of main, each publish migration included, is in the live project
-        # Reads the migration history table only (versions and names), never learner data.
+        # Reads the migration history table only (versions and names), never learner data. The CLI
+        # prints it as one JSON line; an error comes back as JSON too, and the check prints only its
+        # code and its message with any URL, user, password or host removed.
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_LIVE_DB_URL }}
         run: |
           set -o pipefail
-          supabase migration list --db-url "$SUPABASE_DB_URL" 2>&1 | node scripts/ci/check-live-migrations.ts
+          supabase migration list --db-url "$SUPABASE_DB_URL" --output-format json 2>&1 | node scripts/ci/check-live-migrations.ts
 
   app:
     name: Build and deploy the live Worker (aleksi on meetaleksi.com)

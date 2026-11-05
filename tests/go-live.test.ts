@@ -153,6 +153,30 @@ describe('the live workflow', () => {
     }
   })
 
+  it('[go-live 1] every Supabase CLI install is pinned to the version in package-lock.json', () => {
+    // supabase/setup-cli installs "latest" when it finds no version, so the pin is written out.
+    // It must equal the lockfile's, the CLI every other check runs, so the two move together.
+    const lock = JSON.parse(read('package-lock.json')) as {
+      packages: Record<string, { version?: string }>
+    }
+    const version = lock.packages['node_modules/supabase']?.version ?? ''
+    expect(version).toMatch(/^\d+\.\d+\.\d+$/)
+    const installs = text
+      .split('\n')
+      .flatMap((line, i, lines) =>
+        line.includes('uses: supabase/setup-cli@') ? [lines.slice(i + 1, i + 3).join('\n')] : [],
+      )
+    expect(installs.length).toBe(2)
+    for (const pin of installs) expect(pin).toBe(`        with:\n          version: ${version}`)
+    for (const id of ['migrations', 'content']) expect(all.get(id), id).toContain('uses: supabase/setup-cli@')
+  })
+
+  it('[go-live 1] the content task reads the migration list as JSON', () => {
+    expect(all.get('content')).toContain(
+      'supabase migration list --db-url "$SUPABASE_DB_URL" --output-format json 2>&1 | node scripts/ci/check-live-migrations.ts',
+    )
+  })
+
   it('[go-live 1] no other workflow receives a live secret', () => {
     for (const name of readdirSync('.github/workflows').filter((file) => file !== 'live.yml')) {
       const other = read(join('.github/workflows', name))
@@ -365,6 +389,115 @@ describe('the live migrations check', () => {
   it('[go-live 1] an empty listing is a failure, not a pass', () => {
     expect(checkLiveMigrations('', migrations([])).problems).toEqual([
       'The migration list shows no migration in the live project.',
+    ])
+  })
+
+  // The table the Supabase CLI (2.121.0 and 3.0.0, apps/cli/src/output/glamour-table.ts with the
+  // cells of apps/cli/src/commands/migration/list/list.format.ts) really prints: every cell is
+  // wrapped in backticks and an empty cell is "` `". The live runs of 5 November 2026 read 0
+  // migrations from it because the backticks were not removed.
+  const backticked = [
+    '',
+    '  ',
+    '   Local            | Remote           | Time (UTC)            ',
+    '  ------------------|------------------|-----------------------',
+    '   `20261019183410` | `20261019183410` | `2026-10-19 18:34:10` ',
+    '   `20261102000000` | ` `              | `2026-11-02 00:00:00` ',
+    '',
+  ].join('\n')
+
+  it('[go-live 1] reads the Remote column of the table the Supabase CLI prints, with its backticks', () => {
+    expect([...remoteVersions(backticked)]).toEqual(['20261019183410'])
+  })
+
+  // `supabase migration list --output-format json` prints one JSON line on standard output
+  // (apps/cli/src/shared/output/output.layer.ts, jsonOutputLayer: success(message, data) writes
+  // {...data, message}, and 3.0.0 adds the command's "target"); the notices go to standard error,
+  // which the workflow step joins in with 2>&1.
+  const rows =
+    '"migrations":[{"local":"20261019183410","remote":"20261019183410","time":"2026-10-19 18:34:10"},' +
+    '{"local":"20261102000000","remote":"","time":"2026-11-02 00:00:00"}],"message":"Migrations listed"'
+  const json2 = [
+    'Connecting to remote database...',
+    `{${rows}}`,
+    'A new version of Supabase CLI is available: v3.0.0 (currently installed v2.121.0)',
+  ].join('\n')
+  const json3 = [
+    'Target: custom Postgres (aws-0-eu-north-1.pooler.supabase.com:5432)',
+    `{${rows},"target":{"kind":"db-url","host":"aws-0-eu-north-1.pooler.supabase.com","port":5432}}`,
+  ].join('\n')
+
+  it('[go-live 1] reads the remote versions from the JSON of Supabase CLI 2.121.0 and 3.0.0', () => {
+    expect([...remoteVersions(json2)]).toEqual(['20261019183410'])
+    expect([...remoteVersions(json3)]).toEqual(['20261019183410'])
+    const dir = migrations(['20261019183410_create_visits.sql', '20261102000000_publish_a_cold_morning.sql'])
+    expect(checkLiveMigrations(json2, dir).problems).toEqual([
+      '20261102000000_publish_a_cold_morning.sql is not in the live project yet. Run the "migrations" task.',
+    ])
+    const all = `{"migrations":[{"local":"20261019183410","remote":"20261019183410","time":"x"},{"local":"20261102000000","remote":"20261102000000","time":"y"}],"message":"Migrations listed"}`
+    expect(checkLiveMigrations(all, dir)).toEqual({
+      problems: [],
+      summary: '2 migrations in the live project; 1 of the 1 publish migrations are among them.',
+    })
+  })
+
+  it('[go-live 1] JSON with no remote migration is a failure, not a pass', () => {
+    const none =
+      '{"migrations":[{"local":"20261019183410","remote":"","time":"x"}],"message":"Migrations listed"}'
+    expect(checkLiveMigrations(none, migrations([])).problems).toEqual([
+      'The migration list shows no migration in the live project.',
+    ])
+  })
+
+  // The error a closed port gave on 5 November 2026 (supabase 2.121.0 and 3.0.0, --output-format
+  // json), with made-up connection details in place of the local ones.
+  const user = 'postgres.zzzzzzzzzzzzzzzzzzzz'
+  const host = 'aws-0-eu-north-1.pooler.supabase.com'
+  const dbUrl = `postgresql://${user}:hunter2-made-up@${host}:5432/postgres`
+  const failed = (message: string, target = '') =>
+    `Connecting to remote database...\n{${target}"_tag":"Error","error":{"code":"DbConnectError","message":${JSON.stringify(message)},"suggestion":"Make sure your local IP is allowed in Network Restrictions and Network Bans.\\nhttps://supabase.com/dashboard/project/_/database/settings"}}\n`
+
+  it('[go-live 1] a CLI error fails the check with its code and no user, password or host', () => {
+    const dir = migrations(['20261019183410_create_visits.sql'])
+    const refused = failed(
+      `failed to connect to postgres: failed to connect to \`host=${host} user=${user} database=postgres\`: dial error (connect ECONNREFUSED 10.11.12.13:5432)`,
+      `"target":{"kind":"db-url","host":"${host}","port":5432},`,
+    )
+    const result = checkLiveMigrations(refused, dir, dbUrl)
+    expect(result.problems).toEqual([
+      'The Supabase CLI could not list the live migrations (DbConnectError): failed to connect to postgres: failed to connect to `host=<removed> user=<removed> database=<removed>`: dial error (connect ECONNREFUSED <host>)',
+    ])
+    expect(result.summary).toBe('The migration list could not be read.')
+    expect(remoteVersions(refused).size).toBe(0)
+  })
+
+  it('[go-live 1] a CLI error message never shows the URL, the user, the password, the host or the project', () => {
+    const messages = [
+      `failed SASL auth (FATAL: password authentication failed for user "${user}" (SQLSTATE 28P01))`,
+      `cannot parse \`${dbUrl}\`: failed to parse as URL`,
+      `cannot parse 'postgresql://${user}:hunter2-made-up@db.zzzzzzzzzzzzzzzzzzzz.supabase.co:5432/postgres'`,
+      'unexpected character near hunter2-made-up',
+      `server at [2a05:d014:1c06:5f00::12]:5432 and ${host} is down for zzzzzzzzzzzzzzzzzzzz`,
+      `password=hunter2-made-up host=${host} port=5432`,
+    ]
+    for (const message of messages) {
+      const [problem = ''] = checkLiveMigrations(failed(message), migrations([]), dbUrl).problems
+      expect(problem, message).toMatch(
+        /^The Supabase CLI could not list the live migrations \(DbConnectError\): /,
+      )
+      expect(problem, message).not.toMatch(/hunter2|zzzz|pooler|supabase\.co|2a05|eu-north|postgresql:/)
+    }
+    // Without the database URL to compare with, the shapes of a URL, a user and a host still go.
+    for (const message of messages.slice(0, 3)) {
+      const [problem = ''] = checkLiveMigrations(failed(message), migrations([])).problems
+      expect(problem, message).not.toMatch(/hunter2|zzzz|pooler|supabase\.co|postgresql:/)
+    }
+  })
+
+  it('[go-live 1] a CLI error with an unexpected code or no message still fails, saying only what it knows', () => {
+    const odd = '{"_tag":"Error","error":{"code":"postgresql://x:y@z/","message":42}}'
+    expect(checkLiveMigrations(odd, migrations([])).problems).toEqual([
+      'The Supabase CLI could not list the live migrations (unknown code): no message.',
     ])
   })
 })
