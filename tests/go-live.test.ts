@@ -331,6 +331,19 @@ describe('the live migrations check', () => {
     expect([...remoteVersions(listing)]).toEqual(['20261019183410'])
   })
 
+  it('[go-live 1] reads the Remote column of a table drawn with │, and one version per line', () => {
+    const boxed = [
+      '  Local          │ Remote         │ Time (UTC)',
+      '  20261019183410 │ 20261019183410 │ 2026-10-19 18:34:10',
+    ].join('\n')
+    expect([...remoteVersions(boxed)]).toEqual(['20261019183410'])
+    expect([...remoteVersions('20261019183410\n20261102000000\n')]).toEqual([
+      '20261019183410',
+      '20261102000000',
+    ])
+    expect([...remoteVersions('not a version\n2026101918341\n')]).toEqual([])
+  })
+
   it('[go-live 1] finds a migration, such as a publish migration, that is not live yet', () => {
     const dir = migrations(['20261019183410_create_visits.sql', '20261102000000_publish_a_cold_morning.sql'])
     const { problems, summary } = checkLiveMigrations(listing, dir)

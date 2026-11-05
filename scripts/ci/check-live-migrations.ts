@@ -4,19 +4,26 @@
 // their publish migrations, so this is the proof that the approved content is
 // live.
 //
-// Usage: npx supabase migration list --db-url "$SUPABASE_DB_URL" | node scripts/ci/check-live-migrations.ts
+// Usage: npx supabase migration list --db-url "$SUPABASE_DB_URL" 2>&1 | node scripts/ci/check-live-migrations.ts
 // It reads the table the Supabase CLI prints (Local | Remote | Time) and looks
-// only at the Remote column. That history holds migration versions, never
-// learner data. It prints counts and migration file names, nothing else.
+// only at the Remote column. Both outputs are read and the columns may be split
+// by "|" or "│": the live run of 5 November 2026 read nothing from the CLI's
+// standard output alone. A line holding only a version also counts. That
+// history holds migration versions, never learner data. It prints counts and
+// migration file names, nothing else.
 import { readdirSync, readFileSync } from 'node:fs'
 
 const VERSION = /^\d{14}$/
 
-/** The versions in the Remote column of `supabase migration list`. */
+/** The versions in the Remote column of `supabase migration list`, or one version per line. */
 export function remoteVersions(listing: string): Set<string> {
   const found = new Set<string>()
   for (const line of listing.split(/\r?\n/)) {
-    const cells = line.split('|').map((cell) => cell.trim())
+    if (VERSION.test(line.trim())) {
+      found.add(line.trim())
+      continue
+    }
+    const cells = line.split(/[|│]/).map((cell) => cell.trim())
     if (cells.length < 2) continue
     const remote = cells[1] ?? ''
     if (VERSION.test(remote)) found.add(remote)
