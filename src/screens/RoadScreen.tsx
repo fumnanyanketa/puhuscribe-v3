@@ -14,7 +14,7 @@ import { accountLetter, fitSigns } from '../lib/road-state.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { loadHumanCheck, runHumanCheck } from '../lib/human-check.ts'
 import { loadRoad } from '../lib/road-data.ts'
-import { clearOldIntroKeys, showsAleksiIntro } from '../lib/aleksi-intro.ts'
+import { clearOldIntroKeys, introDue, markVisit, watchVisit } from '../lib/aleksi-intro.ts'
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
@@ -36,11 +36,13 @@ import styles from './RoadScreen.module.css'
 // in, the letter for the account button from GET /api/me, once, after the road
 // is drawn.
 //
-// Meeting Aleksi (fast route aleksi-intro, 4 November 2026): a new visitor (nobody signed in on this
-// device, no sign in ended here, not met on this phone) first sees Aleksi's intro screen. "Nice to meet
-// you" marks the phone (src/lib/aleksi-intro.ts) and opens the road with its opening animation. The day
-// one card's Start then goes straight to the first lesson; the two first-open questions and the recap
-// card of fast route "intro" are gone.
+// Meeting Aleksi (fast route aleksi-intro, 4 November 2026): at the start of a visit, a learner who meets
+// him (everyone except a signed in email account with a finished stop) first sees Aleksi's intro screen.
+// "Nice to meet you" marks the visit in this tab's sessionStorage (one time stamp, src/lib/aleksi-intro.ts)
+// and opens the road with its opening animation. Coming back to the road in the same visit, from a lesson
+// for example, opens the road straight away (fast route intro-visit, owner, 5 November 2026). The day one
+// card's Start then goes straight to the first lesson; the two first-open questions and the recap card of
+// fast route "intro" are gone.
 
 type Home = { kind: 'loading' } | { kind: 'offline' } | { kind: 'ready'; road: RoadView; today: TodayInfo }
 
@@ -107,7 +109,7 @@ export function RoadScreen() {
   const checkSlot = useRef<HTMLDivElement>(null)
   const [problem, setProblem] = useState<string | null>(null)
   const [letter, setLetter] = useState<string | null>(null)
-  /** Aleksi's intro screen shows instead of the road (a new visitor, until "Nice to meet you"). */
+  /** Aleksi's intro screen shows instead of the road (at the start of a visit, until "Nice to meet you"). */
   const [meeting, setMeeting] = useState(false)
   const [lowest, setLowest] = useState(400)
   // How many signs show. Five when there is room; fewer when the room above the card is short.
@@ -154,12 +156,14 @@ export function RoadScreen() {
       setHome(next)
       if (next.kind !== 'ready') return
       // Aleksi's intro comes first for everyone except a signed in email account that has finished a whole
-      // stop (owner, 4 November 2026); the road and its animation open after "Nice to meet you", at the
-      // learner's own place.
-      if (showsAleksiIntro(next.today)) {
+      // stop (owner, 4 November 2026), and only at the start of a visit (owner, 5 November 2026). The road
+      // and its animation open after "Nice to meet you", at the learner's own place.
+      if (introDue(next.today)) {
         setMeeting(true)
         return
       }
+      // The road is open: the visit starts here, or goes on.
+      markVisit()
       // The opening animation plays every time the road opens, for everyone (owner, 3 November 2026),
       // and ends on the learner's own stop. With reduced motion on there is none: the end state at once.
       if (!reducedMotion()) setPlaying(true)
@@ -170,6 +174,9 @@ export function RoadScreen() {
   }, [])
 
   const signedIn = home.kind === 'ready' && home.today.signedIn
+
+  // While the app is in use (taps, keys, hiding or leaving the page) the visit goes on (fast route intro-visit).
+  useEffect(() => watchVisit(window, document), [])
 
   useEffect(() => {
     if (!playing && focusAfterSkip.current) {
@@ -360,6 +367,8 @@ export function RoadScreen() {
 
   /** "Nice to meet you": the road opens with its animation. Nothing is kept on the phone. */
   function meet() {
+    // The visit is marked, so the road opens straight away for the rest of it (fast route intro-visit).
+    markVisit()
     setMeeting(false)
     if (!reducedMotion()) setPlaying(true)
   }
