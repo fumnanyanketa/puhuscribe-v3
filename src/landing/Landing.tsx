@@ -70,6 +70,22 @@ function Hero() {
           <p className={styles.note}>No need to download any app. Works on iPhone and Android.</p>
         </div>
         <div className={styles.stage}>
+          <div className={styles.greeting}>
+            <img
+              className={styles.greetingFace}
+              src="/aleksi/portrait-360.webp"
+              alt="Aleksi, your Finnish tutor"
+              width={360}
+              height={514}
+              decoding="async"
+            />
+            <p className={styles.greetingBubble}>
+              <span className={styles.greetingFi} lang="fi">
+                Moi! Mä oon Aleksi.
+              </span>
+              <span className={styles.greetingEn}>Hi! I’m Aleksi.</span>
+            </p>
+          </div>
           <div className={`${styles.heroCard} ${styles.heroCardLeft}`} aria-hidden="true">
             <img src="/landing/hero-say-it.webp" alt="" width={500} height={766} />
           </div>
