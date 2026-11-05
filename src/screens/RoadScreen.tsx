@@ -15,7 +15,7 @@ import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { loadHumanCheck, runHumanCheck } from '../lib/human-check.ts'
 import { loadRoad } from '../lib/road-data.ts'
 import { clearOldIntroKeys, introDue, JOURNEY_AUDIO, markVisit, watchVisit } from '../lib/aleksi-intro.ts'
-import { IntroVoice } from '../lib/intro-voice.ts'
+import { BUBBLE_AFTER, IntroVoice, JOURNEY_AFTER, START_AFTER } from '../lib/intro-voice.ts'
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
@@ -45,14 +45,16 @@ import styles from './RoadScreen.module.css'
 // intro-visit, owner, 5 November 2026). The day one card's Start then goes straight to the first lesson;
 // the two first-open questions and the recap card of fast route "intro" are gone.
 //
-// The new intro (fast route intro-logo, owner approved 5 November 2026) replaces the "Nice to meet you"
-// screen. It opens on the logo and "Play with sound" (src/screens/AleksiIntro.tsx); the tap plays his
-// greeting on the lesson card, spoken then written. Then this page takes over: the road comes in with its
-// opening animation, his bubble shows his journey line while its clip plays, and only then Start shows.
-// Each clip starts only after the one before has ended, all on one audio element (src/lib/intro-voice.ts).
-// Skip, at any moment, or reduced motion, goes straight to the end state: the road, his bubble with its
-// play button, and Start, with no animation and no sound. The visit is marked (one time stamp kept for this
-// tab by src/lib/aleksi-intro.ts) when the intro ends, on Skip, or on Start.
+// The new intro (fast route intro-logo, version E with its quick timing, owner approved 5 November 2026)
+// replaces the "Nice to meet you" screen. It plays on its own with no tap (src/screens/AleksiIntro.tsx): the
+// logo zooms away, then the lesson card with his greeting, spoken (and said) then written. As the card
+// leaves, this page's road comes in under it with its opening animation; while the road draws, his bubble
+// shows his journey line (0.3 s in), he says it (0.45 s in), and Start comes in (2.55 s in). Both clips play
+// on one audio element (src/lib/intro-voice.ts), so they never overlap; a phone that blocks sound before a
+// tap starts his voice on the first tap. Skip, at any moment, or reduced motion, goes straight to the end
+// state: the road, his bubble with its play button, and Start, with no animation and no sound. The visit is
+// marked (one time stamp kept for this tab by src/lib/aleksi-intro.ts) when the intro ends, on Skip, or on
+// Start.
 //
 // The clean road (fast route road-stops, owner approved 5 November 2026): the bottom card is gone for
 // everyone. The road shows its signs, each with its stop's picture, and one Start button. On the visit
@@ -65,13 +67,10 @@ import styles from './RoadScreen.module.css'
 type Home = { kind: 'loading' } | { kind: 'offline' } | { kind: 'ready'; road: RoadView; today: TodayInfo }
 
 /**
- * Where Aleksi's intro is on this page: none (not due), the card screen (logo, "Play with sound", the lesson
- * card), on the road (its opening animation, then his journey line), or over (the end state).
+ * Where Aleksi's intro is on this page: none (not due), the intro screen (the logo, the lesson card), on the
+ * road (the card leaving over it, his bubble and journey line while the road draws), or over (the end state).
  */
 type IntroStage = 'none' | 'card' | 'road' | 'over'
-
-/** After his bubble shows on the road, his journey line starts this many milliseconds later (the prototype's 0.7 s). */
-const JOURNEY_AT = 700
 
 /** The sign in cookie only exists after "Start"; without an answer the page offers Start, which finds a guest already on this device. */
 async function loadHome(): Promise<Home> {
@@ -125,6 +124,14 @@ async function loadPracticeList(): Promise<PracticeList> {
 /** The room of Start at the bottom, in px, until it is measured. */
 const CARD_ESTIMATE = 120
 
+/**
+ * While Aleksi's bubble shows (fast route intro-logo, owner, 5 November 2026): the lowest point of the road
+ * a sign or the "you" marker may stand at is this far above the bubble's real top, in px. The marker reaches
+ * 15 px below its point, its pulse ring 13 px more, 12 px stay clear above the bubble, and 4 px are spare for
+ * the road's own rounding (measured: without them the clearance was 11 px at 320 x 568).
+ */
+const BUBBLE_CLEAR = 15 + 13 + 12 + 4
+
 const MOST_SIGNS = 5
 
 export function RoadScreen() {
@@ -139,7 +146,7 @@ export function RoadScreen() {
   /** Where Aleksi's intro is (fast route intro-logo). */
   const [introStage, setIntroStage] = useState<IntroStage>('none')
   const meeting = introStage === 'card'
-  // The intro's one audio element: unlocked by the tap on "Play with sound", used for all three clips.
+  // The intro's one audio element, for both of Aleksi's clips, so they never overlap.
   const [voice] = useState(() => new IntroVoice())
   // How the intro ended on this page: played to its end (Start then comes in), or skipped (all there at once).
   const [introEnd, setIntroEnd] = useState<'played' | 'skipped' | null>(null)
@@ -162,11 +169,11 @@ export function RoadScreen() {
   const [stopOpen, setStopOpen] = useState(false)
   // Aleksi introduced himself on this page: the road shows his bubble until Start.
   const justMet = introStage === 'road' || introStage === 'over'
-  // The road's opening animation is over and the intro is still on: his bubble shows and he says his line.
-  const journey = introStage === 'road' && !playing
+  // On the road during the intro, his bubble is up (0.3 s after the road came in).
+  const [bubbleUp, setBubbleUp] = useState(false)
   // Whether the road has a Start, so his bubble has its place (it has none when nothing is ready).
   const bubbleRoom =
-    journey &&
+    introStage === 'road' &&
     home.kind === 'ready' &&
     startPlan(homeView(home.road.stops, home.today, noticeFrom(window.location.search)).card).kind !== 'none'
   const [bubbleGone, setBubbleGone] = useState(false)
@@ -229,47 +236,48 @@ export function RoadScreen() {
   // The intro's voice stops when the page goes.
   useEffect(
     () => () => {
-      voice.stop()
+      voice.close()
     },
     [voice],
   )
 
-  /** The intro is over (its end, or Skip): its end state, and the visit is marked. */
+  /**
+   * The intro is over: its end state, and the visit is marked. Skip stops the voice and the road's opening
+   * animation at once. At its natural end the road goes on settling, and his last words are not cut.
+   */
   const finishIntro = useCallback(
     (skipped: boolean) => {
-      voice.stop()
+      if (skipped) {
+        voice.close()
+        focusAfterSkip.current = true
+        setPlaying(false)
+      }
       markVisit()
-      if (skipped) focusAfterSkip.current = true
       setIntroEnd(skipped ? 'skipped' : 'played')
-      setPlaying(false)
       setIntroStage('over')
     },
     [voice],
   )
 
-  // The road's opening animation is over: his bubble shows and, a moment later, he says his journey line.
-  // When the road has no Start (nothing ready) there is no bubble, and the intro ends here. Start shows only
-  // once his line has ended.
+  // The road has come in under the leaving card: while it draws, his bubble shows, he says his journey line,
+  // then Start comes in. When the road has no Start (nothing ready) there is no bubble and no line.
   useEffect(() => {
-    if (!journey) return undefined
-    let live = true
-    const timer = window.setTimeout(
-      () => {
-        if (!bubbleRoom) {
-          finishIntro(false)
-          return
-        }
-        void voice.say(JOURNEY_AUDIO).then((result) => {
-          if (live && result !== 'stopped') finishIntro(false)
-        })
-      },
-      bubbleRoom ? JOURNEY_AT : 0,
-    )
+    if (introStage !== 'road') return undefined
+    const timers = [
+      window.setTimeout(() => {
+        setBubbleUp(true)
+      }, BUBBLE_AFTER),
+      window.setTimeout(() => {
+        if (bubbleRoom) void voice.say(JOURNEY_AUDIO)
+      }, JOURNEY_AFTER),
+      window.setTimeout(() => {
+        finishIntro(false)
+      }, START_AFTER),
+    ]
     return () => {
-      live = false
-      window.clearTimeout(timer)
+      for (const timer of timers) window.clearTimeout(timer)
     }
-  }, [journey, bubbleRoom, voice, finishIntro])
+  }, [introStage, bubbleRoom, voice, finishIntro])
 
   // While the app is in use (taps, keys, hiding or leaving the page) the visit goes on (fast route intro-visit).
   useEffect(() => watchVisit(window, document), [])
@@ -344,8 +352,15 @@ export function RoadScreen() {
     const cardHeight = cardBox.current?.offsetHeight ?? CARD_ESTIMATE
     const unit = box.offsetWidth / SCENE_WIDTH
     if (unit <= 0) return
+    // While Aleksi's bubble is in the page, the road is laid out above its real top (it keeps its room while
+    // hidden, and the bottom area does not move during the intro), so it never covers the marker or a sign.
+    const bubble = cardBox.current?.querySelector('[data-testid="road-bubble"]')
+    const above =
+      bubble instanceof HTMLElement
+        ? bubble.getBoundingClientRect().top - BUBBLE_CLEAR
+        : window.innerHeight - cardHeight - 24
     // The box starts above the screen's top (offsetTop is negative).
-    const room = window.innerHeight - cardHeight - 24 - box.offsetTop
+    const room = above - box.offsetTop
     setLowest(Math.max(260, room / unit))
     // The room changed (a turn, a text size, a taller card): try all the signs again.
     setSignCount(MOST_SIGNS)
@@ -355,8 +370,11 @@ export function RoadScreen() {
     setMeasured((count) => count + 1)
   }, [])
 
+  // On the intro's road the bottom area does not move while the road draws (fast route intro-logo), so the
+  // road is measured as it comes in: the signs and the marker stand clear of the bubble from the first frame.
+  const measureNow = !playing || introStage === 'road'
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing || meeting || stopOpen) return undefined
+    if (home.kind !== 'ready' || !measureNow || meeting || stopOpen) return undefined
     // Measured once the opening is over, when Start and the signs stand where they end up.
     measure()
     window.addEventListener('resize', measure)
@@ -368,7 +386,7 @@ export function RoadScreen() {
       window.removeEventListener('resize', measure)
       observer?.disconnect()
     }
-  }, [home, playing, measure, meeting, stopOpen])
+  }, [home, measureNow, measure, meeting, stopOpen])
 
   // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
   // sign of the "you" marker and the next one are always kept. It waits for the opening animation,
@@ -521,8 +539,8 @@ export function RoadScreen() {
     setProblem(startProblemOf(answer))
   }
 
-  /** The intro's card has left: the road opens with its animation (a phone that turned motion off meanwhile gets the end state). */
-  function cardDone() {
+  /** The intro's card is leaving: the road opens under it with its animation (a phone that turned motion off meanwhile gets the end state). */
+  function roadIn() {
     if (reducedMotion()) {
       finishIntro(false)
       return
@@ -613,15 +631,24 @@ export function RoadScreen() {
   if (home.kind === 'loading') return <LoadingMark label={LOADING} />
   if (home.kind === 'offline') return <OfflineScreen where="road" />
 
+  // The intro screen. It stays in the page, over the road, while its card leaves; the same element in both
+  // returns below (its key), so it plays on without starting again.
+  const intro = (
+    <AleksiIntro
+      key="intro"
+      voice={voice}
+      onSkip={() => {
+        finishIntro(true)
+      }}
+      onRoad={roadIn}
+    />
+  )
   if (meeting)
     return (
-      <AleksiIntro
-        voice={voice}
-        onSkip={() => {
-          finishIntro(true)
-        }}
-        onCardDone={cardDone}
-      />
+      <>
+        {null}
+        {intro}
+      </>
     )
 
   const view = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
@@ -653,133 +680,137 @@ export function RoadScreen() {
   const showTag = signedIn && !playing
 
   return (
-    <main
-      className={styles.screen}
-      data-land={view.evening ? 'evening' : undefined}
-      data-intro={playing ? 'on' : undefined}
-    >
-      <h1 className={styles.hidden}>Your road to A1</h1>
-      <span className={styles.probe} ref={textProbe} aria-hidden="true" />
-      {(playing || journey) && (
-        <button type="button" className={styles.skip} onClick={skip}>
-          Skip
-        </button>
-      )}
-      <div className={styles.world}>
-        <div className={styles.pictureBox} ref={picture}>
-          <RoadPicture
-            signs={shown.signs}
-            markerAt={shown.markerAt}
-            travelledTo={view.travelledTo}
-            lowest={lowest}
-            signGap={signGap}
-            shifts={shifts}
-            pins={pins}
-            evening={view.evening}
-            intro={playing}
-            sampleLine={sampleLine}
-            onPick={signedIn && !playing ? openPractice : undefined}
-            pictures={!pins || pinPictures}
+    <>
+      <main
+        className={styles.screen}
+        data-land={view.evening ? 'evening' : undefined}
+        data-intro={playing ? 'on' : undefined}
+        data-met={justMet ? 'yes' : undefined}
+      >
+        <h1 className={styles.hidden}>Your road to A1</h1>
+        <span className={styles.probe} ref={textProbe} aria-hidden="true" />
+        {playing && (
+          <button type="button" className={styles.skip} onClick={skip}>
+            Skip
+          </button>
+        )}
+        <div className={styles.world}>
+          <div className={styles.pictureBox} ref={picture}>
+            <RoadPicture
+              signs={shown.signs}
+              markerAt={shown.markerAt}
+              travelledTo={view.travelledTo}
+              lowest={lowest}
+              signGap={signGap}
+              shifts={shifts}
+              pins={pins}
+              evening={view.evening}
+              intro={playing}
+              sampleLine={sampleLine}
+              onPick={signedIn && !playing ? openPractice : undefined}
+              pictures={!pins || pinPictures}
+            />
+          </div>
+        </div>
+        <div className={styles.top} ref={topBox}>
+          <RoadTop pieces={view.pieces} letter={signedIn ? letter : null} />
+          {showTag && island && (island.lines.length > 0 || island.open.length > 0) && (
+            <div className={islandStyles.tagRow}>
+              <button
+                ref={islandTag}
+                type="button"
+                className={islandStyles.tag}
+                aria-haspopup="dialog"
+                onClick={() => {
+                  setIslandOpen(true)
+                }}
+              >
+                {tagText(shownLines(island.lines).length)}
+              </button>
+            </div>
+          )}
+        </div>
+        <div
+          className={styles.card}
+          ref={cardBox}
+          data-testid="road-start"
+          data-bubble={justMet && !bubbleGone ? 'yes' : undefined}
+          onAnimationEnd={(event) => {
+            // Start is the last thing the opening animation brings in.
+            if (event.target === event.currentTarget) setPlaying(false)
+          }}
+        >
+          <RoadStart
+            showStart={plan.kind !== 'none'}
+            note={startNote(view.card)}
+            bubble={justMet && !bubbleGone && plan.kind !== 'none'}
+            bubbleShown={!playing || bubbleUp}
+            bubblePlayable={introStage === 'over'}
+            bubbleEnters={introStage === 'road'}
+            startWaits={introStage === 'road'}
+            startEnters={introStage === 'over' && introEnd === 'played'}
+            onStart={() => {
+              setBubbleGone(true)
+              // Start marks the visit too (fast route intro-logo).
+              if (justMet) markVisit()
+              if (plan.kind === 'stop-screen') openStop()
+              else if (plan.kind === 'straight') go(plan.go)
+            }}
+            starting={starting}
+            problem={problem}
+            startRef={startRef}
+            checkRef={checkSlot}
+            asking={asking}
           />
         </div>
-      </div>
-      <div className={styles.top} ref={topBox}>
-        <RoadTop pieces={view.pieces} letter={signedIn ? letter : null} />
-        {showTag && island && (island.lines.length > 0 || island.open.length > 0) && (
-          <div className={islandStyles.tagRow}>
-            <button
-              ref={islandTag}
-              type="button"
-              className={islandStyles.tag}
-              aria-haspopup="dialog"
-              onClick={() => {
-                setIslandOpen(true)
-              }}
-            >
-              {tagText(shownLines(island.lines).length)}
-            </button>
-          </div>
-        )}
-      </div>
-      <div
-        className={styles.card}
-        ref={cardBox}
-        data-testid="road-start"
-        data-bubble={justMet && !bubbleGone ? 'yes' : undefined}
-        onAnimationEnd={(event) => {
-          // Start is the last thing the opening animation brings in.
-          if (event.target === event.currentTarget) setPlaying(false)
-        }}
-      >
-        <RoadStart
-          showStart={plan.kind !== 'none'}
-          note={startNote(view.card)}
-          bubble={justMet && !bubbleGone && plan.kind !== 'none'}
-          bubbleShown={!playing}
-          bubblePlayable={introStage === 'over'}
-          bubbleEnters={introStage === 'road'}
-          startWaits={introStage === 'road'}
-          startEnters={introStage === 'over' && introEnd === 'played'}
-          onStart={() => {
-            setBubbleGone(true)
-            // Start marks the visit too (fast route intro-logo).
-            if (justMet) markVisit()
-            if (plan.kind === 'stop-screen') openStop()
-            else if (plan.kind === 'straight') go(plan.go)
+        <Sheet
+          open={shownPractice !== undefined}
+          labelledBy={practiceTitleId}
+          returnFocus={practiceOpener}
+          onClose={() => {
+            setPracticeStop(null)
           }}
-          starting={starting}
-          problem={problem}
-          startRef={startRef}
-          checkRef={checkSlot}
-          asking={asking}
-        />
-      </div>
-      <Sheet
-        open={shownPractice !== undefined}
-        labelledBy={practiceTitleId}
-        returnFocus={practiceOpener}
-        onClose={() => {
-          setPracticeStop(null)
-        }}
-      >
-        {shownPractice && (
-          <PracticeSheet
-            titleId={practiceTitleId}
-            stop={shownPractice}
-            list={practiceList}
-            onPick={(lesson) => {
-              window.location.assign(`${PATHS.session}${practiceQuery(lesson.dialogueId)}`)
-            }}
-            onRetry={() => {
-              setPracticeList({ kind: 'loading' })
-              void loadPracticeList().then(setPracticeList)
-            }}
-            onClose={() => {
-              setPracticeStop(null)
-            }}
-          />
-        )}
-      </Sheet>
-      <Sheet
-        open={islandOpen && island !== null}
-        labelledBy={islandTitle}
-        returnFocus={islandTag}
-        onClose={() => {
-          setIslandOpen(false)
-        }}
-      >
-        {island && (
-          <IslandCard
-            titleId={islandTitle}
-            lines={island.lines}
-            open={island.open}
-            onChange={(stop) => {
-              setIslandOpen(false)
-              setEditing(stop)
-            }}
-          />
-        )}
-      </Sheet>
-    </main>
+        >
+          {shownPractice && (
+            <PracticeSheet
+              titleId={practiceTitleId}
+              stop={shownPractice}
+              list={practiceList}
+              onPick={(lesson) => {
+                window.location.assign(`${PATHS.session}${practiceQuery(lesson.dialogueId)}`)
+              }}
+              onRetry={() => {
+                setPracticeList({ kind: 'loading' })
+                void loadPracticeList().then(setPracticeList)
+              }}
+              onClose={() => {
+                setPracticeStop(null)
+              }}
+            />
+          )}
+        </Sheet>
+        <Sheet
+          open={islandOpen && island !== null}
+          labelledBy={islandTitle}
+          returnFocus={islandTag}
+          onClose={() => {
+            setIslandOpen(false)
+          }}
+        >
+          {island && (
+            <IslandCard
+              titleId={islandTitle}
+              lines={island.lines}
+              open={island.open}
+              onChange={(stop) => {
+                setIslandOpen(false)
+                setEditing(stop)
+              }}
+            />
+          )}
+        </Sheet>
+      </main>
+      {introStage === 'road' ? intro : null}
+    </>
   )
 }

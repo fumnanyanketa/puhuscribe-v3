@@ -14,20 +14,20 @@ import { pressStart } from './road-start.ts'
 // more in e2e/intro-visit.spec.ts). The road answers from e2e/road-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshots go to factory/jobs/aleksi-intro/evidence/ (Chromium only).
 //
-// Fast route intro-logo (owner, 5 November 2026) replaced the "Nice to meet you" screen with the new intro:
-// the logo and "Play with sound", the lesson card, then the road and his journey line (e2e/intro-logo.spec.ts).
-// The rules of who meets him and when are unchanged, so these tests stay, on the new screen. With reduced
-// motion, as the tests run, the intro is its end state at once: his bubble with his journey line on the road
-// (it shows only when he introduced himself). With motion on, the intro opens on "Play with sound", and its
-// Skip takes the place of the old "Nice to meet you". The old tests of that screen itself ([aleksi-intro 2]
-// its photo card and words, [aleksi-intro 3] the greeting trying to play when the screen opened) were
-// replaced by [intro-logo 2], [intro-logo 6] and [intro-logo 7]: the owner's new rule is that nothing plays
-// before the tap.
+// Fast route intro-logo (owner, 5 November 2026) replaced the "Nice to meet you" screen with the new intro,
+// version E: the logo, the lesson card, then the road and his journey line, all on its own
+// (e2e/intro-logo.spec.ts). The rules of who meets him and when are unchanged, so these tests stay, on the new
+// screen. With reduced motion, as the tests run, the intro is its end state at once: his bubble with his
+// journey line on the road (it shows only when he introduced himself). With motion on, the intro opens on the
+// logo, and its Skip takes the place of the old "Nice to meet you". The old tests of that screen itself
+// ([aleksi-intro 2] its photo card and words, [aleksi-intro 3] the greeting and its play button) were replaced
+// by the [intro-logo] tests of the new intro.
 
 const OUT = resolve('factory/jobs/aleksi-intro/evidence')
 const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
 const JOURNEY_FI = 'Ja mä vien sut tälle matkalle.'
-const PLAY = 'Play with sound'
+/** The intro screen's own Skip: it is in the page only while the intro shows. */
+const INTRO = 'button[data-intro-skip]'
 
 async function shot(page: Page, name: string, fullPage = false) {
   if (!evidence || test.info().project.name !== 'chromium') return
@@ -63,7 +63,7 @@ async function noIntro(page: Page) {
   await expect(road(page)).toBeVisible()
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await expect(page.getByTestId('road-bubble')).toHaveCount(0)
-  await expect(page.getByRole('button', { name: PLAY })).toHaveCount(0)
+  await expect(page.locator(INTRO)).toHaveCount(0)
 }
 
 // Fast route intro-visit changed this test: a reload in the same visit used to show the intro again. Now
@@ -148,7 +148,7 @@ test.describe('with motion on', () => {
     page,
   }) => {
     const calls = await openNew(page)
-    await expect(page.getByRole('button', { name: PLAY })).toBeVisible()
+    await expect(page.locator(INTRO)).toBeVisible()
     // Nothing is kept on the phone before the intro ends or is skipped.
     expect(await page.evaluate<number>('localStorage.length')).toBe(0)
     expect(await page.evaluate<string | null>(VISIT_VALUE)).toBeNull()
@@ -178,13 +178,13 @@ test.describe('with motion on', () => {
     )
     await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
     await expect(road(page)).toBeAttached()
-    await expect(page.getByRole('button', { name: PLAY })).toHaveCount(0)
+    await expect(page.locator(INTRO)).toHaveCount(0)
     await expect(road(page).getByRole('listitem').nth(1)).toHaveText(/Stop 2, .*current/)
     // Aleksi's voice never plays for this learner.
     expect(await played(page)).toEqual([])
     await page.reload()
     await expect(road(page)).toBeAttached()
-    await expect(page.getByRole('button', { name: PLAY })).toHaveCount(0)
+    await expect(page.locator(INTRO)).toHaveCount(0)
   })
 })
 
@@ -220,11 +220,11 @@ test('[aleksi-intro 4] the answers of the old first-open questions are cleared f
 test.describe('narrow', () => {
   test.use({ viewport: { width: 320, height: 640 }, reducedMotion: 'no-preference' })
 
-  test('[aleksi-intro 2] [intro-logo 7] at 320 px wide nothing on the intro runs sideways', async ({
+  test('[aleksi-intro 2] [intro-logo 12] at 320 px wide nothing on the intro runs sideways', async ({
     page,
   }) => {
     await openNew(page)
-    await expect(page.getByRole('button', { name: PLAY })).toBeVisible()
+    await expect(page.locator(INTRO)).toBeVisible()
     expect(await page.evaluate<boolean>('document.documentElement.scrollWidth > window.innerWidth')).toBe(
       false,
     )

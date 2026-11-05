@@ -115,20 +115,17 @@ describe('audio exists only for approved lines', () => {
     })
   })
 
-  // Fast route intro-logo (5 November 2026): Aleksi's written greeting and his journey line are served only
-  // with the owner's written approval in content/approvals/aleksi-intro.json, which names each file and its
-  // SHA-256. [intro-logo 3] protects that the intro's clips reach the learner only once approved.
+  // Fast route intro-logo (5 November 2026): Aleksi's journey line is served only with the owner's written
+  // approval in content/approvals/aleksi-intro.json, which names the file and its SHA-256. He says the spoken
+  // form only (owner, 5 November 2026), so a clip of the written greeting is refused, approval or not.
+  // [intro-logo 6] protects that only his two clips, the approved greeting and journey line, reach a learner.
   describe("Aleksi's intro clips", () => {
-    const written = 'aleksi/greeting-written-0123456789ab.mp3'
     const journey = 'aleksi/journey-0123456789ab.mp3'
     const approved = {
       format: 'puhuscribe-owner-approval-aleksi-intro-1',
       approval: 'approved',
       date: '2026-11-05',
-      clips: [
-        { file: written, sha256: sha('written') },
-        { file: journey, sha256: sha('journey') },
-      ],
+      clips: [{ file: journey, sha256: sha('journey') }],
     }
     const refused = (file: string) =>
       `${file} is not an intro clip the owner approved (content/approvals/aleksi-intro.json)`
@@ -140,50 +137,46 @@ describe('audio exists only for approved lines', () => {
       mkdirSync(join(audio, 'aleksi'), { recursive: true })
       const approval = opts.approval === undefined ? approved : opts.approval
       if (approval) writeFileSync(join(approvals, 'aleksi-intro.json'), JSON.stringify(approval))
-      for (const [name, bytes] of Object.entries(
-        opts.files ?? { [written]: 'written', [journey]: 'journey' },
-      ))
+      for (const [name, bytes] of Object.entries(opts.files ?? { [journey]: 'journey' }))
         writeFileSync(join(audio, name), bytes)
       return checkPublishedAudio(audio, migrations, approvals)
     }
 
-    it('[intro-logo 3] the approved clips with their approved bytes pass', () => {
+    it('[intro-logo 6] the approved journey clip with its approved bytes passes', () => {
       expect(introSandbox({})).toEqual([])
     })
 
-    it('[intro-logo 3] without the owner approval both clips fail', () => {
-      expect(introSandbox({ approval: null })).toEqual([refused(written), refused(journey)])
+    it('[intro-logo 6] without the owner approval the journey clip fails', () => {
+      expect(introSandbox({ approval: null })).toEqual([refused(journey)])
     })
 
-    it('[intro-logo 3] an approval with no owner line, or no date, approves nothing', () => {
-      expect(introSandbox({ approval: { ...approved, approval: ' ' } })).toEqual([
-        refused(written),
-        refused(journey),
-      ])
-      expect(introSandbox({ approval: { ...approved, date: 'today' } })).toEqual([
-        refused(written),
-        refused(journey),
-      ])
+    it('[intro-logo 6] an approval with no owner line, or no date, approves nothing', () => {
+      expect(introSandbox({ approval: { ...approved, approval: ' ' } })).toEqual([refused(journey)])
+      expect(introSandbox({ approval: { ...approved, date: 'today' } })).toEqual([refused(journey)])
     })
 
-    it('[intro-logo 3] swapped bytes, an unnamed clip and a missing file each fail', () => {
-      expect(introSandbox({ files: { [written]: 'another voice', [journey]: 'journey' } })).toEqual([
-        `${written} differs from the approved intro clip (its SHA-256 differs)`,
+    it('[intro-logo 6] swapped bytes, an unnamed clip and a missing file each fail', () => {
+      expect(introSandbox({ files: { [journey]: 'another voice' } })).toEqual([
+        `${journey} differs from the approved intro clip (its SHA-256 differs)`,
       ])
       const other = 'aleksi/journey-ba9876543210.mp3'
-      expect(introSandbox({ files: { [written]: 'written', [journey]: 'journey', [other]: 'x' } })).toEqual([
-        refused(other),
-      ])
-      expect(introSandbox({ files: { [written]: 'written' } })).toEqual([
-        `${journey} is approved but its file is missing`,
+      expect(introSandbox({ files: { [journey]: 'journey', [other]: 'x' } })).toEqual([refused(other)])
+      expect(introSandbox({ files: {} })).toEqual([`${journey} is approved but its file is missing`])
+    })
+
+    it('[intro-logo 6] a clip of the written greeting is refused, even when an approval lists it', () => {
+      const written = 'aleksi/greeting-written-0123456789ab.mp3'
+      const listed = { ...approved, clips: [...approved.clips, { file: written, sha256: sha('written') }] }
+      expect(
+        introSandbox({ approval: listed, files: { [journey]: 'journey', [written]: 'written' } }),
+      ).toEqual([
+        `${written} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`,
       ])
     })
 
-    it('[intro-logo 3] the intro approval does not approve a greeting clip', () => {
+    it('[intro-logo 6] the intro approval does not approve a greeting clip', () => {
       const greetingFile = 'aleksi/greeting-0123456789ab.mp3'
-      expect(
-        introSandbox({ files: { [written]: 'written', [journey]: 'journey', [greetingFile]: 'x' } }),
-      ).toEqual([
+      expect(introSandbox({ files: { [journey]: 'journey', [greetingFile]: 'x' } })).toEqual([
         `${greetingFile} is not the greeting the owner approved (content/approvals/aleksi-greeting.json)`,
       ])
     })

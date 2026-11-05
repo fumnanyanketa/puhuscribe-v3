@@ -6,10 +6,10 @@
 // 5 November 2026 (fast route intro-visit): only at the start of a visit, kept
 // as one time stamp in this tab's sessionStorage (see "A visit" below). The
 // phone keeps no "met" flag. What he shows is the owner's new intro of
-// 5 November 2026 (fast route intro-logo, src/screens/AleksiIntro.tsx): the
-// logo and "Play with sound", his greeting spoken and written on a lesson card,
-// then the road and his journey line. The visit is marked when that ends, on
-// Skip, or on Start.
+// 5 November 2026 (fast route intro-logo, version E, src/screens/AleksiIntro.tsx):
+// the logo zooms away, his greeting shows spoken and written on a lesson card,
+// then the road and his journey line, all with no tap; his voice is heard only
+// after "Sound on". The visit is marked when that ends, on Skip, or on Start.
 //
 // Two keys of earlier versions are cleared from the phone when they are still
 // there: the answers of the first-open questions of fast route "intro"
@@ -22,20 +22,17 @@ export const OLD_MET_KEY = 'puhuscribe-aleksi-met'
 /** Harri reads "Moi! Mä oon Aleksi." (scripts/generate/aleksi_greeting.py, workflow task voice-aleksi). */
 export const GREETING_AUDIO = '/audio/aleksi/greeting-d4688145c5ab.mp3'
 
-/** Harri reads "Moi! Minä olen Aleksi.", the greeting in written Finnish (a draft for the native reviewer). */
-export const GREETING_WRITTEN_AUDIO = '/audio/aleksi/greeting-written-8a9e4f43bbd0.mp3'
-
 /** Harri reads "Ja mä vien sut tälle matkalle." when the road opens (a draft for the native reviewer). */
 export const JOURNEY_AUDIO = '/audio/aleksi/journey-998cf808bc4f.mp3'
 
 /**
- * How long each clip lasts, in milliseconds, measured with ffprobe on 5 November 2026 (4.008 s, 3.960 s
- * and 2.832 s). The intro waits for each clip's end; these lengths only pace the scenes when a clip cannot
- * play, and set how long a clip may take before the intro moves on without it.
+ * How long each clip lasts, in milliseconds, measured with ffprobe on 5 November 2026 (4.008 s and 2.832 s).
+ * Aleksi says only these two (owner, 5 November 2026: he says the spoken form only; the written greeting is
+ * shown, not said). With the sound off, or when a clip cannot play, a clip is waited out for its length; a
+ * clip that never ends is given up after its length and five seconds.
  */
 export const CLIP_MS: Readonly<Record<string, number>> = {
   [GREETING_AUDIO]: 4008,
-  [GREETING_WRITTEN_AUDIO]: 3960,
   [JOURNEY_AUDIO]: 2832,
 }
 

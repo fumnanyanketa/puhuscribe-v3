@@ -100,6 +100,20 @@
   animation: skipOut var(--motion-intro) ease both;
 }
 
+/* On the visit Aleksi introduces himself (fast route intro-logo), the bottom area is there from the start of
+   the opening animation: his bubble comes in while the road draws, then Start. The same length keeps the end
+   of the animation where it was. */
+.screen[data-intro='on'][data-met='yes'] .card {
+  animation-name: cardStay;
+}
+
+@keyframes cardStay {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes cardIn {
   0%,
   75% {

@@ -1,9 +1,10 @@
-/* Aleksi's intro (fast route intro-logo), the owner's prototype version D of 5 November 2026, with the
-   app's tokens only (src/styles/tokens.css). The page wash comes from base.css. The times are the
-   prototype's, as --motion-* tokens: the card comes up at 0.3 s, his photo pops at 0.7 s and the spoken line comes in at 1.0 s;
-   when the greeting has ended the dotted line draws down, the written line comes in at 0.75 s and the
-   meaning at 2.4 s; the card leaves in 0.6 s. Under reduced motion this screen is not shown (RoadScreen);
-   the block at the end only covers a phone that changes the setting while it runs. */
+/* Aleksi's intro (fast route intro-logo), the owner's prototype version E with its quick timing of
+   5 November 2026, with the app's tokens only (src/styles/tokens.css). The page wash comes from base.css.
+   The times are the prototype's, as --motion-* tokens: the logo fades in at 0.1 s and zooms away from 1.2 s;
+   the card comes up at 1.3 s, his photo pops at 1.45 s and the spoken line comes in at 1.55 s; from 3.0 s the
+   dotted line draws down, the written line comes in at 3.6 s and the meaning at 4.05 s; the card leaves at
+   4.8 s, over the road coming in. Under reduced motion this screen is not shown (RoadScreen); the block at
+   the end only covers a phone that changes the setting while it runs. */
 
 .screen {
   position: relative;
@@ -14,17 +15,57 @@
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0 auto;
+}
+
+/* As the card leaves, this screen lies over the road that comes in under it, and takes no taps. */
+.screen[data-scene='leaving'],
+.screen[data-scene='gone'] {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  min-height: 0;
+  pointer-events: none;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: calc(var(--space-6) + env(safe-area-inset-top, 0px)) var(--space-4)
     calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
 }
 
-/* The logo, at the top of the screen throughout. */
-.logo {
-  display: flex;
-  justify-content: center;
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   margin: 0;
-  /* Room for Skip on its right, so the two never meet. */
-  padding: var(--space-1) calc(var(--tap-min) + var(--space-5)) 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The logo alone in the middle of the wash, as the app opens. It fades in, then zooms forward and fades. */
+.splash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: fadeOut var(--motion-splash-out) ease-in var(--motion-splash-out-at) forwards;
+}
+
+.splash svg {
+  animation:
+    logoIn var(--motion-logo-in) ease-out var(--motion-logo-at) both,
+    logoAway var(--motion-logo-away) ease-in var(--motion-logo-away-at) forwards;
 }
 
 /* Skip: quiet text at the top right, at least 44 px, as on the road. */
@@ -32,7 +73,7 @@
   position: absolute;
   top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
   right: var(--space-3);
-  z-index: 1;
+  z-index: 2;
   min-width: var(--tap-min);
   min-height: var(--tap-min);
   padding: 0 var(--space-4);
@@ -44,22 +85,6 @@
   font-size: var(--text-button);
   font-weight: var(--weight-medium);
   cursor: pointer;
-}
-
-/* "Play with sound", alone in the middle of the screen. */
-.ask {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-6) 0;
-}
-
-.ask .sound {
-  padding: 0 var(--space-7);
-  font-size: var(--text-meaning);
-  font-weight: var(--weight-semibold);
-  white-space: normal;
 }
 
 .stage {
@@ -102,6 +127,55 @@
 .name {
   min-width: 0;
   overflow-wrap: anywhere;
+}
+
+/* The speaker after his name: mint, about 20 px. Its waves pulse while he speaks. */
+.speaker {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-pill);
+  color: var(--color-mint);
+}
+
+.speakerIcon {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.speakerBody {
+  fill: currentcolor;
+}
+
+.wave {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.speaker[data-state='playing'] .wave {
+  animation: wavePulse var(--motion-speaker-wave) ease-in-out infinite alternate;
+}
+
+.speaker[data-state='playing'] .waveFar {
+  animation-delay: var(--motion-stagger);
+}
+
+/* The browser waits for a tap: a mint-soft pill, "Tap to hear", with a gently pulsing ring. */
+.speaker[data-state='waiting-for-tap'] {
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
+  background: var(--color-mint-soft);
+  color: var(--color-mint-deep);
+  animation: tapRing var(--motion-tap-ring) ease-out infinite;
+}
+
+.tapToHear {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
 }
 
 /* The two lines, with a dot each at the left and the dotted line between the dots. */
@@ -235,6 +309,11 @@
   animation: wordIn var(--motion-line-in) ease-out var(--motion-written-at) backwards;
 }
 
+.screen[data-scene='written'] .writtenTag,
+.screen[data-scene='leaving'] .writtenTag {
+  animation: fadeIn var(--motion-line-in) var(--motion-ease) var(--motion-written-tag-at) backwards;
+}
+
 .screen[data-scene='written'] .dotWritten,
 .screen[data-scene='leaving'] .dotWritten {
   animation: dotIn var(--motion-dot-in) ease-out var(--motion-dot-at) backwards;
@@ -292,7 +371,49 @@
   }
 }
 
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes wavePulse {
+  from {
+    opacity: 0.3;
+  }
+}
+
+@keyframes tapRing {
+  from {
+    box-shadow: 0 0 0 0 var(--color-mint-mid);
+  }
+
+  to {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+@keyframes logoIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes logoAway {
+  to {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none;
+  }
+
+  .speaker[data-state] .wave,
+  .speaker[data-state='waiting-for-tap'],
   .card,
   .face,
   .spokenTag,

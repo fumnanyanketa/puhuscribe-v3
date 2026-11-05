@@ -42,12 +42,13 @@
 //   - a greeting whose SHA-256 differs from the approved one,
 //   - an approved greeting with no file.
 //
-// Aleksi's two other intro clips (fast route intro-logo, 5 November 2026), his greeting in written Finnish
-// and his journey line, live at public/audio/aleksi/greeting-written-<12 hex>.mp3 and
-// public/audio/aleksi/journey-<12 hex>.mp3. They are approved only by content/approvals/aleksi-intro.json,
+// Aleksi's other intro clip (fast route intro-logo, 5 November 2026), his journey line, lives at
+// public/audio/aleksi/journey-<12 hex>.mp3. He says the spoken form only (owner, 5 November 2026), so there
+// is no clip of the written greeting: a file such as aleksi/greeting-written-<12 hex>.mp3 is refused like any
+// other unapproved file under aleksi/. The journey clip is approved only by content/approvals/aleksi-intro.json,
 // which the manager adds on the owner's own written line: {"format": "puhuscribe-owner-approval-aleksi-intro-1",
-// "approval": "<the owner's line>", "date": "YYYY-MM-DD", "clips": [{"file": "aleksi/<name>.mp3",
-// "sha256": "<64 hex>"}, ...]}. This check finds an intro clip the approval does not name, one whose SHA-256
+// "approval": "<the owner's line>", "date": "YYYY-MM-DD", "clips": [{"file": "aleksi/journey-<12 hex>.mp3",
+// "sha256": "<64 hex>"}]}. This check finds an intro clip the approval does not name, one whose SHA-256
 // differs, and an approved intro clip with no file.
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
@@ -57,7 +58,7 @@ const WORD_FILE = /^words\/([0-9a-f]{64})\.mp3$/
 const ISLAND_FILE = /^islands\/([0-9a-f]{64})\.mp3$/
 const WORD_KEY = /^[0-9a-f]{64}$/
 const GREETING_FILE = /^aleksi\/greeting-[0-9a-f]{12}\.mp3$/
-const INTRO_FILE = /^aleksi\/(?:greeting-written|journey)-[0-9a-f]{12}\.mp3$/
+const INTRO_FILE = /^aleksi\/journey-[0-9a-f]{12}\.mp3$/
 
 /** Aleksi's other intro clips the owner approved, file to SHA-256; none without a complete approval. */
 export function approvedIntroClips(approvalsDir: string | undefined): Map<string, string> {

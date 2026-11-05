@@ -203,22 +203,22 @@ test.describe('Aleksi’s bubble on the road', () => {
   test.describe('with the opening animation', () => {
     test.use({ reducedMotion: 'no-preference' })
 
-    test('[road-stops 3] [intro-logo 3] after the intro card the bubble shows only once the opening animation is over', async ({
+    test('[road-stops 3] [intro-logo 3] after the intro card the bubble shows while the road draws, then Start', async ({
       page,
     }) => {
       test.setTimeout(60_000)
       await fakeIntroAudio(page)
       await mockHome(page, NEW_VISITOR)
       await page.goto('/learn')
-      await page.getByRole('button', { name: 'Play with sound' }).click()
-      // While the road is drawn the bubble keeps its place but is not shown.
-      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 15_000 })
+      // As the road starts to draw, the bubble keeps its place but is not shown yet (fast route intro-logo,
+      // version E: it comes in 0.3 s after the road, while the road draws).
+      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 8000 })
       await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
       await expect(bubble(page)).toBeAttached()
-      await expect(bubble(page)).toBeHidden()
-      // The animation ends by itself; then the bubble is there with Aleksi's photo and line, and Start once
-      // he has said it.
-      await expect(start(page)).toBeVisible({ timeout: 15_000 })
+      await expect(bubble(page)).toBeVisible()
+      await expect(start(page)).toBeHidden()
+      // Then Start, once he has said his line.
+      await expect(start(page)).toBeVisible({ timeout: 10_000 })
       await settled(page)
       await expect(bubble(page)).toBeVisible()
       await expect(bubble(page)).toContainText(BUBBLE_TEXT)
@@ -237,13 +237,12 @@ test.describe('Aleksi’s bubble on the road', () => {
       expect((button?.y ?? 0) - ((said?.y ?? 0) + (said?.height ?? 0))).toBeLessThanOrEqual(40)
     })
 
-    test('[road-stops 3] [intro-logo 4] Skip ends the animation and the bubble shows', async ({ page }) => {
+    test('[road-stops 3] [intro-logo 9] Skip ends the animation and the bubble shows', async ({ page }) => {
       test.setTimeout(60_000)
       await fakeIntroAudio(page)
       await mockHome(page, NEW_VISITOR)
       await page.goto('/learn')
-      await page.getByRole('button', { name: 'Play with sound' }).click()
-      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 15_000 })
+      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 8000 })
       await page.getByRole('button', { name: 'Skip' }).click()
       await expect(bubble(page)).toBeVisible()
       await expect(start(page)).toBeFocused()
@@ -259,7 +258,7 @@ test.describe('Aleksi’s bubble on the road', () => {
       // Back to the road later in the visit (a reload keeps the tab's visit marker): no intro, no bubble.
       await page.reload()
       await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-      await expect(page.getByRole('button', { name: 'Play with sound' })).toHaveCount(0)
+      await expect(page.locator('button[data-intro-skip]')).toHaveCount(0)
       await settled(page)
       await expect(bubble(page)).toHaveCount(0)
     })
