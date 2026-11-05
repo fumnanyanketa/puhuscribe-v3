@@ -4,10 +4,13 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { GREETING_AUDIO, OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-intro.ts'
 import { mockHome } from './road-mocks.ts'
+import { STORED_BESIDES_VISIT, VISIT_VALUE } from './visit-marker.ts'
 
 // Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026). Labels name the item of the
 // owner's brief; [intro-rule N] and [intro-stop N] labels are the owner's rules of 4 November 2026 on who
-// sees the intro (factory/jobs/intro-rule/build.md, factory/jobs/intro-stop/build.md). The road answers from e2e/road-mocks.ts, so no database is needed. With
+// sees the intro (factory/jobs/intro-rule/build.md, factory/jobs/intro-stop/build.md), and [intro-visit N]
+// the owner's rule of 5 November 2026 on when: only at the start of a visit (factory/jobs/intro-visit/build.md,
+// more in e2e/intro-visit.spec.ts). The road answers from e2e/road-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshots go to factory/jobs/aleksi-intro/evidence/ (Chromium only).
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
@@ -104,16 +107,25 @@ test('[aleksi-intro 3] when the browser blocks the try, nothing breaks and the p
   await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeEnabled()
 })
 
-test('[intro-rule 1] [intro-rule 3] a new visitor meets Aleksi again after a reload: the phone keeps no flag', async ({
+// Fast route intro-visit changed this test: a reload in the same visit used to show the intro again. Now
+// only a new visit does (a new tab here), and the phone still keeps no "met" flag in localStorage.
+test('[intro-rule 3] [intro-visit 1] [intro-visit 2] a new visitor meets Aleksi again in a new tab, not after a reload: the phone keeps no "met" flag', async ({
   page,
+  context,
 }) => {
   await watchPlay(page, true)
   await openNew(page)
   await page.getByRole('button', { name: 'Nice to meet you' }).click()
   await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  expect(await page.evaluate<number>('localStorage.length')).toBe(0)
   await page.reload()
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
+  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  const fresh = await context.newPage()
+  await watchPlay(fresh, true)
+  await openNew(fresh)
+  await expect(fresh.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+  await expect(fresh.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
 })
 
 // Every case of the owner's rule, with the GET /api/today body the Worker gives for it and the lessons done
@@ -143,8 +155,13 @@ const MEETS_ALEKSI: [string, Record<string, unknown>, Record<number, number>][] 
   ['an email account whose sign in ended', { signedIn: false, ended: true, account: 'email' }, {}],
 ]
 
+// Fast route intro-visit changed these tests: they used to see the intro again after a reload. Now the reload
+// is the same visit, and a new tab is a new one.
 for (const [who, today, done] of MEETS_ALEKSI) {
-  test(`[intro-stop 1] ${who} meets Aleksi each time the road opens`, async ({ page }) => {
+  test(`[intro-stop 1] [intro-visit 1] [intro-visit 2] ${who} meets Aleksi at the start of each visit`, async ({
+    page,
+    context,
+  }) => {
     await watchPlay(page, true)
     await openNew(page, today, done)
     await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
@@ -152,7 +169,12 @@ for (const [who, today, done] of MEETS_ALEKSI) {
     await page.getByRole('button', { name: 'Nice to meet you' }).click()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
     await page.reload()
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+    const fresh = await context.newPage()
+    await watchPlay(fresh, true)
+    await openNew(fresh, today, done)
+    await expect(fresh.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
   })
 }
 
@@ -175,7 +197,7 @@ test('[intro-stop 1] [intro-stop 4] an email account that did one lesson and lef
 test.describe('the road opens with its animation', () => {
   test.use({ reducedMotion: 'no-preference' })
 
-  test('[aleksi-intro 4] [intro-rule 3] [intro-rule 4] "Nice to meet you" opens the road with its animation, keeps nothing on the phone, and Start goes straight to the lesson', async ({
+  test('[aleksi-intro 4] [intro-rule 3] [intro-rule 4] [intro-visit 1] "Nice to meet you" opens the road with its animation, keeps only the visit time, and Start goes straight to the lesson', async ({
     page,
   }) => {
     await watchPlay(page, true)
@@ -184,7 +206,10 @@ test.describe('the road opens with its animation', () => {
     // The opening animation plays, as on every road opening: Skip shows first.
     await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
-    expect(await page.evaluate<number>('localStorage.length + sessionStorage.length')).toBe(0)
+    // The only key is the visit marker in sessionStorage, holding a time (fast route intro-visit).
+    expect(await page.evaluate<number>(STORED_BESIDES_VISIT)).toBe(0)
+    expect(await page.evaluate<number>('localStorage.length')).toBe(0)
+    expect(await page.evaluate<string | null>(VISIT_VALUE)).toMatch(/^\d+$/)
     await page.getByRole('button', { name: 'Skip' }).click()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await shot(page, 'road-after-intro-375x812')
@@ -196,7 +221,7 @@ test.describe('the road opens with its animation', () => {
     await expect(page.getByText('Why are you learning Finnish?')).toHaveCount(0)
   })
 
-  test('[intro-stop 1] [intro-stop 4] an email account that finished stop 1 never sees the intro: the road opens at their place with its animation', async ({
+  test('[intro-stop 1] [intro-stop 4] [intro-visit 4] an email account that finished stop 1 never sees the intro: the road opens at their place with its animation', async ({
     page,
   }) => {
     await watchPlay(page, false)

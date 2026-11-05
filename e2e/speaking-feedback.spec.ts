@@ -16,6 +16,7 @@ import {
   startSession,
   tabTo,
 } from './session-helpers.ts'
+import { SESSION_BESIDES_VISIT } from './visit-marker.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/10-speaking-feedback/spec.md that each test protects.
@@ -321,10 +322,11 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     const play = page.getByRole('button', { name: 'Play mine' })
     await expect(play).toBeVisible()
     await play.click()
-    // The browser tests set no key themselves since fast route intro-rule removed the "met" flag.
+    // The browser tests set no key themselves since fast route intro-rule removed the "met" flag. The
+    // road's visit marker, holding only a time, is left out (fast route intro-visit, e2e/visit-marker.ts).
     const stores = await page.evaluate<Record<string, number>>(`(async () => ({
       local: localStorage.length,
-      session: sessionStorage.length,
+      session: ${SESSION_BESIDES_VISIT},
       indexed: 'databases' in indexedDB ? (await indexedDB.databases()).length : 0,
       caches: (await caches.keys()).length,
     }))()`)

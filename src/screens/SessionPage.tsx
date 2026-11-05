@@ -7,6 +7,7 @@ import { emailSignInEnded, leaveWith } from '../lib/account-notice.ts'
 import { loadIsland } from '../island/island-api.ts'
 import { callApi, isRecord, type ApiAnswer } from '../lib/api.ts'
 import { islandStop } from '../lib/islands.ts'
+import { keepVisit, watchVisit } from '../lib/aleksi-intro.ts'
 import type { ReviewItem } from '../lib/review-types.ts'
 import type { ReadySession, ReviewSession } from '../lib/session-types.ts'
 import { tutorStepFor } from '../tutor/TutorStep.tsx'
@@ -156,6 +157,12 @@ async function saveStep(sessionId: string, step: SessionStep): Promise<boolean> 
  */
 export function SessionPage() {
   const practice = practiceIdFrom(window.location.search)
+  // A lesson is a use of the app: the visit goes on, so leaving it opens the road without Aleksi's intro
+  // (fast route intro-visit). It never starts a visit, so a learner back after an hour still meets him.
+  useEffect(() => {
+    keepVisit()
+    return watchVisit(window, document)
+  }, [])
   return practice === null ? <TodaySession /> : <PracticePage dialogueId={practice} />
 }
 

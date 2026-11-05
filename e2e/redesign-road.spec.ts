@@ -1,6 +1,7 @@
 import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { mockHome, type HomeMocks } from './road-mocks.ts'
+import { STORED_BESIDES_VISIT } from './visit-marker.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the road's three reads
@@ -10,8 +11,11 @@ import { mockHome, type HomeMocks } from './road-mocks.ts'
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
 
 const SIGNED_IN = { signedIn: true, today: 'continue' }
-/** Keys in both storages. The tests set none themselves since fast route intro-rule removed the "met" flag. */
-const UNSET_STORAGE = 'localStorage.length + sessionStorage.length'
+/**
+ * Keys in both storages. The tests set none themselves since fast route intro-rule removed the "met" flag.
+ * The road's one key, the visit marker holding only a time (fast route intro-visit), is left out.
+ */
+const UNSET_STORAGE = STORED_BESIDES_VISIT
 const MID = { 1: 4, 2: 4, 3: 2 }
 
 async function openRoad(page: Page, mocks: HomeMocks = {}) {
@@ -363,7 +367,7 @@ test.describe('the opening animation', () => {
     await openRoad(page)
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
     expect(await page.locator('svg[aria-hidden="true"]').count()).toBeGreaterThan(1)
-    // Nothing is stored for it: no storage and no cookie.
+    // Nothing is stored for it: no storage (beyond the visit's time stamp) and no cookie.
     expect(await page.evaluate<string>('document.cookie')).toBe('')
     expect(await page.evaluate<number>(UNSET_STORAGE)).toBe(0)
   })
@@ -560,7 +564,7 @@ test.describe('small phones and large text', () => {
 })
 
 test.describe('what the road asks for', () => {
-  test('[redesign 44] a visitor’s road talks only to the app’s own address and stores nothing', async ({
+  test('[redesign 44] [intro-visit 1] a visitor’s road talks only to the app’s own address and stores nothing but the visit time', async ({
     page,
   }) => {
     const origins = new Set<string>()

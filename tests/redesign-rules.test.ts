@@ -116,11 +116,18 @@ describe('what the road must not hold', () => {
     )
   })
 
-  it('[redesign 44] the road never stores anything on the phone', () => {
+  // Fast route intro-visit (owner, 5 November 2026) changed this rule: the road now keeps one thing, the
+  // visit's time stamp in this tab's sessionStorage, so Aleksi's intro shows once per visit. The road's own
+  // files still never reach any storage; only src/lib/aleksi-intro.ts does, and its one write is that key.
+  it('[redesign 44] [intro-visit 1] the road stores nothing on the phone but the visit time, kept by src/lib/aleksi-intro.ts', () => {
     for (const path of [...screens, 'src/road/home-view.ts', 'src/lib/road-data.ts']) {
       const text = readFileSync(path, 'utf8')
       expect(text, path).not.toMatch(/localStorage|sessionStorage|indexedDB|document\.cookie/)
     }
+    const visit = readFileSync('src/lib/aleksi-intro.ts', 'utf8')
+    expect(visit).not.toMatch(/indexedDB|document\.cookie/)
+    expect(visit.match(/\.setItem\(/g)).toEqual(['.setItem('])
+    expect(visit).toContain('.setItem(VISIT_KEY, String(now()))')
   })
 })
 
