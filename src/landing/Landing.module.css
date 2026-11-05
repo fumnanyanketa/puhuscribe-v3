@@ -227,6 +227,53 @@
   transform: rotate(6deg);
 }
 
+/* Aleksi greets the visitor from the top of the phone (owner's choice A, 5 November 2026). His round
+   photo uses the same crop as the road bubble, so his whole head shows. */
+.greeting {
+  position: absolute;
+  z-index: 3;
+  top: 86px;
+  left: 64px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.greetingFace {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--color-mint-soft);
+  box-shadow:
+    0 0 0 4px var(--color-surface),
+    var(--landing-shadow-piece);
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.greetingBubble {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--color-surface);
+  box-shadow: var(--landing-shadow-piece);
+  white-space: nowrap;
+}
+
+.greetingFi {
+  color: var(--color-spoken-text);
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.greetingEn {
+  color: var(--color-text-quiet);
+  font-size: 0.875rem;
+}
+
 /* Sections */
 .band {
   padding-block: 28px;
@@ -906,6 +953,30 @@
   .heroCardLeft {
     top: 64px;
     left: -8px;
+  }
+
+  .greeting {
+    top: 30px;
+    left: 50%;
+    gap: 8px;
+    transform: translateX(-134px);
+  }
+
+  .greetingFace {
+    width: 60px;
+    height: 60px;
+  }
+
+  .greetingBubble {
+    padding: 8px 14px;
+  }
+
+  .greetingFi {
+    font-size: 0.9375rem;
+  }
+
+  .greetingEn {
+    font-size: 0.8125rem;
   }
 
   .heroCardRight {
