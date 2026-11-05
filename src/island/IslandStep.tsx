@@ -40,7 +40,7 @@ export const SAY_TITLE = 'Say it as yours'
 export const NAME_NOTE = 'The voice leaves out your name. You say that part.'
 export const NOT_SAVED_LINE = 'Your line was not saved. Check your internet connection, then try again.'
 export const NAME_HELP = `Letters only, at most ${String(NAME_MAX)}.`
-const RECORD_HINTS = { ready: 'Tap and say your line', recording: 'Listening' }
+const RECORD_HINTS = { ready: 'Tap and say your line' }
 const MIC_OFF =
   'Microphone access is off. You can turn it on in your browser settings, or add the line without recording.'
 const SHOWN_FIRST = 6

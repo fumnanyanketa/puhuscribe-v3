@@ -2,7 +2,7 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Locator, type Page } from '@playwright/test'
 import { mockLesson, type LessonMocks } from './lesson-mocks.ts'
 import { microphoneCalls, stubMicrophone } from './microphone.ts'
-import { dismissTip, leaveLesson, sheetsSettled } from './session-helpers.ts'
+import { dismissTip, leaveLesson, scrollsSideways, sheetsSettled } from './session-helpers.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the lesson's reads and writes
@@ -1267,5 +1267,116 @@ test.describe('round 6, as drawn', () => {
     await expect(page.getByRole('status')).toHaveAttribute('data-tone', 'gentle')
     await expect(page.getByRole('button', { name: 'Play mine' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Next line' })).toBeEnabled()
+  })
+})
+
+// Fast route stop-clearer (owner, 5 November 2026): while recording, the screen showed "Listening" and a
+// small "Stop" link, and neither said what to do. Now one control under the wave says it: "Tap to stop
+// listening", a white pill like the app's other secondary buttons. The orange record button still stops
+// too. The statements are numbered in factory/jobs/stop-clearer/build.md.
+test.describe('the stop control while recording (stop-clearer)', () => {
+  const STOP = 'Tap to stop listening'
+
+  async function startRecording(page: Page, browserName: string) {
+    test.skip(
+      browserName === 'webkit' && (process.env.PLAYWRIGHT_BASE_URL ?? '').startsWith('http://'),
+      'WebKit records only on a secure page; the GitHub run serves HTTPS.',
+    )
+    await stubMicrophone(page, 'tone')
+    await open(page)
+    await hearIt(page)
+    test.skip(!(await hasWebAudio(page)), NO_WEB_AUDIO)
+    await page.route('**/api/speech/say', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ feedbackClass: 'try_again' }),
+      }),
+    )
+    await dismissTip(page)
+    await page.getByRole('button', { name: 'Record yourself saying the line' }).click()
+    await expect(page.getByRole('button', { name: /^Stop recording/ })).toBeVisible()
+  }
+
+  test('[stop-clearer 1] one line under the wave says what to do, with no "Listening" caption or "Stop" link', async ({
+    page,
+    browserName,
+  }) => {
+    await startRecording(page, browserName)
+    const stop = page.getByRole('button', { name: STOP, exact: true })
+    await expect(stop).toBeVisible()
+    await expect(stop).toHaveText(STOP)
+    await expect(page.getByText(STOP)).toHaveCount(1)
+    await expect(page.getByText('Listening', { exact: true })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Stop', exact: true })).toHaveCount(0)
+    const mic = await page.getByRole('button', { name: /^Stop recording/ }).boundingBox()
+    const control = await stop.boundingBox()
+    expect((control?.y ?? 0) > (mic?.y ?? 0) + (mic?.height ?? 0)).toBe(true)
+  })
+
+  test('[stop-clearer 2] the stop control is a white pill at least 44 px tall, and tapping it stops', async ({
+    page,
+    browserName,
+  }) => {
+    await startRecording(page, browserName)
+    const stop = page.getByRole('button', { name: STOP, exact: true })
+    const box = await stop.boundingBox()
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
+    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44)
+    // The secondary pill: no underline, and a filled background (the quiet link had a clear one).
+    expect(await styleOf(stop, 'textDecorationLine')).toBe('none')
+    expect(await styleOf(stop, 'backgroundColor')).not.toBe('rgba(0, 0, 0, 0)')
+    await page.waitForTimeout(1200)
+    await stop.click()
+    await expect(
+      page.getByRole('button', { name: 'Try again, record yourself saying the line' }),
+    ).toBeVisible({
+      timeout: 10_000,
+    })
+    await expect(stop).toHaveCount(0)
+  })
+
+  test('[stop-clearer 3] tapping the orange record button also stops', async ({ page, browserName }) => {
+    await startRecording(page, browserName)
+    await page.waitForTimeout(1200)
+    await page.getByRole('button', { name: /^Stop recording/ }).click()
+    await expect(
+      page.getByRole('button', { name: 'Try again, record yourself saying the line' }),
+    ).toBeVisible({
+      timeout: 10_000,
+    })
+    await expect(page.getByRole('button', { name: STOP, exact: true })).toHaveCount(0)
+  })
+
+  test('[stop-clearer 4] at 320 px wide with 200% text the stop control fits and nothing covers it', async ({
+    page,
+    browserName,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 720 })
+    await page.addInitScript(
+      "addEventListener('DOMContentLoaded', () => { const s = document.createElement('style'); s.textContent = 'html { font-size: 200% !important; }'; document.head.append(s) })",
+    )
+    await startRecording(page, browserName)
+    const stop = page.getByRole('button', { name: STOP, exact: true })
+    await stop.scrollIntoViewIfNeeded()
+    const box = await stop.boundingBox()
+    expect(box?.x ?? -1).toBeGreaterThanOrEqual(0)
+    expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(320)
+    expect(await scrollsSideways(page)).toBe(false)
+    // The topmost element at the control's middle is the control itself (or its label), so a tap lands on it.
+    // The e2e files have no DOM types, so the element is reached through a cast.
+    const onTop = await stop.evaluate((el) => {
+      const node = el as unknown as {
+        getBoundingClientRect: () => { left: number; top: number; width: number; height: number }
+        contains: (other: unknown) => boolean
+      }
+      const rect = node.getBoundingClientRect()
+      const doc = (
+        globalThis as unknown as { document: { elementFromPoint: (x: number, y: number) => unknown } }
+      ).document
+      const hit = doc.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
+      return hit === el || node.contains(hit)
+    })
+    expect(onTop).toBe(true)
   })
 })

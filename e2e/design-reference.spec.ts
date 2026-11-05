@@ -477,6 +477,22 @@ test.describe('record control', () => {
     await expect(record.getByText('This browser cannot record sound.')).toBeVisible()
   })
 
+  // Fast route stop-clearer (owner, 5 November 2026): the control without screen hints (Keep it's spoken
+  // answer) says the same one line as Say it while recording, in place of "Recording 0:03. Tap to stop."
+  test('[stop-clearer 1] while recording the control shows one stop line, "Tap to stop listening"', async ({
+    page,
+  }) => {
+    await openReference(page)
+    const record = section(page, 'Record control')
+    await expect(record.getByRole('button', { name: 'Tap to stop listening', exact: true })).toHaveCount(1)
+    await expect(record.getByText('Tap to stop listening')).toHaveCount(1)
+    await expect(record.getByText(/Tap to stop\.$/)).toHaveCount(0)
+    await record.getByRole('button', { name: 'Record yourself saying the line' }).last().click()
+    await expect(record.getByRole('button', { name: 'Tap to stop listening', exact: true })).toHaveCount(2)
+    await record.getByRole('button', { name: 'Tap to stop listening', exact: true }).last().click()
+    await expect(record.getByRole('button', { name: 'Working on your recording' })).toHaveCount(2)
+  })
+
   test('[design 13] the live example moves through the states without asking for the microphone', async ({
     page,
   }) => {

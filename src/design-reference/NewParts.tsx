@@ -279,7 +279,7 @@ export function NewParts() {
           <Demo label="Ready">
             <RecordControl state="ready" hints={RECORD_HINTS} />
           </Demo>
-          <Demo label="Listening">
+          <Demo label="Recording">
             <RecordControl state="recording" seconds={3} hints={RECORD_HINTS} />
           </Demo>
           <Demo label="Clear">
