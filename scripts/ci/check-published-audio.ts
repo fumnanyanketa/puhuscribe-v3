@@ -41,6 +41,15 @@
 //   - a file under aleksi/ that the approval does not name, or no approval at all,
 //   - a greeting whose SHA-256 differs from the approved one,
 //   - an approved greeting with no file.
+//
+// Aleksi's other intro clip (fast route intro-logo, 5 November 2026), his journey line, lives at
+// public/audio/aleksi/journey-<12 hex>.mp3. He says the spoken form only (owner, 5 November 2026), so there
+// is no clip of the written greeting: a file such as aleksi/greeting-written-<12 hex>.mp3 is refused like any
+// other unapproved file under aleksi/. The journey clip is approved only by content/approvals/aleksi-intro.json,
+// which the manager adds on the owner's own written line: {"format": "puhuscribe-owner-approval-aleksi-intro-1",
+// "approval": "<the owner's line>", "date": "YYYY-MM-DD", "clips": [{"file": "aleksi/journey-<12 hex>.mp3",
+// "sha256": "<64 hex>"}]}. This check finds an intro clip the approval does not name, one whose SHA-256
+// differs, and an approved intro clip with no file.
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
@@ -49,6 +58,33 @@ const WORD_FILE = /^words\/([0-9a-f]{64})\.mp3$/
 const ISLAND_FILE = /^islands\/([0-9a-f]{64})\.mp3$/
 const WORD_KEY = /^[0-9a-f]{64}$/
 const GREETING_FILE = /^aleksi\/greeting-[0-9a-f]{12}\.mp3$/
+const INTRO_FILE = /^aleksi\/journey-[0-9a-f]{12}\.mp3$/
+
+/** Aleksi's other intro clips the owner approved, file to SHA-256; none without a complete approval. */
+export function approvedIntroClips(approvalsDir: string | undefined): Map<string, string> {
+  const clips = new Map<string, string>()
+  if (!approvalsDir) return clips
+  const path = join(approvalsDir, 'aleksi-intro.json')
+  if (!existsSync(path)) return clips
+  const approval = JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>
+  const { format, approval: line, date, clips: listed } = approval
+  if (format !== 'puhuscribe-owner-approval-aleksi-intro-1') return clips
+  if (typeof line !== 'string' || line.trim() === '') return clips
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return clips
+  if (!Array.isArray(listed)) return clips
+  for (const clip of listed as unknown[]) {
+    if (typeof clip !== 'object' || clip === null) continue
+    const { file, sha256 } = clip as Record<string, unknown>
+    if (
+      typeof file === 'string' &&
+      INTRO_FILE.test(file) &&
+      typeof sha256 === 'string' &&
+      WORD_KEY.test(sha256)
+    )
+      clips.set(file, sha256)
+  }
+  return clips
+}
 
 /** The greeting clip the owner approved, with its SHA-256, or null without a complete approval. */
 export function approvedGreeting(approvalsDir: string | undefined): { file: string; sha256: string } | null {
@@ -143,12 +179,25 @@ export function checkPublishedAudio(
   const wordKeys = approvedWordKeys(approvalsDir)
   const islandKeys = approvedIslandKeys(approvalsDir, islands?.data)
   const greeting = approvedGreeting(approvalsDir)
+  const introClips = approvedIntroClips(approvalsDir)
+  const foundIntro = new Set<string>()
   let foundGreeting = false
   const found = new Set<string>()
   const foundWords = new Set<string>()
   const foundIslands = new Set<string>()
   for (const path of filesUnder(audioDir)) {
     const key = relative(audioDir, path).split('\\').join('/')
+    if (INTRO_FILE.test(key)) {
+      const approvedHash = introClips.get(key)
+      if (!approvedHash) {
+        problems.push(`${key} is not an intro clip the owner approved (content/approvals/aleksi-intro.json)`)
+        continue
+      }
+      foundIntro.add(key)
+      if (createHash('sha256').update(readFileSync(path)).digest('hex') !== approvedHash)
+        problems.push(`${key} differs from the approved intro clip (its SHA-256 differs)`)
+      continue
+    }
     if (key.startsWith('aleksi/')) {
       if (key !== greeting?.file) {
         problems.push(
@@ -205,6 +254,9 @@ export function checkPublishedAudio(
     if (!foundIslands.has(key)) problems.push(`islands/${key}.mp3 is approved but its file is missing`)
   }
   if (greeting && !foundGreeting) problems.push(`${greeting.file} is approved but its file is missing`)
+  for (const file of introClips.keys()) {
+    if (!foundIntro.has(file)) problems.push(`${file} is approved but its file is missing`)
+  }
   return problems
 }
 

@@ -1,0 +1,6 @@
+Break: the card goes on to the written line without waiting for the greeting clip to end (src/lib/intro-voice.ts, playCard).
+Command: npx vitest run src/lib/intro-voice.test.ts
+     × [intro-logo 3] runs spoken line, greeting, written line, written greeting, then leaves, each clip after the last has ended 19ms
+     × [intro-logo 4] once skipped, nothing more is shown or said 5005ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 5 passed (7)

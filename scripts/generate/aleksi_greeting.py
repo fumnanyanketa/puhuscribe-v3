@@ -30,35 +30,51 @@ from providers.voice import request_hash
 REPO = Path(__file__).resolve().parents[2]
 PUBLIC_AUDIO = REPO / "public" / "audio" / "aleksi"
 GREETING = "Moi! Mä oon Aleksi."
+# His second line, when the road opens in the new intro (owner, 5 November 2026), in spoken Finnish: the set
+# phrase "lähteä matkaan" ("viedä matkalle" is not an established phrase). Written form: "Lähdetään yhdessä
+# matkaan!". A draft for the native reviewer.
+JOURNEY = "Lähetään yhessä matkaan!"
 GREETING_VOICE = "fi-FI-HarriNeural"
+# Each line Aleksi says, with the start of its clip name. He says the spoken form only (owner, 5 November
+# 2026, fast route intro-logo): "Moi! Minä olen Aleksi." is shown in the intro as the written form, never
+# said, so its clip was removed.
+LINES = [(GREETING, "greeting"), (JOURNEY, "journey")]
 # voice.py's fake provider writes this marker into every clip it makes. A fake clip never reaches public/.
 FAKE_MARKER = b"puhuscribe-fake-voice\x00"
 
 
-def clip_name(text: str = GREETING, voice: str = GREETING_VOICE) -> str:
-    return f"greeting-{request_hash(text, voice)[:12]}.mp3"
+def clip_name(text: str = GREETING, voice: str = GREETING_VOICE, prefix: str = "greeting") -> str:
+    return f"{prefix}-{request_hash(text, voice)[:12]}.mp3"
 
 
 def cmd_voice(args, voice=None) -> int:
     from providers import voice as voice_module
 
     folder = Path(args.out) if getattr(args, "out", None) else PUBLIC_AUDIO
-    target = folder / clip_name()
-    if target.is_file() and target.stat().st_size > 0:
-        print(f"The greeting clip exists already: {target.name}. Nothing was voiced.")
+    missing = [
+        (text, folder / clip_name(text, prefix=prefix))
+        for text, prefix in LINES
+        if not (
+            (folder / clip_name(text, prefix=prefix)).is_file()
+            and (folder / clip_name(text, prefix=prefix)).stat().st_size > 0
+        )
+    ]
+    if not missing:
+        print("Every Aleksi clip exists already. Nothing was voiced.")
         return 0
     voice = voice or voice_module.get_provider()
     voice_module.refuse_uncommitted_log(voice.log_path)
-    voice_module.refuse_over_allowance(voice.log_path, len(GREETING))
-    audio = voice.synthesize(text=GREETING, voice=GREETING_VOICE, dialogue="aleksi-greeting")
-    if folder == PUBLIC_AUDIO and FAKE_MARKER in audio[:512]:
-        print("The fake voice provider made this clip, so it was not written to public/audio/.")
-        return 1
-    folder.mkdir(parents=True, exist_ok=True)
-    part = folder / f"{target.name}.part"
-    part.write_bytes(audio)
-    part.replace(target)
-    print(f"Made {target.name}: {len(GREETING)} characters ({GREETING_VOICE}).")
+    voice_module.refuse_over_allowance(voice.log_path, sum(len(text) for text, _ in missing))
+    for text, target in missing:
+        audio = voice.synthesize(text=text, voice=GREETING_VOICE, dialogue="aleksi-greeting")
+        if folder == PUBLIC_AUDIO and FAKE_MARKER in audio[:512]:
+            print("The fake voice provider made this clip, so it was not written to public/audio/.")
+            return 1
+        folder.mkdir(parents=True, exist_ok=True)
+        part = folder / f"{target.name}.part"
+        part.write_bytes(audio)
+        part.replace(target)
+        print(f"Made {target.name}: {len(text)} characters ({GREETING_VOICE}).")
     return 0
 
 

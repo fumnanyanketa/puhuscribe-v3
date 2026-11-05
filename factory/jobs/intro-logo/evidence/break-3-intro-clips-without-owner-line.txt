@@ -1,0 +1,5 @@
+Break: the intro clip approval no longer needs the owner's written line (scripts/ci/check-published-audio.ts, approvedIntroClips).
+Command: npx vitest run tests/content-audio.test.ts -t "intro clips"
+       × [intro-logo 3] an approval with no owner line, or no date, approves nothing 50ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 4 passed | 17 skipped (22)

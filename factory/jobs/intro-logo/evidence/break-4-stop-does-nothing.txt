@@ -1,0 +1,5 @@
+Break: stop() no longer stops the clip that is playing (src/lib/intro-voice.ts).
+Command: npx vitest run src/lib/intro-voice.test.ts
+     × [intro-logo 4] stop ends the clip at once and pauses it 13ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 6 passed (7)

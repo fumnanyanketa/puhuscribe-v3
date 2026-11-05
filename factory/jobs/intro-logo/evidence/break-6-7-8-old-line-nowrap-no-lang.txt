@@ -1,0 +1,19 @@
+Break: the old screen's line "No account needed to start." comes back, the spoken line may not wrap, and the written line loses lang="fi" (src/screens/AleksiIntro.tsx and .module.css). Each test fails on its own break.
+Command: npx playwright test e2e/intro-logo.spec.ts --workers=4 -g "intro-logo [678]\]"
+
+  x  1 [chromium] › e2e\intro-logo.spec.ts:351:3 › with motion on › [intro-logo 6] the old "Nice to meet you" screen is gone: none of its words, its photo card or its button (6.9s)
+  x  2 [webkit] › e2e\intro-logo.spec.ts:351:3 › with motion on › [intro-logo 6] the old "Nice to meet you" screen is gone: none of its words, its photo card or its button (7.6s)
+  x  3 [chromium] › e2e\intro-logo.spec.ts:366:3 › with motion on › [intro-logo 8] every Finnish line carries lang="fi", and the English ones do not (11.9s)
+  x  4 [webkit] › e2e\intro-logo.spec.ts:366:3 › with motion on › [intro-logo 8] every Finnish line carries lang="fi", and the English ones do not (12.8s)
+  ok 5 [chromium] › e2e\intro-logo.spec.ts:475:5 › at 375 x 812 with text at 100% › [intro-logo 7] nothing overflows: the first screen, the card with both lines, and the end state (text 100%) (2.3s)
+  x  7 [chromium] › e2e\intro-logo.spec.ts:475:5 › at 375 x 812 with text at 200% › [intro-logo 7] nothing overflows: the first screen, the card with both lines, and the end state (text 200%) (1.1s)
+  ok 6 [webkit] › e2e\intro-logo.spec.ts:475:5 › at 375 x 812 with text at 100% › [intro-logo 7] nothing overflows: the first screen, the card with both lines, and the end state (text 100%) (5.5s)
+  x  8 [webkit] › e2e\intro-logo.spec.ts:475:5 › at 375 x 812 with text at 200% › [intro-logo 7] nothing overflows: the first screen, the card with both lines, and the end state (text 200%) (1.9s)
+    Error: expect(locator).toHaveCount(expected) failed
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Error: expect(received).toBe(expected) // Object.is equality
+    Error: expect(locator).toHaveCount(expected) failed
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Error: expect(received).toBe(expected) // Object.is equality
+  6 failed
+  2 passed (42.0s)

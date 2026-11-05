@@ -1,0 +1,8 @@
+Break: the intro screen starts Aleksi's greeting as soon as it opens, before any tap (src/screens/AleksiIntro.tsx).
+Command: npx playwright test e2e/intro-logo.spec.ts --workers=4 -g "intro-logo 2\]"
+
+  x  2 [chromium] › e2e\intro-logo.spec.ts:101:3 › with motion on › [intro-logo 2] [intro-logo 1] the intro opens on the logo and "Play with sound", and nothing plays before the tap (4.7s)
+  x  1 [webkit] › e2e\intro-logo.spec.ts:101:3 › with motion on › [intro-logo 2] [intro-logo 1] the intro opens on the logo and "Play with sound", and nothing plays before the tap (5.3s)
+    Error: expect(received).toEqual(expected) // deep equality
+    Error: expect(received).toEqual(expected) // deep equality
+  2 failed

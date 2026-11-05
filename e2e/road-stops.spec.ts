@@ -1,6 +1,7 @@
 import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { expect, test, type Page } from '@playwright/test'
+import { fakeIntroAudio } from './intro-audio.ts'
 import { mockHome, type HomeMocks } from './road-mocks.ts'
 import { scrollsSideways } from './session-helpers.ts'
 
@@ -8,7 +9,10 @@ import { scrollsSideways } from './session-helpers.ts'
 // 5 November 2026, listed in factory/jobs/road-stops/build.md): the clean road with one Start, a picture on
 // every sign, Aleksi's bubble on the visit he introduced himself, and Aleksi's stop screen before a stop.
 // These answer the road's reads themselves (e2e/road-mocks.ts), so they need no database. By default the
-// mocks press "Nice to meet you" when Aleksi's intro appears, as a new visitor would.
+// mocks start the tab's visit, so Aleksi's intro does not show (e2e/intro-seen.ts). The tests of his bubble
+// meet the intro (met: false): since fast route intro-logo (5 November 2026) the bubble holds his journey
+// line, and with reduced motion, as the tests run, the intro is its end state at once: the road, the bubble
+// and Start. The tests with motion on play the intro with the stand-in audio of e2e/intro-audio.ts.
 //
 // Evidence: PUHUSCRIBE_EVIDENCE=1 also saves the screenshots to factory/jobs/road-stops/evidence/.
 
@@ -34,7 +38,10 @@ const RETURNING: HomeMocks = {
 
 const start = (page: Page) => page.getByRole('button', { name: 'Start', exact: true })
 const bubble = (page: Page) => page.getByTestId('road-bubble')
-const BUBBLE_TEXT = 'These are the stops I’ll take you through.'
+// Aleksi's journey line (fast route intro-logo); until then the bubble said "These are the stops I’ll take you through."
+const BUBBLE_TEXT = 'Lähetään yhessä matkaan!'
+const BUBBLE_ENGLISH = 'Let’s set off on this journey together.'
+const NEW_VISITOR: HomeMocks = { met: false }
 const GUEST_NOTE = 'Starting creates a guest account on this device so your progress is saved.'
 
 async function openRoad(page: Page, mocks: HomeMocks = {}) {
@@ -180,7 +187,7 @@ test.describe('the clean road', () => {
   })
 
   test('[road-stops 1] [road-stops 2] the road before and after: screenshots', async ({ page }, info) => {
-    await openRoad(page)
+    await openRoad(page, NEW_VISITOR)
     await settled(page)
     await expect(bubble(page)).toBeVisible()
     await shot(page, '1-2-3-road-new-visitor-with-bubble-375x812', info.project.name)
@@ -196,18 +203,26 @@ test.describe('Aleksi’s bubble on the road', () => {
   test.describe('with the opening animation', () => {
     test.use({ reducedMotion: 'no-preference' })
 
-    test('[road-stops 3] after "Nice to meet you" the bubble shows only once the opening animation is over', async ({
+    test('[road-stops 3] [intro-logo 3] after the intro card the bubble shows while the road draws, then Start', async ({
       page,
     }) => {
-      await openRoad(page)
-      // While the road is drawn the bubble keeps its place but is not shown.
+      test.setTimeout(60_000)
+      await fakeIntroAudio(page)
+      await mockHome(page, NEW_VISITOR)
+      await page.goto('/learn')
+      // As the road starts to draw, the bubble keeps its place but is not shown yet (fast route intro-logo,
+      // version E: it comes in 0.3 s after the road, while the road draws).
+      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 8000 })
       await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
       await expect(bubble(page)).toBeAttached()
-      await expect(bubble(page)).toBeHidden()
-      // The animation ends by itself; then the bubble is there with Aleksi's photo and line.
+      await expect(bubble(page)).toBeVisible()
+      await expect(start(page)).toBeHidden()
+      // Then Start, once he has said his line.
+      await expect(start(page)).toBeVisible({ timeout: 10_000 })
       await settled(page)
       await expect(bubble(page)).toBeVisible()
-      await expect(bubble(page)).toHaveText(BUBBLE_TEXT)
+      await expect(bubble(page)).toContainText(BUBBLE_TEXT)
+      await expect(bubble(page)).toContainText(BUBBLE_ENGLISH)
       const face = bubble(page).locator('img')
       await expect(face).toHaveAttribute('src', /\/aleksi\/portrait-360\.webp$/)
       // The owner's crop: his whole head shows.
@@ -222,8 +237,12 @@ test.describe('Aleksi’s bubble on the road', () => {
       expect((button?.y ?? 0) - ((said?.y ?? 0) + (said?.height ?? 0))).toBeLessThanOrEqual(40)
     })
 
-    test('[road-stops 3] Skip ends the animation and the bubble shows', async ({ page }) => {
-      await openRoad(page)
+    test('[road-stops 3] [intro-logo 9] Skip ends the animation and the bubble shows', async ({ page }) => {
+      test.setTimeout(60_000)
+      await fakeIntroAudio(page)
+      await mockHome(page, NEW_VISITOR)
+      await page.goto('/learn')
+      await expect(page.locator('main[data-intro="on"]')).toBeAttached({ timeout: 8000 })
       await page.getByRole('button', { name: 'Skip' }).click()
       await expect(bubble(page)).toBeVisible()
       await expect(start(page)).toBeFocused()
@@ -234,12 +253,12 @@ test.describe('Aleksi’s bubble on the road', () => {
     test.use({ reducedMotion: 'reduce' })
 
     test('[road-stops 3] a later road open in the same visit has no bubble', async ({ page }) => {
-      await openRoad(page)
+      await openRoad(page, NEW_VISITOR)
       await expect(bubble(page)).toBeVisible()
       // Back to the road later in the visit (a reload keeps the tab's visit marker): no intro, no bubble.
       await page.reload()
       await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-      await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+      await expect(page.locator('button[data-intro-skip]')).toHaveCount(0)
       await settled(page)
       await expect(bubble(page)).toHaveCount(0)
     })
@@ -254,7 +273,7 @@ test.describe('Aleksi’s bubble on the road', () => {
     test('[road-stops 3] once Start is pressed the bubble is gone, also back on the road', async ({
       page,
     }) => {
-      await openRoad(page)
+      await openRoad(page, NEW_VISITOR)
       await expect(bubble(page)).toBeVisible()
       await start(page).click()
       await page.getByRole('button', { name: 'Back to the road' }).click()
@@ -491,9 +510,7 @@ test.describe('the opening animation with pictures', () => {
       await mockHome(whole)
       await whole.goto('/learn')
       await settled(whole)
-      await expect(bubble(whole)).toBeVisible()
       await whole.bringToFront()
-      await expect(bubble(whole)).toHaveCSS('opacity', '1')
       await whole.waitForTimeout(400)
       await whole.screenshot({ path: `${OUT}/1-3-animation-frame-c-settled.png` })
     }
@@ -516,7 +533,7 @@ test.describe('reduced motion', () => {
         if (document.querySelector('main[data-intro="on"]')) window.__motion.animated = true
       }).observe(document, { childList: true, subtree: true, attributes: true })`,
     })
-    await openRoad(page)
+    await openRoad(page, NEW_VISITOR)
     await expect(bubble(page)).toBeVisible()
     expect(await page.evaluate<{ skip: boolean; animated: boolean }>('window.__motion')).toEqual({
       skip: false,
@@ -557,7 +574,7 @@ test.describe('nothing overflows', () => {
     test(`[road-stops 10] at 375 x 812, text ${text}: the road, the bubble and the stop screen stay inside the screen`, async ({
       page,
     }, info) => {
-      await mockHome(page)
+      await mockHome(page, NEW_VISITOR)
       if (text !== '100%')
         await page.addInitScript({
           content: `document.addEventListener('DOMContentLoaded', () => {

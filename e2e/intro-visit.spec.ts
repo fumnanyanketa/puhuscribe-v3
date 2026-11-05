@@ -13,10 +13,15 @@ import { pressStart } from './road-start.ts'
 // without use. Labels [intro-visit N] are the numbered statements in factory/jobs/intro-visit/build.md. The
 // road and the lesson answer from e2e/road-mocks.ts and e2e/lesson-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshot goes to factory/jobs/intro-visit/evidence/ (Chromium only).
+//
+// Fast route intro-logo (owner, 5 November 2026) replaced the "Nice to meet you" screen. The tests run with
+// reduced motion, so the new intro is its end state at once: the road with Aleksi's bubble and his journey
+// line, which shows only when he introduced himself, and the visit is marked then (as the press on "Nice to
+// meet you" marked it). So "meets Aleksi" here is that bubble, and no press is needed.
 
 const OUT = resolve('factory/jobs/intro-visit/evidence')
 const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
-const MEET = 'Nice to meet you'
+const JOURNEY_FI = 'Lähetään yhessä matkaan!'
 const MINUTE = 60 * 1000
 
 async function shot(page: Page, name: string) {
@@ -27,7 +32,7 @@ async function shot(page: Page, name: string) {
   await page.screenshot({ path: `${OUT}/${name}.png` })
 }
 
-/** The greeting's play() is refused, as an iPhone does without a tap, so no sound plays in the tests. */
+/** Every play() is refused, as an iPhone does without a tap, so no sound plays in the tests. */
 async function quietGreeting(target: Page | BrowserContext) {
   await target.addInitScript({
     content: `HTMLMediaElement.prototype.play = function () {
@@ -36,7 +41,7 @@ async function quietGreeting(target: Page | BrowserContext) {
   })
 }
 
-/** A new visitor's road and a lesson, both answered by the mocks; nothing presses "Nice to meet you" for the test. */
+/** A new visitor's road and a lesson, both answered by the mocks; nothing starts the visit for the test. */
 async function openApp(page: Page) {
   await quietGreeting(page)
   const calls = await mockHome(page, { met: false })
@@ -45,7 +50,8 @@ async function openApp(page: Page) {
   return calls
 }
 
-const intro = (page: Page) => page.getByRole('button', { name: MEET })
+/** Aleksi's intro, as its end state: his bubble with his journey line on the road. */
+const intro = (page: Page) => page.getByTestId('road-bubble').getByText(JOURNEY_FI, { exact: true })
 const road = (page: Page) => page.getByRole('list', { name: 'Stops on your road' })
 
 /** The road is showing, and Aleksi's intro is not. */
@@ -53,6 +59,12 @@ async function seesRoad(page: Page) {
   await expect(road(page)).toBeVisible()
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await expect(intro(page)).toHaveCount(0)
+}
+
+/** Aleksi's intro shows (its end state, with the road under it), and the learner goes on to the road. */
+async function meets(page: Page) {
+  await expect(intro(page)).toBeVisible()
+  await expect(road(page)).toBeVisible()
 }
 
 /** From the road, Start into the lesson and leave it, back to the road's address. */
@@ -64,13 +76,11 @@ async function lessonAndBack(page: Page) {
   await page.waitForURL((url) => url.pathname === '/learn')
 }
 
-test('[intro-visit 1] after "Nice to meet you", going into a lesson and back opens the road, not the intro', async ({
+test('[intro-visit 1] after the intro, going into a lesson and back opens the road, not the intro', async ({
   page,
 }) => {
   const calls = await openApp(page)
-  await expect(intro(page)).toBeVisible()
-  await intro(page).click()
-  await seesRoad(page)
+  await meets(page)
   // The visit marker holds only a time, and nothing else is stored.
   expect(await page.evaluate<string | null>(VISIT_VALUE)).toMatch(/^\d+$/)
   expect(await page.evaluate<number>(STORED_BESIDES_VISIT)).toBe(0)
@@ -89,23 +99,25 @@ test('[intro-visit 1] after "Nice to meet you", going into a lesson and back ope
 
 test('[intro-visit 2] a fresh open (a new tab, no marker) meets Aleksi again', async ({ page, context }) => {
   await openApp(page)
-  await intro(page).click()
+  await meets(page)
   await lessonAndBack(page)
   await seesRoad(page)
 
   const fresh = await context.newPage()
+  // The new tab's marker is read before the page writes one: there is none.
+  await fresh.addInitScript({
+    content: `window.__markerAtOpen = sessionStorage.getItem(${JSON.stringify(VISIT_KEY)})`,
+  })
   await openApp(fresh)
-  expect(await fresh.evaluate<string | null>(VISIT_VALUE)).toBeNull()
-  await expect(intro(fresh)).toBeVisible()
-  await expect(road(fresh)).toHaveCount(0)
+  expect(await fresh.evaluate<string | null>('window.__markerAtOpen')).toBeNull()
+  await meets(fresh)
 })
 
 test('[intro-visit 3] 60 minutes or more without use brings the intro back; under 60 minutes the road opens', async ({
   page,
 }) => {
   await openApp(page)
-  await intro(page).click()
-  await seesRoad(page)
+  await meets(page)
 
   // The last use was 59 minutes ago: the same visit.
   await page.evaluate(
@@ -119,8 +131,7 @@ test('[intro-visit 3] 60 minutes or more without use brings the intro back; unde
     `sessionStorage.setItem(${JSON.stringify(VISIT_KEY)}, String(Date.now() - ${String(60 * MINUTE)}))`,
   )
   await page.reload()
-  await expect(intro(page)).toBeVisible()
-  await expect(road(page)).toHaveCount(0)
+  await meets(page)
 })
 
 // Two ways storage fails on real phones: reaching sessionStorage throws (site data blocked), or it is there
@@ -159,14 +170,10 @@ for (const [how, breakIt, check] of BROKEN_STORAGE) {
     await page.addInitScript({ content: breakIt })
     await openApp(page)
     expect(await page.evaluate<string>(check)).toBe('broken')
-    await expect(intro(page)).toBeVisible()
-    await intro(page).click()
-    await seesRoad(page)
+    await meets(page)
     // No visit can be kept, so the road after a lesson starts a new one, with the intro.
     await lessonAndBack(page)
-    await expect(intro(page)).toBeVisible()
-    await intro(page).click()
-    await seesRoad(page)
+    await meets(page)
     expect(errors).toEqual([])
   })
 }

@@ -23,17 +23,28 @@ def test_greeting_is_harri_reading_the_approved_line(tmp_path):
 
 
 def test_voice_writes_one_clip_and_logs_it(tmp_path):
-    """[aleksi-intro 3] one clip, one log line with the voice name, and a second run voices nothing."""
+    """[aleksi-intro 3] [aleksi-journey 1] [intro-logo 6] one clip per line (greeting and journey), one
+    log line each with the voice name, and a second run voices nothing. Changed requirement: Aleksi says
+    two lines; the owner removed the written greeting's clip on 5 November 2026 (he says the spoken form
+    only)."""
     log = tmp_path / "ai-calls.jsonl"
     out = tmp_path / "audio"
     args = types.SimpleNamespace(out=str(out))
     assert aleksi_greeting.cmd_voice(args, voice=FakeProvider(log)) == 0
-    clip = out / aleksi_greeting.clip_name()
-    assert clip.is_file() and clip.stat().st_size > 0
+    for text, prefix in aleksi_greeting.LINES:
+        clip = out / aleksi_greeting.clip_name(text, prefix=prefix)
+        assert clip.is_file() and clip.stat().st_size > 0
+    assert aleksi_greeting.clip_name() == aleksi_greeting.clip_name(
+        aleksi_greeting.GREETING, prefix="greeting"
+    )
     lines = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
-    assert [(line["model"], line["characters"]) for line in lines] == [("fi-FI-HarriNeural", 19)]
+    assert [(line["model"], line["characters"]) for line in lines] == [
+        ("fi-FI-HarriNeural", 19),
+        ("fi-FI-HarriNeural", 24),
+    ]
+    assert [prefix for _, prefix in aleksi_greeting.LINES] == ["greeting", "journey"]
     assert aleksi_greeting.cmd_voice(args, voice=FakeProvider(log)) == 0
-    assert len(log.read_text(encoding="utf-8").splitlines()) == 1
+    assert len(log.read_text(encoding="utf-8").splitlines()) == 2
 
 
 def test_fake_clip_never_reaches_public_audio(tmp_path, monkeypatch):

@@ -1,0 +1,5 @@
+Command: npx playwright test e2e/road-sign-overflow.spec.ts e2e/road-stops.spec.ts --workers=2 (this branch)
+Result: 110 passed, 12 failed.
+Every road-stops.spec.ts test passed, [road-stops 7] included.
+The 12 failures are all in road-sign-overflow.spec.ts: the reference page tests (no /design-reference in a
+plain build) and the six 320 px tests explained in local-e2e-baseline-sign-tests.txt.

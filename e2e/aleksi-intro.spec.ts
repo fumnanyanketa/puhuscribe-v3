@@ -1,8 +1,8 @@
 import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
-import { GREETING_AUDIO, OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-intro.ts'
+import { OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-intro.ts'
+import { fakeIntroAudio, played } from './intro-audio.ts'
 import { mockHome } from './road-mocks.ts'
 import { STORED_BESIDES_VISIT, VISIT_VALUE } from './visit-marker.ts'
 import { pressStart } from './road-start.ts'
@@ -13,10 +13,21 @@ import { pressStart } from './road-start.ts'
 // the owner's rule of 5 November 2026 on when: only at the start of a visit (factory/jobs/intro-visit/build.md,
 // more in e2e/intro-visit.spec.ts). The road answers from e2e/road-mocks.ts, so no database is needed. With
 // PUHUSCRIBE_EVIDENCE=1 the screenshots go to factory/jobs/aleksi-intro/evidence/ (Chromium only).
+//
+// Fast route intro-logo (owner, 5 November 2026) replaced the "Nice to meet you" screen with the new intro,
+// version E: the logo, the lesson card, then the road and his journey line, all on its own
+// (e2e/intro-logo.spec.ts). The rules of who meets him and when are unchanged, so these tests stay, on the new
+// screen. With reduced motion, as the tests run, the intro is its end state at once: his bubble with his
+// journey line on the road (it shows only when he introduced himself). With motion on, the intro opens on the
+// logo, and its Skip takes the place of the old "Nice to meet you". The old tests of that screen itself
+// ([aleksi-intro 2] its photo card and words, [aleksi-intro 3] the greeting and its play button) were replaced
+// by the [intro-logo] tests of the new intro.
 
-const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa']
 const OUT = resolve('factory/jobs/aleksi-intro/evidence')
 const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
+const JOURNEY_FI = 'Lähetään yhessä matkaan!'
+/** The intro screen's own Skip: it is in the page only while the intro shows. */
+const INTRO = 'button[data-intro-skip]'
 
 async function shot(page: Page, name: string, fullPage = false) {
   if (!evidence || test.info().project.name !== 'chromium') return
@@ -26,87 +37,34 @@ async function shot(page: Page, name: string, fullPage = false) {
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage })
 }
 
-/** Counts play() calls and, when `blocked`, refuses them as an iPhone does without a tap. */
-async function watchPlay(page: Page, blocked: boolean) {
-  await page.addInitScript({
-    content: `window.__plays = 0
-      window.__sources = []
-      const real = HTMLMediaElement.prototype.play
-      HTMLMediaElement.prototype.play = function () {
-        window.__plays += 1
-        window.__sources.push(this.src)
-        if (${String(blocked)} && window.__plays === 1)
-          return Promise.reject(new DOMException('blocked', 'NotAllowedError'))
-        return ${String(blocked)} ? Promise.resolve() : real.call(this).catch(() => undefined)
-      }`,
-  })
-}
-
-const plays = (page: Page) => page.evaluate<number>('window.__plays')
-
 async function openNew(
   page: Page,
   today: Record<string, unknown> = { signedIn: false, ended: false },
   done: Record<number, number> = {},
 ) {
+  await fakeIntroAudio(page)
   const calls = await mockHome(page, { met: false, today, done })
   await page.goto('/learn')
   return calls
 }
 
-test('[aleksi-intro 2] a new visitor meets Aleksi first: photo, name, greeting, one line and the button', async ({
-  page,
-}) => {
-  await watchPlay(page, false)
-  await openNew(page)
-  const main = page.getByRole('main')
-  await expect(main.getByRole('img', { name: 'Aleksi, your Finnish tutor' })).toBeVisible()
-  await expect(main.getByRole('heading', { level: 1, name: 'Aleksi' })).toBeVisible()
-  const finnish = main.getByText('Moi! Mä oon Aleksi.', { exact: true })
-  await expect(finnish).toHaveAttribute('lang', 'fi')
-  await expect(main.getByText('Hi! I’m Aleksi.', { exact: true })).toBeVisible()
-  await expect(main.getByText('I’ll be with you on your Finnish journey.', { exact: true })).toBeVisible()
-  await expect(main.getByText('No account needed to start.', { exact: true })).toBeVisible()
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
-  // Every control is at least 44 px both ways.
-  for (const control of await main.getByRole('button').all()) {
-    const box = await control.boundingBox()
-    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44)
-    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
-  }
-  const axe = await new AxeBuilder({ page }).withTags(TAGS).analyze()
-  expect(axe.violations).toEqual([])
-  await shot(page, 'intro-375x812')
-})
+const road = (page: Page) => page.getByRole('list', { name: 'Stops on your road' })
+/** With reduced motion: Aleksi introduced himself, so his bubble with his journey line is on the road. */
+const introBubble = (page: Page) => page.getByTestId('road-bubble').getByText(JOURNEY_FI, { exact: true })
 
-test('[aleksi-intro 3] the greeting tries once to play when the screen opens, and only once', async ({
-  page,
-}) => {
-  await watchPlay(page, false)
-  await openNew(page)
-  await expect.poll(() => plays(page)).toBe(1)
-  // The try is Harri's clip. Chromium here allows it; Playwright's WebKit blocks it, as an iPhone does.
-  const sources = await page.evaluate<string[]>('window.__sources')
-  expect(sources.map((url) => new URL(url).pathname)).toEqual([GREETING_AUDIO])
-  // No loop: after the greeting the control is ready again and nothing plays a second time.
-  await expect(page.getByRole('button', { name: 'Play Aleksi’s greeting' })).toBeVisible({ timeout: 15_000 })
-  await page.waitForTimeout(1500)
-  expect(await plays(page)).toBe(1)
-})
+/** Reduced motion: the intro shows as its end state. */
+async function meetsAleksi(page: Page) {
+  await expect(road(page)).toBeVisible()
+  await expect(introBubble(page)).toBeVisible()
+}
 
-test('[aleksi-intro 3] when the browser blocks the try, nothing breaks and the play button plays it', async ({
-  page,
-}) => {
-  await watchPlay(page, true)
-  await openNew(page)
-  const play = page.getByRole('button', { name: 'Play Aleksi’s greeting' })
-  await expect(play).toBeVisible()
-  await expect.poll(() => plays(page)).toBe(1)
-  await expect(page.getByText('Could not play.')).toHaveCount(0)
-  await play.click()
-  expect(await plays(page)).toBe(2)
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeEnabled()
-})
+/** The road opens with no intro. */
+async function noIntro(page: Page) {
+  await expect(road(page)).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+  await expect(page.getByTestId('road-bubble')).toHaveCount(0)
+  await expect(page.locator(INTRO)).toHaveCount(0)
+}
 
 // Fast route intro-visit changed this test: a reload in the same visit used to show the intro again. Now
 // only a new visit does (a new tab here), and the phone still keeps no "met" flag in localStorage.
@@ -114,19 +72,14 @@ test('[intro-rule 3] [intro-visit 1] [intro-visit 2] a new visitor meets Aleksi 
   page,
   context,
 }) => {
-  await watchPlay(page, true)
   await openNew(page)
-  await page.getByRole('button', { name: 'Nice to meet you' }).click()
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  await meetsAleksi(page)
   expect(await page.evaluate<number>('localStorage.length')).toBe(0)
   await page.reload()
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+  await noIntro(page)
   const fresh = await context.newPage()
-  await watchPlay(fresh, true)
   await openNew(fresh)
-  await expect(fresh.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
-  await expect(fresh.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
+  await meetsAleksi(fresh)
 })
 
 // Every case of the owner's rule, with the GET /api/today body the Worker gives for it and the lessons done
@@ -163,56 +116,48 @@ for (const [who, today, done] of MEETS_ALEKSI) {
     page,
     context,
   }) => {
-    await watchPlay(page, true)
     await openNew(page, today, done)
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toHaveCount(0)
-    await page.getByRole('button', { name: 'Nice to meet you' }).click()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    await meetsAleksi(page)
     await page.reload()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+    await noIntro(page)
     const fresh = await context.newPage()
-    await watchPlay(fresh, true)
     await openNew(fresh, today, done)
-    await expect(fresh.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+    await meetsAleksi(fresh)
   })
 }
 
 test('[intro-stop 1] [intro-stop 4] an email account that did one lesson and left meets Aleksi again, then the road opens at their own place', async ({
   page,
 }) => {
-  await watchPlay(page, true)
   await openNew(page, { signedIn: true, today: 'start', account: 'email', finishedStop: false }, { 1: 1 })
-  await page.getByRole('button', { name: 'Nice to meet you' }).click()
+  await meetsAleksi(page)
   // Their progress is kept: stop 1 is current with one of its four lessons done, and Start opens the next one.
-  const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
+  const signs = road(page).getByRole('listitem')
   await expect(signs.first()).toHaveText(/Stop 1, Meeting people, current/)
   // The card is gone (fast route road-stops): one Start, which goes straight on part way through a stop.
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0)
 })
 
-// The opening animation plays after the intro as on every road opening; the test config turns motion off,
-// so these two turn it back on to see it.
-test.describe('the road opens with its animation', () => {
+// The intro and the road's opening animation with motion on; the test config turns motion off, so these turn
+// it back on.
+test.describe('with motion on', () => {
   test.use({ reducedMotion: 'no-preference' })
 
-  test('[aleksi-intro 4] [intro-rule 3] [intro-rule 4] [intro-visit 1] "Nice to meet you" opens the road with its animation, keeps only the visit time, and Start goes straight to the lesson', async ({
+  test('[aleksi-intro 4] [intro-rule 3] [intro-rule 4] [intro-visit 1] Skip on the intro opens the road, keeps only the visit time, and Start goes straight to the lesson', async ({
     page,
   }) => {
-    await watchPlay(page, true)
     const calls = await openNew(page)
-    await page.getByRole('button', { name: 'Nice to meet you' }).click()
-    // The opening animation plays, as on every road opening: Skip shows first.
-    await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
+    await expect(page.locator(INTRO)).toBeVisible()
+    // Nothing is kept on the phone before the intro ends or is skipped.
+    expect(await page.evaluate<number>('localStorage.length')).toBe(0)
+    expect(await page.evaluate<string | null>(VISIT_VALUE)).toBeNull()
+    await page.locator('button[data-intro-skip]').click()
+    await expect(road(page)).toBeVisible()
     // The only key is the visit marker in sessionStorage, holding a time (fast route intro-visit).
     expect(await page.evaluate<number>(STORED_BESIDES_VISIT)).toBe(0)
     expect(await page.evaluate<number>('localStorage.length')).toBe(0)
     expect(await page.evaluate<string | null>(VISIT_VALUE)).toMatch(/^\d+$/)
-    await page.getByRole('button', { name: 'Skip' }).click()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await shot(page, 'road-after-intro-375x812')
     // The day one card and its "Have an account? Sign in" are gone (fast route road-stops): sign in is
     // reached from the account button.
@@ -226,23 +171,20 @@ test.describe('the road opens with its animation', () => {
   test('[intro-stop 1] [intro-stop 4] [intro-visit 4] an email account that finished stop 1 never sees the intro: the road opens at their place with its animation', async ({
     page,
   }) => {
-    await watchPlay(page, false)
     await openNew(
       page,
       { signedIn: true, today: 'start', account: 'email', finishedStop: true },
       { 1: 4, 2: 1 },
     )
     await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
-    await expect(
-      page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').nth(1),
-    ).toHaveText(/Stop 2, .*current/)
-    // The greeting never tries to play for this learner.
-    expect(await plays(page)).toBe(0)
+    await expect(road(page)).toBeAttached()
+    await expect(page.locator(INTRO)).toHaveCount(0)
+    await expect(road(page).getByRole('listitem').nth(1)).toHaveText(/Stop 2, .*current/)
+    // Aleksi's voice never plays for this learner.
+    expect(await played(page)).toEqual([])
     await page.reload()
-    await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeAttached()
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toHaveCount(0)
+    await expect(road(page)).toBeAttached()
+    await expect(page.locator(INTRO)).toHaveCount(0)
   })
 })
 
@@ -253,7 +195,7 @@ test('[intro-rule 3] the old "met Aleksi" flag is cleared from the phone and no 
     content: `try { localStorage.setItem(${JSON.stringify(OLD_MET_KEY)}, 'yes') } catch {}`,
   })
   await openNew(page)
-  await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+  await meetsAleksi(page)
   // The init script writes the key again on every load, so this reads it once the page has cleared it.
   expect(
     await page.evaluate<string | null>(`localStorage.getItem(${JSON.stringify(OLD_MET_KEY)})`),
@@ -268,42 +210,30 @@ test('[aleksi-intro 4] the answers of the old first-open questions are cleared f
   })
   await mockHome(page)
   await page.goto('/learn')
-  await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
+  await expect(road(page)).toBeVisible()
   // The init script writes the key again on every load, so this reads it once the page has cleared it.
   expect(
     await page.evaluate<string | null>(`localStorage.getItem(${JSON.stringify(OLD_INTRO_KEY)})`),
   ).toBeNull()
 })
 
-test.describe('narrow and large text', () => {
-  test.use({ viewport: { width: 320, height: 640 } })
+test.describe('narrow', () => {
+  test.use({ viewport: { width: 320, height: 640 }, reducedMotion: 'no-preference' })
 
-  test('[aleksi-intro 2] at 320 px wide nothing runs sideways and every word stays reachable', async ({
+  test('[aleksi-intro 2] [intro-logo 12] at 320 px wide nothing on the intro runs sideways', async ({
     page,
   }) => {
-    await watchPlay(page, true)
     await openNew(page)
-    await expect(page.getByRole('button', { name: 'Nice to meet you' })).toBeVisible()
+    await expect(page.locator(INTRO)).toBeVisible()
     expect(await page.evaluate<boolean>('document.documentElement.scrollWidth > window.innerWidth')).toBe(
       false,
     )
     await shot(page, 'intro-320x640')
-  })
-
-  test('[aleksi-intro 2] with text at 200 percent every word and the button stay on the page', async ({
-    page,
-  }) => {
-    await watchPlay(page, true)
-    await openNew(page)
-    await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
+    await page.locator('button[data-intro-skip]').click()
+    await expect(introBubble(page)).toBeVisible()
     expect(await page.evaluate<boolean>('document.documentElement.scrollWidth > window.innerWidth')).toBe(
       false,
     )
-    const button = page.getByRole('button', { name: 'Nice to meet you' })
-    await button.scrollIntoViewIfNeeded()
-    await expect(button).toBeInViewport()
-    await expect(page.getByText('No account needed to start.')).toBeVisible()
-    await shot(page, 'intro-320-text-200', true)
   })
 })
 

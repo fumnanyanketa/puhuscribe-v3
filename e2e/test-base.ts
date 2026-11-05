@@ -7,8 +7,9 @@ import { installRoad } from './road-route.ts'
 export { expect } from '@playwright/test'
 export type { Page, Locator, BrowserContext } from '@playwright/test'
 
-// introSeen: the test presses "Nice to meet you" by itself when Aleksi's intro appears
-// (e2e/intro-seen.ts). A spec that tests his intro screen sets test.use({ introSeen: false }).
+// introSeen: the tab's visit starts before the page loads, as if the learner had met Aleksi earlier in
+// this visit, so his intro does not stand before the road (e2e/intro-seen.ts). A spec that tests his intro
+// sets test.use({ introSeen: false }).
 export const test = base.extend<{ introSeen: boolean }>({
   introSeen: [true, { option: true }],
   context: async ({ context, introSeen }, use) => {

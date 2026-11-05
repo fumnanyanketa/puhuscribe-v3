@@ -1,0 +1,21 @@
+Break: with reduced motion the first screen still shows, and the intro's Skip plays the road's opening animation instead of the end state (src/screens/RoadScreen.tsx).
+Command: npx playwright test e2e/intro-logo.spec.ts --workers=4 -g "intro-logo 4\]"
+
+  x  1 [chromium] › e2e\intro-logo.spec.ts:257:3 › with motion on › [intro-logo 4] [intro-logo 5] Skip on the first screen: the end state at once, no sound, the visit marked (15.9s)
+  x  2 [webkit] › e2e\intro-logo.spec.ts:257:3 › with motion on › [intro-logo 4] [intro-logo 5] Skip on the first screen: the end state at once, no sound, the visit marked (16.8s)
+  x  3 [chromium] › e2e\intro-logo.spec.ts:274:3 › with motion on › [intro-logo 4] Skip while the greeting plays: the voice stops at once and the end state shows (16.9s)
+  x  4 [webkit] › e2e\intro-logo.spec.ts:274:3 › with motion on › [intro-logo 4] Skip while the greeting plays: the voice stops at once and the end state shows (18.3s)
+  ok 5 [chromium] › e2e\intro-logo.spec.ts:292:3 › with motion on › [intro-logo 4] Skip on the road, while it draws or while Aleksi speaks: the end state at once (16.2s)
+  ok 6 [webkit] › e2e\intro-logo.spec.ts:292:3 › with motion on › [intro-logo 4] Skip on the road, while it draws or while Aleksi speaks: the end state at once (17.5s)
+  x  7 [chromium] › e2e\intro-logo.spec.ts:401:3 › reduced motion › [intro-logo 4] [intro-logo 5] with reduced motion the intro is its end state at once: no first screen, no animation, no sound (5.9s)
+  x  8 [webkit] › e2e\intro-logo.spec.ts:401:3 › reduced motion › [intro-logo 4] [intro-logo 5] with reduced motion the intro is its end state at once: no first screen, no animation, no sound (7.3s)
+    Error: expect(locator).toBeFocused() failed
+    Error: expect(locator).toBeFocused() failed
+    Error: expect(locator).toBeVisible() failed
+    Error: element(s) not found
+    Error: expect(locator).toBeFocused() failed
+    Error: expect(locator).toBeFocused() failed
+    Error: expect(locator).toBeVisible() failed
+    Error: element(s) not found
+  6 failed
+  2 passed (1.2m)

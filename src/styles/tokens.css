@@ -300,6 +300,32 @@
   --motion-sign-step: 280ms; /* between one sign popping up and the next, farther one */
   --motion-sign-pop: 450ms; /* one sign's pop */
   --motion-stagger: 0.2s; /* between the three loading dots */
+  /* Aleksi's intro (fast route intro-logo), the owner's prototype version E with its quickest timing of
+     5 November 2026. The logo's times run from the moment the intro opens; each other "-at" is a delay from
+     the start of its scene (the card's scene starts at 0.65 s, the written scene at 2.35 s). */
+  --motion-logo-at: 0ms; /* the logo fades in */
+  --motion-logo-in: 300ms;
+  --motion-logo-away-at: 600ms; /* the logo zooms forward and fades */
+  --motion-logo-away: 400ms;
+  --motion-splash-out-at: 750ms; /* the splash fades */
+  --motion-splash-out: 350ms;
+  --motion-card-at: 0ms; /* the card comes up (0.65 s), while the logo leaves */
+  --motion-card-in: 500ms;
+  --motion-face-at: 150ms; /* his photo pops (0.8 s) */
+  --motion-face-pop: 400ms;
+  --motion-spoken-at: 250ms; /* the spoken line comes in (0.9 s) */
+  --motion-line-in: 400ms;
+  --motion-draw: 550ms; /* the dotted line draws down, as the written scene starts (2.35 s) */
+  --motion-dot-at: 500ms; /* the written dot comes in (2.85 s) */
+  --motion-dot-in: 300ms;
+  --motion-written-tag-at: 550ms; /* "Kirjakieli" comes in (2.9 s) */
+  --motion-written-at: 600ms; /* the written line comes in (2.95 s) */
+  --motion-meaning-at: 1050ms; /* the meaning comes in (3.4 s) */
+  --motion-meaning-in: 450ms;
+  --motion-card-out: 450ms; /* the card leaves (4.15 s) */
+  --motion-speaker-wave: 900ms; /* one pulse of the speaker's waves while Aleksi speaks */
+  --motion-tap-ring: 1.6s; /* one pulse of the ring round "Tap to hear" */
+  --motion-ease-pop: cubic-bezier(0.2, 1.4, 0.4, 1); /* his photo's pop, the prototype's */
 }
 
 /* The evening set of the landscape (Done for today, and the end of the road). */

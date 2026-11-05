@@ -1,0 +1,6 @@
+Break: the A is set as live text instead of the outlined fell, in src/components/Wordmark.tsx.
+Command: npx vitest run src/components/wordmark.test.ts
+     × [intro-logo 1] is drawn from outlines only: one svg named Aleksi, paths, and no text element 33ms
+     × [intro-logo 1] draws the fell A, the letters and the speech bubble, each in its own path 32ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 3 passed (5)

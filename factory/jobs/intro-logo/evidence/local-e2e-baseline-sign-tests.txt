@@ -1,0 +1,19 @@
+The six road sign tests at 320 px, on unchanged main (origin/main 9713e8c, a throwaway checkout with the same
+dependencies), built with npm run build.
+
+1. As main has them (the helper presses "Nice to meet you", so the old one line bubble sits above Start):
+   npx playwright test e2e/road-sign-overflow.spec.ts --workers=3 -g "redesign 20|redesign 13"
+   52 passed
+
+2. The same tests on the same main build, with only e2e/intro-seen.ts swapped for this branch's version
+   (the road opens as later in a visit, with no bubble):
+   6 failed, 46 passed
+   x [chromium] [webkit] road-sign-overflow.spec.ts:116 [redesign 20] [redesign 46] 320 px, text grown to 200 percent ... the done sign
+   x [chromium] [webkit] road-sign-overflow.spec.ts:308 [redesign 13] [redesign 46] 320 px: when the text grows to 200 percent the signs become pins ...
+   x [chromium] [webkit] road-sign-overflow.spec.ts:327 [redesign 13] 320 px, normal text: the drawn signs are unchanged ...
+
+3. This branch, same command: the same 6 failed, 46 passed.
+
+So the six failures come from the road with no bubble at 320 px, which main already shows to every learner on a
+later road open in a visit. They are not caused by the new intro. Not fixed here: the sign fitting belongs to
+the road (fast route road-stops); a separate fix is suggested in build.md.
