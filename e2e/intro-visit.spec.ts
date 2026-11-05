@@ -122,31 +122,50 @@ test('[intro-visit 3] 60 minutes or more without use brings the intro back; unde
   await expect(road(page)).toHaveCount(0)
 })
 
-test('[intro-visit 5] with sessionStorage blocked, the intro shows, the road and the lesson work, and nothing throws', async ({
-  page,
-}) => {
-  const errors: string[] = []
-  page.on('pageerror', (error) => errors.push(error.message))
-  await page.addInitScript({
-    content: `Object.defineProperty(window, 'sessionStorage', {
+// Two ways storage fails on real phones: reaching sessionStorage throws (site data blocked), or it is there
+// but every call throws (a full or locked store). Each stand-in is checked before the test relies on it.
+const BROKEN_STORAGE: [string, string, string][] = [
+  [
+    'reaching it throws',
+    `Object.defineProperty(window, 'sessionStorage', {
       configurable: true,
       get() { throw new DOMException('The operation is insecure.', 'SecurityError') },
     })`,
+    `(() => { try { sessionStorage; return 'working' } catch { return 'broken' } })()`,
+  ],
+  [
+    'every call throws',
+    `(() => {
+      const refuse = () => { throw new DOMException('The quota has been exceeded.', 'QuotaExceededError') }
+      const store = { getItem: refuse, setItem: refuse, removeItem: refuse, key: refuse, clear: refuse, length: 0 }
+      Object.defineProperty(window, 'sessionStorage', { configurable: true, value: store })
+    })()`,
+    `(() => {
+      let refused = 0
+      try { sessionStorage.getItem('x') } catch { refused += 1 }
+      try { sessionStorage.setItem('x', '1') } catch { refused += 1 }
+      return refused === 2 ? 'broken' : 'working'
+    })()`,
+  ],
+]
+
+for (const [how, breakIt, check] of BROKEN_STORAGE) {
+  test(`[intro-visit 5] when sessionStorage ${how}, the intro shows, the road and the lesson work, and nothing throws`, async ({
+    page,
+  }) => {
+    const errors: string[] = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    await page.addInitScript({ content: breakIt })
+    await openApp(page)
+    expect(await page.evaluate<string>(check)).toBe('broken')
+    await expect(intro(page)).toBeVisible()
+    await intro(page).click()
+    await seesRoad(page)
+    // No visit can be kept, so the road after a lesson starts a new one, with the intro.
+    await lessonAndBack(page)
+    await expect(intro(page)).toBeVisible()
+    await intro(page).click()
+    await seesRoad(page)
+    expect(errors).toEqual([])
   })
-  await openApp(page)
-  // The stand-in works: reaching sessionStorage throws, as with blocked site data.
-  expect(
-    await page.evaluate<string>(
-      `(() => { try { sessionStorage; return 'reachable' } catch { return 'blocked' } })()`,
-    ),
-  ).toBe('blocked')
-  await expect(intro(page)).toBeVisible()
-  await intro(page).click()
-  await seesRoad(page)
-  // No visit can be kept, so the road after a lesson starts a new one, with the intro.
-  await lessonAndBack(page)
-  await expect(intro(page)).toBeVisible()
-  await intro(page).click()
-  await seesRoad(page)
-  expect(errors).toEqual([])
-})
+}
