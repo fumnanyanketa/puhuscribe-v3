@@ -1,6 +1,7 @@
 import { expect, test } from './test-base.ts'
 import { recordApiTimings } from './api-timing.ts'
 import { isGuestPost, recordRequests, scrollsSideways } from './session-helpers.ts'
+import { GREETING_AUDIO } from '../src/lib/aleksi-intro.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/8-first-session/spec.md ([session N]), and, for protections
@@ -61,7 +62,7 @@ test(
 // styles and the wordmark (an inline SVG drawing, not a file), so the "no
 // class, no svg" part, which described the unstyled Hei! page, is gone; the
 // rest still holds.
-test('[smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and no image or media files', async ({
+test('[smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and no image or media files but Aleksi’s portrait and greeting', async ({
   page,
 }) => {
   const loaded: { type: string; url: string }[] = []
@@ -76,7 +77,17 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
   const styling = loaded.filter(({ type }) => ['stylesheet', 'font'].includes(type))
   expect(styling.filter(({ type }) => type === 'stylesheet').length).toBeGreaterThan(0)
   for (const { url } of styling) expect(new URL(url).origin, url).toBe(origin)
-  expect(loaded.filter(({ type }) => ['image', 'media'].includes(type))).toEqual([])
+  // Changed requirement (fast route road-stops, manager's request of 5 November 2026): the owner approved
+  // Aleksi's intro on /learn on 4 November (fast route aleksi-intro), so his portrait (one of
+  // public/aleksi/portrait-*.webp) and his greeting (GREETING_AUDIO) may load here, from this address.
+  // Every other image or media file is still refused.
+  const allowed = (path: string) =>
+    /^\/aleksi\/portrait-(360|720|1080)\.webp$/.test(path) || path === GREETING_AUDIO
+  const media = loaded.filter(({ type }) => ['image', 'media'].includes(type))
+  for (const { url } of media) {
+    expect(new URL(url).origin, url).toBe(origin)
+    expect(allowed(new URL(url).pathname), url).toBe(true)
+  }
   await expect(page.locator('img, picture, video, canvas, object, embed')).toHaveCount(0)
   await expect(page.locator('link[rel~="icon"]:not([href="data:,"])')).toHaveCount(0)
 })
