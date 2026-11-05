@@ -165,6 +165,7 @@ Every pairing below is checked by `tests/design-tokens.test.ts`, which fails if 
 | `--color-text`              | `--color-wash-bottom`      | 4.5:1 | 12.0:1 | headings on the peach end of the wash                              |
 | `--color-spoken-text`       | `--color-spoken-soft`      | 4.5:1 | 5.0:1  | the "People say" label on its tile                                 |
 | `--color-mint-deep`         | `--color-surface`          | 4.5:1 | 6.0:1  | the "How it works" link and a sign number                          |
+| `--color-button-text`       | `--color-sign-board`       | 4.5:1 | 6.0:1  | the white name on an upcoming road sign                            |
 | `--color-mint-deep`         | `--color-panel`            | 4.5:1 | 5.9:1  | mint text on a panel                                               |
 | `--color-mint-deep`         | `--color-mint-soft`        | 4.5:1 | 5.0:1  | mint text on a soft mint fill                                      |
 | `--color-peach-deep`        | `--color-surface`          | 4.5:1 | 4.9:1  | the name on the next sign                                          |

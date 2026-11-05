@@ -1,0 +1,3 @@
+Short stop names (`src/lib/stop-short-names.ts`) show on road signs; upcoming signs are deep mint boards with a white rim, done signs keep their lighter mint, tick and rim, the current sign is unchanged; full names stay for screen readers and everything else.
+Checked by looking (screenshots in `evidence/`), per the pause on tests; the six 320 px tests were not run. Tests written but not run in the browser: `e2e/road-signs.spec.ts`; one earlier run showed failures on the reference page specs that I did not look into. Unit tests and design tokens test pass.
+Result: checks pass (code checks only)
