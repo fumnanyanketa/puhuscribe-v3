@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { SCENE_HEIGHT, SCENE_WIDTH, SUN_BOX } from '../src/components/landscape-geometry.ts'
+import { STOP_SHORT_NAMES } from '../src/lib/stop-short-names.ts'
 import { roadFixture } from '../src/road/road-fixture.ts'
 import { mockHome } from './road-mocks.ts'
 
@@ -120,7 +121,8 @@ test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
         await realRoad(page, done)
         await page.goto('/learn')
         const list = page.getByRole('list', { name: 'Stops on your road' })
-        await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
+        // The sign of the longest stop (a done sign's full name is in its button label, not in its text).
+        await expect(list.locator(`li[data-stop="${String(LONGEST[0])}"]`)).toHaveCount(1)
         await page.waitForTimeout(500)
         const frames = await page.evaluate<Frame[]>(`${WATCH}(true)`)
         expect(frames.length).toBeGreaterThan(10)
@@ -145,7 +147,8 @@ test.describe('road signs at 320 and 375 px with text at 200 percent', () => {
         await expect(list.locator('li[data-state="current"]')).toHaveCount(1)
         expect(await list.getByRole('listitem').count()).toBeGreaterThanOrEqual(2)
         if (place !== 'done')
-          await expect(list.getByRole('listitem').filter({ hasText: LONGEST[1] })).toHaveCount(1)
+          // The sign of the longest stop (a done sign's full name is in its button label, not in its text).
+          await expect(list.locator(`li[data-stop="${String(LONGEST[0])}"]`)).toHaveCount(1)
       })
     }
 
@@ -337,7 +340,8 @@ test.describe('number pins when the text is too large for the drawn signs', () =
       const look = await page.evaluate<PinLook>(PIN_LOOK)
       expect(look.pins).toBe(false)
       for (const sign of look.signs) {
-        const name = REAL_NAMES.get(sign.stop) ?? ''
+        // The road shows the short name (fast route road-signs); the full name stays in the screen-reader label.
+        const name = STOP_SHORT_NAMES[sign.stop] ?? ''
         expect(sign.nameVisible, name).toBe(true)
         // Done: tick and name. Current: number and name. Upcoming: the name only.
         const expected =
