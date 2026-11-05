@@ -23,8 +23,9 @@ def test_greeting_is_harri_reading_the_approved_line(tmp_path):
 
 
 def test_voice_writes_one_clip_and_logs_it(tmp_path):
-    """[aleksi-intro 3] [aleksi-journey 1] one clip per line (greeting, written greeting and journey), one log line each with
-    the voice name, and a second run voices nothing. Changed requirement: Aleksi has two lines now."""
+    """[aleksi-intro 3] [aleksi-journey 1] one clip per line (greeting, written greeting and journey),
+    one log line each with the voice name, and a second run voices nothing. Changed requirement: Aleksi
+    has three lines now."""
     log = tmp_path / "ai-calls.jsonl"
     out = tmp_path / "audio"
     args = types.SimpleNamespace(out=str(out))
