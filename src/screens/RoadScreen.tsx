@@ -21,7 +21,7 @@ import { LoadingMark } from '../road/LoadingMark.tsx'
 import { PracticeSheet, type PracticeList } from '../road/PracticeSheet.tsx'
 import { practiceQuery, type PracticeListAnswer } from '../lib/practice-types.ts'
 import { RoadPicture } from '../road/RoadPicture.tsx'
-import { namesWrap, PIN_TEXT_PX, rootTextPx, signBox } from '../road/sign-pins.ts'
+import { namesWrap, PIN_TEXT_PX, rootTextPx, signBox, signParts } from '../road/sign-pins.ts'
 import { RoadStart } from '../road/RoadStart.tsx'
 import { RoadTop } from '../road/RoadTop.tsx'
 import { startNote, startPlan, type StartGo } from '../road/start-plan.ts'
@@ -359,18 +359,32 @@ export function RoadScreen() {
           ]
         : []),
     ]
-    // The "you" marker with its halo is kept clear of every sign but its own (fast route road-stops: a
-    // picture standing low on the road could otherwise stand behind it).
+    // The "you" marker with its halo is kept clear of every picture but its own sign's (fast route
+    // road-stops), so no picture stands behind it. Boards are left as they were before pictures: a long name
+    // may reach across the road near the marker.
     const you = picture.current?.querySelector('[data-testid="you-marker"]')?.getBoundingClientRect()
     const halo = you ? new DOMRect(you.left - 13, you.top - 13, you.width + 26, you.height + 26) : undefined
     const ownSign = items.map((item) => item.hasAttribute('data-you'))
+    const signPicture = items.map((item) =>
+      item.querySelector('[data-sign-picture]')?.getBoundingClientRect(),
+    )
+    const overlaps = (a: DOMRect, b: DOMRect) =>
+      a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom
+    // A board and its picture are checked as two boxes: a narrow picture above a wide board leaves the
+    // board's top corners free, so the picture of one sign may stand beside the board of the next.
+    const parts = items.map(signParts)
+    const meets = (a: readonly DOMRect[], b: readonly DOMRect[]) =>
+      a.some((one) => b.some((two) => touching(one, two)))
     const crowded = boards.some(
       (box, index) =>
         box !== undefined &&
         (box.top < (bar?.bottom ?? 0) + gap ||
-          scenery.some((thing) => touching(box, thing)) ||
-          (halo !== undefined && !ownSign[index] && touching(box, halo)) ||
-          boards.slice(index + 1).some((other) => other !== undefined && touching(box, other))),
+          meets(parts[index] ?? [], scenery) ||
+          (halo !== undefined &&
+            !ownSign[index] &&
+            signPicture[index] !== undefined &&
+            overlaps(signPicture[index], halo)) ||
+          parts.slice(index + 1).some((other) => meets(parts[index] ?? [], other))),
     )
     if (!crowded) return
     // Number pins show their pictures only when they fit: crowded pins first lose the pictures, then signs.

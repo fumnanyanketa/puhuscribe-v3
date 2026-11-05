@@ -37,7 +37,7 @@
 .chat[data-shown='yes'] {
   visibility: visible;
   opacity: 1;
-  animation: bubbleIn var(--motion-sheet) var(--motion-ease-out) both;
+  animation: bubbleIn var(--motion-sheet) var(--motion-ease-out) backwards;
 }
 
 .bubble {

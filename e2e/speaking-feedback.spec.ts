@@ -17,6 +17,7 @@ import {
   tabTo,
 } from './session-helpers.ts'
 import { SESSION_BESIDES_VISIT } from './visit-marker.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/10-speaking-feedback/spec.md that each test protects.
@@ -235,7 +236,8 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     const leave = async () => {
       await leaveLesson(page)
       await page.waitForURL((url) => url.pathname === '/learn')
-      await page.getByRole('button', { name: 'Continue', exact: true }).click()
+      // The road's one Start goes straight back into the open session (fast route road-stops).
+      await pressStart(page)
       await page.waitForURL('**/session')
     }
     await leave()
@@ -568,7 +570,7 @@ test.describe('speaking feedback', { tag: '@seed' }, () => {
     await installRoad(other)
     const b = await other.newPage()
     await b.goto('/learn')
-    await b.getByRole('button', { name: 'Start', exact: true }).click()
+    await pressStart(b)
     await b.waitForURL('**/session')
     const theirs = await b.request.get(`/api/voice/recordings/${id}`)
     const missing = await b.request.get('/api/voice/recordings/00000000-0000-4000-8000-000000000000')

@@ -36,3 +36,10 @@ export function signBox(item: Element): DOMRect | undefined {
     Math.max(board.bottom, picture.bottom) - top,
   )
 }
+
+/** The boxes a sign takes on the road, each on its own: its board, and its picture when it has one. */
+export function signParts(item: Element): DOMRect[] {
+  return [item.querySelector('[data-sign-board]'), item.querySelector('[data-sign-picture]')]
+    .map((part) => part?.getBoundingClientRect())
+    .filter((box): box is DOMRect => box !== undefined && box.width > 0 && box.height > 0)
+}

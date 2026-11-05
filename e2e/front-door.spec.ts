@@ -17,20 +17,25 @@ test.beforeEach(({ page }, testInfo) => {
 })
 
 // Job 19-redesign: the front door is the road. The wordmark, "Today's session" and
-// the lead sentence are gone on purpose (statement 10); the guest line stays.
+// the lead sentence are gone on purpose (statement 10); the guest line stays. Since fast route road-stops
+// (owner, 5 November 2026) the guest line is on Aleksi's stop screen, which Start opens before Continue
+// makes the account.
 test(
-  '[session 1] [redesign 10] [redesign 15] the road shows Start and the guest line, and loading it makes no account',
+  '[session 1] [redesign 10] [redesign 15] [road-stops 6] the road shows Start, its stop screen the guest line, and neither makes an account',
   { tag: '@smoke' },
   async ({ page }) => {
     const requests = recordRequests(page)
     await page.goto('/learn')
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
     await expect(
       page.getByText('Starting creates a guest account on this device so your progress is saved.', {
         exact: true,
       }),
     ).toBeVisible()
+    await page.getByRole('button', { name: 'Back to the road' }).click()
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await page.waitForLoadState('networkidle')
     await page.reload()
     await page.waitForLoadState('networkidle')
@@ -62,7 +67,7 @@ test(
 // styles and the wordmark (an inline SVG drawing, not a file), so the "no
 // class, no svg" part, which described the unstyled Hei! page, is gone; the
 // rest still holds.
-test('[smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and no image or media files but Aleksi’s portrait and greeting', async ({
+test('[smoke 1] [design 19] loads only its own stylesheet and font files, from its own address, and no image or media files but Aleksi’s portrait and greeting and the stop pictures', async ({
   page,
 }) => {
   const loaded: { type: string; url: string }[] = []
@@ -81,14 +86,23 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
   // Aleksi's intro on /learn on 4 November (fast route aleksi-intro), so his portrait (one of
   // public/aleksi/portrait-*.webp) and his greeting (GREETING_AUDIO) may load here, from this address.
   // Every other image or media file is still refused.
+  // Since fast route road-stops (owner, 5 November 2026) the road also shows each stop's picture
+  // (public/stops/NN.svg) and Aleksi's small photo beside his bubble.
   const allowed = (path: string) =>
-    /^\/aleksi\/portrait-(360|720|1080)\.webp$/.test(path) || path === GREETING_AUDIO
+    /^\/aleksi\/portrait-(360|720|1080)\.webp$/.test(path) ||
+    /^\/stops\/\d\d\.svg$/.test(path) ||
+    path === GREETING_AUDIO
   const media = loaded.filter(({ type }) => ['image', 'media'].includes(type))
   for (const { url } of media) {
     expect(new URL(url).origin, url).toBe(origin)
     expect(allowed(new URL(url).pathname), url).toBe(true)
   }
-  await expect(page.locator('img, picture, video, canvas, object, embed')).toHaveCount(0)
+  // The only picture elements are those images, never a video, canvas or embedded object.
+  await expect(page.locator('picture, video, canvas, object, embed')).toHaveCount(0)
+  const sources = await page.evaluate<string[]>(
+    `[...document.querySelectorAll('img')].map((img) => new URL(img.src).pathname)`,
+  )
+  for (const path of sources) expect(allowed(path), path).toBe(true)
   await expect(page.locator('link[rel~="icon"]:not([href="data:,"])')).toHaveCount(0)
 })
 
@@ -171,7 +185,9 @@ test.describe('older browsers', () => {
     await page.route('**/api/guest', () => undefined)
     await page.clock.install()
     await page.goto('/learn')
-    const start = page.getByRole('button', { name: 'Start', exact: true })
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    // Continue on Aleksi's stop screen makes the guest account (fast route road-stops).
+    const start = page.getByRole('button', { name: 'Continue', exact: true })
     await start.click()
     const status = page.getByRole('status')
     // While busy the button keeps its place and tells screen readers what is happening.
@@ -179,7 +195,7 @@ test.describe('older browsers', () => {
     await expect(busy).toHaveAttribute('aria-busy', 'true')
     await page.clock.runFor(9_000)
     await expect(busy).toHaveAttribute('aria-busy', 'true')
-    // The problem line belongs to the road's card and appears only when there is a problem (job 19-redesign).
+    // The problem line appears only when there is a problem (job 19-redesign), on the stop screen.
     await expect(status).toHaveCount(0)
     await page.clock.runFor(1_000)
     await expect(status).toHaveText(

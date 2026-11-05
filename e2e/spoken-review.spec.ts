@@ -13,6 +13,7 @@ import {
   throughUnderstandIt,
 } from './review-helpers.ts'
 import { serveTone } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/10-speaking-feedback/spec.md that each test protects.
@@ -44,7 +45,7 @@ async function toKeepIt(page: Page, speaking: boolean) {
   if (speaking) await turnOnSpeaking(page)
   dayLater(userId)
   await page.reload()
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await throughUnderstandIt(page, userId)
   await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()

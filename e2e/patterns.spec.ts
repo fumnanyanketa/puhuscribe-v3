@@ -22,6 +22,7 @@ import {
   startSession,
   tabTo,
 } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/12-units-1-3/spec.md that each test protects.
@@ -205,7 +206,7 @@ async function finishTodaysSession(page: Page): Promise<void> {
 }
 
 async function startNext(page: Page): Promise<void> {
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   // Since fast route hear-and-say the speaking consent opens in this first step, over the line card;

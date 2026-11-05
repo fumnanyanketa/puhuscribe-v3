@@ -1,5 +1,6 @@
 // The stop pictures (fast route road-stops, owner approved 5 November 2026): one free unDraw illustration
-// per stop of the A1 road, in public/stops/01.svg to 36.svg (source and licence in public/stops/README.md).
+// per stop of the A1 road, in public/stops/01.svg to 36.svg (source and licence in design/stop-pictures/README.md;
+// public/ holds images only).
 // The road shows each sign's picture just above its board; the stop screen shows it large.
 //
 // Each picture's width divided by its height, from the file's viewBox, so the browser keeps the right room

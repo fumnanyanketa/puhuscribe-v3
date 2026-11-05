@@ -2,6 +2,7 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 import { mockHome, type HomeMocks } from './road-mocks.ts'
 import { STORED_BESIDES_VISIT } from './visit-marker.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the road's three reads
@@ -125,7 +126,8 @@ test.describe('the home screen is the road', () => {
   )
 
   test('[redesign 13] a stop name is rendered as text, never as markup', async ({ page }) => {
-    await mockHome(page, { today: SIGNED_IN })
+    // A visitor, so Start opens the stop screen, which shows the name (fast route road-stops).
+    await mockHome(page)
     await page.route('**/api/road', (route) =>
       route.fulfill({
         status: 200,
@@ -147,15 +149,25 @@ test.describe('the home screen is the road', () => {
     await page.goto('/learn')
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     // This name wraps on a drawn sign, so the sign is a number pin (follow up 19-sign-overflow, the owner's
-    // "Number pins only"): the name is shown as text in the card and kept as text in the sign for screen readers.
-    await expect(page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 })).toHaveText(
-      '<img src=x onerror="window.__ran=1">Meeting',
-    )
+    // "Number pins only"): the name is kept as text in the sign for screen readers, and shown as text on
+    // Aleksi's stop screen (the card that showed it is gone since fast route road-stops).
     await expect(
       page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').first(),
     ).toContainText('<img src=x onerror="window.__ran=1">Meeting')
+    // The only pictures are the app's own: the stops' pictures and Aleksi's photo (fast route road-stops).
+    const pictures = () =>
+      page.evaluate<string[]>(
+        `[...document.querySelectorAll('main img')].map((img) => img.getAttribute('src'))`,
+      )
+    for (const src of await pictures())
+      expect(src).toMatch(/^\/(stops\/\d\d\.svg|aleksi\/portrait-\d+\.webp)$/)
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'This is stop 1, <img src=x onerror="window.__ran=1">Meeting.',
+    )
     expect(await page.evaluate<unknown>('window.__ran')).toBeUndefined()
-    expect(await page.locator('main img').count()).toBe(0)
+    for (const src of await pictures())
+      expect(src).toMatch(/^\/(stops\/\d\d\.svg|aleksi\/portrait-\d+\.webp)$/)
   })
 
   test('[redesign 14] the top holds the progress bar and the account button, with the letter of the email', async ({
@@ -213,76 +225,83 @@ test.describe('the home screen is the road', () => {
     await expect(failing.getByRole('link', { name: 'Your account' }).locator('svg')).toBeVisible()
   })
 
+  // Changed requirement (fast route road-stops, owner, 5 November 2026): the card at the bottom of the road is
+  // gone for everyone. The road shows one Start; the stop, the guest line and the privacy link moved to
+  // Aleksi's stop screen, and sign in is reached from the account button (e2e/road-stops.spec.ts tests all
+  // of it). These keep statement 15's other promises: the right action in each state, and its messages.
   test(
-    '[redesign 15] day one: the stop, Start, Sign in, the guest line in full and the privacy link',
+    '[redesign 15] [road-stops 2] day one: one Start, and its stop screen names the stop with the guest line in full and the privacy link',
     { tag: '@smoke' },
     async ({ page }) => {
       await openRoad(page)
-      const card = page.getByRole('region', { name: 'Today' })
-      await expect(card.getByRole('heading', { level: 2, name: 'Meeting people' })).toBeVisible()
-      await expect(card.getByText('Stop 1 · 4 short lessons')).toBeVisible()
-      await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-      await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
+      await expect(page.getByRole('region', { name: 'Today' })).toHaveCount(0)
+      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText('This is stop 1, Meeting people.')
       await expect(
-        card.getByText('Starting creates a guest account on this device so your progress is saved.', {
+        page.getByText('Starting creates a guest account on this device so your progress is saved.', {
           exact: true,
         }),
       ).toBeVisible()
-      await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', /privacy$/)
+      await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', /privacy$/)
     },
   )
 
-  test('[redesign 15] start or continue shows the stop, its lesson and its pieces', async ({ page }) => {
+  test('[redesign 15] [road-stops 7] start or continue: one Start, straight into the lesson part way through a stop', async ({
+    page,
+  }) => {
     await openRoad(page, { today: { signedIn: true, today: 'start' }, done: MID })
-    const card = page.getByRole('region', { name: 'Today' })
-    await expect(card.getByRole('heading', { level: 2, name: 'At the grocery store' })).toBeVisible()
-    await expect(card.getByText('Stop 3 · lesson 3 of 4')).toBeVisible()
-    await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toContainText(
+      'Stop 3, At the grocery store, current',
+    )
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.waitForURL('**/learn/session')
     const resume = await page.context().newPage()
     await openRoad(resume, { today: SIGNED_IN, done: MID })
-    await expect(resume.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
+    await expect(resume.getByRole('button', { name: 'Continue', exact: true })).toHaveCount(0)
+    await resume.getByRole('button', { name: 'Start', exact: true }).click()
+    await resume.waitForURL('**/learn/session')
   })
 
-  test('[redesign 15] review only: the count and the minutes, and Start review', async ({ page }) => {
-    await openRoad(page, { today: { signedIn: true, today: 'review', reviewCount: 14 }, done: MID })
-    const card = page.getByRole('region', { name: 'Today' })
-    await expect(card.getByRole('heading', { level: 2, name: 'Review' })).toBeVisible()
-    await expect(card.getByText('About 4 minutes')).toBeVisible()
-    await expect(card.getByLabel('14 words')).toBeVisible()
-    await expect(card.getByRole('button', { name: 'Start review' })).toBeVisible()
+  test('[redesign 15] review only: one Start, straight into the review', async ({ page }) => {
+    const calls = await openRoad(page, {
+      today: { signedIn: true, today: 'review', reviewCount: 14 },
+      done: MID,
+    })
+    await expect(page.getByRole('button', { name: 'Start review' })).toHaveCount(0)
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await page.waitForURL('**/learn/session')
+    expect(calls.guest).toBe(1)
   })
 
-  test('[redesign 15] done for today: the evening sky, no button; stop finished: the next sign lit and Continue', async ({
+  test('[redesign 15] done for today: the evening sky, no button; stop finished: the next sign lit, and Start opens it', async ({
     page,
   }) => {
     await openRoad(page, {
       today: { signedIn: true, today: 'all_done', nextReview: { today: '2026-11-01', day: '2026-11-02' } },
       done: MID,
     })
-    const card = page.getByRole('region', { name: 'Today' })
-    await expect(card.getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
-    await expect(card.getByText('Your next review is tomorrow.')).toBeVisible()
-    await expect(card.getByRole('button')).toHaveCount(0)
+    await expect(page.getByRole('status')).toHaveText('Your next review is tomorrow.')
+    await expect(page.getByTestId('road-start').getByRole('button')).toHaveCount(0)
     await expect(page.locator('main[data-land="evening"]')).toHaveCount(1)
     const finished = await page.context().newPage()
     await openRoad(finished, { today: { signedIn: true, today: 'start' }, done: { 1: 4, 2: 4, 3: 4 } })
-    // Found by its stop: the Stop finished card now also offers "Practise ... again" (fast route go-back), so
-    // on a 812 px screen the road has room for four signs and the first one is left out.
     const next = finished.getByRole('list', { name: 'Stops on your road' }).locator('[data-stop="4"]')
     await expect(next).toHaveText(/Stop 4, Numbers, prices and paying, next/)
     await expect(next).toHaveAttribute('data-state', 'next')
-    await expect(finished.getByRole('region', { name: 'Today' }).getByText('Next stop')).toBeVisible()
-    await expect(finished.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
+    await finished.getByRole('button', { name: 'Start', exact: true }).click()
+    await expect(finished.getByRole('heading', { level: 1 })).toHaveText(
+      'This is stop 4, Numbers, prices and paying.',
+    )
   })
 
-  test('[redesign 15] the existing messages show in the same card as one plain line', async ({ page }) => {
+  test('[redesign 15] the existing messages show as one plain line', async ({ page }) => {
     await openRoad(page, { today: { signedIn: false, ended: true } })
     await expect(page.getByRole('status')).toHaveText(
       'Your guest session ended on this device. Press Start to begin again.',
     )
     const notReady = await page.context().newPage()
     await openRoad(notReady, { today: { signedIn: true, today: 'not_ready' } })
-    await expect(notReady.getByRole('region', { name: 'Today' }).getByRole('status')).toHaveText(
+    await expect(notReady.getByTestId('road-start').getByRole('status')).toHaveText(
       "Today's session is not ready yet. Please come back later.",
     )
     const allDone = await page.context().newPage()
@@ -303,8 +322,13 @@ test.describe('the home screen is the road', () => {
         .getByRole('button', { name: 'Skip' })
         .click({ timeout: 1000 })
         .catch(() => undefined)
-      // Since fast route aleksi-intro the day one Start goes straight to the first lesson.
+      // Since fast route road-stops the day one Start opens Aleksi's stop screen, which makes nothing either;
+      // its Continue makes the guest account.
       await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await expect(page.getByRole('heading', { level: 1, name: /^This is stop 1/ })).toBeVisible()
+      expect(calls.guest).toBe(0)
+      await page.getByRole('button', { name: 'Back to the road' }).click()
+      await pressStart(page)
       await expect.poll(() => calls.guest).toBe(1)
     },
   )
@@ -338,9 +362,9 @@ test.describe('the opening animation', () => {
     expect(first).toBe('Skip')
     const box = await page.getByRole('button', { name: 'Skip' }).boundingBox()
     expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
-    // Nothing hidden by the animation can be focused or tapped: the card is hidden with visibility.
+    // Nothing hidden by the animation can be focused or tapped: Start is hidden with visibility.
     const hidden = await page.evaluate<string>(
-      `getComputedStyle(document.querySelector('section[aria-label="Today"]')).visibility`,
+      `getComputedStyle(document.querySelector('[data-testid="road-start"]')).visibility`,
     )
     expect(hidden).toBe('hidden')
     // It ends by itself on the day one road with stop 1 current.
@@ -383,7 +407,8 @@ test.describe('the opening animation', () => {
     await page.getByRole('button', { name: 'Skip' }).click()
     await page.waitForTimeout(300)
     expect(await finiteAnimations(page)).toEqual([])
-    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toBeFocused()
+    // The road's one Start (it said "Continue" until fast route road-stops).
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeFocused()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toContainText(
       'Stop 3, At the grocery store, current',
     )
@@ -391,7 +416,7 @@ test.describe('the opening animation', () => {
 
   test('[intro animation] it plays again for a returning learner after a refresh', async ({ page }) => {
     await openRoad(page, { today: SIGNED_IN, done: MID })
-    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toBeVisible({ timeout: 8000 })
+    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible({ timeout: 8000 })
     await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0)
     await page.reload()
     await expect(page.getByRole('button', { name: 'Skip' })).toBeVisible()
@@ -406,7 +431,7 @@ test.describe('with reduced motion', () => {
   // road opens straight on its end state. This replaces the 600 ms crossfade of job 19.
   for (const [who, mocks, button] of [
     ['a visitor', {}, 'Start'],
-    ['a signed in learner', { today: SIGNED_IN, done: MID }, 'Continue'],
+    ['a signed in learner', { today: SIGNED_IN, done: MID }, 'Start'],
   ] as const) {
     test(`[redesign 17] [redesign 18] [intro animation] no animation and no Skip, straight to the end state, for ${who}`, async ({
       page,
@@ -417,7 +442,7 @@ test.describe('with reduced motion', () => {
       await expect(page.getByRole('button', { name: button, exact: true })).toBeVisible()
       expect(
         await page.evaluate<string>(
-          `getComputedStyle(document.querySelector('section[aria-label="Today"]')).visibility`,
+          `getComputedStyle(document.querySelector('[data-testid="road-start"]')).visibility`,
         ),
       ).toBe('visible')
     })
@@ -458,7 +483,7 @@ test.describe('small phones and large text', () => {
       await page.waitForTimeout(400)
       const rects = await page.evaluate<{ card: number; marker: number; sign: number }>(
         `(() => {
-          const card = document.querySelector('section[aria-label="Today"]').getBoundingClientRect().top
+          const card = document.querySelector('[data-testid="road-start"]').getBoundingClientRect().top
           const marker = document.querySelector('[data-testid="you-marker"]').getBoundingClientRect().bottom
           const current = document.querySelector('li[data-state="current"], li[data-state="done"]:last-of-type, li[data-state="next"]')
           const all = [...document.querySelectorAll('li[data-state]')]
@@ -502,7 +527,7 @@ test.describe('small phones and large text', () => {
           const rect = (el) => { const r = el.getBoundingClientRect(); return { left: r.left, top: r.top, right: r.right, bottom: r.bottom } }
           const items = [...document.querySelectorAll('ol[aria-label="Stops on your road"] > li')]
           const bar = [document.querySelector('[role="progressbar"]'), document.querySelector('a[aria-label="Your account"]')]
-          const wrapper = document.querySelector('section[aria-label="Today"]').parentElement
+          const wrapper = document.querySelector('[data-testid="road-start"]')
           const covered = bar.map((el) => {
             const r = el.getBoundingClientRect()
             const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
@@ -534,7 +559,7 @@ test.describe('small phones and large text', () => {
         expect(look.topVisible).toEqual([true, true])
         expect(look.card.height).toBeLessThanOrEqual(look.viewport * 0.43)
         // What does not fit is reached by scrolling inside the card: the button is reachable.
-        const card = page.getByRole('region', { name: 'Today' })
+        const card = page.getByTestId('road-start')
         const button = card.getByRole('button').first()
         if (await button.count()) {
           await button.scrollIntoViewIfNeeded()
@@ -545,7 +570,7 @@ test.describe('small phones and large text', () => {
     }
   }
 
-  test('[redesign 20] [redesign 46] at 320 px wide with text at 200 percent nothing scrolls sideways, and the card shows the full stop name', async ({
+  test('[redesign 20] [redesign 46] at 320 px wide with text at 200 percent nothing scrolls sideways, and the full stop name is still read out', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 320, height: 568 })
@@ -556,8 +581,9 @@ test.describe('small phones and large text', () => {
       `({ scroll: document.documentElement.scrollWidth, width: document.documentElement.clientWidth })`,
     )
     expect(result.scroll).toBeLessThanOrEqual(result.width)
-    await expect(page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 })).toHaveText(
-      'Small talk: weather and the weekend',
+    // The card that showed the name is gone (fast route road-stops); the sign keeps it for screen readers.
+    await expect(page.getByRole('list', { name: 'Stops on your road' })).toContainText(
+      'Stop 6, Small talk: weather and the weekend, current',
     )
   })
 })

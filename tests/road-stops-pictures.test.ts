@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { STOP_PICTURE_RATIOS, stopPicture, stopPictureRatio } from '../src/road/stop-pictures.ts'
 
@@ -43,9 +43,12 @@ describe('stop pictures', () => {
     expect(stopPictureRatio(99)).toBe(1)
   })
 
-  it('[road-stops 1] the source and licence of the pictures are written down next to them', () => {
-    const readme = readFileSync('public/stops/README.md', 'utf8')
+  it('[road-stops 1] the source and licence of the pictures are written down, and public/stops holds the pictures only', () => {
+    const readme = readFileSync('design/stop-pictures/README.md', 'utf8')
     expect(readme).toContain('https://undraw.co')
     expect(readme).toMatch(/licen[cs]e/i)
+    expect(readdirSync('public/stops').sort()).toEqual(
+      NUMBERS.map((stop) => `${String(stop).padStart(2, '0')}.svg`),
+    )
   })
 })

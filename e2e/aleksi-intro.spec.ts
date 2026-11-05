@@ -5,6 +5,7 @@ import { expect, test, type Page } from '@playwright/test'
 import { GREETING_AUDIO, OLD_INTRO_KEY, OLD_MET_KEY } from '../src/lib/aleksi-intro.ts'
 import { mockHome } from './road-mocks.ts'
 import { STORED_BESIDES_VISIT, VISIT_VALUE } from './visit-marker.ts'
+import { pressStart } from './road-start.ts'
 
 // Meeting Aleksi (fast route aleksi-intro, owner approved 4 November 2026). Labels name the item of the
 // owner's brief; [intro-rule N] and [intro-stop N] labels are the owner's rules of 4 November 2026 on who
@@ -187,7 +188,7 @@ test('[intro-stop 1] [intro-stop 4] an email account that did one lesson and lef
   // Their progress is kept: stop 1 is current with one of its four lessons done, and Start opens the next one.
   const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
   await expect(signs.first()).toHaveText(/Stop 1, Meeting people, current/)
-  await expect(page.getByRole('region', { name: 'Today' })).toContainText('Meeting people')
+  // The card is gone (fast route road-stops): one Start, which goes straight on part way through a stop.
   await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Sign in' })).toHaveCount(0)
 })
@@ -213,10 +214,11 @@ test.describe('the road opens with its animation', () => {
     await page.getByRole('button', { name: 'Skip' }).click()
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await shot(page, 'road-after-intro-375x812')
-    // The road keeps "Have an account? Sign in" on the day one card.
-    await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
+    // The day one card and its "Have an account? Sign in" are gone (fast route road-stops): sign in is
+    // reached from the account button.
+    await expect(page.getByRole('link', { name: 'Your account' })).toBeVisible()
     expect(calls.guest).toBe(0)
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await pressStart(page)
     await expect.poll(() => calls.guest).toBe(1)
     await expect(page.getByText('Why are you learning Finnish?')).toHaveCount(0)
   })

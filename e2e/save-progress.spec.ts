@@ -48,6 +48,7 @@ import {
   walkNextSession,
   walkToFinish,
 } from './save-progress-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/18-save-progress/spec.md that each test protects.
@@ -269,7 +270,7 @@ test.describe('the save progress note', { tag: '@seed' }, () => {
     const { userId } = await finishFirstSession(page)
     dayLater(userId)
     await page.reload()
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await pressStart(page)
     await page.waitForURL('**/session')
     await throughUnderstandIt(page, userId)
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()

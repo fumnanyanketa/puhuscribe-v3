@@ -59,28 +59,32 @@ async function axe(page: Page, label: string) {
   ).toEqual([])
 }
 
-// Job 19-redesign (statement 15): "I already have an account" is now "Have an account? Sign in", and the
-// links sit in the day one card, under the Start button.
-test('[accounts 1] the road shows the privacy notice link, the account button and "Have an account? Sign in", and loading it makes nothing', async ({
+// Job 19-redesign (statement 15): "I already have an account" became "Have an account? Sign in" on the day
+// one card. Changed requirement (fast route road-stops, owner, 5 November 2026): the card is gone. Sign in is
+// reached from the account button, and the privacy notice link sits under Continue on Aleksi's stop screen.
+test('[accounts 1] [road-stops 8] the road keeps the account button, which leads a visitor to sign in; the stop screen has the privacy notice link; neither makes anything', async ({
   page,
 }) => {
   const requests = recordRequests(page)
   await page.goto('/learn')
   const start = page.getByRole('button', { name: 'Start', exact: true })
   await expect(start).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/learn/privacy')
   await expect(page.getByRole('link', { name: 'Your account' })).toHaveAttribute('href', '/learn/account')
-  const already = page.getByRole('link', { name: 'Sign in', exact: true })
-  await expect(already).toBeVisible()
-  await expect(page.getByText('Have an account?')).toBeVisible()
-  // The links sit under the Start button.
-  const startBox = await start.boundingBox()
+  await start.click()
+  const cont = page.getByRole('button', { name: 'Continue', exact: true })
+  await expect(cont).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/learn/privacy')
+  // The link sits under the Continue button.
+  const contBox = await cont.boundingBox()
   const link = await page.getByRole('link', { name: 'Privacy notice' }).boundingBox()
-  expect(link?.y ?? 0).toBeGreaterThan((startBox?.y ?? Infinity) + (startBox?.height ?? 0) - 1)
+  expect(link?.y ?? 0).toBeGreaterThan((contBox?.y ?? Infinity) + (contBox?.height ?? 0) - 1)
+  await page.getByRole('button', { name: 'Back to the road' }).click()
   await page.waitForLoadState('networkidle')
   expect(requests.filter(isGuestPost)).toHaveLength(0)
   expect(requests.filter((r) => r.method() === 'POST')).toHaveLength(0)
-  await already.click()
+  await page.getByRole('link', { name: 'Your account' }).click()
+  await page.waitForURL('**/account')
+  await page.getByRole('button', { name: 'Sign in with your email' }).click()
   await page.waitForURL('**/sign-in')
   await expect(page.getByRole('heading', { level: 1, name: 'Welcome back' })).toBeVisible()
 })
@@ -140,6 +144,8 @@ test('[accounts 16] the privacy notice is linked from the front door, the accoun
 }) => {
   for (const path of ['/learn', '/learn/account', '/learn/sign-in']) {
     await page.goto(path)
+    // On the road the link is on Aleksi's stop screen, under Continue, since fast route road-stops.
+    if (path === '/learn') await page.getByRole('button', { name: 'Start', exact: true }).click()
     const link = page.getByRole('link', { name: 'Privacy notice' })
     await expect(link, path).toBeVisible()
     await link.click()
@@ -205,7 +211,11 @@ test('[accounts 27] the privacy notice, the account page and the sign in screen 
 test('[accounts 27] the sign in screen works with the keyboard alone', async ({ page }, testInfo) => {
   const requests = recordRequests(page)
   await page.goto('/learn')
-  await tabTo(page, page.getByRole('link', { name: 'Sign in', exact: true }), testInfo)
+  // Sign in is reached through the account button since fast route road-stops removed the road's card.
+  await tabTo(page, page.getByRole('link', { name: 'Your account' }), testInfo)
+  await page.keyboard.press('Enter')
+  await page.waitForURL('**/account')
+  await tabTo(page, page.getByRole('button', { name: 'Sign in with your email' }), testInfo)
   await page.keyboard.press('Enter')
   await page.waitForURL('**/sign-in')
   await expect(page.getByLabel('Email address')).toBeFocused()

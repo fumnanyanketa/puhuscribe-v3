@@ -459,7 +459,8 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await page.getByRole('button', { name: 'Sign out' }).click()
       await page.waitForURL((url) => url.pathname === '/learn')
       await expect(page.getByRole('status')).toHaveText('You are signed out on this device.')
-      await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible()
+      // Sign in is reached from the account button (the road's card is gone since fast route road-stops).
+      await expect(page.getByRole('link', { name: 'Your account' })).toBeVisible()
       expect(
         (await page.context().cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth')),
       ).toEqual([])

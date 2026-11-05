@@ -50,11 +50,15 @@ test.describe('the road on the real route', { tag: '@seed' }, () => {
     await expect(page.getByRole('list', { name: 'Stops on your road' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'Skip' })).toHaveCount(0, { timeout: 8000 })
     await expect(page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')).toHaveCount(5)
-    await expect(page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 })).toHaveText(
-      first?.title_en ?? '',
+    // The card is gone (fast route road-stops): the first sign is the current stop, and Start opens its
+    // stop screen with the real name.
+    await expect(
+      page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem').first(),
+    ).toContainText(`Stop 1, ${first?.title_en ?? ''}, current`)
+    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      `This is stop 1, ${first?.title_en ?? ''}.`,
     )
-    await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
-    await expect(page.getByText(`Stop 1 · ${String(first?.lessons_total ?? '')} short lessons`)).toBeVisible()
   })
 
   test('[redesign 19] [redesign 14] a guest with an account reads the same stops from the learner route and sees stop 1 as the current sign', async ({
@@ -67,8 +71,5 @@ test.describe('the road on the real route', { tag: '@seed' }, () => {
     const first = stops[0]
     const signs = page.getByRole('list', { name: 'Stops on your road' }).getByRole('listitem')
     await expect(signs.first()).toContainText(`Stop 1, ${first?.title_en ?? ''}, current`)
-    await expect(page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 })).toHaveText(
-      first?.title_en ?? '',
-    )
   })
 })

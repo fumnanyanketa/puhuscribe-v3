@@ -13,6 +13,7 @@ import {
   scrollsSideways,
   settleAnimations,
 } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Shared steps for the save progress note browser tests
 // (factory/jobs/18-save-progress/spec.md). Expected content comes from the
@@ -100,16 +101,16 @@ export async function walkToFinish(page: Page): Promise<string> {
 /** The next session of a learner who has no open session: front door, Start, the whole loop. */
 export async function walkNextSession(page: Page, userId: string): Promise<void> {
   await page.goto(PATHS.home)
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   await walkFromHearIt(page, userId)
 }
 
-/** The learner's open session, from the front door's "Continue" button. */
+/** The learner's open session, from the road's Start (it was "Continue" until fast route road-stops). */
 export async function walkContinuedSession(page: Page, userId: string): Promise<void> {
   await page.goto(PATHS.home)
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   await walkFromHearIt(page, userId)

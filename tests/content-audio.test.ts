@@ -224,16 +224,18 @@ describe('audio exists only for approved lines', () => {
     }
     // public/ holds only the published audio, and since jobs 16-tutor-step and 17-landing-page
     // Otso's picture (otso/), the landing page's pictures (landing/) and robots.txt, and since fast
-    // route aleksi-intro Aleksi's portrait (aleksi/). Those folders hold images only, so no text from
-    // content/ can travel through them.
+    // route aleksi-intro Aleksi's portrait (aleksi/), and since fast route road-stops the stop pictures
+    // (stops/; their source and licence are in design/stop-pictures/README.md, so the folder stays images
+    // only). Those folders hold images only, so no text from content/ can travel through them.
     const publicEntries = existsSync('public') ? readdirSync('public') : []
     expect(publicEntries.filter((name) => name !== 'audio').sort()).toEqual([
       'aleksi',
       'landing',
       'otso',
       'robots.txt',
+      'stops',
     ])
-    for (const dir of ['aleksi', 'landing', 'otso'])
+    for (const dir of ['aleksi', 'landing', 'otso', 'stops'])
       for (const name of readdirSync(join('public', dir))) expect(name, dir).toMatch(/\.(webp|svg)$/)
   })
 })

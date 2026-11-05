@@ -33,6 +33,7 @@ import {
   tabTo,
   declineConsent,
 } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/8-first-session/spec.md that each test protects.
@@ -87,7 +88,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       expect(requests.filter(isGuestPost)).toHaveLength(0)
 
       const answer = page.waitForResponse((res) => isGuestPost(res.request()) && res.status() !== 403)
-      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await pressStart(page)
       // The page leaves for /session at once, so only the status is read here;
       // the answer body (no token, no user id) is checked by the unit tests and
       // by the second Start below.
@@ -118,7 +119,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
       const second = await context.newPage()
       await second.goto('/learn')
-      await expect(second.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
+      // The road's one Start (it was "Continue" until fast route road-stops).
+      await expect(second.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       const again = await page.request.post('/api/guest', {
         headers: { 'content-type': 'application/json' },
         data: {},
@@ -590,7 +592,8 @@ test.describe('the first session', { tag: '@seed' }, () => {
     const leave = async () => {
       await leaveLesson(page)
       await page.waitForURL((url) => url.pathname === '/learn')
-      await page.getByRole('button', { name: 'Continue', exact: true }).click()
+      // The road's one Start goes straight back into the open session (fast route road-stops).
+      await pressStart(page)
       await page.waitForURL('**/session')
     }
     await leave()
@@ -624,7 +627,7 @@ test.describe('the first session', { tag: '@seed' }, () => {
       'Your guest session ended on this device. Press Start to begin again.',
     )
     expect((await context.cookies()).filter((c) => c.name.startsWith('__Host-puhuscribe-auth'))).toEqual([])
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await pressStart(page)
     await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
     expect(await userIdOf(context)).not.toBe(userId)
   })
@@ -848,7 +851,7 @@ test.describe('with no readable dialogue', { tag: ['@seed', '@empty-content'] },
             where d.status = 'approved' and u.status = 'approved'`),
     ).toBe('0')
     await page.goto('/learn')
-    await page.getByRole('button', { name: 'Start', exact: true }).click()
+    await pressStart(page)
     await page.waitForURL('**/session')
     await expect(page.getByRole('status')).toHaveText(
       "Today's session is not ready yet. Please come back later.",

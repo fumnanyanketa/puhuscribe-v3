@@ -295,11 +295,12 @@ test.describe('number pins when the text is too large for the drawn signs', () =
         const tree = await list.ariaSnapshot()
         for (const sign of look.signs)
           expect(tree).toContain(`Stop ${String(sign.stop)}, ${REAL_NAMES.get(sign.stop) ?? ''},`)
-        // The card keeps the current stop's name.
+        // The card that kept the current stop's name is gone (fast route road-stops): the name is still
+        // read out from the list above, and the stop screen says it in full (e2e/road-stops.spec.ts).
         const current = look.signs.find((sign) => sign.state === 'current')
-        await expect(
-          page.getByRole('region', { name: 'Today' }).getByRole('heading', { level: 2 }),
-        ).toHaveText(REAL_NAMES.get(current?.stop ?? 0) ?? '')
+        expect(tree).toContain(
+          `Stop ${String(current?.stop ?? 0)}, ${REAL_NAMES.get(current?.stop ?? 0) ?? ''}, current`,
+        )
       })
     }
 

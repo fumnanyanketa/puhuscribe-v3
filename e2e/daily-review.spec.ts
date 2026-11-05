@@ -22,6 +22,7 @@ import {
   typeAnswer,
 } from './review-helpers.ts'
 import { leaveLesson, scrollsSideways, serveTone, settleAnimations, tabTo } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/9-daily-review/spec.md that each test protects.
@@ -33,9 +34,9 @@ import { leaveLesson, scrollsSideways, serveTone, settleAnimations, tabTo } from
 // content is read from the database. "A day later" moves this learner's card
 // times back 24 hours in the local database (e2e/review-helpers.ts).
 
-// Job 19-redesign (statements 14 and 15): the front door is the road. Its card says "Start" on a day
+// Job 19-redesign (statements 14 and 15): the front door is the road. Its card said "Start" on a day
 // with a lesson, and "Review", the number of words and the minutes, with "Start review", on a day that
-// has only a review. The old sentences about the review ("It ends with a short review of words you met
+// has only a review. Since fast route road-stops (owner, 5 November 2026) there is no card: one Start. The old sentences about the review ("It ends with a short review of words you met
 // before.") are not on the road.
 const START = { name: /^Start( review)?$/ }
 
@@ -43,8 +44,11 @@ const START = { name: /^Start( review)?$/ }
 const NO_COUNTS = /\d+\s*(words?|cards?|reviews?|due)|streak|score|points|badge|congratulations|well done/i
 const NO_SCORES = /streak|score|points|badge|congratulations|well done/i
 
-/** The card at the bottom of the road. */
-const todayCard = (page: Page) => page.getByRole('region', { name: 'Today' })
+/**
+ * The bottom of the road. Changed requirement (fast route road-stops, owner, 5 November 2026): the card is
+ * gone; the bottom holds one Start, and on a day with nothing ready one plain line instead.
+ */
+const todayCard = (page: Page) => page.getByTestId('road-start')
 
 async function frontDoorText(page: Page): Promise<string> {
   return todayCard(page).innerText()
@@ -172,7 +176,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 14] Leave, then continue: Keep it again, without the two answered words.
     await leaveLesson(page)
     await page.waitForURL((url) => url.pathname === '/learn')
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    // The road's one Start goes straight back into the open session (fast route road-stops).
+    await pressStart(page)
     await page.waitForURL('**/session')
     await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
     await expect(page.getByText(`Word 1 of ${String(total - 2)}.`, { exact: true })).toBeVisible()
@@ -192,11 +197,10 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     dayLater(userId)
     await page.reload()
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-    // The review card shows the count of words and the minutes (owner's answer, 1 November 2026).
-    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Review' })).toBeVisible()
-    await expect(todayCard(page).getByText(/^About \d+ minutes?$/)).toBeVisible()
-    await expect(todayCard(page).getByLabel(/^\d+ words$/)).toBeVisible()
+    // Changed requirement (fast route road-stops, owner, 5 November 2026): the review card with the count of
+    // words and the minutes is gone; the road shows only Start, which goes straight to the review.
     await expect(todayCard(page).getByRole('button')).toHaveCount(1)
+    await expect(todayCard(page).getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     expect(await frontDoorText(page)).not.toMatch(NO_SCORES)
     const events = one(`select count(*) from public.usage_events where user_id = :'uid'`, { uid: userId })
     const cards = one(`select count(*) from public.cards where user_id = :'uid'`, { uid: userId })
@@ -210,7 +214,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 4] Leaving shows "Continue", which reuses the same row.
     await leaveLesson(page)
     await page.waitForURL((url) => url.pathname === '/learn')
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    // The road's one Start goes straight back into the open session (fast route road-stops).
+    await pressStart(page)
     await page.waitForURL('**/session')
     expect(sessionsOf(userId).filter((s) => s.dialogueId === '')).toHaveLength(1)
 
@@ -235,12 +240,13 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     // [review 5] Nothing ready and nothing due: plain words and the day of the next review.
     await page.getByRole('button', { name: 'Done' }).click()
     await page.waitForURL((url) => url.pathname === '/learn')
-    // The road's card says "Done for today" with the day of the next review (statement 15).
+    // The road says the day of the next review in one plain line, with no button (statement 15; the card
+    // and its "Done for today" heading are gone since fast route road-stops).
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
-    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
     await expect(todayCard(page).getByText('Your next review is tomorrow.', { exact: true })).toBeVisible()
     await expect(todayCard(page).getByRole('button')).toHaveCount(0)
-    await expect(page.locator('main img')).toHaveCount(0)
+    // No celebration picture: the only pictures are the stops' own on their signs (fast route road-stops).
+    await expect(page.locator('main img:not([data-sign-picture])')).toHaveCount(0)
     expect(await frontDoorText(page)).not.toMatch(NO_COUNTS)
 
     // A later day, worded from the database's dates (Helsinki), not the device clock.
@@ -501,7 +507,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Review finished.' })).toBeVisible()
     await check('Review finished')
     await page.getByRole('button', { name: 'Done' }).click()
-    await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
+    await expect(todayCard(page).getByRole('status')).toBeVisible()
     await check('Empty day')
   })
 
@@ -584,7 +590,8 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       await scan('front door, a lesson and a review')
       finishEveryOtherDialogue(userId)
       await page.reload()
-      await expect(page.getByRole('button', { name: 'Start review', exact: true })).toBeVisible()
+      // The road's one Start (it said "Start review" until fast route road-stops).
+      await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       await scan('front door, review only')
       await page.getByRole('button', START).click()
       await expect(page.getByRole('heading', { level: 1, name: 'Keep it' })).toBeVisible()
@@ -611,7 +618,7 @@ test.describe('the daily review', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Review finished.' })).toBeVisible()
       await scan('Review finished')
       await page.getByRole('button', { name: 'Done' }).click()
-      await expect(todayCard(page).getByRole('heading', { level: 2, name: 'Done for today' })).toBeVisible()
+      await expect(todayCard(page).getByRole('status')).toBeVisible()
       await scan('front door, empty day')
     })
   }

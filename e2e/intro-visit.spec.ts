@@ -6,6 +6,7 @@ import { mockLesson } from './lesson-mocks.ts'
 import { mockHome } from './road-mocks.ts'
 import { leaveLesson } from './session-helpers.ts'
 import { STORED_BESIDES_VISIT, VISIT_VALUE } from './visit-marker.ts'
+import { pressStart } from './road-start.ts'
 
 // Fast route intro-visit (owner, 5 November 2026): Aleksi's intro shows only at the start of a visit. A visit
 // starts when the app opens fresh (a new tab: its sessionStorage holds no marker) or after 60 minutes or more
@@ -56,7 +57,7 @@ async function seesRoad(page: Page) {
 
 /** From the road, Start into the lesson and leave it, back to the road's address. */
 async function lessonAndBack(page: Page) {
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/learn/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it, say it' })).toBeVisible()
   await leaveLesson(page)
