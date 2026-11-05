@@ -87,7 +87,11 @@ export function RoadStart({
               </p>
               <p className={styles.english}>{JOURNEY_EN}</p>
             </div>
-            {bubblePlayable && <PlayControl src={JOURNEY_AUDIO} what="Aleksi’s line" size="small" />}
+            {/* The play button keeps its room while the intro says the line, so the bubble never changes size
+                and the road laid out above it stays put (fast route intro-marker-fix). */}
+            <span className={styles.play} data-waits={bubblePlayable ? undefined : 'yes'}>
+              <PlayControl src={JOURNEY_AUDIO} what="Aleksi’s line" size="small" />
+            </span>
           </div>
         </div>
       )}

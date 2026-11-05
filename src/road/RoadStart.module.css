@@ -65,6 +65,17 @@
   min-width: 0;
 }
 
+/* The bubble's play button. While the intro says the line it keeps its room, hidden, so it cannot be focused
+   or tapped and the bubble does not grow when it shows. */
+.play {
+  display: flex;
+  flex: none;
+}
+
+.play[data-waits='yes'] {
+  visibility: hidden;
+}
+
 .finnish {
   margin: 0;
   color: var(--color-spoken-text);

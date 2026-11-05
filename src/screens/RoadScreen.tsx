@@ -370,9 +370,11 @@ export function RoadScreen() {
     setMeasured((count) => count + 1)
   }, [])
 
-  // On the intro's road the bottom area does not move while the road draws (fast route intro-logo), so the
-  // road is measured as it comes in: the signs and the marker stand clear of the bubble from the first frame.
-  const measureNow = !playing || introStage === 'road'
+  // On the intro visit the road does not zoom and the bottom area does not move while the road draws (fast
+  // route intro-logo), so the road is measured as it comes in, and again whenever the bottom area changes,
+  // until it settles: the signs and the marker stand clear of the bubble from the first frame. Until fast route
+  // intro-marker-fix this stopped when the intro ended, while the road was still settling.
+  const measureNow = !playing || justMet
   useLayoutEffect(() => {
     if (home.kind !== 'ready' || !measureNow || meeting || stopOpen) return undefined
     // Measured once the opening is over, when Start and the signs stand where they end up.

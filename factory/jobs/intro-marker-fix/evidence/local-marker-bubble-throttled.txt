@@ -1,0 +1,31 @@
+Marker and bubble boxes (top, bottom in px), production build served locally (npm run build, vite preview),
+Playwright Chromium, first visit, Slow 3G network (400 ms latency, 400 kb/s) and a 4 times slower CPU.
+Time is from the moment the intro's logo appears. ringClearOfBubble = bubble top minus (marker bottom + 13 px ring).
+
+Before the fix (main at 1110dc2):
+before 375x812 t=4.6s {"marker":[594,624],"bubble":[653,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 375x812 t=5s {"marker":[594,624],"bubble":[653,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 375x812 t=6s {"marker":[594,624],"bubble":[653,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 375x812 t=7s {"marker":[594,624],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":-27,"fonts":"loaded"}
+before 375x812 t=8s {"marker":[594,624],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":-27,"fonts":"loaded"}
+before 375x812 t=12s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+before 390x844 t=4.6s {"marker":[625,655],"bubble":[685,756],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 390x844 t=5s {"marker":[625,655],"bubble":[685,756],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 390x844 t=6s {"marker":[625,655],"bubble":[685,756],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+before 390x844 t=7s {"marker":[625,655],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":-27,"fonts":"loaded"}
+before 390x844 t=8s {"marker":[625,655],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":-27,"fonts":"loaded"}
+before 390x844 t=12s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+
+After the fix (fast/intro-marker-fix):
+after 375x812 t=4.6s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 375x812 t=5s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 375x812 t=6s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 375x812 t=7s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+after 375x812 t=8s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+after 375x812 t=12s {"marker":[550,580],"bubble":[609,724],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=4.6s {"marker":[582,612],"bubble":[641,756],"bubbleShown":false,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=5s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=6s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":false,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=7s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=8s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
+after 390x844 t=12s {"marker":[582,612],"bubble":[641,756],"bubbleShown":true,"startShown":true,"ringClearOfBubble":16,"fonts":"loaded"}
