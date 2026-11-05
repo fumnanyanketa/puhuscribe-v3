@@ -25,7 +25,7 @@ import { pressStart } from './road-start.ts'
 
 const OUT = resolve('factory/jobs/aleksi-intro/evidence')
 const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
-const JOURNEY_FI = 'Ja mä vien sut tälle matkalle.'
+const JOURNEY_FI = 'Lähetään yhessä matkaan!'
 /** The intro screen's own Skip: it is in the page only while the intro shows. */
 const INTRO = 'button[data-intro-skip]'
 

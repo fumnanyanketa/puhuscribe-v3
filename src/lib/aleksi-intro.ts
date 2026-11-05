@@ -22,7 +22,10 @@ export const OLD_MET_KEY = 'puhuscribe-aleksi-met'
 /** Harri reads "Moi! Mä oon Aleksi." (scripts/generate/aleksi_greeting.py, workflow task voice-aleksi). */
 export const GREETING_AUDIO = '/audio/aleksi/greeting-d4688145c5ab.mp3'
 
-/** Harri reads "Ja mä vien sut tälle matkalle." when the road opens (a draft for the native reviewer). */
+/**
+ * Harri reads "Lähetään yhessä matkaan!" when the road opens (spoken Finnish; written form "Lähdetään yhdessä
+ * matkaan!"). A draft for the native reviewer.
+ */
 export const JOURNEY_AUDIO = '/audio/aleksi/journey-998cf808bc4f.mp3'
 
 /**

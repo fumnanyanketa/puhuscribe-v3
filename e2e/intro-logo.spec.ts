@@ -36,8 +36,8 @@ const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
 const SPOKEN = 'Moi! Mä oon Aleksi.'
 const WRITTEN = 'Moi! Minä olen Aleksi.'
 const MEANING = 'Hi! I’m Aleksi.'
-const JOURNEY_FI = 'Ja mä vien sut tälle matkalle.'
-const JOURNEY_EN = 'And I’m here to take you on this journey.'
+const JOURNEY_FI = 'Lähetään yhessä matkaan!'
+const JOURNEY_EN = 'Let’s set off on this journey together.'
 const OLD_TEXTS = [
   'Nice to meet you',
   'No account needed to start.',

@@ -39,8 +39,8 @@ const RETURNING: HomeMocks = {
 const start = (page: Page) => page.getByRole('button', { name: 'Start', exact: true })
 const bubble = (page: Page) => page.getByTestId('road-bubble')
 // Aleksi's journey line (fast route intro-logo); until then the bubble said "These are the stops I’ll take you through."
-const BUBBLE_TEXT = 'Ja mä vien sut tälle matkalle.'
-const BUBBLE_ENGLISH = 'And I’m here to take you on this journey.'
+const BUBBLE_TEXT = 'Lähetään yhessä matkaan!'
+const BUBBLE_ENGLISH = 'Let’s set off on this journey together.'
 const NEW_VISITOR: HomeMocks = { met: false }
 const GUEST_NOTE = 'Starting creates a guest account on this device so your progress is saved.'
 

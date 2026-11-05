@@ -21,7 +21,7 @@ import { pressStart } from './road-start.ts'
 
 const OUT = resolve('factory/jobs/intro-visit/evidence')
 const evidence = process.env.PUHUSCRIBE_EVIDENCE === '1'
-const JOURNEY_FI = 'Ja mä vien sut tälle matkalle.'
+const JOURNEY_FI = 'Lähetään yhessä matkaan!'
 const MINUTE = 60 * 1000
 
 async function shot(page: Page, name: string) {

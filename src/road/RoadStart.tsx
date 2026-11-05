@@ -16,9 +16,13 @@ import styles from './RoadStart.module.css'
 // in spoken Finnish with its meaning under it. While the intro plays it, Start waits, hidden; then Start
 // and the bubble's play button come in.
 
-/** Aleksi's line on the road, on the visit he introduced himself (a draft for the native reviewer). */
-export const JOURNEY_FI = 'Ja mä vien sut tälle matkalle.'
-export const JOURNEY_EN = 'And I’m here to take you on this journey.'
+/**
+ * Aleksi's line on the road, on the visit he introduced himself, in spoken Finnish (a draft for the native
+ * reviewer). The set phrase "lähteä matkaan" (owner, 5 November 2026: "viedä matkalle" is not an established
+ * phrase). Its written form, not shown here, is "Lähdetään yhdessä matkaan!".
+ */
+export const JOURNEY_FI = 'Lähetään yhessä matkaan!'
+export const JOURNEY_EN = 'Let’s set off on this journey together.'
 
 interface RoadStartProps {
   /** False when nothing is ready: the road then has no Start. */

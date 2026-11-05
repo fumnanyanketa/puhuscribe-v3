@@ -40,7 +40,7 @@ def test_voice_writes_one_clip_and_logs_it(tmp_path):
     lines = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
     assert [(line["model"], line["characters"]) for line in lines] == [
         ("fi-FI-HarriNeural", 19),
-        ("fi-FI-HarriNeural", 30),
+        ("fi-FI-HarriNeural", 24),
     ]
     assert [prefix for _, prefix in aleksi_greeting.LINES] == ["greeting", "journey"]
     assert aleksi_greeting.cmd_voice(args, voice=FakeProvider(log)) == 0

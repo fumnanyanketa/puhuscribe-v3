@@ -30,9 +30,10 @@ from providers.voice import request_hash
 REPO = Path(__file__).resolve().parents[2]
 PUBLIC_AUDIO = REPO / "public" / "audio" / "aleksi"
 GREETING = "Moi! Mä oon Aleksi."
-# His second line, when the road opens in the new intro (owner, 5 November 2026). A draft for the native
-# reviewer; the clip is made so the owner can hear the intro prototype.
-JOURNEY = "Ja mä vien sut tälle matkalle."
+# His second line, when the road opens in the new intro (owner, 5 November 2026), in spoken Finnish: the set
+# phrase "lähteä matkaan" ("viedä matkalle" is not an established phrase). Written form: "Lähdetään yhdessä
+# matkaan!". A draft for the native reviewer.
+JOURNEY = "Lähetään yhessä matkaan!"
 GREETING_VOICE = "fi-FI-HarriNeural"
 # Each line Aleksi says, with the start of its clip name. He says the spoken form only (owner, 5 November
 # 2026, fast route intro-logo): "Moi! Minä olen Aleksi." is shown in the intro as the written form, never
