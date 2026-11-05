@@ -1,10 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { ReadySession } from '../src/lib/session-types.ts'
+import type { HeardAnswer } from '../src/lib/speech-feedback.ts'
 import type { VoiceAnswer } from '../src/lib/speech-types.ts'
 import { VOICE_NOTICE_VERSION } from '../src/lib/voice-consent.ts'
 import { encodeWav, toBase64 } from '../src/lib/wav.ts'
 import { handleApi, type ApiDeps } from './api.ts'
-import { SpeechCheckFailed } from './providers/speech-feedback.ts'
+import { SpeechCheckFailed, mapAzureAnswer } from './providers/speech-feedback.ts'
 import {
   ENV,
   cookieHeader,
@@ -28,6 +29,8 @@ import {
 
 const LINE = { id: 11, dialogueId: 1, spoken: 'Moi! Mä oon Alex.', written: 'Hei! Minä olen Alex.' }
 const OTHER_DIALOGUE_LINE = { id: 31, dialogueId: 3, spoken: 'Kiva tavata!', written: 'Hauska tavata!' }
+/** The line from the owner's report on the live site, 5 November 2026. */
+const AINO_LINE = { id: 12, dialogueId: 1, spoken: 'Hei! Mä oon Aino.', written: 'Hei! Minä olen Aino.' }
 
 function tone(seconds: number): Uint8Array {
   const samples = new Float32Array(Math.round(seconds * 16_000))
@@ -52,7 +55,7 @@ async function learner(
 ) {
   const supabase = fakeSupabase()
   const db = fakeDb([sampleDialogue(1, 10, 1)], new Map([[1, sampleContent()]]))
-  const speech = fakeSpeechDb([LINE, OTHER_DIALOGUE_LINE])
+  const speech = fakeSpeechDb([LINE, AINO_LINE, OTHER_DIALOGUE_LINE])
   const store = fakeRecordingStore(speech)
   const provider = countingProvider()
   const deps: ApiDeps = {
@@ -552,5 +555,159 @@ describe('the Say it step in the session', () => {
       ready.deps,
     )
     expect(res.status).toBe(200)
+  })
+})
+
+// The written form judged against the written form (fast route bug fix written-form-feedback,
+// 5 November 2026; statements in factory/jobs/written-form-feedback/build.md). The owner's line
+// from the live site, with answers shaped like Azure's detailed answer, read by the provider's own
+// mapAzureAnswer. Sent a reference text, Azure leans its transcript towards it and scores words that
+// do not fit it low.
+
+/** One Azure answer: the transcript, and each word with its accuracy and error type. */
+function azure(lexical: string, words: [string, number, string][]): HeardAnswer {
+  return mapAzureAnswer({
+    RecognitionStatus: 'Success',
+    NBest: [
+      {
+        Lexical: lexical,
+        Words: words.map(([Word, AccuracyScore, ErrorType]) => ({ Word, AccuracyScore, ErrorType })),
+      },
+    ],
+  })
+}
+
+/** "Hei! Minä olen Aino." said well, scored against the spoken line (what the live site saw). */
+const WRITTEN_AGAINST_SPOKEN = azure('hei mä oon aino', [
+  ['hei', 96, 'None'],
+  ['mä', 22, 'Mispronunciation'],
+  ['oon', 35, 'Mispronunciation'],
+  ['aino', 94, 'None'],
+])
+
+function ainoRequest(l: Learner) {
+  return sayRequest(l, { lineId: AINO_LINE.id })
+}
+
+/** A provider that answers each reference text with its own answer, and counts its calls. */
+function answerByReference(l: Learner, answers: Record<string, () => Promise<HeardAnswer>>) {
+  l.provider.check = (wav: Uint8Array, reference: string, fixture: string | null) => {
+    l.provider.calls.push({ bytes: wav.length, reference, fixture })
+    const answer = answers[reference]
+    return answer ? answer() : Promise.reject(new Error(`unexpected reference ${reference}`))
+  }
+}
+
+describe('POST /api/speech/say with the written form', () => {
+  it('[written-form-feedback 1] the written form said well is clear, checked a second time against the written line', async () => {
+    const l = await learner()
+    answerByReference(l, {
+      [AINO_LINE.spoken]: () => Promise.resolve(WRITTEN_AGAINST_SPOKEN),
+      [AINO_LINE.written]: () =>
+        Promise.resolve(
+          azure('hei minä olen aino', [
+            ['hei', 97, 'None'],
+            ['minä', 93, 'None'],
+            ['olen', 95, 'None'],
+            ['aino', 96, 'None'],
+          ]),
+        ),
+    })
+    const res = await handleApi(ainoRequest(l), ENV, l.deps)
+    // Before the fix: {"feedbackClass":"close","hint":{"kind":"off","word":"Mä"}}.
+    expect(await res.json()).toEqual({ feedbackClass: 'clear' })
+    expect(l.provider.calls.map((call) => call.reference)).toEqual([AINO_LINE.spoken, AINO_LINE.written])
+    // One attempt row for the try, with the answer that counted and the cost of both calls.
+    expect(l.speech.attempts).toHaveLength(1)
+    expect(l.speech.attempts[0]).toMatchObject({
+      lineId: AINO_LINE.id,
+      transcript: 'hei minä olen aino',
+      feedbackClass: 'clear',
+      audioMs: 1500,
+      costUsd: 2 * l.provider.costUsd(1500),
+    })
+    // One try takes one slot of the rate limit, however many calls it needed.
+    expect(l.speech.checks).toHaveLength(1)
+  })
+
+  it('[written-form-feedback 2] the written form with a badly said word hints at that written word', async () => {
+    const l = await learner()
+    answerByReference(l, {
+      [AINO_LINE.spoken]: () => Promise.resolve(WRITTEN_AGAINST_SPOKEN),
+      [AINO_LINE.written]: () =>
+        Promise.resolve(
+          azure('hei minä olen aino', [
+            ['hei', 96, 'None'],
+            ['minä', 90, 'None'],
+            ['olen', 38, 'Mispronunciation'],
+            ['aino', 95, 'None'],
+          ]),
+        ),
+    })
+    const res = await handleApi(ainoRequest(l), ENV, l.deps)
+    expect(await res.json()).toEqual({ feedbackClass: 'close', hint: { kind: 'off', word: 'olen' } })
+  })
+
+  it('[written-form-feedback 3] the spoken form said well is clear after one call, as before', async () => {
+    const l = await learner()
+    answerByReference(l, {
+      [AINO_LINE.spoken]: () =>
+        Promise.resolve(
+          azure('hei mä oon aino', [
+            ['hei', 96, 'None'],
+            ['mä', 94, 'None'],
+            ['oon', 92, 'None'],
+            ['aino', 95, 'None'],
+          ]),
+        ),
+    })
+    const res = await handleApi(ainoRequest(l), ENV, l.deps)
+    expect(await res.json()).toEqual({ feedbackClass: 'clear' })
+    expect(l.provider.calls.map((call) => call.reference)).toEqual([AINO_LINE.spoken])
+    expect(l.speech.attempts[0]).toMatchObject({ costUsd: l.provider.costUsd(1500) })
+  })
+
+  it('[written-form-feedback 3] the spoken form with a badly said word keeps its spoken hint', async () => {
+    const spoken = azure('hei mä oon aino', [
+      ['hei', 96, 'None'],
+      ['mä', 92, 'None'],
+      ['oon', 41, 'Mispronunciation'],
+      ['aino', 95, 'None'],
+    ])
+    const l = await learner()
+    answerByReference(l, {
+      [AINO_LINE.spoken]: () => Promise.resolve(spoken),
+      [AINO_LINE.written]: () =>
+        Promise.resolve(
+          azure('hei minä olen aino', [
+            ['hei', 96, 'None'],
+            ['minä', 24, 'Mispronunciation'],
+            ['olen', 20, 'Mispronunciation'],
+            ['aino', 95, 'None'],
+          ]),
+        ),
+    })
+    const res = await handleApi(ainoRequest(l), ENV, l.deps)
+    expect(await res.json()).toEqual({ feedbackClass: 'close', hint: { kind: 'off', word: 'oon' } })
+    expect(l.speech.attempts[0]).toMatchObject({
+      transcript: 'hei mä oon aino',
+      costUsd: 2 * l.provider.costUsd(1500),
+    })
+  })
+
+  it('[written-form-feedback 4] when the second call fails, the first answer still counts, with the cost of one call', async () => {
+    const l = await learner()
+    answerByReference(l, {
+      [AINO_LINE.spoken]: () => Promise.resolve(WRITTEN_AGAINST_SPOKEN),
+      [AINO_LINE.written]: () => Promise.reject(new SpeechCheckFailed('busy')),
+    })
+    const res = await handleApi(ainoRequest(l), ENV, l.deps)
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ feedbackClass: 'close', hint: { kind: 'off', word: 'Mä' } })
+    expect(l.provider.calls).toHaveLength(2)
+    expect(l.speech.attempts[0]).toMatchObject({
+      transcript: 'hei mä oon aino',
+      costUsd: l.provider.costUsd(1500),
+    })
   })
 })
