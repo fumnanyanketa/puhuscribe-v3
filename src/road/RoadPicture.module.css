@@ -263,6 +263,10 @@
   color: var(--color-button-text);
 }
 
+/* Upcoming signs, as on a Finnish road (fast route road-signs, owner approved 5 November 2026): a deep
+   mint board with white semibold text, a thin white rim just inside the edge and a soft shadow, and no
+   number square. A done sign has the same rim on its lighter mint, so the two read apart by the tick and
+   the lighter board. As a pin (large text) the signs keep the older look below. */
 .next .board {
   padding: 0.38em 0.82em;
   box-shadow:
@@ -272,13 +276,35 @@
   font-weight: var(--weight-semibold);
 }
 
-/* A later sign: a small milky board, the name only, quiet. */
+/* A later sign as a pin: a small milky board, quiet. */
 .later .board {
   padding: 0.38em 0.82em;
   background: var(--color-panel);
   box-shadow: 0 4px 12px var(--land-sign-shadow-soft);
   color: var(--color-text-quiet);
   font-weight: var(--weight-regular);
+}
+
+.box:not([data-pins='on']) :is(.next, .later) .board {
+  padding: 0.5em 1em;
+  background: var(--color-sign-board);
+  box-shadow: 0 6px 14px var(--land-sign-shadow);
+  color: var(--color-button-text);
+  font-weight: var(--weight-semibold);
+}
+
+/* The thin white rim, inside the board's edge. */
+.box:not([data-pins='on']) :is(.done, .next, .later) .board {
+  position: relative;
+}
+
+.box:not([data-pins='on']) :is(.done, .next, .later) .board::after {
+  content: '';
+  position: absolute;
+  inset: 0.22em;
+  border: 0.1em solid var(--color-button-text);
+  border-radius: 0.62em;
+  pointer-events: none;
 }
 
 /* The "you" marker, as drawn: a white dot on a mint disc with a wide pale mint halo ring round it, and a

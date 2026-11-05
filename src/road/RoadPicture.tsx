@@ -12,6 +12,7 @@ import {
 import type { SampleLine } from '../lib/road-types.ts'
 import type { SignView } from '../lib/road-state.ts'
 import styles from './RoadPicture.module.css'
+import { stopShortName } from '../lib/stop-short-names.ts'
 import { stopPicture, stopPictureRatio } from './stop-pictures.ts'
 import { namesWrap, PIN_TEXT_PX, rootTextPx } from './sign-pins.ts'
 
@@ -200,7 +201,7 @@ export function RoadPicture({
                   {sign.state === 'done' ? <Tick /> : sign.stop.number}
                 </span>
                 <span className={styles.name} data-sign-name="">
-                  {sign.stop.name}
+                  {stopShortName(sign.stop.number, sign.stop.name)}
                 </span>
               </span>
               <span className={styles.pole} aria-hidden="true" />
