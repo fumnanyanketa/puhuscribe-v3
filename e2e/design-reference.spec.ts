@@ -5,6 +5,7 @@ import { CONTRAST_PAIRS } from '../src/styles/contrast-pairs.ts'
 import { colourTokens } from '../src/styles/token-values.ts'
 import { installRoad } from './road-route.ts'
 import { settleAnimations } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/5-design-system/spec.md. These run on the reference page,
@@ -597,7 +598,7 @@ test.describe('automatic accessibility check', () => {
         }),
       )
       await page.goto('/learn')
-      await page.getByRole('button', { name: 'Start', exact: true }).click()
+      await pressStart(page)
       await expect(page.getByRole('status')).toHaveText(
         'Could not start your session. Check your internet connection, then try again.',
       )
@@ -607,7 +608,9 @@ test.describe('automatic accessibility check', () => {
       expect(
         result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
       ).toEqual([])
-      const size = await page.getByRole('button', { name: 'Start', exact: true }).boundingBox()
+      // The message shows beside the button that made the guest account: Continue on Aleksi's stop screen
+      // since fast route road-stops.
+      const size = await page.getByRole('button', { name: 'Continue', exact: true }).boundingBox()
       expect(size?.height ?? 0).toBeGreaterThanOrEqual(44)
       await context.close()
     })

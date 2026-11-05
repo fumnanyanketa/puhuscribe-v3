@@ -2,6 +2,15 @@ import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test, type Locator, type Page, type Route } from '@playwright/test'
 import { mockHome } from './road-mocks.ts'
 import { recordRequests } from './session-helpers.ts'
+import { NOTICE_UPDATED } from '../src/privacy/notice-settings.ts'
+
+/** The notice's date as the page writes it ("5 November 2026"). */
+const noticeDate = new Date(`${NOTICE_UPDATED}T12:00:00Z`).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
 
 // Labels in brackets are the "Done when" statement numbers from
 // factory/jobs/19-redesign/spec.md. These answer the pages' reads and writes
@@ -476,9 +485,10 @@ test.describe('delete, feedback and the privacy notice', () => {
         page.getByText('Aleksi is part of the product family of Exentrik, a product studio in Finland.'),
       ).toBeVisible()
       await expect(page.getByText('Exentrik looks after your data')).toHaveCount(0)
-      // Round 6 (item 36): "Updated" and the date small at the bottom, as drawn (no full stop). The notice
-      // was updated on 3 November 2026 for Otso (job 16-tutor-step, fast route otso-privacy).
-      await expect(page.getByText('Updated 3 November 2026', { exact: true })).toBeVisible()
+      // Round 6 (item 36): "Updated" and the date small at the bottom, as drawn (no full stop). The date
+      // follows NOTICE_UPDATED (src/privacy/notice-settings.ts), so a new notice date does not need this test
+      // changed (fast route road-stops, manager's request of 5 November 2026; it said 3 November).
+      await expect(page.getByText(`Updated ${noticeDate}`, { exact: true })).toBeVisible()
       await expect(
         page.locator('#full-notice').getByRole('heading', { level: 2, name: 'Who is responsible' }),
       ).toBeHidden()

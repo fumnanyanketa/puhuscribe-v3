@@ -1,0 +1,149 @@
+/* Aleksi's stop screen (fast route road-stops), as in the owner's mockup stop-screen.png. The page wash comes
+   from base.css. Values from src/styles/tokens.css. */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: calc(var(--space-5) + env(safe-area-inset-top, 0px)) var(--space-4)
+    calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}
+
+/* The round white back button, 44 px, with a mint chevron. */
+.back {
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-2);
+  color: var(--color-mint);
+  cursor: pointer;
+}
+
+.back:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The stop's picture, large in the middle. It takes the room the words leave, never less than a small
+   picture, so large text keeps every word on screen and the page scrolls only when it must. */
+.picture {
+  display: grid;
+  flex: 1 1 auto;
+  place-items: center;
+  min-height: 160px;
+  padding: var(--space-4) 0;
+}
+
+.image {
+  display: block;
+  width: auto;
+  max-width: min(62%, 230px);
+  height: auto;
+  max-height: min(40vh, 300px);
+  max-height: min(40dvh, 300px);
+}
+
+.chat {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* A white bubble; the last one has its tail corner toward Aleksi. The first bubble is the screen's
+   heading, so it is set in the bubble's own text style. */
+.bubble {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--bubble-radius);
+  background: var(--color-surface);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+}
+
+.bubble:last-child {
+  border-bottom-left-radius: var(--bubble-tail);
+}
+
+.bubble:focus {
+  outline: none;
+}
+
+.bubble:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.name {
+  font-weight: var(--weight-semibold);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* Continue: the full width mint pill with its arrow, a little taller than the usual 52 px. Two classes, so
+   it wins over the button's own height whatever order the stylesheets load in. */
+.actions .continue {
+  min-height: var(--button-height-large);
+  font-size: var(--text-meaning);
+  font-weight: var(--weight-semibold);
+}
+
+/* The one quiet line for a visitor, small and centred, with the privacy link. */
+.note {
+  margin: 0 var(--space-2);
+  font-size: var(--text-small-plus);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  padding: 14px 2px;
+  margin: -14px 0;
+  color: var(--color-mint-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mint-mid);
+  text-underline-offset: 3px;
+}

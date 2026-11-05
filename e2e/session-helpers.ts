@@ -1,5 +1,6 @@
 import { expect, type Locator, type Page, type Request, type TestInfo } from '@playwright/test'
 import { TURNSTILE_SCRIPT } from './road-route.ts'
+import { pressStart } from './road-start.ts'
 
 // Shared steps for the first session browser tests
 // (factory/jobs/8-first-session/spec.md). Expected content always comes from
@@ -72,7 +73,7 @@ export async function startSession(
   options: { consent?: 'not now' | 'open' } = {},
 ): Promise<void> {
   await page.goto('/learn')
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: FIRST_STEP })).toBeVisible()
   await dismissTip(page)

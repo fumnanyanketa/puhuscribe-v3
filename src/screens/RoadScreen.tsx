@@ -18,12 +18,14 @@ import { clearOldIntroKeys, introDue, markVisit, watchVisit } from '../lib/aleks
 import type { RoadView } from '../lib/road-types.ts'
 import { homeView, todayInfoFrom, type TodayInfo } from '../road/home-view.ts'
 import { LoadingMark } from '../road/LoadingMark.tsx'
-import { RoadCard } from '../road/RoadCard.tsx'
 import { PracticeSheet, type PracticeList } from '../road/PracticeSheet.tsx'
 import { practiceQuery, type PracticeListAnswer } from '../lib/practice-types.ts'
 import { RoadPicture } from '../road/RoadPicture.tsx'
-import { namesWrap, PIN_TEXT_PX, rootTextPx } from '../road/sign-pins.ts'
+import { namesWrap, PIN_TEXT_PX, rootTextPx, signBox, signParts } from '../road/sign-pins.ts'
+import { RoadStart } from '../road/RoadStart.tsx'
 import { RoadTop } from '../road/RoadTop.tsx'
+import { startNote, startPlan, type StartGo } from '../road/start-plan.ts'
+import { StopScreen } from '../road/StopScreen.tsx'
 import { AleksiIntro } from './AleksiIntro.tsx'
 import { CHECK_FAILED, CHECK_UNAVAILABLE, LOADING, NOT_STARTED } from './road-copy.ts'
 import { OfflineScreen } from './OfflineScreen.tsx'
@@ -43,6 +45,14 @@ import styles from './RoadScreen.module.css'
 // for example, opens the road straight away (fast route intro-visit, owner, 5 November 2026). The day one
 // card's Start then goes straight to the first lesson; the two first-open questions and the recap card of
 // fast route "intro" are gone.
+//
+// The clean road (fast route road-stops, owner approved 5 November 2026): the bottom card is gone for
+// everyone. The road shows its signs, each with its stop's picture, and one Start button. On the visit
+// Aleksi has just introduced himself, his photo and one white bubble sit above Start once the opening
+// animation is over. Start opens Aleksi's stop screen (src/road/StopScreen.tsx) before a stop the learner
+// has not begun, and goes straight to the lesson part way through one (src/road/start-plan.ts). The stop
+// screen is part of this page: it adds one entry to the browser's history, so the phone's back gesture
+// returns to the road, and it keeps nothing.
 
 type Home = { kind: 'loading' } | { kind: 'offline' } | { kind: 'ready'; road: RoadView; today: TodayInfo }
 
@@ -95,8 +105,8 @@ async function loadPracticeList(): Promise<PracticeList> {
     : { kind: 'problem' }
 }
 
-/** The card's room at the bottom, in px, until it is measured. */
-const CARD_ESTIMATE = 230
+/** The room of Start at the bottom, in px, until it is measured. */
+const CARD_ESTIMATE = 120
 
 const MOST_SIGNS = 5
 
@@ -124,7 +134,17 @@ export function RoadScreen() {
   // 2 November): text at 200 percent or more, a name that would wrap, or signs that still cover the sun or
   // a fell label when only two are left.
   const [pins, setPins] = useState(false)
-  // Skip asks for focus on Start; it is given once the card is no longer hidden by the animation.
+  // In number pin mode the pins show their pictures too, as long as they fit (fast route road-stops).
+  const [pinPictures, setPinPictures] = useState(true)
+  // Aleksi's stop screen is open in place of the road (fast route road-stops).
+  const [stopOpen, setStopOpen] = useState(false)
+  // The learner pressed "Nice to meet you" in this page: the road shows Aleksi's bubble until Start.
+  const [justMet, setJustMet] = useState(false)
+  const [bubbleGone, setBubbleGone] = useState(false)
+  // The stop screen's entry in the browser's history, so Back and the phone's back gesture both close it.
+  const stopEntry = useRef(false)
+  // Skip asks for focus on Start; it is given once Start is no longer hidden by the animation. Coming back
+  // from the stop screen asks the same.
   const focusAfterSkip = useRef(false)
   const first = useRef<Promise<Home> | null>(null)
   const startRef = useRef<HTMLButtonElement>(null)
@@ -142,7 +162,6 @@ export function RoadScreen() {
   const [practiceStop, setPracticeStop] = useState<number | null>(null)
   const [practiceList, setPracticeList] = useState<PracticeList>({ kind: 'loading' })
   const practiceOpener = useRef<HTMLElement | null>(null)
-  const practiseButton = useRef<HTMLButtonElement>(null)
   const practiceTitleId = useId()
 
   // One load per page load, also under React's strict mode.
@@ -179,11 +198,26 @@ export function RoadScreen() {
   useEffect(() => watchVisit(window, document), [])
 
   useEffect(() => {
-    if (!playing && focusAfterSkip.current) {
+    if (!playing && !stopOpen && focusAfterSkip.current) {
       focusAfterSkip.current = false
       startRef.current?.focus()
     }
-  }, [playing])
+  }, [playing, stopOpen])
+
+  // The phone's back gesture (or the browser's Back) on the stop screen returns to the road.
+  useEffect(() => {
+    const onPop = () => {
+      if (!stopEntry.current) return
+      stopEntry.current = false
+      focusAfterSkip.current = true
+      setProblem(null)
+      setStopOpen(false)
+    }
+    window.addEventListener('popstate', onPop)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+    }
+  }, [])
 
   // A failsafe: the opening animation always ends, even if a browser never fires its end.
   useEffect(() => {
@@ -239,42 +273,48 @@ export function RoadScreen() {
     setSignCount(MOST_SIGNS)
     setShifts({})
     setPins(false)
+    setPinPictures(true)
     setMeasured((count) => count + 1)
   }, [])
 
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing || meeting) return undefined
-    // Measured once the opening is over, when the card and the signs stand where they end up.
+    if (home.kind !== 'ready' || playing || meeting || stopOpen) return undefined
+    // Measured once the opening is over, when Start and the signs stand where they end up.
     measure()
     window.addEventListener('resize', measure)
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
     if (cardBox.current) observer?.observe(cardBox.current)
-    // A box of 1rem: it changes size when the learner's text size does, which the capped card may not.
+    // A box of 1rem: it changes size when the learner's text size does, which the bottom area may not.
     if (textProbe.current) observer?.observe(textProbe.current)
     return () => {
       window.removeEventListener('resize', measure)
       observer?.disconnect()
     }
-  }, [home, playing, measure, meeting])
+  }, [home, playing, measure, meeting, stopOpen])
 
   // Fewer signs while any two boards touch each other or the top bar (round 3, design review). The
   // sign of the "you" marker and the next one are always kept. It waits for the opening animation,
   // whose scaling would make the boxes look smaller than they end up.
+  // A sign's box is its board with its picture above it (fast route road-stops).
   useLayoutEffect(() => {
-    if (home.kind !== 'ready' || playing || meeting) return
+    if (home.kind !== 'ready' || playing || meeting || stopOpen) return
     if (!pins && (rootTextPx() >= PIN_TEXT_PX || namesWrap(picture.current))) {
       setPins(true)
       setSignCount(MOST_SIGNS)
       return
     }
-    const boards = [...(picture.current?.querySelectorAll('ol > li') ?? [])].map((item) => {
-      const board = item.firstElementChild?.querySelector('[aria-hidden="true"]')
-      return board?.getBoundingClientRect()
-    })
+    const boards = [...(picture.current?.querySelectorAll('ol > li') ?? [])].map(signBox)
     const bar = topBox.current?.getBoundingClientRect()
     const unit = (picture.current?.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0
-    // The tallest board with its pole and a little air, so two signs never touch.
-    const tallest = Math.max(0, ...boards.map((box) => box?.height ?? 0))
+    // The tallest board with its pole and a little air, so two signs never touch. Neighbouring signs stand
+    // on opposite sides of the road, so a picture above a board needs no extra height here: the check
+    // below still keeps every picture clear of every other sign.
+    const tallest = Math.max(
+      0,
+      ...[...(picture.current?.querySelectorAll('[data-sign-board]') ?? [])].map(
+        (board) => board.getBoundingClientRect().height,
+      ),
+    )
     const wanted = unit > 0 ? Math.ceil((tallest + 22) / (unit / 280)) : 0
     if (wanted > signGap + 1 || wanted < signGap - 12) {
       setSignGap(wanted)
@@ -319,19 +359,57 @@ export function RoadScreen() {
           ]
         : []),
     ]
+    // The "you" marker with its halo is kept clear of every picture but its own sign's (fast route
+    // road-stops), so no picture stands behind it. Boards are left as they were before pictures: a long name
+    // may reach across the road near the marker.
+    const you = picture.current?.querySelector('[data-testid="you-marker"]')?.getBoundingClientRect()
+    const halo = you ? new DOMRect(you.left - 13, you.top - 13, you.width + 26, you.height + 26) : undefined
+    const ownSign = items.map((item) => item.hasAttribute('data-you'))
+    const signPicture = items.map((item) =>
+      item.querySelector('[data-sign-picture]')?.getBoundingClientRect(),
+    )
+    const overlaps = (a: DOMRect, b: DOMRect) =>
+      a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom
+    // A board and its picture are checked as two boxes: a narrow picture above a wide board leaves the
+    // board's top corners free, so the picture of one sign may stand beside the board of the next.
+    const parts = items.map(signParts)
+    const meets = (a: readonly DOMRect[], b: readonly DOMRect[]) =>
+      a.some((one) => b.some((two) => touching(one, two)))
     const crowded = boards.some(
       (box, index) =>
         box !== undefined &&
         (box.top < (bar?.bottom ?? 0) + gap ||
-          scenery.some((thing) => touching(box, thing)) ||
-          boards.slice(index + 1).some((other) => other !== undefined && touching(box, other))),
+          meets(parts[index] ?? [], scenery) ||
+          (halo !== undefined &&
+            !ownSign[index] &&
+            signPicture[index] !== undefined &&
+            overlaps(signPicture[index], halo)) ||
+          parts.slice(index + 1).some((other) => meets(parts[index] ?? [], other))),
     )
-    if (crowded && signCount > 2) setSignCount(signCount - 1)
-    else if (crowded && !pins) {
+    if (!crowded) return
+    // Number pins show their pictures only when they fit: crowded pins first lose the pictures, then signs.
+    if (pins && pinPictures) {
+      setPinPictures(false)
+      setSignCount(MOST_SIGNS)
+    } else if (signCount > 2) setSignCount(signCount - 1)
+    else if (!pins) {
       setPins(true)
       setSignCount(MOST_SIGNS)
     }
-  }, [home, playing, signCount, signGap, lowest, measured, shifts, pins, meeting, island])
+  }, [
+    home,
+    playing,
+    signCount,
+    signGap,
+    lowest,
+    measured,
+    shifts,
+    pins,
+    pinPictures,
+    meeting,
+    island,
+    stopOpen,
+  ])
 
   // "Start": makes or finds the guest account, then opens the session. A new
   // guest first passes Cloudflare Turnstile (job turnstile): the Worker answers
@@ -370,15 +448,46 @@ export function RoadScreen() {
     // The visit is marked, so the road opens straight away for the rest of it (fast route intro-visit).
     markVisit()
     setMeeting(false)
+    // Aleksi's bubble shows on this road, once the animation is over; a later road open is a new page.
+    setJustMet(true)
     if (!reducedMotion()) setPlaying(true)
+  }
+
+  /** Where Start or Continue goes: makes or finds the account first, or straight to the open session. */
+  function go(goal: StartGo) {
+    if (goal === 'session') window.location.assign(PATHS.session)
+    else void start()
+  }
+
+  /** Opens Aleksi's stop screen, with its own entry in the browser's history. */
+  function openStop() {
+    setProblem(null)
+    try {
+      window.history.pushState(window.history.state, '')
+      stopEntry.current = true
+    } catch {
+      stopEntry.current = false
+    }
+    setStopOpen(true)
+  }
+
+  /** The stop screen's back button: the same as the phone's back gesture. */
+  function closeStop() {
+    if (stopEntry.current) {
+      window.history.back()
+      return
+    }
+    focusAfterSkip.current = true
+    setProblem(null)
+    setStopOpen(false)
   }
 
   /** Opens the practice sheet for a done stop, loading the finished lessons the first time. */
   function openPractice(stop: number) {
-    // Safari does not focus a tapped button: focus then goes back to the card's "Practise again", if shown.
+    // Safari does not focus a tapped button: focus then goes back to Start, if shown.
     const active = document.activeElement
     practiceOpener.current =
-      active instanceof HTMLElement && active !== document.body ? active : practiseButton.current
+      active instanceof HTMLElement && active !== document.body ? active : startRef.current
     setPracticeStop(stop)
     if (practiceList.kind !== 'ready') {
       setPracticeList({ kind: 'loading' })
@@ -424,6 +533,25 @@ export function RoadScreen() {
   if (meeting) return <AleksiIntro onMeet={meet} />
 
   const view = homeView(home.road.stops, home.today, noticeFrom(window.location.search))
+  const plan = startPlan(view.card)
+
+  if (stopOpen && plan.kind === 'stop-screen') {
+    return (
+      <StopScreen
+        stop={plan.stop}
+        visitor={!signedIn}
+        onBack={closeStop}
+        onContinue={() => {
+          go(plan.go)
+        }}
+        starting={starting}
+        problem={problem}
+        checkRef={checkSlot}
+        asking={asking}
+      />
+    )
+  }
+
   // The speech bubble is stop 1's line, so it shows only when the animation ends on stop 1 (day one).
   const sampleLine = playing && view.card.kind === 'day-one' ? view.firstStop?.sampleLine : undefined
   const shown = fitSigns(view.signs, view.markerAt, signCount)
@@ -459,6 +587,7 @@ export function RoadScreen() {
             intro={playing}
             sampleLine={sampleLine}
             onPick={signedIn && !playing ? openPractice : undefined}
+            pictures={!pins || pinPictures}
           />
         </div>
       </div>
@@ -483,26 +612,27 @@ export function RoadScreen() {
       <div
         className={styles.card}
         ref={cardBox}
+        data-testid="road-start"
         onAnimationEnd={(event) => {
-          // The card is the last thing the opening animation brings in.
+          // Start is the last thing the opening animation brings in.
           if (event.target === event.currentTarget) setPlaying(false)
         }}
       >
-        <RoadCard
-          view={view.card}
+        <RoadStart
+          showStart={plan.kind !== 'none'}
+          note={startNote(view.card)}
+          bubble={justMet && !bubbleGone && plan.kind !== 'none'}
+          bubbleShown={!playing}
+          onStart={() => {
+            setBubbleGone(true)
+            if (plan.kind === 'stop-screen') openStop()
+            else if (plan.kind === 'straight') go(plan.go)
+          }}
           starting={starting}
           problem={problem}
           startRef={startRef}
           checkRef={checkSlot}
           asking={asking}
-          onStart={() => {
-            void start()
-          }}
-          onContinue={() => {
-            window.location.assign(PATHS.session)
-          }}
-          onPractise={signedIn ? openPractice : undefined}
-          practiseRef={practiseButton}
         />
       </div>
       <Sheet

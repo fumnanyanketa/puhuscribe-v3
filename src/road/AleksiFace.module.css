@@ -1,0 +1,24 @@
+/* Aleksi's round photo with its white ring (fast route road-stops), as in the owner's mockups. */
+
+.face {
+  display: block;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--color-mint-soft);
+  box-shadow:
+    0 0 0 3px var(--color-surface),
+    var(--shadow-2);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  transform: scale(1.12);
+  transform-origin: 50% 30%;
+}

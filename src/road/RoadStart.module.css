@@ -1,0 +1,92 @@
+/* The bottom of the clean road (fast route road-stops), as in the owner's mockup clean-road-with-bubble.png.
+   Values from src/styles/tokens.css. */
+
+.area {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+}
+
+/* One plain line, on a white bubble so it reads over the dark road. */
+.note {
+  justify-self: stretch;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--bubble-radius);
+  background: var(--color-surface);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Aleksi's photo and his white bubble, the bubble's tail corner toward him. Hidden with visibility (it keeps
+   its room) until the opening animation is over, then it fades in. */
+.chat {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  justify-self: stretch;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.chat[data-shown='yes'] {
+  visibility: visible;
+  opacity: 1;
+  animation: bubbleIn var(--motion-sheet) var(--motion-ease-out) backwards;
+}
+
+.bubble {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-radius) var(--bubble-tail);
+  background: var(--color-surface);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  overflow-wrap: anywhere;
+}
+
+@keyframes bubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.startArea {
+  display: grid;
+  justify-items: center;
+  max-width: 100%;
+}
+
+/* Start: the app's mint pill, centred, not full width, a little taller than the usual 52 px. Two classes, so
+   it wins over the button's own padding whatever order the stylesheets load in. */
+.startArea .start {
+  min-width: 10rem;
+  min-height: var(--button-height-large);
+  padding: 0 var(--space-8);
+  font-size: var(--text-meaning);
+  font-weight: var(--weight-semibold);
+}
+
+.problem {
+  justify-self: stretch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat[data-shown='yes'] {
+    animation: none;
+  }
+}

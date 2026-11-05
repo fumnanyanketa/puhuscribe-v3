@@ -2,6 +2,7 @@ import { expect, type Browser, type BrowserContext, type Page, type TestInfo } f
 import { linesOf, one, sessionsOf, sql, userIdOf } from './db.ts'
 import { installRoad } from './road-route.ts'
 import { finishHearIt, finishUnderstandIt, passSayIt, serveTone } from './session-helpers.ts'
+import { pressStart } from './road-start.ts'
 
 // Shared steps for the account browser tests (factory/jobs/11-accounts/spec.md).
 //
@@ -152,7 +153,7 @@ export function userCount(): number {
 export async function finishTodaysSession(page: Page, account: 'guest' | 'email' = 'guest'): Promise<string> {
   await serveTone(page)
   await page.goto('/learn')
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   await expect(page.getByRole('heading', { level: 1, name: 'Hear it' })).toBeVisible()
   const userId = await userIdOf(page.context())
@@ -173,7 +174,7 @@ export async function finishTodaysSession(page: Page, account: 'guest' | 'email'
 export async function startGuest(page: Page): Promise<string> {
   await serveTone(page)
   await page.goto('/learn')
-  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await pressStart(page)
   await page.waitForURL('**/session')
   // Wait for the session screen to finish loading. A test that deletes the
   // account while POST /api/sessions/today is still in flight lets that

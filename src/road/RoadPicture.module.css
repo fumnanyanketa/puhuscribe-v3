@@ -93,6 +93,21 @@
   transform-origin: 50% 100%;
 }
 
+/* A stop's picture, standing just above its board (fast route road-stops). Its size follows the sign's
+   perspective (--sc): about 46 px tall near and smaller toward the sun, and never wider than 76 px, so a wide
+   picture is drawn lower. --ratio is its width over its height, so its room is kept before it loads. */
+.picture {
+  display: block;
+  flex: none;
+  width: auto;
+  height: min(calc(46px * var(--sc, 1)), calc(76px * var(--sc, 1) / var(--ratio, 1)));
+  aspect-ratio: var(--ratio, 1);
+  margin-bottom: -2px;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  user-select: none;
+}
+
 .board {
   display: flex;
   align-items: center;
@@ -371,8 +386,18 @@
   animation: goalIn var(--motion-intro) ease both;
 }
 
+/* The signs pop up one after another as the road is drawn toward the sun, nearest first (fast route
+   road-stops); each picture pops a moment after its board. --i is the sign's place from the nearest. */
 .box[data-intro='on'] .pop {
-  animation: signPop var(--motion-intro) cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation: signPop var(--motion-sign-pop) cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--motion-sign-first) + var(--i, 0) * var(--motion-sign-step));
+}
+
+.box[data-intro='on'] .picture {
+  animation: signPop var(--motion-sign-pop) cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(
+    var(--motion-sign-first) + var(--i, 0) * var(--motion-sign-step) + var(--motion-fast)
+  );
 }
 
 .box[data-intro='on'] .you {
@@ -431,14 +456,12 @@
 }
 
 @keyframes signPop {
-  0%,
-  30% {
+  from {
     opacity: 0;
     transform: scale(0.4);
   }
 
-  42%,
-  100% {
+  to {
     opacity: 1;
     transform: scale(1);
   }
@@ -496,6 +519,7 @@
   .box[data-intro='on'] .way,
   .box[data-intro='on'] .sunRise,
   .box[data-intro='on'] .pop,
+  .box[data-intro='on'] .picture,
   .box[data-intro='on'] .say {
     animation: none;
   }

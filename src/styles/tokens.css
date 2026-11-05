@@ -276,6 +276,7 @@
   --play-size: 48px;
   --record-size: 88px;
   --button-height: 52px;
+  --button-height-large: 56px; /* the road's one Start (fast route road-stops) */
   --focus-width: 3px;
   --focus-offset: 2px;
   --page-content-top: 168px; /* where a page's content starts, below the hills, trees and sun of the band */
@@ -294,6 +295,9 @@
   --motion-ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
   --motion-fade: 600ms; /* the crossfade that replaces the opening animation */
   --motion-intro: 4500ms; /* the opening animation */
+  --motion-sign-first: 300ms; /* when the nearest sign pops up in the opening animation (fast route road-stops) */
+  --motion-sign-step: 280ms; /* between one sign popping up and the next, farther one */
+  --motion-sign-pop: 450ms; /* one sign's pop */
   --motion-stagger: 0.2s; /* between the three loading dots */
 }
 

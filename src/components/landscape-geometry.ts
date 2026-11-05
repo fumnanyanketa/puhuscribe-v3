@@ -156,6 +156,12 @@ export const SIGN_CLEAR_OF_SUN = 50
 /** The least height between two neighbouring signs' feet (scene units), so a board never sits on the next one. */
 export const SIGN_STEP = 22
 
+/**
+ * The extra room (scene units) below the sun a sign's foot keeps when a picture stands above its board
+ * (fast route road-stops), so no picture covers the sun or the fell labels.
+ */
+export const SIGN_PICTURE_ROOM = 22
+
 /** The drawing's perspective scale of a sign at t. */
 export function signScale(t: number): number {
   return 1 - t * 0.5
@@ -167,12 +173,20 @@ export function signSpots(
   firstSide: -1 | 1 = 1,
   /** The least height between two neighbouring signs' feet, in scene units, so tall boards never touch. */
   minGap = 0,
+  /**
+   * The signs carry pictures (the road screen, fast route road-stops): the farthest keeps more room below
+   * the sun, and when the road has room below the drawing's nearest place (no card any more), the places
+   * spread down toward `lowest`, evenly on the screen, the farthest staying where it is.
+   */
+  reach = false,
 ): SignSpot[] {
-  const top = HORIZON + SIGN_CLEAR_OF_SUN
+  const top = HORIZON + SIGN_CLEAR_OF_SUN + (reach ? SIGN_PICTURE_ROOM : 0)
   const bottom = Math.min(Math.max(lowest, top + 24), 560)
-  const drawn = Array.from({ length: Math.min(count, 5) }, (_, i) =>
-    Math.max(top, yAt(DRAWN_SIGN_T[i] ?? 0.78)),
-  )
+  const places = DRAWN_SIGN_T.map((t) => Math.max(top, yAt(t)))
+  const near = places[0] ?? top
+  const far = places.at(-1) ?? near
+  const stretch = reach && bottom > near && near > far ? (bottom - far) / (near - far) : 1
+  const drawn = places.slice(0, Math.min(count, 5)).map((y) => far + (y - far) * stretch)
   // From the farthest down: a sign stands at least a step below the one beyond it (more when large
   // text makes the boards tall), then the places are drawn closer together if the card needs the room.
   const step = Math.max(SIGN_STEP, minGap)
