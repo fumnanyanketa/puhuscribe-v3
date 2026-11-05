@@ -564,7 +564,7 @@ test.describe('small phones and large text', () => {
 })
 
 test.describe('what the road asks for', () => {
-  test('[redesign 44] a visitor’s road talks only to the app’s own address and stores nothing', async ({
+  test('[redesign 44] [intro-visit 1] a visitor’s road talks only to the app’s own address and stores nothing but the visit time', async ({
     page,
   }) => {
     const origins = new Set<string>()

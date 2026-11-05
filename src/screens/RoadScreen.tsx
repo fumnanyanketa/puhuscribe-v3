@@ -38,8 +38,8 @@ import styles from './RoadScreen.module.css'
 //
 // Meeting Aleksi (fast route aleksi-intro, 4 November 2026): at the start of a visit, a learner who meets
 // him (everyone except a signed in email account with a finished stop) first sees Aleksi's intro screen.
-// "Nice to meet you" marks the visit in this tab's sessionStorage (one time stamp, src/lib/aleksi-intro.ts)
-// and opens the road with its opening animation. Coming back to the road in the same visit, from a lesson
+// "Nice to meet you" marks the visit (one time stamp kept for this tab by src/lib/aleksi-intro.ts) and
+// opens the road with its opening animation. Coming back to the road in the same visit, from a lesson
 // for example, opens the road straight away (fast route intro-visit, owner, 5 November 2026). The day one
 // card's Start then goes straight to the first lesson; the two first-open questions and the recap card of
 // fast route "intro" are gone.
