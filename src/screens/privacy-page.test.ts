@@ -41,7 +41,6 @@ describe('the privacy notice', () => {
       'Where it is kept and who processes it',
       'Cookies',
       'Your rights',
-      'Age',
       'Last updated',
     ])
     for (const heading of SECTION_HEADINGS) expect(html).toMatch(new RegExp(`<h2[^>]*>${heading}</h2>`))
@@ -98,8 +97,9 @@ describe('the privacy notice', () => {
     expect(html).toContain(`href="${COMPLAINT_URL}"`)
   })
 
-  it('[accounts 16] says it is for adults 18 and over, and when it was last updated', () => {
-    expect(page).toContain('Aleksi is for adults, 18 and over.')
+  // The owner removed the age limit on 5 November 2026 (fast route no-age-limit): a changed requirement.
+  it('[accounts 16] [no-age-limit 1] states no age limit, and says when it was last updated', () => {
+    expect(page).not.toMatch(/18 and over|for adults/i)
     expect(page).toMatch(/This notice was last updated on \d{1,2} [A-Z][a-z]+ \d{4}\./)
   })
 

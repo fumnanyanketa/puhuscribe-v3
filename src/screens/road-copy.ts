@@ -1,10 +1,10 @@
 // The words of the home screen's messages. They moved here unchanged from the
-// retired front door (job 19-redesign). GUEST_LINE, the one sentence that says
-// starting makes a guest account and that PuhuScribe is for adults, is
-// protected copy: tests/protected-copy.test.ts freezes it.
+// retired front door (job 19-redesign). GUEST_LINE, the sentence that says
+// starting makes a guest account, is protected copy:
+// src/screens/protected-copy.test.ts freezes it. Aleksi has no age limit
+// (owner, 5 November 2026, fast route no-age-limit), so the line states none.
 
-export const GUEST_LINE =
-  'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.'
+export const GUEST_LINE = 'Starting creates a guest account on this device so your progress is saved.'
 export const ENDED = 'Your guest session ended on this device. Press Start to begin again.'
 export const ALL_DONE = 'You have finished every dialogue that is ready.'
 export const NOT_READY = "Today's session is not ready yet. Please come back later."

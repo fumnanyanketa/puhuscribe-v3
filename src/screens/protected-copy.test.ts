@@ -18,10 +18,10 @@ import * as note from './save-note-copy.ts'
 // change is listed in build.md.
 
 describe('protected copy', () => {
-  it('[redesign 43] the guest line, with the adult line, is word for word', () => {
-    expect(GUEST_LINE).toBe(
-      'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
-    )
+  // The owner dropped the age sentence on 5 November 2026 (fast route no-age-limit): Aleksi has no age limit.
+  it('[redesign 43] [no-age-limit 1] the guest line is word for word, with no age limit', () => {
+    expect(GUEST_LINE).toBe('Starting creates a guest account on this device so your progress is saved.')
+    expect(GUEST_LINE).not.toMatch(/18 and over|for adults/i)
   })
 
   it('[redesign 43] [redesign 35] the sentences on the email screens are word for word', () => {

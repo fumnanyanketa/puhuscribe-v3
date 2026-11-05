@@ -23,7 +23,6 @@ const SECTIONS = [
   'Where it is kept and who processes it',
   'Cookies',
   'Your rights',
-  'Age',
   'Last updated',
 ]
 
@@ -100,7 +99,8 @@ test(
         page.locator('#full-notice').getByRole('heading', { level: 2, name: heading, exact: true }),
       ).toBeVisible()
     }
-    await expect(page.getByText('Aleksi is for adults, 18 and over.')).toBeVisible()
+    // No age limit (owner, 5 November 2026, fast route no-age-limit): the notice states none.
+    await expect(page.locator('#full-notice')).not.toContainText(/18 and over|for adults/i)
     await expect(
       page.getByText(/A guest account is deleted after 90 days with no learning activity/),
     ).toBeVisible()
