@@ -90,7 +90,8 @@ describe('the first layer of the privacy notice', () => {
       expect(claim.source.length, claim.claim).toBeGreaterThan(10)
     }
     // 4 November 2026 (job go-live): Brevo named as the sender of the sign in code emails.
-    expect(NOTICE_UPDATED).toBe('2026-11-04')
+    // 5 November 2026 (fast route no-age-limit): the "Age" section and its age limit removed.
+    expect(NOTICE_UPDATED).toBe('2026-11-05')
     expect(Number.isNaN(new Date(`${NOTICE_UPDATED}T12:00:00Z`).getTime())).toBe(false)
   })
 })

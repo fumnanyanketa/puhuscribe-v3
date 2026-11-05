@@ -26,10 +26,9 @@ test(
     await expect(page.getByRole('heading', { level: 1, name: 'Your road to A1' })).toBeAttached()
     await expect(page.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
     await expect(
-      page.getByText(
-        'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
-        { exact: true },
-      ),
+      page.getByText('Starting creates a guest account on this device so your progress is saved.', {
+        exact: true,
+      }),
     ).toBeVisible()
     await page.waitForLoadState('networkidle')
     await page.reload()

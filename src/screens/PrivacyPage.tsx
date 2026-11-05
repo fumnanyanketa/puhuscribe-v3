@@ -55,7 +55,6 @@ export const SECTION_HEADINGS = [
   'Where it is kept and who processes it',
   'Cookies',
   'Your rights',
-  'Age',
   'Last updated',
 ] as const
 
@@ -85,7 +84,7 @@ function Item({ item }: { item: InventoryItem }) {
 }
 
 export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Responsible }) {
-  const [who, what, howLong, where, cookies, rights, age, updated] = SECTION_HEADINGS
+  const [who, what, howLong, where, cookies, rights, updated] = SECTION_HEADINGS
   const [open, setOpen] = useState(false)
   // The voice details sit behind "More about your voice" (round 6), open at once when "How it works" sent the learner here.
   const [voiceOpen, setVoiceOpen] = useState(
@@ -316,13 +315,6 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                 </a>
               </li>
             </ul>
-          </section>
-
-          <section className={styles.section} aria-labelledby="privacy-age">
-            <h2 id="privacy-age" className={styles.heading}>
-              {age}
-            </h2>
-            <p className={styles.text}>Aleksi is for adults, 18 and over.</p>
           </section>
 
           <section className={styles.section} aria-labelledby="privacy-updated">

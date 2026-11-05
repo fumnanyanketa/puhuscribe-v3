@@ -224,10 +224,9 @@ test.describe('the home screen is the road', () => {
       await expect(card.getByRole('button', { name: 'Start', exact: true })).toBeVisible()
       await expect(card.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', /sign-in$/)
       await expect(
-        card.getByText(
-          'Starting creates a guest account on this device so your progress is saved. Aleksi is for adults, 18 and over.',
-          { exact: true },
-        ),
+        card.getByText('Starting creates a guest account on this device so your progress is saved.', {
+          exact: true,
+        }),
       ).toBeVisible()
       await expect(card.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', /privacy$/)
     },
