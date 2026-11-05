@@ -1,0 +1,24 @@
+/* The bot check's place above Start or Continue (job turnstile). Turnstile's managed widget is 65 px tall
+   and at least 300 px wide ("flexible" size); it shows only when Cloudflare asks the learner to act. */
+
+.check[data-asking] {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.note {
+  margin: 0;
+  font-size: var(--text-reading);
+  line-height: var(--leading-body);
+  color: var(--color-text-quiet);
+  text-align: center;
+}
+
+.widget {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}

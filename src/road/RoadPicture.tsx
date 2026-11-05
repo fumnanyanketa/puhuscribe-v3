@@ -12,6 +12,7 @@ import {
 import type { SampleLine } from '../lib/road-types.ts'
 import type { SignView } from '../lib/road-state.ts'
 import styles from './RoadPicture.module.css'
+import { stopPicture, stopPictureRatio } from './stop-pictures.ts'
 import { namesWrap, PIN_TEXT_PX, rootTextPx } from './sign-pins.ts'
 
 // The road picture (job 19-redesign, statements 12 and 13): the scene, the
@@ -24,6 +25,11 @@ import { namesWrap, PIN_TEXT_PX, rootTextPx } from './sign-pins.ts'
 // gives `onPick` (fast route go-back, 3 November 2026): tapping it opens that
 // stop's finished lessons to practise. Other signs do nothing when tapped.
 // Names are rendered as text, never as HTML.
+//
+// Stop pictures (fast route road-stops, owner approved 5 November 2026): on the road screen each sign shows
+// its stop's picture standing just above its board, and in the opening animation the signs pop up one
+// after another, nearest first, as the road is drawn toward the sun. The landing page and the reference
+// page draw the road without pictures.
 
 interface RoadPictureProps {
   signs: readonly SignView[]
@@ -51,6 +57,8 @@ interface RoadPictureProps {
   pins?: boolean
   /** Given, a done sign is a button that opens its stop's lessons to practise (fast route go-back). */
   onPick?: (stop: number) => void
+  /** Each sign shows its stop's picture above its board (fast route road-stops). */
+  pictures?: boolean
 }
 
 const percentX = (x: number) => `${String((x / SCENE_WIDTH) * 100)}%`
@@ -91,8 +99,9 @@ export function RoadPicture({
   sampleLine,
   pins: givenPins,
   onPick,
+  pictures = false,
 }: RoadPictureProps) {
-  const spots = signSpots(signs.length, lowest, 1, signGap)
+  const spots = signSpots(signs.length, lowest, 1, signGap, pictures)
   // Without nudges from the road screen (the reference page), the picture nudges its own boards back
   // inside the screen, 8 px from the edge, so a long name never runs past it.
   const box = useRef<HTMLDivElement>(null)
@@ -140,6 +149,7 @@ export function RoadPicture({
       data-land={evening ? 'evening' : undefined}
       data-intro={intro ? 'on' : undefined}
       data-pins={pins ? 'on' : undefined}
+      data-pictures={pictures ? 'on' : undefined}
     >
       <RoadBackdrop evening={evening} className={styles.backdrop} sunClassName={styles.sunRise} />
       {/* The mint runs from the bottom of the road up to the "you" marker (round 2, design review), so it is always seen between the card and the marker. Nothing is drawn while nothing is travelled. */}
@@ -164,9 +174,19 @@ export function RoadPicture({
         {signs.map((sign, index) => {
           const spot = spots.at(index)
           if (!spot) return null
+          const picture = pictures ? stopPicture(sign.stop.number) : undefined
           const face = (
             <span className={styles.pop}>
-              <span className={styles.board} aria-hidden="true">
+              {picture && (
+                <img
+                  className={styles.picture}
+                  src={picture}
+                  alt=""
+                  style={{ '--ratio': String(stopPictureRatio(sign.stop.number)) } as CSSProperties}
+                  data-sign-picture=""
+                />
+              )}
+              <span className={styles.board} aria-hidden="true" data-sign-board="">
                 {/* As drawn: a done sign has its tick in a small white square, the current sign its
                     number; the next and later signs show the name only (round 6). As a pin, every
                     sign shows its number (a tick when done) and no name. */}
@@ -199,10 +219,13 @@ export function RoadPicture({
                   // The pole's place as a share of the box, so the stylesheet can keep the board inside the picture.
                   '--x': (spot.x / SCENE_WIDTH).toFixed(4),
                   '--sc': spot.scale.toFixed(3),
+                  // The sign's place from the nearest, so the opening animation pops them up one by one.
+                  '--i': index,
                 } as CSSProperties
               }
               data-state={sign.state}
               data-stop={sign.stop.number}
+              data-you={index === markerAt ? '' : undefined}
             >
               {onPick && sign.state === 'done' ? (
                 <button

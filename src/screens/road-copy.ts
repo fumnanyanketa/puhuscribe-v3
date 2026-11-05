@@ -3,6 +3,8 @@
 // starting makes a guest account, is protected copy:
 // src/screens/protected-copy.test.ts freezes it. Aleksi has no age limit
 // (owner, 5 November 2026, fast route no-age-limit), so the line states none.
+// Since fast route road-stops (owner, 5 November 2026) it shows only on Aleksi's
+// stop screen, and only to a visitor with no account.
 
 export const GUEST_LINE = 'Starting creates a guest account on this device so your progress is saved.'
 export const ENDED = 'Your guest session ended on this device. Press Start to begin again.'

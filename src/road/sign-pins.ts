@@ -17,3 +17,22 @@ export function namesWrap(root: ParentNode | null | undefined): boolean {
     return line > 0 && name.getBoundingClientRect().height > line * 1.5
   })
 }
+
+/**
+ * The room a sign takes on the road: its board and, when it has one, its picture above it (fast route
+ * road-stops), as one box. The road screen keeps these boxes apart, inside the screen and clear of the sun.
+ */
+export function signBox(item: Element): DOMRect | undefined {
+  const board = item.querySelector('[data-sign-board]')?.getBoundingClientRect()
+  if (!board) return undefined
+  const picture = item.querySelector('[data-sign-picture]')?.getBoundingClientRect()
+  if (!picture || picture.width === 0 || picture.height === 0) return board
+  const left = Math.min(board.left, picture.left)
+  const top = Math.min(board.top, picture.top)
+  return new DOMRect(
+    left,
+    top,
+    Math.max(board.right, picture.right) - left,
+    Math.max(board.bottom, picture.bottom) - top,
+  )
+}
