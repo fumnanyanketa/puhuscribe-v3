@@ -103,7 +103,9 @@ test('[smoke 1] [design 19] loads only its own stylesheet and font files, from i
     `[...document.querySelectorAll('img')].map((img) => new URL(img.src).pathname)`,
   )
   for (const path of sources) expect(allowed(path), path).toBe(true)
-  await expect(page.locator('link[rel~="icon"]:not([href="data:,"])')).toHaveCount(0)
+  // The only icons are the app icon (owner's choice of 6 November 2026, the A in a speech bubble).
+  await expect(page.locator('link[rel~="icon"]')).toHaveCount(2)
+  await expect(page.locator('link[rel="icon"][href="/icon.svg"]')).toHaveCount(1)
 })
 
 test('[session 22] the road fits 320 px and 200 percent text without sideways scrolling', async ({
