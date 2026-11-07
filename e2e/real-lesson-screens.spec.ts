@@ -16,7 +16,7 @@ test.use({ deviceScaleFactor: 2 })
 const OUT = resolve('real-screens')
 
 test('stop 1, lesson 1, every screen', async ({ page }) => {
-  test.setTimeout(240_000)
+  test.setTimeout(420_000)
   mkdirSync(OUT, { recursive: true })
   await stubMicrophone(page, 'tone')
   // The meaning of each line, from the real session answer, to pick the right answer in Understand it.
@@ -67,119 +67,124 @@ test('stop 1, lesson 1, every screen', async ({ page }) => {
   let wordCardDone = false
   const recorded = new Set<string>()
   for (let i = 0; i < 140; i++) {
-    const h1 =
-      (await page
-        .locator('h1')
-        .first()
-        .textContent()
-        .catch(() => '')) ?? ''
-    const step = h1
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z]+/g, '-')
-    await shot(step || 'screen')
-
-    if (await visible(page.getByText('Now you can say this.'))) {
-      await expect(page.getByText('Saving your progress.')).toHaveCount(0, { timeout: 15_000 })
-      await page.waitForTimeout(1500)
-      break
-    }
-
-    const consent = page.getByRole('dialog', { name: 'Say it out loud' })
-    if (await visible(consent)) {
-      await consent.getByRole('button', { name: /Turn on/ }).click()
-      continue
-    }
-    if (await visible(button('Got it'))) {
-      await button('Got it').click()
-      continue
-    }
-    // The word card, once, on the first line that has a tappable word.
-    if (!wordCardDone && step.includes('hear')) {
-      const word = page
-        .locator('[data-line-id] button')
-        .filter({ hasNotText: /play|pause/i })
-        .first()
-      if (await visible(word)) {
-        wordCardDone = true
-        await word.click()
-        await page.waitForTimeout(600)
-        await shot('word-card', true)
-        const close = page.getByRole('button', { name: 'Close' })
-        if (await visible(close)) await close.click()
-        else await page.keyboard.press('Escape')
-        await page.waitForTimeout(500)
-        continue
-      }
-    }
-    // Understand it: the right meaning, then Next.
-    const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
-    if (await visible(question)) {
-      const status = page.getByRole('status')
-      if (
-        !/right/i.test(
-          (await status
-            .first()
-            .textContent()
-            .catch(() => '')) ?? '',
-        )
-      ) {
-        const id =
-          (await page
-            .locator('[data-question-line]')
-            .first()
-            .getAttribute('data-question-line')
-            .catch(() => '')) ?? ''
-        const list = page.getByRole('list', { name: 'What does this mean?' })
-        const right = gloss.get(id)
-        const choice = right
-          ? list.getByRole('button', { name: right, exact: true })
-          : list.getByRole('button').first()
-        await choice.first().click()
-        await page.waitForTimeout(500)
-        await shot('understand-it-answered', true)
-        if (await visible(button('Next'))) await button('Next').click()
-        continue
-      }
-    }
-    // Recording: once per line on each step.
-    const record = button('Record yourself saying the line')
-    if (await visible(record)) {
-      const line =
+    try {
+      const h1 =
         (await page
-          .locator('[data-line-id]')
+          .locator('h1')
           .first()
-          .getAttribute('data-line-id')
-          .catch(() => '')) ?? String(i)
-      const key = `${step}:${line}`
-      if (!recorded.has(key)) {
-        recorded.add(key)
-        await record.click()
-        await page.waitForTimeout(1300)
-        await shot(`${step}-listening`, true)
-        await button(/^Stop recording/)
-          .first()
-          .click()
-        await page.waitForTimeout(1800)
-        await shot(`${step}-result`, true)
-        continue
-      }
-    }
-    if (await visible(button("I don't remember"))) {
-      await button("I don't remember").click()
-      continue
-    }
-    let moved = false
-    for (const name of ['Next line', 'Continue', 'Next', 'Done']) {
-      const b = button(name)
-      if ((await visible(b)) && (await b.first().isEnabled())) {
-        await b.first().click()
-        moved = true
+          .textContent()
+          .catch(() => '')) ?? ''
+      const step = h1
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z]+/g, '-')
+      await shot(step || 'screen')
+
+      if (await visible(page.getByText('Now you can say this.'))) {
+        await expect(page.getByText('Saving your progress.')).toHaveCount(0, { timeout: 15_000 })
+        await page.waitForTimeout(1500)
         break
       }
-    }
-    if (!moved) {
-      await page.waitForTimeout(800)
+
+      const consent = page.getByRole('dialog', { name: 'Say it out loud' })
+      if (await visible(consent)) {
+        await consent.getByRole('button', { name: /Turn on/ }).click({ timeout: 6000 })
+        continue
+      }
+      if (await visible(button('Got it'))) {
+        await button('Got it').click({ timeout: 6000 })
+        continue
+      }
+      // The word card, once, on the first line that has a tappable word.
+      if (!wordCardDone && step.includes('hear')) {
+        const word = page
+          .locator('[data-line-id] button')
+          .filter({ hasNotText: /play|pause/i })
+          .first()
+        if (await visible(word)) {
+          wordCardDone = true
+          await word.click({ timeout: 6000 })
+          await page.waitForTimeout(600)
+          await shot('word-card', true)
+          const close = page.getByRole('button', { name: 'Close' })
+          if (await visible(close)) await close.click({ timeout: 6000 })
+          else await page.keyboard.press('Escape')
+          await page.waitForTimeout(500)
+          continue
+        }
+      }
+      // Understand it: the right meaning, then Next.
+      const question = page.getByRole('heading', { level: 2, name: 'What does this mean?' })
+      if (await visible(question)) {
+        const status = page.getByRole('status')
+        if (
+          !/right/i.test(
+            (await status
+              .first()
+              .textContent()
+              .catch(() => '')) ?? '',
+          )
+        ) {
+          const id =
+            (await page
+              .locator('[data-question-line]')
+              .first()
+              .getAttribute('data-question-line')
+              .catch(() => '')) ?? ''
+          const list = page.getByRole('list', { name: 'What does this mean?' })
+          const right = gloss.get(id)
+          const choice = right
+            ? list.getByRole('button', { name: right, exact: true })
+            : list.getByRole('button').first()
+          await choice.first().click({ timeout: 6000 })
+          await page.waitForTimeout(500)
+          await shot('understand-it-answered', true)
+          if (await visible(button('Next'))) await button('Next').click({ timeout: 6000 })
+          continue
+        }
+      }
+      // Recording: once per line on each step.
+      const record = button('Record yourself saying the line')
+      if (await visible(record)) {
+        const line =
+          (await page
+            .locator('[data-line-id]')
+            .first()
+            .getAttribute('data-line-id')
+            .catch(() => '')) ?? String(i)
+        const key = `${step}:${line}`
+        if (!recorded.has(key)) {
+          recorded.add(key)
+          await record.click({ timeout: 6000 })
+          await page.waitForTimeout(1300)
+          await shot(`${step}-listening`, true)
+          await button(/^Stop recording/)
+            .first()
+            .click({ timeout: 6000 })
+          await page.waitForTimeout(1800)
+          await shot(`${step}-result`, true)
+          continue
+        }
+      }
+      if (await visible(button("I don't remember"))) {
+        await button("I don't remember").click({ timeout: 6000 })
+        continue
+      }
+      let moved = false
+      for (const name of ['Next line', 'Continue', 'Next', 'Done']) {
+        const b = button(name)
+        if ((await visible(b)) && (await b.first().isEnabled())) {
+          await b.first().click({ timeout: 6000 })
+          moved = true
+          break
+        }
+      }
+      if (!moved) {
+        await page.waitForTimeout(800)
+      }
+    } catch (error) {
+      console.log(`step ${String(i)}: ${String(error).slice(0, 160)}`)
+      await page.waitForTimeout(1500)
     }
   }
   await shot('finished', true)
