@@ -1,0 +1,61 @@
+# Screenshots of the real stop 1, lesson 1 for the owner's screen review (7 November 2026).
+# Runs only on pushes to screens/* branches, never on main. It builds the app with a local Worker on the
+# TEST project (never the live one), opens lesson 1 as a new guest, and keeps only the screenshots, after
+# the secret check proves they hold no setting.
+name: Real lesson screenshots
+
+on:
+  push:
+    branches: ['screens/**']
+
+permissions:
+  contents: read
+
+jobs:
+  shots:
+    name: Real lesson 1 screenshots (test project)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Test project settings for the local Worker
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: node scripts/ci/write-test-settings.ts env .env.local
+      - name: Build the app and its Worker
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Walk lesson 1 and take screenshots
+        env:
+          PUHUSCRIBE_NO_TRACE: '1'
+          PUHUSCRIBE_REAL_SCREENS: '1'
+        run: npx playwright test e2e/real-lesson-screens.spec.ts --project chromium
+      - name: Check the files to upload hold no secret value
+        id: upload-guard
+        if: success() || failure()
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
+        run: >-
+          node scripts/ci/check-files-for-secrets.ts
+          --env SUPABASE_URL --env SUPABASE_PUBLISHABLE_KEY
+          real-screens test-results
+      - name: Keep the screenshots
+        if: (success() || failure()) && steps.upload-guard.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: real-lesson-1-screens
+          path: |
+            real-screens/*.png
+            test-results/**/*.png
+          if-no-files-found: ignore
+          retention-days: 7
