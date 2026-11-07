@@ -7,8 +7,8 @@ import { stubMicrophone } from './microphone.ts'
 
 // Screenshots of the real stop 1, lesson 1, for the owner's screen review (7 November 2026). It runs only
 // in .github/workflows/real-screens.yml, against a local Worker on the TEST project, as a new guest. Nothing
-// is mocked except the speech check's answer (the runner has no speech service) and the microphone, which
-// plays a tone. Every other screen, word and line is the real app and the real lesson.
+// is mocked except the microphone, which plays a tone; the Worker uses the app's own free fake speech
+// check (SPEECH_FEEDBACK_PROVIDER=fake), as the pull request browser job does. Every other screen, word and line is the real app and the real lesson.
 
 test.skip(process.env.PUHUSCRIBE_REAL_SCREENS !== '1', 'Runs only in the real-screens workflow.')
 test.use({ deviceScaleFactor: 2 })
@@ -19,13 +19,6 @@ test('stop 1, lesson 1, every screen', async ({ page }) => {
   test.setTimeout(240_000)
   mkdirSync(OUT, { recursive: true })
   await stubMicrophone(page, 'tone')
-  await page.route('**/api/speech/say', (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ feedbackClass: 'clear' }),
-    }),
-  )
   // The meaning of each line, from the real session answer, to pick the right answer in Understand it.
   const gloss = new Map<string, string>()
   page.on('response', async (response) => {
@@ -86,7 +79,11 @@ test('stop 1, lesson 1, every screen', async ({ page }) => {
       .replace(/[^a-z]+/g, '-')
     await shot(step || 'screen')
 
-    if (await visible(page.getByText('Now you can say this.'))) break
+    if (await visible(page.getByText('Now you can say this.'))) {
+      await expect(page.getByText('Saving your progress.')).toHaveCount(0, { timeout: 15_000 })
+      await page.waitForTimeout(1500)
+      break
+    }
 
     const consent = page.getByRole('dialog', { name: 'Say it out loud' })
     if (await visible(consent)) {

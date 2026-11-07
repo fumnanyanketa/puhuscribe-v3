@@ -30,6 +30,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_TEST_URL }}
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_TEST_PUBLISHABLE_KEY }}
         run: node scripts/ci/write-test-settings.ts env .env.local
+      - name: The free fake speech check, as the pull request browser job uses
+        run: echo "SPEECH_FEEDBACK_PROVIDER=fake" >> .env.local
       - name: Build the app and its Worker
         run: npm run build
       - name: Install Chromium
