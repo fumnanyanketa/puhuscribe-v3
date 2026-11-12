@@ -92,6 +92,7 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
   - **A wrong earlier decision.** Stop and send it back to the spec. Do not patch around it.
 - **Output style.** Plain short sentences. Explain a technical term the first time you use it. Report in a few lines. The writing rules below apply.
 - **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. If a check is wrong, say so in the job notes.
+- **The factory plugin and the hand-over to publishing.** When the owner says it's time to compile the screenshots and videos for this project, or that the project is done, remind her of `docs/factory-plugin-plan.md` before anything else: turning the factory into a free, open source Claude Code plugin, and packaging everything the publishing side needs for the video and post. Do the hand-over from that plan.
 
 ## Writing rules (app text, docs, summaries)
 
