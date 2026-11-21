@@ -152,3 +152,53 @@ describe('POST /api/feedback', () => {
     for (const value of supabase.issued) expect(log).not.toContain(value)
   })
 })
+
+// Fast route feedback-alert ("Done when" in factory/jobs/feedback-alert/build.md).
+describe('the owner alert after POST /api/feedback', () => {
+  function sendWithAlert(body: unknown, cookie: string, alert: (screen: string) => Promise<boolean>) {
+    const later: Promise<unknown>[] = []
+    const answer = handleApi(post('/api/feedback', { cookie, body: JSON.stringify(body) }), ENV, {
+      fetch: supabase.fetch,
+      feedbackAlert: (_env, screen) => alert(screen),
+      waitUntil: (work) => later.push(work),
+    })
+    return { answer, later }
+  }
+
+  it('[feedback-alert 6] a stored message starts one alert with its screen, after the answer', async () => {
+    const cookie = await learnerCookie()
+    const screens: string[] = []
+    const { answer, later } = sendWithAlert(
+      { screen: 'finish', message: 'Great lesson' },
+      cookie,
+      (screen) => {
+        screens.push(screen)
+        return Promise.resolve(true)
+      },
+    )
+    expect((await answer).status).toBe(201)
+    expect(screens).toEqual(['finish'])
+    expect(later).toHaveLength(1)
+  })
+
+  it('[feedback-alert 6] no alert when the day limit is reached or the message is refused', async () => {
+    const cookie = await learnerCookie()
+    const alert = vi.fn(() => Promise.resolve(true))
+    limitReached = true
+    expect((await sendWithAlert({ screen: 'account', message: 'Hi' }, cookie, alert).answer).status).toBe(429)
+    limitReached = false
+    expect((await sendWithAlert({ screen: 'account', message: '   ' }, cookie, alert).answer).status).toBe(
+      400,
+    )
+    expect(alert).not.toHaveBeenCalled()
+  })
+
+  it('[feedback-alert 5] a failing alert never changes the learner answer', async () => {
+    const cookie = await learnerCookie()
+    const { answer, later } = sendWithAlert({ screen: 'account', message: 'Hello' }, cookie, () =>
+      Promise.reject(new Error('Brevo is down')),
+    )
+    expect((await answer).status).toBe(201)
+    await expect(Promise.all(later)).resolves.toEqual([false])
+  })
+})

@@ -75,7 +75,12 @@ async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: Wai
       await readBody(request)
       return json({ error: 'not_found' }, 404)
     }
-    return handleApi(request, env, deps)
+    return handleApi(request, env, {
+      ...deps,
+      waitUntil: (work) => {
+        ctx.waitUntil(work)
+      },
+    })
   }
   // The built landing file has one public address, "/" (job 17-landing-page).
   if ((LANDING_FILE_ROUTES as readonly string[]).includes(url.pathname) || url.pathname === '/landing.html') {

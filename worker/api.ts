@@ -9,6 +9,8 @@
 import { handleAccountApi, type AccountDeps } from './account.ts'
 import { crashRoute } from './crash.ts'
 import { feedbackRoute, supabaseFeedbackDb, type FeedbackDb } from './feedback.ts'
+import { sendFeedbackAlert, type FeedbackAlertEnv } from './providers/feedback-alert.ts'
+import type { FeedbackScreen } from '../src/lib/feedback-types.ts'
 import {
   RECORDABLE_STEPS,
   type CompleteAnswer,
@@ -91,7 +93,7 @@ import {
   type SpeechDeps,
 } from './speech.ts'
 
-export type ApiEnv = SupabaseEnv & SpeechEnv & AiEnv & HumanCheckEnv
+export type ApiEnv = SupabaseEnv & SpeechEnv & AiEnv & HumanCheckEnv & FeedbackAlertEnv
 
 export interface ApiDeps
   extends AccountDeps, SpeechDeps, Omit<TutorDeps, 'fetch' | 'speechDb' | 'speechProvider'> {
@@ -102,6 +104,10 @@ export interface ApiDeps
   patternsDb?: (context: LearnerContext) => PatternsDb
   /** Tests pass a fake for feedback (job 14-analytics); normally Supabase, as the learner. */
   feedbackDb?: (context: LearnerContext) => FeedbackDb
+  /** Tests pass a fake for the owner's feedback alert (fast route feedback-alert); normally Brevo. */
+  feedbackAlert?: (env: FeedbackAlertEnv, screen: FeedbackScreen) => Promise<boolean>
+  /** Work that runs after the answer (the Workers context's waitUntil); without it the work just runs. */
+  waitUntil?: (work: Promise<unknown>) => void
   /** Tests pass a fake for the road (job 20-a1-road); normally Supabase, as the learner. */
   roadDb?: (context: LearnerContext) => RoadDb
   /** Tests pass a fake for the visitors' road (statement 29); normally Supabase, with no sign in. */
@@ -664,6 +670,13 @@ export async function handleApi(
       signedIn: (r) => signedIn(r, env, deps),
       feedbackDb: (context) =>
         deps.feedbackDb ? deps.feedbackDb(context) : supabaseFeedbackDb(context.client),
+      afterSent: (screen) => {
+        const alert = deps.feedbackAlert
+          ? deps.feedbackAlert(env, screen)
+          : sendFeedbackAlert(env, deps.fetch, screen)
+        const quiet = alert.catch(() => false)
+        if (deps.waitUntil) deps.waitUntil(quiet)
+      },
     })
   }
   if (pathname === '/api/crash') return crashRoute(request, env, deps)

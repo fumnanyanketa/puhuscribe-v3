@@ -2,7 +2,7 @@
 // Run after `CLOUDFLARE_ENV=production VITE_DESIGN_REFERENCE=0 npm run build`.
 // It finds:
 //   - a Worker config that is not the live Worker "aleksi" on meetaleksi.com and
-//     www.meetaleksi.com only, with no workers.dev and no preview addresses,
+//     www.meetaleksi.com and the owner page's owner.meetaleksi.com only, with no workers.dev and no preview addresses,
 //   - a Worker config that sets anything but CANONICAL_HOST, such as the fake
 //     speech provider or the owner page's local test key,
 //   - a design reference page or sample in the browser files,
@@ -16,6 +16,7 @@ export const LIVE_WORKER = 'aleksi'
 export const LIVE_ROUTES = [
   { pattern: 'meetaleksi.com', custom_domain: true },
   { pattern: 'www.meetaleksi.com', custom_domain: true },
+  { pattern: 'owner.meetaleksi.com', custom_domain: true },
 ]
 export const LIVE_ORIGIN = 'https://meetaleksi.com/'
 
@@ -65,7 +66,9 @@ export function checkLiveBuild(root: string): string[] {
   if (config.workers_dev !== false) problems.push('The built Worker would get a workers.dev address.')
   if (config.preview_urls !== false) problems.push('The built Worker would get preview addresses.')
   if (JSON.stringify(config.routes) !== JSON.stringify(LIVE_ROUTES))
-    problems.push('The built Worker is not attached to exactly meetaleksi.com and www.meetaleksi.com.')
+    problems.push(
+      'The built Worker is not attached to exactly meetaleksi.com, www.meetaleksi.com and owner.meetaleksi.com.',
+    )
   const vars = typeof config.vars === 'object' && config.vars !== null ? Object.keys(config.vars) : []
   if (JSON.stringify(vars) !== JSON.stringify(['CANONICAL_HOST']))
     problems.push(`The built Worker sets variables other than CANONICAL_HOST: ${vars.join(', ')}`)
