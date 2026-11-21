@@ -68,7 +68,7 @@ describe('the production Worker in wrangler.jsonc', () => {
   const config = jsonc(read('wrangler.jsonc'))
   const production = (config.env as Record<string, Record<string, unknown>>).production
 
-  it('[go-live 1] is "aleksi" on meetaleksi.com and www.meetaleksi.com, with no workers.dev or preview address', () => {
+  it('[go-live 1] is "aleksi" on meetaleksi.com, www.meetaleksi.com and owner.meetaleksi.com, with no workers.dev or preview address', () => {
     expect(production?.name).toBe('aleksi')
     expect(production?.workers_dev).toBe(false)
     expect(production?.preview_urls).toBe(false)

@@ -208,6 +208,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
           TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+          # The owner page (worker/owner.ts) and the owner's feedback alert
+          # (worker/providers/feedback-alert.ts), fast route feedback-alert. Plain
+          # variables and secrets of the "live" environment; without them the live
+          # Worker has no owner page and sends no alert.
+          OWNER_HOSTNAME: ${{ vars.OWNER_HOSTNAME }}
+          OWNER_ACCESS_TEAM_DOMAIN: ${{ vars.OWNER_ACCESS_TEAM_DOMAIN }}
+          OWNER_ACCESS_AUD: ${{ vars.OWNER_ACCESS_AUD }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          FEEDBACK_ALERT_TO: ${{ secrets.FEEDBACK_ALERT_TO }}
         run: |
           if [ -z "$TURNSTILE_SITE_KEY" ] || [ -z "$TURNSTILE_SECRET" ]; then
             echo "::error title=Turnstile keys missing::TURNSTILE_SITE_KEY and TURNSTILE_SECRET must both be GitHub secrets. Nothing was deployed."

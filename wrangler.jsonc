@@ -75,6 +75,12 @@
       "routes": [
         { "pattern": "meetaleksi.com", "custom_domain": true },
         { "pattern": "www.meetaleksi.com", "custom_domain": true },
+        // The owner page (fast route feedback-alert, owner's call of 21 November
+        // 2026). Cloudflare Access covers the whole hostname, set up by the owner
+        // before this is deployed. The Worker treats it as the owner page only
+        // when OWNER_HOSTNAME, OWNER_ACCESS_TEAM_DOMAIN and OWNER_ACCESS_AUD are
+        // set (worker/owner.ts); the live workflow passes them in its secrets file.
+        { "pattern": "owner.meetaleksi.com", "custom_domain": true },
       ],
       "vars": {
         "CANONICAL_HOST": "meetaleksi.com",

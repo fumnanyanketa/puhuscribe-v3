@@ -150,14 +150,16 @@ The live app is the Worker `aleksi` at https://meetaleksi.com, in the owner's se
 
 Each task first checks, with no secret, that every approved dialogue has its publish migration and that only approved audio is in `public/audio/`. The full list of what each task needs and the launch day checklist are in the go-live job's build notes (factory jobs folder, go-live).
 
-## Owner page setup (job 14-analytics)
+## Owner page setup (job 14-analytics, fast route feedback-alert)
 
-The owner page shows the launch numbers, the visit count, the newest feedback and recent crashes. It lives at its own address, `https://puhuscribe-owner.exentrik.co` (confirmed by the owner on 30 October 2026), served by the same Worker as the app. Free, about 15 minutes, done by the owner at go live (a separate job, owner's call 2). Nothing here holds a key.
+The owner page shows the launch numbers, the visit count, the newest feedback and recent crashes. On the live app it lives at `https://owner.meetaleksi.com` (owner's call of 21 November 2026; the earlier plan was `puhuscribe-owner.exentrik.co`), served by the same Worker as the app. When a learner sends feedback, the owner also gets a short email alert with the screen and the time, never the message (`worker/providers/feedback-alert.ts`), at most one every 30 minutes. Free, about 20 minutes, done by the owner. Nothing here goes in a file.
 
-1. In the Exentrik Cloudflare account, Zero Trust, Access, Applications: add a self hosted application for `puhuscribe-owner.exentrik.co` covering the whole hostname, with the One-time PIN login and one Allow policy holding the owner's own email address (typed there, never in a file). Add the evaluator's service token policy if the evaluator should reach it. Copy the application's AUD tag.
-2. On the production Worker, set three plain variables: `OWNER_HOSTNAME` = `puhuscribe-owner.exentrik.co`, `OWNER_ACCESS_TEAM_DOMAIN` = the team domain (`https://<team>.cloudflareaccess.com`) and `OWNER_ACCESS_AUD` = the AUD tag. Attach the hostname to the Worker. Without all three, no hostname is treated as the owner page's. Never set `OWNER_ACCESS_LOCAL_JWKS` there: it is for the browser tests on this computer only.
-3. Make sure your own PuhuScribe email account exists (start a session, then "Add your email" on the account page).
-4. Put that account on the owner list. In the Supabase dashboard of the live project, SQL editor, run this one line, typing your own address in place of the words in angle brackets:
+1. In the Exentrik Cloudflare account, Zero Trust, Access, Applications: add a self hosted application for `owner.meetaleksi.com` covering the whole hostname, with the One-time PIN login and one Allow policy holding the owner's own email address (typed there, never in a file). Copy the application's AUD tag and the team domain (`https://<team>.cloudflareaccess.com`, shown in Zero Trust under Settings).
+2. In Brevo, SMTP & API, API Keys: create a key named `aleksi-feedback-alert`. Copy it once.
+3. In GitHub, the repository's Settings, Environments, `live`: add the variables `OWNER_HOSTNAME` = `owner.meetaleksi.com`, `OWNER_ACCESS_TEAM_DOMAIN` = the team domain and `OWNER_ACCESS_AUD` = the AUD tag, and the secrets `BREVO_API_KEY` = the Brevo key and `FEEDBACK_ALERT_TO` = the inbox for alerts. The live workflow's `app` task passes all five to the Worker and attaches `owner.meetaleksi.com` (`wrangler.jsonc`). Without the three owner settings there is no owner page; without the Brevo pair there is no alert. Never set `OWNER_ACCESS_LOCAL_JWKS` there: it is for the browser tests on this computer only.
+4. Run the live workflow's `app` task (Actions, Live, Run workflow, on `main`) and approve it.
+5. Make sure your own Aleksi email account exists (start a session, then "Add your email" on the account page).
+6. Put that account on the owner list. In the Supabase dashboard of the live project, SQL editor, run this one line, typing your own address in place of the words in angle brackets:
 
    ```sql
    insert into private.owners (user_id) select id from auth.users where email = '<your email address>';
@@ -165,7 +167,7 @@ The owner page shows the launch numbers, the visit count, the newest feedback an
 
    The email address never goes in a file. To take an account off the list later: `delete from private.owners where user_id = (select id from auth.users where email = '<the address>');`
 
-5. Open `https://puhuscribe-owner.exentrik.co/owner`, pass the Cloudflare login, then sign in with your PuhuScribe email code. "Send a test error" under Crashes checks that crash reports arrive.
+7. Open `https://owner.meetaleksi.com/learn/owner`, pass the Cloudflare login, then sign in with your Aleksi email code. "Send a test error" under Crashes checks that crash reports arrive. Send yourself one feedback message from the app to check the alert.
 
 ## Owner setup for accounts (job 11-accounts)
 

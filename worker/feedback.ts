@@ -15,7 +15,8 @@ import type { LearnerClient, LearnerContext } from './learner-auth.ts'
 // themselves, at most 5 a Helsinki day. The message is never logged.
 //
 // 201 sent; 400 for an empty or too long message or an unknown screen; 429
-// with the gentle line when the day's 5 are used.
+// with the gentle line when the day's 5 are used. After a 201 the owner gets a
+// short email alert (worker/providers/feedback-alert.ts), sent after the answer.
 
 export const MAX_FEEDBACK_BODY_BYTES = 8 * 1024
 
@@ -63,6 +64,11 @@ export interface FeedbackKit {
     { context: LearnerContext; refused: null } | { context: LearnerContext | null; refused: Response }
   >
   feedbackDb: (context: LearnerContext) => FeedbackDb
+  /**
+   * Runs after a message is stored, once the answer is ready (fast route
+   * feedback-alert: the owner's email alert). It must not throw or delay the answer.
+   */
+  afterSent?: (screen: FeedbackScreen) => void
 }
 
 export async function feedbackRoute(request: Request, kit: FeedbackKit): Promise<Response> {
@@ -76,6 +82,7 @@ export async function feedbackRoute(request: Request, kit: FeedbackKit): Promise
   try {
     const result = await kit.feedbackDb(context).send(parsed.screen, parsed.message)
     if (result === 'limit') return done({ error: 'feedback_limit', message: FEEDBACK_LIMIT_TEXT }, 429)
+    kit.afterSent?.(parsed.screen)
     return done({ sent: true }, 201)
   } catch {
     return done({ error: 'not_available' }, 503)

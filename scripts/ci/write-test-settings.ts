@@ -16,6 +16,10 @@
 // The Cloudflare Turnstile pair (job turnstile) is added the same way, only when both GitHub secrets
 // exist: TURNSTILE_SITE_KEY (public) and TURNSTILE_SECRET. Without them the preview Worker uses
 // Cloudflare's test keys on its workers.dev addresses (worker/providers/human-check.ts).
+// The owner page settings and the feedback alert pair (fast route feedback-alert) are added the
+// same way, on the live Worker only: OWNER_HOSTNAME, OWNER_ACCESS_TEAM_DOMAIN and OWNER_ACCESS_AUD
+// (worker/owner.ts), BREVO_API_KEY and FEEDBACK_ALERT_TO (worker/providers/feedback-alert.ts).
+// Without them there is no owner page and no alert.
 // Prints only the names and the path, never a value.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { localSettingsFromStatus } from './supabase-status.ts'
@@ -28,6 +32,11 @@ const OPTIONAL_NAMES = [
   'ANTHROPIC_API_KEY',
   'TURNSTILE_SITE_KEY',
   'TURNSTILE_SECRET',
+  'OWNER_HOSTNAME',
+  'OWNER_ACCESS_TEAM_DOMAIN',
+  'OWNER_ACCESS_AUD',
+  'BREVO_API_KEY',
+  'FEEDBACK_ALERT_TO',
 ] as const
 
 const [format, path, source, ...rest] = process.argv.slice(2)

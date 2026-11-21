@@ -74,9 +74,11 @@ export const PROCESSORS: readonly Processor[] = [
   },
   {
     // Job go-live (owner's choice of 4 November 2026, factory/todo.md "Go-live address"): sign in code
-    // emails go from Supabase Auth through Brevo's email servers (SMTP), from hello@meetaleksi.com. The
-    // Worker never talks to Brevo, so no worker/providers/ file names it. Brevo is the trading name of
-    // Sendinblue SAS, a company in France.
+    // emails go from Supabase Auth through Brevo's email servers (SMTP), from hello@meetaleksi.com.
+    // Brevo is the trading name of Sendinblue SAS, a company in France. Fast route feedback-alert
+    // (owner's call of 21 November 2026): the Worker also sends the owner a short alert through
+    // Brevo's API when feedback arrives. The alert holds only the screen and the time, no learner
+    // data and no message, so the learner-facing text below is unchanged.
     name: 'Brevo',
     role: 'Sends the sign in code emails, only if you add your email. It receives your email address and the email with your code.',
     where: 'In the EU.',
@@ -84,7 +86,7 @@ export const PROCESSORS: readonly Processor[] = [
       'Sendinblue SAS, a company in France that trades as Brevo, sends these emails as our processor.',
     ],
     link: { label: "Brevo's privacy policy", href: 'https://www.brevo.com/legal/privacypolicy/' },
-    modules: [],
+    modules: ['feedback-alert.ts'],
   },
   {
     name: 'Microsoft (Azure Speech)',
