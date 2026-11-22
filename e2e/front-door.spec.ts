@@ -188,8 +188,9 @@ test.describe('older browsers', () => {
     await page.clock.install()
     await page.goto('/learn')
     await page.getByRole('button', { name: 'Start', exact: true }).click()
-    // Continue on Aleksi's stop screen makes the guest account (fast route road-stops).
-    const start = page.getByRole('button', { name: 'Continue', exact: true })
+    // Continue on Aleksi's stop screen makes the guest account (fast route road-stops); for a visitor it is
+    // "Continue as guest" since fast route signup-choice.
+    const start = page.getByRole('button', { name: 'Continue as guest', exact: true })
     await start.click()
     const status = page.getByRole('status')
     // While busy the button keeps its place and tells screen readers what is happening.

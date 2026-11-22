@@ -6,7 +6,7 @@ import { IslandStep } from '../island/IslandStep.tsx'
 import islandStyles from '../island/Island.module.css'
 import { islandStop } from '../lib/islands.ts'
 import type { IslandAnswer } from '../lib/session-types.ts'
-import { PATHS } from '../lib/app-paths.ts'
+import { ACCOUNT_BEFORE_LESSON, PATHS } from '../lib/app-paths.ts'
 import { accountKindOf } from './save-note.ts'
 import { noticeFrom } from '../lib/account-notice.ts'
 import { SCENE_HEIGHT, SCENE_WIDTH, SUN_BOX } from '../components/landscape-geometry.ts'
@@ -137,7 +137,9 @@ const MOST_SIGNS = 5
 export function RoadScreen() {
   const [home, setHome] = useState<Home>({ kind: 'loading' })
   const [playing, setPlaying] = useState(false)
-  const [starting, setStarting] = useState(false)
+  /** Which start is working: the lesson (Start, Continue) or a visitor's "Create an account". */
+  const [startingFor, setStartingFor] = useState<false | 'lesson' | 'account'>(false)
+  const starting = startingFor !== false
   /** Cloudflare's bot check is asking the learner to act (job turnstile). */
   const [asking, setAsking] = useState(false)
   const checkSlot = useRef<HTMLDivElement>(null)
@@ -515,8 +517,12 @@ export function RoadScreen() {
   // check_needed with the site key, the check runs in the card, and Start is
   // sent again with the token. A signed in learner goes straight through, and
   // Turnstile's script is never loaded for them.
-  async function start() {
-    setStarting(true)
+  // "Create an account" (fast route signup-choice) makes the guest the same
+  // way, then opens the "Create your account" screen in its first lesson mode,
+  // so email accounts still only ever start as a guest that passed the check.
+  async function start(then: 'lesson' | 'account' = 'lesson') {
+    if (starting) return
+    setStartingFor(then)
     setProblem(null)
     // A new guest will need the check, so its script starts loading now, beside the first request.
     if (!signedIn) void loadHumanCheck()
@@ -528,17 +534,17 @@ export function RoadScreen() {
         ? await runHumanCheck(slot, siteKey, setAsking)
         : ({ problem: 'unavailable' } as const)
       if ('problem' in result) {
-        setStarting(false)
+        setStartingFor(false)
         setProblem(result.problem === 'failed' ? CHECK_FAILED : CHECK_UNAVAILABLE)
         return
       }
       answer = await callApi('/api/guest', 'POST', { turnstileToken: result.token })
     }
     if (answer && (answer.status === 200 || answer.status === 201)) {
-      window.location.assign(PATHS.session)
+      window.location.assign(then === 'account' ? ACCOUNT_BEFORE_LESSON : PATHS.session)
       return
     }
-    setStarting(false)
+    setStartingFor(false)
     setProblem(startProblemOf(answer))
   }
 
@@ -666,7 +672,10 @@ export function RoadScreen() {
         onContinue={() => {
           go(plan.go)
         }}
-        starting={starting}
+        onCreateAccount={() => {
+          void start('account')
+        }}
+        starting={startingFor}
         problem={problem}
         checkRef={checkSlot}
         asking={asking}

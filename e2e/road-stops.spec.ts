@@ -309,7 +309,9 @@ test.describe('Aleksi’s stop screen', () => {
     ).toBe(true)
     expect((await picture.boundingBox())?.height ?? 0).toBeGreaterThan(150)
     await expect(page.getByRole('button', { name: 'Back to the road' })).toBeVisible()
-    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toBeVisible()
+    // A visitor chooses: "Create an account" or "Continue as guest" (fast route signup-choice).
+    await expect(page.getByRole('button', { name: 'Create an account', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Continue as guest', exact: true })).toBeVisible()
     // The guest note: one quiet line, with no age in it, and the privacy link.
     const note = page.getByText(GUEST_NOTE, { exact: true })
     await expect(note).toBeVisible()
@@ -373,7 +375,7 @@ test.describe('Aleksi’s stop screen', () => {
     await settled(page)
     await start(page).click()
     expect(calls.guest).toBe(0)
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    await page.getByRole('button', { name: 'Continue as guest', exact: true }).click()
     await page.waitForURL('**/learn/session')
     expect(calls.guest).toBe(1)
   })
@@ -404,7 +406,7 @@ test.describe('Aleksi’s stop screen', () => {
     await page.goto('/learn')
     await settled(page)
     await start(page).click()
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    await page.getByRole('button', { name: 'Continue as guest', exact: true }).click()
     await page.waitForURL('**/learn/session')
     expect(bodies).toHaveLength(2)
     expect(bodies[1]).toContain('XXXX.DUMMY.TOKEN.XXXX')
@@ -618,10 +620,12 @@ test.describe('nothing overflows', () => {
       await expect(page.getByRole('heading', { level: 1, name: /^This is stop 1/ })).toBeVisible()
       expect(await scrollsSideways(page)).toBe(false)
       expect(await outside(page, 'main *')).toEqual([])
-      // Every word and the button are reachable by scrolling down.
-      const cont = page.getByRole('button', { name: 'Continue', exact: true })
-      await cont.scrollIntoViewIfNeeded()
-      await expect(cont).toBeInViewport()
+      // Every word and both buttons are reachable by scrolling down (a visitor's two since fast route signup-choice).
+      for (const name of ['Create an account', 'Continue as guest']) {
+        const button = page.getByRole('button', { name, exact: true })
+        await button.scrollIntoViewIfNeeded()
+        await expect(button).toBeInViewport()
+      }
       await page.getByRole('link', { name: 'Privacy notice' }).scrollIntoViewIfNeeded()
       await expect(page.getByRole('link', { name: 'Privacy notice' })).toBeInViewport()
       if (text === '200%') await shot(page, '10-stop-screen-200-percent-375x812', info.project.name)

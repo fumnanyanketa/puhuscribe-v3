@@ -4,11 +4,12 @@ import type { Page } from '@playwright/test'
 // not begun, Start opens Aleksi's stop screen and its Continue does what Start did before (makes or finds the
 // account, then the lesson); part way through a stop, with a session open or a review due, Start goes
 // straight on. The browser tests that only need to reach the lesson press Start, and Continue when the stop
-// screen shows. e2e/road-stops.spec.ts tests the stop screen itself.
+// screen shows. e2e/road-stops.spec.ts tests the stop screen itself. Since fast route signup-choice
+// (22 November 2026) a visitor's Continue is "Continue as guest", beside "Create an account".
 
 export const START = { name: 'Start', exact: true } as const
 
-/** Presses the road's Start, then the stop screen's Continue if Aleksi's stop screen opens. */
+/** Presses the road's Start, then the stop screen's Continue (a visitor's "Continue as guest") if Aleksi's stop screen opens. */
 export async function pressStart(page: Page): Promise<void> {
   await page.getByRole('button', START).click()
   const stopScreen = page.getByRole('heading', { level: 1, name: /^This is stop \d+, / })
@@ -21,5 +22,5 @@ export async function pressStart(page: Page): Promise<void> {
     () => 'none' as const,
   )
   if ((await Promise.race([lesson, screen])) === 'stop')
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    await page.getByRole('button', { name: /^Continue( as guest)?$/ }).click()
 }

@@ -4,7 +4,7 @@ import { StatusLine, type StatusTone } from '../components/StatusLine.tsx'
 import { CodeField } from '../components/CodeField.tsx'
 import { PageFrame } from '../components/PageFrame.tsx'
 import { TextField } from '../components/TextField.tsx'
-import { PATHS } from '../lib/app-paths.ts'
+import { isBeforeFirstLesson, PATHS } from '../lib/app-paths.ts'
 import { callApi, isRecord } from '../lib/api.ts'
 import { cleanCode, cleanEmail } from '../lib/email-address.ts'
 import styles from './Account.module.css'
@@ -16,10 +16,14 @@ import styles from './Account.module.css'
 // The answer to "Send code" is the same whatever the address, so the screens
 // never say whether an address has an account (statement 9).
 
-export const SENDS_CODE =
-  'We send a 6 digit code to this address. We use your email only to send you sign in codes.'
+// "Create your account" says less (owner, 22 November 2026, fast route signup-choice: "too much text"): one
+// short line, and the short warning only for a guest coming from the account page, who may have progress.
+export const SENDS_CODE = 'We’ll email you a 6 digit code.'
 export const TAKEN_WARNING =
-  'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.'
+  'If this email already has an account, your guest progress on this phone is replaced.'
+/** The sign in screen keeps its line as it was. */
+export const SIGN_IN_SENDS_CODE =
+  'We send a 6 digit code to this address. We use your email only to send you sign in codes.'
 export const GUEST_WARNING =
   'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.'
 // The same sentence for every address, so the screen never says which emails have accounts (owner's
@@ -34,7 +38,12 @@ export const TOO_MANY = 'Too many tries for now. Wait a few minutes, then try ag
 export const ADDED = 'Your email is added. Your progress is saved to your account.'
 export const SWITCHED = 'You are signed in to your account. The guest progress from this device was deleted.'
 export const SIGNED_IN = 'You are signed in to your account.'
+// The first lesson mode (fast route signup-choice, owner, 22 November 2026): a visitor chose "Create an
+// account" on Aleksi's stop screen, so the guest is brand new and has no progress to lose: no warning.
+export const ACCOUNT_READY = 'Your account is ready.'
 const NOT_SENT = 'The code could not be sent. Check your internet connection, then try again.'
+// The server answered but could not send (owner, 22 November 2026): it no longer blames the learner's internet.
+export const SEND_FAILED = 'We couldn’t send the code right now. Please try again in a few minutes.'
 const NOT_CHECKED = 'The code could not be checked. Check your internet connection, then try again.'
 const NEW_CODE_SENT = 'We sent a new code.'
 const LOADING = 'Loading.'
@@ -65,6 +74,8 @@ export function EmailFlow({ mode }: { mode: Mode }) {
   // The owner's titles (job 19-redesign): "Create your account" (1 November 2026) and the drawing's
   // "Welcome back" for sign in (round 6).
   const heading = mode === 'add' ? 'Create your account' : 'Welcome back'
+  // Opened from Aleksi's stop screen before a first lesson: back goes to the road and Continue to the lesson.
+  const [beforeLesson] = useState(() => mode === 'add' && isBeforeFirstLesson(window.location.search))
   const [step, setStep] = useState<Step>('loading')
   const [email, setEmail] = useState('')
   const [sentTo, setSentTo] = useState('')
@@ -141,7 +152,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     if (answer?.status === 200) return true
     if (answer?.status === 400) setStatus({ text: CHECK_EMAIL, tone: 'gentle' })
     else if (answer?.status === 401 || answer?.status === 409) window.location.replace(PATHS.account)
-    else setStatus({ text: NOT_SENT, tone: 'problem' })
+    else setStatus({ text: answer === null ? NOT_SENT : SEND_FAILED, tone: 'problem' })
     return false
   }
 
@@ -189,7 +200,8 @@ export function EmailFlow({ mode }: { mode: Mode }) {
     setBusy(false)
     const result = answer?.status === 200 && isRecord(answer.body) ? answer.body.result : null
     if (result === 'added' || result === 'switched' || result === 'signed_in') {
-      setDone(result === 'added' ? ADDED : result === 'switched' ? SWITCHED : SIGNED_IN)
+      if (beforeLesson) setDone(result === 'added' ? ACCOUNT_READY : SIGNED_IN)
+      else setDone(result === 'added' ? ADDED : result === 'switched' ? SWITCHED : SIGNED_IN)
       setStep('done')
       return
     }
@@ -206,11 +218,11 @@ export function EmailFlow({ mode }: { mode: Mode }) {
 
   return (
     <PageFrame
-      back={mode === 'add' ? PATHS.account : PATHS.home}
+      back={mode === 'add' && !beforeLesson ? PATHS.account : PATHS.home}
       backLabel={
         step === 'code'
           ? 'Use another email address'
-          : mode === 'add'
+          : mode === 'add' && !beforeLesson
             ? 'Back to your account'
             : 'Back to the road'
       }
@@ -307,8 +319,10 @@ export function EmailFlow({ mode }: { mode: Mode }) {
               }}
             />
             {/* The protected sentences stay word for word, small and quiet under the field (round 6). */}
-            <p className={mode === 'sign-in' ? styles.quietCentre : styles.quietText}>{SENDS_CODE}</p>
-            {mode === 'add' && <p className={styles.quietText}>{TAKEN_WARNING}</p>}
+            <p className={mode === 'sign-in' ? styles.quietCentre : styles.quietText}>
+              {mode === 'sign-in' ? SIGN_IN_SENDS_CODE : SENDS_CODE}
+            </p>
+            {mode === 'add' && !beforeLesson && <p className={styles.quietText}>{TAKEN_WARNING}</p>}
           </div>
         </form>
       )}
@@ -350,7 +364,7 @@ export function EmailFlow({ mode }: { mode: Mode }) {
             <Button
               block
               onClick={() => {
-                window.location.assign(PATHS.home)
+                window.location.assign(beforeLesson ? PATHS.session : PATHS.home)
               }}
             >
               Continue
