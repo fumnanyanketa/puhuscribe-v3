@@ -22,6 +22,19 @@ export const PATHS = {
 } as const
 
 /**
+ * The "Create your account" screen opened from Aleksi's stop screen before a first lesson (fast route
+ * signup-choice, owner, 22 November 2026). Only this exact query switches the email screen to its first
+ * lesson mode; the lesson it then opens is the fixed PATHS.session, never an address from the page.
+ */
+export const FIRST_LESSON_QUERY = 'then=lesson'
+export const ACCOUNT_BEFORE_LESSON = `${PATHS.accountEmail}?${FIRST_LESSON_QUERY}`
+
+/** True when the page address asks for the email screen's first lesson mode (exactly ?then=lesson). */
+export function isBeforeFirstLesson(search: string): boolean {
+  return new URLSearchParams(search).get('then') === 'lesson'
+}
+
+/**
  * The app's addresses before the move to /learn, and where each one lives now
  * (job 17-landing-page). The map is fixed: no part of a target ever comes from
  * the visitor, so an odd path can never forward outside this site.

@@ -129,7 +129,16 @@
   font-weight: var(--weight-semibold);
 }
 
-/* The one quiet line for a visitor, small and centred, with the privacy link. */
+/* A visitor's "Continue as guest" (fast route signup-choice): the white pill, as tall as the mint one above
+   it, so both choices are equally easy to tap. */
+.actions .guest {
+  min-height: var(--button-height-large);
+  font-size: var(--text-meaning);
+  font-weight: var(--weight-medium);
+}
+
+/* The quiet lines for a visitor, small and centred: the sign in line, then the guest line with the privacy
+   link. */
 .note {
   margin: 0 var(--space-2);
   font-size: var(--text-small-plus);

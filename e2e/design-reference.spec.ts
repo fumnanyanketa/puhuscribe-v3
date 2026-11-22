@@ -609,8 +609,8 @@ test.describe('automatic accessibility check', () => {
         result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
       ).toEqual([])
       // The message shows beside the button that made the guest account: Continue on Aleksi's stop screen
-      // since fast route road-stops.
-      const size = await page.getByRole('button', { name: 'Continue', exact: true }).boundingBox()
+      // since fast route road-stops, "Continue as guest" for a visitor since fast route signup-choice.
+      const size = await page.getByRole('button', { name: /^Continue( as guest)?$/ }).boundingBox()
       expect(size?.height ?? 0).toBeGreaterThanOrEqual(44)
       await context.close()
     })

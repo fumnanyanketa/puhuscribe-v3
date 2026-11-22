@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { VOICE_NOTICE_VERSION, voiceNotice } from '../lib/voice-consent.ts'
 import { DELETE_TEXT } from './DeletePage.tsx'
-import { CODE_WORKS, GUEST_WARNING, SENDS_CODE, SIGN_IN_SENT, TAKEN_WARNING } from './EmailFlow.tsx'
+import {
+  CODE_WORKS,
+  GUEST_WARNING,
+  SENDS_CODE,
+  SIGN_IN_SENDS_CODE,
+  SIGN_IN_SENT,
+  TAKEN_WARNING,
+} from './EmailFlow.tsx'
 import { FEEDBACK_INTRO } from './FeedbackPage.tsx'
 import { GUEST_LINE } from './road-copy.ts'
 import * as note from './save-note-copy.ts'
@@ -25,11 +32,13 @@ describe('protected copy', () => {
   })
 
   it('[redesign 43] [redesign 35] the sentences on the email screens are word for word', () => {
-    expect(SENDS_CODE).toBe(
-      'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
-    )
+    // The owner's shorter words for "Create your account" of 22 November 2026 (fast route signup-choice).
+    expect(SENDS_CODE).toBe('We’ll email you a 6 digit code.')
     expect(TAKEN_WARNING).toBe(
-      'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+      'If this email already has an account, your guest progress on this phone is replaced.',
+    )
+    expect(SIGN_IN_SENDS_CODE).toBe(
+      'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
     )
     expect(GUEST_WARNING).toBe(
       'This device has a guest account. Signing in deletes its progress, because progress cannot be moved between accounts. To keep it, add your email to the guest account instead.',

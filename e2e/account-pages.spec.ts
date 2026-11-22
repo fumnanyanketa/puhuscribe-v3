@@ -71,7 +71,8 @@ test('[accounts 1] [road-stops 8] the road keeps the account button, which leads
   await expect(start).toBeVisible()
   await expect(page.getByRole('link', { name: 'Your account' })).toHaveAttribute('href', '/learn/account')
   await start.click()
-  const cont = page.getByRole('button', { name: 'Continue', exact: true })
+  // A visitor's Continue is "Continue as guest" since fast route signup-choice (22 November 2026).
+  const cont = page.getByRole('button', { name: 'Continue as guest', exact: true })
   await expect(cont).toBeVisible()
   await expect(page.getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/learn/privacy')
   // The link sits under the Continue button.
