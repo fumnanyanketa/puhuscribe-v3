@@ -220,12 +220,13 @@ test.describe('accounts and personal data', { tag: '@seed' }, () => {
       await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
       await expect(
         page.getByText(
-          'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
+          // The owner's shorter words of 22 November 2026 (fast route signup-choice).
+          'We’ll email you a 6 digit code.',
         ),
       ).toBeVisible()
       await expect(
         page.getByText(
-          'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+          'If this email already has an account, your guest progress on this phone is replaced.',
         ),
       ).toBeVisible()
       await sendCodeTo(page, address)

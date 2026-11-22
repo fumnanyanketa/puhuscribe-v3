@@ -191,6 +191,7 @@ test.describe('the account page', () => {
   })
 })
 
+// The owner shortened the sentences on "Create your account" on 22 November 2026 (fast route signup-choice).
 test.describe('the email screens', () => {
   test('[redesign 35] Create your account: one field, one button, and the protected sentences in full', async ({
     page,
@@ -198,17 +199,11 @@ test.describe('the email screens', () => {
     const calls = await mockAccount(page)
     await page.goto('/learn/account/email')
     await expect(page.getByRole('heading', { level: 1, name: 'Create your account' })).toBeVisible()
+    await expect(page.getByText('We’ll email you a 6 digit code.', { exact: true })).toBeVisible()
     await expect(
-      page.getByText(
-        'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
-        { exact: true },
-      ),
-    ).toBeVisible()
-    await expect(
-      page.getByText(
-        'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
-        { exact: true },
-      ),
+      page.getByText('If this email already has an account, your guest progress on this phone is replaced.', {
+        exact: true,
+      }),
     ).toBeVisible()
     await page.getByLabel('Email address').fill('alex@example.com')
     await page.getByRole('button', { name: 'Send code' }).click()
@@ -282,8 +277,8 @@ test.describe('the email screens', () => {
     const label = await page.locator('label[for="email"]').boundingBox()
     expect(label?.width ?? 0).toBeLessThan(3)
     for (const sentence of [
-      'We send a 6 digit code to this address. We use your email only to send you sign in codes.',
-      'If this email already has an Aleksi account, the code signs you in to that account instead. Your guest progress on this device is then deleted, because progress cannot be moved between accounts.',
+      'We’ll email you a 6 digit code.',
+      'If this email already has an account, your guest progress on this phone is replaced.',
     ]) {
       const text = page.getByText(sentence, { exact: true })
       await expect(text).toBeVisible()
