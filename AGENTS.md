@@ -1,12 +1,12 @@
 # House rules for PuhuScribe v3 (AGENTS.md)
 
-Every AI session reads this file first. It is short on purpose. The detail lives in the files it links.
+Every AI session reads this first; detail lives in the linked files. It stays under 2,200 words (tested); to add a lesson, shorten an unpinned one.
 
 ## What this project is
 
-PuhuScribe teaches adult newcomers in Finland the Finnish people actually speak, from A0 to A1. The product source of truth is the PRD at `C:/Users/fumna/dev/exentrik-os/products/puhuscribe/PUHUSCRIBE_V3_PRD.md`. The feature list is `docs/scope/scope.md`. The build plan is `docs/factory-and-risk-tests-plan.md`. When they disagree, the PRD wins.
+PuhuScribe teaches adult newcomers in Finland the Finnish people actually speak, from A0 to A1. The product source of truth is the PRD at `C:/Users/fumna/dev/exentrik-os/products/puhuscribe/PUHUSCRIBE_V3_PRD.md`, the feature list is `docs/scope/scope.md` and the build plan is `docs/factory-and-risk-tests-plan.md`. When they disagree, the PRD wins.
 
-The v2 app is the GitHub repository `github.com/fumnanyanketa/puhuscribe-v2`, cloned read only outside this repository when needed. (`C:/Users/fumna/dev/echoscribe-v2` is a different product, a dictation app.) v2's proven engines (review scheduler, answer grading, Finnish word analysis, design token colours) are imported unchanged. Never edit v2 from this project.
+The v2 app is `github.com/fumnanyanketa/puhuscribe-v2`, cloned read only outside this repository when needed and never edited from here. Its proven engines (review scheduler, answer grading, Finnish word analysis, design token colours) are imported unchanged and hash checked (`docs/v2-imports.md`). `C:/Users/fumna/dev/echoscribe-v2` is a different product, a dictation app.
 
 ## Stack
 
@@ -16,11 +16,11 @@ The v2 app is the GitHub repository `github.com/fumnanyanketa/puhuscribe-v2`, cl
 - Node 24 and npm. Vitest for unit tests, Playwright for browser tests (Chromium and WebKit at 375 x 812).
 - Python 3.12 for the Finnish content pipeline in `scripts/generate/` (Voikko, pytest, ruff).
 
-The README stack table is the full list. `factory/jobs/1-stack/spec.md` records why each was picked.
+The README stack table is the full list; `factory/jobs/1-stack/spec.md` records why each was picked.
 
 ## How work happens here
 
-All feature work goes through the factory (`/factory`). Read `.claude/skills/factory/SKILL.md`. The owner, Fumnanya, approves every finished job, and every spec except routine jobs (see parallel mode in the skill). No agent merges to main on its own.
+All feature work goes through the factory (`/factory`, read `.claude/skills/factory/SKILL.md`). The owner, Fumnanya, approves every finished job, and every spec except routine jobs (parallel mode in the skill). No agent merges to main on its own.
 
 ## Product rules (every feature inherits these)
 
@@ -30,7 +30,7 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
   - P3. Task based units tied to an A1 "can do" statement.
   - P4. The learner says it back every session and gets feedback.
   - P5. Spoken Finnish (puhekieli) first, written Finnish (kirjakieli) alongside, both with audio.
-- **The PRD's "Not in v3.0" list is binding.** Nothing on it is built in v3.0. These are the items of PRD section 4.1, word for word.
+- **The PRD's "Not in v3.0" list is binding.** Nothing on it is built in v3.0 (PRD section 4.1, word for word).
   - Day One Sprint as the front door
   - Vocabulary bank with a 2,000-word target
   - Practice hub as four separate modes (Speak/Listen/Write/Read)
@@ -48,23 +48,16 @@ All feature work goes through the factory (`/factory`). Read `.claude/skills/fac
 - **One front door, one loop.** Hear it, Understand it, Say it, Keep it, Use it. The learner never picks a mode.
 - **Nothing unmet is reviewed.** A form enters review only after the learner met it in a dialogue.
 - **Grammar is a card behind a tap.** Corrections are gentle and never shaming.
-- **AI at the edges.** AI drafts and explains. It never publishes unchecked content and never decides scheduling or grading. Every AI call is logged with its cost.
-- **Nothing unchecked is served.** Every Finnish line passed the automatic checks and owner approval; native review follows launch. Tutor replies are shown, never stored as learnable content.
+- **AI at the edges.** AI drafts and explains, and never decides scheduling or grading. Every AI call is logged with its cost.
+- **Nothing unchecked is served.** Every Finnish line passed the automatic checks and owner approval, and goes to the native reviewer after launch. Tutor replies are shown, never stored as learnable content.
 - **Spoken Finnish means standard spoken Finnish as a Helsinki adult speaks it in 2026.** No dialects.
+- **Client facing text is English** unless the owner says Finnish.
 
 ## Privacy rules
 
 - GDPR applies. Collect the minimum, explain why, allow export and deletion. No age limit (owner, 5 November 2026).
-- Learner data stays in the EU; only tutor text goes to Anthropic, US (owner, 3 Nov 2026). Audio is discarded by default.
-- Agents only ever use the test database. Never the live one.
-- No keys, tokens or passwords in code, commits, logs or chat. They live in `.env.local` (git ignored) and GitHub secrets.
-
-## Build rules
-
-- No placeholders, fake data in the app, or "TODO: implement" left in finished work.
-- Never delete or weaken a test to make it pass. If a test is wrong, say so in the job notes.
-- Voice, speech feedback and AI providers each sit behind one module, so a provider can be swapped by changing that module only. The risk tests may change providers after the MVP.
-- Client facing text is English unless the owner says Finnish. Finnish learning content is its own thing and always goes to the native reviewer.
+- Learner data stays in the EU; only tutor text goes to Anthropic, US (owner, 3 November 2026). Audio is discarded by default.
+- Agents only ever use the test database, never the live one.
 
 ## Conventions
 
@@ -74,33 +67,31 @@ Detail, with a real example file for each, is in [docs/conventions.md](docs/conv
 - **Names.** kebab-case TypeScript files, PascalCase React components, unit tests next to the code as `*.test.ts`.
 - **Test labels.** Every test name carries `[<job label> N]` for the "Done when" statement it protects.
 - **Database.** Every migration revokes all access from the API roles, grants only what the spec allows, turns on row level security, and has pgTAP tests (SQL tests of what each role may read and write) in `supabase/tests/database/`.
-- **Providers.** Voice, speech feedback and AI each sit behind one module in `worker/providers/`. The browser calls only `/api/*`.
-- **Secrets.** Only in `.env.local` and GitHub secrets. Never read, search or print `.env*` files; use `git grep`.
-- **Fonts.** The Switzer font files are not in git (the licence forbids public repositories). `scripts/ci/fetch-private-fonts.ts` fetches them when a key is set, and tests that need them skip with a reason when they are absent (`docs/fonts.md`). Never commit the files.
-- **v2 files** stay unchanged and hash checked (`docs/v2-imports.md`).
-- **Checks.** Until the MVP launch (owner, 3 November 2026) only the secret scan runs on each change; the full run happens once before launch.
-- **Before every commit**, lefthook (`lefthook.yml`) runs Prettier and gitleaks.
-- **When a builder agent stops**, `scripts/hooks/stop-checks.ts` checks the factory worktrees.
+- **Providers.** Voice, speech feedback and AI each sit behind one module in `worker/providers/`, so a provider is swapped by changing that module only (the risk tests may change providers after the MVP). The browser calls only `/api/*`.
+- **Secrets.** Keys, tokens and passwords live only in `.env.local` (git ignored) and GitHub secrets, never in code, commits, logs or chat (see the `.env*` lesson below).
+- **Fonts.** Never commit the Switzer font files (the licence forbids public repositories). `scripts/ci/fetch-private-fonts.ts` fetches them when a key is set; tests that need them skip with a reason (`docs/fonts.md`).
+- **Checks.** Lefthook (`lefthook.yml`) runs Prettier and gitleaks before every commit, and `scripts/hooks/stop-checks.ts` checks the factory worktrees when a builder agent stops. Until the MVP launch (owner, 3 November 2026) only the secret scan runs on each change; the full run happens once before launch.
 
 ## Project rules
 
 - **GA features** (general availability, marked `"ga": true` in `factory/features.json`). The spec answers three threat model questions. What is the worst thing a malicious person could do here? What data are we storing that we must protect? What should the system refuse to do even if asked nicely? The job is done only when `summary.md` records the owner's own written "approved" line with the date.
 - **Evidence folder.** Proof lives in `factory/jobs/<job-id>/evidence/`. It is never deleted and never holds a secret.
+- **Finished work** has no placeholders, fake data in the app, or "TODO: implement".
 - **Debug triage.** Before fixing anything broken, say which of three kinds it is.
   - **A real bug.** Reproduce it, prove the cause from evidence, make the smallest fix, and add a test that fails without the fix.
   - **A confused session.** Stop and start a fresh one.
   - **A wrong earlier decision.** Stop and send it back to the spec. Do not patch around it.
-- **Output style.** Plain short sentences. Explain a technical term the first time you use it. Report in a few lines. The writing rules below apply.
-- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass. If a check is wrong, say so in the job notes.
-- **The factory plugin and the hand-over to publishing.** When the owner says it's time to compile the screenshots and videos for this project, or that the project is done, remind her of `docs/factory-plugin-plan.md` before anything else: turning the factory into a free, open source Claude Code plugin, and packaging everything the publishing side needs for the video and post. Do the hand-over from that plan.
+- **Never skip the checks.** No `git commit --no-verify`, no `LEFTHOOK=0`, no editing a check to make it pass, and no deleting or weakening a test. If a check is wrong, say so in the job notes.
+- **Output style.** Plain short sentences. Explain a technical term the first time you use it. Report in a few lines. Summaries for the owner explain consequences, not code.
+- **The factory plugin and the hand-over to publishing.** When the owner says it is time to compile the screenshots and videos for this project, or that the project is done, first remind her of `docs/factory-plugin-plan.md` (the factory as a free, open source Claude Code plugin, and the publishing hand-over), then do the hand-over from it.
 
 ## Writing rules (app text, docs, summaries)
 
-Plain, direct English. No em dashes, and no hyphens used as punctuation. No colon reveals such as "Here's the thing:". No habitual groups of three, such as three adjectives or three bullets every time. No "not X, but Y" framing, no hype words (seamless, unlock, elevate, empower, supercharge, game-changer, cutting-edge, effortless). Summaries for the owner explain consequences, not code.
+No em dashes, and no hyphens used as punctuation. No colon reveals such as "Here's the thing:". No habitual groups of three, such as three adjectives or three bullets every time. No "not X, but Y" framing, no hype words (seamless, unlock, elevate, empower, supercharge, game-changer, cutting-edge, effortless).
 
 ## Lessons learned
 
-The factory adds one line here for every mistake a reviewer, the evaluator or the owner caught, so it does not happen again.
+One line for every mistake a reviewer, the evaluator or the owner caught. The first 17 are pinned by a test.
 
 - Test debug files (Playwright traces, HAR files, HTML reports) record request headers. Never keep them while a secret header is set, and scan every file for secret values before any upload. (1-stack, security review)
 - A test meant to act as a stranger must clear any headers the test config adds for everyone, and should assert no pass was sent. (1-stack, builder)
@@ -122,23 +113,21 @@ The factory adds one line here for every mistake a reviewer, the evaluator or th
 - Error messages claim only what happened. (4-tooling, evaluator)
 - Test the files a path check names; slash only checks miss top folder files. (4-tooling, evaluator)
 - After merging a commit check change, run npm ci in the main folder. (4-tooling, builder)
-- Put evidence file names in backticks; the secret scanner read bare names as a key. (5-design-system, manager)
+- The secret scanner reads names as keys. Put evidence file names in backticks, and filter logs by value shape, not the word "key". (5-design-system and 6-pr-local-db)
 - Give every button token colours; WebKit dark mode defaults fail contrast. (5-design-system, evaluator)
-- Filter logs by value shape, not the word "key". (6-pr-local-db, security review)
 - Reviewer pages must allow a "not yet" file; test every non approving path. (7-content-pipeline, design review)
 - Finnish boxes need `overflow-wrap: anywhere`; test a 40 letter word at 375 px. (7-content-pipeline, design review)
 - WebKit drops Secure cookies on http://localhost; test them over local HTTPS. (8-first-session, builder)
-- A rule with several conditions needs one failing test per condition. (8-first-session, evaluator)
+- Each condition of a rule needs its own failing test, and a fake returning 0 cannot prove a sum; use a known non zero value. (8-first-session and 14-analytics, evaluator)
+- Send buttons ignore taps while sending. (14-analytics, evaluator)
 - A new top level text folder needs an `eol=lf` line in `.gitattributes`, or Windows makes CRLF. (13-review-site, evaluator)
 - GitHub Actions allow lists name every pinned action, indirect ones too. (public repository move, manager)
+- `Read-Host` shows what is typed; use `-AsSecureString` for any key prompt. (public repository move, manager)
 - Warn the owner of a running cost or limit, with a number, at the first sign. Never pause a promised step silently. (public repository move, owner)
-- This file stays under 2,200 words (tested); trim an unpinned lesson to add one. (9-daily-review, manager)
 - A failure in one browser can be a real bug; fix it, never re-run. (10-speaking-feedback, manager)
 - Ask for names and contacts the product shows at spec approval. (11-accounts, evaluator)
 - A timer that restores a cursor must check nothing was typed since. (9-daily-review, manager)
-- `Read-Host` shows what is typed; use `-AsSecureString` for any key prompt. (public repository move, manager)
 - Data with no account needs its own privacy line on keeping and deletion. (14-analytics, design review)
 - Access blocks `credentials: 'omit'` fetches; tests adding its header hide that. (14-analytics, security review)
-- Fakes returning 0 cannot prove a sum; use a known non zero value. Send buttons ignore taps while sending. (14-analytics, evaluator)
 - Compare rebuilt screens with their drawings before the owner does. (19-redesign, owner)
 - Send one real live sign in code and check the sender's log; a wrong port failed silently. (signup-choice, owner)
