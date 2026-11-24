@@ -133,7 +133,7 @@ The factory adds one line here for every mistake a reviewer, the evaluator or th
 - GitHub Actions allow lists name every pinned action, indirect ones too. (public repository move, manager)
 - Warn the owner of a running cost or limit, with a number, at the first sign. Never pause a promised step silently. (public repository move, owner)
 - This file stays under 2,200 words (tested); trim an unpinned lesson to add one. (9-daily-review, manager)
-- A failure in one browser can be a real bug; fix it, do not re-run. (10-speaking-feedback, manager)
+- A failure in one browser can be a real bug; fix it, never re-run. (10-speaking-feedback, manager)
 - Ask for names and contacts the product shows at spec approval. (11-accounts, evaluator)
 - A timer that restores a cursor must check nothing was typed since. (9-daily-review, manager)
 - `Read-Host` shows what is typed; use `-AsSecureString` for any key prompt. (public repository move, manager)
@@ -141,3 +141,4 @@ The factory adds one line here for every mistake a reviewer, the evaluator or th
 - Access blocks `credentials: 'omit'` fetches; tests adding its header hide that. (14-analytics, security review)
 - Fakes returning 0 cannot prove a sum; use a known non zero value. Send buttons ignore taps while sending. (14-analytics, evaluator)
 - Compare rebuilt screens with their drawings before the owner does. (19-redesign, owner)
+- Send one real live sign in code and check the sender's log; a wrong port failed silently. (signup-choice, owner)
