@@ -218,7 +218,8 @@ select ok((select sent_at between now() - interval '1 minute' and now() from pri
 
 -- The batches as the owner sees them, readable by the test roles (they have no access to private).
 create temp table review_batches_seen as select * from private.review_batch_dialogues();
-grant select on review_batches_seen to anon, authenticated;
+create temp table review_lines_seen as select * from public.dialogue_lines;
+grant select on review_batches_seen, review_lines_seen to anon, authenticated;
 set local role anon;
 select is(public.review_link_overview(repeat('z', 43)), null, '[review-links 2] a wrong secret gets nothing');
 select is(public.review_link_overview('short'), null, '[review-links 2] a malformed secret gets nothing');
@@ -252,7 +253,7 @@ select is(public.review_link_dialogue(repeat('z', 43),
 select is(
   jsonb_array_length(public.review_link_dialogue(repeat('a', 43),
     (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)) -> 'lines'),
-  (select count(*)::integer from public.dialogue_lines l where l.status = 'approved'
+  (select count(*)::integer from review_lines_seen l where l.status = 'approved'
      and l.dialogue_id = (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)),
   '[review-links 3] the dialogue shows every approved line');
 select is(
@@ -265,7 +266,7 @@ select is(
      from jsonb_array_elements(public.review_link_dialogue(repeat('a', 43),
        (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)) -> 'lines') x
     where (x ->> 'position')::integer = 1),
-  (select (l.text_puhe, l.text_kirja, l.gloss_en, l.audio_puhe_key) from public.dialogue_lines l
+  (select (l.text_puhe, l.text_kirja, l.gloss_en, l.audio_puhe_key) from review_lines_seen l
     where l.position = 1
       and l.dialogue_id = (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)),
   '[review-links 3] the line texts and audio key are the ones the app plays');
@@ -433,7 +434,7 @@ select is(
 select is(
   (select (x ->> 'lines')::bigint from jsonb_array_elements(public.owner_review_overview() -> 'links') x
     where (x ->> 'batch')::integer = 1),
-  (select count(*) from public.dialogue_lines l join review_batches_seen b on b.dialogue_id = l.dialogue_id
+  (select count(*) from review_lines_seen l join review_batches_seen b on b.dialogue_id = l.dialogue_id
     where b.batch = 1 and l.status = 'approved'),
   '[review-links 6] and knows how many lines batch 1 has');
 select is(
