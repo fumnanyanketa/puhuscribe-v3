@@ -415,11 +415,20 @@ isOneToOne: false
               "next_day": string,"today": string
             }[]
                            },
+"owner_create_review_link":
+{ Args: { "p_batch": number,"p_signup_id": string,"p_token": string }; Returns: Json
+                           },
 "owner_dashboard":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"owner_delete_review_link":
+{ Args: { "p_link_id": string }; Returns: boolean
+                           },
 "owner_delete_reviewer_signup":
 { Args: { "p_id": string }; Returns: boolean
+                           },
+"owner_review_overview":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            },
 "owner_reviewer_signups":
 { Args: Record<PropertyKey, never>; Returns: Json
@@ -435,6 +444,15 @@ isOneToOne: false
                            },
 "reserve_tutor_call":
 { Args: { "p_attempt": number,"p_session_id": string,"p_turn": number }; Returns: string
+                           },
+"review_link_answer":
+{ Args: { "p_answer": string,"p_line_id": number,"p_note": string,"p_token": string }; Returns: string
+                           },
+"review_link_dialogue":
+{ Args: { "p_dialogue_id": number,"p_token": string }; Returns: Json
+                           },
+"review_link_overview":
+{ Args: { "p_token": string }; Returns: Json
                            },
 "review_queue":
 { Args: { "p_limit": number }; Returns: {
