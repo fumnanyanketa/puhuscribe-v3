@@ -82,7 +82,9 @@ export function SignupList({
   if (rows.length === 0) return <p className={styles.text}>{NO_SIGNUPS}</p>
   return (
     <>
-      <StatusLine tone="problem">{problem}</StatusLine>
+      <StatusLine tone="problem" visuallyHidden={!problem}>
+        {problem}
+      </StatusLine>
       <ul className={styles.cards} data-owner="reviewers">
         {rows.map((row) => (
           <li key={row.id} className={styles.item}>
