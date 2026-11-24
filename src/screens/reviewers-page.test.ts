@@ -39,8 +39,8 @@ describe('the reviewer sign up page', () => {
 
   it('[reviewers 1] shows the owner words of the spec, word for word', () => {
     for (const words of [
-      'Help check the Finnish in Aleksi',
-      "Aleksi teaches the Finnish people speak in Helsinki today. If Finnish is your first language, I'd love your help checking it.",
+      'Please help us review the Finnish language in Aleksi',
+      "Aleksi teaches puhekieli. If Finnish is your first language, I'd love your help checking it.",
       "After you sign up, I'll email you a short list of phrases from the app. You tell me anything that sounds wrong or unnatural.",
       'Your name',
       'Your email',
@@ -56,7 +56,7 @@ describe('the reviewer sign up page', () => {
 
   it('[reviewers 1] has one h1, a label for each of the three fields and a link to the privacy notice', () => {
     expect(html.match(/<h1[\s>]/g)).toHaveLength(1)
-    expect(html).toMatch(/<h1[^>]*>Help check the Finnish in Aleksi<\/h1>/)
+    expect(html).toMatch(/<h1[^>]*>Please help us review the Finnish language in Aleksi<\/h1>/)
     expect(html.match(/<label /g)).toHaveLength(3)
     expect(html.match(/<input /g)).toHaveLength(3)
     expect(html).toContain('type="email"')
@@ -66,7 +66,7 @@ describe('the reviewer sign up page', () => {
 
   it('[reviewers 1] the app shell draws it at /reviewers, outside /learn', () => {
     expect(text(renderToStaticMarkup(createElement(App, { path: '/reviewers' })))).toContain(
-      'Help check the Finnish in Aleksi',
+      'Please help us review the Finnish language in Aleksi',
     )
   })
 

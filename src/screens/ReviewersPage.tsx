@@ -23,9 +23,9 @@ import own from './Reviewers.module.css'
 // above the button (the guest Start's check, src/lib/human-check.ts), and the
 // form is sent again with its token. A second tap while sending is ignored.
 
-export const REVIEWERS_TITLE = 'Help check the Finnish in Aleksi'
+export const REVIEWERS_TITLE = 'Please help us review the Finnish language in Aleksi'
 export const REVIEWERS_INTRO =
-  "Aleksi teaches the Finnish people speak in Helsinki today. If Finnish is your first language, I'd love your help checking it."
+  "Aleksi teaches puhekieli. If Finnish is your first language, I'd love your help checking it."
 export const REVIEWERS_NEXT =
   "After you sign up, I'll email you a short list of phrases from the app. You tell me anything that sounds wrong or unnatural."
 export const NAME_LABEL = 'Your name'

@@ -69,7 +69,7 @@ test.describe('the reviewer sign up page', () => {
     })
     await page.goto('/reviewers')
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Help check the Finnish in Aleksi' }),
+      page.getByRole('heading', { level: 1, name: 'Please help us review the Finnish language in Aleksi' }),
     ).toBeVisible()
     expect(new URL(page.url()).pathname).toBe('/reviewers')
     await expect(page.getByLabel('Your name')).toBeVisible()
@@ -96,7 +96,7 @@ test.describe('the reviewer sign up page', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto('/reviewers')
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Help check the Finnish in Aleksi' }),
+      page.getByRole('heading', { level: 1, name: 'Please help us review the Finnish language in Aleksi' }),
     ).toBeVisible()
     expect(await page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')).toBe(true)
     expect(await context.cookies()).toEqual([])
