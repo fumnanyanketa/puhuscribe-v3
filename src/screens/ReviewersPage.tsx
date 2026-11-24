@@ -25,7 +25,7 @@ import own from './Reviewers.module.css'
 
 export const REVIEWERS_TITLE = 'Please help us review the Finnish language in Aleksi'
 export const REVIEWERS_INTRO =
-  "Aleksi teaches puhekieli. If Finnish is your first language, I'd love your help checking it."
+  "Aleksi teaches puhekieli and kirjakieli, so if Finnish is your first language, I'd love your help checking it."
 export const REVIEWERS_NEXT =
   "After you sign up, I'll email you a short list of phrases from the app. You tell me anything that sounds wrong or unnatural."
 export const NAME_LABEL = 'Your name'

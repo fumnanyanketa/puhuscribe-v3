@@ -40,7 +40,7 @@ describe('the reviewer sign up page', () => {
   it('[reviewers 1] shows the owner words of the spec, word for word', () => {
     for (const words of [
       'Please help us review the Finnish language in Aleksi',
-      "Aleksi teaches puhekieli. If Finnish is your first language, I'd love your help checking it.",
+      "Aleksi teaches puhekieli and kirjakieli, so if Finnish is your first language, I'd love your help checking it.",
       "After you sign up, I'll email you a short list of phrases from the app. You tell me anything that sounds wrong or unnatural.",
       'Your name',
       'Your email',

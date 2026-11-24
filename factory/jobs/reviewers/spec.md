@@ -16,7 +16,7 @@ Flag: look closely. This stores personal data (name and email) of people with no
 ## The page text (the owner reviews it before the build is approved)
 
 - Title: "Please help us review the Finnish language in Aleksi"
-- Intro: "Aleksi teaches puhekieli. If Finnish is your first language, I'd love your help checking it."
+- Intro: "Aleksi teaches puhekieli and kirjakieli, so if Finnish is your first language, I'd love your help checking it."
 - Next steps: "After you sign up, I'll email you a short list of phrases from the app. You tell me anything that sounds wrong or unnatural."
 - Fields:
   - "Your name"
