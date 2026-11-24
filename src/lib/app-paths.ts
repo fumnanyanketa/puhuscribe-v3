@@ -8,6 +8,8 @@ export const LEARN = '/learn'
 export const PATHS = {
   /** The public landing page (job 17-landing-page). */
   landing: '/',
+  /** The public reviewer sign up page, outside /learn (fast route reviewers). The app shell draws it. */
+  reviewers: '/reviewers',
   /** The road, the app's home screen and front door. */
   home: LEARN,
   session: `${LEARN}/session`,
@@ -61,10 +63,11 @@ export function isLearnPath(path: string): boolean {
  * 17-landing-page): an old address goes to its new one, keeping the query and
  * the fragment, and an old deep link under /account goes to the account page.
  * Any other address outside /learn goes to the landing page. Null means
- * "stay": the address is under /learn. `path` has no trailing slash.
+ * "stay": the address is under /learn, or it is the public reviewer page
+ * /reviewers (fast route reviewers). `path` has no trailing slash.
  */
 export function forwardFor(path: string, search: string, hash: string): string | null {
-  if (isLearnPath(path)) return null
+  if (isLearnPath(path) || path === PATHS.reviewers) return null
   const target = OLD_PATHS[path] ?? (path.startsWith('/account/') ? PATHS.account : null)
   if (target) return `${target}${search}${hash}`
   return PATHS.landing

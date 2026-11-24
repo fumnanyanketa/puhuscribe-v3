@@ -65,6 +65,8 @@ export const PROCESSORS: readonly Processor[] = [
     // person from them, and that it is a processor for the bot check and a controller for improving it.
     details: [
       "When you press Start without an account, Cloudflare Turnstile checks for bots before your guest account is made. It reads your internet address, your browser's User-Agent and TLS fingerprint and this site's key and address, which Cloudflare says cannot identify you directly, and Cloudflare also uses them to improve its bot detection.",
+      // Fast route reviewers (owner's call of 24 November 2026): the same check guards the sign-up form.
+      'The reviewer sign-up form at meetaleksi.com/reviewers runs the same check before a sign-up is saved.',
     ],
     link: {
       label: "Cloudflare's Turnstile privacy addendum",
@@ -78,7 +80,9 @@ export const PROCESSORS: readonly Processor[] = [
     // Brevo is the trading name of Sendinblue SAS, a company in France. Fast route feedback-alert
     // (owner's call of 21 November 2026): the Worker also sends the owner a short alert through
     // Brevo's API when feedback arrives. The alert holds only the screen and the time, no learner
-    // data and no message, so the learner-facing text below is unchanged.
+    // data and no message, so the learner-facing text below is unchanged. Fast route reviewers
+    // (owner's call of 24 November 2026): the same kind of alert when someone signs up at /reviewers,
+    // with no name and no email in it.
     name: 'Brevo',
     role: 'Sends the sign in code emails, only if you add your email. It receives your email address and the email with your code.',
     where: 'In the EU.',

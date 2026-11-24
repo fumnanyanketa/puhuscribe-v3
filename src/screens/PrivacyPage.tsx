@@ -10,7 +10,9 @@ import {
   HOW_LONG,
   LEARNER_TABLES,
   NOT_LINKED_ITEMS,
+  NO_ACCOUNT_ITEMS,
   OWNER_TABLES,
+  REVIEWER_CONTACT,
   type InventoryItem,
 } from '../privacy/data-inventory.ts'
 import { FIRST_LAYER } from '../privacy/first-layer.ts'
@@ -43,6 +45,9 @@ export const RIGHTS = [
   'Object to how your data is used.',
   'Withdraw a consent you gave, at any time.',
 ]
+
+/** How someone with no account reaches their reviewer sign-up (fast route reviewers). */
+export const REVIEWER_RIGHTS = `If you signed up to help check the Finnish, write to ${REVIEWER_CONTACT} to see, correct or delete your sign-up.`
 
 /** What a request about the visit count or crash reports gets (job 14-analytics, round 2). */
 export const NOT_LINKED_RIGHTS =
@@ -241,6 +246,13 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
                 <Item key={item.name} item={item} />
               ))}
             </ul>
+            {/* Fast route reviewers: from people with no account. */}
+            <p className={styles.text}>From people with no account:</p>
+            <ul className={styles.cards} data-inventory="no-account">
+              {NO_ACCOUNT_ITEMS.map((item) => (
+                <Item key={item.name} item={item} />
+              ))}
+            </ul>
           </section>
 
           <section className={styles.section} aria-labelledby="privacy-how-long">
@@ -301,6 +313,7 @@ export function PrivacyPage({ responsible = RESPONSIBLE }: { responsible?: Respo
               ))}
             </ul>
             <p className={styles.text}>{NOT_LINKED_RIGHTS}</p>
+            <p className={styles.text}>{REVIEWER_RIGHTS}</p>
             <p className={styles.text}>
               For anything you cannot do in the app, write to the contact address above. Requests are answered
               within one month.

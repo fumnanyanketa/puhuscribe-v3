@@ -206,6 +206,23 @@ The island lines and fill-in lists are content, not database rows: `content/isla
 One row per learner per stop. Everything is revoked from the API roles; a learner may read their own rows, add one (user, stop, choice, name) and change its choice or name, under row level security on their own user id. Nobody deletes a row: rows go with the account. `public.export_my_data()` lists the table. The Worker reads and writes it with the learner's own token through `GET` and `POST /api/island` (`worker/island.ts`), and stores only a line the approved data can make. A guest's island is on the guest account, and adding an email keeps the same account, so the island moves with it. The test is `supabase/tests/database/island_lines.test.sql`.
 
 
+## Reviewer sign ups (fast route reviewers, 24 November 2026)
+
+Native Finnish speakers offer to check the Finnish at the public page `/reviewers`
+(`supabase/migrations/20261124104750_reviewer_signups.sql`).
+
+- `private.reviewer_signups` holds one row per sign up: a name (1 to 100 characters), an email
+  address (at most 254, in lower case), an optional name for the thank-you in the owner's next video
+  (at most 100) and the time. The people have no account, so no row links to `auth.users` and the
+  table is not in `public.export_my_data()`. Rows are kept until the owner deletes them.
+- No API role has any right on the table, and it has no rule. The Worker adds a row as anon,
+  after its Turnstile check, through `public.sign_up_reviewer(p_name, p_email, p_thanks_name)`. It
+  checks every field again and allows at most 3 sign ups from one email address and 200 in all on
+  one Helsinki day (true when saved, false at a limit).
+- The owner reads them with `public.owner_reviewer_signups()` (newest first) and deletes one with
+  `public.owner_delete_reviewer_signup(p_id)`. Both answer only an account on `private.owners` with a
+  live sign in, and null to anyone else.
+
 ## Reference data
 
 | Table | What it holds | Who can read or write | First used by |

@@ -46,6 +46,8 @@ const TEST_SECRETS = new Set([
 
 /** The action the browser names when it renders the widget; checked on real keys. */
 export const GUEST_ACTION = 'guest'
+/** The action of the reviewer sign up form at /reviewers (fast route reviewers), checked the same way. */
+export const REVIEWERS_ACTION = 'reviewers'
 
 /** Turnstile tokens are at most 2048 characters. */
 const MAX_TOKEN_LENGTH = 2048
@@ -110,13 +112,15 @@ function isTokenShaped(token: unknown): token is string {
 /**
  * Asks Cloudflare whether the token is good for this address. "failed" means
  * the token was refused (or missing); "unavailable" means the check itself
- * could not run, and no guest is made either way.
+ * could not run, and no guest is made either way. `action` is the form the
+ * token must come from: the guest Start unless another is named.
  */
 export async function checkHuman(
   token: unknown,
   keys: HumanCheckKeys,
   hostname: string,
   fetch: Fetch,
+  action: string = GUEST_ACTION,
 ): Promise<HumanCheck> {
   if (!isTokenShaped(token)) return 'failed'
   const controller = new AbortController()
@@ -144,7 +148,7 @@ export async function checkHuman(
     return codes.some((code) => typeof code === 'string' && SETUP_ERRORS.has(code)) ? 'unavailable' : 'failed'
   }
   if (keys.test) return 'passed'
-  // A real token must come from this address and from the guest Start.
-  if (result.hostname !== hostname || result.action !== GUEST_ACTION) return 'failed'
+  // A real token must come from this address and from the form that asked (the guest Start by default).
+  if (result.hostname !== hostname || result.action !== action) return 'failed'
   return 'passed'
 }

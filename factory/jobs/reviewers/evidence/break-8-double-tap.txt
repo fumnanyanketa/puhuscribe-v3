@@ -1,0 +1,6 @@
+Break: the reviewer page sends again while a sign-up is being sent (guard removed on purpose).
+    Expected length: 2
+    Received length: 6
+    Received array:  ["{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\"}", "{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\"}", "{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\"}", "{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\",\"turnstileToken\":\"XXXX.DUMMY.TOKEN.XXXX\"}", "{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\",\"turnstileToken\":\"XXXX.DUMMY.TOKEN.XXXX\"}", "{\"name\":\"Test Reviewer\",\"email\":\"reviewer@example.test\",\"thanksName\":\"Test R\",\"turnstileToken\":\"XXXX.DUMMY.TOKEN.XXXX\"}"]
+    ..\..\..\..\AppData\Local\Temp\claude\88dbcbe27fe10bb8\88dec329-87c4-4154-82bb-d3a7529015d7\scratchpad\pw-out\reviewers-the-reviewer-sig-6b4e7-s-while-sending-then-thanks-chromium\test-failed-1.png
+  1 failed

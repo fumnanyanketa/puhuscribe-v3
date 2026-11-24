@@ -9,7 +9,8 @@
 import { handleAccountApi, type AccountDeps } from './account.ts'
 import { crashRoute } from './crash.ts'
 import { feedbackRoute, supabaseFeedbackDb, type FeedbackDb } from './feedback.ts'
-import { sendFeedbackAlert, type FeedbackAlertEnv } from './providers/feedback-alert.ts'
+import { sendFeedbackAlert, sendReviewerAlert, type FeedbackAlertEnv } from './providers/feedback-alert.ts'
+import { reviewersRoute, supabaseReviewersDb, type AddressLimiter, type ReviewersDb } from './reviewers.ts'
 import type { FeedbackScreen } from '../src/lib/feedback-types.ts'
 import {
   RECORDABLE_STEPS,
@@ -108,6 +109,12 @@ export interface ApiDeps
   feedbackAlert?: (env: FeedbackAlertEnv, screen: FeedbackScreen) => Promise<boolean>
   /** Work that runs after the answer (the Workers context's waitUntil); without it the work just runs. */
   waitUntil?: (work: Promise<unknown>) => void
+  /** Tests pass a fake for the reviewer sign ups (fast route reviewers); normally Supabase, as anon. */
+  reviewersDb?: ReviewersDb
+  /** Tests pass their own count of sign ups per internet address (fast route reviewers). */
+  reviewersLimiter?: AddressLimiter
+  /** Tests pass a fake for the owner's reviewer sign up alert (fast route reviewers); normally Brevo. */
+  reviewerAlert?: (env: FeedbackAlertEnv) => Promise<boolean>
   /** Tests pass a fake for the road (job 20-a1-road); normally Supabase, as the learner. */
   roadDb?: (context: LearnerContext) => RoadDb
   /** Tests pass a fake for the visitors' road (statement 29); normally Supabase, with no sign in. */
@@ -680,6 +687,20 @@ export async function handleApi(
     })
   }
   if (pathname === '/api/crash') return crashRoute(request, env, deps)
+  // The native speaker reviewer sign up at /reviewers (fast route reviewers): worker/reviewers.ts.
+  if (pathname === '/api/reviewers') {
+    return reviewersRoute(request, {
+      env,
+      fetch: deps.fetch,
+      db: deps.reviewersDb ?? supabaseReviewersDb(env, deps.fetch),
+      ...(deps.reviewersLimiter ? { limiter: deps.reviewersLimiter } : {}),
+      afterSent: () => {
+        const alert = deps.reviewerAlert ? deps.reviewerAlert(env) : sendReviewerAlert(env, deps.fetch)
+        const quiet = alert.catch(() => false)
+        if (deps.waitUntil) deps.waitUntil(quiet)
+      },
+    })
+  }
   // The learner's island (language islands): worker/island.ts.
   if (pathname === '/api/island') {
     return islandRoute(request, {

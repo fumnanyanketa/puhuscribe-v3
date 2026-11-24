@@ -458,3 +458,140 @@ describe('the owner host is not counted', () => {
     expect(supabase.requests.filter((r) => r.url.pathname === '/rest/v1/rpc/count_visit')).toHaveLength(0)
   })
 })
+
+// Fast route reviewers: labels [reviewers N] are the "Done when" statement numbers from
+// factory/jobs/reviewers/spec.md. The owner's list of reviewer sign ups and its Delete.
+describe('the owner page reviewer sign ups', () => {
+  const ROW = {
+    id: '0b7e2c1a-8f3d-4c2b-9a1e-5d6f7a8b9c0d',
+    name: 'Aino Virtanen',
+    email: 'aino@example.fi',
+    thanks_name: null,
+    created_at: '2026-11-24T10:00:00+00:00',
+  }
+  let listAnswer: unknown
+  let deleteAnswer: unknown
+  let deleted: unknown[]
+
+  beforeEach(() => {
+    listAnswer = [ROW]
+    deleteAnswer = true
+    deleted = []
+    const before = supabase.rest
+    supabase.rest = (request) => {
+      const reply = (value: unknown) =>
+        new Response(JSON.stringify(value), { status: 200, headers: { 'content-type': 'application/json' } })
+      if (request.url.pathname === '/rest/v1/rpc/owner_reviewer_signups') return reply(listAnswer)
+      if (request.url.pathname === '/rest/v1/rpc/owner_delete_reviewer_signup') {
+        deleted.push(JSON.parse(request.body))
+        return reply(deleteAnswer)
+      }
+      return before?.(request)
+    }
+  })
+
+  const remove = async (body: unknown, cookie?: string, extra?: Record<string, string>) =>
+    handleRequest(
+      await ownerRequest('/api/owner/reviewers/delete', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        ...(cookie ? { cookie } : {}),
+        ...(extra ? { extra } : {}),
+      }),
+      env,
+      deps,
+    )
+
+  it('[reviewers 5] the owner gets every sign up, asked of owner_reviewer_signups() with the owner own token', async () => {
+    const cookie = await signedInCookie()
+    const res = await handleRequest(await ownerRequest('/api/owner/reviewers', { cookie }), env, deps)
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ signups: [ROW] })
+    expectPrivate(res)
+    const call = supabase.requests.find((r) => r.url.pathname === '/rest/v1/rpc/owner_reviewer_signups')
+    expect(call?.headers.get('apikey')).toBe(PUBLISHABLE)
+    const bearer = (call?.headers.get('authorization') ?? '').replace(/^Bearer /, '')
+    expect(supabase.issued).toContain(bearer)
+  })
+
+  it('[reviewers 5] without a sign in 401, and an account not on the owner list 403 with no row', async () => {
+    expect((await handleRequest(await ownerRequest('/api/owner/reviewers'), env, deps)).status).toBe(401)
+    listAnswer = null
+    const cookie = await signedInCookie()
+    const res = await handleRequest(await ownerRequest('/api/owner/reviewers', { cookie }), env, deps)
+    expect(res.status).toBe(403)
+    expect(await res.json()).toEqual({ error: 'not_owner' })
+  })
+
+  it('[reviewers 5] without the Access token, the list and Delete answer 403 and reach no database', async () => {
+    const cookie = await signedInCookie()
+    const list = await handleRequest(
+      await ownerRequest('/api/owner/reviewers', { cookie, jwt: null }),
+      env,
+      deps,
+    )
+    expect(list.status).toBe(403)
+    const del = await handleRequest(
+      await ownerRequest('/api/owner/reviewers/delete', {
+        method: 'POST',
+        body: JSON.stringify({ id: ROW.id }),
+        cookie,
+        jwt: null,
+      }),
+      env,
+      deps,
+    )
+    expect(del.status).toBe(403)
+    expect(deleted).toEqual([])
+  })
+
+  it('[reviewers 5] the app host has no owner reviewer routes', async () => {
+    const res = await handleRequest(new Request(`${ORIGIN}/api/owner/reviewers`), env, deps)
+    expect(res.status).toBe(404)
+  })
+
+  it('[reviewers 5] Delete removes one sign up by its id, only for the owner', async () => {
+    const cookie = await signedInCookie()
+    const res = await remove({ id: ROW.id }, cookie)
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ deleted: true })
+    expect(deleted).toEqual([{ p_id: ROW.id }])
+    expectPrivate(res)
+    deleteAnswer = false
+    expect((await remove({ id: ROW.id }, cookie)).status).toBe(404)
+    deleteAnswer = null
+    const notOwner = await remove({ id: ROW.id }, cookie)
+    expect(notOwner.status).toBe(403)
+    expect(await notOwner.json()).toEqual({ error: 'not_owner' })
+  })
+
+  it('[reviewers 5] Delete refuses a missing or odd id, GET, another site and no sign in, deleting nothing', async () => {
+    const cookie = await signedInCookie()
+    for (const body of [{}, { id: 'all' }, { id: `${ROW.id}' or 1=1` }, { id: 7 }]) {
+      expect((await remove(body, cookie)).status, JSON.stringify(body)).toBe(400)
+    }
+    expect(
+      (await handleRequest(await ownerRequest('/api/owner/reviewers/delete', { cookie }), env, deps)).status,
+    ).toBe(405)
+    expect((await remove({ id: ROW.id }, cookie, { origin: 'https://evil.example' })).status).toBe(403)
+    expect((await remove({ id: ROW.id }, cookie, { 'sec-fetch-site': 'cross-site' })).status).toBe(403)
+    expect((await remove({ id: ROW.id })).status).toBe(401)
+    expect(deleted).toEqual([])
+  })
+
+  it('[reviewers 5] the list refuses another site and accepts only GET', async () => {
+    const cookie = await signedInCookie()
+    const cross = await handleRequest(
+      await ownerRequest('/api/owner/reviewers', { cookie, extra: { 'sec-fetch-site': 'cross-site' } }),
+      env,
+      deps,
+    )
+    expect(cross.status).toBe(403)
+    const post = await handleRequest(
+      await ownerRequest('/api/owner/reviewers', { method: 'POST', body: '{}', cookie }),
+      env,
+      deps,
+    )
+    expect(post.status).toBe(405)
+  })
+})

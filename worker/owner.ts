@@ -2,7 +2,7 @@ import { createLocalJWKSet, type JSONWebKeySet, type JWTVerifyGetKey } from 'jos
 import { accessKeys, hasValidAccessToken, type KeySource } from '../review-site/handler.ts'
 import { OWNER_HOST_ATTRIBUTE, OWNER_HOST_MARK } from '../src/lib/owner-host.ts'
 import { handleApi, type ApiDeps, type ApiEnv } from './api.ts'
-import { json, readBody, refuseNonGet, withCookies } from './http.ts'
+import { json, readBody, refuseNonGet, refuseUnsafeWrite, withCookies } from './http.ts'
 import {
   endedHint,
   hasAuthCookie,
@@ -64,11 +64,46 @@ export function supabaseOwnerDb(client: LearnerClient): OwnerDb {
   }
 }
 
+/**
+ * The reviewer sign ups (fast route reviewers, "Done when" 5), through two
+ * database functions that answer only the owner with a live sign in.
+ */
+export interface OwnerReviewersDb {
+  /** Every sign up, newest first, or null when this account may not see them. */
+  list(): Promise<unknown>
+  /** Deletes one sign up: true when deleted, false when there was none, null when this account may not. */
+  remove(id: string): Promise<boolean | null>
+}
+
+// The two functions are newer than the committed database types
+// (src/lib/database.types.ts is made only by the Supabase CLI against a
+// database with every migration applied, factory/jobs/reviewers/build.md), so
+// they are called by name through this narrow view of the client.
+type NamedRpc = (fn: string, args?: Record<string, unknown>) => PromiseLike<{ data: unknown; error: unknown }>
+
+export function supabaseOwnerReviewersDb(client: LearnerClient): OwnerReviewersDb {
+  const rpc = client.rpc.bind(client) as unknown as NamedRpc
+  return {
+    async list() {
+      const { data, error } = await rpc('owner_reviewer_signups')
+      if (error) throw new OwnerDbUnavailable()
+      return data ?? null
+    },
+    async remove(id) {
+      const { data, error } = await rpc('owner_delete_reviewer_signup', { p_id: id })
+      if (error) throw new OwnerDbUnavailable()
+      return typeof data === 'boolean' ? data : null
+    },
+  }
+}
+
 export interface OwnerDeps extends ApiDeps {
   /** Tests pass a local key set; normally the team's keys from Cloudflare. */
   accessKeys?: KeySource
   /** Tests pass a fake; normally Supabase, as the signed in account. */
   ownerDb?: (context: LearnerContext) => OwnerDb
+  /** Tests pass a fake for the reviewer sign ups; normally Supabase, as the signed in account. */
+  ownerReviewersDb?: (context: LearnerContext) => OwnerReviewersDb
 }
 
 const HOSTNAME = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/
@@ -154,15 +189,22 @@ export const OWNER_API_ROUTES: ReadonlySet<string> = new Set([
 
 const OTHER_SITES = new Set(['same-site', 'cross-site'])
 
-// GET /api/owner/dashboard: the numbers, only for the signed in owner.
-async function dashboard(request: Request, env: ApiEnv, deps: OwnerDeps): Promise<Response> {
-  const refused = await refuseNonGet(request)
-  if (refused) return refused
+function fromOtherSite(request: Request): boolean {
   const origin = request.headers.get('origin')
   const site = (request.headers.get('sec-fetch-site') ?? '').trim().toLowerCase()
-  if ((origin !== null && origin !== new URL(request.url).origin) || OTHER_SITES.has(site)) {
-    return json({ error: 'forbidden' }, 403)
-  }
+  return (origin !== null && origin !== new URL(request.url).origin) || OTHER_SITES.has(site)
+}
+
+/**
+ * The owner's own sign in, checked for every owner route: a live sign in,
+ * then `run` with it. The database decides whether the account is the owner.
+ */
+async function asOwner(
+  request: Request,
+  env: ApiEnv,
+  deps: OwnerDeps,
+  run: (context: LearnerContext) => Promise<Response>,
+): Promise<Response> {
   if (!hasAuthCookie(request)) return json({ error: 'signed_out' }, 401)
   const settings = supabaseSettings(env)
   if (!settings) return json({ error: 'not_available' }, 503)
@@ -177,13 +219,63 @@ async function dashboard(request: Request, env: ApiEnv, deps: OwnerDeps): Promis
   }
   if (state === 'none') return withCookies(json({ error: 'signed_out' }, 401), context.setCookies())
   try {
-    const db = deps.ownerDb ? deps.ownerDb(context) : supabaseOwnerDb(context.client)
-    const numbers = await db.dashboard()
-    if (numbers === null) return withCookies(json({ error: 'not_owner' }, 403), context.setCookies())
-    return withCookies(json(numbers), context.setCookies())
+    return withCookies(await run(context), context.setCookies())
   } catch {
     return withCookies(json({ error: 'not_available' }, 503), context.setCookies())
   }
+}
+
+// GET /api/owner/dashboard: the numbers, only for the signed in owner.
+async function dashboard(request: Request, env: ApiEnv, deps: OwnerDeps): Promise<Response> {
+  const refused = await refuseNonGet(request)
+  if (refused) return refused
+  if (fromOtherSite(request)) return json({ error: 'forbidden' }, 403)
+  return asOwner(request, env, deps, async (context) => {
+    const db = deps.ownerDb ? deps.ownerDb(context) : supabaseOwnerDb(context.client)
+    const numbers = await db.dashboard()
+    if (numbers === null) return json({ error: 'not_owner' }, 403)
+    return json(numbers)
+  })
+}
+
+function reviewersDbFor(context: LearnerContext, deps: OwnerDeps): OwnerReviewersDb {
+  return deps.ownerReviewersDb ? deps.ownerReviewersDb(context) : supabaseOwnerReviewersDb(context.client)
+}
+
+// GET /api/owner/reviewers: every reviewer sign up, newest first, only for the
+// signed in owner (fast route reviewers, "Done when" 5).
+async function reviewerSignups(request: Request, env: ApiEnv, deps: OwnerDeps): Promise<Response> {
+  const refused = await refuseNonGet(request)
+  if (refused) return refused
+  if (fromOtherSite(request)) return json({ error: 'forbidden' }, 403)
+  return asOwner(request, env, deps, async (context) => {
+    const signups = await reviewersDbFor(context, deps).list()
+    if (signups === null) return json({ error: 'not_owner' }, 403)
+    return json({ signups })
+  })
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+
+// POST /api/owner/reviewers/delete {"id": "..."}: deletes one sign up, only for
+// the signed in owner. The page asks for a confirmation first.
+async function deleteReviewerSignup(request: Request, env: ApiEnv, deps: OwnerDeps): Promise<Response> {
+  const write = await refuseUnsafeWrite(request)
+  if (write.refused) return write.refused
+  if (fromOtherSite(request)) return json({ error: 'forbidden' }, 403)
+  let id: unknown
+  try {
+    id = (JSON.parse(write.body) as Record<string, unknown> | null)?.id
+  } catch {
+    id = undefined
+  }
+  if (typeof id !== 'string' || !UUID.test(id)) return json({ error: 'bad_id' }, 400)
+  return asOwner(request, env, deps, async (context) => {
+    const deleted = await reviewersDbFor(context, deps).remove(id)
+    if (deleted === null) return json({ error: 'not_owner' }, 403)
+    if (!deleted) return json({ error: 'not_found' }, 404)
+    return json({ deleted: true })
+  })
 }
 
 interface OwnerHostEnv extends ApiEnv, OwnerEnv {
@@ -222,6 +314,10 @@ export async function handleOwnerRequest(
   const { pathname } = new URL(request.url)
   if (pathname === '/api/owner/dashboard')
     return privately(await dashboard(request, env, deps), OWNER_API_CSP)
+  if (pathname === '/api/owner/reviewers')
+    return privately(await reviewerSignups(request, env, deps), OWNER_API_CSP)
+  if (pathname === '/api/owner/reviewers/delete')
+    return privately(await deleteReviewerSignup(request, env, deps), OWNER_API_CSP)
   if (pathname === '/api' || pathname.startsWith('/api/')) {
     if (OWNER_API_ROUTES.has(pathname)) return privately(await handleApi(request, env, deps), OWNER_API_CSP)
     await readBody(request)

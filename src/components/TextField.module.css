@@ -18,6 +18,15 @@
   white-space: nowrap;
 }
 
+/* A label drawn above the field (fast route reviewers): the feedback page's field title, at body size. */
+.shownLabel {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
 .hint {
   margin: 0;
   font-size: var(--text-small);
