@@ -63,7 +63,7 @@ alter table private.review_links enable row level security;
 
 create table private.review_answers (
   link_id uuid not null references private.review_links (id) on delete cascade,
-  line_id bigint not null references public.dialogue_lines (id) on delete cascade,
+  line_id bigint not null references public.dialogue_lines (id) on delete restrict,
   answer text not null check (answer in ('correct', 'needs_fix', 'not_sure')),
   note text
     check (note is null

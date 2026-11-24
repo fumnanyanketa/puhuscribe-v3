@@ -216,6 +216,9 @@ select ok((select sent_at between now() - interval '1 minute' and now() from pri
 -- [review-links 2] [review-links 3] What a link opens
 -- =====================================================================================
 
+-- The batches as the owner sees them, readable by the test roles (they have no access to private).
+create temp table review_batches_seen as select * from private.review_batch_dialogues();
+grant select on review_batches_seen to anon, authenticated;
 set local role anon;
 select is(public.review_link_overview(repeat('z', 43)), null, '[review-links 2] a wrong secret gets nothing');
 select is(public.review_link_overview('short'), null, '[review-links 2] a malformed secret gets nothing');
@@ -228,10 +231,10 @@ select is(jsonb_array_length(public.review_link_overview(repeat('a', 43)) -> 'di
 select is(
   (select array_agg((x ->> 'id')::bigint order by (x ->> 'position')::integer)
      from jsonb_array_elements(public.review_link_overview(repeat('a', 43)) -> 'dialogues') x),
-  (select array_agg(dialogue_id order by batch_position) from private.review_batch_dialogues() where batch = 1),
+  (select array_agg(dialogue_id order by batch_position) from review_batches_seen where batch = 1),
   '[review-links 3] exactly the dialogues of batch 1, in road order');
 select is(jsonb_array_length(public.review_link_overview(repeat('b', 43)) -> 'dialogues'),
-  (select count(*)::integer from private.review_batch_dialogues() where batch = 4),
+  (select count(*)::integer from review_batches_seen where batch = 4),
   '[review-links 3] the batch 4 link lists the rest');
 select is(
   (select array_agg(k order by k) from jsonb_object_keys(public.review_link_overview(repeat('a', 43)) -> 'dialogues' -> 0) as k),
@@ -241,39 +244,39 @@ select is((public.review_link_overview(repeat('a', 43)) -> 'dialogues' -> 0 ->> 
   '[review-links 3] nothing answered yet');
 
 select is(public.review_link_dialogue(repeat('a', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 2 and batch_position = 1)), null,
+    (select dialogue_id from review_batches_seen where batch = 2 and batch_position = 1)), null,
   '[review-links 3] a dialogue of another batch is not shown');
 select is(public.review_link_dialogue(repeat('z', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)), null,
+    (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)), null,
   '[review-links 2] a wrong secret opens no dialogue');
 select is(
   jsonb_array_length(public.review_link_dialogue(repeat('a', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)) -> 'lines'),
+    (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)) -> 'lines'),
   (select count(*)::integer from public.dialogue_lines l where l.status = 'approved'
-     and l.dialogue_id = (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)),
+     and l.dialogue_id = (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)),
   '[review-links 3] the dialogue shows every approved line');
 select is(
   (select array_agg(k order by k) from jsonb_object_keys(public.review_link_dialogue(repeat('a', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)) -> 'lines' -> 0) as k),
+    (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)) -> 'lines' -> 0) as k),
   array['answer', 'english', 'id', 'note', 'position', 'speaker', 'spoken', 'spoken_audio', 'written', 'written_audio'],
   '[review-links 3] each line has spoken, written, English and both audio keys from the live content');
 select is(
   (select (x ->> 'spoken', x ->> 'written', x ->> 'english', x ->> 'spoken_audio')
      from jsonb_array_elements(public.review_link_dialogue(repeat('a', 43),
-       (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)) -> 'lines') x
+       (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)) -> 'lines') x
     where (x ->> 'position')::integer = 1),
   (select (l.text_puhe, l.text_kirja, l.gloss_en, l.audio_puhe_key) from public.dialogue_lines l
     where l.position = 1
-      and l.dialogue_id = (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 1)),
+      and l.dialogue_id = (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 1)),
   '[review-links 3] the line texts and audio key are the ones the app plays');
 select is(
   public.review_link_dialogue(repeat('a', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 2)) ->> 'previous',
-  (select dialogue_id::text from private.review_batch_dialogues() where batch = 1 and batch_position = 1),
+    (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 2)) ->> 'previous',
+  (select dialogue_id::text from review_batches_seen where batch = 1 and batch_position = 1),
   '[review-links 3] a dialogue names the one before it in the batch');
 select is(
   public.review_link_dialogue(repeat('a', 43),
-    (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 27)) ->> 'next',
+    (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 27)) ->> 'next',
   null, '[review-links 3] the last dialogue of the batch has no next one');
 select throws_ok($$ select * from private.review_links $$, '42501', null, '[review-links 5] anon cannot read review_links');
 select throws_ok($$ insert into private.review_answers (link_id, line_id, answer) values (gen_random_uuid(), 1, 'correct') $$,
@@ -290,7 +293,7 @@ reset role;
 -- second dialogue, and line 1 of the first dialogue of batch 2.
 select set_config(format('rl.b%sd%sl%s', b.batch, b.batch_position, l.position), l.id::text, true)
   from public.dialogue_lines l
-  join private.review_batch_dialogues() b on b.dialogue_id = l.dialogue_id
+  join review_batches_seen b on b.dialogue_id = l.dialogue_id
  where l.status = 'approved'
    and ((b.batch = 1 and b.batch_position = 1 and l.position <= 3)
      or (b.batch = 1 and b.batch_position = 2 and l.position <= 2)
@@ -365,12 +368,12 @@ select is((public.review_link_overview(repeat('a', 43)) -> 'dialogues' -> 0 ->> 
   '[review-links 3] the list counts the answered lines of the first dialogue');
 select is(
   (select x ->> 'note' from jsonb_array_elements(public.review_link_dialogue(repeat('a', 43),
-     (select dialogue_id from private.review_batch_dialogues() where batch = 1 and batch_position = 2)) -> 'lines') x
+     (select dialogue_id from review_batches_seen where batch = 1 and batch_position = 2)) -> 'lines') x
     where (x ->> 'position')::integer = 2),
   E'Two\nlines', '[review-links 4] the dialogue gives back the saved answer and note, so the reviewer can come back');
 select is(
   (select count(*)::integer from jsonb_array_elements(public.review_link_dialogue(repeat('b', 43),
-     (select dialogue_id from private.review_batch_dialogues() where batch = 4 and batch_position = 1)) -> 'lines') x
+     (select dialogue_id from review_batches_seen where batch = 4 and batch_position = 1)) -> 'lines') x
     where x ->> 'answer' is not null), 0,
   '[review-links 4] another link of the same person does not see these answers');
 reset role;
@@ -430,7 +433,7 @@ select is(
 select is(
   (select (x ->> 'lines')::bigint from jsonb_array_elements(public.owner_review_overview() -> 'links') x
     where (x ->> 'batch')::integer = 1),
-  (select count(*) from public.dialogue_lines l join private.review_batch_dialogues() b on b.dialogue_id = l.dialogue_id
+  (select count(*) from public.dialogue_lines l join review_batches_seen b on b.dialogue_id = l.dialogue_id
     where b.batch = 1 and l.status = 'approved'),
   '[review-links 6] and knows how many lines batch 1 has');
 select is(
