@@ -124,3 +124,45 @@
   display: grid;
   gap: var(--space-2);
 }
+
+/* Under each reviewer sign up (fast route review-links): the links sent, then the batch choice and
+   "Send review link" on one row that wraps on a narrow phone. */
+.links {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  min-width: 0;
+}
+
+.send {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.batchLabel {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+/* The batch choice: the app's text field look, as a native list so every phone shows its own picker. */
+.batch {
+  min-width: 4.5rem;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-field);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+}
+
+.batch:focus-visible {
+  outline: 2px solid var(--color-control-edge);
+  outline-offset: 1px;
+}

@@ -595,3 +595,230 @@ describe('the owner page reviewer sign ups', () => {
     expect(post.status).toBe(405)
   })
 })
+
+// Fast route review-links: labels [review-links N] are the "Done when" statement numbers from
+// factory/jobs/review-links/spec.md. The owner's "Send review link", the links' progress and
+// the answers to look at.
+describe('the owner page review links', () => {
+  const SIGNUP = '0b7e2c1a-8f3d-4c2b-9a1e-5d6f7a8b9c0d'
+  const TOKEN = 'T'.repeat(43)
+  const LINK_ROW = {
+    id: '5a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d',
+    signup_id: SIGNUP,
+    batch: 2,
+    sent_at: '2026-11-24T12:00:00+00:00',
+    lines: 210,
+    answered: 40,
+  }
+  const OVERVIEW = { links: [LINK_ROW], answers: [] }
+  let created: unknown
+  let createCalls: Record<string, unknown>[]
+  let removed: Record<string, unknown>[]
+  let overviewAnswer: unknown
+  let emails: { to: { name: string; email: string }; link: string }[]
+  let emailWorks: boolean
+
+  beforeEach(() => {
+    created = {
+      found: true,
+      id: LINK_ROW.id,
+      batch: 2,
+      sent_at: LINK_ROW.sent_at,
+      name: 'Aino Virtanen',
+      email: 'aino@example.fi',
+    }
+    createCalls = []
+    removed = []
+    overviewAnswer = OVERVIEW
+    emails = []
+    emailWorks = true
+    env = { ...env, BREVO_API_KEY: 'test-brevo-key', CANONICAL_HOST: 'meetaleksi.com' }
+    deps = {
+      ...deps,
+      reviewToken: () => TOKEN,
+      reviewLinkEmail: (_env, to, link) => {
+        emails.push({ to, link })
+        return Promise.resolve(emailWorks)
+      },
+    }
+    const before = supabase.rest
+    supabase.rest = (request) => {
+      const reply = (value: unknown) =>
+        new Response(JSON.stringify(value), { status: 200, headers: { 'content-type': 'application/json' } })
+      if (request.url.pathname === '/rest/v1/rpc/owner_review_overview') return reply(overviewAnswer)
+      if (request.url.pathname === '/rest/v1/rpc/owner_create_review_link') {
+        createCalls.push(JSON.parse(request.body) as Record<string, unknown>)
+        return reply(created)
+      }
+      if (request.url.pathname === '/rest/v1/rpc/owner_delete_review_link') {
+        removed.push(JSON.parse(request.body) as Record<string, unknown>)
+        return reply(true)
+      }
+      return before?.(request)
+    }
+  })
+
+  const send = async (body: unknown, cookie?: string, extra?: Record<string, string>) =>
+    handleRequest(
+      await ownerRequest('/api/owner/review-links/send', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        ...(cookie ? { cookie } : {}),
+        ...(extra ? { extra } : {}),
+      }),
+      env,
+      deps,
+    )
+
+  it('[review-links 1] one press records the batch and sends one email with the link on the public address', async () => {
+    const cookie = await signedInCookie()
+    const res = await send({ signupId: SIGNUP, batch: 2 }, cookie)
+    expect(res.status).toBe(201)
+    expectPrivate(res)
+    expect(await res.json()).toEqual({ sent: true, id: LINK_ROW.id, batch: 2, sent_at: LINK_ROW.sent_at })
+    expect(createCalls).toEqual([{ p_signup_id: SIGNUP, p_batch: 2, p_token: TOKEN }])
+    expect(emails).toEqual([
+      {
+        to: { name: 'Aino Virtanen', email: 'aino@example.fi' },
+        link: `https://meetaleksi.com/review/${TOKEN}`,
+      },
+    ])
+    expect(removed).toEqual([])
+    const call = supabase.requests.find((r) => r.url.pathname === '/rest/v1/rpc/owner_create_review_link')
+    const bearer = (call?.headers.get('authorization') ?? '').replace(/^Bearer /, '')
+    expect(supabase.issued).toContain(bearer)
+  })
+
+  it('[review-links 2] the secret never comes back to the owner page', async () => {
+    const cookie = await signedInCookie()
+    const res = await send({ signupId: SIGNUP, batch: 2 }, cookie)
+    expect(await res.text()).not.toContain(TOKEN)
+  })
+
+  it('[review-links 1] without the Brevo settings nothing is recorded or sent, and the answer says so', async () => {
+    env = { ...env, BREVO_API_KEY: '' }
+    const cookie = await signedInCookie()
+    const res = await send({ signupId: SIGNUP, batch: 1 }, cookie)
+    expect(res.status).toBe(503)
+    expect(await res.json()).toEqual({ error: 'email_not_set' })
+    expect(createCalls).toEqual([])
+    expect(emails).toEqual([])
+    const list = await handleRequest(await ownerRequest('/api/owner/review-links', { cookie }), env, deps)
+    expect((await list.json<{ emailReady: boolean }>()).emailReady).toBe(false)
+  })
+
+  it('[review-links 1] when Brevo does not take the email, the new link is deleted again', async () => {
+    emailWorks = false
+    const cookie = await signedInCookie()
+    const res = await send({ signupId: SIGNUP, batch: 3 }, cookie)
+    expect(res.status).toBe(502)
+    expect(await res.json()).toEqual({ error: 'not_sent' })
+    expect(removed).toEqual([{ p_link_id: LINK_ROW.id }])
+  })
+
+  it('[review-links 1] "Send review link" can be pressed again: each send makes a new link', async () => {
+    let n = 0
+    deps = { ...deps, reviewToken: () => String(n++).padStart(43, 'k') }
+    const cookie = await signedInCookie()
+    expect((await send({ signupId: SIGNUP, batch: 1 }, cookie)).status).toBe(201)
+    expect((await send({ signupId: SIGNUP, batch: 1 }, cookie)).status).toBe(201)
+    expect(createCalls.map((c) => c.p_token)).toEqual(['k'.repeat(42) + '0', 'k'.repeat(42) + '1'])
+    expect(emails[0]?.link).not.toBe(emails[1]?.link)
+  })
+
+  it('[review-links 1] a batch outside 1 to 4, an odd id, another site, GET or no sign in records nothing', async () => {
+    const cookie = await signedInCookie()
+    for (const body of [
+      { signupId: SIGNUP, batch: 0 },
+      { signupId: SIGNUP, batch: 5 },
+      { signupId: SIGNUP, batch: '1' },
+      { signupId: SIGNUP, batch: 1.5 },
+      { signupId: 'all', batch: 1 },
+      { batch: 1 },
+    ])
+      expect((await send(body, cookie)).status, JSON.stringify(body)).toBe(400)
+    expect(
+      (await send({ signupId: SIGNUP, batch: 1 }, cookie, { origin: 'https://evil.example' })).status,
+    ).toBe(403)
+    expect(
+      (await send({ signupId: SIGNUP, batch: 1 }, cookie, { 'sec-fetch-site': 'cross-site' })).status,
+    ).toBe(403)
+    expect(
+      (await handleRequest(await ownerRequest('/api/owner/review-links/send', { cookie }), env, deps)).status,
+    ).toBe(405)
+    expect((await send({ signupId: SIGNUP, batch: 1 })).status).toBe(401)
+    expect(createCalls).toEqual([])
+    expect(emails).toEqual([])
+  })
+
+  it('[review-links 1] an account not on the owner list gets 403, and a sign up that is gone 404, with no email', async () => {
+    const cookie = await signedInCookie()
+    created = null
+    const notOwner = await send({ signupId: SIGNUP, batch: 1 }, cookie)
+    expect(notOwner.status).toBe(403)
+    expect(await notOwner.json()).toEqual({ error: 'not_owner' })
+    created = { found: false }
+    expect((await send({ signupId: SIGNUP, batch: 1 }, cookie)).status).toBe(404)
+    expect(emails).toEqual([])
+  })
+
+  it('[review-links 1] without the Access token nothing is recorded or sent', async () => {
+    const cookie = await signedInCookie()
+    const res = await handleRequest(
+      await ownerRequest('/api/owner/review-links/send', {
+        method: 'POST',
+        body: JSON.stringify({ signupId: SIGNUP, batch: 1 }),
+        cookie,
+        jwt: null,
+      }),
+      env,
+      deps,
+    )
+    expect(res.status).toBe(403)
+    expect(createCalls).toEqual([])
+    expect(emails).toEqual([])
+  })
+
+  it('[review-links 1] without CANONICAL_HOST (a local run) the link uses the request address', async () => {
+    env = { ...env, CANONICAL_HOST: '' }
+    const cookie = await signedInCookie()
+    await send({ signupId: SIGNUP, batch: 1 }, cookie)
+    expect(emails[0]?.link).toBe(`${OWNER}/review/${TOKEN}`)
+  })
+
+  it('[review-links 6] the owner gets every link with its progress and the answers, and whether email works', async () => {
+    const cookie = await signedInCookie()
+    const res = await handleRequest(await ownerRequest('/api/owner/review-links', { cookie }), env, deps)
+    expect(res.status).toBe(200)
+    expectPrivate(res)
+    expect(await res.json()).toEqual({ ...OVERVIEW, emailReady: true })
+    overviewAnswer = null
+    const notOwner = await handleRequest(await ownerRequest('/api/owner/review-links', { cookie }), env, deps)
+    expect(notOwner.status).toBe(403)
+    expect((await handleRequest(await ownerRequest('/api/owner/review-links'), env, deps)).status).toBe(401)
+  })
+
+  it('[review-links 6] the app host has no owner review link routes', async () => {
+    for (const path of ['/api/owner/review-links', '/api/owner/review-links/send']) {
+      const res = await handleRequest(new Request(`${ORIGIN}${path}`), env, deps)
+      expect(res.status, path).toBe(404)
+    }
+    expect(createCalls).toEqual([])
+  })
+
+  it('[review-links 6] the list refuses another site and accepts only GET', async () => {
+    const cookie = await signedInCookie()
+    const cross = await handleRequest(
+      await ownerRequest('/api/owner/review-links', { cookie, extra: { 'sec-fetch-site': 'cross-site' } }),
+      env,
+      deps,
+    )
+    expect(cross.status).toBe(403)
+    const post = await handleRequest(
+      await ownerRequest('/api/owner/review-links', { method: 'POST', body: '{}', cookie }),
+      env,
+      deps,
+    )
+    expect(post.status).toBe(405)
+  })
+})

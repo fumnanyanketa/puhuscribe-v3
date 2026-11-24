@@ -397,9 +397,9 @@ select is(
       and k.confrelid in ('public.units'::regclass, 'public.dialogues'::regclass,
                           'public.dialogue_lines'::regclass, 'public.forms'::regclass)) as links),
   array['cards.form_id r', 'dialogue_lines.dialogue_id r', 'dialogues.unit_id r', 'kept_recordings.line_id r',
-        'review_logs.form_id r', 'sessions.dialogue_id r', 'speaking_attempts.form_id r',
+        'private.review_answers.line_id r', 'review_logs.form_id r', 'sessions.dialogue_id r', 'speaking_attempts.form_id r',
         'speaking_attempts.line_id r', 'tokens.form_id r', 'tokens.line_id r'],
-  '[data 14] [speak 16] every link to a unit, dialogue, line or form is on delete restrict'
+  '[data 14] [speak 16] [review-links 5] every link to a unit, dialogue, line or form is on delete restrict'
 );
 
 -- Helper functions live in a schema the API does not expose ------------------------

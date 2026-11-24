@@ -1,0 +1,25 @@
+
+Running 20 tests using 2 workers
+
+[1/20] [webkit] › e2e\review-links.spec.ts:121:3 › the review list › [review-links 3] [review-links 7] shows the batch, its 27 dialogues and each one's progress, at 375 x 812, with no cookie
+[2/20] [chromium] › e2e\review-links.spec.ts:121:3 › the review list › [review-links 3] [review-links 7] shows the batch, its 27 dialogues and each one's progress, at 375 x 812, with no cookie
+[3/20] [chromium] › e2e\review-links.spec.ts:144:3 › the review list › [review-links 3] the list on a desktop
+[4/20] [webkit] › e2e\review-links.spec.ts:144:3 › the review list › [review-links 3] the list on a desktop
+[5/20] [webkit] › e2e\review-links.spec.ts:155:3 › a dialogue page › [review-links 3] each line has spoken, written, English and Play, from the Worker
+[6/20] [chromium] › e2e\review-links.spec.ts:155:3 › a dialogue page › [review-links 3] each line has spoken, written, English and Play, from the Worker
+[7/20] [chromium] › e2e\review-links.spec.ts:181:3 › a dialogue page › [review-links 4] each answer saves on tap and says "Saved."; "Needs a fix" opens a note box of up to 500 characters
+[8/20] [webkit] › e2e\review-links.spec.ts:181:3 › a dialogue page › [review-links 4] each answer saves on tap and says "Saved."; "Needs a fix" opens a note box of up to 500 characters
+[9/20] [chromium] › e2e\review-links.spec.ts:246:3 › a dialogue page › [review-links 4] a failed save says so and keeps what was typed; a tap while saving is ignored
+[10/20] [chromium] › e2e\review-links.spec.ts:292:3 › a dialogue page › [review-links 4] a saved answer and note come back when the reviewer returns
+[11/20] [chromium] › e2e\review-links.spec.ts:303:3 › a dialogue page › [review-links 7] the pages fit 320 px with 200 percent text, with 44 px controls and no sideways scroll
+[12/20] [webkit] › e2e\review-links.spec.ts:246:3 › a dialogue page › [review-links 4] a failed save says so and keeps what was typed; a tap while saving is ignored
+[13/20] [chromium] › e2e\review-links.spec.ts:331:3 › a link that does not work › [review-links 2] a wrong or deleted link and a malformed one show the same plain page
+[14/20] [webkit] › e2e\review-links.spec.ts:292:3 › a dialogue page › [review-links 4] a saved answer and note come back when the reviewer returns
+[15/20] [chromium] › e2e\review-links.spec.ts:454:3 › the owner page review links › [review-links 1] [review-links 6] each sign up has "Send review link" with batches 1 to 4; one press sends one
+[16/20] [webkit] › e2e\review-links.spec.ts:303:3 › a dialogue page › [review-links 7] the pages fit 320 px with 200 percent text, with 44 px controls and no sideways scroll
+[17/20] [chromium] › e2e\review-links.spec.ts:499:3 › the owner page review links › [review-links 1] without the Brevo settings the owner page says so, and a press sends nothing
+[18/20] [webkit] › e2e\review-links.spec.ts:331:3 › a link that does not work › [review-links 2] a wrong or deleted link and a malformed one show the same plain page
+[19/20] [webkit] › e2e\review-links.spec.ts:454:3 › the owner page review links › [review-links 1] [review-links 6] each sign up has "Send review link" with batches 1 to 4; one press sends one
+[20/20] [webkit] › e2e\review-links.spec.ts:499:3 › the owner page review links › [review-links 1] without the Brevo settings the owner page says so, and a press sends nothing
+  1 skipped
+  19 passed (1.3m)

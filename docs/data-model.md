@@ -223,6 +223,32 @@ Native Finnish speakers offer to check the Finnish at the public page `/reviewer
   `public.owner_delete_reviewer_signup(p_id)`. Both answer only an account on `private.owners` with a
   live sign in, and null to anyone else.
 
+## Review links (fast route review-links, 24 November 2026)
+
+The owner sends a person who signed up their own private review link, and they mark each line
+(`supabase/migrations/20261124133711_review_links.sql`).
+
+- `private.review_links` holds one row per link sent: the sign up, the batch (1 to 4), the sha256 hash
+  of the link's secret (never the secret), when it was sent, and the count of answers saved in the
+  current minute. Deleting the sign up deletes its links.
+- `private.review_answers` holds one answer per link and line: `correct`, `needs_fix` or `not_sure`, a
+  note of at most 500 characters (only with `needs_fix`) and the time. It references the line id in
+  `public.dialogue_lines`. Deleting a link deletes its answers.
+- The batches are worked out by `private.review_batch_dialogues()` from the published road dialogues
+  (an approved dialogue in an approved unit with a stop number) in road order: by stop, then by the
+  dialogue's place in the stop. The first 27 are batch 1, the next 27 batch 2, the next 27 batch 3, and
+  batch 4 takes the rest. With today's 108 dialogues that is stops 1 to 9, 10 to 18, 19 to 27 and 28 to 36.
+- No API role has any right on either table, and they have no rule. The Worker, as anon, reads and
+  writes through `public.review_link_overview(p_token)`, `public.review_link_dialogue(p_token,
+  p_dialogue_id)` and `public.review_link_answer(p_token, p_line_id, p_answer, p_note)`, which hash the
+  secret and answer null (or `no_link`) for a wrong one. The answer door allows at most 60 answers a
+  minute per link.
+- The owner works through `public.owner_create_review_link(p_signup_id, p_batch, p_token)`,
+  `public.owner_delete_review_link(p_link_id)` and `public.owner_review_overview()`, which answer only an
+  account on `private.owners` with a live sign in.
+- Nothing links to `auth.users`, so nothing goes into `public.export_my_data()`. The privacy notice lists
+  the answers under "From people with no account".
+
 ## Reference data
 
 | Table | What it holds | Who can read or write | First used by |

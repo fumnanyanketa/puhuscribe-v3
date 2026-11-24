@@ -13,6 +13,14 @@ import {
   type LearnerContext,
 } from './learner-auth.ts'
 import { isPageRoute } from './page-routes.ts'
+import { REVIEW_BATCHES, reviewPagePath } from '../src/lib/review-link.ts'
+import { canonicalHost, type CanonicalHostEnv } from './canonical-host.ts'
+import {
+  reviewLinkEmailReady,
+  sendReviewLinkEmail,
+  type FeedbackAlertEnv,
+} from './providers/feedback-alert.ts'
+import { newReviewToken } from './review-links.ts'
 
 // The owner page's own address (factory/jobs/14-analytics/spec.md, "Done
 // when" 13 to 15 and 18; Decision 5).
@@ -97,6 +105,63 @@ export function supabaseOwnerReviewersDb(client: LearnerClient): OwnerReviewersD
   }
 }
 
+/**
+ * The private review links (fast route review-links, "Done when" 1, 5 and 6),
+ * through three database functions that answer only the owner with a live sign in.
+ */
+export interface OwnerReviewLinksDb {
+  /** Every link with its progress and every "Needs a fix" and "Not sure" answer, or null when this account may not see them. */
+  overview(): Promise<unknown>
+  /**
+   * Records a new link (only the hash of its secret is kept). The name and email to send it to;
+   * "missing" when there is no such sign up; null when this account may not.
+   */
+  create(
+    signupId: string,
+    batch: number,
+    token: string,
+  ): Promise<{ id: string; batch: number; sentAt: string; name: string; email: string } | 'missing' | null>
+  /** Deletes one link and its answers (its email was not sent). */
+  remove(linkId: string): Promise<boolean | null>
+}
+
+export function supabaseOwnerReviewLinksDb(client: LearnerClient): OwnerReviewLinksDb {
+  // Newer than the committed database types too (see supabaseOwnerReviewersDb).
+  const rpc = client.rpc.bind(client) as unknown as NamedRpc
+  return {
+    async overview() {
+      const { data, error } = await rpc('owner_review_overview')
+      if (error) throw new OwnerDbUnavailable()
+      return data ?? null
+    },
+    async create(signupId, batch, token) {
+      const { data, error } = await rpc('owner_create_review_link', {
+        p_signup_id: signupId,
+        p_batch: batch,
+        p_token: token,
+      })
+      if (error) throw new OwnerDbUnavailable()
+      if (data === null || data === undefined) return null
+      const row = data as Record<string, unknown>
+      if (row.found === false) return 'missing'
+      const { id, sent_at: sentAt, name, email } = row
+      if (
+        typeof id !== 'string' ||
+        typeof sentAt !== 'string' ||
+        typeof name !== 'string' ||
+        typeof email !== 'string'
+      )
+        throw new OwnerDbUnavailable()
+      return { id, batch, sentAt, name, email }
+    },
+    async remove(linkId) {
+      const { data, error } = await rpc('owner_delete_review_link', { p_link_id: linkId })
+      if (error) throw new OwnerDbUnavailable()
+      return typeof data === 'boolean' ? data : null
+    },
+  }
+}
+
 export interface OwnerDeps extends ApiDeps {
   /** Tests pass a local key set; normally the team's keys from Cloudflare. */
   accessKeys?: KeySource
@@ -104,6 +169,16 @@ export interface OwnerDeps extends ApiDeps {
   ownerDb?: (context: LearnerContext) => OwnerDb
   /** Tests pass a fake for the reviewer sign ups; normally Supabase, as the signed in account. */
   ownerReviewersDb?: (context: LearnerContext) => OwnerReviewersDb
+  /** Tests pass a fake for the review links; normally Supabase, as the signed in account. */
+  ownerReviewLinksDb?: (context: LearnerContext) => OwnerReviewLinksDb
+  /** Tests pass a fake for the review link email; normally Brevo (worker/providers/feedback-alert.ts). */
+  reviewLinkEmail?: (
+    env: FeedbackAlertEnv,
+    to: { name: string; email: string },
+    link: string,
+  ) => Promise<boolean>
+  /** Tests pass a fixed secret; normally 32 random bytes (worker/review-links.ts). */
+  reviewToken?: () => string
 }
 
 const HOSTNAME = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/
@@ -278,7 +353,82 @@ async function deleteReviewerSignup(request: Request, env: ApiEnv, deps: OwnerDe
   })
 }
 
-interface OwnerHostEnv extends ApiEnv, OwnerEnv {
+function reviewLinksDbFor(context: LearnerContext, deps: OwnerDeps): OwnerReviewLinksDb {
+  return deps.ownerReviewLinksDb
+    ? deps.ownerReviewLinksDb(context)
+    : supabaseOwnerReviewLinksDb(context.client)
+}
+
+// GET /api/owner/review-links: every review link with its batch, time and
+// progress, every "Needs a fix" and "Not sure" answer newest first, and
+// whether the Worker can send the email (fast route review-links, "Done when"
+// 1 and 6). Only for the signed in owner.
+async function reviewLinks(request: Request, env: OwnerHostEnv, deps: OwnerDeps): Promise<Response> {
+  const refused = await refuseNonGet(request)
+  if (refused) return refused
+  if (fromOtherSite(request)) return json({ error: 'forbidden' }, 403)
+  return asOwner(request, env, deps, async (context) => {
+    const overview = await reviewLinksDbFor(context, deps).overview()
+    if (overview === null || typeof overview !== 'object') return json({ error: 'not_owner' }, 403)
+    return json({ ...overview, emailReady: reviewLinkEmailReady(env) })
+  })
+}
+
+/**
+ * Where the review pages live: the app's public address (CANONICAL_HOST on
+ * the live Worker, meetaleksi.com), never the owner host, which shows only the
+ * owner page. Without it (local runs) the request's own address.
+ */
+export function reviewLinkOrigin(request: Request, env: CanonicalHostEnv): string {
+  const host = canonicalHost(env)
+  return host === null ? new URL(request.url).origin : `https://${host}`
+}
+
+// POST /api/owner/review-links/send {"signupId": "...", "batch": 1..4}: makes
+// a new secret, records the link (only the secret's hash is kept), and emails
+// the person their link through Brevo, in the owner's words. Without
+// BREVO_API_KEY nothing is recorded or sent (503 email_not_set). When Brevo
+// does not take the email, the link is deleted again (502 not_sent), so no
+// link exists that nobody received. The secret is never in the answer and
+// never logged. Only for the signed in owner.
+async function sendReviewLink(request: Request, env: OwnerHostEnv, deps: OwnerDeps): Promise<Response> {
+  const write = await refuseUnsafeWrite(request)
+  if (write.refused) return write.refused
+  if (fromOtherSite(request)) return json({ error: 'forbidden' }, 403)
+  let body: Record<string, unknown> | null
+  try {
+    body = JSON.parse(write.body) as Record<string, unknown> | null
+  } catch {
+    body = null
+  }
+  const signupId = body?.signupId
+  const batch = body?.batch
+  if (typeof signupId !== 'string' || !UUID.test(signupId)) return json({ error: 'bad_id' }, 400)
+  if (typeof batch !== 'number' || !(REVIEW_BATCHES as readonly number[]).includes(batch))
+    return json({ error: 'bad_batch' }, 400)
+  return asOwner(request, env, deps, async (context) => {
+    if (!reviewLinkEmailReady(env)) return json({ error: 'email_not_set' }, 503)
+    const db = reviewLinksDbFor(context, deps)
+    const token = (deps.reviewToken ?? newReviewToken)()
+    const created = await db.create(signupId, batch, token)
+    if (created === null) return json({ error: 'not_owner' }, 403)
+    if (created === 'missing') return json({ error: 'not_found' }, 404)
+    const link = `${reviewLinkOrigin(request, env)}${reviewPagePath(token)}`
+    const to = { name: created.name, email: created.email }
+    const sent = await (
+      deps.reviewLinkEmail
+        ? deps.reviewLinkEmail(env, to, link)
+        : sendReviewLinkEmail(env, deps.fetch, to, link)
+    ).catch(() => false)
+    if (!sent) {
+      await db.remove(created.id).catch(() => null)
+      return json({ error: 'not_sent' }, 502)
+    }
+    return json({ sent: true, id: created.id, batch: created.batch, sent_at: created.sentAt }, 201)
+  })
+}
+
+interface OwnerHostEnv extends ApiEnv, OwnerEnv, CanonicalHostEnv {
   ASSETS?: Fetcher
 }
 
@@ -318,6 +468,10 @@ export async function handleOwnerRequest(
     return privately(await reviewerSignups(request, env, deps), OWNER_API_CSP)
   if (pathname === '/api/owner/reviewers/delete')
     return privately(await deleteReviewerSignup(request, env, deps), OWNER_API_CSP)
+  if (pathname === '/api/owner/review-links')
+    return privately(await reviewLinks(request, env, deps), OWNER_API_CSP)
+  if (pathname === '/api/owner/review-links/send')
+    return privately(await sendReviewLink(request, env, deps), OWNER_API_CSP)
   if (pathname === '/api' || pathname.startsWith('/api/')) {
     if (OWNER_API_ROUTES.has(pathname)) return privately(await handleApi(request, env, deps), OWNER_API_CSP)
     await readBody(request)

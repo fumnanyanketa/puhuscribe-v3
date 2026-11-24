@@ -29,6 +29,9 @@ export const PAGE_ROUTES = [
   '/learn/owner',
   // The public reviewer sign up page (fast route reviewers): the app shell, outside /learn.
   '/reviewers',
+  // The private review pages, /review/<secret> and /review/<secret>/<dialogue> (fast route
+  // review-links): the app shell, answered by the Worker with private headers, never as a file.
+  '/review/*',
 ] as const
 
 /** The built landing file's own address, which only ever redirects to "/". */
@@ -46,4 +49,9 @@ export function matchesPattern(pathname: string, patterns: readonly string[]): b
 /** True when the path is one of the app's pages. */
 export function isPageRoute(pathname: string): boolean {
   return matchesPattern(pathname, PAGE_ROUTES)
+}
+
+/** The private review pages (fast route review-links): every address under /review/. */
+export function isReviewPage(pathname: string): boolean {
+  return matchesPattern(pathname, ['/review/*'])
 }
