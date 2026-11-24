@@ -418,6 +418,12 @@ isOneToOne: false
 "owner_dashboard":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"owner_delete_reviewer_signup":
+{ Args: { "p_id": string }; Returns: boolean
+                           },
+"owner_reviewer_signups":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "record_review":
 { Args: { "p_difficulty": number,"p_due": string,"p_elapsed_days": number,"p_expected_reps": number,"p_form_id": number,"p_lapses": number,"p_last_review": string,"p_log_difficulty": number,"p_log_due": string,"p_log_elapsed_days": number,"p_log_last_elapsed_days": number,"p_log_scheduled_days": number,"p_log_stability": number,"p_log_state": Database["public"]['Enums']["card_state"],"p_mode": Database["public"]['Enums']["review_mode"],"p_rating": number,"p_reps": number,"p_review_time": string,"p_scheduled_days": number,"p_stability": number,"p_state": Database["public"]['Enums']["card_state"] }; Returns: boolean
                            },
@@ -447,6 +453,9 @@ isOneToOne: false
                            },
 "save_progress_note":
 { Args: { "p_session_id": string }; Returns: string
+                           },
+"sign_up_reviewer":
+{ Args: { "p_email": string,"p_name": string,"p_thanks_name": string }; Returns: boolean
                            },
 "stop_review_forms":
 { Args: { "p_stop_number": number }; Returns: {

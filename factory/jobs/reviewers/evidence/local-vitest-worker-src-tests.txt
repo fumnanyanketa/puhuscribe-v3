@@ -1,0 +1,9 @@
+FAIL  tests/design-build.test.ts [ tests/design-build.test.ts ]
+FAIL  tests/test-fixture-units-2-3.test.ts > the built app and the units 2 and 3 fixture
+FAIL  tests/test-fixture.test.ts > the built app
+FAIL  tests/analytics-rules.test.ts > settings and records > [analytics 32] the conventions, data model and README record the job
+FAIL  tests/content-audio.test.ts > audio exists only for approved lines > [content 17] the repository: every file under public/audio is a published key with a matching hash, and every key has its file
+FAIL  tests/content-audio.test.ts > audio exists only for approved lines > [content 17] nothing under content/ reaches the built app
+FAIL  src/lib/wav.test.ts > the WAV writer > [speak 9] base64 goes there and back unchanged, also for a full 10 seconds
+Test Files  6 failed | 88 passed (94)
+Tests  4 failed | 1273 passed | 2 skipped (1279)

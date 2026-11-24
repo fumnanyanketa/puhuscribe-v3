@@ -5,6 +5,7 @@ import { EmailFlow } from './screens/EmailFlow.tsx'
 import { FeedbackPage } from './screens/FeedbackPage.tsx'
 import { OwnerPage } from './screens/OwnerPage.tsx'
 import { PrivacyPage } from './screens/PrivacyPage.tsx'
+import { ReviewersPage } from './screens/ReviewersPage.tsx'
 import { RoadScreen } from './screens/RoadScreen.tsx'
 import { SessionPage } from './screens/SessionPage.tsx'
 import { VoiceSettings } from './screens/VoiceSettings.tsx'
@@ -20,6 +21,8 @@ import { VoiceSettings } from './screens/VoiceSettings.tsx'
 // Every other path, deep links included, shows the road, the home screen
 // (job 19-redesign). The "Hei!"
 // smoke test page of job 2-smoke is retired (job 8, statement 21).
+// The public reviewer sign up page /reviewers (fast route reviewers) is the one
+// page outside /learn; it needs no account and calls no /api route until Send.
 
 export function App({ path }: { path: string }) {
   if (path === PATHS.session) return <SessionPage />
@@ -31,5 +34,6 @@ export function App({ path }: { path: string }) {
   if (path === PATHS.privacy) return <PrivacyPage />
   if (path === PATHS.feedback) return <FeedbackPage />
   if (path === PATHS.owner) return <OwnerPage />
+  if (path === PATHS.reviewers) return <ReviewersPage />
   return <RoadScreen />
 }

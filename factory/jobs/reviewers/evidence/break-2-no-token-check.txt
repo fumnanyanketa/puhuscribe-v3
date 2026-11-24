@@ -1,0 +1,4 @@
+Break: POST /api/reviewers saves without a Turnstile token (token check removed on purpose).
+     × [reviewers 2] without a token nothing is saved: 403 check_needed with the public site key 61ms
+     × [reviewers 6] no alert when the input is refused or the check fails 4ms
+      Tests  2 failed | 33 passed (35)

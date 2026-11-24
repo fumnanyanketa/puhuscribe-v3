@@ -27,6 +27,8 @@ export const PAGE_ROUTES = [
   '/learn/privacy',
   '/learn/feedback',
   '/learn/owner',
+  // The public reviewer sign up page (fast route reviewers): the app shell, outside /learn.
+  '/reviewers',
 ] as const
 
 /** The built landing file's own address, which only ever redirects to "/". */

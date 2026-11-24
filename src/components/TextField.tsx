@@ -5,7 +5,8 @@ import styles from './TextField.module.css'
 // job 19-redesign round 6): the drawings' milky field with a soft shadow and no
 // outline, its words as the placeholder ("Your email"). The label stays in the
 // page for screen readers, visually hidden, so the field keeps its name. An
-// optional line of help under it is read with the field.
+// optional line of help under it is read with the field. A form whose words
+// do not fit inside an empty field (fast route reviewers) shows the label above it.
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'className'> {
   id: string
@@ -14,16 +15,18 @@ interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id
   /** The words drawn inside the empty field, as in the drawings. */
   placeholder?: string
   hint?: string
+  /** Draws the label above the field instead of only naming it for screen readers (the reviewer sign up form). */
+  showLabel?: boolean
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
-  { id, label, hint, ...rest },
+  { id, label, hint, showLabel = false, ...rest },
   ref,
 ) {
   const hintId = hint ? `${id}-hint` : undefined
   return (
     <div className={styles.field}>
-      <label htmlFor={id} className={styles.label}>
+      <label htmlFor={id} className={showLabel ? styles.shownLabel : styles.label}>
         {label}
       </label>
       <input ref={ref} id={id} className={styles.input} aria-describedby={hintId} {...rest} />

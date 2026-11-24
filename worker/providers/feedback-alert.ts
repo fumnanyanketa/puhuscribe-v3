@@ -2,10 +2,12 @@ import type { FeedbackScreen } from '../../src/lib/feedback-types.ts'
 import { PATHS } from '../../src/lib/app-paths.ts'
 import type { Fetch } from '../learner-auth.ts'
 
-// The owner's email alert when a learner sends feedback (fast route
-// feedback-alert, owner's call of 21 November 2026: a short alert, never the
-// message itself). This is the only file that knows the alert goes through
-// Brevo's email API. Moving to another email service changes this file only.
+// The owner's email alerts (fast route feedback-alert, owner's call of 21
+// November 2026: a short alert, never the message itself; fast route
+// reviewers, owner's call of 24 November 2026: the same kind of alert when
+// someone signs up at /reviewers, never their name or email). This is the
+// only file that knows the alerts go through Brevo's email API. Moving to
+// another email service changes this file only.
 //
 // The alert holds the screen the message came from, the Helsinki time and a
 // link to the owner page. It never holds the message, the learner's account
@@ -22,6 +24,10 @@ import type { Fetch } from '../learner-auth.ts'
 //
 // Without BREVO_API_KEY and FEEDBACK_ALERT_TO (local runs, previews, tests),
 // nothing is sent. It never throws and writes nothing to the log.
+//
+// The reviewer sign up alert works the same way, with its own gap of the same
+// length, so a burst of feedback never hides a sign up and the other way round.
+// It holds only the Helsinki time and the owner page link.
 
 export interface FeedbackAlertEnv {
   /** Brevo API key, a secret on the live Worker only. */
@@ -36,6 +42,7 @@ export const BREVO_SEND_URL = 'https://api.brevo.com/v3/smtp/email'
 /** The address the sign in code emails already come from (src/privacy/processors.ts). */
 export const ALERT_SENDER = { name: 'Aleksi', email: 'hello@meetaleksi.com' }
 export const ALERT_SUBJECT = 'New feedback on Aleksi'
+export const REVIEWER_ALERT_SUBJECT = 'New reviewer sign-up on Aleksi'
 export const ALERT_GAP_SECONDS = 30 * 60
 const TIMEOUT_MS = 3000
 
@@ -65,6 +72,8 @@ export function memoryGate(): AlertGate {
 }
 
 const sharedGate = memoryGate()
+/** The reviewer sign up alert's own gap (fast route reviewers). */
+const reviewerGate = memoryGate()
 
 function setting(value: string | undefined): string {
   return value?.trim() ?? ''
@@ -91,16 +100,29 @@ export function alertText(screen: FeedbackScreen, at: Date, ownerHost: string): 
   return lines.join('\n')
 }
 
+/** The reviewer sign up alert's plain text (fast route reviewers). Holds no name and no email. */
+export function reviewerAlertText(at: Date, ownerHost: string): string {
+  const lines = [
+    `Someone signed up to help check the Finnish on ${helsinkiTime(at)} (Helsinki time).`,
+    '',
+    `You get at most one of these emails every ${String(ALERT_GAP_SECONDS / 60)} minutes, so there may be more sign-ups.`,
+  ]
+  if (ownerHost) lines.push('', `See them on your owner page: https://${ownerHost}${PATHS.owner}`)
+  return lines.join('\n')
+}
+
 /**
- * Emails the owner a short alert. True when Brevo accepted it; false when it
- * is not configured, inside the gap, refused or not reachable.
+ * Emails the owner one alert through Brevo, when it is configured and the
+ * gate is open. True when Brevo accepted it; false when it is not configured,
+ * inside the gap, refused or not reachable. Never throws.
  */
-export async function sendFeedbackAlert(
+async function sendOwnerAlert(
   env: FeedbackAlertEnv,
   fetchImpl: Fetch,
-  screen: FeedbackScreen,
-  at: Date = new Date(),
-  gate: AlertGate = sharedGate,
+  subject: string,
+  text: (ownerHost: string) => string,
+  at: Date,
+  gate: AlertGate,
 ): Promise<boolean> {
   const key = setting(env.BREVO_API_KEY)
   const to = setting(env.FEEDBACK_ALERT_TO)
@@ -118,8 +140,8 @@ export async function sendFeedbackAlert(
       body: JSON.stringify({
         sender: ALERT_SENDER,
         to: [{ email: to }],
-        subject: ALERT_SUBJECT,
-        textContent: alertText(screen, at, setting(env.OWNER_HOSTNAME)),
+        subject,
+        textContent: text(setting(env.OWNER_HOSTNAME)),
       }),
       signal: controller.signal,
     })
@@ -130,4 +152,38 @@ export async function sendFeedbackAlert(
   } finally {
     clearTimeout(timer)
   }
+}
+
+/**
+ * Emails the owner a short alert. True when Brevo accepted it; false when it
+ * is not configured, inside the gap, refused or not reachable.
+ */
+export function sendFeedbackAlert(
+  env: FeedbackAlertEnv,
+  fetchImpl: Fetch,
+  screen: FeedbackScreen,
+  at: Date = new Date(),
+  gate: AlertGate = sharedGate,
+): Promise<boolean> {
+  return sendOwnerAlert(env, fetchImpl, ALERT_SUBJECT, (host) => alertText(screen, at, host), at, gate)
+}
+
+/**
+ * Emails the owner that someone signed up as a reviewer (fast route
+ * reviewers). The same rules as the feedback alert, with its own gap.
+ */
+export function sendReviewerAlert(
+  env: FeedbackAlertEnv,
+  fetchImpl: Fetch,
+  at: Date = new Date(),
+  gate: AlertGate = reviewerGate,
+): Promise<boolean> {
+  return sendOwnerAlert(
+    env,
+    fetchImpl,
+    REVIEWER_ALERT_SUBJECT,
+    (host) => reviewerAlertText(at, host),
+    at,
+    gate,
+  )
 }

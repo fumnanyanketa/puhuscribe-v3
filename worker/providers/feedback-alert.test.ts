@@ -4,9 +4,12 @@ import {
   ALERT_SENDER,
   ALERT_SUBJECT,
   BREVO_SEND_URL,
+  REVIEWER_ALERT_SUBJECT,
   alertText,
   memoryGate,
+  reviewerAlertText,
   sendFeedbackAlert,
+  sendReviewerAlert,
 } from './feedback-alert.ts'
 
 // Labels [feedback-alert N] are the "Done when" statement numbers in
@@ -95,5 +98,67 @@ describe('sendFeedbackAlert', () => {
     expect(await sendFeedbackAlert(ENV, brevo(401).fetch, 'finish', AT, memoryGate())).toBe(false)
     const failing = vi.fn(() => Promise.reject(new Error('offline')))
     expect(await sendFeedbackAlert(ENV, failing, 'finish', AT, memoryGate())).toBe(false)
+  })
+})
+
+// Fast route reviewers: labels [reviewers N] are the "Done when" statement numbers from
+// factory/jobs/reviewers/spec.md.
+describe('sendReviewerAlert', () => {
+  it('[reviewers 6] sends one email through Brevo with the sender, the owner inbox and its own subject', async () => {
+    const { fetch, calls } = brevo()
+    expect(await sendReviewerAlert(ENV, fetch, AT, memoryGate())).toBe(true)
+    expect(calls).toHaveLength(1)
+    expect(calls[0]?.url).toBe(BREVO_SEND_URL)
+    expect(new Headers(calls[0]?.init.headers).get('api-key')).toBe('test-brevo-key')
+    const body = JSON.parse(calls[0]?.body ?? '') as Record<string, unknown>
+    expect(body.sender).toEqual(ALERT_SENDER)
+    expect(body.to).toEqual([{ email: 'owner@example.test' }])
+    expect(body.subject).toBe('New reviewer sign-up on Aleksi')
+    expect(REVIEWER_ALERT_SUBJECT).toBe('New reviewer sign-up on Aleksi')
+  })
+
+  it('[reviewers 6] the text holds the Helsinki time and the owner page link, and no name or email', async () => {
+    const text = reviewerAlertText(AT, 'owner.meetaleksi.com')
+    expect(text).toContain('21 November')
+    expect(text).toContain('14:32')
+    expect(text).toContain('https://owner.meetaleksi.com/learn/owner')
+    expect(text).not.toMatch(/@/u)
+    expect(reviewerAlertText(AT, '')).not.toContain('https://')
+    const { fetch, calls } = brevo()
+    await sendReviewerAlert(ENV, fetch, AT, memoryGate())
+    const sent = JSON.parse(calls[0]?.body ?? '') as Record<string, unknown>
+    expect(Object.keys(sent).sort()).toEqual(['sender', 'subject', 'textContent', 'to'])
+    expect(sent.textContent).toBe(reviewerAlertText(AT, 'owner.meetaleksi.com'))
+  })
+
+  it('[reviewers 6] the function takes no name or email, so none can reach the alert', () => {
+    // sendReviewerAlert(env, fetch, at, gate): nothing about the person who signed up is passed in.
+    expect(sendReviewerAlert.length).toBe(2)
+  })
+
+  it('[reviewers 6] sends nothing without the key or the inbox', async () => {
+    const { fetch } = brevo()
+    expect(await sendReviewerAlert({ ...ENV, BREVO_API_KEY: ' ' }, fetch, AT, memoryGate())).toBe(false)
+    expect(await sendReviewerAlert({ ...ENV, FEEDBACK_ALERT_TO: '' }, fetch, AT, memoryGate())).toBe(false)
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('[reviewers 6] shares the 30 minute gap rule, with a gap of its own', async () => {
+    const { fetch } = brevo()
+    const feedbackGate = memoryGate()
+    const reviewerGate = memoryGate()
+    expect(await sendFeedbackAlert(ENV, fetch, 'finish', AT, feedbackGate)).toBe(true)
+    expect(await sendReviewerAlert(ENV, fetch, AT, reviewerGate)).toBe(true)
+    const justInside = new Date(AT.getTime() + ALERT_GAP_SECONDS * 1000 - 1)
+    expect(await sendReviewerAlert(ENV, fetch, justInside, reviewerGate)).toBe(false)
+    const after = new Date(AT.getTime() + ALERT_GAP_SECONDS * 1000)
+    expect(await sendReviewerAlert(ENV, fetch, after, reviewerGate)).toBe(true)
+    expect(fetch).toHaveBeenCalledTimes(3)
+  })
+
+  it('[reviewers 6] never throws: a refusal or a network failure answers false', async () => {
+    expect(await sendReviewerAlert(ENV, brevo(401).fetch, AT, memoryGate())).toBe(false)
+    const failing = vi.fn(() => Promise.reject(new Error('offline')))
+    expect(await sendReviewerAlert(ENV, failing, AT, memoryGate())).toBe(false)
   })
 })

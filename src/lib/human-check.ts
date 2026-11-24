@@ -84,15 +84,21 @@ export function loadHumanCheck(): Promise<TurnstileApi | null> {
 
 export type HumanCheckResult = { token: string } | { problem: 'failed' | 'unavailable' }
 
+/** The action of the reviewer sign up form at /reviewers (fast route reviewers). */
+export const REVIEWERS_ACTION = 'reviewers'
+
 /**
  * Runs the check in `slot` and resolves with a token, or with why there is
  * none. `onAsk(true)` says Cloudflare is showing the learner something to do,
  * `onAsk(false)` that it is gone. The widget is removed when this resolves.
+ * `action` names the form, which the Worker checks: the guest Start unless
+ * another is named.
  */
 export async function runHumanCheck(
   slot: HTMLElement,
   siteKey: string,
   onAsk: (asking: boolean) => void,
+  action: string = GUEST_ACTION,
 ): Promise<HumanCheckResult> {
   const api = await loadHumanCheck()
   if (!api) return { problem: 'unavailable' }
@@ -123,7 +129,7 @@ export async function runHumanCheck(
     try {
       widgetId = api.render(slot, {
         sitekey: siteKey,
-        action: GUEST_ACTION,
+        action,
         appearance: 'interaction-only',
         size:
           slot.clientWidth < FLEXIBLE_MIN_WIDTH || window.innerWidth < NARROW_SCREEN ? 'compact' : 'flexible',

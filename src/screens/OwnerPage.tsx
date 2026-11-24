@@ -19,6 +19,7 @@ import {
 } from '../lib/owner-numbers.ts'
 import styles from './Account.module.css'
 import own from './Owner.module.css'
+import { OwnerReviewers } from './OwnerReviewers.tsx'
 
 // The owner page, at /owner on the owner's own hostname
 // (factory/jobs/14-analytics/spec.md, "Done when" 17, 20 and 27). One plain
@@ -184,6 +185,9 @@ function Numbers({ numbers }: { numbers: OwnerNumbers }) {
           </ul>
         )}
       </section>
+
+      {/* Fast route reviewers: the native speaker sign ups, with Delete. */}
+      <OwnerReviewers />
 
       <section className={styles.section} aria-labelledby="owner-crashes">
         <h2 id="owner-crashes" className={styles.heading}>

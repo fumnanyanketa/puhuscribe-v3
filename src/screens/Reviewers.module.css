@@ -1,0 +1,35 @@
+/* The reviewer sign up page at /reviewers (fast route reviewers). The privacy
+   notice's large title in ink, the account pages' summary text and the app's
+   text fields, with room between them. Values from src/styles/tokens.css. */
+
+.title {
+  margin: 0;
+  font-size: var(--text-title-large);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.25;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-2);
+  min-width: 0;
+}
+
+/* The small print and, under it, the link to the privacy notice. */
+.smallPrint {
+  display: grid;
+}
+
+/* Names and addresses can be long: a 40 letter word still fits at 375 px. */
+.form input {
+  overflow-wrap: anywhere;
+}
