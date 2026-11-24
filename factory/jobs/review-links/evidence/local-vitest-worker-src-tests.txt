@@ -1,0 +1,248 @@
+
+ RUN  v5.0.5 C:/Users/fumna/dev/puhuscribe-v3-public/.worktrees/review-links
+
+ ❯ tests/analytics-rules.test.ts (14 tests | 1 failed) 1127ms
+   ❯ settings and records (3)
+     × [analytics 32] the conventions, data model and README record the job 25ms
+ ❯ tests/content-audio.test.ts (23 tests | 1 failed) 16812ms
+   ❯ audio exists only for approved lines (21)
+     × [content 17] nothing under content/ reaches the built app 771ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/analytics-rules.test.ts > settings and records > [analytics 32] the conventions, data model and README record the job
+AssertionError: expected '# PuhuScribe v3\n\nPuhuScribe teaches…' to contain '## Owner page setup (job 14-analytics)'
+
+- Expected
++ Received
+
+- ## Owner page setup (job 14-analytics)
++ # PuhuScribe v3
++
++ PuhuScribe teaches adult newcomers in Finland the Finnish people actually speak, from A0 to A1. House rules for every AI session are in [AGENTS.md](AGENTS.md). Feature work goes through the factory (`/factory`).
++
++ ## Stack
++
++ The full decision, with the runner up for each choice and why it lost, is in [factory/jobs/1-stack/spec.md](factory/jobs/1-stack/spec.md#decision).
++
++ | Layer                           | Pick                                                                                      |
++ | ------------------------------- | ----------------------------------------------------------------------------------------- |
++ | Frontend                        | React 19, Vite 8, TypeScript (strict), single page app                                    |
++ | Hosting and API                 | One Cloudflare Worker serves the built app and every `/api/*` route from the same address |
++ | Database, sign in, access rules | Supabase, in an EU region (test project: West EU, Ireland, `eu-west-1`)                   |
++ | Runtime and packages            | Node 24 LTS, npm                                                                          |
++ | Unit tests                      | Vitest                                                                                    |
++ | Browser tests                   | Playwright, Chromium and WebKit at phone size (375 x 812)                                 |
++ | Lint and format                 | ESLint (typescript-eslint type checked rules, react-hooks, jsx-a11y), Prettier            |
++ | Finnish content pipeline        | Python 3.12, Voikko, pytest, ruff (runs in the GitHub check on Linux)                     |
++ | Secret scan                     | gitleaks                                                                                  |
++ | Dependency check                | `npm audit`, `pip-audit`, Dependabot                                                      |
++ | Automatic checks                | GitHub Actions: until the MVP launch a secret scan per change, one full run before launch |
++
++ Supabase's free plan offers only the general "Europe" region, so Supabase chose the country for the test project: Ireland, in the EU. The live project, `aleksi-live` (job go-live), is in Frankfurt, Germany (`eu-central-1`), also in the EU; the privacy notice names Germany.
++
++ Engines copied from PuhuScribe v2 are listed, with the v2 commit they came from, in [docs/v2-imports.md](docs/v2-imports.md).
++
++ ## Run it locally (Windows)
++
++ Needs Node 24.
++
++ ```
++ npm ci
++ npm run dev
++ ```
++
++ Open the address it prints (usually http://localhost:5173). The main address `/` is the public landing page; the learner app lives under `/learn` (job 17-landing-page). The front door at `/learn` shows the road; pressing Start makes a guest account on the Supabase project in `.env.local` (anonymous sign ins must be switched on there) and opens the session at `/learn/session` (job 8-first-session). Before a new guest is made, Cloudflare Turnstile checks for bots; locally it uses Cloudflare's test keys, which always pass, so it needs no setting (docs/turnstile.md). `http://localhost:5173/api/health` answers from the Worker.
++
++ `npm ci` also installs the commit check (lefthook, `lefthook.yml`). Before every commit it formats the staged files and scans them for secrets with gitleaks. Until the MVP launch it runs no ESLint, type check or ruff (owner's decision of 3 November 2026). It needs two free tools, installed once:
++
++ | Tool                                 | One time install                                               |
++ | ------------------------------------ | -------------------------------------------------------------- |
++ | gitleaks (secret scan)               | `winget install --id Gitleaks.Gitleaks -e`                     |
++ | ruff (Python lint and format checks) | `python -m pip install --user -r scripts/requirements-dev.txt` |
++
++ If one is missing, the commit is refused with that install command. Where each check runs is in [docs/conventions.md](docs/conventions.md#checks-and-where-they-run).
++
++ Other commands:
++
++ | Command                | What it does                                                                                                        |
++ | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
++ | `npm run build`        | Builds the browser files and the Worker bundle into `dist/`                                                         |
++ | `npm run typecheck`    | TypeScript strict check                                                                                             |
++ | `npm run lint`         | ESLint                                                                                                              |
++ | `npm run format:check` | Prettier check (`npm run format` fixes)                                                                             |
++ | `npm run check:code`   | Type check, lint and format check, in that order. Stops at the first that fails                                     |
++ | `npm test`             | Unit tests (Vitest), including the imported v2 scheduler and grader tests                                           |
++ | `npm run test:browser` | Browser tests (Playwright) against the built app and its Worker. First run `npx playwright install chromium webkit` |
++
++ The Finnish word checker tests need Linux (Voikko). They run in the GitHub check. See [scripts/generate/README.md](scripts/generate/README.md).
++
++ Switzer, the body font, is not in this repository because its licence forbids public repositories. Without it the app uses Poppins for body text and every command above passes; a script fetches the files when a deploy key is available. See [docs/fonts.md](docs/fonts.md).
++
++ Third party licences and attributions (the skills in `.claude/skills/` and some reference data) are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). The repository itself has no licence yet.
++
++ Local settings go in `.env.local`, which git ignores. [.env.example](.env.example) lists every name. Without the Supabase test project settings, `/api/health` reports the database as `not_configured` and the browser tests fail on purpose.
++
++ ## Addresses (job 17-landing-page)
++
++ | Address                                                                                                                                                                    | What it shows                                                                                                 |
++ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
++ | `/`                                                                                                                                                                        | The public landing page (`landing.html`, drawn into its HTML at build time by `scripts/landing/prerender.ts`) |
++ | `/learn`                                                                                                                                                                   | The road, the app's front door                                                                                |
++ | `/learn/session`, `/learn/voice`, `/learn/account`, `/learn/account/email`, `/learn/account/delete`, `/learn/sign-in`, `/learn/privacy`, `/learn/feedback`, `/learn/owner` | The app's pages                                                                                               |
++ | `/api/*`                                                                                                                                                                   | The Worker's routes, unchanged                                                                                |
++
++ Every address is named once in `src/lib/app-paths.ts`. The old addresses (`/session`, `/account` and the rest) forward to their new ones from a fixed map in that file, so no bookmark breaks; any other unknown address outside `/learn` goes to `/`. `/landing` and `/landing.html` go to `/`.
++
++ The landing page's pictures are real app screens in `public/landing/`, made at phone size and device scale 2 by `e2e/landing-shots.spec.ts` from the lesson mocks:
++
++ ```
++ VITE_DESIGN_REFERENCE=1 npm run build
++ PUHUSCRIBE_LANDING_SHOTS=1 npx playwright test e2e/landing-shots.spec.ts --project=chromium
++ npm run build
++ ```
++
++ The landing page costs nothing to run: it is static files served by the same Worker.
++
++ ## Database changes
++
++ The database is defined in code in `supabase/`, made by the Supabase CLI. The CLI is pinned in `package.json`, so local runs and the GitHub check use the same version. Every table, who can read and write it, and how to load v2's data again are described in [docs/data-model.md](docs/data-model.md).
++
++ - **Add a change:** `npx supabase migration new <short_name>` creates a timestamped SQL file in `supabase/migrations/`. Write the change there. Every new table gets its permissions written out (remove all, then grant only what is needed), row level security, and its access rules in the same migration.
++ - **Tests:** pgTAP tests (SQL tests) live in `supabase/tests/database/`. Each one runs in a transaction that is rolled back. They prove what each role can and cannot do. With Docker installed, `npx supabase db start` followed by `npx supabase test db` runs them on a throwaway local database. The GitHub check "Database tests (local Supabase, pgTAP)" is the reference.
++ - **Browser tests:** the check "Browser tests (Playwright, local Supabase)" starts its own throwaway Supabase in the runner (Postgres, the API gateway, the REST API and sign in), applies every migration, loads `supabase/seeds/browser/*.sql`, and runs the browser tests against the app pointed at it. It holds no secret, and parallel pull requests never share a database. Until the MVP launch both browser test checks run only in the full run (see "Tests until the MVP launch" below).
++ - **Seed rows for browser tests:** put them in `supabase/seeds/browser/` as numbered `.sql` files. They are made-up rows, loaded only into that throwaway database, and never reach a hosted database. Tag a test that needs them `@seed`.
++ - **Applying:** migrations reach the test project only through the workflow, and only after the owner approves a job (owner's rule from job 3-data-model). On a pull request the job "Apply database changes to the test project" is skipped. On the push to main that the merge makes, it runs `supabase db push` and then the same tests against the test project. Nobody applies migrations by hand, and no agent uses `supabase link`, a personal access token or a secret key.
++ - **Types:** `src/lib/database.types.ts` is made by the Supabase CLI from the migrated database (`npx supabase gen types --lang typescript --local --schema public`, which needs Docker). The database check regenerates it and fails if the committed file differs; when it does, the check keeps the new file as the `database-types` download on the run page.
++
++ ## Tests until the MVP launch
++
++ The owner decided on 3 November 2026 that no tests run until every requirement for the MVP is done. Then the full run happens once, as the general test before launch. The workflow is `.github/workflows/checks.yml`.
++
++ - **Every pull request:** only the secret scan (gitleaks, because the repository is public), then the preview link is uploaded and posted. No browser test runs against it, and its comment says so.
++ - **Every push to main:** the secret scan, and "Apply database changes to the test project", which applies new migrations with no database test in front of it (content publishing depends on it). A push with no new migration applies nothing. If an apply fails, re-run the failed jobs of that run from its Actions page. When the apply has succeeded, "Main preview link" updates the main link (see "Preview links" below).
++ - **Before every commit:** lefthook runs only the Prettier fix and the secret scan.
++ - **The full run** (by hand, once before the MVP launch): on GitHub, open Actions, then Checks, then "Run workflow", pick `main`, tick "full" and run it. It runs the type check, lint and format, the unit tests, the Python tests, the dependency check, every database test, every browser test (about 720) on Chromium and WebKit, the `@empty-content` tests, and the browser tests against the test project. It takes about 30 minutes. A manual run without "full" runs only the secret scan, over the full git history.
++
++ No test is deleted. After the launch, a fast run is ready to switch on: removing the full-run `if:` lines from the test jobs gives every change the type check, unit, Python and dependency checks, the 29 browser tests tagged `@smoke` on Chromium (the road, one whole lesson, the word card, sign in, the account page and privacy), and the database tests only when `scripts/ci/checks-plan.ts` says the change needs them. That run took 5 minutes 19 seconds on pull request 16. To put a browser test in that set, give it the tag: `test('[label N] title', { tag: '@smoke' }, async ({ page }) => { ... })`.
++
++ ## Preview links
++
++ When every check passes on a pull request, the workflow uploads a version of the `puhuscribe-preview` Worker with an alias made from the branch name (`factory/1-stack` becomes `factory-1-stack`) and posts the link on the pull request. Until the MVP launch no browser test runs against it, and the comment says so. Without the `CLOUDFLARE_ACCOUNT_ID` secret, wrangler finds the account from the Cloudflare API token.
++
++ **Main link.** Merged work is always at https://main-puhuscribe-preview.fumnanya.workers.dev, behind the same Cloudflare Access lock. On every push to main that runs the checks, once the secret scan has passed and "Apply database changes to the test project" has succeeded, the job "Main preview link" builds main and uploads it as a version of the same `puhuscribe-preview` Worker with the fixed alias `main` and the same test project settings. Each push replaces what the link shows, and the run's summary page names the commit. No browser test runs against it. A push that changes only `factory/` or `recording/` files leaves the link as it was. If the apply fails, the link is not updated until the failed jobs of that run are re-run. A pull request branch whose name would turn into the alias `main` gets no preview and is asked to rename the branch.
++
++ The preview uses the shared test project, which gets a pull request's database changes only after the owner approves the job. So when a pull request adds, changes or deletes a file in `supabase/migrations/`, the comment says that screens needing the new database parts do not work on the link yet.
++
++ A push to main that changes only `factory/` or `recording/` files skips the checks and gets only a secret scan (`.github/workflows/secret-scan-notes.yml`). Cloudflare Access guards every preview link: a visitor sees a sign in page first. The evaluator gets in with an Access service token. The Supabase test project is kept awake by a daily workflow (`.github/workflows/keep-test-db-awake.yml`).
++
++ ## Running costs
++
++ | Service                                                                                     | Plan                                                                                                                                                                                        | Cost today                                                                  |
++ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
++ | GitHub (private repository, Actions checks)                                                 | Free (2,000 check minutes a month)                                                                                                                                                          | €0                                                                          |
++ | Cloudflare Workers (app, API, preview links)                                                | Workers Free                                                                                                                                                                                | €0                                                                          |
++ | Cloudflare Zero Trust (Access sign in for preview links)                                    | Free (up to 50 users)                                                                                                                                                                       | €0                                                                          |
++ | Cloudflare Workers, Exentrik account (`puhuscribe-review`, the private review site)         | Workers Free                                                                                                                                                                                | €0                                                                          |
++ | Cloudflare Zero Trust, Exentrik account (Access sign in for the review site, 2 of 50 seats) | Free (up to 50 users)                                                                                                                                                                       | €0                                                                          |
++ | Supabase (test project `puhuscribe-test`)                                                   | Free                                                                                                                                                                                        | €0                                                                          |
++ | Supabase (live project `aleksi-live`, Frankfurt, job go-live)                               | Free                                                                                                                                                                                        | €0                                                                          |
++ | Brevo (sign in code emails from hello@meetaleksi.com, job go-live)                          | Free: 300 emails a day, shared with Exentrik                                                                                                                                                | €0                                                                          |
++ | Supabase built in email sender (sign in code emails)                                        | No longer used: both projects send through Brevo                                                                                                                                            | €0                                                                          |
++ | Supabase Cron (daily clean up of unused accounts)                                           | Included in Free                                                                                                                                                                            | €0                                                                          |
++ | Anthropic API (drafting Finnish content at build time)                                      | Pay per use (key not created yet)                                                                                                                                                           | €0 so far; about $0.25 per dialogue (estimate)                              |
++ | Azure Speech (voices for both registers at build time)                                      | Free tier F0: 0.5 million characters a month, 20 requests a minute. The A1 road (job 20-a1-road) needs about 50,000 to 80,000 characters, and a guard refuses a run that would pass 450,000 | €0                                                                          |
++ | GitHub Actions minutes (the A1 road's import and voice runs, job 20-a1-road)                | Free while the repository is public; about 3 minutes a part to import and about 15 to voice                                                                                                 | €0                                                                          |
++ | Azure Speech to text (Say it speaking feedback, job 10)                                     | Free tier F0 during the build: 5 audio hours a month, one check at a time                                                                                                                   | €0; about $1 per hour of learner audio on S0                                |
++ | Anthropic API (Otso, the AI tutor, job 16-tutor-step; Claude Haiku 5.5)                     | Pay per use, the same key; capped in the database at $10 a month and a thirtieth of it a day (`private.tutor_limits`)                                                                       | About $0.001 per Otso reply; the live quality check of 149 calls cost $0.10 |
++ | Visit count, feedback and crash reports (job 14-analytics, in the Supabase database above)  | Included in Free; page loads now run the Worker and count toward Workers Free's 100,000 requests a day                                                                                      | €0                                                                          |
++
++ Sign in code emails go through Brevo (owner's choice of 4 November 2026, job go-live), on both the test project and the live project. The privacy notice names Brevo as the processor that sends them.
++
++ ## Going live (job go-live)
++
++ The live app is the Worker `aleksi` at https://meetaleksi.com, in the owner's separate Exentrik Cloudflare account (the previews stay on the preview account), with its own Supabase project `aleksi-live` in Frankfurt, Germany. Nothing reaches it on a push or a pull request. Its jobs run in the GitHub environment `live`, which holds the live secrets, allows only `main` and waits for the owner's approval. The manual workflow `.github/workflows/live.yml` (Actions, Live, Run workflow, on `main`) has three tasks, run one at a time in this order:
++
++ 1. `migrations` applies every migration in `supabase/migrations/` to the live project. The approved dialogues are published by their own migrations, so this also puts the approved content in. No seed or test fixture file is ever loaded.
++ 2. `content` checks that every migration in the repository, each publish migration included, is now in the live project's migration history. It reads only that history, never learner data.
++ 3. `app` builds the production app (no design pages) and deploys the Worker `aleksi` with the live project's settings, on `meetaleksi.com` and `www.meetaleksi.com` (which forwards to `meetaleksi.com`). It is not behind Cloudflare Access.
++
++ Each task first checks, with no secret, that every approved dialogue has its publish migration and that only approved audio is in `public/audio/`. The full list of what each task needs and the launch day checklist are in the go-live job's build notes (factory jobs folder, go-live).
++
++ ## Owner page setup (job 14-analytics, fast route feedback-alert)
++
++ The owner page shows the launch numbers, the visit count, the newest feedback and recent crashes. On the live app it lives at `https://owner.meetaleksi.com` (owner's call of 21 November 2026; the earlier plan was `puhuscribe-owner.exentrik.co`), served by the same Worker as the app. When a learner sends feedback, the owner also gets a short email alert with the screen and the time, never the message (`worker/providers/feedback-alert.ts`), at most one every 30 minutes. Free, about 20 minutes, done by the owner. Nothing here goes in a file.
++
++ 1. In the Exentrik Cloudflare account, Zero Trust, Access, Applications: add a self hosted application for `owner.meetaleksi.com` covering the whole hostname, with the One-time PIN login and one Allow policy holding the owner's own email address (typed there, never in a file). Copy the application's AUD tag and the team domain (`https://<team>.cloudflareaccess.com`, shown in Zero Trust under Settings).
++ 2. In Brevo, SMTP & API, API Keys: create a key named `aleksi-feedback-alert`. Copy it once.
++ 3. In GitHub, the repository's Settings, Environments, `live`: add the variables `OWNER_HOSTNAME` = `owner.meetaleksi.com`, `OWNER_ACCESS_TEAM_DOMAIN` = the team domain and `OWNER_ACCESS_AUD` = the AUD tag, and the secrets `BREVO_API_KEY` = the Brevo key and `FEEDBACK_ALERT_TO` = the inbox for alerts. The live workflow's `app` task passes all five to the Worker and attaches `owner.meetaleksi.com` (`wrangler.jsonc`). Without the three owner settings there is no owner page; without the Brevo pair there is no alert. Never set `OWNER_ACCESS_LOCAL_JWKS` there: it is for the browser tests on this computer only.
++ 4. Run the live workflow's `app` task (Actions, Live, Run workflow, on `main`) and approve it.
++ 5. Make sure your own Aleksi email account exists (start a session, then "Add your email" on the account page).
++ 6. Put that account on the owner list. In the Supabase dashboard of the live project, SQL editor, run this one line, typing your own address in place of the words in angle brackets:
++
++    ```sql
++    insert into private.owners (user_id) select id from auth.users where email = '<your email address>';
++    ```
++
++    The email address never goes in a file. To take an account off the list later: `delete from private.owners where user_id = (select id from auth.users where email = '<the address>');`
++
++ 7. Open `https://owner.meetaleksi.com/learn/owner`, pass the Cloudflare login, then sign in with your Aleksi email code. "Send a test error" under Crashes checks that crash reports arrive. Send yourself one feedback message from the app to check the alert.
++
++ ## Owner setup for accounts (job 11-accounts)
++
++ Free, about 10 minutes, on the Supabase test project (`puhuscribe-test`), in the dashboard. Needed before job 11 merges; nothing here holds a key.
++
++ 1. Authentication, Emails, Templates, "Magic link": subject `Your PuhuScribe code`, body copied from `supabase/templates/magic-link.html`.
++ 2. Authentication, Emails, Templates, "Change email address": subject `Your PuhuScribe code`, body copied from `supabase/templates/email-change.html`.
++ 3. Authentication, Sign In / Providers, Email: check that "Confirm email" and "Secure email change" are on.
++ 4. Authentication, Audit logs (or the project's Auth settings): turn off "Write audit logs to the database", so a deleted account leaves no audit rows behind.
++
++ The privacy notice also needs the owner's own input in `src/privacy/notice-settings.ts`: the name of who is responsible for learner data and the contact address for privacy requests. No agent fills these in.
++
+
+ ❯ tests/analytics-rules.test.ts:213:20
+    211|     }
+    212|     const readme = readFileSync('README.md', 'utf8')
+    213|     expect(readme).toContain('## Owner page setup (job 14-analytics)')
+       |                    ^
+    214|     expect(readme).toContain('insert into private.owners (user_id)')
+    215|     expect(readme).not.toMatch(/insert into private\.owners[^\n]*@[a-z…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/content-audio.test.ts > audio exists only for approved lines > [content 17] nothing under content/ reaches the built app
+AssertionError: expected [ 'aleksi', …(7) ] to deeply equal [ 'aleksi', 'landing', 'otso', …(2) ]
+
+- Expected
++ Received
+
+  [
+    "aleksi",
++   "apple-touch-icon.png",
++   "favicon-32.png",
++   "icon.svg",
+    "landing",
+    "otso",
+    "robots.txt",
+    "stops",
+  ]
+
+ ❯ tests/content-audio.test.ts:298:69
+    296|     // only). Those folders hold images only, so no text from content/…
+    297|     const publicEntries = existsSync('public') ? readdirSync('public')…
+    298|     expect(publicEntries.filter((name) => name !== 'audio').sort()).to…
+       |                                                                     ^
+    299|       'aleksi',
+    300|       'landing',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 96 passed (98)
+      Tests  2 failed | 1344 passed | 2 skipped (1348)
+   Start at  16:11:05
+   Duration  43.40s (tests 56%, import 38%, transform 5%, worker 1%)
+
+    Isolate  98 workers spawned · ~690ms startup each (spawn + environment, per file)
+             at least ~8.97s faster with isolate: false — reuses workers across files instead of one per file
+

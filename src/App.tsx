@@ -1,10 +1,11 @@
-import { PATHS } from './lib/app-paths.ts'
+import { isUnder, PATHS } from './lib/app-paths.ts'
 import { AccountPage } from './screens/AccountPage.tsx'
 import { DeletePage } from './screens/DeletePage.tsx'
 import { EmailFlow } from './screens/EmailFlow.tsx'
 import { FeedbackPage } from './screens/FeedbackPage.tsx'
 import { OwnerPage } from './screens/OwnerPage.tsx'
 import { PrivacyPage } from './screens/PrivacyPage.tsx'
+import { ReviewLinkPage } from './screens/ReviewLinkPage.tsx'
 import { ReviewersPage } from './screens/ReviewersPage.tsx'
 import { RoadScreen } from './screens/RoadScreen.tsx'
 import { SessionPage } from './screens/SessionPage.tsx'
@@ -23,6 +24,8 @@ import { VoiceSettings } from './screens/VoiceSettings.tsx'
 // smoke test page of job 2-smoke is retired (job 8, statement 21).
 // The public reviewer sign up page /reviewers (fast route reviewers) is the one
 // page outside /learn; it needs no account and calls no /api route until Send.
+// The private review pages under /review/ (fast route review-links) need no
+// account either: the link's secret in the address is the only key.
 
 export function App({ path }: { path: string }) {
   if (path === PATHS.session) return <SessionPage />
@@ -35,5 +38,6 @@ export function App({ path }: { path: string }) {
   if (path === PATHS.feedback) return <FeedbackPage />
   if (path === PATHS.owner) return <OwnerPage />
   if (path === PATHS.reviewers) return <ReviewersPage />
+  if (isUnder(path, PATHS.review)) return <ReviewLinkPage path={path} />
   return <RoadScreen />
 }

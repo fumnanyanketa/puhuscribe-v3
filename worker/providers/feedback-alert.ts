@@ -129,6 +129,22 @@ async function sendOwnerAlert(
   if (!key || !to) return false
   // The gap starts before sending, so two messages at the same moment send one alert.
   if (!gate.open(at)) return false
+  return brevoSend(key, to, subject, text(setting(env.OWNER_HOSTNAME)), fetchImpl)
+}
+
+/**
+ * Sends one plain text email from Aleksi <hello@meetaleksi.com> through
+ * Brevo's API. True when Brevo accepted it; false when it refused it or could
+ * not be reached in time. Never throws. The owner's alerts and the review
+ * link email (fast route review-links) share it.
+ */
+async function brevoSend(
+  key: string,
+  to: string,
+  subject: string,
+  text: string,
+  fetchImpl: Fetch,
+): Promise<boolean> {
   const controller = new AbortController()
   const timer = setTimeout(() => {
     controller.abort()
@@ -141,7 +157,7 @@ async function sendOwnerAlert(
         sender: ALERT_SENDER,
         to: [{ email: to }],
         subject,
-        textContent: text(setting(env.OWNER_HOSTNAME)),
+        textContent: text,
       }),
       signal: controller.signal,
     })
@@ -186,4 +202,55 @@ export function sendReviewerAlert(
     at,
     gate,
   )
+}
+
+// The review link email (fast route review-links, factory/jobs/review-links/spec.md,
+// "Done when" 1). The owner presses "Send review link" on the owner page and the
+// person who signed up at /reviewers gets their own private link, in the
+// owner's words, word for word. It needs only BREVO_API_KEY: it goes to the
+// sign up's own email address, never to the owner's inbox. Unlike the alerts
+// it has no gap, because the owner sends each one by hand. The email holds the
+// person's name and the link; Brevo is listed as its processor in the privacy
+// notice (src/privacy/processors.ts).
+
+export const REVIEW_LINK_SUBJECT = 'Your Aleksi review link'
+
+/** The review link email's plain text, word for word from the spec. */
+export function reviewLinkText(name: string, link: string): string {
+  return [
+    `Hi ${name},`,
+    '',
+    'Thank you for offering to help check the Finnish in Aleksi.',
+    '',
+    `Here is your private review link: ${link}`,
+    '',
+    'It has 27 short dialogues. For each line you can listen to the audio, read it in spoken and written Finnish, and mark it Correct, Needs a fix or Not sure. Your answers save as you go, so you can stop and come back with the same link.',
+    '',
+    'Please keep the link to yourself, since anyone who has it can add answers.',
+    '',
+    'Kiitos!',
+    'Fumnanya',
+  ].join('\n')
+}
+
+/** True when the Worker can send the review link email (BREVO_API_KEY is set). */
+export function reviewLinkEmailReady(env: FeedbackAlertEnv): boolean {
+  return setting(env.BREVO_API_KEY) !== ''
+}
+
+/**
+ * Emails one person their private review link. True when Brevo accepted it;
+ * false when BREVO_API_KEY is not set (nothing is sent), or Brevo refused it
+ * or could not be reached. Never throws and writes nothing to the log.
+ */
+export function sendReviewLinkEmail(
+  env: FeedbackAlertEnv,
+  fetchImpl: Fetch,
+  to: { name: string; email: string },
+  link: string,
+): Promise<boolean> {
+  const key = setting(env.BREVO_API_KEY)
+  const email = to.email.trim()
+  if (!key || !email) return Promise.resolve(false)
+  return brevoSend(key, email, REVIEW_LINK_SUBJECT, reviewLinkText(to.name, link), fetchImpl)
 }

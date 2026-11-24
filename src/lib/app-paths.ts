@@ -10,6 +10,11 @@ export const PATHS = {
   landing: '/',
   /** The public reviewer sign up page, outside /learn (fast route reviewers). The app shell draws it. */
   reviewers: '/reviewers',
+  /**
+   * The private review pages live under it, /review/<secret> (fast route review-links). The app
+   * shell draws them; the bare /review is not a page.
+   */
+  review: '/review',
   /** The road, the app's home screen and front door. */
   home: LEARN,
   session: `${LEARN}/session`,
@@ -53,6 +58,11 @@ export const OLD_PATHS: Readonly<Record<string, string>> = {
   '/owner': PATHS.owner,
 }
 
+/** True for every address under the base, such as /review/<secret> under /review, but not the base itself. */
+export function isUnder(path: string, base: string): boolean {
+  return path.startsWith(`${base}/`) && path.length > base.length + 1
+}
+
 /** True for /learn and every address under it. */
 export function isLearnPath(path: string): boolean {
   return path === LEARN || path.startsWith(`${LEARN}/`)
@@ -64,10 +74,11 @@ export function isLearnPath(path: string): boolean {
  * the fragment, and an old deep link under /account goes to the account page.
  * Any other address outside /learn goes to the landing page. Null means
  * "stay": the address is under /learn, or it is the public reviewer page
- * /reviewers (fast route reviewers). `path` has no trailing slash.
+ * /reviewers (fast route reviewers), or a private review page under /review/
+ * (fast route review-links). `path` has no trailing slash.
  */
 export function forwardFor(path: string, search: string, hash: string): string | null {
-  if (isLearnPath(path) || path === PATHS.reviewers) return null
+  if (isLearnPath(path) || path === PATHS.reviewers || isUnder(path, PATHS.review)) return null
   const target = OLD_PATHS[path] ?? (path.startsWith('/account/') ? PATHS.account : null)
   if (target) return `${target}${search}${hash}`
   return PATHS.landing

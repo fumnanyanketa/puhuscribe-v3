@@ -11,6 +11,12 @@ import { crashRoute } from './crash.ts'
 import { feedbackRoute, supabaseFeedbackDb, type FeedbackDb } from './feedback.ts'
 import { sendFeedbackAlert, sendReviewerAlert, type FeedbackAlertEnv } from './providers/feedback-alert.ts'
 import { reviewersRoute, supabaseReviewersDb, type AddressLimiter, type ReviewersDb } from './reviewers.ts'
+import {
+  isReviewLinkRoute,
+  reviewLinkRoute,
+  supabaseReviewLinkDb,
+  type ReviewLinkDb,
+} from './review-links.ts'
 import type { FeedbackScreen } from '../src/lib/feedback-types.ts'
 import {
   RECORDABLE_STEPS,
@@ -115,6 +121,8 @@ export interface ApiDeps
   reviewersLimiter?: AddressLimiter
   /** Tests pass a fake for the owner's reviewer sign up alert (fast route reviewers); normally Brevo. */
   reviewerAlert?: (env: FeedbackAlertEnv) => Promise<boolean>
+  /** Tests pass a fake for the private review links (fast route review-links); normally Supabase, as anon. */
+  reviewLinkDb?: ReviewLinkDb
   /** Tests pass a fake for the road (job 20-a1-road); normally Supabase, as the learner. */
   roadDb?: (context: LearnerContext) => RoadDb
   /** Tests pass a fake for the visitors' road (statement 29); normally Supabase, with no sign in. */
@@ -671,6 +679,10 @@ export async function handleApi(
   if (match?.[1] && match[2] === 'review') return reviewItemsRoute(request, env, deps, match[1])
   if (match?.[1] && match[2] === 'review/done') return reviewDoneRoute(request, env, deps, match[1])
   if (pathname === '/api/review/answer') return reviewAnswerRoute(request, env, deps)
+  // The reviewers' private review links (fast route review-links): worker/review-links.ts. No sign in is read.
+  if (isReviewLinkRoute(pathname)) {
+    return reviewLinkRoute(request, { db: deps.reviewLinkDb ?? supabaseReviewLinkDb(env, deps.fetch) })
+  }
   // Feedback and crash reports (job 14-analytics): worker/feedback.ts and worker/crash.ts.
   if (pathname === '/api/feedback') {
     return feedbackRoute(request, {

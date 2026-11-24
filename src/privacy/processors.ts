@@ -82,9 +82,11 @@ export const PROCESSORS: readonly Processor[] = [
     // Brevo's API when feedback arrives. The alert holds only the screen and the time, no learner
     // data and no message, so the learner-facing text below is unchanged. Fast route reviewers
     // (owner's call of 24 November 2026): the same kind of alert when someone signs up at /reviewers,
-    // with no name and no email in it.
+    // with no name and no email in it. Fast route review-links (owner's call of 24 November 2026): it
+    // also sends each reviewer the email with their private review link, so it receives their name
+    // and email address; the role below says so.
     name: 'Brevo',
-    role: 'Sends the sign in code emails, only if you add your email. It receives your email address and the email with your code.',
+    role: 'Sends the sign in code emails, only if you add your email. It receives your email address and the email with your code. If you signed up to help check the Finnish, it also sends you the email with your review link, and receives your name, your email address and that email.',
     where: 'In the EU.',
     details: [
       'Sendinblue SAS, a company in France that trades as Brevo, sends these emails as our processor.',

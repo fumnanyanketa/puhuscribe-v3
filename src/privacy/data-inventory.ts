@@ -21,7 +21,7 @@ export const REVIEWER_CONTACT = 'hello@meetaleksi.com'
  * visit count and crash reports are not linked to any account (job
  * 14-analytics, round 2), so account deletion leaves them.
  */
-export const HOW_LONG = `Data linked to your account is kept until you delete your account, unless its entry above says it goes sooner. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything linked to it at once. The visit count and crash reports are not linked to any account, so deleting your account does not change them. Crash reports are deleted after 30 days. The visit count is kept as daily totals with no personal data for as long as the service runs. Reviewer sign-ups are not linked to any account either. They are kept until the owner deletes them, or sooner if you ask at ${REVIEWER_CONTACT}.`
+export const HOW_LONG = `Data linked to your account is kept until you delete your account, unless its entry above says it goes sooner. A guest account is deleted after 90 days with no learning activity, and an email account after 24 months with no learning activity. Deleting your account deletes everything linked to it at once. The visit count and crash reports are not linked to any account, so deleting your account does not change them. Crash reports are deleted after 30 days. The visit count is kept as daily totals with no personal data for as long as the service runs. Reviewer sign-ups are not linked to any account either. They are kept until the owner deletes them, or sooner if you ask at ${REVIEWER_CONTACT}. Review answers are kept with the sign-up they belong to and deleted with it.`
 
 /** The retention of items that last as long as the account does. */
 export const WHILE_ACCOUNT =
@@ -213,8 +213,9 @@ export const NOT_LINKED_ITEMS: readonly InventoryItem[] = [
 
 /**
  * What people with no account send (fast route reviewers, factory/jobs/reviewers/spec.md,
- * "Done when" 7): the reviewer sign-ups at /reviewers, in private.reviewer_signups. Not linked to
- * any account, so not in the download; kept until the owner deletes them.
+ * "Done when" 7): the reviewer sign-ups at /reviewers, in private.reviewer_signups, and (fast route
+ * review-links) the answers given through a private review link. Not linked to any account, so not in
+ * the download; kept until the owner deletes the sign-up.
  */
 export const NO_ACCOUNT_ITEMS: readonly InventoryItem[] = [
   {
@@ -223,6 +224,16 @@ export const NO_ACCOUNT_ITEMS: readonly InventoryItem[] = [
     why: 'To contact you about reviewing the Finnish in Aleksi, and to thank you.',
     legal: `Your consent (GDPR Article 6(1)(a)). You can withdraw it at any time by asking at ${REVIEWER_CONTACT}.`,
     keep: `Until the owner deletes it. You can ask for it to be deleted sooner at any time, at ${REVIEWER_CONTACT}.`,
+  },
+  {
+    // Fast route review-links (factory/jobs/review-links/spec.md, "Done when" 8): the answers given
+    // through a private review link, in private.review_answers, with the link's batch and time in
+    // private.review_links. The link's secret itself is never kept, only its hash.
+    name: 'Review answers',
+    what: 'Only if you use the private review link we email you after you sign up: for each line you mark, your answer (Correct, Needs a fix or Not sure), the note you write for a fix, and when you gave it. We also keep which batch of dialogues your link opens and when it was sent. It is linked to your sign-up, not to any account.',
+    why: 'To find and fix the Finnish in Aleksi that is wrong or unnatural.',
+    legal: `Your consent (GDPR Article 6(1)(a)). You can withdraw it at any time by asking at ${REVIEWER_CONTACT}.`,
+    keep: `Until the owner deletes the sign-up, which deletes the link and its answers with it. You can ask for them to be deleted sooner at any time, at ${REVIEWER_CONTACT}.`,
   },
 ]
 

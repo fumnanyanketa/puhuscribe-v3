@@ -43,6 +43,9 @@
       "/learn/owner",
       // The public reviewer sign up page (fast route reviewers), drawn by the app shell.
       "/reviewers",
+      // The private review pages (fast route review-links): the Worker answers them with private
+      // headers, so they are never served as a public file.
+      "/review/*",
       "/landing",
     ],
   },

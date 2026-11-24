@@ -10,7 +10,8 @@ import {
   type OwnerDeps,
   type OwnerEnv,
 } from './owner.ts'
-import { isPageRoute, LANDING_FILE_ROUTES } from './page-routes.ts'
+import { isPageRoute, isReviewPage, LANDING_FILE_ROUTES } from './page-routes.ts'
+import { REVIEW_HEADERS } from './review-links.ts'
 import { countsAsVisit, countVisit, visitCountry } from './visits.ts'
 
 // The single Cloudflare Worker for PuhuScribe. wrangler.jsonc sends every
@@ -63,6 +64,23 @@ async function landingPage(request: Request, assets: Fetcher): Promise<Response>
   return assets.fetch(new Request(new URL('/landing', request.url), request))
 }
 
+/**
+ * A private review page (fast route review-links): the built app shell with the
+ * review answers' private headers (worker/review-links.ts). Only GET and HEAD.
+ */
+async function reviewPage(request: Request, assets: Fetcher): Promise<Response> {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    await readBody(request)
+    return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } })
+  }
+  const page = await assets.fetch(request)
+  const headers = new Headers(page.headers)
+  for (const [name, value] of Object.entries(REVIEW_HEADERS)) headers.set(name, value)
+  headers.delete('set-cookie')
+  headers.delete('etag')
+  return new Response(page.body, { status: page.status, statusText: page.statusText, headers })
+}
+
 async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: WaitUntil): Promise<Response> {
   const url = new URL(request.url)
   const toApex = await canonicalRedirect(request, env)
@@ -89,6 +107,10 @@ async function route(request: Request, env: WorkerEnv, deps: OwnerDeps, ctx: Wai
   }
   if (!isPageRoute(url.pathname)) return new Response('Not found', { status: 404 })
   if (!env.ASSETS) throw new Error('The ASSETS binding is missing.')
+  // The private review pages (fast route review-links): the app shell, kept out of search engines
+  // and caches, with no Referer sent on (the address holds the link's secret). Never counted as a
+  // visit, and no cookie is read or set.
+  if (isReviewPage(url.pathname)) return reviewPage(request, env.ASSETS)
   const page = url.pathname === '/' ? await landingPage(request, env.ASSETS) : await env.ASSETS.fetch(request)
   if (page.status < 400 && countsAsVisit(request)) {
     ctx.waitUntil(countVisit(env, deps.fetch, visitCountry(request)))

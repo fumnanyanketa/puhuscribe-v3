@@ -1,0 +1,115 @@
+/* The private review pages under /review/ (fast route review-links). The
+   reviewer page's large title, the account pages' cards for the list, the
+   session's line cards with the app's buttons under each, and the feedback
+   page's text box for the note. Values from src/styles/tokens.css. */
+
+.title {
+  margin: 0;
+  font-size: var(--text-title-large);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.25;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* The batch's dialogues: one card each, the whole card is the link. */
+.list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dialogueLink {
+  display: grid;
+  gap: var(--space-1);
+  min-height: var(--tap-min);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-card-edge);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  color: var(--color-text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.dialogueLink:hover {
+  background: var(--color-word-hover);
+}
+
+.dialogueTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.dialogueMeta {
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-text-quiet);
+}
+
+/* A dialogue's lines: the line card, then its answers. */
+.lines {
+  display: grid;
+  gap: var(--space-7);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.line {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.answer {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* The three answers wrap onto more rows when the text is large or the phone narrow. */
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.noteLabel {
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.note {
+  min-height: 7rem;
+}
+
+/* Over the limit the count says so in ink, so colour is never the only sign: the line also asks to shorten it. */
+.countOver {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+/* The three answers are app buttons with a little less side room, so all three fit one row at 375 px. */
+.choices > button {
+  padding-inline: var(--space-4);
+}

@@ -31,13 +31,18 @@ function wrangler(): { assets?: { binding?: string; run_worker_first?: string[] 
  * Every path src/App.tsx picks a page for, read from its `path === PATHS.name`
  * checks. Since job 17-landing-page the pages live under /learn and App.tsx
  * names them through src/lib/app-paths.ts, so each name is looked up there.
+ * Since fast route review-links a page may also cover every address under a
+ * path, through `isUnder(path, PATHS.name)`: that is read as the pattern
+ * `<path>/*`, which must then be listed as it is.
  */
 function appRoutes(): string[] {
   const app = readFileSync('src/App.tsx', 'utf8')
   const paths: Record<string, string> = PATHS
-  return [...app.matchAll(/path === PATHS\.(\w+)/g)].map(
-    (m) => paths[m[1] ?? ''] ?? `unknown PATHS.${m[1] ?? ''}`,
-  )
+  return [...app.matchAll(/path === PATHS\.(\w+)|isUnder\(path, PATHS\.(\w+)\)/g)].map((m) => {
+    const name = m[1] ?? m[2] ?? ''
+    const path = paths[name] ?? `unknown PATHS.${name}`
+    return m[2] === undefined ? path : `${path}/*`
+  })
 }
 
 describe('only page requests reach the Worker', () => {
